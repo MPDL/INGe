@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
+    <f:subview id="SearchResultList">
+    	<h1>
+    	<ui:staticText id="valOrientationText" text="#{lbl.SearchResultListPage}"/>
+        </h1>
+		<p>
+	        <ui:hyperlink binding="#{search$SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
+	        	text="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{desktop$AdvancedSearch.showSearchPageAgain}"/>
+			<ui:staticText id="valQuery" binding="#{search$SearchResultList.valQuery}"/>
+	        <ui:hyperlink binding="#{search$SearchResultList.lnkBrowse}" id="lnkBrowse" immediate="true"
+	        	text="#{lbl.SearchResultList_lblBack}" action="#{desktop$AdvancedSearch.showBrowsePageAgain}"/>
+        </p>
+        <div>
+        	<ui:staticText binding="#{search$SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
+        </div>
+    	<h:panelGrid id="panItemListAndErrors" columns="1" >
+	    	<h:panelGrid id="panItemList" binding="#{search$SearchResultList.panDynamicItemList}">
+		    </h:panelGrid>
+	
+
+	    </h:panelGrid>
+        <!-- Deactivated in Lists: Withdraw only from view item page. -->
+        <!-- <ui:hyperlink binding="#{search$SearchResultList.lnkWithdraw}" id="lnkWithdraw" action="#{search$SearchResultList.withdrawSelectedItem}"
+            style="font-weight: bold; height: 20px; left: 760px; top: 210px; position: absolute; width: 40px" text="#{lbl.actionMenu_lnkWithdraw}"/>
+        -->
+    </f:subview>
+</div>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<div class="header" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://www.sun.com/web/ui">
+    <f:subview id="Login">
+        <div id="topnav">
+	        <div id="headerMain">
+				<div class="metaMenu">
+			        <span class="metaMenuMain">
+				        <h:commandLink id="lnkLogin" action="#{desktop$Login.loginLogout}"
+				        	value="#{LoginHelper.btnLoginLogout}#{LoginHelper.accountUser.name}" immediate="true">
+				        </h:commandLink>
+				        <h:outputText value="   "/>
+			        </span>
+			        <span class="metaMenuMain"><a href="#" onclick="loadAbout('desktop/about.html')">About</a>
+			        	<h:outputText value="   "/>
+					</span>
+					<span class="metaMenuMain"><a href="#">FAQ</a>
+						<h:outputText value="   "/>
+					</span>
+					<span class="metaMenuHelp">
+						<ui:hyperlink id="lnkHelp" text="#{lbl.mainMenu_lnkHelp}" onClick="loadHelp('#{util$InternationalizationHelper.selectedHelpPage}', '');return false"/>
+					</span>
+					<span class="metaMenuFlags">
+						<span class="flag">
+							<!-- 
+							<h:commandLink action="#{desktop$Navigation.changeLanguage}"
+					                        		id="lnkchangeLanguageDE"
+					                        		styleClass="germany" immediate="true">
+					                        		<h:graphicImage value="/images/germania2.jpg"/>
+					                        		<f:param name="language" value="de_DE"/>
+					        </h:commandLink>
+					        <h:outputText value="   "/>
+					        <h:commandLink action="#{desktop$Navigation.changeLanguage}"
+					                        		id="lnkchangeLanguageEN"
+					                        		styleClass="uk" immediate="true">
+					                        		<h:graphicImage value="/images/UK2.jpg"/>
+					                        		<f:param name="language" value="en_EN"/>
+					        </h:commandLink>
+					         -->
+					        <ui:imageHyperlink action="#{desktop$Navigation.changeLanguage}"
+					                        		height="15" id="lnkchangeLanguageDE"
+					                        		imageURL="/images/germania2.jpg" immediate="true" styleClass="germany">
+					                        		<f:param name="language" value="de_DE"/>
+					                        	</ui:imageHyperlink>
+					        <h:outputText value="   "/>
+					        <ui:imageHyperlink action="#{desktop$Navigation.changeLanguage}"
+					                        		height="15" id="lnkchangeLanguageEN"
+					                        		imageURL="/images/UK2.jpg" immediate="true" styleClass="uk">
+					                        		<f:param name="language" value="en_EN"/>
+                      			</ui:imageHyperlink>
+						</span>
+   					</span>
+			    </div>
+			</div>
+		</div>
+    </f:subview>
+</div>

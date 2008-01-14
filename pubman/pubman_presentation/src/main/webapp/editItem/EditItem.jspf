@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<div style="width: 860px; -rave-layout: grid" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://www.sun.com/web/ui" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+    <f:subview id="EditItem">
+    	<ui:button action="return false" id="buttonToDisableReturnInForm" text="" visible="false"/>
+    	<h1>
+    	<ui:staticText id="valOrientationText"
+            styleClass="orientationHeader" style="left: 0px; top: 0px" 
+            text="#{lbl.EditItemPage}"/>
+        </h1>	
+        <ui:messageGroup id="valMessage" binding="#{editItem$EditItem.valMessage}" styleClass="valMessage" visible="false"/>
+    	<h:panelGrid id="panBasic" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterBlockPanel" cellspacing="0">
+	        <ui:staticText id="lblBasic" text="#{lbl.EditItem_lblBasic}" styleClass="editItemBlockHeaders"/>
+	        <ui:staticText id="space1"/>
+	        <ui:label id="lblCollection" labelLevel="3" text="#{lbl.EditItem_lblCollection}"/>
+	        <h:panelGrid id="valCollectionAndInfo" columns="2" styleClass="editItemInnerPanel" cellspacing="0">
+		        <ui:staticText id="valCollection" text="#{editItem$EditItem.pubCollectionName}"/>
+		        <ui:image id="imgCollectionInformation" onClick="showCollectionDescription()" url="/images/info.gif"/>
+	    	</h:panelGrid>
+	        <ui:label id="lblGenre" labelLevel="3" requiredIndicator="true"
+	        	text="#{lbl.EditItem_lblGenre}"/>	        
+	        <!--	        	  
+	        <ui:dropDown id="cboGenre" items="#{editItem$EditItem.GENRE_OPTIONS}" selected="#{editItem$EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort">
+	        	<f:converter converterId="EnumConverter"/>
+	        </ui:dropDown>        		  	        	
+	        -->
+	    	<h:selectOneMenu id="cboGenre" value="#{editItem$EditItem.pubItem.metadata.genre}">
+				<f:selectItems value="#{editItem$EditItem.GENRE_OPTIONS}"/>
+				<f:converter converterId="EnumConverter"/>
+	        </h:selectOneMenu>
+	    </h:panelGrid>
+
+    	<h:panelGrid id="panDynamicTitle" binding="#{editItem$EditItem.panDynamicTitle}" rowClasses="list-row-odd,list-row-even" styleClass="editItemOuterPanel" cellspacing="0">
+	    </h:panelGrid>
+	      
+    	<h:panelGrid id="panFile" styleClass="editItemOuterBlockPanel" cellspacing="0" rowClasses="list-row-odd,list-row-even">
+	        <ui:staticText id="lblFile" text="#{lbl.EditItem_lblFile}" styleClass="editItemBlockHeaders"/>
+	    	<h:panelGrid id="panDynamicFile" binding="#{editItem$EditItem.panDynamicFile}" rowClasses="list-row-odd,list-row-even" styleClass="editItemInnerPanel" cellspacing="0">
+		    </h:panelGrid>
+		</h:panelGrid>
+		
+    	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
+	        <ui:staticText id="lblPersonsAndOrganizations"
+	            style="font-weight: bold" text="#{lbl.EditItem_lblPersonsAndOrganizations}"/>
+		</h:panelGrid>
+    	<h:panelGrid id="panDynamicCreator" binding="#{editItem$EditItem.panDynamicCreator}" rowClasses="list-row-odd,list-row-even" styleClass="editItemOuterPanel" cellspacing="0">
+	    </h:panelGrid>
+
+		<h:panelGrid id="panPublishing" columns="2" styleClass="editItemOuterBlockPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
+	        <ui:staticText id="lblPublishing" 
+	        	style="font-weight: bold; margin-right: 76px" text="#{lbl.EditItem_lblPublishing}"/>
+	        <ui:staticText id="space6"/>
+	        <ui:label id="lblDateCreated" labelLevel="3" for="txtDateCreated" text="#{lbl.EditItem_lblDateCreated}"/>
+	        <ui:textField id="txtDateCreated" text="#{editItem$EditItem.pubItem.metadata.dateCreated}"
+	        	onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 			
+	        <ui:label id="lblDateModified" labelLevel="3" for="txtDateModified" text="#{lbl.EditItem_lblDateModified}"/>
+	        <ui:textField id="txtDateModified" text="#{editItem$EditItem.pubItem.metadata.dateModified}"
+				onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 
+			<ui:label id="lblDateSubmitted" labelLevel="3" for="txtDateSubmitted" text="#{lbl.EditItem_lblDateSubmitted}"/>
+	        <ui:textField id="txtDateSubmitted" text="#{editItem$EditItem.pubItem.metadata.dateSubmitted}"
+				onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 
+			<ui:label id="lblDateAccepted" labelLevel="3" for="txtDateAccepted" text="#{lbl.EditItem_lblDateAccepted}"/>
+	        <ui:textField id="txtDateAccepted" text="#{editItem$EditItem.pubItem.metadata.dateAccepted}"
+				onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 
+	        <ui:label id="lblDatePublishedOnline" labelLevel="3" for="txtDatePublishedOnline" text="#{lbl.EditItem_lblDatePublishedOnline}"/>
+	        <ui:textField id="txtDatePublishedOnline" text="#{editItem$EditItem.pubItem.metadata.datePublishedOnline}"
+				onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 
+	        <ui:label id="lblDatePublishedInPrint" labelLevel="3" for="txtDatePublishedInPrint" text="#{lbl.EditItem_lblDatePublishedInPrint}"/>
+	        <ui:textField id="txtDatePublishedInPrint" text="#{editItem$EditItem.pubItem.metadata.datePublishedInPrint}"
+				onKeyPress="return restrictDateEntry(event)">
+			</ui:textField> 
+	        	        	        
+	        <ui:label id="lblPublishingInfo" labelLevel="2"
+	            style="" text="#{lbl.EditItem_lblPublishingInfo}"/>
+	        <ui:staticText id="space7"/>
+
+	        <ui:label id="lblPublisher" labelLevel="3" for="txtaPublisher" text="#{lbl.EditItem_lblPublisher}"/>
+	        <ui:textArea id="txtaPublisher" styleClass="editItemTextArea" text="#{editItem$EditItem.pubItem.metadata.publishingInfo.publisher}"/>
+	        <ui:label id="lblPlace" labelLevel="3" for="txtPlace" text="#{lbl.EditItem_lblPlace}"/>
+	        <ui:textField id="txtPlace" styleClass="editItemTextFieldMedium" text="#{editItem$EditItem.pubItem.metadata.publishingInfo.place}"/>
+	        <ui:label id="lblEdition" labelLevel="3" for="txtEdition" text="#{lbl.EditItem_lblEdition}"/>
+	        <ui:textField id="txtEdition" styleClass="editItemTextFieldMedium" text="#{editItem$EditItem.pubItem.metadata.publishingInfo.edition}"/>
+		</h:panelGrid>
+		
+	   	<h:panelGrid id="panDynamicIdentifier" binding="#{editItem$EditItem.panDynamicIdentifier}" rowClasses="list-row-odd,list-row-even" styleClass="editItemOuterPanel">
+	    </h:panelGrid>
+
+		<h:panelGrid id="panLocation" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterPanel" cellspacing="0">
+			<ui:label id="lblLocation" labelLevel="3" for="txtLocation" text="#{lbl.EditItem_lblLocation}"/>
+		        <ui:textField id="txtLocation" styleClass="editItemTextFieldMedium" text="#{editItem$EditItem.pubItem.metadata.location}"/>
+	    </h:panelGrid>    
+		<h:panelGrid id="panReviewType" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterPanel" cellspacing="0">
+	        <ui:label for="cboReviewType" id="lblReviewType" labelLevel="3"
+	            style="" text="#{lbl.EditItem_lblReviewType}"/>
+	        <ui:dropDown id="cboReviewType" items="#{editItem$EditItem.REVIEWMETHOD_OPTIONS}" selected="#{editItem$EditItem.pubItem.metadata.reviewMethod}"
+	        	style="height: 20px; width: 80px">
+	        	<f:converter converterId="EnumConverter" />
+	        </ui:dropDown>	
+	        <ui:label for="cboDegreeType" id="lblDegreeType" labelLevel="3"
+	            style="" text="#{lbl.EditItem_lblDegreeType}"/>
+	        <ui:dropDown id="cboDegreeType" items="#{editItem$EditItem.DEGREETYPE_OPTIONS}" selected="#{editItem$EditItem.pubItem.metadata.degree}"
+	        	style="height: 20px; width: 80px">
+	        	<f:converter converterId="EnumConverter" />
+	        </ui:dropDown>
+	        <ui:label for="txtTotalNoOfPages" id="lblTotalNoOfPages" labelLevel="3"
+	            style="" text="#{lbl.EditItem_lblTotalNoOfPages}"/>
+	        <ui:textField id="txtTotalNoOfPages" 
+	        	style="height: 20px; width: 80px" text="#{editItem$EditItem.pubItem.metadata.totalNumberOfPages}"/>
+		</h:panelGrid>
+
+
+		<h:panelGrid id="panContent" styleClass="editItemOuterBlockPanel">
+	        <ui:staticText id="lblContent" 
+	        	style="font-weight: bold" text="#{lbl.EditItem_lblContent}"/>
+	        
+		   	<h:panelGrid id="panDynamicContentLanguage" binding="#{editItem$EditItem.panDynamicContentLanguage}" rowClasses="list-row-odd,list-row-even">
+		    </h:panelGrid>
+	        
+	    	<h:panelGrid id="panSubject" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel" cellspacing="0">
+		        <ui:label for="txtaSubject" id="lblSubject" labelLevel="3" text="#{lbl.EditItem_lblSubject}"/>
+		        <ui:textArea id="txtaSubject" styleClass="editItemTextArea" text="#{editItem$EditItem.pubItem.metadata.subject.value}"/>
+		        <ui:dropDown id="cboSubjectLanguage" items="#{editItem$EditItem.LANGUAGE_OPTIONS}" 
+		        	selected="#{editItem$EditItem.pubItem.metadata.subject.language}" styleClass="editItemComboBoxLanguage">
+		        </ui:dropDown>
+    		</h:panelGrid>
+
+	        <h:panelGrid id="panDynamicAbstract" binding="#{editItem$EditItem.panDynamicAbstract}" rowClasses="list-row-odd,list-row-even" styleClass="editItemInnerPanel" cellpadding="0">
+    		</h:panelGrid>
+		        
+	    	<h:panelGrid id="panTableOfContent" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel" cellspacing="0">
+		        <ui:label for="txtaTableOfContent" id="lblTableOfContent" labelLevel="3" text="#{lbl.EditItem_lblTableOfContent}"/>
+		        <ui:textArea id="txtaTableOfContent" styleClass="editItemTextArea" text="#{editItem$EditItem.pubItem.metadata.tableOfContents.value}"/>
+		        <ui:dropDown id="cboTOCLanguage" items="#{editItem$EditItem.LANGUAGE_OPTIONS}" 
+		        	selected="#{editItem$EditItem.pubItem.metadata.tableOfContents.language}" styleClass="editItemComboBoxLanguage">
+		        </ui:dropDown>
+		    </h:panelGrid>
+		</h:panelGrid>
+
+		<h:panelGrid id="panSourceAndEvent" columns="1" styleClass="editItemOuterPanel">		
+        	<ui:staticText id="lblSourceAndEvent"
+            	style="font-weight: bold;" text="#{lbl.EditItem_lblSourceAndEvent}"/>
+
+		   	<h:panelGrid id="panSource" binding="#{editItem$EditItem.panDynamicSource}" rowClasses="list-row-odd,list-row-even">
+		    </h:panelGrid>
+		    
+	        <ui:label id="lblEvent" labelLevel="2" for="txtEventPlace" text="#{lbl.EditItem_lblEvent}"/>
+
+	    	<h:panelGrid id="panDynamicEventTitle" binding="#{editItem$EditItem.panDynamicEventTitle}" rowClasses="list-row-odd,list-row-even" styleClass="editItemInnerPanel">
+		    </h:panelGrid>
+
+			<h:panelGrid id="panEventAttributes" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn">		
+		        <ui:label id="lblEventPlace" labelLevel="3" for="txtEventPlace" text="#{lbl.EditItem_lblPlace}"/>
+		        <ui:textField id="txtEventPlace" text="#{editItem$EditItem.pubItem.metadata.event.place.value}" styleClass="editItemTextFieldMedium"/>
+		        <ui:label id="lblEventStartDate" labelLevel="3" for="txtEventStartDate" text="#{lbl.EditItem_lblStartDate}"/>
+		        <ui:textField id="txtEventStartDate" text="#{editItem$EditItem.pubItem.metadata.event.startDate}" styleClass="editItemTextFieldDate"
+		        	onKeyPress="return restrictDateEntry(event)">
+				</ui:textField> 
+		        <ui:label id="lblEventEndDate" labelLevel="3" for="txtEventEndDate" text="#{lbl.EditItem_lblEndDate}"/>
+		        <ui:textField id="txtEventEndDate" text="#{editItem$EditItem.pubItem.metadata.event.endDate}" styleClass="editItemTextFieldDate"
+		        	onKeyPress="return restrictDateEntry(event)">
+				</ui:textField> 
+		        <ui:label id="lblInvitationStatus" for="cboInvitationStatus" labelLevel="3" text="#{lbl.EditItem_lblInvitationstatus}"/>	        	
+		        <!--
+		        <ui:dropDown id="cboInvitationStatus" items="#{editItem$EditItem.INVITATIONSTATUS_OPTIONS}" selected="#{editItem$EditItem.pubItem.metadata.event.invitationStatus}">
+		        	<f:converter converterId="EnumConverter"/>
+		        </ui:dropDown>        		  	        	
+		        -->
+		        <ui:checkbox id="chkInvitationStatus" selected="#{editItem$EditItem.invited}">
+		        </ui:checkbox>        		  	        	
+			</h:panelGrid>
+
+        </h:panelGrid>
+        	
+		<jsp:directive.include file="../desktop/messages.jspf"/>
+    </f:subview>
+</div>

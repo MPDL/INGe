@@ -1,0 +1,1610 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
+package de.mpg.escidoc.pubman.editItem;
+
+import java.net.URL;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ResourceBundle;
+import javax.faces.application.Application;
+import javax.faces.component.UIComponent;
+import javax.faces.component.html.HtmlPanelGrid;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.log4j.Logger;
+import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+import com.sun.rave.web.ui.component.DropDown;
+import com.sun.rave.web.ui.component.Hyperlink;
+import com.sun.rave.web.ui.component.MessageGroup;
+import com.sun.rave.web.ui.component.TextArea;
+import com.sun.rave.web.ui.component.Upload;
+import com.sun.rave.web.ui.model.Option;
+import com.sun.rave.web.ui.model.UploadedFile;
+import de.mpg.escidoc.pubman.ErrorPage;
+import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
+import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
+import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
+import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
+import de.mpg.escidoc.pubman.editItem.ui.ContentAbstractUI;
+import de.mpg.escidoc.pubman.editItem.ui.ContentLanguageUI;
+import de.mpg.escidoc.pubman.editItem.ui.CreatorUI;
+import de.mpg.escidoc.pubman.editItem.ui.FileUI;
+import de.mpg.escidoc.pubman.editItem.ui.IdentifierUI;
+import de.mpg.escidoc.pubman.editItem.ui.SourceUI;
+import de.mpg.escidoc.pubman.editItem.ui.TitleUI;
+import de.mpg.escidoc.pubman.submitItem.SubmitItem;
+import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
+
+/**
+ * Fragment class for editing PubItems. This class provides all functionality for editing, saving and submitting a
+ * PubItem including methods for depending dynamic UI components.
+ * 
+ * @author: Thomas Diebäcker, created 10.01.2007
+ * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Tue, 18 Dec 2007) $
+ * Revised by DiT: 09.08.2007
+ */
+public class EditItem extends AbstractFragmentBean
+{
+    public static final String BEAN_NAME = "editItem$EditItem";
+    private static Logger logger = Logger.getLogger(EditItem.class);
+    
+    // Faces navigation string
+    public final static String LOAD_EDITITEM = "loadEditItem";
+    
+    // Constants for value bindings
+    public final static String VALUE_BINDING_PUBITEM_METADATA = "editItem$EditItem.pubItem.metadata";
+    public final static String VALUE_BINDING_PUBITEM_METADATA_CREATORS = "editItem$EditItem.pubItem.metadata.creators";
+    public final static String VALUE_BINDING_PUBITEM_METADATA_EVENT = "editItem$EditItem.pubItem.metadata.event";
+    public final static String VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS = "editItem$EditItem.pubItem.metadata.identifiers";
+    
+    // Constants for validation points
+    public final static String VALIDATIONPOINT_SUBMIT = "submit_item";
+    public final static String VALIDATIONPOINT_ACCEPT = "accept_item";
+    
+    // Validation Service
+    private ItemValidating itemValidating = null; 
+        
+    // for handling the resource bundles (i18n)
+    protected Application application = FacesContext.getCurrentInstance().getApplication();
+
+    // get the selected language...
+    protected InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+    // ... and set the refering resource bundle 
+    protected ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    protected ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
+    
+    private MessageGroup valMessage = new MessageGroup();
+    
+    // bindings
+    private Hyperlink lnkSave = new Hyperlink();
+    private Hyperlink lnkSaveAndSubmit = new Hyperlink();
+    private Hyperlink lnkDelete = new Hyperlink();
+    private Hyperlink lnkAccept = new Hyperlink();
+    
+    // panels for dynamic components
+    private HtmlPanelGrid panDynamicTitle = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicCreator = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicFile = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicContentLanguage = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicSource = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicEventTitle = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicIdentifier = new HtmlPanelGrid();
+    private HtmlPanelGrid panDynamicAbstract = new HtmlPanelGrid();
+    
+    // constants for comboBoxes
+    private Option NO_ITEM_SET = new Option("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
+    private Option GENRE_ARTICLE = new Option(MdsPublicationVO.Genre.ARTICLE, bundleLabel.getString("EditItem_GENRE_ARTICLE"));
+    private Option GENRE_BOOK = new Option(MdsPublicationVO.Genre.BOOK, bundleLabel.getString("EditItem_GENRE_BOOK"));
+    private Option GENRE_BOOK_ITEM = new Option(MdsPublicationVO.Genre.BOOK_ITEM, bundleLabel.getString("EditItem_GENRE_BOOK_ITEM"));
+    private Option GENRE_PROCEEDINGS = new Option(MdsPublicationVO.Genre.PROCEEDINGS, bundleLabel.getString("EditItem_GENRE_PROCEEDINGS"));
+    private Option GENRE_CONFERENCE_PAPER = new Option(MdsPublicationVO.Genre.CONFERENCE_PAPER, bundleLabel.getString("EditItem_GENRE_CONFERENCE_PAPER"));
+    private Option GENRE_TALK_AT_EVENT = new Option(MdsPublicationVO.Genre.TALK_AT_EVENT, bundleLabel.getString("EditItem_GENRE_TALK_AT_EVENT"));
+    private Option GENRE_CONFERENCE_REPORT = new Option(MdsPublicationVO.Genre.CONFERENCE_REPORT, bundleLabel.getString("EditItem_GENRE_CONFERENCE_REPORT"));
+    private Option GENRE_POSTER = new Option(MdsPublicationVO.Genre.POSTER, bundleLabel.getString("EditItem_GENRE_POSTER"));
+    private Option GENRE_COURSEWARE_LECTURE = new Option(MdsPublicationVO.Genre.COURSEWARE_LECTURE, bundleLabel.getString("EditItem_GENRE_COURSEWARE_LECTURE"));
+    private Option GENRE_THESIS = new Option(MdsPublicationVO.Genre.THESIS, bundleLabel.getString("EditItem_GENRE_THESIS"));
+    private Option GENRE_PAPER = new Option(MdsPublicationVO.Genre.PAPER, bundleLabel.getString("EditItem_GENRE_PAPER"));
+    private Option GENRE_REPORT = new Option(MdsPublicationVO.Genre.REPORT, bundleLabel.getString("EditItem_GENRE_REPORT"));
+    private Option GENRE_ISSUE = new Option(MdsPublicationVO.Genre.ISSUE, bundleLabel.getString("EditItem_GENRE_ISSUE"));
+    private Option GENRE_JOURNAL = new Option(MdsPublicationVO.Genre.JOURNAL, bundleLabel.getString("EditItem_GENRE_JOURNAL"));
+    private Option GENRE_MANUSCRIPT = new Option(MdsPublicationVO.Genre.MANUSCRIPT, bundleLabel.getString("EditItem_GENRE_MANUSCRIPT"));
+    private Option GENRE_SERIES = new Option(MdsPublicationVO.Genre.SERIES, bundleLabel.getString("EditItem_GENRE_SERIES"));
+    private Option GENRE_OTHER = new Option(MdsPublicationVO.Genre.OTHER, bundleLabel.getString("EditItem_GENRE_OTHER"));
+    private Option[] GENRE_OPTIONS = new Option[] { NO_ITEM_SET, GENRE_ARTICLE, GENRE_BOOK, GENRE_BOOK_ITEM, GENRE_PROCEEDINGS, GENRE_CONFERENCE_PAPER, GENRE_TALK_AT_EVENT, GENRE_CONFERENCE_REPORT, GENRE_POSTER, GENRE_COURSEWARE_LECTURE, GENRE_THESIS, GENRE_PAPER, GENRE_REPORT, GENRE_ISSUE, GENRE_JOURNAL, GENRE_MANUSCRIPT, GENRE_SERIES, GENRE_OTHER };
+    private Option DEGREETYPE_MASTER = new Option(MdsPublicationVO.DegreeType.MASTER, bundleLabel.getString("EditItem_DEGREETYPE_MASTER"));
+    private Option DEGREETYPE_DIPLOMA = new Option(MdsPublicationVO.DegreeType.DIPLOMA, bundleLabel.getString("EditItem_DEGREETYPE_DIPLOMA"));
+    private Option DEGREETYPE_MAGISTER = new Option(MdsPublicationVO.DegreeType.MAGISTER, bundleLabel.getString("EditItem_DEGREETYPE_MAGISTER"));
+    private Option DEGREETYPE_PHD = new Option(MdsPublicationVO.DegreeType.PHD, bundleLabel.getString("EditItem_DEGREETYPE_PHD"));
+    private Option DEGREETYPE_STAATSEXAMEN = new Option(MdsPublicationVO.DegreeType.STAATSEXAMEN, bundleLabel.getString("EditItem_DEGREETYPE_STAATSEXAMEN"));
+    private Option DEGREETYPE_HABILITATION = new Option(MdsPublicationVO.DegreeType.HABILITATION, bundleLabel.getString("EditItem_DEGREETYPE_HABILITATION"));
+    private Option[] DEGREETYPE_OPTIONS = new Option[] { NO_ITEM_SET, DEGREETYPE_MASTER, DEGREETYPE_DIPLOMA, DEGREETYPE_MAGISTER, DEGREETYPE_PHD, DEGREETYPE_STAATSEXAMEN, DEGREETYPE_HABILITATION };
+    private Option REVIEWMETHOD_INTERNAL = new Option(MdsPublicationVO.ReviewMethod.INTERNAL, bundleLabel.getString("EditItem_REVIEWMETHOD_INTERNAL"));
+    private Option REVIEWMETHOD_PEER = new Option(MdsPublicationVO.ReviewMethod.PEER, bundleLabel.getString("EditItem_REVIEWMETHOD_PEER"));
+    private Option REVIEWMETHOD_NO_REVIEW = new Option(MdsPublicationVO.ReviewMethod.NO_REVIEW, bundleLabel.getString("EditItem_REVIEWMETHOD_NO_REVIEW"));
+    private Option[] REVIEWMETHOD_OPTIONS = new Option[] { NO_ITEM_SET, REVIEWMETHOD_INTERNAL, REVIEWMETHOD_PEER, REVIEWMETHOD_NO_REVIEW };
+    private Option INVITATIONSTATUS_INVITED = new Option(EventVO.InvitationStatus.INVITED, bundleLabel.getString("EditItem_INVITATIONSTATUS_INVITED"));
+    private Option[] INVITATIONSTATUS_OPTIONS = new Option[] { NO_ITEM_SET, INVITATIONSTATUS_INVITED };
+    
+    private Option[] LANGUAGE_OPTIONS = CommonUtils.getLanguageOptions();
+    
+    /** pub collection name */
+    private String pubCollectionName = null;
+    
+    /**
+     * Public constructor.
+     */
+    public EditItem()
+    {
+        try
+        {
+            InitialContext initialContext = new InitialContext();
+            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
+        }
+        catch (NamingException ne)
+        {
+            throw new RuntimeException("Validation service not initialized", ne);
+        }
+        
+        this.LANGUAGE_OPTIONS = CommonUtils.getLanguageOptions();
+    }
+
+    /**
+     * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
+     * a URL, or indirectly via page navigation. 
+     */
+    public void init()
+    {
+        // Perform initializations inherited from our superclass
+        super.init();
+        
+        // ScT: re-init the resources and combo-boxes due to direct language switch
+        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
+        
+        this.NO_ITEM_SET = new Option("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
+        this.GENRE_ARTICLE = new Option(MdsPublicationVO.Genre.ARTICLE, bundleLabel.getString("EditItem_GENRE_ARTICLE"));
+        this.GENRE_BOOK = new Option(MdsPublicationVO.Genre.BOOK, bundleLabel.getString("EditItem_GENRE_BOOK"));
+        this.GENRE_BOOK_ITEM = new Option(MdsPublicationVO.Genre.BOOK_ITEM, bundleLabel.getString("EditItem_GENRE_BOOK_ITEM"));
+        this.GENRE_PROCEEDINGS = new Option(MdsPublicationVO.Genre.PROCEEDINGS, bundleLabel.getString("EditItem_GENRE_PROCEEDINGS"));
+        this.GENRE_CONFERENCE_PAPER = new Option(MdsPublicationVO.Genre.CONFERENCE_PAPER, bundleLabel.getString("EditItem_GENRE_CONFERENCE_PAPER"));
+        this.GENRE_TALK_AT_EVENT = new Option(MdsPublicationVO.Genre.TALK_AT_EVENT, bundleLabel.getString("EditItem_GENRE_TALK_AT_EVENT"));
+        this.GENRE_CONFERENCE_REPORT = new Option(MdsPublicationVO.Genre.CONFERENCE_REPORT, bundleLabel.getString("EditItem_GENRE_CONFERENCE_REPORT"));
+        this.GENRE_POSTER = new Option(MdsPublicationVO.Genre.POSTER, bundleLabel.getString("EditItem_GENRE_POSTER"));
+        this.GENRE_COURSEWARE_LECTURE = new Option(MdsPublicationVO.Genre.COURSEWARE_LECTURE, bundleLabel.getString("EditItem_GENRE_COURSEWARE_LECTURE"));
+        this.GENRE_THESIS = new Option(MdsPublicationVO.Genre.THESIS, bundleLabel.getString("EditItem_GENRE_THESIS"));
+        this.GENRE_PAPER = new Option(MdsPublicationVO.Genre.PAPER, bundleLabel.getString("EditItem_GENRE_PAPER"));
+        this.GENRE_REPORT = new Option(MdsPublicationVO.Genre.REPORT, bundleLabel.getString("EditItem_GENRE_REPORT"));
+        this.GENRE_ISSUE = new Option(MdsPublicationVO.Genre.ISSUE, bundleLabel.getString("EditItem_GENRE_ISSUE"));
+        this.GENRE_JOURNAL = new Option(MdsPublicationVO.Genre.JOURNAL, bundleLabel.getString("EditItem_GENRE_JOURNAL"));
+        this.GENRE_MANUSCRIPT = new Option(MdsPublicationVO.Genre.MANUSCRIPT, bundleLabel.getString("EditItem_GENRE_MANUSCRIPT"));
+        this.GENRE_SERIES = new Option(MdsPublicationVO.Genre.SERIES, bundleLabel.getString("EditItem_GENRE_SERIES"));
+        this.GENRE_OTHER = new Option(MdsPublicationVO.Genre.OTHER, bundleLabel.getString("EditItem_GENRE_OTHER"));
+        this.GENRE_OPTIONS = new Option[] { NO_ITEM_SET, GENRE_ARTICLE, GENRE_BOOK, GENRE_BOOK_ITEM, GENRE_PROCEEDINGS, GENRE_CONFERENCE_PAPER, GENRE_TALK_AT_EVENT, GENRE_CONFERENCE_REPORT, GENRE_POSTER, GENRE_COURSEWARE_LECTURE, GENRE_THESIS, GENRE_PAPER, GENRE_REPORT, GENRE_ISSUE, GENRE_JOURNAL, GENRE_MANUSCRIPT, GENRE_SERIES, GENRE_OTHER };
+        this.DEGREETYPE_MASTER = new Option(MdsPublicationVO.DegreeType.MASTER, bundleLabel.getString("EditItem_DEGREETYPE_MASTER"));
+        this.DEGREETYPE_DIPLOMA = new Option(MdsPublicationVO.DegreeType.DIPLOMA, bundleLabel.getString("EditItem_DEGREETYPE_DIPLOMA"));
+        this.DEGREETYPE_MAGISTER = new Option(MdsPublicationVO.DegreeType.MAGISTER, bundleLabel.getString("EditItem_DEGREETYPE_MAGISTER"));
+        this.DEGREETYPE_PHD = new Option(MdsPublicationVO.DegreeType.PHD, bundleLabel.getString("EditItem_DEGREETYPE_PHD"));
+        this.DEGREETYPE_STAATSEXAMEN = new Option(MdsPublicationVO.DegreeType.STAATSEXAMEN, bundleLabel.getString("EditItem_DEGREETYPE_STAATSEXAMEN"));
+        this.DEGREETYPE_HABILITATION = new Option(MdsPublicationVO.DegreeType.HABILITATION, bundleLabel.getString("EditItem_DEGREETYPE_HABILITATION"));
+        this.DEGREETYPE_OPTIONS = new Option[] { NO_ITEM_SET, DEGREETYPE_MASTER, DEGREETYPE_DIPLOMA, DEGREETYPE_MAGISTER, DEGREETYPE_PHD, DEGREETYPE_STAATSEXAMEN, DEGREETYPE_HABILITATION };
+        this.REVIEWMETHOD_INTERNAL = new Option(MdsPublicationVO.ReviewMethod.INTERNAL, bundleLabel.getString("EditItem_REVIEWMETHOD_INTERNAL"));
+        this.REVIEWMETHOD_PEER = new Option(MdsPublicationVO.ReviewMethod.PEER, bundleLabel.getString("EditItem_REVIEWMETHOD_PEER"));
+        this.REVIEWMETHOD_NO_REVIEW = new Option(MdsPublicationVO.ReviewMethod.NO_REVIEW, bundleLabel.getString("EditItem_REVIEWMETHOD_NO_REVIEW"));
+        this.REVIEWMETHOD_OPTIONS = new Option[] { NO_ITEM_SET, REVIEWMETHOD_INTERNAL, REVIEWMETHOD_PEER, REVIEWMETHOD_NO_REVIEW };
+        this.INVITATIONSTATUS_INVITED = new Option(EventVO.InvitationStatus.INVITED, bundleLabel.getString("EditItem_INVITATIONSTATUS_INVITED"));
+        this.INVITATIONSTATUS_OPTIONS = new Option[] { NO_ITEM_SET, INVITATIONSTATUS_INVITED };
+        
+        // enables the commandlinks
+        this.enableLinks();
+        
+        // initializes the (new) item if necessary
+        this.initializeItem();
+        
+        if (logger.isDebugEnabled())
+        {
+            if (this.getPubItem() != null && this.getPubItem().getReference() != null)
+            {
+                logger.debug("Item that is being edited: " + this.getPubItem().getReference().getObjectId());
+            }
+            else
+            {
+                logger.debug("Editing a new item.");
+            }
+        }
+        this.getAffiliationSessionBean().setBrowseByAffiliation(true);
+        
+        // fetch the name of the pub collection
+        this.pubCollectionName = this.getCollectionName();
+    }
+
+    /**
+     * Deliveres a reference to the currently edited item.
+     * This is a shortCut for the method in the ItemController.
+     * @return the item that is currently edited
+     */
+    public PubItemVO getPubItem()
+    {
+        return (this.getItemControllerSessionBean().getCurrentPubItem());
+    }
+    
+    private String getCollectionName()
+    {
+    	 try
+         {
+    		 PubCollectionVO pubCollection = this.getItemControllerSessionBean().retrieveCollection(
+                     this.getPubItem().getPubCollection().getObjectId());
+    		 return pubCollection.getName();
+         }
+         catch (Exception e)
+         {
+             logger.error("Could not retrieve the requested collection." + "\n" + e.toString());
+             ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+             return ErrorPage.LOAD_ERRORPAGE;
+         }
+         
+    }
+
+    /**
+     * Adds sub-ValueObjects to an item initially to be able to bind uiComponents to them.
+     */
+    private void initializeItem()
+    {
+        
+        // get the item that is currently edited
+        PubItemVO pubItem = this.getPubItem();
+        
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Initializing item..." + pubItem);
+        }
+        
+        if (pubItem != null)
+        {
+            // add PublishingInfoVO if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getPublishingInfo() == null)
+            {
+                PublishingInfoVO newPublishingInfo = new PublishingInfoVO();
+                pubItem.getMetadata().setPublishingInfo(newPublishingInfo);
+            }
+            
+            // add PersonOrganization if needed to be able to bind uiComponents to it
+            for (int i=0; i<pubItem.getMetadata().getCreators().size(); i++)
+            {
+                CreatorVO creatorVO = pubItem.getMetadata().getCreators().get(i);
+                
+                if (creatorVO.getPerson() != null && creatorVO.getPerson().getOrganizations().size() == 0)
+                {
+                    // create a new Organization for this person
+                    OrganizationVO newPersonOrganization = new OrganizationVO();
+                    newPersonOrganization.setName(new TextVO());
+                    creatorVO.getPerson().getOrganizations().add(newPersonOrganization);
+                }
+            }
+            
+            // add ContentLanguage if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getLanguages().size() == 0)
+            {
+                pubItem.getMetadata().getLanguages().add(new String());
+            }
+    
+            // add Event if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getEvent() == null)
+            {
+                EventVO eventVO = new EventVO();
+                pubItem.getMetadata().setEvent(eventVO);
+            }
+            if (pubItem.getMetadata().getEvent().getTitle() == null)
+            {
+            	pubItem.getMetadata().getEvent().setTitle(new TextVO());
+            }
+            if (pubItem.getMetadata().getEvent().getPlace() == null)
+            {
+            	pubItem.getMetadata().getEvent().setPlace(new TextVO());
+            }
+    
+            // add Identifier if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getIdentifiers().size() == 0)
+            {
+                pubItem.getMetadata().getIdentifiers().add(new IdentifierVO());
+            }
+
+            // add Abstract if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getAbstracts().size() == 0)
+            {
+                pubItem.getMetadata().getAbstracts().add(new TextVO());
+            }
+            // ScT
+            // add TOC if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getTableOfContents() == null)
+            {
+                pubItem.getMetadata().setTableOfContents(new TextVO());
+            }
+            
+            // add subject if needed to be able to bind uiComponents to it
+            if (pubItem.getMetadata().getSubject() == null)
+            {
+                pubItem.getMetadata().setSubject(new TextVO());
+            }
+        }
+        else
+        {
+            logger.warn("Current PubItem is NULL!");
+        }
+    }
+
+    /**
+     * Returns a reference to the scoped data bean (the SubmitItemSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected SubmitItemSessionBean getSubmitItemSessionBean()
+    {
+        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.BEAN_NAME);
+    }
+
+    /**
+     * Returns a reference to the scoped data bean (the AcceptItemSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected AcceptItemSessionBean getAcceptItemSessionBean()
+    {
+        return (AcceptItemSessionBean)getBean(AcceptItemSessionBean.BEAN_NAME);
+    }
+    
+    /**
+     * Creates the panel newly according to the values in the ValueObject.
+     */
+    private void createDynamicFile()
+    {
+        // remove all components
+        this.panDynamicFile.getChildren().clear();
+
+        // initialize file if none is given
+        if (this.getPubItem().getFiles().size() == 0)
+        {
+            this.getPubItem().getFiles().add(new PubFileVO());
+        }
+        
+        // add all files
+        for (int i = 0; i < this.getPubItem().getFiles().size(); i++)
+        {
+            panDynamicFile.getChildren().add(new FileUI(this.getPubItem(), i));
+        }
+    }
+
+    /**
+     * Eventmethod that is being called whenever the user chooses to add a file.
+     * The method adds a file to the ValueObject and adds new UI to the enclosing panel.
+     * @param event ActionEvent fired by the add-button
+     */
+    public void addFile(ActionEvent event)
+    {
+        // find the index of the file after which the new one should be added
+        FileUI fileUI = (FileUI)((UIComponent)event.getSource()).getParent().getParent();
+        int indexSourceFileUI = fileUI.getIndexFile();
+        int indexNewFile = indexSourceFileUI + 1;
+        
+        // add new file to VO
+        PubFileVO newPubFileVO = new PubFileVO();
+        this.getPubItem().getFiles().add(indexNewFile, newPubFileVO);
+        
+        // add new file to enclosing panel
+        FileUI newFileUI = new FileUI(this.getPubItem(), indexNewFile);
+        this.panDynamicFile.getChildren().add(indexNewFile, newFileUI);
+
+        // reindex following files
+        for (int i=(indexNewFile + 1); i<this.panDynamicFile.getChildCount(); i++)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Reindexing File with old index " + ((FileUI)this.panDynamicFile.getChildren().get(i)).getIndexFile() + " to new index " + i);
+            }
+            
+            ((FileUI)this.panDynamicFile.getChildren().get(i)).setIndexFile(i);
+        }
+    }
+
+    /**
+     * Eventmethod that is being called whenever the user chooses to remove a file.
+     * The method removes the file from the ValueObject and removes the UI from the enclosing panel.
+     * @param event ActionEvent fired by the remove-button
+     */
+    public void removeFile(ActionEvent event)
+    {        
+        //store all values to VO
+        for (int i=0; i<this.panDynamicFile.getChildCount(); i++)
+        {
+            FileUI fileUI = (FileUI)this.panDynamicFile.getChildren().get(i);
+            fileUI.storeValues();
+        }
+                                
+        // find the index of the file that should be removed
+        FileUI fileUI = (FileUI)((UIComponent)event.getSource()).getParent().getParent();
+        int indexFile = fileUI.getIndexFile();
+
+        // remove file from VO
+        this.getPubItem().getFiles().remove(indexFile);        
+        
+        // recreate the panel
+        this.createDynamicFile();
+    }
+
+    /**
+     * EventMethod that is being called whenever the user chooses to upload a file.
+     * The method adds the new UIs needed to hold the data of the newly uploaded file.
+     * @param event ActionEvent fired by the upload-button
+     */
+    public String handleUploadFileButtonAction(ActionEvent event)
+    {
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Uploading file...");
+        }
+
+        // find the index of the file
+        UIComponent parentPanel = ((UIComponent)event.getSource()).getParent().getParent();
+        int indexFile = this.panDynamicFile.getChildren().indexOf(parentPanel);
+        
+        // find the index of the upload-button
+        UIComponent filePanel = ((UIComponent)event.getSource()).getParent();
+        int indexUploadButton = filePanel.getChildren().indexOf(event.getSource());
+        
+        // get the uploaded file
+        Upload uploadComponent = (Upload)filePanel.getChildren().get(indexUploadButton - 1);
+        UploadedFile uploadedFile = uploadComponent.getUploadedFile();
+        
+        if (uploadedFile != null && uploadedFile.getSize() > 0)
+        {
+            String uploadedFileName = this.extractFileName(uploadedFile);
+            
+            try
+            {
+                // upload the file
+                LoginHelper loginHelper = (LoginHelper)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+                URL contentURL = this.uploadFile(uploadedFile, uploadedFile.getContentType(), loginHelper.getESciDocUserHandle());
+                
+                // store values of the new file in VO
+                PubFileVO pubFileVO = this.getPubItem().getFiles().get(indexFile);
+                pubFileVO.setName(uploadedFileName);
+                pubFileVO.setSize(new Long(uploadedFile.getSize()).intValue());
+                pubFileVO.setContent(contentURL.toString());
+                pubFileVO.setMimeType(uploadedFile.getContentType());
+            
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not upload file." + "\n" + e.toString());
+                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+
+                // force JSF to load the ErrorPage
+                try
+                {
+                    FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
+                }
+                catch (Exception ex)
+                {
+                    logger.error(e.toString());
+                }
+
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+            
+            // store fileattribute values in VO as they get lost when createDynamicFile is called
+            for (int i = 0; i < this.panDynamicFile.getChildCount(); i++)
+            {
+                if (i != indexFile)
+                {
+                    UIComponent fileComp = (UIComponent)this.panDynamicFile.getChildren().get(i);
+                    DropDown cboContentType = (DropDown)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(5);
+                    this.getPubItem().getFiles().get(i).setContentTypeString((String)cboContentType.getSelected());
+                    DropDown cboMimeType = (DropDown)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(7);
+                    this.getPubItem().getFiles().get(i).setMimeType((String)cboMimeType.getSelected());
+                    DropDown cboVisibility = (DropDown)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(9);
+                    this.getPubItem().getFiles().get(i).setVisibilityString((String)cboVisibility.getSelected());
+                    TextArea txtaVisibility = (TextArea)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(11);
+                    this.getPubItem().getFiles().get(i).setDescription((String)txtaVisibility.getValue());
+                }
+            }
+            
+            // recreate the file component 
+            this.createDynamicFile();
+        }
+        else
+        {
+            logger.warn("No file has been choosen or file size is 0.");
+        }        
+        
+        return null;
+    }
+
+    /**
+     * Creates the panel newly according to the values in the ValueObject.
+     */
+    private void createDynamicContentLanguage()
+    {
+        // remove all components
+        this.panDynamicContentLanguage.getChildren().clear();
+
+        // initialize ContentLanguages if none is given
+        if (this.getPubItem().getMetadata().getLanguages().size() == 0)
+        {
+            this.getPubItem().getMetadata().getLanguages().add(new String());
+        }
+        
+        // add all ContentLanguages
+        for (int i = 0; i < this.getPubItem().getMetadata().getLanguages().size(); i++)
+        {
+            panDynamicContentLanguage.getChildren().add(new ContentLanguageUI(this.getPubItem(), i));
+        }
+    }
+
+    /**
+     * Eventmethod that is being called whenever the user chooses to add a ContentLanguage.
+     * The method adds a ContentLanguage to the ValueObject and adds new UI to the enclosing panel.
+     * @param event ActionEvent fired by the add-button
+     */
+    public void addContentLanguage(ActionEvent event)
+    {
+        // find the index of the ContentLanguage after which the new one should be added
+        ContentLanguageUI contentLanguageUI = (ContentLanguageUI)((UIComponent)event.getSource()).getParent();
+        int indexSourceContentLanguage = contentLanguageUI.getIndexContentLanguage();
+        int indexNewContentLanguage = indexSourceContentLanguage + 1;
+        
+        // add new ContentLanguage to VO
+        this.getPubItem().getMetadata().getLanguages().add(indexNewContentLanguage, new String());
+        
+        // add new ContentLanguage to enclosing panel
+        ContentLanguageUI newContentLanguageUI = new ContentLanguageUI(this.getPubItem(), indexNewContentLanguage);
+        this.panDynamicContentLanguage.getChildren().add(indexNewContentLanguage, newContentLanguageUI);
+
+        // reindex following ContentLanguageUIs
+        for (int i=(indexNewContentLanguage + 1); i<this.panDynamicContentLanguage.getChildCount(); i++)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Reindexing ContentLanguage with old index " + ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).getIndexContentLanguage() + " to new index " + i);
+            }
+            
+            ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).setIndexContentLanguage(i);
+        }
+        
+        for (int i=0; i<this.panDynamicContentLanguage.getChildCount(); i++)
+        {
+            // refresh visibility of all the remove buttons (see PUBMAN-110)
+            ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).getRemoveButton().setVisible(((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).isRemoveButtonVisible());
+        }
+    }
+
+    /**
+     * Eventmethod that is being called whenever the user chooses to remove a ContentLanguage.
+     * The method removes a ContentLanguage from the ValueObject and removes the UI from the enclosing panel.
+     * @param event ActionEvent fired by the remove-button
+     */
+    public void removeContentLanguage(ActionEvent event)
+    {
+        //store all values to VO
+        this.getPubItem().getMetadata().getLanguages().clear();
+        for (int i=0; i<this.panDynamicContentLanguage.getChildCount(); i++)
+        {
+            ContentLanguageUI contentLanguageUI = (ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i);
+            this.getPubItem().getMetadata().getLanguages().add(contentLanguageUI.getLanguage());
+        }
+                
+        // find the index of the ContentLanguage that should be removed
+        ContentLanguageUI contentLanguageUI = (ContentLanguageUI)((UIComponent)event.getSource()).getParent();
+        int indexContentLanguage = contentLanguageUI.getIndexContentLanguage();
+
+        // remove ContentLanguage from VO
+        this.getPubItem().getMetadata().getLanguages().remove(indexContentLanguage);        
+        
+        // recreate the panel
+        this.createDynamicContentLanguage();
+        
+        /*
+        // This is the way it should be done. Unfortunatly this leeds to an exception as the VO seems to be removed also the panel is removed but there still is a validator on it.
+        // So we first store all values in the VO and then recreate the panel (see above!).
+        // For documentation purpose this part should stay here as comment. 
+
+        // remove ContentLanguage from enclosing panel
+        this.panDynamicContentLanguage.getChildren().remove(indexContentLanguage);
+                
+        //this.panDynamicContentLanguage.processValidators(FacesContext.getCurrentInstance());
+
+        // reindex following ContentLanguageUIs
+        for (int i=indexContentLanguage; i<this.panDynamicContentLanguage.getChildCount(); i++)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Reindexing ContentLanguage with old index " + ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).getIndexContentLanguage() + " to new index " + i);
+            }
+            
+            ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).setIndexContentLanguage(i);
+            ((ContentLanguageUI)this.panDynamicContentLanguage.getChildren().get(i)).setValueBinding("value", application.createValueBinding("#{editItem$EditItem.pubItem.metadata.language[" + i + "]}"));
+        }
+        */
+    }
+
+    /**
+     * Returns the filename for the uploaded file without the path as some browsers return the complete path, some don't.
+     * @param uploadedFile the uploaded file
+     * @return the filename without the path
+     */
+    private String extractFileName(UploadedFile uploadedFile)
+    {
+        String uploadedFileName = uploadedFile.getOriginalName();
+
+        // try forward slash
+        int index = uploadedFileName.lastIndexOf('/');
+        String justFileName;
+        if (index >= 0)
+        {
+            justFileName = uploadedFileName.substring(index + 1);
+        }
+        else
+        {
+            // try backslash
+            index = uploadedFileName.lastIndexOf('\\');
+            if (index >= 0)
+            {
+                justFileName = uploadedFileName.substring(index + 1);
+            }
+            else
+            {
+                // no forward or back slashes
+                justFileName = uploadedFileName;
+            }
+        }
+        
+        return justFileName;
+    }
+
+    /**
+     * Uploads a file to the staging servlet and returns the corresponding URL.
+     * 
+     * @param uploadedFile The file to upload
+     * @param mimetype The mimetype of the file
+     * @param userHandle The userhandle to use for upload
+     * @return The URL of the uploaded file.
+     * @throws Exception If anything goes wrong...
+     */
+    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
+    {
+        // Prepare the HttpMethod.
+        String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+        method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputStream()));
+        method.setRequestHeader("Content-Type", mimetype);
+        method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+
+        // Execute the method with HttpClient.
+        HttpClient client = new HttpClient();
+        client.executeMethod(method);
+        String response = method.getResponseBodyAsString();
+        InitialContext context = new InitialContext();
+        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        return ctransforming.transformUploadResponseToFileURL(response);        
+    }
+
+    /**
+     * Validates the item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String validate()
+    {
+        try
+        {
+            this.getItemControllerSessionBean().validate(this.getPubItem(), EditItem.VALIDATIONPOINT_SUBMIT);
+            if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems())
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else
+            {
+                String message = bundleMessage.getString("itemIsValid");
+                info(message);
+                valMessage.setVisible(true);
+            }
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not validate item." + "\n" + e.toString(), e);
+            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        return null;
+    }
+
+    /**
+     * Saves the item.
+     * @return string, identifying the page that should be navigated to after this methodcall  
+     */
+    public String save()
+    {        
+
+        /*
+         * FrM: Validation with validation point "default"
+         */
+        
+        ValidationReportVO report = null;
+        try
+        {
+            report = this.itemValidating.validateItemObject(getPubItem(), "default");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Validation error", e);
+        }
+        logger.debug("Validation Report: " + report);
+        
+        if (report.isValid() && !report.hasItems()) {
+       
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Saving item...");
+            }
+            
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            }
+            return retVal;
+        }
+        else if (report.isValid())
+        {
+            // TODO FrM: Informative messages
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            }
+            return retVal;
+        }
+        else
+        {           
+            // Item is invalid, do not submit anything.
+            this.showValidationMessages(report);
+            return null;
+        }        
+    }
+
+    /**
+     * Saves the item, even if there are informative validation messages.
+     * @author Michael Franke
+     * @return string, identifying the page that should be navigated to after this methodcall  
+     */
+    public String saveAnyway()
+    {        
+        String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, true);
+        
+        if (!(this.getItemControllerSessionBean().getCurrentItemValidationReport().isValid())) 
+        {
+            this.showValidationMessages(this.getItemControllerSessionBean().getCurrentItemValidationReport());
+        }
+        else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+        }
+        
+        // initialize viewItem
+        /* this is only neccessary if viewItem should be called after saving; this should stay here as a comment if this might come back once...
+        de.mpg.escidoc.pubman.viewItem.ViewItem viewItem = (de.mpg.escidoc.pubman.viewItem.ViewItem)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "viewItem$ViewItem");
+        viewItem.setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+        viewItem.loadItem();
+        */
+
+        return retVal;
+    }
+
+    /**
+     * Submits the item. Should not be used at the moment.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String submit()
+    {
+        logger.error("This is a call to \"EditItem.submit\" which should not happen.");
+        
+        String retVal = this.getItemControllerSessionBean().submitCurrentPubItem("", DepositorWS.LOAD_DEPOSITORWS); 
+
+        if (retVal == null)
+        {
+            this.showValidationMessages(
+                    this.getItemControllerSessionBean().getCurrentItemValidationReport());
+        }
+        else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
+        }
+        
+        return retVal;
+    }
+
+    /**
+     * Saves and submits an item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     * Changed by FrM: Inserted validation and call to "enter submission comment" page.
+     * 
+     */
+    public String saveAndSubmit()
+    {
+        /*
+         * FrM: Validation with validation point "submit_item"
+         */
+        
+        ValidationReportVO report = null;
+        try
+        {
+            report = this.itemValidating.validateItemObject(getPubItem(), "submit_item");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Validation error", e);
+        }
+        logger.debug("Validation Report: " + report);
+        
+        if (report.isValid() && !report.hasItems()) {
+       
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Submitting item...");
+            }
+            
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false); 
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+                String localMessage = bundleMessage.getString(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                getSubmitItemSessionBean().setMessage(localMessage);
+            }
+            return retVal;
+        }
+        else if (report.isValid())
+        {
+            // TODO FrM: Informative messages
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(SubmitItem.LOAD_SUBMITITEM, false); 
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+                String localMessage = bundleMessage.getString(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                getSubmitItemSessionBean().setMessage(localMessage);
+            }
+            return retVal;
+        }
+        else
+        {           
+            // Item is invalid, do not submit anything.
+            this.showValidationMessages(report);
+            return null;
+        }        
+
+    }
+
+    /**
+     * Deletes the current item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String delete()
+    {
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Deleting current item...");
+        }
+
+        // delete the currently edited item
+        String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
+        
+        // show message in DepositorWS
+        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
+        }
+
+        return retVal;
+    }
+
+    /**
+     * Cancels the editing.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String cancel()
+    {
+        return DepositorWS.LOAD_DEPOSITORWS;
+    }
+
+    /**
+     * Saves and accepts an item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String saveAndAccept()
+    {
+        /*
+         * Copied by DiT from saveAndSubmit(), written by FrM: Validation with validation point "accept_item"
+         */
+        
+        ValidationReportVO report = null;
+
+        try
+        {
+            report = this.itemValidating.validateItemObject(getPubItem(), EditItem.VALIDATIONPOINT_ACCEPT);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Validation error", e);
+        }
+        logger.debug("Validation Report: " + report);
+        
+        if (report.isValid() && !report.hasItems()) 
+        {       
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Accepting item...");
+            }
+            
+            // check if the item has been changed
+            PubItemVO newPubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+            PubItemVO oldPubItem = null;
+            try
+            {
+                oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getReference().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Could not retrieve item." + "\n" + e.toString(), e);
+                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                
+                return ErrorPage.LOAD_ERRORPAGE;
+            }
+            
+            
+            if (!this.getItemControllerSessionBean().hasChanged(oldPubItem, newPubItem))
+            {
+                logger.warn("Item has not been changed.");
+
+                // create a validation report
+                ValidationReportVO changedReport = new ValidationReportVO();
+                ValidationReportItemVO changedReportItem = new ValidationReportItemVO();
+                changedReportItem.setInfoLevel(ValidationReportItemVO.InfoLevel.RESTRICTIVE);
+                changedReportItem.setContent("itemHasNotBeenChanged");                                
+                changedReport.addItem(changedReportItem);
+                
+                // show report and stay on this page
+                this.showValidationMessages(changedReport);                
+                return null;
+            }
+            else
+            {
+                if (logger.isDebugEnabled())
+                {
+                    logger.debug("Item was changed.");
+                }
+            }
+            
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false);
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+                String localMessage = bundleMessage.getString(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                getAcceptItemSessionBean().setMessage(localMessage);
+            }
+            
+            return retVal;
+        }
+        else if (report.isValid())
+        {
+            // TODO FrM: Informative messages
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(AcceptItem.LOAD_ACCEPTITEM, false); 
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
+                String localMessage = bundleMessage.getString(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED);
+                getAcceptItemSessionBean().setMessage(localMessage);
+            }
+            return retVal;
+        }
+        else
+        {           
+            // Item is invalid, do not accept anything.
+            this.showValidationMessages(report);
+            return null;
+        }        
+    }
+    
+    /**
+     * Shows the given Message below the itemList after next Reload of the DepositorWS. 
+     * @param message the message to be displayed
+     */
+    private void showMessage(String message)
+    {
+        message = this.bundleMessage.getString(message);
+        this.getDepositorWSSessionBean().setMessage(message);
+    }
+
+    /**
+     * Retrieves the description of a collection from the framework.
+     * @return the collection description
+     */
+    public String getCollectionDescription()
+    {
+        String collectionDescription = "Could not retrieve collection description.";
+        
+        try
+        {
+            PubCollectionVO collection = this.getItemControllerSessionBean().getCurrentCollection();
+            collectionDescription = collection.getDescription();
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not retrieve collection." + "\n" + e.toString());
+            
+            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);            
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        
+        return collectionDescription;
+    }
+    
+    /**
+     * Returns a reference to the scoped data bean (the ItemControllerSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected de.mpg.escidoc.pubman.ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (de.mpg.escidoc.pubman.ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+    }
+
+    /**
+     * Returns the DepositorWSSessionBean.
+     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     */
+    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    {
+        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+    }
+
+    /**
+     * Displays validation messages.
+     * @author Michael Franke
+     * @param report The Validation report object.
+     */
+    private void showValidationMessages(ValidationReportVO report)
+    {
+        for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();)
+        {
+            ValidationReportItemVO element = (ValidationReportItemVO) iter.next();
+            if (element.isRestrictive())
+            {
+                error(bundleMessage.getString(element.getContent()).replaceAll("\\$1", element.getElement()));
+            } else 
+            {
+                info(bundleMessage.getString(element.getContent()).replaceAll("\\$1", element.getElement()));
+            }
+        }
+
+        valMessage.setVisible(true);
+    }
+    
+    /**
+     * Recreates all dynamic panels of the edit item page (for instant language switching) 
+     * @author Tobias Schraut
+     */
+    public void resetDynamicPanels()
+    {
+        // rebuild dynamic panels which do NOT inherit from AbstractUI
+        this.createDynamicFile();
+        this.createDynamicContentLanguage();
+        
+        // rebuild dynamic panels which inherit from AbstractUI
+        TitleUI.createDynamicParentPanel(this.panDynamicTitle, this.getPubItem().getMetadata(), EditItem.VALUE_BINDING_PUBITEM_METADATA);
+        CreatorUI.createDynamicParentPanel(this.panDynamicCreator, this.getPubItem().getMetadata().getCreators(), EditItem.VALUE_BINDING_PUBITEM_METADATA_CREATORS, true);
+        TitleUI.createDynamicParentPanel(this.panDynamicEventTitle, this.getPubItem().getMetadata().getEvent(), EditItem.VALUE_BINDING_PUBITEM_METADATA_EVENT);
+        IdentifierUI.createDynamicParentPanel(this.panDynamicIdentifier, this.getPubItem().getMetadata().getIdentifiers(), EditItem.VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS);
+        ContentAbstractUI.createDynamicParentPanel(this.panDynamicAbstract, this.getPubItem().getMetadata(), EditItem.VALUE_BINDING_PUBITEM_METADATA);
+        SourceUI.createDynamicParentPanel(this.panDynamicSource, this.getPubItem());
+    }
+    
+    /**
+     * Enables/Disables the action links.
+     */
+    private void enableLinks()
+    {
+        LoginHelper loginHelper = (LoginHelper)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+        
+        boolean itemHasID = this.getPubItem().getReference() != null && this.getPubItem().getReference().getObjectId() != null;
+        
+        this.lnkAccept.setVisible(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getPubCollection()));
+        this.lnkDelete.setVisible(!this.isInModifyMode() && itemHasID);
+        this.lnkSaveAndSubmit.setVisible(!this.isInModifyMode());
+        this.lnkSave.setVisible(!this.isInModifyMode());
+    }
+    
+    /**
+     * Evaluates if the EditItem should be in modify mode.
+     * @return true if modify mode should be on
+     */
+    private boolean isInModifyMode()
+    {
+        boolean isModifyMode = this.getPubItem().getState() != null
+            && (this.getPubItem().getState().equals(PubItemVO.State.SUBMITTED)
+                    || this.getPubItem().getState().equals(PubItemVO.State.RELEASED));
+        
+        return isModifyMode;
+    }
+    
+    /**
+     * Returns the AffiliationSessionBean.
+     * 
+     * @return a reference to the scoped data bean (AffiliationSessionBean)
+     */
+    protected AffiliationSessionBean getAffiliationSessionBean()
+    {
+        return (AffiliationSessionBean)getBean(AffiliationSessionBean.BEAN_NAME);
+    }
+
+    /**
+     * Returns all allowed options for genre.
+     * @return all allowed options for genre
+     */
+    public Option[] getGENRE_OPTIONS()
+    {
+        Option[] genreOptions = new Option[this.GENRE_OPTIONS.length];
+        List<MdsPublicationVO.Genre> allowedGenres = null;    
+        int noOfAllowedGenres = 0;
+        
+        try
+        {
+            allowedGenres = this.getItemControllerSessionBean().getCurrentCollection().getAllowedGenres();
+        }
+        catch (Exception e)
+        {
+            logger.error(e);
+        }
+
+        if (allowedGenres != null)
+        {
+            for (int i = 0; i < this.GENRE_OPTIONS.length; i++)
+            {
+                Option genreOption = this.GENRE_OPTIONS[i];
+                
+                // add the option if it is in the allowed genres or add the current value for genre if given
+                if (genreOption.getValue().equals(this.NO_ITEM_SET.getValue())
+                        || allowedGenres.contains(genreOption.getValue())
+                        || (this.getPubItem().getMetadata().getGenre() != null
+                                && this.getPubItem().getMetadata().getGenre().compareTo((MdsPublicationVO.Genre)genreOption.getValue()) == 0))
+                {                    
+                    genreOptions[noOfAllowedGenres++] = genreOption;
+                }
+            }
+        }
+        else
+        {
+            logger.error("Cannot retrieve allowed genres for current collection. Returning all genres.");
+            
+            genreOptions = this.GENRE_OPTIONS;
+        }
+            
+        StringBuffer allowedGenresString = new StringBuffer();
+        Option[] allowedGenreOptions = new Option[noOfAllowedGenres];
+        for (int i = 0; i < noOfAllowedGenres; i++)
+        {
+            allowedGenreOptions[i] = genreOptions[i];
+            if (i > 0)
+            {
+                allowedGenresString.append(", ");
+            }
+            allowedGenresString.append(allowedGenreOptions[i].getValue());
+        }
+        
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Allowed genres: " + allowedGenresString);            
+            logger.debug("Number of allowed genres: " + allowedGenreOptions.length);
+            logger.debug("Total number of genres: " + this.GENRE_OPTIONS.length);
+        }
+
+        return allowedGenreOptions;
+    }
+
+    /**
+     * Returns all options for degreeType.
+     * @return all options for degreeType
+     */
+    public Option[] getDEGREETYPE_OPTIONS()
+    {
+        return DEGREETYPE_OPTIONS;
+    }
+
+    /**
+     * Returns all options for reviewMethod.
+     * @return all options for reviewMethod
+     */
+    public Option[] getREVIEWMETHOD_OPTIONS()
+    {
+        return REVIEWMETHOD_OPTIONS;
+    }
+
+    /**
+     * Returns the panel for titles. Lazy initializes the titles.
+     * @return the panel for the titles
+     */
+    public HtmlPanelGrid getPanDynamicTitle()
+    {
+        if (this.panDynamicTitle.getChildren().size() == 0)
+        {
+            TitleUI.createDynamicParentPanel(this.panDynamicTitle, this.getPubItem().getMetadata(), EditItem.VALUE_BINDING_PUBITEM_METADATA);
+        }
+        
+        return panDynamicTitle;
+    }
+
+    /**
+     * Sets the panel for titles.
+     * @param panDynamicTitle the new panel
+     */
+    public void setPanDynamicTitle(HtmlPanelGrid panDynamicTitle)
+    {
+        this.panDynamicTitle = panDynamicTitle;
+    }
+
+    /**
+     * Returns the panel for creators. Lazy initializes the creators.
+     * @return the panel for the creators
+     */
+    public HtmlPanelGrid getPanDynamicCreator()
+    {
+        if (this.panDynamicCreator.getChildren().size() == 0)
+        {
+            CreatorUI.createDynamicParentPanel(this.panDynamicCreator, this.getPubItem().getMetadata().getCreators(), EditItem.VALUE_BINDING_PUBITEM_METADATA_CREATORS, true);
+        }
+        
+        return panDynamicCreator;
+    }
+
+    /**
+     * Sets the panel for creators.
+     * @param panDynamicTitle the new panel
+     */
+    public void setPanDynamicCreator(HtmlPanelGrid panDynamicCreator)
+    {
+        this.panDynamicCreator = panDynamicCreator;
+    }
+
+    /**
+     * Returns the panel for files. Lazy initializes the files.
+     * @return the panel for the files
+     */
+    public HtmlPanelGrid getPanDynamicFile()
+    {
+        if (this.panDynamicFile.getChildren().size() == 0)
+        {
+            this.createDynamicFile();
+        }
+        return panDynamicFile;
+    }
+
+    /**
+     * Sets the panel for files.
+     * @param panDynamicTitle the new panel
+     */
+    public void setPanDynamicFile(HtmlPanelGrid panDynamicFile)
+    {
+        this.panDynamicFile = panDynamicFile;
+    }
+
+    /**
+     * Returns the panel for ContentLanguage. Lazy initializes the ContentLanguage.
+     * @return the panel for the ContentLanguage
+     */
+    public HtmlPanelGrid getPanDynamicContentLanguage()
+    {
+        if (this.panDynamicContentLanguage.getChildren().size() == 0)
+        {
+            this.createDynamicContentLanguage();
+        }
+        return panDynamicContentLanguage;
+    }
+
+    /**
+     * Sets the panel for ContentLanguage.
+     * @param panDynamicContentLanguage the new panel
+     */
+    public void setPanDynamicContentLanguage(HtmlPanelGrid panDynamicContentLanguage)
+    {
+        this.panDynamicContentLanguage = panDynamicContentLanguage;
+    }
+
+    /**
+     * Returns the panel for Source. Lazy initializes the Source.
+     * @return the panel for the Source
+     */
+    public HtmlPanelGrid getPanDynamicSource()
+    {
+        if (this.panDynamicSource.getChildren().size() == 0)
+        {
+            SourceUI.createDynamicParentPanel(this.panDynamicSource, this.getPubItem());
+        }
+        return panDynamicSource;
+    }
+
+    /**
+     * Sets the panel for Source.
+     * @param panDynamicSource the new panel
+     */
+    public void setPanDynamicSource(HtmlPanelGrid panDynamicSource)
+    {
+        this.panDynamicSource = panDynamicSource;
+    }
+
+    /**
+     * Returns the panel for EventTitle. Lazy initializes the EventTitle.
+     * @return the panel for the EventTitle
+     */
+    public HtmlPanelGrid getPanDynamicEventTitle()
+    {
+        if (this.panDynamicEventTitle.getChildren().size() == 0)
+        {
+            TitleUI.createDynamicParentPanel(this.panDynamicEventTitle, this.getPubItem().getMetadata().getEvent(), EditItem.VALUE_BINDING_PUBITEM_METADATA_EVENT);
+        }
+        
+        return panDynamicEventTitle;
+    }
+
+    /**
+     * Sets the panel for EventTitle.
+     * @param panDynamicEventTitle the new panel
+     */
+    public void setPanDynamicEventTitle (HtmlPanelGrid panDynamicEventTitle)
+    {
+        this.panDynamicEventTitle = panDynamicEventTitle;
+    }
+
+    /**
+     * Returns the panel for Identifier. Lazy initializes the Identifier.
+     * @return the panel for the Identifier
+     */
+    public HtmlPanelGrid getPanDynamicIdentifier()
+    {
+        if (this.panDynamicIdentifier.getChildren().size() == 0)
+        {
+            IdentifierUI.createDynamicParentPanel(this.panDynamicIdentifier, this.getPubItem().getMetadata().getIdentifiers(), EditItem.VALUE_BINDING_PUBITEM_METADATA_IDENTIFIERS);
+        }
+        return panDynamicIdentifier;
+    }
+
+    /**
+     * Sets the panel for Identifier.
+     * @param panDynamicIdentifier the new panel
+     */
+    public void setPanDynamicIdentifier(HtmlPanelGrid panDynamicIdentifier)
+    {
+        this.panDynamicIdentifier = panDynamicIdentifier;
+    }
+
+    /**
+     * Returns the panel for Abstract. Lazy initializes the Abstract.
+     * @return the panel for the Abstract
+     */
+    public HtmlPanelGrid getPanDynamicAbstract()
+    {
+        if (this.panDynamicAbstract.getChildren().size() == 0)
+        {
+            ContentAbstractUI.createDynamicParentPanel(this.panDynamicAbstract, this.getPubItem().getMetadata(), EditItem.VALUE_BINDING_PUBITEM_METADATA);
+        }
+        return panDynamicAbstract;
+    }
+
+    /**
+     * Sets the panel for Abstract.
+     * @param panDynamicAbstract the new panel
+     */
+    public void setPanDynamicAbstract(HtmlPanelGrid panDynamicAbstract)
+    {
+        this.panDynamicAbstract = panDynamicAbstract;
+    }
+
+    public Option[] getINVITATIONSTATUS_OPTIONS()
+    {
+        return INVITATIONSTATUS_OPTIONS;
+    }
+
+    public String loadAffiliationTree()
+    {
+        return "loadAffiliationTree";        
+    }
+
+    public MessageGroup getValMessage() 
+    {
+        return valMessage;
+    }
+
+    public void setValMessage(MessageGroup valMessage) 
+    {
+        this.valMessage = valMessage;
+    }
+    
+    /**
+     * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a checkbox.
+     * @return true if invitationstatus in VO is set, else false
+     */
+    public boolean getInvited()
+    {
+        boolean retVal = false;
+        
+        // Changed by FrM: Check for event
+        if (this.getPubItem().getMetadata().getEvent() != null && this.getPubItem().getMetadata().getEvent().getInvitationStatus() != null
+                && this.getPubItem().getMetadata().getEvent().getInvitationStatus().equals(EventVO.InvitationStatus.INVITED))
+        {
+            retVal = true;
+        }
+        
+        return retVal;
+    }
+
+    /**
+     * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a checkbox.
+     * @param invited the value of the checkbox
+     */
+    public void setInvited(boolean invited)
+    {
+        if (invited)
+        {
+            this.getPubItem().getMetadata().getEvent().setInvitationStatus(EventVO.InvitationStatus.INVITED);
+        }
+        else
+        {
+            this.getPubItem().getMetadata().getEvent().setInvitationStatus(null);
+        }
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Invitationstatus in VO has been set to: '" + this.getPubItem().getMetadata().getEvent().getInvitationStatus() + "'");
+        }
+   }
+
+    public Hyperlink getLnkAccept()
+    {
+        return lnkAccept;
+    }
+
+    public void setLnkAccept(Hyperlink lnkAccept)
+    {
+        this.lnkAccept = lnkAccept;
+    }
+
+    public Hyperlink getLnkDelete()
+    {
+        return lnkDelete;
+    }
+
+    public void setLnkDelete(Hyperlink lnkDelete)
+    {
+        this.lnkDelete = lnkDelete;
+    }
+
+    public Hyperlink getLnkSave()
+    {
+        return lnkSave;
+    }
+
+    public void setLnkSave(Hyperlink lnkSave)
+    {
+        this.lnkSave = lnkSave;
+    }
+
+    public Hyperlink getLnkSaveAndSubmit()
+    {
+        return lnkSaveAndSubmit;
+    }
+
+    public void setLnkSaveAndSubmit(Hyperlink lnkSaveAndSubmit)
+    {
+        this.lnkSaveAndSubmit = lnkSaveAndSubmit;
+    }
+
+    public Option[] getLANGUAGE_OPTIONS()
+    {
+        return LANGUAGE_OPTIONS;
+    }
+
+    public void setLANGUAGE_OPTIONS(Option[] language_options)
+    {
+        LANGUAGE_OPTIONS = language_options;
+    }
+
+	public String getPubCollectionName() {
+		return pubCollectionName;
+	}
+
+	public void setPubCollectionName(String pubCollection) {
+		this.pubCollectionName = pubCollection;
+	}
+}

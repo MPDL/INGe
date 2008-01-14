@@ -1,0 +1,471 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
+package de.mpg.escidoc.pubman.util;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import javax.faces.component.UIComponent;
+import javax.faces.component.UISelectItems;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+import org.apache.log4j.Logger;
+import com.sun.rave.web.ui.component.DropDown;
+import com.sun.rave.web.ui.component.TextArea;
+import com.sun.rave.web.ui.component.TextField;
+import com.sun.rave.web.ui.model.Option;
+import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
+import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+
+/**
+ * Provides different utilities for all kinds of stuff.
+ * @author: Thomas Diebäcker, created 25.04.2007
+ * @version: $Revision: 1633 $ $LastChangedDate: 2007-11-29 15:16:57 +0100 (Thu, 29 Nov 2007) $
+ * Revised by DiT: 07.08.2007
+ */
+public class CommonUtils
+{
+    @SuppressWarnings("unused")
+    private static Logger logger = Logger.getLogger(CommonUtils.class);
+    private static final String NO_ITEM_SET = "-";
+    private static final String DATE_FORMAT = "yyyy-MM-dd";
+
+    //HTML escaped characters mapping
+    private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
+    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "&lt;br&gt;", "&lt;br&gt;" };
+
+    /**
+     * Converts a Set to an Array of Options (an empty Option is included at the beginning). This method is used to
+     * convert Enums into Options for dropDownLists.
+     * 
+     * @param set the Set to be converted
+     * @return an Array of Options
+     */
+    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Set set)
+    {
+        return convertToOptions(set, true);
+    }
+
+    /**
+     * Converts a Set to an Array of Options. This method is used to convert Enums into Options for dropDownLists.
+     * @param set the Set to be converted
+     * @param includeEmptyOption if TRUE an empty Option is added at the beginning of the list
+     * @return an Array of Options
+     */
+    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Set set, boolean includeEmptyOption)
+    {
+        List<com.sun.rave.web.ui.model.Option> options = new ArrayList<com.sun.rave.web.ui.model.Option>();
+
+        if (includeEmptyOption)
+        {
+            options.add(new com.sun.rave.web.ui.model.Option("", NO_ITEM_SET));
+        }
+
+        Iterator iter = set.iterator();
+        while (iter.hasNext())
+        {
+            options.add(new com.sun.rave.web.ui.model.Option(iter.next()));
+        }
+
+        return (com.sun.rave.web.ui.model.Option[]) options.toArray(new com.sun.rave.web.ui.model.Option[options.size()]);
+    }
+
+    /**
+     * Converts an Array of Objects to an Array of Options (an empty Option is included at the beginning). This method
+     * is used to convert Objects into Options for dropDownLists.
+     * @param objects the Array of Objects to be converted
+     * @return an Array of Options
+     */
+    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Object[] objects)
+    {
+        return convertToOptions(objects, true);
+    }
+
+    /**
+     * Converts an Array of Objects to an Array of Options. This method is used to convert Objects into Options for
+     * dropDownLists.
+     * @param objects the Array of Objects to be converted
+     * @return an Array of Options
+     */
+    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Object[] objects, boolean includeEmptyOption)
+    {
+        List<com.sun.rave.web.ui.model.Option> options = new ArrayList<com.sun.rave.web.ui.model.Option>();
+
+        if (includeEmptyOption)
+        {
+            options.add(new com.sun.rave.web.ui.model.Option("", NO_ITEM_SET));
+        }
+
+        for (int i = 0; i < objects.length; i++)
+        {
+            options.add(new com.sun.rave.web.ui.model.Option(objects[i]));
+        }
+
+        return (com.sun.rave.web.ui.model.Option[]) options.toArray(new com.sun.rave.web.ui.model.Option[options.size()]);
+    }
+
+    /**
+     * Returns all ISOLanguages, with "de" and "en" at the first positions.
+     * @return all ISOLanguages, with "de" and "en" at the first positions
+     */
+    public static Option[] getLanguageOptions()
+    {
+        Option[] isoLanguages = CommonUtils.convertToOptions(Locale.getISOLanguages(), false);
+
+        Option[] options = new Option[isoLanguages.length + 4];
+        options[0] = new Option("", NO_ITEM_SET);
+        options[1] = new Option("en");
+        options[2] = new Option("de");
+        options[3] = new Option("", NO_ITEM_SET);
+
+        for (int i = 0; i < isoLanguages.length; i++)
+        {
+            options[i + 4] = isoLanguages[i]; 
+        }
+
+        return options;
+    }
+
+    /**
+     * Returns the current value of a comboBox. Used in UIs.
+     * @param comboBox the comboBox for which the value should be returned
+     * @return the current value of the comboBox
+     */
+    public static String getUIValue(DropDown comboBox)
+    {
+        if (comboBox.getSubmittedValue() != null
+                && comboBox.getSubmittedValue() instanceof String[]
+                && ((String[]) comboBox.getSubmittedValue()).length > 0)
+        {
+            return ((String[]) comboBox.getSubmittedValue())[0];
+        }
+
+        return (String) comboBox.getSelected();
+    }
+
+    /**
+     * Returns the current value of a textfield. Used in UIs.
+     * @param textField the textField for which the value should be returned
+     * @return the current value of the textfield
+     */
+    public static String getUIValue(TextField textField)
+    {
+        if (textField.getSubmittedValue() != null
+                && textField.getSubmittedValue() instanceof String
+                && ((String) textField.getSubmittedValue()).length() > 0)
+        {
+            return ((String) textField.getSubmittedValue());
+        }
+
+        return (String) textField.getText();
+    }
+
+    /**
+     * Returns the current value of a textArea. Used in UIs.
+     * @param textArea the textArea for which the value should be returned
+     * @return the current value of the textArea
+     */
+    public static String getUIValue(TextArea textArea)
+    {
+        if (textArea.getSubmittedValue() != null
+                && textArea.getSubmittedValue() instanceof String
+                && ((String) textArea.getSubmittedValue()).length() > 0)
+        {
+            return ((String) textArea.getSubmittedValue());
+        }
+
+        return (String) textArea.getText();
+    }
+
+    /**
+     * Creates a unique id for GUI components.
+     * @param uiComponent the uiComponent for which an id should be created
+     * @return a unique id
+     */
+    public static String createUniqueId(UIComponent uiComponent)
+    {
+        UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
+
+        if (viewRoot == null)
+        {
+            viewRoot = new UIViewRoot();
+            FacesContext.getCurrentInstance().setViewRoot(viewRoot);
+        }
+
+        String id = viewRoot.createUniqueId() + "_" + uiComponent.getClass().getSimpleName() + "_" + uiComponent.hashCode() + "_" + Calendar.getInstance().getTimeInMillis();
+
+        return id;
+    }
+
+    /**
+     * Formats a date with the default format.
+     * @param date the date to be formated
+     * @return a formated String
+     */
+    public static String format(Date date)
+    {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(CommonUtils.DATE_FORMAT);
+        String dateString = simpleDateFormat.format(date);
+
+        return dateString;
+    }
+
+    /**
+     * Escapes problematic HTML characters ("less than", "greater than", ampersand, apostrophe and quotation mark).
+     *
+     * @param cdata A String that might contain problematic HTML characters.
+     * @return The escaped string.
+     */
+    public static String htmlEscape(String cdata)
+    {
+        // The escaping has to start with the ampsersand (&amp;, '&') !
+        for (int i = 0; i < problematicCharacters.length; i++)
+        {
+            cdata = change(cdata, problematicCharacters[i], escapedCharacters[i]);
+
+        }
+        return cdata;
+    }
+    
+    /**
+     * Changes all occurrences of oldPat to newPat
+     * 
+     * @param in A String that might contain problematic HTML characters.
+     * @param oldPat the old pattern to be escaped.
+     * @param newPat the new pattern to escape with.
+     * @return The escaped string.
+     */
+    private static String change(String in, String oldPat, String newPat)
+    {
+        if (in == null)
+        {
+            return null;
+        }
+        if (oldPat.length() == 0)
+        {
+            return in;
+        }
+        if (oldPat.length() == 1 && newPat.length() == 1)
+        {
+            return in.replace(oldPat.charAt(0), newPat.charAt(0));
+        }
+        if (in.indexOf(oldPat) < 0)
+        {
+            return in;
+        }
+        int lastIndex = 0;
+        int newIndex = 0;
+        StringBuffer newString = new StringBuffer();
+        for (;;)
+        {
+            newIndex = in.indexOf(oldPat, lastIndex);
+            if (newIndex != -1)
+            {
+                newString.append(in.substring(lastIndex, newIndex) + newPat);
+                lastIndex = newIndex + oldPat.length();
+
+            }
+            else
+            {
+                newString.append(in.substring(lastIndex));
+                break;
+            }
+        }
+        return newString.toString();
+    }
+
+    /**
+     * Converts an array of SelectItems to a SelectItemUI. This is used for items for comboboxes. 
+     * @param selectItems the array of SelectItems that should be converted
+     * @return a UISelectItems which can be added to a HtmlSelectOneMenu with HtmlSelectOneMenu.getChildren.add()
+     */
+    public static UISelectItems convertToSelectItemsUI(SelectItem[] selectItems)
+    {
+        UISelectItems uiSelectItems = new UISelectItems();         
+        List<SelectItem> selectItemList = new ArrayList<SelectItem>();
+        
+        for (int i=0; i<selectItems.length; i++)
+        {
+            selectItemList.add(selectItems[i]);
+        }
+        
+        uiSelectItems.setValue(selectItemList);
+
+        return uiSelectItems;
+    }        
+    
+    /**
+     * generates an HTML OutputText element. The method also tests if the string that should be placed into the element is empty. 
+     * If it is, a "&nbsp;" string is placed into.
+     * @author Tobias Schraut
+     * @param elementText the text that should placed into the html text element
+     * @return HtmlOutputText the generated and prepared html text element
+     */
+    public static HtmlOutputText getTextElementConsideringEmpty (String elementText)
+    {
+        HtmlOutputText text = new HtmlOutputText();
+        text.setId(CommonUtils.createUniqueId(text));
+        if(elementText != null)
+        {
+            if(!elementText.trim().equals(""))
+            {
+                text.setEscape(false);
+                elementText = elementText.replace("<", "&lt;");
+                elementText = elementText.replace(">", "&gt;");
+                elementText = elementText.replace("\n", "<br/>");
+                text.setValue(elementText);
+            }
+            else
+            {
+                text.setEscape(false);
+                text.setValue("&nbsp;");
+            }
+        }
+        else
+        {
+            text.setEscape(false);
+            text.setValue("&nbsp;");
+        }
+        return text;
+    }
+    
+    /**
+     * Converts a list of valueObjects to a list of ValueObjectWrappers.
+     * @param valueObjectList the list of valueObjects
+     * @return the list of ValueObjectWrappers
+     */
+    public static List<PubItemVOWrapper> convertToWrapperList(List<PubItemVO> valueObjectList)
+    {
+        List wrapperList = new ArrayList<ValueObjectWrapper>();
+        
+        for (int i = 0; i < valueObjectList.size(); i++)
+        {
+            wrapperList.add(new PubItemVOWrapper(valueObjectList.get(i)));
+        }
+        
+        return wrapperList;        
+    }
+
+    /**
+     * Converts a list of PubItemVOWrappers to a list of PubItemVOs.
+     * @param wrapperList the list of PubItemVOWrappers
+     * @return the list of PubItemVOs
+     */
+    public static List<PubItemVO> convertToPubItemList(List<PubItemVOWrapper> wrapperList)
+    {
+        List pubItemList = new ArrayList<ValueObject>();
+        
+        for (int i = 0; i < wrapperList.size(); i++)
+        {
+            pubItemList.add(wrapperList.get(i).getValueObject());
+        }
+        
+        return pubItemList;        
+    }
+    
+    /**
+     * Converts a list of valueObjects to a list of ValueObjectWrappers.
+     * @param valueObjectList the list of valueObjects
+     * @return the list of ValueObjectWrappers
+     */
+    public static List<PubCollectionVOWrapper> convertToPubCollectionVOWrapperList(List<PubCollectionVO> valueObjectList)
+    {
+        List wrapperList = new ArrayList<PubCollectionVOWrapper>();
+        
+        for (int i = 0; i < valueObjectList.size(); i++)
+        {
+            wrapperList.add(new PubCollectionVOWrapper(valueObjectList.get(i)));
+        }
+        
+        return wrapperList;        
+    }
+
+    /**
+     * Searches the given list for the item with the given ID.
+     * @param itemList the list to be searched
+     * @param itemID the itemID that is searched for
+     * @return the pubItem with the given ID or null if the item cannot be found in the given list
+     */
+    public static PubItemVO getItemByID(List<PubItemVO> itemList, String itemID)
+    {
+        for (int i = 0; i < itemList.size(); i++)
+        {
+            if (itemList.get(i).getReference().getObjectId().equals(itemID))
+            {
+                return itemList.get(i);
+            }
+        }
+        
+        logger.warn("Item with ID: " + itemID + " cannot be found in the list.");
+        return null;
+    }
+    
+    /**
+     * Limits a string to the given length (on word basis).
+     * @param string the string to be limited
+     * @param length the maximum length of the string
+     * @return the limited String
+     */
+    public static String limitString(String string, int length)
+    {        
+        String limitedString = new String();
+        String[] splittedString = string.split(" ");
+        
+        if (splittedString != null && splittedString.length > 0)
+        {
+            limitedString = splittedString[0];
+
+            for (int i = 1; i < splittedString.length; i++)
+            {
+                String newLimitedString = limitedString + " " + splittedString[i];
+                if (newLimitedString.length() <= length)
+                {
+                    limitedString = newLimitedString;
+                }
+                else
+                {
+                    return limitedString.concat("...");
+                }
+            }
+        }
+                
+        return limitedString;
+    }
+}

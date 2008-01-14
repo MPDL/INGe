@@ -1,0 +1,203 @@
+/*  JUST FORMS RELATED SETTINGS AND FORMATTING IN THIS FILE */
+
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
+
+/* FORM ELEMENTS GENERAL (SIMPLE SEARCH)*/
+
+input[type=submit]:hover { background-color: #ffffe0; }
+input[type=submit]:focus { background-color: #ddd; }
+
+/* FORM ELEMENTS FOR EDIT ITEM*/
+
+.content form {
+	margin: 1px 0em 0em 0em;
+	line-height: 140%;
+}
+
+.content legend {
+	position: absolute;    top: -0.9em;
+    left: 0em;	
+	padding: 0em 1em 0.5em 0.5em;
+	font-variant: small-caps;
+	font-size: 1.1em;
+	font-weight: bold;
+    background: #FFF;}
+			/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
+.content fieldset{    position: relative;
+    margin: 35px 0em 0em 0em;
+    max-width: 740px;
+    min-width: 250px;
+    padding: 20px 12px 12px 12px;
+	border: 1px #dfdee2 solid;
+	background-color: #fafafa;
+}
+.content .dashed{    border-bottom: 2px #dfdee2 dashed;
+}
+
+html > body fieldset{
+	background: white; /* vor IE verstecken */
+}
+
+.content label{
+	float: left;
+	display: block;
+	margin: 1em 1em 0 0;
+	font-weight: bold;
+}
+
+.addFieldset{
+	text-align: right;
+	background-color: green;
+}
+
+.addFieldsetInline{
+	display: block;
+	height: 10%; /*For Opera*/
+	padding: 6px;
+	border: 2px #dfdee2 dashed;
+	background-color: white;
+	margin: 1em 0em 0em -8px;	
+}
+
+/* INPUT ELEMENTS GENERAL*/
+.content input, .content select, .content submit, .content textarea{
+	border: 1px solid #9e9e9e;
+	color: black;
+	display: block;
+}
+
+.content select{
+width: 9em;
+}
+.content input[type=checkbox]{
+	border: none;
+}
+.content input[type=radio]{
+	border: none;
+}
+.content input[type=file] {
+	border: 1px solid #9e9e9e;
+	border-color: #9e9e9e;
+	background: white;
+	width: auto;
+}
+.content input[type=submit]:active, .content input[type=submit]:focus {
+	border: 1px solid #9e9e9e;
+	border-color: #9e9e9e;
+}
+.content input[type=text] {
+	border: 1px solid #9e9e9e;
+	border-color: #9e9e9e;
+	color: silver;
+	width: 17em;
+}
+.content .date input{
+width: 10em;
+}
+
+/* FORM FEEDBACK EFFECTS */
+
+.content input:hover, .content input:focus, .content textarea:focus, .content textarea:hover{
+	background-color: #ffffe0;
+	border: 1px solid black;
+	color: black;	text-decoration: none;
+}
+
+.submitButton, .inlineButton{
+	padding: 0px 6px 1px 6px;
+	border: 1px solid #9e9e9e;
+	background-color: #f5f5f5;	font-size: 0.9em;	font-weight: bold;	color: #515151;
+	height:18px;
+}
+
+.submitButton{
+float: right;
+}
+
+.inlineButton{
+float: right;
+margin-top: 18px;
+}
+
+.paginator{
+	position: relative;
+	padding: 3px;
+	margin: 1em 0px 1em 3em ;
+	text-align: left;}
+
+.paginator label{
+display: block;
+padding: 0;
+margin: 2px 12px 0 0;}
+.paginator a {
+	padding: 2px 5px 2px 5px;
+	margin-right: 2px;
+	border: 1px solid #ddd;
+	color: #aaa;
+}
+
+.paginator span.current {
+	padding: 2px 5px 2px 5px;
+	margin-right: 2px;
+	border: 1px #d5d5d5 solid;
+	font-weight: bold;
+	background-color: #f0f0f0;
+	color: #aaa;
+}
+.paginator span.disabled {
+	padding: 2px 5px 2px 5px;
+	margin-right: 2px;
+	border: 1px solid #f3f3f3;
+	color: #ccc;
+}
+
+.PaginatorHits {float:left; width: 60px; margin-right: 10px;}
+
+.paginator a:link, .paginator a:visited { color: #333; text-decoration: none; }
+.paginator a:hover { color: #888; text-decoration: underline; background-color: #ffffe0; margin-right: 2px;}
+.paginator a:active, .paginator a:focus { text-decoration: none; font-weight: normal; padding: 6px 5px 6px 5px; }
+
+
+/* SIMPLE SEARCH */
+
+.simpleSearchForm {
+	vertical-align: middle;
+	text-align: center;
+}
+
+/* ADVANCED SEARCH */
+
+
+
+
+
+/* EXPORT */

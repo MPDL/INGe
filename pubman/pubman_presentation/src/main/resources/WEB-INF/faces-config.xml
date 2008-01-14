@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE faces-config PUBLIC
+  "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
+  "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
+
+<!--
+ Copyright 2005 Sun Microsystems, Inc. All rights reserved.
+ SUN PROPRIETARY/CONFIDENTIAL. Use is subject to license terms.
+-->
+
+<faces-config>
+
+  <!-- Set default locale and add supported locales here... -->
+  <application>
+		<message-bundle>
+		de.mpg.escidoc.pubman.bundle.Label_de</message-bundle>
+		<message-bundle>
+		de.mpg.escidoc.pubman.bundle.Label_en</message-bundle>
+		<message-bundle>
+		de.mpg.escidoc.pubman.bundle.Messages_de</message-bundle>
+		<message-bundle>
+		de.mpg.escidoc.pubman.bundle.Messages_en</message-bundle>
+		<locale-config>
+		   <default-locale>en</default-locale>
+		   <supported-locale>de</supported-locale>
+		</locale-config>
+	</application>
+
+
+	<lifecycle>
+		<phase-listener id="debugRenderResponse">de.mpg.escidoc.pubman.util.RenderResponsePhaseListener</phase-listener>
+	</lifecycle>
+
+
+ 	<converter>
+  		<converter-id>EnumConverter</converter-id>
+  		<converter-class>de.mpg.escidoc.pubman.editItem.EnumConverter</converter-class>      
+	</converter>
+<!--	
+	<converter>
+  		<converter-for-class>java.lang.Enum</converter-for-class>
+  		<converter-class>de.mpg.escidoc.pubman.editItem.EnumConverter</converter-class>      
+	</converter>
+-->
+</faces-config>
