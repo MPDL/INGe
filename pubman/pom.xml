@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.mpg.escidoc</groupId>
+  <artifactId>pubman</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0</version>
+  <name>pubman</name>
+  <url>http://maven.apache.org</url>
+  <description>PubMan supports scientists and institutes in the management and the digital curation of their publications. This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max-Planck-Institutes, customization and configuration options throughout the solution features are of major importance.</description>
+ 
+   <issueManagement>
+      <system>Jira</system>
+      <url>http://zim01.gwdg.de:8080/browse/PUBMAN</url>
+   </issueManagement>     
+ 
+   <developers>
+      <developer>
+         <id>nab</id>
+         <name>Natasa Bulatovic</name>
+         <email>nab@mpdl.mpg.de</email>
+         <roles>
+            <role>Software development manager</role>
+            <role>Architect</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+        <developer>
+         <id>michael</id>
+         <name>Michael Franke</name>
+         <email>franke@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+         
+   </developers>
+
+   <mailingLists>
+     <mailingList>
+       <name>pubman project mailing list</name>
+       <subscribe>dev-subscribe@wakaleo.com</subscribe>
+       <unsubscribe>dev-unsubscribe@wakaleo.com</unsubscribe>
+      <post>dev@wakaleo.com</post>
+      <archive>http://mail-archives.wakaleo.com/modmbox/dev/</archive>
+     </mailingList>
+   </mailingLists>
+
+  <ciManagement>
+      <system>Continuum</system>
+      <url>http://localhost:8081/continuum</url>
+      <notifiers>
+         <notifier>
+            <type>mail</type>
+            <address>endres@mpdl.mpg.de</address>
+         </notifier>
+      </notifiers>
+   </ciManagement>
+
+  <modules>
+    <module>framework_access</module>
+    <module>common_logic</module>
+    <module>pubman_logic</module>
+    <module>pubman_presentation</module>
+  </modules>
+
+  <scm>
+    <connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk</connection>
+    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk</developerConnection>
+    <url>http://zim02.gwdg.de/view.cvs</url>
+  </scm>
+
+ <distributionManagement>
+    <snapshotRepository>
+      <id>deployment.webdav</id>
+      <url>dav:http://localhost:8080/archiva/repository/snapshots/</url>
+    </snapshotRepository>
+     <site> 
+    	<id> website</id> 
+    	<url> scp://localhost/var/www/pubman/</url> 
+     </site> 
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>deployment.webdav</id>
+      <name>Archiva Managed Internal Repository</name>
+      <url>http://localhost:8080/archiva/repository/internal</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+	  <repository>
+      <id>deployment.webdav</id>
+      <name>Archiva Managed Snapshot Repository</name>
+      <url>http://localhost:8080/archiva/repository/snapshots</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+
+  </repositories>
+
+ <build>
+      <extensions>
+        <extension>
+          <groupId>org.apache.maven.wagon</groupId>
+          <artifactId>wagon-webdav</artifactId>
+          <version>1.0-beta-2</version>
+        </extension>
+      </extensions>
+    </build>
+
+</project>
