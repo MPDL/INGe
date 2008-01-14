@@ -61,8 +61,8 @@
    </ciManagement>
 
   <modules>
-    <module>framework_access</module>
-    <module>common_logic</module>
+<!--    <module>framework_access</module>
+    <module>common_logic</module> -->
     <module>pubman_logic</module>
     <module>pubman_presentation</module>
   </modules>
