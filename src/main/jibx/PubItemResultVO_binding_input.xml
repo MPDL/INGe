@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for PubItemResultVO -->
+	<!-- Type: PubItemResultVO... -->
+	<mapping name="search-result-record" ns="http://www.escidoc.de/schemas/searchresult/0.3"
+		class="de.mpg.escidoc.services.common.valueobjects.PubItemResultVO"
+		extends="de.mpg.escidoc.services.common.valueobjects.PubItemVO">
+
+		<!-- Node: search-result-record.highlight -->
+		<structure name="highlight" ns="http://www.escidoc.de/schemas/searchresult/0.3" usage="optional">
+
+			<!-- Node: search-result-record.highlight.search-hit(*) -->
+			<!-- Field: PubItemResultVO.searchHitList [List<SearchHitVO>] -->
+			<collection field="searchHitList"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.searchHitVOListFactory">
+
+				<!-- Type: SearchHitVO... -->
+				<structure name="search-hit" ns="http://www.escidoc.de/schemas/searchresult/0.3"
+					type="de.mpg.escidoc.services.common.valueobjects.SearchHitVO">
+
+					<!-- Node: search-result-record.highlight.search-hit.@type -->
+					<!-- Field: SearchHitVO.type [SearchHitType] -->
+					<value style="attribute" name="type" field="type"
+						deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeSearchHitTypeEnum"
+						serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
+
+					<!-- Node: search-result-record.highlight.search-hit.@objid -->
+					<!-- Field: SearchHitVO.hitReference [PubFileRO] -->
+					<structure field="hitReference" type="de.mpg.escidoc.services.common.referenceobjects.PubFileRO"
+						usage="optional">
+						<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId"
+							usage="optional" />
+					</structure>
+
+					<!-- Node: search-result-record.highlight.search-hit.text-fragment(*) -->
+					<!-- Field: SearchHitVO.textFragmentList [List<TextFragmentVO>] -->
+					<collection field="textFragmentList"
+						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textFragmentVOListFactory">
+
+						<!-- Type: TextFragmentVO... -->
+						<structure name="text-fragment" ns="http://www.escidoc.de/schemas/searchresult/0.3"
+							type="de.mpg.escidoc.services.common.valueobjects.TextFragmentVO">
+
+							<!-- Node: search-result-record.highlight.search-hit.text-fragment.text-fragment-data -->
+							<!-- Field: TextFragmentVO.data [String] -->
+							<structure name="text-fragment-data" ns="http://www.escidoc.de/schemas/searchresult/0.3">
+								<value style="cdata" field="data" />
+							</structure>
+
+							<!-- Node: search-result-record.highlight.search-hit.text-fragment.hit-word(*) -->
+							<!-- Field: TextFragmentVO.hitWordList [List<HitwordVO>] -->
+							<collection field="hitwordList"
+								factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.hitwordVOListFactory">
+
+								<!-- Type: HitwordVO... -->
+								<structure name="hit-word" ns="http://www.escidoc.de/schemas/searchresult/0.3"
+									type="de.mpg.escidoc.services.common.valueobjects.HitwordVO">
+
+									<!-- Node: search-result-record.highlight.search-hit.text-fragment.hit-word.start-index -->
+									<!-- Field: HitwordVO.startIndex [int] -->
+									<value style="element" name="start-index"
+										ns="http://www.escidoc.de/schemas/searchresult/0.3" field="startIndex" />
+
+									<!-- Node: search-result-record.highlight.search-hit.text-fragment.hit-word.end-index -->
+									<!-- Field: HitwordVO.endIndex [int] -->
+									<value style="element" name="end-index"
+										ns="http://www.escidoc.de/schemas/searchresult/0.3" field="endIndex" />
+
+								</structure>
+
+							</collection>
+
+						</structure>
+
+					</collection>
+
+				</structure>
+
+			</collection>
+
+		</structure>
+
+		<!-- Node: search-result-record.item -->
+		<!-- embed the concrete mapping for the super class [PubItemVO] -->
+		<structure map-as="de.mpg.escidoc.services.common.valueobjects.PubItemVO" />
+
+
+	</mapping>
+
+</binding>

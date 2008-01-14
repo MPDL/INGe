@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:member-ref-list="http://www.escidoc.de/schemas/containerreflist/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.escidoc.de/schemas/containerreflist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+
+	<xs:element name="container-ref-list">
+		<xs:annotation>
+			<xs:documentation>
+				Following schema has no comments on elements and
+				attributes, because it used for output xml-streams only. 
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="container-ref" minOccurs="0" maxOccurs="unbounded">
+					<xs:complexType>
+						<xs:attribute ref="xlink:href" use="required"/>
+						<xs:attribute ref="xlink:title" use="required"/>
+						<xs:attribute ref="xlink:type" use="required"/>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+			<xs:attribute ref="xlink:title" use="required"/>
+			<xs:attribute ref="xlink:type" use="required"/>
+			<xs:attribute ref="xml:base" use="required"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

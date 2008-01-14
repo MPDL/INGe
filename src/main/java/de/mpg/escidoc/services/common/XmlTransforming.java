@@ -1,0 +1,310 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
+package de.mpg.escidoc.services.common;
+
+import java.net.URL;
+import java.util.List;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.RelationVO;
+import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+
+/**
+ * The interface with the XML transforming methods.
+ * 
+ * @author Johannes Mueller
+ * @revised by MuJ: 05.09.2007
+ * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ * @updated 05-Sep-2007 17:10:18
+ */
+public interface XmlTransforming
+{
+
+    /**
+     * The name of the EJB service.
+     */
+    public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/XmlTransforming";
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/useraccount/0.3"
+     * (user-account.xsd) to the corresponding <code>AccountUserVO</code>.
+     * 
+     * @param user XML String that is valid according to "http://www.escidoc.de/schemas/useraccount/0.3"
+     *            (user-account.xsd)
+     * @return The corresponding <code>AccountUserVO</code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public AccountUserVO transformToAccountUser(String user) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/organizationalunit/0.3"
+     * (organizational-unit.xsd) to the corresponding <code>AffiliationVO</code>.
+     * 
+     * @param organizationalUnit XML String that is valid according to
+     *            "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit)
+     * @return The corresponding <code>AffiliationVO</code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public AffiliationVO transformToAffiliation(String organizationalUnit) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc. de/schemas/organizationalunitlist/0.2"
+     * (organizational-unit-list.xsd) to the corresponding <code>List&lt;AffiliationVO></code>.
+     * 
+     * @param oranizationalUnitList XML String that is valid according to "http://www.escidoc.
+     *            de/schemas/organizationalunitlist/0.2" (organizational-unit-list.xsd)
+     * @return The corresponding <code>List&lt;AffiliationVO></code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public List<AffiliationVO> transformToAffiliationList(String oranizationalUnitList) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.
+     * de/schemas/organizationalunitpathlist/0.2" (organizational-unit-path-list.xsd) to the corresponding
+     * <code>List&lt;AffiliationPath></code>.
+     * 
+     * @param pathList XML String that is valid according to
+     *            "http://www.escidoc.de/schemas/organizationalunitpathlist/0.3" (organizational-unit-path-list.xsd)
+     * @return The corresponding <code>List&lt;AffiliationPath></code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public List<AffiliationPathVO> transformToAffiliationPathList(String pathList) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * This method gets as input a XML (as String) containing the existing citation styles and their file formats. It
+     * returns a list of <code>LayoutFormatVOs</code> according to the input.
+     * 
+     * @param xml XML (as String) containing the existing citation styles and their file formats
+     * @return List of <code>LayoutFormatVOs</code> according to the input
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public List<ExportFormatVO> transformToExportFormatVOList(String xml) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms a given <code>ExportFormatVO</code> to corresponding XML.
+     * 
+     * @param exportFormat The <code>ExportFormatVO</code>
+     * @return The corresponding XML
+     * @throws TechnicalException,
+     * @throws MarshallingException
+     */
+    public String transformToExportParams(ExportFormatVO exportFormat) throws TechnicalException, MarshallingException;
+
+    /**
+     * Transforms a given <code>FilterTaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,
+     * filter-containers.xsd, filter-contexts.xsd, filter-items.xsd, or filter-organizational-units.xsd respectively).
+     * 
+     * @param filter A <code>FilterTaskParamVO</code>
+     * @return Corresponding XML that is valid according to (filter.xsd, filter-containers.xsd, filter-contexts.xsd,
+     *         filter-items.xsd, or filter-organizational-units.xsd respectively)
+     * @throws TechnicalException
+     * @throws MarshallingException
+     */
+    public String transformToFilterTaskParam(FilterTaskParamVO filter) throws TechnicalException, MarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd) to
+     * the corresponding <code>GrantVO</code>.
+     * 
+     * @param xmlGrants XML String that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd)
+     * @return The corresponding <code>GrantVO</code>
+     */
+    public java.util.List<GrantVO> transformToGrantVOList(String xmlGrants) throws TechnicalException;
+
+    /**
+     * Transforms a given <code>PubItemVO</code> to corresponding XML that is valid according to "http://www.escidoc.
+     * de/schemas/item/0.3" (item.xsd).
+     * 
+     * @param pubItem A <code>PubItemVO</code>
+     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/item/0.3" (item.xsd)
+     * @throws TechnicalException
+     */
+    public String transformToItem(PubItemVO pubItem) throws TechnicalException;
+
+    /**
+     * Transforms a given <code>List&lt;PubItemVO></code> to corresponding XML that is valid according to "http://www.
+     * escidoc.de/schemas/itemlist/0.2" (item-list.xsd).
+     * 
+     * @param pubItemVOList A <code>List&lt;PubItemVO></code>
+     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2" (item-list.xsd)
+     * @throws TechnicalException
+     */
+    public String transformToItemList(java.util.List<PubItemVO> pubItemVOList) throws TechnicalException;
+
+    /**
+     * Not implemented yet.
+     * 
+     * @param lockInformation lockInformation
+     * @return Nothing valuable.
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public LockVO transformToLockVO(String lockInformation) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms a given <code>AffiliationVO</code> to corresponding XML that is valid according to
+     * "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd).
+     * 
+     * @param affiliation A <code>AffiliationVO</code>
+     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd)
+     * @throws TechnicalException
+     * @throws MarshallingException
+     */
+    public String transformToOrganizationalUnit(AffiliationVO affiliation) throws TechnicalException, MarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/context/0.3" (context.xsd) to
+     * the corresponding <code>PubCollectionVO</code>.
+     * 
+     * @param context XML String that is valid according to "http://www.escidoc.de/schemas/context/0.3" (context.xsd)
+     * @return The corresponding <code>PubCollectionVO</code>
+     * @throws TechnicalException
+     */
+    public PubCollectionVO transformToPubCollection(String context) throws TechnicalException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/contextlist/0.2"
+     * (context-list.xsd) to the corresponding <code>List&lt;PubCollectionVO></code>.
+     * 
+     * @param contextList XML String that is valid according to "http://www.escidoc.de/schemas/contextlist/0.2"
+     *            (context-list.xsd)
+     * @return The corresponding <code>List&lt;PubCollectionVO></code>
+     * @throws TechnicalException
+     */
+    public List<PubCollectionVO> transformToPubCollectionList(String contextList) throws TechnicalException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/item/0.2" (item. xsd) to the
+     * corresponding <code>PubItemVO</code>.
+     * 
+     * @param item XML String that is valid according to "http://www.escidoc.de/schemas/item/0.2" (item. xsd)
+     * @return The corresponding <code>PubItemVO</code>
+     * @throws TechnicalException
+     */
+    public PubItemVO transformToPubItem(String item) throws TechnicalException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2" (item-list.xsd)
+     * to the corresponding <code>List&lt;PubItemVO></code>.
+     * 
+     * @param itemList XML String that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2"
+     *            (item-list.xsd)
+     * @return The corresponding <code>List&lt;PubItemVO></code>
+     * @throws TechnicalException
+     */
+    public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/searchresult/0.3"
+     * (search-result.xsd) to the corresponding <code>PubItemResultVO</code>.
+     * 
+     * @param searchResultItem XML String that is valid according to "http://www.escidoc.de/schemas/searchresult/0.3"
+     *            (search-result.xsd)
+     * @return The corresponding <code>PubItemResultVO</code>
+     * @throws TechnicalException
+     */
+    public PubItemResultVO transformToPubItemResultVO(String searchResultItem) throws TechnicalException;
+
+    /**
+     * Transforms a given <code>TaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,
+     * filter- containers.xsd, filter-contexts.xsd, filter-items.xsd, or filter-organizational-units.xsd respectively).
+     * 
+     * @param taskParam A <code>TaskParamVO</code>
+     * @return Corresponding XML that is valid according to (filter.xsd, filter-containers.xsd, filter-contexts.xsd,
+     *         filter-items.xsd, or filter-organizational-units.xsd respectively)
+     * @throws TechnicalException
+     * @throws MarshallingException
+     */
+    public String transformToTaskParam(TaskParamVO taskParam) throws TechnicalException, MarshallingException;
+
+    /**
+     * Transforms a given <code>PidTaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,
+     * filter- containers.xsd, filter-contexts.xsd, filter-items.xsd, or filter-organizational-units.xsd respectively).
+     * 
+     * @param pidTaskParam A <code>PidTaskParamVO</code>
+     * @return Corresponding XML that is valid according to (filter.xsd, filter-containers.xsd, filter-contexts.xsd,
+     *         filter-items.xsd, or filter-organizational-units.xsd respectively)
+     * @throws TechnicalException
+     * @throws MarshallingException
+     */
+    public String transformToPidTaskParam(PidTaskParamVO pidTaskParam) throws TechnicalException, MarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/stagingfile/0.2"
+     * (staging-file.xsd) to the corresponding <code>java.net.URL</code>.
+     * 
+     * @param uploadResponse XML String that is valid according to "http://www.escidoc.de/schemas/stagingfile/0.2"
+     *            (staging-file.xsd)
+     * @return The corresponding <code>java.net.URL</code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public URL transformUploadResponseToFileURL(String uploadResponse) throws TechnicalException, UnmarshallingException;
+    
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.
+     * de/schemas/..." (version-history.xsd) to the corresponding
+     * <code>List<PubItemVersionVO></code>.
+     * @return The corresponding <code>List<PubItemVersionVO></code>
+     * 
+     * @param versionList XML String that is valid according to "http://www.escidoc.de/schemas/..." (version-history.xsd)
+     * @exception TechnicalException
+     */
+    public List<PubItemVersionVO> transformToPubItemVersionVOList(String versionList) throws TechnicalException;
+
+    /**
+     * Transforms an XML String to the corresponding <code>List<RelationVO></code>.
+     * @return The corresponding <code>List<RelationVO></code>
+     * 
+     * @param relationList
+     * @return The corresponding <code>List<RelationVO></code>
+     * @throws UnmarshallingException
+     */
+    public List<RelationVO> transformToRelationVOList(String relationList) throws UnmarshallingException;
+}

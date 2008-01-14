@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/image" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/image" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile, image
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="escidoctypes.xsd"/>
+	<xs:element name="image" type="ImageType"/>
+	<!--*******************************
+    ImageType
+    ********************************-->
+	<xs:complexType name="ImageType">
+		<xs:sequence>
+			<xs:element ref="dc:title" minOccurs="0"/>
+			<xs:element name="page-number" type="dc:SimpleLiteral"/>
+			<xs:element ref="dc:description" minOccurs="0"/>
+			<xs:element name="creator" type="ImageCreatorType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="location" type="dc:SimpleLiteral" minOccurs="0"/>
+			<xs:group ref="ImageDatesGroup" minOccurs="0"/>
+			<xs:element name="image-info" type="ImageInfoType"/>
+			<xs:element name="color-depth" type="escidoc:ColorDepthEnum" minOccurs="0"/>
+			<xs:element name="image-acquisition-device" type="escidoc:AcquisitionDeviceType" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="ImageTypeEnum" use="required"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<!--*******************************
+    ImageDatesGroup
+    ********************************-->
+	<xs:group name="ImageDatesGroup">
+		<xs:sequence>
+			<xs:element ref="dcterms:created" minOccurs="0"/>
+			<xs:element ref="dcterms:issued" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<!--*******************************
+    ImageCreatorType
+    ********************************-->
+	<xs:complexType name="ImageCreatorType">
+		<xs:group ref="escidoc:CreatorGroup"/>
+		<xs:attribute name="role" type="ImageCreatorRoleEnum" use="required"/>
+	</xs:complexType>
+	<!--*******************************
+    ImageInfoType
+    ********************************-->
+	<xs:complexType name="ImageInfoType">
+		<xs:sequence>
+			<xs:element name="original" type="escidoc:OriginalType"/>
+			<xs:element name="display" type="escidoc:DisplayType"/>
+		</xs:sequence>
+	</xs:complexType>
+	<!--*******************************
+    ImageTypeEnum
+    ********************************-->
+	<xs:simpleType name="ImageTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="figure"/>
+			<xs:enumeration value="illustration"/>
+			<xs:enumeration value="map"/>
+			<xs:enumeration value="page"/>
+			<xs:enumeration value="painting"/>
+			<xs:enumeration value="photograph"/>
+			<xs:enumeration value="picture"/>
+			<xs:enumeration value="drawing"/>
+			<xs:enumeration value="engravings"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    ImageCreatorRoleEnum
+    ********************************-->
+	<xs:simpleType name="ImageCreatorRoleEnum">
+		<xs:restriction base="escidoc:CreatorRoleEnum">
+			<xs:enumeration value="artist"/>
+			<xs:enumeration value="painter"/>
+			<xs:enumeration value="photographer"/>
+			<xs:enumeration value="illustrator"/>
+			<xs:enumeration value="publisher"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

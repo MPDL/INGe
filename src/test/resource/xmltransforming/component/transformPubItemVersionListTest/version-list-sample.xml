@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocVersions:version-history xml:base="http://192.129.1.111:8080" last-modification-date="2007-11-06T11:16:46.627Z"
+	xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:3" timestamp="2007-11-06T11:16:10.830Z"
+		xlink:href="/ir/item/escidoc:896:3" xlink:title="Version 3" xlink:type="simple">
+		<escidocVersions:pid timestamp="2007-11-06T11:16:48.455Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:3</escidocVersions:pid>
+		<escidocVersions:version-number>3</escidocVersions:version-number>
+		<escidocVersions:timestamp>2007-11-06T11:16:46.971Z</escidocVersions:timestamp>
+		<escidocVersions:version-status>released</escidocVersions:version-status>
+		<escidocVersions:valid-status>valid</escidocVersions:valid-status>
+		<escidocVersions:comment>Accepted</escidocVersions:comment>
+		<escidocVersions:events>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1194347807221">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v3e1194347807221</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>released</premis:eventType>
+				<premis:eventDateTime>2007-11-06T11:16:46.971Z</premis:eventDateTime>
+				<premis:eventDetail>Accepted</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1194347772315">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v3e1194347772315</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>submitted</premis:eventType>
+				<premis:eventDateTime>2007-11-06T11:16:12.080Z</premis:eventDateTime>
+				<premis:eventDetail>Submission during save released item.</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v3e1">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v3e1</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>update</premis:eventType>
+				<premis:eventDateTime>2007-11-06T11:16:10.830Z</premis:eventDateTime>
+				<premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+		</escidocVersions:events>
+	</escidocVersions:version>
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:2" timestamp="2007-11-05T12:56:42.502Z"
+		xlink:href="/ir/item/escidoc:896:2" xlink:title="Version 2" xlink:type="simple">
+		<escidocVersions:pid timestamp="2007-11-05T12:56:46.924Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:2</escidocVersions:pid>
+		<escidocVersions:version-number>2</escidocVersions:version-number>
+		<escidocVersions:timestamp>2007-11-05T12:56:45.424Z</escidocVersions:timestamp>
+		<escidocVersions:version-status>released</escidocVersions:version-status>
+		<escidocVersions:valid-status>valid</escidocVersions:valid-status>
+		<escidocVersions:comment>Test Accept</escidocVersions:comment>
+		<escidocVersions:events>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1194267405658">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v2e1194267405658</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>released</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:45.424Z</premis:eventDateTime>
+				<premis:eventDetail>Test Accept</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1194267403940">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v2e1194267403940</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>submitted</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:43.737Z</premis:eventDateTime>
+				<premis:eventDetail>Submission during save released item.</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v2e1">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v2e1</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>update</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:42.502Z</premis:eventDateTime>
+				<premis:eventDetail>ItemHandler.update()</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+		</escidocVersions:events>
+	</escidocVersions:version>
+	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:896:1" timestamp="2007-11-05T12:56:35.674Z"
+		xlink:href="/ir/item/escidoc:896:1" xlink:title="Version 1" xlink:type="simple">
+		<escidocVersions:pid timestamp="2007-11-05T12:56:39.393Z" user="escidoc:user42">hdl:someHandle/test/escidoc:896:1</escidocVersions:pid>
+		<escidocVersions:version-number>1</escidocVersions:version-number>
+		<escidocVersions:timestamp>2007-11-05T12:56:38.080Z</escidocVersions:timestamp>
+		<escidocVersions:version-status>released</escidocVersions:version-status>
+		<escidocVersions:valid-status>valid</escidocVersions:valid-status>
+		<escidocVersions:comment>testAcceptExistingReleasedPubItem</escidocVersions:comment>
+		<escidocVersions:events>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1194267398299">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v1e1194267398299</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>released</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:38.080Z</premis:eventDateTime>
+				<premis:eventDetail>testAcceptExistingReleasedPubItem</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1194267397080">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/version-history#v1e1194267397080</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>submitted</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:36.893Z</premis:eventDateTime>
+				<premis:eventDetail>testAcceptExistingReleasedPubItem</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+			<premis:event xmlns:premis="http://www.loc.gov/standards/premis/v1" xmlID="v1e1">
+				<premis:eventIdentifier>
+					<premis:eventIdentifierType>URL</premis:eventIdentifierType>
+					<premis:eventIdentifierValue>/ir/item/escidoc:896:1/version-history#v1e1</premis:eventIdentifierValue>
+				</premis:eventIdentifier>
+				<premis:eventType>create</premis:eventType>
+				<premis:eventDateTime>2007-11-05T12:56:35.674Z</premis:eventDateTime>
+				<premis:eventDetail>Object escidoc:896 created.</premis:eventDetail>
+				<premis:linkingAgentIdentifier xlink:href="/aa/user-account/escidoc:user2" xlink:title="Test Depositor Library" xlink:type="simple">
+					<premis:linkingAgentIdentifierType>escidoc-internal</premis:linkingAgentIdentifierType>
+					<premis:linkingAgentIdentifierValue>escidoc:user2</premis:linkingAgentIdentifierValue>
+				</premis:linkingAgentIdentifier>
+				<premis:linkingObjectIdentifier>
+					<premis:linkingObjectIdentifierType>escidoc-internal</premis:linkingObjectIdentifierType>
+					<premis:linkingObjectIdentifierValue>escidoc:896</premis:linkingObjectIdentifierValue>
+				</premis:linkingObjectIdentifier>
+			</premis:event>
+		</escidocVersions:events>
+	</escidocVersions:version>
+</escidocVersions:version-history>

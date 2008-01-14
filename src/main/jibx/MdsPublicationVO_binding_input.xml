@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
+	<!-- MdsPublicationVO relies on the "dcterms" prefix (=> DO NOT CHANGE!) -->
+	<namespace prefix="dcterms" uri="http://purl.org/dc/terms/" default="none" />
+	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
+	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
+	<namespace prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
+	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
+
+	<!--  -->
+	<!-- The bindings for escidocprofile.xsd -->
+	<!--  -->
+	<include path="CreatorVO_binding.xml" />
+	<include path="IdentifierVO_binding.xml" />
+	<include path="MetadataSetVO_binding.xml" />
+	<include path="OrganizationVO_binding.xml" />
+	<include path="PersonVO_binding.xml" />
+	<include path="PublishingInfoVO_binding.xml" />
+	<include path="ReferenceObject_binding.xml" />
+	<include path="SourceVO_binding.xml" />
+	<include path="SourceVO_binding_abstract.xml" />		
+	<include path="TextVO_binding.xml" />
+
+	<mapping name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+		class="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO"
+		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" ordered="false" allow-repeats="true">
+
+		<structure ordered="false" allow-repeats="true" usage="optional">
+
+			<!-- Node: item.md-records.md-record.publication.@type -->
+			<!-- Field: PubItemVO.metadata.genre [MdsPublicationVO.Genre] -->
+			<value style="attribute" name="type" field="genre"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+				usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.creator(*) -->
+			<!-- Field: PubItemVO.metadata.creators [java.util.ArrayList<CreatorVO>]-->
+			<collection field="creators"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory">
+				<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+					type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.title -->
+			<!-- Field: PubItemVO.metadata.title [TextVO] (inherited from superclass MetadataSetVO)-->
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
+
+
+			<!-- Node: item.md-records.md-record.publication.language(*) -->
+			<!-- Field: PubItemVO.metadata.language [List<String>]-->
+			<collection field="languages" factory="org.jibx.runtime.Utility.arrayListFactory" usage="optional">
+				<value style="element" name="language" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String" />
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.alternative(*) -->
+			<!-- Field: PubItemVO.metadata.alternativeTitles [List<TextVO>]-->
+			<collection field="alternativeTitles"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+				<structure name="alternative" ns="http://purl.org/dc/terms/"
+					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
+						usage="optional" />
+					<value style="text" field="value" usage="optional" />
+				</structure>
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.identifier(*) -->
+			<!-- Field: PubItemVO.metadata.identifiers [List<IdentifierVO>]-->
+			<collection field="identifiers"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+				<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.publishing-info -->
+			<!-- Field: PubItemVO.metadata.publishingInfo -->
+			<structure name="publishing-info" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+				field="publishingInfo" usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.created -->
+			<!-- Field: PubItemVO.metadata.dateCreated [String]-->
+			<value style="element" name="created" ns="http://purl.org/dc/terms/" field="dateCreated" usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.modified -->
+			<!-- Field: PubItemVO.metadata.dateModified [String]-->
+			<value style="element" name="modified" ns="http://purl.org/dc/terms/" field="dateModified" usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.dateSubmitted -->
+			<!-- Field: PubItemVO.metadata.dateSubmitted [String]-->
+			<value style="element" name="dateSubmitted" ns="http://purl.org/dc/terms/" field="dateSubmitted"
+				usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.dateAccepted -->
+			<!-- Field: PubItemVO.metadata.dateAccepted [String]-->
+			<value style="element" name="dateAccepted" ns="http://purl.org/dc/terms/" field="dateAccepted"
+				usage="optional" />
+                
+            <!-- Node: item.md-records.md-record.publication.published-online -->
+            <!-- Field: PubItemVO.metadata.datePublishedOnline [String]-->
+            <value style="element" name="published-online" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="datePublishedOnline" usage="optional" />    
+
+			<!-- Node: item.md-records.md-record.publication.issued -->
+			<!-- Field: PubItemVO.metadata.datePublishedInPrint [String]-->
+			<value style="element" name="issued" ns="http://purl.org/dc/terms/" field="datePublishedInPrint" usage="optional" />
+
+			<!-- Node: item.md-records.md-record.publication.review-method -->
+			<!-- Field: PubItemVO.metadata.reviewMethod [MdsPublicationVO.ReviewMethod] -->
+			<value style="element" name="review-method"
+				ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="reviewMethod"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeReviewMethodEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+				usage="optional" />
+
+
+			<!-- Node: item.md-records.md-record.publication.source(*) -->
+			<!-- Field: PubItemVO.metadata.sources [List<SourceVO>] -->
+			<collection field="sources"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.sourceVOListFactory" usage="optional">
+
+				<structure name="source" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+					map-as="SourceVO_abstract" />
+
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.event -->
+			<!-- Field: PubItemVO.metadata.event [EventVO] -->
+			<structure name="event" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="event"
+				ordered="false" allow-repeats="true" usage="optional">
+
+				<!-- Field: PubItemVO.metadata.event.title -->
+				<!-- Node: item.md-records.md-record.publication.event.title -->
+				<structure name="title" ns="http://purl.org/dc/elements/1.1/" field="title">
+					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
+						usage="optional" />
+					<value style="text" field="value" usage="optional" />
+				</structure>
+
+				<!-- Node: item.md-records.md-record.publication.event.alternative(*) -->
+				<!-- Field: PubItemVO.metadata.event.alternativeTitles -->
+				<collection field="alternativeTitles"
+					factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+					<structure name="alternative" ns="http://purl.org/dc/terms/"
+						type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+						<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
+							usage="optional" />
+						<value style="text" field="value" usage="optional" />
+					</structure>
+				</collection>
+
+				<!-- Node: item.md-records.md-record.publication.event.start-date -->
+				<!-- Field: PubItemVO.metadata.event.startDate -->
+				<value style="element" name="start-date" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+					field="startDate" usage="optional" />
+
+				<!-- Node: item.md-records.md-record.publication.event.end-date -->
+				<!-- Field: PubItemVO.metadata.event.endDate -->
+				<value style="element" name="end-date" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+					field="endDate" usage="optional" />
+
+				<!-- Node: item.md-records.md-record.publication.event.place -->
+				<!-- Field: PubItemVO.metadata.event.place [TextVO] -->
+                <structure name="place" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="place" usage="optional"/>
+
+				<!-- Node: item.md-records.md-record.publication.event.invitation-status -->
+				<!-- Field: PubItemVO.metadata.event.invitationStatus -->
+				<value style="element" name="invitation-status"
+					ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="invitationStatus"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeInvitationStatusEnum"
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+					usage="optional" />
+
+			</structure>
+
+
+			<!-- Node: item.md-records.md-record.publication.total-number-of-pages -->
+			<!-- Field: PubItemVO.metadata.totalNumberOfPages [String] -->
+			<value style="element" name="total-number-of-pages"
+				ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" field="totalNumberOfPages" usage="optional" />
+
+
+			<!-- Node: item.md-records.md-record.publication.degree -->
+			<!-- Field: PubItemVO.metadata.degree [MdsPublicationVO.DegreeType] -->
+			<value style="element" name="degree" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+				field="degree" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDegreeTypeEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+				usage="optional" />
+
+
+			<!-- Node: item.md-records.md-record.publication.abstract(*) -->
+			<!-- Field: PubItemVO.metadata.abstracts [List<TextVO>] -->
+			<collection field="abstracts"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+				<structure name="abstract" ns="http://purl.org/dc/terms/"
+					type="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO">
+					<value style="attribute" name="lang" ns="http://www.w3.org/XML/1998/namespace" field="language"
+						usage="optional" />
+					<value style="text" field="value" usage="optional" />
+				</structure>
+			</collection>
+
+
+			<!-- Node: item.md-records.md-record.publication.subject -->
+			<!-- Field: PubItemVO.metadata.subject [TextVO] -->
+            <structure name="subject" ns="http://purl.org/dc/elements/1.1/" field="subject" usage="optional"/>
+
+
+			<!-- Node: item.md-records.md-record.publication.tableOfContents -->
+			<!-- Field: PubItemVO.metadata.tableOfContents [TextVO] -->
+			<structure name="tableOfContents" ns="http://purl.org/dc/terms/" field="tableOfContents" usage="optional"/>
+
+
+			<!-- Node: item.md-records.md-record.publication.location -->
+			<!-- Field: PubItemVO.metadata.location [String] -->
+			<value style="element" name="location" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+				field="location" usage="optional" />
+
+		</structure>
+	</mapping>
+</binding>

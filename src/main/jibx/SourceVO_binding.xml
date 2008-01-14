@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+	<!-- concrete mapping for SourceVO -->
+	<mapping name="source" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+		class="de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO" ordered="false" allow-repeats="true">
+		<!--
+			The following value element needs this dummy constructor in TextVO:
+			/**
+			* Dummy constructor needed by JiBX
+			*/
+			public TextVO(String s)
+			{
+			// Do nothing
+			}      
+		-->
+
+		<structure name="title" ns="http://purl.org/dc/elements/1.1/" field="title" />
+
+		<collection field="alternativeTitles"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.textVOListFactory" usage="optional">
+			<structure name="alternative" ns="http://purl.org/dc/terms/"
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.TextVO" />
+		</collection>
+
+		<collection field="creators"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.creatorVOListFactory" usage="optional">
+			<structure name="creator" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+				type="de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO" usage="optional" />
+		</collection>
+
+		<value style="element" name="volume" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="volume"
+			usage="optional" />
+
+		<value style="element" name="issue" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" field="issue"
+			usage="optional" />
+
+		<value style="element" name="start-page" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			field="startPage" usage="optional" />
+
+		<value style="element" name="end-page" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			field="endPage" usage="optional" />
+
+		<value style="element" name="sequence-number" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			field="sequenceNumber" usage="optional" />
+
+		<structure name="publishing-info" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			field="publishingInfo" usage="optional" />
+
+		<collection field="identifiers"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+			<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+				map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
+		</collection>
+
+		<collection field="sources"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.sourceVOListFactory" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO" />
+		</collection>
+
+	</mapping>
+</binding>

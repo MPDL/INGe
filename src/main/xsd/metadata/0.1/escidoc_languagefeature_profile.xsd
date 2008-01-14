@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/languagefeature" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/languagefeature" elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="../../soap/common/0.3/xlink.xsd"/>
+	<xs:element name="language-feature" type="LanguageFeatureType"/>
+	<!--*******************************
+      Language Feature Type
+    ********************************-->
+	<xs:complexType name="LanguageFeatureType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element name="value" type="ValueType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ValueType">
+		<xs:sequence>
+			<xs:element name="language" minOccurs="0" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute ref="xlink:href" use="required"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="id" use="required"/>
+		<xs:attribute name="description" use="required"/>
+	</xs:complexType>
+</xs:schema>

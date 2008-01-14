@@ -1,0 +1,274 @@
+<search-result:search-result-record
+	xml:base="http://www.escidoc.de/" 	
+    xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
+    <search-result:highlight>
+        <search-result:search-hit type="metadata">
+            <search-result:text-fragment>
+                <search-result:text-fragment-data><![CDATA[> <escidocItem:context xlink:type="simple" xlink:title="PubMan Test Collection &amp;apos; &amp;gt;]]></search-result:text-fragment-data>
+                <search-result:hit-word>
+                    <search-result:start-index>63</search-result:start-index>
+                    <search-result:end-index>66</search-result:end-index>
+                </search-result:hit-word>
+            </search-result:text-fragment>
+            <search-result:text-fragment>
+                <search-result:text-fragment-data><![CDATA[ xlink:title="unknown" xlink:href="/aa/user-account/escidoc:user2"/> <escidocItem:comment>submit test]]></search-result:text-fragment-data>
+                <search-result:hit-word>
+                    <search-result:start-index>97</search-result:start-index>
+                    <search-result:end-index>100</search-result:end-index>
+                </search-result:hit-word>
+            </search-result:text-fragment>
+            <search-result:text-fragment>
+                <search-result:text-fragment-data><![CDATA[ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"> <escidoc:complete-name/> <escidoc:family-name>Tester]]></search-result:text-fragment-data>
+                <search-result:hit-word>
+                    <search-result:start-index>119</search-result:start-index>
+                    <search-result:end-index>124</search-result:end-index>
+                </search-result:hit-word>
+            </search-result:text-fragment>
+            <search-result:text-fragment>
+                <search-result:text-fragment-data><![CDATA[> <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"" xml:lang="en">Test ScT 01</dc:title> <dc:language]]></search-result:text-fragment-data>
+                <search-result:hit-word>
+                    <search-result:start-index>70</search-result:start-index>
+                    <search-result:end-index>73</search-result:end-index>
+                </search-result:hit-word>
+            </search-result:text-fragment>
+        </search-result:search-hit>
+    </search-result:highlight>
+    <escidocItem:item last-modification-date="2007-10-05T12:02:01.546Z" objid="escidoc:22" 
+        xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3">
+        <escidocItem:properties>
+            <escidocItem:creation-date>2007-10-05T11:24:45.000Z</escidocItem:creation-date>
+            <escidocItem:created-by objid="escidoc:user2"/>
+            <escidocItem:public-status>released</escidocItem:public-status>
+            <escidocItem:context objid="escidoc:persistent3"/>
+            <escidocItem:content-model objid="escidoc:persistent4"/>
+            <escidocItem:lock-status>unlocked</escidocItem:lock-status>
+            <escidocItem:version objid="escidoc:22:5">
+                <escidocItem:number>5</escidocItem:number>
+                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
+                <escidocItem:version-status>released</escidocItem:version-status>
+                <escidocItem:valid-status>valid</escidocItem:valid-status>
+                <escidocItem:modified-by objid="escidoc:user2"/>
+                <escidocItem:comment>submit test</escidocItem:comment>
+            </escidocItem:version>
+            <escidocItem:latest-version objid="escidoc:22:5">
+                <escidocItem:number>5</escidocItem:number>
+                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
+            </escidocItem:latest-version>
+            <escidocItem:latest-release objid="escidoc:22:5">
+                <escidocItem:number>5</escidocItem:number>
+                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
+                <escidocItem:pid />
+            </escidocItem:latest-release>
+            <escidocItem:content-model-specific />
+        </escidocItem:properties>
+         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+            <escidocMetadataRecords:md-record name="escidoc">
+                <escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/">
+                    <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:complete-name />
+                            <escidoc:family-name>Tester</escidoc:family-name>
+                            <escidoc:given-name>Franz</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>MPI for Psycholinguistics, Max Planck Society</escidoc:organization-name>
+                                <escidoc:identifier>escidoc:persistent14</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Projekt X, MPI for the History of Science, Max Planck Society</escidoc:organization-name>
+                                <escidoc:address>Hauptstr. 7, 12345, Hintertupfingen, DE</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent31</escidoc:identifier>
+                            </escidoc:organization>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Projekt X, MPI f&#xFC;r Plasmaphysik, Max Planck Society</escidoc:organization-name>
+                                <escidoc:address>Hauptstr. 7, 12345, Hintertupfingen, DE</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent31</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <publication:creator role="painter" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:organization-name>Malorganisation</escidoc:organization-name>
+                            <escidoc:address>Malstr. 11, 11223 Farbhausen</escidoc:address>
+                        </escidoc:organization>
+                    </publication:creator>
+                    <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:complete-name />
+                            <escidoc:family-name>Ersteller</escidoc:family-name>
+                            <escidoc:given-name>Hans</escidoc:given-name>
+                            <escidoc:organization>
+                                <escidoc:organization-name>Department of evolutionary ecology, MPI for limnology, Max Planck Society</escidoc:organization-name>
+                                <escidoc:address>August-Thienemann-Stra&#xDF;e 2, 24306, Pl&#xF6;n, DE</escidoc:address>
+                                <escidoc:identifier>escidoc:persistent36</escidoc:identifier>
+                            </escidoc:organization>
+                        </escidoc:person>
+                    </publication:creator>
+                    <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Test ScT 01</dc:title>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">en</dc:language>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">de</dc:language>
+                    <dc:language xsi:type="dcterms:RFC3066" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/">ae</dc:language>
+                    <dcterms:alternative xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">Alternative ScT 01</dcterms:alternative>
+                    <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">nochn alternativer Titel</dcterms:alternative>
+                    <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">12761-45</dc:identifier>
+                    <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">65</dc:identifier>
+                    <dc:identifier xsi:type="eidt:ISSN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">5646545-855</dc:identifier>
+                    <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Testpublisher</dc:publisher>
+                        <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Garching-Itzehoe-Capreton</escidoc:place>
+                        <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">One and a half</escidoc:edition>
+                    </publication:publishing-info>
+                    <dcterms:created xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:created>
+                    <dcterms:modified xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:modified>
+                    <dcterms:dateSubmitted xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:dateSubmitted>
+                    <dcterms:dateAccepted xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:dateAccepted>
+                    <dcterms:issued xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/">2007-06-28</dcterms:issued>
+                    <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">internal</publication:review-method>
+                    <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">source 1</dc:title>
+                        <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">quelle 1</dcterms:alternative>
+                        <escidoc:creator role="author" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:person>
+                                <escidoc:complete-name />
+                                <escidoc:family-name>Hanz</escidoc:family-name>
+                                <escidoc:given-name>Franz</escidoc:given-name>
+                                <escidoc:organization>
+                                    <escidoc:organization-name>Department Research and Development, Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
+                                    <escidoc:address>Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
+                                    <escidoc:identifier>escidoc:persistent1</escidoc:identifier>
+                                </escidoc:organization>
+                                <escidoc:organization>
+                                    <escidoc:organization-name>Department 1 - Structural Changes in Systems of Knowledge, MPI for the History of Science, Max Planck Society</escidoc:organization-name>
+                                    <escidoc:identifier>escidoc:persistent33</escidoc:identifier>
+                                </escidoc:organization>
+                            </escidoc:person>
+                        </escidoc:creator>
+                        <escidoc:creator role="illustrator" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:organization>
+                                <escidoc:organization-name>Illustra</escidoc:organization-name>
+                                <escidoc:address>Strasse 23, 12345 Ort</escidoc:address>
+                            </escidoc:organization>
+                        </escidoc:creator>
+                        <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:volume>
+                        <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">12</escidoc:issue>
+                        <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1</escidoc:start-page>
+                        <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">87</escidoc:end-page>
+                        <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">123</escidoc:sequence-number>
+                        <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">ersteller der ersten quelle</dc:publisher>
+                            <escidoc:place>Ort der ersten quelle</escidoc:place>
+                            <escidoc:edition>edition 1</escidoc:edition>
+                        </escidoc:publishing-info>
+                        <dc:identifier xsi:type="eidt:ISBN" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">465465-88</dc:identifier>
+                        <dc:identifier xsi:type="eidt:ESCIDOC" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes">99</dc:identifier>
+                    </publication:source>
+                    <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Source 2</dc:title>
+                        <dcterms:alternative xml:lang="" xmlns:dcterms="http://purl.org/dc/terms/">Quelle 2</dcterms:alternative>
+                        <escidoc:creator role="editor" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:person>
+                                <escidoc:complete-name />
+                                <escidoc:family-name>Van Haaren</escidoc:family-name>
+                                <escidoc:given-name>Hinni</escidoc:given-name>
+                                <escidoc:organization>
+                                    <escidoc:organization-name>Department Genes and behavior, MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
+                                    <escidoc:address>Am Fassberg 11, 37077, G&#xF6;ttingen, DE</escidoc:address>
+                                    <escidoc:identifier>escidoc:persistent34</escidoc:identifier>
+                                </escidoc:organization>
+                                <escidoc:organization>
+                                    <escidoc:organization-name>Research Group Solid State NMR, MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
+                                    <escidoc:address>Am Fassberg 11, 37077, G&#xF6;ttingen, DE</escidoc:address>
+                                    <escidoc:identifier>escidoc:persistent35</escidoc:identifier>
+                                </escidoc:organization>
+                            </escidoc:person>
+                        </escidoc:creator>
+                        <escidoc:creator role="photographer" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <escidoc:person>
+                                <escidoc:complete-name />
+                                <escidoc:family-name>Fahrl&#xE4;ssig</escidoc:family-name>
+                                <escidoc:given-name>Fred</escidoc:given-name>
+                                <escidoc:organization>
+                                    <escidoc:organization-name>Research Group Solid State NMR, MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
+                                    <escidoc:address>Am Fassberg 11, 37077, G&#xF6;ttingen, DE</escidoc:address>
+                                    <escidoc:identifier>escidoc:persistent35</escidoc:identifier>
+                                </escidoc:organization>
+                            </escidoc:person>
+                        </escidoc:creator>
+                        <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">45</escidoc:volume>
+                        <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">32</escidoc:issue>
+                        <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2</escidoc:start-page>
+                        <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">11</escidoc:end-page>
+                        <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">445</escidoc:sequence-number>
+                        <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+                            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Ersteller der zweiten Quelle</dc:publisher>
+                            <escidoc:place>Ort der zweiten Quelle</escidoc:place>
+                            <escidoc:edition>2</escidoc:edition>
+                        </escidoc:publishing-info>
+                    </publication:source>
+                    <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+                        <dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">Title of the event</dc:title>
+                        <dcterms:alternative xml:lang="de" xmlns:dcterms="http://purl.org/dc/terms/">alternativer Titel der Veranstaltung</dcterms:alternative>
+                        <escidoc:start-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2007-08-10</escidoc:start-date>
+                        <escidoc:end-date xsi:type="dcterms:W3CDTF" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">2007-08-13</escidoc:end-date>
+                        <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Washington</escidoc:place>
+                        <escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+                    </publication:event>
+                    <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">899</publication:total-number-of-pages>
+                    <publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">diploma</publication:degree>
+                    <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">the abstract of the item</dcterms:abstract>
+                    <dcterms:abstract xml:lang="en" xmlns:dcterms="http://purl.org/dc/terms/">another abstract</dcterms:abstract>
+                    <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">The subject of the item</dc:subject>
+                    <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/">the table of contents of the item</dcterms:tableOfContents>
+                    <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">Linnemann Buecherei Paderborn</publication:location>
+                </escidocMetadataProfile:publication>
+            </escidocMetadataRecords:md-record>
+        </escidocMetadataRecords:md-records>
+        <escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+            <escidocComponents:component objid="escidoc:23" last-modification-date="2007-10-05T12:02:01.546Z">
+                <escidocComponents:properties>
+                    <escidocComponents:creation-date>2007-10-05T11:24:42.546Z</escidocComponents:creation-date>
+                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <escidocComponents:description>top01</escidocComponents:description>                    
+                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
+                    <escidocComponents:pid>PID0815</escidocComponents:pid>
+                    <escidocComponents:content-category>abstract</escidocComponents:content-category>
+                    <escidocComponents:file-name>top01.pdf</escidocComponents:file-name>
+                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
+                    <escidocComponents:file-size>234840</escidocComponents:file-size>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:23/content" xlink:title="top01.pdf" xlink:type="simple" />
+            </escidocComponents:component>
+            <escidocComponents:component objid="escidoc:24" last-modification-date="2007-10-05T12:02:01.546Z">
+                <escidocComponents:properties>
+                    <escidocComponents:creation-date>2007-10-05T11:30:36.203Z</escidocComponents:creation-date>
+                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <escidocComponents:description>top02a</escidocComponents:description>                    
+                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
+                    <escidocComponents:content-category>pre-print</escidocComponents:content-category>
+                    <escidocComponents:file-name>top02a.pdf</escidocComponents:file-name>
+                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
+                    <escidocComponents:file-size>50220</escidocComponents:file-size>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:24/content" xlink:title="top02a.pdf" xlink:type="simple" />
+            </escidocComponents:component>
+            <escidocComponents:component objid="escidoc:25" last-modification-date="2007-10-05T12:02:01.546Z">
+                <escidocComponents:properties>
+                    <escidocComponents:creation-date>2007-10-05T11:30:36.765Z</escidocComponents:creation-date>
+                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <escidocComponents:description>top05</escidocComponents:description>
+                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+                    <escidocComponents:visibility>public</escidocComponents:visibility>
+                    <escidocComponents:content-category>post-print</escidocComponents:content-category>
+                    <escidocComponents:file-name>top05.pdf</escidocComponents:file-name>
+                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
+                    <escidocComponents:file-size>76445</escidocComponents:file-size>
+                </escidocComponents:properties>
+                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:25/content" xlink:title="top05.pdf" xlink:type="simple" />
+            </escidocComponents:component>
+        </escidocComponents:components>
+    </escidocItem:item>
+</search-result:search-result-record>

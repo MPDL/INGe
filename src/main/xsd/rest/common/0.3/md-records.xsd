@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/metadatarecords/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xs:element name="md-records">
+		<xs:annotation>
+			<xs:documentation>
+				Following you will find information which elements and
+				attributes are "required", "optional" and "not allowed"
+				in the input XML-stream when creating or updating an
+				item. Also there is information which elements and
+				attributes are contained in the output XML-stream. Each
+				element and attribute contains an annotation with theses
+				rules.
+			</xs:documentation>
+            <xs:documentation><create>required</create><update>required</update>
+            <comment>For now, only one md-record is allowed that is required.</comment></xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="md-records:md-record"/>
+			</xs:sequence>
+
+			<xs:attributeGroup ref="common-types:readOnlyESciDocResourceLinkAttributes"/>
+			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+
+		</xs:complexType>
+	</xs:element>
+	
+	
+	<xs:element name="md-record">
+					<xs:annotation>
+            <xs:documentation><create>required</create><update>required</update>
+            <comment>For now, only one md-record is allowed that is required.</comment>
+            </xs:documentation></xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any processContents="skip"/>
+			</xs:sequence>
+
+			<xs:attributeGroup ref="common-types:readOnlyESciDocResourceLinkAttributes"/>
+			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+			<xs:attribute name="schema">
+				<xs:annotation>
+            <xs:documentation><create>optional</create><update>optional</update></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="name" type="md-records:nameType" use="required">
+				<xs:annotation>
+            <xs:documentation><create>required</create><update>required</update></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+			<xs:attribute name="type" use="optional">
+				<xs:annotation>
+            <xs:documentation><create>optional</create><update>optional</update></xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:simpleType name="nameType">
+		<xs:restriction base="xs:string">
+			<xs:pattern value="escidoc"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

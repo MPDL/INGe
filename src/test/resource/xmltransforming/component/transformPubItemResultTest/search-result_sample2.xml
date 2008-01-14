@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search-result:search-result-record xml:base="http://www.escidoc.de/" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
+	<search-result:highlight>
+		<search-result:search-hit type="fulltext" objid="escidoc:442">
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[„Schönen guten Tag“, antwortete der kleine Prinz, der sich umdrehte, aber nichts sah.]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>1</search-result:start-index>
+					<search-result:end-index>5</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>6</search-result:start-index>
+					<search-result:end-index>9</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[Der Fuchs schien aufgeregt: „Auf einem
+„Ja“
+„Gibt es Jäger auf deinem Planeten?“
+„Nein“
+„Das ist interessant. Und Hühner?“]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>8</search-result:start-index>
+					<search-result:end-index>14</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>19</search-result:start-index>
+					<search-result:end-index>26</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+		</search-result:search-hit>
+		
+		<search-result:search-hit type="metadata">
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[<escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+<escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+<escidoc:organization>
+<escidoc:organization-name xml:lang="fr">
+Facultad de Ciencias]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>1</search-result:start-index>
+					<search-result:end-index>5</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>6</search-result:start-index>
+					<search-result:end-index>9</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+			<search-result:text-fragment>
+				<search-result:text-fragment-data><![CDATA[<escidoc:pseudonym xml:lang="it">Humphrey C.</escidoc:pseudonym>
+<escidoc:pseudonym xml:lang="it">Iklos Makaba</escidoc:pseudonym>
+<escidoc:organization>
+<escidoc:organization-name xml:lang="fr">
+Facultad de Ciencias]]></search-result:text-fragment-data>
+				<search-result:hit-word>
+					<search-result:start-index>8</search-result:start-index>
+					<search-result:end-index>14</search-result:end-index>
+				</search-result:hit-word>
+				<search-result:hit-word>
+					<search-result:start-index>19</search-result:start-index>
+					<search-result:end-index>26</search-result:end-index>
+				</search-result:hit-word>
+			</search-result:text-fragment>
+		</search-result:search-hit>
+	</search-result:highlight>
+	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441"
+		xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3">
+		<escidocItem:properties>
+			<escidocItem:creation-date>2007-03-21T00:00:00.0Z</escidocItem:creation-date>
+			<escidocItem:created-by objid="escidoc:user1"/>
+			<escidocItem:public-status>released</escidocItem:public-status>
+			<escidocItem:context objid="escidoc:persistent3"/>
+			<escidocItem:content-model objid="escidoc:persistent4"/>
+			<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+			<escidocItem:content-model-specific />
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records
+			xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+			<escidocMetadataRecords:md-record name="escidoc">
+				<escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+					<publication:creator role="author" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+						<escidoc:person>
+							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+							<escidoc:family-name>Meier</escidoc:family-name>
+							<escidoc:given-name>Hans</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+					<dc:title xml:lang="en" xmlns:dc="http://purl.org/dc/elements/1.1/">PubMan: The first of all.</dc:title>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<escidocComponents:components
+			xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:00:00.0Z">
+				<escidocComponents:properties>
+					<escidocComponents:creation-date>2007-03-21T00:00:00.0Z</escidocComponents:creation-date>
+					<escidocComponents:created-by objid="escidoc:user1"/>
+					<escidocComponents:description>Ein Farbtest.</escidocComponents:description>					
+					<escidocComponents:valid-status>valid</escidocComponents:valid-status>
+					<escidocComponents:visibility>public</escidocComponents:visibility>
+					<escidocComponents:pid>PIDBLA</escidocComponents:pid>
+					<escidocComponents:content-category>abstract</escidocComponents:content-category>
+					<escidocComponents:file-name>farbtest.gif</escidocComponents:file-name>
+					<escidocComponents:file-size>0</escidocComponents:file-size>
+				</escidocComponents:properties>
+				<escidocComponents:content xlink:href="/ir/item/escidoc:441/components/component/escidoc:442/content" xlink:title="farbtest.gif" xlink:type="simple" />
+			</escidocComponents:component>
+		</escidocComponents:components>
+	</escidocItem:item>
+</search-result:search-result-record>

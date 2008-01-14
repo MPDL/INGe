@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3" xmlns:workflow-definition-list="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/workflow-definition/0.3/workflow-definition.xsd" namespace="http://www.escidoc.de/schemas/workflowdefinition/0.3"/>
+	<xs:element name="workflow-type-list">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					List of workflow definitions.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="workflow-definition:workflow-definition" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								workflow-definition in workflow-definition-schema.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
