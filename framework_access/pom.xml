@@ -10,6 +10,11 @@
   <name>framework_access</name>
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
+  <scm>
+    <connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/framework_access</connection>
+    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/framework_access</developerConnection>
+    <url>http://zim02.gwdg.de/view.cvs</url>
+  </scm>
   <build>
     <plugins>
       <plugin>
