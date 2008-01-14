@@ -70,12 +70,17 @@
 
   <scm>
     <connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
-    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/common_services</developerConnection>
-    <url>http://zim02.gwdg.de/view.cvs</url>
+    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
+    <url>http://zim02.gwdg.de/common/trunk/common_services</url>
   </scm>
 
  <distributionManagement>
-    <snapshotRepository>
+   <repository>
+       <id>deployment.webdav</id>
+        <name>Archiva deployment</name>
+        <url>dav:http://localhost:8080/archiva/repository/internal/</url>
+        </repository>
+   <snapshotRepository>
       <id>deployment.webdav</id>
       <url>dav:http://localhost:8080/archiva/repository/snapshots/</url>
     </snapshotRepository>
