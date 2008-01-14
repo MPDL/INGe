@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/collection" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/collection" elementFormDefault="qualified" attributeFormDefault="unqualified">
+  <xs:annotation>
+    <xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile, collection
+
+    </xs:documentation>
+  </xs:annotation>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+  <xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="escidoctypes.xsd"/>
+
+  <xs:element name="collection" type="CollectionType"/>
+
+  <!--*****************************************
+    CollectionType
+    ***********************************-->
+  <xs:complexType name="CollectionType">
+    <xs:sequence>
+      <xs:element ref="dc:title"/>
+      <xs:element ref="dc:description" minOccurs="0"/>
+      <xs:element name="partner" type="escidoc:CreatorType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="xml:lang" use="optional"/>
+  </xs:complexType>
+</xs:schema>

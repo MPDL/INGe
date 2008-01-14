@@ -63,6 +63,9 @@
   <modules>
     <module>framework_access</module>
     <module>common_logic</module> 
+    <module>citationmanager</module>
+    <module>endnotemanager</module>
+    <module>validation</module>
   </modules>
 
   <scm>

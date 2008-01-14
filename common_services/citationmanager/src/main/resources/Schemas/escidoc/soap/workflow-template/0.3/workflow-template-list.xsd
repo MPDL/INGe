@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-template="urn:jbpm.org:jpdl-3.1" xmlns:workflow-template-list="http://www.escidoc.de/schemas/workflowtemplatelist/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowtemplatelist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="../../../soap/jpdl/3.1/jpdl-3.1.xsd" namespace="urn:jbpm.org:jpdl-3.1"/>
+	<xs:element name="workflow-template-list">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					List of workflow templates.
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="workflow-template:process-definition" minOccurs="0" maxOccurs="unbounded">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								workflow-template in jpdl-3.1-schema.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

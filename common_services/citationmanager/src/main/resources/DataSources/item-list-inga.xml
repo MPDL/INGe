@@ -1,0 +1,1224 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item-list 
+	xmlns="http://www.escidoc.de/schemas/itemlist/0.3" 
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" 
+	xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
+	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
+	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/"	
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../Schemas/escidoc/soap/item/0.3/item-list.xsd"
+>
+	<!-- Journal articles. STATUS: works okay! -->
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:1" last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc" schema="http://www.escidoc-project.de/metadata/schema/0.1">
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" type="article">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Brandt</e:family-name>
+							<e:given-name>Ernst Helmut</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Metallforschung/Ehem. Abt. Gao</e:organization-name>
+								<e:address/>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Mikitik</e:family-name>
+							<e:given-name>Grigorii P.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Markus T. Grauer</e:complete-name>
+							<e:family-name>Grauer</e:family-name>
+							<e:given-name>Markus T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:organization>
+							<e:organization-name>ASDEX Update</e:organization-name>
+							<e:address/>
+						</e:organization>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Overkamp</e:family-name>
+							<e:given-name>Inga</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Smittor</e:family-name>
+							<e:given-name>Thomas T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Krause</e:family-name>
+							<e:given-name>Michael T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Thanner</e:family-name>
+							<e:given-name>Mike</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Tatzel</e:family-name>
+							<e:given-name>Robert I.</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en-GB">This is the article title! Please note that the organization Asdex Update should be displayed est DiT 08 ? &amp;; , $, §, \", @ % /, the !, -, the _, the ~, the @ and the # € mläüte ßind schön. à bientôt!</dc:title>
+					<dc:identifier xsi:type="eidt:DOI">10.1088/0953-2048/20/9/S01</dc:identifier>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-20</dcterms:dateSubmitted>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-23</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title xml:lang="en-GB">Blood</dc:title>
+						<e:volume>12</e:volume>
+						<e:issue>5-6</e:issue>
+						<e:start-page>211</e:start-page>
+						<e:end-page>220</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0953-2048</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item objid="escidoc:2" xmlns:item="http://www.escidoc.de/schemas/item/0.3"  last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc">
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" type="article">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Brandt</e:family-name>
+							<e:given-name>Ernst Helmut</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Metallforschung/Ehem. Abt. Gao</e:organization-name>
+								<e:address>
+                </e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Mikitik</e:family-name>
+							<e:given-name>Grigorii P.</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Metallforschung</e:organization-name>
+								<e:address>
+                </e:address>
+							</e:organization>
+							<e:organization>
+								<e:organization-name>B Verkin Institute for Low Temperature Physics and Engineering, Ukrainian Academy of Sciences</e:organization-name>
+								<e:address>Kharkov 61103, Ukraine</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Grauer</e:family-name>
+							<e:given-name>Markus T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:organization>
+							<e:organization-name/>
+						</e:organization>
+					</creator>
+					<creator role="translator">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Overkamp</e:family-name>
+							<e:given-name>Inga</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Smittor</e:family-name>
+							<e:given-name>Thomas T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Krause</e:family-name>
+							<e:given-name>Michael T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Thanner</e:family-name>
+							<e:given-name>Mike</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Tatzel</e:family-name>
+							<e:given-name>Robert I.</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">INGA AS TRANSLATOR - shouldn't be displayed. Vortex shaking in superconducting platelets in an inclined magnetic field</dc:title>
+					<dc:identifier xsi:type="eidt:DOI">10.1088/0953-2048/20/9/S01</dc:identifier>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-20</dcterms:dateSubmitted>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-23</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title xml:lang="en-GB">Superconductor Science and Technology</dc:title>
+						<dcterms:alternative xml:lang="en-GB">Supercond. Sci. Technol.</dcterms:alternative>
+						<e:volume>20</e:volume>
+						<e:issue>4</e:issue>
+						<e:start-page>111</e:start-page>
+						<e:end-page>116</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0953-2048</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+            For thin superconducting platelets or films in a dc magnetic field, the application of a weak ac magnetic field in the plane of the platelet allows the vortices to drift. This vortex motion generates a dc voltage in the superconductor that causes the critical currents and irreversible magnetic moment to relax completely. This vortex shaking was explained quantitatively for long strips with weak ac field applied perpendicular or parallel to the critical screening currents that flow along the strip, and for films of rectangular shape. In all these cases the dc magnetic field was applied perpendicular to the film. The present work generalizes these theories to cases when the dc field is applied at an angle with respect to the film plane. It is found that an appropriate tilt of the dc field can strongly increase the anisotropy of the shaking-induced relaxation and accelerates the appearance of additional current loops, so that these effects may be observed more easily.
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:" last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc" schema="http://www.escidoc-project.de/metadata/schema/0.1" >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" type="article">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Makrlik</e:family-name>
+							<e:given-name>E</e:given-name>
+							<e:organization>
+								<e:organization-name>Univ W Bohemia, Fac Appl Sci</e:organization-name>
+								<e:address>, Husova 11, Plzen 30614, Czech Republic</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Vanura</e:family-name>
+							<e:given-name>P</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Selucky</e:family-name>
+							<e:given-name>P</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">ARTICLE WITHOUTH ISSUE: Extraction distribution of microamounts of strontium in the two-phase water-RbCl-15-crown-5-nitrobenzene-rubidium dicarbollylcobaltate system</dc:title>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title xml:lang="en-GB">International Journal of Research in Physical Chemistry &amp; Chemical Physics</dc:title>
+						<dcterms:alternative xml:lang="de">Zeitschrift für physikalische Chemie</dcterms:alternative>
+						<e:volume>221</e:volume>
+						<e:start-page>949</e:start-page>
+						<e:end-page>955</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0942-9352 </dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">Extraction of microamounts of strontium by a nitrobenzene solution of rubidium dicarbollylcobaltate (Rb+B-) in the presence of 15-crown-5 (15C5,L) has been investigated. The equilibrium data have been explained assuming that the complexes RbL+, RbL2+ and SrL22+. are extracted into the organic phase. The values of extraction and stability constants of the complex species in nitrobenzene saturated with water have been determined.</dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:123">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc" schema="http://www.escidoc-project.de/metadata/schema/0.1" >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" type="article">
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Manfred Uhr</e:complete-name>
+							<e:family-name>Uhr</e:family-name>
+							<e:given-name>Manfred</e:given-name>
+							<e:organization>
+								<e:organization-name>Max Planck Institut for Economy</e:organization-name>
+								<e:address>
+                  Heinrich-Heine-Strasse 22
+                  13444 Jena
+                </e:address>
+								<e:identifier xsi:type="eidt:ESCIDOC">1234</e:identifier>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Grauer</e:family-name>
+							<e:given-name>Markus T.</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Blood-brain barrier penetration and pharmacokinetics of amitriptyline and its metabolites in p-glycoprotein (abcb1ab) knock-out mice and controls</dc:title>
+					<dc:language xsi:type="dcterms:RFC3066">en-GB</dc:language>
+					<dc:language xsi:type="dcterms:RFC3066">en-US</dc:language>
+					<dcterms:alternative xml:lang="dt">Blut-Gehirn Blockade</dcterms:alternative>
+					<dc:identifier xsi:type="eidt:DOI">10.1016/j.jpsychires.2005.10.005</dc:identifier>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-14</dcterms:dateSubmitted>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-13</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title>Journal of Psychiatric Research</dc:title>
+						<dcterms:alternative>J Psyc Res</dcterms:alternative>
+						<e:volume>41</e:volume>
+						<e:issue>1-2</e:issue>
+						<e:start-page>179</e:start-page>
+						<e:end-page>188</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0022-3956</dc:identifier>
+						<dc:identifier xsi:type="dcterms:URI">http://www.sciencedirect.com/science/journal/00223956</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+            In earlier studies with P-gp (abcb1) knock-out mice, we showed that P-gp exports the antidepressants citalopram, paroxetine, venlafaxine and amitriptyline and its metabolites across the blood–brain barrier, thereby reducing cerebral bioavailability of some substances up to 9 times. The present study investigated the pharmacokinetics of amitriptyline and whether abcb1ab double knock-out mice metabolize amitriptyline and its metabolites differently. P-gp knock-out mice and controls received a s.c. injection of 10 μg amitriptyline/g of body weight. The animals were sacrificed after 30, 60, 120 and 240 min and concentrations of amitriptyline and its metabolites were measured with HPLC in brain, plasma, liver, kidney, spleen, lung, muscle, fat and ovaries. Cerebral concentrations of amitriptyline and its metabolites were higher in P-gp-deficient mice compared to controls.
+          </dcterms:abstract>
+					<dc:subject> P-glycoprotein; abcb1; Blood–brain barrier; Amitriptyline; Nortriptyline; Knock-out mice </dc:subject>
+					<dcterms:tableOfContents xml:lang="en-US">
+1. Objectives of the study
+2. Materials and methods
+2.1. Animals
+3. Results
+4. Discussion
+References
+          </dcterms:tableOfContents>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<!-- Book items. STATUS: -->
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:" last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc" schema="http://www.escidoc-project.de/metadata/schema/0.1">
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"  type="book-item">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Parolin</e:family-name>
+							<e:given-name>Pia</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Limnologie/AG Tropenökologie</e:organization-name>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Tal</e:family-name>
+							<e:given-name>Ophir</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Bartel</e:family-name>
+							<e:given-name>Stephanie</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Vogt</e:family-name>
+							<e:given-name>Anna Maria</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Rudolph</e:family-name>
+							<e:given-name>Barbara</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Phenotypical and genetic variation of Fraxinus excelsior L. at the LAK site</dc:title>
+					<dc:identifier>2535/S 38682</dc:identifier>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-03</dcterms:issued>
+					<source>
+						<dc:title>The Canopy of a Temperate Floodplain Forest</dc:title>
+						<dcterms:alternative>Results from five years of research at the Leipzig Canopy Crane</dcterms:alternative>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Unterseher</e:family-name>
+								<e:given-name>Martin</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Morawetzr</e:family-name>
+								<e:given-name>Wilfried</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Klotz</e:family-name>
+								<e:given-name>Stefan</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:creator  role="editor">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Arndt</e:family-name>
+								<e:given-name>Erik</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:start-page>74</e:start-page>
+						<e:end-page>83</e:end-page>
+						<e:publishing-info>
+							<dc:publisher>Universitätsverlag</dc:publisher>
+							<e:place>Leipzig</e:place>
+						</e:publishing-info>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-934178-61-8</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US"> In the forest of the “Leipzig Canopy Crane Project” (LAK), the common ash (Fraxinus excelsior) is the dominant tree species. This ash population is most likely the result of different phases of plantings after 1800. In the LAK study plot, 64 adult individuals exceeding 22 m in height and a large number of seedlings and saplings show a high phenotypic variation. In the present study, the genetic variation of the semi-natural population of F. excelsior is analysed. The main questions are whether phenotypic variation is reflected by a genotypic variation, and how large the genetic variability of the population is. The establishment of microsatellite and AFLP markers for analyses of the LAK ash population is described as well as first results. One main result is that the ash population possesses an astonishingly high level of genetic variation within this population, especially regarding the putative origin and strong selection of this forest during the last centuries. Because of this high variability in microsatellite markers all individuals analysed in this first screening could be identified via individual DNA fingerprinting. After a first test of utility of microsatellite and AFLP markers a screening of a set of 77 individuals of the LAK plot containing 220 samples is in progress. Additionally to the comparison of the geno- and phenotypic variability of the ash population – especially in floral phenology – in future studies it is planned to compare this semi-natural with a natural population, and based on the high genetic variability, investigate the role of somatic mutations in genetic diversity.</dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"  type="book-item">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Mikhailov</e:family-name>
+							<e:given-name>Alexander S.</e:given-name>
+							<e:organization>
+								<e:organization-name>Fritz-Haber-Institut/Physical Chemistry</e:organization-name>
+								<e:address/>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Beta</e:family-name>
+							<e:given-name>Carsten</e:given-name>
+							<e:organization>
+								<e:organization-name>Max Planck Inst Dynam and Self Org</e:organization-name>
+								<e:address>D-37077 Gottingen, Germany, E-mail: carsten.beta@ds.mpg.de</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">BOOK ITEM without Editor of Book. Control of spatiotemporal chaos in surface chemical reactions</dc:title>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-10</dcterms:issued>
+					<source>
+						<dc:title>Handbook of Chaos Control</dc:title>
+						<e:start-page>74</e:start-page>
+						<e:end-page>83</e:end-page>
+						<e:publishing-info>
+							<dc:publisher>Wiley-VCH</dc:publisher>
+							<e:place>Berlin</e:place>
+							<e:edition>Second completely revised and enlarged edition</e:edition>
+						</e:publishing-info>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-527-40605-0</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"  type="book-item">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Mikhailov</e:family-name>
+							<e:given-name>Alexander S.</e:given-name>
+							<e:organization>
+								<e:organization-name>Fritz-Haber-Institut/Physical Chemistry</e:organization-name>
+								<e:address/>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Beta</e:family-name>
+							<e:given-name>Carsten</e:given-name>
+							<e:organization>
+								<e:organization-name>Max Planck Inst Dynam and Self Org</e:organization-name>
+								<e:address>D-37077 Gottingen, Germany, E-mail: carsten.beta@ds.mpg.de</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Control of spatiotemporal chaos in surface chemical reactions</dc:title>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-10</dcterms:issued>
+					<source>
+						<dc:title>Handbook of Chaos Control</dc:title>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Schöll</e:family-name>
+								<e:given-name>Eckehard</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:creator role="translator">
+							<e:person>
+								<e:complete-name/>
+								<e:family-name>Schuster</e:family-name>
+								<e:given-name>Heinz Georg</e:given-name>
+							</e:person>
+						</e:creator>
+						<e:start-page>74</e:start-page>
+						<e:end-page>83</e:end-page>
+						<e:publishing-info>
+							<dc:publisher>Wiley-VCH</dc:publisher>
+							<e:place>Berlin</e:place>
+							<e:edition>Second completely revised and enlarged edition</e:edition>
+						</e:publishing-info>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-527-40605-0</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<!-- Books. STATUS: open -->
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"  type="proceedings">
+					<creator role="editor">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Blome</e:family-name>
+							<e:given-name>T.</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für biophysikalische Chemie/AG Simone Techert</e:organization-name>
+								<e:address>Göttingen</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="editor">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Tschentscher</e:family-name>
+							<e:given-name>Jean</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="editor">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name> Davaasambuu</e:family-name>
+							<e:given-name>P.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="editor">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Durand</e:family-name>
+							<e:given-name>Peter</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="editor">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Techert</e:family-name>
+							<e:given-name>Sven</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Ultrafast time-resolved powder diffraction using free-electron laser radiation</dc:title>
+					<publishing-info>
+						<dc:publisher>Springer</dc:publisher>
+						<e:place>Hamburg</e:place>
+					</publishing-info>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007</dcterms:dateSubmitted> 
+					<source>
+						<dc:title>AIP conference proceedings</dc:title>
+						<e:volume>879</e:volume>
+					</source>
+					<event>
+						<dc:title xml:lang="en-GB">Synchrotron radiation instrumentation</dc:title>
+						<e:start-date xsi:type="dcterms:W3CDTF">2006-05-28</e:start-date>
+						<e:end-date xsi:type="dcterms:W3CDTF">2006-06-02</e:end-date>
+						<e:place>Melville, N.Y., USA</e:place>
+					</event>
+					<total-number-of-pages>2000 p</total-number-of-pages>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="thesis">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Agarwal</e:family-name>
+							<e:given-name>Jessica</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Kernphysik/Group of K. Mauersberger/Interplantary Dust Research (E. Grün)</e:organization-name>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">The emission of large dust particles from comet 67P/Churyumov-Gerasimenko constrained by observation and modelling of its dust trail</dc:title>
+					<publishing-info>
+						<dc:publisher>Ruprecht-Karls-Universität</dc:publisher>
+						<e:place>Heidelberg</e:place>
+					</publishing-info>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-07-26</dcterms:dateSubmitted>
+					<total-number-of-pages>VIII, 111 S</total-number-of-pages>
+					<dcterms:abstract xml:lang="en-US">The abundance and properties of dust particles larger than about 60 m emitted by comet 67P/Churyumov-Gerasimenko are constrained by evaluating astronomical images of its dust trail. Such particles carry the bulk of refractory mass released from comets to interplanetary space. In contrast to smaller particles, they remain on trajectories similar to that of the parent comet during many revolutions around the Sun. They are observable as a narrow structure along the projected comet orbit, the dust trail. The first observation evaluated in this thesis was carried out in April 2004 in visible light with the Wide Field Imager on the ESO/MPG 2.2m telescope on La Silla (Chile), when the comet was at a heliocentric distance of 4.7AU. Two observations were performed in August 2005 and April 2006 at mid-infrared wavelengths (24 m) with the MIPS instrument on board the Spitzer Space Telescope. In both instances, the comet was at 5.7AU from the Sun, having passed aphelion in November 2005. To interpret the data, simulated images of the cometary dust trail are generated. The adopted model of cometary dust emission has five free parameters: the exponent of the dust size distribution, the particle emission speeds, the radiation pressure efficiency, the dust albedo, and the dust production rates. For these parameters, values are derived that are most suitable to reproduce the observations. The results for the first four parameters are in agreement with expectations. But the derived production rates cannot be reconciled with the measured brightness of the coma in the inner solar system.
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Trautwein</e:family-name>
+							<e:given-name>Ulrich</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Bildungsforschung/Educational Research</e:organization-name>
+								<e:address>Berlin</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Köller</e:family-name>
+							<e:given-name>Olaf</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Lehmann</e:family-name>
+							<e:given-name>Rainer</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Lüdtke</e:family-name>
+							<e:given-name>Oliver</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Schulleistungen von Abiturienten</dc:title>
+					<dcterms:alternative xml:lang="en-GB">Regionale, schulformbezogene und soziale Disparitäten</dcterms:alternative>
+					<dc:identifier xsi:type="eidt:ISBN">978-3-8309-1783-0</dc:identifier>
+					<publishing-info>
+						<dc:publisher>Waxmann</dc:publisher>
+						<e:place>Münster [et al.]</e:place>
+					</publishing-info>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2006-12</dcterms:issued>
+					<source>
+						<dc:title>HANSE : Hamburger Schriften zur Qualität im Bildungswesen</dc:title>
+						<e:volume>3</e:volume>
+					</source>
+					<total-number-of-pages>170 p</total-number-of-pages>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Grote</e:family-name>
+							<e:given-name>Rainer</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für ausländisches öffentliches Recht und Völkerrecht</e:organization-name>
+								<e:address>Heidelberg</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Kraus</e:family-name>
+							<e:given-name>Dieter</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für ausländisches öffentliches Recht und Völkerrecht</e:organization-name>
+								<e:address>Heidelberg</e:address>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Fälle zu den Grundrechten</dc:title>
+					<dc:identifier xsi:type="eidt:ISBN">3-406-52460-5</dc:identifier>
+					<publishing-info>
+						<dc:publisher>Beck</dc:publisher>
+						<e:place>München</e:place>
+						<e:edition>3., neu bearb. Aufl.</e:edition>
+					</publishing-info>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007</dcterms:issued>
+					<source>
+						<dc:title>JuS-Schriftenreihe: Fälle mit Lösungen</dc:title>
+						<e:volume>135</e:volume>
+					</source>
+					<total-number-of-pages>353 p</total-number-of-pages>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="conference-paper">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Ott</e:family-name>
+							<e:given-name>C. D.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Dimmelmeier</e:family-name>
+							<e:given-name>H.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Marek</e:family-name>
+							<e:given-name>A.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Janka</e:family-name>
+							<e:given-name>H.-T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Zink</e:family-name>
+							<e:given-name>B.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Hawke</e:family-name>
+							<e:given-name>I.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Schnetter</e:family-name>
+							<e:given-name>E.</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">Rotating collapse of stellar iron cores in general relativity</dc:title>
+					<dc:identifier xsi:type="eidt:DOI">10.1088/0264-9381/24/12/S10</dc:identifier>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-06-21</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title>Classical and Quantum Gravity</dc:title>
+						<e:volume>24</e:volume>
+						<e:issue>12</e:issue>
+						<e:start-page>139</e:start-page>
+						<e:end-page>154</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0264-9381</dc:identifier>
+					</source>
+					<event>
+						<dc:title xml:lang="en-GB">International Meeting on New Frontiers in Numerical Relativity</dc:title>
+						<e:start-date xsi:type="dcterms:W3CDTF">2006-07-17</e:start-date>
+						<e:end-date xsi:type="dcterms:W3CDTF">2006-07-21</e:end-date>
+						<e:place>Potsdam, Germany</e:place>
+					</event>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="conference-paper">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Stark</e:family-name>
+							<e:given-name>Dylan</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Gravitationsphysik/Astrophysical Relativity</e:organization-name>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Allen</e:family-name>
+							<e:given-name>Gabrielle</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Goodale</e:family-name>
+							<e:given-name>Tom</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Schnetter</e:family-name>
+							<e:given-name>Erik</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-GB">An Extensible Timing Infrastructure for Adaptive Large-scale Applications</dc:title>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-14</dcterms:dateSubmitted>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-13</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title xml:lang="en-GB">Parallel processing and applied mathematics : 7th international conference, PPAM 2007</dc:title>
+						<e:volume/>
+						<e:issue/>
+						<e:start-page>123</e:start-page>
+						<e:end-page>145</e:end-page>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-540-34141-3</dc:identifier>
+					</source>
+					<event>
+						<dc:title xml:lang="en-GB">7th international conference on parallel processing and applied mathematics</dc:title>
+						<e:start-date xsi:type="dcterms:W3CDTF">2007-09-09</e:start-date>
+						<e:end-date xsi:type="dcterms:W3CDTF">2007-09-12</e:end-date>
+						<e:place>Gdansk, Poland</e:place>
+					</event>
+					<dcterms:abstract xml:lang="en-US">
+            Real-time access to accurate and reliable timing information is necessary to profile scientific applications, and crucial as simulations become increasingly complex, adaptive, and large-scale. The Cactus Framework provides flexible and extensible capabilities for timing information through a well designed infrastructure and timing API. Applications built with Cactus automatically gain access to built-in timers, such as gettimeofday and getrusage, system-specific hardware clocks, and high-level interfaces such as PAPI. We describe the Cactus timer interface, its motivation, and its implementation. We then demonstrate how this timing information can be used by an example scientific application to profile itself, and to dynamically adapt itself to a changing environment at run time.
+          </dcterms:abstract>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:178" last-modification-date="2006-12-21T13:15:23.485">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1" >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Ralf-B. Riebau</e:complete-name>
+							<e:family-name>Riebau</e:family-name>
+							<e:given-name>Ralf-B.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Uta Siebeky</e:complete-name>
+							<e:family-name>Siebeky</e:family-name>
+							<e:given-name>Uta</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title>Open Access und Copyright. Ein Leitfaden für Autoren wissenschaftlicher Publikationen. Nützliche Hinweise für Wissenschaftlerinnen und Wissenschaftler des Fritz-Haber-Instituts der Max-Planck-Gesellschaft</dc:title>
+					<dc:language xsi:type="dcterms:RFC3066">de</dc:language>
+					<dc:identifier xsi:type="eidt:ISBN">3-540-25848-5</dc:identifier>
+					<dc:identifier xsi:type="eidt:ISBN">978-3-540-25848-3</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://www.springer.com/dal/home/default?SGWID=1-40356-22-173669207-0</dc:identifier>
+					<dc:identifier xsi:type="eidt:DOI">10.1007/b19970</dc:identifier>
+					<dc:identifier xsi:type="eidt:EDOC">285086</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://edoc.mpg.de/285086</dc:identifier>
+					<dcterms:modified xsi:type="dcterms:W3CDTF">2007-01-12</dcterms:modified>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2006-08</dcterms:issued>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:1288" last-modification-date="2007-04-03T16:04:28.12">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book-item">
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Arno Schindlmayr</e:complete-name>
+							<e:family-name>Schindlmayr</e:family-name>
+							<e:given-name>Arno</e:given-name>
+							<e:organization>
+								<e:organization-name>
+                  Forschungszentrum Jülich, Institut für Festkörperforschung
+                </e:organization-name>
+								<e:address>52425 Jülich, Germany</e:address>
+								<e:identifier xsi:type="eidt:ESCIDOC">1238</e:identifier>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Matthias Scheffler</e:complete-name>
+							<e:family-name>Scheffler</e:family-name>
+							<e:given-name>Matthias</e:given-name>
+							<e:organization>
+								<e:organization-name>Fritz-Haber-Institut/Theory</e:organization-name>
+								<e:address>
+                    Faradayweg 4-6, 14195 Berlin
+                </e:address>
+								<e:identifier xsi:type="eidt:ESCIDOC">1239</e:identifier>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-US">Quasiparticle calculations for point defects at semiconductor surfaces</dc:title>
+					<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+					<dc:identifier xsi:type="eidt:DOI">10.1007/11690320_8</dc:identifier>
+					<dc:identifier xsi:type="eidt:EDOC">290886</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/4877p75301w53364/fulltext.pdf</dc:identifier>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2006-11-13</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title>Theory of Defects in Semiconductors</dc:title>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name>David A. Drabold</e:complete-name>
+							</e:person>
+						</e:creator>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name>Stefan K. Estreicher</e:complete-name>
+							</e:person>
+						</e:creator>
+						<e:volume>104</e:volume>
+						<e:start-page>165</e:start-page>
+						<e:end-page>192</e:end-page>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-540-33400-2</dc:identifier>
+						<dc:identifier xsi:type="eidt:DOI">10.1007/11690320</dc:identifier>
+						<dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/978-3-540-33400-2/</dc:identifier>
+						<e:source>
+							<dc:title>Topics in Applied Physics</dc:title>
+							<dc:identifier xsi:type="eidt:ISSN">1437-0859</dc:identifier>
+						</e:source>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+            We present a quantitative parameter-free method for calculating defect states and charge-transition levels of point defects in semiconductors. It combines the strength of density-functional theory for ground-state total energies with quasiparticle corrections to the excitation spectrum obtained from many-body perturbation theory. The latter is implemented within the G 0 W 0 approximation, in which the electronic self-energy is constructed non-self-consistently from the Green’s function of the underlying Kohn–Sham system. The method is general and applicable to arbitrary bulk or surface defects. As an example we consider anion vacancies at the (110) surfaces of III–V semiconductors. Relative to the Kohn–Sham eigenvalues in the local-density approximation, the quasiparticle corrections open the fundamental band gap and raise the position of defect states inside the gap. As a consequence, the charge-transition levels are also pushed to higher energies, leading to close agreement with the available experimental data.
+          </dcterms:abstract>
+					<dc:subject>Physics ; Astronomy</dc:subject>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:1288" last-modification-date="2007-04-03T16:04:28.12">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>		<md-records:md-records>
+			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1" >
+				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="poster">
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Arno Schindlmayr</e:complete-name>
+							<e:family-name>Schindlmayr</e:family-name>
+							<e:given-name>Arno</e:given-name>
+							<e:organization>
+								<e:organization-name>
+                  Forschungszentrum Jülich, Institut für Festkörperforschung
+                </e:organization-name>
+								<e:address>52425 Jülich, Germany</e:address>
+								<e:identifier xsi:type="eidt:ESCIDOC">1238</e:identifier>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Matthias Scheffler</e:complete-name>
+							<e:family-name>Scheffler</e:family-name>
+							<e:given-name>Matthias</e:given-name>
+							<e:organization>
+								<e:organization-name>Fritz-Haber-Institut/Theory</e:organization-name>
+								<e:address>
+                    Faradayweg 4-6, 14195 Berlin
+                </e:address>
+								<e:identifier xsi:type="eidt:ESCIDOC">1239</e:identifier>
+							</e:organization>
+						</e:person>
+					</creator>
+					<dc:title xml:lang="en-US">Test of poster</dc:title>
+					<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+					<dc:identifier xsi:type="eidt:DOI">10.1007/11690320_8</dc:identifier>
+					<dc:identifier xsi:type="eidt:EDOC">290886</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/4877p75301w53364/fulltext.pdf</dc:identifier>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2006-11-13</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title>Theory of Defects in Semiconductors</dc:title>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name>David A. Drabold</e:complete-name>
+							</e:person>
+						</e:creator>
+						<e:creator role="editor">
+							<e:person>
+								<e:complete-name>Stefan K. Estreicher</e:complete-name>
+							</e:person>
+						</e:creator>
+						<e:volume>104</e:volume>
+						<e:start-page>165</e:start-page>
+						<e:end-page>192</e:end-page>
+						<dc:identifier xsi:type="eidt:ISBN">978-3-540-33400-2</dc:identifier>
+						<dc:identifier xsi:type="eidt:DOI">10.1007/11690320</dc:identifier>
+						<dc:identifier xsi:type="dcterms:URI">http://www.springerlink.com/content/978-3-540-33400-2/</dc:identifier>
+						<e:source>
+							<dc:title>Topics in Applied Physics</dc:title>
+							<dc:identifier xsi:type="eidt:ISSN">1437-0859</dc:identifier>
+						</e:source>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+            We present a quantitative parameter-free method for calculating defect states and charge-transition levels of point defects in semiconductors. It combines the strength of density-functional theory for ground-state total energies with quasiparticle corrections to the excitation spectrum obtained from many-body perturbation theory. The latter is implemented within the G 0 W 0 approximation, in which the electronic self-energy is constructed non-self-consistently from the Green’s function of the underlying Kohn–Sham system. The method is general and applicable to arbitrary bulk or surface defects. As an example we consider anion vacancies at the (110) surfaces of III–V semiconductors. Relative to the Kohn–Sham eigenvalues in the local-density approximation, the quasiparticle corrections open the fundamental band gap and raise the position of defect states inside the gap. As a consequence, the charge-transition levels are also pushed to higher energies, leading to close agreement with the available experimental data.
+          </dcterms:abstract>
+					<dc:subject>Physics ; Astronomy</dc:subject>
+				</profile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+	<item:item objid="escidoc:1601" xmlns:item="http://www.escidoc.de/schemas/item/0.3" last-modification-date="2007-10-17T13:25:55.828Z">
+		<item:properties>
+			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
+			<item:created-by objid="escidoc:user2"/>
+			<item:context objid="escidoc:persistent3"/>
+			<item:content-model objid="escidoc:persistent4"/>
+			<item:lock-status>unlocked</item:lock-status>
+			<item:version>
+				<item:version-status>released</item:version-status>
+			</item:version>
+			<item:content-model-specific/>
+		</item:properties>
+		<md-records:md-records>
+			<md-records:md-record name="escidoc">
+				<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="manuscript">
+					<publication:creator role="author">
+						<escidoc:person>
+							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+							<escidoc:family-name>Meier</escidoc:family-name>
+							<escidoc:given-name>Hans</escidoc:given-name>
+							<escidoc:organization>
+								<escidoc:organization-name>Test Organization</escidoc:organization-name>
+								<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator role="author">
+						<escidoc:person>
+							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+							<escidoc:family-name>Meier</escidoc:family-name>
+							<escidoc:given-name>Hans</escidoc:given-name>
+							<escidoc:organization>
+								<escidoc:organization-name>Test Organization</escidoc:organization-name>
+								<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator role="author">
+						<escidoc:organization>
+							<escidoc:organization-name>The creating affiliation</escidoc:organization-name>
+							<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+						</escidoc:organization>
+					</publication:creator>
+					<dc:title xml:lang="en">PubMan: The first of all.</dc:title>
+					<dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+				</escidocMetadataProfile:publication>
+			</md-records:md-record>
+		</md-records:md-records>
+	</item:item>
+</item-list>
