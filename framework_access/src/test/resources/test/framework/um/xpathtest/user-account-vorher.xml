@@ -1,0 +1,25 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<user-account xmlns:xlink="http://www.w3.org/1999/xlink" 
+              xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+              xmlns="http://www.escidoc.de/schemas/useraccount/0.1" 
+              xmlns:resources="http://www.escidoc.de/schemas/resources/0.1" 
+              xsi:schemaLocation="http://localhost:8080/xsd/user-account/0.1/user-account.xsd" 
+              xlink:type="simple" xlink:title="Test Depositor Scientist" 
+              xlink:href="/um/user-account/escidoc:user1" 
+              xml:base="http://192.129.1.111:8080" 
+              last-modification-date="2007-06-01T08:29:08.750Z" 
+              objid="escidoc:user1">
+	<email />
+	<name>Test Depositor Scientist</name>
+	<login-name>test_dep_scientist</login-name>
+	<active>true</active>
+	<person-ref />
+	<creation-date>2007-06-01T08:29:08.750Z</creation-date>
+	<last-modification-date>2007-06-01T08:29:08.750Z</last-modification-date>
+	<creator xlink:type="simple" xlink:title="Test Depositor Scientist" xlink:href="/um/user-account/escidoc:user1" />
+	<link-to-ou xlink:type="simple" xlink:title="MPI fÃ¼r Plasmaphysik" xlink:href="/oum/organizational-unit/escidoc:persistent1" />
+	<resources:resources xlink:type="simple" xlink:title="Virtual resources" xlink:href="/um/user-account/escidoc:user1/resources">
+		<resources:resource xlink:type="simple" xlink:title="Current Grants" xlink:href="/um/user-account/escidoc:user1/resources/resource/current-grants" />
+	</resources:resources>
+</user-account>

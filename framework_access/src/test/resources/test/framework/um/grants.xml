@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<current-grants last-modification-date="2007-06-01T08:29:08.750Z"
+    xlink:href="/um/user-account/escidoc:user1/resources/resource/current-grants"
+    xlink:title="Grants of test_dep_scientist" xlink:type="simple"
+    xml:base="http://192.129.1.111:8080"
+    xmlns="http://www.escidoc.de/schemas/grants/0.1"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <grant
+        xlink:href="/um/user-account/escidoc:user1/resources/resource/grants/grant/escidoc:grant4201"
+        xlink:title="Administrator of context escidoc:persistent3" xlink:type="simple">
+        <role-ref role-id="Administrator"/>
+        <object-ref xlink:href="/ir/context/escidoc:persistent3"
+            xlink:title="context escidoc:persistent3" xlink:type="simple"/>
+        <creation-date>2007-06-01T08:29:08.750Z</creation-date>
+        <creator xlink:href="/um/user-account/escidoc:user2"
+            xlink:title="Test Depositor Library" xlink:type="simple"/>
+    </grant>
+    <grant
+        xlink:href="/um/user-account/escidoc:user1/resources/resource/grants/grant/escidoc:grant4202"
+        xlink:title="Depositor of context escidoc:persistent3" xlink:type="simple">
+        <role-ref role-id="Depositor"/>
+        <object-ref xlink:href="/ir/context/escidoc:persistent3"
+            xlink:title="context escidoc:persistent3" xlink:type="simple"/>
+        <creation-date>2007-06-01T08:29:08.750Z</creation-date>
+        <creator xlink:href="/um/user-account/escidoc:user2"
+            xlink:title="Test Depositor Library" xlink:type="simple"/>
+    </grant>
+    <grant
+        xlink:href="/um/user-account/escidoc:user1/resources/resource/grants/grant/escidoc:grant4204"
+        xlink:title="Moderator of context escidoc:persistent3" xlink:type="simple">
+        <role-ref role-id="Moderator"/>
+        <object-ref xlink:href="/ir/context/escidoc:persistent3"
+            xlink:title="context escidoc:persistent3" xlink:type="simple"/>
+        <creation-date>2007-06-01T08:29:08.750Z</creation-date>
+        <creator xlink:href="/um/user-account/escidoc:user2"
+            xlink:title="Test Depositor Library" xlink:type="simple"/>
+    </grant>
+    <grant
+        xlink:href="/um/user-account/escidoc:user1/resources/resource/grants/grant/escidoc:grant4203"
+        xlink:title="WorkflowManager of context escidoc:persistent3" xlink:type="simple">
+        <role-ref role-id="WorkflowManager"/>
+        <object-ref xlink:href="/ir/context/escidoc:persistent3"
+            xlink:title="context escidoc:persistent3" xlink:type="simple"/>
+        <creation-date>2007-06-01T08:29:08.750Z</creation-date>
+        <creator xlink:href="/um/user-account/escidoc:user2"
+            xlink:title="Test Depositor Library" xlink:type="simple"/>
+    </grant>
+</current-grants>
