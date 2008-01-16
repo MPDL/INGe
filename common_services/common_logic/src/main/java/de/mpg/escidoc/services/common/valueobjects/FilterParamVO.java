@@ -39,8 +39,10 @@ import java.util.List;
  * @created 09-Okt-2007 16:17:57
  * @revised by MuJ: 09.10.2007
  */
-public class FilterParamVO
+public class FilterParamVO 
 {
+	
+	
 
     /**
      * One content model as filter criteria.

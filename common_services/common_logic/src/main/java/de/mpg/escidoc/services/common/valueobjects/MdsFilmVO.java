@@ -52,7 +52,7 @@ public class MdsFilmVO extends MetadataSetVO
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+   
 
     /**
      * The possible film types.

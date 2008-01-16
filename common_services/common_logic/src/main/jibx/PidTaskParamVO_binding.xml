@@ -39,7 +39,7 @@
 	</mapping>
 
 	<!-- concrete mapping for PidTaskParamVO" -->
-	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO">
+	<mapping name="PidTaskParamVO" class="de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="PidTaskParamVOAbstract" />

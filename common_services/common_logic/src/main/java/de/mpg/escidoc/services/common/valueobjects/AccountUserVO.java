@@ -54,7 +54,7 @@ public class AccountUserVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+   
     private boolean active;
     /**
      * The references of the affiliations the account user is associated to.

@@ -53,7 +53,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
     * 
     * @author Johannes Mueller
     */
-   private static final long serialVersionUID = 1L;
+   
 	
 	/**
 	 * description of the content relation, e. g. the reason for the relation.

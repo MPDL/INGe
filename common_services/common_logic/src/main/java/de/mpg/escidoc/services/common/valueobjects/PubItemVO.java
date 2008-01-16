@@ -51,7 +51,7 @@ public class PubItemVO extends ValueObject implements Cloneable
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+ 
 
     /**
      * The possible states of an item.

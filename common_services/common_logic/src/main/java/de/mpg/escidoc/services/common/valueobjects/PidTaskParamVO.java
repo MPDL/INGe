@@ -41,6 +41,8 @@ import java.util.Date;
  */
 public class PidTaskParamVO extends ValueObject
 {
+	
+	 
 
     private Date lastModificationDate;
     private String url;

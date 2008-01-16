@@ -56,7 +56,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+    
 
     	/**
 	 * The possible degree types for an item.

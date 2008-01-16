@@ -53,7 +53,7 @@ public class AffiliationVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+    
     /**
      * Additional name or name used in the community.
      */

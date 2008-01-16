@@ -50,7 +50,7 @@ public class MetadataSetVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+    
     /**
      * The title of the item.
      */

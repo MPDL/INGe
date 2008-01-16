@@ -50,7 +50,7 @@ public class PubFileVO extends ValueObject implements Cloneable
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+
 
     	/**
 	 * The possible content types of a file.

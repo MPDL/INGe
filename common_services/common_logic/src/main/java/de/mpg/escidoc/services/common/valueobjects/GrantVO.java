@@ -50,7 +50,7 @@ public class GrantVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+    
     /**
      * The role that is granted. The value of this attribute matches the value the framework gives back as role (e. g.
      * "escidoc:role-depositor").

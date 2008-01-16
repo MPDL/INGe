@@ -50,7 +50,6 @@ public abstract class ValueObject implements Serializable
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
 
     /*
      * @see java.lang.Object#equals(java.lang.Object)

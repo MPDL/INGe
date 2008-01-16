@@ -48,7 +48,7 @@ public class FileFormatVO extends ValueObject {
 	 * 
 	 * @author Johannes Mueller
 	 */
-    private static final long serialVersionUID = 1L;
+   
 
     public static final String TEXT_NAME = "txt";
     public static final String TEXT_MIMETYPE = "text/plain";

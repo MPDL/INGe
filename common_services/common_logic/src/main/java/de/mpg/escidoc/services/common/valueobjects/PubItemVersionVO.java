@@ -49,7 +49,7 @@ public class PubItemVersionVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+ 
 
     /**
      * Reference to the according item.

@@ -50,7 +50,7 @@ public class MdsCollectionVO extends MetadataSetVO
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+ 
     /**
      * The person or organization who owns content of the collection.
      */

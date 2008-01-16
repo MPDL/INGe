@@ -39,6 +39,8 @@ package de.mpg.escidoc.services.common.valueobjects;
  */
 public class ContextFilterParamVO extends FilterParamVO
 {
+	
+	 private static final long serialVersionUID = 1L;
 
     /**
      * The context state to filter for.

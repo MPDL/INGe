@@ -51,7 +51,7 @@ public class MdsTranscriptionVO extends MetadataSetVO
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+ 
     private java.util.List<CreatorVO> creators = new java.util.ArrayList<CreatorVO>();
     private String language;
     private String creationDate;

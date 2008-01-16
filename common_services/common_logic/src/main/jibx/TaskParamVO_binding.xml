@@ -35,20 +35,20 @@
 
 		<!-- Node: param.@last-modification-date -->
 		<!-- Field: TaskParamVO.lastModificationDate [java.util.Date] -->
-		<value style="attribute" name="last-modification-date" field="lastModificationDate" />
+		<value style="attribute" name="last-modification-date" field="lastModificationDate" /> 
 
 	</mapping>
 
 	<!-- concrete mapping for TaskParamVO" -->
-	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO">
+	<mapping name="TaskParamVO" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO">
 
 		<!-- embed the abstract mapping -->
-		<structure map-as="TaskParamVOAbstract" />
+		<structure map-as="TaskParamVOAbstract" /> 
 
 		<!-- Node: param.comment -->
 		<!-- Field: TaskParamVO.comment [String] -->
 		<value style="element" name="comment" field="comment" usage="optional" />
 		
-	</mapping>
+	</mapping> 
 
 </binding>

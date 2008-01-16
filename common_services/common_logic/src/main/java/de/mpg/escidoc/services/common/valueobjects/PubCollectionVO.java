@@ -53,7 +53,7 @@ public class PubCollectionVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+
 
     /**
      * The possible submission methods of a collection.

@@ -51,7 +51,7 @@ public class TaskParamVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+   
     protected Date lastModificationDate;
     protected String comment;
 

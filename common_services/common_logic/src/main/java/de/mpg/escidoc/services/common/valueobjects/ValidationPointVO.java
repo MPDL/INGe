@@ -51,7 +51,7 @@ public class ValidationPointVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+ 
     private String name;
 
     /**

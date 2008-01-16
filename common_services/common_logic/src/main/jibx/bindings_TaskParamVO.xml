@@ -34,7 +34,7 @@
       serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
 
 	<include path="FilterTaskParamVO_binding.xml" />
-<!--  	<include path="TaskParamVO_binding.xml" /> 
-	<include path="PidTaskParamVO_binding.xml" /> -->
+  	<include path="TaskParamVO_binding.xml" /> 
+  	<include path="PidTaskParamVO_binding.xml" />  
 
 </binding>

@@ -49,7 +49,7 @@ public class SearchHitVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+   
 
     /**
      * The possible search hit types.

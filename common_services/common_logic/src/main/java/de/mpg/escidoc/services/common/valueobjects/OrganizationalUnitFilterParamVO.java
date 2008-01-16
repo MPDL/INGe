@@ -42,6 +42,8 @@ import java.util.List;
  */
 public class OrganizationalUnitFilterParamVO
 {
+	
+	
 
     /**
      * Object ids of organizational units as filter criteria.

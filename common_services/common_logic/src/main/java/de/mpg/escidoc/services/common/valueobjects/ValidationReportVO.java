@@ -48,7 +48,7 @@ public class ValidationReportVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+   
     private java.util.List<ValidationReportItemVO> items = new java.util.ArrayList<ValidationReportItemVO>();
     private String validationPoint;
 

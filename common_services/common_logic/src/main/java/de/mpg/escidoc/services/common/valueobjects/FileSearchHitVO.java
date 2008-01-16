@@ -50,7 +50,7 @@ public class FileSearchHitVO
      * 
      * @author Johannes Mueller
      */
-    private static final long serialVersionUID = 1L;
+  
     /**
      * Reference to the file.
      */

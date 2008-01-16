@@ -38,6 +38,9 @@ import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
  */
 public class RelationVO extends ValueObject {
 
+	
+	 
+	
 	/**
 	 * The type of a relation between two items.
 	 */
