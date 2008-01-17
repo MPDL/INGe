@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+
+<rdf:Description rdf:about="info:fedora/escidoc:287">
+   <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/RELS-EXT"/>
+   <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/version-history"/>
+   <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/content-model-specific"/>
+   <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/escidoc"/>
+   <hasDatastream xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/DC"/>
+   <created-by xmlns="http://www.escidoc.de/schemas/item/0.3/" rdf:resource="info:fedora/escidoc:user1"/>
+   <objectType xmlns="http://www.nsdl.org/ontologies/relationships/">item</objectType>
+   <label xmlns="info:fedora/fedora-system:def/model#">item</label>
+   <context xmlns="http://www.escidoc.de/schemas/item/0.3/" rdf:resource="info:fedora/escidoc:persistent3"/>
+   <latest-version.valid-status xmlns="http://www.escidoc.de/schemas/item/0.3/">valid</latest-version.valid-status>
+   <createdDate xmlns="info:fedora/fedora-system:def/model#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2007-10-29T18:29:10.788Z</createdDate>
+   <lastModifiedDate xmlns="info:fedora/fedora-system:def/view#" rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2007-10-29T18:29:11.257Z</lastModifiedDate>
+   <isRevisionOf xmlns="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#" rdf:resource="info:fedora/escidoc:201"/>
+   <latest-version.user.title xmlns="http://www.escidoc.de/schemas/item/0.3/">Test Depositor Scientist</latest-version.user.title>
+   <created-by-title xmlns="http://www.escidoc.de/schemas/item/0.3/">Test Depositor Scientist</created-by-title>
+   <latest-version.date xmlns="http://www.escidoc.de/schemas/item/0.3/">2007-10-29T18:29:10.991Z</latest-version.date>
+   <rdf:type rdf:resource="info:fedora/fedora-system:def/model#FedoraObject"/>
+   <contentModel xmlns="info:fedora/fedora-system:def/model#">SIMPLE_DOC</contentModel>
+   <latest-version.number xmlns="http://www.escidoc.de/schemas/item/0.3/">1</latest-version.number>
+   <latest-version.user xmlns="http://www.escidoc.de/schemas/item/0.3/">escidoc:user1</latest-version.user>
+   <identifier xmlns="http://purl.org/dc/elements/1.1/">escidoc:287</identifier>
+   <public-status xmlns="http://www.escidoc.de/schemas/item/0.3/">pending</public-status>
+   <content-model-title xmlns="http://www.escidoc.de/schemas/item/0.3/">ct</content-model-title>
+   <title xmlns="http://purl.org/dc/elements/1.1/">item</title>
+   <context-title xmlns="http://www.escidoc.de/schemas/item/0.3/">PubMan Test Collection</context-title>
+   <content-model xmlns="http://www.escidoc.de/schemas/item/0.3/" rdf:resource="info:fedora/escidoc:persistent4"/>
+   <state xmlns="info:fedora/fedora-system:def/model#" rdf:resource="info:fedora/fedora-system:def/model#Active"/>
+   <disseminates xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/DC"/>
+   <disseminates xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/content-model-specific"/>
+   <disseminates xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/RELS-EXT"/>
+   <disseminates xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/escidoc"/>
+   <disseminates xmlns="info:fedora/fedora-system:def/view#" rdf:resource="info:fedora/escidoc:287/version-history"/>
+   <isRevisionOf xmlns="http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#" rdf:resource="info:fedora/escidoc:202"/>
+   <latest-version.status xmlns="http://www.escidoc.de/schemas/item/0.3/">pending</latest-version.status>
+   <latest-version.comment xmlns="http://www.escidoc.de/schemas/item/0.3/">Object escidoc:287 created.</latest-version.comment>
+   <title xmlns="http://www.nsdl.org/ontologies/relationships/">Item escidoc:287</title>
+</rdf:Description>
+
+</rdf:RDF>
+

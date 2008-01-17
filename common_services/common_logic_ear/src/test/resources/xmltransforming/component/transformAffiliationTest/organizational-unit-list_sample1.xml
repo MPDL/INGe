@@ -1,0 +1,49 @@
+<organizational-unit-list:organizational-unit-list
+  xmlns:organizational-unit-list="http://www.escidoc.de/schemas/organizationalunitlist/0.3"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.escidoc.de/schemas/organizationalunitlist/0.3 ../../../../misc/xsd/soap/organizational-unit/0.3/organizational-unit-list.xsd">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
+			<organizational-unit:creation-date>2007-03-15T08:07:11.015Z</organizational-unit:creation-date>
+			<organizational-unit:created-by objid="escidoc:user42" />
+			<organizational-unit:public-status>opened</organizational-unit:public-status>
+			<organizational-unit:has-children>true</organizational-unit:has-children>
+		</organizational-unit:properties>
+		<organizational-unit:organization-details xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3">
+			<organizational-unit:abbreviation>MPIWG</organizational-unit:abbreviation>
+			<organizational-unit:name>MPI for the History of Science</organizational-unit:name>
+			<organizational-unit:uri>http://www.mpgwg-berlin.mpg.de</organizational-unit:uri>
+			<organizational-unit:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</organizational-unit:description>
+			<organizational-unit:postcode>14195</organizational-unit:postcode>
+			<organizational-unit:country>DE</organizational-unit:country>
+			<organizational-unit:region>somewhere</organizational-unit:region>
+			<organizational-unit:address>Boltzmannstr. 22</organizational-unit:address>
+			<organizational-unit:city>Berlin</organizational-unit:city>
+			<organizational-unit:telephone>(+49 30) 22667 - 0</organizational-unit:telephone>
+			<organizational-unit:fax>(+49 30) 22667 - 10</organizational-unit:fax>
+			<organizational-unit:email>info@mpgwg-berlin.mpg.de</organizational-unit:email>
+		</organizational-unit:organization-details>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
+			<organizational-unit:creation-date>2007-03-15T08:07:11.015Z</organizational-unit:creation-date>
+			<organizational-unit:created-by objid="escidoc:user42" />
+			<organizational-unit:public-status>opened</organizational-unit:public-status>
+			<organizational-unit:has-children>true</organizational-unit:has-children>
+		</organizational-unit:properties>
+		<organizational-unit:organization-details xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3">
+			<organizational-unit:abbreviation>MPIWG</organizational-unit:abbreviation>
+			<organizational-unit:name>MPI for the History of Science</organizational-unit:name>
+			<organizational-unit:uri>http://www.mpgwg-berlin.mpg.de</organizational-unit:uri>
+			<organizational-unit:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</organizational-unit:description>
+			<organizational-unit:postcode>14195</organizational-unit:postcode>
+			<organizational-unit:country>DE</organizational-unit:country>
+			<organizational-unit:region>somewhere</organizational-unit:region>
+			<organizational-unit:address>Boltzmannstr. 22</organizational-unit:address>
+			<organizational-unit:city>Berlin</organizational-unit:city>
+			<organizational-unit:telephone>(+49 30) 22667 - 0</organizational-unit:telephone>
+			<organizational-unit:fax>(+49 30) 22667 - 10</organizational-unit:fax>
+			<organizational-unit:email>info@mpgwg-berlin.mpg.de</organizational-unit:email>
+		</organizational-unit:organization-details>
+	</organizational-unit:organizational-unit>
+</organizational-unit-list:organizational-unit-list>

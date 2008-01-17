@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3" xmlns:workflow-configuration="http://www.escidoc.de/schemas/workflowconfiguration/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowdefinition/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/workflow-definition/0.3/workflow-configuration.xsd" namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"/>
+	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+	<xs:element name="workflow-definition">
+		<xs:annotation>
+			<xs:documentation>
+				<para>
+					A workflow-definition defines additional parameters
+					for a workflow-template (=JBPM-Processdefinition).
+					-Wich workflow-template to use -Additional
+					configuration-parameters -Who may start the workflow
+					-Admin-group the workflow-definition belongs to
+				</para>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="name" type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Name of the Workflow Definition.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="description" type="xs:string" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Description of the Workflow Definition.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="workflow-template" type="common-types:linkRequired">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								objid of the workflow-template.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="workflow-type" type="common-types:linkRequired">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								objid of the workflow-type.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="admin-group" type="common-types:linkRequired" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>objid of the admin-group.</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element ref="workflow-configuration:workflow-configuration" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<para>
+								Holds information about the
+								configuration for this workflow
+								definition.
+							</para>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="start-actor-list" type="workflow-definition:StartActorType" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>
+							<create>
+								<input>required</input>
+								<output>kept</output>
+							</create>
+							<update>
+								<input>required</input>
+								<output>kept</output>
+							</update>
+							<comment>
+								Holds information about the users and
+								roles that may start the
+								workflow-definition.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+			<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+		</xs:complexType>
+	</xs:element>
+
+	<!--*******************************
+		StartActorType
+		********************************-->
+	<xs:complexType name="StartActorType">
+		<xs:sequence>
+			<xs:element name="start-actor" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="user" type="common-types:linkRequired" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									<create>
+										<input>required</input>
+										<output>kept</output>
+									</create>
+									<update>
+										<input>required</input>
+										<output>kept</output>
+									</update>
+									<comment>
+										objid of the user.
+									</comment>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="role" type="common-types:linkRequired" minOccurs="0">
+							<xs:annotation>
+								<xs:documentation>
+									<create>
+										<input>required</input>
+										<output>kept</output>
+									</create>
+									<update>
+										<input>required</input>
+										<output>kept</output>
+									</update>
+									<comment>
+										objid of the role.
+									</comment>
+								</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+					<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

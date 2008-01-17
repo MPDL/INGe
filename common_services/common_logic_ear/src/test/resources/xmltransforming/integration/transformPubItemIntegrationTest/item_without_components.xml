@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--XML-Beispieldatei von XMLSpy generiert v2006 sp2 U (http://www.altova.com)-->
+<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+	xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:dcmitype="http://purl.org/dc/dcmitype/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
+	xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+	xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:properties="http://www.escidoc.de/schemas/properties/0.2"
+	xmlns:relations="http://www.escidoc.de/schemas/relations/0.2"
+	xmlns:resources="http://www.escidoc.de/schemas/resources/0.2" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	<item:properties>
+		<item:context objid="escidoc:persistent3" />
+		<item:content-model objid="escidoc:persistent4" />
+		<item:content-model-specific>
+			<anything />
+		</item:content-model-specific>
+	</item:properties>
+	<md-records:md-records>
+		<md-records:md-record name="escidoc">
+			<md-profile-escidoc:publication xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
+				<publication:creator role="author">
+					<escidoc:person>
+						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+						<escidoc:family-name>Meier</escidoc:family-name>
+						<escidoc:given-name>Hans</escidoc:given-name>
+						<escidoc:alternative-name>Werner</escidoc:alternative-name>
+						<escidoc:alternative-name>
+							These tokens are escaped and must stay escaped: &amp;quot;&amp;amp;amp;&amp;quot;,
+							&amp;quot;&amp;amp;gt;&amp;quot;, &amp;quot;&amp;amp;lt;&amp;quot;,
+							&amp;quot;&amp;amp;quot;&amp;quot;, &amp;quot;&amp;amp;apos;&amp;quot;
+						</escidoc:alternative-name>
+						<escidoc:alternative-name>
+							These tokens are escaped and must stay escaped, too: &amp;amp;auml; &amp;amp;Auml;
+							&amp;amp;szlig;
+						</escidoc:alternative-name>
+						<escidoc:person-title>Dr. (?)</escidoc:person-title>
+						<escidoc:pseudonym>&amp;lt;b&amp;gt;Shorty&amp;lt;/b&amp;gt;</escidoc:pseudonym>
+						<escidoc:pseudonym>&amp;lt;&amp;apos;Dr. Short&amp;apos;&amp;gt;</escidoc:pseudonym>
+						<escidoc:organization>
+							<escidoc:organization-name>Vinzenzmurr</escidoc:organization-name>
+							<escidoc:address>
+								&amp;lt;a href=&amp;quot;www.buxtehude.de&amp;quot;&amp;gt;Irgendwo in
+								Deutschland&amp;lt;/a&amp;gt;
+							</escidoc:address>
+							<escidoc:identifier>ED-84378462846</escidoc:identifier>
+						</escidoc:organization>
+						<escidoc:identifier xsi:type="eidt:PND">HH-XY-2222</escidoc:identifier>
+					</escidoc:person>
+				</publication:creator>
+				<publication:creator role="contributor">
+					<escidoc:organization>
+						<escidoc:organization-name>MPDL</escidoc:organization-name>
+						<escidoc:address>Amalienstraße</escidoc:address>
+						<escidoc:identifier>1a</escidoc:identifier>
+					</escidoc:organization>
+				</publication:creator>
+				<dc:title xml:lang="en">Über den Wölken. The first of all. Das Maß aller Dinge.</dc:title>
+				<dc:language xsi:type="dcterms:RFC3066">de</dc:language>
+				<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+				<dc:language xsi:type="dcterms:RFC3066">fr</dc:language>
+				<dcterms:alternative xml:lang="de">Die Erste von allen.</dcterms:alternative>
+				<dcterms:alternative xml:lang="fr">Wulewu</dcterms:alternative>
+				<dc:identifier xsi:type="eidt:ISI">0815</dc:identifier>
+				<dc:identifier xsi:type="eidt:ISSN">issn</dc:identifier>
+				<publication:publishing-info>
+					<dc:publisher>
+						O&apos;Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol
+					</dc:publisher>
+					<escidoc:place>Garching-Itzehoe-Capreton</escidoc:place>
+					<escidoc:edition>One and a half</escidoc:edition>
+				</publication:publishing-info>
+				<dcterms:created xsi:type="dcterms:W3CDTF">2005-02</dcterms:created>
+				<dcterms:modified xsi:type="dcterms:W3CDTF">2007-02-27</dcterms:modified>
+				<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2005-08-31</dcterms:dateSubmitted>
+				<dcterms:dateAccepted xsi:type="dcterms:W3CDTF">2005</dcterms:dateAccepted>
+				<dcterms:issued xsi:type="dcterms:W3CDTF">2006-02-01</dcterms:issued>
+				<publication:review-method>internal</publication:review-method>
+				<publication:source>
+					<dc:title xml:lang="jp">Dies ist die Wurzel allen Übels.</dc:title>
+					<dcterms:alternative xml:lang="en">This is the root of all ???.</dcterms:alternative>
+					<dcterms:alternative xml:lang="en">
+						&amp;lt; and &amp;amp; are illegal characters in XML and therefore have to be escaped.
+					</dcterms:alternative>
+					<dcterms:alternative xml:lang="en">
+						&amp;gt; and &amp;apos; and ? are problematic characters in XML and therefore should be escaped.
+					</dcterms:alternative>
+					<dcterms:alternative xml:lang="en">
+						What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \, -, the _, the
+						~, the @ and the #)?
+					</dcterms:alternative>
+					<dcterms:alternative xml:lang="en">
+						By the way, the Euro sign looks like this: €
+					</dcterms:alternative>
+					<escidoc:creator role="author">
+						<escidoc:organization>
+							<escidoc:organization-name>murrrmurr</escidoc:organization-name>
+							<escidoc:address>Ümläüte ßind ßchön. à bientôt!</escidoc:address>
+							<escidoc:identifier>BLA-BLU-BLÄ</escidoc:identifier>
+						</escidoc:organization>
+					</escidoc:creator>
+					<escidoc:volume>8a</escidoc:volume>
+					<escidoc:issue>13b</escidoc:issue>
+					<escidoc:start-page>-12</escidoc:start-page>
+					<escidoc:end-page>131313</escidoc:end-page>
+					<escidoc:sequence-number>1-3-6</escidoc:sequence-number>
+					<escidoc:publishing-info>
+						<dc:publisher>Martas Druckerei</dc:publisher>
+						<escidoc:place>Hamburg-München</escidoc:place>
+						<escidoc:edition>III</escidoc:edition>
+					</escidoc:publishing-info>
+					<dc:identifier xsi:type="eidt:ISBN">XY-347H-112</dc:identifier>
+					<escidoc:source>
+						<dc:title xml:lang="en">The source of the source.</dc:title>
+						<escidoc:creator role="artist">
+							<escidoc:organization>
+								<escidoc:organization-name>
+									Creator of the Source of the source
+								</escidoc:organization-name>
+								<escidoc:identifier>ID-4711-0815</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:creator>
+					</escidoc:source>
+				</publication:source>
+				<publication:event>
+					<dc:title xml:lang="en">Weekly progress meeting</dc:title>
+					<dcterms:alternative xml:lang="de">Wöchentliches Fortschrittsmeeting</dcterms:alternative>
+					<escidoc:start-date xsi:type="dcterms:W3CDTF">2004-11-11</escidoc:start-date>
+					<escidoc:end-date xsi:type="dcterms:W3CDTF">2005-02-19</escidoc:end-date>
+					<escidoc:place>Köln</escidoc:place>
+					<escidoc:invitation-status>invited</escidoc:invitation-status>
+				</publication:event>
+				<publication:total-number-of-pages>999</publication:total-number-of-pages>
+				<publication:degree>master</publication:degree>
+				<dcterms:abstract xml:lang="de">Dies ist die Zusammenfassung der Veröffentlichung.</dcterms:abstract>
+				<dcterms:abstract xml:lang="en">This is the summary of the publication.</dcterms:abstract>
+				<dc:subject xml:lang="jp">wichtig,wissenschaftlich,spannend</dc:subject>
+				<dcterms:tableOfContents xml:lang="fr">1.Einleitung 2.Inhalt</dcterms:tableOfContents>
+				<publication:location>IPP, Garching</publication:location>
+			</md-profile-escidoc:publication>
+		</md-records:md-record>
+	</md-records:md-records>
+</item:item>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<!-- 
+	Citation Styles explain XML
+	Initial creation: bsaquet
+	$Author: vdm $
+	$Revision: 141 $ $LastChangedDate: 2007-11-12 12:28:15 +0100 (Mo, 12 Nov 2007) $
+-->	
+
+ 	<citation-styles 
+ 		xmlns="http://escidoc.mpg.de/citation/schema/0.1/explain-styles" 
+ 		xmlns:dc="http://purl.org/dc/elements/1.1/" 
+		xmlns:dcterms="http://purl.org/dc/terms/"
+ 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+ 		xsi:schemaLocation="http://escidoc.mpg.de/citation/schema/0.1/explain-styles explain-styles.xsd"
+	 >
+ 	        <citation-style>
+	                <dc:title>APA Citation Style</dc:title>
+ 	                <dc:identifier>123</dc:identifier>
+ 	                <dc:description>The citation style defines APA Citation Style</dc:description>
+ 	                <format>
+ 	                	<dc:title>pdf</dc:title> 
+	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>rtf</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>html</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>odt</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+ 	                </format>
+ 	                <dc:creator>vdm</dc:creator>
+ 	        </citation-style>
+ 	        <citation-style>
+ 	                <dc:title>MLA Citation Style</dc:title>
+ 	                <dc:identifier>223</dc:identifier>
+ 	                <format>
+ 	                	<dc:title>pdf</dc:title> 
+	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>rtf</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>html</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/html</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>odt</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+ 	                </format>
+ 	                <dc:creator>Kondic</dc:creator>
+ 	        </citation-style>
+ 	</citation-styles>
