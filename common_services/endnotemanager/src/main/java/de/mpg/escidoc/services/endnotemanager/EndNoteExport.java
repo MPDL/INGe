@@ -43,7 +43,7 @@ import javax.xml.transform.TransformerException;
 
 import org.apache.log4j.Logger;
 
-import test.TestHelper;
+// import test.TestHelper;
 
 /**
  * EndNote Export Manager. 
