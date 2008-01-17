@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:escidocAdminDescriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.3" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.3" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocResources="http://www.escidoc.de/schemas/resources/0.2" xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" objid="escidoc:1297" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 soap/item/0.3/item.xsd" last-modification-date="2007-11-12T10:43:02.040Z">
+	<escidocItem:properties>
+		<escidocItem:creation-date>2007-11-12T10:42:28.561Z</escidocItem:creation-date>
+		<escidocItem:created-by objid="escidoc:user2"/>
+		<escidocItem:context objid="escidoc:persistent23"/>
+		<escidocItem:content-model objid="escidoc:persistent4"/>
+		<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+		<escidocItem:version>
+			<escidocItem:version-status>pending</escidocItem:version-status>
+		</escidocItem:version>
+		<escidocItem:content-model-specific/>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record name="escidoc">
+			<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="book">
+				<publication:creator role="author">
+					<escidoc:person>
+						<escidoc:complete-name/>
+						<escidoc:family-name>Huber</escidoc:family-name>
+						<escidoc:given-name>Karl</escidoc:given-name>
+						<escidoc:organization>
+							<escidoc:organization-name>Department Research and Development, Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
+							<escidoc:address>Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
+							<escidoc:identifier>escidoc:persistent1</escidoc:identifier>
+						</escidoc:organization>
+					</escidoc:person>
+				</publication:creator>
+				<publication:creator role="editor">
+					<escidoc:organization>
+						<escidoc:organization-name>Max Planck Digital Library, Max Planck Society</escidoc:organization-name>
+						<escidoc:address>Amalienstrasse 33, 80799, Munich, DE</escidoc:address>
+					</escidoc:organization>
+				</publication:creator>
+				<dc:title xml:lang="">Der Ödipus-Komplex</dc:title>
+				<dc:language xsi:type="dcterms:RFC3066">en</dc:language>
+				<dc:identifier xsi:type="eidt:ISBN">1234567890123</dc:identifier>
+				<publication:publishing-info>
+					<dc:publisher>Max Planck Society</dc:publisher>
+					<escidoc:place>Munich</escidoc:place>
+					<escidoc:edition>1st</escidoc:edition>
+				</publication:publishing-info>
+				<dcterms:created xsi:type="dcterms:W3CDTF">2007-11-12</dcterms:created>
+				<dcterms:modified xsi:type="dcterms:W3CDTF">2007-11-12</dcterms:modified>
+				<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-11-13</dcterms:dateSubmitted>
+				<publication:published-online xsi:type="dcterms:W3CDTF">2007-12-01</publication:published-online>
+				<dcterms:issued xsi:type="dcterms:W3CDTF">2008-01-01</dcterms:issued>
+				<publication:review-method>internal</publication:review-method>
+				<dcterms:abstract xml:lang="">In Jungian thought, the Oedipus complex tends to refer only to the experience of male children, with female children experiencing an Electra complex in which they regard their mothers as competitor for the exclusive love of their fathers.
+
+Freud considered the successful resolution of the Oedipus complex to be key to the development of gender roles and identity. He posited that boys and girls resolved the conflicts differently as a result of castration anxiety (for males) and penis envy (for females). Freud also held that the unsuccessful resolution of the Oedipus complex could result in neurosis, and homosexuality. Most Freud scholars today agree that Freud's views on the Oedipus complex went through a number of stages of development. This is well exemplified in the Simon and Blass (1991) publication, which documents no fewer than six stages of development of Freud's thinking on this subject:
+
+    * Stage 1. 1897-1909. Following the death of his father in 1896, and his later seeing Oedipus Rex by Sophocles, Freud begins to use the term "Oedipus" but does not, at this stage, use the term "Oedipus complex".
+    * Stage 2. 1909-1914. Freud refers to Oedipal wishes as being the "nuclear complex" of every neurosis, and later uses term "Oedipus complex" for the first time in 1910.
+    * Stage 3. 1914-1918. Incestuous wishes in relation to the father as well as to the mother are now considered.
+    * Stage 4. 1919-1926. Stage of complete Oedipus complex, in which considerations of identification and bisexuality become more evident in Freud's work. Freud now begins to use the term "complete Oedipus complex"..
+    * Stage 5. 1926-1931. Applies the Oedipal theory to religious and cultural themes.
+    * Stage 6. 1931-1938. Gives more attention to the Oedipus complex in females.
+
+It can be seen from this model that Freud's writings on the Oedipus complex in females date primarily from his later writings, of the 1920s and 1930s. He believed that the Oedipal wishes in females are initially homosexual desires for the mother, and in 1925, raised the question of how females later abandon this desire for their mother, and shift their sexual desires to their fathers (Appignanesisi &amp; Forrester, 1992). Freud believed that this stems from their disappointment in discovery that their mother lacks a penis. It is noteworthy that, as Slipp (1993) points out, "Nowhere in the Standard Edition of Freud's Collected Works does Freud discuss matricide" (Slipp, 1993, p95). Freud's final comments on female sexuality occurred in his "New Introductory Lectures on Psychoanalysis" in 1933 (Slipp, 1993) and deal with the different effects of penis envy and castration anxiety. While Freud argued that both sexes experience desire for their mothers and aggression towards their fathers, Carl Jung believed that females experienced desire for their fathers and aggression towards their mothers. He referred to this idea as the Electra complex, after Electra, the daughter of Agamemnon. Electra wanted to kill her mother, who had helped plan the murder of her father. The Electra complex is not considered to be a part of Freudian psychoanalytic theory.
+
+Although common usage refers to 'suffering from an Oedipus complex', psychoanalysis does not consider the complex a pathology, but instead a perfectly normal stage that all children go through. Oedipal desires are thought to remain heavily repressed and unconscious in the minds of all functioning adults.</dcterms:abstract>
+				<dc:subject xml:lang="">The Oedipus complex in Freudian psychoanalysis refers to a stage of psychosexual development in childhood where children of both sexes regard their father as an adversary and competitor for the exclusive love of their mother. The name derives from the Greek myth of Oedipus, who unwittingly kills his father, Laius, and marries his mother, Jocasta.</dc:subject>
+				<dcterms:tableOfContents xml:lang="">* 1 Theory of the Oedipal complex
+          o 1.1 Little Hans: a case study by Freud
+    * 2 Critiques of the Oedipus Complex
+    * 3 Philosophy and the Oedipus Complex
+    * 4 Negative Oedipus Complex
+    * 5 See also
+    * 6 References</dcterms:tableOfContents>
+				<publication:location>Munich</publication:location>
+			</escidocMetadataProfile:publication>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+</escidocItem:item>

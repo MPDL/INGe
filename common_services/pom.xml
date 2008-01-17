@@ -5,9 +5,9 @@
   <artifactId>common_services</artifactId>
   <packaging>pom</packaging>
   <version>1.0</version>
-  <name>CommonServices</name>
+  <name>common_services</name>
   <url>http://localhost/common_services</url>
-  <description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc. )used by applications like Faces or PubMan</description>
+  <description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
  
    <issueManagement>
       <system>Jira</system>
@@ -66,6 +66,8 @@
     <module>citationmanager</module>
     <module>endnotemanager</module>
     <module>validation</module>
+    <module>common_logic_ear</module>
+    <module>validation_ear</module>
   </modules>
 
   <scm>
@@ -113,7 +115,6 @@
         <enabled>true</enabled>
       </snapshots>
     </repository>
-
   </repositories>
 
  <build>
@@ -124,6 +125,51 @@
           <version>1.0-beta-2</version>
         </extension>
       </extensions>
-    </build>
-
+           <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <version>0.3.1</version>
+              <configuration>
+              <wait>false</wait>   
+                <container>
+                  <containerId>jboss4x</containerId>
+                  <zipUrlInstaller>
+                     <url>http://downloads.sourceforge.net/jboss/jboss-4.0.5.GA.zip</url>
+                     <installDir>${user.home}/jboss</installDir>
+                   </zipUrlInstaller>
+                </container>
+                <configuration>
+                  <home>${project.build.directory}/jboss/server</home>
+                  <properties>
+           <!--             <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+                      <cargo.host>${cargo.host}</cargo.host>  -->
+                      <cargo.servlet.port>8888</cargo.servlet.port>
+		      <cargo.rmi.port>1098</cargo.rmi.port>
+              <!--    <cargo.logging>low</cargo.logging> -->
+                 </properties>
+                </configuration>
+              </configuration>
+                <executions>
+                <execution>
+                  <id>start-container</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                    <goal>start</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>stop-container</id>
+                  <phase>post-integration-test</phase>
+                  <goals>
+                    <goal>stop</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+          </plugins>
+        </pluginManagement>
+       </build>   
+             
 </project>

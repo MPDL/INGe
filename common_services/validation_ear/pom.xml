@@ -7,7 +7,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
-	<artifactId>common_logic_ear</artifactId>
+	<artifactId>validation_ear</artifactId>
 	<name>common_logic_ear</name>
 	<packaging>ear</packaging>
 	<version>1.0-SNAPSHOT</version>
@@ -15,10 +15,10 @@
 
 	<scm>
 		<connection>
-			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/common_logic_ear
+			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/validation_ear
 		</connection>
 		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/common_services/common_logic_ear
+			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/common_services/validation_ear
 		</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
 	</scm>
@@ -73,6 +73,10 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
+                                                 <ejbModule>
+                                                        <groupId>de.mpg.escidoc.services</groupId>
+                                                        <artifactId>validation</artifactId>
+                                                </ejbModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -143,6 +147,13 @@
 			<version>1.2-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
+                 <dependency>
+                        <groupId>de.mpg.escidoc.services</groupId>
+                        <artifactId>validation</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <scope>compile</scope>
+                        <type>ejb</type>
+                </dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
