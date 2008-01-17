@@ -2226,7 +2226,9 @@ public class ReportingGUI extends JFrame {
 	                        e1.printStackTrace();
 	                    } catch (SAXException e1) {
 	                        e1.printStackTrace();
-	                    }
+	                    } catch (CitationStyleManagerException e1) {
+	                        e1.printStackTrace();
+	                    } 
 	                    
 	                    changed = false;
 	                    

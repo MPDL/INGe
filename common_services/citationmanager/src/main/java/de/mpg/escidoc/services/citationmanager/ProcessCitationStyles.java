@@ -776,13 +776,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	CITATIONSTYLES_DIRECTORY + "/" + name + 
         	"/" + ProcessScriptlet.getScriprtletClassName() + ".java";
         
-        com.sun.tools.javac.Main.compile(new String[] {
-                "-cp",
-                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
-                "-d", ProcessScriptlet.SCRIPTLETS_DIRECTORY,
-                scriptlet_fn_java
-                
-        });
+          // TODO MAKE THIS WORK AGAIN
+//        com.sun.tools.javac.Main.compile(new String[] {
+//                "-cp",
+//                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
+//                "-d", ProcessScriptlet.SCRIPTLETS_DIRECTORY,
+//                scriptlet_fn_java
+//                
+//        });
         
         
       }
