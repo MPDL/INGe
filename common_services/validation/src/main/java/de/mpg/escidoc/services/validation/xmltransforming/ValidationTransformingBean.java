@@ -42,7 +42,6 @@ import org.jibx.runtime.BindingDirectory;
 import org.jibx.runtime.IBindingFactory;
 import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
-import org.xmlpull.v1.XmlPullParserException;
 
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.TransformingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
@@ -74,22 +73,7 @@ public class ValidationTransformingBean implements ValidationTransforming
         super();
     }
 
-    private void logErrorDetails(final Throwable e)
-    {
-        LOGGER.error(e.getMessage());
-        if (e instanceof JiBXException)
-        {
-            JiBXException jibxException = (JiBXException) e;
-            if (jibxException.getRootCause() instanceof XmlPullParserException)
-            {
-                XmlPullParserException rootCause = (XmlPullParserException) jibxException.getRootCause();
-                if (rootCause != null)
-                {
-                    LOGGER.error(rootCause.getMessage());
-                }
-            }
-        }
-    }
+
 
     /**
      * {@inheritDoc}
@@ -112,7 +96,6 @@ public class ValidationTransformingBean implements ValidationTransforming
         }
         catch (JiBXException e)
         {
-            logErrorDetails(e);
             throw new UnmarshallingException("ValidationReportVO", e);
         }
         catch (java.lang.ClassCastException e)
