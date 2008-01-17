@@ -145,51 +145,51 @@ public class EndNoteExport implements EndNoteExportHandler {
 	}	
 	
     
-	   public static void main(String args[]) throws IOException
-	   {
-
-		   String itemList = TestHelper.readFile("test/item_publication.xml", "UTF-8");
-		   EndNoteExport export = new EndNoteExport();
-		   
-		try {
-			byte[] result_ba = export.getOutput(itemList);
-			
-			byte[] testOutput_ba = TestHelper.readBinFile("test/EndNoteTestOutput.txt");
-			
-			logger.info( "testOutput len: \n" + testOutput_ba.length + "; result len:" + result_ba.length);
-			
-			logger.info("Arrays, export is OK: " + Arrays.equals(result_ba, testOutput_ba));
-			
-			for (int i = 0; i < result_ba.length; i++) {
-				if (result_ba[i] != testOutput_ba[i])
-				{
-					logger.info("Diff at " + i + ": " + (char)result_ba[i] + "(" + result_ba[i] + ")" + " != " + (char)testOutput_ba[i] + "(" + testOutput_ba[i] + ")");
-				}
-			}
-			
-//			String result = new String(result_ba, "UTF-8");
-//			String testOutput = new String(testOutput_ba, "UTF-8");
-//			logger.info("export is OK: " + result.equals(testOutput));
-			
-			//logger.info( "testOutput: \n" + testOutput + "; length:" + testOutput.length());
-			//logger.info( "Result: \n" + result  + "; length:" + result.length());
-//			for (int i = 0; i < result.toCharArray().length; i++) {
-//				if (result.toCharArray()[i] != testOutput.toCharArray()[i])
+//	   public static void main(String args[]) throws IOException
+//	   {
+//
+//		   String itemList = TestHelper.readFile("test/item_publication.xml", "UTF-8");
+//		   EndNoteExport export = new EndNoteExport();
+//		   
+//		try {
+//			byte[] result_ba = export.getOutput(itemList);
+//			
+//			byte[] testOutput_ba = TestHelper.readBinFile("test/EndNoteTestOutput.txt");
+//			
+//			logger.info( "testOutput len: \n" + testOutput_ba.length + "; result len:" + result_ba.length);
+//			
+//			logger.info("Arrays, export is OK: " + Arrays.equals(result_ba, testOutput_ba));
+//			
+//			for (int i = 0; i < result_ba.length; i++) {
+//				if (result_ba[i] != testOutput_ba[i])
 //				{
-//					logger.info("Diff at " + i + ": " + result.toCharArray()[i] + "(" + (int)result.toCharArray()[i] + ")" + " != " + testOutput.toCharArray()[i] + "(" + (int)testOutput.toCharArray()[i] + ")");
+//					logger.info("Diff at " + i + ": " + (char)result_ba[i] + "(" + result_ba[i] + ")" + " != " + (char)testOutput_ba[i] + "(" + testOutput_ba[i] + ")");
 //				}
 //			}
-			
-			
-		} catch (EndNoteExportXSLTNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (EndNoteManagerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		   
-	   }
+//			
+////			String result = new String(result_ba, "UTF-8");
+////			String testOutput = new String(testOutput_ba, "UTF-8");
+////			logger.info("export is OK: " + result.equals(testOutput));
+//			
+//			//logger.info( "testOutput: \n" + testOutput + "; length:" + testOutput.length());
+//			//logger.info( "Result: \n" + result  + "; length:" + result.length());
+////			for (int i = 0; i < result.toCharArray().length; i++) {
+////				if (result.toCharArray()[i] != testOutput.toCharArray()[i])
+////				{
+////					logger.info("Diff at " + i + ": " + result.toCharArray()[i] + "(" + (int)result.toCharArray()[i] + ")" + " != " + testOutput.toCharArray()[i] + "(" + (int)testOutput.toCharArray()[i] + ")");
+////				}
+////			}
+//			
+//			
+//		} catch (EndNoteExportXSLTNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (EndNoteManagerException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		   
+//	   }
 
 	
 }	
