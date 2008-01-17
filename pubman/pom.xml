@@ -61,15 +61,14 @@
    </ciManagement>
 
   <modules>
-    <module>framework_access</module>
-    <module>common_logic</module> 
     <module>pubman_logic</module>
     <module>pubman_presentation</module>
+    <module>pubman_ear</module>
   </modules>
 
   <scm>
-    <connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk</connection>
-    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk</developerConnection>
+    <connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
+    <developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
     <url>http://zim02.gwdg.de/view.cvs</url>
   </scm>
 
