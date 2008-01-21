@@ -126,7 +126,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-							<test>TestCommonLogic</test>
+							<test>ValidationServiceTest</test>
 						</configuration>
 					</execution>
 				</executions>
