@@ -51,7 +51,7 @@
 
   <ciManagement>
       <system>Continuum</system>
-      <url>http://localhost:8081/continuum</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/continuum</url>
       <notifiers>
          <notifier>
             <type>mail</type>
@@ -80,11 +80,11 @@
    <repository>
        <id>deployment.webdav</id>
         <name>Archiva deployment</name>
-        <url>dav:http://localhost:8080/archiva/repository/internal/</url>
+        <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
         </repository>
    <snapshotRepository>
       <id>deployment.webdav</id>
-      <url>dav:http://localhost:8080/archiva/repository/snapshots/</url>
+      <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
     </snapshotRepository>
      <site> 
     	<id> website</id> 
@@ -96,7 +96,7 @@
     <repository>
       <id>deployment.webdav</id>
       <name>Archiva Managed Internal Repository</name>
-      <url>http://localhost:8080/archiva/repository/internal</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -107,7 +107,7 @@
 	  <repository>
       <id>deployment.webdav</id>
       <name>Archiva Managed Snapshot Repository</name>
-      <url>http://localhost:8080/archiva/repository/snapshots</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
       <releases>
         <enabled>false</enabled>
       </releases>
@@ -145,7 +145,7 @@
                   <properties>
            <!--             <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
                       <cargo.host>${cargo.host}</cargo.host>  -->
-                      <cargo.servlet.port>8888</cargo.servlet.port>
+                      <cargo.servlet.port>8889</cargo.servlet.port>
 		      <cargo.rmi.port>1098</cargo.rmi.port>
               <!--    <cargo.logging>low</cargo.logging> -->
                  </properties>
