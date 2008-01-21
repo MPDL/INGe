@@ -2,19 +2,19 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <parent>
-    <artifactId>common_services</artifactId>
-    <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0</version>
-  </parent>
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>de.mpg.escidoc.services</groupId>
-  <artifactId>endnotemanager</artifactId>
-  <name>endnotemanager</name>
-  <version>1.0-SNAPSHOT</version>
-  <url>http://maven.apache.org</url>
-  
-  <scm>
+	<parent>
+		<artifactId>common_services</artifactId>
+		<groupId>de.mpg.escidoc.services</groupId>
+		<version>1.0</version>
+	</parent>
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.services</groupId>
+	<artifactId>endnotemanager</artifactId>
+	<name>endnotemanager</name>
+	<version>1.0-SNAPSHOT</version>
+	<url>http://maven.apache.org</url>
+
+	<scm>
 		<connection>
 			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager
 		</connection>
@@ -23,27 +23,27 @@
 		</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
 	</scm>
-  
-   <build>
-    <plugins>
-      <plugin>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.5</source>
-          <target>1.5</target>
-        </configuration>
-      </plugin>
-        <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <test>EndnoteExportTest</test>
-        </configuration>
-      </plugin>
-      </plugins>
-      </build>
-   
-  <dependencies>
-  	<dependency>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<test>EndnoteExportTest</test>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.0.4</version>
@@ -55,7 +55,7 @@
 			<version>0.2</version>
 			<scope>compile</scope>
 		</dependency>
-    <dependency>
+		<dependency>
 			<groupId>org.jibx</groupId>
 			<artifactId>jibx-extras</artifactId>
 			<version>1.1.5</version>
@@ -83,25 +83,25 @@
 			<version>1.2.14</version>
 			<scope>compile</scope>
 		</dependency>
-    <dependency>
-		<groupId>axis</groupId>
-		<artifactId>axis</artifactId>
-		<version>1.4</version>
-		<scope>compile</scope>
-	</dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.1</version>
-      <scope>test</scope>
-    </dependency>
-    <dependency>
-		<groupId>xmlunit</groupId>
-		<artifactId>xmlunit</artifactId>
-		<version>1.0</version>
-		<scope>test</scope>
-	</dependency>
-	<dependency>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.1</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlunit</groupId>
+			<artifactId>xmlunit</artifactId>
+			<version>1.0</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
@@ -124,9 +124,9 @@
 			<version>4.0.5</version>
 			<scope>compile</scope>
 		</dependency>
-  </dependencies>
-  
-  <reporting>
+	</dependencies>
+
+	<reporting>
 		<plugins>
 			<plugin>
 				<artifactId>maven-javadoc-plugin</artifactId>
