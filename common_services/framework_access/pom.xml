@@ -317,8 +317,6 @@
 		</dependency>
 	</dependencies>
 
-
-
 	<reporting>
 		<plugins>
 			<plugin>
