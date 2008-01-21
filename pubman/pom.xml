@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.mpg.escidoc</groupId>
+  <groupId>de.mpg.escidoc.pubman</groupId>
   <artifactId>pubman</artifactId>
   <packaging>pom</packaging>
   <version>1.0</version>
@@ -51,7 +51,7 @@
 
   <ciManagement>
       <system>Continuum</system>
-      <url>http://localhost:8081/continuum</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/continuum</url>
       <notifiers>
          <notifier>
             <type>mail</type>
@@ -75,7 +75,7 @@
  <distributionManagement>
     <snapshotRepository>
       <id>deployment.webdav</id>
-      <url>dav:http://localhost:8080/archiva/repository/snapshots/</url>
+      <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
     </snapshotRepository>
      <site> 
     	<id> website</id> 
@@ -87,7 +87,7 @@
     <repository>
       <id>deployment.webdav</id>
       <name>Archiva Managed Internal Repository</name>
-      <url>http://localhost:8080/archiva/repository/internal</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal</url>
       <releases>
         <enabled>true</enabled>
       </releases>
@@ -98,7 +98,7 @@
 	  <repository>
       <id>deployment.webdav</id>
       <name>Archiva Managed Snapshot Repository</name>
-      <url>http://localhost:8080/archiva/repository/snapshots</url>
+      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
       <releases>
         <enabled>false</enabled>
       </releases>
