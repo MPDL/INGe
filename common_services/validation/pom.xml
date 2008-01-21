@@ -21,7 +21,7 @@
 		<developerConnection>
 			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/validation
 		</developerConnection>
-		<url>http://zim02.gwdg.de/view.cvs</url>
+		<url>http://zim02.gwdg.de/repos/commonview.cvs</url>
 	</scm>
   
    <build>
