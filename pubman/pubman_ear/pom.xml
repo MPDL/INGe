@@ -1,11 +1,11 @@
 <?xml version="1.0"?><project>
   <parent>
     <artifactId>pubman</artifactId>
-    <groupId>de.mpg.escidoc</groupId>
+    <groupId>de.mpg.escidoc.pubman</groupId>
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.mpg.escidoc.services.pubman</groupId>
+  <groupId>de.mpg.escidoc.pubman</groupId>
   <artifactId>pubman_ear</artifactId>
   <name>pubman_ear</name>
   <version>1.0-SNAPSHOT</version>
