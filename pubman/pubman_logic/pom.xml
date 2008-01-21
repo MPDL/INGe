@@ -1,21 +1,115 @@
 <?xml version="1.0"?><project>
   <parent>
     <artifactId>pubman</artifactId>
-    <groupId>de.mpg.escidoc</groupId>
+    <groupId>de.mpg.escidoc.pubman</groupId>
     <version>1.0</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-  <groupId>de.mpg.escidoc</groupId>
+  <groupId>de.mpg.escidoc.pubman</groupId>
   <artifactId>pubman_logic</artifactId>
   <name>pubman_logic</name>
   <version>1.0-SNAPSHOT</version>
   <url>http://maven.apache.org</url>
+  
+  <scm>
+		<connection>
+			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic
+		</connection>
+		<developerConnection>
+			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic
+		</developerConnection>
+		<url>http://zim02.gwdg.de/repos/pubman/view.cvs</url>
+	</scm>
+  
+  <build>
+  	<plugins>
+  	   <plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+		</plugin>
+  	</plugins>
+  </build>
+  
   <dependencies>
+    <dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>citationmanager</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+	</dependency>
+    <dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>endnotemanager</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+	</dependency>
+     <dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>validation</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+	</dependency>
+  	<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>common_logic</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+	</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>3.8.1</version>
+      <version>4.1</version>
       <scope>test</scope>
     </dependency>
    </dependencies>
+   
+   <reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>jira</report>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>changelog-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<targetjdk>1.5</targetjdk>
+					<linkXref>true</linkXref>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
+   
 </project>
