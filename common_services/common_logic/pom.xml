@@ -49,20 +49,6 @@
 										refid="maven.compile.classpath">
 									</classpath>
 								</taskdef>
-								<taskdef classname="test.tom.Which"
-									name="which">
-									<classpath>
-										<path
-											refid="maven.compile.classpath">
-										</path>
-										<pathelement
-											path="/usr/share/ant/lib" />
-										<pathelement
-											location="/usr/share/ant/lib/which4j.jar" />
-									</classpath>
-								</taskdef>
-								<which
-									classname="org.apache.log4j.Logger" />
 								<bind load="true" verbose="true">
 									<bindingfileset
 										dir="${basedir}/src/main/jibx">
