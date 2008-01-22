@@ -11,7 +11,6 @@
 	<name>common_logic_ear</name>
 	<packaging>ear</packaging>
 	<version>1.0-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
 
 	<scm>
 		<connection>
