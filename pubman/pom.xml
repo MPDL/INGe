@@ -6,7 +6,7 @@
   <packaging>pom</packaging>
   <version>1.0</version>
   <name>pubman</name>
-  <url>http://maven.apache.org</url>
+  <url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
   <description>PubMan supports scientists and institutes in the management and the digital curation of their publications. This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max-Planck-Institutes, customization and configuration options throughout the solution features are of major importance.</description>
  
    <issueManagement>
@@ -27,7 +27,7 @@
          <timezone>+2</timezone>
        </developer>
         <developer>
-         <id>michael</id>
+         <id>franke</id>
          <name>Michael Franke</name>
          <email>franke@mpdl.mpg.de</email>
          <roles>
@@ -78,8 +78,8 @@
       <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
     </snapshotRepository>
      <site> 
-    	<id> website</id> 
-    	<url> scp://localhost/var/www/pubman/</url> 
+    	<id>website</id> 
+    	<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/pubman</url> 
      </site> 
   </distributionManagement>
 
@@ -117,6 +117,89 @@
           <version>1.0-beta-2</version>
         </extension>
       </extensions>
+        <pluginManagement>
+          <plugins>
+            <plugin>
+              <groupId>org.codehaus.cargo</groupId>
+              <artifactId>cargo-maven2-plugin</artifactId>
+              <version>0.3.1</version>
+              <configuration>
+              <wait>false</wait>   
+                <container>
+                  <containerId>jboss4x</containerId>
+                  <zipUrlInstaller>
+                     <url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
+                     <installDir>${user.home}/jboss</installDir>
+                   </zipUrlInstaller>
+                </container>
+                <configuration>
+                  <home>${project.build.directory}/jboss/server</home>
+                  <properties>
+           <!--             <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+                      <cargo.host>${cargo.host}</cargo.host>  -->
+                      <cargo.servlet.port>8889</cargo.servlet.port>
+		      <cargo.rmi.port>1098</cargo.rmi.port>
+              <!--    <cargo.logging>low</cargo.logging> -->
+                 </properties>
+                </configuration>
+              </configuration>
+                <executions>
+                <execution>
+                  <id>start-container</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                    <goal>start</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>stop-container</id>
+                  <phase>post-integration-test</phase>
+                  <goals>
+                    <goal>stop</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+           <plugin>
+              <artifactId>maven-surefire-plugin</artifactId>
+        	<configuration>
+          		<failIfNoTests>false</failIfNoTests>
+        	</configuration>
+           </plugin>
+          </plugins>
+        </pluginManagement>
     </build>
+    
+   <reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>jira</report>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>changelog-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</reporting>  
 
 </project>
