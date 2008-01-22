@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>validation_ear</artifactId>
-	<name>common_logic_ear</name>
+	<name>validation_ear</name>
 	<packaging>ear</packaging>
 	<version>1.0-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
