@@ -136,7 +136,7 @@
                 <container>
                   <containerId>jboss4x</containerId>
                   <zipUrlInstaller>
-                     <url>http://downloads.sourceforge.net/jboss/jboss-4.0.5.GA.zip</url>
+                     <url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
                      <installDir>${user.home}/jboss</installDir>
                    </zipUrlInstaller>
                 </container>
