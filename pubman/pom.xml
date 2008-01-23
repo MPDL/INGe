@@ -73,6 +73,11 @@
   </scm>
 
  <distributionManagement>
+  <repository>
+       <id>deployment.webdav</id>
+        <name>Archiva deployment</name>
+        <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+        </repository>
     <snapshotRepository>
       <id>deployment.webdav</id>
       <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
