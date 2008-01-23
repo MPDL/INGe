@@ -131,7 +131,9 @@
       <notifiers>
          <notifier>
             <type>mail</type>
-            <address>endres@mpdl.mpg.de</address>
+            <configuration>
+            	<address>escidoc-code@gwdg.de</address>
+            </configuration>
          </notifier>
       </notifiers>
    </ciManagement>
