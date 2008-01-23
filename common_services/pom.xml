@@ -8,7 +8,13 @@
   <name>common_services</name>
   <url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
   <description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
- 
+   <licenses>
+    <license>
+        <name>Common Development And Distribution License</name>
+        <url>http://www.sun.com/cddl/cddl.html</url>
+        <distribution>repo</distribution>
+    </license>
+  </licenses>  
    <issueManagement>
       <system>Jira</system>
       <url>http://zim01.gwdg.de:8080/browse/</url>
