@@ -126,11 +126,11 @@
 
    <mailingLists>
      <mailingList>
-       <name>pubman project mailing list</name>
-       <subscribe>dev-subscribe@wakaleo.com</subscribe>
-       <unsubscribe>dev-unsubscribe@wakaleo.com</unsubscribe>
-      <post>dev@wakaleo.com</post>
-      <archive>http://mail-archives.wakaleo.com/modmbox/dev/</archive>
+       <name>FIZ Karlsruhe eSciDoc infrastructure mailing list</name>
+       <subscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</subscribe>
+       <unsubscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</unsubscribe>
+      <post>infrastructure-user@escidoc-project.de</post>
+      <archive>http://www.escidoc-project.de/pipermail/infrastructure-user/</archive>
      </mailingList>
    </mailingLists>
 
