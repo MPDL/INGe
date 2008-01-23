@@ -15,6 +15,17 @@
    </issueManagement>     
  
    <developers>
+   		<developer>
+         <id>mdreyer</id>
+         <name>Malte Dreyer</name>
+         <email>dreyer@mpdl.mpg.de</email>
+         <roles>
+            <role>Project manager</role>
+            <role>Architect</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
       <developer>
          <id>nab</id>
          <name>Natasa Bulatovic</name>
@@ -27,9 +38,70 @@
          <timezone>+2</timezone>
        </developer>
         <developer>
-         <id>franke</id>
+         <id>mfranke</id>
          <name>Michael Franke</name>
          <email>franke@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+        <developer>
+         <id>wfrank</id>
+         <name>Wilhelm Frank</name>
+         <email>frank@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+       </developer>
+        <developer>
+         <id>wfrank</id>
+         <name>Thomas Endres</name>
+         <email>endres@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+        <developer>
+         <id>bsaquet</id>
+         <name>Bastien Saquet</name>
+         <email>saquet@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+        <developer>
+         <id>tschraut</id>
+         <name>Tobias Schraut</name>
+         <email>schraut@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+         <developer>
+         <id>jkurt</id>
+         <name>Julia Kurt</name>
+         <email>kurt@mpdl.mpg.de</email>
+         <roles>
+            <role>Software developer</role>
+         </roles>
+         <organization>Max Planck Digital Library</organization>
+         <timezone>+2</timezone>
+       </developer>
+       <developer>
+         <id>vmakarenko</id>
+         <name>Vlad Makarenko</name>
+         <email>makarenko@mpdl.mpg.de</email>
          <roles>
             <role>Software developer</role>
          </roles>
