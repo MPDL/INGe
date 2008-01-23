@@ -40,20 +40,20 @@
 								true
 							</includeInApplicationXml>
 						</jarModule>
-						<jarModule>
+						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
 							<includeInApplicationXml>
 								true
 							</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
+						</ejbModule>
+						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>pubman_logic</artifactId>
 							<includeInApplicationXml>
 								true
 							</includeInApplicationXml>
-						</jarModule>
+						</ejbModule>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>citationmanager</artifactId>
@@ -183,6 +183,13 @@
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
+                  <dependency>
+                        <groupId>de.mpg.escidoc.services</groupId>
+                        <artifactId>pubman_logic</artifactId>
+                        <version>1.0-SNAPSHOT</version>
+                        <scope>compile</scope>
+                        <type>ejb</type>
+                </dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
