@@ -8,7 +8,14 @@
   <name>pubman</name>
   <url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
   <description>PubMan supports scientists and institutes in the management and the digital curation of their publications. This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max-Planck-Institutes, customization and configuration options throughout the solution features are of major importance.</description>
- 
+    <licenses>
+    <license>
+        <name>Common Development And Distribution License</name>
+        <url>http://www.sun.com/cddl/cddl.html</url>
+        <distribution>repo</distribution>
+    </license>
+  </licenses> 
+  
    <issueManagement>
       <system>Jira</system>
       <url>http://zim01.gwdg.de:8080/browse/PUBMAN</url>
