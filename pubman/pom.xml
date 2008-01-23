@@ -15,6 +15,14 @@
         <distribution>repo</distribution>
     </license>
   </licenses> 
+ 
+ <organization>
+    <name>Max Planck Digital Library</name>
+    <url>http://www.mpdl.mpg.de/</url>
+  </organization>
+  <properties>
+    <organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
+  </properties>
   
    <issueManagement>
       <system>Jira</system>
@@ -65,7 +73,7 @@
          <timezone>+2</timezone>
        </developer>
         <developer>
-         <id>wfrank</id>
+         <id>tendres</id>
          <name>Thomas Endres</name>
          <email>endres@mpdl.mpg.de</email>
          <roles>
