@@ -499,7 +499,7 @@ public class PubItemSearchingBean implements PubItemSearching
         if (searchResult.getDiagnostics() != null)
         {
             // something went wrong
-            for (DiagnosticType diagnostic : searchResult.getDiagnostics())
+            for (DiagnosticType diagnostic : searchResult.getDiagnostics().getDiagnostic())
             {
                 logger.warn(diagnostic.getUri());
                 logger.warn(diagnostic.getMessage());
@@ -513,7 +513,7 @@ public class PubItemSearchingBean implements PubItemSearching
         ArrayList<PubItemResultVO> pubItemResultList = new ArrayList<PubItemResultVO>();
         if (searchResult.getRecords() != null)
         {
-            for (RecordType record : searchResult.getRecords())
+            for (RecordType record : searchResult.getRecords().getRecord())
             {
                 StringOrXmlFragment data = record.getRecordData();
                 MessageElement[] messages = data.get_any();
