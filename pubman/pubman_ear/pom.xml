@@ -113,11 +113,12 @@
 					<target>1.5</target>
 				</configuration>
 			</plugin>
+<!--  no jboss testserver neccessary at the moment, snce there are no integration-tests ;)
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
 			</plugin>
-<!--        no jboss testserver neccessary at the moment, snce there are no integration-tests ;)
+-->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
@@ -129,7 +130,6 @@
 					</execution>
 				</executions>
 			</plugin>
-			-->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
