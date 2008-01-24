@@ -8,7 +8,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_logic</artifactId>
-	<packaging>jar</packaging>
+	<packaging>ejb</packaging>
 	<name>common_logic</name>
 	<version>1.0-SNAPSHOT</version>
 
@@ -24,6 +24,13 @@
 
 	<build>
 		<plugins>
+		 <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-ejb-plugin</artifactId>
+        <configuration>
+          <ejbVersion>3.0</ejbVersion>
+        </configuration>
+          </plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
