@@ -116,12 +116,12 @@
    </developers>
 
    <mailingLists>
-     <mailingList>
-       <name>pubman project mailing list</name>
-       <subscribe>dev-subscribe@wakaleo.com</subscribe>
-       <unsubscribe>dev-unsubscribe@wakaleo.com</unsubscribe>
-      <post>dev@wakaleo.com</post>
-      <archive>http://mail-archives.wakaleo.com/modmbox/dev/</archive>
+      <mailingList>
+       <name>Infolist about build-failures, source-code changes etc.</name>
+       <subscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</subscribe>
+       <unsubscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</unsubscribe>
+      <post>escidoc-code@gwdg.de</post>
+      <archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
      </mailingList>
    </mailingLists>
 
