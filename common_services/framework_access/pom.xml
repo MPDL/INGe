@@ -8,11 +8,11 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>framework_access</artifactId>
 	<name>framework_access</name>
-	<version>1.2</version>
+	<version>1.3-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:http://zim02.gwdg.de/repos/common/tags/framework_access-1.2</connection>
-		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/tags/framework_access-1.2</developerConnection>
-		<url>scm:svn:http://zim02.gwdg.de/repos/common/tags/framework_access-1.2</url>
+		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</connection>
+		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</developerConnection>
+		<url>http://zim02.gwdg.de/view.cvs</url>
 	</scm>
 
 	<build>
