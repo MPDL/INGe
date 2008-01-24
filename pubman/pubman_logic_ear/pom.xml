@@ -146,6 +146,7 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
+							<skip>false</skip>
 							<test>TestPubManLogic</test>
 							<test>TestPubManLogicIntegration</test>
 						</configuration>
