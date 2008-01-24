@@ -132,6 +132,13 @@
       <post>infrastructure-user@escidoc-project.de</post>
       <archive>http://www.escidoc-project.de/pipermail/infrastructure-user/</archive>
      </mailingList>
+     <mailingList>
+       <name>Infolist about build-failures, source-code changes etc.</name>
+       <subscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</subscribe>
+       <unsubscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</unsubscribe>
+      <post>escidoc-code@gwdg.de</post>
+      <archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
+     </mailingList>
    </mailingLists>
 
   <ciManagement>
