@@ -85,7 +85,7 @@ public class ValidationReportTransformingTest
     public final void transformEmptyXmlReportToObject() throws Exception
     {
 
-        String xmlReport = ResourceUtil.getResourceAsString("test/xmltransforming/validationreport/empty.xml");
+        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/empty.xml");
         logger.debug("Creating ValidationReportVO from: " + xmlReport);
 
         ValidationReportVO reportVO = vtransforming.transformToValidationReport(xmlReport);
@@ -102,7 +102,7 @@ public class ValidationReportTransformingTest
     public final void transformFullXmlReportToObject() throws Exception
     {
 
-        String xmlReport = ResourceUtil.getResourceAsString("test/xmltransforming/validationreport/full.xml");
+        String xmlReport = ResourceUtil.getResourceAsString("src/test/resources/xmltransforming/validationreport/full.xml");
         logger.debug("Creating ValidationReportVO from: " + xmlReport);
 
         ValidationReportVO reportVO = vtransforming.transformToValidationReport(xmlReport);
