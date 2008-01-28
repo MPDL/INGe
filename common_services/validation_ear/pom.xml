@@ -28,9 +28,9 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<displayName>common_logic</displayName>
+					<displayName>validation</displayName>
 					<description>
-						common_logic integration testing ear
+						validation integration testing ear
 					</description>
 					<modules>
 						<jarModule>
@@ -143,7 +143,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.2-SNAPSHOT</version>
+			<version>1.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
                  <dependency>
