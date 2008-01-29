@@ -158,7 +158,7 @@
         <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
         </repository>
     <snapshotRepository>
-      <id>deployment.webdav</id>
+      <id>snapshots.webdav</id>
       <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
     </snapshotRepository>
      <site> 
@@ -180,7 +180,7 @@
       </snapshots>
     </repository>
 	  <repository>
-      <id>deployment.webdav</id>
+      <id>snapshots.webdav</id>
       <name>Archiva Managed Snapshot Repository</name>
       <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
       <releases>
