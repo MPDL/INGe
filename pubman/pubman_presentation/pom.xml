@@ -194,7 +194,7 @@
 		<dependency>
 			<groupId>sun.jsf</groupId>
 			<artifactId>webui</artifactId>
-			<version>2.4.2</version>
+			<version>1.2</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
