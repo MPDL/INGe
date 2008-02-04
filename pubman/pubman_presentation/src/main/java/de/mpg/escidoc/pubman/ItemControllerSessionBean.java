@@ -318,6 +318,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
      * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
      * @return string, identifying the page that should be navigated to after this methodcall
      */
+    // //TODO NBU: remove this method
     public String submitPubItemList(ArrayList<PubItemVO> pubItemList, String submissionComment, String navigationRuleWhenSuccessfull)
     {
         boolean allSubmitted = true;
@@ -397,6 +398,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
      * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
      * @return string, identifying the page that should be navigated to after this methodcall
      */
+  //TODO NBU: remove this method
     public String deletePubItemList(ArrayList<PubItemVO> pubItemList, String navigationRuleWhenSuccessfull)
     {
         if (pubItemList.size() > 0)
