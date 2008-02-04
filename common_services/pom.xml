@@ -162,7 +162,6 @@
   <module>validation</module>
   <module>validation_ear</module>
   <module>common_logic_ear</module>
-  <module>validation_ear</module>
  </modules>
 
  <scm>
