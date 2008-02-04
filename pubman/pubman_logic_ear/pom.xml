@@ -29,9 +29,7 @@
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<displayName>pubman</displayName>
-					<description>
-						Pubman
-					</description>
+					<description>Pubman</description>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -98,7 +96,7 @@
 							<includeInApplicationXml>
 								true
 							</includeInApplicationXml>
-						</jarModule>						
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -137,8 +135,7 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration>
-				</configuration>
+				<configuration></configuration>
 				<executions>
 					<execution>
 						<phase>integration-test</phase>
@@ -176,34 +173,34 @@
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>endnotemanager</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
-			<dependency>
+		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
 			<version>1.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
-                  <dependency>
-                        <groupId>de.mpg.escidoc.pubman</groupId>
-                        <artifactId>pubman_logic</artifactId>
-                        <version>1.0-SNAPSHOT</version>
-                        <scope>compile</scope>
-                        <type>ejb</type>
-                </dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman</groupId>
+			<artifactId>pubman_logic</artifactId>
+			<version>1.0-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
 			<artifactId>xmlunit</artifactId>
@@ -265,4 +262,73 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
+
+	<profiles>
+		<profile>
+			<id>jboss40</id>
+			<build>
+				<plugins>
+				<plugin>
+					<groupId>org.codehaus.cargo</groupId>
+					<artifactId>cargo-maven2-plugin</artifactId>
+					<version>0.3.1</version>
+					<configuration>
+						<wait>false</wait>
+						<container>
+							<containerId>jboss4x</containerId>
+							<zipUrlInstaller>
+								<url>
+									http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip
+								</url>
+								<installDir>
+									${user.home}/jboss
+								</installDir>
+							</zipUrlInstaller>
+						</container>
+						<configuration>
+							<home>
+								${project.build.directory}/jboss/server
+							</home>
+							<properties>
+								<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+									<cargo.host>${cargo.host}</cargo.host>  -->
+								<cargo.servlet.port>
+									${cargo.port}
+								</cargo.servlet.port>
+								<cargo.rmi.port>
+									${cargo.rmi.port}
+								</cargo.rmi.port>
+								<cargo.logging>
+									${cargo.log}
+								</cargo.logging>
+							</properties>
+						</configuration>
+					</configuration>
+					<executions>
+						<execution>
+							<id>start-container</id>
+							<phase>pre-integration-test</phase>
+							<goals>
+								<goal>start</goal>
+							</goals>
+						</execution>
+						<execution>
+							<id>stop-container</id>
+							<phase>post-integration-test</phase>
+							<goals>
+								<goal>stop</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<failIfNoTests>false</failIfNoTests>
+					</configuration>
+				</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
