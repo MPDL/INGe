@@ -219,7 +219,6 @@
     <filtering>true</filtering>
    </resource>
   </resources>
-  <extensions>
    <extensions>
     <extension>
      <groupId>org.apache.maven.wagon</groupId>
