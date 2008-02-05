@@ -235,10 +235,45 @@
        </execution>
       </executions>
      </plugin>
+    </plugins>
+   </build>
+  </profile>
+  <profile>
+   <id>jboss42</id>
+   <build>
+    <plugins>
      <plugin>
-      <artifactId>maven-surefire-plugin</artifactId>
+      <groupId>org.codehaus.cargo</groupId>
+      <artifactId>cargo-maven2-plugin</artifactId>
+      <version>0.3.1</version>
       <configuration>
-       <failIfNoTests>false</failIfNoTests>
+       <wait>true</wait>
+       <container>
+        <containerId>jboss4x</containerId>
+        <zipUrlInstaller>
+         <url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
+         <installDir>${user.home}/jboss</installDir>
+        </zipUrlInstaller>
+       </container>
+       <configuration>
+        <home>${project.build.directory}/jboss/server</home>
+        <properties>
+         <!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+          <cargo.host>${cargo.host}</cargo.host>  -->
+         <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+         <cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+         <cargo.logging>${cargo.log}</cargo.logging>
+         <cargo.jboss.configuration>default</cargo.jboss.configuration>
+        </properties>
+       </configuration>
+      </configuration>
+     </plugin>
+     <plugin>
+      <groupId>org.codehaus.mojo</groupId>
+      <artifactId>jboss-maven-plugin</artifactId>
+      <configuration>
+       <hostName>${jboss.deploy.host}</hostName>
+       <port>${jboss.deploy.port}</port>
       </configuration>
      </plugin>
     </plugins>
