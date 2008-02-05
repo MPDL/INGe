@@ -24,6 +24,13 @@
 
 	<build>
 		<plugins>
+		<plugin>
+ <groupId>org.apache.maven.plugins</groupId>
+ <artifactId>maven-eclipse-plugin</artifactId>
+ <configuration>
+   <wtpversion>1.5</wtpversion>
+ </configuration>
+</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
