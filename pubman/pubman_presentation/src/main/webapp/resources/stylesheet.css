@@ -67,7 +67,7 @@
   margin-top: 10px;
 }
 
-.breadCrumb {
+.breadcrumb {
   color: #000000;
   font-family: Arial,Helvetica,sans-serif; 
   font-size: 10px; 
@@ -162,7 +162,7 @@
   font-weight: normal;
 }
 
-/* Werte ausserhalb von Datentabellen (mit Einr�ckung) */
+/* Werte ausserhalb von Datentabellen (mit Einrückung) */
 .value {
   padding-left: 4px;
   height: 20px;
@@ -171,7 +171,7 @@
   font-weight: normal;
 }
 
-/* Werte ausserhalb von Datentabellen (mit Einr�ckung) */
+/* Werte ausserhalb von Datentabellen (mit Einrückung) */
 .withdrawalComment {
   color: #72132D;
   padding-left: 4px;
@@ -181,7 +181,7 @@
   font-weight: bold;
   font-style: italic;
 }
-/* Werte in Datentabellen (ohne Einr�ckung) */
+/* Werte in Datentabellen (ohne Einrückung) */
 .valueInTable {
   height: 20px;
   font-family: 'Arial','Helvetica',sans-serif; 
@@ -198,7 +198,7 @@
   font-weight: normal;
 }
 
-/* Metadata label (einger�ckt / zweite Ebene)*/
+/* Metadata label (eingerückt / zweite Ebene)*/
 .labelMetadataIndent {
   padding-left: 4px;
   height: 20px;
@@ -207,7 +207,7 @@
   font-weight: normal;
 }
 
-/* Werte ausserhalb von Datentabellen (mit Einr�ckung) f�r Metadaten*/
+/* Werte ausserhalb von Datentabellen (mit Einrückung) für Metadaten*/
 .valueMetadata {
   padding-left: 0px;
   height: 20px;
@@ -216,7 +216,7 @@
   font-weight: normal;
 }
 
-/* Werte ausserhalb von Datentabellen (mit Einr�ckung) f�r Metadaten (zweite Ebene)*/
+/* Werte ausserhalb von Datentabellen (mit Einrückung) für Metadaten (zweite Ebene)*/
 .valueMetadataIndent {
   padding-left: 4px;
   height: 20px;
@@ -225,7 +225,7 @@
   font-weight: normal;
 }
 
-/* Werte in Datentabellen (ohne Einr�ckung) f�r Metadaten*/
+/* Werte in Datentabellen (ohne Einrückung) für Metadaten*/
 .valueInTableMetadata {
   height: 20px;
   font-family: 'Arial','Helvetica',sans-serif; 
@@ -275,7 +275,7 @@ a.white {	color:#ffffff;}
   valign: top;
 }
 
-/* spezielle Formatierung(Einrueckung) f�r Elemente der rechten Seite, die NICHT aus Listenelementen generiert werden*/
+/* spezielle Formatierung(Einrueckung) für Elemente der rechten Seite, die NICHT aus Listenelementen generiert werden*/
 .viewItemPageTableRightIndent {
   width: 80%;
   height: 30px; 
@@ -284,7 +284,7 @@ a.white {	color:#ffffff;}
   valign: top;
 }
 
-/* spezielle Formatierung(negative Einrueckung) f�r Elemente der rechten Seite, die dynamisch aus dem Java-Code heraus erzeugt werden*/
+/* spezielle Formatierung(negative Einrückung) für Elemente der rechten Seite, die dynamisch aus dem Java-Code heraus erzeugt werden*/
 .viewItemPageTableRightDynamicElement {
   width: 80%;
   height: 30px; 

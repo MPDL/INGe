@@ -1,33 +1,31 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
-
+ *
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License"). You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ * or http://www.escidoc.de/license.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at license/ESCIDOC.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
-
+ * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * All rights reserved. Use is subject to license terms.
+ */
 package de.mpg.escidoc.pubman.ui;
 
 import java.math.BigDecimal;
@@ -35,49 +33,40 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
+
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.component.html.HtmlOutputText;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.component.html.HtmlSelectOneMenu;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
 import javax.faces.model.SelectItem;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.HiddenField;
+
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
  * Superclass for lists with a paginator and all functions to navigate through them.
- * 
+ *
  * @author: Thomas Diebäcker, created 30.08.2007
- * @version: $Revision: 1681 $ $LastChangedDate: 2007-12-14 17:15:05 +0100 (Fri, 14 Dec 2007) $
+ * @version: $Revision: 1681 $ $LastChangedDate: 2007-12-14 17:15:05 +0100 (Fr, 14 Dez 2007) $
  */
 public abstract class ListUI extends ContainerPanelUI implements ActionListener, ValueChangeListener
 {
     @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(ListUI.class);
+    private static Logger logger = Logger.getLogger(ListUI.class);
     private static final int MAX_NUMBER_OF_PAGE_BUTTONS = 9; // should not be less than 4!
-    private static final int NUMBER_OF_LAST_BUTTONS_IF_MAX_IS_EXCEEDED = 2; // should not more than
-                                                                            // MAX_NUMBER_OF_PAGE_BUTTONS!
+    private static final int NUMBER_OF_LAST_BUTTONS_IF_MAX_IS_EXCEEDED = 2; // should not be greater than
+    // MAX_NUMBER_OF_PAGE_BUTTONS!
     public static final int SHOW_ITEMS_PER_PAGE_DEFAULT = 0; // this is the index for SHOW_ITEMS_PER_PAGE[] not the
-                                                                // value itself!
-    // internationalized resource bundles
-    protected Application application = FacesContext.getCurrentInstance().getApplication();
-    protected InternationalizationHelper i18nHelper = (InternationalizationHelper)application
-            .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    protected ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    // value itself!
     // Inserted by FrM, 8.11.07: Set number of selected items for delete confirmation.
-    protected HiddenField numberSelectedObjects = new HiddenField();
+    protected HtmlInputHidden numberSelectedObjects = new HtmlInputHidden();
     // the lists of objects
     private List<? extends ValueObjectWrapper> allObjects = new ArrayList<ValueObjectWrapper>();
     private List<? extends ValueObjectWrapper> objectsToDisplay = new ArrayList<ValueObjectWrapper>();
@@ -85,8 +74,8 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
     protected int currentPage = 1;
     protected String actionMethodForTitle = null;
     private boolean singleView = false;
-    private PaginatorControl paginatorControlTop = new PaginatorControl();
-    private PaginatorControl paginatorControlBottom = new PaginatorControl();
+    private UIPaginatorControl paginatorControlTop = new UIPaginatorControl();
+    private UIPaginatorControl paginatorControlBottom = new UIPaginatorControl();
     // constants for comboBoxes
     public static final int SHOW_ITEMS_PER_PAGE[] = { 10, 25, 50, 100, 250 };
     public static final SelectItem[] SHOW_SELECTITEMS = new SelectItem[] {
@@ -95,7 +84,14 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
             new SelectItem("2", new Integer(SHOW_ITEMS_PER_PAGE[2]).toString()),
             new SelectItem("3", new Integer(SHOW_ITEMS_PER_PAGE[3]).toString()),
             new SelectItem("4", new Integer(SHOW_ITEMS_PER_PAGE[4]).toString()) };
-    
+
+    /**
+     * Default constructor.
+     */
+    public ListUI()
+    {
+    }
+
     /**
      * Public constructor.
      * 
@@ -125,7 +121,6 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
      */
     public ListUI(List<? extends ValueObjectWrapper> allObjects, boolean singleView, String actionMethodForTitle)
     {
-    	this.updateLanguageBundle();
         this.singleView = singleView;
         this.actionMethodForTitle = actionMethodForTitle;
         // Set allObjects through set method, so the objects to display will be also set.
@@ -134,7 +129,7 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
         this.panTitleBar.getChildren().add(1, this.paginatorControlTop);
         this.panFooter.getChildren().add(0, this.paginatorControlBottom);
         this.numberSelectedObjects.setId("noso");
-        this.numberSelectedObjects.setText(getNumberOfSelectedObjects());
+        this.numberSelectedObjects.setValue(getNumberOfSelectedObjects());
         this.panFooter.getChildren().add(1, this.numberSelectedObjects);
     }
 
@@ -296,12 +291,13 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
         this.paginatorControlTop.btBack.setDisabled(currentPage == 1);
         this.paginatorControlTop.btBack.setStyleClass(this.paginatorControlTop.btBack.isDisabled() ? "disabled" : null);
         this.paginatorControlTop.btForward.setDisabled(currentPage == this.calculateNumberOfPages());
-        this.paginatorControlTop.btForward.setStyleClass(this.paginatorControlTop.btForward.isDisabled() ? "disabled" : null);
+        this.paginatorControlTop.btForward
+                .setStyleClass(this.paginatorControlTop.btForward.isDisabled() ? "disabled" : null);
         this.paginatorControlTop.btFirst.setDisabled(currentPage == 1);
-        this.paginatorControlTop.btFirst.setStyleClass(this.paginatorControlTop.btFirst.isDisabled() ? "disabled" : null);
+        this.paginatorControlTop.btFirst
+                .setStyleClass(this.paginatorControlTop.btFirst.isDisabled() ? "disabled" : null);
         this.paginatorControlTop.btLast.setDisabled(currentPage == this.calculateNumberOfPages());
         this.paginatorControlTop.btLast.setStyleClass(this.paginatorControlTop.btLast.isDisabled() ? "disabled" : null);
-
         this.paginatorControlBottom.btBack.setDisabled(this.paginatorControlTop.btBack.isDisabled());
         this.paginatorControlBottom.btBack.setStyleClass(this.paginatorControlTop.btBack.getStyleClass());
         this.paginatorControlBottom.btForward.setDisabled(this.paginatorControlTop.btForward.isDisabled());
@@ -310,7 +306,6 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
         this.paginatorControlBottom.btFirst.setStyleClass(this.paginatorControlTop.btFirst.getStyleClass());
         this.paginatorControlBottom.btLast.setDisabled(this.paginatorControlTop.btLast.isDisabled());
         this.paginatorControlBottom.btLast.setStyleClass(this.paginatorControlTop.btLast.getStyleClass());
-        
         // refreshes the page buttons
         this.refreshPageButtons();
         this.objectsToDisplay = objectsToDisplay;
@@ -580,101 +575,13 @@ public abstract class ListUI extends ContainerPanelUI implements ActionListener,
         return result;
     }
 
-    /**
-     * Inner class for the GUI elements of the paginator. As the paginator should appear twice (at the top and the
-     * bottom of the list, we define the elements of the paginator in this inner class and instanciate it twice instead
-     * of defining every element twice in the main class.
-     * 
-     * @author Thomas Diebaecker
-     */
-    public class PaginatorControl extends HtmlPanelGroup
-    {
-        // item list controls
-        private HTMLElementUI htmlElementUI = new HTMLElementUI();
-        private HtmlOutputText lblTotal = new HtmlOutputText();
-        private HtmlOutputText lblItemCount = new HtmlOutputText();
-        private HtmlOutputText lblShow = new HtmlOutputText();
-        private HtmlOutputText lblObjectsPerPage = new HtmlOutputText();
-        private HtmlCommandButton btFirst = new HtmlCommandButton();
-        private HtmlCommandButton btBack = new HtmlCommandButton();
-        private HtmlCommandButton btForward = new HtmlCommandButton();
-        private HtmlCommandButton btLast = new HtmlCommandButton();
-        private HtmlPanelGroup panPageButtons = new HtmlPanelGroup();
-        private HtmlSelectOneMenu cboNumberOfItemsToShow = new HtmlSelectOneMenu();
-
-        public PaginatorControl()
-        {
-            this.setId(CommonUtils.createUniqueId(this));
-            this.getChildren().add(this.htmlElementUI.getStartTagWithStyleClass("div", "paginator"));
-            this.getChildren().add(this.htmlElementUI.getStartTagWithStyleClass("span", "paginator"));
-            this.lblTotal.setId(CommonUtils.createUniqueId(this.lblTotal));
-            this.lblTotal.setValue(bundleLabel.getString("ItemList_Total"));
-            this.getChildren().add(this.lblTotal);
-            this.lblItemCount.setId(CommonUtils.createUniqueId(this.lblItemCount));
-            // value is set in setAllObjects()
-            this.getChildren().add(this.lblItemCount);
-            this.lblShow.setId(CommonUtils.createUniqueId(this.lblShow));
-            this.lblShow.setValue(bundleLabel.getString("ItemList_Show"));
-            this.getChildren().add(this.lblShow);
-            this.cboNumberOfItemsToShow.setId(CommonUtils.createUniqueId(this.cboNumberOfItemsToShow));
-            this.cboNumberOfItemsToShow.getChildren().add(CommonUtils.convertToSelectItemsUI(ListUI.SHOW_SELECTITEMS));
-            this.cboNumberOfItemsToShow.setOnchange("submit();");
-            this.cboNumberOfItemsToShow.addValueChangeListener(ListUI.this);
-            // set the default value
-            this.cboNumberOfItemsToShow.setValue(new Integer(ListUI.SHOW_ITEMS_PER_PAGE_DEFAULT).toString());
-            this.getChildren().add(this.cboNumberOfItemsToShow);
-            this.lblObjectsPerPage.setId(CommonUtils.createUniqueId(this.lblObjectsPerPage));
-            this.lblObjectsPerPage.setValue(bundleLabel.getString("ItemList_ObjectsPerPage"));
-            this.getChildren().add(this.lblObjectsPerPage);
-            // hide number of items to show when UI is in single view mode
-            this.lblTotal.setRendered(!singleView);
-            this.lblItemCount.setRendered(!singleView);
-            this.lblShow.setRendered(!singleView);
-            this.cboNumberOfItemsToShow.setRendered(!singleView);
-            this.lblObjectsPerPage.setRendered(!singleView);
-            this.btFirst.setId(CommonUtils.createUniqueId(this.btFirst));
-            this.btFirst.setValue("|<");
-            this.btFirst.setImmediate(true);
-            this.btFirst.addActionListener(ListUI.this);
-            this.getChildren().add(this.btFirst);
-            this.btBack.setId(CommonUtils.createUniqueId(this.btBack));
-            this.btBack.setValue("<");
-            this.btBack.setImmediate(true);
-            this.btBack.addActionListener(ListUI.this);
-            this.getChildren().add(this.btBack);
-            this.panPageButtons.setId(CommonUtils.createUniqueId(this.panPageButtons));
-            // the page buttons themselves are created and added in setAllObjects() and don't have to be added here
-            this.getChildren().add(this.panPageButtons);
-            this.btForward.setId(CommonUtils.createUniqueId(this.btForward));
-            this.btForward.setValue(">");
-            this.btForward.setImmediate(true);
-            this.btForward.addActionListener(ListUI.this);
-            this.getChildren().add(this.btForward);
-            this.btLast.setId(CommonUtils.createUniqueId(this.btLast));
-            this.btLast.setValue(">|");
-            this.btLast.setImmediate(true);
-            this.btLast.addActionListener(ListUI.this);
-            this.getChildren().add(this.btLast);
-            this.getChildren().add(this.htmlElementUI.getEndTag("span"));
-            this.getChildren().add(this.htmlElementUI.getEndTag("div"));
-        }
-    }
-
-    public HiddenField getNumberSelectedObjects()
+    public HtmlInputHidden getNumberSelectedObjects()
     {
         return numberSelectedObjects;
     }
 
-    public void setNumberSelectedObjects(HiddenField numberSelectedObjects)
+    public void setNumberSelectedObjects(HtmlInputHidden numberSelectedObjects)
     {
         this.numberSelectedObjects = numberSelectedObjects;
-    }
-    
-    
-    private void updateLanguageBundle()
-    {
-    	this.application = FacesContext.getCurrentInstance().getApplication();
-    	this.i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    	this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());    
     }
 }

@@ -37,6 +37,7 @@ import javax.faces.component.html.HtmlGraphicImage;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -51,52 +52,71 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * UI for creating the source section of a pubitem to be used in the ViewItemFullUI.
  * 
  * @author: Tobias Schraut, created 26.09.2007
- * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mon, 26 Nov 2007) $
+ * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
  */
-public class ViewItemSourceUI extends HtmlPanelGroup
+public class ViewItemSourceUI extends ContainerPanelUI
 {
     private PubItemVO pubItem;
     private HtmlGraphicImage image;
     private HTMLElementUI htmlElement = new HTMLElementUI();
-    
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-            .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
+
     /**
      * Variables for changing the style sheet class according to line counts on the html page
      */
-    String DivClassTitle= "";
-    String DivClassText= "";
-    
+    String divClassTitle= "";
+    String divClassText= "";
+
     /**
      * The list of formatted organzations in an ArrayList.
      */
     private ArrayList<String> organizationArray;
-    
+
     /**
      * The list of affiliated organizations as VO List.
      */
     private ArrayList<ViewItemOrganization> organizationList;
-    
+
     /**
      * The list of affiliated organizations in a list.
      */
     private List<OrganizationVO> affiliatedOrganizationsList;
-    
+
     /**
      * The list of formatted creators in an ArrayList.
      */
     private ArrayList<String> creatorArray;
-    
+
     /**
      * The list of formatted creators which are organizations in an ArrayList.
      */
     private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
-    
+
+    public ViewItemSourceUI()
+    {
+
+    }
+
+    public Object processSaveState(FacesContext context)
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+
+    public void processRestoreState(FacesContext context, Object state)
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--)
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
+
     /**
      * Public constructor.
      */
@@ -104,29 +124,24 @@ public class ViewItemSourceUI extends HtmlPanelGroup
     {
         initialize(pubItemVO);
     }
-    
+
     /**
      * Initializes the UI and sets all attributes of the GUI components.
-     * 
+     *
      * @param pubItemVO a pubitem
      */
     protected void initialize(PubItemVO pubItemVO)
     {
         this.pubItem = pubItemVO;
-        
-        // get the selected language...
-        this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        ApplicationBean applicationBean = (ApplicationBean)FacesContext.getCurrentInstance()
-        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                ApplicationBean.BEAN_NAME);
-        
+        ApplicationBean applicationBean = (ApplicationBean) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getApplicationMap()
+                .get(ApplicationBean.BEAN_NAME);
+
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
-        
+
         // *** HEADER ***
         // add an image to the page
         this.getChildren().add(htmlElement.getStartTag("h2"));
@@ -136,44 +151,43 @@ public class ViewItemSourceUI extends HtmlPanelGroup
         this.image.setWidth("21");
         this.image.setHeight("25");
         this.getChildren().add(this.image);
-        
+
         // add the subheader
-        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubHeaderSource")));
+        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubHeaderSource")));
         this.getChildren().add(htmlElement.getEndTag("h2"));
-        
-        if(this.pubItem.getMetadata() != null)
+
+        if (this.pubItem.getMetadata() != null)
         {
-            if(this.pubItem.getMetadata().getSources() != null && this.pubItem.getMetadata().getSources().size() > 0)
+            if (this.pubItem.getMetadata().getSources() != null && this.pubItem.getMetadata().getSources().size() > 0)
             {
-                for(int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
+                for (int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
                 {
-                    
+
                     // Prerequisites
-                    // the list of numbered affiliated organizations 
+                    // the list of numbered affiliated organizations
                     createAffiliatedOrganizationList(i);
-                    
+
                     // the list of creators (persons and organizations)
                     createCreatorList(i);
-                    
-                    
+
                     // *** SOURCE TITLE ***
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                    
+
                     if(this.pubItem.getMetadata().getSources().get(i).getTitle() != null && this.pubItem.getMetadata().getSources().get(i).getTitle().getLanguage() != null && !this.pubItem.getMetadata().getSources().get(i).getTitle().getLanguage().trim().equals(""))
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceTitle") + " <" + this.pubItem.getMetadata().getSources().get(i).getTitle().getLanguage() + ">"));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceTitle") + " <" + this.pubItem.getMetadata().getSources().get(i).getTitle().getLanguage() + ">"));
                     }
                     else
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceTitle")));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceTitle")));
                     }
-                    
+
                     this.getChildren().add(htmlElement.getEndTag("div"));
-                    
+
                     // value
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
-                    
+
                     if(this.pubItem.getMetadata().getSources().get(i).getTitle() != null)
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getTitle().getValue()));
@@ -200,11 +214,11 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                                         && this.pubItem.getMetadata().getSources().get(i).getAlternativeTitles().get(j).getLanguage() != null 
                                         && !this.pubItem.getMetadata().getSources().get(i).getAlternativeTitles().get(j).getLanguage().trim().equals(""))
                                 {
-                                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceAlternativeTitle") + " <" + this.pubItem.getMetadata().getSources().get(i).getAlternativeTitles().get(j).getLanguage() + ">"));
+                                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceAlternativeTitle") + " <" + this.pubItem.getMetadata().getSources().get(i).getAlternativeTitles().get(j).getLanguage() + ">"));
                                 }
                                 else
                                 {
-                                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceAlternativeTitle")));
+                                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceAlternativeTitle")));
                                 }
                                 
                                 this.getChildren().add(htmlElement.getEndTag("div"));
@@ -224,7 +238,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceGenre")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceGenre")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -233,7 +247,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     
                     if(this.pubItem.getMetadata().getSources().get(i).getGenre() != null)
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getSources().get(i).getGenre())));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(applicationBean.convertEnumToString(this.pubItem.getMetadata().getSources().get(i).getGenre()))));
                     }
                     else
                     {
@@ -247,7 +261,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceCreators")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceCreators")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -259,7 +273,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceAffiliations")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceAffiliations")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -271,7 +285,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceVolumeIssue")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceVolumeIssue")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -302,7 +316,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceSequenceNo")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceSequenceNo")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -318,7 +332,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceIdentifier")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceIdentifier")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -334,7 +348,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceEdition")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceEdition")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -364,7 +378,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourcePubInfo")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourcePubInfo")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -379,7 +393,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSourceStartEndPage")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSourceStartEndPage")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -405,7 +419,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblNoEntries")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblNoEntries")));
                 this.getChildren().add(htmlElement.getEndTag("div"));
             }
         }
@@ -611,13 +625,13 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     //switch the style classes
                     if(new Integer(i/2)*2 == i)
                     {
-                        this.DivClassTitle = "itemTitle";
-                        this.DivClassText = "itemText";
+                        this.divClassTitle = "itemTitle";
+                        this.divClassText = "itemText";
                     }
                     else
                     {
-                        this.DivClassTitle = "itemTitle odd";
-                        this.DivClassText = "itemText odd";
+                        this.divClassTitle = "itemTitle odd";
+                        this.divClassText = "itemText odd";
                     }
                     if(i > 0)
                     {
@@ -627,7 +641,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                         
                         this.getChildren().add(this.htmlElement.getEndTag("div"));
                     }
-                    this.getChildren().add(this.htmlElement.getStartTagWithStyleClass("div", this.DivClassText));
+                    this.getChildren().add(this.htmlElement.getStartTagWithStyleClass("div", this.divClassText));
                     
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(creatorArray.get(i)));
                     
@@ -646,15 +660,15 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                 for(int i = 0; i < creatorOrganizationsArray.size(); i++)
                 {
                     // switch the style classes
-                    if(this.DivClassTitle.equals("itemTitle odd"))
+                    if(this.divClassTitle.equals("itemTitle odd"))
                     {
-                        this.DivClassTitle = "itemTitle";
-                        this.DivClassText = "itemText";
+                        this.divClassTitle = "itemTitle";
+                        this.divClassText = "itemText";
                     }
                     else
                     {
-                        this.DivClassTitle = "itemTitle odd";
-                        this.DivClassText = "itemText odd";
+                        this.divClassTitle = "itemTitle odd";
+                        this.divClassText = "itemText odd";
                     }
                     if(this.creatorArray != null )
                     {

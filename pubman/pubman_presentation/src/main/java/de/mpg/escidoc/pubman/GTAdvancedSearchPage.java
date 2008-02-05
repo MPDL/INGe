@@ -22,32 +22,30 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
 package de.mpg.escidoc.pubman;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
- * GTAdvancedSearchPage.java Backing bean for GTAdvancedSearchPage.jsp This is for the GUI tool mode. The pubman frame will not be
- * displayed.
- * 
+ * GTAdvancedSearchPage.java Backing bean for GTAdvancedSearchPage.jsp This is for the GUI tool mode.
+ * The pubman frame will not be displayed.
+ *
  * @author: Hugo Niedermaier
  */
-public class GTAdvancedSearchPage extends AbstractPageBean
+public class GTAdvancedSearchPage extends FacesBean
 {
-    // this attribute is for connecting the GTAdvancedSearchPage.jsp with this backing bean
-    private Page page = new Page();
 
     /**
      * Public constructor.
      */
     public GTAdvancedSearchPage()
     {
+        this.init();
     }
 
     /**
@@ -65,22 +63,11 @@ public class GTAdvancedSearchPage extends AbstractPageBean
 
     /**
      * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     *
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
-    }
-
-    // Getters and Setters
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
+        return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
     }
 }

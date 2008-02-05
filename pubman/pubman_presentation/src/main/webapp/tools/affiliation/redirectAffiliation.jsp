@@ -1,4 +1,6 @@
-<!-- 
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -21,10 +23,10 @@
 
 
  Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<html>
-  <jsp:forward page="../../faces/GTAffiliationPage.jsp"/>
-</html>
+<jsp:root version="2.1" xmlns:jsp="http://java.sun.com/JSP/Page">
+	<jsp:forward page="../../faces/GTAffiliationPage.jsp"/>
+</jsp:root>

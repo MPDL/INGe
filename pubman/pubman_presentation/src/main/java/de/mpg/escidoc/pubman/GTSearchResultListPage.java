@@ -31,8 +31,8 @@
 package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
 /**
@@ -40,21 +40,19 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * frame will not be displayed.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 20.08.2007
  */
-public class GTSearchResultListPage extends AbstractPageBean
+public class GTSearchResultListPage extends FacesBean
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(GTSearchResultListPage.class);
-    // this attribute is for connecting the GTSearchResultListPage.jsp with this
-    // backing bean
-    private Page page = new Page();
 
     /**
      * Public constructor
      */
     public GTSearchResultListPage()
     {
+        this.init();
     }
 
     /**
@@ -74,11 +72,11 @@ public class GTSearchResultListPage extends AbstractPageBean
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**
@@ -88,17 +86,7 @@ public class GTSearchResultListPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
-    // Getters and Setters
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

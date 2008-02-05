@@ -30,109 +30,59 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.io.IOException;
-import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
-import de.mpg.escidoc.pubman.util.LoginHelper;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * BackingBean for SearchResultListPage.jsp.
- * 
+ *
  * @author: Thomas Diebäcker, created 24.01.2007
  * @version: $Revision: 1320 $ $LastChangedDate: 2007-10-23 11:15:29 +0200 (Di, 23 Okt 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class ViewItemStatisticsPage extends AbstractPageBean
+public class ViewItemStatisticsPage extends FacesBean
 {
     private static Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);
-    
-    // this attribute is for connecting the GTEditItemPage.jsp with this backing bean
-    @SuppressWarnings("unused")
-    private Page page = new Page();
-    
+
     /**
      * Public constructor.
      */
     public ViewItemStatisticsPage()
     {
+        this.init();
     }
 
     /**
      * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
-     * a URL, or indirectly via page navigation. 
+     * a URL, or indirectly via page navigation.
      */
     public void init()
     {
         // Perform initializations inherited from our superclass
         super.init();
-                
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if(loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        else
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
-        
+
         //this.getViewItemSessionBean().setHasBeenRedirected(false);
     }
-    
+
     /**
      * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean) getBean(CommonSessionBean.class);
     }
-    
+
     /**
      * Returns the ViewItemSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (ViewItemSessionBean)
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
     }
 
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

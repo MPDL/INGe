@@ -47,20 +47,12 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
  * ContainerPanelUI for keeping ViewRevisionUIs.
  * 
  * @author: Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $
  */
 public class ViewRevisionPanelUI extends CollapsiblePanelUI implements ActionListener
 {
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(ViewRevisionPanelUI.class);
-    
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
 
     private RelationVOWrapper relationVOWrapper = null;
     
@@ -87,7 +79,7 @@ public class ViewRevisionPanelUI extends CollapsiblePanelUI implements ActionLis
         this.panTitleBar.getChildren().add(0, this.htmlElementUI.getStartTagWithStyleClass("div", "listItemHeader odd")); // add at the right side of the title bar, so use the method of the super class        
         // add the release date also to the titlePanel
         this.lblReleaseDate.setId(CommonUtils.createUniqueId(this.lblReleaseDate));
-        this.lblReleaseDate.setValue(this.bundleLabel.getString("CreateNewRevision_ChooseCollection_lblReleased"));
+        this.lblReleaseDate.setValue(getLabel("CreateNewRevision_ChooseCollection_lblReleased"));
         this.releaseDate.setId(CommonUtils.createUniqueId(this.releaseDate));
         this.releaseDate.setValue(": " + CommonUtils.format(relationVOWrapper.getSourceItem().getModificationDate()));
         

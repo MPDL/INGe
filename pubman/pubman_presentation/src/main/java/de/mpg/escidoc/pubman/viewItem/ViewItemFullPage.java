@@ -31,39 +31,40 @@
 package de.mpg.escidoc.pubman.viewItem;
 
 import java.io.IOException;
+
 import javax.faces.context.FacesContext;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+
 import de.mpg.escidoc.pubman.CommonSessionBean;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * Backing bean for ViewItemFullPage.jsp (for viewing items in a full context). 
- * 
+ *
  * @author Tobias Schraut, created 03.09.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ViewItemFullPage extends AbstractPageBean
+public class ViewItemFullPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(ViewItemFullPage.class);
-    
-    // this attribute is for connecting the GTEditItemPage.jsp with this backing bean
-    @SuppressWarnings("unused")
-    private Page page = new Page();
+
     // The referring GUI Tool Page
-    public final static String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
-    
+    public static final String GT_VIEW_ITEM_FULL_PAGE = "GTViewItemFullPage.jsp";
+
     /**
      * Public constructor.
      */
     public ViewItemFullPage()
     {
+        this.init();
     }
-    
+
     /**
      * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
      * a URL, or indirectly via page navigation.
@@ -72,51 +73,18 @@ public class ViewItemFullPage extends AbstractPageBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        
-        // login the user if he uses the login functionality being on the view item page
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
-        // redirect to the referring GUI Tool page if the application has been started as GUI Tool
+
+         // redirect to the referring GUI Tool page if the application has been started as GUI Tool
         CommonSessionBean sessionBean = getCommonSessionBean();
-        if (sessionBean.isRunAsGUITool() == true)
+        if (sessionBean.isRunAsGUITool())
         {
             redirectToGUITool();
         }
     }
-    
+
     /**
      * Redirets to the referring GUI Tool page.
-     * 
+     *
      * @return a navigation string
      */
     protected String redirectToGUITool()
@@ -136,31 +104,22 @@ public class ViewItemFullPage extends AbstractPageBean
 
     /**
      * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     *
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean) getBean(CommonSessionBean.class);
     }
-    
+
     /**
      * Returns the ViewItemSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (ViewItemSessionBean)
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
     }
 
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

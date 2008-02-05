@@ -32,13 +32,15 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItem;
@@ -51,21 +53,14 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * displayed.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ Revised by ScT: 20.08.2007
  */
-public class GTviewItemPage extends AbstractPageBean
+public class GTviewItemPage extends FacesBean
 {
-    final public static String BEAN_NAME = "viewItemPage";
+    final public static String BEAN_NAME = "GTViewItemPage";
     private static Logger logger = Logger.getLogger(viewItemPage.class);
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
-    // For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-    private Page page = new Page();
+ 
     /**
      * Question for confirming the deletion of the item
      */
@@ -76,6 +71,7 @@ public class GTviewItemPage extends AbstractPageBean
      */
     public GTviewItemPage()
     {
+        this.init();
     }
 
     /**
@@ -90,48 +86,16 @@ public class GTviewItemPage extends AbstractPageBean
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String itemID = request.getParameter(viewItemPage.PARAMETERNAME_ITEM_ID);
         // Set the delete confirmation question in the desired language
-        this.deleteConfirmation = this.bundleMessage.getString("ViewItem_deleteConfirmation");
+        this.deleteConfirmation = getMessage("ViewItem_deleteConfirmation");
         // initialize viewItem
-        ViewItem viewItem = (ViewItem)getBean(ViewItem.BEAN_NAME);
+        ViewItem viewItem = (ViewItem)getBean(ViewItem.class);
         // insert the itemID into the view item session bean
         if (itemID != null && !itemID.equals(""))
         {
             this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
             viewItem.loadItem();
         }
-        // insert the login information (user handle) if possible
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
+
         // Set the current session to GUI Tool
         CommonSessionBean sessionBean = getSessionBean();
         sessionBean.setRunAsGUITool(true);
@@ -144,17 +108,17 @@ public class GTviewItemPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
     /**
@@ -164,7 +128,7 @@ public class GTviewItemPage extends AbstractPageBean
      */
     protected ViewItem getViewItem()
     {
-        return (ViewItem)getBean(ViewItem.BEAN_NAME);
+        return (ViewItem)getBean(ViewItem.class);
     }
 
     // Getters and Setters
@@ -178,13 +142,4 @@ public class GTviewItemPage extends AbstractPageBean
         this.deleteConfirmation = deleteConfirmation;
     }
 
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

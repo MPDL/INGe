@@ -38,12 +38,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIColumn;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlDataTable;
+import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
@@ -58,13 +58,10 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.MessageGroup;
-
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
@@ -76,7 +73,6 @@ import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ui.FileUI;
@@ -101,26 +97,19 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * 
  * @author Tobias Schraut (created on 08.02.2007)
  * @author $Author: tdiebaec $ (last modification)
- * @version $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Thu, 29 Nov 2007) $ Revised by ScT: 30.08.2007
+ * @version $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $ Revised by ScT: 30.08.2007
  */
-public class ViewItem extends AbstractFragmentBean
+public class ViewItem extends FacesBean
 {
     // <editor-fold defaultstate="collapsed" desc="Creator-managed Component
     // Definition">
     private static Logger logger = Logger.getLogger(ViewItem.class);
-    final public static String BEAN_NAME = "viewItem$ViewItem";
+    final public static String BEAN_NAME = "ViewItem";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
-    // For handling the resource bundles (i18n)
-    private final Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private final InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
+
     private String valWithdrawalComment;
-    private MessageGroup valMessage = new MessageGroup();
+    private HtmlMessages valMessage = new HtmlMessages();
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
 
     // Validation Service
@@ -310,18 +299,18 @@ public class ViewItem extends AbstractFragmentBean
     private HtmlCommandButton btnPreviousItem1 = new HtmlCommandButton();
     private HtmlCommandButton btnNextItem1 = new HtmlCommandButton();
     private HtmlCommandButton btnBackToList1 = new HtmlCommandButton();
-    private Hyperlink lnkEdit = new Hyperlink();
-    private Hyperlink lnkSubmit = new Hyperlink();
-    private Hyperlink lnkDelete = new Hyperlink();
-    private Hyperlink lnkWithdraw = new Hyperlink();
-    private Hyperlink lnkNewSubmission = new Hyperlink();
+    private HtmlCommandLink lnkEdit = new HtmlCommandLink();
+    private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
+    private HtmlCommandLink lnkDelete = new HtmlCommandLink();
+    private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
+    private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
 
     /**
      * Public constructor
      */
     public ViewItem()
     {
-        init();
+        this.init();
     }
 
     /**
@@ -368,8 +357,6 @@ public class ViewItem extends AbstractFragmentBean
      */
     public String loadItem()
     {
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        this.bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
         // initially set the number of elements which should be displayed if the
         // property is collapsed
         this.numberCreatorListCollapsed = 1;
@@ -390,19 +377,19 @@ public class ViewItem extends AbstractFragmentBean
         // enable or disable the action links according to the login state
         if (loginHelper.getESciDocUserHandle() != null)
         {
-            this.lnkNewSubmission.setVisible(true);
-            this.lnkEdit.setVisible(true);
-            this.lnkSubmit.setVisible(true);
-            this.lnkDelete.setVisible(true);
-            this.lnkWithdraw.setVisible(true);
+            this.lnkNewSubmission.setRendered(true);
+            this.lnkEdit.setRendered(true);
+            this.lnkSubmit.setRendered(true);
+            this.lnkDelete.setRendered(true);
+            this.lnkWithdraw.setRendered(true);
         }
         else
         {
-            this.lnkNewSubmission.setVisible(false);
-            this.lnkEdit.setVisible(false);
-            this.lnkSubmit.setVisible(false);
-            this.lnkDelete.setVisible(false);
-            this.lnkWithdraw.setVisible(false);
+            this.lnkNewSubmission.setRendered(false);
+            this.lnkEdit.setRendered(false);
+            this.lnkSubmit.setRendered(false);
+            this.lnkDelete.setRendered(false);
+            this.lnkWithdraw.setRendered(false);
         }
         String itemID = "";
         // try to get the itemID from the session Bean (URL Parameter)
@@ -424,48 +411,48 @@ public class ViewItem extends AbstractFragmentBean
         catch (Exception e)
         {
             logger.error("Could not retrieve the requested item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // set the action links in the action menu according to the item state
         if (this.pubItem.getState().toString().equals(PubItemVO.State.RELEASED.toString()))
         {
-            this.lnkDelete.setVisible(false);
-            this.lnkEdit.setVisible(false);
-            this.lnkSubmit.setVisible(false);
+            this.lnkDelete.setRendered(false);
+            this.lnkEdit.setRendered(false);
+            this.lnkSubmit.setRendered(false);
             if (loginHelper.getESciDocUserHandle() != null)
             {
-                this.lnkWithdraw.setVisible(true);
+                this.lnkWithdraw.setRendered(true);
             }
             else
             {
-                this.lnkWithdraw.setVisible(false);
+                this.lnkWithdraw.setRendered(false);
             }
         }
         else if (this.pubItem.getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
                 || this.pubItem.getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
         {
-            this.lnkDelete.setVisible(false);
-            this.lnkEdit.setVisible(false);
-            this.lnkSubmit.setVisible(false);
-            this.lnkWithdraw.setVisible(false);
+            this.lnkDelete.setRendered(false);
+            this.lnkEdit.setRendered(false);
+            this.lnkSubmit.setRendered(false);
+            this.lnkWithdraw.setRendered(false);
         }
         else
         {
-            this.lnkDelete.setVisible(true);
-            this.lnkEdit.setVisible(true);
-            this.lnkSubmit.setVisible(true);
-            this.lnkWithdraw.setVisible(false);
+            this.lnkDelete.setRendered(true);
+            this.lnkEdit.setRendered(true);
+            this.lnkSubmit.setRendered(true);
+            this.lnkWithdraw.setRendered(false);
         }
         // set the collapsed flags to true if this is the first call of the page
         this.creatorListCollapsed = true;
-        this.buttonMoreCreatorList = bundleLabel.getString("ViewItem_lnkCreatorMore");
+        this.buttonMoreCreatorList = getLabel("ViewItem_lnkCreatorMore");
         this.tocCollapsed = true;
-        this.buttonMoreTOC = bundleLabel.getString("ViewItem_lnkTocMore");
+        this.buttonMoreTOC = getLabel("ViewItem_lnkTocMore");
         this.itemAlternativeTitlesCollapsed = true;
-        this.buttonMoreItemAlternativeTitles = bundleLabel.getString("ViewItem_lnkAlternativeTitleMore");
+        this.buttonMoreItemAlternativeTitles = getLabel("ViewItem_lnkAlternativeTitleMore");
         this.abstractsCollapsed = true;
-        this.buttonMoreAbstracts = bundleLabel.getString("ViewItem_lnkAbstractMore");
+        this.buttonMoreAbstracts = getLabel("ViewItem_lnkAbstractMore");
         // set the event titles to collapsed
         this.eventTitlesCollapsed = true;
         // initialize the table of contents
@@ -502,7 +489,7 @@ public class ViewItem extends AbstractFragmentBean
         catch (Exception e)
         {
             logger.error("Could not retrieve the requested collection." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // get the affiliated organization
@@ -519,7 +506,7 @@ public class ViewItem extends AbstractFragmentBean
         catch (Exception e)
         {
             logger.error("Could not retrieve the requested affiliation." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // fetch referenced organizations
@@ -873,7 +860,7 @@ public class ViewItem extends AbstractFragmentBean
                     {
                         eventTitles.add(this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getValue());
                     }
-                    this.buttonMoreItemEventTitles = this.bundleLabel.getString("ViewItem_lnkEventTitleMore");
+                    this.buttonMoreItemEventTitles = this.getLabel("ViewItem_lnkEventTitleMore");
                 }
                 else
                 {
@@ -881,7 +868,7 @@ public class ViewItem extends AbstractFragmentBean
                     {
                         eventTitles.add(this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getValue());
                     }
-                    this.buttonMoreItemEventTitles = this.bundleLabel.getString("ViewItem_lnkEventTitleLess");
+                    this.buttonMoreItemEventTitles = this.getLabel("ViewItem_lnkEventTitleLess");
                 }
             }
         }
@@ -898,12 +885,12 @@ public class ViewItem extends AbstractFragmentBean
         if (this.eventTitlesCollapsed == true)
         {
             this.eventTitlesCollapsed = false;
-            this.buttonMoreItemEventTitles = this.bundleLabel.getString("ViewItem_lnkEventTitleLess");
+            this.buttonMoreItemEventTitles = this.getLabel("ViewItem_lnkEventTitleLess");
         }
         else
         {
             this.eventTitlesCollapsed = true;
-            this.buttonMoreItemEventTitles = this.bundleLabel.getString("ViewItem_lnkEventTitleMore");
+            this.buttonMoreItemEventTitles = this.getLabel("ViewItem_lnkEventTitleMore");
         }
         this.eventTitleArray = getEventTitles();
         return "loadViewItem";
@@ -929,12 +916,12 @@ public class ViewItem extends AbstractFragmentBean
         if (this.creatorListCollapsed == true)
         {
             this.creatorListCollapsed = false;
-            this.buttonMoreCreatorList = this.bundleLabel.getString("ViewItem_lnkCreatorLess");
+            this.buttonMoreCreatorList = this.getLabel("ViewItem_lnkCreatorLess");
         }
         else
         {
             this.creatorListCollapsed = true;
-            this.buttonMoreCreatorList = this.bundleLabel.getString("ViewItem_lnkCreatorMore");
+            this.buttonMoreCreatorList = this.getLabel("ViewItem_lnkCreatorMore");
         }
         getCreatorList();
         return "loadViewItem";
@@ -950,12 +937,12 @@ public class ViewItem extends AbstractFragmentBean
         if (this.tocCollapsed == true)
         {
             this.tocCollapsed = false;
-            this.buttonMoreTOC = this.bundleLabel.getString("ViewItem_lnkTocLess");
+            this.buttonMoreTOC = this.getLabel("ViewItem_lnkTocLess");
         }
         else
         {
             this.tocCollapsed = true;
-            this.buttonMoreTOC = this.bundleLabel.getString("ViewItem_lnkTocMore");
+            this.buttonMoreTOC = this.getLabel("ViewItem_lnkTocMore");
         }
         getTOC();
         return "loadViewItem";
@@ -972,12 +959,12 @@ public class ViewItem extends AbstractFragmentBean
         if (this.itemAlternativeTitlesCollapsed == true)
         {
             this.itemAlternativeTitlesCollapsed = false;
-            this.buttonMoreItemAlternativeTitles = this.bundleLabel.getString("ViewItem_lnkAlternativeTitleLess");
+            this.buttonMoreItemAlternativeTitles = this.getLabel("ViewItem_lnkAlternativeTitleLess");
         }
         else
         {
             this.itemAlternativeTitlesCollapsed = true;
-            this.buttonMoreItemAlternativeTitles = this.bundleLabel.getString("ViewItem_lnkAlternativeTitleMore");
+            this.buttonMoreItemAlternativeTitles = this.getLabel("ViewItem_lnkAlternativeTitleMore");
         }
         getAlternativeTitles();
         return "loadViewItem";
@@ -1077,12 +1064,12 @@ public class ViewItem extends AbstractFragmentBean
         if (this.abstractsCollapsed == true)
         {
             this.abstractsCollapsed = false;
-            this.buttonMoreAbstracts = this.bundleLabel.getString("ViewItem_lnkAbstractLess");
+            this.buttonMoreAbstracts = this.getLabel("ViewItem_lnkAbstractLess");
         }
         else
         {
             this.abstractsCollapsed = true;
-            this.buttonMoreAbstracts = this.bundleLabel.getString("ViewItem_lnkAbstractMore");
+            this.buttonMoreAbstracts = this.getLabel("ViewItem_lnkAbstractMore");
         }
         getAbstract();
         return "loadViewItem";
@@ -2036,7 +2023,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected WithdrawItemSessionBean getWithdrawItemSessionBean()
     {
-        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.BEAN_NAME);
+        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
     }
 
     /**
@@ -2419,14 +2406,14 @@ public class ViewItem extends AbstractFragmentBean
             ValidationReportItemVO element = (ValidationReportItemVO)iter.next();
             if (element.isRestrictive())
             {
-                error(bundleMessage.getString(element.getContent()));
+                error(getMessage(element.getContent()));
             }
             else
             {
-                info(bundleMessage.getString(element.getContent()));
+                info(getMessage(element.getContent()));
             }
         }
-        valMessage.setVisible(true);
+        valMessage.setRendered(true);
     }
 
     /**
@@ -2527,7 +2514,7 @@ public class ViewItem extends AbstractFragmentBean
         {
             if (!this.pubItem.getWithdrawalComment().equals(""))
             {
-                comment = this.bundleLabel.getString("ViewItem_lblWithdrawalComment") + " ("
+                comment = this.getLabel("ViewItem_lblWithdrawalComment") + " ("
                         + CommonUtils.format(this.pubItem.getModificationDate()) + "): "
                         + this.pubItem.getWithdrawalComment();
             }
@@ -2539,11 +2526,11 @@ public class ViewItem extends AbstractFragmentBean
      * Shows the given Message below the itemList after next Reload of the DepositorWS.
      * 
      * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
+     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
      */
     private void showMessageDepositorWS(String message)
     {
-        message = this.bundleMessage.getString(message);
+        message = this.getMessage(message);
         this.getDepositorWSSessionBean().setMessage(message);
     }
 
@@ -2551,11 +2538,11 @@ public class ViewItem extends AbstractFragmentBean
      * Shows the given Message below the itemList after next Reload of the SerachResultList.
      * 
      * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
+     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
      */
     private void showMessageSearchResultList(String message)
     {
-        message = this.bundleMessage.getString(message);
+        message = this.getMessage(message);
         this.getSearchResultListSessionBean().setMessage(message);
     }
 
@@ -2566,7 +2553,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -2576,7 +2563,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected DepositorWSSessionBean getDepositorWSSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -2586,7 +2573,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected SearchResultListSessionBean getSearchResultListSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.BEAN_NAME);
+        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
     }
 
     /**
@@ -2596,7 +2583,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
     /**
@@ -2605,7 +2592,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected SubmitItemSessionBean getSubmitItemSessionBean()
     {
-        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.BEAN_NAME);
+        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.class);
     }
     
     /**
@@ -2615,7 +2602,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
     }
 
     /**
@@ -2625,7 +2612,7 @@ public class ViewItem extends AbstractFragmentBean
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
     // Getters and Setters
@@ -2954,52 +2941,52 @@ public class ViewItem extends AbstractFragmentBean
         this.itemSourceList = itemSourceList;
     }
 
-    public Hyperlink getLnkDelete()
+    public HtmlCommandLink getLnkDelete()
     {
         return lnkDelete;
     }
 
-    public void setLnkDelete(Hyperlink lnkDelete)
+    public void setLnkDelete(HtmlCommandLink lnkDelete)
     {
         this.lnkDelete = lnkDelete;
     }
 
-    public Hyperlink getLnkEdit()
+    public HtmlCommandLink getLnkEdit()
     {
         return lnkEdit;
     }
 
-    public void setLnkEdit(Hyperlink lnkEdit)
+    public void setLnkEdit(HtmlCommandLink lnkEdit)
     {
         this.lnkEdit = lnkEdit;
     }
 
-    public Hyperlink getLnkWithdraw()
+    public HtmlCommandLink getLnkWithdraw()
     {
         return lnkWithdraw;
     }
 
-    public void setLnkWithdraw(Hyperlink lnkWithdraw)
+    public void setLnkWithdraw(HtmlCommandLink lnkWithdraw)
     {
         this.lnkWithdraw = lnkWithdraw;
     }
 
-    public Hyperlink getLnkNewSubmission()
+    public HtmlCommandLink getLnkNewSubmission()
     {
         return lnkNewSubmission;
     }
 
-    public void setLnkNewSubmission(Hyperlink lnkNewSubmission)
+    public void setLnkNewSubmission(HtmlCommandLink lnkNewSubmission)
     {
         this.lnkNewSubmission = lnkNewSubmission;
     }
 
-    public Hyperlink getLnkSubmit()
+    public HtmlCommandLink getLnkSubmit()
     {
         return lnkSubmit;
     }
 
-    public void setLnkSubmit(Hyperlink lnkSubmit)
+    public void setLnkSubmit(HtmlCommandLink lnkSubmit)
     {
         this.lnkSubmit = lnkSubmit;
     }
@@ -3265,12 +3252,12 @@ public class ViewItem extends AbstractFragmentBean
         return dateEvent;
     }
 
-    public MessageGroup getValMessage()
+    public HtmlMessages getValMessage()
     {
         return valMessage;
     }
 
-    public void setValMessage(MessageGroup valMessage)
+    public void setValMessage(HtmlMessages valMessage)
     {
         this.valMessage = valMessage;
     }

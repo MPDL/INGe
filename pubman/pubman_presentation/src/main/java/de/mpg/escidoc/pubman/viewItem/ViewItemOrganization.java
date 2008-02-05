@@ -37,7 +37,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  * will be presented in a popup window Created on 20. Februar 2007, 12:17
  * 
  * @author: Tobias Schraut
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 20.08.2007
  */
 public class ViewItemOrganization
 {

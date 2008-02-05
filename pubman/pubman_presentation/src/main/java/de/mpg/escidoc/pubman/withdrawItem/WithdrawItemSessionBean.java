@@ -31,18 +31,19 @@
 package de.mpg.escidoc.pubman.withdrawItem;
 
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Keeps all attributes that are used for the whole session by WithdrawItem.
  * @author:  Michael Franke, created 15.06.2007
  * @author: $Author: tdiebaec $
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented.
  */
-public class WithdrawItemSessionBean extends AbstractSessionBean
+public class WithdrawItemSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "WithdrawItemSessionBean";
 
@@ -60,6 +61,7 @@ public class WithdrawItemSessionBean extends AbstractSessionBean
      */
     public WithdrawItemSessionBean()
     {
+        this.init();
     }
 
     /**

@@ -31,23 +31,26 @@ package de.mpg.escidoc.pubman.export;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlMessages;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.MessageGroup;
-import com.sun.rave.web.ui.component.RadioButtonGroup;
-import com.sun.rave.web.ui.model.Option;
+
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 
 /**
@@ -58,42 +61,33 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
   * @version: $Revision:  $ $LastChangedDate:  $
   *  Revised by StG: 28.09.2007
 */
-public class ExportItems extends AbstractFragmentBean
+public class ExportItems extends FacesBean
 {
     private static Logger logger = Logger.getLogger(ExportItems.class);
  
     // constant for the function export to check the rights and/or if the function has to be disabled (DiT)
     private final String FUNCTION_EXPORT = "export";
- 
-    //For handling the resource bundles (i18n)
-    protected Application application = FacesContext.getCurrentInstance().getApplication();
-    //get the selected language...
-    protected InternationalizationHelper i18nHelper = (InternationalizationHelper)application
-    .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    //... and set the refering resource bundle 
-    protected ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    protected ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     // binded components in JSP
-    private MessageGroup valMessage = new MessageGroup();
-    private DropDown cboLayoutCitStyles = new DropDown();
-    private RadioButtonGroup rbgExportFormats = new RadioButtonGroup();
-    private RadioButtonGroup rbgFileFormats = new RadioButtonGroup();
+    private HtmlMessages valMessage = new HtmlMessages();
+    private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
+    private HtmlSelectOneRadio rbgExportFormats = new HtmlSelectOneRadio();
+    private HtmlSelectOneRadio rbgFileFormats = new HtmlSelectOneRadio();
     private HtmlCommandButton btnDisplayItems = new HtmlCommandButton();
     private HtmlCommandButton btnExportDownload = new HtmlCommandButton();
     private HtmlCommandButton btnExportEMail = new HtmlCommandButton();
 
-    // constants for comboBoxes and RadioButtonGroups
-    public Option EXPORTFORMAT_STRUCTURED = new Option("STRUCTURED", bundleLabel.getString("Export_ExportFormat_STRUCTURED"));
-    public Option EXPORTFORMAT_LAYOUT = new Option("LAYOUT", bundleLabel.getString("Export_ExportFormat_LAYOUT"));
-    public Option[] EXPORTFORMAT_OPTIONS = new Option[]{EXPORTFORMAT_STRUCTURED, EXPORTFORMAT_LAYOUT};
-    public Option LAYOUTCITATIONSTYLE_APA = new Option("APA", bundleLabel.getString("Export_LayoutCitationStyle_APA"));
-    public Option[] LAYOUTCITATIONSTYLE_OPTIONS = new Option[]{LAYOUTCITATIONSTYLE_APA};
-    public Option FILEFORMAT_PDF = new Option("pdf", bundleLabel.getString("Export_FileFormat_PDF"));
-    public Option FILEFORMAT_ODT = new Option("odt", bundleLabel.getString("Export_FileFormat_ODT"));
-    public Option FILEFORMAT_RTF = new Option("rtf", bundleLabel.getString("Export_FileFormat_RTF"));
-    public Option FILEFORMAT_HTML = new Option("html", bundleLabel.getString("Export_FileFormat_HTML"));
-    public Option[] FILEFORMAT_OPTIONS = new Option[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML};
+    // constants for comboBoxes and HtmlSelectOneRadios
+    public SelectItem EXPORTFORMAT_STRUCTURED = new SelectItem("STRUCTURED", getLabel("Export_ExportFormat_STRUCTURED"));
+    public SelectItem EXPORTFORMAT_LAYOUT = new SelectItem("LAYOUT", getLabel("Export_ExportFormat_LAYOUT"));
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_STRUCTURED, EXPORTFORMAT_LAYOUT};
+    public SelectItem LAYOUTCITATIONSTYLE_APA = new SelectItem("APA", getLabel("Export_LayoutCitationStyle_APA"));
+    public SelectItem[] LAYOUTCITATIONSTYLE_OPTIONS = new SelectItem[]{LAYOUTCITATIONSTYLE_APA};
+    public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
+    public SelectItem FILEFORMAT_ODT = new SelectItem("odt", getLabel("Export_FileFormat_ODT"));
+    public SelectItem FILEFORMAT_RTF = new SelectItem("rtf", getLabel("Export_FileFormat_RTF"));
+    public SelectItem FILEFORMAT_HTML = new SelectItem("html", getLabel("Export_FileFormat_HTML"));
+    public SelectItem[] FILEFORMAT_OPTIONS = new SelectItem[]{FILEFORMAT_PDF, FILEFORMAT_ODT, FILEFORMAT_RTF, FILEFORMAT_HTML};
  
     // constants for error and status messages
     public static final String MESSAGE_NO_ITEM_FOREXPORT_SELECTED = "exportItems_NoItemSelected";
@@ -103,6 +97,14 @@ public class ExportItems extends AbstractFragmentBean
     public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
     public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
     public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
+    
+    /**
+     * Default constructor.
+     */
+    public ExportItems()
+    {
+        this.init();
+    }
     
     /**
      * Callback method that is called whenever a page containing this page fragment is navigated to, either directly via
@@ -127,7 +129,7 @@ public class ExportItems extends AbstractFragmentBean
      */
     protected RightsManagementSessionBean getRightsManagementSessionBean()
     {
-        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.BEAN_NAME);
+        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.class);
     }
 
     /**
@@ -137,7 +139,7 @@ public class ExportItems extends AbstractFragmentBean
      */
     public boolean getVisibleExport()
     {
-        return !this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + this.FUNCTION_EXPORT);
+        return !this.getRightsManagementSessionBean().isDisabled(getRightsManagementSessionBean().PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + this.FUNCTION_EXPORT);
     }    
     
     public String setExportFormats(){
@@ -150,8 +152,8 @@ public class ExportItems extends AbstractFragmentBean
        }        
         catch (TechnicalException e)
         {
-            logger.error("Could not ser the export formats." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            logger.error("Could not ser the export formats." + "\n" + e.toString(), e);
+            ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
         
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -189,7 +191,7 @@ public class ExportItems extends AbstractFragmentBean
             if (tempExportFormatVO.getFormatType() == ExportFormatVO.FormatType.LAYOUT){
                 
                 String layoutStyleName = tempExportFormatVO.getName();
-               Option tempOpt = new Option(layoutStyleName.toUpperCase());   
+               SelectItem tempOpt = new SelectItem(layoutStyleName.toUpperCase());   
                        
                 if (logger.isDebugEnabled())
                 {
@@ -206,7 +208,7 @@ public class ExportItems extends AbstractFragmentBean
                     logger.debug(">>> Added export layout format: " + tempOpt.getValue());
                     if ( !fileFormatsAL.contains(ff) ){
                         
-                        tempOpt = new Option(ff);
+                        tempOpt = new SelectItem(ff);
                         fileFormatsAL.add(tempOpt);
                     }
                 }
@@ -223,27 +225,27 @@ public class ExportItems extends AbstractFragmentBean
         
     }*/
         
-    public DropDown getCboLayoutCitStyles()
+    public HtmlSelectOneMenu getCboLayoutCitStyles()
     {
         return cboLayoutCitStyles;
     }
 
-    public void setCboLayoutCitStyles(DropDown cboLayoutCitStyles)
+    public void setCboLayoutCitStyles(HtmlSelectOneMenu cboLayoutCitStyles)
     {
         this.cboLayoutCitStyles = cboLayoutCitStyles;
     }
 
-    public RadioButtonGroup getRbgExportFormats()
+    public HtmlSelectOneRadio getRbgExportFormats()
     {
         return rbgExportFormats;
     }
 
-    public void setRbgExportFormats(RadioButtonGroup rbgExportFormats)
+    public void setRbgExportFormats(HtmlSelectOneRadio rbgExportFormats)
     {
         this.rbgExportFormats = rbgExportFormats;
     }
 
-    public RadioButtonGroup getRbgFileFormats()
+    public HtmlSelectOneRadio getRbgFileFormats()
     {
         return rbgFileFormats;
     }
@@ -277,22 +279,22 @@ public class ExportItems extends AbstractFragmentBean
         return btnExportEMail;
     }
    
-     public void setRbgFileFormats(RadioButtonGroup rbgFileFormats)
+     public void setRbgFileFormats(HtmlSelectOneRadio rbgFileFormats)
     {
         this.rbgFileFormats = rbgFileFormats;
     }
     
-    public Option[] getEXPORTFORMAT_OPTIONS()
+    public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
         return this.EXPORTFORMAT_OPTIONS;
     }
  
-    public Option[] getFILEFORMAT_OPTIONS()
+    public SelectItem[] getFILEFORMAT_OPTIONS()
     {
         return this.FILEFORMAT_OPTIONS;
     }
 
-    public Option[] getLAYOUTCITATIONSTYLE_OPTIONS()
+    public SelectItem[] getLAYOUTCITATIONSTYLE_OPTIONS()
     {
         return this.LAYOUTCITATIONSTYLE_OPTIONS;
     }    
@@ -304,7 +306,7 @@ public class ExportItems extends AbstractFragmentBean
     
     public ExportItemsSessionBean getSessionBean()
     {
-        return (ExportItemsSessionBean)this.getBean(ExportItemsSessionBean.BEAN_NAME);
+        return (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
     }
 
     /**
@@ -313,7 +315,7 @@ public class ExportItems extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
         
@@ -365,7 +367,7 @@ public class ExportItems extends AbstractFragmentBean
      */
     public void updateExportFormats(){
         
-        // get the selected export format by the SessionBean
+        // get the selected export format by the FacesBean
     	
     	
         String selExportFormat = this.getSessionBean().getExportFormatType(); 
@@ -431,12 +433,12 @@ public class ExportItems extends AbstractFragmentBean
        return (this.getSessionBean().getNavigationStringToGoBack() != null ? 
                 this.getSessionBean().getNavigationStringToGoBack() : SearchResultList.LOAD_SEARCHRESULTLIST);
     }
-    public MessageGroup getValMessage()
+    public HtmlMessages getValMessage()
     {
         return valMessage;
     }
 
-    public void setValMessage(MessageGroup valMessage)
+    public void setValMessage(HtmlMessages valMessage)
     {
         this.valMessage = valMessage;
     }
@@ -466,9 +468,9 @@ public class ExportItems extends AbstractFragmentBean
             
              if ( recipientsAddressesStr == null || recipientsAddressesStr.trim().equals("") )
             {
-               String message = bundleMessage.getString(ExportItems.MESSAGE_EXPORT_EMAIL_NOTSENT);
+               String message = getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_NOTSENT);
                info(message);
-               valMessage.setVisible(true);
+               valMessage.setRendered(true);
                 return null;
             }
            String[] recipientsAddresses = recipientsAddressesStr.split(","); //somereceiver@web.de
@@ -480,13 +482,13 @@ public class ExportItems extends AbstractFragmentBean
             }catch (TechnicalException e)
             {
                 logger.error("Could not ser the export formats." + "\n" + e.toString());
-                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                ((ErrorPage)getBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
             
             if (status.equals("sent")){
                 logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
-                SearchResultList searchResultList = (SearchResultList)getBean(SearchResultList.BEAN_NAME);                
+                SearchResultList searchResultList = (SearchResultList)getBean(SearchResultList.class);                
                 searchResultList.showMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
                 
                 return (SearchResultList.LOAD_SEARCHRESULTLIST);

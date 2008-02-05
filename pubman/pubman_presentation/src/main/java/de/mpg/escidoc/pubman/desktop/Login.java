@@ -33,16 +33,19 @@ package de.mpg.escidoc.pubman.desktop;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
+import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.TextField;
+
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -51,28 +54,25 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Class for providing login / logout functionality and coresponds to the Login.jspf.
  * 
  * @author: Tobias Schraut, created 31.01.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ Revised by ScT: 20.08.2007
  */
-public class Login extends AbstractFragmentBean
+public class Login extends FacesBean
 {
-    // For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    private Locale locale = application.getDefaultLocale();
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle("de.mpg.escidoc.pubman.bundle.Label", locale);
     public static String LOGIN_URL = "/um/loginResults";
-    final public static String BEAN_NAME = "desktop$Login";
-    private String btnLoginLogout = "Login";
+    final public static String BEAN_NAME = "Login";
+    private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";
     private boolean loggedIn = false;
     private static Logger logger = Logger.getLogger(Login.class);
-    private TextField txtLogin = new TextField();
-    private TextField txtPassword = new TextField();
+    private HtmlInputText txtLogin = new HtmlInputText();
+    private HtmlInputText txtPassword = new HtmlInputText();
 
     /**
      * public constructor
      */
     public Login()
     {
+        this.init();
     }
 
     /**
@@ -104,17 +104,15 @@ public class Login extends AbstractFragmentBean
     public String loginLogout() throws ServletException, IOException, ServiceException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        DepositorWSSessionBean.BEAN_NAME);
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        DepositorWSSessionBean depWSSessionBean
+            = (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
         String userHandle = loginHelper.getESciDocUserHandle();
-        if (loginHelper.isLoggedIn() == true && loginHelper.getESciDocUserHandle() != null)
+        if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null)
         {
             // logout mechanism
-            loginHelper.setBtnLoginLogout(bundleLabel.getString("login_btLogin"));
+            loginHelper.setBtnLoginLogout("login_btLogin");
             if (userHandle != null)
             {
                 long zeit = -System.currentTimeMillis();
@@ -129,13 +127,14 @@ public class Login extends AbstractFragmentBean
                 }
                 zeit += System.currentTimeMillis();
                 logger.info("logout->" + zeit + "ms");
-                loginHelper.setLoggedIn(false);
-                loginHelper.getAccountUser().setName("");
-                loginHelper.setESciDocUserHandle(null);
-                depWSSessionBean.setMyWorkspace("");
-                depWSSessionBean.setDepositorWS("");
+//                loginHelper.setLoggedIn(false);
+//                loginHelper.getAccountUser().setName("");
+//                loginHelper.setESciDocUserHandle(null);
+//                depWSSessionBean.setMyWorkspace(false);
+//                depWSSessionBean.setDepositorWS(false);
+//                depWSSessionBean.setNewSubmission(false);
                 fc.getExternalContext().redirect(request.getContextPath());
-                HttpSession session = (HttpSession)fc.getExternalContext().getSession(false);
+                HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
                 session.invalidate();
             }
         }
@@ -150,13 +149,13 @@ public class Login extends AbstractFragmentBean
 
     /**
      * method for brutal logout if authantication errors occur in the framework
-     * 
+     *
      * @return String navigation string for loading the login error page
      */
     public String forceLogout()
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         try
         {
             fc.getExternalContext().redirect(
@@ -170,7 +169,7 @@ public class Login extends AbstractFragmentBean
         {
             logger.error("Could not redirect to Fremework login page", e);
         }
-        
+
         return "";
     }
 
@@ -205,22 +204,22 @@ public class Login extends AbstractFragmentBean
         this.displayUserName = displayUserName;
     }
 
-    public TextField getTxtLogin()
+    public HtmlInputText getTxtLogin()
     {
         return txtLogin;
     }
 
-    public void setTxtLogin(TextField txtLogin)
+    public void setTxtLogin(HtmlInputText txtLogin)
     {
         this.txtLogin = txtLogin;
     }
 
-    public TextField getTxtPassword()
+    public HtmlInputText getTxtPassword()
     {
         return txtPassword;
     }
 
-    public void setTxtPassword(TextField txtPassword)
+    public void setTxtPassword(HtmlInputText txtPassword)
     {
         this.txtPassword = txtPassword;
     }

@@ -22,50 +22,36 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.pubman;
 
-import java.io.IOException;
-import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Body;
-import com.sun.rave.web.ui.component.Form;
-import com.sun.rave.web.ui.component.Head;
-import com.sun.rave.web.ui.component.Html;
-import com.sun.rave.web.ui.component.Link;
-import com.sun.rave.web.ui.component.Page;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Class for the AdvancedSearch Page.
  *
  * @author:  Hugo Niedermaier, created 24.07.2007
- * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Thu, 15 Nov 2007) $
+ * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Do, 15 Nov 2007) $
  * Revised by NiH: 14.08.2007
  */
-public class AdvancedSearchPage extends AbstractPageBean
+public class AdvancedSearchPage extends BreadcrumbPage
 {
+    @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(AdvancedSearchPage.class);
-    private Page page1 = new Page();
-    private Html html1 = new Html();
-    private Head head1 = new Head();
-    private Link link1 = new Link();
-    private Body body1 = new Body();
-    private Form form1 = new Form();
 
     /**
      * Public constructor.
      */
     public AdvancedSearchPage()
     {
+        this.init();
     }
 
     /**
@@ -76,97 +62,6 @@ public class AdvancedSearchPage extends AbstractPageBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
     }
 
-    public Body getBody1()
-    {
-        return body1;
-    }
-
-    public void setBody1(Body body1)
-    {
-        this.body1 = body1;
-    }
-
-    public Form getForm1()
-    {
-        return form1;
-    }
-
-    public void setForm1(Form form1)
-    {
-        this.form1 = form1;
-    }
-
-    public Head getHead1()
-    {
-        return head1;
-    }
-
-    public void setHead1(Head head1)
-    {
-        this.head1 = head1;
-    }
-
-    public Html getHtml1()
-    {
-        return html1;
-    }
-
-    public void setHtml1(Html html1)
-    {
-        this.html1 = html1;
-    }
-
-    public Link getLink1()
-    {
-        return link1;
-    }
-
-    public void setLink1(Link link1)
-    {
-        this.link1 = link1;
-    }
-
-    public Page getPage1()
-    {
-        return page1;
-    }
-
-    public void setPage1(Page page1)
-    {
-        this.page1 = page1;
-    }
 }

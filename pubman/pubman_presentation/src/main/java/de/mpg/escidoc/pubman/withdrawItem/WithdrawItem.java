@@ -31,15 +31,18 @@
 package de.mpg.escidoc.pubman.withdrawItem;
 
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.StaticText;
-import com.sun.rave.web.ui.component.TextArea;
+
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -52,36 +55,29 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
  *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @author: $Author: tendres $
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented, cleaned.
  */
-public class WithdrawItem extends AbstractFragmentBean
+public class WithdrawItem extends FacesBean
 {
     private static Logger logger = Logger.getLogger(WithdrawItem.class);
     // Faces navigation string
     public static final String LOAD_WITHDRAWITEM = "loadWithdrawItem";
 
-    private TextArea withdrawalComment;
+    private HtmlInputTextarea withdrawalComment;
 
-    private StaticText valMessage;
+    private HtmlOutputText valMessage;
     private String creators;
 
     private String navigationStringToGoBack;
-
-    //For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    //get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application
-    .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    //... and set the refering resource bundle
-    private ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     /**
      * Public constructor.
      */
     public WithdrawItem()
     {
+        this.init();
     }
 
     /**
@@ -156,11 +152,11 @@ public class WithdrawItem extends AbstractFragmentBean
         //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
         String comment;
 
-        valMessage.setText("");
+        valMessage.setValue("");
 
-        if (withdrawalComment.getText() != null)
+        if (withdrawalComment.getValue() != null)
         {
-            comment = withdrawalComment.getText().toString();
+            comment = withdrawalComment.getValue().toString();
         }
         else
         {
@@ -169,7 +165,7 @@ public class WithdrawItem extends AbstractFragmentBean
 
         if (comment == null)
         {
-            valMessage.setText(this.bundle.getString(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
+            valMessage.setValue(getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
             return null;
         }
 
@@ -206,11 +202,11 @@ public class WithdrawItem extends AbstractFragmentBean
     /**
      * Shows the given Message below the itemList after next Reload of the DepositorWS.
      * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
+     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
      */
     private void showMessage(final String message)
     {
-        String localMessage = this.bundle.getString(message);
+        String localMessage = getMessage(message);
         this.getItemListSessionBean().setMessage(localMessage);
     }
 
@@ -220,7 +216,7 @@ public class WithdrawItem extends AbstractFragmentBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -238,7 +234,7 @@ public class WithdrawItem extends AbstractFragmentBean
      */
     protected final DepositorWSSessionBean getDepositorWSSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -247,25 +243,25 @@ public class WithdrawItem extends AbstractFragmentBean
      */
     protected final WithdrawItemSessionBean getSessionBean()
     {
-        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.BEAN_NAME);
+        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
     }
 
-    public final TextArea getWithdrawalComment()
+    public final HtmlInputTextarea getWithdrawalComment()
     {
         return withdrawalComment;
     }
 
-    public final void setWithdrawalComment(final TextArea withdrawalComment)
+    public final void setWithdrawalComment(final HtmlInputTextarea withdrawalComment)
     {
         this.withdrawalComment = withdrawalComment;
     }
 
-    public final StaticText getValMessage()
+    public final HtmlOutputText getValMessage()
     {
         return valMessage;
     }
 
-    public final void setValMessage(final StaticText valMessage)
+    public final void setValMessage(final HtmlOutputText valMessage)
     {
         this.valMessage = valMessage;
     }

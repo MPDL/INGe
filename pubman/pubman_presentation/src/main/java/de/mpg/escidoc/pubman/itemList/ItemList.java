@@ -34,7 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.html.HtmlPanelGroup;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -45,11 +45,11 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * Fragment class for lists of items. 
  * 
  * @author: Thomas Diebäcker, created 29.08.2007
- * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $
  */
-public class ItemList extends AbstractFragmentBean
+public class ItemList extends FacesBean
 {
-    public static final String BEAN_NAME = "itemList$ItemList";
+    public static final String BEAN_NAME = "itemListItemList";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemList.class);
     
@@ -86,10 +86,13 @@ public class ItemList extends AbstractFragmentBean
         pubItemList.add(createTestItem("Title of Generic Test Item 22"));
         
         // create an ItemListUI for these PubItems
-        ItemListUI itemListUI = new ItemListUI(pubItemList, "#{depositorWS$DepositorWS.showItem}");
+        ItemListUI itemListUI = new ItemListUI(pubItemList, "#{DepositorWS.showItem}");
         
         // add the UI to the dynamic panel
         this.panDynamicItemList.getChildren().add(itemListUI);
+        
+        this.init();
+        
     }
     
     /**
@@ -120,7 +123,7 @@ public class ItemList extends AbstractFragmentBean
     public ItemList(List<PubItemVOWrapper> allPubItems)
     {        
         // create an ItemListUI for these PubItems
-        ItemListUI itemListUI = new ItemListUI(allPubItems, "#{depositorWS$DepositorWS.showItem}");
+        ItemListUI itemListUI = new ItemListUI(allPubItems, "#{DepositorWS.showItem}");
         
         // add the UI to the dynamic panel
         this.panDynamicItemList.getChildren().add(itemListUI);

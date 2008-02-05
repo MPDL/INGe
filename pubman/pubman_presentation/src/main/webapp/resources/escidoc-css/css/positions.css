@@ -23,13 +23,13 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
 
-/* Layout independent adjustments | Layout-unabhängige Anpassungen */
+/* Layout independent adjustments | Layout-unabhÃ¤ngige Anpassungen */
 /* Only if necessary | Nur bei Bedarf */
 /* @import url(../yaml/core/iehacks.css);*/
 
@@ -158,15 +158,15 @@ label{
 .editItem form {line-height: 140%;}
 
 .editItem legend {		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
-	position: absolute;    top: -0.9em;
-    left: 0.7em;	
+	position: absolute;	top: -0.9em;
+	left: 0.7em;	
 	padding: 0em 1em 0.5em 2.3em;
 }		
 			
-.editItem fieldset{		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */    position: relative;
-    margin: 35px 0em 0em 0em;
-    max-width: 740px;
-    padding: 20px 12px 12px 12px;
+.editItem fieldset{		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */	position: relative;
+	margin: 35px 0em 0em 0em;
+	max-width: 740px;
+	padding: 20px 12px 12px 12px;
 }
 
 html > body fieldset{
@@ -176,7 +176,7 @@ html > body fieldset{
 .addFieldset a{
 	display: block;
 	padding: 0em 1em 1em 3em;
-	border: none;    background-repeat: no-repeat;
+	border: none;	background-repeat: no-repeat;
 	margin: 0.5em 1em 0em 0em;
 	background-position: left top;
 	background-image: url(../images/add_file.gif);
@@ -196,13 +196,13 @@ html > body fieldset{
 }
 
 .itemTitle {
-	margin-right: 1em;    padding-right: 6px;
-    width: 20%;    float: left;    margin-top: 0.2em;
+	margin-right: 1em;	padding-right: 6px;
+	width: 20%;	float: left;	margin-top: 0.2em;
  }
 
 .itemText {
 	padding-left: 6px;
-    margin-top: 0.2em;
+	margin-top: 0.2em;
  }
 
 .itemAffiliations {	position: relative;	width: 15em;	height: 12em;	overflow: hidden;	float: left;	margin: 8px;
@@ -243,20 +243,20 @@ html > body fieldset{
 }
 
 .paginator{
-    text-align: center;
+	text-align: center;
 	margin: 1em 1em 1em 0em;
 	width: 750px;
-    vertical-align: baseline;
+	vertical-align: baseline;
 }
 
 .paginator select{
 	width: 3em;
-    margin: 0px 6px 0px 6px;
+	margin: 0px 6px 0px 6px;
 }
 
 .paginator input{
-    margin: 0px 3px 0px 3px;
-    padding: 1px 3px 1px 3px;
+	margin: 0px 3px 0px 3px;
+	padding: 1px 3px 1px 3px;
 	background-color: white;
 	border: 1px solid #999 !important;
 	color: #444;
@@ -277,7 +277,7 @@ html > body fieldset{
 
 .listHeader, .listItemHeader{ /* Also used for Advanced Search */
 	padding: 6px 14px 2px 12px;
-    width: 750px;
+	width: 750px;
 	height: 28px;
 }
 
@@ -298,9 +298,9 @@ html > body fieldset{
 
 .displayControls input, .displayControls input:hover{	
 	border: none;
-    padding: 0px 0px 0px 6px;
+	padding: 0px 0px 0px 6px;
 	vertical-align: middle;
-    background: transparent;
+	background: transparent;
 }
 
 
@@ -351,7 +351,7 @@ html > body fieldset{
 
 .formField, .formFieldLanguage{
 	width: 750px;
-    padding: 12px 12px 12px 12px;
+	padding: 12px 12px 12px 12px;
 	border: 1px #dfdee2 solid;
 	background-color: #fafafa;
 }

@@ -32,11 +32,13 @@ package de.mpg.escidoc.pubman.desktop;
 
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 
@@ -45,9 +47,9 @@ import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
  * pubman_logic
  * 
  * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1647 $ $LastChangedDate: 2007-12-06 13:28:26 +0100 (Thu, 06 Dec 2007) $ Revised by ScT: 21.08.2007
+ * @version: $Revision: 1647 $ $LastChangedDate: 2007-12-06 13:28:26 +0100 (Do, 06 Dez 2007) $ Revised by ScT: 21.08.2007
  */
-public class Search extends AbstractFragmentBean
+public class Search extends FacesBean
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(Search.class);
@@ -61,6 +63,7 @@ public class Search extends AbstractFragmentBean
      */
     public Search()
     {
+        this.init();
     }
 
     /**
@@ -80,6 +83,32 @@ public class Search extends AbstractFragmentBean
      */
     public String search()
     {
+        // values must be set manually bcs the search button has been changed to
+        // immediate=true
+        SearchResultListSessionBean resultListSessionBean = (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
+        if (this.txtSearch.getSubmittedValue() != null)
+        {
+            resultListSessionBean.setSearchString(this.txtSearch.getSubmittedValue().toString());
+        }
+        if (this.chkIncludeFiles.getSubmittedValue() != null)
+        {
+            String fulltext = (String)this.chkIncludeFiles.getSubmittedValue();
+            if (fulltext != null)
+            {
+                if (fulltext.equals("true"))
+                {
+                    resultListSessionBean.setIncludeFiles(true);
+                }
+                else
+                {
+                    resultListSessionBean.setIncludeFiles(false);
+                }
+            }
+            else
+            {
+                resultListSessionBean.setIncludeFiles(false);
+            }
+        }
         String retVal = this.getSearchResultList().startSearch();
         CommonSessionBean sessionBean = getCommonSessionBean();
         // if search returns an error, force JSF to load the ErrorPage
@@ -101,7 +130,7 @@ public class Search extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -111,17 +140,17 @@ public class Search extends AbstractFragmentBean
      */
     protected SearchResultListSessionBean getSearchResultListSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.BEAN_NAME);
+        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
     }
 
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
     /**
@@ -131,7 +160,7 @@ public class Search extends AbstractFragmentBean
      */
     protected SearchResultList getSearchResultList()
     {
-        return (SearchResultList)getBean(SearchResultList.BEAN_NAME);
+        return (SearchResultList)getBean(SearchResultList.class);
     }
 
     // Getters and Setters

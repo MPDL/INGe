@@ -32,17 +32,17 @@ package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
  * Superclass for keeping all attributes that are used for the whole session by ItemLists.
  * @author:  Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1629 $ $LastChangedDate: 2007-11-29 12:01:41 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1629 $ $LastChangedDate: 2007-11-29 12:01:41 +0100 (Do, 29 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class ItemListSessionBean extends AbstractSessionBean
+public class ItemListSessionBean extends FacesBean
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemListSessionBean.class);
@@ -54,6 +54,14 @@ public class ItemListSessionBean extends AbstractSessionBean
     private String sortBy = "TITLE";
     private String sortOrder = "ASCENDING";
 
+    /**
+     * Default constructor.
+     */
+//    public ItemListSessionBean()
+//    {
+//        this.init();
+//    }
+    
     /**
      * This method is called when this bean is initially added to session scope. Typically, this occurs as a result of
      * evaluating a value binding or method binding expression, which utilizes the managed bean facility to instantiate

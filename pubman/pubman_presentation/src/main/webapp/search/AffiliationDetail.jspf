@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+
+<% /* 
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -25,12 +25,12 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
-    <f:subview id="AffiliationDetail">
-		        <br/>
+*/ %>
+<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+	<f:subview id="AffiliationDetail">
+				<br/>
 				<h:panelGroup id="panelAffiliationDetail"
-					binding="#{search$AffiliationDetail.panelAffiliationDetail}">
+					binding="#{AffiliationDetail.panelAffiliationDetail}">
 				</h:panelGroup>
-    </f:subview>
+	</f:subview>
 </div>

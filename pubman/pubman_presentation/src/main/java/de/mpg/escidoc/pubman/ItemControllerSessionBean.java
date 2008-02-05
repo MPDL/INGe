@@ -33,13 +33,16 @@ package de.mpg.escidoc.pubman;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+
 import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
@@ -81,29 +84,30 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Handles all actions on/with items, calls to the framework.
  * 
  * @author: Thomas Diebäcker, created 25.04.2007
- * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Tue, 18 Dec 2007) $
+ * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class ItemControllerSessionBean extends AbstractSessionBean
+public class ItemControllerSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
-    
+
     private LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+    
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
     private PubItemSearching pubItemSearching = null;
-    private XmlTransforming xmlTransforming = null;      
-    private ItemValidating itemValidating = null;    
-    private ItemExporting itemExporting = null;  
-    private EmailHandling emailHandling = null;  
+    private XmlTransforming xmlTransforming = null;
+    private ItemValidating itemValidating = null;
+    private ItemExporting itemExporting = null;
+    private EmailHandling emailHandling = null;
     private DataGathering dataGathering = null;
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
     private PubCollectionVO currentCollection = null;
-    
+
     public static final String SUPER_USER_NAME = "Shibboleth-Handle-1";
-    
+
     /**
      * Public constructor, initializing used Beans.
      */
@@ -112,40 +116,45 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         try
         {
             InitialContext initialContext = new InitialContext();
-            
+
             // initialize used Beans
-            this.pubItemDepositing = (PubItemDepositing)initialContext.lookup(PubItemDepositing.SERVICE_NAME);
-            this.pubItemPublishing = (PubItemPublishing)initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-            this.pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-            this.xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
-            this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
-            this.itemExporting = (ItemExporting)initialContext.lookup(ItemExporting.SERVICE_NAME);
-            this.emailHandling = (EmailHandling)initialContext.lookup(EmailHandling.SERVICE_NAME);
-            this.dataGathering = (DataGathering)initialContext.lookup(DataGathering.SERVICE_NAME);
+            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
+            this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
+            this.pubItemSearching = (PubItemSearching) initialContext.lookup(PubItemSearching.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
+            this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
+            this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
         }
         catch (NamingException e)
         {
             logger.error("ItemControllerSessionBean Initialization Failure: \n" + e);
         }
+
+        this.init();
+
     }
 
     /**
      * This method is called when this bean is initially added to session scope. Typically, this occurs as a result of
      * evaluating a value binding or method binding expression, which utilizes the managed bean facility to instantiate
      * this bean and store it into session scope.
-     */    
+     */
     public void init()
     {
         // Perform initializations inherited from our superclass
         super.init();
     }
-    
+
     /**
      * Creates a new PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * @param navigationRuleWhenSuccessfull the navigation rule
+     * which should be returned when the operation is successful.
+     * @param pubCollectionRO The eSciDoc context.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String createNewPubItem(String navigationRuleWhenSuccessfull, PubCollectionRO pubCollectionRO)
+    public String createNewPubItem(final String navigationRuleWhenSuccessfull, final PubCollectionRO pubCollectionRO)
     {
         if (logger.isDebugEnabled())
         {
@@ -163,24 +172,27 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not create item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
-            
+            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
+
             return ErrorPage.LOAD_ERRORPAGE;
         }
-        
+
         return navigationRuleWhenSuccessfull;
     }
 
     /**
      * Saves a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
-     * @param ignoreInformativeMessages indicates, if the system should save the item even if there are informative validation messages.
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned
+     * when the operation is successful.
+     * @param ignoreInformativeMessages indicates if the system should save the item
+     * even if there are informative validation messages.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String saveCurrentPubItem(String navigationRuleWhenSuccessfull, boolean ignoreInformativeMessages)
+    public String saveCurrentPubItem(final String navigationRuleWhenSuccessfull,
+            final boolean ignoreInformativeMessages)
     {
-        PubItemVO newPubItem = null; 
-                
+        PubItemVO newPubItem = null;
+
         try
         {
             if (this.currentPubItem == null)
@@ -197,27 +209,28 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             {
                 return null;
             }
-            
+
             // setting the returned item as new currentItem
             this.setCurrentPubItem(newPubItem);
         }
         catch (Exception e)
         {
             logger.error("Could not save item." + "\n" + e.toString(), e);
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
-            
+            ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
+
             return ErrorPage.LOAD_ERRORPAGE;
         }
 
         return navigationRuleWhenSuccessfull;
     }
-    
+
     /**
      * Submits a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * @param navigationRuleWhenSuccessfull the navigation rule which
+     * should be returned when the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String submitCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
+    public String submitCurrentPubItem(final String submissionComment, final String navigationRuleWhenSuccessfull)
     {
         try
         {
@@ -240,7 +253,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         {
             logger.error("Could not submit item." + "\n" + e.toString());
             logger.error(e);
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -275,7 +288,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not submit item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -304,7 +317,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not withdraw item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -337,7 +350,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -384,7 +397,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not delete item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -413,7 +426,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -455,7 +468,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not create revision." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -1123,7 +1136,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
             login.forceLogout();
             throw e;
         }
@@ -1164,7 +1177,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
                 login.forceLogout();
                 throw e;
             }
@@ -1179,7 +1192,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
                 login.forceLogout();
                 throw e;
             }
@@ -1221,7 +1234,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
                 login.forceLogout();
                 throw e;
             }
@@ -1236,7 +1249,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
                 login.forceLogout();
                 throw e;
             }
@@ -1304,7 +1317,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
 
     /**
      * Returns all items which contain the searchString as List.
-     * @param searchString the string which should be serached for
+     * @param searchString the string which should be searched for
      * @param includeFiles determines if the search should include the files of the items
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
@@ -1364,7 +1377,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
             login.forceLogout();
             throw e;
         }
@@ -1486,7 +1499,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
             login.forceLogout();
             throw e;
         }
@@ -1521,7 +1534,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
             login.forceLogout();
             throw e;
         }
@@ -1540,34 +1553,28 @@ public class ItemControllerSessionBean extends AbstractSessionBean
      * Returns all items for a user depending on the selected itemState.
      * @param collectionID the ID of the collection that should be retrieved
      * @return the collection with the given ID
-     * @throws Exception if framework access fails
      */
-    public PubCollectionVO retrieveCollection(String collectionID) throws Exception
+    public PubCollectionVO retrieveCollection(final String collectionID)
     {
         if (logger.isDebugEnabled())
         {
             logger.debug("Retrieving Collection for ID: " + collectionID);
         }
+        PubCollectionVO collection = null;
 
-        String xmlCollection = "";        
+        String xmlCollection = "";
         try
         {
             xmlCollection = ServiceLocator.getContextHandler().retrieve(collectionID);
+            collection = this.xmlTransforming.transformToPubCollection(xmlCollection);
         }
-        catch (AuthenticationException e)
+        catch (Exception e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
-            throw e;
+            throw new RuntimeException("Error retrieving collection", e);
         }
-        
-        // transform the itemList
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Transforming collection...");
-        }
-        PubCollectionVO collection = this.xmlTransforming.transformToPubCollection(xmlCollection);
 
         return collection;
     }
@@ -1588,7 +1595,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
             throw e;
         }
@@ -1599,7 +1606,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
     /**
      * Accepts an item.
      * @param pubItem the item that should be accepted
-     * @return string, identifying the page that should be navigated to after this methodcall
+     * @return string, identifying the page that should be navigated to after this method call
      * @throws Exception if framework access fails
      */
     public String acceptCurrentPubItem(String acceptanceComment, String navigationRuleWhenSuccessfull)
@@ -1624,7 +1631,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not accept item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -1743,11 +1750,11 @@ public class ItemControllerSessionBean extends AbstractSessionBean
             // Exception types underneath should not be thrown. Only ignore them while inserting in the list.
             catch (AuthenticationException e)
             {
-                logger.debug(e.toString());
+                logger.error(e.toString(), e);
             }
             catch (ItemNotFoundException e)
             {
-                logger.debug(e.toString());
+                logger.error(e.toString(), e);
             }
         }
         return wrappedRevisionList;
@@ -1796,7 +1803,7 @@ public class ItemControllerSessionBean extends AbstractSessionBean
         this.currentItemValidationReport = currentItemValidationReport;
     }
 
-    public PubCollectionVO getCurrentCollection() throws Exception
+    public PubCollectionVO getCurrentCollection()
     {
         // retrieve current collection newly if the current item has changed or if the collection has not been retrieved so far
         if (this.getCurrentPubItem() != null)

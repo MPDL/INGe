@@ -34,6 +34,8 @@ import java.util.ResourceBundle;
 import javax.faces.component.html.HtmlGraphicImage;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
+import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -44,20 +46,40 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
  * UI for creating the event section of a pubitem to be used in the ViewItemFullUI.
  * 
  * @author: Tobias Schraut, created 26.09.2007
- * @version: $Revision: 1588 $ $LastChangedDate: 2007-11-20 13:18:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1588 $ $LastChangedDate: 2007-11-20 13:18:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ViewItemEventUI extends HtmlPanelGroup
+public class ViewItemEventUI extends ContainerPanelUI
 {
     private PubItemVO pubItem;
     private HtmlGraphicImage image;
     private HTMLElementUI htmlElement = new HTMLElementUI();
+
+    public ViewItemEventUI()
+    {     
+    	
+    }
     
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-            .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+    
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
+
     
     /**
      * Public constructor.
@@ -66,26 +88,19 @@ public class ViewItemEventUI extends HtmlPanelGroup
     {
         initialize(pubItemVO);
     }
-    
+
     /**
      * Initializes the UI and sets all attributes of the GUI components.
-     * 
+     *
      * @param pubItemVO a pubitem
      */
     protected void initialize(PubItemVO pubItemVO)
     {
         this.pubItem = pubItemVO;
-        
-        // get the selected language...
-        this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        
+
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
-        
+
         // *** HEADER ***
         // add an image to the page
         this.getChildren().add(htmlElement.getStartTag("h2"));
@@ -95,11 +110,11 @@ public class ViewItemEventUI extends HtmlPanelGroup
         this.image.setWidth("21");
         this.image.setHeight("25");
         this.getChildren().add(this.image);
-        
+
         // add the subheader
-        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubHeaderEvent")));
+        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubHeaderEvent")));
         this.getChildren().add(htmlElement.getEndTag("h2"));
-        
+
         if(this.pubItem.getMetadata() != null)
         {
             if(this.pubItem.getMetadata().getEvent() != null)
@@ -107,23 +122,23 @@ public class ViewItemEventUI extends HtmlPanelGroup
                 // *** EVENT TITLE ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                
+
                 if(this.pubItem.getMetadata().getEvent().getTitle() != null 
                         && this.pubItem.getMetadata().getEvent().getTitle().getLanguage() != null 
                         && !this.pubItem.getMetadata().getEvent().getTitle().getLanguage().trim().equals(""))
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventTitle") + " <" + this.pubItem.getMetadata().getEvent().getTitle().getLanguage() + ">"));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventTitle") + " <" + this.pubItem.getMetadata().getEvent().getTitle().getLanguage() + ">"));
                 }
                 else
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventTitle")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventTitle")));
                 }
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
-                
+
                 if(this.pubItem.getMetadata().getEvent().getTitle() != null)
                 {
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getEvent().getTitle().getValue()));
@@ -132,10 +147,9 @@ public class ViewItemEventUI extends HtmlPanelGroup
                 {
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(""));
                 }
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
-                
+
                 // *** ALTERNATIVE EVENT TITLES ***
                 if(this.pubItem.getMetadata().getEvent().getAlternativeTitles() != null)
                 {
@@ -143,44 +157,44 @@ public class ViewItemEventUI extends HtmlPanelGroup
                     {
                         // label
                         this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
-                        
+
                         if(this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getLanguage() != null && !this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getLanguage().trim().equals(""))
                         {
-                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventAlternativeTitle") + " <" + this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getLanguage() + ">"));
+                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventAlternativeTitle") + " <" + this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getLanguage() + ">"));
                         }
                         else
                         {
-                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventAlternativeTitle")));
+                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventAlternativeTitle")));
                         }
-                        
+
                         this.getChildren().add(htmlElement.getEndTag("div"));
-                        
+
                         // value
                         this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-                        
+
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getEvent().getAlternativeTitles().get(i).getValue()));
-                        
+
                         this.getChildren().add(htmlElement.getEndTag("div"));
                     }
                 }
-                
+
                 // *** EVENT PLACE ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                
+
                 if(this.pubItem.getMetadata().getEvent().getPlace() != null 
                         && this.pubItem.getMetadata().getEvent().getPlace().getLanguage() != null 
                         && !this.pubItem.getMetadata().getEvent().getPlace().getLanguage().trim().equals(""))
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventPlace")+ " <" + this.pubItem.getMetadata().getEvent().getPlace().getLanguage() + ">"));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventPlace")+ " <" + this.pubItem.getMetadata().getEvent().getPlace().getLanguage() + ">"));
                 }
                 else
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventPlace")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventPlace")));
                 }
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
                 
@@ -200,7 +214,7 @@ public class ViewItemEventUI extends HtmlPanelGroup
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEventStartEndDate")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEventStartEndDate")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -219,7 +233,7 @@ public class ViewItemEventUI extends HtmlPanelGroup
                     {
                         this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                         
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblEventInvited")));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblEventInvited")));
                         
                         this.getChildren().add(htmlElement.getEndTag("div"));
                     }
@@ -248,7 +262,7 @@ public class ViewItemEventUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblNoEntries")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblNoEntries")));
                 this.getChildren().add(htmlElement.getEndTag("div"));
             }
         }
@@ -259,7 +273,7 @@ public class ViewItemEventUI extends HtmlPanelGroup
             this.getChildren().add(htmlElement.getEndTag("div"));
             
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblNoEntries")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblNoEntries")));
             this.getChildren().add(htmlElement.getEndTag("div"));
         }
     }

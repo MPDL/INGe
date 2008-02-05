@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -26,61 +27,55 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="1.2" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
-    <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-    <f:loadBundle var="lbl" basename="#{util$InternationalizationHelper.selectedLableBundle}"/>
-	<f:loadBundle var="msg" basename="#{util$InternationalizationHelper.selectedMessagesBundle}"/>
-    <f:view>
-        <ui:page id="page1" >
-            <ui:html id="html1">
-                <ui:head id="head1">
-                    <link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-                    <link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<f:view locale="#{InternationalizationHelper.userLocale}">
+		<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
+		<f:loadBundle var="msg" basename="de.mpg.escidoc.pubman.bundle.Messages"/>
+			<html>
+				<head>
+					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
+					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
-                    <!-- FrM: Moved JS sources to external file -->
-                    <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-                    <script type="text/javascript" language="JavaScript" src="/clickheat/js/clickheat.js">;</script>
-					<script type="text/javascript">
-						clickHeatPage = 'GTDepositorWSPage'; //Identifier der Seite
-						initClickHeat();
-					</script>
-                </ui:head>
-                <ui:body id="body1">
-                	<div id="page_margins">
+					<!-- FrM: Moved JS sources to external file -->
+					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+				</head>
+				<body>
+					<h:outputText id="pageDummy" value="#{GTDepositorWSPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+					<div id="page_margins">
 						<div id="page">
-		                    <ui:form id="form1">
-		                        <div id="main">
-		                        	<div id="col2">
+							<h:form id="form1">
+								<div id="main">
+									<div id="col2">
 										<div class="contentActions">
 											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
 											<ul>
-												<li><ui:hyperlink id="lnkHelp" onClick="loadHelp('#{util$InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"
-										            text="#{lbl.mainMenu_lnkHelp}"/></li>
-												<li><ui:hyperlink binding="#{depositorWS$DepositorWS.lnkView}" id="lnkView" action="#{depositorWS$DepositorWS.viewItem}"
-										             text="#{lbl.actionMenu_lnkView}"/></li>
-										        <li><ui:hyperlink binding="#{depositorWS$DepositorWS.lnkEdit}" id="lnkEdit" action="#{depositorWS$DepositorWS.editItem}" 
-										             text="#{lbl.actionMenu_lnkEdit}"/></li>
-										        <li><ui:hyperlink binding="#{depositorWS$DepositorWS.lnkSubmit}" id="lnkSubmit" action="#{depositorWS$DepositorWS.submitSelectedItems}"
-										             text="#{lbl.actionMenu_lnkSubmit}"/></li>
-										        <li><ui:hyperlink binding="#{depositorWS$DepositorWS.lnkDelete}" id="lnkDelete" onClick="confirmListDelete('DepositorWS');return false;"
-										             text="#{lbl.actionMenu_lnkDelete}"/></li>
-										        <ui:button action="#{depositorWS$DepositorWS.deleteSelectedItems}" id="btnDeleteItems" text="delete"  visible="false"/>
+												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
+												<li><h:commandLink binding="#{DepositorWS.lnkView}" id="lnkView" action="#{DepositorWS.viewItem}"
+													  value="#{lbl.actionMenu_lnkView}"/></li>
+												<li><h:commandLink binding="#{DepositorWS.lnkEdit}" id="lnkEdit" action="#{DepositorWS.editItem}" 
+													  value="#{lbl.actionMenu_lnkEdit}"/></li>
+												<li><h:commandLink binding="#{DepositorWS.lnkSubmit}" id="lnkSubmit" action="#{DepositorWS.submitSelectedItems}"
+													  value="#{lbl.actionMenu_lnkSubmit}"/></li>
+												<li><h:outputLink binding="#{DepositorWS.lnkDelete}" id="lnkDelete" onclick="confirmListDelete('DepositorWS');return false;"
+													  value="#{lbl.actionMenu_lnkDelete}"/></li>
+												<h:commandButton action="#{DepositorWS.deleteSelectedItems}" id="btnDeleteItems" value="delete"  style="visibility:hidden;" />
 											</ul>
 										</div>
 									</div>
-		                        	<div id="col3">
+									<div id="col3">
 										<div class="content">
-				                            <jsp:directive.include file="depositorWS/DepositorWS.jspf"/>
-				                        </div>
-				                    </div>
-		                        </div>
-		                    </ui:form>
-		                 </div>
-		              </div>
-                </ui:body>
-            </ui:html>
-        </ui:page>
-    </f:view>
+											<jsp:directive.include file="depositorWS/DepositorWS.jspf"/>
+										</div>
+									</div>
+								</div>
+							</h:form>
+						 </div>
+					  </div>
+				</body>
+			</html>
+		
+	</f:view>
 </jsp:root>

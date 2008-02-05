@@ -25,8 +25,8 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
@@ -44,23 +44,23 @@ input[type=submit]:focus { background-color: #ddd; }
 }
 
 .content legend {
-	position: absolute;    top: -0.9em;
-    left: 0em;	
+	position: absolute;	top: -0.9em;
+	left: 0em;	
 	padding: 0em 1em 0.5em 0.5em;
 	font-variant: small-caps;
 	font-size: 1.1em;
 	font-weight: bold;
-    background: #FFF;}
+	background: #FFF;}
 			/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
-.content fieldset{    position: relative;
-    margin: 35px 0em 0em 0em;
-    max-width: 740px;
-    min-width: 250px;
-    padding: 20px 12px 12px 12px;
+.content fieldset{	position: relative;
+	margin: 35px 0em 0em 0em;
+	max-width: 740px;
+	min-width: 250px;
+	padding: 20px 12px 12px 12px;
 	border: 1px #dfdee2 solid;
 	background-color: #fafafa;
 }
-.content .dashed{    border-bottom: 2px #dfdee2 dashed;
+.content .dashed{	border-bottom: 2px #dfdee2 dashed;
 }
 
 html > body fieldset{

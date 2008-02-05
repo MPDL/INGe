@@ -31,7 +31,7 @@ package de.mpg.escidoc.pubman.export;
 
 import java.util.ArrayList;
 import java.util.List;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 
@@ -45,10 +45,10 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @version: $Revision:  $ $LastChangedDate:  $
  * Revised by StG: 28.09.2007 - Comments for the get- and set-methods are missing! ToDo StG.
  */
-public class ExportItemsSessionBean extends AbstractSessionBean
+public class ExportItemsSessionBean extends FacesBean
 {
     //private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
-    public static final String BEAN_NAME = "export$ExportItemsSessionBean";
+    public static final String BEAN_NAME = "ExportItemsSessionBean";
     private String message = null;
     List<ExportFormatVO> listExportFormatVO  = new ArrayList<ExportFormatVO>();   
     
@@ -86,6 +86,7 @@ public class ExportItemsSessionBean extends AbstractSessionBean
      */
     public ExportItemsSessionBean()
     {
+        this.init();
     }
 
        

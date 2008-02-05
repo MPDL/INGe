@@ -47,9 +47,9 @@ public class PersonCheckBoxLabelUI extends CheckBoxLabelUI {
 	 * @param langBundleIdent language bundle identifier
 	 * @param bundle language bundle
 	 */
-	public PersonCheckBoxLabelUI( CreatorRole role, String langBundleIdent, ResourceBundle bundle)
+	public PersonCheckBoxLabelUI( CreatorRole role, String langBundleIdent)
 	{
-		super( role.toString(), langBundleIdent, bundle );
+		super( role.toString(), langBundleIdent );
 		this.myCreatorRole = role;
 	}
 	

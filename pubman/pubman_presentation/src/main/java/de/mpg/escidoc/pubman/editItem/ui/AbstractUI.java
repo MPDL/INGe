@@ -38,7 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Button;
+import javax.faces.component.html.HtmlCommandButton;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
@@ -46,7 +46,7 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
  * Abstract UI component for inheriting subclasses. 
  * 
  * @author: Thomas Diebäcker, Hugo Niedermaier, created 20.06.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 08.08.2007
  */
 public abstract class AbstractUI extends HtmlPanelGrid implements ActionListener
@@ -61,12 +61,12 @@ public abstract class AbstractUI extends HtmlPanelGrid implements ActionListener
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 
     // GUI components
     protected HtmlPanelGrid panButtons = new HtmlPanelGrid();
-    public Button btAdd = new Button();
-    public Button btRemove = new Button();    
+    public HtmlCommandButton btAdd = new HtmlCommandButton();
+    public HtmlCommandButton btRemove = new HtmlCommandButton();    
 
     /**
      * Public constructor.
@@ -95,7 +95,7 @@ public abstract class AbstractUI extends HtmlPanelGrid implements ActionListener
     public AbstractUI(HtmlPanelGrid panDynamicParentPanel, Object parentVO, String parentValueBinding, int indexComponent, boolean isRequired)
     {
         this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         this.panDynamicParentPanel = panDynamicParentPanel;
         this.parentVO = parentVO;
@@ -124,7 +124,7 @@ public abstract class AbstractUI extends HtmlPanelGrid implements ActionListener
         this.btRemove.setImmediate(true);
         this.btRemove.addActionListener(this);
         this.btRemove.setValue(labelBundle.getString("EditItem_btRemove"));
-        this.btRemove.setVisible(this.isRemoveButtonVisible());            
+        this.btRemove.setRendered(this.isRemoveButtonVisible());            
         this.btRemove.setStyleClass("editDynamicButton");
         this.panButtons.getChildren().add(this.btRemove);
         
@@ -210,7 +210,7 @@ public abstract class AbstractUI extends HtmlPanelGrid implements ActionListener
         for (int i=0; i<this.panDynamicParentPanel.getChildCount(); i++)
         {
             // refresh visibility of all the remove buttons (see PUBMAN-110)
-            ((AbstractUI)this.panDynamicParentPanel.getChildren().get(i)).btRemove.setVisible(this.isRemoveButtonVisible());
+            ((AbstractUI)this.panDynamicParentPanel.getChildren().get(i)).btRemove.setRendered(this.isRemoveButtonVisible());
         }
     }
 

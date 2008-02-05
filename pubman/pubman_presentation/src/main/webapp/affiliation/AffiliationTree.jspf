@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+
+
+<% /* 
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -25,18 +26,22 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://www.sun.com/web/ui" xmlns:h="http://java.sun.com/jsf/html">
-	<f:loadBundle var="lbl"	basename="#{util$InternationalizationHelper.selectedLableBundle}" />
-    <f:subview id="AffiliationTreePage">
-    	<h1>
-	    	<h:outputText id="txtOrga" value="#{lbl.AffiliationTree_txtHeadline}"/>
-    	</h1>
-    	<br/>
-        <ui:tree binding="#{affiliation$AffiliationTree.treeAffiliation}" id="affiliationTree"  immediate="true" />
+*/ %>
+
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<!-- <%@ taglib uri="http://java.sun.com/jsf/ri/sandbox" prefix="risb" %> -->
+<div>
+	<f:loadBundle var="lbl"	basename="de.mpg.escidoc.pubman.bundle.Label" />
+	<f:subview id="AffiliationTreePage">
+		<h1>
+			<h:outputText id="txtOrga" value="#{lbl.AffiliationTree_txtHeadline}"/>
+		</h1>
+		<br/>
+		<risb:tree binding="#{AffiliationTree.treeAffiliation}" id="affiliationTree"  />
 		<h:panelGrid id="panButtons" columns="1" cellspacing="25" cellpadding="0">
-	        <h:commandLink id="lnkSelect" binding="#{affiliation$AffiliationTree.lnkSelect}"
-	             value="#{lbl.AffiliationTree_lnkSelect}" action="#{affiliation$AffiliationTree.getNode}" />
+			<h:commandLink id="lnkSelect" binding="#{AffiliationTree.lnkSelect}"
+				 value="#{lbl.AffiliationTree_lnkSelect}" action="#{AffiliationTree.getNode}" />
 		</h:panelGrid>
-    </f:subview>
+	</f:subview>
 </div>

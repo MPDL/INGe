@@ -53,6 +53,7 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -67,9 +68,9 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * UI for creating the files section of a pubitem to be used in the ViewItemMediumUI.
  * 
  * @author: Tobias Schraut, created 27.09.2007
- * @version: $Revision: 1646 $ $LastChangedDate: 2007-12-05 17:48:05 +0100 (Wed, 05 Dec 2007) $
+ * @version: $Revision: 1646 $ $LastChangedDate: 2007-12-05 17:48:05 +0100 (Mi, 05 Dez 2007) $
  */
-public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
+public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
 {
     private static Logger logger = Logger.getLogger(ViewItemFileUI.class);
     private PubItemVO pubItem;
@@ -80,13 +81,33 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
     private HtmlOutputLink downloadLink = new HtmlOutputLink();
     private HtmlOutputText downloadText = new HtmlOutputText();
     private HtmlOutputText withdrawnTitle = new HtmlOutputText();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-            .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
+
+    public ViewItemFileUI()
+    {
+
+    }
+
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
+
     /**
      * Public constructor.
      * @param pubItemVO a pubitem
@@ -94,18 +115,10 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
     public ViewItemFileUI(PubItemVO pubItemVO)
     {
         this.pubItem = pubItemVO;
-        
-        // get the selected language...
-        this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        
+
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
-        
-        
+
         // *** HEADER ***
         // add an image to the page
         this.getChildren().add(htmlElement.getStartTag("h2"));
@@ -118,7 +131,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
         
         
         // add the subheader
-        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblSubHeaderFile")));
+        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblSubHeaderFile")));
         this.getChildren().add(htmlElement.getEndTag("h2"));
         
         if(this.pubItem.getFiles() != null && this.pubItem.getFiles().size() > 0)
@@ -171,7 +184,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblFileFullTxtSearchHits")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblFileFullTxtSearchHits")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -185,12 +198,12 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 {
                     this.withdrawnTitle = new HtmlOutputText();
                     this.withdrawnTitle.setId(CommonUtils.createUniqueId(this.withdrawnTitle));
-                    this.withdrawnTitle.setValue(bundleLabel.getString("ViewItemFull_lblWithdrawn") + "  " + bundleLabel.getString("ViewItemFull_lblNoAccess"));
+                    this.withdrawnTitle.setValue(getLabel("ViewItemFull_lblWithdrawn") + "  " + getLabel("ViewItemFull_lblNoAccess"));
                     
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd withdrawn"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileName")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileName")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -210,7 +223,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                     // label
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileName")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileName")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                     
@@ -231,11 +244,11 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 // *** FILE SIZE / MIME TYPE ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
-                
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileMimeTypeSize")));
-                
+
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileMimeTypeSize")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
 
@@ -243,24 +256,23 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 BigDecimal fileSize = new BigDecimal(this.pubItem.getFiles().get(i).getSize()).divide(new BigDecimal(1024), BigDecimal.ROUND_HALF_UP);
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getMimeType() 
                                         + " / " + fileSize 
-                                        + bundleLabel.getString("ViewItemMedium_lblFileSizeKB")));
-                
+                                        + getLabel("ViewItemMedium_lblFileSizeKB")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
-                
+
                 // *** CONTENT CATEGORY ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileCategory")));
-                
+
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileCategory")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
-                
+
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getContentTypeString()));
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 
@@ -268,7 +280,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileDescription")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileDescription")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -284,7 +296,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblFileVisibility")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblFileVisibility")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -294,7 +306,7 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
                 {
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd withdrawn"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblWithdrawn")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblWithdrawn")));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                 }
@@ -321,12 +333,11 @@ public class ViewItemFileUI extends HtmlPanelGroup implements ActionListener
             this.getChildren().add(htmlElement.getEndTag("div"));
             
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblNoEntries")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblNoEntries")));
             this.getChildren().add(htmlElement.getEndTag("div"));
         }
     }
-    
-    
+
     /**
      * Adds the search result hits to the page
      * @param resultItem the search result item

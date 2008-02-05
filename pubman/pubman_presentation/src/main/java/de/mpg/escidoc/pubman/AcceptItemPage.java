@@ -30,23 +30,25 @@
 
 package de.mpg.escidoc.pubman;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 
 /**
  * BackingBean for AcceptItemPage.jsp. This one is empty because all code is implemented in the BackingBean of the
  * fragment.
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
  * @version: $Revision: 937 $ $LastChangedDate: 2007-08-23 11:20:02 +0200 (Do, 23 Aug 2007) $ Revised by ScT: 23.08.2007
  */
-public class AcceptItemPage extends AbstractPageBean
+public class AcceptItemPage extends BreadcrumbPage
 {
     /**
      * Public constructor.
      */
     public AcceptItemPage()
     {
+        this.init();
     }
 
     /**
@@ -58,8 +60,8 @@ public class AcceptItemPage extends AbstractPageBean
         // Perform initializations inherited from our superclass
         super.init();
     }
-    
-    /*
+
+    /**
      * Handle messages in fragments from here to please JSF life cycle.
      * @author: Michael Franke
      */
@@ -67,8 +69,8 @@ public class AcceptItemPage extends AbstractPageBean
     public void prerender()
     {
         super.prerender();
-        AcceptItem fragment = (AcceptItem) getBean("acceptItem$AcceptItem");
+        AcceptItem fragment = (AcceptItem) getBean(AcceptItem.class);
         fragment.handleMessage();
     }
-    
+
 }

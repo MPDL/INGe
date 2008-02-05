@@ -30,10 +30,13 @@
 package de.mpg.escidoc.pubman.desktop;
 
 import java.io.IOException;
+
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 
 /**
@@ -43,7 +46,7 @@ import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
  * @author: Hugo Niedermaier
  * Revised by NiH: 20.09.2007
  */
-public class AdvancedSearch extends AbstractFragmentBean
+public class AdvancedSearch extends FacesBean
 {
     private static Logger logger = Logger.getLogger(AdvancedSearch.class);
     // constant for the function AdvancedSearch to check the rights and/or if the function has to be disabled (DiT)
@@ -57,6 +60,7 @@ public class AdvancedSearch extends AbstractFragmentBean
      */
     public AdvancedSearch()
     {
+        this.init();
     }
 
     /**
@@ -76,9 +80,6 @@ public class AdvancedSearch extends AbstractFragmentBean
      */
     public String showSearchPageAgain()
     {
-    	// check if the internationalisation has changed
-    	AdvancedSearchEdit bean = (AdvancedSearchEdit)getBean(AdvancedSearchEdit.BEAN_NAME);
-    	bean.updateLanguage();
         return "displaySearchPage";
     }
 
@@ -98,11 +99,9 @@ public class AdvancedSearch extends AbstractFragmentBean
      */
     public String showSearchPage()
     {
-        AdvancedSearchEdit bean = (AdvancedSearchEdit)getBean(AdvancedSearchEdit.BEAN_NAME);
-        // reset the forms
+        AdvancedSearchEdit bean = (AdvancedSearchEdit)getBean(AdvancedSearchEdit.class);
+
         bean.clearAllForms();
-        // check if language has changed
-        bean.updateLanguage();
         
         return "displaySearchPage";
     }
@@ -134,7 +133,7 @@ public class AdvancedSearch extends AbstractFragmentBean
      */
     protected RightsManagementSessionBean getRightsManagementSessionBean()
     {
-        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.BEAN_NAME);
+        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.class);
     }
 
     /**

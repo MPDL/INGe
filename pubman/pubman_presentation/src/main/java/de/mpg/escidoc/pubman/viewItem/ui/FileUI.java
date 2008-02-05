@@ -42,8 +42,8 @@ import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.StaticText;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputText;
 
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -53,22 +53,22 @@ import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
  * UI component for listing files in the view item page.
  * 
  * @author: Tobias Schraut, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 17.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 17.08.2007
  */
 
 public class FileUI 
 {
 	private HtmlPanelGrid panGrid = new HtmlPanelGrid();
-	private Hyperlink lnkName = new Hyperlink();
-	private StaticText valFileSize = new StaticText();
+	private HtmlCommandLink lnkName = new HtmlCommandLink();
+	private HtmlOutputText valFileSize = new HtmlOutputText();
 	private UIParameter param = new UIParameter();
-	private StaticText valFileContentType = new StaticText();
-	private StaticText valFileVisibility = new StaticText();
-	private StaticText lblFileDescription = new StaticText();
-	private StaticText valFileDescription = new StaticText();
-	private StaticText lblFileCitation = new StaticText();
-	private StaticText valFileCitation = new StaticText();
-	private StaticText emptySpace = new StaticText();
+	private HtmlOutputText valFileContentType = new HtmlOutputText();
+	private HtmlOutputText valFileVisibility = new HtmlOutputText();
+	private HtmlOutputText lblFileDescription = new HtmlOutputText();
+	private HtmlOutputText valFileDescription = new HtmlOutputText();
+	private HtmlOutputText lblFileCitation = new HtmlOutputText();
+	private HtmlOutputText valFileCitation = new HtmlOutputText();
+	private HtmlOutputText emptySpace = new HtmlOutputText();
 	
 	private HtmlCommandButton btnDownload = new HtmlCommandButton();
 
@@ -103,7 +103,7 @@ public class FileUI
 				.getCurrentInstance().getApplication().getVariableResolver()
 				.resolveVariable(FacesContext.getCurrentInstance(),	InternationalizationHelper.BEAN_NAME);
 		// ... and set the refering resource bundle
-		ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+		ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 		this.panGrid = new HtmlPanelGrid();
 		this.panGrid.setId(CommonUtils.createUniqueId(this.panGrid));
 		this.panGrid.setBorder(0);
@@ -118,56 +118,56 @@ public class FileUI
 			this.param.setValue(file.getReference().getObjectId());
 			this.btnDownload.getChildren().add(this.param);
 			this.lnkName.setId(CommonUtils.createUniqueId(this.lnkName));
-			this.lnkName.setText(file.getName());
+			this.lnkName.setValue(file.getName());
 			this.lnkName.setStyle("height: 20px; width: 360px");
 			this.lnkName.setImmediate(true);
-			this.lnkName.setOnClick("downloadFile(" + position + "); return false");
+			this.lnkName.setOnclick("downloadFile(" + position + "); return false");
 			this.panGrid.getChildren().add(this.lnkName);
 			this.valFileSize.setId(CommonUtils.createUniqueId(this.valFileSize));
 			BigDecimal fileSize = new BigDecimal(file.getSize()).divide(new BigDecimal(1024), BigDecimal.ROUND_HALF_UP);
-			this.valFileSize.setText(" (" + fileSize.toString() + "KB)");
+			this.valFileSize.setValue(" (" + fileSize.toString() + "KB)");
 			this.valFileSize.setStyle("height: 20px; width: 360px");
 			this.valFileSize.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileSize);
 			this.valFileContentType.setId(CommonUtils.createUniqueId(this.valFileContentType));
-			this.valFileContentType.setText(file.getContentType().name());
+			this.valFileContentType.setValue(file.getContentType().name());
 			this.valFileContentType.setStyle("height: 20px; width: 360px");
 			this.valFileContentType.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileContentType);
 			this.valFileVisibility.setId(CommonUtils.createUniqueId(this.valFileVisibility));
-			this.valFileVisibility.setText(bundle.getString("ViewItem_lblFileVisibility")
+			this.valFileVisibility.setValue(bundle.getString("ViewItem_lblFileVisibility")
 					+ file.getVisibility().name());
 			this.valFileVisibility.setStyle("height: 20px; width: 360px");
 			this.valFileVisibility.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileVisibility);
 			this.lblFileDescription.setId(CommonUtils.createUniqueId(this.lblFileDescription));
-			this.lblFileDescription.setText(bundle.getString("ViewItem_lblFileDescription"));
+			this.lblFileDescription.setValue(bundle.getString("ViewItem_lblFileDescription"));
 			this.lblFileDescription.setStyle("height: 20px; width: 360px");
 			this.lblFileDescription.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.lblFileDescription);
 			this.valFileDescription.setId(CommonUtils.createUniqueId(this.valFileDescription));
 			if (file.getDescription() != null) {
-				this.valFileDescription.setText(file.getDescription());
+				this.valFileDescription.setValue(file.getDescription());
 			} else {
-				this.valFileDescription.setText("");
+				this.valFileDescription.setValue("");
 			}
 			this.valFileDescription.setStyle("height: 20px; width: 360px");
 			this.valFileDescription.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileDescription);
 			this.lblFileCitation.setId(CommonUtils.createUniqueId(this.lblFileCitation));
-			this.lblFileCitation.setText(bundle.getString("ViewItem_lblFileCitation"));
+			this.lblFileCitation.setValue(bundle.getString("ViewItem_lblFileCitation"));
 			this.lblFileCitation.setStyle("height: 20px; width: 360px");
 			this.lblFileCitation.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.lblFileCitation);
 			this.valFileCitation.setId(CommonUtils.createUniqueId(this.valFileCitation));
-			this.valFileCitation.setText(file.getPid());
+			this.valFileCitation.setValue(file.getPid());
 			this.valFileCitation.setStyle("height: 20px; width: 360px");
 			this.valFileCitation.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileCitation);
 			this.btnDownload.setId("btn_" + position);
 			this.btnDownload.setValue("Download...");
 			this.btnDownload.setActionListener(application.createMethodBinding(
-					"#{viewItem$ViewItem.generateDownloadLink}",
+					"#{ViewItem.generateDownloadLink}",
 					new Class[] { ActionEvent.class }));
 			this.btnDownload.setRendered(false);
 			this.panGrid.getChildren().add(this.btnDownload);
@@ -175,7 +175,7 @@ public class FileUI
 		else 
 		{
 			this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-			this.emptySpace.setText(" ");
+			this.emptySpace.setValue(" ");
 			this.emptySpace.setStyle("height: 20px; width: 360px");
 			this.panGrid.getChildren().add(this.emptySpace);
 		}

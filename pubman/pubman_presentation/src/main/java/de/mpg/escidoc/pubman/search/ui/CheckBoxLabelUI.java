@@ -33,6 +33,8 @@ import java.util.ResourceBundle;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
+
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 
 /**
@@ -40,7 +42,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  * @author endres
  *
  */
-public class CheckBoxLabelUI {
+public class CheckBoxLabelUI extends InternationalizedImpl {
 	
 	/** language bundle identifier */
 	private String langBundleIdent = null;
@@ -55,7 +57,7 @@ public class CheckBoxLabelUI {
 	 * @param langBundleIdent  key for the language bundle
 	 * @param bundle  bundle which holds the current language information
 	 */
-	public CheckBoxLabelUI( String checkboxIdent, String langBundleIdent, ResourceBundle bundle )
+	public CheckBoxLabelUI( String checkboxIdent, String langBundleIdent )
 	{
 		this.langBundleIdent = new String( langBundleIdent );
 		
@@ -65,7 +67,7 @@ public class CheckBoxLabelUI {
 		this.checkbox.setImmediate(true);
 		this.outputText = new HtmlOutputText();
 		this.outputText.setId( CommonUtils.createUniqueId( this.outputText ) );
-		this.outputText.setValue( bundle.getString( langBundleIdent ) );
+		this.outputText.setValue( getLabel( langBundleIdent ) );
 	}
 
 	/**
@@ -84,7 +86,7 @@ public class CheckBoxLabelUI {
 	 */
 	public void updateLanguage( ResourceBundle bundle )
 	{
-		this.outputText.setValue(bundle.getString( this.langBundleIdent ) );
+		this.outputText.setValue(getLabel( this.langBundleIdent ) );
 	}
 	
 	/**

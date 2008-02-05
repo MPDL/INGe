@@ -32,15 +32,18 @@ package de.mpg.escidoc.pubman.editItem.ui;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Button;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextArea;
-import com.sun.rave.web.ui.component.TextField;
+
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -51,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * UI component for editing organizations. 
  * 
  * @author: Thomas Diebäcker, created 27.06.2007
- * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
 public class OrganizationUI extends AbstractUI
@@ -60,17 +63,17 @@ public class OrganizationUI extends AbstractUI
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
     private HtmlPanelGrid panAttributes = new HtmlPanelGrid();
-    private Label lblOrganization = new Label();
-    private Label lblOrganizationName = new Label();
-    private Label lblOrganizationAddress = new Label();
-    private TextField txtOrganizationName = new TextField();
-    private TextArea txtaOrganizationAddress = new TextArea();
-    private Button btAdd = new Button();
-    private Button btSelect = new Button();
+    private HtmlOutputLabel lblOrganization = new HtmlOutputLabel();
+    private HtmlOutputLabel lblOrganizationName = new HtmlOutputLabel();
+    private HtmlOutputLabel lblOrganizationAddress = new HtmlOutputLabel();
+    private HtmlInputText txtOrganizationName = new HtmlInputText();
+    private HtmlInputTextarea txtaOrganizationAddress = new HtmlInputTextarea();
+    private HtmlCommandButton btAdd = new HtmlCommandButton();
+    private HtmlCommandButton btSelect = new HtmlCommandButton();
 
     /**
      * Public constructor.
@@ -91,7 +94,7 @@ public class OrganizationUI extends AbstractUI
         }
         
         this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         //NiH: read only flag for organization name and address
         boolean readOnly = false;
@@ -104,7 +107,7 @@ public class OrganizationUI extends AbstractUI
         // set attributes for all GUI components
         this.lblOrganization.setId(this.createUniqueId(this.lblOrganization));
         this.lblOrganization.setValue(labelBundle.getString("EditItem_lblOrganization"));
-        this.lblOrganization.setLabelLevel(3);
+        //this.lblOrganization.setLabelLevel(3);
         this.getChildren().add(0, this.lblOrganization); // place label in front of components from superclass, therefore position "0" is given here
 
         this.panAttributes.setId(this.createUniqueId(this.panAttributes));
@@ -114,9 +117,9 @@ public class OrganizationUI extends AbstractUI
         this.panAttributes.setCellpadding("0");
         
         this.lblOrganizationName.setId(this.createUniqueId(this.lblOrganizationName));
-        this.lblOrganizationName.setLabeledComponent(this.txtOrganizationName);
+        this.lblOrganizationName.setFor(this.txtOrganizationName.getId());
         this.lblOrganizationName.setValue(labelBundle.getString("EditItem_lblOrganizationName"));
-        this.lblOrganizationName.setLabelLevel(3);
+        //this.lblOrganizationName.setLabelLevel(3);
         this.panAttributes.getChildren().add(this.lblOrganizationName);
         
         this.txtOrganizationName.setId(this.createUniqueId(this.txtOrganizationName));
@@ -133,9 +136,9 @@ public class OrganizationUI extends AbstractUI
         this.panAttributes.getChildren().add(this.txtOrganizationName);
         
         this.lblOrganizationAddress.setId(this.createUniqueId(this.lblOrganizationAddress));
-        this.lblOrganizationAddress.setLabeledComponent(this.txtaOrganizationAddress);
+        this.lblOrganizationAddress.setFor(this.txtaOrganizationAddress.getId());
         this.lblOrganizationAddress.setValue(labelBundle.getString("EditItem_lblOrganizationAddress"));
-        this.lblOrganizationAddress.setLabelLevel(3);
+        //this.lblOrganizationAddress.setLabelLevel(3);
         this.panAttributes.getChildren().add(this.lblOrganizationAddress);
         
         this.txtaOrganizationAddress.setId(this.createUniqueId(this.txtaOrganizationAddress));
@@ -155,19 +158,19 @@ public class OrganizationUI extends AbstractUI
 
         Application application = FacesContext.getCurrentInstance().getApplication();
 
-        super.btAdd.setVisible(false);
+        super.btAdd.setRendered(false);
         this.btAdd.setId(this.createUniqueId(this.btAdd));
         this.btAdd.setValue(labelBundle.getString("EditItem_btAdd"));
         this.btAdd.setImmediate(false);
         this.btAdd.addActionListener(this);        
-        this.btAdd.setAction(application.createMethodBinding("#{editItem$EditItem.loadAffiliationTree}", null));
+        this.btAdd.setAction(application.createMethodBinding("#{EditItem.loadAffiliationTree}", null));
 
         this.btSelect.setId(this.createUniqueId(this.btSelect));
         this.btSelect.setImmediate(false);
         this.btSelect.addActionListener(this);
         this.btSelect.setValue(labelBundle.getString("EditItem_btSelect"));
         this.btSelect.setStyleClass("editDynamicButton");
-        this.btSelect.setAction(application.createMethodBinding("#{editItem$EditItem.loadAffiliationTree}", null));
+        this.btSelect.setAction(application.createMethodBinding("#{EditItem.loadAffiliationTree}", null));
         this.panButtons.getChildren().add(this.btSelect);
                 
         //NiH: disable button Add

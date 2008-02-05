@@ -37,12 +37,12 @@ import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Button;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextArea;
-import com.sun.rave.web.ui.component.TextField;
-import com.sun.rave.web.ui.model.Option;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.model.SelectItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * UI component for editing creators. 
  * 
  * @author: Thomas Diebäcker, created 26.06.2007
- * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $
  * Revised by DiT: 09.08.2007
  */
 public class CreatorUI extends AbstractUI
@@ -63,52 +63,52 @@ public class CreatorUI extends AbstractUI
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
     private HtmlPanelGrid panAttributes = new HtmlPanelGrid();
     private HtmlPanelGrid panPersonOrganizations = new HtmlPanelGrid();
 
     // common
-    private Label lblCreator = new Label();
-    private Label lblCreatorRole = new Label();
-    private Label lblCreatorType = new Label();
-    private DropDown cboCreatorRole = new DropDown();
-    private DropDown cboCreatorType = new DropDown();
-    private Button btHandleCreatorTypeChange = new Button();
+    private HtmlOutputLabel lblCreator = new HtmlOutputLabel();
+    private HtmlOutputLabel lblCreatorRole = new HtmlOutputLabel();
+    private HtmlOutputLabel lblCreatorType = new HtmlOutputLabel();
+    private HtmlSelectOneMenu cboCreatorRole = new HtmlSelectOneMenu();
+    private HtmlSelectOneMenu cboCreatorType = new HtmlSelectOneMenu();
+    private HtmlCommandButton btHandleCreatorTypeChange = new HtmlCommandButton();
 
     // person
-    private Label lblPersonGivenName = new Label();
-    private Label lblPersonFamilyName = new Label();
-    private TextField txtPersonGivenName = new TextField();
-    private TextField txtPersonFamilyName = new TextField();
+    private HtmlOutputLabel lblPersonGivenName = new HtmlOutputLabel();
+    private HtmlOutputLabel lblPersonFamilyName = new HtmlOutputLabel();
+    private HtmlInputText txtPersonGivenName = new HtmlInputText();
+    private HtmlInputText txtPersonFamilyName = new HtmlInputText();
 
     // organization
-    private Label lblOrganizationName = new Label();
-    private Label lblOrganizationAddress = new Label();
-    private TextField txtOrganizationName = new TextField();
-    private TextArea txtaOrganizationAddress = new TextArea();
+    private HtmlOutputLabel lblOrganizationName = new HtmlOutputLabel();
+    private HtmlOutputLabel lblOrganizationAddress = new HtmlOutputLabel();
+    private HtmlInputText txtOrganizationName = new HtmlInputText();
+    private HtmlInputTextarea txtaOrganizationAddress = new HtmlInputTextarea();
     //NiH: prepared for affiliation selection
-    private Button btSelect = new Button();
+    private HtmlCommandButton btSelect = new HtmlCommandButton();
 
     // constants for comboBoxes
-    public Option CREATORTYPE_PERSON = new Option(CreatorVO.CreatorType.PERSON.toString(), labelBundle.getString("EditItem_CREATORTYPE_PERSON"));
-    public Option CREATORTYPE_ORGANIZATION = new Option(CreatorVO.CreatorType.ORGANIZATION.toString(), labelBundle.getString("EditItem_CREATORTYPE_ORGANIZATION"));    
-    private Option[] CREATORTYPE_OPTIONS = new Option[] { CREATORTYPE_PERSON, CREATORTYPE_ORGANIZATION };
+    public SelectItem CREATORTYPE_PERSON = new SelectItem(CreatorVO.CreatorType.PERSON.toString(), labelBundle.getString("ENUM_CREATORTYPE_PERSON"));
+    public SelectItem CREATORTYPE_ORGANIZATION = new SelectItem(CreatorVO.CreatorType.ORGANIZATION.toString(), labelBundle.getString("ENUM_CREATORTYPE_ORGANIZATION"));    
+    private SelectItem[] CREATORTYPE_OPTIONS = new SelectItem[] { CREATORTYPE_PERSON, CREATORTYPE_ORGANIZATION };
     
-    private Option NO_ITEM_SET = new Option("", labelBundle.getString("EditItem_NO_ITEM_SET"));
-    private Option CREATORROLE_ARTIST = new Option(CreatorVO.CreatorRole.ARTIST.toString(), labelBundle.getString("EditItem_CREATORROLE_ARTIST"));
-    private Option CREATORROLE_AUTHOR = new Option(CreatorVO.CreatorRole.AUTHOR.toString(), labelBundle.getString("EditItem_CREATORROLE_AUTHOR"));
-    private Option CREATORROLE_EDITOR = new Option(CreatorVO.CreatorRole.EDITOR.toString(), labelBundle.getString("EditItem_CREATORROLE_EDITOR"));
-    private Option CREATORROLE_PAINTER = new Option(CreatorVO.CreatorRole.PAINTER.toString(), labelBundle.getString("EditItem_CREATORROLE_PAINTER"));
-    private Option CREATORROLE_ILLUSTRATOR = new Option(CreatorVO.CreatorRole.ILLUSTRATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_ILLUSTRATOR"));
-    private Option CREATORROLE_PHOTOGRAPHER = new Option(CreatorVO.CreatorRole.PHOTOGRAPHER.toString(), labelBundle.getString("EditItem_CREATORROLE_PHOTOGRAPHER"));
-    private Option CREATORROLE_COMMENTATOR = new Option(CreatorVO.CreatorRole.COMMENTATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_COMMENTATOR"));
-    private Option CREATORROLE_TRANSCRIBER = new Option(CreatorVO.CreatorRole.TRANSCRIBER.toString(), labelBundle.getString("EditItem_CREATORROLE_TRANSCRIBER"));
-    private Option CREATORROLE_ADVISOR = new Option(CreatorVO.CreatorRole.ADVISOR.toString(), labelBundle.getString("EditItem_CREATORROLE_ADVISOR"));
-    private Option CREATORROLE_TRANSLATOR = new Option(CreatorVO.CreatorRole.TRANSLATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_TRANSLATOR"));
-    private Option CREATORROLE_CONTRIBUTOR = new Option(CreatorVO.CreatorRole.CONTRIBUTOR.toString(), labelBundle.getString("EditItem_CREATORROLE_CONTRIBUTOR"));
-    private Option[] CREATORROLE_OPTIONS = new Option[] { NO_ITEM_SET, CREATORROLE_ARTIST, CREATORROLE_AUTHOR, CREATORROLE_EDITOR, CREATORROLE_PAINTER, CREATORROLE_ILLUSTRATOR, CREATORROLE_PHOTOGRAPHER, CREATORROLE_COMMENTATOR, CREATORROLE_TRANSCRIBER, CREATORROLE_ADVISOR, CREATORROLE_TRANSLATOR, CREATORROLE_CONTRIBUTOR };
+    private SelectItem NO_ITEM_SET = new SelectItem("", labelBundle.getString("ENUM_NO_ITEM_SET"));
+    private SelectItem CREATORROLE_ARTIST = new SelectItem(CreatorVO.CreatorRole.ARTIST.toString(), labelBundle.getString("ENUM_CREATORROLE_ARTIST"));
+    private SelectItem CREATORROLE_AUTHOR = new SelectItem(CreatorVO.CreatorRole.AUTHOR.toString(), labelBundle.getString("ENUM_CREATORROLE_AUTHOR"));
+    private SelectItem CREATORROLE_EDITOR = new SelectItem(CreatorVO.CreatorRole.EDITOR.toString(), labelBundle.getString("ENUM_CREATORROLE_EDITOR"));
+    private SelectItem CREATORROLE_PAINTER = new SelectItem(CreatorVO.CreatorRole.PAINTER.toString(), labelBundle.getString("ENUM_CREATORROLE_PAINTER"));
+    private SelectItem CREATORROLE_ILLUSTRATOR = new SelectItem(CreatorVO.CreatorRole.ILLUSTRATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_ILLUSTRATOR"));
+    private SelectItem CREATORROLE_PHOTOGRAPHER = new SelectItem(CreatorVO.CreatorRole.PHOTOGRAPHER.toString(), labelBundle.getString("ENUM_CREATORROLE_PHOTOGRAPHER"));
+    private SelectItem CREATORROLE_COMMENTATOR = new SelectItem(CreatorVO.CreatorRole.COMMENTATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_COMMENTATOR"));
+    private SelectItem CREATORROLE_TRANSCRIBER = new SelectItem(CreatorVO.CreatorRole.TRANSCRIBER.toString(), labelBundle.getString("ENUM_CREATORROLE_TRANSCRIBER"));
+    private SelectItem CREATORROLE_ADVISOR = new SelectItem(CreatorVO.CreatorRole.ADVISOR.toString(), labelBundle.getString("ENUM_CREATORROLE_ADVISOR"));
+    private SelectItem CREATORROLE_TRANSLATOR = new SelectItem(CreatorVO.CreatorRole.TRANSLATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_TRANSLATOR"));
+    private SelectItem CREATORROLE_CONTRIBUTOR = new SelectItem(CreatorVO.CreatorRole.CONTRIBUTOR.toString(), labelBundle.getString("ENUM_CREATORROLE_CONTRIBUTOR"));
+    private SelectItem[] CREATORROLE_OPTIONS = new SelectItem[] { NO_ITEM_SET, CREATORROLE_ARTIST, CREATORROLE_AUTHOR, CREATORROLE_EDITOR, CREATORROLE_PAINTER, CREATORROLE_ILLUSTRATOR, CREATORROLE_PHOTOGRAPHER, CREATORROLE_COMMENTATOR, CREATORROLE_TRANSCRIBER, CREATORROLE_ADVISOR, CREATORROLE_TRANSLATOR, CREATORROLE_CONTRIBUTOR };
     
     /**
      * Public constructor.
@@ -130,30 +130,30 @@ public class CreatorUI extends AbstractUI
         
         // ScT: re-init the combo-boxes due to direct language switch
         this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
-        this.CREATORTYPE_PERSON = new Option(CreatorVO.CreatorType.PERSON.toString(), labelBundle.getString("EditItem_CREATORTYPE_PERSON"));
-        this.CREATORTYPE_ORGANIZATION = new Option(CreatorVO.CreatorType.ORGANIZATION.toString(), labelBundle.getString("EditItem_CREATORTYPE_ORGANIZATION"));    
-        this.CREATORTYPE_OPTIONS = new Option[] { CREATORTYPE_PERSON, CREATORTYPE_ORGANIZATION };
+        this.CREATORTYPE_PERSON = new SelectItem(CreatorVO.CreatorType.PERSON.toString(), labelBundle.getString("ENUM_CREATORTYPE_PERSON"));
+        this.CREATORTYPE_ORGANIZATION = new SelectItem(CreatorVO.CreatorType.ORGANIZATION.toString(), labelBundle.getString("ENUM_CREATORTYPE_ORGANIZATION"));    
+        this.CREATORTYPE_OPTIONS = new SelectItem[] { CREATORTYPE_PERSON, CREATORTYPE_ORGANIZATION };
         
-        this.NO_ITEM_SET = new Option("", labelBundle.getString("EditItem_NO_ITEM_SET"));
-        this.CREATORROLE_ARTIST = new Option(CreatorVO.CreatorRole.ARTIST.toString(), labelBundle.getString("EditItem_CREATORROLE_ARTIST"));
-        this.CREATORROLE_AUTHOR = new Option(CreatorVO.CreatorRole.AUTHOR.toString(), labelBundle.getString("EditItem_CREATORROLE_AUTHOR"));
-        this.CREATORROLE_EDITOR = new Option(CreatorVO.CreatorRole.EDITOR.toString(), labelBundle.getString("EditItem_CREATORROLE_EDITOR"));
-        this.CREATORROLE_PAINTER = new Option(CreatorVO.CreatorRole.PAINTER.toString(), labelBundle.getString("EditItem_CREATORROLE_PAINTER"));
-        this.CREATORROLE_ILLUSTRATOR = new Option(CreatorVO.CreatorRole.ILLUSTRATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_ILLUSTRATOR"));
-        this.CREATORROLE_PHOTOGRAPHER = new Option(CreatorVO.CreatorRole.PHOTOGRAPHER.toString(), labelBundle.getString("EditItem_CREATORROLE_PHOTOGRAPHER"));
-        this.CREATORROLE_COMMENTATOR = new Option(CreatorVO.CreatorRole.COMMENTATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_COMMENTATOR"));
-        this.CREATORROLE_TRANSCRIBER = new Option(CreatorVO.CreatorRole.TRANSCRIBER.toString(), labelBundle.getString("EditItem_CREATORROLE_TRANSCRIBER"));
-        this.CREATORROLE_ADVISOR = new Option(CreatorVO.CreatorRole.ADVISOR.toString(), labelBundle.getString("EditItem_CREATORROLE_ADVISOR"));
-        this.CREATORROLE_TRANSLATOR = new Option(CreatorVO.CreatorRole.TRANSLATOR.toString(), labelBundle.getString("EditItem_CREATORROLE_TRANSLATOR"));
-        this.CREATORROLE_CONTRIBUTOR = new Option(CreatorVO.CreatorRole.CONTRIBUTOR.toString(), labelBundle.getString("EditItem_CREATORROLE_CONTRIBUTOR"));
-        this.CREATORROLE_OPTIONS = new Option[] { NO_ITEM_SET, CREATORROLE_ARTIST, CREATORROLE_AUTHOR, CREATORROLE_EDITOR, CREATORROLE_PAINTER, CREATORROLE_ILLUSTRATOR, CREATORROLE_PHOTOGRAPHER, CREATORROLE_COMMENTATOR, CREATORROLE_TRANSCRIBER, CREATORROLE_ADVISOR, CREATORROLE_TRANSLATOR, CREATORROLE_CONTRIBUTOR };
-        
-        // set attributes for all GUI components        
+        this.NO_ITEM_SET = new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET"));
+        this.CREATORROLE_ARTIST = new SelectItem(CreatorVO.CreatorRole.ARTIST.toString(), labelBundle.getString("ENUM_CREATORROLE_ARTIST"));
+        this.CREATORROLE_AUTHOR = new SelectItem(CreatorVO.CreatorRole.AUTHOR.toString(), labelBundle.getString("ENUM_CREATORROLE_AUTHOR"));
+        this.CREATORROLE_EDITOR = new SelectItem(CreatorVO.CreatorRole.EDITOR.toString(), labelBundle.getString("ENUM_CREATORROLE_EDITOR"));
+        this.CREATORROLE_PAINTER = new SelectItem(CreatorVO.CreatorRole.PAINTER.toString(), labelBundle.getString("ENUM_CREATORROLE_PAINTER"));
+        this.CREATORROLE_ILLUSTRATOR = new SelectItem(CreatorVO.CreatorRole.ILLUSTRATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_ILLUSTRATOR"));
+        this.CREATORROLE_PHOTOGRAPHER = new SelectItem(CreatorVO.CreatorRole.PHOTOGRAPHER.toString(), labelBundle.getString("ENUM_CREATORROLE_PHOTOGRAPHER"));
+        this.CREATORROLE_COMMENTATOR = new SelectItem(CreatorVO.CreatorRole.COMMENTATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_COMMENTATOR"));
+        this.CREATORROLE_TRANSCRIBER = new SelectItem(CreatorVO.CreatorRole.TRANSCRIBER.toString(), labelBundle.getString("ENUM_CREATORROLE_TRANSCRIBER"));
+        this.CREATORROLE_ADVISOR = new SelectItem(CreatorVO.CreatorRole.ADVISOR.toString(), labelBundle.getString("ENUM_CREATORROLE_ADVISOR"));
+        this.CREATORROLE_TRANSLATOR = new SelectItem(CreatorVO.CreatorRole.TRANSLATOR.toString(), labelBundle.getString("ENUM_CREATORROLE_TRANSLATOR"));
+        this.CREATORROLE_CONTRIBUTOR = new SelectItem(CreatorVO.CreatorRole.CONTRIBUTOR.toString(), labelBundle.getString("ENUM_CREATORROLE_CONTRIBUTOR"));
+        this.CREATORROLE_OPTIONS = new SelectItem[] { NO_ITEM_SET, CREATORROLE_ARTIST, CREATORROLE_AUTHOR, CREATORROLE_EDITOR, CREATORROLE_PAINTER, CREATORROLE_ILLUSTRATOR, CREATORROLE_PHOTOGRAPHER, CREATORROLE_COMMENTATOR, CREATORROLE_TRANSCRIBER, CREATORROLE_ADVISOR, CREATORROLE_TRANSLATOR, CREATORROLE_CONTRIBUTOR };
+
+        // set attributes for all GUI components
         this.lblCreator.setId(this.createUniqueId(this.lblCreator));
         this.lblCreator.setValue(labelBundle.getString("EditItem_lblCreator"));
-        this.lblCreator.setLabelLevel(2);
+        //this.lblCreator.setLabelLevel(2);
         this.getChildren().add(0, this.lblCreator); // place label in front of components from superclass, therefore position "0" is given here
 
         // attributes
@@ -165,38 +165,40 @@ public class CreatorUI extends AbstractUI
 
         this.lblCreatorRole.setId(this.createUniqueId(this.lblCreatorRole));
         this.lblCreatorRole.setValue(labelBundle.getString("EditItem_lblCreatorRole"));
-        this.lblCreatorRole.setLabelLevel(3);
-        this.lblCreatorRole.setRequiredIndicator(this.isRequired);
+        //this.lblCreatorRole.setLabelLevel(3);
+        //this.lblCreatorRole.setRequiredIndicator(this.isRequired);
+        this.cboCreatorRole.getChildren().clear();
         this.panAttributes.getChildren().add(this.lblCreatorRole);
 
         this.cboCreatorRole.setId(this.createUniqueId(this.cboCreatorRole));
-        this.cboCreatorRole.setItems(this.CREATORROLE_OPTIONS);
+        this.cboCreatorRole.getChildren().addAll(CommonUtils.convertToSelectItemsUI(this.CREATORROLE_OPTIONS));
         this.cboCreatorRole.setStyleClass("editItemComboBoxShort");
         this.panAttributes.getChildren().add(this.cboCreatorRole);
 
         this.lblCreatorType.setId(this.createUniqueId(this.lblCreatorType));
         this.lblCreatorType.setValue(labelBundle.getString("EditItem_lblCreatorType"));
-        this.lblCreatorType.setLabelLevel(3);   
+        //this.lblCreatorType.setLabelLevel(3);
         this.panAttributes.getChildren().add(this.lblCreatorType);
 
         this.btHandleCreatorTypeChange.setId(this.createUniqueId(this.btHandleCreatorTypeChange));
         this.btHandleCreatorTypeChange.setValue("HandleCreatorTypeChange");
-        this.btHandleCreatorTypeChange.setVisible(false);
+        this.btHandleCreatorTypeChange.setRendered(false);
         this.btHandleCreatorTypeChange.setImmediate(true);
-        this.btHandleCreatorTypeChange.addActionListener(this);  
+        this.btHandleCreatorTypeChange.addActionListener(this);
         // added to container at the end (see beneath)
 
+        this.cboCreatorType.getChildren().clear();
         this.cboCreatorType.setId(this.createUniqueId(this.cboCreatorType));
-        this.cboCreatorType.setItems(this.CREATORTYPE_OPTIONS);
+        this.cboCreatorType.getChildren().addAll(CommonUtils.convertToSelectItemsUI(this.CREATORTYPE_OPTIONS));
         this.cboCreatorType.setStyleClass("editItemComboBoxShort");
-        this.cboCreatorType.setOnChange("document.getElementById(\"" + this.btHandleCreatorTypeChange.getClientId(FacesContext.getCurrentInstance()) + "\").click();");
+        this.cboCreatorType.setOnchange("document.getElementById(\"" + this.btHandleCreatorTypeChange.getClientId(FacesContext.getCurrentInstance()) + "\").click();");
         this.cboCreatorType.setImmediate(true);
         this.panAttributes.getChildren().add(this.cboCreatorType);
 
         // person
         this.lblPersonGivenName.setId(this.createUniqueId(this.lblPersonGivenName));
         this.lblPersonGivenName.setValue(labelBundle.getString("EditItem_lblPersonGivenName"));
-        this.lblPersonGivenName.setLabelLevel(3);
+        //this.lblPersonGivenName.setLabelLevel(3);
         // added in initializeUI()
         
         this.txtPersonGivenName.setId(this.createUniqueId(this.txtPersonGivenName));
@@ -205,7 +207,7 @@ public class CreatorUI extends AbstractUI
         
         this.lblPersonFamilyName.setId(this.createUniqueId(this.lblPersonFamilyName));
         this.lblPersonFamilyName.setValue(labelBundle.getString("EditItem_lblPersonFamilyName"));
-        this.lblPersonFamilyName.setLabelLevel(3);
+        //this.lblPersonFamilyName.setLabelLevel(3);
         // added in initializeUI()
         
         this.txtPersonFamilyName.setId(this.createUniqueId(this.txtPersonFamilyName));
@@ -221,7 +223,7 @@ public class CreatorUI extends AbstractUI
         // organization
         this.lblOrganizationName.setId(this.createUniqueId(this.lblOrganizationName));
         this.lblOrganizationName.setValue(labelBundle.getString("EditItem_lblOrganizationName"));
-        this.lblOrganizationName.setLabelLevel(3);
+        //this.lblOrganizationName.setLabelLevel(3);
         // added in initializeUI()
         
         this.txtOrganizationName.setId(this.createUniqueId(this.txtOrganizationName));
@@ -230,7 +232,7 @@ public class CreatorUI extends AbstractUI
         
         this.lblOrganizationAddress.setId(this.createUniqueId(this.lblOrganizationAddress));
         this.lblOrganizationAddress.setValue(labelBundle.getString("EditItem_lblOrganizationAddress"));
-        this.lblOrganizationAddress.setLabelLevel(3);
+        //this.lblOrganizationAddress.setLabelLevel(3);
         // added in initializeUI()
         
         this.txtaOrganizationAddress.setId(this.createUniqueId(this.txtaOrganizationAddress));
@@ -239,13 +241,13 @@ public class CreatorUI extends AbstractUI
 
         //NiH: prepared for affiliation selection
         Application application = FacesContext.getCurrentInstance().getApplication();
-        this.btSelect.setVisible(false);
+        this.btSelect.setRendered(false);
         this.btSelect.setId(this.createUniqueId(this.btSelect));
         this.btSelect.setImmediate(false);
         this.btSelect.addActionListener(this);
         this.btSelect.setValue(labelBundle.getString("EditItem_btSelect"));
         this.btSelect.setStyleClass("editDynamicButton");
-        this.btSelect.setAction(application.createMethodBinding("#{editItem$EditItem.loadAffiliationTree}", null));
+        this.btSelect.setAction(application.createMethodBinding("#{EditItem.loadAffiliationTree}", null));
         // added in initializeUI()
         
         this.getChildren().add(this.panAttributes);
@@ -281,7 +283,7 @@ public class CreatorUI extends AbstractUI
             this.panAttributes.getChildren().add(this.lblPersonFamilyName);
             this.panAttributes.getChildren().add(this.txtPersonFamilyName);
             // set required fields
-            this.lblPersonFamilyName.setRequiredIndicator(this.isRequired);
+            //this.lblPersonFamilyName.setRequiredIndicator(this.isRequired);
             
             // remove organization attributes
             this.panAttributes.getChildren().remove(this.lblOrganizationName);
@@ -291,7 +293,7 @@ public class CreatorUI extends AbstractUI
             //NiH: prepared for affiliation selection
             this.panAttributes.getChildren().remove(this.btSelect);
             // remove required fields
-            this.lblOrganizationName.setRequiredIndicator(false);
+            //this.lblOrganizationName.setRequiredIndicator(false);
             
             // add organizations of the person
             this.panPersonOrganizations.getChildren().clear();
@@ -321,7 +323,7 @@ public class CreatorUI extends AbstractUI
 
             // set required fields
             //NiH: prepared for affiliation selection
-            this.lblOrganizationName.setRequiredIndicator(this.isRequired);
+            //this.lblOrganizationName.setRequiredIndicator(this.isRequired);
 
             // remove person attributes
             this.panAttributes.getChildren().remove(this.lblPersonGivenName);
@@ -329,7 +331,7 @@ public class CreatorUI extends AbstractUI
             this.panAttributes.getChildren().remove(this.lblPersonFamilyName);
             this.panAttributes.getChildren().remove(this.txtPersonFamilyName);
             // remove required fields
-            this.lblPersonFamilyName.setRequiredIndicator(false);
+            //this.lblPersonFamilyName.setRequiredIndicator(false);
             // remove organizations of the person
             this.getChildren().remove(this.panPersonOrganizations);
         }

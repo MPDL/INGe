@@ -32,12 +32,15 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
 
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -47,20 +50,13 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * BackingBean for DepositorWSPage.jsp.
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
  * Revised by DiT: 09.08.2007
  */
-public class DepositorWSPage extends AbstractPageBean
+public class DepositorWSPage extends BreadcrumbPage
 {
-    private static Logger logger = Logger.getLogger(DepositorWSPage.class); 
-    
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle 
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
+    private static Logger logger = Logger.getLogger(DepositorWSPage.class);
+    public static final String BEAN_NAME = "DepositorWSPage";
     
     // the referring GUI Tool Page
     public final static String GT_DEPOSITOR_WORKSPACE_PAGE = "GTDepositorWSPage.jsp";
@@ -70,6 +66,7 @@ public class DepositorWSPage extends AbstractPageBean
      */
     public DepositorWSPage()
     {
+        this.init();
     }
 
     /**
@@ -89,7 +86,7 @@ public class DepositorWSPage extends AbstractPageBean
             logger.debug("UserHandle: " + userHandle);
         }        
         
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         if(loginHelper == null)
         {
             loginHelper = new LoginHelper();
@@ -122,7 +119,7 @@ public class DepositorWSPage extends AbstractPageBean
     public void prerender()
     {
         super.prerender();
-        DepositorWS fragment = (DepositorWS) getBean("depositorWS$DepositorWS");
+        DepositorWS fragment = (DepositorWS) getBean(DepositorWS.class);
         fragment.handleMessage();
     }
     
@@ -149,11 +146,11 @@ public class DepositorWSPage extends AbstractPageBean
     
     /**
      * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**
@@ -163,7 +160,7 @@ public class DepositorWSPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
 }

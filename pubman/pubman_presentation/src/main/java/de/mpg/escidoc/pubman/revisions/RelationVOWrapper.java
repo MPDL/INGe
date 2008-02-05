@@ -38,7 +38,7 @@ import de.mpg.escidoc.services.common.valueobjects.RelationVO;
  * Wrapper for RelationVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class RelationVOWrapper extends ValueObjectWrapper
 {

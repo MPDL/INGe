@@ -34,7 +34,7 @@ package de.mpg.escidoc.pubman.util;
  * Exception type for service lookup.
  * 
  * @author: Tobias Schraut, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 22.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 22.08.2007
  */
 public class ServiceNotAvailableException extends RuntimeException {
 	/**

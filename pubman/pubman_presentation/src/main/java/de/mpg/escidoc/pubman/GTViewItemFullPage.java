@@ -31,11 +31,13 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
+
 import javax.faces.context.FacesContext;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -48,17 +50,17 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * @author: Tobias Schraut, created 13.11.2007
  * @version: $Revision: 1591 $ $LastChangedDate: 2007-08-23 10:56:18 +0200 (Do, 23 Aug 2007)
  */
-public class GTViewItemFullPage extends AbstractPageBean
+public class GTViewItemFullPage extends FacesBean
 {
     final public static String BEAN_NAME = "GTViewItemFullPage";
     private static Logger logger = Logger.getLogger(GTViewItemFullPage.class);
-    private Page page = new Page();
 
     /**
      * Public constructor
      */
     public GTViewItemFullPage()
     {
+        this.init();
     }
 
     /**
@@ -69,39 +71,7 @@ public class GTViewItemFullPage extends AbstractPageBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        // insert the login information (user handle) if possible
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
+
         // Set the current session to GUI Tool
         CommonSessionBean sessionBean = getSessionBean();
         //this.getViewItemSessionBean().setHasBeenRedirected(true);
@@ -111,11 +81,11 @@ public class GTViewItemFullPage extends AbstractPageBean
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**
@@ -125,16 +95,7 @@ public class GTViewItemFullPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

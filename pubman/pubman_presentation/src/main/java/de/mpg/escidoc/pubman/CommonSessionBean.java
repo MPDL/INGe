@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
  * CommonSessionBean.java General session bean for storing session wide information Created on 30. Mai 2007, 16:53
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 17.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 17.08.2007
  */
 public class CommonSessionBean
 {

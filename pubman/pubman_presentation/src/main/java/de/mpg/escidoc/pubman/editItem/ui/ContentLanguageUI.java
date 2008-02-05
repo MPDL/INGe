@@ -38,9 +38,9 @@ import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Button;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -49,7 +49,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
  * UI component for editing content languages. 
  * 
  * @author: Thomas Diebäcker, created 05.06.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 07.08.2007
  */
 public class ContentLanguageUI extends HtmlPanelGrid
@@ -63,13 +63,13 @@ public class ContentLanguageUI extends HtmlPanelGrid
     //For handling the resource bundles (i18n)    
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication()
     .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
-    protected Label lblContentLanguage = new Label();
-    protected DropDown cboContentLanguage = new DropDown();    
-    protected Button btAdd = new Button();
-    protected Button btRemove = new Button();   
+    protected HtmlOutputLabel lblContentLanguage = new HtmlOutputLabel();
+    protected HtmlSelectOneMenu cboContentLanguage = new HtmlSelectOneMenu();    
+    protected HtmlCommandButton btAdd = new HtmlCommandButton();
+    protected HtmlCommandButton btRemove = new HtmlCommandButton();   
     
     /**
      * Public constructor.
@@ -85,7 +85,7 @@ public class ContentLanguageUI extends HtmlPanelGrid
         
         i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication()
         .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         // set attributes for all GUI components
         this.setId(viewRoot.createUniqueId() + "_ContentLanguageUI" + Calendar.getInstance().getTimeInMillis());
@@ -97,28 +97,29 @@ public class ContentLanguageUI extends HtmlPanelGrid
         this.lblContentLanguage.setId(viewRoot.createUniqueId() + "_lblContentLanguage" + Calendar.getInstance().getTimeInMillis());
         this.lblContentLanguage.setValue(labelBundle.getString("EditItem_lblContentLanguage"));
         this.lblContentLanguage.setFor(this.cboContentLanguage.getId());
-        this.lblContentLanguage.setLabelLevel(3);
+        //this.lblContentLanguage.setLabelLevel(3);
+        this.cboContentLanguage.getChildren().clear();
         this.getChildren().add(this.lblContentLanguage);
 
         this.cboContentLanguage.setId(viewRoot.createUniqueId() + "_cboContentLanguage" + Calendar.getInstance().getTimeInMillis());
         this.cboContentLanguage.setStyleClass("editItemComboBoxLanguage");      
-        this.cboContentLanguage.setItems(CommonUtils.getLanguageOptions());
-        this.cboContentLanguage.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.languages[" + (this.indexContentLanguage) + "]}"));
+        this.cboContentLanguage.getChildren().addAll(CommonUtils.convertToSelectItemsUI(CommonUtils.getLanguageOptions()));
+        this.cboContentLanguage.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.languages[" + (this.indexContentLanguage) + "]}"));
         this.getChildren().add(this.cboContentLanguage);
 
         this.btAdd.setId(viewRoot.createUniqueId() + "_btAdd" + Calendar.getInstance().getTimeInMillis());
         this.btAdd.setValue(labelBundle.getString("EditItem_btAdd"));
         this.btAdd.setStyleClass("editDynamicButton");
         this.btAdd.setImmediate(true);
-        this.btAdd.setActionListener(this.application.createMethodBinding("#{editItem$EditItem.addContentLanguage}", new Class[]{ActionEvent.class}));
+        this.btAdd.setActionListener(this.application.createMethodBinding("#{EditItem.addContentLanguage}", new Class[]{ActionEvent.class}));
         this.getChildren().add(this.btAdd);
         
         this.btRemove.setId(viewRoot.createUniqueId() + "_btRemove" + Calendar.getInstance().getTimeInMillis());
         this.btRemove.setValue(labelBundle.getString("EditItem_btRemove"));
         this.btRemove.setStyleClass("editDynamicButton");
         this.btRemove.setImmediate(true);
-        this.btRemove.setActionListener(this.application.createMethodBinding("#{editItem$EditItem.removeContentLanguage}", new Class[]{ActionEvent.class}));
-        this.btRemove.setVisible(this.isRemoveButtonVisible());
+        this.btRemove.setActionListener(this.application.createMethodBinding("#{EditItem.removeContentLanguage}", new Class[]{ActionEvent.class}));
+        this.btRemove.setRendered(this.isRemoveButtonVisible());
         this.getChildren().add(this.btRemove);        
     }
     
@@ -163,10 +164,10 @@ public class ContentLanguageUI extends HtmlPanelGrid
         this.indexContentLanguage = indexContentLanguage;
 
         // ValueBinding has to be set with the new index
-        this.cboContentLanguage.setValueBinding("value", application.createValueBinding("#{editItem$EditItem.pubItem.metadata.language[" + (this.indexContentLanguage) + "]}"));
+        this.cboContentLanguage.setValueBinding("value", application.createValueBinding("#{EditItem.pubItem.metadata.language[" + (this.indexContentLanguage) + "]}"));
     }
     
-    public Button getRemoveButton()
+    public HtmlCommandButton getRemoveButton()
     {
         return this.btRemove;
     }

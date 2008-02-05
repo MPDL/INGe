@@ -42,7 +42,7 @@ import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
  * UI for viewing a list of revisions.
  *
  * @author: Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class RevisionListUI extends ListUI implements ActionListener
 {

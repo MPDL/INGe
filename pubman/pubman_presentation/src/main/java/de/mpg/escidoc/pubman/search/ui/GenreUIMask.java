@@ -36,7 +36,7 @@ import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
-import com.sun.rave.web.ui.component.Label;
+import javax.faces.component.html. HtmlOutputLabel;
 
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -47,7 +47,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.GenreCriterionVO;
 /**
 * This mask collects search data for a given genre.
 * @author endres
-* @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Tue, 04 Dec 2007) $
+* @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Di, 04 Dez 2007) $
  * TODO: endres: redesign would be well advised
  */
 public class GenreUIMask extends UIMask implements ActionListener
@@ -58,7 +58,7 @@ public class GenreUIMask extends UIMask implements ActionListener
     private HtmlPanelGroup panel1 = new HtmlPanelGroup();
     private HtmlPanelGroup panel2 = new HtmlPanelGroup();
     private HtmlPanelGroup panel3 = new HtmlPanelGroup();
-    private Label lblChk = new Label();
+    private HtmlOutputLabel lblChk = new HtmlOutputLabel();
    
     private HtmlCommandButton btAll = new HtmlCommandButton();
     
@@ -96,12 +96,12 @@ public class GenreUIMask extends UIMask implements ActionListener
 //      TODO endres: change this to markAll div
         this.panel3.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "clearButton"));
         this.btAll.setId(CommonUtils.createUniqueId(this.btAll));
-        this.btAll.setValue(bundle.getString("adv_search_btAll"));
+        this.btAll.setValue(getLabel("adv_search_btAll"));
         this.btAll.setImmediate(true);
         this.btAll.setStyleClass("inlineButton");
         this.btAll.addActionListener(this);
         this.lblChk.setId(CommonUtils.createUniqueId(this.lblChk));
-        this.lblChk.setValue(bundle.getString("adv_search_lblChkGenre"));           
+        this.lblChk.setValue(getLabel("adv_search_lblChkGenre"));           
         this.panel3.getChildren().add(this.lblChk);
         this.panel3.getChildren().add(this.btAll);
         this.panel3.getChildren().add(htmlElement.getEndTag("div"));
@@ -201,39 +201,39 @@ public class GenreUIMask extends UIMask implements ActionListener
     private void createCheckBoxLabelUIs()
     {
     	this.checkboxLabels.add ( 
-    		new GenreCheckBoxLabelUI( Genre.ARTICLE, GenreUIMask.ARTICLE_BUNDLE_KEY, bundle ) );
+    		new GenreCheckBoxLabelUI( Genre.ARTICLE, GenreUIMask.ARTICLE_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.BOOK, GenreUIMask.BOOK_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.BOOK, GenreUIMask.BOOK_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.BOOK_ITEM, GenreUIMask.BOOKITEM_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.BOOK_ITEM, GenreUIMask.BOOKITEM_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.COURSEWARE_LECTURE, GenreUIMask.COURSEWARE_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.COURSEWARE_LECTURE, GenreUIMask.COURSEWARE_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.CONFERENCE_PAPER, GenreUIMask.CONFERENCE_PAPER_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.CONFERENCE_PAPER, GenreUIMask.CONFERENCE_PAPER_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.CONFERENCE_REPORT, GenreUIMask.CONFERENCE_REPORT_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.CONFERENCE_REPORT, GenreUIMask.CONFERENCE_REPORT_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.ISSUE, GenreUIMask.ISSUE_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.ISSUE, GenreUIMask.ISSUE_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.JOURNAL, GenreUIMask.JOURNAL_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.JOURNAL, GenreUIMask.JOURNAL_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.MANUSCRIPT, GenreUIMask.MANUSCRIPT_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.MANUSCRIPT, GenreUIMask.MANUSCRIPT_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.PAPER, GenreUIMask.PAPER_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.PAPER, GenreUIMask.PAPER_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.POSTER, GenreUIMask.POSTER_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.POSTER, GenreUIMask.POSTER_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.PROCEEDINGS, GenreUIMask.PROCEEDINGS_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.PROCEEDINGS, GenreUIMask.PROCEEDINGS_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.REPORT, GenreUIMask.REPORT_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.REPORT, GenreUIMask.REPORT_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.SERIES, GenreUIMask.SERIES_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.SERIES, GenreUIMask.SERIES_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.TALK_AT_EVENT, GenreUIMask.TALKATEVENT_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.TALK_AT_EVENT, GenreUIMask.TALKATEVENT_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.THESIS, GenreUIMask.THESIS_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.THESIS, GenreUIMask.THESIS_BUNDLE_KEY ) );
     	this.checkboxLabels.add ( 
-        		new GenreCheckBoxLabelUI( Genre.OTHER, GenreUIMask.OTHER_BUNDLE_KEY, bundle ) );
+        		new GenreCheckBoxLabelUI( Genre.OTHER, GenreUIMask.OTHER_BUNDLE_KEY ) );
     }
     
     @Override
@@ -242,13 +242,13 @@ public class GenreUIMask extends UIMask implements ActionListener
         // refresh the buttons and operator
     	super.refreshAppearanceButtonsAndOp();
     	
-    	this.lblChk.setValue(bundle.getString("adv_search_lblChkGenre")); 
-    	this.btAll.setValue(bundle.getString("adv_search_btAll"));
+    	this.lblChk.setValue(getLabel("adv_search_lblChkGenre")); 
+    	this.btAll.setValue(getLabel("adv_search_btAll"));
     	
-    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
-    	{
-    		this.checkboxLabels.get( i ).updateLanguage( bundle );
-    	}
+//    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
+//    	{
+//    		this.checkboxLabels.get( i ).updateLanguage( bundle );
+//    	}
     }
     
     public void processAction(ActionEvent event) 

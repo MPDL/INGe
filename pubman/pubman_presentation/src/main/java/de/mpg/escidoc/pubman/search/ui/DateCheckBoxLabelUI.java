@@ -22,9 +22,9 @@ public class DateCheckBoxLabelUI extends CheckBoxLabelUI {
 	 * @param langBundleIdent language bundle identifier 
 	 * @param bundle language bundle
 	 */
-	public DateCheckBoxLabelUI( DateType dt, String langBundleIdent, ResourceBundle bundle)
+	public DateCheckBoxLabelUI( DateType dt, String langBundleIdent)
 	{
-		super( dt.toString(), langBundleIdent, bundle );
+		super( dt.toString(), langBundleIdent );
 		this.myDateType = dt;
 	}
 	

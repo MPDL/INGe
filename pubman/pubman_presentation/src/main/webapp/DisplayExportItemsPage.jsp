@@ -1,4 +1,5 @@
-<!-- 
+<%--
+
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -24,17 +25,16 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-
+--%>
 <%@page import="de.mpg.escidoc.pubman.export.ExportItemsSessionBean"%>
 <%@page session="true"%>
 
 <%
-    String data = ExportItemsSessionBean.getExportDisplayData();    
+String data = ExportItemsSessionBean.getExportDisplayData();
 
-    String lnkStr = "<a href='javascript:window.back()' style='font-weight: bold; height: 20px; font-size: 16px;' >Back</a>";
+String lnkStr = "<a href='javascript:window.back()' style='font-weight: bold; height: 20px; font-size: 16px;' >Back</a>";
 
-    data = data.replaceFirst("<table", "<p>"+ lnkStr+"</p>"+"<table");
+data = data.replaceFirst("<table", "<p>"+ lnkStr+"</p>"+"<table");
    
-    out.print(data);
+out.print(data);
 %>

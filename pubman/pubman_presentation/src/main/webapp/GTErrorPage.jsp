@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -26,47 +27,42 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="1.2" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
-    <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-    <f:loadBundle var="lbl" basename="#{util$InternationalizationHelper.selectedLableBundle}"/>
-	<f:loadBundle var="msg" basename="#{util$InternationalizationHelper.selectedMessagesBundle}"/>
-    <f:view>
-        <ui:page id="page1" >
-            <ui:html id="html1">
-                <ui:head id="head1">
-                    <link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-                    <link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<f:view locale="#{InternationalizationHelper.userLocale}">
+		<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
+		<f:loadBundle var="msg" basename="de.mpg.escidoc.pubman.bundle.Messages"/>
+			<html>
+				<head>
+					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
+					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
-                    <!-- FrM: Moved JS sources to external file -->
-                    <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-                    <script type="text/javascript" language="JavaScript" src="/clickheat/js/clickheat.js">;</script>
-					<script type="text/javascript">
-						clickHeatPage = 'GTErrorPage'; //Identifier der Seite
-						initClickHeat();
-					</script>
-                </ui:head>
-                <ui:body id="body1">
-                	<div id="page_margins">
+					<!-- FrM: Moved JS sources to external file -->
+					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+				</head>
+				<body>
+					<h:outputText id="pageDummy" value="#{FacesBean.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+					<div id="page_margins">
 						<div id="page">
-		                    <ui:form id="form1">
-		                        <div id="main">
-		                        	<div id="col3">
+							<h:form id="form1">
+								<div id="main">
+									<div id="col3">
 										<div class="content">
-				                            <h:panelGrid id="panPageAlert" binding="#{ErrorPage.panPageAlert}">
-										    </h:panelGrid>
+											<h:panelGrid id="panPageAlert" binding="#{ErrorPage.panPageAlert}">
+											</h:panelGrid>
 											<h:panelGrid id="panButtons" columns="1" cellspacing="25" cellpadding="0">
 												<a href="javascript:window.back()" style="margin-left: 670px; font-weight: bold; height: 50px; width: 150px; font-size: 16px">Back to previous page</a>
 											</h:panelGrid>
-				                        </div>
-				                    </div>
-		                        </div>
-		                    </ui:form>
-		                 </div>
-		              </div>
-                </ui:body>
-            </ui:html>
-        </ui:page>
-    </f:view>
+										</div>
+									</div>
+								</div>
+							</h:form>
+						 </div>
+					  </div>
+				</body>
+			</html>
+		
+	</f:view>
 </jsp:root>

@@ -34,8 +34,8 @@ import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextField;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputText;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.PersonCriterionVO;
 /**
 * This mask collects search data for a given person and a person role.
 * @author endres
-* @version $Revision: 1655 $ $LastChangedDate: 2007-12-10 17:56:03 +0100 (Mon, 10 Dec 2007) $
+* @version $Revision: 1655 $ $LastChangedDate: 2007-12-10 17:56:03 +0100 (Mo, 10 Dez 2007) $
 *
 */
 public class PersonUIMask extends UIMask implements ActionListener
@@ -56,9 +56,9 @@ public class PersonUIMask extends UIMask implements ActionListener
     private HtmlPanelGroup panel2 = new HtmlPanelGroup();
     private HtmlPanelGroup panel3 = new HtmlPanelGroup();
     
-    private Label lblSearchStringPerson = new Label();
-    private TextField txtSearchStringPerson = new TextField();
-    private Label lblChk = new Label();
+    private HtmlOutputLabel lblSearchStringPerson = new HtmlOutputLabel();
+    private HtmlInputText txtSearchStringPerson = new HtmlInputText();
+    private HtmlOutputLabel lblChk = new HtmlOutputLabel();
     private HtmlCommandButton btAll = new HtmlCommandButton();
     
     ArrayList<PersonCheckBoxLabelUI> checkboxLabels = new ArrayList<PersonCheckBoxLabelUI>();
@@ -88,7 +88,7 @@ public class PersonUIMask extends UIMask implements ActionListener
         this.panel1.setId(CommonUtils.createUniqueId(this.panel1));
         this.panel1.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "searchTerm"));
         this.lblSearchStringPerson.setId(CommonUtils.createUniqueId(this.panel1));
-        this.lblSearchStringPerson.setValue(bundle.getString("adv_search_lblSearchPerson"));            
+        this.lblSearchStringPerson.setValue(getLabel("adv_search_lblSearchPerson"));            
         this.txtSearchStringPerson.setImmediate(true);
         this.panel1.getChildren().add(lblSearchStringPerson);
         this.panel1.getChildren().add(txtSearchStringPerson);
@@ -100,12 +100,12 @@ public class PersonUIMask extends UIMask implements ActionListener
         this.panel3.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "clearButton"));
         
         this.btAll.setId(CommonUtils.createUniqueId(this.btAll));
-        this.btAll.setValue(bundle.getString("adv_search_btAll"));
+        this.btAll.setValue(getLabel("adv_search_btAll"));
         this.btAll.setImmediate(true);
         this.btAll.setStyleClass("inlineButton");
         this.btAll.addActionListener(this);
         this.lblChk.setId(CommonUtils.createUniqueId(this.lblChk));
-        this.lblChk.setValue(bundle.getString("adv_search_lblChkRole"));         
+        this.lblChk.setValue(getLabel("adv_search_lblChkRole"));         
         this.panel3.getChildren().add(this.lblChk);
         this.panel3.getChildren().add(this.btAll);
         this.panel3.getChildren().add(htmlElement.getEndTag("div"));
@@ -147,27 +147,27 @@ public class PersonUIMask extends UIMask implements ActionListener
     private void createCheckBoxLabelUIs() 
     {
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.AUTHOR, PersonUIMask.AUTHOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.AUTHOR, PersonUIMask.AUTHOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.EDITOR, PersonUIMask.EDITOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.EDITOR, PersonUIMask.EDITOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.ADVISOR, PersonUIMask.ADVISOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.ADVISOR, PersonUIMask.ADVISOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.ARTIST, PersonUIMask.ARTIST_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.ARTIST, PersonUIMask.ARTIST_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.COMMENTATOR, PersonUIMask.COMMENTATOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.COMMENTATOR, PersonUIMask.COMMENTATOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.CONTRIBUTOR, PersonUIMask.CONTRIBUTOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.CONTRIBUTOR, PersonUIMask.CONTRIBUTOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.ILLUSTRATOR, PersonUIMask.ILLUSTRATOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.ILLUSTRATOR, PersonUIMask.ILLUSTRATOR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.PAINTER, PersonUIMask.PAINTER_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.PAINTER, PersonUIMask.PAINTER_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.PHOTOGRAPHER, PersonUIMask.PHOTOGRAPHER_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.PHOTOGRAPHER, PersonUIMask.PHOTOGRAPHER_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.TRANSCRIBER, PersonUIMask.TRANSCRIBER_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.TRANSCRIBER, PersonUIMask.TRANSCRIBER_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new PersonCheckBoxLabelUI( CreatorRole.TRANSLATOR, PersonUIMask.TRANSLATOR_BUNDLE_KEY, bundle ) );
+    			new PersonCheckBoxLabelUI( CreatorRole.TRANSLATOR, PersonUIMask.TRANSLATOR_BUNDLE_KEY ) );
     }
     
     /**
@@ -210,7 +210,7 @@ public class PersonUIMask extends UIMask implements ActionListener
     {
         // set search string 
         PersonCriterionVO personCriterionVO = new PersonCriterionVO();
-        personCriterionVO.setSearchString((String)this.getTxtSearchStringPerson().getText());
+        personCriterionVO.setSearchString((String)this.getTxtSearchStringPerson().getValue());
         
         // set the creator role
         personCriterionVO.setCreatorRole(this.getCreatorRoles());
@@ -220,7 +220,7 @@ public class PersonUIMask extends UIMask implements ActionListener
     @Override
     boolean hasData()
     {
-        String searchString = (String)this.getTxtSearchStringPerson().getText();
+        String searchString = (String)this.getTxtSearchStringPerson().getValue();
         if( searchString != null && searchString.length() > 0 ) 
         {
             return true;
@@ -250,17 +250,17 @@ public class PersonUIMask extends UIMask implements ActionListener
 //    	 refresh the buttons and operator
     	super.refreshAppearanceButtonsAndOp();
     	
-    	this.btAll.setValue(bundle.getString("adv_search_btAll"));
-    	this.lblSearchStringPerson.setValue(bundle.getString("adv_search_lblSearchPerson"));
-    	this.lblChk.setValue(bundle.getString("adv_search_lblChkRole"));  
+    	this.btAll.setValue(getLabel("adv_search_btAll"));
+    	this.lblSearchStringPerson.setValue(getLabel("adv_search_lblSearchPerson"));
+    	this.lblChk.setValue(getLabel("adv_search_lblChkRole"));  
     	
-    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
-    	{
-    		this.checkboxLabels.get( i ).updateLanguage( bundle );
-    	}
+//    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
+//    	{
+//    		this.checkboxLabels.get( i ).updateLanguage( bundle );
+//    	}
     }
 
-    public TextField getTxtSearchStringPerson()
+    public HtmlInputText getTxtSearchStringPerson()
     {
         return txtSearchStringPerson;
     }

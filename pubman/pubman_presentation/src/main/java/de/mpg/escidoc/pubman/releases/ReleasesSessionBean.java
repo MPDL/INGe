@@ -32,20 +32,22 @@ package de.mpg.escidoc.pubman.releases;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.releases.ui.ReleaseListUI;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory.
  * @author:  Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ReleasesSessionBean extends AbstractSessionBean
+public class ReleasesSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "releases$ReleasesSessionBean";
+    public static final String BEAN_NAME = "ReleasesSessionBean";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ReleasesSessionBean.class);
     
@@ -57,6 +59,7 @@ public class ReleasesSessionBean extends AbstractSessionBean
      */
     public ReleasesSessionBean()
     {
+        this.init();
     }
     
     /**
@@ -86,7 +89,7 @@ public class ReleasesSessionBean extends AbstractSessionBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     public ReleaseListUI getReleaseListUI()

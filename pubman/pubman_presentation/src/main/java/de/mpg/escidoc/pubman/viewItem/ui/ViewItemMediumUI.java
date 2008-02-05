@@ -31,6 +31,8 @@
 package de.mpg.escidoc.pubman.viewItem.ui;
 
 import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
@@ -44,12 +46,38 @@ import de.mpg.escidoc.pubman.viewItem.ui.viewItemMediumComponents.ViewItemSource
  * UI for viewing items in a medium context. 
  * 
  * @author: Thomas Diebäcker, created 30.08.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class ViewItemMediumUI extends HtmlPanelGroup
 {
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(ViewItemMediumUI.class);
+    
+    public ViewItemMediumUI()
+    {     
+    	
+    }
+    
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+    
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
     
     /**
      * Public constructor.

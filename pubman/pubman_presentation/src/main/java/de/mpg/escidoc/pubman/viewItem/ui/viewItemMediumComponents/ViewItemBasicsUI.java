@@ -51,20 +51,15 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * UI for creating the basic section of a pubitem to be used in the ViewItemMediumUI.
  * 
  * @author: Tobias Schraut, created 26.09.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $
  */
 public class ViewItemBasicsUI extends HtmlPanelGroup
 {
     private PubItemVO pubItem;
     private HTMLElementUI htmlElement = new HTMLElementUI();
     private COinSUI coins = new COinSUI();
-//  get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-            .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-
+    
+    private ResourceBundle bundleLabel = null;
     
     /**
      * Variables for changing the style sheet class according to line counts on the html page
@@ -96,6 +91,32 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
      * The list of formatted creators which are organizations in an ArrayList.
      */
     private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
+ 
+    public ViewItemBasicsUI()
+    {     
+    	
+    }
+    
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+    
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
     
     /**
      * Public constructor.
@@ -115,6 +136,13 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
         this.pubItem = pubItemVO;
         this.htmlElement = new HTMLElementUI();
         
+        // get the selected language...
+        InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
+                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+                        InternationalizationHelper.BEAN_NAME);
+        // ... and set the refering resource bundle
+        bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+
         ApplicationBean applicationBean = (ApplicationBean)FacesContext.getCurrentInstance()
         .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                 ApplicationBean.BEAN_NAME);

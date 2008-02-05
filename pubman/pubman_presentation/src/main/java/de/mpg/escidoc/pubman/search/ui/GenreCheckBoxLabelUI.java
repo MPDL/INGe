@@ -48,9 +48,9 @@ public class GenreCheckBoxLabelUI extends CheckBoxLabelUI {
 	 * @param langBundleIdent language bundle identifier 
 	 * @param bundle language bundle
 	 */
-	public GenreCheckBoxLabelUI( Genre g, String langBundleIdent, ResourceBundle bundle)
+	public GenreCheckBoxLabelUI( Genre g, String langBundleIdent)
 	{
-		super( g.toString(), langBundleIdent, bundle );
+		super( g.toString(), langBundleIdent );
 		this.myGenre = g;
 	}
 	

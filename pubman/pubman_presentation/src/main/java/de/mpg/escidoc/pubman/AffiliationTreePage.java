@@ -22,8 +22,8 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
@@ -36,9 +36,8 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
-
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
@@ -48,15 +47,12 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * functionality for choosing one affiliation.
  * 
  * @author: Tobias Schraut, created 14.08.2007
- * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Thu, 15 Nov 2007) $
+ * @version: $Revision: 1572 $ $LastChangedDate: 2007-11-15 15:02:43 +0100 (Do, 15 Nov 2007) $
  * Revised by NiH: 13.09.2007
  */
-public class AffiliationTreePage extends AbstractPageBean
+public class AffiliationTreePage extends BreadcrumbPage
 {
 	private static Logger logger = Logger.getLogger(AffiliationTreePage.class);
-
-	// this variable is for connecting the jsp with this backing bean
-	private Page page = new Page();
 
 	// The referring GUI Tool Page
 	public final static String GT_AFFILIATION_TREE_PAGE = "GTAffiliationPage.jsp";
@@ -66,6 +62,7 @@ public class AffiliationTreePage extends AbstractPageBean
 	 */
 	public AffiliationTreePage()
     {
+	    this.init();
 	}
 
 	/**
@@ -83,41 +80,6 @@ public class AffiliationTreePage extends AbstractPageBean
     {
 		// Perform initializations inherited from our superclass
 		super.init();
-
-		LoginHelper loginHelper = (LoginHelper) FacesContext
-				.getCurrentInstance().getApplication().getVariableResolver()
-				.resolveVariable(FacesContext.getCurrentInstance(),
-						"LoginHelper");
-		if (loginHelper == null)
-        {
-			loginHelper = new LoginHelper();
-		}
-		if (loginHelper != null)
-        {
-			try
-            {
-				try 
-                {
-					loginHelper.insertLogin();
-				}
-                catch (UnmarshallingException e)
-                {
-					logger.debug(e.toString());
-				}
-                catch (TechnicalException e)
-                {
-					logger.debug(e.toString());
-				}
-                catch (ServiceException e)
-                {
-					logger.debug(e.toString());
-				}
-			}
-            catch (IOException e1)
-            {
-				logger.debug(e1.toString());
-			}
-		}
 
 		// redirect to the referring GUI Tool page if the application has been
 		// started as GUI Tool
@@ -152,20 +114,11 @@ public class AffiliationTreePage extends AbstractPageBean
 	/**
 	 * Returns the CommonSessionBean.
 	 * 
-	 * @return a reference to the scoped data bean (CmmonSessionBean)
+	 * @return a reference to the scoped data bean (CommonSessionBean)
 	 */
 	protected CommonSessionBean getCommonSessionBean()
     {
-		return (CommonSessionBean) getBean(CommonSessionBean.BEAN_NAME);
+		return (CommonSessionBean) getBean(CommonSessionBean.class);
 	}
 
-	public Page getPage()
-    {
-		return page;
-	}
-
-	public void setPage(Page page)
-    {
-		this.page = page;
-	}
 }

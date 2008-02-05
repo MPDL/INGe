@@ -36,9 +36,10 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Iterator;
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
+
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlMessages;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -46,18 +47,18 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.MessageGroup;
-import com.sun.rave.web.ui.component.StaticText;
+
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
@@ -71,7 +72,6 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ui.ViewItemFullUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
@@ -87,25 +87,21 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * Backing bean for ViewItemFull.jspf (for viewing items in a full context).
  * 
  * @author Tobias Schraut, created 03.09.2007
- * @version: $Revision: 1656 $ $LastChangedDate: 2007-12-10 17:56:58 +0100 (Mon, 10 Dec 2007) $
+ * @version: $Revision: 1656 $ $LastChangedDate: 2007-12-10 17:56:58 +0100 (Mo, 10 Dez 2007) $
  */
-public class ViewItemFull extends AbstractPageBean
+public class ViewItemFull extends FacesBean
 {
     private HtmlPanelGroup panelItemFull = new HtmlPanelGroup();
     private static Logger logger = Logger.getLogger(ViewItemFull.class);
-    final public static String BEAN_NAME = "viewItem$viewItemFull";
+    final public static String BEAN_NAME = "ViewItemFull";
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
     // Validation Service
     private ItemValidating itemValidating = null; 
     private PubItemVO pubItem = null;
-    private final Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private final InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver()
-    .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-    private MessageGroup valMessage = new MessageGroup();
+
+    private HtmlMessages valMessage = new HtmlMessages();
 
     // Added by DiT: constant for the function modify and new revision to check the rights and/or if the function has to be disabled (DiT)
     private static final String FUNCTION_MODIFY = "modify";
@@ -118,6 +114,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     public ViewItemFull()
     {
+        this.init();
     }
 
     /**
@@ -157,7 +154,7 @@ public class ViewItemFull extends AbstractPageBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
                 login.forceLogout();
             }
         }
@@ -181,62 +178,62 @@ public class ViewItemFull extends AbstractPageBean
             // enable or disable the action links according to the login state
             if (loginHelper.getESciDocUserHandle() != null)
             {
-                this.getViewItemSessionBean().getLnkNewSubmission().setVisible(true);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(true);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(true);
-                this.getViewItemSessionBean().getLnkDelete().setVisible(true);
-                this.getViewItemSessionBean().getLnkWithdraw().setVisible(isOwner);
-                this.getViewItemSessionBean().getLnkModify().setVisible(!isModifyDisabled && isModerator);
-                this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(!isCreateNewRevisionDisabled && isDepositor);
+                this.getViewItemSessionBean().getLnkNewSubmission().setRendered(true);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(true);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(true);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(true);
+                this.getViewItemSessionBean().getLnkWithdraw().setRendered(isOwner);
+                this.getViewItemSessionBean().getLnkModify().setRendered(!isModifyDisabled && isModerator);
+                this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(!isCreateNewRevisionDisabled && isDepositor);
             }
             else
             {
-                this.getViewItemSessionBean().getLnkNewSubmission().setVisible(false);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(false);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(false);
-                this.getViewItemSessionBean().getLnkDelete().setVisible(false);
-                this.getViewItemSessionBean().getLnkWithdraw().setVisible(false);
-                this.getViewItemSessionBean().getLnkModify().setVisible(false);
-                this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(false);
+                this.getViewItemSessionBean().getLnkNewSubmission().setRendered(false);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(false);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(false);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(false);
+                this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
+                this.getViewItemSessionBean().getLnkModify().setRendered(false);
+                this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
             }
             
             // set the action links in the action menu according to the item state
             if (this.pubItem.getState().toString().equals(PubItemVO.State.RELEASED.toString()))
             {
-                this.getViewItemSessionBean().getLnkDelete().setVisible(false);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(false);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(false);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(false);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(false);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(false);
                 if (loginHelper.getESciDocUserHandle() != null)
                 {
-                    this.getViewItemSessionBean().getLnkWithdraw().setVisible(isOwner);
-                    this.getViewItemSessionBean().getLnkModify().setVisible(!isModifyDisabled && isModerator);
-                    this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(!isCreateNewRevisionDisabled && isDepositor);
+                    this.getViewItemSessionBean().getLnkWithdraw().setRendered(isOwner);
+                    this.getViewItemSessionBean().getLnkModify().setRendered(!isModifyDisabled && isModerator);
+                    this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(!isCreateNewRevisionDisabled && isDepositor);
                 }
                 else
                 {
-                    this.getViewItemSessionBean().getLnkWithdraw().setVisible(false);
-                    this.getViewItemSessionBean().getLnkModify().setVisible(false);
-                    this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(false);
+                    this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
+                    this.getViewItemSessionBean().getLnkModify().setRendered(false);
+                    this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
                 }
             }
             else if (this.pubItem.getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
                     || this.pubItem.getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
             {
-                this.getViewItemSessionBean().getLnkDelete().setVisible(false);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(false);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(false);
-                this.getViewItemSessionBean().getLnkWithdraw().setVisible(false);
-                this.getViewItemSessionBean().getLnkModify().setVisible(false);
-                this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(false);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(false);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(false);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(false);
+                this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
+                this.getViewItemSessionBean().getLnkModify().setRendered(false);
+                this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
             }
             else
             {
-                this.getViewItemSessionBean().getLnkDelete().setVisible(true);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(true);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(true);
-                this.getViewItemSessionBean().getLnkWithdraw().setVisible(false);
-                this.getViewItemSessionBean().getLnkModify().setVisible(false);
-                this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(false);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(true);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(true);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(true);
+                this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
+                this.getViewItemSessionBean().getLnkModify().setRendered(false);
+                this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
             }
             
             // set the action links in the action menu according to the item version state 
@@ -245,12 +242,12 @@ public class ViewItemFull extends AbstractPageBean
             
             if(this.pubItem.getReference().getVersionNumber() != this.pubItem.getLatestVersionNumber())
             {
-                this.getViewItemSessionBean().getLnkDelete().setVisible(false);
-                this.getViewItemSessionBean().getLnkEdit().setVisible(false);
-                this.getViewItemSessionBean().getLnkSubmit().setVisible(false);
-                this.getViewItemSessionBean().getLnkWithdraw().setVisible(false);
-                this.getViewItemSessionBean().getLnkModify().setVisible(false);
-                this.getViewItemSessionBean().getLnkCreateNewRevision().setVisible(true);
+                this.getViewItemSessionBean().getLnkDelete().setRendered(false);
+                this.getViewItemSessionBean().getLnkEdit().setRendered(false);
+                this.getViewItemSessionBean().getLnkSubmit().setRendered(false);
+                this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
+                this.getViewItemSessionBean().getLnkModify().setRendered(false);
+                this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(true);
             }
             
             
@@ -267,13 +264,13 @@ public class ViewItemFull extends AbstractPageBean
                 this.getViewItemSessionBean().setHasBeenRedirected(true);
                 try
                 {
-                    if(this.getSessionBean().isRunAsGUITool() == false)
+                    if(this.getSessionBean().isRunAsGUITool())
                     {
-                        fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
+                    	fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
                     }
                     else
                     {
-                        fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
+                    	fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
                     }
                 }
                 catch (IOException e)
@@ -372,12 +369,12 @@ public class ViewItemFull extends AbstractPageBean
     public String handleDownloadAction(ActionEvent event) throws Exception
     {
         //find the index of the the button the user has clicked
-        StaticText result = (StaticText)((HtmlCommandButton)event.getSource()).getParent();
+        HtmlOutputText result = (HtmlOutputText)((HtmlCommandButton)event.getSource()).getParent();
         int indexButton = result.getChildren().indexOf(event.getSource());
         
         // then find the indexes of the item and the file the clicked button belongs to
-        int indexFile = new Integer(((StaticText)result.getChildren().get(indexButton-1)).getValue().toString());
-        int indexItem = new Integer(((StaticText)result.getChildren().get(indexButton-2)).getValue().toString());
+        int indexFile = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-1)).getValue().toString());
+        int indexItem = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-2)).getValue().toString());
         try
         {
             this.downloadFile(indexItem, indexFile);
@@ -574,21 +571,21 @@ public class ViewItemFull extends AbstractPageBean
     private void showValidationMessages(ValidationReportVO report)
     {
         
-        info(bundleMessage.getString(VALIDATION_ERROR_MESSAGE));
+        info(getMessage(VALIDATION_ERROR_MESSAGE));
         
         for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();)
         {
             ValidationReportItemVO element = (ValidationReportItemVO)iter.next();
             if (element.isRestrictive())
             {
-                error(bundleMessage.getString(element.getContent()));
+                error(getMessage(element.getContent()));
             }
             else
             {
-                info(bundleMessage.getString(element.getContent()));
+                info(getMessage(element.getContent()));
             }
         }
-        valMessage.setVisible(true);
+        valMessage.setRendered(true);
     }
     
     /**
@@ -635,7 +632,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     private void showMessageDepositorWS(String message)
     {
-        message = this.bundleMessage.getString(message);
+        message = this.getMessage(message);
         this.getDepositorWSSessionBean().setMessage(message);
     }
     
@@ -646,7 +643,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected DepositorWSSessionBean getDepositorWSSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -656,7 +653,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
     
     /**
@@ -666,7 +663,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
     
     /**
@@ -676,7 +673,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected WithdrawItemSessionBean getWithdrawItemSessionBean()
     {
-        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.BEAN_NAME);
+        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
     }
     
     /**
@@ -685,7 +682,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected SubmitItemSessionBean getSubmitItemSessionBean()
     {
-        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.BEAN_NAME);
+        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.class);
     }
     
     /**
@@ -696,7 +693,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     private void showMessageSearchResultList(String message)
     {
-        message = this.bundleMessage.getString(message);
+        message = this.getMessage(message);
         this.getSearchResultListSessionBean().setMessage(message);
     }
     
@@ -707,7 +704,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected SearchResultListSessionBean getSearchResultListSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.BEAN_NAME);
+        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
     }
 
     /**
@@ -717,7 +714,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected RightsManagementSessionBean getRightsManagementSessionBean()
     {
-        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.BEAN_NAME);
+        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.class);
     }
     
     /**
@@ -727,7 +724,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected ReleasesSessionBean getReleasesSessionBean()
     {
-        return (ReleasesSessionBean)getBean(ReleasesSessionBean.BEAN_NAME);
+        return (ReleasesSessionBean)getBean(ReleasesSessionBean.class);
     }
 
     /**
@@ -737,17 +734,17 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected RevisionListSessionBean getRevisionListSessionBean()
     {
-        return (RevisionListSessionBean)getBean(RevisionListSessionBean.BEAN_NAME);
+        return (RevisionListSessionBean)getBean(RevisionListSessionBean.class);
     }
     
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**
@@ -757,7 +754,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
     }
 
     /**
@@ -767,7 +764,7 @@ public class ViewItemFull extends AbstractPageBean
      */
     protected ReleaseHistory getReleaseHistory()
     {
-        return (ReleaseHistory)getBean(ReleaseHistory.BEAN_NAME);
+        return (ReleaseHistory)getBean(ReleaseHistory.class);
     }
 
     // Getters and Setters
@@ -781,12 +778,12 @@ public class ViewItemFull extends AbstractPageBean
         this.panelItemFull = panelItemFull;
     }
 
-    public MessageGroup getValMessage()
+    public HtmlMessages getValMessage()
     {
         return valMessage;
     }
 
-    public void setValMessage(MessageGroup valMessage)
+    public void setValMessage(HtmlMessages valMessage)
     {
         this.valMessage = valMessage;
     }

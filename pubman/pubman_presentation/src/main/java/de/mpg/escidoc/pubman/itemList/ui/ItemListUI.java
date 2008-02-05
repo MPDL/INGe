@@ -32,8 +32,7 @@ package de.mpg.escidoc.pubman.itemList.ui;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
+
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlPanelGroup;
@@ -43,13 +42,14 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.ui.ListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
 import de.mpg.escidoc.pubman.viewItem.ui.ViewItemPanelUI;
@@ -61,12 +61,12 @@ import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparato
  * UI for viewing a list of items.
  *
  * @author: Thomas Diebäcker, created 30.08.2007
- * @version: $Revision: 1694 $ $LastChangedDate: 2007-12-18 10:43:39 +0100 (Tue, 18 Dec 2007) $
+ * @version: $Revision: 1694 $ $LastChangedDate: 2007-12-18 10:43:39 +0100 (Di, 18 Dez 2007) $
  */
 public class ItemListUI extends ListUI implements ActionListener, ValueChangeListener
 {
     @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(ItemListUI.class);
+    private static Logger logger = Logger.getLogger(ItemListUI.class);
     private static final String IMAGE_ORDER_ASCENDING = "images/sort_icon_ascending.jpg";
     private static final String IMAGE_ORDER_DESCENDING = "images/sort_icon_descending.jpg";
 
@@ -86,57 +86,73 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
     public static final PubItemVOComparator.Criteria SORTBY_DEFAULT = PubItemVOComparator.Criteria.DATE;
 
     private boolean isOrderAscending = false;
-    
+
+    /**
+     * Default constructor.
+     */
+    public ItemListUI()
+    {
+        super();
+    }
+
     /**
      * Public constructor.
      * @param allPubItems the PubItems that should be shown in this list
+     * @param actionMethodForTitle What happens if you click on the item title?
      */
-    public ItemListUI(List<PubItemVOWrapper> allPubItems, String actionMethodForTitle)
+    public ItemListUI(final List<PubItemVOWrapper> allPubItems, final String actionMethodForTitle)
     {
         // call constructor of super class
-        super(allPubItems, actionMethodForTitle);  
-        
-        // get the selected language...
-        i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        super(allPubItems, actionMethodForTitle);
 
         // initialize list controls
         this.panItemListControls.getChildren().clear();
         this.panItemListControls.setId(CommonUtils.createUniqueId(this.panItemListControls));
-        this.panItemListControls.getChildren().add(this.htmlElementUI.getStartTagWithStyleClass("div", "listHeader dark"));
+        this.panItemListControls
+                .getChildren()
+                .add(this.htmlElementUI.getStartTagWithStyleClass("div", "listHeader dark"));
 
         this.cboSelectItems.setId(CommonUtils.createUniqueId(this.cboSelectItems));
-        this.cboSelectItems.getChildren().add(CommonUtils.convertToSelectItemsUI(this.getApplicationBean().getSelectItemsItemListSelectMultipleItems()));
+        this.cboSelectItems
+                .getChildren()
+                .addAll(CommonUtils.convertToSelectItemsUI(
+                        this.getApplicationBean().getSelectItemsItemListSelectMultipleItems()));
         this.cboSelectItems.setOnchange("submit();");
         this.cboSelectItems.addValueChangeListener(this);
         this.panItemListControls.getChildren().add(this.cboSelectItems);
 
         this.lblSortBy.setId(CommonUtils.createUniqueId(this.lblSortBy));
-        this.lblSortBy.setValue(bundleLabel.getString("ItemList_SortBy"));
+        bindComponentLabel(this.lblSortBy, "ItemList_SortBy");
         this.panItemListControls.getChildren().add(this.lblSortBy);
 
         this.cboSortBy.setId(CommonUtils.createUniqueId(this.cboSortBy));
-        this.cboSortBy.getChildren().add(CommonUtils.convertToSelectItemsUI(this.getApplicationBean().getSelectItemsItemListSortBy()));
+        this.cboSortBy
+                .getChildren()
+                .addAll(CommonUtils.convertToSelectItemsUI(this.getApplicationBean().getSelectItemsItemListSortBy()));
         this.cboSortBy.setOnchange("submit();");
         this.cboSortBy.addValueChangeListener(this);
         this.cboSortBy.setValue(ItemListUI.SORTBY_DEFAULT.toString());
         this.panItemListControls.getChildren().add(this.cboSortBy);
 
         this.lblOrder.setId(CommonUtils.createUniqueId(this.lblOrder));
-        this.lblOrder.setValue(this.isOrderAscending ? bundleLabel.getString("ItemList_SortOrderAscending") : bundleLabel.getString("ItemList_SortOrderDescending"));
+        bindComponentLabel(
+                this.lblOrder,
+                this.isOrderAscending ? "ItemList_SortOrderAscending" : "ItemList_SortOrderDescending");
         this.panItemListControls.getChildren().add(this.lblOrder);
 
         this.btToggleOrder.setId(CommonUtils.createUniqueId(this.btToggleOrder));
-        this.btToggleOrder.setImage(this.isOrderAscending ? ItemListUI.IMAGE_ORDER_ASCENDING : ItemListUI.IMAGE_ORDER_DESCENDING);
+        this.btToggleOrder.setImage(
+                this.isOrderAscending ? ItemListUI.IMAGE_ORDER_ASCENDING : ItemListUI.IMAGE_ORDER_DESCENDING);
         this.btToggleOrder.setImmediate(true);
         this.btToggleOrder.addActionListener(this);
         this.panItemListControls.getChildren().add(this.btToggleOrder);
 
-        this.panItemListControls.getChildren().add(this.htmlElementUI.getStartTagWithStyleClass("div", "displayControls"));
-        
+        this.panItemListControls
+                .getChildren()
+                .add(this.htmlElementUI.getStartTagWithStyleClass("div", "displayControls"));
+
         this.lblItemDetail.setId(CommonUtils.createUniqueId(this.lblItemDetail));
-        this.lblItemDetail.setValue(bundleLabel.getString("ItemList_Details"));        
+        bindComponentLabel(this.lblItemDetail, "ItemList_Details");
         this.panItemListControls.getChildren().add(this.lblItemDetail);
 
         this.btViewItemShort.setId(CommonUtils.createUniqueId(this.btViewItemShort));
@@ -150,7 +166,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
         this.btViewItemMedium.setImmediate(true);
         this.btViewItemMedium.addActionListener(this);
         this.panItemListControls.getChildren().add(this.btViewItemMedium);
-        
+
         this.panItemListControls.getChildren().add(htmlElementUI.getEndTag("div"));
         this.panItemListControls.getChildren().add(htmlElementUI.getEndTag("div"));
 
@@ -165,9 +181,10 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * @param valueObjectWrapper the wrapper with the ValueObject which should be displayed in the UI
      * @return the ContainerPanelUI in which the new Item is displayed
      */
-    protected ContainerPanelUI displayObject(ValueObjectWrapper valueObjectWrapper)
+    protected ContainerPanelUI displayObject(final ValueObjectWrapper valueObjectWrapper)
     {
-        ViewItemPanelUI viewItemPanelUI = new ViewItemPanelUI((PubItemVOWrapper)valueObjectWrapper, this.actionMethodForTitle);
+        ViewItemPanelUI viewItemPanelUI =
+            new ViewItemPanelUI((PubItemVOWrapper) valueObjectWrapper, this.actionMethodForTitle);
         this.addToContainer(viewItemPanelUI);
 
         return viewItemPanelUI;
@@ -193,7 +210,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * Shows all items in the given view.
      * @param showAs the view that all items should have
      */
-    private void showAs(int showAs)
+    private void showAs(final int showAs)
     {
         for (int i = 0; i < this.getAllObjects().size(); i++)
         {
@@ -212,24 +229,28 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
         this.isOrderAscending = !this.isOrderAscending;
 
         // change label
-        this.lblOrder.setValue(this.isOrderAscending ? bundleLabel.getString("ItemList_SortOrderAscending") : bundleLabel.getString("ItemList_SortOrderDescending"));
+        bindComponentLabel(
+                lblOrder,
+                this.isOrderAscending ? "ItemList_SortOrderAscending" : "ItemList_SortOrderDescending");
 
         // change graphics for toggle button
-        this.btToggleOrder.setImage(this.isOrderAscending ? ItemListUI.IMAGE_ORDER_ASCENDING : ItemListUI.IMAGE_ORDER_DESCENDING);
+        this.btToggleOrder
+                .setImage(this.isOrderAscending ? ItemListUI.IMAGE_ORDER_ASCENDING : ItemListUI.IMAGE_ORDER_DESCENDING);
 
         // sort the list
-        this.sortItemList((String)this.cboSortBy.getSubmittedValue(), this.isOrderAscending);
-        
+        this.sortItemList((String) this.cboSortBy.getSubmittedValue(), this.isOrderAscending);
+
         if (logger.isDebugEnabled())
         {
-            logger.debug("SortOrder has been changed from " + !this.isOrderAscending + " to " + this.isOrderAscending + ".");
+            logger.debug("SortOrder has been changed from "
+                    + !this.isOrderAscending + " to " + this.isOrderAscending + ".");
         }
     }
 
     /**
      * Selects all items.
      */
-    private void selectAllItems(boolean selected)
+    private void selectAllItems(final boolean selected)
     {
         // set the selected attribute in the PubItemVOWrapper for all items
         this.selectItems(this.getAllObjects(), selected);
@@ -238,7 +259,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
     /**
      * Selects all currently visible items.
      */
-    private void selectVisibleItems(boolean selected)
+    private void selectVisibleItems(final boolean selected)
     {
         // set the selected attribute in the PubItemVOWrapper for all currently displayed items
         this.selectItems(this.getObjectsToDisplay(), selected);
@@ -249,18 +270,18 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * @param list the list with items
      * @param selected the value for the selected attribute
      */
-    private void selectItems(List<PubItemVOWrapper> list, boolean selected)
+    private void selectItems(final List<PubItemVOWrapper> list, final boolean selected)
     {
         // set the selected attribute in the PubItemVOWrapper for the given items
         for (int i = 0; i < list.size(); i++)
         {
             list.get(i).setSelected(selected);
         }
-        
+
         // Inserted by FrM, 8.11.07: Set number of selected items for delete confirmation.
         logger.debug("Setting noso to " + getNumberOfSelectedObjects());
-        this.numberSelectedObjects.setText(getNumberOfSelectedObjects());
-        
+        this.numberSelectedObjects.setValue(getNumberOfSelectedObjects());
+
         // redisplay the visible items
         this.displayObjects();
     }
@@ -268,12 +289,13 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
     /**
      * Sorts the item list.
      * @param sortBy the search criteria
-     * @param sortOrder the sorting order
-     */    
-    public void sortItemList(String sortBy, boolean sortOrderAscending)
+     * @param sortOrderAscending the sorting order
+     */
+    public void sortItemList(final String sortBy, final boolean sortOrderAscending)
     {
-        PubItemVOComparator.Criteria sortByCriteria = PubItemVOComparator.Criteria.valueOf(PubItemVOComparator.Criteria.class, sortBy);
-        
+        PubItemVOComparator.Criteria sortByCriteria =
+            PubItemVOComparator.Criteria.valueOf(PubItemVOComparator.Criteria.class, sortBy);
+
         if (logger.isDebugEnabled())
         {
             logger.debug("New sorting criteria: " + sortByCriteria.toString());
@@ -289,7 +311,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * Action handler for user actions.
      * @param event the event of the action
      */
-    public void processAction(ActionEvent event)
+    public void processAction(final ActionEvent event)
     {
         super.processAction(event);
 
@@ -311,7 +333,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * ValueChange handler for comboBoxes.
      * @param event the event of the valueChange
      */
-    public void processValueChange(ValueChangeEvent event)
+    public void processValueChange(final ValueChangeEvent event)
     {
         super.processValueChange(event);
 
@@ -319,7 +341,8 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("New value of cboSelectItems: " + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
+                logger.debug("New value of cboSelectItems: "
+                        + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
             }
 
             if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.SELECT_ALL.toString()))
@@ -343,10 +366,11 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("New value of cboSortBy: " + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
+                logger.debug("New value of cboSortBy: " + event.getNewValue()
+                        + " [" + event.getNewValue().getClass() + "]");
             }
-            
-            this.sortItemList((String)event.getNewValue(), this.isOrderAscending);
+
+            this.sortItemList((String) event.getNewValue(), this.isOrderAscending);
         }
     }
 
@@ -365,20 +389,22 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * @param allObjects
      */
     @Override
-    protected void setAllObjects(List<? extends ValueObjectWrapper> allObjects)
-    {        
+    protected void setAllObjects(final List<? extends ValueObjectWrapper> allObjects)
+    {
         // set objects in superclass
         super.setAllObjects(allObjects);
-        
+
         // sort the new list
         // sort by default if cboSortBy has no value yet
-        String sortBy = ((this.cboSortBy != null && this.cboSortBy.getSubmittedValue() != null) ? 
-                            ((PubItemVOComparator.Criteria)this.cboSortBy.getSubmittedValue()).toString() : ItemListUI.SORTBY_DEFAULT.toString());        
+        String sortBy = ((this.cboSortBy != null && this.cboSortBy.getSubmittedValue() != null)
+                ? ((PubItemVOComparator.Criteria) this.cboSortBy.getSubmittedValue()).toString()
+                : ItemListUI.SORTBY_DEFAULT.toString());
         this.sortItemList(sortBy, this.isOrderAscending);
     }
 
     /**
-     * Casts all displayed objects stored in the super class to PubItemVOWrapper, so we don't have to do this every time.
+     * Casts all displayed objects stored in the super class to PubItemVOWrapper,
+     * so we don't have to do this every time.
      * @return all displayed PubItemVOWrappers in this list
      */
     @Override
@@ -386,7 +412,7 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
     {
         return (List<PubItemVOWrapper>) super.getObjectsToDisplay();
     }
-    
+
     /**
      * Casts all selected objects stored in the super class to PubItemVO, so we don't have to do this every time.
      * @return all selected PubItemVOs in this list
@@ -396,39 +422,47 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
     {
         return (List<PubItemVO>) super.getSelectedObjects();
     }
-    
+
     /**
      * Returns the ApplicationBean.
-     * 
+     *
      * @return a reference to the scoped data bean (ApplicationBean)
      */
     protected ApplicationBean getApplicationBean()
     {
-        Application application = FacesContext.getCurrentInstance().getApplication();
-        return (ApplicationBean)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), ApplicationBean.BEAN_NAME);
-    }    
-    
+        return (ApplicationBean) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getApplicationMap()
+                .get(ApplicationBean.BEAN_NAME);
+    }
+
     /**
      * Inner class for comparator that sorts PubItemVOWrappers.
      * @author Thomas Diebaecker
      */
     public class PubItemVOWrapperComparator implements Comparator<PubItemVOWrapper>
     {
-        PubItemVOComparator pubItemVOComparator = null;
-        
-        public PubItemVOWrapperComparator(Criteria criteria)
+        private PubItemVOComparator pubItemVOComparator = null;
+
+        /**
+         * Constructor.
+         * @param criteria The criterion.
+         */
+        public PubItemVOWrapperComparator(final Criteria criteria)
         {
             this.pubItemVOComparator = new PubItemVOComparator(criteria);
         }
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
          */
-        public int compare(PubItemVOWrapper pubItemVOWrapper1, PubItemVOWrapper pubItemVOWrapper2)
+        public int compare(final PubItemVOWrapper pubItemVOWrapper1, final PubItemVOWrapper pubItemVOWrapper2)
         {
-            return this.pubItemVOComparator.compare(pubItemVOWrapper1.getValueObject(), pubItemVOWrapper2.getValueObject());
+            return this.pubItemVOComparator
+                    .compare(pubItemVOWrapper1.getValueObject(), pubItemVOWrapper2.getValueObject());
         }
     }
 }

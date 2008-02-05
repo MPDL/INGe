@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman.desktop;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.html.HtmlPanelGroup;
@@ -41,12 +40,11 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
@@ -59,8 +57,6 @@ import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RevisionListSessionBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.SearchResultList;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
@@ -68,23 +64,25 @@ import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 /**
  * Navigation.java Backing Bean for the Navigation side bar of pubman. Additionally there is some internationalization
  * functionality (language switching).
- * 
+ *
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Tue, 18 Dec 2007) $ Revised by ScT: 16.08.2007
+ * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Di, 18 Dez 2007) $ Revised by ScT: 16.08.2007
  */
-public class Navigation extends AbstractFragmentBean
+public class Navigation extends FacesBean
 {
     private static Logger logger = Logger.getLogger(Navigation.class);
     private List<NavigationRule> navRules;
-    
-    /** identifier from the breadcrump component in the page */
-    private final static String BREADCRUMP_IDENTIFIER = "form2:Breadcrump:panBreadCrumbList"; 
 
+    /** identifier from the breadcrump component in the page */
+
+    private DepositorWSSessionBean depositorWSSessionBean
+        = (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
     /**
      * Public constructor.
      */
     public Navigation()
     {
+        this.init();
     }
 
     /**
@@ -93,24 +91,25 @@ public class Navigation extends AbstractFragmentBean
      */
     public void init()
     {
+
         // Perform initializations inherited from our superclass
         super.init();
         // initially sets the navigation rules for redirecting after changing the language
         navRules = new ArrayList<NavigationRule>();
-        this.navRules.add(new NavigationRule("/faces/HomePage.jsp", 
-        		Home.LOAD_HOME));
-        this.navRules.add(new NavigationRule("/faces/DepositorWSPage.jsp", 
-        		DepositorWS.LOAD_DEPOSITORWS));
-        this.navRules.add(new NavigationRule("/faces/EditItemPage.jsp", 
-        		EditItem.LOAD_EDITITEM));
-        this.navRules.add(new NavigationRule("/faces/viewItemFullPage.jsp", 
-        		ViewItemFull.LOAD_VIEWITEM));
-        this.navRules.add(new NavigationRule("/faces/SearchResultListPage.jsp", 
-        		SearchResultList.LOAD_SEARCHRESULTLIST));
-        this.navRules.add(new NavigationRule("/faces/AffiliationTreePage.jsp", 
-        		AffiliationTree.LOAD_AFFILIATIONTREE));
-        this.navRules.add(new NavigationRule("/faces/AffiliationSearchResultListPage.jsp", 
-        		SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST));
+        this.navRules.add(new NavigationRule("/faces/HomePage.jsp",
+                Home.LOAD_HOME));
+        this.navRules.add(new NavigationRule("/faces/DepositorWSPage.jsp",
+                DepositorWS.LOAD_DEPOSITORWS));
+        this.navRules.add(new NavigationRule("/faces/EditItemPage.jsp",
+                EditItem.LOAD_EDITITEM));
+        this.navRules.add(new NavigationRule("/faces/viewItemFullPage.jsp",
+                ViewItemFull.LOAD_VIEWITEM));
+        this.navRules.add(new NavigationRule("/faces/SearchResultListPage.jsp",
+                SearchResultList.LOAD_SEARCHRESULTLIST));
+        this.navRules.add(new NavigationRule("/faces/AffiliationTreePage.jsp",
+                AffiliationTree.LOAD_AFFILIATIONTREE));
+        this.navRules.add(new NavigationRule("/faces/AffiliationSearchResultListPage.jsp",
+                SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST));
         this.navRules.add(new NavigationRule("/faces/ViewItemRevisionsPage.jsp",
                 ViewItemRevisionsPage.LOAD_VIEWREVISIONS));
         this.navRules.add(new NavigationRule("/faces/ViewItemReleaseHistoryPage.jsp",
@@ -120,8 +119,8 @@ public class Navigation extends AbstractFragmentBean
     }
 
     /**
-     * loads the home page
-     * 
+     * loads the home page.
+     *
      * @return String navigation string (JSF navigation) to load the home page.
      */
     public String loadHome()
@@ -130,8 +129,8 @@ public class Navigation extends AbstractFragmentBean
     }
 
     /**
-     * loads the affiliation tree page
-     * 
+     * loads the affiliation tree page.
+     *
      * @return String navigation string (JSF navigation) to load the affiliation tree page.
      */
     public String loadAffiliationTree()
@@ -142,8 +141,8 @@ public class Navigation extends AbstractFragmentBean
     }
 
     /**
-     * loads the help page
-     * 
+     * loads the help page.
+     *
      * @return String navigation string (JSF navigation) to load the help page.
      */
     public String loadHelp()
@@ -153,21 +152,16 @@ public class Navigation extends AbstractFragmentBean
 
     /**
      * Changes the language within the application. Some classes have to be treated especially.
-     * 
+     *
      * @return String navigation string (JSF navigation) to reload the page the user has been when changing the language
      */
     public String changeLanguage()
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
-        // initialize the nav string with empty space. if it won't be changed
-        // the page would just be reloaded
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        // initialize the nav string with null. if it won't be changed the page would just be reloaded
         String navigationString = "";
-        // Handling the resource bundles (i18n)
-        String selectedLanguage = getFacesParamValue("language");
-        InternationalizationHelper i18nHelper = (InternationalizationHelper)getBean(InternationalizationHelper.BEAN_NAME);
-        LoginHelper loginHelper = (LoginHelper)getBean(LoginHelper.BEAN_NAME);
-        Breadcrump crumb = (Breadcrump)getBean(Breadcrump.BEAN_NAME);
+
         DepositorWS depositorWorkspace;
         ViewItemFull viewItem;
         SearchResultList searchResultList;
@@ -175,104 +169,71 @@ public class Navigation extends AbstractFragmentBean
         AffiliationTree affiliationTree;
         CreateRevision createRevision;
         ReleaseHistory releaseHistory;
-        // Set the new selected language in the helper bean
-        if (selectedLanguage.equals("de_DE"))
+
+        // special re-initializaion for pages with dynamic page elements which
+        // must be re-inited
+
+        logger.debug("Resolving current page URI: " + request.getRequestURI());
+
+        for (int i = 0; i < navRules.size(); i++)
         {
-            i18nHelper.setSelectedHelpPage(InternationalizationHelper.HELP_PAGE_DE);
-            i18nHelper.setSelectedLableBundle(InternationalizationHelper.LABLE_BUNDLE_DE);
-            i18nHelper.setSelectedMessagesBundle(InternationalizationHelper.MESSAGES_BUNDLE_DE);
-            loginHelper.changeLanguage(ResourceBundle.getBundle(InternationalizationHelper.LABLE_BUNDLE_DE));
+            if (request.getRequestURI().equals(navRules.get(i).getRequestURL()))
+            {
+                navigationString = navRules.get(i).getNavigationString();
+                break;
+            }
+        }
+        if (navigationString.equals(EditItem.LOAD_EDITITEM))
+        {
+            editItem = (EditItem) getBean(EditItem.class);
+            editItem.init();
+            editItem.resetDynamicPanels();
+        }
+        else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
+        {
+            depositorWorkspace = (DepositorWS) getBean(DepositorWS.class);
+            this.getDepositorWSSessionBean().setListDirty(true);
+            depositorWorkspace.init();
+        }
+        else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM))
+        {
+            viewItem = (ViewItemFull) getBean(ViewItemFull.class);
+            viewItem.init();
+        }
+        else if (navigationString.equals(SearchResultList.LOAD_SEARCHRESULTLIST))
+        {
+            searchResultList = (SearchResultList) getBean(SearchResultList.class);
+            searchResultList.init();
+        }
+        else if (navigationString.equals(AffiliationTree.LOAD_AFFILIATIONTREE))
+        {
+            // DiT: added for reload of the AffiliationTree
+            affiliationTree = (AffiliationTree) getBean(AffiliationTree.class);
+            this.getAffiliationSessionBean().setBrowseByAffiliation(false);
+            affiliationTree.init();
+        }
+        else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
+        {
+            this.getRevisionListSessionBean().setRevisisonListUI(null);
+            createRevision = (CreateRevision) getBean(CreateRevision.class);
+            createRevision.init();
+        }
+        else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY))
+        {
+            this.getReleasesSessionBean().setReleaseListUI(null);
+            releaseHistory = (ReleaseHistory) getBean(ReleaseHistory.class);
+            releaseHistory.init();
         }
         else
         {
-            i18nHelper.setSelectedLableBundle(InternationalizationHelper.LABLE_BUNDLE_EN);
-            i18nHelper.setSelectedMessagesBundle(InternationalizationHelper.MESSAGES_BUNDLE_EN);
-            i18nHelper.setSelectedHelpPage(InternationalizationHelper.HELP_PAGE_EN);
-            loginHelper.changeLanguage(ResourceBundle.getBundle(InternationalizationHelper.LABLE_BUNDLE_EN));
-        }
-        crumb.init();
-        HtmlPanelGroup crumbs = crumb.getPanBreadCrumbList();
-        UIViewRoot viewRoot = fc.getViewRoot();
-        
-        viewRoot.findComponent( Navigation.BREADCRUMP_IDENTIFIER ).getChildren().clear();
-        viewRoot.findComponent( Navigation.BREADCRUMP_IDENTIFIER ).getChildren().add(crumbs);
-        
-        // special re-initializaion for pages with dynamic page elements which
-        // must be re-inited
-        for (int i = 0; i < navRules.size(); i++)
-        {
-        	String requestUrl = request.getRequestURI();
-        	String navUrl = navRules.get(i).getRequestURL();
-        	
-            if( requestUrl.contains( navUrl ) )
-            {
-                navigationString = navRules.get(i).getNavigationString();
-                
-                if (navigationString.equals(EditItem.LOAD_EDITITEM))
-                {
-                    editItem = (EditItem)getBean(EditItem.BEAN_NAME);
-                    editItem.init();
-                    editItem.resetDynamicPanels();
-                    break;
-                }
-                else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
-                {
-                    depositorWorkspace = (DepositorWS)getBean(DepositorWS.BEAN_NAME);
-                    this.getDepositorWSSessionBean().setListDirty(true);
-                    depositorWorkspace.init();
-                    break;
-                }
-                else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM))
-                {
-                    viewItem = (ViewItemFull)getBean(ViewItemFull.BEAN_NAME);
-                    viewItem.init();
-                    break;
-                }
-                else if (navigationString.equals(SearchResultList.LOAD_SEARCHRESULTLIST) || 
-                		navigationString.equals(SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST) )
-                {
-                    searchResultList = this.getSearchResultList();
-                    searchResultList.init();
-                    break;
-                }
-                else if (navigationString.equals(AffiliationTree.LOAD_AFFILIATIONTREE))
-                {
-                    // DiT: added for reload of the AffiliationTree
-                    // refresh tree
-                	affiliationTree = (AffiliationTree)getBean(AffiliationTree.BEAN_NAME);
-                    this.getAffiliationSessionBean().setBrowseByAffiliation(false);
-                    affiliationTree.init();
-                    // refresh the search result list 
-                    searchResultList = this.getSearchResultList();
-                    searchResultList.init();
-                    break;
-                }
-                else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
-                {
-                    this.getRevisionListSessionBean().setRevisisonListUI(null);
-                    createRevision = (CreateRevision)getBean(CreateRevision.BEAN_NAME);
-                    createRevision.init();
-                    break;
-                }
-                else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY))
-                {
-                    this.getReleasesSessionBean().setReleaseListUI(null);
-                    releaseHistory = (ReleaseHistory)getBean(ReleaseHistory.BEAN_NAME);
-                    releaseHistory.init();
-                    break;
-                }
-                else if (navigationString.equals(AdvancedSearchEdit.LOAD_SEARCHPAGE)) 
-                {
-                   this.getAdvancedSearchEdit().init();
-                }  
-            }     
+            navigationString = null;
         }
         return navigationString;
     }
 
     /**
      * Starts a new submission.
-     * 
+     *
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String newSubmission()
@@ -281,127 +242,132 @@ public class Navigation extends AbstractFragmentBean
         {
             logger.debug("New Submission");
         }
-        
+
         // force reload of list next time this page is navigated to
         this.getDepositorWSSessionBean().setListDirty(true);
-        
-        // if there is only one collection for this user we can skip the CreateItem-Dialog and create the new item directly
+
+        // if there is only one collection for this user we can skip the
+        // CreateItem-Dialog and create the new item directly
         if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
         {
             logger.warn("The user does not have privileges for any collection.");
             return null;
         }
         if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
-        {            
+        {
             PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has only privileges for one collection (ID: " 
+                logger.debug("The user has only privileges for one collection (ID: "
                         + pubCollectionVO.getReference().getObjectId() + ")");
             }
-            
-            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, pubCollectionVO.getReference());
+
+            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
+                    pubCollectionVO.getReference());
         }
         else
         {
             // more than one collection exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getCollectionList().size() 
+                logger.debug("The user has privileges for "
+                        + this.getCollectionListSessionBean().getCollectionList().size()
                         + " different collections.");
             }
 
             //refresh ListUI
             this.getCollectionListSessionBean().setCollectionListUI(null);
-            
+
             return CreateItem.LOAD_CREATEITEM;
         }
     }
 
     /**
-     * gets the parameters out of the faces context
+     * Gets the parameters out of the faces context.
+     *
+     * @return The value
      */
-    public static String getFacesParamValue(String name)
+    public static String getFacesParamValue(final String name)
     {
-        return (String)FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(name);
+        return (String) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get(name);
     }
 
 
     /**
      * Returns the AffiliationSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (AffiliationSessionBean)
      */
     protected AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean)getBean(AffiliationSessionBean.BEAN_NAME);
+        return (AffiliationSessionBean) getBean(AffiliationSessionBean.class);
     }
-    
+
     /**
      * Returns the ReleasesSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (ReleasesSessionBean)
      */
     protected ReleasesSessionBean getReleasesSessionBean()
     {
-        return (ReleasesSessionBean)getBean(ReleasesSessionBean.BEAN_NAME);
+        return (ReleasesSessionBean) getBean(ReleasesSessionBean.class);
     }
-    
+
     /**
      * Returns the RevisionListSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (RevisionListSessionBean)
      */
     protected RevisionListSessionBean getRevisionListSessionBean()
     {
-        return (RevisionListSessionBean)getBean(RevisionListSessionBean.BEAN_NAME);
+        return (RevisionListSessionBean) getBean(RevisionListSessionBean.class);
     }
 
     /**
      * Returns the DepositorWSSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (DepositorWSSessionBean)
      */
     protected DepositorWSSessionBean getDepositorWSSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+        return depositorWSSessionBean;
     }
 
     /**
      * Returns the CollectionListSessionBean.
-     * 
+     *
      * @return a reference to the scoped data bean (CollectionListSessionBean)
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
     }
 
     /**
-     * Returns a reference to the scoped data bean (the ItemControllerSessionBean). 
-     * @return a reference to the scoped data bean
+     * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
+     * @return a reference to the scoped data bean.
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
     }
+
     /**
-     * Returns the AdvancedSearchEdit session bean
-     * @returns AdvancedSearchEdit session bean
+     * Returns the AdvancedSearchEdit session bean.
+     * @return AdvancedSearchEdit session bean.
      */
     protected AdvancedSearchEdit getAdvancedSearchEdit()
     {
-    	return ( AdvancedSearchEdit )getBean( AdvancedSearchEdit.BEAN_NAME );
+        return (AdvancedSearchEdit) getBean(AdvancedSearchEdit.class);
     }
-    
+
     /**
-     * Returns the SearchResultList session bean
-     * @returns AdvancedSearchEdit session bean
+     * Returns the SearchResultList session bean.
+     * @return AdvancedSearchEdit session bean.
      */
     protected SearchResultList getSearchResultList()
     {
-    	return ( SearchResultList )getBean( SearchResultList.BEAN_NAME );
+        return (SearchResultList) getBean(SearchResultList.class);
     }
-    
-    
+
 }

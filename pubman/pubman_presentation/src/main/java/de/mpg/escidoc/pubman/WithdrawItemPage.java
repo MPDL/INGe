@@ -30,22 +30,24 @@
 
 package de.mpg.escidoc.pubman;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * BackingBean for WithdrawItemPage.jsp. This one is empty because all code is implemented in the BackingBean of the
  * fragment.
- * 
+ *
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 23.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * Revised by ScT: 23.08.2007
  */
-public class WithdrawItemPage extends AbstractPageBean
+public class WithdrawItemPage extends FacesBean
 {
     /**
      * Public constructor.
      */
     public WithdrawItemPage()
     {
+        this.init();
     }
 
     /**

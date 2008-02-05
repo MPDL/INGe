@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.releases.ui;
 
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlCommandLink;
@@ -42,8 +43,9 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Hyperlink;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.collectionList.ui.ViewCollectionPanelUI;
 import de.mpg.escidoc.pubman.releases.PubItemVersionVOWrapper;
@@ -60,7 +62,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
  * ContainerPanelUI for keeping ViewCollectionUIs.
  * 
  * @author: Thomas Diebäcker, created 12.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListener, ValueChangeListener
 {
@@ -68,7 +70,7 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
     private static final Logger logger = Logger.getLogger(ViewCollectionPanelUI.class);
     
     private PubItemVersionVO pubItemVersionVO = null;
-    private Hyperlink viewItemLink = new Hyperlink();
+    private HtmlCommandLink viewItemLink = new HtmlCommandLink();
     private HtmlOutputText viewItemText = new HtmlOutputText();
     private UIParameter version = new UIParameter();
     
@@ -88,22 +90,13 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
         
         this.pubItemVersionVO = pubItemVersionVOWrapper.getVersion();
         
-        Application application = FacesContext.getCurrentInstance().getApplication();
-        
-        //get the selected language...
-        InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        
         HTMLElementUI htmlElement = new HTMLElementUI();
         
         this.panControls.setId(CommonUtils.createUniqueId(this.panControls));
         
         this.viewItemText = new HtmlOutputText();
         this.viewItemText.setId(CommonUtils.createUniqueId(this.viewItemText));
-        this.viewItemText.setValue(bundleLabel.getString("ViewItemReleaseHistory_lblVersion") + " " 
+        this.viewItemText.setValue(getLabel("ViewItemReleaseHistory_lblVersion") + " " 
                         + new Integer(this.pubItemVersionVO.getReference().getVersionNumber()).toString());
         
         this.version = new UIParameter();
@@ -111,10 +104,10 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
         this.version.setName("itemID");
         this.version.setValue("_lnkViewItem_" + (this.pubItemVersionVO.getReference().getObjectId()).replace(":", "-"));
         
-        this.viewItemLink = new Hyperlink();
+        this.viewItemLink = new HtmlCommandLink();
         this.viewItemLink.setId("_lnkViewItem_" + (this.pubItemVersionVO.getReference().getObjectId()).replace(":", "-"));
         this.viewItemLink.setAction(application.createMethodBinding("#{ViewItemSessionBean.viewRelease}", null));
-        this.viewItemLink.setText(bundleLabel.getString("ViewItemReleaseHistory_lblVersion") + " " 
+        this.viewItemLink.setValue(getLabel("ViewItemReleaseHistory_lblVersion") + " " 
                 + new Integer(this.pubItemVersionVO.getReference().getVersionNumber()).toString());
         this.viewItemLink.setDisabled(true);
         this.viewItemLink.getChildren().add(this.version);
@@ -124,7 +117,7 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
         this.panControls.getChildren().add(htmlElement.getEndTag("div"));
         
         this.panControls.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
-        this.panControls.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemReleaseHistory_lblReleaseDate") 
+        this.panControls.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemReleaseHistory_lblReleaseDate") 
                         + " " + CommonUtils.format(this.pubItemVersionVO.getModificationDate())));
         this.panControls.getChildren().add(htmlElement.getEndTag("div"));
         

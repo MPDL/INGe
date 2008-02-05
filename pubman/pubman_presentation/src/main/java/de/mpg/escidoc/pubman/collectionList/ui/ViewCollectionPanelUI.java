@@ -45,7 +45,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
  * ContainerPanelUI for keeping ViewCollectionUIs.
  * 
  * @author: Thomas Diebäcker, created 12.10.2007
- * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1632 $ $LastChangedDate: 2007-11-29 15:01:44 +0100 (Do, 29 Nov 2007) $
  */
 public class ViewCollectionPanelUI extends CollapsiblePanelUI implements ActionListener, ValueChangeListener
 {

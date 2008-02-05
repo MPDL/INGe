@@ -31,11 +31,14 @@
 package de.mpg.escidoc.pubman;
 
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -46,18 +49,12 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * not be displayed.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ Revised by ScT: 20.08.2007
  */
-public class GTDepositorWSPage extends AbstractPageBean
+public class GTDepositorWSPage extends FacesBean
 {
     private static Logger logger = Logger.getLogger(DepositorWSPage.class);
-    // For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
+
     /**
      * Question String for confirming the deletion of the item
      */
@@ -68,6 +65,7 @@ public class GTDepositorWSPage extends AbstractPageBean
      */
     public GTDepositorWSPage()
     {
+        this.init();
     }
 
     /**
@@ -81,7 +79,7 @@ public class GTDepositorWSPage extends AbstractPageBean
         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
         String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
         // Set the delete confirmation question in the desired language
-        this.deleteConfirmation = this.bundleMessage.getString("depositorWS_deleteConfirmation");
+        this.deleteConfirmation = getMessage("depositorWS_deleteConfirmation");
         if (logger.isDebugEnabled())
         {
             logger.debug("UserHandle: " + userHandle);
@@ -115,7 +113,7 @@ public class GTDepositorWSPage extends AbstractPageBean
     public void prerender()
     {
         super.prerender();
-        DepositorWS fragment = (DepositorWS)getBean("depositorWS$DepositorWS");
+        DepositorWS fragment = (DepositorWS)getBean(DepositorWS.class);
         fragment.handleMessage();
     }
 
@@ -126,7 +124,7 @@ public class GTDepositorWSPage extends AbstractPageBean
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**
@@ -136,7 +134,7 @@ public class GTDepositorWSPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
     // Getters and Setters

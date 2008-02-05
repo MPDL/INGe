@@ -30,35 +30,36 @@
 
 package de.mpg.escidoc.pubman.util;
 
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 
 /**
- * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp
- * 
+ * ObjectFormatter.java Backing bean for the LoginErrorPage.jsp.
+ *
  * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 21.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 21.08.2007
  */
-public class ObjectFormatter
+public class ObjectFormatter extends InternationalizedImpl
 {
     /**
-     * Public constructor
+     * Public constructor.
      */
     public ObjectFormatter()
     {
     }
 
     /**
-     * distinguish between organizations and persons as creators and formats them to present on jsp pages
-     * 
+     * distinguish between organizations and persons as creators and formats them to present on jsp pages.
+     *
      * @return String formatted creator
      * @param creatorObject unformatted creator VO
      */
-    public String formatCreator(CreatorVO creatorObject)
+    public String formatCreator(final CreatorVO creatorObject)
     {
         StringBuffer creator = new StringBuffer();
-        if(creatorObject.getRoleString() != null)
+        if (creatorObject.getRoleString() != null)
         {
-            creator.append(creatorObject.getRoleString());
+            creator.append(getLabel("ENUM_CREATORROLE_" + creatorObject.getRoleString()));
             creator.append(": ");
         }
         if (creatorObject.getPerson() != null)

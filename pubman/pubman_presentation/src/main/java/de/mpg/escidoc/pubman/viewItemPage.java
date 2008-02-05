@@ -31,11 +31,15 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItem;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
@@ -46,9 +50,9 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * viewItemPage.java Backing bean for viewItemPage.jsp Created on 24. Januar 2007, 18:15 Copyright Tobias Schraut
  * Revised by ScT: 23.08.2007
  */
-public class viewItemPage extends AbstractPageBean
+public class viewItemPage extends BreadcrumbPage
 {
-    final public static String BEAN_NAME = "viewItemPage";
+    final public static String BEAN_NAME = "ViewItemPage";
     // The referring GUI Tool Page
     public final static String GT_VIEW_ITEM_PAGE = "GTviewItemPage.jsp";
     private static Logger logger = Logger.getLogger(viewItemPage.class);
@@ -59,6 +63,7 @@ public class viewItemPage extends AbstractPageBean
      */
     public viewItemPage()
     {
+        this.init();
     }
 
     /**
@@ -81,39 +86,7 @@ public class viewItemPage extends AbstractPageBean
             this.getViewItemSessionBean().setItemIdViaURLParam(itemID);
             viewItem.loadItem();
         }
-        // login the user if he uses the login functionality being on the view item page
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-                .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                try
-                {
-                    loginHelper.insertLogin();
-                }
-                catch (UnmarshallingException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (TechnicalException e)
-                {
-                    logger.debug(e.toString());
-                }
-                catch (ServiceException e)
-                {
-                    logger.debug(e.toString());
-                }
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
+
         // redirect to the referring GUI Tool page if the application has been started as GUI Tool
         CommonSessionBean sessionBean = getCommonSessionBean();
         if (sessionBean.isRunAsGUITool() == true)
@@ -144,11 +117,11 @@ public class viewItemPage extends AbstractPageBean
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
     /**
@@ -158,7 +131,7 @@ public class viewItemPage extends AbstractPageBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.BEAN_NAME);
+        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
     }
 
     /**
@@ -168,6 +141,6 @@ public class viewItemPage extends AbstractPageBean
      */
     protected ViewItem getViewItem()
     {
-        return (ViewItem)getBean(ViewItem.BEAN_NAME);
+        return (ViewItem)getBean(ViewItem.class);
     }
 }

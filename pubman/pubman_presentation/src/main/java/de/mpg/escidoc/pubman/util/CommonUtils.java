@@ -38,17 +38,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
+
 import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectItems;
+import javax.faces.component.UISelectItem;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.TextArea;
-import com.sun.rave.web.ui.component.TextField;
-import com.sun.rave.web.ui.model.Option;
+
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -56,11 +59,12 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
  * Provides different utilities for all kinds of stuff.
+ * 
  * @author: Thomas Diebäcker, created 25.04.2007
- * @version: $Revision: 1633 $ $LastChangedDate: 2007-11-29 15:16:57 +0100 (Thu, 29 Nov 2007) $
+ * @version: $Revision: 1633 $ $LastChangedDate: 2007-11-29 15:16:57 +0100 (Do, 29 Nov 2007) $
  * Revised by DiT: 07.08.2007
  */
-public class CommonUtils
+public class CommonUtils extends InternationalizedImpl
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CommonUtils.class);
@@ -72,88 +76,88 @@ public class CommonUtils
     private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "&lt;br&gt;", "&lt;br&gt;" };
 
     /**
-     * Converts a Set to an Array of Options (an empty Option is included at the beginning). This method is used to
-     * convert Enums into Options for dropDownLists.
-     * 
+     * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
+     * This method is used to convert Enums into SelectItems for dropDownLists.
+     *
      * @param set the Set to be converted
-     * @return an Array of Options
+     * @return an Array of SelectItems
      */
-    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Set set)
+    public static SelectItem[] convertToOptions(Set set)
     {
         return convertToOptions(set, true);
     }
 
     /**
-     * Converts a Set to an Array of Options. This method is used to convert Enums into Options for dropDownLists.
+     * Converts a Set to an Array of SelectItems. This method is used to convert Enums into SelectItems for dropDownLists.
      * @param set the Set to be converted
-     * @param includeEmptyOption if TRUE an empty Option is added at the beginning of the list
-     * @return an Array of Options
+     * @param includeEmptyOption if TRUE an empty SelectItem is added at the beginning of the list
+     * @return an Array of SelectItems
      */
-    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Set set, boolean includeEmptyOption)
+    public static SelectItem[] convertToOptions(Set set, boolean includeEmptyOption)
     {
-        List<com.sun.rave.web.ui.model.Option> options = new ArrayList<com.sun.rave.web.ui.model.Option>();
+        List<SelectItem> options = new ArrayList<SelectItem>();
 
         if (includeEmptyOption)
         {
-            options.add(new com.sun.rave.web.ui.model.Option("", NO_ITEM_SET));
+            options.add(new SelectItem("", NO_ITEM_SET));
         }
 
         Iterator iter = set.iterator();
         while (iter.hasNext())
         {
-            options.add(new com.sun.rave.web.ui.model.Option(iter.next()));
+            options.add(new SelectItem(iter.next()));
         }
 
-        return (com.sun.rave.web.ui.model.Option[]) options.toArray(new com.sun.rave.web.ui.model.Option[options.size()]);
+        return (SelectItem[]) options.toArray(new SelectItem[options.size()]);
     }
 
     /**
-     * Converts an Array of Objects to an Array of Options (an empty Option is included at the beginning). This method
-     * is used to convert Objects into Options for dropDownLists.
+     * Converts an Array of Objects to an Array of SelectItems (an empty SelectItem is included at the beginning). This method
+     * is used to convert Objects into SelectItems for dropDownLists.
      * @param objects the Array of Objects to be converted
-     * @return an Array of Options
+     * @return an Array of SelectItems
      */
-    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Object[] objects)
+    public static SelectItem[] convertToOptions(Object[] objects)
     {
         return convertToOptions(objects, true);
     }
 
     /**
-     * Converts an Array of Objects to an Array of Options. This method is used to convert Objects into Options for
+     * Converts an Array of Objects to an Array of SelectItems. This method is used to convert Objects into SelectItems for
      * dropDownLists.
      * @param objects the Array of Objects to be converted
-     * @return an Array of Options
+     * @return an Array of SelectItems
      */
-    public static com.sun.rave.web.ui.model.Option[] convertToOptions(Object[] objects, boolean includeEmptyOption)
+    public static SelectItem[] convertToOptions(Object[] objects, boolean includeEmptyOption)
     {
-        List<com.sun.rave.web.ui.model.Option> options = new ArrayList<com.sun.rave.web.ui.model.Option>();
+        List<SelectItem> options = new ArrayList<SelectItem>();
 
         if (includeEmptyOption)
         {
-            options.add(new com.sun.rave.web.ui.model.Option("", NO_ITEM_SET));
+            options.add(new SelectItem("", NO_ITEM_SET));
         }
 
         for (int i = 0; i < objects.length; i++)
         {
-            options.add(new com.sun.rave.web.ui.model.Option(objects[i]));
+            options.add(new SelectItem(objects[i]));
         }
 
-        return (com.sun.rave.web.ui.model.Option[]) options.toArray(new com.sun.rave.web.ui.model.Option[options.size()]);
+        return (SelectItem[]) options.toArray(new SelectItem[options.size()]);
     }
 
     /**
      * Returns all ISOLanguages, with "de" and "en" at the first positions.
      * @return all ISOLanguages, with "de" and "en" at the first positions
      */
-    public static Option[] getLanguageOptions()
+    public static SelectItem[] getLanguageOptions()
     {
-        Option[] isoLanguages = CommonUtils.convertToOptions(Locale.getISOLanguages(), false);
+        SelectItem[] isoLanguages = CommonUtils.convertToOptions(Locale.getISOLanguages(), false);
 
-        Option[] options = new Option[isoLanguages.length + 4];
-        options[0] = new Option("", NO_ITEM_SET);
-        options[1] = new Option("en");
-        options[2] = new Option("de");
-        options[3] = new Option("", NO_ITEM_SET);
+        SelectItem[] options = new SelectItem[isoLanguages.length + 4];
+        options[0] = new SelectItem("", NO_ITEM_SET);
+        options[1] = new SelectItem("en");
+        options[2] = new SelectItem("de");
+        options[3] = new SelectItem("", NO_ITEM_SET);
 
         for (int i = 0; i < isoLanguages.length; i++)
         {
@@ -168,7 +172,7 @@ public class CommonUtils
      * @param comboBox the comboBox for which the value should be returned
      * @return the current value of the comboBox
      */
-    public static String getUIValue(DropDown comboBox)
+    public static String getUIValue(HtmlSelectOneMenu comboBox)
     {
         if (comboBox.getSubmittedValue() != null
                 && comboBox.getSubmittedValue() instanceof String[]
@@ -177,7 +181,7 @@ public class CommonUtils
             return ((String[]) comboBox.getSubmittedValue())[0];
         }
 
-        return (String) comboBox.getSelected();
+        return (String) comboBox.getValue();
     }
 
     /**
@@ -185,7 +189,7 @@ public class CommonUtils
      * @param textField the textField for which the value should be returned
      * @return the current value of the textfield
      */
-    public static String getUIValue(TextField textField)
+    public static String getUIValue(HtmlInputText textField)
     {
         if (textField.getSubmittedValue() != null
                 && textField.getSubmittedValue() instanceof String
@@ -194,7 +198,7 @@ public class CommonUtils
             return ((String) textField.getSubmittedValue());
         }
 
-        return (String) textField.getText();
+        return (String) textField.getValue();
     }
 
     /**
@@ -202,7 +206,7 @@ public class CommonUtils
      * @param textArea the textArea for which the value should be returned
      * @return the current value of the textArea
      */
-    public static String getUIValue(TextArea textArea)
+    public static String getUIValue(HtmlInputTextarea textArea)
     {
         if (textArea.getSubmittedValue() != null
                 && textArea.getSubmittedValue() instanceof String
@@ -211,7 +215,7 @@ public class CommonUtils
             return ((String) textArea.getSubmittedValue());
         }
 
-        return (String) textArea.getText();
+        return (String) textArea.getValue();
     }
 
     /**
@@ -263,10 +267,10 @@ public class CommonUtils
         }
         return cdata;
     }
-    
+
     /**
-     * Changes all occurrences of oldPat to newPat
-     * 
+     * Changes all occurrences of oldPat to newPat.
+     *
      * @param in A String that might contain problematic HTML characters.
      * @param oldPat the old pattern to be escaped.
      * @param newPat the new pattern to escape with.
@@ -312,39 +316,43 @@ public class CommonUtils
     }
 
     /**
-     * Converts an array of SelectItems to a SelectItemUI. This is used for items for comboboxes. 
+     * Converts an array of SelectItems to a SelectItemUI. This is used for items for comboboxes.
      * @param selectItems the array of SelectItems that should be converted
      * @return a UISelectItems which can be added to a HtmlSelectOneMenu with HtmlSelectOneMenu.getChildren.add()
      */
-    public static UISelectItems convertToSelectItemsUI(SelectItem[] selectItems)
+    public static List<UISelectItem> convertToSelectItemsUI(final SelectItem[] selectItems)
     {
-        UISelectItems uiSelectItems = new UISelectItems();         
-        List<SelectItem> selectItemList = new ArrayList<SelectItem>();
-        
-        for (int i=0; i<selectItems.length; i++)
+        List<UISelectItem> uiSelectItems = new ArrayList<UISelectItem>();
+
+        for (int i = 0; i < selectItems.length; i++)
         {
-            selectItemList.add(selectItems[i]);
+            UISelectItem uiSelectItem = new UISelectItem();
+            uiSelectItem.setItemValue(selectItems[i].getValue());
+            uiSelectItem.setItemLabel(selectItems[i].getLabel());
+            uiSelectItems.add(uiSelectItem);
         }
-        
-        uiSelectItems.setValue(selectItemList);
+
+//        UISelectItems items = new UISelectItems();
+//        items.setValue(uiSelectItems);
 
         return uiSelectItems;
-    }        
-    
+    }
+
     /**
-     * generates an HTML OutputText element. The method also tests if the string that should be placed into the element is empty. 
+     * generates an HTML OutputText element. The method also tests if the string that
+     * should be placed into the element is empty.
      * If it is, a "&nbsp;" string is placed into.
      * @author Tobias Schraut
      * @param elementText the text that should placed into the html text element
      * @return HtmlOutputText the generated and prepared html text element
      */
-    public static HtmlOutputText getTextElementConsideringEmpty (String elementText)
+    public static HtmlOutputText getTextElementConsideringEmpty(String elementText)
     {
         HtmlOutputText text = new HtmlOutputText();
         text.setId(CommonUtils.createUniqueId(text));
-        if(elementText != null)
+        if (elementText != null)
         {
-            if(!elementText.trim().equals(""))
+            if (!elementText.trim().equals(""))
             {
                 text.setEscape(false);
                 elementText = elementText.replace("<", "&lt;");
@@ -365,22 +373,22 @@ public class CommonUtils
         }
         return text;
     }
-    
+
     /**
      * Converts a list of valueObjects to a list of ValueObjectWrappers.
      * @param valueObjectList the list of valueObjects
      * @return the list of ValueObjectWrappers
      */
-    public static List<PubItemVOWrapper> convertToWrapperList(List<PubItemVO> valueObjectList)
+    public static List<PubItemVOWrapper> convertToWrapperList(final List<PubItemVO> valueObjectList)
     {
         List wrapperList = new ArrayList<ValueObjectWrapper>();
-        
+
         for (int i = 0; i < valueObjectList.size(); i++)
         {
             wrapperList.add(new PubItemVOWrapper(valueObjectList.get(i)));
         }
-        
-        return wrapperList;        
+
+        return wrapperList;
     }
 
     /**
@@ -391,15 +399,15 @@ public class CommonUtils
     public static List<PubItemVO> convertToPubItemList(List<PubItemVOWrapper> wrapperList)
     {
         List pubItemList = new ArrayList<ValueObject>();
-        
+
         for (int i = 0; i < wrapperList.size(); i++)
         {
             pubItemList.add(wrapperList.get(i).getValueObject());
         }
-        
-        return pubItemList;        
+
+        return pubItemList;
     }
-    
+
     /**
      * Converts a list of valueObjects to a list of ValueObjectWrappers.
      * @param valueObjectList the list of valueObjects
@@ -408,13 +416,13 @@ public class CommonUtils
     public static List<PubCollectionVOWrapper> convertToPubCollectionVOWrapperList(List<PubCollectionVO> valueObjectList)
     {
         List wrapperList = new ArrayList<PubCollectionVOWrapper>();
-        
+
         for (int i = 0; i < valueObjectList.size(); i++)
         {
             wrapperList.add(new PubCollectionVOWrapper(valueObjectList.get(i)));
         }
-        
-        return wrapperList;        
+
+        return wrapperList;
     }
 
     /**
@@ -423,7 +431,7 @@ public class CommonUtils
      * @param itemID the itemID that is searched for
      * @return the pubItem with the given ID or null if the item cannot be found in the given list
      */
-    public static PubItemVO getItemByID(List<PubItemVO> itemList, String itemID)
+    public static PubItemVO getItemByID(final List<PubItemVO> itemList, final String itemID)
     {
         for (int i = 0; i < itemList.size(); i++)
         {
@@ -432,22 +440,22 @@ public class CommonUtils
                 return itemList.get(i);
             }
         }
-        
+
         logger.warn("Item with ID: " + itemID + " cannot be found in the list.");
         return null;
     }
-    
+
     /**
      * Limits a string to the given length (on word basis).
      * @param string the string to be limited
      * @param length the maximum length of the string
      * @return the limited String
      */
-    public static String limitString(String string, int length)
-    {        
+    public static String limitString(final String string, final int length)
+    {
         String limitedString = new String();
         String[] splittedString = string.split(" ");
-        
+
         if (splittedString != null && splittedString.length > 0)
         {
             limitedString = splittedString[0];
@@ -465,7 +473,8 @@ public class CommonUtils
                 }
             }
         }
-                
+
         return limitedString;
     }
+
 }

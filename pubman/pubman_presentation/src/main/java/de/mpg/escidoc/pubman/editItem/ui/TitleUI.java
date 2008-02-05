@@ -35,9 +35,9 @@ import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextArea;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputTextarea;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * UI component for editing titles. 
  * 
  * @author: Thomas Diebäcker, created 20.06.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
 public class TitleUI extends AbstractUI
@@ -57,13 +57,13 @@ public class TitleUI extends AbstractUI
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
     private HtmlPanelGrid panAttributes = new HtmlPanelGrid();
-    private Label lblTitel = new Label();
-    private TextArea txtaTitel = new TextArea();
-    private DropDown cboLanguage = new DropDown();
+    private HtmlOutputLabel lblTitel = new HtmlOutputLabel();
+    private HtmlInputTextarea txtaTitel = new HtmlInputTextarea();
+    private HtmlSelectOneMenu cboLanguage = new HtmlSelectOneMenu();
 
     /**
      * Public constructor.
@@ -84,7 +84,7 @@ public class TitleUI extends AbstractUI
         }
         
         i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         // set attributes for all GUI components
         this.panAttributes.setId(this.createUniqueId(this.panAttributes));
@@ -95,16 +95,17 @@ public class TitleUI extends AbstractUI
         
         this.lblTitel.setId(this.createUniqueId(this.lblTitel));
         this.lblTitel.setValue((this.indexComponent == 0) ? labelBundle.getString("EditItem_lblTitel") : labelBundle.getString("EditItem_lblAlternativeTitel"));
-        this.lblTitel.setLabelLevel(3);
-        this.lblTitel.setRequiredIndicator(parentVO instanceof MdsPublicationVO); // only normal titles should be reqired, no titles in Source
+        //this.lblTitel.setLabelLevel(3);
+        //this.lblTitel.setRequiredIndicator(parentVO instanceof MdsPublicationVO); // only normal titles should be reqired, no titles in Source
         this.panAttributes.getChildren().add(this.lblTitel);
 
         this.txtaTitel.setId(this.createUniqueId(this.txtaTitel));        
         this.txtaTitel.setStyleClass("editItemTextArea");
         this.panAttributes.getChildren().add(this.txtaTitel);
         
+        this.cboLanguage.getChildren().clear();
         this.cboLanguage.setId(this.createUniqueId(this.cboLanguage));
-        this.cboLanguage.setItems(CommonUtils.getLanguageOptions());
+        this.cboLanguage.getChildren().addAll(CommonUtils.convertToSelectItemsUI(CommonUtils.getLanguageOptions()));
         this.cboLanguage.setStyleClass("editItemComboBoxLanguage");
         this.panAttributes.getChildren().add(this.cboLanguage);
         

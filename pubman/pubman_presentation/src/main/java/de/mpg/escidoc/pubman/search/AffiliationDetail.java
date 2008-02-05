@@ -41,12 +41,12 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
  * This class holds the AffiliationVO to be displayed in the AffiliationDetail Page.  
  *
  * @author:  Hugo Niedermaier, created 24.07.2007
- * @version: $Revision: 1613 $ $LastChangedDate: 2007-11-27 12:42:03 +0100 (Tue, 27 Nov 2007) $
+ * @version: $Revision: 1613 $ $LastChangedDate: 2007-11-27 12:42:03 +0100 (Di, 27 Nov 2007) $
  * Revised by NiH: 14.08.2007
  */
 public class AffiliationDetail
 {
-    public static final String BEAN_NAME = "search$AffiliationDetail";
+    public static final String BEAN_NAME = "AffiliationDetail";
     
     private AffiliationVO affiliationVO;
     private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();

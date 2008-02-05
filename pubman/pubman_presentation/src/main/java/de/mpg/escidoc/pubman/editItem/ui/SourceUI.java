@@ -39,12 +39,12 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Button;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextArea;
-import com.sun.rave.web.ui.component.TextField;
-import com.sun.rave.web.ui.model.Option;
+import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.model.SelectItem;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.editItem.EnumConverter;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -62,7 +62,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * UI component for editing content languages. 
  * 
  * @author: Thomas Diebäcker, created 14.06.2007
- * @version: $Revision: 1624 $ $LastChangedDate: 2007-11-27 20:55:04 +0100 (Tue, 27 Nov 2007) $
+ * @version: $Revision: 1624 $ $LastChangedDate: 2007-11-27 20:55:04 +0100 (Di, 27 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
 public class SourceUI extends HtmlPanelGrid implements ActionListener
@@ -82,44 +82,44 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
     
     // for handling the resource bundles (i18n)    
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
-    protected Label lblSource = new Label();
-    protected Label lblGenre = new Label();
-    protected Button btAdd = new Button();
-    protected Button btRemove = new Button();
+    protected HtmlOutputLabel lblSource = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblGenre = new HtmlOutputLabel();
+    protected HtmlCommandButton btAdd = new HtmlCommandButton();
+    protected HtmlCommandButton btRemove = new HtmlCommandButton();
     
-    protected Label lblPublishingInfo = new Label();
-    protected Label lblPublisher = new Label();
-    protected Label lblPlace = new Label();
-    protected Label lblEdition = new Label();
-    protected Label lblVolume = new Label();
-    protected Label lblIssue = new Label();
-    protected Label lblStartpage = new Label();
-    protected Label lblEndpage = new Label();
-    protected Label lblSequenceNumber = new Label();
-    protected Label lblSpace = new Label();
-    protected Label lblSpace2 = new Label();
+    protected HtmlOutputLabel lblPublishingInfo = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblPublisher = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblPlace = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblEdition = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblVolume = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblIssue = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblStartpage = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblEndpage = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblSequenceNumber = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblSpace = new HtmlOutputLabel();
+    protected HtmlOutputLabel lblSpace2 = new HtmlOutputLabel();
     
-    protected DropDown cboGenre = new DropDown();
-    protected TextArea txtaPublisher = new TextArea();
-    protected TextField txtPlace = new TextField();
-    protected TextField txtEdition = new TextField();        
-    protected TextField txtVolume = new TextField();
-    protected TextField txtIssue = new TextField();
-    protected TextField txtStartpage = new TextField();
-    protected TextField txtEndpage = new TextField();
-    protected TextField txtSequenceNumber = new TextField();
+    protected HtmlSelectOneMenu cboGenre = new HtmlSelectOneMenu();
+    protected HtmlInputTextarea txtaPublisher = new HtmlInputTextarea();
+    protected HtmlInputText txtPlace = new HtmlInputText();
+    protected HtmlInputText txtEdition = new HtmlInputText();        
+    protected HtmlInputText txtVolume = new HtmlInputText();
+    protected HtmlInputText txtIssue = new HtmlInputText();
+    protected HtmlInputText txtStartpage = new HtmlInputText();
+    protected HtmlInputText txtEndpage = new HtmlInputText();
+    protected HtmlInputText txtSequenceNumber = new HtmlInputText();
     
     // constants for comboBoxes
-    private Option NO_ITEM_SET = new Option("", labelBundle.getString("EditItem_NO_ITEM_SET"));
-    private Option GENRE_BOOK = new Option(SourceVO.Genre.BOOK, labelBundle.getString("EditItem_GENRE_BOOK"));
-    private Option GENRE_PROCEEDINGS = new Option(SourceVO.Genre.PROCEEDINGS, labelBundle.getString("EditItem_GENRE_PROCEEDINGS"));
-    private Option GENRE_ISSUE = new Option(SourceVO.Genre.ISSUE, labelBundle.getString("EditItem_GENRE_ISSUE"));
-    private Option GENRE_JOURNAL = new Option(SourceVO.Genre.JOURNAL, labelBundle.getString("EditItem_GENRE_JOURNAL"));
-    private Option GENRE_SERIES = new Option(SourceVO.Genre.SERIES, labelBundle.getString("EditItem_GENRE_SERIES"));
-    private Option[] GENRE_OPTIONS = new Option[] { NO_ITEM_SET, GENRE_BOOK, GENRE_PROCEEDINGS, GENRE_ISSUE, GENRE_JOURNAL, GENRE_SERIES };
+    private SelectItem NO_ITEM_SET = new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET"));
+    private SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, labelBundle.getString("ENUM_GENRE_BOOK"));
+    private SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS, labelBundle.getString("ENUM_GENRE_PROCEEDINGS"));
+    private SelectItem GENRE_ISSUE = new SelectItem(SourceVO.Genre.ISSUE, labelBundle.getString("ENUM_GENRE_ISSUE"));
+    private SelectItem GENRE_JOURNAL = new SelectItem(SourceVO.Genre.JOURNAL, labelBundle.getString("ENUM_GENRE_JOURNAL"));
+    private SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, labelBundle.getString("ENUM_GENRE_SERIES"));
+    private SelectItem[] GENRE_OPTIONS = new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_PROCEEDINGS, GENRE_ISSUE, GENRE_JOURNAL, GENRE_SERIES };
 
     /**
      * Public constructor.
@@ -136,7 +136,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();   
         
         i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         // set attributes for all GUI components
         this.setId(viewRoot.createUniqueId() + "_SourceUI" + Calendar.getInstance().getTimeInMillis());
@@ -154,7 +154,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
 
         this.lblSource.setId(viewRoot.createUniqueId() + "_lblSource" + Calendar.getInstance().getTimeInMillis());
         this.lblSource.setValue(labelBundle.getString("EditItem_lblSource"));
-        this.lblSource.setLabelLevel(2);
+        //this.lblSource.setLabelLevel(2);
         this.panAttributes.getChildren().add(this.lblSource);
 
         this.lblSpace2.setId(viewRoot.createUniqueId() + "_lblSpace2" + Calendar.getInstance().getTimeInMillis());
@@ -172,16 +172,18 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.btRemove.setStyleClass("editDynamicButton");
         this.btRemove.setImmediate(true);
         this.btRemove.addActionListener(this);
-        this.btRemove.setVisible(this.isRemoveButtonVisible());
+        this.btRemove.setRendered(this.isRemoveButtonVisible());
         this.panAttributes.getChildren().add(this.btRemove);     
+        
+        this.lblGenre.getChildren().clear();
         
         this.lblGenre.setId(CommonUtils.createUniqueId(lblGenre));
         this.lblGenre.setValue(labelBundle.getString("EditItem_lblGenre"));
-        this.lblGenre.setLabelLevel(3);
+        //this.lblGenre.setLabelLevel(3);
         this.panAttributes.getChildren().add(this.lblGenre);
         
         this.cboGenre.setId(CommonUtils.createUniqueId(cboGenre));
-        this.cboGenre.setItems(this.GENRE_OPTIONS);
+        this.cboGenre.getChildren().addAll(CommonUtils.convertToSelectItemsUI(this.GENRE_OPTIONS));
         this.cboGenre.setConverter(new EnumConverter(SourceVO.Genre.values())); // ValueList for converter has to be set explicitly 
                                                                                 // because the guessValueList()-method would find the 
                                                                                 // string in MdsPublicationVO.Genre not in 
@@ -204,7 +206,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
                 
         this.lblPublishingInfo.setId(viewRoot.createUniqueId() + "_lblPublishingInfo" + Calendar.getInstance().getTimeInMillis());
         this.lblPublishingInfo.setValue(labelBundle.getString("EditItem_lblPublishingInfo"));
-        this.lblPublishingInfo.setLabelLevel(2);
+        //this.lblPublishingInfo.setLabelLevel(2);
         this.panPublishingInfo.getChildren().add(this.lblPublishingInfo);
 
         this.lblSpace.setId(viewRoot.createUniqueId() + "_lblSpace" + Calendar.getInstance().getTimeInMillis());
@@ -213,7 +215,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblPublisher.setId(viewRoot.createUniqueId() + "_lblPublisher" + Calendar.getInstance().getTimeInMillis());
         this.lblPublisher.setValue(labelBundle.getString("EditItem_lblPublisher"));
         this.lblPublisher.setFor(this.txtaPublisher.getId());
-        this.lblPublisher.setLabelLevel(3);
+        //this.lblPublisher.setLabelLevel(3);
         this.panPublishingInfo.getChildren().add(this.lblPublisher);
 
         this.txtaPublisher.setId(viewRoot.createUniqueId() + "_txtaPublisher" + Calendar.getInstance().getTimeInMillis());
@@ -223,7 +225,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblPlace.setId(viewRoot.createUniqueId() + "_lblPlace" + Calendar.getInstance().getTimeInMillis());
         this.lblPlace.setValue(labelBundle.getString("EditItem_lblPlace"));
         this.lblPlace.setFor(this.txtPlace.getId());
-        this.lblPlace.setLabelLevel(3);
+        //this.lblPlace.setLabelLevel(3);
         this.panPublishingInfo.getChildren().add(this.lblPlace);
 
         this.txtPlace.setId(viewRoot.createUniqueId() + "_txtPlace" + Calendar.getInstance().getTimeInMillis());
@@ -233,7 +235,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblEdition.setId(viewRoot.createUniqueId() + "_lblEdition" + Calendar.getInstance().getTimeInMillis());
         this.lblEdition.setValue(labelBundle.getString("EditItem_lblEdition"));
         this.lblEdition.setFor(this.txtEdition.getId());
-        this.lblEdition.setLabelLevel(3);
+        //this.lblEdition.setLabelLevel(3);
         this.panPublishingInfo.getChildren().add(this.lblEdition);
 
         this.txtEdition.setId(viewRoot.createUniqueId() + "_txtEdition" + Calendar.getInstance().getTimeInMillis());
@@ -251,7 +253,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblVolume.setId(viewRoot.createUniqueId() + "_lblVolume" + Calendar.getInstance().getTimeInMillis());
         this.lblVolume.setValue(labelBundle.getString("EditItem_lblVolume"));
         this.lblVolume.setFor(this.txtVolume.getId());
-        this.lblVolume.setLabelLevel(3);
+        //this.lblVolume.setLabelLevel(3);
         this.panFurtherAttributes.getChildren().add(this.lblVolume);
 
         this.txtVolume.setId(viewRoot.createUniqueId() + "_txtVolume" + Calendar.getInstance().getTimeInMillis());
@@ -261,7 +263,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblIssue.setId(viewRoot.createUniqueId() + "_lblIssue" + Calendar.getInstance().getTimeInMillis());
         this.lblIssue.setValue(labelBundle.getString("EditItem_lblIssue"));
         this.lblIssue.setFor(this.txtIssue.getId());
-        this.lblIssue.setLabelLevel(3);
+        //this.lblIssue.setLabelLevel(3);
         this.panFurtherAttributes.getChildren().add(this.lblIssue);
 
         this.txtIssue.setId(viewRoot.createUniqueId() + "_txtIssue" + Calendar.getInstance().getTimeInMillis());
@@ -271,7 +273,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblStartpage.setId(viewRoot.createUniqueId() + "_lblStartpage" + Calendar.getInstance().getTimeInMillis());
         this.lblStartpage.setValue(labelBundle.getString("EditItem_lblStartpage"));
         this.lblStartpage.setFor(this.txtStartpage.getId());
-        this.lblStartpage.setLabelLevel(3);
+        //this.lblStartpage.setLabelLevel(3);
         this.panFurtherAttributes.getChildren().add(this.lblStartpage);
 
         this.txtStartpage.setId(viewRoot.createUniqueId() + "_txtStartpage" + Calendar.getInstance().getTimeInMillis());
@@ -281,7 +283,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblEndpage.setId(viewRoot.createUniqueId() + "_lblEndpage" + Calendar.getInstance().getTimeInMillis());
         this.lblEndpage.setValue(labelBundle.getString("EditItem_lblEndpage"));
         this.lblEndpage.setFor(this.txtEndpage.getId());
-        this.lblEndpage.setLabelLevel(3);
+        //this.lblEndpage.setLabelLevel(3);
         this.panFurtherAttributes.getChildren().add(this.lblEndpage);
 
         this.txtEndpage.setId(viewRoot.createUniqueId() + "_txtEndpage" + Calendar.getInstance().getTimeInMillis());
@@ -291,7 +293,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         this.lblSequenceNumber.setId(viewRoot.createUniqueId() + "_lblSequenceNumber" + Calendar.getInstance().getTimeInMillis());
         this.lblSequenceNumber.setValue(labelBundle.getString("EditItem_lblSequenceNumber"));
         this.lblSequenceNumber.setFor(this.txtSequenceNumber.getId());
-        this.lblSequenceNumber.setLabelLevel(3);
+        //this.lblSequenceNumber.setLabelLevel(3);
         this.panFurtherAttributes.getChildren().add(this.lblSequenceNumber);
 
         this.txtSequenceNumber.setId(viewRoot.createUniqueId() + "_txtSequenceNumber" + Calendar.getInstance().getTimeInMillis());
@@ -497,16 +499,16 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
      */    
     private void createValueBinding()
     {   
-        this.cboGenre.setValueBinding("value", application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].genre}"));
-        this.txtaPublisher.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.publisher}"));
-        this.txtPlace.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.place}"));
-        this.txtEdition.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.edition}"));
+        this.cboGenre.setValueBinding("value", application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].genre}"));
+        this.txtaPublisher.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.publisher}"));
+        this.txtPlace.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.place}"));
+        this.txtEdition.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].publishingInfo.edition}"));
         
-        this.txtVolume.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].volume}"));
-        this.txtIssue.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].issue}"));
-        this.txtStartpage.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].startPage}"));
-        this.txtEndpage.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].endPage}"));
-        this.txtSequenceNumber.setValueBinding("value", this.application.createValueBinding("#{editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].sequenceNumber}"));
+        this.txtVolume.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].volume}"));
+        this.txtIssue.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].issue}"));
+        this.txtStartpage.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].startPage}"));
+        this.txtEndpage.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].endPage}"));
+        this.txtSequenceNumber.setValueBinding("value", this.application.createValueBinding("#{EditItem.pubItem.metadata.sources[" + this.indexComponent + "].sequenceNumber}"));
     }
 
     /**
@@ -522,7 +524,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         for (int i=0; i<this.panDynamicParentPanel.getChildCount(); i++)
         {
             // refresh visibility of all the remove buttons (see PUBMAN-110)
-            ((SourceUI)this.panDynamicParentPanel.getChildren().get(i)).btRemove.setVisible(this.isRemoveButtonVisible());
+            ((SourceUI)this.panDynamicParentPanel.getChildren().get(i)).btRemove.setRendered(this.isRemoveButtonVisible());
         }
     }
 
@@ -573,17 +575,17 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
         
         for (int i=0; i<this.panDynamicTitle.getChildCount(); i++)
         {
-            ((TitleUI)this.panDynamicTitle.getChildren().get(i)).setParentValueBinding("editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "]");
+            ((TitleUI)this.panDynamicTitle.getChildren().get(i)).setParentValueBinding("EditItem.pubItem.metadata.sources[" + this.indexComponent + "]");
         }
 
         for (int i=0; i<this.panDynamicIdentifier.getChildCount(); i++)
         {
-            ((IdentifierUI)this.panDynamicIdentifier.getChildren().get(i)).setParentValueBinding("editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].identifiers");
+            ((IdentifierUI)this.panDynamicIdentifier.getChildren().get(i)).setParentValueBinding("EditItem.pubItem.metadata.sources[" + this.indexComponent + "].identifiers");
         }
 
         for (int i=0; i<this.panDynamicCreator.getChildCount(); i++)
         {
-            ((CreatorUI)this.panDynamicIdentifier.getChildren().get(i)).setParentValueBinding("editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].creators");
+            ((CreatorUI)this.panDynamicIdentifier.getChildren().get(i)).setParentValueBinding("EditItem.pubItem.metadata.sources[" + this.indexComponent + "].creators");
         }
     }
 
@@ -591,7 +593,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
     {
         if (this.panDynamicTitle.getChildren().size() == 0)
         {
-            TitleUI.createDynamicParentPanel(this.panDynamicTitle, this.getPubItem().getMetadata().getSources().get(this.indexComponent), "editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "]");
+            TitleUI.createDynamicParentPanel(this.panDynamicTitle, this.getPubItem().getMetadata().getSources().get(this.indexComponent), "EditItem.pubItem.metadata.sources[" + this.indexComponent + "]");
         }
         return panDynamicTitle;
     }
@@ -605,7 +607,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
     {
         if (this.panDynamicIdentifier.getChildren().size() == 0)
         {
-            IdentifierUI.createDynamicParentPanel(this.panDynamicIdentifier, this.getPubItem().getMetadata().getSources().get(this.indexComponent).getIdentifiers(), "editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].identifiers");
+            IdentifierUI.createDynamicParentPanel(this.panDynamicIdentifier, this.getPubItem().getMetadata().getSources().get(this.indexComponent).getIdentifiers(), "EditItem.pubItem.metadata.sources[" + this.indexComponent + "].identifiers");
         }
         return panDynamicIdentifier;
     }
@@ -619,7 +621,7 @@ public class SourceUI extends HtmlPanelGrid implements ActionListener
     {
         if (this.panDynamicCreator.getChildren().size() == 0)
         {
-            CreatorUI.createDynamicParentPanel(this.panDynamicCreator, this.getPubItem().getMetadata().getSources().get(this.indexComponent).getCreators(), "editItem$EditItem.pubItem.metadata.sources[" + this.indexComponent + "].creators", false);
+            CreatorUI.createDynamicParentPanel(this.panDynamicCreator, this.getPubItem().getMetadata().getSources().get(this.indexComponent).getCreators(), "EditItem.pubItem.metadata.sources[" + this.indexComponent + "].creators", false);
         }
         return panDynamicCreator;
     }

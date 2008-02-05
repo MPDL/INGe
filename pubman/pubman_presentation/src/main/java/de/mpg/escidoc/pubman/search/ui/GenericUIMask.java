@@ -30,9 +30,9 @@
 package de.mpg.escidoc.pubman.search.ui;
 
 import javax.faces.component.html.HtmlPanelGroup;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextField;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputText;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.SourceCriterionVO;
 /**
  * This mask collects search data for organization or event or identifier or source.
  * @author endres
- * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Tue, 04 Dec 2007) $
+ * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Di, 04 Dez 2007) $
  *
  */
 public class GenericUIMask extends UIMask
@@ -65,10 +65,10 @@ public class GenericUIMask extends UIMask
     private HTMLElementUI htmlElement = new HTMLElementUI();
     private HtmlPanelGroup panel1 = new HtmlPanelGroup();
     private HtmlPanelGroup panel2 = new HtmlPanelGroup();
-    private Label lblSearchString = new Label();
-    private TextField txtSearchString = new TextField();
-    private DropDown cboLanguage = new DropDown();        
-    private Label lblCboLanguage = new Label();
+    private HtmlOutputLabel lblSearchString = new HtmlOutputLabel();
+    private HtmlInputText txtSearchString = new HtmlInputText();
+    private HtmlSelectOneMenu cboLanguage = new HtmlSelectOneMenu();        
+    private HtmlOutputLabel lblCboLanguage = new HtmlOutputLabel();
     
     /**
      * Implements one text input field for given type of search.
@@ -84,7 +84,7 @@ public class GenericUIMask extends UIMask
         this.panel1.setId(CommonUtils.createUniqueId(this.panel1));
         this.panel1.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "searchTerm"));
         this.lblSearchString.setId(CommonUtils.createUniqueId(this.lblSearchString));
-        this.lblSearchString.setValue(bundle.getString("adv_search_lblSearchTerm"));
+        this.lblSearchString.setValue(getLabel("adv_search_lblSearchTerm"));
         this.txtSearchString.setId(CommonUtils.createUniqueId(this.txtSearchString));
         this.txtSearchString.setImmediate(true);
         this.panel1.getChildren().add(lblSearchString);
@@ -98,11 +98,13 @@ public class GenericUIMask extends UIMask
             this.panel2.setId(CommonUtils.createUniqueId(this.panel2));
             this.panel2.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "formGroupTitle"));
             this.lblCboLanguage.setId(CommonUtils.createUniqueId(this.lblCboLanguage));
-            this.lblCboLanguage.setValue(bundle.getString("adv_search_lblLanguage"));
+            this.lblCboLanguage.setValue(getLabel("adv_search_lblLanguage"));
             // disable language for now
             this.lblCboLanguage.setRendered( false );
+            
+            this.cboLanguage.getChildren().clear();
             this.cboLanguage.setId(CommonUtils.createUniqueId(this.cboLanguage));
-            this.cboLanguage.setItems(CommonUtils.getLanguageOptions());
+            this.cboLanguage.getChildren().addAll(CommonUtils.convertToSelectItemsUI(CommonUtils.getLanguageOptions()));
             this.cboLanguage.setImmediate(true);
             // disable language for now
             this.cboLanguage.setRendered(false);
@@ -121,7 +123,7 @@ public class GenericUIMask extends UIMask
     void clearForm()
     {
         this.getTxtSearchString().setValue("");
-        this.getCboLanguage().setSelected("-");
+        this.getCboLanguage().setValue("-");
     }
 
     @Override
@@ -130,28 +132,28 @@ public class GenericUIMask extends UIMask
         if (type == Type.ORGANIZATION)
           {
               OrganizationCriterionVO organizationCriterionVO = new OrganizationCriterionVO();
-              organizationCriterionVO.setSearchString((String)this.getTxtSearchString().getText());
+              organizationCriterionVO.setSearchString((String)this.getTxtSearchString().getValue());
 //              organizationCriterionVO.setLanguage(mask.getCboLanguage().getSelected().toString());             
               return organizationCriterionVO;
           }
           else if (type == Type.SOURCE)
           {
               SourceCriterionVO sourceCriterionVO = new SourceCriterionVO();
-              sourceCriterionVO.setSearchString((String)this.getTxtSearchString().getText());
+              sourceCriterionVO.setSearchString((String)this.getTxtSearchString().getValue());
 //              sourceCriterionVO.setLanguage(mask.getCboLanguage().getSelected().toString());
               return sourceCriterionVO;
           }
           else if (type == Type.EVENT)
           {
               EventCriterionVO eventCriterionVO = new EventCriterionVO();
-              eventCriterionVO.setSearchString((String)this.getTxtSearchString().getText());
+              eventCriterionVO.setSearchString((String)this.getTxtSearchString().getValue());
 //              eventCriterionVO.setLanguage(mask.getCboLanguage().getSelected().toString());
               return eventCriterionVO;
           }
           else if (type == Type.IDENTIFIER)
           {
               IdentifierCriterionVO identifierCriterionVO = new IdentifierCriterionVO();
-              identifierCriterionVO.setSearchString((String)this.getTxtSearchString().getText());
+              identifierCriterionVO.setSearchString((String)this.getTxtSearchString().getValue());
               return identifierCriterionVO;
           }
         // TODO endres: add an exception
@@ -164,7 +166,7 @@ public class GenericUIMask extends UIMask
     @Override
     boolean hasData()
     {
-        String searchString = (String)this.getTxtSearchString().getText();
+        String searchString = (String)this.getTxtSearchString().getValue();
         if (searchString != null && searchString.length() > 0)
         {
             return true;
@@ -181,15 +183,15 @@ public class GenericUIMask extends UIMask
     	// refresh buttons and operator
         super.refreshAppearanceButtonsAndOp();
         
-        this.lblSearchString.setValue(bundle.getString("adv_search_lblSearchTerm"));
+        this.lblSearchString.setValue(getLabel("adv_search_lblSearchTerm"));
     }
 
-    public DropDown getCboLanguage()
+    public HtmlSelectOneMenu getCboLanguage()
     {
         return cboLanguage;
     }
 
-    public TextField getTxtSearchString()
+    public HtmlInputText getTxtSearchString()
     {
         return txtSearchString;
     }

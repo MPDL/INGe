@@ -31,12 +31,14 @@ package de.mpg.escidoc.pubman.search.ui;
 
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+
 import de.mpg.escidoc.pubman.ui.CollapsiblePanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -48,7 +50,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
  * by logical operators.
  * 
  * @author endres
- * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Tue, 04 Dec 2007) $
+ * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Di, 04 Dez 2007) $
  */
 public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
 {
@@ -73,10 +75,6 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
         IDENTIFIER
     }
     
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    private ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
     /** typoe of the masks */
     private TypeOfMask typeOfMask;
     /** panel that groups all the masks */
@@ -90,7 +88,7 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
     private ArrayList<UIMask> maskList = new ArrayList<UIMask>();
     
     /** logical operator at the end of a SearchType group */
-    private LogicOperatorUI logicOperator = new LogicOperatorUI( bundle );
+    private LogicOperatorUI logicOperator = new LogicOperatorUI();
     
     /** search type has a logical operator at the end */
     boolean useLogicalOperator;
@@ -228,7 +226,7 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
                     {
                         crit.setLogicOperator(
                                 LogicOperatorUI.getLogicOperatorByString((this.getLogicOperator().
-                                        getCboLogicOperator().getSelected().toString())));
+                                        getCboLogicOperator().getValue().toString())));
                     }
                     criterions.add( crit );
                 }
@@ -283,21 +281,21 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
         switch( type ) 
         {
             case ANYFIELD:
-                return this.bundle.getString("adv_search_lbHeaderWoP");
+                return getLabel("adv_search_lbHeaderWoP");
             case PERSON:
-                return this.bundle.getString("adv_search_lbHeaderPerson");
+                return getLabel("adv_search_lbHeaderPerson");
             case ORGANIZATION:
-                return this.bundle.getString("adv_search_lbHeaderOrgan");
+                return getLabel("adv_search_lbHeaderOrgan");
             case GENRE:
-                return this.bundle.getString("adv_search_lbHeaderGenre");    
+                return getLabel("adv_search_lbHeaderGenre");    
             case DATE:
-                return this.bundle.getString("adv_search_lbHeaderDate");
+                return getLabel("adv_search_lbHeaderDate");
             case SOURCE:
-                return this.bundle.getString("adv_search_lbHeaderSource");
+                return getLabel("adv_search_lbHeaderSource");
             case EVENT:
-                return this.bundle.getString("adv_search_lbHeaderEvent");
+                return getLabel("adv_search_lbHeaderEvent");
             case IDENTIFIER:
-                return this.bundle.getString("adv_search_lbHeaderIdent");
+                return getLabel("adv_search_lbHeaderIdent");
             default:
                 return "UNKNOWN";
         }
@@ -355,32 +353,16 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
      */
     public void refreshAppearance()
     {
-    	// update the language bundle
-    	this.updateLanguageBundle();
     	
     	// update header
     	this.textTitle.setValue( this.getIdentifierByEnum(typeOfMask) );
-    	
-    	// update logicOperator
-    	this.logicOperator.updateLanguage( bundle );
-    	
+
     	// refresh the masks
         for (int i = 0; i < maskList.size(); i++)
         {
             UIMask m = maskList.get(i);
                 m.refreshAppearance();
         }
-    }
-    
-    /**
-     * Updates the language of the bundle.
-     *
-     */
-    private void updateLanguageBundle()
-    {
-    	this.application = FacesContext.getCurrentInstance().getApplication();
-        this.i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-        this.bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
     }
 
     /** 

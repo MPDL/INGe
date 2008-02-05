@@ -30,15 +30,19 @@
 package de.mpg.escidoc.pubman.search;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
-import javax.faces.component.html.HtmlCommandButton;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
-import com.sun.rave.web.ui.component.DropDown;
-import de.mpg.escidoc.pubman.search.ui.SearchTypeUI;
+import java.util.Locale;
+
+import javax.faces.model.SelectItem;
+
+import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.GenreCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.IdentifierCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**
@@ -46,26 +50,25 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
  * by logical operators.
  * 
  * @author Hugo Niedermaier, endres
- * @version $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $
+ * @version $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $
  */
 public class AdvancedSearchEdit extends SearchResultList
 {
-    public static final String BEAN_NAME = "advancedSearchEdit";
+    public static final String BEAN_NAME = "AdvancedSearchEdit";
     /** faces navigation string */
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
     
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    private ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-   
-    private HtmlCommandButton btClearSearch = new HtmlCommandButton();
-    private HtmlCommandButton btStartSearch = new HtmlCommandButton();
-    
-    private DropDown cboLanguage = new DropDown(); 
+    private String languageString = Locale.getDefault().getLanguage(); 
 
-    private HtmlPanelGroup panelCriteria = new HtmlPanelGroup();
-    
-    private ArrayList<SearchTypeUI> searchTypeList = new ArrayList<SearchTypeUI>();
+    // delegated internal collections
+	private AnyFieldCriterionCollection anyFieldCriterionCollection;
+    private PersonCriterionCollection personCriterionCollection;
+    private OrganizationCriterionCollection organizationCriterionCollection;
+    private GenreCriterionCollection genreCriterionCollection;
+    private DateCriterionCollection dateCriterionCollection;
+    private SourceCriterionCollection sourceCriterionCollection;
+    private EventCriterionCollection eventCriterionCollection;
+    private IdentifierCriterionCollection identifierCriterionCollection;
     
    /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -73,30 +76,18 @@ public class AdvancedSearchEdit extends SearchResultList
     */ 
     public AdvancedSearchEdit()
     {
-        // chnage the common search language   
-        this.cboLanguage.setItems(CommonUtils.getLanguageOptions());
+    	// delegated internal collections
+    	anyFieldCriterionCollection = new AnyFieldCriterionCollection();
+        personCriterionCollection = new PersonCriterionCollection();
+        organizationCriterionCollection = new OrganizationCriterionCollection();
+        genreCriterionCollection = new GenreCriterionCollection();
+        dateCriterionCollection = new DateCriterionCollection();
+        sourceCriterionCollection = new SourceCriterionCollection();
+        eventCriterionCollection = new EventCriterionCollection();
+        identifierCriterionCollection = new IdentifierCriterionCollection();
         
-        // button for clear all forms
-        this.btClearSearch.setId(CommonUtils.createUniqueId(this.btClearSearch));
-        this.btClearSearch.setValue(bundle.getString("adv_search_btClearAll"));
-        this.btClearSearch.setStyleClass("inlineButton");
-        this.btClearSearch.setAction(this.application.createMethodBinding("#{advancedSearchEdit.clearAllForms}", null));
+        this.init();
         
-        // button for start search
-        this.btStartSearch.setId(CommonUtils.createUniqueId(this.btStartSearch));
-        this.btStartSearch.setValue(bundle.getString("adv_search_btStart"));
-        this.btStartSearch.setStyleClass("inlineButton");
-        this.btStartSearch.setAction(this.application.createMethodBinding("#{advancedSearchEdit.startSearch}", null));
-        
-        //add all the needed search types
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.ANYFIELD, panelCriteria, false, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.PERSON, panelCriteria, false, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.ORGANIZATION, panelCriteria, false, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.GENRE, panelCriteria, false, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.DATE, panelCriteria, false, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.SOURCE, panelCriteria, true, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.EVENT, panelCriteria, true, true ) );
-        searchTypeList.add( new SearchTypeUI( SearchTypeUI.TypeOfMask.IDENTIFIER, panelCriteria, true, false ) );          
     }
     
     /**
@@ -106,43 +97,27 @@ public class AdvancedSearchEdit extends SearchResultList
     public void init()
     {
     	super.init();
-    	
-    	// update the language 
-    	this.updateLanguage();
     }
 
     /**
-     * action handler to update the AnyFieldMask (Language Info and include Files enable/disable).
-     */
-    public void updateAnyFieldMask()
-    {
-        for( int i = 0; i < searchTypeList.size(); i++ ) 
-        {
-            SearchTypeUI searchType = searchTypeList.get( i );
-            // only needed for anyfield masks
-            if( searchType.getType().equals( SearchTypeUI.TypeOfMask.ANYFIELD ) )
-            {
-                searchType.refreshAppearance();
-            }
-        }
-    }
-    
-    /**
      * Action handler to reset all forms.
      */
-    public void clearAllForms()
+    public String clearAllForms()
     {        
-        // reset the language field
-        this.cboLanguage.setSelected(CommonUtils.getLanguageOptions()[0]);
-        
-        // reset all the forms in the search types
-        for( int i = 0; i < searchTypeList.size(); i++ ) 
-        {
-            SearchTypeUI searchType = searchTypeList.get( i );
-            searchType.clearForms();
-        }
-    }
-  
+    	languageString = Locale.getDefault().getLanguage();
+    	
+    	// delegate clearAllForms to internal collections
+    	anyFieldCriterionCollection.clearAllForms();
+        personCriterionCollection.clearAllForms();
+        organizationCriterionCollection.clearAllForms();
+        genreCriterionCollection.clearAllForms();
+        dateCriterionCollection.clearAllForms();
+        sourceCriterionCollection.clearAllForms();
+        eventCriterionCollection.clearAllForms();
+        identifierCriterionCollection.clearAllForms();
+        return null;
+	}
+	
     /**
      * Starts the advanced search.
      * iterates a TreeMap with all criterion masks with entered data and
@@ -153,98 +128,124 @@ public class AdvancedSearchEdit extends SearchResultList
     {
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
         
-        for( int i = 0; i < searchTypeList.size(); i++ ) 
-        {
-            SearchTypeUI searchType = searchTypeList.get( i );
-            ArrayList<CriterionVO> list = searchType.getCriterions();
-            for( int u = 0; u < list.size(); u++ )
-            {
-                criterionVOList.add( list.get( u ) );
-            }
-        }
+        // collect VO's from internal collections
+        // we have to ensure, that no empty criterions are moved to the criterionVOList
+        criterionVOList.addAll(anyFieldCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(personCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(organizationCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(genreCriterionCollection.getFilledCriterionVO());
+       	criterionVOList.addAll(dateCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(sourceCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(eventCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(identifierCriterionCollection.getFilledCriterionVO());
     
         //start the advanced search in the PubItemSearching interface
-        SearchResultList list = (SearchResultList)getBean(SearchResultList.BEAN_NAME);
+        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
         
-        if( cboLanguage.getSelected().toString().length() == 0 || ( ! cboLanguage.getSelected().toString().equalsIgnoreCase("de") 
-                   && ! cboLanguage.getSelected().toString().equalsIgnoreCase("en" ) ) )
+        if (languageString == null || languageString.length() == 0 || 
+        		(! languageString.equalsIgnoreCase("de") && ! languageString.equalsIgnoreCase("en" )))
         {
-            return list.startAdvancedSearch(criterionVOList, null );
+            return list.startAdvancedSearch(criterionVOList, null);
         }
         else 
         {
-            String lang = cboLanguage.getSelected().toString();
-            return list.startAdvancedSearch(criterionVOList, lang );
+            return list.startAdvancedSearch(criterionVOList, languageString);
         }
     }
-    
-    /**
-     *  Updates the language resource bundle. 
-     */
-    private void updateLanguageBundle()
+
+    public SelectItem[] getLanguageOptions()
     {
-    	this.application = FacesContext.getCurrentInstance().getApplication();
-        this.i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-        this.bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());     
-    }
-    
-    /**
-     * Update the language on the request page.
-     *
-     */
-    public void updateLanguage()
-    {
-    	// update bundle
-    	this.updateLanguageBundle();
-    	
-    	// update buttons
-    	this.btClearSearch.setValue(bundle.getString("adv_search_btClearAll"));
-        this.btStartSearch.setValue(bundle.getString("adv_search_btStart"));
-    	
-    	// update the masks
-    	for( int i = 0; i < searchTypeList.size(); i++ ) 
-        {
-            searchTypeList.get( i ).refreshAppearance();
-        }
-    }
-    
-    public HtmlPanelGroup getPanelCriteria()
-    {
-        return panelCriteria;
+    	return CommonUtils.getLanguageOptions();
     }
 
-    public void setPanelCriteria(HtmlPanelGroup panelAnyField)
-    {
-        this.panelCriteria = panelAnyField;
-    }
+	public String getLanguageString()
+	{
+		return languageString;
+	}
 
-    public DropDown getCboLanguage()
-    {
-        return cboLanguage;
-    }
+	public void setLanguageString(String languageString)
+	{
+		this.languageString = languageString;
+	}
 
-    public void setCboLanguage(DropDown cboLanguage)
-    {
-        this.cboLanguage = cboLanguage;
-    }
+    public PersonCriterionCollection getPersonCriterionCollection()
+	{
+		return personCriterionCollection;
+	}
 
-    public HtmlCommandButton getBtClearSearch()
-    {
-        return btClearSearch;
-    }
+	public void setPersonCriterionCollection(PersonCriterionCollection personCriterionCollection)
+	{
+		this.personCriterionCollection = personCriterionCollection;
+	}
 
-    public void setBtClearSearch(HtmlCommandButton btClearSearch)
-    {
-        this.btClearSearch = btClearSearch;
-    }
+	public GenreCriterionCollection getGenreCriterionCollection()
+	{
+		return genreCriterionCollection;
+	}
 
-    public HtmlCommandButton getBtStartSearch()
-    {
-        return btStartSearch;
-    }
+	public void setGenreCriterionCollection(GenreCriterionCollection genreCriterionCollection)
+	{
+		this.genreCriterionCollection = genreCriterionCollection;
+	}
 
-    public void setBtStartSearch(HtmlCommandButton btStartSearch)
-    {
-        this.btStartSearch = btStartSearch;
-    }
+	public DateCriterionCollection getDateCriterionCollection()
+	{
+		return dateCriterionCollection;
+	}
+
+	public void setDateCriterionCollection(DateCriterionCollection dateCriterionCollection)
+	{
+		this.dateCriterionCollection = dateCriterionCollection;
+	}
+
+	public AnyFieldCriterionCollection getAnyFieldCriterionCollection()
+	{
+		return anyFieldCriterionCollection;
+	}
+
+	public void setAnyFieldCriterionCollection(AnyFieldCriterionCollection anyFieldCriterionCollection)
+	{
+		this.anyFieldCriterionCollection = anyFieldCriterionCollection;
+	}
+
+	public EventCriterionCollection getEventCriterionCollection()
+	{
+		return eventCriterionCollection;
+	}
+
+	public void setEventCriterionCollection(EventCriterionCollection eventCriterionCollection)
+	{
+		this.eventCriterionCollection = eventCriterionCollection;
+	}
+
+	public IdentifierCriterionCollection getIdentifierCriterionCollection()
+	{
+		return identifierCriterionCollection;
+	}
+
+	public void setIdentifierCriterionCollection(IdentifierCriterionCollection identifierCriterionCollection)
+	{
+		this.identifierCriterionCollection = identifierCriterionCollection;
+	}
+
+	public OrganizationCriterionCollection getOrganizationCriterionCollection()
+	{
+		return organizationCriterionCollection;
+	}
+
+	public void setOrganizationCriterionCollection(OrganizationCriterionCollection organizationCriterionCollection)
+	{
+		this.organizationCriterionCollection = organizationCriterionCollection;
+	}
+
+	public SourceCriterionCollection getSourceCriterionCollection()
+	{
+		return sourceCriterionCollection;
+	}
+
+	public void setSourceCriterionCollection(SourceCriterionCollection sourceCriterionCollection)
+	{
+		this.sourceCriterionCollection = sourceCriterionCollection;
+	}
+	
 }

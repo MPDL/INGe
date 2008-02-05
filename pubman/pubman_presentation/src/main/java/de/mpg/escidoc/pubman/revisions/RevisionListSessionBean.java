@@ -33,7 +33,7 @@ package de.mpg.escidoc.pubman.revisions;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -41,11 +41,11 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 /**
  * Keeps all attributes that are used for the whole session by the RevisionList.
  * @author:  Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1599 $ $LastChangedDate: 2007-11-21 20:51:24 +0100 (Wed, 21 Nov 2007) $
+ * @version: $Revision: 1599 $ $LastChangedDate: 2007-11-21 20:51:24 +0100 (Mi, 21 Nov 2007) $
  */
-public class RevisionListSessionBean extends AbstractSessionBean
+public class RevisionListSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "revisions$RevisionListSessionBean";
+    public static final String BEAN_NAME = "RevisionListSessionBean";
     private static Logger logger = Logger.getLogger(RevisionListSessionBean.class);
 
     private List<RelationVOWrapper> relationVOWrapperList = new ArrayList<RelationVOWrapper>();
@@ -57,7 +57,8 @@ public class RevisionListSessionBean extends AbstractSessionBean
      * Public constructor.
      */
     public RevisionListSessionBean()
-    {        
+    {
+        this.init();
     }
 
     /**
@@ -86,7 +87,7 @@ public class RevisionListSessionBean extends AbstractSessionBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     public RevisionListUI getRevisionListUI()

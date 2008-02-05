@@ -32,12 +32,16 @@ package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
+import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.PageAlert;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.pubman.searching.ParseException;
 
@@ -47,10 +51,10 @@ import de.mpg.escidoc.services.pubman.searching.ParseException;
  * Don't forget in the calling component to set the exception as the reason for this error before you display the page!
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class ErrorPage extends AbstractPageBean
+public class ErrorPage extends BreadcrumbPage
 {   
     private static Logger logger = Logger.getLogger(ErrorPage.class);
     
@@ -64,13 +68,6 @@ public class ErrorPage extends AbstractPageBean
     public final static String GT_ERRORPAGE = "faces/GTErrorPage.jsp";
     // JSP-Name for avoiding JSF-Navigation
     public final static String JSP_NAME = "ErrorPage.jsp";
-
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    protected ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
     
     private Exception exception = null;    
     private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();
@@ -81,6 +78,7 @@ public class ErrorPage extends AbstractPageBean
      */
     public ErrorPage()
     {
+        this.init();
     }
 
     /**
@@ -127,8 +125,7 @@ public class ErrorPage extends AbstractPageBean
         // added by NiH
         else if (exception instanceof ParseException)
         {
-            bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-            summary = this.bundleMessage.getString("search_ParseError");
+            summary = getMessage("search_ParseError");
             detail = this.exception.getClass().toString();            
         }
         /*
@@ -148,11 +145,13 @@ public class ErrorPage extends AbstractPageBean
         }
         
         // set the attributes of the pageAlert component
-        PageAlert pageAlert = new PageAlert();
-        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
-        pageAlert.setTitle(title);
-        pageAlert.setSummary(summary);
-        pageAlert.setDetail(detail);
+
+        error(summary, detail);
+        HtmlMessages pageAlert = new HtmlMessages();
+//        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
+//        pageAlert.setTitle(title);
+//        pageAlert.setSummary(summary);
+//        pageAlert.setDetail(detail);
         
         this.panPageAlert.getChildren().add(pageAlert);
     }
@@ -178,11 +177,11 @@ public class ErrorPage extends AbstractPageBean
     
     /**
      * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
     
     /**

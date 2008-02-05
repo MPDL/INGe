@@ -5,14 +5,14 @@
 * (en) Uniform design of standard content elements
 * (de) Einheitliche Standardformatierungen für die wichtigten Inhalts-Elemente
 *
-* @copyright       Copyright 2005-2007, Dirk Jesse
-* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
-*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
-* @link            http://www.yaml.de
-* @package         yaml
-* @version         3.0.1
-* @revision        $Revision: 92 $
-* @lastmodified    $Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
+* @copyright	   Copyright 2005-2007, Dirk Jesse
+* @license		 CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*				  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link			http://www.yaml.de
+* @package		 yaml
+* @version		 3.0.1
+* @revision		$Revision: 92 $
+* @lastmodified	$Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
 * @appdef yaml
 */
 
@@ -33,16 +33,16 @@
   /* (en) base layout gets standard font size 12px */
   /* (de) Basis-Layout erhält Standardschriftgröße von 12 Pixeln */
   body {
-    font-family: 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
-    font-size: 75.00%; 
+	font-family: 'Trebuchet MS', Verdana, Helvetica, Arial, sans-serif;
+	font-size: 75.00%; 
   }
 
   h1,h2,h3,h4,h5,h6 { font-weight:bold; margin: 0 0 0.25em 0; }
-  h1 { font-size: 200% }                        /* 24px */
-  h2 { font-size: 166.67% }                     /* 20px */
-  h3 { font-size: 150% }                        /* 18px */
-  h4 { font-size: 133.33% }                     /* 16px */
-  h5 { font-size: 116.67% }                     /* 14px */
+  h1 { font-size: 200% }						/* 24px */
+  h2 { font-size: 166.67% }					 /* 20px */
+  h3 { font-size: 150% }						/* 18px */
+  h4 { font-size: 133.33% }					 /* 16px */
+  h5 { font-size: 116.67% }					 /* 14px */
   h6 { font-size: 116.67%; font-style:italic }  /* 14px */
 
   p { line-height: 1.5em; margin: 0 0 1em 0; }
@@ -66,9 +66,9 @@
   pre, code { font-family: monospace; font-size: 1.1em; }
 
   acronym, abbr {
-    letter-spacing: .07em;
-    border-bottom: .1em dashed #c00;
-    cursor: help;
+	letter-spacing: .07em;
+	border-bottom: .1em dashed #c00;
+	cursor: help;
   }
 
   /**
@@ -114,18 +114,18 @@
   * (en) Emphasizing external Hyperlinks via CSS
 	* (de) Hervorhebung externer Hyperlinks mit CSS
 	*
-  * @section             content-external-links
-  * @app-yaml-default    disabled
+  * @section			 content-external-links
+  * @app-yaml-default	disabled
   */
 
   /*
   #main a[href^="http://www.my-domain.com"],
   #main a[href^="https://www.my-domain.com"]
   {
-    padding-left: 12px;
-    background-image: url('your_image.gif');
-    background-repeat: no-repeat;
-    background-position: 0 0.45em;
+	padding-left: 12px;
+	background-image: url('your_image.gif');
+	background-repeat: no-repeat;
+	background-position: 0 0.45em;
   }
   */
 
@@ -154,12 +154,12 @@
   */
 
   hr {
-    color: #fff;
-    background:transparent;
-    margin: 0 0 0.5em 0;
-    padding: 0 0 0.5em 0;
-    border:0;
-    border-bottom: 1px #000 solid;
+	color: #fff;
+	background:transparent;
+	margin: 0 0 0.5em 0;
+	padding: 0 0 0.5em 0;
+	border:0;
+	border-bottom: 1px #000 solid;
   }
 }
 

@@ -33,7 +33,7 @@ package de.mpg.escidoc.pubman.collectionList;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
 import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
@@ -42,11 +42,11 @@ import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
  * @author:  Thomas Diebäcker, created 12.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class CollectionListSessionBean extends AbstractSessionBean
+public class CollectionListSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "collectionList$CollectionListSessionBean";
+    public static final String BEAN_NAME = "CollectionListSessionBean";
     private static Logger logger = Logger.getLogger(CollectionListSessionBean.class);
 
     private List<PubCollectionVO> collectionList = new ArrayList<PubCollectionVO>();
@@ -114,7 +114,7 @@ public class CollectionListSessionBean extends AbstractSessionBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     public List<PubCollectionVO> getCollectionList()

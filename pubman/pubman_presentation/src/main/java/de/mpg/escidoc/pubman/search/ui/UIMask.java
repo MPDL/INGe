@@ -29,35 +29,28 @@
 
 package de.mpg.escidoc.pubman.search.ui;
 
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
+
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**
  * A standard query mask. Implements basic functionality for adding and removing masks and to 
  * clear the form.
  * @author endres
- * $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Tue, 04 Dec 2007) $
+ * $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Di, 04 Dez 2007) $
  *
  */
-public abstract class UIMask
+public abstract class UIMask extends InternationalizedImpl
 {
-    // access to the language bundle
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    protected ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
     /** hmtl helper */
     protected HTMLElementUI htmlElement = new HTMLElementUI();
     
     /** the logicOperator at the end of mask. only used between same types of masks */
-    private LogicOperatorUI logicOperator = new LogicOperatorUI( bundle );
+    private LogicOperatorUI logicOperator = new LogicOperatorUI();
     
     /** reference to the search type class */
     protected SearchTypeUI searchType;
@@ -125,15 +118,9 @@ public abstract class UIMask
      */
     protected void refreshAppearanceButtonsAndOp()
     {
-    	// update the language bundle from the session
-    	this.updateLanguageBundle();
-    	
-    	// update the language of the logicOperator
-    	this.logicOperator.updateLanguage( bundle );
-    	
-    	this.btClearForm.setValue(bundle.getString("adv_search_btClear"));
-    	this.btAdd.setValue(bundle.getString("adv_search_btAdd"));
-    	this.btDelete.setValue(bundle.getString("adv_search_btRemove"));
+    	this.btClearForm.setValue(getLabel("adv_search_btClear"));
+    	this.btAdd.setValue(getLabel("adv_search_btAdd"));
+    	this.btDelete.setValue(getLabel("adv_search_btRemove"));
     }
     
     /**
@@ -165,7 +152,7 @@ public abstract class UIMask
         this.panelButtons.setId(CommonUtils.createUniqueId(this.panelButtons));
         this.panelButtons.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "clearButton"));
         this.btClearForm.setId(CommonUtils.createUniqueId(this.btClearForm));
-        this.btClearForm.setValue(bundle.getString("adv_search_btClear"));
+        this.btClearForm.setValue(getLabel("adv_search_btClear"));
         this.btClearForm.setImmediate(true);
         this.btClearForm.setStyleClass("inlineButton");
         this.btClearForm.addActionListener(searchType);
@@ -174,14 +161,14 @@ public abstract class UIMask
         this.panelButtons.getChildren().add(htmlElement.getEndTag("div"));
         this.panelButtons.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "objectButtons"));
         this.btAdd.setId(CommonUtils.createUniqueId(this.btAdd));
-        this.btAdd.setValue(bundle.getString("adv_search_btAdd"));
+        this.btAdd.setValue(getLabel("adv_search_btAdd"));
         this.btAdd.setImmediate(true);
         this.btAdd.setStyleClass("inlineButton");
         this.btAdd.addActionListener(searchType);
         this.panelButtons.getChildren().add(this.btAdd);
 
         this.btDelete.setId(CommonUtils.createUniqueId(this.panel));
-        this.btDelete.setValue(bundle.getString("adv_search_btRemove"));
+        this.btDelete.setValue(getLabel("adv_search_btRemove"));
         this.btDelete.setImmediate(true);
         this.btDelete.setStyleClass("inlineButton");
         this.btDelete.addActionListener(searchType);
@@ -217,20 +204,9 @@ public abstract class UIMask
         {
             crit.setLogicOperator(
                     LogicOperatorUI.getLogicOperatorByString(
-                            (this.getLogicOperator().getCboLogicOperator().getSelected().toString())));
+                            (this.getLogicOperator().getCboLogicOperator().getValue().toString())));
         }
         return crit;
-    }
-    
-    /**
-     * Update the language which is chosen in the form.
-     *
-     */
-    protected void updateLanguageBundle()
-    {
-    	this.application = FacesContext.getCurrentInstance().getApplication();
-    	this.i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    	this.bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());    
     }
       
     HtmlPanelGroup getMaskPanel()

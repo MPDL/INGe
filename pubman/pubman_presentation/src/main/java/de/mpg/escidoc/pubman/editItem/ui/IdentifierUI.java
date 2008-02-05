@@ -36,19 +36,19 @@ import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextField;
-import com.sun.rave.web.ui.model.Option;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.model.SelectItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 
 /**
- * UI component for editing identifiers. 
- * 
+ * UI component for editing identifiers.
+ *
  * @author: Thomas Diebäcker, created 20.06.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
 public class IdentifierUI extends AbstractUI
@@ -57,27 +57,27 @@ public class IdentifierUI extends AbstractUI
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
     private HtmlPanelGrid panAttributes = new HtmlPanelGrid();
-    private Label lblIdentifier = new Label();
-    private DropDown cboIdentifierType = new DropDown();
-    private TextField txtIdentifier = new TextField();
+    private HtmlOutputLabel lblIdentifier = new HtmlOutputLabel();
+    private HtmlSelectOneMenu cboIdentifierType = new HtmlSelectOneMenu();
+    private HtmlInputText txtIdentifier = new HtmlInputText();
 
     // constants for comboBoxes
-    protected final Option NO_ITEM_SET = new Option("", labelBundle.getString("EditItem_NO_ITEM_SET"));
-    protected final Option IDENTIFIERTYPE_URI = new Option(IdentifierVO.IdType.URI.toString(), labelBundle.getString("EditItem_IDENTIFIERTYPE_URI"));
-    protected final Option IDENTIFIERTYPE_ISBN = new Option(IdentifierVO.IdType.ISBN.toString(), labelBundle.getString("EditItem_IDENTIFIERTYPE_ISBN"));
-    protected final Option IDENTIFIERTYPE_ISSN = new Option(IdentifierVO.IdType.ISSN.toString(), labelBundle.getString("IDENTIFIERTYPE_ISSN"));
-    protected final Option IDENTIFIERTYPE_DOI = new Option(IdentifierVO.IdType.DOI.toString(), labelBundle.getString("IDENTIFIERTYPE_DOI"));
-    protected final Option IDENTIFIERTYPE_URN = new Option(IdentifierVO.IdType.URN.toString(), labelBundle.getString("IDENTIFIERTYPE_URN"));
-    protected final Option IDENTIFIERTYPE_EDOC = new Option(IdentifierVO.IdType.EDOC.toString(), labelBundle.getString("IDENTIFIERTYPE_EDOC"));
-    protected final Option IDENTIFIERTYPE_ESCIDOC = new Option(IdentifierVO.IdType.ESCIDOC.toString(), labelBundle.getString("IDENTIFIERTYPE_ESCIDOC"));
-    protected final Option IDENTIFIERTYPE_ISI = new Option(IdentifierVO.IdType.ISI.toString(), labelBundle.getString("IDENTIFIERTYPE_ISI"));
-    protected final Option IDENTIFIERTYPE_PND = new Option(IdentifierVO.IdType.PND.toString(), labelBundle.getString("IDENTIFIERTYPE_PND"));
-    protected final Option IDENTIFIERTYPE_OTHER = new Option(IdentifierVO.IdType.OTHER.toString(), labelBundle.getString("IDENTIFIERTYPE_OTHER"));
-    protected final Option[] IDENTIFIERTYPE_OPTIONS = new Option[] { NO_ITEM_SET, IDENTIFIERTYPE_URI, IDENTIFIERTYPE_ISBN, IDENTIFIERTYPE_ISSN, IDENTIFIERTYPE_DOI, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_EDOC, IDENTIFIERTYPE_ESCIDOC, IDENTIFIERTYPE_ISI, IDENTIFIERTYPE_PND, IDENTIFIERTYPE_OTHER };
+    protected final SelectItem NO_ITEM_SET = new SelectItem("", labelBundle.getString("EditItem_NO_ITEM_SET"));
+    protected final SelectItem IDENTIFIERTYPE_URI = new SelectItem(IdentifierVO.IdType.URI.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_URI"));
+    protected final SelectItem IDENTIFIERTYPE_ISBN = new SelectItem(IdentifierVO.IdType.ISBN.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ISBN"));
+    protected final SelectItem IDENTIFIERTYPE_ISSN = new SelectItem(IdentifierVO.IdType.ISSN.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ISSN"));
+    protected final SelectItem IDENTIFIERTYPE_DOI = new SelectItem(IdentifierVO.IdType.DOI.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_DOI"));
+    protected final SelectItem IDENTIFIERTYPE_URN = new SelectItem(IdentifierVO.IdType.URN.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_URN"));
+    protected final SelectItem IDENTIFIERTYPE_EDOC = new SelectItem(IdentifierVO.IdType.EDOC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_EDOC"));
+    protected final SelectItem IDENTIFIERTYPE_ESCIDOC = new SelectItem(IdentifierVO.IdType.ESCIDOC.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ESCIDOC"));
+    protected final SelectItem IDENTIFIERTYPE_ISI = new SelectItem(IdentifierVO.IdType.ISI.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_ISI"));
+    protected final SelectItem IDENTIFIERTYPE_PND = new SelectItem(IdentifierVO.IdType.PND.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_PND"));
+    protected final SelectItem IDENTIFIERTYPE_OTHER = new SelectItem(IdentifierVO.IdType.OTHER.toString(), labelBundle.getString("ENUM_IDENTIFIERTYPE_OTHER"));
+    protected final SelectItem[] IDENTIFIERTYPE_OPTIONS = new SelectItem[] { NO_ITEM_SET, IDENTIFIERTYPE_URI, IDENTIFIERTYPE_ISBN, IDENTIFIERTYPE_ISSN, IDENTIFIERTYPE_DOI, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_URN, IDENTIFIERTYPE_EDOC, IDENTIFIERTYPE_ESCIDOC, IDENTIFIERTYPE_ISI, IDENTIFIERTYPE_PND, IDENTIFIERTYPE_OTHER };
 
     /**
      * Public constructor.
@@ -98,7 +98,7 @@ public class IdentifierUI extends AbstractUI
         }
         
         this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         // set attributes for all GUI components
         this.panAttributes.setId(this.createUniqueId(this.panAttributes));
@@ -108,14 +108,15 @@ public class IdentifierUI extends AbstractUI
         this.panAttributes.setCellpadding("0");
         
         this.lblIdentifier.setId(this.createUniqueId(this.lblIdentifier));
-        this.lblIdentifier.setLabeledComponent(this.txtIdentifier);
+        this.lblIdentifier.setFor(this.txtIdentifier.getId());
         this.lblIdentifier.setValue(labelBundle.getString("EditItem_lblIdentifier"));
-        this.lblIdentifier.setLabelLevel(3);
+        //this.lblIdentifier.setLabelLevel(3);
         this.panAttributes.getChildren().add(this.lblIdentifier);
         
         this.cboIdentifierType.setId(this.createUniqueId(this.cboIdentifierType));
         this.cboIdentifierType.setStyleClass("editItemComboBoxVeryShort");
-        this.cboIdentifierType.setItems(this.IDENTIFIERTYPE_OPTIONS);
+        this.cboIdentifierType.getChildren().clear();
+        this.cboIdentifierType.getChildren().addAll(CommonUtils.convertToSelectItemsUI(this.IDENTIFIERTYPE_OPTIONS));
         this.panAttributes.getChildren().add(this.cboIdentifierType);
         
         this.txtIdentifier.setId(this.createUniqueId(this.txtIdentifier));

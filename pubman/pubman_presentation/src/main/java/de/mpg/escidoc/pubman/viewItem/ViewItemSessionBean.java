@@ -30,12 +30,14 @@
 
 package de.mpg.escidoc.pubman.viewItem;
 
+import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
-import com.sun.rave.web.ui.component.Hyperlink;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
@@ -43,9 +45,9 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
  * Keeps all attributes that are used for the whole session by ViewItem.
  * 
  * @author: Thomas Diebäcker, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 22.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 22.08.2007
  */
-public class ViewItemSessionBean extends AbstractSessionBean
+public class ViewItemSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "ViewItemSessionBean";
     @SuppressWarnings("unused")
@@ -61,13 +63,13 @@ public class ViewItemSessionBean extends AbstractSessionBean
     private ItemListSessionBean itemListSessionBean = null;
     
     // the action links
-    private Hyperlink lnkEdit = new Hyperlink();
-    private Hyperlink lnkSubmit = new Hyperlink();
-    private Hyperlink lnkDelete = new Hyperlink();
-    private Hyperlink lnkWithdraw = new Hyperlink();
-    private Hyperlink lnkNewSubmission = new Hyperlink();
-    private Hyperlink lnkModify = new Hyperlink();
-    private Hyperlink lnkCreateNewRevision = new Hyperlink();    
+    private HtmlCommandLink lnkEdit = new HtmlCommandLink();
+    private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
+    private HtmlCommandLink lnkDelete = new HtmlCommandLink();
+    private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
+    private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
+    private HtmlCommandLink lnkModify = new HtmlCommandLink();
+    private HtmlCommandLink lnkCreateNewRevision = new HtmlCommandLink();    
     
     // Flag if view item has already been redirected
     private boolean hasBeenRedirected = false;
@@ -78,6 +80,7 @@ public class ViewItemSessionBean extends AbstractSessionBean
      */
     public ViewItemSessionBean()
     {
+        this.init();
     }
 
     /**
@@ -111,7 +114,7 @@ public class ViewItemSessionBean extends AbstractSessionBean
         catch (Exception e)
         {
             logger.error("Could not retrieve release with id " + itemID, e);
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
             login.forceLogout();
             return "";
         }
@@ -139,7 +142,7 @@ public class ViewItemSessionBean extends AbstractSessionBean
      */
     protected ViewItemFull getViewItemFull()
     {
-        return (ViewItemFull)getBean(ViewItemFull.BEAN_NAME);
+        return (ViewItemFull)getBean(ViewItemFull.class);
     }
     
     /**
@@ -149,7 +152,7 @@ public class ViewItemSessionBean extends AbstractSessionBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     // Getters and Setters
@@ -178,57 +181,57 @@ public class ViewItemSessionBean extends AbstractSessionBean
         return itemListSessionBean;
     }
 
-    public void setItemListSessionBean(ItemListSessionBean itemListSessionBean)
+    public void setItemListSessionBean(ItemListSessionBean ItemListSessionBean)
     {
-        this.itemListSessionBean = itemListSessionBean;
+        this.itemListSessionBean = ItemListSessionBean;
     }
     
-    public Hyperlink getLnkDelete()
+    public HtmlCommandLink getLnkDelete()
     {
         return lnkDelete;
     }
 
-    public void setLnkDelete(Hyperlink lnkDelete)
+    public void setLnkDelete(HtmlCommandLink lnkDelete)
     {
         this.lnkDelete = lnkDelete;
     }
 
-    public Hyperlink getLnkEdit()
+    public HtmlCommandLink getLnkEdit()
     {
         return lnkEdit;
     }
 
-    public void setLnkEdit(Hyperlink lnkEdit)
+    public void setLnkEdit(HtmlCommandLink lnkEdit)
     {
         this.lnkEdit = lnkEdit;
     }
 
-    public Hyperlink getLnkNewSubmission()
+    public HtmlCommandLink getLnkNewSubmission()
     {
         return lnkNewSubmission;
     }
 
-    public void setLnkNewSubmission(Hyperlink lnkNewSubmission)
+    public void setLnkNewSubmission(HtmlCommandLink lnkNewSubmission)
     {
         this.lnkNewSubmission = lnkNewSubmission;
     }
 
-    public Hyperlink getLnkSubmit()
+    public HtmlCommandLink getLnkSubmit()
     {
         return lnkSubmit;
     }
 
-    public void setLnkSubmit(Hyperlink lnkSubmit)
+    public void setLnkSubmit(HtmlCommandLink lnkSubmit)
     {
         this.lnkSubmit = lnkSubmit;
     }
 
-    public Hyperlink getLnkWithdraw()
+    public HtmlCommandLink getLnkWithdraw()
     {
         return lnkWithdraw;
     }
 
-    public void setLnkWithdraw(Hyperlink lnkWithdraw)
+    public void setLnkWithdraw(HtmlCommandLink lnkWithdraw)
     {
         this.lnkWithdraw = lnkWithdraw;
     }
@@ -243,22 +246,22 @@ public class ViewItemSessionBean extends AbstractSessionBean
         this.hasBeenRedirected = hasBeenRedirected;
     }
 
-    public Hyperlink getLnkModify()
+    public HtmlCommandLink getLnkModify()
     {
         return lnkModify;
     }
 
-    public void setLnkModify(Hyperlink lnkModify)
+    public void setLnkModify(HtmlCommandLink lnkModify)
     {
         this.lnkModify = lnkModify;
     }
 
-    public Hyperlink getLnkCreateNewRevision()
+    public HtmlCommandLink getLnkCreateNewRevision()
     {
         return lnkCreateNewRevision;
     }
 
-    public void setLnkCreateNewRevision(Hyperlink lnkCreateNewRevision)
+    public void setLnkCreateNewRevision(HtmlCommandLink lnkCreateNewRevision)
     {
         this.lnkCreateNewRevision = lnkCreateNewRevision;
     }        

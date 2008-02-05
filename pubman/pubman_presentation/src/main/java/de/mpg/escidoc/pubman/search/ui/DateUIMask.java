@@ -35,8 +35,8 @@ import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextField;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputText;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
@@ -46,7 +46,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO.DateType;
 /**
  * This mask collects search data for date intervalls and type of date intervalls.
  * @author endres
- * @version $Revision: 1654 $ $LastChangedDate: 2007-12-10 17:55:31 +0100 (Mon, 10 Dec 2007) $
+ * @version $Revision: 1654 $ $LastChangedDate: 2007-12-10 17:55:31 +0100 (Mo, 10 Dez 2007) $
  *
  */
 public class DateUIMask extends UIMask implements ActionListener
@@ -55,11 +55,11 @@ public class DateUIMask extends UIMask implements ActionListener
     private HtmlPanelGroup panel1 = new HtmlPanelGroup();
     private HtmlPanelGroup panel2 = new HtmlPanelGroup();
     private HtmlPanelGroup panel3 = new HtmlPanelGroup();
-    private Label lblSearchDateFrom = new Label();
-    private TextField txtSearchDateFrom = new TextField();
-    private Label lblSearchDateTo = new Label();
-    private TextField txtSearchDateTo = new TextField();
-    private Label lblChk = new Label();
+    private HtmlOutputLabel lblSearchDateFrom = new HtmlOutputLabel();
+    private HtmlInputText txtSearchDateFrom = new HtmlInputText();
+    private HtmlOutputLabel lblSearchDateTo = new HtmlOutputLabel();
+    private HtmlInputText txtSearchDateTo = new HtmlInputText();
+    private HtmlOutputLabel lblChk = new HtmlOutputLabel();
     private HtmlCommandButton btAll = new HtmlCommandButton();
     
     /** list of checkboxlabels */
@@ -83,13 +83,13 @@ public class DateUIMask extends UIMask implements ActionListener
         this.panel1.setId(CommonUtils.createUniqueId(this.panel1));
         this.panel1.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "searchTerm"));
         this.lblSearchDateFrom.setId(CommonUtils.createUniqueId(this.lblSearchDateFrom));
-        this.lblSearchDateFrom.setValue(bundle.getString("adv_search_lblFrom"));
+        this.lblSearchDateFrom.setValue(getLabel("adv_search_lblFrom"));
         this.txtSearchDateFrom.setId(CommonUtils.createUniqueId(this.txtSearchDateFrom));
         this.txtSearchDateFrom.setImmediate(true);
         this.panel1.getChildren().add(lblSearchDateFrom);
         this.panel1.getChildren().add(txtSearchDateFrom);
         this.lblSearchDateTo.setId(CommonUtils.createUniqueId(this.lblSearchDateTo));
-        this.lblSearchDateTo.setValue(bundle.getString("adv_search_lblTo"));
+        this.lblSearchDateTo.setValue(getLabel("adv_search_lblTo"));
         this.txtSearchDateTo.setId(CommonUtils.createUniqueId(this.txtSearchDateTo));
         this.txtSearchDateTo.setImmediate(true);
         this.panel1.getChildren().add(lblSearchDateTo);
@@ -101,12 +101,12 @@ public class DateUIMask extends UIMask implements ActionListener
         //TODO endres: change this to markAll div
         this.panel3.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "clearButton"));
         this.btAll.setId(CommonUtils.createUniqueId(this.btAll));
-        this.btAll.setValue(bundle.getString("adv_search_btAll"));
+        this.btAll.setValue(getLabel("adv_search_btAll"));
         this.btAll.setImmediate(true);
         this.btAll.setStyleClass("inlineButton");
         this.btAll.addActionListener(this);
         this.lblChk.setId(CommonUtils.createUniqueId(this.lblChk));
-        this.lblChk.setValue(bundle.getString("adv_search_lblChkType"));
+        this.lblChk.setValue(getLabel("adv_search_lblChkType"));
         this.panel3.getChildren().add(this.lblChk);
         this.panel3.getChildren().add(this.btAll);
         this.panel3.getChildren().add(htmlElement.getEndTag("div"));
@@ -147,17 +147,17 @@ public class DateUIMask extends UIMask implements ActionListener
     private void createCheckBoxLabelUIs() 
     {
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.ACCEPTED, DateUIMask.ACCEPTED_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.ACCEPTED, DateUIMask.ACCEPTED_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.CREATED, DateUIMask.CREATED_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.CREATED, DateUIMask.CREATED_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.MODIFIED, DateUIMask.MODIFIED_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.MODIFIED, DateUIMask.MODIFIED_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.PUBLISHED_ONLINE, DateUIMask.PUBLISHEDON_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.PUBLISHED_ONLINE, DateUIMask.PUBLISHEDON_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.PUBLISHED_PRINT, DateUIMask.PUBLISHEDPR_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.PUBLISHED_PRINT, DateUIMask.PUBLISHEDPR_BUNDLE_KEY ) );
     	this.checkboxLabels.add( 
-    			new DateCheckBoxLabelUI( DateType.SUBMITTED, DateUIMask.SUBMITTED_BUNDLE_KEY, bundle ) );
+    			new DateCheckBoxLabelUI( DateType.SUBMITTED, DateUIMask.SUBMITTED_BUNDLE_KEY ) );
     }
     
     /**
@@ -199,8 +199,8 @@ public class DateUIMask extends UIMask implements ActionListener
     CriterionVO getCriterionFromArrays()
     {
         DateCriterionVO dateCriterionVO = new DateCriterionVO();
-        dateCriterionVO.setFrom((String)this.getTxtSearchDateFrom().getText());
-        dateCriterionVO.setTo((String)this.getTxtSearchDateTo().getText());
+        dateCriterionVO.setFrom((String)this.getTxtSearchDateFrom().getValue());
+        dateCriterionVO.setTo((String)this.getTxtSearchDateTo().getValue());
         
         dateCriterionVO.setDateType(this.getDateTypes());    
         return dateCriterionVO;
@@ -241,23 +241,23 @@ public class DateUIMask extends UIMask implements ActionListener
 //    	 refresh the buttons
     	super.refreshAppearanceButtonsAndOp();
     	
-    	this.lblSearchDateFrom.setValue(bundle.getString("adv_search_lblFrom"));
-    	this.lblSearchDateTo.setValue(bundle.getString("adv_search_lblTo"));
-    	this.btAll.setValue(bundle.getString("adv_search_btAll"));
-    	this.lblChk.setValue(bundle.getString("adv_search_lblChkType"));
+    	this.lblSearchDateFrom.setValue(getLabel("adv_search_lblFrom"));
+    	this.lblSearchDateTo.setValue(getLabel("adv_search_lblTo"));
+    	this.btAll.setValue(getLabel("adv_search_btAll"));
+    	this.lblChk.setValue(getLabel("adv_search_lblChkType"));
     	
-    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
-    	{
-    		this.checkboxLabels.get( i ).updateLanguage( bundle );
-    	}
+//    	for( int i = 0; i < this.checkboxLabels.size(); i++ )
+//    	{
+//    		this.checkboxLabels.get( i ).updateLanguage( bundle );
+//    	}
     }
 
-    public TextField getTxtSearchDateFrom()
+    public HtmlInputText getTxtSearchDateFrom()
     {
         return txtSearchDateFrom;
     }
 
-    public TextField getTxtSearchDateTo()
+    public HtmlInputText getTxtSearchDateTo()
     {
         return txtSearchDateTo;
     }

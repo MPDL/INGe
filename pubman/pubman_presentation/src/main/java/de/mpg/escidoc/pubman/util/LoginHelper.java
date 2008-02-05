@@ -35,14 +35,19 @@ import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.encoding.Base64;
+import org.apache.log4j.Logger;
+
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
 import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
 import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -55,17 +60,18 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * LoginHelper.java Class for providing helper methods for login / logout mechanism
  * 
  * @author: Tobias Schraut, created 07.03.2007
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Tue, 04 Dec 2007) $ Revised by ScT:
+ * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007) $ Revised by ScT:
  *           21.08.2007
  */
-public class LoginHelper
+public class LoginHelper extends FacesBean
 {
-    // For handling the resource bundles (i18n)
-    ResourceBundle bundleLabel = ResourceBundle.getBundle(InternationalizationHelper.LABLE_BUNDLE_EN);
+
+    private static Logger logger = Logger.getLogger(LoginHelper.class);
+
     public static final String PARAMETERNAME_USERHANDLE = "eSciDocUserHandle";
-    final public static String BEAN_NAME = "LoginHelper";
+    public final  static String BEAN_NAME = "LoginHelper";
     private String eSciDocUserHandle = null;
-    private String btnLoginLogout = "Login";
+    private String btnLoginLogout = "login_btLogin";
     private boolean loggedIn = false;
     // a flag for showing if the user has been logged in once. If yes, the user
     // will be redirected to the home page
@@ -74,7 +80,7 @@ public class LoginHelper
     private AccountUserVO accountUser = new AccountUserVO();
 
     /**
-     * Public constructor
+     * Public constructor.
      */
     public LoginHelper()
     {
@@ -83,23 +89,26 @@ public class LoginHelper
     /**
      * Method checks if the user is already logged in and inserts the escidoc user handle. If not it redirects to the
      * login page.
-     * 
+     *
      * @return String empty navigation string for reloading the current page
-     * @throws IOException, ServletException, ServiceException, TechnicalException
+     * @throws IOException IOException
+     * @throws ServletException ServletException
+     * @throws ServiceException ServiceException
+     * @throws TechnicalException TechnicalException
      */
     public String checkLogin() throws IOException, ServletException, ServiceException, TechnicalException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-        Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
-        DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                DepositorWSSessionBean.BEAN_NAME);
+        Login login = (Login) getRequestBean(Login.class);
+        DepositorWSSessionBean depWSSessionBean
+            = (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
         if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals(""))
         {
             if (userHandle == null || userHandle.equals(""))
             {
-                if (this.wasLoggedIn == false)
+                if (!wasLoggedIn)
                 {
                     // fc.getExternalContext().redirect(SERVER_URL + LOGIN_URL
                     // +"?target=" +
@@ -126,31 +135,37 @@ public class LoginHelper
         if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals(""))
         {
             fetchAccountUser(this.eSciDocUserHandle);
-            this.btnLoginLogout = bundleLabel.getString("login_btLogout");
+            this.btnLoginLogout = "login_btLogout";
         }
+
+        logger.debug("this.accountUser.isDepositor(): " + this.accountUser.isDepositor());
+        logger.debug("getLabel(\"mainMenu_lnkDepositor\"): " + getLabel("mainMenu_lnkDepositor"));
+
         // enable the depositor links if necessary
-        if (this.accountUser.isDepositor() == true)
+        if (this.accountUser.isDepositor())
         {
-            depWSSessionBean.setMyWorkspace(bundleLabel.getString("mainMenu_lblMyWorkspace"));
-            depWSSessionBean.setDepositorWS(bundleLabel.getString("mainMenu_lnkDepositor"));
-            depWSSessionBean.setNewSubmission(bundleLabel.getString("actionMenu_lnkNewSubmission"));
+            depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
+            depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
+            depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
         }
         return "";
     }
 
     /**
      * Method checks if the user is already logged in and inserts the escidoc user handle.
-     * 
+     *
      * @return String empty navigation string for reloading the current page
-     * @throws IOException, ServletException, ServiceException, TechnicalException
+     * @throws IOException IOException
+     * @throws ServiceException ServiceException
+     * @throws TechnicalException TechnicalException
      */
     public String insertLogin() throws IOException, ServiceException, TechnicalException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
-        DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                DepositorWSSessionBean.BEAN_NAME);
+        DepositorWSSessionBean depWSSessionBean
+            = (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
         if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals(""))
         {
             if (userHandle != null)
@@ -163,21 +178,22 @@ public class LoginHelper
         if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals(""))
         {
             fetchAccountUser(this.eSciDocUserHandle);
-            this.btnLoginLogout = bundleLabel.getString("login_btLogout");
+            this.btnLoginLogout = "login_btLogout";
         }
+
         // enable the depositor links if necessary
-        if (this.accountUser.isDepositor() == true)
+        if (this.accountUser.isDepositor())
         {
-            depWSSessionBean.setMyWorkspace(bundleLabel.getString("mainMenu_lblMyWorkspace"));
-            depWSSessionBean.setDepositorWS(bundleLabel.getString("mainMenu_lnkDepositor"));
-            depWSSessionBean.setNewSubmission(bundleLabel.getString("actionMenu_lnkNewSubmission"));
+            depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
+            depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
+            depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
         }
         return "";
     }
 
     /**
      * retrieves the account user with the user handle
-     * 
+     *
      * @param userHandle user handle that is given back from FIZ framework (is needed here to call framework methods)
      * @throws ServletException, ServiceException, TechnicalException
      */
@@ -185,7 +201,7 @@ public class LoginHelper
     {
         // Call FrameWork method
         XmlTransformingBean transforming = new XmlTransformingBean();
-        Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "desktop$Login");
+        Login login = (Login)getRequestBean(Login.class);
         String xmlUser = "";
         try
         {
@@ -216,24 +232,24 @@ public class LoginHelper
     public void changeLanguage(ResourceBundle bundle)
     {
         // change the language for the Depositor WS navigation info
-        DepositorWSSessionBean depWSSessionBean = (DepositorWSSessionBean)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                DepositorWSSessionBean.BEAN_NAME);
+        DepositorWSSessionBean depWSSessionBean
+            = (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
         // change the button language
-        this.bundleLabel = bundle;
+
         if (this.eSciDocUserHandle == null || this.eSciDocUserHandle.equals(""))
         {
-            this.btnLoginLogout = bundleLabel.getString("login_btLogin");
+            this.btnLoginLogout = "login_btLogin";
         }
         else
         {
-            this.btnLoginLogout = bundleLabel.getString("login_btLogout");
+            this.btnLoginLogout = "login_btLogout";
             if (this.accountUser != null)
             {
-                if (this.accountUser.isDepositor() == true)
+                if (this.accountUser.isDepositor())
                 {
-                    depWSSessionBean.setMyWorkspace(bundleLabel.getString("mainMenu_lblMyWorkspace"));
-                    depWSSessionBean.setDepositorWS(bundleLabel.getString("mainMenu_lnkDepositor"));
-                    depWSSessionBean.setNewSubmission(bundleLabel.getString("actionMenu_lnkNewSubmission"));
+                    depWSSessionBean.setMyWorkspace(true); // getLabel("mainMenu_lblMyWorkspace")
+                    depWSSessionBean.setDepositorWS(true); // getLabel("mainMenu_lnkDepositor")
+                    depWSSessionBean.setNewSubmission(true); // getLabel("actionMenu_lnkNewSubmission")
                 }
             }
         }
@@ -305,13 +321,16 @@ public class LoginHelper
         return this.eSciDocUserHandle;
     }
 
-    public ResourceBundle getBundleLabel()
+    public String getLoginLogoutLabel()
     {
-        return bundleLabel;
+        return getLabel(btnLoginLogout);
     }
 
-    public void setBundleLabel(ResourceBundle bundleLabel)
+    public String toString()
     {
-        this.bundleLabel = bundleLabel;
+        return "[Login: "
+                + (loggedIn
+                ? "User " + eSciDocUserHandle + "(" + accountUser + ") is logged in]"
+                : "No user is logged in (" + accountUser + ")]");
     }
 }

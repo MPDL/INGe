@@ -1,142 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
-
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
-
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
-
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
-
- CDDL HEADER END
-
-
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
+<!-- 
+	CDDL HEADER START
+	
+	The contents of this file are subject to the terms of the
+	Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance
+	with the License.
+	
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE
+	or http://www.escidoc.de/license.
+	See the License for the specific language governing permissions
+	and limitations under the License.
+	
+	When distributing Covered Code, include this CDDL HEADER in each
+	file and include the License file at license/ESCIDOC.LICENSE.
+	If applicable, add the following below this CDDL HEADER, with the
+	fields enclosed by brackets "[]" replaced with your own identifying
+	information: Portions Copyright [yyyy] [name of copyright owner]
+	
+	CDDL HEADER END
+	
+	
+	Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+	für wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V.
+	All rights reserved. Use is subject to license terms.
 -->
-<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
-  <context-param>
-    <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
-    <param-value>server</param-value>
-  </context-param>
-  <context-param>
-    <param-name>javax.faces.CONFIG_FILES</param-name>
-    <param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
-  </context-param>
-  <context-param>
-    <param-name>com.sun.faces.validateXml</param-name>
-    <param-value>true</param-value>
-  </context-param>
-  <context-param>
-    <param-name>com.sun.faces.verifyObjects</param-name>
-    <param-value>false</param-value>
-  </context-param>
-  <session-config>
-       <session-timeout>240</session-timeout>
-    </session-config>
-  <filter>
-    <filter-name>UploadFilter</filter-name>
-    <filter-class>com.sun.rave.web.ui.util.UploadFilter</filter-class>
-    <init-param>
-      <description>
-          The maximum allowed upload size in bytes.  If this is set
-          to a negative value, there is no maximum.  The default
-          value is 1000000.
-        </description>
-      <param-name>maxSize</param-name>
-      <param-value>-1</param-value>
-    </init-param>
-    <init-param>
-      <description>
-          The size (in bytes) of an uploaded file which, if it is
-          exceeded, will cause the file to be written directly to
-          disk instead of stored in memory.  Files smaller than or
-          equal to this size will be stored in memory.  The default
-          value is 4096.
-        </description>
-      <param-name>sizeThreshold</param-name>
-      <param-value>4096</param-value>
-    </init-param>
-  </filter>
-  <filter-mapping>
-    <filter-name>UploadFilter</filter-name>
-    <servlet-name>Faces Servlet</servlet-name>
-  </filter-mapping>
-  <servlet>
-    <servlet-name>Faces Servlet</servlet-name>
-    <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-    <load-on-startup>1</load-on-startup>
-  </servlet>
-  <servlet>
-    <servlet-name>ExceptionHandlerServlet</servlet-name>
-    <servlet-class>com.sun.errorhandler.ExceptionHandler</servlet-class>
-    <init-param>
-      <param-name>errorHost</param-name>
-      <param-value>localhost</param-value>
-    </init-param>
-    <init-param>
-      <param-name>errorPort</param-name>
-      <param-value>25444</param-value>
-    </init-param>
-  </servlet>
-  <servlet>
-    <servlet-name>ThemeServlet</servlet-name>
-    <servlet-class>com.sun.rave.web.ui.theme.ThemeServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Faces Servlet</servlet-name>
-    <url-pattern>/faces/*</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ExceptionHandlerServlet</servlet-name>
-    <url-pattern>/error/ExceptionHandler</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>ThemeServlet</servlet-name>
-    <url-pattern>/theme/*</url-pattern>
-  </servlet-mapping>
-  <welcome-file-list>
-    <welcome-file>faces/HomePage.jsp</welcome-file>
-	<welcome-file>redirectSearching.jsp</welcome-file>
-	<welcome-file>redirectDepositing.jsp</welcome-file>
-	<welcome-file>redirectViewing.jsp</welcome-file>
-	<welcome-file>redirectEditing.jsp</welcome-file>
-	<welcome-file>redirectAffiliation.jsp</welcome-file>
-	<welcome-file>redirectAdvancedSearch.jsp</welcome-file>
-  </welcome-file-list>
-  <error-page>
-    <exception-type>javax.servlet.ServletException</exception-type>
-    <location>/error/ExceptionHandler</location>
-  </error-page>
-  <error-page>
-    <exception-type>java.io.IOException</exception-type>
-    <location>/error/ExceptionHandler</location>
-  </error-page>
-  <error-page>
-    <exception-type>javax.faces.FacesException</exception-type>
-    <location>/error/ExceptionHandler</location>
-  </error-page>
-  <error-page>
-    <exception-type>com.sun.rave.web.ui.appbase.ApplicationException</exception-type>
-    <location>/error/ExceptionHandler</location>
-  </error-page>
-  
-  <jsp-config>
-    <jsp-property-group>
-      <url-pattern>*.jspf</url-pattern>
-      <is-xml>true</is-xml>
-    </jsp-property-group>
-  </jsp-config>
+<web-app version="2.4" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_4.xsd">
+
+	<jsp-config>
+		<taglib>
+			<taglib-uri>escidoc.tld</taglib-uri>
+			<taglib-location>escidoc.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+
+<!-- 	<context-param>
+		<param-name>org.jboss.jbossfaces.WAR_BUNDLES_JSF_IMPL</param-name>
+		<param-value>false</param-value>
+	</context-param> -->
+
+	<context-param>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>client</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>javax.faces.CONFIG_FILES</param-name>
+		<param-value>/WEB-INF/navigation.xml,/WEB-INF/managed-beans.xml</param-value>
+	</context-param>
+
+	<session-config>
+		<session-timeout>0</session-timeout>
+	</session-config>
+
+	<!--  extension filter for uploads -->
+
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+
+	<welcome-file-list>
+		<welcome-file>faces/HomePage.jsp</welcome-file>
+		<welcome-file>redirectSearching.jsp</welcome-file>
+		<welcome-file>redirectDepositing.jsp</welcome-file>
+		<welcome-file>redirectViewing.jsp</welcome-file>
+		<welcome-file>redirectEditing.jsp</welcome-file>
+		<welcome-file>redirectAffiliation.jsp</welcome-file>
+		<welcome-file>redirectAdvancedSearch.jsp</welcome-file>
+	</welcome-file-list>
+	
+	<listener>
+		<listener-class>
+			com.sun.faces.config.ConfigureListener
+		</listener-class>
+	</listener>
+	<listener>
+		<listener-class>
+			com.sun.faces.application.WebappLifecycleListener
+		</listener-class>
+	</listener>
 </web-app>
+

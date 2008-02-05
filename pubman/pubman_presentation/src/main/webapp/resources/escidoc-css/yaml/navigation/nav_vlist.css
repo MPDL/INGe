@@ -5,25 +5,25 @@
 * (en) Vertical list navigation "vlist"
 * (de) Vertikale Navigationsliste "vlist"
 *
-* @copyright       Copyright 2005-2007, Dirk Jesse
-* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
-*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
-* @link            http://www.yaml.de
-* @package         yaml
-* @version         3.0.1
-* @revision        $Revision: 92 $
-* @lastmodified    $Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
+* @copyright	   Copyright 2005-2007, Dirk Jesse
+* @license		 CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*				  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link			http://www.yaml.de
+* @package		 yaml
+* @version		 3.0.1
+* @revision		$Revision: 92 $
+* @lastmodified	$Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
 */
 
 @media all
 {
   #submenu {
-    width: 100%;
-    overflow: hidden;
-    margin: 2.4em 0 1.5em 0;
-    list-style-type: none;
-    border-top: 2px #ddd solid;
-    border-bottom: 2px #ddd solid;
+	width: 100%;
+	overflow: hidden;
+	margin: 2.4em 0 1.5em 0;
+	list-style-type: none;
+	border-top: 2px #ddd solid;
+	border-bottom: 2px #ddd solid;
   }
 
   #submenu ul { list-style-type: none; margin:0; padding: 0; }
@@ -31,42 +31,42 @@
 
   #submenu a,
   #submenu strong {
-    display:block;
-    width: 90%;
-    padding: 3px 0px 3px 10%;
-    text-decoration: none;
-    background-color:#fff;
-    color: #444;
-    border-bottom: 1px #eee solid;
+	display:block;
+	width: 90%;
+	padding: 3px 0px 3px 10%;
+	text-decoration: none;
+	background-color:#fff;
+	color: #444;
+	border-bottom: 1px #eee solid;
   }
 
   /* Menu Title */
   #submenu li#title {
-    width: 90%;
-    padding: 3px 0px 3px 10%;
-    font-weight: bold;
-    color: #444;
-    background-color: #fff;
-    border-bottom: 4px #888 solid;
+	width: 90%;
+	padding: 3px 0px 3px 10%;
+	font-weight: bold;
+	color: #444;
+	background-color: #fff;
+	border-bottom: 4px #888 solid;
   }
 
   #submenu li span {
-    display:block;
-    width: 90%;
-    padding: 3px 0px 3px 10%;
-    font-weight: bold;
-    border-bottom: 1px #ddd solid;
+	display:block;
+	width: 90%;
+	padding: 3px 0px 3px 10%;
+	font-weight: bold;
+	border-bottom: 1px #ddd solid;
   }
 
   /* Level 1 */
   #submenu li#active,
   #submenu li strong {
-    width: 90%;
-    padding: 3px 0px 3px 10%;
-    font-weight: bold;
-    color: #fff;
-    background-color:#aab;
-    border-bottom: 1px #eee solid;
+	width: 90%;
+	padding: 3px 0px 3px 10%;
+	font-weight: bold;
+	color: #fff;
+	background-color:#aab;
+	border-bottom: 1px #eee solid;
   }
 
   #submenu li a { width: 90%; padding-left: 10%; background-color:#fff; color: #444; }

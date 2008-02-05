@@ -41,8 +41,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.Tree;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -63,17 +62,17 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * subcomponents.
  * 
  * @author: Hugo Niedermaier, Basics by Thomas Diebäcker, created 30.05.2007
- * @version: $Revision: 1615 $ $LastChangedDate: 2007-11-27 12:43:17 +0100 (Tue, 27 Nov 2007) $
+ * @version: $Revision: 1615 $ $LastChangedDate: 2007-11-27 12:43:17 +0100 (Di, 27 Nov 2007) $
  * Revised by NiH: 09.08.2007
  */
-public class AffiliationTree extends AbstractFragmentBean
+public class AffiliationTree extends FacesBean
 {
-    public static final String BEAN_NAME = "affiliation$AffiliationTree";
+    public static final String BEAN_NAME = "AffiliationTree";
     private static Logger logger = Logger.getLogger(AffiliationTree.class);
     // Faces navigation string
     public final static String LOAD_AFFILIATIONTREE = "loadAffiliationTree";
     // binded components in JSP
-    private Tree treeAffiliation;
+    private YuiTree treeAffiliation;
     private HtmlCommandLink lnkSelect = new HtmlCommandLink();
     private String text = new String();
     
@@ -82,6 +81,7 @@ public class AffiliationTree extends AbstractFragmentBean
      */
     public AffiliationTree()
     {
+        this.init();
     }
 
     /**
@@ -90,49 +90,7 @@ public class AffiliationTree extends AbstractFragmentBean
      */
     public void init()
     {
-        if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
-        {
-            lnkSelect.setRendered(false);
-        }
-        else
-        {
-            lnkSelect.setRendered(true);
-        }
-        
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Initializing AffiliationTree...");
-        }
-        // Perform initializations inherited from our superclass
         super.init();
-        LoginHelper loginHelper = (LoginHelper)getBean(LoginHelper.BEAN_NAME);
-        if (loginHelper == null)
-        {
-            loginHelper = new LoginHelper();
-        }
-        if (loginHelper != null)
-        {
-            try
-            {
-                loginHelper.insertLogin();
-            }
-            catch (UnmarshallingException e)
-            {
-                logger.debug(e.toString());
-            }
-            catch (TechnicalException e)
-            {
-                logger.debug(e.toString());
-            }
-            catch (ServiceException e)
-            {
-                logger.debug(e.toString());
-            }
-            catch (IOException e1)
-            {
-                logger.debug(e1.toString());
-            }
-        }
         
         //get the instance of the Affiliation Tree from the Session Bean
         this.treeAffiliation = this.getAffiliationSessionBean().getTreeAffiliation();
@@ -151,13 +109,13 @@ public class AffiliationTree extends AbstractFragmentBean
     }
 
     /**
-     * Creates a new tree in the SessionBean and forces the UI component to create a new tree.
+     * Creates a new tree in the FacesBean and forces the UI component to create a new tree.
      * 
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String initializeTree()
     {
-        // clear affiliationList stored in the SessionBean
+        // clear affiliationList stored in the FacesBean
         this.getAffiliationSessionBean().getCurrentAffiliationList().clear();
         ArrayList<AffiliationVO> topLevelAffiliations = new ArrayList<AffiliationVO>();
         // retrieve the top-level affiliations
@@ -168,11 +126,11 @@ public class AffiliationTree extends AbstractFragmentBean
         catch (Exception e)
         {
             logger.error("Could not create affiliation list." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
 
-        // set new list in SessionBean
+        // set new list in FacesBean
         this.getAffiliationSessionBean().setCurrentAffiliationList(topLevelAffiliations);
         // force the UI to update
         this.createDynamicTree();
@@ -180,7 +138,7 @@ public class AffiliationTree extends AbstractFragmentBean
     }
 
     /**
-     * Creates the tree newly according to the values in the SessionBean.
+     * Creates the tree newly according to the values in the FacesBean.
      */
     protected void createDynamicTree()
     {
@@ -240,11 +198,11 @@ public class AffiliationTree extends AbstractFragmentBean
                 }
                 
                 //set the AffiliationVO in the Bean for displaying the appropriate Informations in the Detail jsp
-                AffiliationDetail bean = (AffiliationDetail)getBean(AffiliationDetail.BEAN_NAME);
+                AffiliationDetail bean = (AffiliationDetail)getBean(AffiliationDetail.class);
                 bean.setAffiliationVO(selectedTreeNode.getAffiliationVO());
                 
                 //start search by affiliation
-                SearchResultList list = (SearchResultList)getBean(SearchResultList.BEAN_NAME);
+                SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
                 return list.startSearchForAffiliation(selectedTreeNode.getAffiliationVO().getReference());
             }
         }
@@ -330,7 +288,7 @@ public class AffiliationTree extends AbstractFragmentBean
      */
     protected AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean)getBean(AffiliationSessionBean.BEAN_NAME);
+        return (AffiliationSessionBean)getBean(AffiliationSessionBean.class);
     }
 
     /**
@@ -340,15 +298,15 @@ public class AffiliationTree extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
-
-    public Tree getTreeAffiliation()
+    
+    public YuiTree getTreeAffiliation()
     {
         return treeAffiliation;
     }
 
-    public void setTreeAffiliation(Tree treeAffiliation)
+    public void setTreeAffiliation(YuiTree treeAffiliation)
     {
         this.treeAffiliation = treeAffiliation;
     }

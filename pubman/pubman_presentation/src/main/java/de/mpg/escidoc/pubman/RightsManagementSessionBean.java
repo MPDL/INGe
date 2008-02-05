@@ -31,20 +31,20 @@
 package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Handels all rights of the current user and handels disabled features described in the escidoc.properties file.
  * 
  * @author: (First draft version) Thomas Diebäcker, created 25.07.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class RightsManagementSessionBean extends AbstractSessionBean
+public class RightsManagementSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "RightsManagementSessionBean";
-    private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
+    private static Logger logger = Logger.getLogger(RightsManagementSessionBean.class);
     
     // prefix for disableing functions in properties file (has to be followed by ".<functionname>")
     public static final String PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS = "escidoc.pubman_presentation.disable";
@@ -54,6 +54,7 @@ public class RightsManagementSessionBean extends AbstractSessionBean
     // Public constructor
     public RightsManagementSessionBean()
     {
+        this.init();
     }
 
     /**

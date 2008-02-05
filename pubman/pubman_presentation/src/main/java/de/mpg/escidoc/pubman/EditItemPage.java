@@ -31,25 +31,26 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
+
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * BackingBean for EditItemPage.jsp.
  * This one is empty because all code is implemented in the BackingBean of the fragment.
  * 
  * @author: Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class EditItemPage extends AbstractPageBean
+public class EditItemPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(EditItemPage.class);
-    
-    private Page page1 = new Page();
-    
+
     //The referring GUI Tool Page
     public final static String GT_EDIT_ITEM_PAGE = "GTEditItemPage.jsp";
     
@@ -58,6 +59,7 @@ public class EditItemPage extends AbstractPageBean
      */
     public EditItemPage()
     {
+        this.init();
     }
 
     /**
@@ -98,20 +100,11 @@ public class EditItemPage extends AbstractPageBean
     
     /**
      * Returns the CommonSessionBean.
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
-    }
-    
-    public Page getPage1()
-    {
-        return page1;
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
-    public void setPage1(Page page1)
-    {
-        this.page1 = page1;
-    }
 }

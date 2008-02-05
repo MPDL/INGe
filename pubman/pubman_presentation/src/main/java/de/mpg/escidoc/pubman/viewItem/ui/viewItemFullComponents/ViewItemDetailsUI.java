@@ -30,42 +30,59 @@
 
 package de.mpg.escidoc.pubman.viewItem.ui.viewItemFullComponents;
 
-import java.util.ResourceBundle;
 import javax.faces.component.html.HtmlGraphicImage;
-import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
  * UI for creating the details section of a pubitem to be used in the ViewItemFullUI.
- * 
+ *
  * @author: Tobias Schraut, created 11.09.2007
- * @version: $Revision: 1688 $ $LastChangedDate: 2007-12-17 15:30:02 +0100 (Mon, 17 Dec 2007) $
+ * @version: $Revision: 1688 $ $LastChangedDate: 2007-12-17 15:30:02 +0100 (Mo, 17 Dez 2007) $
  */
-public class ViewItemDetailsUI extends HtmlPanelGroup
+public class ViewItemDetailsUI extends ContainerPanelUI
 {
     private PubItemVO pubItem;
     private HtmlGraphicImage image;
     private HTMLElementUI htmlElement = new HTMLElementUI();
-    
+
     /**
      * Variables for changing the style sheet class according to line counts on the html page
      */
-    String DivClassTitle= "";
-    String DivClassText= "";
-    
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-            .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                    InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
-    
+    String divClassTitle= "";
+    String divClassText= "";
+
+    public ViewItemDetailsUI()
+    {
+
+    }
+
+    public Object processSaveState(FacesContext context)
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+
+    public void processRestoreState(FacesContext context, Object state)
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--)
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
+
     /**
      * Public constructor.
      */
@@ -73,29 +90,25 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
     {
         initialize(pubItemVO);
     }
-    
+
     /**
      * Initializes the UI and sets all attributes of the GUI components.
-     * 
+     *
      * @param pubItemVO a pubitem
      */
     protected void initialize(PubItemVO pubItemVO)
     {
         this.pubItem = pubItemVO;
-        
-        // get the selected language...
-        this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        ApplicationBean applicationBean = (ApplicationBean)FacesContext.getCurrentInstance()
-        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                ApplicationBean.BEAN_NAME);
-        
+
+        ApplicationBean applicationBean = (ApplicationBean) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getApplicationMap()
+                .get(ApplicationBean.BEAN_NAME);
+
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
-        
+
         // *** HEADER ***
         // add an image to the page
         this.getChildren().add(htmlElement.getStartTag("h2"));
@@ -105,11 +118,11 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
         this.image.setWidth("21");
         this.image.setHeight("25");
         this.getChildren().add(this.image);
-        
+
         // add the subheader
-        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubHeaderDetails")));
+        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubHeaderDetails")));
         this.getChildren().add(htmlElement.getEndTag("h2"));
-        
+
         if(this.pubItem.getMetadata() != null)
         {
             if((this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0)
@@ -130,52 +143,52 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                             // switch the style classes
                             if(new Integer(i/2)*2 == i)
                             {
-                                this.DivClassTitle = "itemTitle";
-                                this.DivClassText = "itemText";
+                                this.divClassTitle = "itemTitle";
+                                this.divClassText = "itemText";
                             }
                             else
                             {
-                                this.DivClassTitle = "itemTitle odd";
-                                this.DivClassText = "itemText odd";
+                                this.divClassTitle = "itemTitle odd";
+                                this.divClassText = "itemText odd";
                             }
                             // label
-                            this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", this.DivClassTitle));
-                            
+                            this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", this.divClassTitle));
+
                             if(this.pubItem.getMetadata().getAbstracts().get(i).getLanguage() != null && !this.pubItem.getMetadata().getAbstracts().get(i).getLanguage().trim().equals(""))
                             {
-                                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblAbstract") + " <"  + this.pubItem.getMetadata().getAbstracts().get(i).getLanguage() + ">"));
+                                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblAbstract") + " <"  + this.pubItem.getMetadata().getAbstracts().get(i).getLanguage() + ">"));
                             }
                             else
                             {
-                                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblAbstract")));
+                                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblAbstract")));
                             }
-                            
+
                             this.getChildren().add(htmlElement.getEndTag("div"));
-                            
+
                             // value
-                            this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", this.DivClassText));
-                            
+                            this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", this.divClassText));
+
                             this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
-                            
+
                             this.getChildren().add(htmlElement.getEndTag("div"));
                         }
                     }
                 }
-                
+
                 // *** TABLE OF CONTENTS (TOC)
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                
+
                 if (this.pubItem.getMetadata().getTableOfContents() != null 
                         && this.pubItem.getMetadata().getTableOfContents().getValue() != null 
                         && this.pubItem.getMetadata().getTableOfContents().getLanguage() != null 
                         && !this.pubItem.getMetadata().getTableOfContents().getLanguage().trim().equals(""))
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTOC") + " <" + this.pubItem.getMetadata().getTableOfContents().getLanguage() + ">"));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTOC") + " <" + this.pubItem.getMetadata().getTableOfContents().getLanguage() + ">"));
                 }
                 else
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTOC")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTOC")));
                 }
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
@@ -191,45 +204,45 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 {
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(""));
                 }
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // *** PUBLISHING INFO ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
-                
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblPublishingInfo")));
-                
+
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblPublishingInfo")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-                
+
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getPublishingInfo()));
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // *** PAGES ***
                 //label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
-                
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblPages")));
-                
+
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblPages")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
-                
+
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getTotalNumberOfPages()));
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
+
                 // *** DEGREE TYPE ***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
-                
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblDegreeType")));
-                
+
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblDegreeType")));
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 // value
@@ -237,7 +250,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 
                 if(this.pubItem.getMetadata().getDegree() != null)
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getDegree())));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(applicationBean.convertEnumToString(this.pubItem.getMetadata().getDegree()))));
                 }
                 else
                 {
@@ -250,7 +263,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblPublicationLocation")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblPublicationLocation")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -265,7 +278,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 //label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblIdentifiers")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblIdentifiers")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -280,7 +293,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblEdition")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblEdition")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -316,7 +329,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblNoEntries")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblNoEntries")));
                 this.getChildren().add(htmlElement.getEndTag("div"));
             }
         }
@@ -364,7 +377,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
         }
         return publishingInfo.toString();
     }
-    
+
     /**
      * Returns all Identifiers as formatted String
      * @return String the formatted Identifiers
@@ -372,15 +385,15 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
     private String getIdentifiers()
     {
         StringBuffer identifiers = new StringBuffer();
-        
-        if(this.pubItem.getMetadata().getIdentifiers() != null)
+
+        if (this.pubItem.getMetadata().getIdentifiers() != null)
         {
-            for(int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
+            for (int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
             {
                 identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
                 identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
-                if(i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
+                if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
                 {
                     identifiers.append(", ");
                 }
@@ -388,7 +401,7 @@ public class ViewItemDetailsUI extends HtmlPanelGroup
         }
         return identifiers.toString();
     }
-    
+
     /**
      * adds Relations as HTML elements to the current page
      */

@@ -33,15 +33,17 @@ package de.mpg.escidoc.pubman.viewItem.ui;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlGraphicImage;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.el.MethodBinding;
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.ImageHyperlink;
-import com.sun.rave.web.ui.component.StaticText;
+
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
@@ -56,7 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
  * Class for representing one source element within the view item page.
  * 
  * @author: Tobias Schraut, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 20.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 20.08.2007
  */
 public class SourceUI
 {
@@ -68,38 +70,38 @@ public class SourceUI
     private static String elementAlternativeTitle = "alternativeTitle";
     private static String elementSources = "sources";
     private HtmlPanelGrid panGrid = new HtmlPanelGrid();
-    private Hyperlink lnkAlternativeTitleMore = new Hyperlink();
-    private Hyperlink lnkCreatorMore = new Hyperlink();
-    private Hyperlink lnkSourceOfSourceMore = new Hyperlink();
-    private StaticText lblSourceTitle = new StaticText();
-    private StaticText valSourceTitle = new StaticText();
-    private StaticText lblSourceAlternativeTitle = new StaticText();
-    private StaticText valSourceAlternativeTitle;
-    private StaticText lblSourceCreator = new StaticText();
-    private StaticText valSourceCreator;
-    private StaticText lblSourceVolume = new StaticText();
-    private StaticText valSourceVolume = new StaticText();
-    private StaticText lblSourceIssue = new StaticText();
-    private StaticText valSourceIssue = new StaticText();
-    private StaticText lblSourceStartPage = new StaticText();
-    private StaticText valSourceStartPage = new StaticText();
-    private StaticText lblSourceEndPage = new StaticText();
-    private StaticText valSourceEndPage = new StaticText();
-    private StaticText lblSourceSequenceNo = new StaticText();
-    private StaticText valSourceSequenceNo = new StaticText();
-    private StaticText lblSourceIdentifier = new StaticText();
-    private StaticText valSourceIdentifier;
-    private StaticText lblSourceofSource = new StaticText();
-    private StaticText lblSourcePublisher = new StaticText();
-    private StaticText valSourcePublisher = new StaticText();
-    private StaticText lblSourcePlace = new StaticText();
-    private StaticText valSourcePlace = new StaticText();
-    private StaticText lblSourceEdition = new StaticText();
-    private StaticText valSourceEdition = new StaticText();
-    private StaticText emptySpace;
+    private HtmlCommandLink lnkAlternativeTitleMore = new HtmlCommandLink();
+    private HtmlCommandLink lnkCreatorMore = new HtmlCommandLink();
+    private HtmlCommandLink lnkSourceOfSourceMore = new HtmlCommandLink();
+    private HtmlOutputText lblSourceTitle = new HtmlOutputText();
+    private HtmlOutputText valSourceTitle = new HtmlOutputText();
+    private HtmlOutputText lblSourceAlternativeTitle = new HtmlOutputText();
+    private HtmlOutputText valSourceAlternativeTitle;
+    private HtmlOutputText lblSourceCreator = new HtmlOutputText();
+    private HtmlOutputText valSourceCreator;
+    private HtmlOutputText lblSourceVolume = new HtmlOutputText();
+    private HtmlOutputText valSourceVolume = new HtmlOutputText();
+    private HtmlOutputText lblSourceIssue = new HtmlOutputText();
+    private HtmlOutputText valSourceIssue = new HtmlOutputText();
+    private HtmlOutputText lblSourceStartPage = new HtmlOutputText();
+    private HtmlOutputText valSourceStartPage = new HtmlOutputText();
+    private HtmlOutputText lblSourceEndPage = new HtmlOutputText();
+    private HtmlOutputText valSourceEndPage = new HtmlOutputText();
+    private HtmlOutputText lblSourceSequenceNo = new HtmlOutputText();
+    private HtmlOutputText valSourceSequenceNo = new HtmlOutputText();
+    private HtmlOutputText lblSourceIdentifier = new HtmlOutputText();
+    private HtmlOutputText valSourceIdentifier;
+    private HtmlOutputText lblSourceofSource = new HtmlOutputText();
+    private HtmlOutputText lblSourcePublisher = new HtmlOutputText();
+    private HtmlOutputText valSourcePublisher = new HtmlOutputText();
+    private HtmlOutputText lblSourcePlace = new HtmlOutputText();
+    private HtmlOutputText valSourcePlace = new HtmlOutputText();
+    private HtmlOutputText lblSourceEdition = new HtmlOutputText();
+    private HtmlOutputText valSourceEdition = new HtmlOutputText();
+    private HtmlOutputText emptySpace;
     private UIParameter paramSourceID;
     private UIParameter paramElement;
-    private ImageHyperlink organizationInformation = new ImageHyperlink();
+    private HtmlCommandLink organizationInformation = new HtmlCommandLink();
     /**
      * The list of formatted organzations in an ArrayList.
      */
@@ -149,7 +151,7 @@ public class SourceUI
                 .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
                         InternationalizationHelper.BEAN_NAME);
         // ... and set the refering resource bundle
-        ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         this.panGrid.setId(CommonUtils.createUniqueId(this.panGrid));
         this.panGrid.setBorder(0);
         this.panGrid.setColumns(2);
@@ -159,21 +161,21 @@ public class SourceUI
         this.panGrid.setRowClasses("viewItemRow");
         if (source != null)
         {
-            this.lblSourceTitle = new StaticText();
+            this.lblSourceTitle = new HtmlOutputText();
             this.lblSourceTitle.setId(CommonUtils.createUniqueId(this.lblSourceTitle));
-            this.lblSourceTitle.setText(bundle.getString("ViewItem_lblSourceTitle"));
+            this.lblSourceTitle.setValue(bundle.getString("ViewItem_lblSourceTitle"));
             this.lblSourceTitle.setStyle("height: 20px; width: 360px");
             this.lblSourceTitle.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceTitle);
-            this.valSourceTitle = new StaticText();
+            this.valSourceTitle = new HtmlOutputText();
             this.valSourceTitle.setId(CommonUtils.createUniqueId(this.valSourceTitle));
-            this.valSourceTitle.setText(source.getTitle().getValue());
+            this.valSourceTitle.setValue(source.getTitle().getValue());
             this.valSourceTitle.setStyle("height: 20px; width: 360px");
             this.valSourceTitle.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceTitle);
-            this.lblSourceAlternativeTitle = new StaticText();
+            this.lblSourceAlternativeTitle = new HtmlOutputText();
             this.lblSourceAlternativeTitle.setId(CommonUtils.createUniqueId(this.lblSourceAlternativeTitle));
-            this.lblSourceAlternativeTitle.setText(bundle.getString("ViewItem_lblSourceAlternativeTitle"));
+            this.lblSourceAlternativeTitle.setValue(bundle.getString("ViewItem_lblSourceAlternativeTitle"));
             this.lblSourceAlternativeTitle.setStyle("height: 20px; width: 360px");
             this.lblSourceAlternativeTitle.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceAlternativeTitle);
@@ -185,16 +187,16 @@ public class SourceUI
                     {
                         if (i > 0)
                         {
-                            this.emptySpace = new StaticText();
+                            this.emptySpace = new HtmlOutputText();
                             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                            this.emptySpace.setText(" ");
+                            this.emptySpace.setValue(" ");
                             this.emptySpace.setStyle("height: 20px; width: 360px");
                             this.panGrid.getChildren().add(this.emptySpace);
                         }
-                        this.valSourceAlternativeTitle = new StaticText();
+                        this.valSourceAlternativeTitle = new HtmlOutputText();
                         this.valSourceAlternativeTitle
                                 .setId(CommonUtils.createUniqueId(this.valSourceAlternativeTitle));
-                        this.valSourceAlternativeTitle.setText(source.getAlternativeTitles().get(i).getValue());
+                        this.valSourceAlternativeTitle.setValue(source.getAlternativeTitles().get(i).getValue());
                         this.valSourceAlternativeTitle.setStyle("height: 20px; width: 360px");
                         this.valSourceAlternativeTitle.setStyleClass("valueMetadata");
                         this.panGrid.getChildren().add(this.valSourceAlternativeTitle);
@@ -204,10 +206,10 @@ public class SourceUI
                 {
                     if (itemViewSource.isAlternativeTitlesCollapsed() == true)
                     {
-                        this.valSourceAlternativeTitle = new StaticText();
+                        this.valSourceAlternativeTitle = new HtmlOutputText();
                         this.valSourceAlternativeTitle
                                 .setId(CommonUtils.createUniqueId(this.valSourceAlternativeTitle));
-                        this.valSourceAlternativeTitle.setText(source.getAlternativeTitles().get(0).getValue());
+                        this.valSourceAlternativeTitle.setValue(source.getAlternativeTitles().get(0).getValue());
                         this.valSourceAlternativeTitle.setStyle("height: 20px; width: 360px");
                         this.valSourceAlternativeTitle.setStyleClass("valueMetadata");
                         this.panGrid.getChildren().add(this.valSourceAlternativeTitle);
@@ -218,16 +220,16 @@ public class SourceUI
                         {
                             if (i > 0)
                             {
-                                this.emptySpace = new StaticText();
+                                this.emptySpace = new HtmlOutputText();
                                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                                this.emptySpace.setText(" ");
+                                this.emptySpace.setValue(" ");
                                 this.emptySpace.setStyle("height: 20px; width: 360px");
                                 this.panGrid.getChildren().add(this.emptySpace);
                             }
-                            this.valSourceAlternativeTitle = new StaticText();
+                            this.valSourceAlternativeTitle = new HtmlOutputText();
                             this.valSourceAlternativeTitle.setId(CommonUtils
                                     .createUniqueId(this.valSourceAlternativeTitle));
-                            this.valSourceAlternativeTitle.setText(source.getAlternativeTitles().get(i).getValue());
+                            this.valSourceAlternativeTitle.setValue(source.getAlternativeTitles().get(i).getValue());
                             this.valSourceAlternativeTitle.setStyle("height: 20px; width: 360px");
                             this.valSourceAlternativeTitle.setStyleClass("valueMetadata");
                             this.panGrid.getChildren().add(this.valSourceAlternativeTitle);
@@ -237,18 +239,18 @@ public class SourceUI
             }
             else
             {
-                this.emptySpace = new StaticText();
+                this.emptySpace = new HtmlOutputText();
                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                this.emptySpace.setText(" ");
+                this.emptySpace.setValue(" ");
                 this.emptySpace.setStyle("height: 20px; width: 360px");
                 this.panGrid.getChildren().add(this.emptySpace);
             }
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
-            this.lnkAlternativeTitleMore = new Hyperlink();
+            this.lnkAlternativeTitleMore = new HtmlCommandLink();
             this.lnkAlternativeTitleMore.setId(CommonUtils.createUniqueId(this.lnkAlternativeTitleMore));
             if (source.getAlternativeTitles() != null)
             {
@@ -256,21 +258,21 @@ public class SourceUI
                 {
                     if (itemViewSource.isAlternativeTitlesCollapsed() == true)
                     {
-                        this.lnkAlternativeTitleMore.setText(bundle.getString("ViewItem_lnkAlternativeTitleMore"));
+                        this.lnkAlternativeTitleMore.setValue(bundle.getString("ViewItem_lnkAlternativeTitleMore"));
                     }
                     else
                     {
-                        this.lnkAlternativeTitleMore.setText(bundle.getString("ViewItem_lnkAlternativeTitleLess"));
+                        this.lnkAlternativeTitleMore.setValue(bundle.getString("ViewItem_lnkAlternativeTitleLess"));
                     }
                 }
                 else
                 {
-                    this.lnkAlternativeTitleMore.setText("");
+                    this.lnkAlternativeTitleMore.setValue("");
                 }
             }
             this.lnkAlternativeTitleMore.setStyle("height: 20px; width: 360px");
             this.lnkAlternativeTitleMore.setAction((MethodBinding)application.createMethodBinding(
-                    "#{viewItem$ViewItem.expandCollapseSourceElements}", new Class[0]));
+                    "#{ViewItem.expandCollapseSourceElements}", new Class[0]));
             this.paramSourceID = new UIParameter();
             this.paramSourceID.setId(CommonUtils.createUniqueId(this.paramSourceID));
             this.paramSourceID.setName("sourceID");
@@ -287,15 +289,15 @@ public class SourceUI
             }
             else
             {
-                this.emptySpace = new StaticText();
+                this.emptySpace = new HtmlOutputText();
                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                this.emptySpace.setText(" ");
+                this.emptySpace.setValue(" ");
                 this.emptySpace.setStyle("height: 20px; width: 360px");
                 this.panGrid.getChildren().add(this.emptySpace);
             }
-            this.lblSourceCreator = new StaticText();
+            this.lblSourceCreator = new HtmlOutputText();
             this.lblSourceCreator.setId(CommonUtils.createUniqueId(this.lblSourceCreator));
-            this.lblSourceCreator.setText(bundle.getString("ViewItem_lblSourceCreator"));
+            this.lblSourceCreator.setValue(bundle.getString("ViewItem_lblSourceCreator"));
             this.lblSourceCreator.setStyle("height: 20px; width: 360px");
             this.lblSourceCreator.setStyleClass("valueMetadata");
             this.lblSourceCreator.setStyleClass("valueMetadata");
@@ -308,15 +310,15 @@ public class SourceUI
                     {
                         if (i > 0)
                         {
-                            this.emptySpace = new StaticText();
+                            this.emptySpace = new HtmlOutputText();
                             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                            this.emptySpace.setText(" ");
+                            this.emptySpace.setValue(" ");
                             this.emptySpace.setStyle("height: 20px; width: 360px");
                             this.panGrid.getChildren().add(this.emptySpace);
                         }
-                        this.valSourceCreator = new StaticText();
+                        this.valSourceCreator = new HtmlOutputText();
                         this.valSourceCreator.setId(CommonUtils.createUniqueId(this.valSourceCreator));
-                        this.valSourceCreator.setText(this.creatorArray.get(i));
+                        this.valSourceCreator.setValue(this.creatorArray.get(i));
                         this.valSourceCreator.setStyle("height: 20px; width: 360px");
                         this.lblSourceCreator.setStyleClass("valueMetadata");
                         this.panGrid.getChildren().add(this.valSourceCreator);
@@ -326,9 +328,9 @@ public class SourceUI
                 {
                     // DiT added this else, so the structure won't get messed up
                     // when there is no creator for this source
-                    this.emptySpace = new StaticText();
+                    this.emptySpace = new HtmlOutputText();
                     this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                    this.emptySpace.setText(" ");
+                    this.emptySpace.setValue(" ");
                     this.emptySpace.setStyle("height: 20px; width: 360px");
                     this.panGrid.getChildren().add(this.emptySpace);
                 }
@@ -336,9 +338,9 @@ public class SourceUI
                 {
                     if (this.organizationArray.size() > 0)
                     {
-                        this.emptySpace = new StaticText();
+                        this.emptySpace = new HtmlOutputText();
                         this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                        this.emptySpace.setText(" ");
+                        this.emptySpace.setValue(" ");
                         this.emptySpace.setStyle("height: 20px; width: 360px");
                         this.panGrid.getChildren().add(this.emptySpace);
                     }
@@ -346,9 +348,9 @@ public class SourceUI
                     {
                         if (i > 0)
                         {
-                            this.emptySpace = new StaticText();
+                            this.emptySpace = new HtmlOutputText();
                             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                            this.emptySpace.setText(" ");
+                            this.emptySpace.setValue(" ");
                             this.emptySpace.setStyle("height: 20px; width: 360px");
                             this.panGrid.getChildren().add(this.emptySpace);
                         }
@@ -361,15 +363,20 @@ public class SourceUI
                                 + CommonUtils.htmlEscape(organizationName)
                                 + "</p><p style=font-family:verdana,arial;font-size:12px>"
                                 + CommonUtils.htmlEscape(organizationAddress) + "</p></body></html>";
-                        this.organizationInformation = new ImageHyperlink();
+                        this.organizationInformation = new HtmlCommandLink();
                         this.organizationInformation.setId(CommonUtils.createUniqueId(this.organizationInformation));
-                        this.organizationInformation.setImageURL("/images/info.gif");
+                        // FrM: New image handling
+                        HtmlGraphicImage image = new HtmlGraphicImage();
+                        image.setId(CommonUtils.createUniqueId(image));
+                        image.setUrl("/images/info.gif");
+                        this.organizationInformation.getChildren().add(image);
+                        //this.organizationInformation.setImageURL("/images/info.gif");
                         this.organizationInformation.setStyle("padding-right: 5px");
-                        this.organizationInformation.setOnClick("orgInformationPopUp(400, 150, '"
+                        this.organizationInformation.setOnclick("orgInformationPopUp(400, 150, '"
                                 + organizationInfoPage + "'); return false");
-                        this.valSourceCreator = new StaticText();
+                        this.valSourceCreator = new HtmlOutputText();
                         this.valSourceCreator.setId(CommonUtils.createUniqueId(this.valSourceCreator));
-                        this.valSourceCreator.setText(this.creatorOrganizationsArray.get(i).getOrganizationName());
+                        this.valSourceCreator.setValue(this.creatorOrganizationsArray.get(i).getOrganizationName());
                         this.valSourceCreator.setStyle("height: 20px; width: 360px");
                         this.lblSourceCreator.setStyleClass("valueMetadata");
                         this.valSourceCreator.getChildren().add(this.organizationInformation);
@@ -377,7 +384,7 @@ public class SourceUI
                     }
                 }
             }
-            this.lnkCreatorMore = new Hyperlink();
+            this.lnkCreatorMore = new HtmlCommandLink();
             this.lnkCreatorMore.setId(CommonUtils.createUniqueId(this.lnkCreatorMore));
             if (source.getCreators() != null)
             {
@@ -385,21 +392,21 @@ public class SourceUI
                 {
                     if (itemViewSource.isCreatorsCollapsed() == true)
                     {
-                        this.lnkCreatorMore.setText(bundle.getString("ViewItem_lnkCreatorMore"));
+                        this.lnkCreatorMore.setValue(bundle.getString("ViewItem_lnkCreatorMore"));
                     }
                     else
                     {
-                        this.lnkCreatorMore.setText(bundle.getString("ViewItem_lnkCreatorLess"));
+                        this.lnkCreatorMore.setValue(bundle.getString("ViewItem_lnkCreatorLess"));
                     }
                 }
                 else
                 {
-                    this.lnkCreatorMore.setText("");
+                    this.lnkCreatorMore.setValue("");
                 }
             }
             this.lnkCreatorMore.setStyle("height: 20px; width: 360px");
             this.lnkCreatorMore.setAction((MethodBinding)application.createMethodBinding(
-                    "#{viewItem$ViewItem.expandCollapseSourceElements}", new Class[0]));
+                    "#{ViewItem.expandCollapseSourceElements}", new Class[0]));
             this.paramSourceID = new UIParameter();
             this.paramSourceID.setId(CommonUtils.createUniqueId(this.paramSourceID));
             this.paramSourceID.setName("sourceID");
@@ -413,18 +420,18 @@ public class SourceUI
             // the affiliated organizations
             if (this.organizationArray.size() > 0)
             {
-                this.emptySpace = new StaticText();
+                this.emptySpace = new HtmlOutputText();
                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                this.emptySpace.setText(" ");
+                this.emptySpace.setValue(" ");
                 this.emptySpace.setStyle("height: 20px; width: 360px");
                 this.panGrid.getChildren().add(this.emptySpace);
                 for (int i = 0; i < this.organizationArray.size(); i++)
                 {
                     if (i > 0)
                     {
-                        this.emptySpace = new StaticText();
+                        this.emptySpace = new HtmlOutputText();
                         this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                        this.emptySpace.setText(" ");
+                        this.emptySpace.setValue(" ");
                         this.emptySpace.setStyle("height: 20px; width: 360px");
                         this.panGrid.getChildren().add(this.emptySpace);
                     }
@@ -437,15 +444,20 @@ public class SourceUI
                             + CommonUtils.htmlEscape(organizationName)
                             + "</p><p style=font-family:verdana,arial;font-size:12px>"
                             + CommonUtils.htmlEscape(organizationAddress) + "</p></body></html>";
-                    this.organizationInformation = new ImageHyperlink();
+                    this.organizationInformation = new HtmlCommandLink();
                     this.organizationInformation.setId(CommonUtils.createUniqueId(this.organizationInformation));
-                    this.organizationInformation.setImageURL("/images/info.gif");
+                    // FrM: New image handling
+                    HtmlGraphicImage image = new HtmlGraphicImage();
+                    image.setId(CommonUtils.createUniqueId(image));
+                    image.setUrl("/images/info.gif");
+                    this.organizationInformation.getChildren().add(image);
+                    //this.organizationInformation.setImageURL("/images/info.gif");
                     this.organizationInformation.setStyle("padding-right: 5px");
-                    this.organizationInformation.setOnClick("orgInformationPopUp(400, 150, '" + organizationInfoPage
+                    this.organizationInformation.setOnclick("orgInformationPopUp(400, 150, '" + organizationInfoPage
                             + "'); return false");
-                    this.valSourceCreator = new StaticText();
+                    this.valSourceCreator = new HtmlOutputText();
                     this.valSourceCreator.setId(CommonUtils.createUniqueId(this.valSourceCreator));
-                    this.valSourceCreator.setText(this.organizationArray.get(i));
+                    this.valSourceCreator.setValue(this.organizationArray.get(i));
                     this.valSourceCreator.setStyle("height: 20px; width: 360px");
                     this.valSourceCreator.setStyleClass("valueMetadata");
                     this.valSourceCreator.getChildren().add(this.organizationInformation);
@@ -455,106 +467,106 @@ public class SourceUI
             // Publishing info section
             if (source.getPublishingInfo() != null)
             {
-                this.lblSourcePublisher = new StaticText();
+                this.lblSourcePublisher = new HtmlOutputText();
                 this.lblSourcePublisher.setId(CommonUtils.createUniqueId(this.lblSourcePublisher));
-                this.lblSourcePublisher.setText(bundle.getString("ViewItem_lblSourcePublisher"));
+                this.lblSourcePublisher.setValue(bundle.getString("ViewItem_lblSourcePublisher"));
                 this.lblSourcePublisher.setStyle("height: 20px; width: 360px");
                 this.lblSourcePublisher.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.lblSourcePublisher);
-                this.valSourcePublisher = new StaticText();
+                this.valSourcePublisher = new HtmlOutputText();
                 this.valSourcePublisher.setId(CommonUtils.createUniqueId(this.valSourcePublisher));
-                this.valSourcePublisher.setText(source.getPublishingInfo().getPublisher());
+                this.valSourcePublisher.setValue(source.getPublishingInfo().getPublisher());
                 this.valSourcePublisher.setStyle("height: 20px; width: 360px");
                 this.valSourcePublisher.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.valSourcePublisher);
-                this.lblSourcePlace = new StaticText();
+                this.lblSourcePlace = new HtmlOutputText();
                 this.lblSourcePlace.setId(CommonUtils.createUniqueId(this.lblSourcePlace));
-                this.lblSourcePlace.setText(bundle.getString("ViewItem_lblSourcePlace"));
+                this.lblSourcePlace.setValue(bundle.getString("ViewItem_lblSourcePlace"));
                 this.lblSourcePlace.setStyle("height: 20px; width: 360px");
                 this.lblSourcePlace.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.lblSourcePlace);
-                this.valSourcePlace = new StaticText();
+                this.valSourcePlace = new HtmlOutputText();
                 this.valSourcePlace.setId(CommonUtils.createUniqueId(this.valSourcePlace));
-                this.valSourcePlace.setText(source.getPublishingInfo().getPlace());
+                this.valSourcePlace.setValue(source.getPublishingInfo().getPlace());
                 this.valSourcePlace.setStyle("height: 20px; width: 360px");
                 this.valSourcePlace.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.valSourcePlace);
-                this.lblSourceEdition = new StaticText();
+                this.lblSourceEdition = new HtmlOutputText();
                 this.lblSourceEdition.setId(CommonUtils.createUniqueId(this.lblSourceEdition));
-                this.lblSourceEdition.setText(bundle.getString("ViewItem_lblSourceEdition"));
+                this.lblSourceEdition.setValue(bundle.getString("ViewItem_lblSourceEdition"));
                 this.lblSourceEdition.setStyle("height: 20px; width: 360px");
                 this.lblSourceEdition.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.lblSourceEdition);
-                this.valSourceEdition = new StaticText();
+                this.valSourceEdition = new HtmlOutputText();
                 this.valSourceEdition.setId(CommonUtils.createUniqueId(this.valSourcePlace));
-                this.valSourceEdition.setText(source.getPublishingInfo().getEdition());
+                this.valSourceEdition.setValue(source.getPublishingInfo().getEdition());
                 this.valSourceEdition.setStyle("height: 20px; width: 360px");
                 this.valSourceEdition.setStyleClass("valueMetadata");
                 this.panGrid.getChildren().add(this.valSourceEdition);
             }
-            this.lblSourceVolume = new StaticText();
+            this.lblSourceVolume = new HtmlOutputText();
             this.lblSourceVolume.setId(CommonUtils.createUniqueId(this.lblSourceVolume));
-            this.lblSourceVolume.setText(bundle.getString("ViewItem_lblSourceVolume"));
+            this.lblSourceVolume.setValue(bundle.getString("ViewItem_lblSourceVolume"));
             this.lblSourceVolume.setStyle("height: 20px; width: 360px");
             this.lblSourceVolume.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceVolume);
-            this.valSourceVolume = new StaticText();
+            this.valSourceVolume = new HtmlOutputText();
             this.valSourceVolume.setId(CommonUtils.createUniqueId(this.valSourceVolume));
-            this.valSourceVolume.setText(source.getVolume());
+            this.valSourceVolume.setValue(source.getVolume());
             this.valSourceVolume.setStyle("height: 20px; width: 360px");
             this.valSourceVolume.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceVolume);
-            this.lblSourceIssue = new StaticText();
+            this.lblSourceIssue = new HtmlOutputText();
             this.lblSourceIssue.setId(CommonUtils.createUniqueId(this.lblSourceIssue));
-            this.lblSourceIssue.setText(bundle.getString("ViewItem_lblSourceIssue"));
+            this.lblSourceIssue.setValue(bundle.getString("ViewItem_lblSourceIssue"));
             this.lblSourceIssue.setStyle("height: 20px; width: 360px");
             this.lblSourceIssue.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceIssue);
-            this.valSourceIssue = new StaticText();
+            this.valSourceIssue = new HtmlOutputText();
             this.valSourceIssue.setId(CommonUtils.createUniqueId(this.valSourceIssue));
-            this.valSourceIssue.setText(source.getIssue());
+            this.valSourceIssue.setValue(source.getIssue());
             this.valSourceIssue.setStyle("height: 20px; width: 360px");
             this.valSourceIssue.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceIssue);
-            this.lblSourceStartPage = new StaticText();
+            this.lblSourceStartPage = new HtmlOutputText();
             this.lblSourceStartPage.setId(CommonUtils.createUniqueId(this.lblSourceStartPage));
-            this.lblSourceStartPage.setText(bundle.getString("ViewItem_lblSourceStartPage"));
+            this.lblSourceStartPage.setValue(bundle.getString("ViewItem_lblSourceStartPage"));
             this.lblSourceStartPage.setStyle("height: 20px; width: 360px");
             this.lblSourceStartPage.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceStartPage);
-            this.valSourceStartPage = new StaticText();
+            this.valSourceStartPage = new HtmlOutputText();
             this.valSourceStartPage.setId(CommonUtils.createUniqueId(this.valSourceStartPage));
-            this.valSourceStartPage.setText(source.getStartPage());
+            this.valSourceStartPage.setValue(source.getStartPage());
             this.valSourceStartPage.setStyle("height: 20px; width: 360px");
             this.valSourceStartPage.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceStartPage);
-            this.lblSourceEndPage = new StaticText();
+            this.lblSourceEndPage = new HtmlOutputText();
             this.lblSourceEndPage.setId(CommonUtils.createUniqueId(this.lblSourceEndPage));
-            this.lblSourceEndPage.setText(bundle.getString("ViewItem_lblSourceEndPage"));
+            this.lblSourceEndPage.setValue(bundle.getString("ViewItem_lblSourceEndPage"));
             this.lblSourceEndPage.setStyle("height: 20px; width: 360px");
             this.lblSourceEndPage.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceEndPage);
-            this.valSourceEndPage = new StaticText();
+            this.valSourceEndPage = new HtmlOutputText();
             this.valSourceEndPage.setId(CommonUtils.createUniqueId(this.valSourceEndPage));
-            this.valSourceEndPage.setText(source.getEndPage());
+            this.valSourceEndPage.setValue(source.getEndPage());
             this.valSourceEndPage.setStyle("height: 20px; width: 360px");
             this.valSourceEndPage.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceEndPage);
-            this.lblSourceSequenceNo = new StaticText();
+            this.lblSourceSequenceNo = new HtmlOutputText();
             this.lblSourceSequenceNo.setId(CommonUtils.createUniqueId(this.lblSourceSequenceNo));
-            this.lblSourceSequenceNo.setText(bundle.getString("ViewItem_lblSourceSequenceNo"));
+            this.lblSourceSequenceNo.setValue(bundle.getString("ViewItem_lblSourceSequenceNo"));
             this.lblSourceSequenceNo.setStyle("height: 20px; width: 360px");
             this.lblSourceSequenceNo.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceSequenceNo);
-            this.valSourceSequenceNo = new StaticText();
+            this.valSourceSequenceNo = new HtmlOutputText();
             this.valSourceSequenceNo.setId(CommonUtils.createUniqueId(this.valSourceSequenceNo));
-            this.valSourceSequenceNo.setText(source.getSequenceNumber());
+            this.valSourceSequenceNo.setValue(source.getSequenceNumber());
             this.valSourceSequenceNo.setStyle("height: 20px; width: 360px");
             this.valSourceSequenceNo.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.valSourceSequenceNo);
-            this.lblSourceIdentifier = new StaticText();
+            this.lblSourceIdentifier = new HtmlOutputText();
             this.lblSourceIdentifier.setId(CommonUtils.createUniqueId(this.lblSourceIdentifier));
-            this.lblSourceIdentifier.setText(bundle.getString("ViewItem_lblSourceIdentifier"));
+            this.lblSourceIdentifier.setValue(bundle.getString("ViewItem_lblSourceIdentifier"));
             this.lblSourceIdentifier.setStyle("height: 20px; width: 360px");
             this.lblSourceIdentifier.setStyleClass("valueMetadata");
             this.panGrid.getChildren().add(this.lblSourceIdentifier);
@@ -564,35 +576,35 @@ public class SourceUI
                 {
                     if (i > 0)
                     {
-                        this.emptySpace = new StaticText();
+                        this.emptySpace = new HtmlOutputText();
                         this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                        this.emptySpace.setText(" ");
+                        this.emptySpace.setValue(" ");
                         this.emptySpace.setStyle("height: 20px; width: 360px");
                         this.panGrid.getChildren().add(this.emptySpace);
                     }
-                    this.valSourceIdentifier = new StaticText();
+                    this.valSourceIdentifier = new HtmlOutputText();
                     this.valSourceIdentifier.setId(CommonUtils.createUniqueId(this.valSourceIdentifier));
-                    this.valSourceIdentifier.setText(source.getIdentifiers().get(i).getType() + " "
+                    this.valSourceIdentifier.setValue(source.getIdentifiers().get(i).getType() + " "
                             + source.getIdentifiers().get(i).getId());
                     this.valSourceIdentifier.setStyle("height: 20px; width: 360px");
                     this.panGrid.getChildren().add(this.valSourceIdentifier);
                 }
             }
-            this.lblSourceofSource = new StaticText();
+            this.lblSourceofSource = new HtmlOutputText();
             this.lblSourceofSource.setId(CommonUtils.createUniqueId(this.lblSourceofSource));
-            this.lblSourceofSource.setText(bundle.getString("ViewItem_lblSourceofSource"));
+            this.lblSourceofSource.setValue(bundle.getString("ViewItem_lblSourceofSource"));
             this.lblSourceofSource.setStyle("height: 20px; width: 360px");
             this.lblSourceofSource.setStyleClass("valueMetadata");
             if (source.getSources() != null)
             {
-                this.emptySpace = new StaticText();
+                this.emptySpace = new HtmlOutputText();
                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                this.emptySpace.setText(" ");
+                this.emptySpace.setValue(" ");
                 this.emptySpace.setStyle("height: 20px; width: 360px");
                 this.panGrid.getChildren().add(this.emptySpace);
                 this.panGrid.getChildren().add(this.lblSourceofSource);
             }
-            this.lnkSourceOfSourceMore = new Hyperlink();
+            this.lnkSourceOfSourceMore = new HtmlCommandLink();
             this.lnkSourceOfSourceMore.setId(CommonUtils.createUniqueId(this.lnkSourceOfSourceMore));
             if (source.getSources() != null)
             {
@@ -600,21 +612,21 @@ public class SourceUI
                 {
                     if (itemViewSource.isSourcesOfSourceCollapsed() == true)
                     {
-                        this.lnkSourceOfSourceMore.setText(bundle.getString("ViewItem_lnkSourceOfSourceMore"));
+                        this.lnkSourceOfSourceMore.setValue(bundle.getString("ViewItem_lnkSourceOfSourceMore"));
                     }
                     else
                     {
-                        this.lnkSourceOfSourceMore.setText(bundle.getString("ViewItem_lnkSourceOfSourceLess"));
+                        this.lnkSourceOfSourceMore.setValue(bundle.getString("ViewItem_lnkSourceOfSourceLess"));
                     }
                 }
                 else
                 {
-                    this.lnkSourceOfSourceMore.setText("");
+                    this.lnkSourceOfSourceMore.setValue("");
                 }
             }
             this.lnkSourceOfSourceMore.setStyle("height: 20px; width: 360px");
             this.lnkSourceOfSourceMore.setAction((MethodBinding)application.createMethodBinding(
-                    "#{viewItem$ViewItem.expandCollapseSourceElements}", new Class[0]));
+                    "#{ViewItem.expandCollapseSourceElements}", new Class[0]));
             this.paramSourceID = new UIParameter();
             this.paramSourceID.setId(CommonUtils.createUniqueId(this.paramSourceID));
             this.paramSourceID.setName("sourceID");
@@ -631,43 +643,43 @@ public class SourceUI
             }
             else
             {
-                this.emptySpace = new StaticText();
+                this.emptySpace = new HtmlOutputText();
                 this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-                this.emptySpace.setText(" ");
+                this.emptySpace.setValue(" ");
                 this.emptySpace.setStyle("height: 20px; width: 360px");
                 this.panGrid.getChildren().add(this.emptySpace);
             }
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
         }
         else
         {
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
-            this.emptySpace = new StaticText();
+            this.emptySpace = new HtmlOutputText();
             this.emptySpace.setId(CommonUtils.createUniqueId(this.emptySpace));
-            this.emptySpace.setText(" ");
+            this.emptySpace.setValue(" ");
             this.emptySpace.setStyle("height: 20px; width: 360px");
             this.panGrid.getChildren().add(this.emptySpace);
         }

@@ -43,6 +43,8 @@ import java.util.ResourceBundle;
 
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
@@ -54,9 +56,6 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.StaticText;
-
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
@@ -67,13 +66,13 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 
 /**
@@ -81,12 +80,12 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  * This class provides all functionality for choosing and viewing one or more items out of a list of SearchResults.  
  *
  * @author:  Tobias Schraut; Thomas Diebäcker, Hugo Niedermaier, created 10.01.2007
- * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Tue, 18 Dec 2007) $
+ * @version: $Revision: 1695 $ $LastChangedDate: 2007-12-18 14:25:56 +0100 (Di, 18 Dez 2007) $
  * Revised by DiT: 14.08.2007
  */
 public class SearchResultList extends ItemList
 {
-    public static final String BEAN_NAME = "search$SearchResultList";
+    public static final String BEAN_NAME = "SearchResultList";
     private static Logger logger = Logger.getLogger(SearchResultList.class);
     
     // Faces navigation string
@@ -95,16 +94,16 @@ public class SearchResultList extends ItemList
     public final static String LOAD_AFFILIATIONSEARCHRESULTLIST = "showAffiliationSearchResults";
     
     // binded components in JSP
-    private Hyperlink lnkEdit = new Hyperlink();
-    private Hyperlink lnkView = new Hyperlink();
-    private Hyperlink lnkWithdraw = new Hyperlink();
-    private Hyperlink lnkSubmit = new Hyperlink();
-    private Hyperlink lnkDelete = new Hyperlink();
-    private Hyperlink lnkNewSubmission = new Hyperlink();
-    private StaticText valNoItemsFoundMsg = new StaticText();
-    private StaticText valQuery = new StaticText();
-    private Hyperlink lnkAdvancedSearch = new Hyperlink();
-    private Hyperlink lnkBrowse = new Hyperlink();
+    private HtmlCommandLink lnkEdit = new HtmlCommandLink();
+    private HtmlCommandLink lnkView = new HtmlCommandLink();
+    private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
+    private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
+    private HtmlCommandLink lnkDelete = new HtmlCommandLink();
+    private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
+    private HtmlOutputText valNoItemsFoundMsg = new HtmlOutputText();
+    private HtmlOutputText valQuery = new HtmlOutputText();
+    private HtmlCommandLink lnkAdvancedSearch = new HtmlCommandLink();
+    private HtmlCommandLink lnkBrowse = new HtmlCommandLink();
     /** show the back link */
     private boolean showBackLink = true;
  
@@ -120,6 +119,7 @@ public class SearchResultList extends ItemList
     public SearchResultList()
     {
     	super();
+    	this.init();
     }
 
     /**
@@ -144,10 +144,7 @@ public class SearchResultList extends ItemList
         {
         	InitialContext initialContext = new InitialContext();
         	PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-        	Application application = FacesContext.getCurrentInstance().getApplication();
-        	InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        	ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-        	valQuery.setText(bundle.getString("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
+        	valQuery.setValue(getMessage("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
         }
         catch (NamingException e)
         {
@@ -212,13 +209,13 @@ public class SearchResultList extends ItemList
         //HtmlCommandButton result = (HtmlCommandButton)event.getSource();
         logger.debug("showDisplayExportData");
         
-        this.displayExportData = this.bundleMessage.getString(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+        this.displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
         
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.BEAN_NAME);
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
         //after the sepcificiation the file format of the displayed export data has to be html
         sb.setFileFormat("html");
  
-        // set the currently selected items in the SessionBean
+        // set the currently selected items in the FacesBean
         this.setSelectedItemsAndCurrentItem();
         if (this.getSessionBean().getSelectedPubItems().size() != 0)
         {
@@ -232,7 +229,7 @@ public class SearchResultList extends ItemList
             } catch(TechnicalException e)
             {
                 logger.error("Could not get export data." + "\n" + e.toString());
-                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -301,7 +298,7 @@ public class SearchResultList extends ItemList
                 logger.debug("showExportEmailPage");
             }
             this.setSelectedItemsAndCurrentItem();
-            ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.BEAN_NAME);
+            ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
             
             if (this.getSessionBean().getSelectedPubItems().size() != 0)
             {
@@ -314,7 +311,7 @@ public class SearchResultList extends ItemList
                 } catch (TechnicalException e)
                 {
                     logger.error("Errors retrieving export data." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
                 
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -348,21 +345,16 @@ public class SearchResultList extends ItemList
                 catch (IOException e1)
                 {
                     logger.debug("IO Error by writing the export data: " + e1.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e1);
+                    ((ErrorPage)getBean(ErrorPage.class)).setException(e1);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
     
-                sb.setExportEmailTxt(this.bundleMessage.getString(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+                sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
                 sb.setAttExportFileName(exportAttFile.getName());
                 sb.setAttExportFile(exportAttFile);
-                sb.setExportEmailSubject(
-                		this.bundleMessage.getString(
-                				ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT
-                		) +
-                		": " +
-                		exportAttFile.getName()
-                );
+                sb.setExportEmailSubject(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) +
+                		": " + exportAttFile.getName());
                 
                 //hier call set the values on the exportEmailView - attachment file, subject, .... 
                 return "displayExportEmailPage";
@@ -388,9 +380,9 @@ public class SearchResultList extends ItemList
                 logger.debug("downloadExportFile");
             }
  
-          // set the currently selected items in the SessionBean
+          // set the currently selected items in the FacesBean
          this.setSelectedItemsAndCurrentItem();
-         ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.BEAN_NAME);
+         ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
          
          if (this.getSessionBean().getSelectedPubItems().size() != 0)
          {
@@ -403,7 +395,7 @@ public class SearchResultList extends ItemList
             } catch (TechnicalException e)
             {
                 logger.error("Errors retrieving export data." + "\n" + e.toString());
-                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -437,7 +429,7 @@ public class SearchResultList extends ItemList
             catch (IOException e1)
             {
                 logger.debug("IO Error by writing the export data: " + e1.toString());
-                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e1);
+                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e1);
                 
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -487,6 +479,8 @@ public class SearchResultList extends ItemList
     {
         this.getPanDynamicItemList().getChildren().clear();
         
+        ArrayList<PubItemVO> list = this.getSessionBean().getCurrentPubItemList();
+        
         if(this.getSessionBean().getCurrentPubItemList() != null)
         {
             if (logger.isDebugEnabled())
@@ -497,7 +491,7 @@ public class SearchResultList extends ItemList
             // create an ItemListUI for all PubItems
             List<PubItemVO> pubItemList = this.getSessionBean().getCurrentPubItemList();
             List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-            ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{search$SearchResultList.showItem}");
+            ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{SearchResultList.showItem}");
             
             // add the UI to the dynamic panel
             this.getPanDynamicItemList().getChildren().add(itemListUI);
@@ -516,20 +510,20 @@ public class SearchResultList extends ItemList
         boolean enableView = (itemListSize > 0); 
         boolean enableNoItemMsg = (itemListSize <= 0);
 
-        this.lnkView.setVisible(enableView);
-        this.lnkWithdraw.setVisible(enableView);
-        this.valNoItemsFoundMsg.setVisible(enableNoItemMsg);
+        this.lnkView.setRendered(enableView);
+        this.lnkWithdraw.setRendered(enableView);
+        this.valNoItemsFoundMsg.setRendered(enableNoItemMsg);
         
         LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
 
         // FrM: enable or disable the action links according to the login state
         if (loginHelper.getESciDocUserHandle() != null)
         {
-            this.lnkWithdraw.setVisible(enableView);
+            this.lnkWithdraw.setRendered(enableView);
         } 
         else 
         {
-            this.lnkWithdraw.setVisible(false);
+            this.lnkWithdraw.setRendered(false);
         }
     }
     
@@ -544,9 +538,9 @@ public class SearchResultList extends ItemList
             logger.debug("Starting a new search...");
         }
   
-        lnkAdvancedSearch.setVisible(false);
-        lnkBrowse.setVisible(false);
-        valQuery.setVisible(false);
+        lnkAdvancedSearch.setRendered(false);
+        lnkBrowse.setRendered(false);
+        valQuery.setRendered(false);
         this.showBackInNoResultPage( false );
         // reset some error message from last request
         this.deleteMessage();
@@ -562,7 +556,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items.", e);
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -592,9 +586,9 @@ public class SearchResultList extends ItemList
             logger.debug("Starting a new advancedSearch...");
         }
         
-        lnkAdvancedSearch.setVisible(true);
-        lnkBrowse.setVisible(false);
-        valQuery.setVisible(true);
+        lnkAdvancedSearch.setRendered(true);
+        lnkBrowse.setRendered(false);
+        valQuery.setRendered(true);
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
         this.deleteMessage();
@@ -608,7 +602,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -621,10 +615,7 @@ public class SearchResultList extends ItemList
         {
             InitialContext initialContext = new InitialContext();
             PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-            Application application = FacesContext.getCurrentInstance().getApplication();
-            InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-            ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-            valQuery.setText(bundle.getString("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
+            valQuery.setValue(getMessage("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
             if (result > 0)
             {
                 return (SearchResultList.LOAD_SEARCHRESULTLIST);           
@@ -652,9 +643,9 @@ public class SearchResultList extends ItemList
             logger.debug("Starting a new Search for Affiliation...");
         }
         
-        lnkBrowse.setVisible(true);
-        lnkAdvancedSearch.setVisible(false);
-        valQuery.setVisible(false);
+        lnkBrowse.setRendered(true);
+        lnkAdvancedSearch.setRendered(false);
+        valQuery.setRendered(false);
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
         this.deleteMessage();
@@ -669,7 +660,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -766,12 +757,12 @@ public class SearchResultList extends ItemList
     public String handleDownloadAction(ActionEvent event) throws Exception
     {
         //find the index of the the button the user has clicked
-        StaticText result = (StaticText)((HtmlCommandButton)event.getSource()).getParent();
+        HtmlOutputText result = (HtmlOutputText)((HtmlCommandButton)event.getSource()).getParent();
         int indexButton = result.getChildren().indexOf(event.getSource());
         
         // then find the indexes of the item and the file the clicked button belongs to
-        int indexFile = new Integer(((StaticText)result.getChildren().get(indexButton-1)).getValue().toString());
-        int indexItem = new Integer(((StaticText)result.getChildren().get(indexButton-2)).getValue().toString());
+        int indexFile = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-1)).getValue().toString());
+        int indexItem = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-2)).getValue().toString());
         try
         {
             this.downloadFile(indexItem, indexFile);
@@ -813,103 +804,103 @@ public class SearchResultList extends ItemList
      */
     protected SearchResultListSessionBean getSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.BEAN_NAME);
+        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
     }
 
-    public StaticText getValNoItemsFoundMsg()
+    public HtmlOutputText getValNoItemsFoundMsg()
     {
         return valNoItemsFoundMsg;
     }
 
-    public void setValNoItemsFoundMsg(StaticText valNoItemsFoundMsg)
+    public void setValNoItemsFoundMsg(HtmlOutputText valNoItemsFoundMsg)
     {
         this.valNoItemsFoundMsg = valNoItemsFoundMsg;
     }
 
-    public Hyperlink getLnkDelete()
+    public HtmlCommandLink getLnkDelete()
     {
         return lnkDelete;
     }
 
-    public void setLnkDelete(Hyperlink lnkDelete)
+    public void setLnkDelete(HtmlCommandLink lnkDelete)
     {
         this.lnkDelete = lnkDelete;
     }
 
-    public Hyperlink getLnkEdit()
+    public HtmlCommandLink getLnkEdit()
     {
         return lnkEdit;
     }
 
-    public void setLnkEdit(Hyperlink lnkEdit)
+    public void setLnkEdit(HtmlCommandLink lnkEdit)
     {
         this.lnkEdit = lnkEdit;
     }
 
-    public Hyperlink getLnkNewSubmission()
+    public HtmlCommandLink getLnkNewSubmission()
     {
         return lnkNewSubmission;
     }
 
-    public void setLnkNewSubmission(Hyperlink lnkNewSubmission)
+    public void setLnkNewSubmission(HtmlCommandLink lnkNewSubmission)
     {
         this.lnkNewSubmission = lnkNewSubmission;
     }
 
-    public Hyperlink getLnkSubmit()
+    public HtmlCommandLink getLnkSubmit()
     {
         return lnkSubmit;
     }
 
-    public void setLnkSubmit(Hyperlink lnkSubmit)
+    public void setLnkSubmit(HtmlCommandLink lnkSubmit)
     {
         this.lnkSubmit = lnkSubmit;
     }
 
-    public Hyperlink getLnkView()
+    public HtmlCommandLink getLnkView()
     {
         return lnkView;
     }
 
-    public void setLnkView(Hyperlink lnkView)
+    public void setLnkView(HtmlCommandLink lnkView)
     {
         this.lnkView = lnkView;
     }
 
-    public Hyperlink getLnkWithdraw() {
+    public HtmlCommandLink getLnkWithdraw() {
         return lnkWithdraw;
     }
 
-    public void setLnkWithdraw(Hyperlink lnkWithdraw) {
+    public void setLnkWithdraw(HtmlCommandLink lnkWithdraw) {
         this.lnkWithdraw = lnkWithdraw;
     }
 
-    public StaticText getValQuery()
+    public HtmlOutputText getValQuery()
     {
         return valQuery;
     }
 
-    public void setValQuery(StaticText valQuery)
+    public void setValQuery(HtmlOutputText valQuery)
     {
         this.valQuery = valQuery;
     }
 
-    public Hyperlink getLnkAdvancedSearch()
+    public HtmlCommandLink getLnkAdvancedSearch()
     {
         return lnkAdvancedSearch;
     }
 
-    public void setLnkAdvancedSearch(Hyperlink lnkAdvancedSearch)
+    public void setLnkAdvancedSearch(HtmlCommandLink lnkAdvancedSearch)
     {
         this.lnkAdvancedSearch = lnkAdvancedSearch;
     }
 
-    public Hyperlink getLnkBrowse()
+    public HtmlCommandLink getLnkBrowse()
     {
         return lnkBrowse;
     }
 
-    public void setLnkBrowse(Hyperlink lnkBrowse)
+    public void setLnkBrowse(HtmlCommandLink lnkBrowse)
     {
         this.lnkBrowse = lnkBrowse;
     }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+
+<% /* 
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -25,45 +25,62 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://www.sun.com/web/ui" xmlns:h="http://java.sun.com/jsf/html">
-    <f:subview id="NoSearchResults">
-    	<h1>
-    	
-    	</h1>
+*/ %>
+
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<div>
+	<f:subview id="NoSearchResults">
+		<h1>
+		
+		</h1>
 
 		<p>
-			<ui:staticText id="valQuery" binding="#{search$SearchResultList.valQuery}"/>
+			<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
 		</p><br/>
 
-    	<p>
-			<h:outputLink value="#{ApplicationBean.appContext}#{breadCrumb$BreadCrumbNavigation.previousPageURI}" rendered="#{search$SearchResultList.showBackLink}">
+		<p>
+			<h:outputLink value="#{ApplicationBean.appContext}#{BreadCrumbNavigation.previousPageURI}">
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 			</h:outputLink>
 		</p>
-    	<div class="listHeader dark">
-	    	<h3>
-		    	<label>
-		    		<ui:staticText id="NoHits" text="#{lbl.SearchResultList_lblNoHits}"/>
-		    	</label>
-	    	</h3>
-    	</div>
-    	<h2>
-    		<ui:staticText id="Notification" text="#{msg.searchResultList_Notification}"/>
-    	</h2>
-    	
-    	<p><ui:staticText id="PleaseTryOptions" text="#{msg.searchResultList_PleaseTryOptions}"/></p><br/>
-    	<p><ui:staticText id="Option1" text="#{msg.searchResultList_Option1}"/></p><br/>
-    	<p>
-    		<ui:hyperlink id="Option1Link" onClick="loadHelp('#{util$InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false" text="#{msg.searchResultList_Option1Link}" action="#"/>
+		<div class="listHeader dark">
+			<h3>
+				<label>
+					<h:outputText id="NoHits" value="#{lbl.SearchResultList_lblNoHits}"/>
+				</label>
+			</h3>
+		</div>
+		<h2>
+			<h:outputText id="Notification" value="#{msg.searchResultList_Notification}"/>
+		</h2>
+		
+		<p>
+			<h:outputText id="PleaseTryOptions" value="#{msg.searchResultList_PleaseTryOptions}"/>
 		</p><br/>
-    	<p><ui:staticText id="Option2" text="#{msg.searchResultList_Option2}"/></p><br/>
-    	<p><ui:hyperlink id="lnkAdvancedSearch" immediate="true" disabled="#{desktop$AdvancedSearch.disableAdvancedSearch}" text="#{lbl.search_lblAdvancedSearch_noresults}" action="#{desktop$AdvancedSearch.showSearchPage}"/></p><br/>
-    	<p>
-	    	<ui:hyperlink id="Option2Link2" onClick="loadHelp('#{util$InternationalizationHelper.selectedHelpPage}', '#x1-70003.2');return false" text="#{msg.searchResultList_Option2Link2}" action="#"/>
+		<p>
+			<h:outputText id="Option1" value="#{msg.searchResultList_Option1}"/>
 		</p><br/>
-    	<p><ui:staticText id="Option3" text="#{msg.searchResultList_Option3}"/></p><br/>
-    	<p><ui:hyperlink id="lnkBrowseByAffiliation" immediate="true" text="#{lbl.mainMenu_lnkBrowseByAffiliation}" action="#{desktop$Navigation.loadAffiliationTree}" /></p><br/>
-    	<p><ui:staticText id="Option4" text="#{msg.searchResultList_Option4}"/></p><br/>
-    </f:subview>
+		<p>
+			<h:outputLink id="Option1Link" onclick="loadHelp{'#{InternationalizationHelper.selectedHelpPage}' , '#SearchResults')" value="#{msg.searchResultList_Option1Link}" />
+		</p><br/>
+		<p>
+			<h:outputText id="Option2" value="#{msg.searchResultList_Option2}"/>
+		</p><br/>
+		<p>
+			<h:commandLink id="lnkAdvancedSearch" immediate="true" disabled="#{AdvancedSearch.disableAdvancedSearch}" value="#{lbl.search_lblAdvancedSearch}" action="#{desktopAdvancedSearch.showSearchPage}"/>
+		</p><br/>
+		<p>
+			<h:outputLink id="Option2Link2" onclick="loadHelp{'#{InternationalizationHelper.selectedHelpPage}' , '#SearchResults')" value="#{msg.searchResultList_Option2Link2}" />
+		</p><br/>
+		<p>
+			<h:outputText id="Option3" value="#{msg.searchResultList_Option3}"/>
+		</p><br/>
+		<p>
+			<h:commandLink id="lnkBrowseByAffiliation" immediate="true" value="#{lbl.mainMenu_lnkBrowseByAffiliation}" action="#{Navigation.loadAffiliationTree}" />
+		</p><br/>
+		<p>
+			<h:outputText id="Option4" value="#{msg.searchResultList_Option4}"/>
+		</p><br/>
+	</f:subview>
 </div>

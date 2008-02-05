@@ -30,22 +30,23 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Fragment class for the corresponding Header-JSP.
  * 
  * @author: Thomas Diebäcker, created 24.01.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 14.08.2007
  */
-public class Header extends AbstractFragmentBean
+public class Header extends FacesBean
 {
     /**
      * Public constructor.
      */
     public Header()
     {
+        this.init();
     }
 
     /**

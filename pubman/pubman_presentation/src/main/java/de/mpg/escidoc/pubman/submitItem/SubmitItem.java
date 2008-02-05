@@ -31,14 +31,17 @@
 package de.mpg.escidoc.pubman.submitItem;
 
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
+import javax.faces.component.html.HtmlInputTextarea;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
-import com.sun.rave.web.ui.component.StaticText;
-import com.sun.rave.web.ui.component.TextArea;
+
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -55,33 +58,26 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
  * Revised by FrM: 09.08.2007
  *  * Checkstyled, commented, cleaned.
  */
-public class SubmitItem extends AbstractFragmentBean
+public class SubmitItem extends FacesBean
 {
     private static Logger logger = Logger.getLogger(SubmitItem.class);
     // Faces navigation string
     public static final String LOAD_SUBMITITEM = "loadSubmitItem";
     public static final String JSP_NAME = "SubmitItemPage.jsp"; //DiT: to avoid JSF-Navigation
 
-    private TextArea submissionComment;
+    private HtmlInputTextarea submissionComment;
 
-    private StaticText valMessage = new StaticText();
+    private HtmlOutputText valMessage = new HtmlOutputText();
     private String creators;
     
     private String navigationStringToGoBack;
-
-    //For handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    //get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application
-    .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    //... and set the refering resource bundle
-    private ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     /**
      * Public constructor.
      */
     public SubmitItem()
     {
+        this.init();
     }
 
     /**
@@ -152,9 +148,9 @@ public class SubmitItem extends AbstractFragmentBean
         //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
         String comment;
 
-        if (submissionComment.getText() != null)
+        if (submissionComment.getValue() != null)
         {
-            comment = submissionComment.getText().toString();
+            comment = submissionComment.getValue().toString();
         }
         else
         {
@@ -193,11 +189,11 @@ public class SubmitItem extends AbstractFragmentBean
     /**
      * Shows the given Message below the itemList after next Reload of the DepositorWS.
      * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
+     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
      */
     private void showMessage(final String message)
     {
-        String localMessage = this.bundle.getString(message);
+        String localMessage = getMessage(message);
         this.getDepositorWSSessionBean().setMessage(localMessage);
     }
     
@@ -210,8 +206,8 @@ public class SubmitItem extends AbstractFragmentBean
 
         String message = this.getSessionBean().getMessage();
         
-        this.valMessage.setText(message);
-        this.valMessage.setVisible(message != null);
+        this.valMessage.setValue(message);
+        this.valMessage.setRendered(message != null);
         
         // keep the message just once
         this.getSessionBean().setMessage(null);
@@ -223,7 +219,7 @@ public class SubmitItem extends AbstractFragmentBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -232,7 +228,7 @@ public class SubmitItem extends AbstractFragmentBean
      */
     protected final DepositorWSSessionBean getDepositorWSSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.BEAN_NAME);
+        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -241,25 +237,25 @@ public class SubmitItem extends AbstractFragmentBean
      */
     protected final SubmitItemSessionBean getSessionBean()
     {
-        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.BEAN_NAME);
+        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.class);
     }
 
-    public final TextArea getSubmissionComment()
+    public final HtmlInputTextarea getSubmissionComment()
     {
         return submissionComment;
     }
 
-    public final void setSubmissionComment(final TextArea submissionComment)
+    public final void setSubmissionComment(final HtmlInputTextarea submissionComment)
     {
         this.submissionComment = submissionComment;
     }
 
-    public final StaticText getValMessage()
+    public final HtmlOutputText getValMessage()
     {
         return valMessage;
     }
 
-    public final void setValMessage(final StaticText valMessage)
+    public final void setValMessage(final HtmlOutputText valMessage)
     {
         this.valMessage = valMessage;
     }

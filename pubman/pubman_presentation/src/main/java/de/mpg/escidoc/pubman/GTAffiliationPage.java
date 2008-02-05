@@ -22,15 +22,14 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
 package de.mpg.escidoc.pubman;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * GTAffiliationPage.java Backing bean for GTAffiliationPage.jsp This is for the GUI tool mode. The pubman frame will not be
@@ -38,16 +37,15 @@ import com.sun.rave.web.ui.component.Page;
  * 
  * @author: Hugo Niedermaier
  */
-public class GTAffiliationPage extends AbstractPageBean
+public class GTAffiliationPage extends FacesBean
 {
-    // this attribute is for connecting the GTEditItemPage.jsp with this backing bean
-    private Page page = new Page();
 
     /**
      * Public constructor.
      */
     public GTAffiliationPage()
     {
+        this.init();
     }
 
     /**
@@ -66,21 +64,11 @@ public class GTAffiliationPage extends AbstractPageBean
     /**
      * Returns the CommonSessionBean.
      * 
-     * @return a reference to the scoped data bean (CmmonSessionBean)
+     * @return a reference to the scoped data bean (CommonSessionBean)
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.BEAN_NAME);
+        return (CommonSessionBean)getBean(CommonSessionBean.class);
     }
 
-    // Getters and Setters
-    public Page getPage()
-    {
-        return page;
-    }
-
-    public void setPage(Page page)
-    {
-        this.page = page;
-    }
 }

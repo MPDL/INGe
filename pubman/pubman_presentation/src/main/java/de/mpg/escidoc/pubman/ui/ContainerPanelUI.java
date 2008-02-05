@@ -30,6 +30,10 @@
 
 package de.mpg.escidoc.pubman.ui;
 
+import java.util.ResourceBundle;
+
+import javax.el.MethodExpression;
+import javax.el.ValueExpression;
 import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
@@ -39,19 +43,29 @@ import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Hyperlink;
+import javax.faces.component.html.HtmlCommandLink;
+
+import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
 /**
  * Panel that works as a container for other contents (e.g. item lists, search criteria). 
  *
  * @author: Thomas Diebäcker, created 29.08.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ContainerPanelUI extends HtmlPanelGroup
+public class ContainerPanelUI extends HtmlPanelGroup implements Internationalized
 {
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(ContainerPanelUI.class);
+
+    
+    //For handling the resource bundles (i18n)
+    protected Application application = FacesContext.getCurrentInstance().getApplication();
+    //get the selected language...
+    protected InternationalizationHelper i18nHelper = (InternationalizationHelper)application
+    .getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
 
     // UI elements
     private HTMLElementUI htmlElementUI = new HTMLElementUI();
@@ -87,6 +101,26 @@ public class ContainerPanelUI extends HtmlPanelGroup
 
         this.panFooter.setId(CommonUtils.createUniqueId(this.panFooter));
         this.getChildren().add(this.panFooter);
+    }
+
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+    
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within this component. 
+    	// We assume that the saved tree will have been restored 'behind' the children we put into it from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
     }
 
     /**
@@ -158,20 +192,20 @@ public class ContainerPanelUI extends HtmlPanelGroup
     {
         Application application = FacesContext.getCurrentInstance().getApplication();
         
-        HtmlOutputText txtTitle = new HtmlOutputText();
+        HtmlOutputText txtTitle = (HtmlOutputText) application.createComponent(HtmlOutputText.COMPONENT_TYPE);
         txtTitle.setId(CommonUtils.createUniqueId(txtTitle));
         txtTitle.setValue(CommonUtils.limitString(title, 100));
         
-        Hyperlink lnkTitle = new Hyperlink();
+        HtmlCommandLink lnkTitle = (HtmlCommandLink) application.createComponent(HtmlCommandLink.COMPONENT_TYPE);
         lnkTitle.setId(CommonUtils.createUniqueId(lnkTitle));
-        lnkTitle.setAction(application.createMethodBinding(actionMethod, null));
+        lnkTitle.setAction(application.createMethodBinding(actionMethod, new Class[0]));
      
-        UIParameter uiParameter = new UIParameter();
+        UIParameter uiParameter = (UIParameter) application.createComponent(UIParameter.COMPONENT_TYPE);
         uiParameter.setId(CommonUtils.createUniqueId(uiParameter));
         uiParameter.setName("itemID");
         uiParameter.setValue(parameter);
-        lnkTitle.getChildren().add(uiParameter);
         
+        lnkTitle.getChildren().add(uiParameter);
         lnkTitle.getChildren().add(txtTitle);
         
         this.setTitelComponent(lnkTitle);
@@ -193,4 +227,113 @@ public class ContainerPanelUI extends HtmlPanelGroup
         // add the new component as the only child
         this.panTitelComponent.getChildren().add(this.titelComponent);
     }
+
+    /*
+     * (non-Javadoc)
+     * @see de.mpg.escidoc.pubman.appbase.Internationalized#getLabel(java.lang.String)
+     */
+    public String getLabel(String placeholder)
+    {
+        return ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle()).getString(placeholder);
+    }
+
+    /*
+     * (non-Javadoc)
+     * @see de.mpg.escidoc.pubman.appbase.Internationalized#getMessage(java.lang.String)
+     */
+    public String getMessage(String placeholder)
+    {
+        return ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle()).getString(placeholder);
+    }
+    /*
+     * (non-Javadoc)
+     * @see de.mpg.escidoc.pubman.appbase.Internationalized#bindComponentLabel(javax.faces.component.UIComponent, java.lang.String)
+     */
+    public void bindComponentLabel(UIComponent component, String placeholder)
+    {
+        bindComponentValue(component, "#{lbl." + placeholder + "}");
+    }
+
+    /**
+     * Bind a localized string to a JSF component value.
+     *
+     * @param component The JSF component.
+     * @param value The string with internationalized content.
+     */
+    public void bindComponentValue(final UIComponent component, final String value)
+    {
+        ValueExpression valueExpression = FacesContext
+                .getCurrentInstance()
+                .getApplication()
+                .getExpressionFactory()
+                .createValueExpression(FacesContext.getCurrentInstance().getELContext(), value, String.class);
+        component.setValueExpression("value", valueExpression);
+    }
+
+    /**
+     * Create an el method expression from a given string.
+     *
+     * @param el The string containing the expression. E.g. "#{MyBean.doSomething}".
+     * @return The according el method expression.
+     */
+    protected MethodExpression getMethodExpression(final String el)
+    {
+        return FacesContext
+                .getCurrentInstance()
+                .getApplication()
+                .getExpressionFactory()
+                .createMethodExpression(
+                        FacesContext
+                                .getCurrentInstance()
+                                .getELContext(),
+                        "#{ViewItemFull.showRevisions}",
+                        null,
+                        new Class<?>[0]);
+    }
+
+    /**
+     * Return any bean stored in session scope under the specified name.
+     * @param cls The bean class.
+     * @return the actual or new bean instance
+     */
+    public static synchronized Object getSessionBean(final Class<?> cls)
+    {
+        String name = null;
+
+        try
+        {
+            name = (String) cls.getField("BEAN_NAME").get(new String());
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Error getting bean name of " + cls, e);
+        }
+        Object result = FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getSessionMap()
+                .get(name);
+        if (result == null)
+        {
+            try
+            {
+                Object newBean = cls.newInstance();
+                FacesContext
+                        .getCurrentInstance()
+                        .getExternalContext()
+                        .getRequestMap()
+                        .put(name, newBean);
+                return newBean;
+            }
+            catch (Exception e)
+            {
+                throw new RuntimeException("Error creating new bean of type " + cls, e);
+            }
+        }
+        else
+        {
+            return result;
+        }
+    }
+
 }

@@ -5,14 +5,14 @@
 * (en) Horizontal list navigation "Shiny Buttons"
 * (de) Horizontale Navigationsliste "Shiny Buttons"
 *
-* @copyright       Copyright 2005-2007, Dirk Jesse
-* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
-*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
-* @link            http://www.yaml.de
-* @package         yaml
-* @version         3.0.1
-* @revision        $Revision: 92 $
-* @lastmodified    $Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
+* @copyright	   Copyright 2005-2007, Dirk Jesse
+* @license		 CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*				  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link			http://www.yaml.de
+* @package		 yaml
+* @version		 3.0.1
+* @revision		$Revision: 92 $
+* @lastmodified	$Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
 */
 
 @media all
@@ -34,7 +34,7 @@
 
 #nav_main ul {
   float:left;
-    /* (en|de) Bugfix: IE - Doubled Float Margin Bug */
+	/* (en|de) Bugfix: IE - Doubled Float Margin Bug */
   display:inline;
   margin:0;
   padding: 0;
@@ -48,7 +48,7 @@
 
 #nav_main ul li {
   float: left;
-    /* (en|de) Bugfix: IE - Doubled Float Margin Bug */
+	/* (en|de) Bugfix: IE - Doubled Float Margin Bug */
   display:inline;
   margin: 0;
   padding: 0;

@@ -33,12 +33,15 @@ package de.mpg.escidoc.pubman.releases;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.releases.ui.ReleaseListUI;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -48,26 +51,16 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
  * Fragment class for Releasy history.
  * 
  * @author: Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mon, 17 Dec 2007) $ 
+ * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
  */
-public class ReleaseHistory extends AbstractFragmentBean
+public class ReleaseHistory extends FacesBean
 {
-    public static final String BEAN_NAME = "releases$ReleaseHistory";
+    public static final String BEAN_NAME = "ReleaseHistory";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ReleaseHistory.class);
     
     // Faces navigation string
     public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
-    
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     // panel for dynamic components
     private HtmlPanelGroup panDynamicReleases = new HtmlPanelGroup();        
@@ -77,6 +70,7 @@ public class ReleaseHistory extends AbstractFragmentBean
      */
     public ReleaseHistory()
     {
+        this.init();
     }
     
     /**
@@ -87,10 +81,6 @@ public class ReleaseHistory extends AbstractFragmentBean
     {
         super.init();
         
-        //re-init the resources and combo-boxes due to direct language switch
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        this.bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
-        
         if (this.getSessionBean().getReleaseListUI() == null)
         {
             this.createDynamicItemList();
@@ -98,7 +88,7 @@ public class ReleaseHistory extends AbstractFragmentBean
     }
     
     /**
-     * Creates the panel newly according to the values in the SessionBean.
+     * Creates the panel newly according to the values in the FacesBean.
      */
     protected void createDynamicItemList()
     {
@@ -143,7 +133,7 @@ public class ReleaseHistory extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
     
     /**
@@ -153,7 +143,7 @@ public class ReleaseHistory extends AbstractFragmentBean
      */
     protected ReleasesSessionBean getSessionBean()
     {
-        return (ReleasesSessionBean)getBean(ReleasesSessionBean.BEAN_NAME);
+        return (ReleasesSessionBean)getBean(ReleasesSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicReleases()

@@ -32,12 +32,15 @@ package de.mpg.escidoc.pubman.revisions;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
 import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
@@ -52,27 +55,17 @@ import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
  * Fragment class for CreateRevision.
  * 
  * @author: Thomas Diebäcker, created 22.10.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mon, 17 Dec 2007) $ 
+ * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $ 
  */
-public class CreateRevision extends AbstractFragmentBean
+public class CreateRevision extends FacesBean
 {
-    public static final String BEAN_NAME = "revisions$CreateRevision";
+    public static final String BEAN_NAME = "CreateRevision";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CreateRevision.class);
     
     // Faces navigation string
     public final static String LOAD_CREATEREVISION = "loadCreateRevision";
     public final static String LOAD_CHOOSECOLLECTION = "loadChooseCollection";
-    
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     // panel for dynamic components
     HtmlPanelGroup panDynamicRevisionList = new HtmlPanelGroup();  
@@ -83,6 +76,7 @@ public class CreateRevision extends AbstractFragmentBean
      */
     public CreateRevision()
     {
+        this.init();
     }
     
     /**
@@ -97,10 +91,6 @@ public class CreateRevision extends AbstractFragmentBean
         {
             logger.debug("CreateRevision.init()");
         }
-        
-        //re-init the resources and combo-boxes due to direct language switch
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        this.bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
         
         if (this.getSessionBean().getRevisionListUI() == null)
         {
@@ -165,7 +155,7 @@ public class CreateRevision extends AbstractFragmentBean
     }
     
     /**
-     * Creates the item panel newly according to the values in the SessionBean.
+     * Creates the item panel newly according to the values in the FacesBean.
      */
     protected void createDynamicItemList()
     {
@@ -188,7 +178,7 @@ public class CreateRevision extends AbstractFragmentBean
     }
 
     /**
-     * Creates the collection panel newly according to the values in the SessionBean.
+     * Creates the collection panel newly according to the values in the FacesBean.
      */
     protected void createDynamicCollectionList()
     {
@@ -218,7 +208,7 @@ public class CreateRevision extends AbstractFragmentBean
      */
     protected RevisionListSessionBean getSessionBean()
     {
-        return (RevisionListSessionBean)getBean(RevisionListSessionBean.BEAN_NAME);
+        return (RevisionListSessionBean)getBean(RevisionListSessionBean.class);
     }
 
     /**
@@ -227,7 +217,7 @@ public class CreateRevision extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -237,7 +227,7 @@ public class CreateRevision extends AbstractFragmentBean
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicRevisionList()

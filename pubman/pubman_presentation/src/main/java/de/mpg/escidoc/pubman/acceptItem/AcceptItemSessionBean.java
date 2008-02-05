@@ -31,7 +31,7 @@
 package de.mpg.escidoc.pubman.acceptItem;
 
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Keeps all attributes that are used for the whole session by AcceptItem.
@@ -40,7 +40,7 @@ import com.sun.rave.web.ui.appbase.AbstractSessionBean;
  * @author: $Author: mfranke $
  * @version: $Revision: 834 $ $LastChangedDate: 2007-08-01 19:24:53 +0200 (Mi, 01 Aug 2007) $
  */
-public class AcceptItemSessionBean extends AbstractSessionBean
+public class AcceptItemSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "AcceptItemSessionBean";
 
@@ -57,6 +57,7 @@ public class AcceptItemSessionBean extends AbstractSessionBean
      */
     public AcceptItemSessionBean()
     {
+        this.init();
     }
 
     /**

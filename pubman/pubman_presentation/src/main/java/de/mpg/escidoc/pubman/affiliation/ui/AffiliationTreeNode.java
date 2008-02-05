@@ -29,18 +29,19 @@
 
 package de.mpg.escidoc.pubman.affiliation.ui;
 
-import com.sun.rave.web.ui.component.TreeNode;
 import javax.faces.event.ActionListener;
+
+import de.mpg.escidoc.pubman.affiliation.YuiTreeNode;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
  * TreeNode component that can store an affiliation. 
  * 
  * @author: Hugo Niedermaier, created 31.05.2007
- * @version: $Revision: 1626 $ $LastChangedDate: 2007-11-28 13:09:19 +0100 (Wed, 28 Nov 2007) $
+ * @version: $Revision: 11 $ $LastChangedDate: 2007-11-21 19:07:30 +0100 (Mi, 21 Nov 2007) $
  * Revised by NiH: 13.08.2007
  */
-public class AffiliationTreeNode extends TreeNode implements ActionListener
+public class AffiliationTreeNode extends YuiTreeNode implements ActionListener
 {
     private AffiliationVO affiliationVO = null;
     
@@ -50,7 +51,6 @@ public class AffiliationTreeNode extends TreeNode implements ActionListener
     /** flag if children have been fetched */
     boolean haveChildrenFetched;
     
-
     AffiliationTreeNode( AffiliationTreeNodeUI node ) 
     {
         haveChildrenFetched = false;
@@ -67,17 +67,6 @@ public class AffiliationTreeNode extends TreeNode implements ActionListener
         this.affiliationVO = affiliationVO;
     }    
     
-    public boolean hasAffiliationChildren()
-    {
-        if( affiliationVO != null ) 
-        {
-            return affiliationVO.getHasChildren();
-        }
-        else
-        {
-            return false;
-        }
-    }
     
     public synchronized void processAction(javax.faces.event.ActionEvent event)
     {   

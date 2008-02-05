@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!-- 
+
+<% /* 
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -25,31 +25,30 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
-    <f:subview id="SearchResultList">
-    	<h1>
-    	<ui:staticText id="valOrientationText" text="#{lbl.SearchResultListPage}"/>
-        </h1>
+*/ %>
+
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<div>
+<f:subview id="SearchResultList">
+	<h1>
+		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>
+	</h1>
 		<p>
-	        <ui:hyperlink binding="#{search$SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
-	        	text="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{desktop$AdvancedSearch.showSearchPageAgain}"/>
-			<ui:staticText id="valQuery" binding="#{search$SearchResultList.valQuery}"/>
-	        <ui:hyperlink binding="#{search$SearchResultList.lnkBrowse}" id="lnkBrowse" immediate="true"
-	        	text="#{lbl.SearchResultList_lblBack}" action="#{desktop$AdvancedSearch.showBrowsePageAgain}"/>
-        </p>
-        <div>
-        	<ui:staticText binding="#{search$SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
-        </div>
-    	<h:panelGrid id="panItemListAndErrors" columns="1" >
-	    	<h:panelGrid id="panItemList" binding="#{search$SearchResultList.panDynamicItemList}">
-		    </h:panelGrid>
+	<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
+		value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
+			<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
+	<h:commandLink binding="#{SearchResultList.lnkBrowse}" id="lnkBrowse" immediate="true"
+		value="#{lbl.SearchResultList_lblBack}" action="#{AdvancedSearch.showBrowsePageAgain}"/>
+</p>
+<div>
+	<h:outputText binding="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
+</div>
+	<h:panelGrid id="panItemListAndErrors" columns="1" >
+		<h:panelGrid id="panItemList" binding="#{SearchResultList.panDynamicItemList}">
+		</h:panelGrid>
 	
 
-	    </h:panelGrid>
-        <!-- Deactivated in Lists: Withdraw only from view item page. -->
-        <!-- <ui:hyperlink binding="#{search$SearchResultList.lnkWithdraw}" id="lnkWithdraw" action="#{search$SearchResultList.withdrawSelectedItem}"
-            style="font-weight: bold; height: 20px; left: 760px; top: 210px; position: absolute; width: 40px" text="#{lbl.actionMenu_lnkWithdraw}"/>
-        -->
-    </f:subview>
+	</h:panelGrid>
+</f:subview>
 </div>

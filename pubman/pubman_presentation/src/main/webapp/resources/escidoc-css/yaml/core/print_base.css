@@ -8,14 +8,14 @@
 * Don't make any changes in this file!
 * Your changes should be added to 'print_xyz_draft.css' drafts from 'yaml/print/' folder.
 *
-* @copyright       Copyright 2005-2007, Dirk Jesse
-* @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
-*                  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
-* @link            http://www.yaml.de
-* @package         yaml
-* @version         3.0.1
-* @revision        $Revision: 92 $
-* @lastmodified    $Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
+* @copyright	   Copyright 2005-2007, Dirk Jesse
+* @license		 CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
+*				  YAML-C (http://www.yaml.de/en/license/license-conditions.html)
+* @link			http://www.yaml.de
+* @package		 yaml
+* @version		 3.0.1
+* @revision		$Revision: 92 $
+* @lastmodified	$Date: 2007-07-15 10:26:40 +0200 (So, 15 Jul 2007) $
 */
 
 @media print
@@ -24,7 +24,7 @@
 
   /**
   * @section layout preparation
-  * @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+  * @see	 http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
   */
 
   /* (en) Preparing base layout for print */
@@ -44,7 +44,7 @@
 
   /**
   * @section content preparation
-  * @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+  * @see	 http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
   */
 
   /* (en) Change font to serif */
@@ -65,35 +65,35 @@
   /* (de) Abschalten evlt. vorhandener Hintergrundgrafiken zur Linkkennzeichnung */
   #page a[href^="http:"], #page a[href^="https:"]
   {
-    padding-left: 0;
-    background-image: none;
+	padding-left: 0;
+	background-image: none;
   }
 
   /* (en) Enable URL output in print layout */
   /* (de) Sichtbare Auszeichnung der URLs von Links */
   a[href]:after {
-    content:" <URL: "attr(href)">";
-    color:#444;
-    background:inherit;
-    font-style:italic;
+	content:" <URL: "attr(href)">";
+	color:#444;
+	background:inherit;
+	font-style:italic;
   }
 
   /* (en) Preparation for optional column labels */
   /* (de) Vorbereitung für optionale Spaltenauszeichnung */
   #col1_content:before, #col2_content:before, #col3_content:before {
-    content: "";
-    color:#888;
-    background:inherit;
-    display:block;
-    font-weight:bold;
-    font-size:1.5em;
+	content: "";
+	color:#888;
+	background:inherit;
+	display:block;
+	font-weight:bold;
+	font-size:1.5em;
   }
 
   /*------------------------------------------------------------------------------------------------------*/
 
   /**
   * @section browser fixes for print layouts
-  * @see     http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
+  * @see	 http://www.yaml.de/en/documentation/css-components/layout-for-print-media.html
   */
 
   /**
@@ -101,16 +101,16 @@
   * (de) overflow:hidden Bug in Drucklayouts
   *
   * @bugfix
-  * @since     3.0
+  * @since	 3.0
   * @affected  FF2.0, IE7
   * @css-for   all browsers
-  * @valid     yes
+  * @valid	 yes
   */
 	
   .floatbox, 
   .subcolumns, 
   .subcolums_oldgecko { 
-    overflow:visible; 
-    display: table; 
+	overflow:visible; 
+	display: table; 
   }
 }

@@ -35,7 +35,7 @@
 // TODO: I am not sure withis "redirect" happens.
 function deleteItems() 
 {
-    document.getElementById("form1:btnDeleteItems").click();
+	document.getElementById("form1:btnDeleteItems").click();
 }
 
 function changeItemState() 
@@ -51,13 +51,13 @@ function changeSortCriteria()
 function loadAbout(url) 
 {
 	// use the h:output tag to output the bean property
-    openCenteredWindow(url + "", 680, 520, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow(url + "", 680, 520, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
 
 function loadHelp(url, anchor)
 {
 	// use the h:output tag to output the bean property
-    openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
 
 function openCenteredWindow(page, width, height, windowName)
@@ -168,7 +168,7 @@ function restrictDateEntry(e)
 	
 	// control keys
 	if ((key==null) || (key==0) || (key==8) || 
-	    (key==9) || (key==13) || (key==27) )
+		(key==9) || (key==13) || (key==27) )
 	   return true;
 	
 	// alphas and numbers
@@ -182,20 +182,20 @@ function exportDataPopUp(w,h,site)
 {
 	x=screen.availWidth/2-w/2;
 	y=screen.availHeight/2-h/2;
-    attributes = "width="+w+",height="+h+",left="+x+",top="+y+",screenX="+x+",screenY="+y+",resizable=yes, scrollbars=yes"	
+	attributes = "width="+w+",height="+h+",left="+x+",top="+y+",screenX="+x+",screenY="+y+",resizable=yes, scrollbars=yes"	
 	var popupWindow=window.open('','',attributes);
 	popupWindow.document.write(site);
 	popupWindow.document.close();	
 	
-}                                            
+}											
 function updateAnyFieldMask()
 {							
 	document.getElementById("form1:AdvancedSearchEdit:btnAnyFieldUpdate").click();
-}                    						
+}											
 function updateExportFormats() 
 {							
 document.getElementById("form1:Export:btnUpdateExportFormats").click();
-}                    						
+}											
 function sortItemList () 
 {
   document.getElementById("form1:SearchResultList:btnSortItemList").click();

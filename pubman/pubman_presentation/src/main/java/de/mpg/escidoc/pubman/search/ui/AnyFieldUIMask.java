@@ -32,10 +32,10 @@ package de.mpg.escidoc.pubman.search.ui;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.RadioButtonGroup;
-import com.sun.rave.web.ui.component.TextField;
-import com.sun.rave.web.ui.model.Option;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlSelectOneRadio;
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.model.SelectItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.AnyFieldCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.TopicCriterionVO;
 /**
  * This mask collects search data for a anyfield, title or subject query.
  * @author endres
- * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Tue, 04 Dec 2007) $
+ * @version $Revision: 1639 $ $LastChangedDate: 2007-12-04 15:06:47 +0100 (Di, 04 Dez 2007) $
  *
  */
 public class AnyFieldUIMask extends UIMask
@@ -53,20 +53,20 @@ public class AnyFieldUIMask extends UIMask
     private HtmlPanelGroup panel1 = new HtmlPanelGroup();
     private HtmlPanelGroup panel2 = new HtmlPanelGroup();
    
-    private Label lblSearchStringAnyField = new Label();
-    private TextField txtSearchStringAnyField = new TextField();
+    private HtmlOutputLabel lblSearchStringAnyField = new HtmlOutputLabel();
+    private HtmlInputText txtSearchStringAnyField = new HtmlInputText();
     private HtmlSelectBooleanCheckbox chkIncludeFiles = new HtmlSelectBooleanCheckbox();
     private HtmlOutputText txtIncludeFiles = new HtmlOutputText();
-//    private DropDown cboLanguage = new DropDown();        
-//    private Label lblCboLanguage = new Label();
-    private RadioButtonGroup rbgType = new RadioButtonGroup();
+//    private HtmlSelectOneMenu cboLanguage = new HtmlSelectOneMenu();        
+//    private HtmlOutputLabel lblCboLanguage = new HtmlOutputLabel();
+    private HtmlSelectOneRadio rbgType = new HtmlSelectOneRadio();
     public static final String TITLE = "TITLE";
     public static final String TOPIC = "TOPIC";
     public static final String ANY = "ANY";
-    private Option TYPE_TITLE = new Option(TITLE, bundle.getString("adv_search_lblRgbTitle"));
-    private Option TYPE_TOPIC = new Option(TOPIC, bundle.getString("adv_search_lblRgbTopic"));
-    private Option TYPE_ANY = new Option(ANY, bundle.getString("adv_search_lblRgbAny"));
-    private Option[] TYPE_OPTIONS = new Option[]{TYPE_TITLE, TYPE_TOPIC, TYPE_ANY};
+    private SelectItem TYPE_TITLE = new SelectItem(TITLE, getLabel("adv_search_lblRgbTitle"));
+    private SelectItem TYPE_TOPIC = new SelectItem(TOPIC, getLabel("adv_search_lblRgbTopic"));
+    private SelectItem TYPE_ANY = new SelectItem(ANY, getLabel("adv_search_lblRgbAny"));
+    private SelectItem[] TYPE_OPTIONS = new SelectItem[]{TYPE_TITLE, TYPE_TOPIC, TYPE_ANY};
     
     /** 
      * Creates a panel with a text input and a combo box with 3 items. 
@@ -79,7 +79,7 @@ public class AnyFieldUIMask extends UIMask
         this.panel1.setId(CommonUtils.createUniqueId(this.panel1));
         this.panel1.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "searchTerm"));
         this.lblSearchStringAnyField.setId(CommonUtils.createUniqueId(this.lblSearchStringAnyField));
-        this.lblSearchStringAnyField.setValue(bundle.getString("adv_search_lblSearchTerm"));
+        this.lblSearchStringAnyField.setValue(getLabel("adv_search_lblSearchTerm"));
         this.txtSearchStringAnyField.setId(CommonUtils.createUniqueId(this.txtSearchStringAnyField));
         this.txtSearchStringAnyField.setImmediate(true);
         this.panel1.getChildren().add(lblSearchStringAnyField);
@@ -90,7 +90,7 @@ public class AnyFieldUIMask extends UIMask
         this.panel2.setId(CommonUtils.createUniqueId(this.panel2));
         this.panel2.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "formGroupTitle"));
 //        this.lblCboLanguage.setId(CommonUtils.createUniqueId(this.lblCboLanguage));
-//        this.lblCboLanguage.setValue(bundle.getString("adv_search_lblLanguage"));
+//        this.lblCboLanguage.setValue(getLabel("adv_search_lblLanguage"));
 //        // disable the language text for now
 //        this.lblCboLanguage.setRendered(false);
 //        this.panel2.getChildren().add(this.lblCboLanguage);
@@ -100,22 +100,24 @@ public class AnyFieldUIMask extends UIMask
 //        // disable the language box for now
 //        this.cboLanguage.setRendered(false);
 //        this.panel2.getChildren().add(this.cboLanguage);
+        
+        this.rbgType.getChildren().clear();
         this.rbgType.setId(CommonUtils.createUniqueId(this.rbgType));
-        this.rbgType.setItems(TYPE_OPTIONS);
-        this.rbgType.setSelected("TITLE");
+        this.rbgType.getChildren().addAll(CommonUtils.convertToSelectItemsUI(TYPE_OPTIONS));
+        this.rbgType.setValue("TITLE");
         this.rbgType.setImmediate(true);
         //language option only for title, otherwise disable drop down box
         //include file checkbox only for any field radiobutton, otherwise disable checkbox
-        this.rbgType.setOnChange("updateAnyFieldMask(); return false");
+        this.rbgType.setOnchange("updateAnyFieldMask(); return false");
         this.panel2.getChildren().add(this.rbgType);
         
         this.chkIncludeFiles.setId(CommonUtils.createUniqueId(this.chkIncludeFiles));
         this.chkIncludeFiles.setImmediate(true);
-        this.chkIncludeFiles.setValue(bundle.getString("adv_search_lblChkInclude"));
+        this.chkIncludeFiles.setValue(getLabel("adv_search_lblChkInclude"));
         this.chkIncludeFiles.setDisabled(true);
         this.panel2.getChildren().add(this.chkIncludeFiles);
         this.txtIncludeFiles.setId(CommonUtils.createUniqueId(this.txtIncludeFiles));
-        this.txtIncludeFiles.setValue(bundle.getString("adv_search_lblChkInclude"));
+        this.txtIncludeFiles.setValue(getLabel("adv_search_lblChkInclude"));
         this.panel2.getChildren().add(this.txtIncludeFiles);
 
         this.panel2.getChildren().add(htmlElement.getEndTag("div"));
@@ -133,7 +135,7 @@ public class AnyFieldUIMask extends UIMask
     {
         this.txtSearchStringAnyField.setValue("");
 //        this.cboLanguage.setSelected("0");
-        this.rbgType.setSelected("TITLE");
+        this.rbgType.setValue("TITLE");
         this.chkIncludeFiles.setSelected(false);
     }
 
@@ -143,18 +145,18 @@ public class AnyFieldUIMask extends UIMask
     @Override
     CriterionVO getCriterionFromArrays()
     {
-        if (this.getRbgType().getSelected().toString().equals(TITLE))
+        if (this.getRbgType().getValue().toString().equals(TITLE))
         {
             TitleCriterionVO titleCriterionVO = new TitleCriterionVO();
-            titleCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getText());
+            titleCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getValue());
 //            titleCriterionVO.setLanguage(this.getCboLanguage().getSelected().toString());
             
             return titleCriterionVO;
         }
-        else if (this.getRbgType().getSelected().toString().equals(TOPIC))
+        else if (this.getRbgType().getValue().toString().equals(TOPIC))
         {
             TopicCriterionVO topicCriterionVO = new TopicCriterionVO();
-            topicCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getText());
+            topicCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getValue());
 //            topicCriterionVO.setLanguage(this.getCboLanguage().getSelected().toString());
            
             return topicCriterionVO;
@@ -162,7 +164,7 @@ public class AnyFieldUIMask extends UIMask
         else
         {
             AnyFieldCriterionVO anyFieldCriterionVO = new AnyFieldCriterionVO();
-            anyFieldCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getText());
+            anyFieldCriterionVO.setSearchString((String)this.getTxtSearchStringAnyField().getValue());
             if (this.getChkIncludeFiles().isSelected())
             {
                 anyFieldCriterionVO.setIncludeFiles(true);                        
@@ -179,7 +181,7 @@ public class AnyFieldUIMask extends UIMask
     @Override
     public boolean hasData()
     {
-        String searchString = (String)getTxtSearchStringAnyField().getText();
+        String searchString = (String)getTxtSearchStringAnyField().getValue();
         if( searchString != null && searchString.length() > 0 ) 
         {
             return true;
@@ -190,12 +192,12 @@ public class AnyFieldUIMask extends UIMask
         }
     }
 
-    public RadioButtonGroup getRbgType()
+    public HtmlSelectOneRadio getRbgType()
     {
         return rbgType;
     }
 
-    public TextField getTxtSearchStringAnyField()
+    public HtmlInputText getTxtSearchStringAnyField()
     {
         return txtSearchStringAnyField;
     }
@@ -212,16 +214,16 @@ public class AnyFieldUIMask extends UIMask
     	super.refreshAppearanceButtonsAndOp();
     	
     	// language specific stuff
-    	this.lblSearchStringAnyField.setValue(bundle.getString("adv_search_lblSearchTerm"));
-    	this.txtIncludeFiles.setValue(bundle.getString("adv_search_lblChkInclude"));
+    	this.lblSearchStringAnyField.setValue(getLabel("adv_search_lblSearchTerm"));
+    	this.txtIncludeFiles.setValue(getLabel("adv_search_lblChkInclude"));
     	
-    	this.TYPE_TITLE.setLabel( bundle.getString("adv_search_lblRgbTitle") );
-    	this.TYPE_TOPIC.setLabel( bundle.getString("adv_search_lblRgbTopic") );
-    	this.TYPE_ANY.setLabel( bundle.getString("adv_search_lblRgbAny") );
+    	this.TYPE_TITLE.setLabel( getLabel("adv_search_lblRgbTitle") );
+    	this.TYPE_TOPIC.setLabel( getLabel("adv_search_lblRgbTopic") );
+    	this.TYPE_ANY.setLabel( getLabel("adv_search_lblRgbAny") );
     	
     	
     	// refresh if the 'include files' checkbox is visible
-        if (this.getRbgType().getSelected().toString().equals(ANY))
+        if (this.getRbgType().getValue().toString().equals(ANY))
           {
         	// combobox for query language 
 //              this.getCboLanguage().setDisabled(true);

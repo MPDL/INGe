@@ -2,7 +2,7 @@
 <!DOCTYPE faces-config PUBLIC
    "-//Sun Microsystems, Inc.//DTD JavaServer Faces Config 1.1//EN"
    "http://java.sun.com/dtd/web-facesconfig_1_1.dtd">
-<!--
+<!-- 
  CDDL HEADER START
 
  The contents of this file are subject to the terms of the
@@ -99,8 +99,7 @@
 		*</from-view-id>
 		<navigation-case>
 			<from-outcome>loadDepositorWS</from-outcome>
-			<to-view-id>
-			/DepositorWSPage.jsp</to-view-id>
+			<to-view-id>/DepositorWSPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
 	<navigation-rule>

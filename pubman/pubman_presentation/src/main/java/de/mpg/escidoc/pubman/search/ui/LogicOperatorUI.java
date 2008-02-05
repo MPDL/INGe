@@ -34,9 +34,10 @@ import java.util.ResourceBundle;
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
 
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.model.Option;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.model.SelectItem;
 
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
@@ -45,43 +46,22 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
  * @author Hugo Niedermaier
  * 
  */
-public class LogicOperatorUI
+public class LogicOperatorUI extends InternationalizedImpl
 {
     protected HtmlPanelGroup panel = new HtmlPanelGroup();
-    protected DropDown cboLogicOperator = new DropDown();
+    protected HtmlSelectOneMenu cboLogicOperator = new HtmlSelectOneMenu();
       
-    public final Option LOGIC_AND = new Option("And", "And");
-    public final Option LOGIC_OR = new Option("Or", "Or");
-    public final Option LOGIC_NOT = new Option("Not", "Not");
-    public final Option[] LOGIC_OPTIONS = new Option[]{LOGIC_AND, LOGIC_OR, LOGIC_NOT};
+    public final SelectItem LOGIC_AND = new SelectItem("And", getLabel("adv_search_logicop_and"));
+    public final SelectItem LOGIC_OR = new SelectItem("Or", getLabel("adv_search_logicop_or"));
+    public final SelectItem LOGIC_NOT = new SelectItem("Not", getLabel("adv_search_logicop_not"));
+    public final SelectItem[] LOGIC_OPTIONS = new SelectItem[]{LOGIC_AND, LOGIC_OR, LOGIC_NOT};
     
     private HTMLElementUI htmlElement = new HTMLElementUI();
 
-    public LogicOperatorUI( ResourceBundle bundle )
+    public LogicOperatorUI()
     {
         this.initialize();
-        this.updateLanguage( bundle );
     }
-    
-    public void updateLanguage( ResourceBundle bundle ) 
-    {
-    	this.LOGIC_AND.setLabel( bundle.getString( "adv_search_logicop_and" ) );
-    	this.LOGIC_OR.setLabel( bundle.getString( "adv_search_logicop_or" ) );
-    	this.LOGIC_NOT.setLabel( bundle.getString( "adv_search_logicop_not" ) );
-    }
-    
-    public static LogicOperator getLogicOperatorByString( String s ) 
-    {
-        if (s.equals("And"))
-            return LogicOperator.AND;
-        else if (s.equals("Or"))
-            return LogicOperator.OR;
-        else if (s.equals("Not"))
-            return LogicOperator.NOT;
-        else
-            return LogicOperator.AND;
-    }
-    
     
     protected void initialize()
     {
@@ -89,10 +69,31 @@ public class LogicOperatorUI
         this.panel.setId(CommonUtils.createUniqueId(this.panel));
         
         this.panel.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "operatorCenter"));
+        this.cboLogicOperator.getChildren().clear();
         this.cboLogicOperator.setId(CommonUtils.createUniqueId(this.cboLogicOperator));
-        this.cboLogicOperator.setItems(LOGIC_OPTIONS);
+        this.cboLogicOperator.getChildren().addAll(CommonUtils.convertToSelectItemsUI(LOGIC_OPTIONS));
         this.panel.getChildren().add(this.cboLogicOperator);
         this.panel.getChildren().add(htmlElement.getEndTag("div"));
+    }
+
+    public static LogicOperator getLogicOperatorByString( String s ) 
+    {
+        if (s.equals("And"))
+        {
+            return LogicOperator.AND;
+        }
+        else if (s.equals("Or"))
+        {
+            return LogicOperator.OR;
+        }
+        else if (s.equals("Not"))
+        {
+            return LogicOperator.NOT;
+        }
+        else
+        {
+            return LogicOperator.AND;
+        }
     }
 
     public UIComponent getUIComponent()
@@ -100,18 +101,18 @@ public class LogicOperatorUI
         return this.panel;
     }
 
-    public DropDown getCboLogicOperator()
+    public HtmlSelectOneMenu getCboLogicOperator()
     {
         return cboLogicOperator;
     }
 
-    public void setCboLogicOperator(DropDown cboLogicOperator)
+    public void setCboLogicOperator(final HtmlSelectOneMenu cboLogicOperator)
     {
         this.cboLogicOperator = cboLogicOperator;
     }
     
     public void setVisible(boolean b)
     {
-        this.cboLogicOperator.setVisible(b);
+        this.cboLogicOperator.setRendered(b);
     }
 }

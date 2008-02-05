@@ -31,25 +31,31 @@ package de.mpg.escidoc.pubman.affiliation.ui;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
 import javax.faces.application.Application;
 import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlGraphicImage;
+import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionListener;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
  * UI tree component for browsing by affiliation. 
  * 
  * @author: Hugo Niedermaier, Basics by Thomas Dieb�cker, created 31.05.2007
- * @version: $Revision: 1652 $ $LastChangedDate: 2007-12-10 17:54:37 +0100 (Mon, 10 Dec 2007) $
+ * @version: $Revision: 14 $ $LastChangedDate: 2007-11-27 19:14:41 +0100 (Di, 27 Nov 2007) $
  * Revised by NiH: 09.08.2007
  */
-public class AffiliationTreeNodeUI extends AbstractFragmentBean implements ActionListener
+public class AffiliationTreeNodeUI extends FacesBean implements ActionListener
 {
     // GUI components
     AffiliationTreeNode affiliationTreeNode = new AffiliationTreeNode(this);
@@ -79,11 +85,9 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
      */
     protected void initialize(AffiliationVO affiliation)
     {
-        Application application = FacesContext.getCurrentInstance().getApplication();
         UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
         
         this.affiliation = affiliation;
-        this.application = application;
         this.viewRoot = viewRoot;
            
         // set attributes for all GUI components
@@ -98,20 +102,30 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
 //            // set another image for leafs here if there are no children
 //            this.affiliationTreeNode.setImageURL("/images/affiliations_tree.gif");
 //        }
-        this.affiliationTreeNode.setImageURL("/images/affiliations_tree.gif");                        
         
+        // this.affiliationTreeNode.setImageURL("/images/affiliations_tree.gif");                        
         this.affiliationTreeNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
         this.affiliationTreeNode.setAffiliationVO(affiliation);
-        this.affiliationTreeNode.setText(affiliation.getName());
+        this.affiliationTreeNode.setValue(affiliation.getName());
+
+        HtmlGraphicImage image = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+        image.setUrl("/images/affiliations_tree.gif");
+        HtmlCommandLink commandLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+        commandLink.setValue(affiliation.getName());
+        HtmlPanelGroup label = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+        label.getChildren().add(image);
+        label.getChildren().add(commandLink);
+        this.affiliationTreeNode.getFacets().put("label", label); 
+        
         if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
         {
-            this.affiliationTreeNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+            commandLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
         }
         else
         {
-            this.affiliationTreeNode.setAction(null);
+            commandLink.setAction(null);
         }
-        this.affiliationTreeNode.addActionListener(this);
+        commandLink.addActionListener(this);
 
         // create one dummyChildNode for every ChildRO of this affiliation
         // this dummyChildNode is cleared when the node is filled with the existing affiliations
@@ -120,45 +134,25 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
         {
             AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);
             dummyChildNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-            dummyChildNode.setText("DummyChildNode");
+            dummyChildNode.setValue("DummyChildNode");
+            
+            HtmlGraphicImage dummyImage = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+            dummyImage.setUrl("/images/affiliations_tree.gif");
+            HtmlCommandLink dummyLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+            dummyLink.setValue("DummyChildNode");
+            HtmlPanelGroup dummyLabel = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+            dummyLabel.getChildren().add(dummyImage);
+            dummyLabel.getChildren().add(dummyLink);
+            dummyChildNode.getFacets().put("label", dummyLabel); 
+            
             if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
-                dummyChildNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+                dummyLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
             else
-                this.affiliationTreeNode.setAction(null);
-            dummyChildNode.addActionListener(this);
+                dummyLink.setAction(null);
+            dummyLink.addActionListener(this);
             
             this.affiliationTreeNode.getChildren().add(dummyChildNode);
         }
-        
-//      create dummychildnodes for nodes which has children
-        ItemControllerSessionBean bean = (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
-        ArrayList<AffiliationVO> nodeAff = null;
-        try
-        {
-            nodeAff = bean.retrieveChildAffiliations(this.affiliationTreeNode.getAffiliationVO());  
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create affiliation list." + "\n" + e.toString());
-            
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);            
-            return;
-        } 
-        
-        if ( nodeAff.size() > 0 )
-        {
-            AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);
-            dummyChildNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-            dummyChildNode.setText("DummyChildNode");
-            if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
-                dummyChildNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
-            else
-                this.affiliationTreeNode.setAction(null);
-            // dummyChildNode.addActionListener(null);
-            
-            affiliationTreeNode.getChildren().add(dummyChildNode);
-        }
-        
     }
 
     /**
@@ -174,7 +168,7 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
         // remove the dummyChildNode; should always be on first position
             this.affiliationTreeNode.getChildren().remove(0);
                
-            ItemControllerSessionBean bean = (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+            ItemControllerSessionBean bean = (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
             try
             {
                 //get all children of this node
@@ -184,35 +178,55 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
                 {
                     AffiliationTreeNode node = new AffiliationTreeNode(this);
                     node.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-                    node.setText(nodeAffiliations.get(i).getName());
+                    node.setValue(nodeAffiliations.get(i).getName());
                     node.setAffiliationVO(nodeAffiliations.get(i));
+
+                    HtmlGraphicImage nodeImage = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+                    nodeImage.setUrl("/images/documents.gif");
+                    HtmlCommandLink nodeLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+                    nodeLink.setValue(nodeAffiliations.get(i).getName());
+                    HtmlPanelGroup nodeLabel = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+                    nodeLabel.getChildren().add(nodeImage);
+                    nodeLabel.getChildren().add(nodeLink);
+                    node.getFacets().put("label", nodeLabel); 
+
                     if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
                     {
-                        node.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+                        nodeLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
                     }
                     else
                     {
-                        this.affiliationTreeNode.setAction(null);
+                        nodeLink.setAction(null);
                     }
-                    node.setImageURL("/images/documents.gif");
-                    node.addActionListener(node);
+                    nodeLink.addActionListener(node);
                       
                     //add the childnodes to the tree
                     // if (opend == false)
                     {
                         this.affiliationTreeNode.getChildren().add(node);
                     }
-
-                    if ( node.hasAffiliationChildren() == true )
+                    // create dummychildnodes for nodes which has children
+                    ArrayList<AffiliationVO> nodeAff = bean.retrieveChildAffiliations(node.getAffiliationVO());
+                    if ( nodeAff.size() > 0 )
                     {
                         AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);
                         dummyChildNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-                        dummyChildNode.setText("DummyChildNode");
+                        dummyChildNode.setValue("DummyChildNode");
+
+                        HtmlGraphicImage dummyImage = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+                        dummyImage.setUrl("/images/documents.gif");
+                        HtmlCommandLink dummyLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+                        dummyLink.setValue("DummyChildNode");
+                        HtmlPanelGroup dummyLabel = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+                        dummyLabel.getChildren().add(dummyImage);
+                        dummyLabel.getChildren().add(dummyLink);
+                        dummyChildNode.getFacets().put("label", dummyLabel); 
+                        
                         if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
-                            dummyChildNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+                            dummyLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
                         else
-                            this.affiliationTreeNode.setAction(null);
-                        // dummyChildNode.addActionListener(null);
+                            dummyLink.setAction(null);
+                        dummyLink.addActionListener(null);
                         
                         node.getChildren().add(dummyChildNode);
                     }
@@ -224,7 +238,7 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
             {
                 logger.error("Could not create affiliation list." + "\n" + e.toString());
                 
-                ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);            
+                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);            
                 return;
             }  
         }
@@ -232,12 +246,16 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
     
     /**
      * add the children of the given affiliation to the AffiliationTreeNode
+     * this function is implemented as a recursion and is called as long as
+     * there are more nodes 
      * @param AffiliationTreeNode node
+     * @param AffiliationVO affiliation
+     * @param ItemControllerSessionBean bean
      */
     public void addChildren(AffiliationTreeNode node)
     {
         
-        ItemControllerSessionBean bean = (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        ItemControllerSessionBean bean = (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
         
         // remove the dummyChildNode; should always be on first position
         node.getChildren().remove(0);
@@ -249,33 +267,52 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
             {
                 AffiliationTreeNode childNode = new AffiliationTreeNode(this);
                 childNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-                childNode.setText(childAffiliations.get(i).getName());
+                childNode.setValue(childAffiliations.get(i).getName());
                 childNode.setAffiliationVO(childAffiliations.get(i));
+
+                HtmlGraphicImage nodeImage = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+                nodeImage.setUrl("/images/documents.gif");
+                HtmlCommandLink nodeLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+                nodeLink.setValue(childAffiliations.get(i).getName());
+                HtmlPanelGroup nodeLabel = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+                nodeLabel.getChildren().add(nodeImage);
+                nodeLabel.getChildren().add(nodeLink);
+                node.getFacets().put("label", nodeLabel); 
+
                 if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
                 {
-                    childNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+                    nodeLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
                 }
                 else
                 {
-                    this.affiliationTreeNode.setAction(null);
+                    nodeLink.setAction(null);
                 }
-                childNode.setImageURL("/images/documents.gif");
-                childNode.addActionListener(childNode);
+                nodeLink.addActionListener(childNode);
                 
                 //add the node to the tree
                 node.getChildren().add(childNode);
 
-               // if the child node has itself children add a dummy node to get the collapse button            
-                if ( childNode.hasAffiliationChildren() == true )
+               // if the child node has itself children add a dummy node to get the collapse button
+                ArrayList<AffiliationVO> nodeAff = bean.retrieveChildAffiliations(childNode.getAffiliationVO());
+                if ( nodeAff.size() > 0 )
                 {
                     AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);
                     dummyChildNode.setId(viewRoot.createUniqueId() + Calendar.getInstance().getTimeInMillis());
-                    dummyChildNode.setText("DummyChildNode");
+                    dummyChildNode.setValue("DummyChildNode");
+
+                    HtmlGraphicImage dummyImage = (HtmlGraphicImage)getApplication().createComponent(HtmlGraphicImage.COMPONENT_TYPE);
+                    dummyImage.setUrl("/images/documents.gif");
+                    HtmlCommandLink dummyLink = (HtmlCommandLink)getApplication().createComponent(HtmlCommandLink.COMPONENT_TYPE);
+                    dummyLink.setValue("DummyChildNode");
+                    HtmlPanelGroup dummyLabel = (HtmlPanelGroup)getApplication().createComponent(HtmlPanelGroup.COMPONENT_TYPE);
+                    dummyLabel.getChildren().add(dummyImage);
+                    dummyLabel.getChildren().add(dummyLink);
+                    dummyChildNode.getFacets().put("label", dummyLabel); 
+
                     if (this.getAffiliationSessionBean().isBrowseByAffiliation() == false)
-                        dummyChildNode.setAction(application.createMethodBinding("#{affiliation$AffiliationTree.showAffiliationDetail}", null));
+                        dummyLink.setAction(application.createMethodBinding("#{AffiliationTree.showAffiliationDetail}", null));
                     else
-                        this.affiliationTreeNode.setAction(null);
-                    //dummyChildNode.addActionListener(null);
+                        dummyLink.setAction(null);
                     
                     childNode.getChildren().add(dummyChildNode);
                 }
@@ -285,7 +322,7 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
         {
             logger.error("Could not create affiliation list." + "\n" + e.toString());
             
-            ((ErrorPage)this.getBean(ErrorPage.BEAN_NAME)).setException(e);            
+            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);            
             return;
         }
     }
@@ -306,6 +343,6 @@ public class AffiliationTreeNodeUI extends AbstractFragmentBean implements Actio
      */
     protected AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean)getBean(AffiliationSessionBean.BEAN_NAME);
+        return (AffiliationSessionBean)getBean(AffiliationSessionBean.class);
     }
 }

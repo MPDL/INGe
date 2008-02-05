@@ -31,13 +31,13 @@
 package de.mpg.escidoc.pubman.depositorWS;
 
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.ItemListSessionBean;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the DepositorWS.
  * @author:  Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1675 $ $LastChangedDate: 2007-12-14 13:47:11 +0100 (Fri, 14 Dec 2007) $
+ * @version: $Revision: 1675 $ $LastChangedDate: 2007-12-14 13:47:11 +0100 (Fr, 14 Dez 2007) $
  * Revised by DiT: 09.08.2007
  */
 public class DepositorWSSessionBean extends ItemListSessionBean
@@ -52,15 +52,16 @@ public class DepositorWSSessionBean extends ItemListSessionBean
     /**
      * ScT: the main menu topics on the left side.
      */
-    private String myWorkspace = "";
-    private String depositorWS = "";
-    private String newSubmission = "";
+    private boolean myWorkspace = false;
+    private boolean depositorWS = false;
+    private boolean newSubmission = false;
 
     /**
      * Public constructor.
      */
     public DepositorWSSessionBean()
     {
+        //this.init();
     }
 
     /**
@@ -84,32 +85,32 @@ public class DepositorWSSessionBean extends ItemListSessionBean
         this.selectedItemState = selectedItemState;
     }
 
-    public String getDepositorWS()
+    public boolean getDepositorWS()
     {
         return depositorWS;
     }
 
-    public void setDepositorWS(String depositorWS)
+    public void setDepositorWS(boolean depositorWS)
     {
         this.depositorWS = depositorWS;
     }
 
-    public String getMyWorkspace()
+    public boolean getMyWorkspace()
     {
         return myWorkspace;
     }
 
-    public void setMyWorkspace(String myWorkspace)
+    public void setMyWorkspace(boolean myWorkspace)
     {
         this.myWorkspace = myWorkspace;
     }
 
-    public String getNewSubmission()
+    public boolean getNewSubmission()
     {
         return newSubmission;
     }
 
-    public void setNewSubmission(String newSubmission)
+    public void setNewSubmission(boolean newSubmission)
     {
         this.newSubmission = newSubmission;
     }

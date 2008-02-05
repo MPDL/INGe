@@ -29,15 +29,13 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
+
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
 /**
  * ExportEmailPage.java Backing bean for the ExportEmailPage.jsp
@@ -45,23 +43,19 @@ import de.mpg.escidoc.pubman.util.InternationalizationHelper;
  * @author: Galina Stancheva, created 07.10.2007
  * @version: $Revision:  $ $LastChangedDate:  $ 
  */
-public class ExportEmailPage extends AbstractPageBean
+public class ExportEmailPage extends BreadcrumbPage
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ExportEmailPage.class);
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    protected ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
-    ExportItems fragment = (ExportItems) getBean("export$ExportItems");
+    ExportItems fragment = (ExportItems) getBean(ExportItems.class);
 
     /**
      * Public constructor
      */
     public ExportEmailPage()
     {
+        this.init();
     }
 
 
@@ -76,10 +70,10 @@ public class ExportEmailPage extends AbstractPageBean
  
         fragment.disableExportPanComps(true);
         
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.BEAN_NAME);
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
         
         sb.setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);    
-        sb.setExportEmailTxt(bundleMessage.getString(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+        sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
     }
 
     /*

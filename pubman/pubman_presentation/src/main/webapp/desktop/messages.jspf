@@ -1,35 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
+<%
+            /* 
+            CDDL HEADER START
 
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
 
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
 
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
 
- CDDL HEADER END
+            CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
-<div xmlns:ui="http://www.sun.com/web/ui">
-	<ui:staticText id="deleteMessage_1" text="#{msg.deleteMessage_1}" visible="false"/>
-	<ui:staticText id="deleteMessage_2_a" text="#{msg.deleteMessage_2_a}" visible="false"/>
-	<ui:staticText id="deleteMessage_2_b" text="#{msg.deleteMessage_2_b}" visible="false"/>
-	<ui:staticText id="deleteMessage_3_a" text="#{msg.deleteMessage_3_a}" visible="false"/>
-	<ui:staticText id="deleteMessage_3_b" text="#{msg.deleteMessage_3_b}" visible="false"/>
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%><div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<h:outputText id="deleteMessage_1"   value="#{msg.deleteMessage_1}"   rendered="false"/>
+	<h:outputText id="deleteMessage_2_a" value="#{msg.deleteMessage_2_a}" rendered="false"/>
+	<h:outputText id="deleteMessage_2_b" value="#{msg.deleteMessage_2_b}" rendered="false"/>
+	<h:outputText id="deleteMessage_3_a" value="#{msg.deleteMessage_3_a}" rendered="false"/>
+	<h:outputText id="deleteMessage_3_b" value="#{msg.deleteMessage_3_b}" rendered="false"/>
 </div>

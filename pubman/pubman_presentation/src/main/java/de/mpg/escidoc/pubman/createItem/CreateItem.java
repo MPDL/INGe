@@ -32,15 +32,19 @@ package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
 import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
+import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -51,26 +55,16 @@ import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
  * Fragment class for CreateItem.
  * 
  * @author: Thomas Diebäcker, created 11.10.2007
- * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mon, 17 Dec 2007) $ 
+ * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $ 
  */
-public class CreateItem extends AbstractFragmentBean
+public class CreateItem extends FacesBean
 {
-    public static final String BEAN_NAME = "createItem$CreateItem";
+    public static final String BEAN_NAME = "CreateItem";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CreateItem.class);
     
     // Faces navigation string
     public final static String LOAD_CREATEITEM = "loadCreateItem";
-    
-    // for handling the resource bundles (i18n)
-    private Application application = FacesContext.getCurrentInstance().getApplication();
-    // get the selected language...
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper) application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    // ... and set the refering resource bundle
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    @SuppressWarnings("unused")
-    private ResourceBundle bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
 
     // panel for dynamic components
     HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();        
@@ -80,6 +74,7 @@ public class CreateItem extends AbstractFragmentBean
      */
     public CreateItem()
     {
+        this.init();
     }
     
     /**
@@ -89,10 +84,6 @@ public class CreateItem extends AbstractFragmentBean
     public void init()
     {
         super.init();
-        
-        //re-init the resources and combo-boxes due to direct language switch
-        this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-        this.bundleMessage = ResourceBundle.getBundle(i18nHelper.getSelectedMessagesBundle());
         
         if (this.getSessionBean().getCollectionListUI() == null)
         {
@@ -130,7 +121,7 @@ public class CreateItem extends AbstractFragmentBean
     }
     
     /**
-     * Creates the panel newly according to the values in the SessionBean.
+     * Creates the panel newly according to the values in the FacesBean.
      */
     protected void createDynamicItemList()
     {
@@ -154,13 +145,77 @@ public class CreateItem extends AbstractFragmentBean
     }
 
     /**
+     * Starts a new submission.
+     *
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String newSubmission()
+    {
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("New Submission");
+        }
+        // force reload of list next time this page is navigated to
+        this.getDepositorWSSessionBean().setListDirty(true);
+        // if there is only one collection for this user we can skip the CreateItem-Dialog and
+        // create the new item directly
+        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
+        {
+            logger.warn("The user does not have privileges for any collection.");
+            return null;
+        }
+        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
+        {
+            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("The user has only privileges for one collection (ID: "
+                        + pubCollectionVO.getReference().getObjectId() + ")");
+            }
+            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
+                    pubCollectionVO.getReference());
+        }
+        else
+        {
+            // more than one collection exists for this user; let him choose the right one
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("The user has privileges for "
+                        + this.getCollectionListSessionBean().getCollectionList().size() + " different collections.");
+            }
+            // refresh ListUI
+            this.getCollectionListSessionBean().setCollectionListUI(null);
+            return CreateItem.LOAD_CREATEITEM;
+        }
+    }
+
+    /**
      * Returns the CollectionListSessionBean.
-     * 
+     *
+     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     */
+    protected CollectionListSessionBean getCollectionListSessionBean()
+    {
+        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
+    }
+
+    /**
+     * Returns the CollectionListSessionBean.
+     *
      * @return a reference to the scoped data bean (CollectionListSessionBean)
      */
     protected CollectionListSessionBean getSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
+    }
+
+    /**
+     * Returns the DepositorWSSessionBean.
+     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     */
+    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    {
+        return (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -169,7 +224,7 @@ public class CreateItem extends AbstractFragmentBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.BEAN_NAME);
+        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicCollectionList()

@@ -1,49 +1,54 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
 
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
+<%
+            /* 
+            CDDL HEADER START
 
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
 
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
 
- CDDL HEADER END
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:ui="http://www.sun.com/web/ui">
-    <f:subview id="CreateItem">
-    	<div>
-	        <h1>
-	        <ui:staticText id="valOrientationText" styleClass="orientationHeader" text="#{lbl.CreateItemPage}"/>
-	        </h1>
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+
+<div>
+	<f:subview id="CreateItem">
+		<div>
+			<h1>
+			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>	  
+			</h1>
 			<div>
-		    	<h:panelGroup id="panCollectionList" binding="#{createItem$CreateItem.panDynamicCollectionList}">
-			    </h:panelGroup>
+				<h:panelGroup id="panCollectionList" binding="#{CreateItem.panDynamicCollectionList}">
+				</h:panelGroup>
 			</div>
 	
 			<div>
-				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{createItem$CreateItem.cancel}" />
-				<h:commandButton id="confirm" value="#{lbl.confirmSelection}" action="#{createItem$CreateItem.confirmSelection}" />
+				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItem.cancel}" />
+				<h:commandButton id="confirm" value="#{lbl.confirmSelection}" action="#{CreateItem.confirmSelection}" />
 			</div>
 		</div>
-        <div>
-        	<jsp:directive.include file="../desktop/messages.jspf"/>
-        </div>
-    </f:subview>
+		<div>
+			<%@ include file="../desktop/messages.jspf" %>
+		</div>
+	</f:subview>
 </div>

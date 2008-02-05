@@ -35,9 +35,9 @@ import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.DropDown;
-import com.sun.rave.web.ui.component.Label;
-import com.sun.rave.web.ui.component.TextArea;
+import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html. HtmlOutputLabel;
+import javax.faces.component.html.HtmlInputTextarea;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -47,7 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  * UI component for editing abstracts. 
  * 
  * @author: Thomas Diebäcker, created 26.06.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by DiT: 09.08.2007
  */
 public class ContentAbstractUI extends AbstractUI
@@ -56,13 +56,13 @@ public class ContentAbstractUI extends AbstractUI
 
     // for handling the resource bundles (i18n)
     private InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+    private ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
     
     // GUI components
     private HtmlPanelGrid panAttributes = new HtmlPanelGrid();
-    private Label lblAbstract = new Label();
-    private TextArea txtAbstract = new TextArea();
-    private DropDown cboLanguage = new DropDown();
+    private HtmlOutputLabel lblAbstract = new HtmlOutputLabel();
+    private HtmlInputTextarea txtAbstract = new HtmlInputTextarea();
+    private HtmlSelectOneMenu cboLanguage = new HtmlSelectOneMenu();
 
     /**
      * Public constructor.
@@ -78,7 +78,7 @@ public class ContentAbstractUI extends AbstractUI
         super(panDynamicParentPanel, parentVO, parentValueBinding, indexComponent);        
         
         this.i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
-        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+        this.labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         
         // set attributes for all GUI components
         this.panAttributes.setId(this.createUniqueId(this.panAttributes));
@@ -88,9 +88,10 @@ public class ContentAbstractUI extends AbstractUI
         this.panAttributes.setColumnClasses("editItemLabelColumn, editItemFieldColumn, editItemFieldColumn");
         
         this.lblAbstract.setId(this.createUniqueId(this.lblAbstract));
-        this.lblAbstract.setLabeledComponent(this.txtAbstract);
+        this.lblAbstract.setFor(this.txtAbstract.getId());
         this.lblAbstract.setValue(labelBundle.getString("EditItem_lblAbstract"));
-        this.lblAbstract.setLabelLevel(3);
+        //this.lblAbstract.setLabelLevel(3);
+        this.cboLanguage.getChildren().clear();
         this.panAttributes.getChildren().add(this.lblAbstract);
 
         this.txtAbstract.setId(this.createUniqueId(this.txtAbstract));
@@ -98,7 +99,7 @@ public class ContentAbstractUI extends AbstractUI
         this.panAttributes.getChildren().add(this.txtAbstract);
         
         this.cboLanguage.setId(this.createUniqueId(this.cboLanguage));
-        this.cboLanguage.setItems(CommonUtils.getLanguageOptions());
+        this.cboLanguage.getChildren().addAll(CommonUtils.convertToSelectItemsUI(CommonUtils.getLanguageOptions()));
         this.cboLanguage.setStyleClass("editItemComboBoxLanguage");
         this.panAttributes.getChildren().add(this.cboLanguage);
         

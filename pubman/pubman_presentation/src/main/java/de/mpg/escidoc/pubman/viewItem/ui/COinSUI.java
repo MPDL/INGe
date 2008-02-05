@@ -39,7 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
  * UI class for generating an CoiNS span element.
  *
  * @author: Tobias Schraut, created 09.10.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class COinSUI
 {

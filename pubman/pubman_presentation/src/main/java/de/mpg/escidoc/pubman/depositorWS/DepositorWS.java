@@ -30,14 +30,18 @@ package de.mpg.escidoc.pubman.depositorWS;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputLink;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.StaticText;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
@@ -49,7 +53,6 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO.State;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -58,30 +61,31 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  * of a list, depending on the status of the items. Items can be viewed, edited, deleted or submitted from this point.
  *
  * @author: Tobias Schraut; Thomas Diebäcker, created 10.01.2007
- * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Tue, 04 Dec 2007) $ Revised by DiT:
+ * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007) $ Revised by DiT:
  *           09.08.2007
  */
 public class DepositorWS extends ItemList
 {
-    public static final String BEAN_NAME = "depositorWS$DepositorWS";
+    public static final String BEAN_NAME = "DepositorWS";
     private static Logger logger = Logger.getLogger(DepositorWS.class);
     // Faces navigation string
     public static final String LOAD_DEPOSITORWS = "loadDepositorWS";
     // bound components in JSP
-    private Hyperlink lnkEdit = new Hyperlink();
-    private Hyperlink lnkModify = new Hyperlink();
-    private Hyperlink lnkWithdraw = new Hyperlink();
-    private Hyperlink lnkView = new Hyperlink();
-    private Hyperlink lnkSubmit = new Hyperlink();
-    private Hyperlink lnkDelete = new Hyperlink();
+    private HtmlCommandLink lnkEdit = new HtmlCommandLink();
+    private HtmlCommandLink lnkModify = new HtmlCommandLink();
+    private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
+    private HtmlCommandLink lnkView = new HtmlCommandLink();
+    private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
+    private HtmlOutputLink lnkDelete = new HtmlOutputLink();
     private HtmlSelectOneMenu cboItemstate = new HtmlSelectOneMenu();
-    private StaticText valNoItemsMsg = new StaticText();
+    private HtmlOutputText valNoItemsMsg = new HtmlOutputText();
 
     /**
      * Public constructor.
      */
     public DepositorWS()
     {
+        this.init();
     }
 
     /**
@@ -109,55 +113,11 @@ public class DepositorWS extends ItemList
                 }
                 catch (Exception e)
                 {
-                    logger.error(e.toString());
+                    logger.error(e.toString(), e);
                 }
             }
         }
-    }
 
-    /**
-     * Starts a new submission.
-     *
-     * @return string, identifying the page that should be navigated to after this methodcall
-     */
-    public String newSubmission()
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("New Submission");
-        }
-        // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
-        // if there is only one collection for this user we can skip the CreateItem-Dialog and
-        // create the new item directly
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
-        {
-            logger.warn("The user does not have privileges for any collection.");
-            return null;
-        }
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
-        {
-            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("The user has only privileges for one collection (ID: "
-                        + pubCollectionVO.getReference().getObjectId() + ")");
-            }
-            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
-                    pubCollectionVO.getReference());
-        }
-        else
-        {
-            // more than one collection exists for this user; let him choose the right one
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("The user has privileges for "
-                        + this.getCollectionListSessionBean().getCollectionList().size() + " different collections.");
-            }
-            // refresh ListUI
-            this.getCollectionListSessionBean().setCollectionListUI(null);
-            return CreateItem.LOAD_CREATEITEM;
-        }
     }
 
     /**
@@ -239,7 +199,7 @@ public class DepositorWS extends ItemList
         // set the currently selected items in the ItemController
         this.setSelectedItemsAndCurrentItem();
 
-        //      Inserted by FrM to check item State
+        // Inserted by FrM to check item State
         for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
         {
             logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
@@ -412,18 +372,18 @@ public class DepositorWS extends ItemList
     }
 
     /**
-     * Creates a new itemList in the SessionBean and forces the UI component to create a new itemList.
+     * Creates a new itemList in the FacesBean and forces the UI component to create a new itemList.
      *
      * @param newItemState the new state
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     private String createItemList(final String newItemState)
     {
-        // clear all itemLists stored in the SessionBean
+        // clear all itemLists stored in the FacesBean
         this.getSessionBean().getCurrentPubItemList().clear();
         this.getSessionBean().getSelectedPubItems().clear();
         ArrayList<PubItemVO> itemsForAccountUser = new ArrayList<PubItemVO>();
-        // set the new State in the SessionBean
+        // set the new State in the FacesBean
         if (logger.isDebugEnabled())
         {
             logger.debug("New item state: " + newItemState);
@@ -438,10 +398,10 @@ public class DepositorWS extends ItemList
         catch (Exception e)
         {
             logger.error("Could not create item list.", e);
-            ((ErrorPage) this.getBean(ErrorPage.BEAN_NAME)).setException(e);
+            ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
-        // set new list in SessionBean
+        // set new list in FacesBean
         this.getSessionBean().setCurrentPubItemList(itemsForAccountUser);
         // sort the items and force the UI to update
         this.sortItemList();
@@ -453,7 +413,7 @@ public class DepositorWS extends ItemList
     }
 
     /**
-     * Creates the panel newly according to the values in the SessionBean.
+     * Creates the panel newly according to the values in the FacesBean.
      */
     protected void createDynamicItemList()
     {
@@ -468,7 +428,7 @@ public class DepositorWS extends ItemList
             // create an ItemListUI for all PubItems
             List<PubItemVO> pubItemList = this.getSessionBean().getCurrentPubItemList();
             List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-            ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{depositorWS$DepositorWS.showItem}");
+            ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{DepositorWS.showItem}");
             // add the UI to the dynamic panel
             this.getPanDynamicItemList().getChildren().add(itemListUI);
         }
@@ -504,7 +464,7 @@ public class DepositorWS extends ItemList
         this.lnkWithdraw.setRendered(enableWithdraw);
         this.lnkSubmit.setRendered(enableSubmit);
         this.lnkView.setRendered(enableView);
-        this.valNoItemsMsg.setVisible(enableNoItemMsg);
+        this.valNoItemsMsg.setRendered(enableNoItemMsg);
     }
 
     /**
@@ -514,7 +474,7 @@ public class DepositorWS extends ItemList
      */
     protected DepositorWSSessionBean getSessionBean()
     {
-        return (DepositorWSSessionBean) getBean(DepositorWSSessionBean.BEAN_NAME);
+        return (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
     }
 
     /**
@@ -524,7 +484,7 @@ public class DepositorWS extends ItemList
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.BEAN_NAME);
+        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
     }
 
     /**
@@ -534,7 +494,7 @@ public class DepositorWS extends ItemList
      */
     protected ApplicationBean getApplicationBean()
     {
-        return (ApplicationBean) getBean(ApplicationBean.BEAN_NAME);
+        return (ApplicationBean) getBean(ApplicationBean.class);
     }
 
     public SelectItem[] getITEMSTATE_OPTIONS()
@@ -542,62 +502,62 @@ public class DepositorWS extends ItemList
         return this.getApplicationBean().getSelectItemsItemState();
     }
 
-    public Hyperlink getLnkDelete()
+    public HtmlOutputLink getLnkDelete()
     {
         return lnkDelete;
     }
 
-    public void setLnkDelete(Hyperlink lnkDelete)
+    public void setLnkDelete(HtmlOutputLink lnkDelete)
     {
         this.lnkDelete = lnkDelete;
     }
 
-    public Hyperlink getLnkEdit()
+    public HtmlCommandLink getLnkEdit()
     {
         return lnkEdit;
     }
 
-    public Hyperlink getLnkModify()
+    public HtmlCommandLink getLnkModify()
     {
         return lnkModify;
     }
 
-    public void setLnkModify(Hyperlink lnkModify)
+    public void setLnkModify(HtmlCommandLink lnkModify)
     {
         this.lnkModify = lnkModify;
     }
 
-    public Hyperlink getLnkWithdraw()
+    public HtmlCommandLink getLnkWithdraw()
     {
         return lnkWithdraw;
     }
 
-    public void setLnkWithdraw(Hyperlink lnkWithdraw)
+    public void setLnkWithdraw(HtmlCommandLink lnkWithdraw)
     {
         this.lnkWithdraw = lnkWithdraw;
     }
 
-    public void setLnkEdit(Hyperlink lnkEdit)
+    public void setLnkEdit(HtmlCommandLink lnkEdit)
     {
         this.lnkEdit = lnkEdit;
     }
 
-    public Hyperlink getLnkSubmit()
+    public HtmlCommandLink getLnkSubmit()
     {
         return lnkSubmit;
     }
 
-    public void setLnkSubmit(Hyperlink lnkSubmit)
+    public void setLnkSubmit(HtmlCommandLink lnkSubmit)
     {
         this.lnkSubmit = lnkSubmit;
     }
 
-    public Hyperlink getLnkView()
+    public HtmlCommandLink getLnkView()
     {
         return lnkView;
     }
 
-    public void setLnkView(Hyperlink lnkView)
+    public void setLnkView(HtmlCommandLink lnkView)
     {
         this.lnkView = lnkView;
     }
@@ -612,12 +572,12 @@ public class DepositorWS extends ItemList
         this.cboItemstate = cboItemstate;
     }
 
-    public StaticText getValNoItemsMsg()
+    public HtmlOutputText getValNoItemsMsg()
     {
         return valNoItemsMsg;
     }
 
-    public void setValNoItemsMsg(StaticText valNoItemsMsg)
+    public void setValNoItemsMsg(HtmlOutputText valNoItemsMsg)
     {
         this.valNoItemsMsg = valNoItemsMsg;
     }

@@ -32,18 +32,17 @@ package de.mpg.escidoc.pubman.affiliation;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.component.html.HtmlPanelGrid;
-import com.sun.rave.web.ui.appbase.AbstractSessionBean;
-import com.sun.rave.web.ui.component.Tree;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the Affiliation components.
  * @author:  Hugo Niedermaier, Basics by Thomas Diebäcker, created 30.05.2007
- * @version: $Revision: 1604 $ $LastChangedDate: 2007-11-26 11:04:12 +0100 (Mon, 26 Nov 2007) $
+ * @version: $Revision: 1604 $ $LastChangedDate: 2007-11-26 11:04:12 +0100 (Mo, 26 Nov 2007) $
  * Revised by NiH: 13.08.2007
  */
-public class AffiliationSessionBean extends AbstractSessionBean
+public class AffiliationSessionBean extends FacesBean
 {   
     static final long serialVersionUID = 1L;
     
@@ -53,10 +52,10 @@ public class AffiliationSessionBean extends AbstractSessionBean
     //to distinguish between the use case browse by affiliation and add/select in edit item 
     private boolean browseByAffiliation = false;
 
-    public static final String BEAN_NAME = "affiliation$AffiliationSessionBean";
+    public static final String BEAN_NAME = "AffiliationSessionBean";
     
     //instnace of the Affiliation Tree
-    private Tree treeAffiliation = new Tree();
+    private YuiTree treeAffiliation = new YuiTree();
     //flag to control the dynamic creation of the tree from outside
     private boolean wasInit = false;
     private ArrayList<AffiliationVO> currentAffiliationList = new ArrayList<AffiliationVO>();
@@ -73,6 +72,7 @@ public class AffiliationSessionBean extends AbstractSessionBean
      */
     public AffiliationSessionBean()
     {
+        this.init();
     }
 
     /**
@@ -160,12 +160,12 @@ public class AffiliationSessionBean extends AbstractSessionBean
         this.add = add;
     }
 
-    public Tree getTreeAffiliation()
+    public YuiTree getTreeAffiliation()
     {
         return treeAffiliation;
     }
 
-    public void setTreeAffiliation(Tree treeAffiliation)
+    public void setTreeAffiliation(YuiTree treeAffiliation)
     {
         this.treeAffiliation = treeAffiliation;
     }

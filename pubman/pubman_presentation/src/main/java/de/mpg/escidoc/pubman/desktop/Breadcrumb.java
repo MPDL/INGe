@@ -32,23 +32,28 @@ package de.mpg.escidoc.pubman.desktop;
 
 import javax.faces.component.html.HtmlPanelGroup;
 
-import com.sun.rave.web.ui.appbase.AbstractFragmentBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
-import de.mpg.escidoc.pubman.breadCrumb.BreadCrumbNavigation;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbNavigation;
 
 /**
- * Breadcrump.java Backing Bean for the Breadcrump.jspf Created on 29. Januar 2007, 16:53
- * 
+ * Breadcrumb.java Backing Bean for the Breadcrumb.jspf Created on 29. Januar 2007, 16:53
+ *
  * @author: Thomas Diebaecker, created 30.05.2007
- * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Tue, 20 Nov 2007) $ Revised by ScT: 17.08.2007
+ * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
+ * Revised by ScT: 17.08.2007
  */
-public class Breadcrump extends AbstractFragmentBean
+public class Breadcrumb extends FacesBean
 {
     private HtmlPanelGroup panBreadCrumbList = new HtmlPanelGroup();
-    final public static String BEAN_NAME = "desktop$Breadcrump";
+    public static final String BEAN_NAME = "Breadcrumb";
 
-    public Breadcrump()
+    /**
+     * Breadcrumb navigation backing bean.
+     */
+    public Breadcrumb()
     {
+        this.init();
     }
 
     /**
@@ -62,16 +67,21 @@ public class Breadcrump extends AbstractFragmentBean
         getPanBreadCrumbList();
     }
 
+    /**
+     * Get the actual bread crump UI component.
+     *
+     * @return The bread crump UI component.
+     */
     public HtmlPanelGroup getPanBreadCrumbList()
     {
-        BreadCrumbNavigation breadcrumbs = (BreadCrumbNavigation)getBean(BreadCrumbNavigation.BEAN_NAME);
+        BreadcrumbNavigation breadcrumbs = (BreadcrumbNavigation) getSessionBean(BreadcrumbNavigation.class);
         breadcrumbs.init();
         this.panBreadCrumbList = new HtmlPanelGroup();
-        this.panBreadCrumbList = breadcrumbs.getPanBreadCrumbList();
+        this.panBreadCrumbList = breadcrumbs.getPanBreadcrumbList();
         return panBreadCrumbList;
     }
 
-    public void setPanBreadCrumbList(HtmlPanelGroup panBreadCrumbList)
+    public void setPanBreadCrumbList(final HtmlPanelGroup panBreadCrumbList)
     {
         this.panBreadCrumbList = panBreadCrumbList;
     }

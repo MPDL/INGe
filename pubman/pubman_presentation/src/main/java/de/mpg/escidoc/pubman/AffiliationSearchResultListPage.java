@@ -36,9 +36,8 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.rave.web.ui.component.Page;
-
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -51,108 +50,71 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingEx
  * SearchResults.
  * 
  * @author: Tobias Schraut, created 14.08.2007
- * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Tue, 18 Dec 2007) $
+ * @version: $Revision: 1691 $ $LastChangedDate: 2007-12-18 09:30:58 +0100 (Di, 18 Dez 2007) $
  * Revised by NiH: 13.09.2007
  */
-public class AffiliationSearchResultListPage extends AbstractPageBean
+public class AffiliationSearchResultListPage extends BreadcrumbPage
 {
-	private static Logger logger = Logger
-			.getLogger(AffiliationSearchResultListPage.class);
+    private static Logger logger = Logger
+            .getLogger(AffiliationSearchResultListPage.class);
 
-	// this variable is for connecting the jsp with this backing bean
-	private Page page = new Page();
+    // The referring GUI Tool Page
+    public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE = "GTAffiliationSearchResultListPage.jsp";
 
-	// The referring GUI Tool Page
-	public final static String GT_AFFILIATION_SEARCH_RESULTLIST_PAGE = "GTAffiliationSearchResultListPage.jsp";
-
-	/**
-	 * Construct a new Page bean instance.
-	 */
-	public AffiliationSearchResultListPage()
+    /**
+     * Construct a new Page bean instance.
+     */
+    public AffiliationSearchResultListPage()
     {
-	}
+        this.init();
+    }
 
-	/**
-	 * Callback method that is called whenever a page is navigated to, either
-	 * directly via a URL, or indirectly via page navigation. Customize this
-	 * method to acquire resources that will be needed for event handlers and
-	 * lifecycle methods, whether or not this page is performing post back
-	 * processing.
-	 * Note that, if the current request is a postback, the property values of
-	 * the components do <strong>not</strong> represent any values submitted
-	 * with this request. Instead, they represent the property values that were
-	 * saved for this view when it was rendered.
-	 */
-	public void init()
+    /**
+     * Callback method that is called whenever a page is navigated to, either
+     * directly via a URL, or indirectly via page navigation. Customize this
+     * method to acquire resources that will be needed for event handlers and
+     * lifecycle methods, whether or not this page is performing post back
+     * processing.
+     * Note that, if the current request is a postback, the property values of
+     * the components do <strong>not</strong> represent any values submitted
+     * with this request. Instead, they represent the property values that were
+     * saved for this view when it was rendered.
+     */
+    public void init()
     {
-		// Perform initializations inherited from our superclass
-		super.init();
+        // Perform initializations inherited from our superclass
+        super.init();
 
-		LoginHelper loginHelper = (LoginHelper) FacesContext
-				.getCurrentInstance().getApplication().getVariableResolver()
-				.resolveVariable(FacesContext.getCurrentInstance(),
-						"LoginHelper");
-		if (loginHelper == null)
-        {
-			loginHelper = new LoginHelper();
-		}
-		if (loginHelper != null)
-        {
-			try
-            {
-				try 
-                {
-					loginHelper.insertLogin();
-				} 
-                catch (UnmarshallingException e)
-                {
-					logger.debug(e.toString());
-				}
-                catch (TechnicalException e)
-                {
-					logger.debug(e.toString());
-				}
-                catch (ServiceException e)
-                {
-					logger.debug(e.toString());
-				}
-			}
-            catch (IOException e1)
-            {
-				logger.debug(e1.toString());
-			}
-		}
-
-		// redirect to the referring GUI Tool page if the application has been
-		// started as GUI Tool
-		
-		CommonSessionBean sessionBean = getCommonSessionBean();
-		if(sessionBean.isRunAsGUITool() == true)
+        // redirect to the referring GUI Tool page if the application has been
+        // started as GUI Tool
+        
+        CommonSessionBean sessionBean = getCommonSessionBean();
+        if(sessionBean.isRunAsGUITool() == true)
         {
             redirectToGUITool();
         }
-	}
+    }
 
-	/**
-	 * Redirets to the referring GUI Tool page.
-	 * 
-	 * @return a navigation string
-	 */
-	protected String redirectToGUITool()
+    /**
+     * Redirets to the referring GUI Tool page.
+     * 
+     * @return a navigation string
+     */
+    protected String redirectToGUITool()
     {
-		FacesContext fc = FacesContext.getCurrentInstance();
-		try
+        FacesContext fc = FacesContext.getCurrentInstance();
+        try
         {
-			fc.getExternalContext().redirect(
-					GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
-		}
+            fc.getExternalContext().redirect(
+                    GT_AFFILIATION_SEARCH_RESULTLIST_PAGE);
+        }
         catch (IOException e)
         {
-			logger.error("Could not redirect to GUI Tool Affiliation Search result list page."
-							+ "\n" + e.toString());
-		}
-		return "";
-	}
+            logger.error("Could not redirect to GUI Tool Affiliation Search result list page."
+                            + "\n" + e.toString());
+        }
+        return "";
+    }
 
     /*
      * Handle messages in fragments from here to please JSF life cycle.
@@ -165,30 +127,21 @@ public class AffiliationSearchResultListPage extends AbstractPageBean
         logger.info(" prerender ExportItems >>>");
         
         super.prerender();
-        SearchResultList fragment = (SearchResultList) getBean("search$SearchResultList");
+        SearchResultList fragment = (SearchResultList) getBean(SearchResultList.class);
         fragment.handleMessage();
         
-        ExportItems exportItems = (ExportItems) getBean("export$ExportItems");
+        ExportItems exportItems = (ExportItems) getBean(ExportItems.class);
         exportItems.updateExportFormats();
     }
 
-	/**
-	 * Returns the CommonSessionBean.
-	 * 
-	 * @return a reference to the scoped data bean (CmmonSessionBean)
-	 */
-	protected CommonSessionBean getCommonSessionBean()
+    /**
+     * Returns the CommonSessionBean.
+     * 
+     * @return a reference to the scoped data bean (CommonSessionBean)
+     */
+    protected CommonSessionBean getCommonSessionBean()
     {
-		return (CommonSessionBean) getBean(CommonSessionBean.BEAN_NAME);
-	}
+        return (CommonSessionBean) getBean(CommonSessionBean.class);
+    }
 
-	public Page getPage()
-    {
-		return page;
-	}
-
-	public void setPage(Page page)
-    {
-		this.page = page;
-	}
 }

@@ -44,9 +44,10 @@ import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
-import com.sun.rave.web.ui.component.Hyperlink;
-import com.sun.rave.web.ui.component.StaticText;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputText;
 
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
@@ -55,9 +56,9 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
  * LoginErrorPage.java Backing bean for the LoginErrorPage.jsp
  * 
  * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1536 $ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Tue, 13 Nov 2007) $ Revised by ScT: 22.08.2007
+ * @version: $Revision: 1536 $ $LastChangedDate: 2007-11-13 10:54:07 +0100 (Di, 13 Nov 2007) $ Revised by ScT: 22.08.2007
  */
-public class SearchResultItemUI
+public class SearchResultItemUI extends InternationalizedImpl
 {
     
     private static Logger logger = Logger.getLogger(SearchResultItemUI.class);
@@ -66,18 +67,18 @@ public class SearchResultItemUI
     HtmlPanelGrid panel = new HtmlPanelGrid();
     UISelectBoolean chkSelect = new UISelectBoolean();
     UIParameter parameter = new UIParameter();
-    Hyperlink lnkViewItem = new Hyperlink();
-    private StaticText valItemID = new StaticText();
-    private StaticText emptySpace = new StaticText();
-    private StaticText valAuthors = new StaticText();
-    private StaticText valHitList = new StaticText();
-    private StaticText valHighlightedBefore = new StaticText();
-    private StaticText valHighlighted = new StaticText();
-    private StaticText valHighlightedAfter = new StaticText();
-    private StaticText lblFileName = new StaticText();
-    private StaticText valItemIndex = new StaticText();
-    private StaticText valFileIndex = new StaticText();
-    private Hyperlink lnkFileName = new Hyperlink();
+    HtmlCommandLink lnkViewItem = new HtmlCommandLink();
+    private HtmlOutputText valItemID = new HtmlOutputText();
+    private HtmlOutputText emptySpace = new HtmlOutputText();
+    private HtmlOutputText valAuthors = new HtmlOutputText();
+    private HtmlOutputText valHitList = new HtmlOutputText();
+    private HtmlOutputText valHighlightedBefore = new HtmlOutputText();
+    private HtmlOutputText valHighlighted = new HtmlOutputText();
+    private HtmlOutputText valHighlightedAfter = new HtmlOutputText();
+    private HtmlOutputText lblFileName = new HtmlOutputText();
+    private HtmlOutputText valItemIndex = new HtmlOutputText();
+    private HtmlOutputText valFileIndex = new HtmlOutputText();
+    private HtmlCommandLink lnkFileName = new HtmlCommandLink();
     
     private HtmlCommandButton btnDownload = new HtmlCommandButton();
 
@@ -106,13 +107,7 @@ public class SearchResultItemUI
             viewRoot = new UIViewRoot();
             FacesContext.getCurrentInstance().setViewRoot(viewRoot);
         }
-        Application application = FacesContext.getCurrentInstance().getApplication();
-        // get the selected language...
-        InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance()
-                .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                        InternationalizationHelper.BEAN_NAME);
-        // ... and set the refering resource bundle
-        ResourceBundle bundle = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
+
         // get all the authors of the item
         StringBuffer authorList = new StringBuffer();
         for (int i = 0; i < item.getMetadata().getCreators().size(); i++)
@@ -158,30 +153,30 @@ public class SearchResultItemUI
         chkSelect.setId(viewRoot.createUniqueId() + "_chkSelect" + Calendar.getInstance().getTimeInMillis());
         panel.getChildren().add(chkSelect);
         valItemID.setId(viewRoot.createUniqueId() + "_valItemID" + Calendar.getInstance().getTimeInMillis());
-        valItemID.setText(item.getReference().getObjectId());
+        valItemID.setValue(item.getReference().getObjectId());
         panel.getChildren().add(valItemID);
         parameter.setId(viewRoot.createUniqueId() + "_parameter" + Calendar.getInstance().getTimeInMillis());
         parameter.setName("itemID");
         parameter.setValue(new Integer(position).toString());
         lnkViewItem.getChildren().add(parameter);
         lnkViewItem.setId("item_" + new Integer(position).toString());
-        lnkViewItem.setText(item.getMetadata().getTitle().getValue());
+        lnkViewItem.setValue(item.getMetadata().getTitle().getValue());
         lnkViewItem.setImmediate(true);
-        lnkViewItem.setAction(application.createMethodBinding("#{search$SearchResultList.showItem}", null));
+        lnkViewItem.setAction(application.createMethodBinding("#{SearchResultList.showItem}", null));
         panel.getChildren().add(lnkViewItem);
         // The authors
-        this.emptySpace = new StaticText();
+        this.emptySpace = new HtmlOutputText();
         this.emptySpace.setId(viewRoot.createUniqueId());
-        this.emptySpace.setText(" ");
+        this.emptySpace.setValue(" ");
         this.emptySpace.setStyle("height: 20px; width: 360px");
         this.panel.getChildren().add(this.emptySpace);
-        this.emptySpace = new StaticText();
+        this.emptySpace = new HtmlOutputText();
         this.emptySpace.setId(viewRoot.createUniqueId());
-        this.emptySpace.setText(" ");
+        this.emptySpace.setValue(" ");
         this.emptySpace.setStyle("height: 20px; width: 360px");
         this.panel.getChildren().add(this.emptySpace);
         this.valAuthors.setId(viewRoot.createUniqueId());
-        this.valAuthors.setText(authorList.toString());
+        this.valAuthors.setValue(authorList.toString());
         this.panel.getChildren().add(this.valAuthors);
         // the hitlist
         for (int i = 0; i < item.getSearchHitList().size(); i++)
@@ -220,41 +215,41 @@ public class SearchResultItemUI
                         beforeHighlight = "..." + item.getSearchHitList().get(i).getTextFragmentList().get(j).getData()
                                 + "...";
                     }
-                    this.emptySpace = new StaticText();
+                    this.emptySpace = new HtmlOutputText();
                     this.emptySpace.setId(viewRoot.createUniqueId());
-                    this.emptySpace.setText(" ");
+                    this.emptySpace.setValue(" ");
                     this.emptySpace.setStyle("height: 20px; width: 360px");
                     this.panel.getChildren().add(this.emptySpace);
-                    this.emptySpace = new StaticText();
+                    this.emptySpace = new HtmlOutputText();
                     this.emptySpace.setId(viewRoot.createUniqueId());
-                    this.emptySpace.setText(" ");
+                    this.emptySpace.setValue(" ");
                     this.emptySpace.setStyle("height: 20px; width: 360px");
                     this.panel.getChildren().add(this.emptySpace);
-                    this.valHighlightedBefore = new StaticText();
+                    this.valHighlightedBefore = new HtmlOutputText();
                     this.valHighlightedBefore.setId(viewRoot.createUniqueId());
-                    this.valHighlightedBefore.setText(beforeHighlight);
+                    this.valHighlightedBefore.setValue(beforeHighlight);
                     this.valHighlightedBefore.setStyleClass("searchHitResult");
-                    this.valHighlighted = new StaticText();
+                    this.valHighlighted = new HtmlOutputText();
                     this.valHighlighted.setId(viewRoot.createUniqueId());
-                    this.valHighlighted.setText(highlighted);
+                    this.valHighlighted.setValue(highlighted);
                     this.valHighlighted.setStyleClass("searchHitResultHighlighted");
-                    this.valHighlightedAfter = new StaticText();
+                    this.valHighlightedAfter = new HtmlOutputText();
                     this.valHighlightedAfter.setId(viewRoot.createUniqueId());
-                    this.valHighlightedAfter.setText(afterHighlight);
+                    this.valHighlightedAfter.setValue(afterHighlight);
                     this.valHighlightedAfter.setStyleClass("searchHitResult");
                     for (int k = 0; k < item.getFiles().size(); k++)
                     {
                         if (item.getSearchHitList().get(i).getHitReference().equals(
                                 item.getFiles().get(k).getReference()))
                         {
-                            this.emptySpace = new StaticText();
+                            this.emptySpace = new HtmlOutputText();
                             this.emptySpace.setId(viewRoot.createUniqueId());
-                            this.emptySpace.setText(" ");
+                            this.emptySpace.setValue(" ");
                             this.emptySpace.setStyle("height: 20px; width: 360px");
                             this.panel.getChildren().add(this.emptySpace);
-                            this.lblFileName = new StaticText();
+                            this.lblFileName = new HtmlOutputText();
                             this.lblFileName.setId(viewRoot.createUniqueId());
-                            this.lblFileName.setText(bundle.getString("SearchResultList_lblFileName") + " ");
+                            this.lblFileName.setValue(getLabel("SearchResultList_lblFileName") + " ");
                             this.lblFileName.setStyleClass("searchHitResultFileName");
                             // Hidden download button and other fields due to
                             // jsf bug (download action cannot be called by
@@ -263,36 +258,36 @@ public class SearchResultItemUI
                             this.parameter.setId(viewRoot.createUniqueId());
                             this.parameter.setName("file");
                             this.parameter.setValue(item.getFiles().get(k).getReference().getObjectId());
-                            this.valItemIndex = new StaticText();
+                            this.valItemIndex = new HtmlOutputText();
                             this.valItemIndex.setId(viewRoot.createUniqueId());
-                            this.valItemIndex.setText(position);
-                            this.valItemIndex.setVisible(false);
-                            this.valFileIndex = new StaticText();
+                            this.valItemIndex.setValue(position);
+                            this.valItemIndex.setRendered(false);
+                            this.valFileIndex = new HtmlOutputText();
                             this.valFileIndex.setId(viewRoot.createUniqueId());
-                            this.valFileIndex.setText(k);
-                            this.valFileIndex.setVisible(false);
+                            this.valFileIndex.setValue(k);
+                            this.valFileIndex.setRendered(false);
                             this.btnDownload = new HtmlCommandButton();
                             this.btnDownload.getChildren().add(parameter);
                             this.btnDownload.setId(viewRoot.createUniqueId() + "item" + position + "_file" + k + "_hit"
                                     + i + "_" + Calendar.getInstance().getTimeInMillis());
                             this.btnDownload.setValue("Download...");
                             this.btnDownload.setActionListener(application.createMethodBinding(
-                                    "#{search$SearchResultList.handleDownloadAction}",
+                                    "#{SearchResultList.handleDownloadAction}",
                                     new Class[] { ActionEvent.class }));
                             this.btnDownload.setRendered(false);
-                            this.lnkFileName = new Hyperlink();
+                            this.lnkFileName = new HtmlCommandLink();
                             this.lnkFileName.setId(viewRoot.createUniqueId());
                             this.lnkFileName.setValue(item.getFiles().get(k).getName());
                             // this.lnkFileName.setOnClick("downloadFile('item"
                             // + position + "_file" + k + "_hit" +i
                             // +"_"+Calendar.getInstance().getTimeInMillis()+"');
                             // return false");
-                            this.lnkFileName.setOnClick("downloadFile('" + this.btnDownload.getId()
+                            this.lnkFileName.setOnclick("downloadFile('" + this.btnDownload.getId()
                                     + "'); return false");
                             this.lnkFileName.setImmediate(true);
                         }
                     }
-                    this.valHitList = new StaticText();
+                    this.valHitList = new HtmlOutputText();
                     this.valHitList.setId(viewRoot.createUniqueId());
                     this.valHitList.getChildren().add(valHighlightedBefore);
                     this.valHitList.getChildren().add(valHighlighted);

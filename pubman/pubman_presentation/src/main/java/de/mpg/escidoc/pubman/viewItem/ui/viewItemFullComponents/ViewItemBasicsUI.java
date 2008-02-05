@@ -32,17 +32,14 @@ package de.mpg.escidoc.pubman.viewItem.ui.viewItemFullComponents;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlGraphicImage;
-import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
@@ -55,9 +52,9 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
  * UI for creating the basic section of a pubitem to be used in the ViewItemFullUI.
  * 
  * @author: Tobias Schraut, created 10.09.2007
- * @version: $Revision: 1676 $ $LastChangedDate: 2007-12-14 14:03:23 +0100 (Fri, 14 Dec 2007) $
+ * @version: $Revision: 1676 $ $LastChangedDate: 2007-12-14 14:03:23 +0100 (Fr, 14 Dez 2007) $
  */
-public class ViewItemBasicsUI extends HtmlPanelGroup
+public class ViewItemBasicsUI extends ContainerPanelUI
 {
     private PubItemVO pubItem;
     private HtmlGraphicImage image;
@@ -94,6 +91,32 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
      * The list of formatted creators which are organizations in an ArrayList.
      */
     private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
+
+    public ViewItemBasicsUI()
+    {     
+    	
+    }
+    
+    public Object processSaveState(FacesContext context) 
+    {
+        Object superState = super.processSaveState(context);
+        return new Object[] {superState, new Integer(getChildCount())};
+    }
+    
+    public void processRestoreState(FacesContext context, Object state) 
+    {
+        // At this point in time the tree has already been restored, but not before our ctor added the default children.
+        // Since we saved the number of children in processSaveState, we know how many children should remain within
+        // this component. We assume that the saved tree will have been restored 'behind' the children we put into it
+        // from within the ctor.
+        Object[] values = (Object[]) state;
+        Integer savedChildCount = (Integer) values[1];
+        for (int i = getChildCount() - savedChildCount.intValue(); i > 0; i--) 
+        {
+            getChildren().remove(0);
+        }
+        super.processRestoreState(context, values[0]);
+    }
     
     /**
      * Public constructor.
@@ -103,25 +126,6 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
         initialize(pubItemVO);
     }
     
-//  get the selected language...
-	private Application application = FacesContext.getCurrentInstance().getApplication();
-    private InternationalizationHelper i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    protected ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());
-    
-    private void updateLanguageBundle()
-    {
-    	this.application = FacesContext.getCurrentInstance().getApplication();
-    	this.i18nHelper = (InternationalizationHelper)application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);        
-    	this.bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLableBundle());    
-    }
-    
-   public void refreshAppearance()
-   {
-	   
-   }
-   
-   
-    
     /**
      * Initializes the UI and sets all attributes of the GUI components.
      * 
@@ -129,15 +133,16 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
      */
     protected void initialize(PubItemVO pubItemVO)
     {
-    	this.updateLanguageBundle();
-    	
+
+        ApplicationBean applicationBean = (ApplicationBean) FacesContext
+                .getCurrentInstance()
+                .getExternalContext()
+                .getApplicationMap()
+                .get(ApplicationBean.BEAN_NAME);
+        
         this.pubItem = pubItemVO;
         this.htmlElement = new HTMLElementUI();
         this.coins = new COinSUI();
-        
-        ApplicationBean applicationBean = (ApplicationBean)FacesContext.getCurrentInstance()
-        .getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
-                ApplicationBean.BEAN_NAME);
         
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
@@ -165,11 +170,14 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
         // add the subheader
         if(this.pubItem.getMetadata().getGenre() != null)
         {
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubHeaderItem") + " " + applicationBean.convertEnumToString(this.pubItem.getMetadata().getGenre())));
+            this.getChildren().add(
+                    CommonUtils.getTextElementConsideringEmpty(
+                            getLabel("ViewItemFull_lblSubHeaderItem")
+                                + " " + getLabel(applicationBean.convertEnumToString(this.pubItem.getMetadata().getGenre()))));
         }
         else
         {
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubHeaderItem")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubHeaderItem")));
         }
         
         
@@ -184,13 +192,13 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd withdrawn"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblWithdrawalDate")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblWithdrawalDate")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 // text
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd withdrawn"));
-                
+
                 if(this.pubItem.getModificationDate() != null)
                 {
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(CommonUtils.format(this.pubItem.getModificationDate())));
@@ -199,15 +207,14 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
                 {
                     this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(""));
                 }
-                
+
                 this.getChildren().add(htmlElement.getEndTag("div"));
-                
-                
+
                 // *** WITHDRAWAL COMMENT***
                 // label
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle withdrawn"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblWithdrawalComment")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblWithdrawalComment")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -237,21 +244,21 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
                 {
                     if(!this.pubItem.getMetadata().getTitle().getLanguage().trim().equals(""))
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTitle") + " <" +  this.pubItem.getMetadata().getTitle().getLanguage() + ">"));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTitle") + " <" +  this.pubItem.getMetadata().getTitle().getLanguage() + ">"));
                     }
                     else
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTitle")));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTitle")));
                     }
                 }
                 else
                 {
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTitle")));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTitle")));
                 }
             }
             else
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblTitle")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblTitle")));
             }
             
             this.getChildren().add(htmlElement.getEndTag("div"));
@@ -295,11 +302,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
                         
                         if(this.pubItem.getMetadata().getAlternativeTitles().get(i).getLanguage() != null && !this.pubItem.getMetadata().getAlternativeTitles().get(i).getLanguage().trim().equals(""))
                         {
-                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblAlternativeTitle") + " <" + this.pubItem.getMetadata().getAlternativeTitles().get(i).getLanguage() + ">"));
+                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblAlternativeTitle") + " <" + this.pubItem.getMetadata().getAlternativeTitles().get(i).getLanguage() + ">"));
                         }
                         else
                         {
-                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblAlternativeTitle")));
+                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblAlternativeTitle")));
                         }
                         
                         this.getChildren().add(htmlElement.getEndTag("div"));
@@ -320,7 +327,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
             
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblCreators")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblCreators")));
             
             this.getChildren().add(htmlElement.getEndTag("div"));
             
@@ -332,7 +339,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
             
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblAffiliations")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblAffiliations")));
             
             this.getChildren().add(htmlElement.getEndTag("div"));
             
@@ -343,7 +350,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
             
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblDates")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblDates")));
             
             this.getChildren().add(htmlElement.getEndTag("div"));
             
@@ -368,11 +375,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //                {
 //                    if(this.pubItem.getMetadata().getDateModified() != null || this.pubItem.getMetadata().getDateSubmitted() != null)
 //                    {
-//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateCreated") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateCreated(), true)));
+//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateCreated") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateCreated(), true)));
 //                    }
 //                    else
 //                    {
-//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateCreated") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateCreated(), false)));
+//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateCreated") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateCreated(), false)));
 //                    }
 //                }
 //                else
@@ -390,11 +397,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //                {
 //                    if(this.pubItem.getMetadata().getDateSubmitted() != null)
 //                    {
-//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateModified") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateModified(), true)));
+//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateModified") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateModified(), true)));
 //                    }
 //                    else
 //                    {
-//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateModified") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateModified(), false)));
+//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateModified") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateModified(), false)));
 //                    }
 //                }
 //                else
@@ -410,7 +417,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //            {
 //                if(!this.pubItem.getMetadata().getDateSubmitted().trim().equals(""))
 //                {
-//                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateSubmitted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateSubmitted(), false)));
+//                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateSubmitted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateSubmitted(), false)));
 //                }
 //                else
 //                {
@@ -443,11 +450,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //                    {
 //                        if(this.pubItem.getMetadata().getDatePublishedOnline() != null || this.pubItem.getMetadata().getDatePublishedInPrint() != null)
 //                        {
-//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateAccepted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateAccepted(), true)));
+//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateAccepted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateAccepted(), true)));
 //                        }
 //                        else
 //                        {
-//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDateAccepted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateAccepted(), false)));
+//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDateAccepted") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDateAccepted(), false)));
 //                        }
 //                    }
 //                    else
@@ -465,11 +472,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //                    {
 //                        if(this.pubItem.getMetadata().getDatePublishedInPrint() != null)
 //                        {
-//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDatePublishedOnline") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedOnline(), true)));
+//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDatePublishedOnline") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedOnline(), true)));
 //                        }
 //                        else
 //                        {
-//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDatePublishedOnline") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedOnline(), false)));
+//                            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDatePublishedOnline") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedOnline(), false)));
 //                        }
 //                    }
 //                    else
@@ -485,7 +492,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
 //                {
 //                    if(!this.pubItem.getMetadata().getDatePublishedInPrint().trim().equals(""))
 //                    {
-//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemMedium_lblDatePublishedInPrint") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedInPrint(), false)));
+//                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemMedium_lblDatePublishedInPrint") + " " + getDelimiteredDate(this.pubItem.getMetadata().getDatePublishedInPrint(), false)));
 //                    }
 //                    else
 //                    {
@@ -507,11 +514,11 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             
             if (this.pubItem.getMetadata().getSubject() != null && this.pubItem.getMetadata().getSubject().getLanguage() != null && !this.pubItem.getMetadata().getSubject().getLanguage().trim().equals(""))
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubject")+ " <" + this.pubItem.getMetadata().getSubject().getLanguage() + ">"));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubject")+ " <" + this.pubItem.getMetadata().getSubject().getLanguage() + ">"));
             }
             else
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblSubject")));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblSubject")));
             }
             
             this.getChildren().add(htmlElement.getEndTag("div"));
@@ -534,7 +541,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle odd"));
             
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblLanguages")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblLanguages")));
             
             this.getChildren().add(htmlElement.getEndTag("div"));
             
@@ -549,7 +556,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             // label
             this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
             
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblRevisionMethod")));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel("ViewItemFull_lblRevisionMethod")));
             
             this.getChildren().add(htmlElement.getEndTag("div"));
             
@@ -558,7 +565,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             
             if(this.pubItem.getMetadata().getReviewMethod() != null)
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getReviewMethod())));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(applicationBean.convertEnumToString(this.pubItem.getMetadata().getReviewMethod()))));
             }
             else
             {
@@ -577,7 +584,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             {
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(" | "));
             }
-            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString(label) + ": " + date));
+            this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(label) + ": " + date));
             return false;
         }
         else
