@@ -218,16 +218,27 @@
     <filtering>true</filtering>
    </resource>
   </resources>
-   <extensions>
-    <extension>
-     <groupId>org.apache.maven.wagon</groupId>
-     <artifactId>wagon-webdav</artifactId>
-     <version>1.0-beta-2</version>
-    </extension>
+  <extensions>
+   <extension>
     <groupId>org.apache.maven.wagon</groupId>
-    <artifactId>wagon-ssh</artifactId>
+    <artifactId>wagon-webdav</artifactId>
     <version>1.0-beta-2</version>
-   </extensions>
+   </extension>
+   <groupId>org.apache.maven.wagon</groupId>
+   <artifactId>wagon-ssh</artifactId>
+   <version>1.0-beta-2</version>
+  </extensions>
+  <!-- if no tests are present don't fail the complete package process -->
+  <pluginManagement>
+   <plugins>
+     <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <failIfNoTests>false</failIfNoTests>
+        </configuration>
+      </plugin>
+   </plugins>
+  </pluginManagement>
  </build>
 
  <reporting>
