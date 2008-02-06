@@ -46,7 +46,7 @@
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
 			<version>1.0-SNAPSHOT</version>
-			<scope>compile</scope>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 	

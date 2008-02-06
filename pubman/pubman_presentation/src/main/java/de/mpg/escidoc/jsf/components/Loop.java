@@ -30,7 +30,7 @@ public class Loop extends UIData
     private Object[] _values;
 
     /**
-     * Default conbstructor.
+     * Default constructor.
      */
     public Loop()
     {
