@@ -127,7 +127,11 @@
 							<artifactId>jasperreports</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-
+                        <jarModule>
+                  <groupId>axis</groupId>
+       <artifactId>axis</artifactId>
+       <includeInApplicationXml>true</includeInApplicationXml>
+      </jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -174,7 +178,7 @@
 			<groupId>axis</groupId>
 			<artifactId>axis</artifactId>
 			<version>1.4</version>
-			<scope>provided</scope>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
