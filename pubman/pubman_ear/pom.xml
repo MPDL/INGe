@@ -20,52 +20,23 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-eclipse-plugin</artifactId>
-				<configuration>
-					<additionalProjectnatures>
-						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
-						<projectnature>org.maven.ide.eclipse.maven2Nature</projectnature>
-						<projectnature>org.eclipse.wst.common.project.facet.core.nature</projectnature>
-						<projectnature>org.eclipse.wst.common.modulecore.ModuleCoreNature</projectnature>
-						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
-						<projectnature>org.maven.ide.eclipse.maven2projectnature</projectnature>
-						<projectnature>org.springframework.ide.eclipse.core.springprojectnature</projectnature>
-						<projectnature>edu.umd.cs.findbugs.plugin.eclipse.findbugsprojectnature</projectnature>
-						<projectnature>org.eclipse.ajdt.ui.ajnature</projectnature>
-						<projectnature>org.eclipse.ajdt.ui.ajprojectnature</projectnature>
-					</additionalProjectnatures>
-					<additionalBuildcommands>
-						<buildCommand>
-							<name>org.eclipse.ajdt.core.ajbuilder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.eclipse.wst.common.project.facet.core.builder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.eclipse.wst.validation.validationbuilder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>edu.umd.cs.findbugs.plugin.eclipse.findbugsBuilder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.eclipse.ajdt.core.ajbuilder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.maven.ide.eclipse.maven2Builder</name>
-							<arguments></arguments>
-						</buildCommand>
-						<buildCommand>
-							<name>org.springframework.ide.eclipse.core.springbuilder</name>
-							<arguments></arguments>
-						</buildCommand>
-					</additionalBuildcommands>
-				</configuration>
+			<plugin><!-- copy my configuration to jboss -->
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>1.1</version>
+				<executions>
+					<execution>
+						<id>prepare-deployment</id>
+						<phase>process-resources</phase>
+						<configuration>
+							<tasks>
+								<copy file="target/classes/pubman.properties" todir="${jboss.home}/server/default/conf" overwrite="true" />
+							</tasks>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -73,6 +44,7 @@
 				<configuration>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
+					<resourcesDir>target/classes/build</resourcesDir>
 					<modules>
 						<webModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
@@ -127,11 +99,16 @@
 							<artifactId>jasperreports</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-                        <jarModule>
-                  <groupId>axis</groupId>
-       <artifactId>axis</artifactId>
-       <includeInApplicationXml>true</includeInApplicationXml>
-      </jarModule>
+						<jarModule>
+							<groupId>axis</groupId>
+							<artifactId>axis</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>wss4j</groupId>
+							<artifactId>wss4j</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -178,7 +155,13 @@
 			<groupId>axis</groupId>
 			<artifactId>axis</artifactId>
 			<version>1.4</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -240,54 +223,7 @@
 			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>jnpserver</groupId>
-			<artifactId>jnpserver</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-common-client</groupId>
-			<artifactId>jboss-common-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-aop-jdk50-client</groupId>
-			<artifactId>jboss-aop-jdk50-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-aspect-library-jdk50</groupId>
-			<artifactId>jboss-aspect-library-jdk50</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-remoting</groupId>
-			<artifactId>jboss-remoting</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jbosssx-client</groupId>
-			<artifactId>jbosssx-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-transaction-client</groupId>
-			<artifactId>jboss-transaction-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>concurrent</groupId>
-			<artifactId>concurrent</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
+	
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -331,6 +267,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
+							<jbossHome>${jboss.home}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
@@ -372,6 +309,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
+							<jbossHome>${jboss.home}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
