@@ -46,7 +46,7 @@ import org.apache.log4j.Logger;
  * <li>First the location of the properties file is dertermined by looking for the system property
  * <code>pubman.properties.file</code>.
  * This property can be used to set the path to the properties file that should be used.
- * If this property is not set the default file path <code>config/pubman.properties</code> is used.
+ * If this property is not set the default file path <code>pubman.properties</code> is used.
  * <li>Second step is to read the properties file: First we try to read the properties file from the local file system.
  * If it cannot be found, it is searched in the classpath.
  * </ul>
@@ -60,7 +60,7 @@ public class PropertyReader
 {
     private static Properties properties;
 
-    private static final String DEFAULT_PROPERTY_FILE = "config/pubman.properties";
+    private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
     private static final String PROPERTY_FILE_KEY = "pubman.properties.file";
 
@@ -95,7 +95,7 @@ public class PropertyReader
 
     /**
      * Load the properties from the location defined by the system property <code>pubman.properties.file</code>.
-     * If this property is not set the default file path <code>config/pubman.properties</code> is used.
+     * If this property is not set the default file path <code>pubman.properties</code> is used.
      *
      * @throws IOException If the properties file could not be found neither in the file system nor in the classpath.
      */

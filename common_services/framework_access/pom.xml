@@ -30,49 +30,49 @@
 				<configuration>
 					<urls>
 						<url>
-							http://192.129.1.95:8080/axis/services/OrganizationalUnitHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/OrganizationalUnitHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/UserManagementWrapperService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/UserManagementWrapperService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/UserAccountHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/UserAccountHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/RoleHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/RoleHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ContentTypeHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ContentTypeHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ContextHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ContextHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ItemHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ItemHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/SemanticStoreHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/SemanticStoreHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ScopeHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ScopeHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/AggregationDefinitionHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/AggregationDefinitionHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/StatisticDataHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/StatisticDataHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ReportDefinitionHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ReportDefinitionHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ReportHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ReportHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/axis/services/ContainerHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ContainerHandlerService?wsdl
 						</url>
 						<url>
-							http://192.129.1.95:8080/srw/search?wsdl
+							${escidoc.framework_access.framework.url}/srw/search?wsdl
 						</url>
 					</urls>
 					<mappings>
