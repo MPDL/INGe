@@ -118,7 +118,15 @@
    <organization>Max Planck Digital Library</organization>
    <timezone>+2</timezone>
   </developer>
-
+    <developer>
+   <id>nek</id>
+   <name>Nicole Kondic</name>
+   <email>kondic@mpdl.mpg.de</email>
+   <roles>
+    <role>Service management</role>
+   </roles>
+   <organization>Max Planck Digital Library</organization>
+   <timezone>+2</timezone>
  </developers>
 
  <mailingLists>
