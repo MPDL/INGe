@@ -409,6 +409,40 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
+     * Converts a list of PubItemVOPresentations to a list of PubItems.
+     * @param list the list of PubItemVOPresentations
+     * @return the list of PubItemVOs
+     */
+    public static List<PubItemVO> convertToPubItemVOList(List<PubItemVOPresentation> list)
+    {
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubItemList.add((PubItemVO)list.get(i));
+        }
+
+        return pubItemList;
+    }
+
+    /**
+     * Converts a list of PubItems to a list of PubItemVOPresentations.
+     * @param list the list of PubItemVOs
+     * @return the list of PubItemVOPresentations
+     */
+    public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<PubItemVO> list)
+    {
+        List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubItemList.add(new PubItemVOPresentation(list.get(i)));
+        }
+
+        return pubItemList;
+    }
+
+    /**
      * Converts a list of valueObjects to a list of ValueObjectWrappers.
      * @param valueObjectList the list of valueObjects
      * @return the list of ValueObjectWrappers
@@ -431,7 +465,7 @@ public class CommonUtils extends InternationalizedImpl
      * @param itemID the itemID that is searched for
      * @return the pubItem with the given ID or null if the item cannot be found in the given list
      */
-    public static PubItemVO getItemByID(final List<PubItemVO> itemList, final String itemID)
+    public static PubItemVOPresentation getItemByID(final List<PubItemVOPresentation> itemList, final String itemID)
     {
         for (int i = 0; i < itemList.size(); i++)
         {

@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectBoolean;
@@ -45,6 +46,8 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
+import com.sun.org.apache.xerces.internal.impl.PropertyManager;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
@@ -52,12 +55,14 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Superclass for all classes dealing with item lists (e.g. DepositorWS, SearchResultList)
@@ -107,8 +112,8 @@ public abstract class ItemList extends FacesBean
 
         //SORTBY_OPTIONS = getSelectItemArrayFromEnum(PubItemVOComparator.Criteria.class);
 
-        SORTORDER_ASCENDING = new SelectItem("ASCENDING", getLabel("ItemListSortingOrder_SORTORDER_ASCENDING"));
-        SORTORDER_DESCENDING = new SelectItem("DESCENDING", getLabel("ItemListSortingOrder_SORTORDER_DESCENDING"));
+        SORTORDER_ASCENDING = new SelectItem("ASCENDING", getLabel("ENUM_SORTORDER_ASCENDING"));
+        SORTORDER_DESCENDING = new SelectItem("DESCENDING", getLabel("ENUM_SORTORDER_DESCENDING"));
         SORTORDER_OPTIONS = new SelectItem[]{SORTORDER_ASCENDING, SORTORDER_DESCENDING};
     }
 
@@ -122,7 +127,7 @@ public abstract class ItemList extends FacesBean
     public String showItem(String navigationStringToGoBack)
     {
         FacesContext facesContext = FacesContext.getCurrentInstance();
-        ArrayList<PubItemVO> selectedPubItems = new ArrayList<PubItemVO>();
+        ArrayList<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
 
         if (logger.isDebugEnabled())
         {
@@ -139,11 +144,11 @@ public abstract class ItemList extends FacesBean
             }
 
             // set the item as current one in ItemController
-            PubItemVO puItemVO = CommonUtils.getItemByID(this.getSessionBean().getCurrentPubItemList(), itemID);
+            PubItemVOPresentation puItemVO = CommonUtils.getItemByID(this.getSessionBean().getCurrentPubItemList(), itemID);
             this.getItemControllerSessionBean().setCurrentPubItem(puItemVO);            
             selectedPubItems.add(puItemVO);
             // set all selectedItems in FacesBean
-            this.getSessionBean().setSelectedPubItems(selectedPubItems);
+//            this.getSessionBean().setSelectedPubItems(selectedPubItems);
 
             // initialize viewItem
             this.getViewItemSessionBean().setNavigationStringToGoBack(navigationStringToGoBack);
@@ -193,24 +198,26 @@ public abstract class ItemList extends FacesBean
         }
 
         // set the currently selected items in the FacesBean
-        this.setSelectedItemsAndCurrentItem();
+//        this.setSelectedItemsAndCurrentItem();
 
-        if (this.getSessionBean().getSelectedPubItems().size() != 0)
+        List<PubItemVOPresentation> selectedItems = this.getSessionBean().getSelectedPubItems();
+        
+        if (selectedItems.size() != 0)
         {
             // initialize viewItem
             this.getViewItemSessionBean().setNavigationStringToGoBack(navigationStringToGoBack);
             this.getViewItemSessionBean().setItemListSessionBean(getSessionBean());
 
-            if (this.getSessionBean().getSelectedPubItems().size() != 0)
+            try
             {
-                return ViewItemFull.LOAD_VIEWITEM;
+            	String viewItemPage = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1", selectedItems.get(0).getReference().getObjectId());
+            	FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
             }
-            else
-            {
-                this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
-                return null;
-            }
-        }
+            catch (Exception e) {
+				logger.error("Error building view item page url", e);
+			}
+            return null;
+         }
         else
         {
             logger.warn("No item selected.");
@@ -272,11 +279,12 @@ public abstract class ItemList extends FacesBean
      * Um dies zu beheben, darf an dieser Stelle nicht über den Index gegangen werden, sondern es müssen anhand der ID
      * die selektierten Items ausgewählt werden. Außerdem muß die OutOfBoundsExc vernünftig abgefangen werden.
      */
+    @Deprecated
     protected void setSelectedItemsAndCurrentItem()
     {
 
         UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-        ArrayList<PubItemVO> selectedPubItems = new ArrayList<PubItemVO>();
+        List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
 
         // find the component in ViewRoot
         String componentID = null;
@@ -330,7 +338,7 @@ public abstract class ItemList extends FacesBean
         }
 
         // set all selectedItems in FacesBean
-        this.getSessionBean().setSelectedPubItems(selectedPubItems);
+//        this.getSessionBean().setSelectedPubItems(selectedPubItems);
 
         if (this.getSessionBean().getSelectedPubItems().size() > 0)
         {
@@ -372,7 +380,7 @@ public abstract class ItemList extends FacesBean
     /**
      * Creates the panel newly according to the values in the itemArray.
      */
-    protected abstract void createDynamicItemList();
+    protected abstract void createDynamicItemList2();
 
     /**
      * Sorts the result item list.
@@ -380,7 +388,7 @@ public abstract class ItemList extends FacesBean
      */
     public String sortItemList()
     {
-        ArrayList<PubItemVO> itemList = this.getSessionBean().getCurrentPubItemList();
+        List<PubItemVOPresentation> itemList = this.getSessionBean().getCurrentPubItemList();
 
         // get the sorting order by the FacesBean
         String sortOrderString = this.getSessionBean().getSortOrder(); 
@@ -414,7 +422,7 @@ public abstract class ItemList extends FacesBean
         // refresh the item array in the session bean
         this.getSessionBean().setCurrentPubItemList(itemList);
 
-        this.createDynamicItemList();
+        //this.createDynamicItemList();
 
         return null;
     }

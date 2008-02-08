@@ -125,8 +125,9 @@ public class Loop extends UIData
             {
                 break;
             }
-            // Select the current row
+            // Select the current element
             data.setRowIndex(++elementIndex);
+
             if (!data.isRowAvailable())
             {
                 break;
@@ -158,13 +159,12 @@ public class Loop extends UIData
         return true;
     }
 
-    protected void renderElement(FacesContext context, UIComponent table, ResponseWriter writer) throws IOException
+    protected void renderElement(FacesContext context, UIComponent data, ResponseWriter writer) throws IOException
     {
-        for (Iterator<UIComponent> gkids = getChildren(table); gkids.hasNext();)
+        for (Iterator<UIComponent> gkids = getChildren(data); gkids.hasNext();)
         {
             encodeRecursive(context, gkids.next());
         }
-        writer.writeText("\n", table, null);
     }
 
     /**
@@ -190,7 +190,6 @@ public class Loop extends UIData
      */
     protected void renderLoopEnd(final UIComponent table, final ResponseWriter writer) throws IOException
     {
-        writer.writeText("\n", table, null);
     }
 
     /**

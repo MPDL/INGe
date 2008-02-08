@@ -67,7 +67,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     protected Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
     protected InternationalizationHelper i18nHelper
-            = (InternationalizationHelper) getBean(InternationalizationHelper.class);
+            = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
 
     /**
      * Dummy method to please derived classes.
@@ -117,7 +117,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
      */
     protected void testLogin()
     {
-        LoginHelper loginHelper = (LoginHelper) getBean(LoginHelper.class);
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
         logger.debug("Checking login: " + loginHelper);
 

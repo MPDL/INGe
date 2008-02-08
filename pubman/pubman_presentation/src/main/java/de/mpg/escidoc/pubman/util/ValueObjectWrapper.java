@@ -51,7 +51,7 @@ public class ValueObjectWrapper
     }
 
     /**
-     * Public contructor with given ValueObject.
+     * Public constructor with given ValueObject.
      * @param valueObject the ValueObject that should be wrapped
      */
     public ValueObjectWrapper(ValueObject valueObject)

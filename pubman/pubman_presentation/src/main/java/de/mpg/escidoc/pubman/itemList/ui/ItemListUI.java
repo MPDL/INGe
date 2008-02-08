@@ -50,6 +50,7 @@ import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.ui.ListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
 import de.mpg.escidoc.pubman.viewItem.ui.ViewItemPanelUI;
@@ -418,9 +419,9 @@ public class ItemListUI extends ListUI implements ActionListener, ValueChangeLis
      * @return all selected PubItemVOs in this list
      */
     @Override
-    public List<PubItemVO> getSelectedObjects()
+    public List<PubItemVOPresentation> getSelectedObjects()
     {
-        return (List<PubItemVO>) super.getSelectedObjects();
+        return (List<PubItemVOPresentation>) super.getSelectedObjects();
     }
 
     /**

@@ -1,0 +1,93 @@
+<%
+/* 
+CDDL HEADER START
+
+The contents of this file are subject to the terms of the
+Common Development and Distribution License, Version 1.0 only
+(the "License"). You may not use this file except in compliance
+with the License.
+
+You can obtain a copy of the license at license/ESCIDOC.LICENSE
+or http://www.escidoc.de/license.
+See the License for the specific language governing permissions
+and limitations under the License.
+
+When distributing Covered Code, include this CDDL HEADER in each
+file and include the License file at license/ESCIDOC.LICENSE.
+If applicable, add the following below this CDDL HEADER, with the
+fields enclosed by brackets "[]" replaced with your own identifying
+information: Portions Copyright [yyyy] [name of copyright owner]
+
+CDDL HEADER END
+
+
+Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+für wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Förderung der Wissenschaft e.V.
+All rights reserved. Use is subject to license terms.
+ */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
+<div>
+	<f:subview id="list">
+		<div>
+			<h:panelGroup>
+				<h:outputText value="#{lbl.ItemList_Total} #{DepositorWSSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
+				<h:selectOneMenu value="#{DepositorWSSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
+					<f:selectItem itemValue="3" itemLabel="3"></f:selectItem>
+					<f:selectItem itemValue="5" itemLabel="5"></f:selectItem>
+					<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
+				</h:selectOneMenu>
+				<h:outputText value=" #{lbl.ItemList_ObjectsPerPage}"/>
+				<h:commandButton value="|<" disabled="#{DepositorWSSessionBean.isFirstPage}" action="#{DepositorWSSessionBean.gotoFirstPage}"/>
+				<h:commandButton value="<" disabled="#{DepositorWSSessionBean.isFirstPage}" action="#{DepositorWSSessionBean.gotoPrecedingPage}"/>
+				<e:loop id="paginator" var="page" value="#{DepositorWSSessionBean.pages}">
+
+					<h:commandButton id="pagecomp" value="#{page}" actionListener="#{DepositorWSSessionBean.changePage}" immediate="true"/>
+
+				</e:loop>
+				<h:commandButton value=">" disabled="#{DepositorWSSessionBean.isLastPage}" action="#{DepositorWSSessionBean.gotoFollowingPage}"/>
+				<h:commandButton value=">|" disabled="#{DepositorWSSessionBean.isLastPage}" action="#{DepositorWSSessionBean.gotoLastPage}"/>
+			</h:panelGroup>
+			<h:panelGroup>
+				<h:selectOneMenu immediate="true" onchange="submit();" valueChangeListener="#{DepositorWSSessionBean.setSelection}">
+					<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel for="sortBy" value="#{lbl.ItemList_SortBy}"/>
+				<h:selectOneMenu id="sortBy" immediate="true" onchange="submit();" valueChangeListener="#{DepositorWSSessionBean.setSortBy}">
+					<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
+				</h:selectOneMenu>
+				
+				<h:outputLabel for="sortOrderAsc" value="#{lbl.ItemList_SortOrderAscending}" rendered="#{DepositorWSSessionBean.isAscending}"/>
+				<h:outputLabel for="sortOrderDesc" value="#{lbl.ItemList_SortOrderDescending}" rendered="#{!DepositorWSSessionBean.isAscending}"/>
+				<h:commandButton id="sortOrderAsc" image="images/sort_icon_ascending.jpg" rendered="#{DepositorWSSessionBean.isAscending}" actionListener="#{DepositorWSSessionBean.setSortOrder}"/>
+				<h:commandButton id="sortOrderDesc" image="images/sort_icon_descending.jpg" rendered="#{!DepositorWSSessionBean.isAscending}" actionListener="#{DepositorWSSessionBean.setSortOrder}"/>
+				
+				<h:commandButton image="images/short_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToShortView}"/>
+				<h:commandButton image="images/medium_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToMediumView}"/>
+			</h:panelGroup>
+			<h:dataTable id="listtable" var="item" value="#{DepositorWSSessionBean.currentPubItemList}"
+				first="#{DepositorWSSessionBean.currentPubItemListPointer}"
+				rows="#{DepositorWSSessionBean.itemsPerPage}">
+				<h:column>
+					<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
+					<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}">
+						<h:outputText value="#{item.metadata.title}"/>
+					</h:outputLink>
+					<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
+					<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+					<h:panelGroup rendered="#{item.shortView}">
+						<h:outputLabel value="#{lbl.ViewItemShort_lblCreators}"/>
+						<h:outputText value="#{item.creators}"/>
+					</h:panelGroup>
+					<h:panelGroup rendered="#{item.mediumView}">
+						medium
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
+		</div>
+	</f:subview>
+</div>

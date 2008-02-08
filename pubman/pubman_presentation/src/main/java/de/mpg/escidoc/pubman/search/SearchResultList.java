@@ -137,7 +137,7 @@ public class SearchResultList extends ItemList
         super.init();
 
         // create the itemList
-        this.createDynamicItemList();
+        //this.createDynamicItemList();
         
         // update the language specific data container
         try 
@@ -225,7 +225,7 @@ public class SearchResultList extends ItemList
             byte[] exportDataStream ;
             try 
             {
-                exportDataStream = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, this.getSessionBean().getSelectedPubItems());
+                exportDataStream = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
             } catch(TechnicalException e)
             {
                 logger.error("Could not get export data." + "\n" + e.toString());
@@ -307,7 +307,7 @@ public class SearchResultList extends ItemList
                 byte[] exportFileData;
                 try
                 {
-                    exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, this.getSessionBean().getSelectedPubItems());
+                    exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
                 } catch (TechnicalException e)
                 {
                     logger.error("Errors retrieving export data." + "\n" + e.toString());
@@ -391,7 +391,7 @@ public class SearchResultList extends ItemList
             byte[] exportFileData; 
             try
             {
-                exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, this.getSessionBean().getSelectedPubItems());
+                exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
             } catch (TechnicalException e)
             {
                 logger.error("Errors retrieving export data." + "\n" + e.toString());
@@ -475,11 +475,11 @@ public class SearchResultList extends ItemList
     /**
      * Creates the panel newly according to the values in the itemArray.
      */
-    protected void createDynamicItemList()
+    protected void createDynamicItemList2()
     {
         this.getPanDynamicItemList().getChildren().clear();
         
-        ArrayList<PubItemVO> list = this.getSessionBean().getCurrentPubItemList();
+        List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getSessionBean().getCurrentPubItemList());
         
         if(this.getSessionBean().getCurrentPubItemList() != null)
         {
@@ -489,7 +489,7 @@ public class SearchResultList extends ItemList
             }
             
             // create an ItemListUI for all PubItems
-            List<PubItemVO> pubItemList = this.getSessionBean().getCurrentPubItemList();
+            List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getSessionBean().getCurrentPubItemList());
             List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
             ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{SearchResultList.showItem}");
             
@@ -550,8 +550,8 @@ public class SearchResultList extends ItemList
         
         try
         {
-            ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().searchItems(searchString, includeFiles);
-            this.getSessionBean().setCurrentPubItemList(itemsFound);
+            List<PubItemVO> itemsFound = this.getItemControllerSessionBean().searchItems(searchString, includeFiles);
+            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -563,7 +563,7 @@ public class SearchResultList extends ItemList
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList();
+        this.createDynamicItemList2();
         
         if(this.getSessionBean().getCurrentPubItemList().size() < 1)
         {
@@ -597,7 +597,7 @@ public class SearchResultList extends ItemList
         {
             ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().advancedSearchItems(criterionVOList, language);
             result = itemsFound.size();
-            this.getSessionBean().setCurrentPubItemList(itemsFound);
+            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -609,7 +609,7 @@ public class SearchResultList extends ItemList
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList();
+        this.createDynamicItemList2();
         
         try
         {
@@ -655,7 +655,7 @@ public class SearchResultList extends ItemList
         try
         {
             itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliationRO);
-            this.getSessionBean().setCurrentPubItemList(itemsFound);
+            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -673,7 +673,7 @@ public class SearchResultList extends ItemList
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList();
+        this.createDynamicItemList2();
         
         //NiH: static flag workaround ui:tree component (exception on doubleclick selection)
         isInSearch = false;

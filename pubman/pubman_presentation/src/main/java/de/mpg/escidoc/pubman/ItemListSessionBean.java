@@ -31,10 +31,22 @@
 package de.mpg.escidoc.pubman;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.el.ELContext;
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
 /**
  * Superclass for keeping all attributes that are used for the whole session by ItemLists.
@@ -44,15 +56,18 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
  */
 public class ItemListSessionBean extends FacesBean
 {
+	
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemListSessionBean.class);
 
-    private ArrayList<PubItemVO> currentPubItemList = new ArrayList<PubItemVO>();
-    private ArrayList<PubItemVO> selectedPubItems = new ArrayList<PubItemVO>();
+    private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
     private String message = null;
     private String sortBy = "TITLE";
     private String sortOrder = "ASCENDING";
+    
+    private int itemsPerPage = 5;
+    private int currentPubItemListPointer = 0;
 
     /**
      * Default constructor.
@@ -90,12 +105,13 @@ public class ItemListSessionBean extends FacesBean
         }
     }
     
-    public ArrayList<PubItemVO> getCurrentPubItemList()
+    public List<PubItemVOPresentation> getCurrentPubItemList()
     {
+    	logger.debug("Accessing item list.");
         return this.currentPubItemList;
     }
 
-    public void setCurrentPubItemList(ArrayList<PubItemVO> currentPubItemList)
+    public void setCurrentPubItemList(List<PubItemVOPresentation> currentPubItemList)
     {
         this.currentPubItemList = currentPubItemList;
         
@@ -103,14 +119,17 @@ public class ItemListSessionBean extends FacesBean
         this.getSelectedPubItems().clear();
     }
 
-    public ArrayList<PubItemVO> getSelectedPubItems()
+    public List<PubItemVOPresentation> getSelectedPubItems()
     {
-        return this.selectedPubItems;
-    }
 
-    public void setSelectedPubItems(ArrayList<PubItemVO> selectedPubItems)
-    {
-        this.selectedPubItems = selectedPubItems;
+    	List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
+    	for (PubItemVOPresentation item : currentPubItemList) {
+			if (item.getSelected())
+			{
+				selectedPubItems.add(item);
+			}
+		}
+        return selectedPubItems;
     }
 
     public String getMessage()
@@ -152,4 +171,279 @@ public class ItemListSessionBean extends FacesBean
     {
         this.isListDirty = isListDirty;
     }
+    
+    public int getCurrentPubItemListSize()
+    {
+    	return currentPubItemList.size();
+    }
+
+	public int getItemsPerPage() {
+		return itemsPerPage;
+	}
+
+	public void setItemsPerPage(int itemsPerPage) {
+		this.itemsPerPage = itemsPerPage;
+	}
+
+	public int getCurrentPubItemListPointer() {
+		return currentPubItemListPointer;
+	}
+
+	public void setCurrentPubItemListPointer(int currentPubItemListPointer) {
+		this.currentPubItemListPointer = currentPubItemListPointer;
+	}
+    
+	public List<Page> getPages()
+	{
+		List<Page> pages = new ArrayList<Page>();
+		for (int i = 1; i <= (currentPubItemList.size() / itemsPerPage + 1); i++)
+		{
+			pages.add(new Page(i));
+		}
+		return pages;
+	}
+	
+	public boolean getIsFirstPage()
+	{
+		return currentPubItemListPointer == 0;
+	}
+	
+	public boolean getIsLastPage()
+	{
+		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		return currentPubItemListPointer / itemsPerPage == lastPage - 1;
+	}
+
+	public boolean getIsAscending()
+	{
+		return SortOrder.ASCENDING.toString().equals(sortOrder);
+	}
+
+	public void gotoFirstPage()
+	{
+		this.currentPubItemListPointer = 0;
+	}
+	
+	public void gotoLastPage()
+	{
+		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		this.currentPubItemListPointer = itemsPerPage * (lastPage - 1);
+	}
+	
+	public void gotoPrecedingPage()
+	{
+		if (this.currentPubItemListPointer >= itemsPerPage)
+		{
+			this.currentPubItemListPointer -= itemsPerPage;
+		}
+	}
+	
+	public void gotoFollowingPage()
+	{
+		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		if (this.currentPubItemListPointer <= itemsPerPage * (lastPage - 1))
+			this.currentPubItemListPointer += itemsPerPage;
+	}
+	
+	public void changePage(ActionEvent event)
+	{
+		ELContext elContext = FacesContext.getCurrentInstance().getELContext();
+		try
+		{
+			int page = Integer.parseInt(event.getComponent().getValueExpression("value").getValue(elContext).toString());
+			int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+			
+			if (page >= 1 && page <= lastPage)
+			{
+				this.currentPubItemListPointer = itemsPerPage * (page - 1);
+			}
+		} catch (Exception e) {
+			logger.error("Unable to change page", e);
+		}
+	}
+	
+    /**
+     * ValueChange handler for comboBoxes.
+     * @param event the event of the valueChange
+     */
+    public void setSortBy(final ValueChangeEvent event)
+    {
+    	if (logger.isDebugEnabled())
+        {
+            logger.debug("New value of sortBy: "
+                    + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
+        }
+    	sortBy = event.getNewValue().toString();
+    	
+    	sortItemList();
+    	
+    	// Delete list from component tree to let it be refreshed.
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        if (component != null)
+        {
+        	component.getParent().getChildren().remove(component);
+        }
+        
+    }
+
+    /**
+     * Action handler for comboBoxes.
+     * @param event the event of the action
+     */
+    public void setSortOrder(final ActionEvent event)
+    {
+    	if (SortOrder.ASCENDING.toString().endsWith(sortOrder))
+    	{
+    		sortOrder = SortOrder.DESCENDING.toString();
+    	}
+    	else
+    	{
+    		sortOrder = SortOrder.ASCENDING.toString();
+    	}
+    	
+        sortItemList();
+        
+        // Delete list from component tree to let it be refreshed.
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        if (component != null)
+        {
+        	component.getParent().getChildren().remove(component);
+        }
+    }
+    
+    /**
+     * Action handler for comboBoxes.
+     * @param event the event of the action
+     */
+    public void switchToShortView(final ActionEvent event)
+    {
+    	for (PubItemVOPresentation item : currentPubItemList) {
+			item.setShortView(true);
+		}
+    }
+    
+    /**
+     * Action handler for comboBoxes.
+     * @param event the event of the action
+     */
+    public void switchToMediumView(final ActionEvent event)
+    {
+    	for (PubItemVOPresentation item : currentPubItemList) {
+			item.setMediumView(true);
+		}
+    }
+    
+    /**
+     * ValueChange handler for comboBoxes.
+     * @param event the event of the valueChange
+     */
+    public void setSelection(final ValueChangeEvent event)
+    {
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("New value of cboSelectItems: "
+                    + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
+        }
+
+        if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.SELECT_ALL.toString()))
+        {
+        	for (PubItemVOPresentation item : currentPubItemList) {
+				item.setSelected(true);
+			}
+        }
+        else if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.SELECT_VISIBLE.toString()))
+        {
+        	int size = currentPubItemList.size();
+        	for (int i = 0; i < itemsPerPage; i++)
+        	{
+        		if (currentPubItemListPointer + i <= size)
+        		{
+        			currentPubItemList.get(currentPubItemListPointer + i).setSelected(true);
+        		}
+        		else
+        		{
+        			break;
+        		}
+			}
+        }
+        else if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.DESELECT_ALL.toString()))
+        {
+        	for (PubItemVOPresentation item : currentPubItemList) {
+				item.setSelected(false);
+			}
+        }
+
+        // Delete list from component tree to let it be refreshed.
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        if (component != null)
+        {
+        	component.getParent().getChildren().remove(component);
+        }
+
+    }
+
+    /**
+     * Sorts the result item list.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String sortItemList()
+    {
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("New sort order: " + sortBy);
+        }
+
+        // get the sorting criteria by the FacesBean
+        PubItemVOComparator.Criteria sortByCriteria = PubItemVOComparator.Criteria.valueOf(PubItemVOComparator.Criteria.class, sortBy);
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("New sorting criteria: " + sortByCriteria.toString());
+        }
+
+        // Instanciate the comparator with the sorting criteria
+        PubItemVOComparator pubItemVOComparator = new PubItemVOComparator(sortByCriteria);
+
+        // sort ascending or descending
+        if (sortOrder.equals(SortOrder.ASCENDING.toString()))
+        {
+            Collections.sort(currentPubItemList, pubItemVOComparator);
+        }
+        else if (sortOrder.equals(SortOrder.DESCENDING.toString()))
+        {
+            Collections.sort(currentPubItemList, Collections.reverseOrder(pubItemVOComparator));
+        }
+
+        return null;
+    }
+    
+	public class Page
+	{
+		int value = 0;
+
+		public Page(int i)
+		{
+			value = i;
+		}
+		public int getValue() {
+			return value;
+		}
+
+		public void setValue(int value) {
+			this.value = value;
+		}
+		
+		public String toString()
+		{
+			return value + "";
+		}
+		
+	}
+	
+	public enum SortOrder
+	{
+		ASCENDING, DESCENDING
+	}
 }

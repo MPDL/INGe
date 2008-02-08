@@ -31,6 +31,8 @@ package de.mpg.escidoc.pubman.depositorWS;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.el.ValueExpression;
+import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputLink;
 import javax.faces.component.html.HtmlOutputText;
@@ -50,6 +52,7 @@ import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -157,24 +160,30 @@ public class DepositorWS extends ItemList
             logger.debug("Edit item(s)");
         }
         // set the currently selected items in the ItemController
-        this.setSelectedItemsAndCurrentItem();
+//        this.setSelectedItemsAndCurrentItem();
 
-        //      Inserted by FrM to check item State
-        for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
-        {
-            logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
-            if (item.getState() != PubItemVO.State.PENDING && item.getState() != PubItemVO.State.RELEASED)
-            {
-                this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
-                return null;
-            }
-        }
         
         // force reload of list next time this page is navigated to
         this.getSessionBean().setListDirty(true);
-        if (this.getSessionBean().getSelectedPubItems().size() != 0)
+        if (this.getSessionBean().getSelectedPubItems().size() == 1)
         {
+            //      Inserted by FrM to check item State
+            for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
+            {
+                logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
+                if (item.getState() != PubItemVO.State.PENDING && item.getState() != PubItemVO.State.RELEASED)
+                {
+                    this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
+                    return null;
+                }
+                getItemControllerSessionBean().setCurrentPubItem(item);
+            }
             return EditItem.LOAD_EDITITEM;
+        }
+        else if (this.getSessionBean().getSelectedPubItems().size() > 1)
+        {
+            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            return null;
         }
         else
         {
@@ -197,7 +206,7 @@ public class DepositorWS extends ItemList
         // force reload of list next time this page is navigated to
         this.getSessionBean().setListDirty(true);
         // set the currently selected items in the ItemController
-        this.setSelectedItemsAndCurrentItem();
+//        this.setSelectedItemsAndCurrentItem();
 
         // Inserted by FrM to check item State
         for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
@@ -229,7 +238,7 @@ public class DepositorWS extends ItemList
             ValidationReportVO report = null;
             try
             {
-                report = itemValidating.validateItemObject(pubItem, "submit_item");
+                report = itemValidating.validateItemObject(new PubItemVO(pubItem), "submit_item");
             }
             catch (Exception e)
             {
@@ -242,6 +251,7 @@ public class DepositorWS extends ItemList
                 {
                     logger.debug("Submitting item...");
                 }
+                getItemControllerSessionBean().setCurrentPubItem(pubItem);
                 return submitItem(DepositorWS.LOAD_DEPOSITORWS);
             }
             else if (report.isValid())
@@ -402,7 +412,7 @@ public class DepositorWS extends ItemList
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // set new list in FacesBean
-        this.getSessionBean().setCurrentPubItemList(itemsForAccountUser);
+        this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsForAccountUser));
         // sort the items and force the UI to update
         this.sortItemList();
         // enable or disable the action links according to item state and availability of items
@@ -415,7 +425,7 @@ public class DepositorWS extends ItemList
     /**
      * Creates the panel newly according to the values in the FacesBean.
      */
-    protected void createDynamicItemList()
+    protected void createDynamicItemList2()
     {
         this.getPanDynamicItemList().getChildren().clear();
         if (this.getSessionBean().getCurrentPubItemList() != null)
@@ -426,11 +436,23 @@ public class DepositorWS extends ItemList
                         + " entries.");
             }
             // create an ItemListUI for all PubItems
-            List<PubItemVO> pubItemList = this.getSessionBean().getCurrentPubItemList();
-            List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-            ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{DepositorWS.showItem}");
+            List<PubItemVOPresentation> pubItemList = this.getSessionBean().getCurrentPubItemList();
+            //List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
+            //ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{DepositorWS.showItem}");
             // add the UI to the dynamic panel
-            this.getPanDynamicItemList().getChildren().add(itemListUI);
+            //this.getPanDynamicItemList().getChildren().add(itemListUI);
+            
+//            UIComponent listComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+//            if (listComponent != null)
+//            {
+//                ValueExpression value = FacesContext
+//                    .getCurrentInstance()
+//                    .getApplication()
+//                    .getExpressionFactory()
+//                    .createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{ItemListSessionBean.currentPubItemList}", List.class);
+//                listComponent.setValueExpression("value", value);
+//            }
+            
         }
     }
 

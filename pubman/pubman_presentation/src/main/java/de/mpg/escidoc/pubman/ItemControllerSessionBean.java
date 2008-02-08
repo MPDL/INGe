@@ -47,6 +47,7 @@ import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -92,7 +93,7 @@ public class ItemControllerSessionBean extends FacesBean
     public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
-    private LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+    private LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
     
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
@@ -129,7 +130,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (NamingException e)
         {
-            logger.error("ItemControllerSessionBean Initialization Failure: \n" + e);
+            logger.error("ItemControllerSessionBean Initialization Failure", e);
         }
 
         this.init();
@@ -172,7 +173,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not create item." + "\n" + e.toString());
-            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -216,7 +217,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not save item." + "\n" + e.toString(), e);
-            ((ErrorPage) this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
 
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -253,7 +254,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.error("Could not submit item." + "\n" + e.toString());
             logger.error(e);
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -288,7 +289,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not submit item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -317,7 +318,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not withdraw item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -350,7 +351,7 @@ public class ItemControllerSessionBean extends FacesBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -397,7 +398,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not delete item." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -412,7 +413,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return string, identifying the page that should be navigated to after this methodcall
      */
   //TODO NBU: remove this method
-    public String deletePubItemList(ArrayList<PubItemVO> pubItemList, String navigationRuleWhenSuccessfull)
+    public String deletePubItemList(List<PubItemVOPresentation> pubItemList, String navigationRuleWhenSuccessfull)
     {
         if (pubItemList.size() > 0)
         {
@@ -426,7 +427,7 @@ public class ItemControllerSessionBean extends FacesBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -468,7 +469,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not create revision." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -845,7 +846,6 @@ public class ItemControllerSessionBean extends FacesBean
     {
             if (pubItem != null)
             {
-                // TODO FrM: Dynamize validation point
                 ValidationReportVO report = this.itemValidating.validateItemObject(pubItem, validationPoint);
                 currentItemValidationReport = report;
             }
@@ -1136,7 +1136,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
             throw e;
         }
@@ -1146,7 +1146,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        ArrayList<PubItemVO> itemList = (ArrayList)this.xmlTransforming.transformToPubItemList(xmlItemList);
+        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
 
         return itemList;
     }
@@ -1177,7 +1177,7 @@ public class ItemControllerSessionBean extends FacesBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+                Login login = (Login)getSessionBean(Login.class);
                 login.forceLogout();
                 throw e;
             }
@@ -1192,7 +1192,7 @@ public class ItemControllerSessionBean extends FacesBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+                Login login = (Login) getSessionBean(Login.class);
                 login.forceLogout();
                 throw e;
             }
@@ -1234,7 +1234,7 @@ public class ItemControllerSessionBean extends FacesBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+                Login login = (Login) getSessionBean(Login.class);
                 login.forceLogout();
                 throw e;
             }
@@ -1249,7 +1249,7 @@ public class ItemControllerSessionBean extends FacesBean
             catch (AuthenticationException e)
             {
                 logger.debug(e.toString());
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+                Login login = (Login) getSessionBean(Login.class);
                 login.forceLogout();
                 throw e;
             }
@@ -1280,7 +1280,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.advancedSearch(list, language );
+        ArrayList<PubItemVO> itemList = (ArrayList) this.pubItemSearching.advancedSearch(list, language );
         
         if (logger.isDebugEnabled())
         {
@@ -1330,7 +1330,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.search(searchString, includeFiles);
+        ArrayList<PubItemVO> itemList = (ArrayList) this.pubItemSearching.search(searchString, includeFiles);
         
         if (logger.isDebugEnabled())
         {
@@ -1377,7 +1377,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
             throw e;
         }
@@ -1387,7 +1387,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList)this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
 
         return itemList;
     }
@@ -1450,7 +1450,7 @@ public class ItemControllerSessionBean extends FacesBean
     * @param itemsToExportList is the list of selected items to be exported
     * @return the export data stream as array of bytes 
     */
-  public byte[] retrieveExportData(ExportFormatVO exportFormatVO, ArrayList<PubItemVO> itemsToExportList) 
+  public byte[] retrieveExportData(ExportFormatVO exportFormatVO, List<PubItemVO> itemsToExportList) 
       throws TechnicalException{
       if (logger.isDebugEnabled())
       {
@@ -1499,7 +1499,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
             throw e;
         }
@@ -1509,7 +1509,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList)this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
         return itemList;
     }
@@ -1534,7 +1534,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (AuthenticationException e)
         {
             logger.debug(e.toString());
-            Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+            Login login = (Login) getSessionBean(Login.class);
             login.forceLogout();
             throw e;
         }
