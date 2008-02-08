@@ -279,7 +279,7 @@ public class CitationStylesCollection implements Cloneable  {
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
 
-        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("resource/CitationStyles/APA/CitationStyle.xml");
+        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles/APA/CitationStyle.xml");
 //        csc.writeToXml("resource/CitationStyles/APA/CitationStyleTestOutput.xml");
 //        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles\\CitationStyle.xml");
 

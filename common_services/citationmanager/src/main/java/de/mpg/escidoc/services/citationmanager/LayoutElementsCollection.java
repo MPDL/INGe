@@ -284,7 +284,7 @@ public class LayoutElementsCollection implements Cloneable {
 //        LayoutElement le = new LayoutElement();
 //        lec.addLayoutElement( le );
 
-        LayoutElementsCollection lec = LayoutElementsCollection.loadFromXml("resource/CitationStyles/Default/LayoutElements.xml");
+        LayoutElementsCollection lec = LayoutElementsCollection.loadFromXml("CitationStyles/Default/LayoutElements.xml");
 
         System.out.println(lec);
         

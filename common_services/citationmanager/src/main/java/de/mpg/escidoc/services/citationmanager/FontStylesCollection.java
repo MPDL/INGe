@@ -233,7 +233,7 @@ public class FontStylesCollection implements Cloneable {
 
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
-        FontStylesCollection fsc = FontStylesCollection.loadFromXml("resource/CitationStyles/Default/FontStyles.xml");
+        FontStylesCollection fsc = FontStylesCollection.loadFromXml("CitationStyles/Default/FontStyles.xml");
 //        fsc.writeToXml("resource/CitationStyles/Default/FontStylesTestOutput.xml");
 
         // toString methods made...

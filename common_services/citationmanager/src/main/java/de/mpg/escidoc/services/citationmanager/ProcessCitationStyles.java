@@ -111,11 +111,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
     
     public final static String FONTSTYLES_FILENAME = "FontStyles";
-    public final static String DATASOURCES_DIRECTORY = "resource" + "/" + "DataSources";
-    public final static String CITATIONSTYLES_DIRECTORY = "resource" + "/" + "CitationStyles";
+    public final static String DATASOURCES_DIRECTORY = "DataSources";
+    public final static String CITATIONSTYLES_DIRECTORY = "CitationStyles";
     public final static String RESULT_CITATION_VARIABLE = "citation";
     public final static String DEFAULT_STYLENAME = "Default";
-    public final static String SCHEMAS_DIRECTORY  = "resource" + "/" + "Schemas";
+    public final static String SCHEMAS_DIRECTORY  = "Schemas";
     
     
     public final static String EXPLAIN_FILE = SCHEMAS_DIRECTORY + "/explain-styles.xml";
