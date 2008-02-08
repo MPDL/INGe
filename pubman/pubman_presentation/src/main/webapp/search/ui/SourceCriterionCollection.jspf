@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
+<f:loadBundle var="lbl" basename="Label"/>
 
 <h:dataTable var="sourceCriterionBean" value="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>

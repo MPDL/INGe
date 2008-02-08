@@ -44,8 +44,8 @@
 	<!-- Set default locale and add supported locales here... -->
 	<application>
 		
-		<message-bundle>de.mpg.escidoc.pubman.bundle.Label</message-bundle>
-		<message-bundle>de.mpg.escidoc.pubman.bundle.Messages</message-bundle>
+		<message-bundle>Label</message-bundle>
+		<message-bundle>Messages</message-bundle>
 		<locale-config>
 		   <default-locale>en</default-locale>
 		   <supported-locale>de</supported-locale>

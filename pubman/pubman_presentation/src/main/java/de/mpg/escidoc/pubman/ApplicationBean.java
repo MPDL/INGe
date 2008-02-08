@@ -350,8 +350,8 @@ public class ApplicationBean extends FacesBean
     {
         try
         {
-            Properties properties = CommonUtils.getProperties("escidoc.properties");
-            return properties.getProperty("escidoc.version");
+            Properties properties = CommonUtils.getProperties("build.properties");
+            return properties.getProperty("escidoc.pubman.version");
         }
         catch (IOException e)
         {

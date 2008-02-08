@@ -49,8 +49,8 @@ public class InternationalizationHelper
 
     public static final String BEAN_NAME = "InternationalizationHelper";
     private static Logger logger = Logger.getLogger(InternationalizationHelper.class);
-    public static final String LABEL_BUNDLE = "de.mpg.escidoc.pubman.bundle.Label";
-    public static final String MESSAGES_BUNDLE = "de.mpg.escidoc.pubman.bundle.Messages";
+    public static final String LABEL_BUNDLE = "Label";
+    public static final String MESSAGES_BUNDLE = "Messages";
     public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.html";
     public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.html";
     private String selectedHelpPage;

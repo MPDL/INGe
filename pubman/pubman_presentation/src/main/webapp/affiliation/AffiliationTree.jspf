@@ -32,7 +32,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <!-- <%@ taglib uri="http://java.sun.com/jsf/ri/sandbox" prefix="risb" %> -->
 <div>
-	<f:loadBundle var="lbl"	basename="de.mpg.escidoc.pubman.bundle.Label" />
+	<f:loadBundle var="lbl"	basename="Label" />
 	<f:subview id="AffiliationTreePage">
 		<h1>
 			<h:outputText id="txtOrga" value="#{lbl.AffiliationTree_txtHeadline}"/>

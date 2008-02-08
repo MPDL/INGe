@@ -278,7 +278,7 @@ public class SearchTypeUI extends CollapsiblePanelUI implements ActionListener
      */
     private String getIdentifierByEnum( TypeOfMask type )
     {
-        switch( type ) 
+        switch( type )  
         {
             case ANYFIELD:
                 return getLabel("adv_search_lbHeaderWoP");

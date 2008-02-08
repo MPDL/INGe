@@ -30,8 +30,8 @@
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-		<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
-		<f:loadBundle var="msg" basename="de.mpg.escidoc.pubman.bundle.Messages"/>
+		<f:loadBundle var="lbl" basename="Label"/>
+		<f:loadBundle var="msg" basename="Messages"/>
 			<html>
 				<head>
 					

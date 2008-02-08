@@ -29,7 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
+<f:loadBundle var="lbl" basename="Label"/>
 
 <h:panelGrid styleClass="editItemOuterPanel" cellspacing="0">
 	<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">

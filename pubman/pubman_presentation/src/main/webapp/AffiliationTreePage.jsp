@@ -33,8 +33,8 @@
 	xmlns:jsp="http://java.sun.com/JSP/Page">
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-		<f:loadBundle var="lbl" basename="de.mpg.escidoc.pubman.bundle.Label"/>
-		<f:loadBundle var="msg" basename="de.mpg.escidoc.pubman.bundle.Messages"/>
+		<f:loadBundle var="lbl" basename="Label"/>
+		<f:loadBundle var="msg" basename="Messages"/>
 			<html>
 				<head>
 					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
