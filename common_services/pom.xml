@@ -293,7 +293,6 @@
     <cargo.port>8889</cargo.port>
     <cargo.rmi.port>1098</cargo.rmi.port>
     <cargo.log>low</cargo.log>
-    <cargo.wait>false</cargo.wait>
 
     <!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
     <jboss.deploy.host>localhost</jboss.deploy.host>
