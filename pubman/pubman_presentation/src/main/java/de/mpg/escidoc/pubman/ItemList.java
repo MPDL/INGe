@@ -46,8 +46,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import com.sun.org.apache.xerces.internal.impl.PropertyManager;
-
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
