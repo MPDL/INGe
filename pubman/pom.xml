@@ -303,6 +303,7 @@
     <!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8080</jboss.deploy.port>
+				<jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
     <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
@@ -361,6 +362,7 @@
     <!-- deploy the pubman ear to this server and port via jmx -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8889</jboss.deploy.port>
+				<jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
     <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
