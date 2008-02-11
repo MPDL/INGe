@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
  <modelVersion>4.0.0</modelVersion>
  <groupId>de.mpg.escidoc.services</groupId>
  <artifactId>common_services</artifactId>
@@ -162,7 +161,8 @@
   <module>validation</module>
   <module>validation_ear</module>
   <module>common_logic_ear</module>
- </modules>
+    <module>validation_presentation</module>
+  </modules>
 
  <scm>
   <connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
@@ -306,11 +306,11 @@
     <escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
     <escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-    <escidoc.pubman_presentation.email.mailservername></escidoc.pubman_presentation.email.mailservername>
-    <escidoc.pubman_presentation.email.sender></escidoc.pubman_presentation.email.sender>
-    <escidoc.pubman_presentation.email.withauthentication></escidoc.pubman_presentation.email.withauthentication>
-    <escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
-    <escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
+    <escidoc.pubman_presentation.email.mailservername/>
+    <escidoc.pubman_presentation.email.sender/>
+    <escidoc.pubman_presentation.email.withauthentication/>
+    <escidoc.pubman_presentation.email.authenticationuser/>
+    <escidoc.pubman_presentation.email.authenticationpwd/>
 
     <!-- URL of this PubMan instance -->
     <escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
@@ -350,11 +350,11 @@
     <cargo.port>8889</cargo.port>
     <cargo.rmi.port>1098</cargo.rmi.port>
     <cargo.log>low</cargo.log>
-    <cargo.wait>false</cargo.wait>
 
     <!-- deploy the pubman ear to this server and port via jmx -->
     <jboss.deploy.host>localhost</jboss.deploy.host>
     <jboss.deploy.port>8889</jboss.deploy.port>
+    <jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
     <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
     <escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
@@ -364,11 +364,11 @@
     <escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
     <escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-    <escidoc.pubman_presentation.email.mailservername></escidoc.pubman_presentation.email.mailservername>
-    <escidoc.pubman_presentation.email.sender></escidoc.pubman_presentation.email.sender>
-    <escidoc.pubman_presentation.email.withauthentication></escidoc.pubman_presentation.email.withauthentication>
-    <escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
-    <escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
+    <escidoc.pubman_presentation.email.mailservername/>
+    <escidoc.pubman_presentation.email.sender/>
+    <escidoc.pubman_presentation.email.withauthentication/>
+    <escidoc.pubman_presentation.email.authenticationuser/>
+    <escidoc.pubman_presentation.email.authenticationpwd/>
 
     <!-- URL of this PubMan instance -->
     <escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
