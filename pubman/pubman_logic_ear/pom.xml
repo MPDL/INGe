@@ -13,12 +13,8 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<scm>
-		<connection>
-			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear
-		</connection>
-		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear
-		</developerConnection>
+		<connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</connection>
+		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
 	</scm>
 
@@ -34,9 +30,7 @@
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>framework_access</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -65,44 +59,27 @@
 						<jarModule>
 							<groupId>axis</groupId>
 							<artifactId>axis</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
 							<groupId>stax</groupId>
 							<artifactId>stax</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
 							<groupId>commons-discovery</groupId>
 							<artifactId>commons-discovery</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
 							<groupId>jasperreports</groupId>
 							<artifactId>jasperreports</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>jasperreports</groupId>
-							<artifactId>jasperreports</artifactId>
-							<includeInApplicationXml>
-								true
-							</includeInApplicationXml>
+							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 					</modules>
 				</configuration>
@@ -281,102 +258,106 @@
 			<id>jboss40</id>
 			<build>
 				<plugins>
-				<plugin>
-					<groupId>org.codehaus.cargo</groupId>
-					<artifactId>cargo-maven2-plugin</artifactId>
-					<version>0.3.1</version>
-					<configuration>
-						<wait>false</wait>
-						<container>
-							<containerId>jboss4x</containerId>
-							<zipUrlInstaller>
-								<url>
-									http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip
-								</url>
-								<installDir>
-									${user.home}/jboss
-								</installDir>
-							</zipUrlInstaller>
-						</container>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<version>0.3.1</version>
 						<configuration>
-							<home>
-								${project.build.directory}/jboss/server
-							</home>
-							<properties>
-								<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-									<cargo.host>${cargo.host}</cargo.host>  -->
-								<cargo.servlet.port>
-									${cargo.port}
-								</cargo.servlet.port>
-								<cargo.rmi.port>
-									${cargo.rmi.port}
-								</cargo.rmi.port>
-								<cargo.logging>
-									${cargo.log}
-								</cargo.logging>
-							</properties>
+							<wait>false</wait>
+							<container>
+								<containerId>jboss4x</containerId>
+								<zipUrlInstaller>
+									<url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
+									<installDir>${jboss.install.dir}</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+										<cargo.host>${cargo.host}</cargo.host>  -->
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+								</properties>
+							</configuration>
 						</configuration>
-					</configuration>
-					<executions>
-						<execution>
-							<id>start-container</id>
-							<phase>pre-integration-test</phase>
-							<goals>
-								<goal>start</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>stop-container</id>
-							<phase>post-integration-test</phase>
-							<goals>
-								<goal>stop</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
+						<executions>
+							<execution>
+								<id>start-container</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
 				</plugins>
 			</build>
 		</profile>
-  <profile>
-   <id>jboss42</id>
-   <build>
-    <plugins>
-     <plugin>
-      <groupId>org.codehaus.cargo</groupId>
-      <artifactId>cargo-maven2-plugin</artifactId>
-      <version>0.3.1</version>
-      <configuration>
-       <wait>true</wait>
-       <container>
-        <containerId>jboss4x</containerId>
-        <zipUrlInstaller>
-         <url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
-         <installDir>${user.home}/jboss</installDir>
-        </zipUrlInstaller>
-       </container>
-       <configuration>
-        <home>${project.build.directory}/jboss/server</home>
-        <properties>
-         <!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-          <cargo.host>${cargo.host}</cargo.host>  -->
-         <cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-         <cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-         <cargo.logging>${cargo.log}</cargo.logging>
-         <cargo.jboss.configuration>default</cargo.jboss.configuration>
-        </properties>
-       </configuration>
-      </configuration>
-     </plugin>
-     <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>jboss-maven-plugin</artifactId>
-      <configuration>
-       <hostName>${jboss.deploy.host}</hostName>
-       <port>${jboss.deploy.port}</port>
-      </configuration>
-     </plugin>
-    </plugins>
-   </build>
-  </profile>
+		<profile>
+			<id>jboss42</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.codehaus.cargo</groupId>
+						<artifactId>cargo-maven2-plugin</artifactId>
+						<version>0.3.1</version>
+						<configuration>
+							<wait>false</wait>
+							<container>
+								<containerId>jboss4x</containerId>
+								<zipUrlInstaller>
+									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
+									<installDir>${jboss.install.dir}</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
+										<cargo.host>${cargo.host}</cargo.host>  -->
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jboss.configuration>default</cargo.jboss.configuration>
+								</properties>
+							</configuration>
+						</configuration>
+						<executions>
+							<execution>
+								<id>start-container</id>
+								<phase>pre-integration-test</phase>
+								<goals>
+									<goal>start</goal>
+								</goals>
+							</execution>
+							<execution>
+								<id>stop-container</id>
+								<phase>post-integration-test</phase>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>jboss-maven-plugin</artifactId>
+						<configuration>
+							<hostName>${jboss.deploy.host}</hostName>
+							<port>${jboss.deploy.port}</port>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
 	</profiles>
 </project>
