@@ -300,7 +300,7 @@
 								<containerId>jboss4x</containerId>
 								<zipUrlInstaller>
 									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
-									<installDir>${user.home}/jboss</installDir>
+									<installDir>${jboss.install.dir}</installDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
