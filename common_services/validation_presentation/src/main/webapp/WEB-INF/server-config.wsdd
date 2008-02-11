@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+	<globalConfiguration>
+		<parameter name="sendMultiRefs" value="true"/>
+		<parameter name="disablePrettyXML" value="true"/>
+		<parameter name="adminPassword" value="admin"/>
+		<parameter name="attachments.Directory" value="C:\jboss\server\default\.\tmp\deploy\tmp31058escidoc.ear-contents\validation_service-exp.war\WEB-INF\attachments"/>
+		<parameter name="dotNetSoapEncFix" value="true"/>
+		<parameter name="enableNamespacePrefixOptimization" value="false"/>
+		<parameter name="sendXMLDeclaration" value="true"/>
+		<parameter name="sendXsiTypes" value="true"/>
+		<parameter name="attachments.implementation" value="org.apache.axis.attachments.AttachmentsImpl"/>
+		<requestFlow>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="session"/>
+			</handler>
+			<handler type="java:org.apache.axis.handlers.JWSHandler">
+				<parameter name="scope" value="request"/>
+				<parameter name="extension" value=".jwr"/>
+			</handler>
+		</requestFlow>
+	</globalConfiguration>
+	<handler name="LocalResponder" type="java:org.apache.axis.transport.local.LocalResponder"/>
+	<handler name="URLMapper" type="java:org.apache.axis.handlers.http.URLMapper"/>
+	<handler name="Authenticate" type="java:org.apache.axis.handlers.SimpleAuthenticationHandler"/>
+	<service name="validation" provider="java:RPC">
+		<operation name="validateItemXml" qname="ns1:validateItemXml" returnQName="validateItemXmlReturn" returnType="xsd:string" soapAction="" xmlns:ns1="http://www.escidoc.de/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<parameter name="in0" type="xsd:string"/>
+			<parameter name="in1" type="xsd:string"/>
+		</operation>
+		<operation name="validateItemXml" qname="ns2:validateItemXml" returnQName="validateItemXmlReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://www.escidoc.de/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<parameter name="in0" type="xsd:string"/>
+		</operation>
+		<operation name="refreshValidationSchemaCache" qname="ns3:refreshValidationSchemaCache" soapAction="" xmlns:ns3="http://www.escidoc.de/"/>
+		<parameter name="allowedMethods" value="validateItemXml refreshValidationSchemaCache"/>
+		<parameter name="typeMappingVersion" value="1.2"/>
+		<parameter name="wsdlPortType" value="ItemValidatingWebService"/>
+		<parameter name="className" value="de.mpg.escidoc.services.validation.ItemValidatingBean"/>
+		<parameter name="wsdlServicePort" value="validation"/>
+		<parameter name="wsdlTargetNamespace" value="http://www.escidoc.de/"/>
+		<parameter name="wsdlServiceElement" value="ItemValidatingWebServiceService"/>
+	</service>
+	<service name="AdminService" provider="java:MSG">
+		<parameter name="allowedMethods" value="AdminService"/>
+		<parameter name="enableRemoteAdmin" value="false"/>
+		<parameter name="className" value="org.apache.axis.utils.Admin"/>
+		<namespace>http://xml.apache.org/axis/wsdd/</namespace>
+	</service>
+	<service name="Version" provider="java:RPC">
+		<parameter name="allowedMethods" value="getVersion"/>
+		<parameter name="className" value="org.apache.axis.Version"/>
+	</service>
+	<transport name="http">
+		<requestFlow>
+			<handler type="URLMapper"/>
+			<handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+		</requestFlow>
+		<parameter name="qs:list" value="org.apache.axis.transport.http.QSListHandler"/>
+		<parameter name="qs:wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+		<parameter name="qs.list" value="org.apache.axis.transport.http.QSListHandler"/>
+		<parameter name="qs.method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+		<parameter name="qs:method" value="org.apache.axis.transport.http.QSMethodHandler"/>
+		<parameter name="qs.wsdl" value="org.apache.axis.transport.http.QSWSDLHandler"/>
+	</transport>
+	<transport name="local">
+		<responseFlow>
+			<handler type="LocalResponder"/>
+		</responseFlow>
+	</transport>
+</deployment>
