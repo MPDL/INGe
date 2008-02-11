@@ -212,6 +212,24 @@
 			<version>1.2.0</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>jboss-ejb3-client</groupId>
+			<artifactId>jboss-ejb-client</artifactId>
+			<version>4.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>jboss-ejb3x</groupId>
+			<artifactId>jboss-ejb3x</artifactId>
+			<version>4.2.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>jboss-annotations-ejb3</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	
 </project>
