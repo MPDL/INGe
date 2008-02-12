@@ -245,11 +245,11 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.3.1</version>
+						<version>1.0-SNAPSHOT</version>
 						<configuration>
 							<wait>false</wait>
 							<container>
-								<containerId>jboss4x</containerId>
+								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
 									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
 									<installDir>${jboss.install.dir}</installDir>
@@ -257,7 +257,7 @@
 							</container>
 							<configuration>
 								<home>${project.build.directory}/jboss/server</home>
-								<properties>
+								<properties>					
 									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
 										<cargo.host>${cargo.host}</cargo.host>  -->
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
@@ -288,6 +288,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
+							<jbossHome>${jboss.home}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
