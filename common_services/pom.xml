@@ -211,6 +211,19 @@
   </repository>
  </repositories>
 
+ <pluginRepositories>
+    <pluginRepository>
+      <id>Codehaus Snapshots</id>
+      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+
  <build>
   <resources>
    <resource>
