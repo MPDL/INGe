@@ -331,7 +331,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
-							<jbossHome>${jboss.home}</jbossHome>
+							<jbossHome>${jboss.install.dir}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
