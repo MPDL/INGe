@@ -213,7 +213,7 @@
 
  <pluginRepositories>
     <pluginRepository>
-      <id>Codehaus Snapshots</id>
+      <id>Archiva plugin snapshots</id>
       <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
       <snapshots>
         <enabled>true</enabled>
