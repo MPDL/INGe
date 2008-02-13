@@ -305,10 +305,9 @@
 			<id>env-development</id>
 			<properties>
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
-				<cargo.port>8889</cargo.port>
-				<cargo.rmi.port>1098</cargo.rmi.port>
-				<cargo.log>low</cargo.log>
-				<cargo.wait>false</cargo.wait>
+				<cargo.port>8080</cargo.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.log>high</cargo.log>
 
 				<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
@@ -330,7 +329,7 @@
 				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://localhost:8888/pubman/</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>viewItemFullPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
@@ -364,10 +363,9 @@
 			</activation>
 			<properties>
 				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
-				<cargo.port>8889</cargo.port>
-				<cargo.rmi.port>1098</cargo.rmi.port>
-				<cargo.log>low</cargo.log>
-				<cargo.wait>false</cargo.wait>
+				<cargo.port>8080</cargo.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.log>high</cargo.log>
 
 				<!-- deploy the pubman ear to this server and port via jmx -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
@@ -389,12 +387,12 @@
 				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://localhost:8888/pubman/</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>viewItemFullPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url>
+				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
