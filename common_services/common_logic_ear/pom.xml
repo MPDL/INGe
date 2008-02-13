@@ -26,6 +26,7 @@
 				<configuration>
 					<displayName>common_logic</displayName>
 					<description>common_logic integration testing ear</description>
+					<resourcesDir>target/classes</resourcesDir>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -52,6 +53,21 @@
 							<artifactId>commons-discovery</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>axis</groupId>
+							<artifactId>axis</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>wss4j</groupId>
+							<artifactId>wss4j</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>net.sf.saxon</groupId>
+							<artifactId>saxon</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -59,17 +75,7 @@
 					</modules>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-			</plugin>
+			<!-- enables the compile test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
@@ -78,20 +84,14 @@
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
+						<configuration>
+							<source>1.5</source>
+							<target>1.5</target>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>testResources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- disables the unittests, enables the integration tests -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -107,6 +107,18 @@
 							<skip>false</skip>
 							<test>TestCommonLogic</test>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enables the process test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -140,52 +152,46 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jnpserver</groupId>
-			<artifactId>jnpserver</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-ejb3-client</groupId>
+			<artifactId>jboss-ejb-client</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-common-client</groupId>
-			<artifactId>jboss-common-client</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-ejb3x</groupId>
+			<artifactId>jboss-ejb3x</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-aop-jdk50-client</groupId>
-			<artifactId>jboss-aop-jdk50-client</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-annotations-ejb3</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-aspect-library-jdk50</groupId>
-			<artifactId>jboss-aspect-library-jdk50</artifactId>
-			<version>4.0.5</version>
+			<groupId>jbossall-client</groupId>
+			<artifactId>jbossall-client</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-remoting</groupId>
-			<artifactId>jboss-remoting</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>jbosssx-client</groupId>
-			<artifactId>jbosssx-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-transaction-client</groupId>
-			<artifactId>jboss-transaction-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>concurrent</groupId>
-			<artifactId>concurrent</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
@@ -257,7 +263,7 @@
 							</container>
 							<configuration>
 								<home>${project.build.directory}/jboss/server</home>
-								<properties>					
+								<properties>
 									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
 										<cargo.host>${cargo.host}</cargo.host>  -->
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
