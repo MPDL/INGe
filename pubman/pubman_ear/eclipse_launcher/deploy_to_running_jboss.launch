@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <launchConfiguration type="org.maven.ide.eclipse.Maven2LaunchConfigurationType">
-<stringAttribute key="M2_GOALS" value="package jboss:harddeploy"/>
+<stringAttribute key="M2_GOALS" value="package jboss:start"/>
 <listAttribute key="M2_PROPERTIES"/>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.ui.externaltools.launchGroup"/>
