@@ -26,6 +26,7 @@
 				<configuration>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
+					<resourcesDir>target/classes</resourcesDir>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -81,20 +82,15 @@
 							<artifactId>jasperreports</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+							<jarModule>
+							<groupId>net.sf.saxon</groupId>
+							<artifactId>saxon</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.cargo</groupId>
-				<artifactId>cargo-maven2-plugin</artifactId>
-			</plugin>
+			<!-- enables the compile test resources feature in the ear -->
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
@@ -103,23 +99,19 @@
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
+						<configuration>
+							<source>1.5</source>
+							<target>1.5</target>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>testResources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
+			<!-- disables the unittests, enables the integration tests -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<configuration></configuration>
+				<configuration>
+					<skip>true</skip>
+				</configuration>
 				<executions>
 					<execution>
 						<phase>integration-test</phase>
@@ -129,8 +121,19 @@
 						<configuration>
 							<skip>false</skip>
 							<test>TestPubManLogic</test>
-							<test>TestPubManLogicIntegration</test>
 						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- enables the process test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+				<executions>
+					<execution>
+						<phase>process-test-resources</phase>
+						<goals>
+							<goal>testResources</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
@@ -198,45 +201,27 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-common-client</groupId>
-			<artifactId>jboss-common-client</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-ejb3-client</groupId>
+			<artifactId>jboss-ejb-client</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-aop-jdk50-client</groupId>
-			<artifactId>jboss-aop-jdk50-client</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-ejb3x</groupId>
+			<artifactId>jboss-ejb3x</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-aspect-library-jdk50</groupId>
-			<artifactId>jboss-aspect-library-jdk50</artifactId>
-			<version>4.0.5</version>
+			<groupId>jboss-annotations-ejb3</groupId>
+			<artifactId>jboss-annotations-ejb3</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jboss-remoting</groupId>
-			<artifactId>jboss-remoting</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jbosssx-client</groupId>
-			<artifactId>jbosssx-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-transaction-client</groupId>
-			<artifactId>jboss-transaction-client</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>concurrent</groupId>
-			<artifactId>concurrent</artifactId>
-			<version>4.0.5</version>
+			<groupId>jbossall-client</groupId>
+			<artifactId>jbossall-client</artifactId>
+			<version>4.2.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -246,7 +231,7 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>saxon</groupId>
+			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 			<scope>runtime</scope>
@@ -309,11 +294,11 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.3.1</version>
+						<version>1.0-SNAPSHOT</version>
 						<configuration>
 							<wait>false</wait>
 							<container>
-								<containerId>jboss4x</containerId>
+								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
 									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
 									<installDir>${jboss.install.dir}</installDir>
@@ -352,6 +337,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
+							<jbossHome>${jboss.home}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
