@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
@@ -117,16 +118,16 @@
 			<organization>Max Planck Digital Library</organization>
 			<timezone>+2</timezone>
 		</developer>
-    <developer>
-   <id>nek</id>
-   <name>Nicole Kondic</name>
-   <email>kondic@mpdl.mpg.de</email>
-   <roles>
-    <role>Service management</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-   </developer>
+		<developer>
+			<id>nek</id>
+			<name>Nicole Kondic</name>
+			<email>kondic@mpdl.mpg.de</email>
+			<roles>
+				<role>Service management</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
 	</developers>
 
 	<mailingLists>
@@ -239,7 +240,7 @@
 				<version>1.0-beta-2</version>
 			</extension>
 		</extensions>
-  <!-- if no tests are present don't fail the complete package process -->
+		<!-- if no tests are present don't fail the complete package process -->
 		<pluginManagement>
 			<plugins>
 				<plugin>
@@ -281,31 +282,40 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>changelog-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.5</targetJdk>
+				</configuration>
+			</plugin>
 		</plugins>
 	</reporting>
 
- <!-- properties valid for all profiles -->
+	<!-- properties valid for all profiles -->
 	<properties>
 		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
 	</properties>
 
 	<profiles>
-  <!-- this profile is used by developers -->
+		<!-- this profile is used by developers -->
 		<profile>
 			<id>env-development</id>
 			<properties>
-    <!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
+				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8889</cargo.port>
 				<cargo.rmi.port>1098</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.wait>false</cargo.wait>
 
-    <!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
+				<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
-    <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
+				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
 				<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
 				<escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
@@ -319,30 +329,30 @@
 				<escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
 				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
 
-    <!-- URL of this PubMan instance -->
+				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8888/pubman/</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>viewItemFullPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
-    <!-- URL of the FIZ framework instance -->
+				<!-- URL of the FIZ framework instance -->
 				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
 
-    <!-- Identifier of the content type "publication" in the actual framework instance -->
+				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
-    <!--  Due to a historical defect, QName was released with multiple 
-     serialVersionUID values even though its serialization was the
-     same.
-     To workaround this issue, serialVersionUID is set with either
-     a default value or a compatibility value.  To use the
-     compatibility value you have to set the following property to "1.0". -->
+				<!--  Due to a historical defect, QName was released with multiple 
+					serialVersionUID values even though its serialization was the
+					same.
+					To workaround this issue, serialVersionUID is set with either
+					a default value or a compatibility value.  To use the
+					compatibility value you have to set the following property to "1.0". -->
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
-    <!-- RE Pattern for retrieving determinators from item xml -->
+				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
-    <!-- Used for validation initialization -->
+				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 			</properties>
@@ -353,18 +363,18 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
-    <!-- used by the cargo plugin to run a jboss server for integration-testing -->
+				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
 				<cargo.port>8889</cargo.port>
 				<cargo.rmi.port>1098</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.wait>false</cargo.wait>
 
-    <!-- deploy the pubman ear to this server and port via jmx -->
+				<!-- deploy the pubman ear to this server and port via jmx -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
-    <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
+				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
 				<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
 				<escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
@@ -378,30 +388,30 @@
 				<escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
 				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
 
-    <!-- URL of this PubMan instance -->
+				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8888/pubman/</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>viewItemFullPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
-    <!-- URL of the FIZ framework instance -->
+				<!-- URL of the FIZ framework instance -->
 				<escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url>
 
-    <!-- Identifier of the content type "publication" in the actual framework instance -->
+				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
-    <!--  Due to a historical defect, QName was released with multiple 
-     serialVersionUID values even though its serialization was the
-     same.
-     To workaround this issue, serialVersionUID is set with either
-     a default value or a compatibility value.  To use the
-     compatibility value you have to set the following property to "1.0". -->
+				<!--  Due to a historical defect, QName was released with multiple 
+					serialVersionUID values even though its serialization was the
+					same.
+					To workaround this issue, serialVersionUID is set with either
+					a default value or a compatibility value.  To use the
+					compatibility value you have to set the following property to "1.0". -->
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
-    <!-- RE Pattern for retrieving determinators from item xml -->
+				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
-    <!-- Used for validation initialization -->
+				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 			</properties>
