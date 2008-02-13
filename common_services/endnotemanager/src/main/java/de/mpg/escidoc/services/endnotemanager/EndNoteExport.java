@@ -34,10 +34,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
 
-import javax.xml.transform.OutputKeys;
+
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -61,7 +59,7 @@ public class EndNoteExport implements EndNoteExportHandler {
 	private final static Logger logger = Logger.getLogger(EndNoteExport.class);
 	
 	// path to the EndNote export XSLT 
-	private String xslt = 	"resource/" +  
+	private String xslt = 	  
 							"schema/" + 
 							"eSciDoc_to_EndNote.xsl";
 	

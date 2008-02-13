@@ -51,6 +51,8 @@ import de.mpg.escidoc.services.endnotemanager.EndNoteManagerException;
 
 public class EndNoteExportHandlerBean implements EndNoteExportHandler
 {
+	
+	// private static final long serialVersionUID = 1L;
     
     
     /**
