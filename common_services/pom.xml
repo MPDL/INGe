@@ -1,428 +1,438 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
- <modelVersion>4.0.0</modelVersion>
- <groupId>de.mpg.escidoc.services</groupId>
- <artifactId>common_services</artifactId>
- <packaging>pom</packaging>
- <version>1.0</version>
- <name>common_services</name>
- <url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
- <description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
- <licenses>
-  <license>
-   <name>Common Development And Distribution License</name>
-   <url>http://www.sun.com/cddl/cddl.html</url>
-   <distribution>repo</distribution>
-  </license>
- </licenses>
- <issueManagement>
-  <system>Jira</system>
-  <url>http://zim01.gwdg.de:8080/browse/</url>
- </issueManagement>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>de.mpg.escidoc.services</groupId>
+	<artifactId>common_services</artifactId>
+	<packaging>pom</packaging>
+	<version>1.0</version>
+	<name>common_services</name>
+	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
+	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
+	<licenses>
+		<license>
+			<name>Common Development And Distribution License</name>
+			<url>http://www.sun.com/cddl/cddl.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+	<issueManagement>
+		<system>Jira</system>
+		<url>http://zim01.gwdg.de:8080/browse/</url>
+	</issueManagement>
 
- <organization>
-  <name>Max Planck Digital Library</name>
-  <url>http://www.mpdl.mpg.de/</url>
- </organization>
+	<organization>
+		<name>Max Planck Digital Library</name>
+		<url>http://www.mpdl.mpg.de/</url>
+	</organization>
 
- <developers>
-  <developer>
-   <id>mdreyer</id>
-   <name>Malte Dreyer</name>
-   <email>dreyer@mpdl.mpg.de</email>
-   <roles>
-    <role>Project manager</role>
-    <role>Architect</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>nab</id>
-   <name>Natasa Bulatovic</name>
-   <email>nab@mpdl.mpg.de</email>
-   <roles>
-    <role>Software development manager</role>
-    <role>Architect</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>mfranke</id>
-   <name>Michael Franke</name>
-   <email>franke@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>wfrank</id>
-   <name>Wilhelm Frank</name>
-   <email>frank@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>tendres</id>
-   <name>Thomas Endres</name>
-   <email>endres@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>bsaquet</id>
-   <name>Bastien Saquet</name>
-   <email>saquet@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>tschraut</id>
-   <name>Tobias Schraut</name>
-   <email>schraut@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>jkurt</id>
-   <name>Julia Kurt</name>
-   <email>kurt@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
-  <developer>
-   <id>vmakarenko</id>
-   <name>Vlad Makarenko</name>
-   <email>makarenko@mpdl.mpg.de</email>
-   <roles>
-    <role>Software developer</role>
-   </roles>
-   <organization>Max Planck Digital Library</organization>
-   <timezone>+2</timezone>
-  </developer>
+	<developers>
+		<developer>
+			<id>mdreyer</id>
+			<name>Malte Dreyer</name>
+			<email>dreyer@mpdl.mpg.de</email>
+			<roles>
+				<role>Project manager</role>
+				<role>Architect</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>nab</id>
+			<name>Natasa Bulatovic</name>
+			<email>nab@mpdl.mpg.de</email>
+			<roles>
+				<role>Software development manager</role>
+				<role>Architect</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>mfranke</id>
+			<name>Michael Franke</name>
+			<email>franke@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>wfrank</id>
+			<name>Wilhelm Frank</name>
+			<email>frank@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>tendres</id>
+			<name>Thomas Endres</name>
+			<email>endres@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>bsaquet</id>
+			<name>Bastien Saquet</name>
+			<email>saquet@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>tschraut</id>
+			<name>Tobias Schraut</name>
+			<email>schraut@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>jkurt</id>
+			<name>Julia Kurt</name>
+			<email>kurt@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
+		<developer>
+			<id>vmakarenko</id>
+			<name>Vlad Makarenko</name>
+			<email>makarenko@mpdl.mpg.de</email>
+			<roles>
+				<role>Software developer</role>
+			</roles>
+			<organization>Max Planck Digital Library</organization>
+			<timezone>+2</timezone>
+		</developer>
 
- </developers>
+	</developers>
 
- <mailingLists>
-  <mailingList>
-   <name>FIZ Karlsruhe eSciDoc infrastructure mailing list</name>
-   <subscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</subscribe>
-   <unsubscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</unsubscribe>
-   <post>infrastructure-user@escidoc-project.de</post>
-   <archive>http://www.escidoc-project.de/pipermail/infrastructure-user/</archive>
-  </mailingList>
-  <mailingList>
-   <name>Infolist about build-failures, source-code changes etc.</name>
-   <subscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</subscribe>
-   <unsubscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</unsubscribe>
-   <post>escidoc-code@gwdg.de</post>
-   <archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
-  </mailingList>
- </mailingLists>
+	<mailingLists>
+		<mailingList>
+			<name>FIZ Karlsruhe eSciDoc infrastructure mailing list</name>
+			<subscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</subscribe>
+			<unsubscribe>http://www.escidoc-project.de/mailman/listinfo/infrastructure-user</unsubscribe>
+			<post>infrastructure-user@escidoc-project.de</post>
+			<archive>http://www.escidoc-project.de/pipermail/infrastructure-user/</archive>
+		</mailingList>
+		<mailingList>
+			<name>Infolist about build-failures, source-code changes etc.</name>
+			<subscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</subscribe>
+			<unsubscribe>https://listserv.gwdg.de/mailman/listinfo/escidoc-code</unsubscribe>
+			<post>escidoc-code@gwdg.de</post>
+			<archive>https://listserv.gwdg.de/mailman/private/escidoc-code/</archive>
+		</mailingList>
+	</mailingLists>
 
- <ciManagement>
-  <system>Continuum</system>
-  <url>http://escidoc1.escidoc.mpg.de:8888/continuum</url>
-  <notifiers>
-   <notifier>
-    <type>mail</type>
-    <configuration>
-     <address>escidoc-code@gwdg.de</address>
-    </configuration>
-   </notifier>
-  </notifiers>
- </ciManagement>
+	<ciManagement>
+		<system>Continuum</system>
+		<url>http://escidoc1.escidoc.mpg.de:8888/continuum</url>
+		<notifiers>
+			<notifier>
+				<type>mail</type>
+				<configuration>
+					<address>escidoc-code@gwdg.de</address>
+				</configuration>
+			</notifier>
+		</notifiers>
+	</ciManagement>
 
- <modules>
-  <module>framework_access</module>
-  <module>common_logic</module>
-  <module>citationmanager</module>
-  <module>citationmanager_ear</module>
-  <module>endnotemanager</module>
-  <module>endnotemanager_ear</module>
-  <module>validation</module>
-  <module>validation_ear</module>
-  <module>common_logic_ear</module>
-    <module>validation_presentation</module>
-  </modules>
+	<modules>
+		<module>framework_access</module>
+		<module>common_logic</module>
+		<module>citationmanager</module>
+		<module>citationmanager_ear</module>
+		<module>endnotemanager</module>
+		<module>endnotemanager_ear</module>
+		<module>validation</module>
+		<module>validation_ear</module>
+		<module>common_logic_ear</module>
+		<module>validation_presentation</module>
+	</modules>
 
- <scm>
-  <connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
-  <developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
-  <url>http://zim02.gwdg.de/common/trunk/common_services</url>
- </scm>
+	<scm>
+		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
+		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
+		<url>http://zim02.gwdg.de/common/trunk/common_services</url>
+	</scm>
 
- <distributionManagement>
-  <repository>
-   <id>deployment.webdav</id>
-   <name>Archiva deployment</name>
-   <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
-  </repository>
-  <snapshotRepository>
-   <id>snapshots.webdav</id>
-   <url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
-  </snapshotRepository>
-  <site>
-   <id>website</id>
-   <url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
-  </site>
- </distributionManagement>
+	<distributionManagement>
+		<repository>
+			<id>deployment.webdav</id>
+			<name>Archiva deployment</name>
+			<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshots.webdav</id>
+			<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+		</snapshotRepository>
+		<site>
+			<id>website</id>
+			<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
+		</site>
+	</distributionManagement>
 
- <repositories>
-  <repository>
-   <id>deployment.webdav</id>
-   <name>Archiva Managed Internal Repository</name>
-   <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal</url>
-   <releases>
-    <enabled>true</enabled>
-   </releases>
-   <snapshots>
-    <enabled>false</enabled>
-   </snapshots>
-  </repository>
-  <repository>
-   <id>snapshots.webdav</id>
-   <name>Archiva Managed Snapshot Repository</name>
-   <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
-   <releases>
-    <enabled>false</enabled>
-   </releases>
-   <snapshots>
-    <enabled>true</enabled>
-   </snapshots>
-  </repository>
- </repositories>
+	<repositories>
+		<repository>
+			<id>deployment.webdav</id>
+			<name>Archiva Managed Internal Repository</name>
+			<url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal</url>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+		<repository>
+			<id>snapshots.webdav</id>
+			<name>Archiva Managed Snapshot Repository</name>
+			<url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 
- <pluginRepositories>
-    <pluginRepository>
-      <id>Archiva plugin snapshots</id>
-      <url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
-      <snapshots>
-        <enabled>true</enabled>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Archiva plugin snapshots</id>
+			<url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>true</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 
- <build>
-  <resources>
-   <resource>
-    <directory>src/main/resources</directory>
-    <filtering>true</filtering>
-   </resource>
-  </resources>
-  <testResources>
-      <testResource>
-        <directory>src/test/resources</directory>
-        <filtering>true</filtering>
-      </testResource>
-    </testResources>
-  <extensions>
-   <extension>
-    <groupId>org.apache.maven.wagon</groupId>
-    <artifactId>wagon-webdav</artifactId>
-    <version>1.0-beta-2</version>
-   </extension>
-   <groupId>org.apache.maven.wagon</groupId>
-   <artifactId>wagon-ssh</artifactId>
-   <version>1.0-beta-2</version>
-  </extensions>
-  <!-- if no tests are present don't fail the complete package process -->
-  <pluginManagement>
-   <plugins>
-     <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <configuration>
-          <failIfNoTests>false</failIfNoTests>
-        </configuration>
-      </plugin>
-   </plugins>
-  </pluginManagement>
- </build>
+	<build>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+		<testResources>
+			<testResource>
+				<directory>src/test/resources</directory>
+				<filtering>true</filtering>
+			</testResource>
+		</testResources>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-webdav</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
+			<groupId>org.apache.maven.wagon</groupId>
+			<artifactId>wagon-ssh</artifactId>
+			<version>1.0-beta-2</version>
+		</extensions>
+		<!-- if no tests are present don't fail the complete package process -->
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<failIfNoTests>false</failIfNoTests>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
 
- <reporting>
-  <plugins>
-   <plugin>
-    <artifactId>maven-javadoc-plugin</artifactId>
-   </plugin>
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-jxr-plugin</artifactId>
-   </plugin>
-   <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>taglist-maven-plugin</artifactId>
-   </plugin>
-   <plugin>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-changes-plugin</artifactId>
-    <reportSets>
-     <reportSet>
-      <reports>
-       <report>jira</report>
-       <report>changes-report</report>
-      </reports>
-     </reportSet>
-    </reportSets>
-   </plugin>
-   <plugin>
-    <groupId>org.codehaus.mojo</groupId>
-    <artifactId>changelog-maven-plugin</artifactId>
-   </plugin>
-  </plugins>
- </reporting>
+	<reporting>
+		<plugins>
+			<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jxr-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>taglist-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<reportSets>
+					<reportSet>
+						<reports>
+							<report>jira</report>
+							<report>changes-report</report>
+						</reports>
+					</reportSet>
+				</reportSets>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>changelog-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-pmd-plugin</artifactId>
+				<configuration>
+					<sourceEncoding>utf-8</sourceEncoding>
+					<minimumTokens>100</minimumTokens>
+					<targetJdk>1.5</targetJdk>
+				</configuration>
+			</plugin>
+		</plugins>
+	</reporting>
 
- <!-- properties valid for all profiles -->
- <properties>
-  <organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
- </properties>
+	<!-- properties valid for all profiles -->
+	<properties>
+		<organization.logo>http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif</organization.logo>
+	</properties>
 
- <profiles>
-  <!-- this profile is used by developers -->
-  <profile>
-   <id>env-development</id>
-   <properties>
-    <!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
-    <cargo.port>8889</cargo.port>
-    <cargo.rmi.port>1098</cargo.rmi.port>
-    <cargo.log>low</cargo.log>
+	<profiles>
+		<!-- this profile is used by developers -->
+		<profile>
+			<id>env-development</id>
+			<properties>
+				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
+				<cargo.port>8080</cargo.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.log>low</cargo.log>
 
-    <!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
-    <jboss.deploy.host>localhost</jboss.deploy.host>
-    <jboss.deploy.port>8889</jboss.deploy.port>
+				<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
+				<jboss.deploy.host>localhost</jboss.deploy.host>
+				<jboss.deploy.port>8889</jboss.deploy.port>
 
-    <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
-    <escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
-    <escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
-    <escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
-    <escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
-    <escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
-    <escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
+				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
+				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
+				<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
+				<escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
+				<escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
+				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
+				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-    <escidoc.pubman_presentation.email.mailservername/>
-    <escidoc.pubman_presentation.email.sender/>
-    <escidoc.pubman_presentation.email.withauthentication/>
-    <escidoc.pubman_presentation.email.authenticationuser/>
-    <escidoc.pubman_presentation.email.authenticationpwd/>
+				<escidoc.pubman_presentation.email.mailservername />
+				<escidoc.pubman_presentation.email.sender />
+				<escidoc.pubman_presentation.email.withauthentication />
+				<escidoc.pubman_presentation.email.authenticationuser />
+				<escidoc.pubman_presentation.email.authenticationpwd />
 
-    <!-- URL of this PubMan instance -->
-    <escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
-    <escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
-    <escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
+				<!-- URL of this PubMan instance -->
+				<escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
+				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
+				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
-    <!-- URL of the FIZ framework instance -->
-    <escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
+				<!-- URL of the FIZ framework instance -->
+				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
 
-    <!-- Identifier of the content type "publication" in the actual framework instance -->
-    <escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
+				<!-- Identifier of the content type "publication" in the actual framework instance -->
+				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
-    <!--  Due to a historical defect, QName was released with multiple 
-     serialVersionUID values even though its serialization was the
-     same.
-     To workaround this issue, serialVersionUID is set with either
-     a default value or a compatibility value.  To use the
-     compatibility value you have to set the following property to "1.0". -->
-    <com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
+				<!--  Due to a historical defect, QName was released with multiple 
+					serialVersionUID values even though its serialization was the
+					same.
+					To workaround this issue, serialVersionUID is set with either
+					a default value or a compatibility value.  To use the
+					compatibility value you have to set the following property to "1.0". -->
+				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
-    <!-- RE Pattern for retrieving determinators from item xml -->
-    <escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-    <escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<!-- RE Pattern for retrieving determinators from item xml -->
+				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
+				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
-    <!-- Used for validation initialization -->
-    <framework.admin.username>roland</framework.admin.username>
-    <framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-   </properties>
-  </profile>
-  <profile>
-   <id>env-testing-continuum</id>
-   <activation>
-    <activeByDefault>false</activeByDefault>
-   </activation>
-   <properties>
-    <!-- used by the cargo plugin to run a jboss server for integration-testing -->
-    <cargo.port>8889</cargo.port>
-    <cargo.rmi.port>1098</cargo.rmi.port>
-    <cargo.log>low</cargo.log>
+				<!-- Used for validation initialization -->
+				<framework.admin.username>roland</framework.admin.username>
+				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-testing-continuum</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
+				<cargo.port>8080</cargo.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.log>low</cargo.log>
 
-    <!-- deploy the pubman ear to this server and port via jmx -->
-    <jboss.deploy.host>localhost</jboss.deploy.host>
-    <jboss.deploy.port>8889</jboss.deploy.port>
-    <jboss.install.dir>${user.home}/jboss</jboss.install.dir>
+				<!-- deploy the pubman ear to this server and port via jmx -->
+				<jboss.deploy.host>localhost</jboss.deploy.host>
+				<jboss.deploy.port>8889</jboss.deploy.port>
+				<jboss.install.dir>${user.home}/jboss</jboss.install.dir>
 
-    <!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
-    <escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
-    <escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
-    <escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
-    <escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
-    <escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
-    <escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
+				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
+				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
+				<escidoc.pubman_presentation.disable.export>false</escidoc.pubman_presentation.disable.export>
+				<escidoc.pubman_presentation.disable.modify>false</escidoc.pubman_presentation.disable.modify>
+				<escidoc.pubman_presentation.disable.new_revision>false</escidoc.pubman_presentation.disable.new_revision>
+				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
+				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-    <escidoc.pubman_presentation.email.mailservername/>
-    <escidoc.pubman_presentation.email.sender/>
-    <escidoc.pubman_presentation.email.withauthentication/>
-    <escidoc.pubman_presentation.email.authenticationuser/>
-    <escidoc.pubman_presentation.email.authenticationpwd/>
+				<escidoc.pubman_presentation.email.mailservername />
+				<escidoc.pubman_presentation.email.sender />
+				<escidoc.pubman_presentation.email.withauthentication />
+				<escidoc.pubman_presentation.email.authenticationuser />
+				<escidoc.pubman_presentation.email.authenticationpwd />
 
-    <!-- URL of this PubMan instance -->
-    <escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
-    <escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
-    <escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
+				<!-- URL of this PubMan instance -->
+				<escidoc.pubman.instance.url>http://localhost:8888/pubman</escidoc.pubman.instance.url>
+				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
+				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
-    <!-- URL of the FIZ framework instance -->
-    <escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
+				<!-- URL of the FIZ framework instance -->
+				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
 
-    <!-- Identifier of the content type "publication" in the actual framework instance -->
-    <escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
+				<!-- Identifier of the content type "publication" in the actual framework instance -->
+				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
-    <!--  Due to a historical defect, QName was released with multiple 
-     serialVersionUID values even though its serialization was the
-     same.
-     To workaround this issue, serialVersionUID is set with either
-     a default value or a compatibility value.  To use the
-     compatibility value you have to set the following property to "1.0". -->
-    <com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
+				<!--  Due to a historical defect, QName was released with multiple 
+					serialVersionUID values even though its serialization was the
+					same.
+					To workaround this issue, serialVersionUID is set with either
+					a default value or a compatibility value.  To use the
+					compatibility value you have to set the following property to "1.0". -->
+				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
-    <!-- RE Pattern for retrieving determinators from item xml -->
-    <escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-    <escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<!-- RE Pattern for retrieving determinators from item xml -->
+				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
+				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
-    <!-- Used for validation initialization -->
-    <framework.admin.username>roland</framework.admin.username>
-    <framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-   </properties>
-  </profile>
-  <profile>
-   <id>env-production-escidoc2</id>
+				<!-- Used for validation initialization -->
+				<framework.admin.username>roland</framework.admin.username>
+				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
+			</properties>
+		</profile>
+		<profile>
+			<id>env-production-escidoc2</id>
 
-  </profile>
-  <profile>
-   <id>env-production-escidoc3</id>
+		</profile>
+		<profile>
+			<id>env-production-escidoc3</id>
 
-  </profile>
-  <profile>
-   <id>env-production-escidoc4</id>
+		</profile>
+		<profile>
+			<id>env-production-escidoc4</id>
 
-  </profile>
- </profiles>
+		</profile>
+	</profiles>
 
 </project>
