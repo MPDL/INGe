@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<font-styles-collection name="Default">
+
+  <font-style name="NORMAL"
+    def="true"
+    font-name="Arial"
+    font-size="12"
+    fore-color="black"
+    back-color="white"
+    is-bold="false"
+    is-italic="false"
+    pdf-font-name="Helvetica"
+    is-underline="false"
+    is-strike-through="false"/>
+
+  <font-style name="ARIAL14"
+    font-name="Arial"
+    font-size="14"
+    fore-color="black"
+    back-color="white"
+    is-bold="false"
+    is-italic="false"
+    pdf-font-name="Helvetica"
+    is-underline="false"
+    is-strike-through="false"/>
+
+  <font-style name="BOLD"
+    fore-color="black"
+    back-color="white"
+    is-bold="true"
+    is-italic="false"
+    pdf-font-name="Helvetica-Bold"
+    is-underline="false"
+    is-strike-through="false"/>
+
+  <font-style name="ITALIC"
+    fore-color="black"
+    back-color="white"
+    is-bold="false"
+    is-italic="true"
+    pdf-font-name="Helvetica-Oblique"
+    is-underline="false"
+    is-strike-through="false"/>
+
+  <font-style name="UNDERLINE_ITALIC"
+    fore-color="black"
+    back-color="white"
+    is-bold="false"
+    is-italic="true"
+    pdf-font-name="Helvetica-Oblique"
+    is-underline="true"
+    is-strike-through="false"/>
+
+  <font-style name="BOLD_ITALIC"
+    fore-color="black"
+    back-color="white"
+    is-bold="true"
+    is-italic="true"
+    pdf-font-name="Helvetica-Bold"
+    is-underline="true"
+    is-strike-through="false"/>
+
+</font-styles-collection>

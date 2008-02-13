@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/language" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:kml="http://earth.google.com/kml/2.1" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/language" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+      eSciDoc metadata profile,  language 
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://earth.google.com/kml/2.1" schemaLocation="kml21.xsd"/>
+	<xs:element name="language" type="LanguageType"/>
+	<!--*******************************
+       Language Type
+      ********************************-->
+	<xs:complexType name="LanguageType">
+		<xs:sequence>
+			<!-- language name: -->
+			<xs:element ref="dc:title"/>
+			<!--  code: -->
+			<xs:element ref="dc:identifier"/>
+			<xs:element ref="kml:Location"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

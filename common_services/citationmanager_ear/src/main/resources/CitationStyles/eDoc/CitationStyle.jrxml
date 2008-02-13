@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="CS_default" pageWidth="535" pageHeight="842" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" scriptletClass="ScriptletForRepeatableElements">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<reportFont name="Bold" isDefault="false" fontName="Arial" size="12" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+	<queryString language="xPath">
+		<![CDATA["/Record"]]>
+	</queryString>
+	<field name="genre" class="java.lang.String">
+		<fieldDescription><![CDATA[genre]]></fieldDescription>
+	</field>
+	<field name="title" class="java.lang.String">
+		<fieldDescription><![CDATA[title]]></fieldDescription>
+	</field>
+	<field name="sequencenr" class="java.lang.String">
+		<fieldDescription><![CDATA[sequencenr]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="issue" class="java.lang.String">
+		<fieldDescription><![CDATA[issue]]></fieldDescription>
+	</field>
+	<field name="physicaldescription" class="java.lang.String">
+		<fieldDescription><![CDATA[physicaldescription]]></fieldDescription>
+	</field>
+	<field name="publicationstatus" class="java.lang.String">
+		<fieldDescription><![CDATA[publicationstatus]]></fieldDescription>
+	</field>
+	<field name="volume" class="java.lang.String">
+		<fieldDescription><![CDATA[physicaldescription]]></fieldDescription>
+	</field>
+	<field name="publishername" class="java.lang.String">
+		<fieldDescription><![CDATA[publisher/publishername]]></fieldDescription>
+	</field>
+	<field name="publisheraddress" class="java.lang.String">
+		<fieldDescription><![CDATA[publisher/publisheraddress]]></fieldDescription>
+	</field>
+	<field name="sourcetitle" class="java.lang.String">
+		<fieldDescription><![CDATA[source/sourcetitle]]></fieldDescription>
+	</field>
+	<field name="nameofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/nameofevent]]></fieldDescription>
+	</field>
+	<field name="placeofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/placeofevent]]></fieldDescription>
+	</field>
+	<field name="dateofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/dateofevent]]></fieldDescription>
+	</field>
+	<variable name="LE_IDENTIFIERS" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (("\n" + $P{REPORT_SCRIPTLET}.getLE_IDENTIFIERS().substring(0, 30) + "\n").length() > 5000 ? ("\n" + $P{REPORT_SCRIPTLET}.getLE_IDENTIFIERS().substring(0, 30) + "\n").substring(0, 4999) + "...":("\n" + $P{REPORT_SCRIPTLET}.getLE_IDENTIFIERS().substring(0, 30) + "\n")) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_CREATORS" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($P{REPORT_SCRIPTLET}.getLE_CREATORS().substring(0, 28) + ":").length() > 5000 ? ($P{REPORT_SCRIPTLET}.getLE_CREATORS().substring(0, 28) + ":").substring(0, 4999) + "500":($P{REPORT_SCRIPTLET}.getLE_CREATORS().substring(0, 28) + ":")) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_TITLE" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((!$F{title}.equals("")) ? ((("...labuda..." + $F{title} + "...hahahahah...").length() > 500 ? ("...labuda..." + $F{title} + "...hahahahah...").substring(0, 499) + "...maxLengthEndsWith...":("...labuda..." + $F{title} + "...hahahahah..."))) : "") + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_GENRE" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{genre}).length() > 5000 ? ($F{genre}).substring(0, 4999) + "...":($F{genre})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_VOL" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{volume}).length() > 5000 ? ($F{volume}).substring(0, 4999) + "...":($F{volume})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_PUBLISHERNAME" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{publishername}).length() > 5000 ? ($F{publishername}).substring(0, 4999) + "...":($F{publishername})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_PUBLISHERADDRESS" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{publisheraddress}).length() > 5000 ? ($F{publisheraddress}).substring(0, 4999) + "...":($F{publisheraddress})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_ISSUENR" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{issue}).length() > 5000 ? ($F{issue}).substring(0, 4999) + "...":($F{issue})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_DATE" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{date}).length() > 5000 ? ($F{date}).substring(0, 4999) + "...":($F{date})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_PUBSTATUS" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{publicationstatus}).length() > 5000 ? ($F{publicationstatus}).substring(0, 4999) + "...":($F{publicationstatus})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_NAMEOFEVENT" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{nameofevent}).length() > 5000 ? ($F{nameofevent}).substring(0, 4999) + "...":($F{nameofevent})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_DATEOFEVENT" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{dateofevent}).length() > 5000 ? ($F{dateofevent}).substring(0, 4999) + "...":($F{dateofevent})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_PLACEOFEVENT" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($F{placeofevent}).length() > 5000 ? ($F{placeofevent}).substring(0, 4999) + "...":($F{placeofevent})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0}).length() > 5000 ? ($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0}).substring(0, 4999) + "...":($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1}).length() > 5000 ? ($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1}).substring(0, 4999) + "...":($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2}).length() > 5000 ? ($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2}).substring(0, 4999) + "...":($V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2})) + "</syle>"]]></variableExpression>
+	</variable>
+	<variable name="LE_TITLE_2" class="java.lang.String">
+		<variableExpression><![CDATA["<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica\" foreColor=\"black\" backColor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (("rahat-lukum" + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2}).length() > 5000 ? ("rahat-lukum" + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2}).substring(0, 4999) + "...":("rahat-lukum" + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_0} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_1} + " " + $V{LayoutElementsCollection_Default_LE_13_LE_TITLE_2_E_2})) + "</syle>"]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band/>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="65">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="0" y="0" width="535" height="65" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" isStyledText="true">
+					<font fontName="Arial" size="14" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{title}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band/>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

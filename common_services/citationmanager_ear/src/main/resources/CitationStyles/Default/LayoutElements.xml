@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layoutElementsCollection name="LayoutElementsCollection_Default">
+  <layout-element name="Genre" ref="genre" />
+  <layout-element name="Title" ref="title" />
+  <layout-element name="TitleItalic" ref="title" >
+    <parameters>
+      <font-style ref="ITALIC" />
+    </parameters>
+    <elements />
+  </layout-element>
+  <layout-element name="CreatorsPersonsAPA" ref="creator/person" repeatable="yes">
+    <parameters position="last">
+      <delimiter value=", &amp; " />
+      <internal-delimiter value=", " />
+    </parameters>
+    <elements position="last">
+      <layout-element ref="family-name" />
+      <layout-element ref="given-name" func="get_initials" />
+    </elements>
+    <parameters>
+      <delimiter value=", " />
+      <internal-delimiter value=", " />
+      <max-count value="6"><![CDATA[et al.]]></max-count>
+    </parameters>
+    <elements>
+      <layout-element ref="family-name" />
+      <layout-element ref="given-name" func="get_initials" />
+    </elements>
+  </layout-element>
+  <layout-element name="CreatorsGroupsAPA" ref="creators/group" repeatable="yes">
+    <parameters>
+      <delimiter value=", " />
+      <max-count value="6"><![CDATA[et al.]]></max-count>
+    </parameters>
+    <elements>
+      <layout-element ref="corporatebody" />
+    </elements>
+  </layout-element>
+  <layout-element name="VolumeIssueBlock">
+    <parameters>
+      <starts-with value="(" />
+      <ends-with value=")." />
+      <delimiter value=", " />
+    </parameters>
+    <elements>
+      <layout-element ref="volume" />
+      <layout-element ref="physicaldescription" />
+    </elements>
+  </layout-element>
+  <layout-element name="PublisherBlock">
+    <parameters>
+      <starts-with value=" " />
+      <delimiter value=": " />
+    </parameters>
+    <elements>
+      <layout-element ref="publisheraddress" />
+      <layout-element ref="publishername" />
+    </elements>
+  </layout-element>
+  <layout-element name="SourceTitleVolumeIssuePhysicalDescriptionBlock">
+    <parameters>
+      <delimiter value=", " />
+    </parameters>
+    <elements>
+      <layout-element ref="sourcetitle">
+        <parameters>
+          <font-style ref="ITALIC" />
+        </parameters>
+        <elements />
+      </layout-element>
+      <layout-element ref="volume">
+        <parameters>
+          <font-style ref="ITALIC" />
+        </parameters>
+        <elements />
+      </layout-element>
+      <layout-element ref="issue">
+        <parameters>
+          <starts-with value=", " />
+        </parameters>
+        <elements />
+      </layout-element>
+      <layout-element ref="physicaldescription">
+        <parameters>
+          <starts-with value=", " />
+        </parameters>
+        <elements />
+      </layout-element>
+    </elements>
+  </layout-element>
+  <layout-element name="SequenceNr" ref="sequencenr" />
+  <layout-element name="Date" ref="date" />
+  <layout-element name="DateType" ref="datetype" />
+  <layout-element name="Issue" ref="issue" />
+  <layout-element name="PhysicalDescription" ref="physicaldescription" />
+  <layout-element name="PublicationStatus" ref="publicationstatus" />
+  <layout-element name="Volume" ref="volume" />
+  <layout-element name="PublisherName" ref="publishername" />
+  <layout-element name="PublisherAddress" ref="publisheraddress" />
+  <layout-element name="SourceTitle" ref="sourcetitle" />
+  <layout-element name="TitleOfSeries" ref="titleofseries" />
+  <layout-element name="NameOfEvent" ref="nameofevent" />
+  <layout-element name="PlaceOfEvent" ref="placeofevent" />
+  <layout-element name="DateOfEvent" ref="dateofevent" />
+  <layout-element name="EndDateOfEvent" ref="enddateofevent" />
+  <layout-element name="SourceCreatorFullname" ref="sourcecreatorfullname" />
+</layoutElementsCollection>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD Report Design//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
+
+<jasperReport name="eSciDoc" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="ScriptletForRepeatableElements_1163761798465">
+	<property name="ireport.scriptlethandling" value="2"/>
+	<property name="ireport.encoding" value="UTF-8"/>
+	<import value="java.util.*"/>
+	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="net.sf.jasperreports.engine.data.*"/>
+	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+	<queryString language="xPath">
+		<![CDATA["/record"]]>
+	</queryString>
+	<field name="genre" class="java.lang.String">
+		<fieldDescription><![CDATA[genre]]></fieldDescription>
+	</field>
+	<field name="title" class="java.lang.String">
+		<fieldDescription><![CDATA[title]]></fieldDescription>
+	</field>
+	<field name="sequencenr" class="java.lang.String">
+		<fieldDescription><![CDATA[sequencenr]]></fieldDescription>
+	</field>
+	<field name="date" class="java.lang.String">
+		<fieldDescription><![CDATA[date]]></fieldDescription>
+	</field>
+	<field name="datetype" class="java.lang.String">
+		<fieldDescription><![CDATA[date/@type]]></fieldDescription>
+	</field>
+	<field name="issue" class="java.lang.String">
+		<fieldDescription><![CDATA[issue]]></fieldDescription>
+	</field>
+	<field name="physicaldescription" class="java.lang.String">
+		<fieldDescription><![CDATA[physicaldescription]]></fieldDescription>
+	</field>
+	<field name="publicationstatus" class="java.lang.String">
+		<fieldDescription><![CDATA[publicationstatus]]></fieldDescription>
+	</field>
+	<field name="volume" class="java.lang.String">
+		<fieldDescription><![CDATA[volume]]></fieldDescription>
+	</field>
+	<field name="publishername" class="java.lang.String">
+		<fieldDescription><![CDATA[publisher/publishername]]></fieldDescription>
+	</field>
+	<field name="publisheraddress" class="java.lang.String">
+		<fieldDescription><![CDATA[publisher/publisheraddress]]></fieldDescription>
+	</field>
+	<field name="sourcetitle" class="java.lang.String">
+		<fieldDescription><![CDATA[source/sourcetitle]]></fieldDescription>
+	</field>
+	<field name="titleofseries" class="java.lang.String">
+		<fieldDescription><![CDATA[source/titleofseries]]></fieldDescription>
+	</field>
+	<field name="nameofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/nameofevent]]></fieldDescription>
+	</field>
+	<field name="placeofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/placeofevent]]></fieldDescription>
+	</field>
+	<field name="dateofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/dateofevent]]></fieldDescription>
+	</field>
+	<field name="enddateofevent" class="java.lang.String">
+		<fieldDescription><![CDATA[event/enddateofevent]]></fieldDescription>
+	</field>
+	<field name="sourcecreatorfullname" class="java.lang.String">
+		<fieldDescription><![CDATA[source/sourcecreators/person/creatorfullname]]></fieldDescription>
+	</field>
+	<variable name="CS_1_CSLD_1_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"true\" isUnderline=\"true\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_2())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_2()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_3" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_3())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_3()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_4" class="java.lang.String">
+		<variableExpression><![CDATA[$F{date}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).length() > 0 ? " (" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) + ")." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_5" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_5())).length() > 0 ? "In " + (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_5()) + " (Ed.)," : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_6" class="java.lang.String">
+		<variableExpression><![CDATA[$F{sourcetitle}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{sourcetitle}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{sourcetitle})) : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_7_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{volume}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{volume}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{volume})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_7_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{physicaldescription}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_7" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_1_P_default_E_7_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_7_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_7_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_1_P_default_E_7_P_default_E_2}).length() > 0 ? "(" + $V{CS_1_CSLD_1_P_default_E_7_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_7_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_7_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_1_P_default_E_7_P_default_E_2} + ")." : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_8_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publisheraddress}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_8_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publishername}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_8" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_1_P_default_E_8_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_8_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_8_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_1_P_default_E_8_P_default_E_2}).length() > 0 ? " " + $V{CS_1_CSLD_1_P_default_E_8_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_8_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_8_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_1_P_default_E_8_P_default_E_2} : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_9" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_9())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_9()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_10_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{volume}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{volume}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{volume})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_10_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{physicaldescription}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_10" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_1_P_default_E_10_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_10_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_10_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_1_P_default_E_10_P_default_E_2}).length() > 0 ? "(" + $V{CS_1_CSLD_1_P_default_E_10_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_10_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_10_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_1_P_default_E_10_P_default_E_2} + ")." : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_11_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publisheraddress}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_11_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publishername}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1_P_default_E_11" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_1_P_default_E_11_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_11_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_11_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_1_P_default_E_11_P_default_E_2}).length() > 0 ? " " + $V{CS_1_CSLD_1_P_default_E_11_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_11_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_11_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_1_P_default_E_11_P_default_E_2} : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"true\" isUnderline=\"true\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_2_P_default_E_2())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_2_P_default_E_2()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_3" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_2_P_default_E_3())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_2_P_default_E_3()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_4" class="java.lang.String">
+		<variableExpression><![CDATA[$F{date}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).length() > 0 ? " (" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) + ")." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_5_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publisheraddress}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publisheraddress})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_5_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{publishername}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publishername})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2_P_default_E_5" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_2_P_default_E_5_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_5_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_2_P_default_E_5_P_default_E_2}).length() > 0 ? " " + $V{CS_1_CSLD_2_P_default_E_5_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_5_P_default_E_1}.length()>0 ? ": " : "") + $V{CS_1_CSLD_2_P_default_E_5_P_default_E_2} : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"true\" isUnderline=\"true\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_3_P_default_E_2())).length() > 0 ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_3_P_default_E_2()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_3" class="java.lang.String">
+		<variableExpression><![CDATA[(((($P{REPORT_SCRIPTLET}).getCS_1_CSLD_3_P_default_E_3())).length() > 0 ? ", " + (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_3_P_default_E_3()) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_4" class="java.lang.String">
+		<variableExpression><![CDATA[$F{date}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"true\" isItalic=\"false\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Bold\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{date}))).length() > 0 ? " (" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{date})) + ")." : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_5_P_default_E_1" class="java.lang.String">
+		<variableExpression><![CDATA[$F{sourcetitle}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{sourcetitle}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{sourcetitle})) : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_5_P_default_E_2" class="java.lang.String">
+		<variableExpression><![CDATA[$F{volume}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"blue\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + ((($P{REPORT_SCRIPTLET}.xmlEncode($F{volume}))).length() > 0 ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{volume})) : "") + "</style>" : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_5_P_default_E_3" class="java.lang.String">
+		<variableExpression><![CDATA[$F{issue}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{issue}))).length() > 0 ? ", " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{issue})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_5_P_default_E_4" class="java.lang.String">
+		<variableExpression><![CDATA[$F{physicaldescription}!=null ? ((($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription}))).length() > 0 ? ", " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{physicaldescription})) : "") : ""]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3_P_default_E_5" class="java.lang.String">
+		<variableExpression><![CDATA[(($V{CS_1_CSLD_3_P_default_E_5_P_default_E_1} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_2} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_3}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_2}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_3} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_4}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_3}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_4}).length() > 0 ? $V{CS_1_CSLD_3_P_default_E_5_P_default_E_1} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_2} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_3}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_2}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_3} + ($V{CS_1_CSLD_3_P_default_E_5_P_default_E_4}.length()>0 && $V{CS_1_CSLD_3_P_default_E_5_P_default_E_3}.length()>0 ? ", " : "") + $V{CS_1_CSLD_3_P_default_E_5_P_default_E_4} : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_1" class="java.lang.String">
+		<variableExpression><![CDATA[(($F{genre}.equals("InBook")|| $F{genre}.equals("Interactive Resource")|| $F{genre}.equals("Lecture / Courseware")|| $F{genre}.equals("Other")|| $F{genre}.equals("Software") || $F{genre}.equals("Conference-Paper") || $F{genre}.equals("Conference-Report")) ? ((($V{CS_1_CSLD_1_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_2} + ($V{CS_1_CSLD_1_P_default_E_3}.length()>0 && $V{CS_1_CSLD_1_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_3} + ($V{CS_1_CSLD_1_P_default_E_4}.length()>0 && $V{CS_1_CSLD_1_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_4} + ($V{CS_1_CSLD_1_P_default_E_5}.length()>0 && $V{CS_1_CSLD_1_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_5} + ($V{CS_1_CSLD_1_P_default_E_6}.length()>0 && $V{CS_1_CSLD_1_P_default_E_5}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_6} + ($V{CS_1_CSLD_1_P_default_E_7}.length()>0 && $V{CS_1_CSLD_1_P_default_E_6}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_7} + ($V{CS_1_CSLD_1_P_default_E_8}.length()>0 && $V{CS_1_CSLD_1_P_default_E_7}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_8} + ($V{CS_1_CSLD_1_P_default_E_9}.length()>0 && $V{CS_1_CSLD_1_P_default_E_8}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_9} + ($V{CS_1_CSLD_1_P_default_E_10}.length()>0 && $V{CS_1_CSLD_1_P_default_E_9}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_10} + ($V{CS_1_CSLD_1_P_default_E_11}.length()>0 && $V{CS_1_CSLD_1_P_default_E_10}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_11}).length() > 0 ? $V{CS_1_CSLD_1_P_default_E_1} + ($V{CS_1_CSLD_1_P_default_E_2}.length()>0 && $V{CS_1_CSLD_1_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_2} + ($V{CS_1_CSLD_1_P_default_E_3}.length()>0 && $V{CS_1_CSLD_1_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_3} + ($V{CS_1_CSLD_1_P_default_E_4}.length()>0 && $V{CS_1_CSLD_1_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_4} + ($V{CS_1_CSLD_1_P_default_E_5}.length()>0 && $V{CS_1_CSLD_1_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_5} + ($V{CS_1_CSLD_1_P_default_E_6}.length()>0 && $V{CS_1_CSLD_1_P_default_E_5}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_6} + ($V{CS_1_CSLD_1_P_default_E_7}.length()>0 && $V{CS_1_CSLD_1_P_default_E_6}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_7} + ($V{CS_1_CSLD_1_P_default_E_8}.length()>0 && $V{CS_1_CSLD_1_P_default_E_7}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_8} + ($V{CS_1_CSLD_1_P_default_E_9}.length()>0 && $V{CS_1_CSLD_1_P_default_E_8}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_9} + ($V{CS_1_CSLD_1_P_default_E_10}.length()>0 && $V{CS_1_CSLD_1_P_default_E_9}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_10} + ($V{CS_1_CSLD_1_P_default_E_11}.length()>0 && $V{CS_1_CSLD_1_P_default_E_10}.length()>0 ? " " : "") + $V{CS_1_CSLD_1_P_default_E_11} + ".\n" : "")) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_2" class="java.lang.String">
+		<variableExpression><![CDATA[(($F{genre}.equals("Book")||$F{genre}.equals("Habilitation")||$F{genre}.equals("PHD-Thesis")||$F{genre}.equals("Proceedings")||$F{genre}.equals("Journal")||$F{genre}.equals("Series")||$F{genre}.equals("Talk at Event")||$F{genre}.equals("Thesis")) ? ((($V{CS_1_CSLD_2_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_2} + ($V{CS_1_CSLD_2_P_default_E_3}.length()>0 && $V{CS_1_CSLD_2_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_3} + ($V{CS_1_CSLD_2_P_default_E_4}.length()>0 && $V{CS_1_CSLD_2_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_4} + ($V{CS_1_CSLD_2_P_default_E_5}.length()>0 && $V{CS_1_CSLD_2_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_5}).length() > 0 ? $V{CS_1_CSLD_2_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_2} + ($V{CS_1_CSLD_2_P_default_E_3}.length()>0 && $V{CS_1_CSLD_2_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_3} + ($V{CS_1_CSLD_2_P_default_E_4}.length()>0 && $V{CS_1_CSLD_2_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_4} + ($V{CS_1_CSLD_2_P_default_E_5}.length()>0 && $V{CS_1_CSLD_2_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_5} + ".\n\n" : "")) : "")]]></variableExpression>
+	</variable>
+	<variable name="CS_1_CSLD_3" class="java.lang.String">
+		<variableExpression><![CDATA[(($F{genre}.equals("Article") || $F{genre}.equals("Issue") || $F{genre}.equals("Paper")) ? ((($V{CS_1_CSLD_3_P_default_E_1} + ($V{CS_1_CSLD_3_P_default_E_2}.length()>0 && $V{CS_1_CSLD_3_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_2} + ($V{CS_1_CSLD_3_P_default_E_3}.length()>0 && $V{CS_1_CSLD_3_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_3} + ($V{CS_1_CSLD_3_P_default_E_4}.length()>0 && $V{CS_1_CSLD_3_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_4} + ($V{CS_1_CSLD_3_P_default_E_5}.length()>0 && $V{CS_1_CSLD_3_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_5}).length() > 0 ? $V{CS_1_CSLD_3_P_default_E_1} + ($V{CS_1_CSLD_3_P_default_E_2}.length()>0 && $V{CS_1_CSLD_3_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_2} + ($V{CS_1_CSLD_3_P_default_E_3}.length()>0 && $V{CS_1_CSLD_3_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_3} + ($V{CS_1_CSLD_3_P_default_E_4}.length()>0 && $V{CS_1_CSLD_3_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_4} + ($V{CS_1_CSLD_3_P_default_E_5}.length()>0 && $V{CS_1_CSLD_3_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_3_P_default_E_5} + ".\n\n" : "")) : "")]]></variableExpression>
+	</variable>
+	<variable name="citation" class="java.lang.String">
+		<variableExpression><![CDATA[($P{REPORT_SCRIPTLET}.cleanCit($V{CS_1_CSLD_1} + $V{CS_1_CSLD_2} + $V{CS_1_CSLD_3}))]]></variableExpression>
+	</variable>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="52">
+			<staticText>
+				<reportElement key="staticText" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="13" width="533" height="32" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial Black" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Citation Ctyle: eSciDoc]]></text>
+			</staticText>
+			<line direction="BottomUp">
+				<reportElement key="line" mode="Opaque" x="0" y="50" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+				<graphicElement pen="2Point" fill="Solid"/>
+			</line>
+			<line>
+				<reportElement key="line" mode="Opaque" x="0" y="0" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+				<graphicElement pen="2Point" fill="Solid"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band/>
+	</pageHeader>
+	<columnHeader>
+		<band/>
+	</columnHeader>
+	<detail>
+		<band height="18">
+			<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField-1" mode="Transparent" x="1" y="1" width="533" height="17" isRemoveLineWhenBlank="true" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" rotation="None" lineSpacing="1_1_2" isStyledText="true">
+					<font reportFont="Normal"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$V{citation}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="27">
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="310" y="4" width="189" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Right" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="CP1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Page " + $V{PAGE_NUMBER} + " of "]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report" pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="499" y="4" width="36" height="19" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Helvetica" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="CP1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["" + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement key="line" mode="Opaque" x="0" y="3" width="535" height="1" forecolor="#000000" backcolor="#FFFFFF"/>
+				<graphicElement pen="2Point" fill="Solid"/>
+			</line>
+			<textField pattern="" isBlankWhenNull="false">
+				<reportElement key="textField" mode="Transparent" x="183" y="4" width="90" height="16" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Times-Roman" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Times-Roman" pdfEncoding="CP1252" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.util.Date"><![CDATA[new Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement key="staticText-1" mode="Transparent" x="1" y="5" width="184" height="13" forecolor="#000000" backcolor="#FFFFFF"/>
+				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
+				<textElement textAlignment="Left" verticalAlignment="Top" rotation="None" lineSpacing="Single">
+					<font fontName="Arial" size="10" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Generated by eSciDoc Reporting Tool at]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

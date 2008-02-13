@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/transcription" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/transcription" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile, transcription
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="escidoctypes.xsd"/>
+	<xs:element name="transcription" type="TranscriptionType"/>
+	<!--*******************************
+    TranscriptionType
+    ********************************-->
+	<xs:complexType name="TranscriptionType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:language"/>
+			<xs:element name="creator" type="TranscriptionCreatorType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="TranscriptionDatesGroup" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<!--*******************************
+    TranscriptionDateGroup
+    ********************************-->
+	<xs:group name="TranscriptionDatesGroup">
+		<xs:sequence>
+			<xs:element ref="dcterms:created" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<!--*******************************
+    TranscriptionCreatorType
+    ********************************-->
+	<xs:complexType name="TranscriptionCreatorType">
+		<xs:group ref="escidoc:CreatorGroup"/>
+		<xs:attribute name="role" type="TranscriptionCreatorRoleEnum" use="required" fixed="transcriber"/>
+	</xs:complexType>
+	<!--*******************************
+    TranscriptionCreatorRoleEnum
+    ********************************-->
+	<xs:simpleType name="TranscriptionCreatorRoleEnum">
+		<xs:restriction base="escidoc:CreatorRoleEnum">
+			<xs:enumeration value="transcriber"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!--*******************************
+    ReviewMethodEnum
+    ********************************-->
+	<xs:simpleType name="ReviewMethodEnum">
+		<xs:annotation>
+			<xs:documentation>The review method for the publication.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="internal"/>
+			<xs:enumeration value="peer"/>
+			<xs:enumeration value="no-review"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    DegreeEnum
+    ********************************-->
+	<xs:simpleType name="DegreeEnum">
+		<xs:annotation>
+			<xs:documentation>The degree which is achieved with the publication. Applicable to thesis publications.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="master"/>
+			<xs:enumeration value="diploma"/>
+			<xs:enumeration value="magister"/>
+			<xs:enumeration value="staatsexamen"/>
+			<xs:enumeration value="phd"/>
+			<xs:enumeration value="habilitation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    GenreEnum
+    ********************************-->
+	<xs:simpleType name="GenreEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="article"/>
+			<xs:enumeration value="book"/>
+			<xs:enumeration value="book-item"/>
+			<xs:enumeration value="proceedings"/>
+			<xs:enumeration value="conference-paper"/>
+			<xs:enumeration value="talk-at-event"/>
+			<xs:enumeration value="conference-report"/>
+			<xs:enumeration value="poster"/>
+			<xs:enumeration value="courseware-lecture"/>
+			<xs:enumeration value="thesis"/>
+			<xs:enumeration value="paper"/>
+			<xs:enumeration value="report"/>
+			<xs:enumeration value="journal"/>
+			<xs:enumeration value="issue"/>
+			<xs:enumeration value="series"/>
+			<xs:enumeration value="manuscript"/>
+			<xs:enumeration value="other"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    DateTypeEnum
+    ********************************-->
+	<xs:simpleType name="DateTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="created"/>
+			<xs:enumeration value="submitted"/>
+			<xs:enumeration value="accepted"/>
+			<xs:enumeration value="published"/>
+			<xs:enumeration value="modified"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    InvitationStatusEnum
+    ********************************-->
+	<xs:simpleType name="InvitationStatusEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="invited"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    AcquisitionDeviceTypeEnum
+    ********************************-->
+	<xs:simpleType name="AcquisitionDeviceTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="scanner"/>
+			<xs:enumeration value="camera"/>
+			<xs:enumeration value="microscope"/>
+			<xs:enumeration value="telescope"/>
+			<xs:enumeration value="computer"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    OriginalSizeUnitEnum
+    ********************************-->
+	<xs:simpleType name="OriginalSizeUnitEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="mile"/>
+			<xs:enumeration value="foot"/>
+			<xs:enumeration value="inch"/>
+			<xs:enumeration value="km"/>
+			<xs:enumeration value="m"/>
+			<xs:enumeration value="cm"/>
+			<xs:enumeration value="mm"/>
+			<xs:enumeration value="µm"/>
+			<xs:enumeration value="nm"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    CreatorRoleEnum
+    ********************************-->
+	<xs:simpleType name="CreatorRoleEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="author"/>
+			<xs:enumeration value="artist"/>
+			<xs:enumeration value="editor"/>
+			<xs:enumeration value="painter"/>
+			<xs:enumeration value="photographer"/>
+			<xs:enumeration value="illustrator"/>
+			<xs:enumeration value="commentator"/>
+			<xs:enumeration value="transcriber"/>
+			<xs:enumeration value="translator"/>
+			<xs:enumeration value="advisor"/>
+			<xs:enumeration value="contributor"/>
+			<xs:enumeration value="publisher"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    ColorDepthEnum
+    ********************************-->
+	<xs:simpleType name="ColorDepthEnum">
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="4"/>
+			<xs:enumeration value="16"/>
+			<xs:enumeration value="24"/>
+			<xs:enumeration value="32"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

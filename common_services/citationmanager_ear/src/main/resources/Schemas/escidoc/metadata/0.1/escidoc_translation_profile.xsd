@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/translation" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/translation" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile, translation
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="escidoctypes.xsd"/>
+	<xs:element name="translation" type="TranslationType"/>
+	<!--*******************************
+    TranslationType
+    ********************************-->
+	<xs:complexType name="TranslationType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:language"/>
+			<xs:element name="creator" type="TranslationCreatorType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:group ref="TranslationDateGroup" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<!--*******************************
+    TranslationDateGroup
+    ********************************-->
+	<xs:group name="TranslationDateGroup">
+		<xs:sequence>
+			<xs:element ref="dcterms:created" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<!--*******************************
+    TranslationCreatorType
+    ********************************-->
+	<xs:complexType name="TranslationCreatorType">
+		<xs:group ref="escidoc:CreatorGroup"/>
+		<xs:attribute name="role" type="TranslationCreatorRoleEnum" use="required"/>
+	</xs:complexType>
+	<!--*******************************
+    TranslationCreatorRoleEnum
+    ********************************-->
+	<xs:simpleType name="TranslationCreatorRoleEnum">
+		<xs:restriction base="escidoc:CreatorRoleEnum">
+			<xs:enumeration value="transcriber"/>
+			<xs:enumeration value="translator"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

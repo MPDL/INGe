@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<citation-styles-collection name="Default" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd">
+	<citation-style name="APA" element-specific="no" read-only="no">
+		<!-- BOOK CHAPTER -->
+		<!-- Question: Should courseware, other, conference-paper and conference-report handled identically? -->
+		<!-- Note: We need to differentiate between conference-papers published in a book and those published in a journal issue -->
+		<cs-layout-definition name="BookArticleOrChapter">
+			<parameters>
+				<valid-if><![CDATA[$F{@type}.equals("book-item")|| $F{@type}.equals("courseware-lecture")|| $F{@type}.equals("other")|| $F{@type}.equals("conference-paper") || $F{@type}.equals("conference-report")]]></valid-if>
+				<delimiter value=""/>
+				<ends-with value=".\n"/>
+			</parameters>
+			<elements>
+				<!-- BOOK CHAPTER, element "creator" of type person -->
+				<!-- Note: Restriction to type of creator required -->
+				<layout-element ref="creator[@role='author']/person" repeatable="yes">
+					<!-- Defining the layout of the last creator  -->
+					<parameters position="last">
+						<delimiter value=", &amp; "/>
+						<internal-delimiter value=", "/>
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+					<!-- Defining the layout of other creators  -->
+					<parameters>
+						<delimiter value=", "/>
+						<internal-delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+				</layout-element>
+				<!-- BOOK CHAPTER, element "creator" of type organization -->
+				<!-- Note: This might be a problem if creators of type "organization" and "person" do exist! -->
+				<layout-element ref="creator[@role='author']/organization" repeatable="yes">
+					<parameters>
+						<delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="organization-name"/>
+					</elements>
+				</layout-element>
+				<!-- BOOK CHAPTER, element "date" -->
+				<layout-element ref="date" func="get_year">
+					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value="). "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- BOOK CHAPTER, element "chapter title" -->
+				<layout-element ref="title">
+					<parameters>
+						<ends-with value=". "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- BOOK CHAPTER, element "source" -->
+				<!-- Note: The number of editors probably needs to be restricted to a maximum -->
+				<!-- Note: The editor might be a person or an organization again -->
+				<layout-element ref="source/creator[@role='editor']/person" repeatable="yes">
+					<parameters>
+						<starts-with value="In"/>
+						<ends-with value="(Eds.), "/>
+						<delimiter value=", "/>
+					</parameters>
+					<elements>
+						<layout-element ref="given-name" func="get_initials"/>
+						<layout-element ref="family-name"/>
+					</elements>
+				</layout-element>
+				<layout-element ref="source/title">
+					<parameters>
+						<font-style ref="ITALIC"/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element name="VolumeIssueBlock">
+					<parameters>
+						<starts-with value=" (pp. "/>
+						<ends-with value=")"/>
+						<delimiter value="-"/>
+					</parameters>
+					<elements>
+						<layout-element ref="source/start-page"/>
+						<layout-element ref="source/end-page"/>
+					</elements>
+				</layout-element>
+				<layout-element name="PublisherBlock">
+					<parameters>
+						<starts-with value=". "/>
+						<delimiter value=": "/>
+					</parameters>
+					<elements>
+						<layout-element ref="source/publishing-info/place"/>
+						<layout-element ref="source/publishing-info/publisher"/>
+					</elements>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>
+		<!-- BOOK, PROCEEDINGS, THESIS -->
+		<!-- Question: Should journal, series and talk-at-event be handled identically? -->
+		<cs-layout-definition name="Book">
+			<parameters>
+				<valid-if><![CDATA[$F{@type}.equals("book")||$F{@type}.equals("thesis")||$F{@type}.equals("proceedings")||$F{@type}.equals("journal")||$F{@type}.equals("series")||$F{@type}.equals("talk-at-event")]]></valid-if>
+				<ends-with value=".\n"/>
+			</parameters>
+			<elements>
+				<!-- BOOK, element "creator" of type person -->
+				<!-- Note: We need to differentiate between "edited books" and "authored books" -->
+				<layout-element ref="creator[@role='author']/person" repeatable="yes">
+					<parameters position="last">
+						<delimiter value=", &amp; "/>
+						<internal-delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+					<parameters>
+						<delimiter value=", "/>
+						<internal-delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+				</layout-element>
+				<!-- BOOK, element "creator" of type organization -->
+				<!-- Note: This might be a problem if creators of type "organization" and "person" do exist! -->
+				<layout-element ref="creator[@role='author']/organization" repeatable="yes">
+					<parameters>
+						<delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="organization-name"/>
+					</elements>
+				</layout-element>
+				<!-- BOOK, element "date" -->
+				<layout-element ref="date" func="get_year">
+					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value=")."/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- BOOK, element "book title" -->
+				<!-- Note: Editor is missing -->
+				<layout-element ref="title">
+					<parameters>
+						<ends-with value="."/>
+						<font-style ref="ITALIC"/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- BOOK, element "publishing-info" -->
+				<layout-element name="PublisherBlock">
+					<parameters>
+						<starts-with value=" "/>
+						<delimiter value=": "/>
+					</parameters>
+					<elements>
+						<layout-element ref="publishing-info/place"/>
+						<layout-element ref="publishing-info/publisher"/>
+					</elements>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>
+		<!-- JOURNAL ARTICLE -->
+		<!-- Question: Should issue and paper handled identically? -->
+		<!-- Note: The csld will be used by default if the genre is not explicitely defined -->
+		<cs-layout-definition name="JournalOrMagazineArticle">
+			<parameters>
+				<valid-if><![CDATA[$F{@type}.equals("article") || $F{@type}.equals("issue") || $F{@type}.equals("paper") || !($F{@type}.equals("book-item")|| $F{@type}.equals("courseware-lecture")|| $F{@type}.equals("other")|| $F{@type}.equals("conference-paper") || $F{@type}.equals("conference-report")||$F{@type}.equals("book")||$F{@type}.equals("thesis")||$F{@type}.equals("proceedings")||$F{@type}.equals("journal")||$F{@type}.equals("series")||$F{@type}.equals("talk-at-event"))]]></valid-if>
+				<ends-with value=".\n"/>
+			</parameters>
+			<elements>
+				<!-- JOURNAL ARTICLE, element "creator" of type person -->
+				<layout-element ref="creator[@role='author']/person|organization" repeatable="yes">
+					<parameters position="last">
+						<delimiter value=", &amp; "/>
+						<internal-delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+					<parameters>
+						<delimiter value=", "/>
+						<internal-delimiter value=", "/>
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name|organization-name"/>
+						<layout-element ref="given-name" func="get_initials"/>
+					</elements>
+				</layout-element>
+				<!-- JOURNAL ARTICLE, element "creator" of type organization -->
+				<!-- Note: This might be a problem if creators of type "organization" and "person" do exist! -->
+				<!-- Note: Restriction to type of creator required -->
+				<!--       <layout-element ref="creator[@role='author']/organization" repeatable="yes">
+          <parameters>
+            <starts-with value=", " />
+            <delimiter value=", " />
+            <max-count value="6"><![CDATA[et al.]]></max-count>
+          </parameters>
+          <elements>
+            <layout-element ref="organization-name" />
+          </elements>
+        </layout-element> -->
+				<!-- JOURNAL ARTICLE, element "date"  -->
+				<layout-element ref="date" func="get_year">
+					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value=")."/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- JOURNAL ARTICLE, element "journal article"  -->
+				<layout-element ref="title">
+					<parameters>
+						<ends-with value=". "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<!-- JOURNAL ARTICLE, element "source"  -->
+				<layout-element name="SourceTitleVolumeIssuePhysicalDescriptionBlock">
+					<parameters>
+						<starts-with value=""/>
+						<ends-with value="."/>
+						<delimiter value=""/>
+					</parameters>
+					<elements>
+						<layout-element ref="source/title">
+							<parameters>
+								<font-style ref="ITALIC"/>
+							</parameters>
+							<elements/>
+						</layout-element>
+						<layout-element ref="source/volume">
+							<parameters>
+								<font-style ref="ITALIC"/>
+								<starts-with value=", "/>
+							</parameters>
+							<elements/>
+						</layout-element>
+						<layout-element ref="source/issue">
+							<parameters>
+								<starts-with value="("/>
+								<ends-with value=")"/>
+							</parameters>
+							<elements/>
+						</layout-element>
+						<layout-element ref="source/start-page">
+							<parameters>
+								<starts-with value=", "/>
+							</parameters>
+							<elements/>
+						</layout-element>
+						<layout-element ref="source/end-page">
+							<parameters>
+								<starts-with value="-"/>
+							</parameters>
+							<elements/>
+						</layout-element>
+					</elements>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>
+	</citation-style>
+</citation-styles-collection>

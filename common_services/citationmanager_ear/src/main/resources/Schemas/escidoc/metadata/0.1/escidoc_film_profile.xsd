@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/film" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/film" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+    eSciDoc metadata profile, film
+
+    </xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>	
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" schemaLocation="escidoctypes.xsd"/>
+	<xs:element name="film" type="FilmType"/>
+	<!--*******************************
+    FilmType
+    ********************************-->
+	<xs:complexType name="FilmType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:description" minOccurs="0"/>
+			<xs:element ref="dcterms:alternative" minOccurs="0"/>
+			<xs:element name="creator" type="FilmCreatorType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="location" type="dc:SimpleLiteral" minOccurs="0"/>
+			<xs:group ref="FilmDatesGroup" minOccurs="0"/>
+			<xs:element name="film-acquisition-device" type="escidoc:AcquisitionDeviceType" minOccurs="0"/>
+			<xs:element name="recording" type="dc:SimpleLiteral"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="FilmTypeEnum" use="required"/>
+		<xs:attribute ref="xml:lang" use="optional"/>
+	</xs:complexType>
+	<!--*******************************
+    FilmDatesGroup
+    ********************************-->
+	<xs:group name="FilmDatesGroup">
+		<xs:sequence>
+			<xs:element ref="dcterms:created" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<!--*******************************
+    FilmCreatorType
+    ********************************-->
+	<xs:complexType name="FilmCreatorType">
+		<xs:group ref="escidoc:CreatorGroup"/>
+		<xs:attribute name="role" type="FilmCreatorRoleEnum" use="required"/>
+	</xs:complexType>
+	<!--*******************************
+    FilmCreatorRoleEnum
+    ********************************-->
+	<xs:simpleType name="FilmCreatorRoleEnum">
+		<xs:restriction base="escidoc:CreatorRoleEnum">
+			<xs:enumeration value="artist"/>
+			<xs:enumeration value="photographer"/>
+			<xs:enumeration value="publisher"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--*******************************
+    FilmTypeEnum
+    ********************************-->
+	<xs:simpleType name="FilmTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="video-art"/>
+			<xs:enumeration value="documentary"/>
+			<xs:enumeration value="simulation"/>
+			<xs:enumeration value="animation"/>
+			<xs:enumeration value="mixed"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

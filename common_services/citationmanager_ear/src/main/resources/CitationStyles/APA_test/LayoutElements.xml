@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layoutElementsCollection name="LayoutElementsCollection_Default">
+  <layoutElement name="Genre" ref="genre" />
+  <layoutElement name="Title" ref="title" />
+  <layoutElement name="SequenceNr" ref="sequencenr" />
+  <layoutElement name="Date" ref="date" />
+  <layoutElement name="DateType" ref="date/@type" />
+  <layoutElement name="Issue" ref="issue" />
+  <layoutElement name="PhysicalDescription" ref="physicaldescription" />
+  <layoutElement name="PublicationStatus" ref="publicationstatus" />
+  <layoutElement name="Volume" ref="volume" />
+  <layoutElement name="PublisherName" ref="publisher/publishername" />
+  <layoutElement name="PublisherAddress" ref="publisher/publisheraddress" />
+  <layoutElement name="SourceTitle" ref="source/sourcetitle" />
+  <layoutElement name="TitleOfSeries" ref="source/titleofseries" />
+  <layoutElement name="NameOfEvent" ref="event/nameofevent" />
+  <layoutElement name="PlaceOfEvent" ref="event/placeofevent" />
+  <layoutElement name="DateOfEvent" ref="event/dateofevent" />
+  <layoutElement name="EndDateOfEvent" ref="event/enddateofevent" />
+  <layoutElement name="SourceCreatorFullname" ref="source/sourcecreators/person/creatorfullname" />
+</layoutElementsCollection>
+
