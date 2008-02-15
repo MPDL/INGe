@@ -17,9 +17,9 @@
 			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/common_logic
 		</connection>
 		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/common_logic
+			scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic
 		</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
