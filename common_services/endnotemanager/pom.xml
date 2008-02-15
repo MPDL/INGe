@@ -19,9 +19,9 @@
 			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager
 		</connection>
 		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager
+			scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager
 		</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
