@@ -13,7 +13,7 @@
   
   <scm>
 		<connection>
-			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic
+			scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic
 		</connection>
 		<developerConnection>
 			scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic
