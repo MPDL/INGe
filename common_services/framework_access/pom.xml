@@ -10,7 +10,7 @@
 	<name>framework_access</name>
 	<version>1.3-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</connection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>

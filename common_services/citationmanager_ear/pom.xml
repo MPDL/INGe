@@ -13,7 +13,7 @@
 	<version>1.0-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/citationmanager_ear</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>

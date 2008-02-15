@@ -15,7 +15,7 @@
 
 	<scm>
 		<connection>
-			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/validation
+			scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation
 		</connection>
 		<developerConnection>
 			scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation
