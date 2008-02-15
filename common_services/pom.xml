@@ -167,8 +167,8 @@
 
 	<scm>
 		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
-		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
-		<url>http://zim02.gwdg.de/common/trunk/common_services</url>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<distributionManagement>
@@ -361,6 +361,13 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
+				
+				<!-- DB settings --> 
+				<db.driver>org.postgresql.Driver</db.driver>
+				<db.url>jdbc:postgresql://localhost:5432/</db.url>
+				<db.name>validation</db.name>
+				<db.superuser.login>postgres</db.superuser.login>
+				<db.superuser.password>postgres</db.superuser.password>
 			</properties>
 		</profile>
 		<profile>
@@ -419,6 +426,13 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
+				
+				<!-- DB settings --> 
+				<db.driver>org.postgresql.Driver</db.driver>
+				<db.url>jdbc:postgresql://localhost:5432/</db.url>
+				<db.name>validation</db.name>
+				<db.superuser.login>postgres</db.superuser.login>
+				<db.superuser.password>postgres</db.superuser.password>
 			</properties>
 		</profile>
 		<profile>
