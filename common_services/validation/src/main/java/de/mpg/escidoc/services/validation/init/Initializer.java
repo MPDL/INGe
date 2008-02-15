@@ -160,7 +160,7 @@ public class Initializer
 
     private static void executeSqlScript(final String scriptName, final Connection conn) throws Exception
     {
-        String sql = ResourceUtil.getResourceAsString("resource/sql/" + scriptName);
+        String sql = ResourceUtil.getResourceAsString("sql/" + scriptName);
         sql = replaceProperties(sql);
         LOGGER.debug("Executing script: " + sql);
         String[] commands = splitSqlScript(sql);

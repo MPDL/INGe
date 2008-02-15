@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 <?xar XSLT?>
-<xsl:stylesheet xml:base="resource/stylesheet" version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:axsl="http://www.w3.org/1999/XSL/TransformAlias" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:exsl="http://exslt.org/common" xmlns:msxsl="urn:schemas-microsoft-com:xslt" extension-element-prefixes="exsl msxsl">
+<xsl:stylesheet xml:base="stylesheet" version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:axsl="http://www.w3.org/1999/XSL/TransformAlias" xmlns:sch="http://www.ascc.net/xml/schematron" xmlns:iso="http://purl.oclc.org/dsdl/schematron" xmlns:exsl="http://exslt.org/common" xmlns:msxsl="urn:schemas-microsoft-com:xslt" extension-element-prefixes="exsl msxsl">
 
 	<xsl:import href="iso-skeleton.xsl"/>
 	<xsl:import href="iso_schematron_skeleton_for_saxon.xsl"/>

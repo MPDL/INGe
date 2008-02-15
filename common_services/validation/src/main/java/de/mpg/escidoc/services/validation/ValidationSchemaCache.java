@@ -496,7 +496,7 @@ public final class ValidationSchemaCache
         {
             try
             {
-                InputStream fileIn = ResourceUtil.getResourceAsStream("resource/stylesheet/validation_report.xsl");
+                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_report.xsl");
 
                 BufferedReader br = new BufferedReader(new InputStreamReader(fileIn));
                 String line = null;
@@ -530,7 +530,7 @@ public final class ValidationSchemaCache
 
             try
             {
-                InputStream fileIn = ResourceUtil.getResourceAsStream("resource/stylesheet/validation_points.xsl");
+                InputStream fileIn = ResourceUtil.getResourceAsStream("stylesheet/validation_points.xsl");
                 phaseTemplate = factory.newTransformer(new StreamSource(fileIn));
                 LOGGER.debug("phaseTemplate: " + phaseTemplate);
             }

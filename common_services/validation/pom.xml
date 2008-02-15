@@ -18,9 +18,9 @@
 			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/validation
 		</connection>
 		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services/validation
+			scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation
 		</developerConnection>
-		<url>http://zim02.gwdg.de/repos/commonview.cvs</url>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
