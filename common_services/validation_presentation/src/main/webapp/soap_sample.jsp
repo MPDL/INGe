@@ -112,7 +112,7 @@
 		<form name="form" method="post" action="rest">
 			<p>
 				Paste your item XML here:<br/>
-				<textarea name="content" rows="10" cols="100"><%= ResourceUtil.getResourceAsString("WEB-INF/resource/example/invalidItem.xml") %></textarea>
+				<textarea name="content" rows="10" cols="100"><%= ResourceUtil.getResourceAsString("WEB-INF/example/invalidItem.xml") %></textarea>
 			</p>
 			<p>
 				Choose a validation point:<br/>
