@@ -166,7 +166,7 @@
 	</modules>
 
 	<scm>
-		<connection>scm:svn:http://zim02.gwdg.de/repos/common/trunk/common_services</connection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
 		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
