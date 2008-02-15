@@ -14,8 +14,8 @@
 
 	<scm>
 		<connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
-		<developerConnection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/view.cvs</url>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -29,7 +29,10 @@
 						<phase>process-resources</phase>
 						<configuration>
 							<tasks>
-								<copy file="target/classes/pubman.properties" todir="${jboss.home}/server/default/conf" overwrite="true" />
+								<!-- copy pubman properties to server cond -->
+								<copy file="target/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf" overwrite="true" />
+								<!-- copy validation descriptor to server -->
+								<copy file="target/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy" overwrite="true" />
 							</tasks>
 						</configuration>
 						<goals>
@@ -116,6 +119,11 @@
 						<jarModule>
 							<groupId>net.sf.saxon</groupId>
 							<artifactId>saxon</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>postgresql</groupId>
+							<artifactId>postgresql</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 					</modules>
@@ -239,7 +247,7 @@
 			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
-	
+
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -251,6 +259,12 @@
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>8.1-404.jdbc3</version>
+			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
 
