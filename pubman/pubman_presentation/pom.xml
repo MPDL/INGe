@@ -17,9 +17,9 @@
 			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_presentation
 		</connection>
 		<developerConnection>
-			scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_presentation
+			scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_presentation
 		</developerConnection>
-		<url>http://zim02.gwdg.de/repos/pubman/view.cvs</url>
+		<url>http://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 
 	<build>

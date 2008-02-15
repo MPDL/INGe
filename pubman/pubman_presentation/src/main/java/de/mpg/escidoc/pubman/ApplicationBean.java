@@ -329,6 +329,7 @@ public class ApplicationBean extends FacesBean
             try
             {
                 this.appTitle += " " + this.getVersion();
+                logger.info("Version retrieved.");
             }
             catch (PubManVersionNotAvailableException e)
             {
@@ -350,7 +351,7 @@ public class ApplicationBean extends FacesBean
     {
         try
         {
-            Properties properties = CommonUtils.getProperties("build.properties");
+            Properties properties = CommonUtils.getProperties("version.properties");
             return properties.getProperty("escidoc.pubman.version");
         }
         catch (IOException e)
