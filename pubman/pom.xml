@@ -163,7 +163,7 @@
 	</modules>
 
 	<scm>
-		<connection>scm:svn:http://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
 		<url>http://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
