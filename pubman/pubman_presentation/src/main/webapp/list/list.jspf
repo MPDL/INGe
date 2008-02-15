@@ -32,8 +32,8 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
 <div>
 	<f:subview id="list">
-		<div>
-			<h:panelGroup>
+		<div class="paginator">
+			<h:panelGroup layout="block" styleClass="paginator">
 				<h:outputText value="#{lbl.ItemList_Total} #{DepositorWSSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
 				<h:selectOneMenu value="#{DepositorWSSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
 					<f:selectItem itemValue="3" itemLabel="3"></f:selectItem>
@@ -51,7 +51,8 @@ All rights reserved. Use is subject to license terms.
 				<h:commandButton value=">" disabled="#{DepositorWSSessionBean.isLastPage}" action="#{DepositorWSSessionBean.gotoFollowingPage}"/>
 				<h:commandButton value=">|" disabled="#{DepositorWSSessionBean.isLastPage}" action="#{DepositorWSSessionBean.gotoLastPage}"/>
 			</h:panelGroup>
-			<h:panelGroup>
+			<div class="displayControls"></div>
+			<h:panelGroup layout="block" styleClass="listHeader dark">
 				<h:selectOneMenu immediate="true" onchange="submit();" valueChangeListener="#{DepositorWSSessionBean.setSelection}">
 					<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />
 				</h:selectOneMenu>
@@ -66,19 +67,24 @@ All rights reserved. Use is subject to license terms.
 				<h:commandButton id="sortOrderAsc" image="images/sort_icon_ascending.jpg" rendered="#{DepositorWSSessionBean.isAscending}" actionListener="#{DepositorWSSessionBean.setSortOrder}"/>
 				<h:commandButton id="sortOrderDesc" image="images/sort_icon_descending.jpg" rendered="#{!DepositorWSSessionBean.isAscending}" actionListener="#{DepositorWSSessionBean.setSortOrder}"/>
 				
-				<h:commandButton image="images/short_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToShortView}"/>
-				<h:commandButton image="images/medium_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToMediumView}"/>
+				<h:panelGroup layout="block" styleClass="displayControls">
+					<h:outputLabel value="#{lbl.ItemList_Details}"/>
+					<h:commandButton image="images/short_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToShortView}"/>
+					<h:commandButton image="images/medium_view_item.jpg" actionListener="#{DepositorWSSessionBean.switchToMediumView}"/>
+				</h:panelGroup>
 			</h:panelGroup>
 			<h:dataTable id="listtable" var="item" value="#{DepositorWSSessionBean.currentPubItemList}"
 				first="#{DepositorWSSessionBean.currentPubItemListPointer}"
-				rows="#{DepositorWSSessionBean.itemsPerPage}">
+				rows="#{DepositorWSSessionBean.itemsPerPage}" rowClasses="odd, even">
 				<h:column>
-					<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
-					<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}">
-						<h:outputText value="#{item.metadata.title}"/>
-					</h:outputLink>
-					<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
-					<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+					<h:panelGroup styleClass="listItemHeader">
+						<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
+						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}">
+							<h:outputText value="#{item.metadata.title}"/>
+						</h:outputLink>
+						<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
+						<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+					</h:panelGroup>
 					<h:panelGroup rendered="#{item.shortView}">
 						<h:outputLabel value="#{lbl.ViewItemShort_lblCreators}"/>
 						<h:outputText value="#{item.creators}"/>

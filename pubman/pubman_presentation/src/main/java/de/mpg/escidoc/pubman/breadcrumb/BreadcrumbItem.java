@@ -95,6 +95,9 @@ public class BreadcrumbItem extends InternationalizedImpl
     // The jsp page that should be addressed when the link in the breadcrumb
     // navigation is clicked, e.g. "ViewItem.jsp"
     private String page;
+    
+    // Flag indicating that this item is the last one.
+    private boolean isLast = false;
 
     /**
      * Default constructor.
@@ -153,4 +156,12 @@ public class BreadcrumbItem extends InternationalizedImpl
 
         return (page.equals(((BreadcrumbItem) other).getPage()));
     }
+
+	public boolean getIsLast() {
+		return isLast;
+	}
+
+	public void setIsLast(boolean isLast) {
+		this.isLast = isLast;
+	}
 }

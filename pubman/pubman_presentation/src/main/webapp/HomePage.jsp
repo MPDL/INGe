@@ -28,8 +28,8 @@
  All rights reserved. Use is subject to license terms.
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
+	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
@@ -39,14 +39,13 @@
 				<meta http-equiv="pragma" content="no-cache"/>
 				<meta http-equiv="cache-control" content="no-cache"/>
 				<meta http-equiv="expires" content="0"/>
-				<!-- FrM: Moved JS sources to external file -->
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 			</head>
-			<body>
+			<body><h:form id="form1">
 				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 				<div id="page_margins">
 					<div id="page">
-						<h:form id="form1">
+						
 							<div id="header">
 								<jsp:directive.include file="desktop/Header.jspf" />
 								<jsp:directive.include file="desktop/Login.jspf" />
@@ -79,10 +78,10 @@
 									</div>
 								</div>
 							</div>
-						</h:form>
+						
 					</div>
 				</div>
-			</body>
+			</h:form></body>
 		</html>
 	</f:view>
 </jsp:root>

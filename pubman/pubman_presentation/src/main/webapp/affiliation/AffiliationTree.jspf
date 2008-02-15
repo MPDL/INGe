@@ -30,7 +30,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
-<!-- <%@ taglib uri="http://java.sun.com/jsf/ri/sandbox" prefix="risb" %> -->
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 <div>
 	<f:loadBundle var="lbl"	basename="Label" />
 	<f:subview id="AffiliationTreePage">
@@ -38,7 +38,14 @@
 			<h:outputText id="txtOrga" value="#{lbl.AffiliationTree_txtHeadline}"/>
 		</h1>
 		<br/>
-		<risb:tree binding="#{AffiliationTree.treeAffiliation}" id="affiliationTree"  />
+		
+		<tr:tree var="node" value="#{AffiliationTree.treeAffiliation}">
+			<f:facet name="nodeStamp">
+				<tr:outputText value="#{node.firstname}"/>
+			</f:facet>
+		</tr:tree>
+		
+		
 		<h:panelGrid id="panButtons" columns="1" cellspacing="25" cellpadding="0">
 			<h:commandLink id="lnkSelect" binding="#{AffiliationTree.lnkSelect}"
 				 value="#{lbl.AffiliationTree_lnkSelect}" action="#{AffiliationTree.getNode}" />

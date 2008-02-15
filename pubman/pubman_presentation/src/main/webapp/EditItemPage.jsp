@@ -27,7 +27,7 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 <jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 <f:view locale="#{InternationalizationHelper.userLocale}">
 		<f:loadBundle var="lbl" basename="Label"/>
@@ -46,7 +46,7 @@
 	<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 	<div id="page_margins">
 						<div id="page">
-		<h:form id="form1">
+		<h:form id="form1" enctype="multipart/form-data">
 		<div id="header">
 		<jsp:directive.include file="desktop/Header.jspf"/>
 		<jsp:directive.include file="desktop/Login.jspf"/>

@@ -1,4 +1,4 @@
-<%
+<jsp:scriptlet>
             /* 
             CDDL HEADER START
 
@@ -26,9 +26,9 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%>
+</jsp:scriptlet>
 <div xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html" xmlns:c="http://java.sun.com/jsp/jstl/core"><f:subview
+	xmlns:h="http://java.sun.com/jsf/html"><f:subview
 	id="Navigation">
 	<ul>
 		<li><h:commandLink id="lnkHome" action="#{Navigation.loadHome}">

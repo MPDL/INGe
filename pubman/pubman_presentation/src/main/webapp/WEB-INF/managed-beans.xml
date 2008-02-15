@@ -389,8 +389,13 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>Test</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.Test</managed-bean-class>
+		<managed-bean-name>Loop</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.jsf.tags.Loop</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>FileUploadBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.editItem.FileUploadBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 </faces-config>

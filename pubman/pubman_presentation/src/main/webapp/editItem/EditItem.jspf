@@ -29,6 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <div style="width: 860px;"><f:subview id="EditItem">
 <h1><h:outputText id="valOrientationText" styleClass="orientationHeader" style="left: 0px; top: 0px" value="#{lbl.EditItemPage}" /></h1>
@@ -56,15 +57,7 @@
 		<%@ include file="ui/TitleCollection.jspf"%>
 	</h:panelGrid>
 
-	<%
-	            /*	 
-	            <h:panelGrid id="panFile" styleClass="editItemOuterBlockPanel" cellspacing="0" rowClasses="list-row-odd,list-row-even">
-	            <h:outputText id="lblFile" value="#{lbl.EditItem_lblFile}" styleClass="editItemBlockHeaders"/>
-	            <h:panelGrid id="panDynamicFile" binding="#{EditItem.panDynamicFile}" rowClasses="list-row-odd,list-row-even" styleClass="editItemInnerPanel" cellspacing="0">
-	            </h:panelGrid>
-	            </h:panelGrid>
-	             */
-	%>
+	<tr:inputFile label="Upload:" valueChangeListener="#{FileUploadBean.fileUploaded}"/>
 
 	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
 		<h:outputText id="lblPersonsAndOrganizations" style="font-weight: bold" value="#{lbl.EditItem_lblPersonsAndOrganizations}" />

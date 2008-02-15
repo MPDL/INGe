@@ -40,6 +40,7 @@ import javax.naming.InitialContext;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
@@ -72,7 +73,7 @@ public class AffiliationTree extends FacesBean
     // Faces navigation string
     public final static String LOAD_AFFILIATIONTREE = "loadAffiliationTree";
     // binded components in JSP
-    private YuiTree treeAffiliation;
+    private TreeModel treeAffiliation;
     private HtmlCommandLink lnkSelect = new HtmlCommandLink();
     private String text = new String();
     
