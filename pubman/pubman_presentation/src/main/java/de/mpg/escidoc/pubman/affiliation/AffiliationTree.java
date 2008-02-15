@@ -29,7 +29,6 @@
 
 package de.mpg.escidoc.pubman.affiliation;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,26 +36,21 @@ import javax.faces.component.UIViewRoot;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
-import de.mpg.escidoc.pubman.appbase.FacesBean;
-
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.ui.AffiliationTreeNode;
-import de.mpg.escidoc.pubman.affiliation.ui.AffiliationTreeNodeUI;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.ui.OrganizationUI;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.DataGathering;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * Fragment class for the AffiliationTree. This class provides all functionality for displaying all affiliations and its
@@ -146,7 +140,7 @@ public class AffiliationTree extends FacesBean
         if (this.getAffiliationSessionBean().isWasInit() == false)   //only if we have to create the tree new!
         {
             this.getAffiliationSessionBean().setWasInit(true);
-            this.getTreeAffiliation().getChildren().clear();
+            //this.getTreeAffiliation().getChildren().clear();
             if (this.getAffiliationSessionBean().getCurrentAffiliationList() != null)
             {
                 if (logger.isDebugEnabled())
@@ -156,15 +150,15 @@ public class AffiliationTree extends FacesBean
                 }
                 for (int i = 0; i < this.getAffiliationSessionBean().getCurrentAffiliationList().size(); i++)
                 {   
-                    AffiliationTreeNodeUI affiliationTreeNodeUI = new AffiliationTreeNodeUI(
-                    		this.getAffiliationSessionBean().getCurrentAffiliationList().get(i));
-                    treeAffiliation.getChildren().add(affiliationTreeNodeUI.getUIComponent());
+                    //AffiliationTreeNodeUI affiliationTreeNodeUI = new AffiliationTreeNodeUI(
+                    //		this.getAffiliationSessionBean().getCurrentAffiliationList().get(i));
+                    //treeAffiliation.getChildren().add(affiliationTreeNodeUI.getUIComponent());
                 }
             }
         }
         else    //don't expand the nodes of the top level affiliations
         {
-            treeAffiliation.setExpandOnSelect(false);
+            //treeAffiliation.setExpandOnSelect(false);
         }
     }
 
@@ -188,7 +182,7 @@ public class AffiliationTree extends FacesBean
         {
             SearchResultList.isInSearch = true; //the search is started
             UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-            String selectedNodeID = treeAffiliation.getSelected();
+            String selectedNodeID = null; //treeAffiliation.getSelected();
             AffiliationTreeNode selectedTreeNode = (AffiliationTreeNode)viewRoot.findComponent(selectedNodeID);
             
             if (selectedTreeNode != null)
@@ -227,7 +221,7 @@ public class AffiliationTree extends FacesBean
         {
             SearchResultList.isInSearch = true; //the search is started
             UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-            String selectedNodeID = treeAffiliation.getSelected();
+            String selectedNodeID = null; //treeAffiliation.getSelected();
             if (selectedNodeID != null)
             {
                 //get the selected tree node
@@ -302,12 +296,12 @@ public class AffiliationTree extends FacesBean
         return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
     
-    public YuiTree getTreeAffiliation()
+    public TreeModel getTreeAffiliation()
     {
         return treeAffiliation;
     }
 
-    public void setTreeAffiliation(YuiTree treeAffiliation)
+    public void setTreeAffiliation(TreeModel treeAffiliation)
     {
         this.treeAffiliation = treeAffiliation;
     }
