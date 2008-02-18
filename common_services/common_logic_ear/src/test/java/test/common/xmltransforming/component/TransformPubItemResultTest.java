@@ -94,7 +94,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
     private static String SEARCH_RESULT_SAMPLE_FILE = TEST_FILE_ROOT + "search-result_sample.xml";
     private static String SEARCH_RESULT_SAMPLE2_FILE = TEST_FILE_ROOT + "search-result_sample2.xml";
     private static String COMPLEX_SEARCH_RESULT_SAMPLE1_FILE = TEST_FILE_ROOT + "complex_search-result_sample1.xml";
-    private static final String SEARCH_RESULT_SCHEMA_FILE = "misc/xsd/soap/search-result/0.3/search-result.xsd";
+    private static final String SEARCH_RESULT_SCHEMA_FILE = "src/test/resources/xsd/soap/search-result/0.3/search-result.xsd";
 
     /**
      * An instance of XmlTransforming.
