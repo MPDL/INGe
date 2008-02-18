@@ -223,7 +223,7 @@ public class Initializer
 
     private static void insertValidationData(final Connection conn) throws Exception
     {
-        URL dirUrl = Initializer.class.getClassLoader().getResource("WEB-INF/resource/schema");
+        URL dirUrl = Initializer.class.getClassLoader().getResource("schema");
         String[] path = dirUrl.getPath().split("/|\\\\");
         String modifiedPath = "";
         for (String pathElement : path)
