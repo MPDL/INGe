@@ -61,7 +61,7 @@
 		<!-- directory to store temporary files -->
 		<param-name>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR</param-name>
 		<!-- Use a TrinidadUploads subdirectory of /tmp -->
-		<param-value>c:/temp/upload</param-value>
+		<param-value>upload</param-value>
 	</context-param>
 
   <!-- Trinidad by default uses an optimized client-side state saving

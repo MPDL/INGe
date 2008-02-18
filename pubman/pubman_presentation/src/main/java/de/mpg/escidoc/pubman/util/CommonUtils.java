@@ -53,6 +53,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
@@ -440,6 +441,23 @@ public class CommonUtils extends InternationalizedImpl
         }
 
         return pubItemList;
+    }
+
+    /**
+     * Converts a list of AffiliationVOs to a list of AffiliationVOPresentations.
+     * @param list the list of AffiliationVOs
+     * @return the list of AffiliationVOPresentations
+     */
+    public static List<AffiliationVOPresentation> convertToAffiliationVOPresentationList(List<AffiliationVO> list)
+    {
+        List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+        	affiliationList.add(new AffiliationVOPresentation(list.get(i)));
+        }
+
+        return affiliationList;
     }
 
     /**

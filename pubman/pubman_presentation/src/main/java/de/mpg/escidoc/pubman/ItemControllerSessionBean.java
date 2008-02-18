@@ -46,6 +46,8 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.DataGathering;
@@ -1484,7 +1486,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all child affiliations
      * @throws Exception if framework access fails
      */
-    public ArrayList<AffiliationVO> retrieveChildAffiliations(AffiliationVO parentAffiliation) throws Exception
+    public List<AffiliationVOPresentation> retrieveChildAffiliations(AffiliationVO parentAffiliation) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1509,9 +1511,9 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        List<AffiliationVO> itemList = (List) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
-        return itemList;
+        return CommonUtils.convertToAffiliationVOPresentationList(itemList);
     }
     
     /**

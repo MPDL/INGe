@@ -38,6 +38,7 @@ import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -47,8 +48,11 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.ui.OrganizationUI;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.DataGathering;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
@@ -90,17 +94,12 @@ public class AffiliationTree extends FacesBean
         //get the instance of the Affiliation Tree from the Session Bean
         this.treeAffiliation = this.getAffiliationSessionBean().getTreeAffiliation();
         
-//        if (this.getAffiliationSessionBean().getCurrentAffiliationList().size() == 0)
-//        {
-//            // initialize and create the tree
-//            this.initializeTree();
-//        }
-//        else
-//        {
-//            // create the tree
-//            this.createDynamicTree();
-//        }
-        this.initializeTree();
+        if (this.getAffiliationSessionBean().getCurrentAffiliationList().size() == 0)
+        {
+            // initialize and create the tree
+            this.initializeTree();
+        }
+
     }
 
     /**
@@ -112,11 +111,11 @@ public class AffiliationTree extends FacesBean
     {
         // clear affiliationList stored in the FacesBean
         this.getAffiliationSessionBean().getCurrentAffiliationList().clear();
-        ArrayList<AffiliationVO> topLevelAffiliations = new ArrayList<AffiliationVO>();
+        List<AffiliationVOPresentation> topLevelAffiliations = new ArrayList<AffiliationVOPresentation>();
         // retrieve the top-level affiliations
         try
         {
-            topLevelAffiliations = this.getItemControllerSessionBean().retrieveTopLevelAffiliations();
+            topLevelAffiliations = CommonUtils.convertToAffiliationVOPresentationList(this.getItemControllerSessionBean().retrieveTopLevelAffiliations());
         }
         catch (Exception e)
         {
@@ -148,12 +147,7 @@ public class AffiliationTree extends FacesBean
                     logger.debug("Creating dynamic item list with "
                             + getAffiliationSessionBean().getCurrentAffiliationList().size() + " entries.");
                 }
-                for (int i = 0; i < this.getAffiliationSessionBean().getCurrentAffiliationList().size(); i++)
-                {   
-                    //AffiliationTreeNodeUI affiliationTreeNodeUI = new AffiliationTreeNodeUI(
-                    //		this.getAffiliationSessionBean().getCurrentAffiliationList().get(i));
-                    //treeAffiliation.getChildren().add(affiliationTreeNodeUI.getUIComponent());
-                }
+                treeAffiliation = new ChildPropertyTreeModel(getAffiliationSessionBean().getCurrentAffiliationList(), "children");
             }
         }
         else    //don't expand the nodes of the top level affiliations
@@ -283,7 +277,7 @@ public class AffiliationTree extends FacesBean
      */
     protected AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean)getBean(AffiliationSessionBean.class);
+        return (AffiliationSessionBean)getSessionBean(AffiliationSessionBean.class);
     }
 
     /**

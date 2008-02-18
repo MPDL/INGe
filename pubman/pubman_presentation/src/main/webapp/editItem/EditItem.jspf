@@ -54,16 +54,27 @@
 	</h:panelGrid>
 
 	<h:panelGrid id="panDynamicTitle" styleClass="editItemOuterPanel">
-		<%@ include file="ui/TitleCollection.jspf"%>
+		<jsp:directive.include file="ui/TitleCollection.jspf"/>
 	</h:panelGrid>
-
-	<tr:inputFile label="Upload:" valueChangeListener="#{FileUploadBean.fileUploaded}"/>
+XXX
+	<tr:inputFile label="Upload:" value="#{EditItem.testFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
+	GGG:<h:outputText value="#{EditItem.testFile.filename}"></h:outputText>
+YYY
+	<h:dataTable var="component" value="#{EditItem.files}" >
+		<h:column>
+			<tr:inputFile label="Upload:" value="#{component}" valueChangeListener="#{EditItem.fileUploaded}"/>
+			<h:outputLabel value="#{lbl.EditItem_lblSize}"/>
+			<h:inputText value="#{component.length}"/>
+		</h:column>
+	</h:dataTable>
+	<h:commandButton value="Upload"/>
+XXX
 
 	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
 		<h:outputText id="lblPersonsAndOrganizations" style="font-weight: bold" value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
 	</h:panelGrid>
 	<h:panelGrid id="panDynamicCreator" styleClass="editItemOuterPanel" cellspacing="0">
-		<%@ include file="ui/CreatorCollection.jspf"%>
+		<jsp:directive.include file="ui/CreatorCollection.jspf"/>
 	</h:panelGrid>
 
 	<h:panelGrid id="panPublishing" columns="2" styleClass="editItemOuterBlockPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
@@ -116,7 +127,7 @@
 	</h:panelGrid>
 
 	<h:panelGrid id="panDynamicIdentifier" styleClass="editItemOuterPanel">
-		<%@ include file="ui/IdentifierCollection.jspf"%>
+		<jsp:directive.include file="ui/IdentifierCollection.jspf"/>
 	</h:panelGrid>
 
 	<h:panelGrid id="panLocation" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterPanel" cellspacing="0">
@@ -138,7 +149,7 @@
 		<h:outputText id="lblContent" style="font-weight: bold" value="#{lbl.EditItem_lblContent}" />
 
 		<h:panelGrid id="panDynamicContentLanguage" styleClass="editItemInnerPanel" cellspacing="0">
-			<%@ include file="ui/ContentLanguageCollection.jspf"%>
+			<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panSubject" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel"
@@ -151,7 +162,7 @@
 		</h:panelGrid>
 
 		<h:panelGrid id="panDynamicAbstract" styleClass="editItemInnerPanel" cellspacing="0">
-			<%@ include file="ui/ContentAbstractCollection.jspf"%>
+			<jsp:directive.include file="ui/ContentAbstractCollection.jspf"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panTableOfContent" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel"
@@ -168,12 +179,12 @@
 		<h:outputText id="lblSourceAndEvent" style="font-weight: bold;" value="#{lbl.EditItem_lblSourceAndEvent}" />
 
 		<h:panelGrid id="panSource" styleClass="editItemInnerPanel" cellspacing="0">
-			<%@ include file="ui/SourceCollection.jspf"%>
+			<jsp:directive.include file="ui/SourceCollection.jspf"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panDynamicEventTitle" styleClass="editItemInnerPanel" cellspacing="0">
 			<h:outputLabel id="lblEvent" value="#{lbl.EditItem_lblEvent}" />
-			<%@ include file="ui/EventTitleCollection.jspf"%>
+			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panEventAttributes" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemInnerPanel" cellspacing="0">
@@ -198,9 +209,6 @@
 		</h:panelGrid>
 	</h:panelGrid>
 
-	<%
-	            /* 
-	            <jsp:directive.include file="../desktop/messages.jspf"/>
-	             */
-	%>
+	<jsp:directive.include file="../desktop/messages.jspf"/>
+
 </f:subview></div>

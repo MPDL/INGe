@@ -41,7 +41,7 @@
 		
 		<tr:tree var="node" value="#{AffiliationTree.treeAffiliation}">
 			<f:facet name="nodeStamp">
-				<tr:outputText value="#{node.firstname}"/>
+				<tr:outputText value="#{node.name}"/>
 			</f:facet>
 		</tr:tree>
 		

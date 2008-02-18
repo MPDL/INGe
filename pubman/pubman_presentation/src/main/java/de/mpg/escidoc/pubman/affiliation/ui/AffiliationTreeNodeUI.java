@@ -172,7 +172,7 @@ public class AffiliationTreeNodeUI extends FacesBean implements ActionListener
             try
             {
                 //get all children of this node
-                ArrayList<AffiliationVO> nodeAffiliations = bean.retrieveChildAffiliations(this.affiliation);
+                ArrayList<AffiliationVO> nodeAffiliations = null; //bean.retrieveChildAffiliations(this.affiliation);
                 
                 for (int i = 0; i < nodeAffiliations.size(); i++)
                 {
@@ -206,7 +206,7 @@ public class AffiliationTreeNodeUI extends FacesBean implements ActionListener
                         this.affiliationTreeNode.getChildren().add(node);
                     }
                     // create dummychildnodes for nodes which has children
-                    ArrayList<AffiliationVO> nodeAff = bean.retrieveChildAffiliations(node.getAffiliationVO());
+                    ArrayList<AffiliationVO> nodeAff = null; //bean.retrieveChildAffiliations(node.getAffiliationVO());
                     if ( nodeAff.size() > 0 )
                     {
                         AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);
@@ -262,7 +262,7 @@ public class AffiliationTreeNodeUI extends FacesBean implements ActionListener
         
         try
         {
-            ArrayList<AffiliationVO> childAffiliations = bean.retrieveChildAffiliations(node.getAffiliationVO());
+            ArrayList<AffiliationVO> childAffiliations = null; //bean.retrieveChildAffiliations(node.getAffiliationVO());
             for (int i = 0; i < childAffiliations.size(); i++)
             {
                 AffiliationTreeNode childNode = new AffiliationTreeNode(this);
@@ -293,7 +293,7 @@ public class AffiliationTreeNodeUI extends FacesBean implements ActionListener
                 node.getChildren().add(childNode);
 
                // if the child node has itself children add a dummy node to get the collapse button
-                ArrayList<AffiliationVO> nodeAff = bean.retrieveChildAffiliations(childNode.getAffiliationVO());
+                ArrayList<AffiliationVO> nodeAff = null; //bean.retrieveChildAffiliations(childNode.getAffiliationVO());
                 if ( nodeAff.size() > 0 )
                 {
                     AffiliationTreeNode dummyChildNode = new AffiliationTreeNode(this);

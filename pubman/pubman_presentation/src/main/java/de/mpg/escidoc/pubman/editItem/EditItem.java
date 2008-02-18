@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.editItem;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -39,11 +40,13 @@ import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -67,6 +70,7 @@ import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
@@ -134,6 +138,10 @@ public class EditItem extends FacesBean
     private IdentifierCollection identifierCollection;
     private SourceCollection sourceCollection;
 
+    private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    
+    private UploadedFile testFile;
+    
     PubItemVO item = null;
     
     /**
@@ -197,7 +205,7 @@ public class EditItem extends FacesBean
     }
 
     /**
-     * Deliveres a reference to the currently edited item.
+     * Delivers a reference to the currently edited item.
      * This is a shortCut for the method in the ItemController.
      * @return the item that is currently edited
      */
@@ -308,6 +316,12 @@ public class EditItem extends FacesBean
             {
                 pubItem.getMetadata().setSubject(new TextVO());
             }
+            
+            if (pubItem.getFiles().size() == 0)
+            {
+            	pubItem.getFiles().add(new PubFileVO());
+            }
+            bindFiles();
         }
         else
         {
@@ -315,6 +329,16 @@ public class EditItem extends FacesBean
         }
     }
 
+    private void bindFiles()
+    {
+    	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    	for (PubFileVO file : getPubItem().getFiles())
+    	{
+			files.add(new PubFileVOPresentation(file));
+		}
+    	this.files = files;
+    }
+    
     /**
      * Returns a reference to the scoped data bean (the SubmitItemSessionBean). 
      * @return a reference to the scoped data bean
@@ -922,6 +946,11 @@ public class EditItem extends FacesBean
         }        
     }
     
+    public void fileUploaded(ValueChangeEvent event)
+    {
+    	
+    }
+    
     /**
      * Shows the given Message below the itemList after next Reload of the DepositorWS. 
      * @param message the message to be displayed
@@ -1291,4 +1320,21 @@ public class EditItem extends FacesBean
     {
         this.sourceCollection = sourceCollection;
     }
+
+	public List<PubFileVOPresentation> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<PubFileVOPresentation> files) {
+		this.files = files;
+	}
+
+	public UploadedFile getTestFile() {
+		return testFile;
+	}
+
+	public void setTestFile(UploadedFile testFile) {
+		this.testFile = testFile;
+	}
+    
 }

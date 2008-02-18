@@ -38,7 +38,7 @@ import org.apache.myfaces.trinidad.model.ChildPropertyTreeModel;
 import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
@@ -54,7 +54,7 @@ public class AffiliationSessionBean extends FacesBean
     //NiH: store different modes for the affiliation selection
     //to distinguish between the actions add and select in the edit item mask
     private boolean add = false;
-    //to distinguish between the use case browse by affiliation and add/select in edit item 
+    //to distinguish between the use case browse by affiliation and add/select in edit item
     private boolean browseByAffiliation = false;
 
     public static final String BEAN_NAME = "AffiliationSessionBean";
@@ -63,7 +63,7 @@ public class AffiliationSessionBean extends FacesBean
     private TreeModel treeAffiliation = new ChildPropertyTreeModel();
     //flag to control the dynamic creation of the tree from outside
     private boolean wasInit = false;
-    private ArrayList<AffiliationVO> currentAffiliationList = new ArrayList<AffiliationVO>();
+    private List<AffiliationVOPresentation> currentAffiliationList = new ArrayList<AffiliationVOPresentation>();
     protected HtmlPanelGrid organizationPanDynamicParentPanel = new HtmlPanelGrid();
     
     //NiH: list of OrganizationVO's selected in EditItem page
@@ -91,12 +91,12 @@ public class AffiliationSessionBean extends FacesBean
         super.init();
     }
 
-    public ArrayList<AffiliationVO> getCurrentAffiliationList()
+    public List<AffiliationVOPresentation> getCurrentAffiliationList()
     {
         return currentAffiliationList;
     }
 
-    public void setCurrentAffiliationList(ArrayList<AffiliationVO> list)
+    public void setCurrentAffiliationList(List<AffiliationVOPresentation> list)
     {
         this.currentAffiliationList = list;
     }
