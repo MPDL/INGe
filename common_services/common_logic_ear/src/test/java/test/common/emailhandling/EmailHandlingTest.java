@@ -79,8 +79,8 @@ public class EmailHandlingTest extends TestBase
         emailHandling = getEmailHandling();
         username = "pubman";
         password = "cGVSeP";
-        smtpHost = "mail.mpisoc.mpg.de";        
-        recipientsAddresses = new String[] {"endres@mpisoc.mpg.de"}; 
+        smtpHost = "localhost";        
+        recipientsAddresses = new String[] {"escidoc-code@mpisoc.mpg.de"}; 
         replyToAddresses = new String[]{"pubman@mpisoc.mpg.de"};
         subject = "Testing Email sending";
         text = "Text of the email...... ";
