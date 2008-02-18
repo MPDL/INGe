@@ -92,6 +92,48 @@ public class AffiliationVO extends ValueObject
     private String publicStatus;
 
     /**
+     * Default constructor.
+     */
+    public AffiliationVO()
+    {
+    	
+    }
+    
+    /**
+     * Clone constructor.
+     */
+    public AffiliationVO(AffiliationVO affiliation)
+    {
+        this.abbreviation = affiliation.abbreviation;
+        this.address = affiliation.address;
+        this.childAffiliations = affiliation.childAffiliations;
+        this.city = affiliation.city;
+        this.countryCode = affiliation.countryCode;
+        this.description = affiliation.description;
+        this.email = affiliation.email;
+        this.externalId = affiliation.externalId;
+        this.fax = affiliation.fax;
+        this.homepageUrl = affiliation.homepageUrl;
+        this.name = affiliation.name;
+        this.parentAffiliations = affiliation.parentAffiliations;
+        this.pid = affiliation.pid;
+        this.postcode = affiliation.postcode;
+        this.reference = affiliation.reference;
+        this.region = affiliation.region;
+        this.telephone = affiliation.telephone;
+        this.creationDate = affiliation.creationDate;
+        this.lastModificationDate = affiliation.lastModificationDate;
+        this.creator = affiliation.creator;
+        this.hasChildren = affiliation.hasChildren;
+        this.publicStatus = affiliation.publicStatus;
+    }
+    
+    @Override
+	protected Object clone() throws CloneNotSupportedException {
+		return new AffiliationVO(this);
+	}
+
+	/**
      * Helper method for JiBX transformations. This method helps JiBX to determine if this is a 'create' or an 'update'
      * transformation.
      */
