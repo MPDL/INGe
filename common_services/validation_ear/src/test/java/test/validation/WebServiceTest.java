@@ -113,8 +113,9 @@ public class WebServiceTest
         String itemXml = invalidXml;
         String report = TestHelper.callRestWebservice(null, itemXml);
 
-        logger.debug("Report: " + report);
+        logger.debug("Report InvalidItemRestValidation: " + report);
 
+        assertNotNull( report );
         assertTrue(report.contains("<failure"));
     }
 
@@ -129,7 +130,7 @@ public class WebServiceTest
 
         TestHelper.initTimeLog("Start SOAP call");
         String report = TestHelper.callSoapWebservice(new Object[]{itemXml});
-        TestHelper.logTime("End SOAP call", 750, 1000);
+        TestHelper.logTime("End SOAP call", 750, 1200);
 
         logger.debug("Report: " + report);
 
