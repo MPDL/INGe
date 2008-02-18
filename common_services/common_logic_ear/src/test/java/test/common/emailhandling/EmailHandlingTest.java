@@ -80,7 +80,7 @@ public class EmailHandlingTest extends TestBase
         username = "pubman";
         password = "cGVSeP";
         smtpHost = "mail.mpisoc.mpg.de";        
-        recipientsAddresses = new String[] {"stancheva@mpisoc.mpg.de"}; 
+        recipientsAddresses = new String[] {"endres@mpisoc.mpg.de"}; 
         replyToAddresses = new String[]{"pubman@mpisoc.mpg.de"};
         subject = "Testing Email sending";
         text = "Text of the email...... ";
