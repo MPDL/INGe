@@ -33,6 +33,7 @@ import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+import org.junit.Ignore;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -101,6 +102,7 @@ public class CitationStyleHandlerTest {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testCitManOutput() throws Exception {
 		long start;
     	byte[] result;
@@ -114,7 +116,6 @@ public class CitationStyleHandlerTest {
 	        logger.info(format + " is OK");
 			
 		}
-
     }
 
     
@@ -139,31 +140,6 @@ public class CitationStyleHandlerTest {
             fail();
         }
         logger.error("Data Source Validation time : " + (System.currentTimeMillis() - start));
-    }
-    
-    /**
-     * Tests CitationStyle.xml (APA by default)
-     * TODO: At the moment only the Validation method is being tested, 
-     * 		 Citation Style Processing will tested by ProcessCitationStyleTest later         
-     * @throws IOException 
-     */
-    @Test
-    public final void testCitationStyleXMLValidation() throws IOException{
-    	
-    	long start = 0;
-    	XmlHelper xh = new XmlHelper();
-    	try {
-    		start = System.currentTimeMillis();
-    		xh.validateCitationStyleXML(
-    				"src/main/resources/CitationStyles/APA/CitationStyle.xml"	
-    		);
-        	logger.info("Citation Style XML file for APA is valid.");
-    		
-    	}catch (CitationStyleManagerException e){
-    		logger.error("Citation Style XML file for APA style is not valid.\n" + e.toString());
-    		fail();
-    	}
-    	logger.error("Citation Style Validation time : " + (System.currentTimeMillis() - start));
     }
     
     /**
