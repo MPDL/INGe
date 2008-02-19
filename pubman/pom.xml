@@ -217,9 +217,20 @@
 				<enabled>true</enabled>
 			</snapshots>
 		</repository>
-
 	</repositories>
 
+	<pluginRepositories>
+		<pluginRepository>
+			<id>Archiva plugin snapshots</id>
+			<url>http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots</url>
+			<snapshots>
+				<enabled>true</enabled>
+			</snapshots>
+			<releases>
+				<enabled>false</enabled>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 	<build>
 		<resources>
 			<resource>
