@@ -30,8 +30,10 @@
 package de.mpg.escidoc.services.citationmanager;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringWriter;
 import java.net.URL;
 
@@ -39,7 +41,6 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-// TODO: to get rid of org.apache.xml.serialize.* 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
@@ -50,9 +51,6 @@ import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
-
-
-import de.mpg.escidoc.services.citationmanager.Parameters;
 
 /**
 *
@@ -71,7 +69,7 @@ public class XmlHelper {
     public final static String CITATIONSTYLE_XML_SCHEMA_FILE = ProcessCitationStyles.SCHEMAS_DIRECTORY + "/" + "citation-style.xsd";
 	public final static String SCHEMATRON_DIRECTORY = ProcessCitationStyles.SCHEMAS_DIRECTORY + "/" + "Schematron";
     public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "/" + "layout-element.sch";
-	
+    
     /**
      * Builds new DocumentBuilder
      * @return DocumentBuilder
@@ -223,7 +221,7 @@ public class XmlHelper {
     	// Schematron validation
     	logger.info("Schematron validation..." + xmlDocumentUrl + ";" + SCHEMATRON_FILE);
         SchtrnValidator validator = new SchtrnValidator();
-        validator.setEngineStylesheet(SCHEMATRON_DIRECTORY + "/" + "schematron-diagnose.xsl");
+        validator.setEngineStylesheet( SCHEMATRON_DIRECTORY + "/" + "schematron-diagnose.xsl");
         validator.setParams(new SchtrnParams());
         validator.setBaseXML(true);
         try {

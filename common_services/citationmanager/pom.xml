@@ -43,7 +43,7 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<test>EndnoteExportTest</test>
+					<test>CitationTest</test>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -121,7 +121,7 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>saxon</groupId>
+			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 		</dependency>
@@ -154,6 +154,12 @@
 			<artifactId>jasperreports</artifactId>
 			<version>2.0.1</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xercesImpl</groupId>
+			<artifactId>xercesImpl</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
