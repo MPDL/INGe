@@ -126,6 +126,17 @@
 							<artifactId>postgresql</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						
+						<jarModule>
+							<groupId>trinidad</groupId>
+							<artifactId>trinidad-api</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>trinidad</groupId>
+							<artifactId>trinidad-impl</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -265,6 +276,19 @@
 			<artifactId>postgresql</artifactId>
 			<version>8.1-404.jdbc3</version>
 			<scope>runtime</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>trinidad</groupId>
+			<artifactId>trinidad-api</artifactId>
+			<version>1.2.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>trinidad</groupId>
+			<artifactId>trinidad-impl</artifactId>
+			<version>1.2.6</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
