@@ -5,7 +5,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>1.0.0</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
 	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
@@ -18,7 +18,7 @@
 	</licenses>
 	<issueManagement>
 		<system>Jira</system>
-		<url>http://zim01.gwdg.de:8080/browse/</url>
+		<url>http://zim01.gwdg.de:8080/BrowseProject.jspa?id=10050</url>
 	</issueManagement>
 
 	<organization>
@@ -259,6 +259,20 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.0-SNAPSHOT</version>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<preparationGoals>changes:announcement-mail</preparationGoals>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 
 	<reporting>
@@ -277,10 +291,20 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
+				<configuration>
+					<smtpHost>${changes.smtphost}</smtpHost>
+					<smtpPort implementation="java.lang.Integer">25</smtpPort>
+					<fromDeveloperId>${changes.developerid}</fromDeveloperId>
+					<toAddresses>
+						<toAddress implementation="java.lang.String">${changes.recipient.address}</toAddress>
+					</toAddresses>
+					<jiraUser>${changes.jira.user}</jiraUser>
+					<jiraPassword>${changes.jira.password}</jiraPassword>
+				</configuration>
 				<reportSets>
 					<reportSet>
 						<reports>
-							<report>jira</report>
+							<report>jira-report</report>
 							<report>changes-report</report>
 						</reports>
 					</reportSet>
@@ -361,8 +385,8 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-				
-				<!-- DB settings --> 
+
+				<!-- DB settings -->
 				<db.driver>org.postgresql.Driver</db.driver>
 				<db.url>jdbc:postgresql://localhost:5432/</db.url>
 				<db.name>validation</db.name>
@@ -426,8 +450,8 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-				
-				<!-- DB settings --> 
+
+				<!-- DB settings -->
 				<db.driver>org.postgresql.Driver</db.driver>
 				<db.url>jdbc:postgresql://localhost:5432/</db.url>
 				<db.name>validation</db.name>
