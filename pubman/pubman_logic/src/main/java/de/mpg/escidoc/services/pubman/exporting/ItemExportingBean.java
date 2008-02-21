@@ -69,7 +69,6 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 @RemoteBinding(jndiBinding = ItemExporting.SERVICE_NAME)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
 public class ItemExportingBean implements ItemExporting
 {
     private static Logger logger = Logger.getLogger(ItemExportingBean.class);
