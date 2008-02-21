@@ -61,7 +61,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
 {
 
     private static Logger logger = Logger.getLogger(FacesBean.class);
-    public static String BEAN_NAME = "anonymous";
+    public static String BEAN_NAME = FacesBean.class.getName();
 
     //For handling the resource bundles (i18n)
     protected Application application = FacesContext.getCurrentInstance().getApplication();
@@ -194,6 +194,10 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         try
         {
             name = (String) cls.getField("BEAN_NAME").get(new String());
+            if (FacesBean.class.getName().equals(name))
+            {
+            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+            }
         }
         catch (Exception e)
         {
@@ -240,6 +244,10 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         try
         {
             name = (String) cls.getField("BEAN_NAME").get(new String());
+            if (FacesBean.class.getName().equals(name))
+            {
+            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+            }
         }
         catch (Exception e)
         {
@@ -286,6 +294,10 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         try
         {
             name = (String) cls.getField("BEAN_NAME").get(new String());
+            if (FacesBean.class.getName().equals(name))
+            {
+            	logger.warn("Bean class " + cls.getName() + " appears to have no individual BEAN_NAME.");
+            }
         }
         catch (Exception e)
         {

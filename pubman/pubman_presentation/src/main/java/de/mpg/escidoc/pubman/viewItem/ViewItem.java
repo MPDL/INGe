@@ -61,11 +61,11 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.search.SearchResultList;
@@ -527,18 +527,18 @@ public class ViewItem extends FacesBean
         // viewed item is in the list
         if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
         {
-            if (this.getDepositorWSSessionBean().getSelectedPubItems().size() > 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
             {
                 // disable the 'previous' button if the currently viewed item is
                 // the first in the list
                 if (this.pubItem.getReference().getObjectId().equals(
-                        this.getDepositorWSSessionBean().getSelectedPubItems().get(0).getReference().getObjectId()))
+                        this.getItemListSessionBean().getSelectedPubItems().get(0).getReference().getObjectId()))
                 {
                     this.btnPreviousItem1.setDisabled(true);
                 }
                 if (this.pubItem.getReference().getObjectId().equals(
-                        this.getDepositorWSSessionBean().getSelectedPubItems().get(
-                                this.getDepositorWSSessionBean().getSelectedPubItems().size() - 1).getReference()
+                        this.getItemListSessionBean().getSelectedPubItems().get(
+                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getReference()
                                 .getObjectId()))
                 {
                     this.btnNextItem1.setDisabled(true);
@@ -548,18 +548,18 @@ public class ViewItem extends FacesBean
         else if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(
                 SearchResultList.LOAD_SEARCHRESULTLIST))
         {
-            if (this.getSearchResultListSessionBean().getSelectedPubItems().size() > 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
             {
                 if (this.pubItem.getReference().getObjectId()
                         .equals(
-                                this.getSearchResultListSessionBean().getSelectedPubItems().get(0).getReference()
+                                this.getItemListSessionBean().getSelectedPubItems().get(0).getReference()
                                         .getObjectId()))
                 {
                     this.btnPreviousItem1.setDisabled(true);
                 }
                 if (this.pubItem.getReference().getObjectId().equals(
-                        this.getSearchResultListSessionBean().getSelectedPubItems().get(
-                                this.getSearchResultListSessionBean().getSelectedPubItems().size() - 1).getReference()
+                        this.getItemListSessionBean().getSelectedPubItems().get(
+                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getReference()
                                 .getObjectId()))
                 {
                     this.btnNextItem1.setDisabled(true);
@@ -2155,28 +2155,28 @@ public class ViewItem extends FacesBean
         {
             if (itemList.equals("SPI"))
             {
-                if (selected < this.getDepositorWSSessionBean().getSelectedPubItems().size() - 1)
+                if (selected < this.getItemListSessionBean().getSelectedPubItems().size() - 1)
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getSelectedPubItems().get(selected + 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(selected + 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getSelectedPubItems().get(0));
+                            this.getItemListSessionBean().getSelectedPubItems().get(0));
                 }
             }
             else
             {
-                if (selected < this.getDepositorWSSessionBean().getCurrentPubItemList().size() - 1)
+                if (selected < this.getItemListSessionBean().getCurrentPubItemList().size() - 1)
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getCurrentPubItemList().get(selected + 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(selected + 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getCurrentPubItemList().get(0));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(0));
                 }
             }
         }
@@ -2184,28 +2184,28 @@ public class ViewItem extends FacesBean
         {
             if (itemList.equals("SPI"))
             {
-                if (selected < this.getSearchResultListSessionBean().getSelectedPubItems().size() - 1)
+                if (selected < this.getItemListSessionBean().getSelectedPubItems().size() - 1)
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getSelectedPubItems().get(selected + 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(selected + 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getSelectedPubItems().get(0));
+                            this.getItemListSessionBean().getSelectedPubItems().get(0));
                 }
             }
             else
             {
-                if (selected < this.getSearchResultListSessionBean().getCurrentPubItemList().size() - 1)
+                if (selected < this.getItemListSessionBean().getCurrentPubItemList().size() - 1)
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getCurrentPubItemList().get(selected + 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(selected + 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getCurrentPubItemList().get(0));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(0));
                 }
             }
         }
@@ -2243,12 +2243,12 @@ public class ViewItem extends FacesBean
                 if (itemList.equals("SPI"))
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getSelectedPubItems().get(selected - 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(selected - 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getCurrentPubItemList().get(selected - 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(selected - 1));
                 }
             }
             else if (origin.equals("SRL"))
@@ -2256,12 +2256,12 @@ public class ViewItem extends FacesBean
                 if (itemList.equals("SPI"))
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getSelectedPubItems().get(selected - 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(selected - 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getCurrentPubItemList().get(selected - 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(selected - 1));
                 }
             }
         }
@@ -2272,14 +2272,14 @@ public class ViewItem extends FacesBean
                 if (itemList.equals("SPI"))
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getSelectedPubItems().get(
-                                    this.getDepositorWSSessionBean().getSelectedPubItems().size() - 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(
+                                    this.getItemListSessionBean().getSelectedPubItems().size() - 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getDepositorWSSessionBean().getCurrentPubItemList().get(
-                                    this.getDepositorWSSessionBean().getCurrentPubItemList().size() - 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(
+                                    this.getItemListSessionBean().getCurrentPubItemList().size() - 1));
                 }
             }
             else if (origin.equals("SRL"))
@@ -2287,14 +2287,14 @@ public class ViewItem extends FacesBean
                 if (itemList.equals("SPI"))
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getSelectedPubItems().get(
-                                    this.getSearchResultListSessionBean().getSelectedPubItems().size() - 1));
+                            this.getItemListSessionBean().getSelectedPubItems().get(
+                                    this.getItemListSessionBean().getSelectedPubItems().size() - 1));
                 }
                 else
                 {
                     this.getItemControllerSessionBean().setCurrentPubItem(
-                            this.getSearchResultListSessionBean().getCurrentPubItemList().get(
-                                    this.getSearchResultListSessionBean().getCurrentPubItemList().size() - 1));
+                            this.getItemListSessionBean().getCurrentPubItemList().get(
+                                    this.getItemListSessionBean().getCurrentPubItemList().size() - 1));
                 }
             }
         }
@@ -2340,11 +2340,11 @@ public class ViewItem extends FacesBean
         // if the user has selected the items in the depositor workspace before
         if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
         {
-            if (this.getDepositorWSSessionBean().getSelectedPubItems().size() > 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
             {
-                for (int i = 0; i < this.getDepositorWSSessionBean().getSelectedPubItems().size(); i++)
+                for (int i = 0; i < this.getItemListSessionBean().getSelectedPubItems().size(); i++)
                 {
-                    if (this.getDepositorWSSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
+                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
                             .equals(this.pubItem.getReference().getObjectId()))
                     {
                         selection = "DWS_SPI_" + i;
@@ -2353,9 +2353,9 @@ public class ViewItem extends FacesBean
             }
             else
             {
-                for (int i = 0; i < this.getDepositorWSSessionBean().getCurrentPubItemList().size(); i++)
+                for (int i = 0; i < this.getItemListSessionBean().getCurrentPubItemList().size(); i++)
                 {
-                    if (this.getDepositorWSSessionBean().getCurrentPubItemList().get(i).getReference().getObjectId()
+                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getReference().getObjectId()
                             .equals(this.pubItem.getReference().getObjectId()))
                     {
                         selection = "DWS_CPI_" + i;
@@ -2367,11 +2367,11 @@ public class ViewItem extends FacesBean
         else if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(
                 SearchResultList.LOAD_SEARCHRESULTLIST))
         {
-            if (this.getSearchResultListSessionBean().getSelectedPubItems().size() > 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
             {
-                for (int i = 0; i < this.getSearchResultListSessionBean().getSelectedPubItems().size(); i++)
+                for (int i = 0; i < this.getItemListSessionBean().getSelectedPubItems().size(); i++)
                 {
-                    if (this.getSearchResultListSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
+                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
                             .equals(this.pubItem.getReference().getObjectId()))
                     {
                         selection = "SRL_SPI_" + i;
@@ -2380,9 +2380,9 @@ public class ViewItem extends FacesBean
             }
             else
             {
-                for (int i = 0; i < this.getSearchResultListSessionBean().getCurrentPubItemList().size(); i++)
+                for (int i = 0; i < this.getItemListSessionBean().getCurrentPubItemList().size(); i++)
                 {
-                    if (this.getSearchResultListSessionBean().getCurrentPubItemList().get(i).getReference()
+                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getReference()
                             .getObjectId().equals(this.pubItem.getReference().getObjectId()))
                     {
                         selection = "SRL_CPI_" + i;
@@ -2531,7 +2531,7 @@ public class ViewItem extends FacesBean
     private void showMessageDepositorWS(String message)
     {
         message = this.getMessage(message);
-        this.getDepositorWSSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
 
     /**
@@ -2543,7 +2543,7 @@ public class ViewItem extends FacesBean
     private void showMessageSearchResultList(String message)
     {
         message = this.getMessage(message);
-        this.getSearchResultListSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
 
     /**
@@ -2561,9 +2561,9 @@ public class ViewItem extends FacesBean
      * 
      * @return a reference to the scoped data bean
      */
-    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    protected ItemListSessionBean getItemListSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**

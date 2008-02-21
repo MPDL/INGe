@@ -30,25 +30,22 @@
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <div>
-<f:subview id="SearchResultList">
+<f:subview id="content">
 	<h1>
 		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>
 	</h1>
-		<p>
-	<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
-		value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
-			<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
-	<h:commandLink binding="#{SearchResultList.lnkBrowse}" id="lnkBrowse" immediate="true"
-		value="#{lbl.SearchResultList_lblBack}" action="#{AdvancedSearch.showBrowsePageAgain}"/>
-</p>
-<div>
-	<h:outputText binding="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
-</div>
-	<h:panelGrid id="panItemListAndErrors" columns="1" >
-		<h:panelGrid id="panItemList" binding="#{SearchResultList.panDynamicItemList}">
-		</h:panelGrid>
+	<p>
+		<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
+			value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
+		<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
+		<h:commandLink binding="#{SearchResultList.lnkBrowse}" id="lnkBrowse" immediate="true"
+			value="#{lbl.SearchResultList_lblBack}" action="#{AdvancedSearch.showBrowsePageAgain}"/>
+	</p>
+	<div>
+		<h:outputText binding="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
+	</div>
 	
+	<jsp:directive.include file="../list/list.jspf"/>
 
-	</h:panelGrid>
 </f:subview>
 </div>

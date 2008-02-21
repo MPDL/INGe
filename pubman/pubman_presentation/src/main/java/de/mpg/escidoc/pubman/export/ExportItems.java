@@ -64,6 +64,8 @@ import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 public class ExportItems extends FacesBean
 {
     private static Logger logger = Logger.getLogger(ExportItems.class);
+    
+    public static final String BEAN_NAME = "ExportItems";
  
     // constant for the function export to check the rights and/or if the function has to be disabled (DiT)
     private final String FUNCTION_EXPORT = "export";

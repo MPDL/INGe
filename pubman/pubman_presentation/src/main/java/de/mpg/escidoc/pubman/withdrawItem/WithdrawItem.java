@@ -220,26 +220,17 @@ public class WithdrawItem extends FacesBean
     }
 
     /**
-     * Returns a reference to the scoped data bean (the ItemListSessionBean).
-     * @return a reference to the scoped data bean
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
      */
     protected final ItemListSessionBean getItemListSessionBean()
     {
-        return (ItemListSessionBean)getSessionBean().getItemListSessionBean();
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**
-     * Returns the DepositorWSSessionBean.
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
-     */
-    protected final DepositorWSSessionBean getDepositorWSSessionBean()
-    {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
-    }
-
-    /**
-     * Returns the DepositorWSSessionBean.
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     * Returns the WithdrawItemSessionBean.
+     * @return a reference to the scoped data bean (WithdrawItemSessionBean)
      */
     protected final WithdrawItemSessionBean getSessionBean()
     {

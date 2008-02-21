@@ -33,22 +33,20 @@ package de.mpg.escidoc.pubman.desktop;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
-import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
@@ -75,8 +73,8 @@ public class Navigation extends FacesBean
 
     /** identifier from the breadcrump component in the page */
 
-    private DepositorWSSessionBean depositorWSSessionBean
-        = (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
+    private ItemListSessionBean itemListSessionBean
+        = (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
     /**
      * Public constructor.
      */
@@ -135,10 +133,12 @@ public class Navigation extends FacesBean
      */
     public String loadAffiliationTree()
     {
-    	// FIXME: Häää!
-        this.getAffiliationSessionBean().setBrowseByAffiliation(false);
-        this.getAffiliationSessionBean().setWasInit(false);
-        return AffiliationTree.LOAD_AFFILIATIONTREE;
+    	// FIXME: Häää?
+        //this.getAffiliationSessionBean().setBrowseByAffiliation(false);
+        //this.getAffiliationSessionBean().setWasInit(false);
+        
+        this.getAffiliationBean().setSource(null);
+        return AffiliationBean.LOAD_AFFILIATION_TREE;
     }
 
     /**
@@ -193,7 +193,7 @@ public class Navigation extends FacesBean
         else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
         {
             depositorWorkspace = (DepositorWS) getBean(DepositorWS.class);
-            this.getDepositorWSSessionBean().setListDirty(true);
+            this.getItemListSessionBean().setListDirty(true);
             depositorWorkspace.init();
         }
         else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM))
@@ -205,13 +205,6 @@ public class Navigation extends FacesBean
         {
             searchResultList = (SearchResultList) getBean(SearchResultList.class);
             searchResultList.init();
-        }
-        else if (navigationString.equals(AffiliationTree.LOAD_AFFILIATIONTREE))
-        {
-            // DiT: added for reload of the AffiliationTree
-            affiliationTree = (AffiliationTree) getBean(AffiliationTree.class);
-            this.getAffiliationSessionBean().setBrowseByAffiliation(false);
-            affiliationTree.init();
         }
         else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
         {
@@ -245,7 +238,7 @@ public class Navigation extends FacesBean
         }
 
         // force reload of list next time this page is navigated to
-        this.getDepositorWSSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
 
         // if there is only one collection for this user we can skip the
         // CreateItem-Dialog and create the new item directly
@@ -299,9 +292,9 @@ public class Navigation extends FacesBean
      *
      * @return a reference to the scoped data bean (AffiliationSessionBean)
      */
-    protected AffiliationSessionBean getAffiliationSessionBean()
+    protected AffiliationBean getAffiliationBean()
     {
-        return (AffiliationSessionBean) getBean(AffiliationSessionBean.class);
+        return (AffiliationBean) getSessionBean(AffiliationBean.class);
     }
 
     /**
@@ -325,13 +318,13 @@ public class Navigation extends FacesBean
     }
 
     /**
-     * Returns the DepositorWSSessionBean.
+     * Returns the ItemListSessionBean.
      *
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     * @return a reference to the scoped data bean (ItemListSessionBean)
      */
-    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    protected ItemListSessionBean getItemListSessionBean()
     {
-        return depositorWSSessionBean;
+        return itemListSessionBean;
     }
 
     /**

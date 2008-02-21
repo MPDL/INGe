@@ -48,7 +48,7 @@ public class ExportEmailPage extends BreadcrumbPage
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ExportEmailPage.class);
 
-    ExportItems fragment = (ExportItems) getBean(ExportItems.class);
+    ExportItems fragment = (ExportItems) getSessionBean(ExportItems.class);
 
     /**
      * Public constructor

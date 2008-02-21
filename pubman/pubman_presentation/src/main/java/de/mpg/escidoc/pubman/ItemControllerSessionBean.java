@@ -1486,7 +1486,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all child affiliations
      * @throws Exception if framework access fails
      */
-    public List<AffiliationVOPresentation> retrieveChildAffiliations(AffiliationVO parentAffiliation) throws Exception
+    public List<AffiliationVOPresentation> retrieveChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1511,9 +1511,14 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        List<AffiliationVO> itemList = (List) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        List<AffiliationVO> affiliationList = (List) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
-        return CommonUtils.convertToAffiliationVOPresentationList(itemList);
+        List<AffiliationVOPresentation> wrappedAffiliationList = CommonUtils.convertToAffiliationVOPresentationList(affiliationList);
+        
+        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
+        	affiliationVOPresentation.setParent(parentAffiliation);
+		}
+        return wrappedAffiliationList;
     }
     
     /**

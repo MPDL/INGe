@@ -57,6 +57,8 @@ import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparato
 public class ItemListSessionBean extends FacesBean
 {
 	
+	public static final String BEAN_NAME = "ItemListSessionBean";
+	
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemListSessionBean.class);
 
@@ -65,6 +67,7 @@ public class ItemListSessionBean extends FacesBean
     private String message = null;
     private String sortBy = "TITLE";
     private String sortOrder = "ASCENDING";
+    private String type = null;
     
     private int itemsPerPage = 5;
     private int currentPubItemListPointer = 0;
@@ -107,12 +110,14 @@ public class ItemListSessionBean extends FacesBean
     
     public List<PubItemVOPresentation> getCurrentPubItemList()
     {
+    	logger.debug("ILSB.getCurrentPubItemList: " + this);
     	logger.debug("Accessing item list.");
         return this.currentPubItemList;
     }
 
     public void setCurrentPubItemList(List<PubItemVOPresentation> currentPubItemList)
     {
+    	logger.debug("ILSB.setCurrentPubItemList: " + this);
         this.currentPubItemList = currentPubItemList;
         
         // clear the selectedList
@@ -174,6 +179,7 @@ public class ItemListSessionBean extends FacesBean
     
     public int getCurrentPubItemListSize()
     {
+    	logger.debug("ILSB: " + this);
     	return currentPubItemList.size();
     }
 
@@ -196,7 +202,7 @@ public class ItemListSessionBean extends FacesBean
 	public List<Page> getPages()
 	{
 		List<Page> pages = new ArrayList<Page>();
-		for (int i = 1; i <= (currentPubItemList.size() / itemsPerPage + 1); i++)
+		for (int i = 1; i <= ((currentPubItemList.size() - 1) / itemsPerPage + 1); i++)
 		{
 			pages.add(new Page(i));
 		}
@@ -210,7 +216,7 @@ public class ItemListSessionBean extends FacesBean
 	
 	public boolean getIsLastPage()
 	{
-		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		int lastPage = (currentPubItemList.size() - 1) / itemsPerPage + 1;
 		return currentPubItemListPointer / itemsPerPage == lastPage - 1;
 	}
 
@@ -226,7 +232,7 @@ public class ItemListSessionBean extends FacesBean
 	
 	public void gotoLastPage()
 	{
-		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		int lastPage = (currentPubItemList.size() - 1) / itemsPerPage + 1;
 		this.currentPubItemListPointer = itemsPerPage * (lastPage - 1);
 	}
 	
@@ -240,7 +246,7 @@ public class ItemListSessionBean extends FacesBean
 	
 	public void gotoFollowingPage()
 	{
-		int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+		int lastPage = (currentPubItemList.size() - 1) / itemsPerPage + 1;
 		if (this.currentPubItemListPointer <= itemsPerPage * (lastPage - 1))
 			this.currentPubItemListPointer += itemsPerPage;
 	}
@@ -250,8 +256,8 @@ public class ItemListSessionBean extends FacesBean
 		ELContext elContext = FacesContext.getCurrentInstance().getELContext();
 		try
 		{
-			int page = Integer.parseInt(event.getComponent().getValueExpression("value").getValue(elContext).toString());
-			int lastPage = currentPubItemList.size() /itemsPerPage + 1;
+			int page = Integer.parseInt(event.getComponent().getValueExpression("text").getValue(elContext).toString());
+			int lastPage = (currentPubItemList.size() - 1) / itemsPerPage + 1;
 			
 			if (page >= 1 && page <= lastPage)
 			{
@@ -278,7 +284,7 @@ public class ItemListSessionBean extends FacesBean
     	sortItemList();
     	
     	// Delete list from component tree to let it be refreshed.
-        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:content:list:listtable");
         if (component != null)
         {
         	component.getParent().getChildren().remove(component);
@@ -304,7 +310,7 @@ public class ItemListSessionBean extends FacesBean
         sortItemList();
         
         // Delete list from component tree to let it be refreshed.
-        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:content:list:listtable");
         if (component != null)
         {
         	component.getParent().getChildren().remove(component);
@@ -375,7 +381,7 @@ public class ItemListSessionBean extends FacesBean
         }
 
         // Delete list from component tree to let it be refreshed.
-        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
+        UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:content:list:listtable");
         if (component != null)
         {
         	component.getParent().getChildren().remove(component);
@@ -445,5 +451,13 @@ public class ItemListSessionBean extends FacesBean
 	public enum SortOrder
 	{
 		ASCENDING, DESCENDING
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 }

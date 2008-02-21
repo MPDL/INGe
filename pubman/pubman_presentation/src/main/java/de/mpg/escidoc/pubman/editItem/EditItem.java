@@ -51,6 +51,7 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
@@ -958,7 +959,7 @@ public class EditItem extends FacesBean
     private void showMessage(String message)
     {
         message = getMessage(message);
-        this.getDepositorWSSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
 
     /**
@@ -1005,12 +1006,12 @@ public class EditItem extends FacesBean
     }
 
     /**
-     * Returns the DepositorWSSessionBean.
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
      */
-    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    protected ItemListSessionBean getItemListSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**

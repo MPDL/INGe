@@ -56,12 +56,12 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
@@ -633,17 +633,17 @@ public class ViewItemFull extends FacesBean
     private void showMessageDepositorWS(String message)
     {
         message = this.getMessage(message);
-        this.getDepositorWSSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
     
     /**
-     * Returns a reference to the scoped data bean (the DepositorWSSessionBean).
+     * Returns a reference to the scoped data bean (the ItemListSessionBean).
      * 
      * @return a reference to the scoped data bean
      */
-    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    protected ItemListSessionBean getItemListSessionBean()
     {
-        return (DepositorWSSessionBean)getBean(DepositorWSSessionBean.class);
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
     /**
@@ -694,7 +694,7 @@ public class ViewItemFull extends FacesBean
     private void showMessageSearchResultList(String message)
     {
         message = this.getMessage(message);
-        this.getSearchResultListSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
     
     /**

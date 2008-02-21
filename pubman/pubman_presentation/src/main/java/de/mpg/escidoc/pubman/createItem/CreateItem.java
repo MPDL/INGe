@@ -31,24 +31,20 @@
 package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
 import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
 /**
@@ -156,7 +152,7 @@ public class CreateItem extends FacesBean
             logger.debug("New Submission");
         }
         // force reload of list next time this page is navigated to
-        this.getDepositorWSSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         // if there is only one collection for this user we can skip the CreateItem-Dialog and
         // create the new item directly
         if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
@@ -210,12 +206,12 @@ public class CreateItem extends FacesBean
     }
 
     /**
-     * Returns the DepositorWSSessionBean.
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
      */
-    protected DepositorWSSessionBean getDepositorWSSessionBean()
+    protected ItemListSessionBean getItemListSessionBean()
     {
-        return (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
+        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
     }
 
     /**

@@ -40,12 +40,12 @@ function deleteItems()
 
 function changeItemState() 
 {
-	document.getElementById("form1:DepositorWS:btnChangeItemState").click();
+	document.getElementById("form1:content:btnChangeItemState").click();
 }
 
 function changeSortCriteria() 
 {
-	document.getElementById("form1:DepositorWS:btnSortItemList").click();
+	document.getElementById("form1:content:btnSortItemList").click();
 }
 
 function loadAbout(url) 

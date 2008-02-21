@@ -92,7 +92,7 @@ public class AffiliationTree extends FacesBean
         super.init();
         
         //get the instance of the Affiliation Tree from the Session Bean
-        this.treeAffiliation = this.getAffiliationSessionBean().getTreeAffiliation();
+        //this.treeAffiliation = this.getAffiliationSessionBean().getTreeAffiliation();
         
         if (this.getAffiliationSessionBean().getCurrentAffiliationList().size() == 0)
         {
@@ -105,7 +105,7 @@ public class AffiliationTree extends FacesBean
     /**
      * Creates a new tree in the FacesBean and forces the UI component to create a new tree.
      * 
-     * @return string, identifying the page that should be navigated to after this methodcall
+     * @return string, identifying the page that should be navigated to after this method call
      */
     public String initializeTree()
     {
@@ -281,13 +281,13 @@ public class AffiliationTree extends FacesBean
     }
 
     /**
-     * Returns the DepositorWSSessionBean.
+     * Returns the ItemControllerSessionBean.
      * 
-     * @return a reference to the scoped data bean (DepositorWSSessionBean)
+     * @return a reference to the scoped data bean (ItemControllerSessionBean)
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
     
     public TreeModel getTreeAffiliation()

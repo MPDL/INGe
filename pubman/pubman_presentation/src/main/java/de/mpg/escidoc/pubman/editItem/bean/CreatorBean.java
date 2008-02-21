@@ -9,6 +9,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -103,9 +104,12 @@ public class CreatorBean extends FacesBean
     {
         currentOrgaForSelection = (OrganizationVO) personOrganisationManager.getObjectDM().getRowData();
 
-        // FIXME remeber this VO and initialize external OrganisationVO selection
-
-        return null;
+        // Set this value to let the affiliation tree know where to jump after selection.
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("EditItem");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(currentOrgaForSelection);
+        
+        // affiliation tree
+        return "loadAffiliationTree";
     }
 
     /**
@@ -120,9 +124,7 @@ public class CreatorBean extends FacesBean
         }
         currentOrgaForSelection = creator.getOrganization();
 
-        // FIXME remeber this VO and initialize external OrganisationVO selection
-
-        return null;
+        return "loadAffiliationTree";
     }
 
     /**

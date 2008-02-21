@@ -64,6 +64,6 @@
 		<h:inputTextarea id="txtaContent" style="height: 100px; width: 600px" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 
 		<h:outputLabel for="txtReturnToRecipient" id="lblReturnToRecipient" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
-		<h:inputText id="txtReturnToRecipient" style="height: 20px; width: 400px" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />		tt
+		<h:inputText id="txtReturnToRecipient" style="height: 20px; width: 400px" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
 		</h:panelGrid>
 </f:subview></div>

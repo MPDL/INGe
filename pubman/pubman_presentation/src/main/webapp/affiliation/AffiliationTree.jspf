@@ -39,16 +39,14 @@
 		</h1>
 		<br/>
 		
-		<tr:tree var="node" value="#{AffiliationTree.treeAffiliation}">
+		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
-				<tr:outputText value="#{node.name}"/>
+				<h:panelGroup>
+					<h:graphicImage value="../images/#{node.image}" height="20px" width="20px"/>
+					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
+				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
 		
-		
-		<h:panelGrid id="panButtons" columns="1" cellspacing="25" cellpadding="0">
-			<h:commandLink id="lnkSelect" binding="#{AffiliationTree.lnkSelect}"
-				 value="#{lbl.AffiliationTree_lnkSelect}" action="#{AffiliationTree.getNode}" />
-		</h:panelGrid>
 	</f:subview>
 </div>

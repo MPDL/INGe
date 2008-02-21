@@ -142,7 +142,7 @@ public abstract class ItemList extends FacesBean
             }
 
             // set the item as current one in ItemController
-            PubItemVOPresentation puItemVO = CommonUtils.getItemByID(this.getSessionBean().getCurrentPubItemList(), itemID);
+            PubItemVOPresentation puItemVO = CommonUtils.getItemByID(this.getItemListSessionBean().getCurrentPubItemList(), itemID);
             this.getItemControllerSessionBean().setCurrentPubItem(puItemVO);            
             selectedPubItems.add(puItemVO);
             // set all selectedItems in FacesBean
@@ -150,7 +150,7 @@ public abstract class ItemList extends FacesBean
 
             // initialize viewItem
             this.getViewItemSessionBean().setNavigationStringToGoBack(navigationStringToGoBack);
-            this.getViewItemSessionBean().setItemListSessionBean(getSessionBean());
+            this.getViewItemSessionBean().setItemListSessionBean(getItemListSessionBean());
 
             /*
             try
@@ -162,7 +162,7 @@ public abstract class ItemList extends FacesBean
                 logger.debug("Cannot redirect to view Item Page: " + e.toString());
             }
             */
-            if (this.getSessionBean().getSelectedPubItems().size() != 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
             {
                 return ViewItemFull.LOAD_VIEWITEM;
             }
@@ -198,13 +198,13 @@ public abstract class ItemList extends FacesBean
         // set the currently selected items in the FacesBean
 //        this.setSelectedItemsAndCurrentItem();
 
-        List<PubItemVOPresentation> selectedItems = this.getSessionBean().getSelectedPubItems();
+        List<PubItemVOPresentation> selectedItems = this.getItemListSessionBean().getSelectedPubItems();
         
         if (selectedItems.size() != 0)
         {
             // initialize viewItem
             this.getViewItemSessionBean().setNavigationStringToGoBack(navigationStringToGoBack);
-            this.getViewItemSessionBean().setItemListSessionBean(getSessionBean());
+            this.getViewItemSessionBean().setItemListSessionBean(getItemListSessionBean());
 
             try
             {
@@ -264,7 +264,7 @@ public abstract class ItemList extends FacesBean
         }
 
         this.getWithdrawItemSessionBean().setNavigationStringToGoBack(navigationStringToGoBack);
-        this.getWithdrawItemSessionBean().setItemListSessionBean(getSessionBean());
+        this.getWithdrawItemSessionBean().setItemListSessionBean(getItemListSessionBean());
 
         return WithdrawItem.LOAD_WITHDRAWITEM;
     }
@@ -288,7 +288,7 @@ public abstract class ItemList extends FacesBean
         String componentID = null;
         if (this instanceof DepositorWS)
         {
-            componentID = "form1:DepositorWS:panItemList";
+            componentID = "form1:content:panItemList";
         }
         else if (this instanceof SearchResultList)
         {
@@ -311,13 +311,13 @@ public abstract class ItemList extends FacesBean
                     {
                         if (((UISelectBoolean)panel.getChildren().get(j)).isSelected())
                         {
-                            selectedPubItems.add(this.getSessionBean().getCurrentPubItemList().get(i));
+                            selectedPubItems.add(this.getItemListSessionBean().getCurrentPubItemList().get(i));
 
                             if (logger.isDebugEnabled())
                             {
                                 logger.debug(
                                         "Selected item #" + i + ", ID: "
-                                        + this.getSessionBean()
+                                        + this.getItemListSessionBean()
                                                 .getCurrentPubItemList()
                                                 .get(i)
                                                 .getReference()
@@ -338,10 +338,10 @@ public abstract class ItemList extends FacesBean
         // set all selectedItems in FacesBean
 //        this.getSessionBean().setSelectedPubItems(selectedPubItems);
 
-        if (this.getSessionBean().getSelectedPubItems().size() > 0)
+        if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
         {
             // set the first selected item as current one in ItemController
-            this.getItemControllerSessionBean().setCurrentPubItem(this.getSessionBean().getSelectedPubItems().get(0));
+            this.getItemControllerSessionBean().setCurrentPubItem(this.getItemListSessionBean().getSelectedPubItems().get(0));
         }
         else
         {
@@ -358,7 +358,7 @@ public abstract class ItemList extends FacesBean
     public void showMessage(String message)
     {
         message = getMessage(message);
-        this.getSessionBean().setMessage(message);
+        this.getItemListSessionBean().setMessage(message);
 
         // instantly make this message visible as the page is likely not reloaded and so
         // the message is not set visible via the enableLinks()-method.
@@ -386,10 +386,10 @@ public abstract class ItemList extends FacesBean
      */
     public String sortItemList()
     {
-        List<PubItemVOPresentation> itemList = this.getSessionBean().getCurrentPubItemList();
+        List<PubItemVOPresentation> itemList = this.getItemListSessionBean().getCurrentPubItemList();
 
         // get the sorting order by the FacesBean
-        String sortOrderString = this.getSessionBean().getSortOrder(); 
+        String sortOrderString = this.getItemListSessionBean().getSortOrder(); 
 
         if (logger.isDebugEnabled())
         {
@@ -397,7 +397,7 @@ public abstract class ItemList extends FacesBean
         }
 
         // get the sorting criteria by the FacesBean
-        PubItemVOComparator.Criteria sortByCriteria = PubItemVOComparator.Criteria.valueOf(PubItemVOComparator.Criteria.class, this.getSessionBean().getSortBy());
+        PubItemVOComparator.Criteria sortByCriteria = PubItemVOComparator.Criteria.valueOf(PubItemVOComparator.Criteria.class, this.getItemListSessionBean().getSortBy());
 
         if (logger.isDebugEnabled())
         {
@@ -418,7 +418,7 @@ public abstract class ItemList extends FacesBean
         }
 
         // refresh the item array in the session bean
-        this.getSessionBean().setCurrentPubItemList(itemList);
+        this.getItemListSessionBean().setCurrentPubItemList(itemList);
 
         //this.createDynamicItemList();
 
@@ -432,20 +432,20 @@ public abstract class ItemList extends FacesBean
     public void handleMessage() 
     {
 
-        String message = this.getSessionBean().getMessage();
+        String message = this.getItemListSessionBean().getMessage();
 
         this.valMessage.setValue(message);
         this.valMessage.setRendered(message != null);
 
         // keep the message just once
-        this.getSessionBean().setMessage(null);
+        this.getItemListSessionBean().setMessage(null);
     }
 
     /**
      * Has to be implemented by the inheriting classes to return the specialized subclass for the FacesBean.
      * @return a reference to the scoped data bean
      */
-    protected abstract ItemListSessionBean getSessionBean();
+    protected abstract ItemListSessionBean getItemListSessionBean();
 
     /**
      * Returns a reference to the scoped data bean (the ItemControllerSessionBean). 

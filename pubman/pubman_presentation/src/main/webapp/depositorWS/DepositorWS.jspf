@@ -32,7 +32,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 
 <div>
-	<f:subview id="DepositorWS">
+	<f:subview id="content">
 		<div>
 			<h1>
 			<h:outputText id="valOrientationText"

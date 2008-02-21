@@ -31,8 +31,6 @@ package de.mpg.escidoc.pubman.depositorWS;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.el.ValueExpression;
-import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputLink;
 import javax.faces.component.html.HtmlOutputText;
@@ -47,14 +45,11 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
-import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -101,10 +96,16 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Initializing DepositorWS...");
         }
+        
+        if (!"DepositorWS".equals(getItemListSessionBean().getType()))
+        {
+        	getItemListSessionBean().setListDirty(true);
+        }
+        
         // Perform initializations inherited from our superclass
         super.init();
         // create the itemList if neccessary
-        if (this.getSessionBean().isListDirty())
+        if (this.getItemListSessionBean().isListDirty())
         {
             String retVal = this.createItemList(this.getSessionBean().getSelectedItemState());
             // if createItemList returns an error, force JSF to load the ErrorPage
@@ -131,7 +132,7 @@ public class DepositorWS extends ItemList
     public String showItem()
     {
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         return this.showItem(DepositorWS.LOAD_DEPOSITORWS);
     }
 
@@ -144,7 +145,7 @@ public class DepositorWS extends ItemList
     public String viewItem()
     {
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         return this.viewItem(DepositorWS.LOAD_DEPOSITORWS);
     }
 
@@ -164,11 +165,11 @@ public class DepositorWS extends ItemList
 
         
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
-        if (this.getSessionBean().getSelectedPubItems().size() == 1)
+        this.getItemListSessionBean().setListDirty(true);
+        if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
             //      Inserted by FrM to check item State
-            for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
+            for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
             {
                 logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
                 if (item.getState() != PubItemVO.State.PENDING && item.getState() != PubItemVO.State.RELEASED)
@@ -180,7 +181,7 @@ public class DepositorWS extends ItemList
             }
             return EditItem.LOAD_EDITITEM;
         }
-        else if (this.getSessionBean().getSelectedPubItems().size() > 1)
+        else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
             this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
             return null;
@@ -204,12 +205,12 @@ public class DepositorWS extends ItemList
             logger.debug("Submit selected item(s)");
         }
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         // set the currently selected items in the ItemController
 //        this.setSelectedItemsAndCurrentItem();
 
         // Inserted by FrM to check item State
-        for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
+        for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
             logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
             if (item.getState() != PubItemVO.State.PENDING)
@@ -219,7 +220,7 @@ public class DepositorWS extends ItemList
             }
         }
 
-        if (this.getSessionBean().getSelectedPubItems().size() == 1)
+        if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
             /*
              * FrM: Validation with validation point "submit_item"
@@ -234,7 +235,7 @@ public class DepositorWS extends ItemList
             {
                 throw new RuntimeException("Validation service not initialized", ne);
             }
-            PubItemVO pubItem = this.getSessionBean().getSelectedPubItems().get(0);
+            PubItemVO pubItem = this.getItemListSessionBean().getSelectedPubItems().get(0);
             ValidationReportVO report = null;
             try
             {
@@ -266,7 +267,7 @@ public class DepositorWS extends ItemList
                 return null;
             }
         }
-        else if (this.getSessionBean().getSelectedPubItems().size() > 1)
+        else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
             this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
             return null;
@@ -290,12 +291,12 @@ public class DepositorWS extends ItemList
             logger.debug("Withdraw selected item");
         }
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         // set the currently selected items in the ItemController
         this.setSelectedItemsAndCurrentItem();
 
         //      Inserted by FrM to check item State
-        for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
+        for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
             logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
             if (item.getState() != PubItemVO.State.RELEASED)
@@ -305,11 +306,11 @@ public class DepositorWS extends ItemList
             }
         }
 
-        if (this.getSessionBean().getSelectedPubItems().size() == 1)
+        if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
             return withdrawItem(DepositorWS.LOAD_DEPOSITORWS);
         }
-        else if (this.getSessionBean().getSelectedPubItems().size() > 1)
+        else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
             this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
             return null;
@@ -333,12 +334,12 @@ public class DepositorWS extends ItemList
             logger.debug("Delete item(s)");
         }
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         // set the currently selected items in the ItemController
         this.setSelectedItemsAndCurrentItem();
 
         // Inserted by FrM to check item State
-        for (PubItemVO item : this.getSessionBean().getSelectedPubItems())
+        for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
             if (item.getState() != PubItemVO.State.PENDING)
             {
@@ -347,10 +348,10 @@ public class DepositorWS extends ItemList
             }
         }
 
-        if (this.getSessionBean().getSelectedPubItems().size() != 0)
+        if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
         {
             String retVal = this.getItemControllerSessionBean().deletePubItemList(
-                    this.getSessionBean().getSelectedPubItems(), DepositorWS.LOAD_DEPOSITORWS);
+                    this.getItemListSessionBean().getSelectedPubItems(), DepositorWS.LOAD_DEPOSITORWS);
             // normally it should be sufficient to return the retVal ("loadDepositorWS") and let the FacesNavigation
             // newly initialize this Page; for some reason this doesn't work and we have to initialize manually...
             this.init();
@@ -376,7 +377,7 @@ public class DepositorWS extends ItemList
     public String changeItemState()
     {
         // force reload of list next time this page is navigated to
-        this.getSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setListDirty(true);
         String newItemState = ((String) this.cboItemstate.getSubmittedValue());
         return (this.createItemList(newItemState));
     }
@@ -390,8 +391,9 @@ public class DepositorWS extends ItemList
     private String createItemList(final String newItemState)
     {
         // clear all itemLists stored in the FacesBean
-        this.getSessionBean().getCurrentPubItemList().clear();
-        this.getSessionBean().getSelectedPubItems().clear();
+        getItemListSessionBean().getCurrentPubItemList().clear();
+        getItemListSessionBean().getSelectedPubItems().clear();
+        getItemListSessionBean().setCurrentPubItemListPointer(0);
         ArrayList<PubItemVO> itemsForAccountUser = new ArrayList<PubItemVO>();
         // set the new State in the FacesBean
         if (logger.isDebugEnabled())
@@ -412,13 +414,14 @@ public class DepositorWS extends ItemList
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // set new list in FacesBean
-        this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsForAccountUser));
+        this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsForAccountUser));
         // sort the items and force the UI to update
         this.sortItemList();
         // enable or disable the action links according to item state and availability of items
         this.enableLinks(this.getSessionBean().getSelectedItemState(), itemsForAccountUser.size());
         // no reload neccessary next time this page is navigated to
-        this.getSessionBean().setListDirty(false);
+        this.getItemListSessionBean().setListDirty(false);
+        this.getItemListSessionBean().setType("DepositorWS");
         return DepositorWS.LOAD_DEPOSITORWS;
     }
 
@@ -428,15 +431,15 @@ public class DepositorWS extends ItemList
     protected void createDynamicItemList2()
     {
         this.getPanDynamicItemList().getChildren().clear();
-        if (this.getSessionBean().getCurrentPubItemList() != null)
+        if (this.getItemListSessionBean().getCurrentPubItemList() != null)
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("Creating dynamic item list with " + this.getSessionBean().getCurrentPubItemList().size()
+                logger.debug("Creating dynamic item list with " + this.getItemListSessionBean().getCurrentPubItemList().size()
                         + " entries.");
             }
             // create an ItemListUI for all PubItems
-            List<PubItemVOPresentation> pubItemList = this.getSessionBean().getCurrentPubItemList();
+            List<PubItemVOPresentation> pubItemList = this.getItemListSessionBean().getCurrentPubItemList();
             //List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
             //ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{DepositorWS.showItem}");
             // add the UI to the dynamic panel
@@ -490,13 +493,23 @@ public class DepositorWS extends ItemList
     }
 
     /**
+     * Returns the ItemListSessionBean.
+     *
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected ItemListSessionBean getItemListSessionBean()
+    {
+        return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
+    }
+
+    /**
      * Returns the DepositorWSSessionBean.
      *
      * @return a reference to the scoped data bean (DepositorWSSessionBean)
      */
     protected DepositorWSSessionBean getSessionBean()
     {
-        return (DepositorWSSessionBean) getBean(DepositorWSSessionBean.class);
+        return (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
     }
 
     /**

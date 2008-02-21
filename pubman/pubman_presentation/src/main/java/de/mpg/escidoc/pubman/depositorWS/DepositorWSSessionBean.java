@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.depositorWS;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Keeps all attributes that are used for the whole session by the DepositorWS.
@@ -40,7 +41,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
  * @version: $Revision: 1675 $ $LastChangedDate: 2007-12-14 13:47:11 +0100 (Fr, 14 Dez 2007) $
  * Revised by DiT: 09.08.2007
  */
-public class DepositorWSSessionBean extends ItemListSessionBean
+public class DepositorWSSessionBean extends FacesBean
 {
     public static final String BEAN_NAME = "DepositorWSSessionBean";
     @SuppressWarnings("unused")
@@ -61,6 +62,7 @@ public class DepositorWSSessionBean extends ItemListSessionBean
      */
     public DepositorWSSessionBean()
     {
+    	
         //this.init();
     }
 

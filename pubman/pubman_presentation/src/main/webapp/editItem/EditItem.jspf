@@ -39,36 +39,26 @@
 /* <ui:messageGroup id="valMessage" binding="#{EditItem.valMessage}" styleClass="valMessage" visible="false"/> */
 %>
 
-	<h:panelGrid id="panBasic" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterBlockPanel" cellspacing="0">
+	<h:panelGroup layout="block" id="panBasic">
 		<h:outputText id="lblBasic" value="#{lbl.EditItem_lblBasic}" styleClass="editItemBlockHeaders" />
-		<h:outputText id="space1" />
-		<h:outputLabel id="lblCollection" value="#{lbl.EditItem_lblCollection}" />
-		<h:panelGrid id="valCollectionAndInfo" columns="2" styleClass="editItemInnerPanel" cellspacing="0">
+	</h:panelGroup>
+	<h:panelGroup layout="block" id="collection">
+		<h:outputLabel id="lblCollection" value="#{lbl.EditItem_lblCollection}" styleClass="editItemLabelColumn"/>
+		<h:panelGroup id="valCollectionAndInfo" styleClass="editItemInnerPanel editItemFieldColumn">
 			<h:outputText id="valCollection" value="#{EditItem.pubItem.pubCollection.objectId}" />
 			<h:graphicImage id="imgCollectionInformation" onclick="showCollectionDescription()" url="/images/info.gif" />
-		</h:panelGrid>
-		<h:outputLabel id="lblGenre" value="#{lbl.EditItem_lblGenre} *" />
-		<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort">
+		</h:panelGroup>
+	</h:panelGroup>
+	<h:panelGroup layout="block" id="genre">
+		<h:outputLabel id="lblGenre" value="#{lbl.EditItem_lblGenre} *" styleClass="editItemLabelColumn"/>
+		<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort editItemFieldColumn">
 			<f:selectItems value="#{EditItem.genres}" />
 		</h:selectOneMenu>
-	</h:panelGrid>
+	</h:panelGroup>
 
 	<h:panelGrid id="panDynamicTitle" styleClass="editItemOuterPanel">
 		<jsp:directive.include file="ui/TitleCollection.jspf"/>
 	</h:panelGrid>
-XXX
-	<tr:inputFile label="Upload:" value="#{EditItem.testFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
-	GGG:<h:outputText value="#{EditItem.testFile.filename}"></h:outputText>
-YYY
-	<h:dataTable var="component" value="#{EditItem.files}" >
-		<h:column>
-			<tr:inputFile label="Upload:" value="#{component}" valueChangeListener="#{EditItem.fileUploaded}"/>
-			<h:outputLabel value="#{lbl.EditItem_lblSize}"/>
-			<h:inputText value="#{component.length}"/>
-		</h:column>
-	</h:dataTable>
-	<h:commandButton value="Upload"/>
-XXX
 
 	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
 		<h:outputText id="lblPersonsAndOrganizations" style="font-weight: bold" value="#{lbl.EditItem_lblPersonsAndOrganizations}" />

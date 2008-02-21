@@ -31,10 +31,7 @@
 package de.mpg.escidoc.pubman.desktop;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletException;
@@ -46,7 +43,6 @@ import org.apache.log4j.Logger;
 
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -106,8 +102,7 @@ public class Login extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
         LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-        DepositorWSSessionBean depWSSessionBean
-            = (DepositorWSSessionBean) getSessionBean(DepositorWSSessionBean.class);
+
         String userHandle = loginHelper.getESciDocUserHandle();
         if (loginHelper.isLoggedIn() && loginHelper.getESciDocUserHandle() != null)
         {

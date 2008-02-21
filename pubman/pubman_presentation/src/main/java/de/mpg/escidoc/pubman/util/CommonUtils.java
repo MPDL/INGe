@@ -414,13 +414,13 @@ public class CommonUtils extends InternationalizedImpl
      * @param list the list of PubItemVOPresentations
      * @return the list of PubItemVOs
      */
-    public static List<PubItemVO> convertToPubItemVOList(List<PubItemVOPresentation> list)
+    public static ArrayList<PubItemVO> convertToPubItemVOList(List<PubItemVOPresentation> list)
     {
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
 
         for (int i = 0; i < list.size(); i++)
         {
-            pubItemList.add((PubItemVO)list.get(i));
+            pubItemList.add(new PubItemVO(list.get(i)));
         }
 
         return pubItemList;

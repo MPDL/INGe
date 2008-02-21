@@ -214,6 +214,11 @@
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>ItemListSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.ItemListSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>ViewItemSessionBean</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
@@ -242,6 +247,11 @@
 		<managed-bean-name>AffiliationTree</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationTree</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>AffiliationBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>BreadcrumbNavigation</managed-bean-name>

@@ -39,9 +39,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputText;
@@ -58,12 +56,12 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -216,8 +214,8 @@ public class SearchResultList extends ItemList
         sb.setFileFormat("html");
  
         // set the currently selected items in the FacesBean
-        this.setSelectedItemsAndCurrentItem();
-        if (this.getSessionBean().getSelectedPubItems().size() != 0)
+        //this.setSelectedItemsAndCurrentItem();
+        if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
         {
             // export format and file format.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();                        
@@ -225,7 +223,7 @@ public class SearchResultList extends ItemList
             byte[] exportDataStream ;
             try 
             {
-                exportDataStream = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
+                exportDataStream = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems()));
             } catch(TechnicalException e)
             {
                 logger.error("Could not get export data." + "\n" + e.toString());
@@ -297,21 +295,21 @@ public class SearchResultList extends ItemList
             {
                 logger.debug("showExportEmailPage");
             }
-            this.setSelectedItemsAndCurrentItem();
-            ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
+            //this.setSelectedItemsAndCurrentItem();
+            ExportItemsSessionBean sb = (ExportItemsSessionBean) getSessionBean(ExportItemsSessionBean.class);
             
-            if (this.getSessionBean().getSelectedPubItems().size() != 0)
+            if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
             {
                 // gets the export format VO that holds the data.
                 ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
                 byte[] exportFileData;
                 try
                 {
-                    exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
+                    exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems()));
                 } catch (TechnicalException e)
                 {
-                    logger.error("Errors retrieving export data." + "\n" + e.toString());
-                    ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+                    logger.error("Errors retrieving export data.", e);
+                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
                 
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -345,7 +343,7 @@ public class SearchResultList extends ItemList
                 catch (IOException e1)
                 {
                     logger.debug("IO Error by writing the export data: " + e1.toString());
-                    ((ErrorPage)getBean(ErrorPage.class)).setException(e1);
+                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -381,20 +379,20 @@ public class SearchResultList extends ItemList
             }
  
           // set the currently selected items in the FacesBean
-         this.setSelectedItemsAndCurrentItem();
+         //this.setSelectedItemsAndCurrentItem();
          ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
          
-         if (this.getSessionBean().getSelectedPubItems().size() != 0)
+         if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
          {
             // export format and file format.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();  
             byte[] exportFileData; 
             try
             {
-                exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getSessionBean().getSelectedPubItems()));
+                exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems()));
             } catch (TechnicalException e)
             {
-                logger.error("Errors retrieving export data." + "\n" + e.toString());
+                logger.error("Errors retrieving export data.", e);
                 ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
                 return ErrorPage.LOAD_ERRORPAGE;
@@ -454,13 +452,13 @@ public class SearchResultList extends ItemList
         }
 
         // set the currently selected items in the ItemController
-        this.setSelectedItemsAndCurrentItem();
+        //this.setSelectedItemsAndCurrentItem();
         
-        if (this.getSessionBean().getSelectedPubItems().size() == 1)
+        if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
             return withdrawItem(SearchResultList.LOAD_SEARCHRESULTLIST);
         }
-        else if (this.getSessionBean().getSelectedPubItems().size() > 1)
+        else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
             this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
             return null;
@@ -479,17 +477,17 @@ public class SearchResultList extends ItemList
     {
         this.getPanDynamicItemList().getChildren().clear();
         
-        List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getSessionBean().getCurrentPubItemList());
+        List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
         
-        if(this.getSessionBean().getCurrentPubItemList() != null)
+        if(this.getItemListSessionBean().getCurrentPubItemList() != null)
         {
             if (logger.isDebugEnabled())
             {
-                logger.debug("Creating dynamic item list with " + this.getSessionBean().getCurrentPubItemList().size() + " entries.");
+                logger.debug("Creating dynamic item list with " + this.getItemListSessionBean().getCurrentPubItemList().size() + " entries.");
             }
             
             // create an ItemListUI for all PubItems
-            List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getSessionBean().getCurrentPubItemList());
+            List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
             List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
             ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{SearchResultList.showItem}");
             
@@ -498,7 +496,7 @@ public class SearchResultList extends ItemList
         }
 
         // enable or disable the action links according to item state and availability of items
-        this.enableLinks(this.getSessionBean().getCurrentPubItemList().size());
+        this.enableLinks(this.getItemListSessionBean().getCurrentPubItemList().size());
     }
 
     /**
@@ -551,7 +549,11 @@ public class SearchResultList extends ItemList
         try
         {
             List<PubItemVO> itemsFound = this.getItemControllerSessionBean().searchItems(searchString, includeFiles);
-            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+            
+            getItemListSessionBean().setListDirty(false);
+            getItemListSessionBean().setType("SearchResultList");
+            getItemListSessionBean().setCurrentPubItemListPointer(0);
         }
         catch (Exception e)
         {
@@ -565,7 +567,7 @@ public class SearchResultList extends ItemList
         this.sortItemList();
         this.createDynamicItemList2();
         
-        if(this.getSessionBean().getCurrentPubItemList().size() < 1)
+        if(this.getItemListSessionBean().getCurrentPubItemList().size() < 1)
         {
             return (SearchResultList.LOAD_NO_ITEMS_FOUND);
         }
@@ -597,7 +599,7 @@ public class SearchResultList extends ItemList
         {
             ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().advancedSearchItems(criterionVOList, language);
             result = itemsFound.size();
-            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -655,7 +657,7 @@ public class SearchResultList extends ItemList
         try
         {
             itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliationRO);
-            this.getSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -692,16 +694,16 @@ public class SearchResultList extends ItemList
         LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
 
         // extract the location of the file
-        String fileLocation = ServiceLocator.getFrameworkUrl() + this.getSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getContent();
-        String filename = this.getSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getName(); // Filename suggested in browser Save As dialog
+        String fileLocation = ServiceLocator.getFrameworkUrl() + this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getContent();
+        String filename = this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getName(); // Filename suggested in browser Save As dialog
         filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed by the http-response (filename will be cutted after the first empty space)
-        String contentType = this.getSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getMimeType(); // For dialog, try
+        String contentType = this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getMimeType(); // For dialog, try
         
         // application/x-download
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
         response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        response.setContentLength(new Long(this.getSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue());
+        response.setContentLength(new Long(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue());
         response.setContentType(contentType);
 
         byte[] buffer = null;
@@ -724,7 +726,7 @@ public class SearchResultList extends ItemList
                 InputStream input = method.getResponseBodyAsStream();
                 try
                 {
-                    buffer = new byte[new Long(this.getSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue()];
+                    buffer = new byte[new Long(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue()];
                     int numRead;
                     long numWritten = 0;
                     while ((numRead = input.read(buffer)) != -1) {
@@ -798,13 +800,23 @@ public class SearchResultList extends ItemList
     }
 
     /**
+     * Returns the ItemListSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected ItemListSessionBean getItemListSessionBean()
+    {
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
+    }
+
+    /**
      * Returns the SearchResultListSessionBean.
      * 
      * @return a reference to the scoped data bean (SearchResultListSessionBean)
      */
     protected SearchResultListSessionBean getSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
+        return (SearchResultListSessionBean)getSessionBean(SearchResultListSessionBean.class);
     }
 
     public HtmlOutputText getValNoItemsFoundMsg()
