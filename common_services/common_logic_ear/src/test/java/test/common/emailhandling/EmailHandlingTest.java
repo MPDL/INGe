@@ -95,7 +95,6 @@ public class EmailHandlingTest extends TestBase
      * TODO Test ignored cause mail settings has to become properties first
      */
     @Test
-    @Ignore
     public void testSendMail() throws TechnicalException
     {
         logger.debug("### testSendMail ###" );        
