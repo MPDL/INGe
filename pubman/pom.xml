@@ -5,7 +5,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>1.0</version>
+	<version>2.0.17</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -32,7 +32,7 @@
 
 	<issueManagement>
 		<system>Jira</system>
-		<url>http://zim01.gwdg.de:8080/browse/PUBMAN</url>
+		<url>http://zim01.gwdg.de:8080/BrowseProject.jspa?id=10025</url>
 	</issueManagement>
 
 	<developers>
@@ -262,6 +262,13 @@
 				</plugin>
 			</plugins>
 		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-changes-plugin</artifactId>
+				<version>2.0-20080211.215359-1</version>
+			</plugin>
+		</plugins>
 	</build>
 
 	<reporting>
@@ -280,18 +287,24 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-changes-plugin</artifactId>
+				<configuration>
+					<smtpHost>${changes.smtphost}</smtpHost>
+					<smtpPort implementation="java.lang.Integer">25</smtpPort>
+					<fromDeveloperId>${changes.developerid}</fromDeveloperId>
+					<toAddresses>
+						<toAddress implementation="java.lang.String">${changes.recipient.address}</toAddress>
+					</toAddresses>
+					<jiraUser>${changes.jira.user}</jiraUser>
+					<jiraPassword>${changes.jira.password}</jiraPassword>
+				</configuration>
 				<reportSets>
 					<reportSet>
 						<reports>
-							<report>jira</report>
+							<report>jira-report</report>
 							<report>changes-report</report>
 						</reports>
 					</reportSet>
 				</reportSets>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>changelog-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -365,8 +378,8 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-				
-				<!-- DB settings --> 
+
+				<!-- DB settings -->
 				<db.driver>org.postgresql.Driver</db.driver>
 				<db.url>jdbc:postgresql://localhost:5432/</db.url>
 				<db.name>validation</db.name>
@@ -430,8 +443,8 @@
 				<!-- Used for validation initialization -->
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-				
-				<!-- DB settings --> 
+
+				<!-- DB settings -->
 				<db.driver>org.postgresql.Driver</db.driver>
 				<db.url>jdbc:postgresql://localhost:5432/</db.url>
 				<db.name>validation</db.name>
