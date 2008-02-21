@@ -102,7 +102,6 @@ public class CitationStyleHandlerTest {
      * @throws Exception Any exception.
      */
     @Test
-    @Ignore
     public final void testCitManOutput() throws Exception {
 		long start;
     	byte[] result;
