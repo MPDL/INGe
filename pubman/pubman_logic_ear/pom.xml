@@ -339,7 +339,7 @@
 						<artifactId>cargo-maven2-plugin</artifactId>
 						<version>1.0-20080212.095734-1</version>
 						<configuration>
-							<wait>true</wait>
+							<wait>false</wait>
 							<container>
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
