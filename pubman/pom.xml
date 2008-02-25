@@ -344,6 +344,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>high</cargo.log>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 
 				<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
@@ -409,6 +410,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>high</cargo.log>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 
 				<!-- deploy the pubman ear to this server and port via jmx -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
