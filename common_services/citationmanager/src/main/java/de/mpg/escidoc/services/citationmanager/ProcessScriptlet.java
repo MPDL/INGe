@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.design.JRDesignField;
@@ -55,7 +56,8 @@ import net.sf.jasperreports.engine.design.JRDesignField;
 public class ProcessScriptlet {
 
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
-    public final static String SCRIPTLETS_DIRECTORY = "src";
+//    public final static String SCRIPTLETS_DIRECTORY = "src/main/java";
+    public final static String SCRIPTLETS_DIRECTORY = "target/classes";
     private static String SCRIPTLET_CLASSNAME = null;
 
 //  table of special functions which can be applied in layout-elements (@func="funcname")
@@ -525,7 +527,6 @@ public class ProcessScriptlet {
      */
     public void writeToScriptlet(File path, String name) throws IOException{
         scriptletBody += "}";
-//      System.out.println(scriptletBody);
         File f = new File(path, name + "/" + getScriprtletClassName() + ".java");
         try {
             PrintWriter out = new PrintWriter(new FileWriter(f));
@@ -704,6 +705,8 @@ public class ProcessScriptlet {
 
 //      remove old sriptlets java files
         path = new File(ProcessCitationStyles.getCsPath(root) + "/" +  csName);
+        System.out.println(path);
+        
         if (!path.isDirectory()) {
             throw new IllegalArgumentException("deleteCitationStyleBundle: there is no directory");
         }

@@ -110,18 +110,23 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final Logger logger = Logger.getLogger(ProcessCitationStyles.class);
 
     
-    public final static String FONTSTYLES_FILENAME = "FontStyles";
-    public final static String DATASOURCES_DIRECTORY = "DataSources";
-    public final static String CITATIONSTYLES_DIRECTORY = "CitationStyles";
-    public final static String RESULT_CITATION_VARIABLE = "citation";
-    public final static String DEFAULT_STYLENAME = "Default";
-    public final static String SCHEMAS_DIRECTORY  = "Schemas";
+    public final static String RESOURCES_DIRECTORY = "src/main/resources";
+    public final static String DATASOURCES_DIRECTORY = RESOURCES_DIRECTORY + "/DataSources";
+    public final static String CITATIONSTYLES_DIRECTORY = RESOURCES_DIRECTORY + "/CitationStyles";
+    public final static String SCHEMAS_DIRECTORY  = RESOURCES_DIRECTORY + "/Schemas";
+    public static final String SORTINGS_DIRECTORY = RESOURCES_DIRECTORY + "/Transformations";
     
+    public final static String FONTSTYLES_FILENAME = "FontStyles";
     
     public final static String EXPLAIN_FILE = SCHEMAS_DIRECTORY + "/explain-styles.xml";
     
+    public final static String RESULT_CITATION_VARIABLE = "citation";
+    public final static String DEFAULT_STYLENAME = "Default";
     
     public final static String DEFAULT_REPORTNAME = "Report";
+    
+    
+   
     
     
     public static boolean KEEP_OLD_SCRIPTLETS = false; 
@@ -225,6 +230,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		{"source/creator/person/family-name",
 			"$F{sourcecreatorfullname1} != null ? $F{sourcecreatorfullname1} : $F{sourcecreatorfullname2} != null ? $F{sourcecreatorfullname2} : null"}      	
     };
+
+
 
 
 //  FontStylesCollection
@@ -777,13 +784,16 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	"/" + ProcessScriptlet.getScriprtletClassName() + ".java";
         
           // TODO MAKE THIS WORK AGAIN
-//        com.sun.tools.javac.Main.compile(new String[] {
-//                "-cp",
-//                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
-//                "-d", ProcessScriptlet.SCRIPTLETS_DIRECTORY,
-//                scriptlet_fn_java
-//                
-//        });
+    	logger.info(JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH));
+
+        com.sun.tools.javac.Main.compile(new String[] {
+                "-cp",
+                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
+                "-d", ProcessScriptlet.SCRIPTLETS_DIRECTORY,
+//                "-d", "/home/vlad/Projects/escidoc/common_services/citationmanager/target/classes",
+                scriptlet_fn_java
+                
+        });
         
         
       }
@@ -1635,7 +1645,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             else if (TASK_FILL_SORT_TITLE.equalsIgnoreCase(taskName))
             {
                 File xmlFile = new File(dsName);
-                File xsltFile = new File(SCHEMAS_DIRECTORY + "/" + "sort.xsl");
+                File xsltFile = new File(SORTINGS_DIRECTORY + "/" + "sort.xsl");
                 
                 File xmlSortedFile = new File("sorted.xml");
 
