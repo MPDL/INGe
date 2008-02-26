@@ -22,15 +22,15 @@ CDDL HEADER END
 
 
 Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
-<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 <div>
 	<f:subview id="list">
 		<div class="paginator">
@@ -45,9 +45,10 @@ All rights reserved. Use is subject to license terms.
 				<h:commandButton value="|<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
 				<h:commandButton value="<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
 				<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}">
-
-					<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true"/>
-
+				
+					<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+					<tr:commandButton text="#{page}" disabled="true" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+					
 				</tr:iterator>
 				<h:commandButton value=">" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
 				<h:commandButton value=">|" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
@@ -80,7 +81,7 @@ All rights reserved. Use is subject to license terms.
 				<h:column>
 					<h:panelGroup styleClass="listItemHeader">
 						<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}">
+						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}" >
 							<h:outputText value="#{item.metadata.title}"/>
 						</h:outputLink>
 						<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>

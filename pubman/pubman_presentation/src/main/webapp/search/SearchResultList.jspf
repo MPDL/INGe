@@ -45,7 +45,7 @@
 		<h:outputText binding="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
 	</div>
 	
-	<jsp:directive.include file="../list/list.jspf"/>
+	<jsp:directive.include file="../list/itemList.jspf"/>
 
 </f:subview>
 </div>

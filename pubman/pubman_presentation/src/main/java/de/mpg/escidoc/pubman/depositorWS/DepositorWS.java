@@ -419,9 +419,10 @@ public class DepositorWS extends ItemList
         this.sortItemList();
         // enable or disable the action links according to item state and availability of items
         this.enableLinks(this.getSessionBean().getSelectedItemState(), itemsForAccountUser.size());
-        // no reload neccessary next time this page is navigated to
+        // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("DepositorWS");
+        getViewItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
         return DepositorWS.LOAD_DEPOSITORWS;
     }
 
@@ -430,7 +431,6 @@ public class DepositorWS extends ItemList
      */
     protected void createDynamicItemList2()
     {
-        this.getPanDynamicItemList().getChildren().clear();
         if (this.getItemListSessionBean().getCurrentPubItemList() != null)
         {
             if (logger.isDebugEnabled())
@@ -440,22 +440,7 @@ public class DepositorWS extends ItemList
             }
             // create an ItemListUI for all PubItems
             List<PubItemVOPresentation> pubItemList = this.getItemListSessionBean().getCurrentPubItemList();
-            //List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-            //ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{DepositorWS.showItem}");
-            // add the UI to the dynamic panel
-            //this.getPanDynamicItemList().getChildren().add(itemListUI);
-            
-//            UIComponent listComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:DepositorWS:list:listtable");
-//            if (listComponent != null)
-//            {
-//                ValueExpression value = FacesContext
-//                    .getCurrentInstance()
-//                    .getApplication()
-//                    .getExpressionFactory()
-//                    .createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{ItemListSessionBean.currentPubItemList}", List.class);
-//                listComponent.setValueExpression("value", value);
-//            }
-            
+
         }
     }
 

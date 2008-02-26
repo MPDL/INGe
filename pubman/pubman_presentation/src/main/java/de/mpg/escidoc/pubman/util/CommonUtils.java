@@ -427,6 +427,23 @@ public class CommonUtils extends InternationalizedImpl
     }
 
     /**
+     * Converts a list of PubCollectionVOPresentations to a list of PubCollections.
+     * @param list the list of PubCollectionVOPresentations
+     * @return the list of PubCollectionVOs
+     */
+    public static ArrayList<PubCollectionVO> convertToPubCollectionVOList(List<PubCollectionVOPresentation> list)
+    {
+        ArrayList<PubCollectionVO> pubCollectionList = new ArrayList<PubCollectionVO>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubCollectionList.add(new PubCollectionVO(list.get(i)));
+        }
+
+        return pubCollectionList;
+    }
+
+    /**
      * Converts a list of PubItems to a list of PubItemVOPresentations.
      * @param list the list of PubItemVOs
      * @return the list of PubItemVOPresentations
@@ -441,6 +458,23 @@ public class CommonUtils extends InternationalizedImpl
         }
 
         return pubItemList;
+    }
+
+    /**
+     * Converts a list of PubCollections to a list of PubCollectionVOPresentations.
+     * @param list the list of PubCollectionVOs
+     * @return the list of PubCollectionVOPresentations
+     */
+    public static List<PubCollectionVOPresentation> convertToPubCollectionVOPresentationList(List<PubCollectionVO> list)
+    {
+        List<PubCollectionVOPresentation> pubCollectionList = new ArrayList<PubCollectionVOPresentation>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubCollectionList.add(new PubCollectionVOPresentation(list.get(i)));
+        }
+
+        return pubCollectionList;
     }
 
     /**

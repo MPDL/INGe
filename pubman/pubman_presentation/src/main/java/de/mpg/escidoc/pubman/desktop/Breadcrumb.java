@@ -64,25 +64,6 @@ public class Breadcrumb extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
-        getPanBreadCrumbList();
     }
 
-    /**
-     * Get the actual bread crump UI component.
-     *
-     * @return The bread crump UI component.
-     */
-    public HtmlPanelGroup getPanBreadCrumbList()
-    {
-        BreadcrumbNavigation breadcrumbs = (BreadcrumbNavigation) getSessionBean(BreadcrumbNavigation.class);
-        breadcrumbs.init();
-        this.panBreadCrumbList = new HtmlPanelGroup();
-        this.panBreadCrumbList = breadcrumbs.getPanBreadcrumbList();
-        return panBreadCrumbList;
-    }
-
-    public void setPanBreadCrumbList(final HtmlPanelGroup panBreadCrumbList)
-    {
-        this.panBreadCrumbList = panBreadCrumbList;
-    }
 }

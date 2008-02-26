@@ -58,7 +58,6 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -78,9 +77,6 @@ public abstract class ItemList extends FacesBean
     private HtmlOutputText valMessage = new HtmlOutputText();
     private HtmlSelectOneMenu cboSortBy = new HtmlSelectOneMenu();
     private HtmlSelectOneRadio rbgSortOrder = new HtmlSelectOneRadio();
-
-    // panel for dynamic components
-    private HtmlPanelGrid panDynamicItemList = new HtmlPanelGrid();
 
     // constants for comboBoxes
     //public SelectItem[] SORTBY_OPTIONS = null;
@@ -482,29 +478,6 @@ public abstract class ItemList extends FacesBean
     {
         return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
     }
-
-    /**
-     * Returns the panel for items.
-     * @return the panel for the items
-     */
-    public HtmlPanelGrid getPanDynamicItemList()
-    {
-        return panDynamicItemList;
-    }
-
-    /**
-     * Sets the panel for items.
-     * @param panDynamicTitle the new panel
-     */
-    public void setPanDynamicItemList(HtmlPanelGrid panDynamicItemList)
-    {
-        this.panDynamicItemList = panDynamicItemList;
-    }
-
-//    public SelectItem[] getSORTBY_OPTIONS()
-//    {
-//        return this.SORTBY_OPTIONS;
-//    }
 
     public SelectItem[] getSORTORDER_OPTIONS()
     {

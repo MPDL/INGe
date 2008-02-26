@@ -42,7 +42,6 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
-import de.mpg.escidoc.pubman.affiliation.AffiliationTree;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -105,7 +104,7 @@ public class Navigation extends FacesBean
         this.navRules.add(new NavigationRule("/faces/SearchResultListPage.jsp",
                 SearchResultList.LOAD_SEARCHRESULTLIST));
         this.navRules.add(new NavigationRule("/faces/AffiliationTreePage.jsp",
-                AffiliationTree.LOAD_AFFILIATIONTREE));
+                AffiliationBean.LOAD_AFFILIATION_TREE));
         this.navRules.add(new NavigationRule("/faces/AffiliationSearchResultListPage.jsp",
                 SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST));
         this.navRules.add(new NavigationRule("/faces/ViewItemRevisionsPage.jsp",
@@ -167,7 +166,6 @@ public class Navigation extends FacesBean
         ViewItemFull viewItem;
         SearchResultList searchResultList;
         EditItem editItem;
-        AffiliationTree affiliationTree;
         CreateRevision createRevision;
         ReleaseHistory releaseHistory;
 

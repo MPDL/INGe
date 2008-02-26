@@ -48,6 +48,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
@@ -192,9 +193,8 @@ public class CreateRevision extends FacesBean
             }
             
             // create a CollectionListUI for all PubCollections
-            List<PubCollectionVO> pubCollectionList = this.getCollectionListSessionBean().getCollectionList();
-            List<PubCollectionVOWrapper> pubCollectionWrapperList = CommonUtils.convertToPubCollectionVOWrapperList(pubCollectionList);
-            this.getCollectionListSessionBean().setCollectionListUI(new CollectionListUI(pubCollectionWrapperList));
+            List<PubCollectionVOPresentation> pubCollectionList = this.getCollectionListSessionBean().getCollectionList();
+
             
             // add the UI to the dynamic panel
             this.getPanDynamicCollectionList().getChildren().add(this.getCollectionListSessionBean().getCollectionListUI());

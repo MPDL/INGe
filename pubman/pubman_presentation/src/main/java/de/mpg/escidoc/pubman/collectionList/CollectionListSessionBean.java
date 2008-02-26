@@ -36,6 +36,8 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
+import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
@@ -49,7 +51,7 @@ public class CollectionListSessionBean extends FacesBean
     public static final String BEAN_NAME = "CollectionListSessionBean";
     private static Logger logger = Logger.getLogger(CollectionListSessionBean.class);
 
-    private List<PubCollectionVO> collectionList = new ArrayList<PubCollectionVO>();
+    private List<PubCollectionVOPresentation> collectionList = new ArrayList<PubCollectionVOPresentation>();
     private CollectionListUI collectionListUI = null;
 
     /**
@@ -64,13 +66,13 @@ public class CollectionListSessionBean extends FacesBean
      * Retrieves all collections for the current user.
      * @return the list of PubCollectionVOs
      */
-    private List<PubCollectionVO> retrieveCollections()
+    private List<PubCollectionVOPresentation> retrieveCollections()
     {
-        List<PubCollectionVO> allCollections = new ArrayList<PubCollectionVO>();
+        List<PubCollectionVOPresentation> allCollections = new ArrayList<PubCollectionVOPresentation>();
         
         try
         {
-            allCollections = this.getItemControllerSessionBean().retrieveCollections(); 
+            allCollections = CommonUtils.convertToPubCollectionVOPresentationList(this.getItemControllerSessionBean().retrieveCollections()); 
         }
         catch (Exception e)
         {
@@ -84,9 +86,9 @@ public class CollectionListSessionBean extends FacesBean
         return allCollections;
     }
 
-    private List<PubCollectionVO> getDummyCollections(int numberofDummies)
+    private List<PubCollectionVOPresentation> getDummyCollections(int numberofDummies)
     {
-        List<PubCollectionVO> dummyCollections = new ArrayList<PubCollectionVO>();
+        List<PubCollectionVOPresentation> dummyCollections = new ArrayList<PubCollectionVOPresentation>();
 
         for (int i = 0; i < numberofDummies; i++)
         {
@@ -96,9 +98,9 @@ public class CollectionListSessionBean extends FacesBean
         return dummyCollections;
     }
     
-    private PubCollectionVO createDummyCollection(int number)
+    private PubCollectionVOPresentation createDummyCollection(int number)
     {
-        PubCollectionVO vo = new PubCollectionVO();
+        PubCollectionVOPresentation vo = new PubCollectionVOPresentation(new PubCollectionVO());
         vo.setName("TestCollection " + number + ". DO NOT TRY TO CREATE ITEMS WITH THIS!");
         vo.setDescription("This is the description of the collection No. " + number + ".");
         PubCollectionRO ro = new PubCollectionRO();
@@ -117,12 +119,12 @@ public class CollectionListSessionBean extends FacesBean
         return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
-    public List<PubCollectionVO> getCollectionList()
+    public List<PubCollectionVOPresentation> getCollectionList()
     {
         return collectionList;
     }
 
-    public void setCollectionList(List<PubCollectionVO> collectionList)
+    public void setCollectionList(List<PubCollectionVOPresentation> collectionList)
     {
         this.collectionList = collectionList;
     }

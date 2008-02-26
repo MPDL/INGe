@@ -189,6 +189,7 @@ public class ItemListSessionBean extends FacesBean
 
 	public void setItemsPerPage(int itemsPerPage) {
 		this.itemsPerPage = itemsPerPage;
+		currentPubItemListPointer = currentPubItemListPointer - currentPubItemListPointer % itemsPerPage;
 	}
 
 	public int getCurrentPubItemListPointer() {

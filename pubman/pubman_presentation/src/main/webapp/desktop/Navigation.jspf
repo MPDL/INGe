@@ -38,7 +38,7 @@
 			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace}">
 		</h:outputText></h1>
 		<li><h:outputLink
-			value="#{ApplicationBean.appContext}#{BreadcrumbNavigation.DEPOSITOR_WS_PAGE}">
+			value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 			<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS}" />
 		</h:outputLink></li>
 			

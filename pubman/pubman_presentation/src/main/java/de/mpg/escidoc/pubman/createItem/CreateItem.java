@@ -45,12 +45,14 @@ import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
 /**
  * Fragment class for CreateItem.
  * 
  * @author: Thomas Diebäcker, created 11.10.2007
+ * @author: $Author: mfranke $ last modification
  * @version: $Revision: 1683 $ $LastChangedDate: 2007-12-17 10:30:45 +0100 (Mo, 17 Dez 2007) $ 
  */
 public class CreateItem extends FacesBean
@@ -61,9 +63,6 @@ public class CreateItem extends FacesBean
     
     // Faces navigation string
     public final static String LOAD_CREATEITEM = "loadCreateItem";
-
-    // panel for dynamic components
-    HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();        
 
     /**
      * Public constructor.
@@ -80,11 +79,7 @@ public class CreateItem extends FacesBean
     public void init()
     {
         super.init();
-        
-        if (this.getSessionBean().getCollectionListUI() == null)
-        {
-            this.createDynamicItemList();
-        }
+
     }
     
     public String confirmSelection()
@@ -121,23 +116,7 @@ public class CreateItem extends FacesBean
      */
     protected void createDynamicItemList()
     {
-        this.panDynamicCollectionList.getChildren().clear();
-        
-        if (this.getSessionBean().getCollectionList() != null)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Creating dynamic collection list with " + this.getSessionBean().getCollectionList().size() + " entries.");
-            }
-            
-            // create a CollectionListUI for all PubCollections
-            List<PubCollectionVO> pubCollectionList = this.getSessionBean().getCollectionList();
-            List<PubCollectionVOWrapper> pubCollectionWrapperList = CommonUtils.convertToPubCollectionVOWrapperList(pubCollectionList);
-            this.getSessionBean().setCollectionListUI(new CollectionListUI(pubCollectionWrapperList));
-            
-            // add the UI to the dynamic panel
-            this.getPanDynamicCollectionList().getChildren().add(this.getSessionBean().getCollectionListUI());
-        }
+
     }
 
     /**
@@ -151,8 +130,7 @@ public class CreateItem extends FacesBean
         {
             logger.debug("New Submission");
         }
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
+
         // if there is only one collection for this user we can skip the CreateItem-Dialog and
         // create the new item directly
         if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
@@ -179,8 +157,7 @@ public class CreateItem extends FacesBean
                 logger.debug("The user has privileges for "
                         + this.getCollectionListSessionBean().getCollectionList().size() + " different collections.");
             }
-            // refresh ListUI
-            this.getCollectionListSessionBean().setCollectionListUI(null);
+
             return CreateItem.LOAD_CREATEITEM;
         }
     }
@@ -202,7 +179,7 @@ public class CreateItem extends FacesBean
      */
     protected CollectionListSessionBean getSessionBean()
     {
-        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
+        return (CollectionListSessionBean) getSessionBean(CollectionListSessionBean.class);
     }
 
     /**
@@ -223,13 +200,8 @@ public class CreateItem extends FacesBean
         return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
-    public HtmlPanelGroup getPanDynamicCollectionList()
-    {
-        return panDynamicCollectionList;
-    }
+	public List<PubCollectionVOPresentation> getCurrentCollectionList() {
+		return getSessionBean().getCollectionList();
+	}
 
-    public void setPanDynamicCollectionList(HtmlPanelGroup panDynamicCollectionList)
-    {
-        this.panDynamicCollectionList = panDynamicCollectionList;
-    }
 }

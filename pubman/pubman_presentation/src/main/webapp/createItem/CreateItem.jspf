@@ -37,10 +37,8 @@
 			<h1>
 			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>	  
 			</h1>
-			<div>
-				<h:panelGroup id="panCollectionList" binding="#{CreateItem.panDynamicCollectionList}">
-				</h:panelGroup>
-			</div>
+
+			<jsp:directive.include file="../list/collectionList.jspf"/>
 	
 			<div>
 				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItem.cancel}" />

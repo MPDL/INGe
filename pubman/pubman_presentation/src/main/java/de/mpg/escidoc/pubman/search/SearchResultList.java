@@ -64,6 +64,7 @@ import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
+import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -475,8 +476,7 @@ public class SearchResultList extends ItemList
      */
     protected void createDynamicItemList2()
     {
-        this.getPanDynamicItemList().getChildren().clear();
-        
+
         List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
         
         if(this.getItemListSessionBean().getCurrentPubItemList() != null)
@@ -490,9 +490,7 @@ public class SearchResultList extends ItemList
             List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
             List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
             ItemListUI itemListUI = new ItemListUI(pubItemWrapperList, "#{SearchResultList.showItem}");
-            
-            // add the UI to the dynamic panel
-            this.getPanDynamicItemList().getChildren().add(itemListUI);
+
         }
 
         // enable or disable the action links according to item state and availability of items
@@ -604,14 +602,14 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList2();
+        //this.createDynamicItemList2();
         
         try
         {
@@ -620,7 +618,8 @@ public class SearchResultList extends ItemList
             valQuery.setValue(getMessage("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
             if (result > 0)
             {
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);           
+            	getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
+                return (SearchResultList.LOAD_SEARCHRESULTLIST);
             }
             else
             {

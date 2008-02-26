@@ -371,7 +371,7 @@
 	<managed-bean>
 		<managed-bean-name>CreateItem</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.createItem.CreateItem</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
 		<managed-bean-name>CollectionListSessionBean</managed-bean-name>

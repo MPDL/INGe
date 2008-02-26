@@ -73,9 +73,6 @@
 													  value="#{lbl.actionMenu_lnkEdit}"/></li>
 												<li><h:commandLink binding="#{DepositorWS.lnkSubmit}" id="lnkSubmit" action="#{DepositorWS.submitSelectedItems}"
 													  value="#{lbl.actionMenu_lnkSubmit}"/></li>
-												<li><h:outputLink binding="#{DepositorWS.lnkDelete}" id="lnkDelete" onclick="confirmListDelete('DepositorWS');return false;"
-													  value="#{lbl.actionMenu_lnkDelete}"/></li>
-												<h:commandButton action="#{DepositorWS.deleteSelectedItems}" id="btnDeleteItems" value="delete"  style="visibility:hidden;" />
 											</ul>
 										</div>
 									</div>

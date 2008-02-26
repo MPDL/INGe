@@ -80,6 +80,9 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
             for (int i = 0; i < breadcrumbs.size(); i++)
             {
                 lastItem = (BreadcrumbItem) breadcrumbs.get(i);
+                
+                lastItem.setIsLast(false);
+                
                 if (lastItem.equals(newItem))
                 {
                     // replaces the actual item
@@ -100,6 +103,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
         logger.debug("Pushing breadcrumb item: " + newItem);
 
         breadcrumbs.add(newItem);
+        newItem.setIsLast(true);
     }
 
     /**
