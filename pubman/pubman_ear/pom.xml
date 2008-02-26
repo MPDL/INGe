@@ -33,6 +33,10 @@
 								<copy file="target/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf" overwrite="true" />
 								<!-- copy validation descriptor to server -->
 								<copy file="target/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy" overwrite="true" />
+<!--  
+								<xslt processor="trax"
+									in="/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/properties-service.xml" style="/tmp/transform.xsl"
+									out="/tmp/out.xml" />  -->
 							</tasks>
 						</configuration>
 						<goals>
@@ -40,6 +44,13 @@
 						</goals>
 					</execution>
 				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>ant</groupId>
+						<artifactId>ant-trax</artifactId>
+						<version>1.6.5</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -126,7 +137,6 @@
 							<artifactId>postgresql</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
-
 						<jarModule>
 							<groupId>trinidad</groupId>
 							<artifactId>trinidad-api</artifactId>
