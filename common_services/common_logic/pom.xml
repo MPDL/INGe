@@ -77,6 +77,9 @@
 											name="bindings_TaskParamVO.xml">
 										</include>
 										<include
+											name="bindings_FilterTaskParamVO.xml">
+										</include>
+										<include
 											name="bindings_FileURL.xml">
 										</include>
 										<include
