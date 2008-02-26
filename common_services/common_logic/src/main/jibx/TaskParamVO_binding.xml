@@ -40,7 +40,7 @@
 	</mapping>
 
 	<!-- concrete mapping for TaskParamVO" -->
-	<mapping name="TaskParamVO" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO">
+	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO">
 
 		<!-- embed the abstract mapping -->
 		<structure map-as="TaskParamVOAbstract" /> 

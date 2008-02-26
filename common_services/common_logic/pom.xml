@@ -77,6 +77,9 @@
 											name="bindings_TaskParamVO.xml">
 										</include>
 										<include
+											name="bindings_PidTaskParamVO.xml">
+										</include>
+										<include
 											name="bindings_FilterTaskParamVO.xml">
 										</include>
 										<include
@@ -234,7 +237,6 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-	
 </project>
 
 
