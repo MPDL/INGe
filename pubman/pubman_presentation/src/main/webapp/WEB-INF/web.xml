@@ -57,13 +57,7 @@
 		<!-- Use 5,000K -->
 		<param-value>51200000</param-value>
 	</context-param>
-	<context-param>
-		<!-- directory to store temporary files -->
-		<param-name>org.apache.myfaces.trinidad.UPLOAD_TEMP_DIR</param-name>
-		<!-- Use a TrinidadUploads subdirectory of /tmp -->
-		<param-value>./WEB-INF/uploads</param-value>
-	</context-param>
-
+	
   <!-- Trinidad by default uses an optimized client-side state saving
        mechanism. To disable that, uncomment the following -->
   <!--context-param>
