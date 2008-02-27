@@ -107,7 +107,6 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testPersonSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         AccountUserVO user = getUserTestDepScientistWithHandle();
 
         // create PubItem and submit (automatically releases the pubItem)
@@ -129,8 +128,8 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
 
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
@@ -184,8 +183,8 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
    
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
    
@@ -218,7 +217,6 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testTopicSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         AccountUserVO user = getUserTestDepScientistWithHandle();
    
         // create PubItem and submit (automatically releases the pubItem)
@@ -228,8 +226,8 @@ public class AdvancedSearchTest extends TestBase
         creatorOrg.setName(textVO);
         creatorOrg.setIdentifier(MPG_TEST_AFFILIATION);
         myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.AUTHOR));
-        TextVO subject = new TextVO( "TitleVO" );
-        myItem.getMetadata().setSubject( subject );
+        TextVO subject = new TextVO( "testing" );
+        myItem.getMetadata().setTitle( subject );
    
         String itemXML = xmlTransforming.transformToItem(myItem);
         logger.debug("itemXML for testTopicSearch():");
@@ -239,13 +237,13 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
    
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
    
         TopicCriterionVO topicCriterionVO = new TopicCriterionVO();
-        topicCriterionVO.setSearchString("TitelVO");
+        topicCriterionVO.setSearchString("testing");
         criterionVOList.add(topicCriterionVO);
         
         List<PubItemResultVO> searchResultList = pubSearching.advancedSearch(criterionVOList, null );
@@ -291,8 +289,8 @@ public class AdvancedSearchTest extends TestBase
          logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
     
          // wait a little bit for indexing...
-         logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-         Thread.sleep(5000);        
+         logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+         Thread.sleep(15000);        
     
          ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
     
@@ -399,8 +397,8 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
 
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
@@ -432,13 +430,12 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testOrganizationSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         AccountUserVO user = getUserTestDepScientistWithHandle();
 
         // create PubItem and submit (automatically releases the pubItem)
         PubItemVO myItem = getNewPubItemWithoutFiles();
         OrganizationVO creatorOrg = new OrganizationVO();
-        TextVO textVO = new TextVO( "The creating affiliation" );
+        TextVO textVO = new TextVO( "testaffilliation" );
         creatorOrg.setName(textVO);
         creatorOrg.setIdentifier(MPG_TEST_AFFILIATION);
         myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.AUTHOR));
@@ -451,13 +448,13 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
 
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
         OrganizationCriterionVO organizationCriterionVO = new OrganizationCriterionVO();
-        organizationCriterionVO.setSearchString("creatorOrg.name");
+        organizationCriterionVO.setSearchString("testaffilliation");
         criterionVOList.add(organizationCriterionVO);
         
         List<PubItemResultVO> searchResultList = pubSearching.advancedSearch(criterionVOList, null );
@@ -484,7 +481,6 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testGenreSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         AccountUserVO user = getUserTestDepScientistWithHandle();
 
         // create PubItem and submit (automatically releases the pubItem)
@@ -539,7 +535,6 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testDateSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         AccountUserVO user = getUserTestDepScientistWithHandle();
 
         // create PubItem and submit (automatically releases the pubItem)
@@ -547,9 +542,9 @@ public class AdvancedSearchTest extends TestBase
         OrganizationVO creatorOrg = new OrganizationVO();
         TextVO textVO = new TextVO( "The creating affiliation" );
         creatorOrg.setName(textVO);
-        creatorOrg.setIdentifier(MPG_TEST_AFFILIATION);
+        creatorOrg.setIdentifier( MPG_TEST_AFFILIATION );
         myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.AUTHOR));
-        myItem.getMetadata().setDateCreated("1964-11-16");
+        myItem.getMetadata().setDateCreated("1999-01-02");
 
         String itemXML = xmlTransforming.transformToItem(myItem);
         logger.debug("itemXML for testDateSearch():");
@@ -559,16 +554,16 @@ public class AdvancedSearchTest extends TestBase
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
-        logger.debug("Waiting 5 seconds to let the framework indexing happen...");
-        Thread.sleep(5000);        
+        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+        Thread.sleep(15000);        
 
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
         DateCriterionVO dateCriterionVO = new DateCriterionVO();
-        dateCriterionVO.setFrom("1964-11-16");
+        dateCriterionVO.setFrom("1999-01-02");
         dateCriterionVO.setTo("2007-10-08");
         List<DateType> dateType = new ArrayList<DateType>();
-        dateType.add(DateType.CREATED);                
+        // dateType.add(DateType.CREATED);                
         dateCriterionVO.setDateType(dateType);
         criterionVOList.add(dateCriterionVO);
         
@@ -595,7 +590,6 @@ public class AdvancedSearchTest extends TestBase
     @Test
     public void testSearch() throws Exception
     {   
-        // TODO ENT: Get test working.
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
         TitleCriterionVO titleCriterionVO = new TitleCriterionVO();

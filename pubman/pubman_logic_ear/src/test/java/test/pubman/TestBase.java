@@ -165,7 +165,7 @@ public class TestBase
         // build the postMethod from the given credentials
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
         postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
+        postMethod.addParameter("target", "http://localhost:8080");
         postMethod.addParameter("login", userName);
         postMethod.addParameter("password", password);
         
@@ -282,7 +282,11 @@ public class TestBase
         user.setHandle(userHandle);
         return user;
     }
-
+    /**
+     * Get a new pub item.
+     * 
+     * @return pub item 
+     */
     protected PubItemVO getNewPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
@@ -303,10 +307,10 @@ public class TestBase
         person.setCompleteName("Hans Meier");
         OrganizationVO organizationVO = new OrganizationVO();
         TextVO name = new TextVO();
-        name.setValue("Test Organization");
-        name.setLanguage("de");
+        name.setValue("Max Planck Society");
         organizationVO.setName(name);
         organizationVO.setAddress("Max-Planck-Str. 1");
+        organizationVO.setIdentifier("escidoc:persistent26");
         person.getOrganizations().add(organizationVO);
         creator.setPerson(person);
         mds.getCreators().add(creator);

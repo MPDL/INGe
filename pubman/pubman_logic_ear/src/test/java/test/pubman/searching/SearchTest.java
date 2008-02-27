@@ -129,7 +129,7 @@ public class SearchTest extends TestBase
         myItem.getMetadata().getTitle().setValue(title);
         // Add file to item
         PubFileVO file = new PubFileVO();
-        String testfile = "test/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
+        String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
         file.setContent(uploadFile(testfile, "application/pdf", user.getHandle()).toString());
         file.setContentType(ContentType.PUBLISHER_VERSION);
         file.setVisibility(Visibility.PUBLIC);
