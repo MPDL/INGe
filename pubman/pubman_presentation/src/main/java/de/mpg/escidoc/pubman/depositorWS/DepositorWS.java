@@ -177,7 +177,7 @@ public class DepositorWS extends ItemList
                     this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
                     return null;
                 }
-                getItemControllerSessionBean().setCurrentPubItem(item);
+                getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
             }
             return EditItem.LOAD_EDITITEM;
         }
