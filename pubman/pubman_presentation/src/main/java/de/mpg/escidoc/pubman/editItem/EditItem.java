@@ -30,13 +30,18 @@
 
 package de.mpg.escidoc.pubman.editItem;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.faces.component.UIComponent;
+import javax.faces.component.UIViewRoot;
+import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
+import javax.faces.component.html.HtmlOutputLabel;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
@@ -44,8 +49,15 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.ServletContext;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.core.data.CoreTable;
+import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
+import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -73,6 +85,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
@@ -139,9 +152,9 @@ public class EditItem extends FacesBean
     private IdentifierCollection identifierCollection;
     private SourceCollection sourceCollection;
 
-    private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    private UploadedFile uploadedFile;
     
-    private UploadedFile testFile;
+    private CoreTable fileTable = new CoreTable();
     
     PubItemVO item = null;
     
@@ -172,6 +185,8 @@ public class EditItem extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
+        
+        this.fileTable = new CoreTable();
 
         // enables the commandlinks
         this.enableLinks();
@@ -321,6 +336,9 @@ public class EditItem extends FacesBean
             if (pubItem.getFiles().size() == 0)
             {
             	pubItem.getFiles().add(new PubFileVO());
+//            	PubFileVO new_file = new PubFileVO();
+//            	new_file.setDescription("meine Beschreibung...");
+//            	pubItem.getFiles().add(new_file);
             }
             bindFiles();
         }
@@ -333,11 +351,40 @@ public class EditItem extends FacesBean
     private void bindFiles()
     {
     	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
-    	for (PubFileVO file : getPubItem().getFiles())
+    	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			files.add(new PubFileVOPresentation(file));
+			PubFileVOPresentation filepres = new PubFileVOPresentation(i, this.item.getFiles().get(i));
+			files.add(filepres);
 		}
-    	this.files = files;
+    	this.getEditItemSessionBean().setFiles(files);
+    }
+    
+    /**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeFileIndexes()
+    {
+    	if(this.getEditItemSessionBean().getFiles() != null)
+    	{
+    		for(int i = 0; i < this.getEditItemSessionBean().getFiles().size(); i++)
+        	{
+        		this.getEditItemSessionBean().getFiles().get(i).setIndex(i);
+        	}
+    	}
+    }
+    
+    /**
+     * This method binds the uploaded files to the files in the PubItem during the save process
+     */
+    private void bindUploadedFiles()
+    {
+    	if(this.getFiles() != null && this.getFiles().size() > 0)
+    	{
+    		for(int i = 0; i < this.getFiles().size(); i++)
+    		{
+    			this.getPubItem().getFiles().set(i, this.getFiles().get(i).getFile());
+    		}
+    	}
     }
     
     /**
@@ -379,183 +426,7 @@ public class EditItem extends FacesBean
         }
     }
 
-    /**
-     * Eventmethod that is being called whenever the user chooses to add a file.
-     * The method adds a file to the ValueObject and adds new UI to the enclosing panel.
-     * @param event ActionEvent fired by the add-button
-     */
-    public void addFile(ActionEvent event)
-    {
-        // find the index of the file after which the new one should be added
-        FileUI fileUI = (FileUI)((UIComponent)event.getSource()).getParent().getParent();
-        int indexSourceFileUI = fileUI.getIndexFile();
-        int indexNewFile = indexSourceFileUI + 1;
-        
-        // add new file to VO
-        PubFileVO newPubFileVO = new PubFileVO();
-        this.getPubItem().getFiles().add(indexNewFile, newPubFileVO);
-        
-        // add new file to enclosing panel
-        FileUI newFileUI = new FileUI(this.getPubItem(), indexNewFile);
-        this.panDynamicFile.getChildren().add(indexNewFile, newFileUI);
-
-        // reindex following files
-        for (int i=(indexNewFile + 1); i<this.panDynamicFile.getChildCount(); i++)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Reindexing File with old index " + ((FileUI)this.panDynamicFile.getChildren().get(i)).getIndexFile() + " to new index " + i);
-            }
-            
-            ((FileUI)this.panDynamicFile.getChildren().get(i)).setIndexFile(i);
-        }
-    }
-
-    /**
-     * Eventmethod that is being called whenever the user chooses to remove a file.
-     * The method removes the file from the ValueObject and removes the UI from the enclosing panel.
-     * @param event ActionEvent fired by the remove-button
-     */
-    public void removeFile(ActionEvent event)
-    {        
-        //store all values to VO
-        for (int i=0; i<this.panDynamicFile.getChildCount(); i++)
-        {
-            FileUI fileUI = (FileUI)this.panDynamicFile.getChildren().get(i);
-            fileUI.storeValues();
-        }
-                                
-        // find the index of the file that should be removed
-        FileUI fileUI = (FileUI)((UIComponent)event.getSource()).getParent().getParent();
-        int indexFile = fileUI.getIndexFile();
-
-        // remove file from VO
-        this.getPubItem().getFiles().remove(indexFile);        
-        
-        // recreate the panel
-        this.createDynamicFile();
-    }
-    /**
-     * EventMethod that is being called whenever the user chooses to upload a file.
-     * The method adds the new UIs needed to hold the data of the newly uploaded file.
-     * @param event ActionEvent fired by the upload-button
-     */
-    public String handleUploadFileButtonAction(ActionEvent event)
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Uploading file...");
-        }
-
-        // find the index of the file
-        UIComponent parentPanel = ((UIComponent)event.getSource()).getParent().getParent();
-        int indexFile = this.panDynamicFile.getChildren().indexOf(parentPanel);
-        
-        // find the index of the upload-button
-        UIComponent filePanel = ((UIComponent)event.getSource()).getParent();
-        int indexUploadButton = filePanel.getChildren().indexOf(event.getSource());
-        
-        // get the uploaded file
-        // FIXME Upload uploadComponent = (Upload)filePanel.getChildren().get(indexUploadButton - 1);
-        // FIXME UploadedFile uploadedFile = uploadComponent.getUploadedFile();
-        
-//        if (uploadedFile != null && uploadedFile.getSize() > 0)
-//        {
-//            String uploadedFileName = this.extractFileName(uploadedFile);
-//            
-//            try
-//            {
-//                // upload the file
-//                LoginHelper loginHelper = (LoginHelper)EditItem.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-//                URL contentURL = this.uploadFile(uploadedFile, uploadedFile.getContentType(), loginHelper.getESciDocUserHandle());
-//                
-//                // store values of the new file in VO
-//                PubFileVO pubFileVO = this.getPubItem().getFiles().get(indexFile);
-//                pubFileVO.setName(uploadedFileName);
-//                pubFileVO.setSize(new Long(uploadedFile.getSize()).intValue());
-//                pubFileVO.setContent(contentURL.toString());
-//                pubFileVO.setMimeType(uploadedFile.getContentType());
-//            
-//            }
-//            catch (Exception e)
-//            {
-//                logger.error("Could not upload file." + "\n" + e.toString());
-//                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
-//
-//                // force JSF to load the ErrorPage
-//                try
-//                {
-//                    FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
-//                }
-//                catch (Exception ex)
-//                {
-//                    logger.error(e.toString());
-//                }
-//
-//                return ErrorPage.LOAD_ERRORPAGE;
-//            }
-//            
-//            // store fileattribute values in VO as they get lost when createDynamicFile is called
-//            for (int i = 0; i < this.panDynamicFile.getChildCount(); i++)
-//            {
-//                if (i != indexFile)
-//                {
-//                    UIComponent fileComp = (UIComponent)this.panDynamicFile.getChildren().get(i);
-//                    HtmlSelectOneMenu cboContentType = (HtmlSelectOneMenu)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(5);
-//                    this.getPubItem().getFiles().get(i).setContentTypeString((String)cboContentType.getSelected());
-//                    HtmlSelectOneMenu cboMimeType = (HtmlSelectOneMenu)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(7);
-//                    this.getPubItem().getFiles().get(i).setMimeType((String)cboMimeType.getSelected());
-//                    HtmlSelectOneMenu cboVisibility = (HtmlSelectOneMenu)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(9);
-//                    this.getPubItem().getFiles().get(i).setVisibilityString((String)cboVisibility.getSelected());
-//                    HtmlInputTextarea txtaVisibility = (HtmlInputTextarea)((HtmlPanelGrid)fileComp.getChildren().get(1)).getChildren().get(11);
-//                    this.getPubItem().getFiles().get(i).setDescription((String)txtaVisibility.getValue());
-//                }
-//            }
-//            
-//            // recreate the file component 
-//            this.createDynamicFile();
-//        }
-//        else
-//        {
-//            logger.warn("No file has been choosen or file size is 0.");
-//        }        
-        
-        return null;
-    }
-
-    /**
-     * Returns the filename for the uploaded file without the path as some browsers return the complete path, some don't.
-     * @param uploadedFile the uploaded file
-     * @return the filename without the path
-     */
-//    private String extractFileName(UploadedFile uploadedFile)
-//    {
-//        String uploadedFileName = uploadedFile.getOriginalName();
-//
-//        // try forward slash
-//        int index = uploadedFileName.lastIndexOf('/');
-//        String justFileName;
-//        if (index >= 0)
-//        {
-//            justFileName = uploadedFileName.substring(index + 1);
-//        }
-//        else
-//        {
-//            // try backslash
-//            index = uploadedFileName.lastIndexOf('\\');
-//            if (index >= 0)
-//            {
-//                justFileName = uploadedFileName.substring(index + 1);
-//            }
-//            else
-//            {
-//                // no forward or back slashes
-//                justFileName = uploadedFileName;
-//            }
-//        }
-//        
-//        return justFileName;
-//    }
+    
 
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
@@ -566,23 +437,23 @@ public class EditItem extends FacesBean
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-//    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
-//    {
-//        // Prepare the HttpMethod.
-//        String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-//        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-//        method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputStream()));
-//        method.setRequestHeader("Content-Type", mimetype);
-//        method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-//
-//        // Execute the method with HttpClient.
-//        HttpClient client = new HttpClient();
-//        client.executeMethod(method);
-//        String response = method.getResponseBodyAsString();
-//        InitialContext context = new InitialContext();
-//        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
-//        return ctransforming.transformUploadResponseToFileURL(response);        
-//    }
+    protected URL uploadFile(UploadedFile uploadedFile, String mimetype, String userHandle) throws Exception
+    {
+        // Prepare the HttpMethod.
+        String fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+        method.setRequestEntity(new InputStreamRequestEntity(uploadedFile.getInputStream()));
+        method.setRequestHeader("Content-Type", mimetype);
+        method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
+
+        // Execute the method with HttpClient.
+        HttpClient client = new HttpClient();
+        client.executeMethod(method);
+        String response = method.getResponseBodyAsString();
+        InitialContext context = new InitialContext();
+        XmlTransforming ctransforming = (XmlTransforming)context.lookup(XmlTransforming.SERVICE_NAME);
+        return ctransforming.transformUploadResponseToFileURL(response);        
+    }
 
     /**
      * Validates the item.
@@ -623,7 +494,10 @@ public class EditItem extends FacesBean
     public String save()
     {
 
-        /*
+        // bind the temporary uploaded files to the files in the current item
+    	bindUploadedFiles();
+    	
+    	/*
          * FrM: Validation with validation point "default"
          */
         ValidationReportVO report = null;
@@ -947,9 +821,79 @@ public class EditItem extends FacesBean
         }        
     }
     
+    public String uploadFile(UploadedFile file)
+    {
+    	String contentURL = "";
+    	if (file != null && file.getLength() > 0)
+          {  
+              try
+              {
+                  // upload the file
+                  LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
+                  URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+                  if(url != null)
+                  {
+                	  contentURL = url.toString();
+                  }
+               
+              }
+              catch (Exception e)
+              {
+                  logger.error("Could not upload file." + "\n" + e.toString());
+                  ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+  
+                  // force JSF to load the ErrorPage
+                  try
+                  {
+                      FacesContext.getCurrentInstance().getExternalContext().redirect("ErrorPage.jsp");
+                  }
+                  catch (Exception ex)
+                  {
+                      logger.error(e.toString());
+                  }
+  
+                  return ErrorPage.LOAD_ERRORPAGE;
+              }
+          }
+      return contentURL;
+    }
+    
     public void fileUploaded(ValueChangeEvent event)
     {
-    	
+       
+    	int indexUpload = this.item.getFiles().size()-1;
+        
+        UploadedFile file = (UploadedFile) event.getNewValue();
+      String contentURL;
+      if (file != null)
+      {
+        contentURL = uploadFile(file);
+    	if(contentURL != null && !contentURL.trim().equals(""))
+    	{
+    		this.item.getFiles().get(indexUpload).setSize(new Long(file.getLength()));
+            this.item.getFiles().get(indexUpload).setName(file.getFilename());
+            this.item.getFiles().get(indexUpload).setMimeType(file.getContentType());
+            this.item.getFiles().get(indexUpload).setContent(contentURL);
+    	}
+        bindFiles();
+      }
+    }
+    
+    /**
+     * This method adds a file to the list of files of the item 
+     * @return navigation string (null)
+     */
+    public String addFile()
+    {
+    	//this.item.getFiles().add(new PubFileVO());
+    	//this.files.add(new PubFileVOPresentation());
+    	// avoid to upload more than one item before filling the metadata
+    	if(this.getEditItemSessionBean().getFiles() != null && this.getEditItemSessionBean().getFiles().size() > 0 && this.getEditItemSessionBean().getFiles().get(this.getEditItemSessionBean().getFiles().size()-1).getFile().getSize() > 0)
+    	{
+    		this.item.getFiles().add(new PubFileVO());
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation());
+    	}
+    	return "loadEditItem";
     }
     
     /**
@@ -993,6 +937,15 @@ public class EditItem extends FacesBean
     protected de.mpg.escidoc.pubman.ItemControllerSessionBean getItemControllerSessionBean()
     {
         return (de.mpg.escidoc.pubman.ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+    }
+    
+    /**
+     * Returns a reference to the scoped data bean (the EditItemSessionBean).
+     * @return a reference to the scoped data bean
+     */
+    protected de.mpg.escidoc.pubman.editItem.EditItemSessionBean getEditItemSessionBean()
+    {
+        return (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
     }
 
     /**
@@ -1113,6 +1066,24 @@ public class EditItem extends FacesBean
     public SelectItem[] getReviewMethods()
     {
         return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsReviewMethod(true);
+    }
+    
+    /**
+     * Returns all options for contentType.
+     * @return all options for contentType
+     */
+    public SelectItem[] getContentTypes()
+    {
+        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsContentType(true);
+    }
+    
+    /**
+     * Returns all options for visibility.
+     * @return all options for visibility
+     */
+    public SelectItem[] getVisibilities()
+    {
+        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
     }
 
     /**
@@ -1323,19 +1294,29 @@ public class EditItem extends FacesBean
     }
 
 	public List<PubFileVOPresentation> getFiles() {
-		return files;
+		return this.getEditItemSessionBean().getFiles();
 	}
 
 	public void setFiles(List<PubFileVOPresentation> files) {
-		this.files = files;
+		this.getEditItemSessionBean().setFiles(files);
 	}
 
-	public UploadedFile getTestFile() {
-		return testFile;
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
 	}
 
-	public void setTestFile(UploadedFile testFile) {
-		this.testFile = testFile;
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
 	}
+
+	public CoreTable getFileTable() {
+		return fileTable;
+	}
+
+	public void setFileTable(CoreTable fileTable) {
+		this.fileTable = fileTable;
+	}
+
+	
     
 }
