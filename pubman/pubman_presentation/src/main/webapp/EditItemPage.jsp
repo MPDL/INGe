@@ -46,7 +46,7 @@
 	<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 	<div id="page_margins">
 						<div id="page">
-		<h:form id="form1" enctype="multipart/form-data">
+		<tr:form usesUpload="true">
 		<div id="header">
 		<jsp:directive.include file="desktop/Header.jspf"/>
 		<jsp:directive.include file="desktop/Login.jspf"/>
@@ -81,7 +81,7 @@
 				</div>
 				</div>
 		</div>
-		</h:form>
+		</tr:form>
 		 </div>
 		  </div>
 </body>
