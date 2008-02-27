@@ -115,13 +115,13 @@ public class Initializer
                 }
                 LOGGER.debug("Context found: " + objId + ":" + name);
                 PreparedStatement statement = conn
-                        .prepareStatement("SELECT * FROM validation_schema WHERE context_name = ?");
+                        .prepareStatement("SELECT * FROM escidoc_validation_schema WHERE context_name = ?");
                 PreparedStatement statement2 = conn
                         .prepareStatement(
-                                "UPDATE validation_schema SET id_context_ref = ? WHERE id_context_ref = ?");
+                                "UPDATE escidoc_validation_schema SET id_context_ref = ? WHERE id_context_ref = ?");
                 PreparedStatement statement3 = conn
                         .prepareStatement(
-                                "UPDATE validation_schema_snippets SET id_context_ref = ? WHERE id_context_ref = ?");
+                                "UPDATE escidoc_validation_schema_snippets SET id_context_ref = ? WHERE id_context_ref = ?");
                 statement.setString(1, name);
                 ResultSet rs = statement.executeQuery();
                 if (rs.next())
@@ -276,7 +276,7 @@ public class Initializer
                     LOGGER.info("Adding validation schema to database: cm=" + idHandler.getContentModel() + "; cx="
                             + idHandler.getContext() + "(" + idHandler.getContextName() + ")" + "; mv"
                             + idHandler.getMetadataVersion() + "; v=" + idHandler.getVersion());
-                    PreparedStatement statement = conn.prepareStatement("INSERT INTO validation_schema ("
+                    PreparedStatement statement = conn.prepareStatement("INSERT INTO escidoc_validation_schema ("
                             + "id_content_type_ref, " + "id_context_ref, " + "context_name, "
                             + "id_metadata_version_ref, " + "current_version, schema_content) "
                             + "VALUES (?, ?, ?, ?, ?, ?)");
