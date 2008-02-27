@@ -118,7 +118,7 @@ public class PubItemPublishingTest extends TestBase
         PubItemVO item = getNewPubItemWithoutFiles();
         // Add file to item
         PubFileVO file = new PubFileVO();
-        String testfile = "test/publishing/pubItemPublishingTest/farbtest.gif";
+        String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
         file.setContentType(ContentType.PUBLISHER_VERSION);
