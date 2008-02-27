@@ -149,11 +149,11 @@ public final class ValidationSchemaCache
         throws TechnicalException, ValidationSchemaNotFoundException
     {
 
-        String sql = "SELECT validation_schema_snippets.snippet_content "
-                + "FROM validation_schema_snippets "
-                + "WHERE validation_schema_snippets.id_content_type_ref = ? "
-                + "AND validation_schema_snippets.id_context_ref = ? "
-                + "AND validation_schema_snippets.id_validation_point = ?";
+        String sql = "SELECT escidoc_validation_schema_snippets.snippet_content "
+                + "FROM escidoc_validation_schema_snippets "
+                + "WHERE escidoc_validation_schema_snippets.id_content_type_ref = ? "
+                + "AND escidoc_validation_schema_snippets.id_context_ref = ? "
+                + "AND escidoc_validation_schema_snippets.id_validation_point = ?";
 
         LOGGER.debug("SQL: " + sql);
         Connection connection = getConnection();
@@ -261,7 +261,7 @@ public final class ValidationSchemaCache
         throws TechnicalException, ValidationSchemaNotFoundException
     {
 
-        String sql = "SELECT schema_content FROM validation_schema"
+        String sql = "SELECT schema_content FROM escidoc_validation_schema"
                 + " WHERE id_content_type_ref = ? and id_context_ref = ?";
 
         Connection connection = getConnection();
@@ -332,7 +332,7 @@ public final class ValidationSchemaCache
             Connection connection = getConnection();
             try
             {
-                String sql = "SELECT MAX(date_last_refreshed) AS date_last_refreshed FROM validation_schema";
+                String sql = "SELECT MAX(date_last_refreshed) AS date_last_refreshed FROM escidoc_validation_schema";
                 ResultSet rs = connection.createStatement().executeQuery(sql);
                 if (rs.next())
                 {
@@ -380,7 +380,7 @@ public final class ValidationSchemaCache
     {
 
         String sql =
-            "SELECT schema_content FROM validation_schema WHERE id_content_type_ref = ? and "
+            "SELECT schema_content FROM escidoc_validation_schema WHERE id_content_type_ref = ? and "
             + "id_context_ref = ?";
         Connection connection = getConnection();
         try
@@ -442,7 +442,7 @@ public final class ValidationSchemaCache
         Connection connection = getConnection();
 
         // Delete old precompiled schemas
-        sql = "DELETE FROM validation_schema_snippets WHERE id_context_ref = ? AND id_content_type_ref = ?";
+        sql = "DELETE FROM escidoc_validation_schema_snippets WHERE id_context_ref = ? AND id_content_type_ref = ?";
         pstmt = connection.prepareStatement(sql);
         pstmt.setString(1, context);
         pstmt.setString(2, contentType);
@@ -461,7 +461,7 @@ public final class ValidationSchemaCache
 
             StringWriter precompiled = XsltTransforming.transform(schema, getSchematronTemplate(), params);
 
-            sql = "INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, "
+            sql = "INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, "
                     + "id_validation_point, id_metadata_version_ref, snippet_content) "
                     + "VALUES (?, ?, ?, ?, ?)";
             pstmt = connection.prepareStatement(sql);
@@ -550,7 +550,7 @@ public final class ValidationSchemaCache
     private void precompileAll() throws TechnicalException
     {
 
-        String sql = "SELECT id_context_ref, id_content_type_ref, id_metadata_version_ref FROM validation_schema";
+        String sql = "SELECT id_context_ref, id_content_type_ref, id_metadata_version_ref FROM escidoc_validation_schema";
         Connection connection = getConnection();
         try
         {
@@ -620,9 +620,9 @@ public final class ValidationSchemaCache
         Connection connection = getConnection();
         try
         {
-            String sql = "DELETE FROM validation_schema";
+            String sql = "DELETE FROM escidoc_validation_schema";
             connection.createStatement().executeUpdate(sql);
-            sql = "DELETE FROM validation_schema_snippets";
+            sql = "DELETE FROM escidoc_validation_schema_snippets";
             connection.createStatement().executeUpdate(sql);
             connection.close();
         }
@@ -647,7 +647,7 @@ public final class ValidationSchemaCache
     public void createCache() throws TechnicalException
     {
 
-        String sql = "SELECT COUNT(*) AS cnt FROM validation_schema";
+        String sql = "SELECT COUNT(*) AS cnt FROM escidoc_validation_schema";
         Connection connection = getConnection();
         try
         {

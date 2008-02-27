@@ -43,63 +43,31 @@
 --
 -- TOC entry 1288 (class 1259 OID 16877)
 -- Dependencies: 1623 4
--- Name: validation_schema_snippets; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
+-- Name: escidoc_validation_schema_snippets; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
 --
-
-CREATE TABLE validation_schema_snippets (
-	id_context_ref character varying(255),
-	id_content_type_ref character varying(255),
-    id_validation_point character varying(255),
-	id_metadata_version_ref character varying(255),
-    snippet_content text
+CREATE TABLE escidoc_validation_schema_SNIPPETS (
+	id_context_ref VARCHAR(255),
+	id_content_type_ref VARCHAR(255),
+    	id_validation_point VARCHAR(255),
+	id_metadata_version_ref VARCHAR(255),
+    	snippet_content LONGVARCHAR
 );
 
+ALTER TABLE escidoc_validation_schema_SNIPPETS
+    ADD CONSTRAINT pk_escidoc_validation_schema_snippets PRIMARY KEY (id_context_ref, id_content_type_ref, id_validation_point);
 
-ALTER TABLE public.validation_schema_snippets OWNER TO "validator";
-
-
-ALTER TABLE ONLY "validation_schema_snippets"
-    ADD CONSTRAINT pk_validation_schema_snippets PRIMARY KEY (id_context_ref, id_content_type_ref, id_validation_point);
-
---
--- TOC entry 1287 (class 1259 OID 16832)
--- Dependencies: 1622 4
--- Name: validation_schema; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
---
-
-CREATE TABLE "validation_schema" (
-    id_content_type_ref character varying(255) NOT NULL,
-    id_context_ref character varying(255) NOT NULL,
-	context_name character varying(255),
-    id_metadata_version_ref character varying(255),
-    creator_ref character varying(255),
+CREATE TABLE escidoc_validation_schema (
+    id_content_type_ref VARCHAR(255) NOT NULL,
+    id_context_ref VARCHAR(255) NOT NULL,
+	context_name VARCHAR(255),
+    id_metadata_version_ref VARCHAR(255),
+    creator_ref VARCHAR(255),
     date_created date,
     date_last_modified date,
     date_last_refreshed date,
-    schema_content text,
-    current_version character varying(255)
+    schema_content LONGVARCHAR,
+    current_version VARCHAR(255)
 );
 
-
-ALTER TABLE public."validation_schema" OWNER TO "validator";
-
---
--- TOC entry 1625 (class 2606 OID 16944)
--- Dependencies: 1287 1287
--- Name: pk_validation_schema; Type: CONSTRAINT; Schema: public; Owner: validator; Tablespace: 
---
-
-ALTER TABLE ONLY "validation_schema"
-    ADD CONSTRAINT pk_validation_schema PRIMARY KEY (id_context_ref, id_content_type_ref);
-
-
---
--- TOC entry 1635 (class 0 OID 0)
--- Dependencies: 4
--- Name: public; Type: ACL; Schema: -; Owner: postgres
---
-
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
+ALTER TABLE escidoc_validation_schema
+    ADD CONSTRAINT pk_escidoc_validation_schema PRIMARY KEY (id_context_ref, id_content_type_ref);

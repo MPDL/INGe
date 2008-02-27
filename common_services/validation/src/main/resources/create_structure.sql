@@ -42,10 +42,10 @@
 --
 -- TOC entry 1288 (class 1259 OID 16877)
 -- Dependencies: 1623 4
--- Name: validation_schema_snippets; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
+-- Name: escidoc_validation_schema_snippets; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
 --
 
-CREATE TABLE validation_schema_snippets (
+CREATE TABLE escidoc_validation_schema_snippets (
 	id_context_ref character varying(255),
 	id_content_type_ref character varying(255),
     id_validation_point character varying(255),
@@ -54,19 +54,19 @@ CREATE TABLE validation_schema_snippets (
 );
 
 
-ALTER TABLE public.validation_schema_snippets OWNER TO "validator";
+ALTER TABLE public.escidoc_validation_schema_snippets OWNER TO "validator";
 
 
-ALTER TABLE ONLY "validation_schema_snippets"
-    ADD CONSTRAINT pk_validation_schema_snippets PRIMARY KEY (id_context_ref, id_content_type_ref, id_validation_point);
+ALTER TABLE ONLY "escidoc_validation_schema_snippets"
+    ADD CONSTRAINT pk_escidoc_validation_schema_snippets PRIMARY KEY (id_context_ref, id_content_type_ref, id_validation_point);
 
 --
 -- TOC entry 1287 (class 1259 OID 16832)
 -- Dependencies: 1622 4
--- Name: validation_schema; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
+-- Name: escidoc_validation_schema; Type: TABLE; Schema: public; Owner: validator; Tablespace: 
 --
 
-CREATE TABLE "validation_schema" (
+CREATE TABLE "escidoc_validation_schema" (
     id_content_type_ref character varying(255) NOT NULL,
     id_context_ref character varying(255) NOT NULL,
     context_name character varying(255),
@@ -80,16 +80,16 @@ CREATE TABLE "validation_schema" (
 );
 
 
-ALTER TABLE public."validation_schema" OWNER TO "validator";
+ALTER TABLE public."escidoc_validation_schema" OWNER TO "validator";
 
 --
 -- TOC entry 1625 (class 2606 OID 16944)
 -- Dependencies: 1287 1287
--- Name: pk_validation_schema; Type: CONSTRAINT; Schema: public; Owner: validator; Tablespace: 
+-- Name: pk_escidoc_validation_schema; Type: CONSTRAINT; Schema: public; Owner: validator; Tablespace: 
 --
 
-ALTER TABLE ONLY "validation_schema"
-    ADD CONSTRAINT pk_validation_schema PRIMARY KEY (id_context_ref, id_content_type_ref);
+ALTER TABLE ONLY "escidoc_validation_schema"
+    ADD CONSTRAINT pk_escidoc_validation_schema PRIMARY KEY (id_context_ref, id_content_type_ref);
 
 
 --

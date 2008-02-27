@@ -34,10 +34,10 @@
 --
 -- TOC entry 1621 (class 0 OID 36425)
 -- Dependencies: 1285
--- Data for Name: validation_schema; Type: TABLE DATA; Schema: public; Owner: validator
+-- Data for Name: escidoc_validation_schema; Type: TABLE DATA; Schema: public; Owner: validator
 --
 
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:150', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:150', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -292,7 +292,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:138', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:138', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -547,7 +547,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:142', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:142', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -802,7 +802,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:130', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:130', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -1057,7 +1057,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:122', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:122', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -1312,7 +1312,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:126', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:126', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -1567,7 +1567,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:134', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:134', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -1822,7 +1822,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:146', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:146', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -2077,7 +2077,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:persistent23', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:persistent23', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -2332,7 +2332,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:140', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:140', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -2566,7 +2566,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:136', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:136', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -2800,7 +2800,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:148', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:148', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -3034,7 +3034,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:128', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:128', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -3268,7 +3268,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:124', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:124', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -3502,7 +3502,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:120', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:120', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -3736,7 +3736,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:144', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:144', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -3970,7 +3970,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:132', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:132', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -4204,7 +4204,7 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 
 </iso:schema>
 ', '1.0');
-INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:persistent3', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
+INSERT INTO escidoc_validation_schema (id_content_type_ref, id_context_ref, id_metadata_version_ref, creator_ref, date_created, date_last_modified, date_last_refreshed, schema_content, current_version) VALUES ('escidoc:persistent4', 'escidoc:persistent3', '1.0', NULL, NULL, NULL, NULL, '<?xml version="1.0" encoding="UTF-8"?>
 <!--
  CDDL HEADER START
 
@@ -4443,10 +4443,10 @@ INSERT INTO validation_schema (id_content_type_ref, id_context_ref, id_metadata_
 --
 -- TOC entry 1620 (class 0 OID 36418)
 -- Dependencies: 1284
--- Data for Name: validation_schema_snippets; Type: TABLE DATA; Schema: public; Owner: validator
+-- Data for Name: escidoc_validation_schema_snippets; Type: TABLE DATA; Schema: public; Owner: validator
 --
 
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -5268,7 +5268,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -6290,7 +6290,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:150', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -7312,7 +7312,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -8134,7 +8134,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -9156,7 +9156,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:138', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -10178,7 +10178,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -11000,7 +11000,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -12022,7 +12022,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:142', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -13044,7 +13044,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -13866,7 +13866,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -14888,7 +14888,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:130', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -15910,7 +15910,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -16732,7 +16732,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -17754,7 +17754,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:122', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -18776,7 +18776,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -19598,5739 +19598,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="submit_item">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-         <pattern>date_modified_required</pattern>
-         <xsl:apply-templates select="/" mode="M26"/>
-         <pattern>abstract_english_required</pattern>
-         <xsl:apply-templates select="/" mode="M27"/>
-         <pattern>public_file_required</pattern>
-         <xsl:apply-templates select="/" mode="M28"/>
-         <pattern>event_required</pattern>
-         <xsl:apply-templates select="/" mode="M29"/>
-         <pattern>review_method_internal_required</pattern>
-         <xsl:apply-templates select="/" mode="M30"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN date_modified_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateModifiedNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M26"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M26"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN abstract_english_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EnglishAbstractNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M27"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M27"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN public_file_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>NoPublicFileProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M28"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M28"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN event_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M29"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M29"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN review_method_internal_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:review-method = ''internal''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ReviewMethodInternalNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M30"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M30"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="accept_item">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-         <pattern>date_modified_required</pattern>
-         <xsl:apply-templates select="/" mode="M26"/>
-         <pattern>abstract_english_required</pattern>
-         <xsl:apply-templates select="/" mode="M27"/>
-         <pattern>public_file_required</pattern>
-         <xsl:apply-templates select="/" mode="M28"/>
-         <pattern>event_required</pattern>
-         <xsl:apply-templates select="/" mode="M29"/>
-         <pattern>review_method_internal_required</pattern>
-         <xsl:apply-templates select="/" mode="M30"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN date_modified_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateModifiedNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M26"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M26"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN abstract_english_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EnglishAbstractNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M27"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M27"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN public_file_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>NoPublicFileProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M28"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M28"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN event_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M29"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M29"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN review_method_internal_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:review-method = ''internal''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ReviewMethodInternalNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M30"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M30"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="default">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="submit_item">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-         <pattern>date_modified_required</pattern>
-         <xsl:apply-templates select="/" mode="M26"/>
-         <pattern>abstract_english_required</pattern>
-         <xsl:apply-templates select="/" mode="M27"/>
-         <pattern>public_file_required</pattern>
-         <xsl:apply-templates select="/" mode="M28"/>
-         <pattern>event_required</pattern>
-         <xsl:apply-templates select="/" mode="M29"/>
-         <pattern>review_method_internal_required</pattern>
-         <xsl:apply-templates select="/" mode="M30"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN date_modified_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateModifiedNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M26"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M26"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN abstract_english_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EnglishAbstractNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M27"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M27"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN public_file_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>NoPublicFileProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M28"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M28"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN event_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M29"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M29"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN review_method_internal_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:review-method = ''internal''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ReviewMethodInternalNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M30"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M30"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="accept_item">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-         <pattern>date_modified_required</pattern>
-         <xsl:apply-templates select="/" mode="M26"/>
-         <pattern>abstract_english_required</pattern>
-         <xsl:apply-templates select="/" mode="M27"/>
-         <pattern>public_file_required</pattern>
-         <xsl:apply-templates select="/" mode="M28"/>
-         <pattern>event_required</pattern>
-         <xsl:apply-templates select="/" mode="M29"/>
-         <pattern>review_method_internal_required</pattern>
-         <xsl:apply-templates select="/" mode="M30"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN date_modified_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateModifiedNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M26"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M26">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M26"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M26"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN abstract_english_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EnglishAbstractNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M27"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M27">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M27"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M27"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN public_file_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>NoPublicFileProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M28"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M28">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M28"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M28"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN event_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M29"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M29">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M29"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M29"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN review_method_internal_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:review-method = ''internal''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ReviewMethodInternalNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M30"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M30">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M30"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M30"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:xs="http://www.w3.org/2001/XMLSchema"
-                xmlns:sch="http://www.ascc.net/xml/schematron"
-                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
-                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
-                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-                xmlns:xlink="http://www.w3.org/1999/xlink"
-                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
-    the preferred method for meta-stylesheets to use where possible. The name or details of 
-    this mode may change during 1Q 2007.-->
-
-
-<!--PHASES-->
-
-
-<!--PROLOG-->
-
-
-<!--KEYS-->
-
-
-<!--DEFAULT RULES-->
-
-
-<!--MODE: SCHEMATRON-FULL-PATH-->
-<!--This mode can be used to generate an ugly though full XPath for locators-->
-<xsl:template match="*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">
-            <xsl:value-of select="name()"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:text>*:</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>[namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:variable name="preceding"
-                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
-      <xsl:text>[</xsl:text>
-      <xsl:value-of select="1+ $preceding"/>
-      <xsl:text>]</xsl:text>
-   </xsl:template>
-   <xsl:template match="@*" mode="schematron-get-full-path">
-      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
-      <xsl:text>/</xsl:text>
-      <xsl:choose>
-         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
-         <xsl:otherwise>
-            <xsl:text>@*[local-name()=''</xsl:text>
-            <xsl:value-of select="local-name()"/>
-            <xsl:text>'' and namespace-uri()=''</xsl:text>
-            <xsl:value-of select="namespace-uri()"/>
-            <xsl:text>'']</xsl:text>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: SCHEMATRON-FULL-PATH-2-->
-<!--This mode can be used to generate prefixed XPath for humans-->
-<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
-      <xsl:for-each select="ancestor-or-self::*">
-         <xsl:text>/</xsl:text>
-         <xsl:value-of select="name(.)"/>
-         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
-            <xsl:text>[</xsl:text>
-            <xsl:value-of/>
-            <xsl:text>]</xsl:text>
-         </xsl:if>
-      </xsl:for-each>
-      <xsl:if test="not(self::*)">
-         <xsl:text/>/@<xsl:value-of select="name(.)"/>
-      </xsl:if>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-FROM-PATH -->
-<xsl:template match="/" mode="generate-id-from-path"/>
-   <xsl:template match="text()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="comment()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-from-path">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:value-of select="concat(''.@'', name())"/>
-   </xsl:template>
-   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
-      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
-      <xsl:text>.</xsl:text>
-      <xsl:choose>
-         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
-            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--MODE: GENERATE-ID-2 -->
-<xsl:template match="/" mode="generate-id-2">U</xsl:template>
-   <xsl:template match="*" mode="generate-id-2" priority="2">
-      <xsl:text>U</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-   </xsl:template>
-   <xsl:template match="node()" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>n</xsl:text>
-      <xsl:number count="node()"/>
-   </xsl:template>
-   <xsl:template match="@*" mode="generate-id-2">
-      <xsl:text>U.</xsl:text>
-      <xsl:number level="multiple" count="*"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="string-length(local-name(.))"/>
-      <xsl:text>_</xsl:text>
-      <xsl:value-of select="translate(name(),'':'',''.'')"/>
-   </xsl:template>
-   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
-
-   <!--SCHEMA METADATA-->
-<xsl:template match="/">
-      <validation-report phase="default">
-
-         <pattern>event_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M12"/>
-         <pattern>source_title_required</pattern>
-         <xsl:apply-templates select="/" mode="M13"/>
-         <pattern>creator_role_required</pattern>
-         <xsl:apply-templates select="/" mode="M14"/>
-         <pattern>correct_date_format</pattern>
-         <xsl:apply-templates select="/" mode="M15"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M16"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M17"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M18"/>
-         <pattern>component_data_required</pattern>
-         <xsl:apply-templates select="/" mode="M19"/>
-         <pattern>title_required</pattern>
-         <xsl:apply-templates select="/" mode="M20"/>
-         <pattern>genre_required</pattern>
-         <xsl:apply-templates select="/" mode="M21"/>
-         <pattern>publisher_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M22"/>
-         <pattern>organization_name_required</pattern>
-         <xsl:apply-templates select="/" mode="M23"/>
-         <pattern>creator_required</pattern>
-         <xsl:apply-templates select="/" mode="M25"/>
-      </validation-report>
-   </xsl:template>
-
-   <!--SCHEMATRON PATTERNS-->
-
-
-<!--PATTERN event_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:event" priority="4000" mode="M12">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EventTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M12"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M12">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M12"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M12"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN source_title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M13">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceTitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M13"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M13">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M13"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M13"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_role_required-->
-
-
-	<!--RULE -->
-<xsl:template match="publication:source" priority="4000" mode="M14">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>SourceCreatorRoleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M14"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M14">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M14"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M14"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN correct_date_format-->
-
-
-	<!--RULE -->
-<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
-                 priority="4000"
-                 mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>DateFormatIncorrect</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>EndDateWithoutStartDate</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M15"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M15">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M15"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M15"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentFileNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M16"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M16">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M16"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M16"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentContentCategoryNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M17"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M17">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M17"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M17"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentMimeTypeNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M18"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M18">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M18"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M18"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN component_data_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>ComponentVisibilityNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M19"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M19">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M19"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M19"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN title_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:title != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>TitleNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M20"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M20">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M20"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M20"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN genre_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="@type != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>GenreNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M21"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M21">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M21"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M21"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN publisher_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>PublisherNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M22"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M22">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M22"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M22"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN organization_name_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidoc:organization" priority="4000" mode="M23">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>OrganizationNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M23"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M23">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M23"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M23"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-
-   <!--PATTERN creator_required-->
-
-
-	<!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator/@role = ''author''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>AuthorNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-
-		    <!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>MpdlCreatorRequired</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-
-	  <!--RULE -->
-<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
-                 priority="3999"
-                 mode="M25">
-
-		<!--ASSERT -->
-<xsl:choose>
-         <xsl:when test="escidoc:family-name != ''''"/>
-         <xsl:otherwise>
-            <failure infolevel="restrictive">
-               <message>
-                  <name>CreatorFamilyNameNotProvided</name>
-                  <path>
-                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
-                  </path>
-                  <element>
-                     <xsl:value-of select="name()"/>
-                  </element>
-               </message>
-               <diagnostics/>
-            </failure>
-         </xsl:otherwise>
-      </xsl:choose>
-      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
-   </xsl:template>
-   <xsl:template match="text()" priority="-1" mode="M25"/>
-   <xsl:template match="@*|node()" priority="-2" mode="M25">
-      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
-                           of an attribute--><xsl:when test="not(@*)">
-            <xsl:apply-templates select="node()" mode="M25"/>
-         </xsl:when>
-         <xsl:otherwise>
-            <xsl:apply-templates select="@*|node()" mode="M25"/>
-         </xsl:otherwise>
-      </xsl:choose>
-   </xsl:template>
-</xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -26352,7 +20620,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:126', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -27374,7 +21642,2873 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="default">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="submit_item">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+         <pattern>date_modified_required</pattern>
+         <xsl:apply-templates select="/" mode="M26"/>
+         <pattern>abstract_english_required</pattern>
+         <xsl:apply-templates select="/" mode="M27"/>
+         <pattern>public_file_required</pattern>
+         <xsl:apply-templates select="/" mode="M28"/>
+         <pattern>event_required</pattern>
+         <xsl:apply-templates select="/" mode="M29"/>
+         <pattern>review_method_internal_required</pattern>
+         <xsl:apply-templates select="/" mode="M30"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN date_modified_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateModifiedNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M26"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M26"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN abstract_english_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EnglishAbstractNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M27"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M27"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN public_file_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>NoPublicFileProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M28"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M28"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN event_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M29"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M29"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN review_method_internal_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:review-method = ''internal''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ReviewMethodInternalNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M30"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M30"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:134', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="accept_item">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+         <pattern>date_modified_required</pattern>
+         <xsl:apply-templates select="/" mode="M26"/>
+         <pattern>abstract_english_required</pattern>
+         <xsl:apply-templates select="/" mode="M27"/>
+         <pattern>public_file_required</pattern>
+         <xsl:apply-templates select="/" mode="M28"/>
+         <pattern>event_required</pattern>
+         <xsl:apply-templates select="/" mode="M29"/>
+         <pattern>review_method_internal_required</pattern>
+         <xsl:apply-templates select="/" mode="M30"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN date_modified_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateModifiedNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M26"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M26"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN abstract_english_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EnglishAbstractNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M27"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M27"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN public_file_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>NoPublicFileProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M28"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M28"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN event_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M29"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M29"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN review_method_internal_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:review-method = ''internal''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ReviewMethodInternalNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M30"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M30"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -28196,7 +25330,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -29218,7 +26352,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:146', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -30240,7 +27374,2873 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="default">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="submit_item">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+         <pattern>date_modified_required</pattern>
+         <xsl:apply-templates select="/" mode="M26"/>
+         <pattern>abstract_english_required</pattern>
+         <xsl:apply-templates select="/" mode="M27"/>
+         <pattern>public_file_required</pattern>
+         <xsl:apply-templates select="/" mode="M28"/>
+         <pattern>event_required</pattern>
+         <xsl:apply-templates select="/" mode="M29"/>
+         <pattern>review_method_internal_required</pattern>
+         <xsl:apply-templates select="/" mode="M30"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN date_modified_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateModifiedNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M26"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M26"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN abstract_english_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EnglishAbstractNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M27"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M27"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN public_file_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>NoPublicFileProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M28"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M28"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN event_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M29"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M29"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN review_method_internal_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:review-method = ''internal''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ReviewMethodInternalNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M30"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M30"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent23', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+                xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                xmlns:sch="http://www.ascc.net/xml/schematron"
+                xmlns:iso="http://purl.oclc.org/dsdl/schematron"
+                xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+                xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
+                xmlns:dc="http://purl.org/dc/elements/1.1/"
+                xmlns:dcterms="http://purl.org/dc/terms/"
+                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+                xmlns:escidocComponents="http://www.escidoc.de/schemas/item/0.3/components"
+                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+                xmlns:xlink="http://www.w3.org/1999/xlink"
+                version="2.0"><!--Implementers: please note that overriding process-prolog or process-root is 
+    the preferred method for meta-stylesheets to use where possible. The name or details of 
+    this mode may change during 1Q 2007.-->
+
+
+<!--PHASES-->
+
+
+<!--PROLOG-->
+
+
+<!--KEYS-->
+
+
+<!--DEFAULT RULES-->
+
+
+<!--MODE: SCHEMATRON-FULL-PATH-->
+<!--This mode can be used to generate an ugly though full XPath for locators-->
+<xsl:template match="*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">
+            <xsl:value-of select="name()"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:text>*:</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>[namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:variable name="preceding"
+                    select="count(preceding-sibling::*[local-name()=local-name(current())and namespace-uri() = namespace-uri(current())])"/>
+      <xsl:text>[</xsl:text>
+      <xsl:value-of select="1+ $preceding"/>
+      <xsl:text>]</xsl:text>
+   </xsl:template>
+   <xsl:template match="@*" mode="schematron-get-full-path">
+      <xsl:apply-templates select="parent::*" mode="schematron-get-full-path"/>
+      <xsl:text>/</xsl:text>
+      <xsl:choose>
+         <xsl:when test="namespace-uri()=''''">@iso:schema</xsl:when>
+         <xsl:otherwise>
+            <xsl:text>@*[local-name()=''</xsl:text>
+            <xsl:value-of select="local-name()"/>
+            <xsl:text>'' and namespace-uri()=''</xsl:text>
+            <xsl:value-of select="namespace-uri()"/>
+            <xsl:text>'']</xsl:text>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: SCHEMATRON-FULL-PATH-2-->
+<!--This mode can be used to generate prefixed XPath for humans-->
+<xsl:template match="node() | @*" mode="schematron-get-full-path-2">
+      <xsl:for-each select="ancestor-or-self::*">
+         <xsl:text>/</xsl:text>
+         <xsl:value-of select="name(.)"/>
+         <xsl:if test="preceding-sibling::*[name(.)=name(current())]">
+            <xsl:text>[</xsl:text>
+            <xsl:value-of/>
+            <xsl:text>]</xsl:text>
+         </xsl:if>
+      </xsl:for-each>
+      <xsl:if test="not(self::*)">
+         <xsl:text/>/@<xsl:value-of select="name(.)"/>
+      </xsl:if>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-FROM-PATH -->
+<xsl:template match="/" mode="generate-id-from-path"/>
+   <xsl:template match="text()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.text-'', 1+count(preceding-sibling::text()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="comment()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.comment-'', 1+count(preceding-sibling::comment()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="processing-instruction()" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.processing-instruction-'', 1+count(preceding-sibling::processing-instruction()), ''-'')"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-from-path">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:value-of select="concat(''.@'', name())"/>
+   </xsl:template>
+   <xsl:template match="*" mode="generate-id-from-path" priority="-0.5">
+      <xsl:apply-templates select="parent::*" mode="generate-id-from-path"/>
+      <xsl:text>.</xsl:text>
+      <xsl:choose>
+         <xsl:when test="count(. | ../namespace::*) = count(../namespace::*)">
+            <xsl:value-of select="concat(''.namespace::-'',1+count(namespace::*),''-'')"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:value-of select="concat(''.'',name(),''-'',1+count(preceding-sibling::*[name()=name(current())]),''-'')"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--MODE: GENERATE-ID-2 -->
+<xsl:template match="/" mode="generate-id-2">U</xsl:template>
+   <xsl:template match="*" mode="generate-id-2" priority="2">
+      <xsl:text>U</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+   </xsl:template>
+   <xsl:template match="node()" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>n</xsl:text>
+      <xsl:number count="node()"/>
+   </xsl:template>
+   <xsl:template match="@*" mode="generate-id-2">
+      <xsl:text>U.</xsl:text>
+      <xsl:number level="multiple" count="*"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="string-length(local-name(.))"/>
+      <xsl:text>_</xsl:text>
+      <xsl:value-of select="translate(name(),'':'',''.'')"/>
+   </xsl:template>
+   <!--Strip characters--><xsl:template match="text()" priority="-1"/>
+
+   <!--SCHEMA METADATA-->
+<xsl:template match="/">
+      <validation-report phase="accept_item">
+
+         <pattern>event_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M12"/>
+         <pattern>source_title_required</pattern>
+         <xsl:apply-templates select="/" mode="M13"/>
+         <pattern>creator_role_required</pattern>
+         <xsl:apply-templates select="/" mode="M14"/>
+         <pattern>correct_date_format</pattern>
+         <xsl:apply-templates select="/" mode="M15"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M16"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M17"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M18"/>
+         <pattern>component_data_required</pattern>
+         <xsl:apply-templates select="/" mode="M19"/>
+         <pattern>title_required</pattern>
+         <xsl:apply-templates select="/" mode="M20"/>
+         <pattern>genre_required</pattern>
+         <xsl:apply-templates select="/" mode="M21"/>
+         <pattern>publisher_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M22"/>
+         <pattern>organization_name_required</pattern>
+         <xsl:apply-templates select="/" mode="M23"/>
+         <pattern>creator_required</pattern>
+         <xsl:apply-templates select="/" mode="M25"/>
+         <pattern>date_modified_required</pattern>
+         <xsl:apply-templates select="/" mode="M26"/>
+         <pattern>abstract_english_required</pattern>
+         <xsl:apply-templates select="/" mode="M27"/>
+         <pattern>public_file_required</pattern>
+         <xsl:apply-templates select="/" mode="M28"/>
+         <pattern>event_required</pattern>
+         <xsl:apply-templates select="/" mode="M29"/>
+         <pattern>review_method_internal_required</pattern>
+         <xsl:apply-templates select="/" mode="M30"/>
+      </validation-report>
+   </xsl:template>
+
+   <!--SCHEMATRON PATTERNS-->
+
+
+<!--PATTERN event_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:event" priority="4000" mode="M12">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(* != '''' or @xml:lang != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M12"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M12"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M12">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M12"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M12"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN source_title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M13">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != '''' or not(normalize-space(.) != '''' or .//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceTitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M13"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M13"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M13">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M13"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M13"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_role_required-->
+
+
+	<!--RULE -->
+<xsl:template match="publication:source" priority="4000" mode="M14">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:creator/@role != '''' or not(normalize-space(escidoc:creator) != '''' or escidoc:creator//*/@* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>SourceCreatorRoleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M14"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M14"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M14">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M14"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M14"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN correct_date_format-->
+
+
+	<!--RULE -->
+<xsl:template match="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted"
+                 priority="4000"
+                 mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:start-date" priority="3999" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidoc:end-date" priority="3998" mode="M15">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or (matches(., ''^\\d\\d\\d\\d(-\\d\\d){0,2}$'') and substring(concat(., ''-01-01''), 1, 10) castable as xs:date)"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateFormatIncorrect</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test=". = '''' or ../escidoc:start-date != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EndDateWithoutStartDate</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M15"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M15"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M15">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M15"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M15"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M16">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:file-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentFileNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M16"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M16"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M16">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M16"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M16"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M17">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:content-category != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentContentCategoryNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M17"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M17"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M17">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M17"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M17"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M18">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:mime-type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentMimeTypeNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M18"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M18"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M18">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M18"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M18"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN component_data_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:component" priority="4000" mode="M19">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(escidocComponents:content/@xlink:href != '''') or escidocComponents:properties/escidocComponents:visibility != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ComponentVisibilityNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M19"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M19"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M19">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M19"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M19"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN title_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M20">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:title != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>TitleNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M20"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M20"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M20">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M20"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M20"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN genre_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M21">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="@type != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>GenreNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M21"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M21"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M21">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M21"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M21"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN publisher_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:publishing-info" priority="4000" mode="M22">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dc:publisher != '''' or not(* != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>PublisherNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M22"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M22"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M22">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M22"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M22"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN organization_name_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidoc:organization" priority="4000" mode="M23">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:organization-name != '''' or not(escidoc:address) or escidoc:address = ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>OrganizationNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M23"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M23"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M23">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M23"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M23"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN creator_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/escidoc:person/escidoc:family-name != '''' or publication:creator/escidoc:organization/escidoc:organization-name"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator/@role = ''author''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>AuthorNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+
+		    <!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:creator//escidoc:organization-name[contains(., ''Max Planck Digital Library'')]"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>MpdlCreatorRequired</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+
+	  <!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication/publication:creator/escidoc:person"
+                 priority="3999"
+                 mode="M25">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidoc:family-name != ''''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>CreatorFamilyNameNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M25"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M25"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M25">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M25"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M25"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN date_modified_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M26">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:modified != '''' and substring(concat(dcterms:modified, ''-01-01''), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, ''-01-01''), 1, 10)) &gt; xs:date(''2007-01-01'')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>DateModifiedNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M26"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M26"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M26">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M26"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M26"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN abstract_english_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M27">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="dcterms:abstract[@xml:lang=''en'']"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EnglishAbstractNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M27"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M27"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M27">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M27"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M27"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN public_file_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocComponents:components" priority="4000" mode="M28">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = ''public''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>NoPublicFileProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M28"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M28"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M28">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M28"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M28"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN event_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M29">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="not(@type = ''proceedings'' or @type = ''talk-at-event'' or @type = ''conference-paper'' or @type = ''conference-report'' or @type = ''courseware-lecture'') or (publication:event/dc:title != '''')"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>EventNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M29"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M29"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M29">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M29"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M29"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+
+   <!--PATTERN review_method_internal_required-->
+
+
+	<!--RULE -->
+<xsl:template match="escidocMetadataProfile:publication" priority="4000" mode="M30">
+
+		<!--ASSERT -->
+<xsl:choose>
+         <xsl:when test="publication:review-method = ''internal''"/>
+         <xsl:otherwise>
+            <failure infolevel="restrictive">
+               <message>
+                  <name>ReviewMethodInternalNotProvided</name>
+                  <path>
+                     <xsl:apply-templates mode="schematron-get-full-path" select="."/>
+                  </path>
+                  <element>
+                     <xsl:value-of select="name()"/>
+                  </element>
+               </message>
+               <diagnostics/>
+            </failure>
+         </xsl:otherwise>
+      </xsl:choose>
+      <xsl:apply-templates select="@*|*|comment()|processing-instruction()" mode="M30"/>
+   </xsl:template>
+   <xsl:template match="text()" priority="-1" mode="M30"/>
+   <xsl:template match="@*|node()" priority="-2" mode="M30">
+      <xsl:choose><!--Housekeeping: SAXON warns if attempting to find the attribute
+                           of an attribute--><xsl:when test="not(@*)">
+            <xsl:apply-templates select="node()" mode="M30"/>
+         </xsl:when>
+         <xsl:otherwise>
+            <xsl:apply-templates select="@*|node()" mode="M30"/>
+         </xsl:otherwise>
+      </xsl:choose>
+   </xsl:template>
+</xsl:stylesheet>');
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -31043,7 +31043,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -31966,7 +31966,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:140', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -32889,7 +32889,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -33692,7 +33692,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -34615,7 +34615,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:136', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -35538,7 +35538,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -36341,7 +36341,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -37264,7 +37264,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:148', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -38187,7 +38187,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -38990,7 +38990,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -39913,7 +39913,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:128', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -40836,7 +40836,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -41639,7 +41639,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -42562,7 +42562,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:124', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -43485,7 +43485,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -44288,7 +44288,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -45211,7 +45211,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:120', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -46134,7 +46134,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -46937,7 +46937,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -47860,7 +47860,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:144', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -48783,7 +48783,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -49586,7 +49586,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -50509,7 +50509,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:132', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -51432,7 +51432,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'default', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -52235,7 +52235,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'submit_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"
@@ -53158,7 +53158,7 @@ INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_
       </xsl:choose>
    </xsl:template>
 </xsl:stylesheet>');
-INSERT INTO validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+INSERT INTO escidoc_validation_schema_snippets (id_context_ref, id_content_type_ref, id_validation_point, id_metadata_version_ref, snippet_content) VALUES ('escidoc:persistent3', 'escidoc:persistent4', 'accept_item', '2.0', '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <xsl:stylesheet xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                 xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:xs="http://www.w3.org/2001/XMLSchema"

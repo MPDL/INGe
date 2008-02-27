@@ -26,5 +26,5 @@
 -- All rights reserved. Use is subject to license terms.
 
 
-DROP TABLE validation_schema;
-DROP TABLE validation_schema_snippets;
+DROP TABLE escidoc_validation_schema IF EXISTS;
+DROP TABLE escidoc_validation_schema_snippets IF EXISTS;
