@@ -118,7 +118,7 @@ public class EmailHandlingBean implements EmailHandling
                  
                  // Get a mail session with authentication
                  MailAuthenticator authenticator = new MailAuthenticator(usr, pwd);
-                 Session mailSession = Session.getDefaultInstance(props, authenticator);
+                 Session mailSession = Session.getInstance(props, authenticator);
                                  
                  // Define a new mail message
                  Message message = new MimeMessage(mailSession);

@@ -121,6 +121,34 @@ public class PubCollectionVO extends ValueObject
     private java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
 
     /**
+     * Default constructor.
+     */
+    public PubCollectionVO()
+    {
+    	
+    }
+    
+    /**
+     * Clone constructor.
+     *
+     * @param collection The collection to be cloned.
+     */
+    public PubCollectionVO(PubCollectionVO collection)
+    {
+    	this.allowedGenres = collection.allowedGenres;
+    	this.allowedSubmissionMethods = collection.allowedSubmissionMethods;
+    	this.creator = collection.creator;
+    	this.defaultFileVisibility = collection.defaultFileVisibility;
+    	this.defaultMetadata = collection.defaultMetadata;
+    	this.description = collection.description;
+    	this.name = collection.name;
+    	this.reference = collection.reference;
+    	this.responsibleAffiliations = collection.responsibleAffiliations;
+    	this.state = collection.state;
+    	this.validationPoints = collection.validationPoints;
+    }
+    
+    /**
      * Helper method for JiBX transformations. This method helps JiBX to determine if this is a 'create' or an 'update'
      * transformation.
      */

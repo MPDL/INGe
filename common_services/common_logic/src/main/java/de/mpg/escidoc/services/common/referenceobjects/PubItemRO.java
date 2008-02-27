@@ -49,10 +49,12 @@ public class PubItemRO extends ReferenceObject implements Cloneable
      * @author Johannes Mueller
      */
     private static final long serialVersionUID = 1L;
+    
     /**
      * The version number of the referenced item. This attribute is optional.
      */
     private int versionNumber;
+    
     /**
      * Creates a new instance.
      */
