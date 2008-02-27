@@ -86,7 +86,7 @@ public class CitationStyleHandlerTest {
     @Before
     public final void getItemList() throws Exception
     {
-        itemList = TestHelper.readFile("src/main/resources/DataSources/item-list-inga.xml");
+        itemList = TestHelper.readFile("src/test/resources/DataSources/item-list-inga.xml");
         assertNotNull("Item list xml is not found", itemList);
     }
     
@@ -127,7 +127,7 @@ public class CitationStyleHandlerTest {
     	
 		long start = 0;
 		XmlHelper xh = new XmlHelper();
-		String dsName = "src/main/resources/DataSources/item-list-inga.xml"; 
+		String dsName = "src/test/resources/DataSources/item-list-inga.xml"; 
         try {
         	
         	start = System.currentTimeMillis();
