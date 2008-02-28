@@ -55,7 +55,7 @@
 		<!-- Maximum disk space per request (in bytes) -->
 		<param-name>org.apache.myfaces.trinidad.UPLOAD_MAX_DISK_SPACE</param-name>
 		<!-- Use 5,000K -->
-		<param-value>51200000</param-value>
+		<param-value>512000000</param-value>
 	</context-param>
 	
   <!-- Trinidad by default uses an optimized client-side state saving
