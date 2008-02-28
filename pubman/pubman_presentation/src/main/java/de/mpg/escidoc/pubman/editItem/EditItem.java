@@ -34,6 +34,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIViewRoot;
@@ -187,6 +188,8 @@ public class EditItem extends FacesBean
         super.init();
         
         this.fileTable = new CoreTable();
+        
+        Map map = FacesContext.getCurrentInstance().getExternalContext().getInitParameterMap();
 
         // enables the commandlinks
         this.enableLinks();
@@ -1316,7 +1319,16 @@ public class EditItem extends FacesBean
 	public void setFileTable(CoreTable fileTable) {
 		this.fileTable = fileTable;
 	}
-
+	
+	public int getNumberOfFiles()
+	{
+		int fileNumber = 0;
+		if(this.getEditItemSessionBean().getFiles() != null)
+		{
+			fileNumber = this.getEditItemSessionBean().getFiles().size();
+		}
+		return fileNumber;
+	}
 	
     
 }
