@@ -167,7 +167,6 @@
 							</execution>
 						</executions>
 						<configuration>
-							<wait>false</wait>
 							<container>
 								<containerId>jboss4x</containerId>
 								<zipUrlInstaller>
