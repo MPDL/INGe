@@ -42,6 +42,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -211,6 +212,49 @@ public class ApplicationBean extends FacesBean
     public SelectItem[] getSelectItemsReviewMethod(final boolean includeNoItemSelectedEntry)
     {
         MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum visibility.
+     * @return array of SelectItems for visibility
+     */
+    public SelectItem[] getSelectItemsVisibility()
+    {
+        return this.getSelectItemsVisibility(false);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum visibility.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for visibility
+     */
+    public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry)
+    {
+    	PubFileVO.Visibility[] values = PubFileVO.Visibility.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum ContentType.
+     * @return array of SelectItems for ContentType
+     */
+    public SelectItem[] getSelectItemsContentType()
+    {
+        return this.getSelectItemsContentType(false);
+    }
+
+
+    /**
+     * Returns an array of SelectItems for the enum ContentType.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for ReviewMethod
+     */
+    public SelectItem[] getSelectItemsContentType(final boolean includeNoItemSelectedEntry)
+    {
+        PubFileVO.ContentType[] values = PubFileVO.ContentType.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
