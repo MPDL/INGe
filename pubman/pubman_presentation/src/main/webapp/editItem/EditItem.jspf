@@ -59,41 +59,45 @@
 	<h:panelGrid id="panDynamicTitle" styleClass="editItemOuterPanel">
 		<jsp:directive.include file="ui/TitleCollection.jspf"/>
 	</h:panelGrid>
-
-	<tr:table var="component" id="fileUploads" value="#{EditItem.files}" styleClass="editItemOuterBlockPanel" varStatus="index">
-		<tr:column>
-			<h:panelGrid columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-				<tr:outputLabel value="#{lbl.EditItem_lblPath}"/>
-				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
-				<tr:commandButton text="Upload" rendered="#{component.file.size == 0}"/>
-				<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
-				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
-				<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
-				<tr:commandButton text="#{lbl.EditItem_btAdd}" action="#{EditItem.addFile}" />
-				<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
-				<tr:outputText value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
-				<tr:commandButton text="#{lbl.EditItem_btRemove}" rendered="#{component.file.size > 0}" action="#{component.removeFile}"/>
-				<tr:outputLabel value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
-				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-					<f:selectItems value="#{EditItem.contentTypes}" />
-				</h:selectOneMenu>
-				<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
-				<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
-				<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-					<f:selectItems value="#{EditItem.visibilities}" />
-				</h:selectOneMenu>
-				<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
-				<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>
-				<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-		    </h:panelGrid>
-		</tr:column>
-	</tr:table>
+	
+	<h:panelGrid id="panFiles" columns="1" styleClass="editItemOuterPanel">
+		<h:outputText id="lblFiles" style="font-weight: bold;" value="#{lbl.EditItem_lblFile}" />
+		<tr:table var="component" id="fileUploads" value="#{EditItem.files}" styleClass="editItemOuterBlockPanel" varStatus="index">
+			<tr:column>
+				<h:panelGrid columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
+					<tr:outputLabel value="#{lbl.EditItem_lblPath}"/>
+					<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
+					<tr:commandButton text="Upload" rendered="#{component.file.size == 0}"/>
+					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
+					<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
+					<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
+					<tr:commandButton text="#{lbl.EditItem_btAdd}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles}"/>
+					<tr:outputLabel value=" " rendered="#{component.index+1 < EditItem.numberOfFiles}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
+					<tr:outputText value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
+					<tr:commandButton text="#{lbl.EditItem_btRemove}" rendered="#{component.file.size > 0}" action="#{component.removeFile}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
+					<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+						<f:selectItems value="#{EditItem.contentTypes}" />
+					</h:selectOneMenu>
+					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
+					<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
+					<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+						<f:selectItems value="#{EditItem.visibilities}" />
+					</h:selectOneMenu>
+					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
+					<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>
+					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
+			    </h:panelGrid>
+			</tr:column>
+		</tr:table>
+	</h:panelGrid>
 	
 	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
 		<h:outputText id="lblPersonsAndOrganizations" style="font-weight: bold" value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
