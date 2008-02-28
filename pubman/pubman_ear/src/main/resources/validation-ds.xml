@@ -26,7 +26,29 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
+<!-- HSqlDB configuration -->
 <datasources>
+	<local-tx-datasource>
+		<jndi-name>Validation</jndi-name>
+		<use-java-context>false</use-java-context>
+		<connection-url>jdbc:hsqldb:${jboss.server.data.dir}${/}hypersonic${/}localDB</connection-url>
+		<driver-class>org.hsqldb.jdbcDriver</driver-class>
+		<user-name>sa</user-name>
+		<password></password>
+		<min-pool-size>5</min-pool-size>
+		<max-pool-size>20</max-pool-size>
+		<idle-timeout-minutes>0</idle-timeout-minutes>
+		<track-statements/>
+		<security-domain>HsqlDbRealm</security-domain>
+		<prepared-statement-cache-size>32</prepared-statement-cache-size>
+		<metadata>
+			<type-mapping>Hypersonic SQL</type-mapping>
+		</metadata>
+		<depends>jboss:service=Hypersonic,database=localDB</depends>
+	</local-tx-datasource>
+</datasources>
+<!-- Same for postgres -->
+<!-- <datasources>
 	<local-tx-datasource>
 		<jndi-name>Validation</jndi-name>
 		<use-java-context>false</use-java-context>
@@ -35,4 +57,4 @@
 		<user-name>validator</user-name>
 		<password>validator</password>
 	</local-tx-datasource>
-</datasources>
+</datasources> -->
