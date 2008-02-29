@@ -357,7 +357,7 @@
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<!-- the ears are deployed to this server using jboss:harddeploy -->
-				<jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 
 				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
@@ -430,7 +430,7 @@
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<!-- the ears are deployed to this server using jboss:harddeploy -->
-				<jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
 
 				<!-- Flag to disable the GUI-entry points for UC_PM_SR_03 do advanced search -->
 				<escidoc.pubman_presentation.disable.advanced_search>false</escidoc.pubman_presentation.disable.advanced_search>
