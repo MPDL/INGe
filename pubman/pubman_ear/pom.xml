@@ -33,8 +33,8 @@
 								<copy file="target/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf" overwrite="true" />
 								<!-- copy validation descriptor to server -->
 								<copy file="target/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy" overwrite="true" />
-<!--  
-								<xslt processor="trax"
+								<!--  
+									<xslt processor="trax"
 									in="/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/properties-service.xml" style="/tmp/transform.xsl"
 									out="/tmp/out.xml" />  -->
 							</tasks>
@@ -334,34 +334,22 @@
 						<artifactId>cargo-maven2-plugin</artifactId>
 						<version>0.3.1</version>
 						<configuration>
-							<wait>true</wait>
 							<container>
 								<containerId>jboss4x</containerId>
 								<zipUrlInstaller>
-									<url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
-									<installDir>${jboss.install.dir}</installDir>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
 								<home>${project.build.directory}/jboss/server</home>
 								<properties>
-									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-										<cargo.host>${cargo.host}</cargo.host>  -->
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
 									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
 									<cargo.logging>${cargo.log}</cargo.logging>
-									<cargo.jboss.configuration>default</cargo.jboss.configuration>
 								</properties>
 							</configuration>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>jboss-maven-plugin</artifactId>
-						<configuration>
-							<jbossHome>${jboss.home}</jbossHome>
-							<hostName>${jboss.deploy.host}</hostName>
-							<port>${jboss.deploy.port}</port>
 						</configuration>
 					</plugin>
 				</plugins>
@@ -374,24 +362,24 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>0.3.1</version>
+						<version>1.0-20080229.093539-2</version>
 						<configuration>
-							<wait>true</wait>
+							<wait>false</wait>
 							<container>
-								<containerId>jboss4x</containerId>
+								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
-									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
-									<installDir>${jboss.install.dir}</installDir>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
+								<type>existing</type>
 								<home>${project.build.directory}/jboss/server</home>
 								<properties>
-									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-										<cargo.host>${cargo.host}</cargo.host>  -->
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
 									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
 									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
 									<cargo.jboss.configuration>default</cargo.jboss.configuration>
 								</properties>
 							</configuration>
@@ -405,6 +393,62 @@
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<!-- copy a default jboss server configuration -->
+										<copy todir="${project.build.directory}">
+											<fileset dir="src/jboss/configuration42x" />
+										</copy>
+										<!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml"
+											todir="${project.build.directory}/jboss/server/deploy">
+										</copy>
+										<!-- copy over the jboss service descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml"
+											todir="${project.build.directory}/jboss/server/conf">
+										</copy>
+										<!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
+											todir="${project.build.directory}/jboss/server/conf">
+										</copy>
+
+										<!-- configuration for the deploy jboss server -->
+										<!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml"
+											todir="${project.build.directory}/jboss/server/deploy">
+										</copy>
+										<!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
+											todir="${project.build.directory}/jboss/server/conf">
+										</copy>
+
+										<!-- configuration for the runtime server jboss server -->
+										<!--  
+											<xslt processor="trax"
+											in="/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/properties-service.xml" style="/tmp/transform.xsl"
+											out="/tmp/out.xml" />  -->
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-trax</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
