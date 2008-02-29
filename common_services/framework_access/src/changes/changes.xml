@@ -32,28 +32,13 @@
 
 <document>
   <properties>
-    <title>Common services</title>
+    <title>Common services project</title>
     <author email="endres@mpdl.mpg.de">Thomas Endres</author>
   </properties>
   <body>
-    <release version="1.0.3" date="2008-02-20" description="Initial release">
+    <release version="1.0.0" date="2008-02-21" description="Initial release">
       <action dev="tendres" type="update">
         Lots of changes for the maven build environment.
-      </action>
-    </release>
-  </body>
-</document>
-
-
-<document>
-  <properties>
-    <title>Changes Tester Project</title>
-    <author email="jruiz@exist.com">Johnny R. Ruiz III</author>
-  </properties>
-  <body>
-    <release version="1.0" date="2005-01-01" description="First release">
-      <action dev="jruiz" type="update">
-        Uploaded documentation on how to use the plugin.
       </action>
     </release>
   </body>
