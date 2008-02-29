@@ -345,6 +345,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
@@ -417,6 +418,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
