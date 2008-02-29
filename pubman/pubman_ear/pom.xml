@@ -58,7 +58,7 @@
 				<configuration>
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
-					<resourcesDir>target/classes/build</resourcesDir>
+					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<modules>
 						<webModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
