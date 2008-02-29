@@ -105,7 +105,7 @@ public class ValidationCacheTest
 
         //cache.clearCache();
 
-        String sql = "SELECT * FROM validation_schema";
+        String sql = "SELECT * FROM escidoc_validation_schema";
         ResultSet rs = connection.createStatement().executeQuery(sql);
 
         assertNotNull("ResultSet is null", rs);
@@ -113,7 +113,7 @@ public class ValidationCacheTest
 
         rs.close();
 
-        sql = "SELECT * FROM validation_schema_snippets";
+        sql = "SELECT * FROM escidoc_validation_schema_snippets";
         rs = connection.createStatement().executeQuery(sql);
 
         assertNotNull("ResultSet is null", rs);
@@ -132,7 +132,7 @@ public class ValidationCacheTest
 
         cache.createCache();
 
-        String sql = "SELECT * FROM validation_schema";
+        String sql = "SELECT * FROM escidoc_validation_schema";
         ResultSet rs = connection.createStatement().executeQuery(sql);
 
         assertNotNull("ResultSet is null", rs);
@@ -140,7 +140,7 @@ public class ValidationCacheTest
 
         rs.close();
 
-        sql = "SELECT * FROM validation_schema_snippets";
+        sql = "SELECT * FROM escidoc_validation_schema_snippets";
         rs = connection.createStatement().executeQuery(sql);
 
         assertNotNull("ResultSet is null", rs);
