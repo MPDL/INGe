@@ -151,8 +151,8 @@
 							<container>
 								<containerId>jboss4x</containerId>
 								<zipUrlInstaller>
-									<url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
-									<installDir>${user.home}/jboss</installDir>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
@@ -197,8 +197,8 @@
 							<container>
 								<containerId>jboss42x</containerId>
 								<zipUrlInstaller>
-									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
-									<installDir>${jboss.install.dir}</installDir>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
 								</zipUrlInstaller>
 							</container>
 							<configuration>
@@ -217,7 +217,7 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
-							<jbossHome>${jboss.install.dir}/jboss-4.2.2.GA/jboss-4.2.2.GA</jbossHome>
+							<jbossHome>${jboss.install.dir}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
@@ -234,10 +234,14 @@
 								</goals>
 								<configuration>
 									<tasks>
+										<!-- copy a default jboss server configuration -->
 										<copy todir="${project.build.directory}">
 											<fileset dir="src/jboss/configuration42x" />
 										</copy>
+										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy"></copy>
+										<!-- copy over the jboss service descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf"></copy>
 										<sleep seconds="3"></sleep>
 									</tasks>
 								</configuration>

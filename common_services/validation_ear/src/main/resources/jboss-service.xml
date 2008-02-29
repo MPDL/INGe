@@ -12,7 +12,7 @@
      can be restricted to specific jars by specifying them in the archives
      attribute.
     -->
-   <classpath codebase="file:/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/lib/" archives="*"/>
+   <classpath codebase="file:${cargo.jboss.install.dir}/server/default/lib/" archives="*"/>
 
    <!-- ==================================================================== -->
    <!-- JSR-77 Single JBoss Server Management Domain                         -->
@@ -192,7 +192,7 @@
    <mbean code="org.jboss.services.binding.ServiceBindingManager"
      name="jboss.system:service=ServiceBindingManager">
      <attribute name="ServerName">cargo-binding</attribute>
-     <attribute name="StoreURL">file:/home/endres/tmp/basic_install/common/common2/common_services/validation_ear/target/jboss/server/conf/cargo-binding.xml</attribute>
+     <attribute name="StoreURL">file:${project.build.directory}/jboss/server/conf/cargo-binding.xml</attribute>
      <attribute name="StoreFactoryClassName">
        org.jboss.services.binding.XMLServicesStoreFactory
      </attribute>
@@ -653,33 +653,9 @@
       <!-- A flag to disable the scans -->
       <attribute name="ScanEnabled">true</attribute>
 
-      <!-- URLs are comma separated and resolve relative to the server home URL
-         unless the given path is absolute. If the URL ends in "/" it is
-         considered a collection and scanned, otherwise it is simply deployed;
-         this follows RFC2518 convention and allows discrimination between
-         collections and directories that are simply unpacked archives.
-
-         URLs may be local (file:) or remote (http:). Scanning is supported
-         for remote URLs but unpacked deployment units are not.
-
-         Example URLs:
-            deploy/
-                 scans ${jboss.server.url}/deploy/, which is local or remote
-                 depending on the URL used to boot the server
-            ${jboss.server.home}/deploy/
-                 scans ${jboss.server.home)/deploy, which is always local
-            file:/var/opt/myapp.ear
-                 deploy myapp.ear from a local location
-            file:/var/opt/apps/
-                 scans the specified directory
-            http://www.test.com/netboot/myapp.ear
-                 deploys myapp.ear from a remote location
-            http://www.test.com/netboot/apps/
-                 scans the specified WebDAV location
-       -->
       <attribute name="URLs">
-          
-         deploy/, file:/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/
+                      
+         deploy/, file:${cargo.jboss.install.dir}/server/default/deploy/
       </attribute>
 
       <!-- Indicates if the scanner should recursively scan directories that
