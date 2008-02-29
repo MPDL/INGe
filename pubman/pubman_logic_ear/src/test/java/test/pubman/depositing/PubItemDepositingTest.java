@@ -220,14 +220,14 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO initPubItem = getComplexPubItemWithoutFiles();
         // Add file to item
         PubFileVO initPubFile = new PubFileVO();
-        String testfile = "test/depositing/pubItemDepositingTest/farbtest_B6.gif";
+        String testfile = "src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif";
         initPubFile.setDescription("Sehen Sie B6?");
         initPubFile.setVisibility(Visibility.PUBLIC);
         initPubFile.setContentType(ContentType.ABSTRACT);
         initPubFile.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         initPubFile.setName("farbtest_B6.gif");
         initPubFile.setMimeType("image/gif");
-        initPubFile.setSize((int)new File("test/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
+        initPubFile.setSize((int)new File("src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
         initPubItem.getFiles().add(initPubFile);
 
         PubItemVO savedItem = null;
@@ -679,7 +679,7 @@ public class PubItemDepositingTest extends TestBase
     {
         List<PubCollectionVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
         assertNotNull(pubCollectionList);
-        assertEquals(1, pubCollectionList.size());
+        assertEquals(2, pubCollectionList.size());
         PubCollectionVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
