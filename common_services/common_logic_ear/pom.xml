@@ -26,7 +26,7 @@
 				<configuration>
 					<displayName>common_logic</displayName>
 					<description>common_logic integration testing ear</description>
-					<resourcesDir>target/classes</resourcesDir>
+					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -210,32 +210,13 @@
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
 						<version>0.3.1</version>
-						<configuration>
-							<wait>false</wait>
-							<container>
-								<containerId>jboss4x</containerId>
-								<zipUrlInstaller>
-									<url>http://escidoc1.escidoc.mpg.de/resources/jboss_4.0.5/jboss_4.0.5.zip</url>
-									<installDir>${jboss.install.dir}</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<home>${project.build.directory}/jboss/server</home>
-								<properties>
-									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-										<cargo.host>${cargo.host}</cargo.host>  -->
-									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-									<cargo.logging>${cargo.log}</cargo.logging>
-								</properties>
-							</configuration>
-						</configuration>
 						<executions>
 							<execution>
 								<id>start-container</id>
 								<phase>pre-integration-test</phase>
 								<goals>
 									<goal>start</goal>
+									<goal>prepare-deployment</goal>
 								</goals>
 							</execution>
 							<execution>
@@ -246,6 +227,24 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<container>
+								<containerId>jboss4x</containerId>
+								<zipUrlInstaller>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
+								</properties>
+							</configuration>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>
@@ -257,28 +256,7 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>1.0-20080212.095734-1</version>
-						<configuration>
-							<wait>false</wait>
-							<container>
-								<containerId>jboss42x</containerId>
-								<zipUrlInstaller>
-									<url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</url>
-									<installDir>${jboss.install.dir}</installDir>
-								</zipUrlInstaller>
-							</container>
-							<configuration>
-								<home>${project.build.directory}/jboss/server</home>
-								<properties>
-									<!--        <cargo.jvmarg>${cargo.jvmarg}</cargo.jvmarg>
-										<cargo.host>${cargo.host}</cargo.host>  -->
-									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
-									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
-									<cargo.logging>${cargo.log}</cargo.logging>
-									<cargo.jboss.configuration>default</cargo.jboss.configuration>
-								</properties>
-							</configuration>
-						</configuration>
+						<version>1.0-20080229.093539-2</version>
 						<executions>
 							<execution>
 								<id>start-container</id>
@@ -295,15 +273,61 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<wait>false</wait>
+							<container>
+								<containerId>jboss42x</containerId>
+								<zipUrlInstaller>
+									<url>${cargo.jboss.url}</url>
+									<installDir>${cargo.install.dir}</installDir>
+								</zipUrlInstaller>
+							</container>
+							<configuration>
+								<type>existing</type>
+								<home>${project.build.directory}/jboss/server</home>
+								<properties>
+									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
+									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
+									<cargo.logging>${cargo.log}</cargo.logging>
+									<cargo.jvmargs>${cargo.jvmargs}</cargo.jvmargs>
+									<cargo.jboss.configuration>default</cargo.jboss.configuration>
+								</properties>
+							</configuration>
+						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
-							<jbossHome>${jboss.home}</jbossHome>
+							<jbossHome>${jboss.install.dir}</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<!-- copy a default jboss server configuration -->
+										<copy todir="${project.build.directory}">
+											<fileset dir="src/jboss/configuration42x" />
+										</copy>
+										<!-- copy over the jboss service descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf"></copy>
+										<!-- copy over the configuration file file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf"></copy>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
