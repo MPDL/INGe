@@ -19,25 +19,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<id>prepare-deployment</id>
-						<phase>integration-test</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<copy overwrite="true" file="target/classes/validation-ds.xml" todir="target/jboss/server/deploy"></copy>
-								<sleep seconds="3"></sleep>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
 					<displayName>validation</displayName>
@@ -75,8 +56,8 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>postgresql</groupId>
-							<artifactId>postgresql</artifactId>
+							<groupId>wss4j</groupId>
+							<artifactId>wss4j</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<ejbModule>
@@ -194,7 +175,7 @@
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
-						<version>1.0-20080212.095734-1</version>
+						<version>1.0-20080229.093539-2</version>
 						<executions>
 							<execution>
 								<id>start-container</id>
@@ -221,6 +202,7 @@
 								</zipUrlInstaller>
 							</container>
 							<configuration>
+								<type>existing</type>
 								<home>${project.build.directory}/jboss/server</home>
 								<properties>
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
@@ -235,10 +217,32 @@
 						<groupId>org.codehaus.mojo</groupId>
 						<artifactId>jboss-maven-plugin</artifactId>
 						<configuration>
-							<jbossHome>${jboss.home}</jbossHome>
+							<jbossHome>${jboss.install.dir}/jboss-4.2.2.GA/jboss-4.2.2.GA</jbossHome>
 							<hostName>${jboss.deploy.host}</hostName>
 							<port>${jboss.deploy.port}</port>
 						</configuration>
+					</plugin>
+					<plugin>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<version>1.1</version>
+						<executions>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>generate-test-sources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<copy todir="${project.build.directory}">
+											<fileset dir="src/jboss/configuration42x" />
+										</copy>
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy"></copy>
+										<sleep seconds="3"></sleep>
+									</tasks>
+								</configuration>
+							</execution>
+						</executions>
 					</plugin>
 				</plugins>
 			</build>
@@ -315,10 +319,10 @@
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>8.1-404.jdbc3</version>
-			<scope>runtime</scope>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 </project>
