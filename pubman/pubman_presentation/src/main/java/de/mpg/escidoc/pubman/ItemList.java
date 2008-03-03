@@ -74,7 +74,8 @@ public abstract class ItemList extends FacesBean
     private static Logger logger = Logger.getLogger(ItemList.class);
 
     // bound components in JSP
-    private HtmlOutputText valMessage = new HtmlOutputText();
+    private String valMessage = null;
+    private boolean showMessage = false;
     private HtmlSelectOneMenu cboSortBy = new HtmlSelectOneMenu();
     private HtmlSelectOneRadio rbgSortOrder = new HtmlSelectOneRadio();
 
@@ -358,8 +359,8 @@ public abstract class ItemList extends FacesBean
 
         // instantly make this message visible as the page is likely not reloaded and so
         // the message is not set visible via the enableLinks()-method.
-        this.valMessage.setValue(message);
-        this.valMessage.setRendered(true);
+        this.valMessage = message;
+        this.showMessage = true;
     }
 
     /**
@@ -367,8 +368,8 @@ public abstract class ItemList extends FacesBean
      */
     public void deleteMessage()
     {
-        this.valMessage.setValue( "" );
-        this.valMessage.setRendered( false );
+    	this.valMessage = null;
+        this.showMessage = false;
     }
 
     /**
@@ -430,8 +431,8 @@ public abstract class ItemList extends FacesBean
 
         String message = this.getItemListSessionBean().getMessage();
 
-        this.valMessage.setValue(message);
-        this.valMessage.setRendered(message != null);
+        this.valMessage = message;
+        this.showMessage = (message != null);
 
         // keep the message just once
         this.getItemListSessionBean().setMessage(null);
@@ -484,16 +485,6 @@ public abstract class ItemList extends FacesBean
         return this.SORTORDER_OPTIONS;
     }
 
-    public HtmlOutputText getValMessage()
-    {
-        return valMessage;
-    }
-
-    public void setValMessage(HtmlOutputText valMessage)
-    {
-        this.valMessage = valMessage;
-    }
-
     public HtmlSelectOneMenu getCboSortBy()
     {
         return cboSortBy;
@@ -532,5 +523,21 @@ public abstract class ItemList extends FacesBean
         }
         return list.toArray(new SelectItem[]{});
     }
+
+	public String getValMessage() {
+		return valMessage;
+	}
+
+	public void setValMessage(String valMessage) {
+		this.valMessage = valMessage;
+	}
+
+	public boolean getShowMessage() {
+		return showMessage;
+	}
+
+	public void setShowMessage(boolean showMessage) {
+		this.showMessage = showMessage;
+	}
 
 }

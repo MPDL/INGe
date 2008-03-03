@@ -52,6 +52,8 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
@@ -118,6 +120,12 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
 
         this.getChildren().clear();
         this.setId(CommonUtils.createUniqueId(this));
+        
+        ApplicationBean applicationBean = (ApplicationBean) FacesContext
+        .getCurrentInstance()
+        .getExternalContext()
+        .getApplicationMap()
+        .get(ApplicationBean.BEAN_NAME);
 
         // *** HEADER ***
         // add an image to the page
@@ -253,10 +261,9 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
 
                 // DiT, 07.11.2007: calculate file size in KB
-                BigDecimal fileSize = new BigDecimal(this.pubItem.getFiles().get(i).getSize()).divide(new BigDecimal(1024), BigDecimal.ROUND_HALF_UP);
+                String fileSize = computeFileSize(this.pubItem.getFiles().get(i).getSize());
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getMimeType() 
-                                        + " / " + fileSize 
-                                        + getLabel("ViewItemMedium_lblFileSizeKB")));
+                                        + " / " + fileSize ));
 
                 this.getChildren().add(htmlElement.getEndTag("div"));
 
@@ -271,7 +278,7 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getContentTypeString()));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(applicationBean.convertEnumToString(this.pubItem.getFiles().get(i).getContentType()))));
 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
@@ -314,7 +321,7 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
                 {
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
                     
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getVisibilityString()));
+                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(getLabel(applicationBean.convertEnumToString(this.pubItem.getFiles().get(i).getVisibility()))));
                     
                     this.getChildren().add(htmlElement.getEndTag("div"));
                 }
@@ -337,6 +344,27 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
             this.getChildren().add(htmlElement.getEndTag("div"));
         }
     }
+
+    /**
+     * Added by FrM. compute a better result for values < 1024.
+     * 
+     * @param i
+     * @return
+     */
+	private String computeFileSize(long i) {
+		if (i < 1024)
+		{
+			return i + getLabel("ViewItemMedium_lblFileSizeB");
+		}
+		else if (i < 1024 * 1024)
+		{
+			return ((i - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
+		}
+		else
+		{
+			return ((i - 1) / 1024 * 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+		}
+	}
 
     /**
      * Adds the search result hits to the page

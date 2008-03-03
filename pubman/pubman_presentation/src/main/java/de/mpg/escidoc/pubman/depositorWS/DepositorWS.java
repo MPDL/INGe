@@ -76,7 +76,7 @@ public class DepositorWS extends ItemList
     private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
     private HtmlOutputLink lnkDelete = new HtmlOutputLink();
     private HtmlSelectOneMenu cboItemstate = new HtmlSelectOneMenu();
-    private HtmlOutputText valNoItemsMsg = new HtmlOutputText();
+    private boolean enableNoItemMsg = false;
 
     /**
      * Public constructor.
@@ -163,9 +163,6 @@ public class DepositorWS extends ItemList
         // set the currently selected items in the ItemController
 //        this.setSelectedItemsAndCurrentItem();
 
-        
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
         if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
             //      Inserted by FrM to check item State
@@ -179,6 +176,8 @@ public class DepositorWS extends ItemList
                 }
                 getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
             }
+            // force reload of list next time this page is navigated to
+            this.getItemListSessionBean().setListDirty(true);
             return EditItem.LOAD_EDITITEM;
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
@@ -204,8 +203,6 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Submit selected item(s)");
         }
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
         // set the currently selected items in the ItemController
 //        this.setSelectedItemsAndCurrentItem();
 
@@ -253,10 +250,14 @@ public class DepositorWS extends ItemList
                     logger.debug("Submitting item...");
                 }
                 getItemControllerSessionBean().setCurrentPubItem(pubItem);
+                // force reload of list next time this page is navigated to
+                this.getItemListSessionBean().setListDirty(true);
                 return submitItem(DepositorWS.LOAD_DEPOSITORWS);
             }
             else if (report.isValid())
             {
+                // force reload of list next time this page is navigated to
+                this.getItemListSessionBean().setListDirty(true);
                 // TODO FrM: Informative messages
                 return submitItem(DepositorWS.LOAD_DEPOSITORWS);
             }
@@ -290,8 +291,7 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Withdraw selected item");
         }
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
+
         // set the currently selected items in the ItemController
         this.setSelectedItemsAndCurrentItem();
 
@@ -308,6 +308,8 @@ public class DepositorWS extends ItemList
 
         if (this.getItemListSessionBean().getSelectedPubItems().size() == 1)
         {
+            // force reload of list next time this page is navigated to
+            this.getItemListSessionBean().setListDirty(true);
             return withdrawItem(DepositorWS.LOAD_DEPOSITORWS);
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
@@ -333,8 +335,7 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Delete item(s)");
         }
-        // force reload of list next time this page is navigated to
-        this.getItemListSessionBean().setListDirty(true);
+        
         // set the currently selected items in the ItemController
         this.setSelectedItemsAndCurrentItem();
 
@@ -360,6 +361,8 @@ public class DepositorWS extends ItemList
             {
                 this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
             }
+            // force reload of list next time this page is navigated to
+            this.getItemListSessionBean().setListDirty(true);
             return retVal;
         }
         else
@@ -467,14 +470,13 @@ public class DepositorWS extends ItemList
         boolean enableModify = (itemListSize > 0 && ("all".equals(itemState) || itemState
                 .equals(PubItemVO.State.RELEASED.toString())));
         boolean enableView = (itemListSize > 0);
-        boolean enableNoItemMsg = (itemListSize <= 0);
+        enableNoItemMsg = (itemListSize <= 0);
         this.lnkDelete.setRendered(enableDelete);
         this.lnkEdit.setRendered(enableEdit);
         this.lnkModify.setRendered(enableModify);
         this.lnkWithdraw.setRendered(enableWithdraw);
         this.lnkSubmit.setRendered(enableSubmit);
         this.lnkView.setRendered(enableView);
-        this.valNoItemsMsg.setRendered(enableNoItemMsg);
     }
 
     /**
@@ -592,13 +594,12 @@ public class DepositorWS extends ItemList
         this.cboItemstate = cboItemstate;
     }
 
-    public HtmlOutputText getValNoItemsMsg()
-    {
-        return valNoItemsMsg;
-    }
+	public boolean getEnableNoItemMsg() {
+		return enableNoItemMsg;
+	}
 
-    public void setValNoItemsMsg(HtmlOutputText valNoItemsMsg)
-    {
-        this.valNoItemsMsg = valNoItemsMsg;
-    }
+	public void setEnableNoItemMsg(boolean enableNoItemMsg) {
+		this.enableNoItemMsg = enableNoItemMsg;
+	}
+
 }

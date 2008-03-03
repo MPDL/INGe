@@ -124,6 +124,10 @@ public class CreatorBean extends FacesBean
         }
         currentOrgaForSelection = creator.getOrganization();
 
+        // Set this value to let the affiliation tree know where to jump after selection.
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("EditItem");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(currentOrgaForSelection);
+        
         return "loadAffiliationTree";
     }
 

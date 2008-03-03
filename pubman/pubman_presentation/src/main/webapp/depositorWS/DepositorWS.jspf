@@ -40,8 +40,8 @@
 			</h1>
 			
 			<div style="padding-bottom: 20px">
-				<h:outputText binding="#{DepositorWS.valNoItemsMsg}" id="valNoItemsMsg" styleClass="messageError" value="#{msg.depositorWS_valNoItemsMsg}"/>
-				<h:outputText binding="#{DepositorWS.valMessage}" id="valMessage" styleClass="messageStatus"/>
+				<h:outputText id="valNoItemsMsg" styleClass="messageError" value="#{msg.depositorWS_valNoItemsMsg}" rendered="#{DepositorWS.enableNoItemMsg}"/>
+				<h:outputText value="#{DepositorWS.valMessage}" id="valMessage" styleClass="messageStatus" rendered="#{DepositorWS.showMessage}"/>
 			</div>
 
 			<h:outputLabel for="cboItemstate" id="lblItemstate" value="#{lbl.depositorWS_lblItemstate}"/>

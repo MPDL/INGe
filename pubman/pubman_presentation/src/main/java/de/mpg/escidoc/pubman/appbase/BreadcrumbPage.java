@@ -35,10 +35,6 @@ public abstract class BreadcrumbPage extends FacesBean
         
         super.init();
         
-        Object vr = FacesContext.getCurrentInstance().getViewRoot();
-        
-        logger.debug("BREADCRUMB: " + FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation"));
-        
         logger.debug("PAGE: " + FacesContext.getCurrentInstance().getViewRoot().getViewId());
         
         FacesContext fc = FacesContext.getCurrentInstance();
@@ -49,6 +45,10 @@ public abstract class BreadcrumbPage extends FacesBean
         breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page));
         
         UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation");
+        if (bcComponent == null)
+        {
+        	bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("Breadcrumb:BreadcrumbNavigation");
+        }
         if (bcComponent != null)
         {
             ValueExpression value = FacesContext

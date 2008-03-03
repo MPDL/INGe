@@ -53,7 +53,7 @@
 		<jsp:directive.include file="desktop/Search.jspf"/>
 		</div>
 		<div id="nav">
-		<jsp:directive.include file="desktop/Breadcrumb.jspf"/>
+			<jsp:directive.include file="desktop/Breadcrumb.jspf"/>
 		</div>
 		<div id="main">
 		<div id="col1">
