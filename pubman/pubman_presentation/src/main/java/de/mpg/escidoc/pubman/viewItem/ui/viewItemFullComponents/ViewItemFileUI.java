@@ -261,7 +261,7 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
 
                 // DiT, 07.11.2007: calculate file size in KB
-                String fileSize = CommonUtils.computeFileSize(this.pubItem.getFiles().get(i).getSize());
+                String fileSize = applicationBean.computeFileSize(this.pubItem.getFiles().get(i).getSize());
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getMimeType() 
                                         + " / " + fileSize ));
 

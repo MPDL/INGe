@@ -48,5 +48,6 @@
 		</div>
 		<h:panelGroup id="panRevisionList" binding="#{CreateRevision.panDynamicRevisionList}">
 		</h:panelGroup>
+		<!-- jsp:directive.include file="../list/itemList.jspf"/ -->
 	</f:subview>
 </div>
