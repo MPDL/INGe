@@ -49,6 +49,13 @@ public class CommonSessionBean extends FacesBean
     // flag to examine if the pubman application has been started as GUI Tool.
     private boolean runAsGUITool = false;
 
+    /**
+     * Public constructor
+     */
+    public CommonSessionBean()
+    {
+    	
+    }
     // Getters and Setters
     public boolean isRunAsGUITool()
     {
@@ -78,7 +85,7 @@ public class CommonSessionBean extends FacesBean
 		}
 		else
 		{
-			return ((size - 1) / 1024 * 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+			return ((size - 1) / (1024 * 1024) + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
 		}
 	}
 
