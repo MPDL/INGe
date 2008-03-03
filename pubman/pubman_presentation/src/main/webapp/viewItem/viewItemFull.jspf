@@ -33,8 +33,6 @@
 		<h:panelGroup id="panelItemFull"
 			binding="#{ViewItemFull.panelItemFull}">
 		</h:panelGroup>
-		<f:subview id="ViewItem">
-			<jsp:directive.include file="../desktop/messages.jspf"/>
-		</f:subview>
+		<jsp:directive.include file="../desktop/messages.jspf"/>
 	</f:subview>
 </div>

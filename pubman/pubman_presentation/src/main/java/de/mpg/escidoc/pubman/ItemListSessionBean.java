@@ -89,6 +89,9 @@ public class ItemListSessionBean extends FacesBean
     {
         // Perform initializations inherited from our superclass
         super.init();
+        
+        this.isListDirty = true;
+        
     }
 
     /**

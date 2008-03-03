@@ -70,7 +70,7 @@
 													 value="#{lbl.actionMenu_lnkEdit}"/></li>
 												<li><h:commandLink binding ="#{ViewItemSessionBean.lnkSubmit}" id="lnkEdit" action="#{ViewItemFull.submitItem}" 
 													 value="#{lbl.actionMenu_lnkSubmit}"/></li>
-												<li><h:commandLink binding ="#{ViewItemSessionBean.lnkDelete}" id="lnkDelete" onmousedown="if(!confirmDelete('form1'))return false;"
+												<li><h:commandLink binding ="#{ViewItemSessionBean.lnkDelete}" id="lnkDelete" onclick="if(!confirmDelete('form1:viewItemFull'))return false;"
 													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}"/></li>
 												<li><h:commandLink binding="#{ViewItemSessionBean.lnkWithdraw}" id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}"
 													 value="#{lbl.actionMenu_lnkWithdraw}"/></li>

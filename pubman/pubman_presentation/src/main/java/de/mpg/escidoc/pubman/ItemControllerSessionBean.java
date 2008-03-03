@@ -405,6 +405,9 @@ public class ItemControllerSessionBean extends FacesBean
             return ErrorPage.LOAD_ERRORPAGE;
         }
         
+        // Reload list
+        ((ItemListSessionBean) getSessionBean(ItemListSessionBean.class)).init();
+        
         return navigationRuleWhenSuccessfull;
     }
     

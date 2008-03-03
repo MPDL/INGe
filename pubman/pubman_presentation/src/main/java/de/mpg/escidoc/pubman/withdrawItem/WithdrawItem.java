@@ -170,7 +170,7 @@ public class WithdrawItem extends FacesBean
         }
 
         retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, comment);
-        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if (!ErrorPage.LOAD_ERRORPAGE.equals(retVal))
         {
 
             // If successful, remove item from the list.
@@ -182,6 +182,7 @@ public class WithdrawItem extends FacesBean
             //                  you won't find the right item in the list so we have to remove the right item by comparing the IDs
             
             // remove the item by ID/version of the reference
+        	this.getItemListSessionBean().setListDirty(true);
             this.getItemListSessionBean().removeFromCurrentListByRO(this.getPubItem().getReference());
 
             this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_WITHDRAWN);

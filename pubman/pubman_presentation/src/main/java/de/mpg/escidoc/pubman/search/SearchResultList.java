@@ -570,6 +570,7 @@ public class SearchResultList extends ItemList
             return (SearchResultList.LOAD_NO_ITEMS_FOUND);
         }
         
+        getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
         return (SearchResultList.LOAD_SEARCHRESULTLIST);
     }
     
@@ -597,7 +598,10 @@ public class SearchResultList extends ItemList
         {
             ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().advancedSearchItems(criterionVOList, language);
             result = itemsFound.size();
-            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+            getItemListSessionBean().setListDirty(false);
+            getItemListSessionBean().setType("AdvancedSearchResultList");
+            getItemListSessionBean().setCurrentPubItemListPointer(0);
+            getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
         {
@@ -656,6 +660,10 @@ public class SearchResultList extends ItemList
         try
         {
             itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliationRO);
+            
+            getItemListSessionBean().setListDirty(false);
+            getItemListSessionBean().setType("AffiliationSearchResultList");
+            getItemListSessionBean().setCurrentPubItemListPointer(0);
             this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
@@ -674,11 +682,12 @@ public class SearchResultList extends ItemList
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList2();
+        //this.createDynamicItemList2();
         
         //NiH: static flag workaround ui:tree component (exception on doubleclick selection)
         isInSearch = false;
         
+        getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
         return (SearchResultList.LOAD_AFFILIATIONSEARCHRESULTLIST);
     }
     

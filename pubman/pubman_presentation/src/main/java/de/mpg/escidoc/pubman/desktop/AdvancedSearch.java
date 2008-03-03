@@ -99,7 +99,7 @@ public class AdvancedSearch extends FacesBean
      */
     public String showSearchPage()
     {
-        AdvancedSearchEdit bean = (AdvancedSearchEdit)getBean(AdvancedSearchEdit.class);
+        AdvancedSearchEdit bean = (AdvancedSearchEdit)getRequestBean(AdvancedSearchEdit.class);
 
         bean.clearAllForms();
         

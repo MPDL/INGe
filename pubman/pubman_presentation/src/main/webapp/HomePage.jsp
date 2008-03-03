@@ -79,9 +79,10 @@
 								</div>
 							</div>
 						
+						</div>
 					</div>
-				</div>
-			</h:form></body>
+				</h:form>
+			</body>
 		</html>
 	</f:view>
 </jsp:root>

@@ -26,10 +26,14 @@
             Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
-%><div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-	<h:outputText id="deleteMessage_1"   value="#{msg.deleteMessage_1}"   rendered="false"/>
-	<h:outputText id="deleteMessage_2_a" value="#{msg.deleteMessage_2_a}" rendered="false"/>
-	<h:outputText id="deleteMessage_2_b" value="#{msg.deleteMessage_2_b}" rendered="false"/>
-	<h:outputText id="deleteMessage_3_a" value="#{msg.deleteMessage_3_a}" rendered="false"/>
-	<h:outputText id="deleteMessage_3_b" value="#{msg.deleteMessage_3_b}" rendered="false"/>
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<h:outputText id="deleteMessage_1"   value="#{msg.deleteMessage_1}" style="visibility: hidden; position: absolute"/>
+	<h:outputText id="deleteMessage_2_a" value="#{msg.deleteMessage_2_a}" style="visibility: hidden; position: absolute"/>
+	<h:outputText id="deleteMessage_2_b" value="#{msg.deleteMessage_2_b}" style="visibility: hidden; position: absolute"/>
+	<h:outputText id="deleteMessage_3_a" value="#{msg.deleteMessage_3_a}" style="visibility: hidden; position: absolute"/>
+	<h:outputText id="deleteMessage_3_b" value="#{msg.deleteMessage_3_b}" style="visibility: hidden; position: absolute"/>
 </div>
