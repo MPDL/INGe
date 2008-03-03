@@ -32,13 +32,15 @@ package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.appbase.FacesBean;
+
 /**
  * CommonSessionBean.java General session bean for storing session wide information Created on 30. Mai 2007, 16:53
  * 
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 17.08.2007
  */
-public class CommonSessionBean
+public class CommonSessionBean extends FacesBean
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ErrorPage.class);
@@ -57,4 +59,27 @@ public class CommonSessionBean
     {
         this.runAsGUITool = runAsGUITool;
     }
+
+    /**
+     * Generate a string for displaying file sizes.
+     * Added by FrM to compute a better result for values < 1024.
+     * 
+     * @param size The size of an uploaded file.
+     * @return A string representing the file size in a readable format.
+     */
+	public String computeFileSize(long size) {
+		if (size < 1024)
+		{
+			return size + getLabel("ViewItemMedium_lblFileSizeB");
+		}
+		else if (size < 1024 * 1024)
+		{
+			return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
+		}
+		else
+		{
+			return ((size - 1) / 1024 * 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
+		}
+	}
+
 }

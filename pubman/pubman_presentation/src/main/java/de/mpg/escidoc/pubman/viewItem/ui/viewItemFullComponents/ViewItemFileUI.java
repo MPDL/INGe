@@ -54,6 +54,7 @@ import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
@@ -126,6 +127,12 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
         .getExternalContext()
         .getApplicationMap()
         .get(ApplicationBean.BEAN_NAME);
+        
+        CommonSessionBean commonSessionBean = (CommonSessionBean) FacesContext
+        .getCurrentInstance()
+        .getExternalContext()
+        .getApplicationMap()
+        .get(CommonSessionBean.BEAN_NAME);
 
         // *** HEADER ***
         // add an image to the page
@@ -261,7 +268,7 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
 
                 // DiT, 07.11.2007: calculate file size in KB
-                String fileSize = applicationBean.computeFileSize(this.pubItem.getFiles().get(i).getSize());
+                String fileSize = commonSessionBean.computeFileSize(this.pubItem.getFiles().get(i).getSize());
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getMimeType() 
                                         + " / " + fileSize ));
 

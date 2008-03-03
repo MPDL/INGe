@@ -427,26 +427,4 @@ public class ApplicationBean extends FacesBean
         this.appContext = appContext;
     }
 
-    /**
-     * Generate a string for displaying file sizes.
-     * Added by FrM to compute a better result for values < 1024.
-     * 
-     * @param size The size of an uploaded file.
-     * @return A string representing the file size in a readable format.
-     */
-	public String computeFileSize(long size) {
-		if (size < 1024)
-		{
-			return size + getLabel("ViewItemMedium_lblFileSizeB");
-		}
-		else if (size < 1024 * 1024)
-		{
-			return ((size - 1) / 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeKB");
-		}
-		else
-		{
-			return ((size - 1) / 1024 * 1024 + 1) + getLabel("ViewItemMedium_lblFileSizeMB");
-		}
-	}
-
 }
