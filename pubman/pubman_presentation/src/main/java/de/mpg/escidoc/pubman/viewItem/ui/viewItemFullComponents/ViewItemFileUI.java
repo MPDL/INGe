@@ -128,11 +128,7 @@ public class ViewItemFileUI extends ContainerPanelUI implements ActionListener
         .getApplicationMap()
         .get(ApplicationBean.BEAN_NAME);
         
-        CommonSessionBean commonSessionBean = (CommonSessionBean) FacesContext
-        .getCurrentInstance()
-        .getExternalContext()
-        .getApplicationMap()
-        .get(CommonSessionBean.BEAN_NAME);
+        CommonSessionBean commonSessionBean = (CommonSessionBean)getSessionBean(CommonSessionBean.class);
 
         // *** HEADER ***
         // add an image to the page
