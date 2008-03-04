@@ -86,7 +86,7 @@
 			</band>
 		</columnHeader>
 		<detail>
-			<band height="18"  isSplitAllowed="true" >
+			<band height="30"  isSplitAllowed="true" >
 				<textField isStretchWithOverflow="true" pattern="" isBlankWhenNull="false" evaluationTime="Now" hyperlinkType="None"  hyperlinkTarget="Self" >
 					<reportElement
 						mode="Transparent"
@@ -104,6 +104,19 @@
 					</textElement>
 				<textFieldExpression   class="java.lang.String"><![CDATA[$V{citation}]]></textFieldExpression>
 				</textField>
+				<staticText>
+					<reportElement
+						x="1"
+						y="20"
+						width="533"
+						height="9"
+						key="staticText-1"/>
+					<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" rightBorder="None" rightBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000"/>
+					<textElement>
+						<font/>
+					</textElement>
+				<text><![CDATA[Static Text]]></text>
+				</staticText>
 			</band>
 		</detail>
 		<columnFooter>
