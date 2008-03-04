@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman.depositorWS;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**

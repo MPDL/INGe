@@ -455,9 +455,6 @@ public class ViewItemFull extends FacesBean
                         + " different collections.");
             }
 
-            //refresh ListUI
-            this.getCollectionListSessionBean().setCollectionListUI(null);
-            
             this.getRevisionListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
             
             return CreateRevision.LOAD_CREATEREVISION;
@@ -465,9 +462,9 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
-     * Redirects the user to the View revisions page
+     * Redirects the user to the View revisions page.
      * 
-     * @return Sring nav rule to load the create new revision page
+     * @return Sring nav rule to load the create new revision page.
      */
     public String showRevisions()
     {

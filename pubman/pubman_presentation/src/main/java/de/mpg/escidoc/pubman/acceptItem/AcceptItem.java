@@ -62,7 +62,7 @@ public class AcceptItem extends FacesBean
 
     private HtmlInputTextarea acceptanceComment;
 
-    private HtmlOutputText valMessage = new HtmlOutputText();
+    private String valMessage = null;
     private String creators;
     
     private String navigationStringToGoBack;
@@ -204,8 +204,7 @@ public class AcceptItem extends FacesBean
 
         String message = this.getSessionBean().getMessage();
         
-        this.valMessage.setValue(message);
-        this.valMessage.setRendered(message != null);
+        this.valMessage = message;
         
         // keep the message just once
         this.getSessionBean().setMessage(null);
@@ -248,17 +247,15 @@ public class AcceptItem extends FacesBean
         this.acceptanceComment = acceptanceComment;
     }
 
-    public final HtmlOutputText getValMessage()
-    {
-        return valMessage;
-    }
+    public String getValMessage() {
+		return valMessage;
+	}
 
-    public final void setValMessage(final HtmlOutputText valMessage)
-    {
-        this.valMessage = valMessage;
-    }
+	public void setValMessage(String valMessage) {
+		this.valMessage = valMessage;
+	}
 
-    public final String getNavigationStringToGoBack()
+	public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

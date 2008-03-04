@@ -14,6 +14,9 @@ public class IdentifierCriterionBean extends CriterionBean
 	
 	private IdentifierCriterionVO identifierCriterionVO;
 	
+	// collapsed by default
+	protected boolean collapsed = true;
+	
 	
     public IdentifierCriterionBean()
 	{

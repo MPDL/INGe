@@ -32,10 +32,11 @@ package de.mpg.escidoc.pubman.collectionList;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
@@ -52,7 +53,6 @@ public class CollectionListSessionBean extends FacesBean
     private static Logger logger = Logger.getLogger(CollectionListSessionBean.class);
 
     private List<PubCollectionVOPresentation> collectionList = new ArrayList<PubCollectionVOPresentation>();
-    private CollectionListUI collectionListUI = null;
 
     /**
      * Public constructor.
@@ -129,13 +129,14 @@ public class CollectionListSessionBean extends FacesBean
         this.collectionList = collectionList;
     }
 
-    public CollectionListUI getCollectionListUI()
+    public PubCollectionVOPresentation getSelectedCollection()
     {
-        return collectionListUI;
-    }
-
-    public void setCollectionListUI(CollectionListUI collectionListUI)
-    {
-        this.collectionListUI = collectionListUI;
+    	for (PubCollectionVOPresentation coll : collectionList) {
+			if (coll.getSelected())
+			{
+				return coll;
+			}
+		}
+    	return null;
     }
 }

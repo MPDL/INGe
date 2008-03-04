@@ -32,8 +32,11 @@ package de.mpg.escidoc.pubman.itemList;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.component.html.HtmlPanelGroup;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;

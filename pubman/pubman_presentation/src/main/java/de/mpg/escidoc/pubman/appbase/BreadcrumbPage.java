@@ -1,14 +1,15 @@
 package de.mpg.escidoc.pubman.appbase;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
-import javax.faces.webapp.UIComponentELTag;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 
@@ -27,6 +28,8 @@ public abstract class BreadcrumbPage extends FacesBean
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(BreadcrumbPage.class);
 
+    private BreadcrumbItem previousItem = null;
+    
     /**
      * Add an entry to the breadcrumb navigation.
      */
@@ -43,6 +46,7 @@ public abstract class BreadcrumbPage extends FacesBean
         
         BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
         breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page));
+        previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
         
         UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation");
         if (bcComponent == null)
@@ -60,4 +64,26 @@ public abstract class BreadcrumbPage extends FacesBean
         }
     }
 
+    public String getPreviousPageURI()
+    {
+    	return previousItem.getPage();
+    }
+
+    public String getPreviousPageName()
+    {
+    	return previousItem.getPageLabel();
+    }
+    
+    public String cancel()
+    {
+    	String result = previousItem.getPage();
+    	try
+    	{
+    		FacesContext.getCurrentInstance().getExternalContext().redirect(((ApplicationBean) getApplicationBean(ApplicationBean.class)).getAppContext() + result);
+    	}
+    	catch (IOException e) {
+			logger.error("Error redirecting to previous page", e);
+		}
+    	return null;
+    }
 }

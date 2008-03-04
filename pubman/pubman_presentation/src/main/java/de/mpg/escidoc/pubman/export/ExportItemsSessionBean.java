@@ -29,14 +29,15 @@
 
 package de.mpg.escidoc.pubman.export;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-
-import java.io.File;
-import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**

@@ -37,7 +37,6 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * BackingBean for EditItemPage.jsp.

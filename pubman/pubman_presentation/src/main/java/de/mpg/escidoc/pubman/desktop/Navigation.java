@@ -186,7 +186,6 @@ public class Navigation extends FacesBean
         {
             editItem = (EditItem) getBean(EditItem.class);
             editItem.init();
-            editItem.resetDynamicPanels();
         }
         else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
         {
@@ -266,9 +265,6 @@ public class Navigation extends FacesBean
                         + this.getCollectionListSessionBean().getCollectionList().size()
                         + " different collections.");
             }
-
-            //refresh ListUI
-            this.getCollectionListSessionBean().setCollectionListUI(null);
 
             return CreateItem.LOAD_CREATEITEM;
         }

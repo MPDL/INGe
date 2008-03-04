@@ -30,18 +30,16 @@
 
 package de.mpg.escidoc.pubman.revisions.ui;
 
-import java.util.ResourceBundle;
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
 import de.mpg.escidoc.pubman.ui.CollapsiblePanelUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
 /**
  * ContainerPanelUI for keeping ViewRevisionUIs.

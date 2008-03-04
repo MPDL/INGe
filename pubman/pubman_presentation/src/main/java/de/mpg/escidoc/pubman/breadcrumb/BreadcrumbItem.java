@@ -30,16 +30,7 @@
 
 package de.mpg.escidoc.pubman.breadcrumb;
 
-import java.util.ResourceBundle;
-
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
-
-import org.apache.log4j.Logger;
-
-import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
 /**
  * Class for single breadcrumbs. Each breadcrumb is represented with this class.
@@ -81,12 +72,16 @@ public class BreadcrumbItem extends InternationalizedImpl
      * Internationalization is supported by this getter.
      * @return displayValue to label this BreadcrumbItem
      */
-    public String getDisplayValue()
+    public String getPageLabel()
     {
         return getLabel(displayValue);
     }
 
-    public void setDisplayValue(String displayValue)
+    public String getDisplayValue() {
+		return displayValue;
+	}
+
+	public void setDisplayValue(String displayValue)
     {
         this.displayValue = displayValue;
     }
@@ -125,4 +120,5 @@ public class BreadcrumbItem extends InternationalizedImpl
 	public void setIsLast(boolean isLast) {
 		this.isLast = isLast;
 	}
+
 }

@@ -30,9 +30,6 @@
 
 package de.mpg.escidoc.pubman.releases.ui;
 
-import java.util.ResourceBundle;
-
-import javax.faces.application.Application;
 import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputText;
@@ -47,12 +44,10 @@ import javax.faces.event.ValueChangeListener;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
-import de.mpg.escidoc.pubman.collectionList.ui.ViewCollectionPanelUI;
 import de.mpg.escidoc.pubman.releases.PubItemVersionVOWrapper;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -67,7 +62,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListener, ValueChangeListener
 {
     @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(ViewCollectionPanelUI.class);
+    private static final Logger logger = Logger.getLogger(ViewReleasePanelUI.class);
     
     private PubItemVersionVO pubItemVersionVO = null;
     private HtmlCommandLink viewItemLink = new HtmlCommandLink();

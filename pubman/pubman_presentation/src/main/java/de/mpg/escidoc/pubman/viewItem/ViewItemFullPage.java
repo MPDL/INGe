@@ -33,16 +33,11 @@ package de.mpg.escidoc.pubman.viewItem;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * Backing bean for ViewItemFullPage.jsp (for viewing items in a full context). 

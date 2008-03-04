@@ -38,12 +38,13 @@ import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIComponentBase;
 import javax.faces.component.UIParameter;
+import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
-import javax.faces.component.html.HtmlCommandLink;
 
 import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -286,7 +287,7 @@ public class ContainerPanelUI extends HtmlPanelGroup implements Internationalize
                         FacesContext
                                 .getCurrentInstance()
                                 .getELContext(),
-                        "#{ViewItemFull.showRevisions}",
+                        el,
                         null,
                         new Class<?>[0]);
     }

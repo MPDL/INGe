@@ -34,6 +34,7 @@ import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.pubman.viewItem.ui.viewItemMediumComponents.ViewItemBasicsUI;

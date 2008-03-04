@@ -33,7 +33,9 @@ package de.mpg.escidoc.pubman.util;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
+
 import de.fiz.escidoc.om.ContextHandlerRemote;
 import de.fiz.escidoc.om.ContextHandlerRemoteServiceLocator;
 import de.fiz.escidoc.om.ItemHandlerRemote;

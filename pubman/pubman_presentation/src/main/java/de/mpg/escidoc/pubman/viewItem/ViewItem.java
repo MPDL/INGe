@@ -2454,9 +2454,6 @@ public class ViewItem extends FacesBean
                         + " different collections.");
             }
 
-            //refresh ListUI
-            this.getCollectionListSessionBean().setCollectionListUI(null);
-
             return CreateItem.LOAD_CREATEITEM;
         }
     }

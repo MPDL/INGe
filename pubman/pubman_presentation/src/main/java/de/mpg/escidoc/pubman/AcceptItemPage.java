@@ -30,9 +30,8 @@
 
 package de.mpg.escidoc.pubman;
 
-import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 
 /**
  * BackingBean for AcceptItemPage.jsp. This one is empty because all code is implemented in the BackingBean of the

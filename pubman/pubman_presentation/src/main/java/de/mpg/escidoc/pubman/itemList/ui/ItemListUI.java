@@ -54,7 +54,6 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
 import de.mpg.escidoc.pubman.viewItem.ui.ViewItemPanelUI;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator.Criteria;
 

@@ -1,14 +1,8 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import java.util.ResourceBundle;
-
-import javax.faces.application.Application;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
-import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
 
@@ -19,7 +13,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
  */
 public abstract class CriterionBean extends InternationalizedImpl
 {
-	private boolean collapsed = false;
+	protected boolean collapsed = false;
 	private String logicOperator;
 	
     public static final SelectItem LOGIC_AND = new SelectItem("And", "And");

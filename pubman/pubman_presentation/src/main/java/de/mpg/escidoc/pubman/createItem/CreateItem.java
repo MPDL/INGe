@@ -32,19 +32,14 @@ package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
 
-import javax.faces.component.html.HtmlPanelGroup;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
-import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
-import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
-import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
@@ -84,39 +79,7 @@ public class CreateItem extends FacesBean
     
     public String confirmSelection()
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("confirmSelection()");
-        }
-        
-        PubCollectionVO selectedCollection = this.getSessionBean().getCollectionListUI().getSelectedCollection();
-        
-        if (selectedCollection != null)
-        {            
-            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, selectedCollection.getReference());
-        }
-        else
-        {
-            return null;
-        }
-    }
-    
-    public String cancel()
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("cancel()");
-        }
-
-        return Home.LOAD_HOME;
-    }
-    
-    /**
-     * Creates the panel newly according to the values in the FacesBean.
-     */
-    protected void createDynamicItemList()
-    {
-
+        return EditItem.LOAD_EDITITEM;
     }
 
     /**

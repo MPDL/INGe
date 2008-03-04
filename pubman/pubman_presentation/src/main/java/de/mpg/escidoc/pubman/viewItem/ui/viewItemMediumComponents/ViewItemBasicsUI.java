@@ -33,8 +33,10 @@ package de.mpg.escidoc.pubman.viewItem.ui.viewItemMediumComponents;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;

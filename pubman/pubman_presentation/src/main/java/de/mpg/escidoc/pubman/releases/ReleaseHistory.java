@@ -32,18 +32,14 @@ package de.mpg.escidoc.pubman.releases;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.releases.ui.ReleaseListUI;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 

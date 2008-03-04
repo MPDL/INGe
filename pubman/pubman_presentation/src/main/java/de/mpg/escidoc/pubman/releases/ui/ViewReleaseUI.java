@@ -32,8 +32,9 @@ package de.mpg.escidoc.pubman.releases.ui;
 
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
+
 import org.apache.log4j.Logger;
-import de.mpg.escidoc.pubman.collectionList.ui.ViewCollectionUI;
+
 import de.mpg.escidoc.pubman.releases.PubItemVersionVOWrapper;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -47,7 +48,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 public class ViewReleaseUI extends HtmlPanelGroup
 {
     @SuppressWarnings("unused")
-    private static final Logger logger = Logger.getLogger(ViewCollectionUI.class);
+    private static final Logger logger = Logger.getLogger(ViewReleaseUI.class);
     
     private HTMLElementUI htmlElement = new HTMLElementUI();
     private HtmlOutputText lblDescription = new HtmlOutputText();

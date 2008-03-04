@@ -32,7 +32,7 @@ package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
 /**
@@ -41,7 +41,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  * @author: Tobias Schraut, created 19.10.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ViewItemReleaseHistoryPage extends FacesBean
+public class ViewItemReleaseHistoryPage extends BreadcrumbPage
 {
     private static Logger logger = Logger.getLogger(ViewItemReleaseHistoryPage.class);
 

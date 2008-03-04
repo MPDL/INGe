@@ -38,10 +38,10 @@ import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ui.CollapsiblePanelUI;
-import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.ui.ListUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;

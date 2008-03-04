@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.home;
 
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**

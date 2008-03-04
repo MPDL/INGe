@@ -32,9 +32,11 @@ package de.mpg.escidoc.pubman.revisions;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.log4j.Logger;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
+
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 

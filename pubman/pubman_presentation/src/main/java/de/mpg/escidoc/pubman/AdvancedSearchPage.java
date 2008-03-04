@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Class for the AdvancedSearch Page.

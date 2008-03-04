@@ -30,6 +30,7 @@
 package de.mpg.escidoc.pubman.search.ui;
 
 import java.util.ResourceBundle;
+
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;

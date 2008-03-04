@@ -158,7 +158,7 @@ public class ViewItemSystemDetailsUI extends ContainerPanelUI
         this.btnViewRevisions.setRendered(!isViewRevisionsDisabled);
 
         this.btnViewReleaseHistory = new HtmlCommandButton();
-        this.btnViewReleaseHistory.setId(CommonUtils.createUniqueId(this.btnViewRevisions));
+        this.btnViewReleaseHistory.setId(CommonUtils.createUniqueId(this.btnViewReleaseHistory));
 
         this.btnViewReleaseHistory.setValue(getLabel("ViewItemFull_btnItemVersions"));
         //this.btnViewRevisions.addActionListener(this);

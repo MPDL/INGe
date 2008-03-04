@@ -41,12 +41,8 @@
 			<jsp:directive.include file="../list/collectionList.jspf"/>
 	
 			<div>
-				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItem.cancel}" />
-				<h:commandButton id="confirm" value="#{lbl.confirmSelection}" action="#{CreateItem.confirmSelection}" />
+				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItemPage.cancel}" />
 			</div>
-		</div>
-		<div>
-			<%@ include file="../desktop/messages.jspf" %>
 		</div>
 	</f:subview>
 </div>

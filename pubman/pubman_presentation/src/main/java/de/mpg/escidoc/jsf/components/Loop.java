@@ -1,11 +1,8 @@
 package de.mpg.escidoc.jsf.components;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;

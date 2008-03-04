@@ -42,7 +42,7 @@
 			value="#{lbl.SearchResultList_lblBack}" action="#{AdvancedSearch.showBrowsePageAgain}"/>
 	</p>
 	<div>
-		<h:outputText binding="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
+		<h:outputText value="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
 	</div>
 	
 	<jsp:directive.include file="../list/itemList.jspf"/>

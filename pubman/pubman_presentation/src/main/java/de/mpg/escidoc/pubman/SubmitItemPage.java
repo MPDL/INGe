@@ -31,7 +31,6 @@
 package de.mpg.escidoc.pubman;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 
 /**

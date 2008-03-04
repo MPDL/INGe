@@ -14,6 +14,8 @@ public class EventCriterionBean extends CriterionBean
 	
 	private EventCriterionVO eventCriterionVO;
 	
+	// collapsed by default
+	protected boolean collapsed = true;
 	
     public EventCriterionBean()
 	{

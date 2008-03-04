@@ -31,23 +31,16 @@
 package de.mpg.escidoc.pubman.revisions;
 
 import java.util.List;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
-import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
-import de.mpg.escidoc.pubman.collectionList.ui.CollectionListUI;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
-import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
@@ -101,14 +94,6 @@ public class CreateRevision extends FacesBean
     
     public String confirm()
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Creating new revision for item with ID: " + this.getSessionBean().getPubItemVO().getReference().getObjectId() + ", description: " + this.getSessionBean().getRevisionDescription());
-        }
-        
-        // re-init the collectionList at this time if it's allready there
-        this.createDynamicCollectionList();
-        
         return CreateRevision.LOAD_CHOOSECOLLECTION;
     }
     
@@ -129,7 +114,7 @@ public class CreateRevision extends FacesBean
             logger.debug("confirmCollectionChoose()");
         }
         
-        PubCollectionVO selectedCollection = this.getCollectionListSessionBean().getCollectionListUI().getSelectedCollection();
+        PubCollectionVO selectedCollection = this.getCollectionListSessionBean().getSelectedCollection();
         
         if (selectedCollection != null)
         {            
@@ -179,29 +164,6 @@ public class CreateRevision extends FacesBean
     }
 
     /**
-     * Creates the collection panel newly according to the values in the FacesBean.
-     */
-    protected void createDynamicCollectionList()
-    {
-        this.panDynamicCollectionList.getChildren().clear();
-        
-        if (this.getCollectionListSessionBean().getCollectionList() != null)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Creating dynamic collection list with " + this.getCollectionListSessionBean().getCollectionList().size() + " entries.");
-            }
-            
-            // create a CollectionListUI for all PubCollections
-            List<PubCollectionVOPresentation> pubCollectionList = this.getCollectionListSessionBean().getCollectionList();
-
-            
-            // add the UI to the dynamic panel
-            this.getPanDynamicCollectionList().getChildren().add(this.getCollectionListSessionBean().getCollectionListUI());
-        }
-    }
-
-    /**
      * Returns the RevisionListSessionBean.
      * 
      * @return a reference to the scoped data bean (RevisionListSessionBean)
@@ -238,15 +200,5 @@ public class CreateRevision extends FacesBean
     public void setPanDynamicRevisionList(HtmlPanelGroup panDynamicRevisionList)
     {
         this.panDynamicRevisionList = panDynamicRevisionList;
-    }
-
-    public HtmlPanelGroup getPanDynamicCollectionList()
-    {
-        return panDynamicCollectionList;
-    }
-
-    public void setPanDynamicCollectionList(HtmlPanelGroup panDynamicCollectionList)
-    {
-        this.panDynamicCollectionList = panDynamicCollectionList;
     }
 }

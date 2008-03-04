@@ -32,15 +32,14 @@ package de.mpg.escidoc.pubman.viewItem.ui.viewItemFullComponents;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ResourceBundle;
+
 import javax.faces.component.html.HtmlGraphicImage;
-import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;

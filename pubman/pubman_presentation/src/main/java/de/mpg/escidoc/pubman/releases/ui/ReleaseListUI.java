@@ -31,8 +31,11 @@
 package de.mpg.escidoc.pubman.releases.ui;
 
 import java.util.List;
+
 import javax.faces.event.ActionListener;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.releases.PubItemVersionVOWrapper;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.ListUI;

@@ -32,7 +32,7 @@ package de.mpg.escidoc.pubman;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 
 /**
  * CommonSessionBean.java General session bean for storing session wide information Created on 30. Mai 2007, 16:53
@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 17.08.2007
  */
-public class CommonSessionBean extends FacesBean
+public class CommonSessionBean extends BreadcrumbPage
 {
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ErrorPage.class);

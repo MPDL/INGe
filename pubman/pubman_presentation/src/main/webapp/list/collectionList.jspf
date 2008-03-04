@@ -22,8 +22,8 @@ CDDL HEADER END
 
 
 Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
@@ -40,11 +40,9 @@ All rights reserved. Use is subject to license terms.
 						<h:commandLink action="#{collection.select}">
 							<h:outputText value="#{collection.name}"/>
 						</h:commandLink>
-						<h:commandButton image="../images/down.gif" immediate="true" action="#{collection.showDetails}" rendered="#{!collection.details}"/>
-						<h:commandButton image="../images/up.gif" immediate="true" action="#{collection.hideDetails}" rendered="#{collection.details}"/>
 					</h:panelGroup>
 					<h:panelGroup layout="block" id="description">
-						<h:outputText value="#{collection.description}" rendered="#{collection.details}"/>
+						<h:outputText value="#{collection.description}"/>
 					</h:panelGroup>
 					
 				</h:panelGroup>

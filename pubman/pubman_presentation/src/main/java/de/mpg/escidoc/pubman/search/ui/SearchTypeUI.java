@@ -30,19 +30,15 @@
 package de.mpg.escidoc.pubman.search.ui;
 
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
 
 import de.mpg.escidoc.pubman.ui.CollapsiblePanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**

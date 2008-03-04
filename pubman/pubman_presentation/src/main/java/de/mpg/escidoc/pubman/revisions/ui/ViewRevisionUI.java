@@ -32,7 +32,9 @@ package de.mpg.escidoc.pubman.revisions.ui;
 
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;

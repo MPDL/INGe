@@ -32,17 +32,12 @@ package de.mpg.escidoc.pubman;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.search.SearchResultList;
-import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * Fragment class for the AffiliationSearchResultListPage. This class provides

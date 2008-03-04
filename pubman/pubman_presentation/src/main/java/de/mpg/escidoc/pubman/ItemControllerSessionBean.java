@@ -468,6 +468,8 @@ public class ItemControllerSessionBean extends FacesBean
             // creating a new item
             PubItemVO newRevision = this.createNewRevision(pubCollectionRO, pubItem, revisionDescription);
 
+            initializeItem(newRevision);
+            
             // setting the returned item as new currentItem
             this.setCurrentPubItem(newRevision);
         }
@@ -512,27 +514,38 @@ public class ItemControllerSessionBean extends FacesBean
         PubItemVO newPubItem = this.pubItemDepositing.createPubItem(pubCollectionRO, loginHelper.getAccountUser());
                     
         // initialize the new item
-        newPubItem = this.initializeNewItem(newPubItem);
+        newPubItem = this.initializeItem(newPubItem);
         
         return newPubItem;
     }
    
     /** 
      * Initializes a new item with ValueObjects.
+     * FrM: Changes to be able to initialize an item
+     * created as a new revision of an existing item.
+     * 
      * @return the initialized item.
      */
-    private PubItemVO initializeNewItem(PubItemVO newPubItem)
+    private PubItemVO initializeItem(PubItemVO newPubItem)
     {
         if (logger.isDebugEnabled())
         {
-            logger.debug("Initialize the new item...");
+            logger.debug("Initialize the item...");
         }
-        
-        newPubItem.getMetadata().setTitle(new TextVO());
-        newPubItem.getFiles().add(new PubFileVO());
-        CreatorVO newCreator = new CreatorVO();
-        if (newCreator.getPerson() == null)
+        // Title
+        if (newPubItem.getMetadata().getTitle() == null)
         {
+        	newPubItem.getMetadata().setTitle(new TextVO());
+        }
+        // File
+        if (newPubItem.getFiles().size() == 0)
+        {
+        	newPubItem.getFiles().add(new PubFileVO());
+        }
+        // Creator
+        if (newPubItem.getMetadata().getCreators().size() == 0)
+        {
+        	CreatorVO newCreator = new CreatorVO();
             // create a new Organization for this person
             PersonVO newPerson = new PersonVO();
             OrganizationVO newPersonOrganization = new OrganizationVO();
@@ -540,26 +553,27 @@ public class ItemControllerSessionBean extends FacesBean
             
             newCreator.setOrganization(null);
             newCreator.setPerson(newPerson);
+            newPubItem.getMetadata().getCreators().add(newCreator);
         }
-        else if (newCreator.getOrganization() == null)
+        // Publishing info
+        if (newPubItem.getMetadata().getPublishingInfo() == null)
         {
-            newCreator.setPerson(null);
-            OrganizationVO newOrganization = new OrganizationVO();
-            newOrganization.setName(new TextVO());
-            newCreator.setOrganization(newOrganization);
+        	newPubItem.getMetadata().setPublishingInfo(new PublishingInfoVO());
         }
-        newPubItem.getMetadata().getCreators().add(newCreator);
-        PublishingInfoVO newPublishingInfo = new PublishingInfoVO();
-        newPubItem.getMetadata().setPublishingInfo(newPublishingInfo);
-        newPubItem.getMetadata().getLanguages().add(new String());
-        SourceVO newSource = new SourceVO();
-        TextVO newSourceTitle = new TextVO();        
-        newSource.setTitle(newSourceTitle);
-        PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO(); 
-        newSource.setPublishingInfo(newSourcePublishingInfo);
-        CreatorVO newSourceCreator = new CreatorVO();
-        if (newSourceCreator.getPerson() == null)
+        // Language
+        if (newPubItem.getMetadata().getLanguages().size() == 0)
         {
+        	newPubItem.getMetadata().getLanguages().add("");
+        }
+        // Source
+        if (newPubItem.getMetadata().getSources().size() == 0)
+        {
+        	SourceVO newSource = new SourceVO();
+        	TextVO newSourceTitle = new TextVO();        
+        	newSource.setTitle(newSourceTitle);
+        	PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO(); 
+        	newSource.setPublishingInfo(newSourcePublishingInfo);
+        	CreatorVO newSourceCreator = new CreatorVO();
             // create a new Organization for this person
             PersonVO newPerson = new PersonVO();
             OrganizationVO newPersonOrganization = new OrganizationVO();
@@ -568,19 +582,17 @@ public class ItemControllerSessionBean extends FacesBean
             
             newSourceCreator.setOrganization(null);
             newSourceCreator.setPerson(newPerson);
+
+	        newSource.getCreators().add(newSourceCreator);        
+	        newPubItem.getMetadata().getSources().add(newSource);
         }
-        else if (newSourceCreator.getOrganization() == null)
+        // Event
+        if (newPubItem.getMetadata().getEvent() == null)
         {
-            newSourceCreator.setPerson(null);
-            OrganizationVO newOrganization = new OrganizationVO();
-            newOrganization.setName(new TextVO());
-            newSourceCreator.setOrganization(newOrganization);
+	        EventVO newEvent = new EventVO();
+	        newEvent.setTitle(new TextVO());
+	        newPubItem.getMetadata().setEvent(newEvent);
         }
-        newSource.getCreators().add(newSourceCreator);        
-        newPubItem.getMetadata().getSources().add(newSource);        
-        EventVO newEvent = new EventVO();
-        newEvent.setTitle(new TextVO());
-        newPubItem.getMetadata().setEvent(newEvent);
         
         return newPubItem;
     }
@@ -1744,7 +1756,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             try
             {
-                // retrieve the soure item which is referenced in the relationVO (needed to show the title)
+                // retrieve the source item which is referenced in the relationVO (needed to show the title)
                 // if user is logged in all revisions the user is allowed to see will be fetched. Otherwise only released revisions will  be fetched
                 if(loginHelper.getESciDocUserHandle() != null)
                 {

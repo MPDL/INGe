@@ -29,13 +29,14 @@
 
 package de.mpg.escidoc.pubman.search.ui;
 
+import javax.faces.component.html.HtmlInputText;
+import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
-import javax.faces.component.html. HtmlOutputLabel;
 import javax.faces.component.html.HtmlSelectOneRadio;
-import javax.faces.component.html.HtmlInputText;
 import javax.faces.model.SelectItem;
+
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.AnyFieldCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;

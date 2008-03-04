@@ -29,11 +29,8 @@
 
 package de.mpg.escidoc.pubman.search.ui;
 
-import java.util.ResourceBundle;
-
 import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlPanelGroup;
-
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.model.SelectItem;
 

@@ -46,7 +46,7 @@
 		</h:panelGrid>
 		
 		<h:panelGrid style="margin-bottom: 20px;">
-			<h:outputText binding="#{acceptItemAcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
+			<h:outputText binding="#{acceptItemAcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus" rendered="#{acceptItemAcceptItem.valMessage != null}"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panContent" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">

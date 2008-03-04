@@ -1,12 +1,10 @@
 package de.mpg.escidoc.pubman.util;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
  * Wrapper class for collections to be used in the presentation.

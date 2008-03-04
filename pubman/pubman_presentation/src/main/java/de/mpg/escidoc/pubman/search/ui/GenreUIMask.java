@@ -32,11 +32,10 @@ package de.mpg.escidoc.pubman.search.ui;
 import java.util.ArrayList;
 
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlOutputLabel;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
-
-import javax.faces.component.html. HtmlOutputLabel;
 
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;

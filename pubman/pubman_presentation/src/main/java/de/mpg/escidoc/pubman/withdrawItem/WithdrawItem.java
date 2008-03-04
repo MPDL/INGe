@@ -30,12 +30,8 @@
 
 package de.mpg.escidoc.pubman.withdrawItem;
 
-import java.util.ResourceBundle;
-
-import javax.faces.application.Application;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.component.html.HtmlOutputText;
-import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
@@ -44,8 +40,6 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 

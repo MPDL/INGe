@@ -36,29 +36,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
-import javax.faces.component.html.HtmlOutputLabel;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.servlet.ServletContext;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
-import org.apache.myfaces.trinidad.component.core.input.CoreInputText;
-import org.apache.myfaces.trinidad.component.core.output.CoreOutputText;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -70,16 +61,13 @@ import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
-import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
 import de.mpg.escidoc.pubman.editItem.bean.ContentLanguageCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
-import de.mpg.escidoc.pubman.editItem.ui.FileUI;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -407,29 +395,6 @@ public class EditItem extends FacesBean
     {
         return (AcceptItemSessionBean)getBean(AcceptItemSessionBean.class);
     }
-    
-    /**
-     * Creates the panel newly according to the values in the ValueObject.
-     */
-    private void createDynamicFile()
-    {
-        // remove all components
-        this.panDynamicFile.getChildren().clear();
-
-        // initialize file if none is given
-        if (this.getPubItem().getFiles().size() == 0)
-        {
-            this.getPubItem().getFiles().add(new PubFileVO());
-        }
-        
-        // add all files
-        for (int i = 0; i < this.getPubItem().getFiles().size(); i++)
-        {
-            panDynamicFile.getChildren().add(new FileUI(this.getPubItem(), i));
-        }
-    }
-
-    
 
     /**
      * Uploads a file to the staging servlet and returns the corresponding URL.
@@ -994,16 +959,6 @@ public class EditItem extends FacesBean
     }
 
     /**
-     * Recreates all dynamic panels of the edit item page (for instant language switching) 
-     * @author Tobias Schraut
-     */
-    public void resetDynamicPanels()
-    {
-        // rebuild dynamic panels which do NOT inherit from AbstractUI
-        this.createDynamicFile();
-    }
-
-    /**
      * Enables/Disables the action links.
      */
     private void enableLinks()
@@ -1087,28 +1042,6 @@ public class EditItem extends FacesBean
     public SelectItem[] getVisibilities()
     {
         return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
-    }
-
-    /**
-     * Returns the panel for files. Lazy initializes the files.
-     * @return the panel for the files
-     */
-    public HtmlPanelGrid getPanDynamicFile()
-    {
-        if (this.panDynamicFile.getChildren().size() == 0)
-        {
-            this.createDynamicFile();
-        }
-        return panDynamicFile;
-    }
-
-    /**
-     * Sets the panel for files.
-     * @param panDynamicTitle the new panel
-     */
-    public void setPanDynamicFile(HtmlPanelGrid panDynamicFile)
-    {
-        this.panDynamicFile = panDynamicFile;
     }
 
     public SelectItem[] getInvitationStatuses()

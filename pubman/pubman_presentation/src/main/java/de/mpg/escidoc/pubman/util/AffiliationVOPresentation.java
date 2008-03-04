@@ -6,7 +6,6 @@ import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 public class AffiliationVOPresentation extends AffiliationVO

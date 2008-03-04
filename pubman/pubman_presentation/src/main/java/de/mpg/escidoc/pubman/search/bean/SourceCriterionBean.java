@@ -14,6 +14,8 @@ public class SourceCriterionBean extends CriterionBean
 	
 	private SourceCriterionVO sourceCriterionVO;
 	
+	// collapsed by default
+	protected boolean collapsed = true;
 	
     public SourceCriterionBean()
 	{

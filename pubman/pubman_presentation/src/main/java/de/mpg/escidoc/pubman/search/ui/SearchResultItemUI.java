@@ -30,25 +30,21 @@
 package de.mpg.escidoc.pubman.search.ui;
 
 import java.util.Calendar;
-import java.util.ResourceBundle;
 
-import javax.faces.application.Application;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIParameter;
 import javax.faces.component.UISelectBoolean;
 import javax.faces.component.UIViewRoot;
 import javax.faces.component.html.HtmlCommandButton;
+import javax.faces.component.html.HtmlCommandLink;
+import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
 
-import javax.faces.component.html.HtmlCommandLink;
-import javax.faces.component.html.HtmlOutputText;
-
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 

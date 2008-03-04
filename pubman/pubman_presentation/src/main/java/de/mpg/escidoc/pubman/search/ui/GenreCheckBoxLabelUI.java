@@ -28,8 +28,6 @@
 */
 package de.mpg.escidoc.pubman.search.ui;
 
-import java.util.ResourceBundle;
-
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
 
 /**

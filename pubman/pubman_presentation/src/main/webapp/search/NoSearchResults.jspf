@@ -40,7 +40,7 @@
 		</p><br/>
 
 		<p>
-			<h:outputLink value="#{ApplicationBean.appContext}#{BreadCrumbNavigation.previousPageURI}">
+			<h:outputLink value="#{ApplicationBean.appContext}#{SearchRasultListPage.previousPageURI}">
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 			</h:outputLink>
 		</p>

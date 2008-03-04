@@ -34,9 +34,9 @@
 		<div id="nav_main">
 			<tr:iterator id="BreadcrumbNavigation" var="item">
 				<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast}">
-					<tr:outputText value="#{item.displayValue}" />
+					<tr:outputText value="#{item.pageLabel}" />
 				</tr:goLink>
-				<tr:outputText value="#{item.displayValue}" rendered="#{item.isLast}"/>
+				<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
 				<tr:outputText value=" > " rendered="#{!item.isLast}"/>
 			</tr:iterator>
 		</div>

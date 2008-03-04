@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.pubman;
 
-import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 
 /**
  * BackingBean for WithdrawItemPage.jsp. This one is empty because all code is implemented in the BackingBean of the
@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  * Revised by ScT: 23.08.2007
  */
-public class WithdrawItemPage extends FacesBean
+public class WithdrawItemPage extends BreadcrumbPage
 {
     /**
      * Public constructor.

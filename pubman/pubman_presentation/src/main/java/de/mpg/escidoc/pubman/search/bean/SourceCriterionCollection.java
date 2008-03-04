@@ -19,6 +19,9 @@ public class SourceCriterionCollection
 	private List<SourceCriterionVO> parentVO;
 	private SourceCriterionManager sourceCriterionManager;
 	
+	// collapsed by default
+	protected boolean collapsed = true;
+	
 	/**
 	 * CTOR to create a new ArrayList<SourceCriterionVO> 
 	 * starting with one empty new SourceCriterionVO

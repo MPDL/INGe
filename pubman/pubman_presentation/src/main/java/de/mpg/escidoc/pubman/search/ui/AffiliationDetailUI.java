@@ -31,6 +31,7 @@ package de.mpg.escidoc.pubman.search.ui;
 
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
+
 import de.mpg.escidoc.pubman.ui.CollapsiblePanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;

@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.ui;
 
 import javax.faces.component.html.HtmlOutputText;
+
 import de.mpg.escidoc.pubman.util.CommonUtils;
 
 /**

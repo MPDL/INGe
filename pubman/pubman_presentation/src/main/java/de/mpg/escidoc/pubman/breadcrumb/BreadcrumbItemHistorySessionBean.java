@@ -31,8 +31,6 @@ package de.mpg.escidoc.pubman.breadcrumb;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -163,5 +161,16 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     {
         this.currentItem = currentItem;
     }
+
+	public BreadcrumbItem getPreviousItem() {
+		if (breadcrumbs.size() > 1)
+		{
+			return breadcrumbs.get(breadcrumbs.size() - 2);
+		}
+		else
+		{
+			return null;
+		}
+	}
 
 }

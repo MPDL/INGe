@@ -30,18 +30,10 @@
 
 package de.mpg.escidoc.pubman;
 
-import java.io.IOException;
-
-import javax.faces.context.FacesContext;
-import javax.xml.rpc.ServiceException;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
 /**
  * GTviewItemPage.java Backing bean for GTviewItemPage.jsp This is for the GUI tool mode. The pubman frame will not be
