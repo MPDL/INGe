@@ -38,7 +38,7 @@
 		<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
 			value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
 		<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
-		<h:outputLink value="#{ApplicationBean.appContext}#{ReleaseHistoryPage.previousPageURI}">
+		<h:outputLink value="#{ApplicationBean.appContext}#{SearchResultListPage.previousPageURI}">
 			<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 		</h:outputLink>
 	</p>
