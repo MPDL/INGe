@@ -110,11 +110,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final Logger logger = Logger.getLogger(ProcessCitationStyles.class);
 
     
-    public final static String RESOURCES_DIRECTORY = "src/main/resources";
-    public final static String DATASOURCES_DIRECTORY = RESOURCES_DIRECTORY + "/DataSources";
-    public final static String CITATIONSTYLES_DIRECTORY = RESOURCES_DIRECTORY + "/CitationStyles";
-    public final static String SCHEMAS_DIRECTORY  = RESOURCES_DIRECTORY + "/Schemas";
-    public static final String SORTINGS_DIRECTORY = RESOURCES_DIRECTORY + "/Transformations";
+    public final static String RESOURCES_DIRECTORY = "";
+    public final static String DATASOURCES_DIRECTORY = RESOURCES_DIRECTORY + "DataSources";
+    public final static String CITATIONSTYLES_DIRECTORY = RESOURCES_DIRECTORY + "CitationStyles";
+    public final static String SCHEMAS_DIRECTORY  = RESOURCES_DIRECTORY + "Schemas";
+    public static final String SORTINGS_DIRECTORY = RESOURCES_DIRECTORY + "Transformations";
     
     public final static String FONTSTYLES_FILENAME = "FontStyles";
     

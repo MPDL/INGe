@@ -137,42 +137,42 @@ public class ResourceUtil
     }
 
 
-    /**
-     * Returns path to the resources directory 
-     *     
-     * @return path
-     * @throws IOException 
-     */
-    public static String getPathToResources() throws IOException
-    {
-        return
-    		getClassRoot().replace(ProcessCitationStyles.CLASS_DIRECTORY, ProcessCitationStyles.RESOURCES_DIRECTORY);
-    }
-    
-    
-    /**
-     * Returns path to the Citation Styles directory 
-     *     
-     * @return path
-     * @throws IOException 
-     */
-    public static String getPathToCitationStyles() throws IOException 
-    {
-        return
-			getPathToResources() + ProcessCitationStyles.CITATIONSTYLES_DIRECTORY;
-    }
-    
-    /**
-     * Returns path to the Data Sources directory 
-     *     
-     * @return path
-     * @throws IOException 
-     */
-    public static String getPathToDataSources() throws IOException 
-    {
-    	return
-    		getPathToResources() + ProcessCitationStyles.DATASOURCES_DIRECTORY;
-    }    
+//    /**
+//     * Returns path to the resources directory 
+//     *     
+//     * @return path
+//     * @throws IOException 
+//     */
+//    public static String getPathToResources() throws IOException
+//    {
+//        return
+//    		getClassRoot().replace(ProcessCitationStyles.CLASS_DIRECTORY, ProcessCitationStyles.RESOURCES_DIRECTORY);
+//    }
+//    
+//    
+//    /**
+//     * Returns path to the Citation Styles directory 
+//     *     
+//     * @return path
+//     * @throws IOException 
+//     */
+//    public static String getPathToCitationStyles() throws IOException 
+//    {
+//        return
+//			getPathToResources() + ProcessCitationStyles.CITATIONSTYLES_DIRECTORY;
+//    }
+//    
+//    /**
+//     * Returns path to the Data Sources directory 
+//     *     
+//     * @return path
+//     * @throws IOException 
+//     */
+//    public static String getPathToDataSources() throws IOException 
+//    {
+//    	return
+//    		getPathToResources() + ProcessCitationStyles.DATASOURCES_DIRECTORY;
+//    }    
     
     
     
