@@ -30,15 +30,11 @@
 
 package de.mpg.escidoc.pubman.itemList;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.faces.component.html.HtmlPanelGroup;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -64,36 +60,7 @@ public class ItemList extends FacesBean
      */
     public ItemList()
     {
-        List<PubItemVOWrapper> pubItemList = new ArrayList<PubItemVOWrapper>();
-        pubItemList.add(createTestItem("Title of Generic Test Item 01"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 02"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 03"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 04"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 05"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 06"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 07"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 08"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 09"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 10"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 11"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 12"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 13"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 14"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 15"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 16"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 17"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 18"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 19"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 20"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 21"));
-        pubItemList.add(createTestItem("Title of Generic Test Item 22"));
-        
-        // create an ItemListUI for these PubItems
-        ItemListUI itemListUI = new ItemListUI(pubItemList, "#{DepositorWS.showItem}");
-        
-        // add the UI to the dynamic panel
-        this.panDynamicItemList.getChildren().add(itemListUI);
-        
+
         this.init();
         
     }
@@ -118,18 +85,6 @@ public class ItemList extends FacesBean
         pubItemVOWrapper.setValueObject(pubItemVO);
         
         return pubItemVOWrapper;
-    }
-    
-    /**
-     * Public constructor.
-     */
-    public ItemList(List<PubItemVOWrapper> allPubItems)
-    {        
-        // create an ItemListUI for these PubItems
-        ItemListUI itemListUI = new ItemListUI(allPubItems, "#{DepositorWS.showItem}");
-        
-        // add the UI to the dynamic panel
-        this.panDynamicItemList.getChildren().add(itemListUI);
     }
 
     /**

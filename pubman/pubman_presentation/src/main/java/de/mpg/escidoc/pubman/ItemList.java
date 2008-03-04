@@ -47,7 +47,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.itemList.ui.ItemListUI;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
@@ -263,87 +262,6 @@ public abstract class ItemList extends FacesBean
         this.getWithdrawItemSessionBean().setItemListSessionBean(getItemListSessionBean());
 
         return WithdrawItem.LOAD_WITHDRAWITEM;
-    }
-
-    /**
-     * Sets the selected items in the FacesBean.
-     * TODO ScT: Wenn zwei items existieren und man auf einem Rechner (mit dem gleichen Login) ein item löscht/submitted
-     * und auf dem anderen versucht, dieses zu laden, gibt's eine ArrayIndexOutOfBoundsExc, bzw. es wird das zweite item
-     * angezeigt (bei biew/edit), obwohl man das erste ausgewählt hat.
-     * Um dies zu beheben, darf an dieser Stelle nicht über den Index gegangen werden, sondern es müssen anhand der ID
-     * die selektierten Items ausgewählt werden. Außerdem muß die OutOfBoundsExc vernünftig abgefangen werden.
-     */
-    @Deprecated
-    protected void setSelectedItemsAndCurrentItem()
-    {
-
-        UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
-        List<PubItemVOPresentation> selectedPubItems = new ArrayList<PubItemVOPresentation>();
-
-        // find the component in ViewRoot
-        String componentID = null;
-        if (this instanceof DepositorWS)
-        {
-            componentID = "form1:content:panItemList";
-        }
-        else if (this instanceof SearchResultList)
-        {
-            componentID = "form1:SearchResultList:panItemList";
-        }
-        UIComponent panItemList = viewRoot.findComponent(componentID);
-
-        logger.debug("setSelectedItemsAndCurrentItem: " + panItemList);
-
-        // find all checkBoxes that are currently selected
-        for (int i=0; i<panItemList.getChildCount(); i++)
-        {
-            // old version for old lists
-            if (panItemList.getChildren().get(i) instanceof HtmlPanelGrid)
-            {
-                HtmlPanelGrid panel = (HtmlPanelGrid)panItemList.getChildren().get(i);
-                for (int j=0; j<panel.getChildCount(); j++)
-                {
-                    if (panel.getChildren().get(j) instanceof UISelectBoolean)
-                    {
-                        if (((UISelectBoolean)panel.getChildren().get(j)).isSelected())
-                        {
-                            selectedPubItems.add(this.getItemListSessionBean().getCurrentPubItemList().get(i));
-
-                            if (logger.isDebugEnabled())
-                            {
-                                logger.debug(
-                                        "Selected item #" + i + ", ID: "
-                                        + this.getItemListSessionBean()
-                                                .getCurrentPubItemList()
-                                                .get(i)
-                                                .getReference()
-                                                .getObjectId());
-                            }
-                        }
-                    }
-                }
-            }
-            else if (panItemList.getChildren().get(i) instanceof ItemListUI)
-            {
-                // new version for ListUI-lists
-                ItemListUI itemListUI = (ItemListUI)panItemList.getChildren().get(i);
-                selectedPubItems.addAll(itemListUI.getSelectedObjects());
-            }
-        }
-
-        // set all selectedItems in FacesBean
-//        this.getSessionBean().setSelectedPubItems(selectedPubItems);
-
-        if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
-        {
-            // set the first selected item as current one in ItemController
-            this.getItemControllerSessionBean().setCurrentPubItem(this.getItemListSessionBean().getSelectedPubItems().get(0));
-        }
-        else
-        {
-            this.getItemControllerSessionBean().setCurrentPubItem(null);
-            logger.warn("No item selected.");
-        }
     }
 
     /**

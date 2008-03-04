@@ -291,9 +291,6 @@ public class DepositorWS extends ItemList
             logger.debug("Withdraw selected item");
         }
 
-        // set the currently selected items in the ItemController
-        this.setSelectedItemsAndCurrentItem();
-
         //      Inserted by FrM to check item State
         for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
@@ -335,9 +332,6 @@ public class DepositorWS extends ItemList
             logger.debug("Delete item(s)");
         }
         
-        // set the currently selected items in the ItemController
-        this.setSelectedItemsAndCurrentItem();
-
         // Inserted by FrM to check item State
         for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
