@@ -292,15 +292,18 @@ public class ViewItemSourceUI extends ContainerPanelUI
                     // value
                     this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
                     
-                    if(this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null)
+                    if(this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null
+                    		&& !this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals(""))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume() + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
-                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() == null)
+                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() == null
+                    		|| !this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals(""))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume()));
                     }
-                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() == null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null)
+                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() == null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null
+                    		|| this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals(""))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(" " + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
