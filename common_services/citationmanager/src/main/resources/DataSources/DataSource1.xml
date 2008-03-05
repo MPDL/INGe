@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<records>
+  <record>
+    <genre>Article</genre>
+    <creators>
+      <person role="author">
+        <creatorini>F.</creatorini>
+        <creatorfirstname>F.</creatorfirstname>
+        <creatorlastname>Graus</creatorlastname>
+      </person>
+      <person role="author" >
+        <creatorini>J.Y.</creatorini>
+        <creatorfirstname>J.Y.</creatorfirstname>
+        <creatorlastname>Delattre</creatorlastname>
+      </person>
+      <person role="author" >
+        <creatorini>J.C.</creatorini>
+        <creatorfirstname>Antoine</creatorfirstname>
+        <creatorlastname>Delattre</creatorlastname>
+      </person>
+    </creators>
+    <title>Faked document Faked document Faked document Faked document Faked document Faked document Faked document</title>
+    <sequencenr>10</sequencenr>
+    <date type="accepted">2003</date>
+    <event>
+      <nameofevent>Party Martin+Anja</nameofevent>
+      <placeofevent>Rosenhaim</placeofevent>
+      <dateofevent>07-15</dateofevent>
+      <enddateofevent>07-16</enddateofevent>
+    </event>
+    <source>
+      <sourcetitle>Source title for the arcticle</sourcetitle>
+      <sourcecreators>
+        <person role="author" >
+          <creatorini>V.E.</creatorini>
+          <creatorfirstname>Irina</creatorfirstname>
+          <creatorlastname>Skipina</creatorlastname>
+        </person>
+      </sourcecreators>
+    </source>
+    <issue>1 Part 1</issue>
+    <physicaldescription>1-2</physicaldescription>
+    <publicationstatus>accepted</publicationstatus>
+    <volume>125</volume>
+    <identifiers>
+      <identifier type="url">000181213000003</identifier>
+      <identifier type="doi">10.1051/0004-6361.20040495</identifier>
+      <identifier type="localid">8124</identifier>
+    </identifiers>
+  </record>
+
+  <record>
+    <genre>Book</genre>
+    <creators>
+      <group>
+        <corporatebody>Corporatebody</corporatebody>
+      </group>
+    </creators>
+    <title>Horror</title>
+    <sequencenr>11</sequencenr>
+    <date type="accepted">2004</date>
+    <issue>2 Part 2</issue>
+    <physicaldescription>2-3</physicaldescription>
+    <publicationstatus>accepted</publicationstatus>
+    <source>
+      <sourcetitle>Sourcetitle</sourcetitle>
+      <sourcecreators>
+        <group>
+          <corporatebody>Source Corporatebody</corporatebody>
+        </group>
+      </sourcecreators>
+    </source>
+    <volume>126</volume>
+    <identifiers>
+      <identifier type="url">122325465-2</identifier>
+      <identifier type="doi">10.1052/0004-6361.20040495</identifier>
+      <identifier type="localid">4281-2</identifier>
+    </identifiers>
+  </record>
+</records>

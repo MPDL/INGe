@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item-list xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+           xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:dcterms="http://purl.org/dc/terms/"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xmlns:il="http://www.escidoc.de/schemas/itemlist/0.2"
+           xmlns:i="http://www.escidoc.de/schemas/item/0.2"
+           xmlns:mdrs="http://www.escidoc.de/schemas/metadatarecords/0.2"
+           xmlns:mp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
