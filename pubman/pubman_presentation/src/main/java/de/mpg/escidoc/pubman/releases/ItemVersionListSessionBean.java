@@ -37,7 +37,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.releases.ui.ReleaseListUI;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 
 /**
@@ -45,42 +44,20 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
  * @author:  Tobias Schraut, created 18.10.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class ReleasesSessionBean extends FacesBean
+public class ItemVersionListSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "ReleasesSessionBean";
+    public static final String BEAN_NAME = "ItemVersionListSessionBean";
     @SuppressWarnings("unused")
-    private static Logger logger = Logger.getLogger(ReleasesSessionBean.class);
+    private static Logger logger = Logger.getLogger(ItemVersionListSessionBean.class);
     
-    private List<PubItemVersionVO> releaseList = new ArrayList<PubItemVersionVO>();
-    private ReleaseListUI releaseListUI = null;
+    private List<PubItemVersionVO> versionList = new ArrayList<PubItemVersionVO>();
     
     /**
      * Public constructor.
      */
-    public ReleasesSessionBean()
+    public ItemVersionListSessionBean()
     {
         this.init();
-    }
-    
-    /**
-     * Retrieves all releases for the current pubitem.
-     * @param itemID the  id of the item for which the releases should be retrieved
-     * @return the list of PubItemVersionVOs
-     */
-    public List<PubItemVersionVO> getReleaseHistory(String itemID)
-    {
-        List<PubItemVersionVO> allReleases = new ArrayList<PubItemVersionVO>();
-        
-        try
-        {
-            allReleases = this.getItemControllerSessionBean().retrieveReleasesForItem(itemID);
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not retrieve release list for Item " + itemID, e);
-        }
-        
-        return allReleases;
     }
     
     /**
@@ -89,28 +66,15 @@ public class ReleasesSessionBean extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-    public ReleaseListUI getReleaseListUI()
-    {
-        return releaseListUI;
-    }
+	public List<PubItemVersionVO> getVersionList() {
+		return versionList;
+	}
 
-    public void setReleaseListUI(ReleaseListUI releaseListUI)
-    {
-        this.releaseListUI = releaseListUI;
-    }
-
-    public List<PubItemVersionVO> getReleaseList()
-    {
-        return releaseList;
-    }
-
-    public void setReleaseList(List<PubItemVersionVO> releaseList)
-    {
-        this.releaseList = releaseList;
-    }
-
+	public void setVersionList(List<PubItemVersionVO> versionList) {
+		this.versionList = versionList;
+	}
     
 }

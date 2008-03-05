@@ -49,7 +49,7 @@ import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
-import de.mpg.escidoc.pubman.releases.ReleasesSessionBean;
+import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RevisionListSessionBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
@@ -211,7 +211,7 @@ public class Navigation extends FacesBean
         }
         else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY))
         {
-            this.getReleasesSessionBean().setReleaseListUI(null);
+            this.getItemVersionSessionBean().setVersionList(null);
             releaseHistory = (ReleaseHistory) getBean(ReleaseHistory.class);
             releaseHistory.init();
         }
@@ -296,9 +296,9 @@ public class Navigation extends FacesBean
      *
      * @return a reference to the scoped data bean (ReleasesSessionBean)
      */
-    protected ReleasesSessionBean getReleasesSessionBean()
+    protected ItemVersionListSessionBean getItemVersionSessionBean()
     {
-        return (ReleasesSessionBean) getBean(ReleasesSessionBean.class);
+        return (ItemVersionListSessionBean) getBean(ItemVersionListSessionBean.class);
     }
 
     /**

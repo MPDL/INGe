@@ -65,7 +65,7 @@ import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
-import de.mpg.escidoc.pubman.releases.ReleasesSessionBean;
+import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RevisionListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
@@ -603,8 +603,7 @@ public class ViewItemFull extends FacesBean
      */
     public String showReleaseHistory()
     {
-        this.getReleasesSessionBean().setReleaseList(null);
-        this.getReleasesSessionBean().setReleaseListUI(null);
+        this.getItemVersionListSessionBean().setVersionList(null);
         
         return ReleaseHistory.LOAD_RELEASE_HISTORY;
     }
@@ -615,8 +614,7 @@ public class ViewItemFull extends FacesBean
      */
     private void createReleaseHistory()
     {
-        this.getReleasesSessionBean().setReleaseList(null);
-        this.getReleasesSessionBean().setReleaseListUI(null);
+        this.getItemVersionListSessionBean().setVersionList(null);
         this.getReleaseHistory();
         //this.getReleaseHistory().init();
     }
@@ -719,9 +717,9 @@ public class ViewItemFull extends FacesBean
      * 
      * @return a reference to the scoped data bean (ReleasesSessionBean)
      */
-    protected ReleasesSessionBean getReleasesSessionBean()
+    protected ItemVersionListSessionBean getItemVersionListSessionBean()
     {
-        return (ReleasesSessionBean)getBean(ReleasesSessionBean.class);
+        return (ItemVersionListSessionBean)getBean(ItemVersionListSessionBean.class);
     }
 
     /**

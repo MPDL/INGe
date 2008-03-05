@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
-import de.mpg.escidoc.pubman.releases.ReleasesSessionBean;
+import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.ui.ContainerPanelUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -500,9 +500,9 @@ public class ViewItemSystemDetailsUI extends ContainerPanelUI
      *
      * @return a reference to the scoped data bean (ReleasesSessionBean)
      */
-    protected ReleasesSessionBean getReleasesSessionBean()
+    protected ItemVersionListSessionBean getReleasesSessionBean()
     {
-        return (ReleasesSessionBean) getSessionBean(ReleasesSessionBean.class);
+        return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
     }
 
 }

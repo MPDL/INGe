@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.pubman.releases;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.component.html.HtmlPanelGroup;
@@ -39,8 +38,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.releases.ui.ReleaseListUI;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 
 /**
@@ -77,50 +74,30 @@ public class ReleaseHistory extends FacesBean
     {
         super.init();
         
-        if (this.getSessionBean().getReleaseListUI() == null)
+        if (this.getSessionBean().getVersionList() == null)
         {
-            this.createDynamicItemList();
+        	this.getSessionBean().setVersionList(getReleaseHistory(this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId()));
         }
     }
     
     /**
-     * Creates the panel newly according to the values in the FacesBean.
+     * Retrieves all releases for the current pubitem.
+     * @param itemID the  id of the item for which the releases should be retrieved
+     * @return the list of PubItemVersionVOs
      */
-    protected void createDynamicItemList()
+    public List<PubItemVersionVO> getReleaseHistory(String itemID)
     {
-        this.panDynamicReleases.getChildren().clear();
-        this.getSessionBean().setReleaseList(new ArrayList<PubItemVersionVO>());
-        
-        if (this.getSessionBean().getReleaseHistory(this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId()) != null)
+
+        try
         {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Creating dynamic release list with " + this.getSessionBean().getReleaseHistory(this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId()).size() + " entries.");
-            }
-            
-            // create a CollectionListUI for all PubCollections
-            List<PubItemVersionVO> releaseList = this.getSessionBean().getReleaseHistory(this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId());
-            List<PubItemVersionVOWrapper> releaseWrapperList = new ArrayList<PubItemVersionVOWrapper>();
-            if(releaseList != null)
-            {
-                for(int i = 0; i < releaseList.size(); i++)
-                {
-                    if(releaseList.get(i).getState() != null)
-                    {
-                        if(releaseList.get(i).getState().equals(PubItemVO.State.RELEASED))
-                        {
-                            releaseWrapperList.add(new PubItemVersionVOWrapper(releaseList.get(i)));
-                            this.getSessionBean().getReleaseList().add(releaseList.get(i));
-                        }
-                    }
-                }
-            }
-            
-            this.getSessionBean().setReleaseListUI(new ReleaseListUI(releaseWrapperList));
-            
-            // add the UI to the dynamic panel
-            this.getPanDynamicReleases().getChildren().add(this.getSessionBean().getReleaseListUI());
+        	return this.getItemControllerSessionBean().retrieveReleasesForItem(itemID);
         }
+        catch (Exception e)
+        {
+            logger.error("Could not retrieve release list for Item " + itemID, e);
+        }
+        
+        return null;
     }
     
     /**
@@ -133,13 +110,13 @@ public class ReleaseHistory extends FacesBean
     }
     
     /**
-     * Returns the ReleasesSessionBean.
+     * Returns the ItemVersionListSessionBean.
      * 
-     * @return a reference to the scoped data bean (ReleasesSessionBean)
+     * @return a reference to the scoped data bean (ItemVersionListSessionBean)
      */
-    protected ReleasesSessionBean getSessionBean()
+    protected ItemVersionListSessionBean getSessionBean()
     {
-        return (ReleasesSessionBean)getBean(ReleasesSessionBean.class);
+        return (ItemVersionListSessionBean)getBean(ItemVersionListSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicReleases()
@@ -152,5 +129,8 @@ public class ReleaseHistory extends FacesBean
         this.panDynamicReleases = panDynamicReleases;
     }
     
-    
+    public String getDummy()
+    {
+    	return "";
+    }
 }

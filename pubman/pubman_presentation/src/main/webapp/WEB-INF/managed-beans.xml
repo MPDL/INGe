@@ -364,8 +364,8 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
-		<managed-bean-name>ReleasesSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.releases.ReleasesSessionBean</managed-bean-class>
+		<managed-bean-name>ItemVersionListSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
