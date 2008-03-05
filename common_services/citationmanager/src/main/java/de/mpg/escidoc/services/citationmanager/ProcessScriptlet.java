@@ -33,15 +33,19 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
-import net.sf.jasperreports.engine.data.JRXmlDataSource;
-import net.sf.jasperreports.engine.design.JRDesignField;
+
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.util.JRLoader;
+
 
 /**
 *
@@ -55,10 +59,12 @@ import net.sf.jasperreports.engine.design.JRDesignField;
 
 public class ProcessScriptlet {
 
+    private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
+//    private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
+	
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
-//    public final static String SCRIPTLETS_DIRECTORY = "src/main/java";
-    public final static String SCRIPTLETS_DIRECTORY = "target/classes";
-    private static String SCRIPTLET_CLASSNAME = null;
+    public final static String SCRIPTLETS_JAVA_DIRECTORY = "src/main/java/";
+    private String scriptletClassName = null;
 
 //  table of special functions which can be applied in layout-elements (@func="funcname")
 //	TODO: move to properties    
@@ -149,7 +155,7 @@ public class ProcessScriptlet {
 
 
     public ProcessScriptlet() {
-        scriptletBody = String.format(scriptletBodyHeader, setScriprtletClassName());
+        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName());
 
 //      add  functions from scriptletFunctionsTable
         for (String[] s : ProcessScriptlet.scriptletFunctionsTable)
@@ -527,7 +533,15 @@ public class ProcessScriptlet {
      */
     public void writeToScriptlet(File path, String name) throws IOException{
         scriptletBody += "}";
-        File f = new File(path, name + "/" + getScriprtletClassName() + ".java");
+        
+        // TODO: Now we are ignoring path to save scriptlet, 
+        String root = ResourceUtil.getPathToClasses();
+        
+        File f = new File(
+        		getPathToScriptletJava()
+        		+ getScriptletClassName() 
+        		+ ".java"
+        );
         try {
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.print(scriptletBody);
@@ -681,54 +695,104 @@ public class ProcessScriptlet {
      * @param csName
      * @throws IllegalArgumentException
      * @throws IOException
+     * @throws JRException 
+     * @throws JRException 
      */
-    public static void cleanUpScriptlets(File root, String csName) throws IllegalArgumentException, IOException {
+    public static void cleanUpScriptlets(File root, String csName) throws IllegalArgumentException, IOException, JRException {
 
-//      remove old scriplet classes. Should always take place!!!
-        String sp = ProcessScriptlet.SCRIPTLETS_DIRECTORY + "/" + (new ProcessScriptlet()).getClass().getPackage().getName();
-        sp = sp.replace(".", "/");
-        File path = new File( sp );
-        String[] files = path.list(
-                new FilenameFilter() {
-                    public boolean accept(File dir, String name){
-                        return name.startsWith(ProcessScriptlet.SCRIPTLET_CLASSNAME_PREFIX);
-                    }
-                }
-        );
-        for (String f: files) {
-            new File(path, f).delete();
+    	// get name of the last created scriptlet to be cleaned up
+    	String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle.jasper"; 
+    	InputStream is = ResourceUtil.getResourceAsStream( csj );
+    	if ( is == null )
+    	{
+    		logger.warn( csj + " has not been found, cannot clean up old scriptlets" );
+    		return;
+    	}
+    	JasperReport jr = (JasperReport)JRLoader.loadObject(is);
+  	
+//      remove old sriptlet .class file
+    	String f = ResourceUtil.getPathToClasses() + convertQNameToPath(jr.getScriptletClass()) + ".class";
+        File file = new File(f);
+		// delete .class
+        if ( file.delete() )
+        {
+        	logger.info("action: cleaned up old Scriptlet Class: " + file + " for Citation Style: " + csName);
         }
-
-//      go away if we want to keep SCRIPTLET
+        else
+        {
+        	logger.info("action: cannot clean up old Scriptlet Class: " + file + " for Citation Style: " + csName);
+        }
+        
+//      go away if we want to keep OLD SCRIPTLET for debugging
         if (ProcessCitationStyles.KEEP_OLD_SCRIPTLETS)
             return;
 
-//      remove old sriptlets java files
-        path = new File(ProcessCitationStyles.getCsPath(root) + "/" +  csName);
-        System.out.println(path);
+//      remove old sriptlet .java file
+    	f = getPathToScriptletJava() + file.getName().replace(".class", "") + ".java";
+        file = new File(f);
+        if ( file.delete() )
+        {
+        	logger.info("action: cleaned up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
+        }
+        else
+        {
+        	logger.info("action: cannot clean up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
+        }
         
-        if (!path.isDirectory()) {
-            throw new IllegalArgumentException("deleteCitationStyleBundle: there is no directory");
-        }
-        files = path.list(
-                new FilenameFilter() {
-                    public boolean accept(File dir, String name){
-                        return name.startsWith(ProcessScriptlet.SCRIPTLET_CLASSNAME_PREFIX);
-                    }
-                }
-        );
-        for (String f: files) {
-            new File(path, f).delete();
-        }
     }
 
-    public String setScriprtletClassName() {
-        SCRIPTLET_CLASSNAME =  SCRIPTLET_CLASSNAME_PREFIX + "_" + System.currentTimeMillis();
-        return SCRIPTLET_CLASSNAME;
-    }
-    public static String getScriprtletClassName() {
-        return SCRIPTLET_CLASSNAME;
+    
+    /**
+     * Returns uniq class name of scriptlet
+     * @return scriptlet class name
+     */
+	public String getScriptletClassName() {
+		return scriptletClassName;
+	}
+
+    /**
+     * Generate and set uniq class name for scriptlet
+     * @return generated scriptlet class name
+     */
+	public String generateScriptletClassName() {
+        this.scriptletClassName =  SCRIPTLET_CLASSNAME_PREFIX + "_" + System.currentTimeMillis();
+        return this.scriptletClassName;
+	}
+    
+    /**
+     * Converts QName to path: "/" instead of "."
+     * @param qname 
+     * @return path
+     */
+    public static String convertQNameToPath(String qname)
+    {
+    	return qname == null ? null : qname.replace(".", "/"); 
     }
 
+    /**
+     * Returns package name of the class
+     * @return package name
+     */
+    public static String getPackageName()
+    {
+    	String QName = new ProcessScriptlet().getClass().getPackage().getName(); 
+    	return QName;
+    }
+    
+    /**
+     * Returns path to the scriptlet sources  
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToScriptletJava() throws IOException 
+    {
+        return 
+        		ResourceUtil.getPathToClasses().replace(ResourceUtil.CLASS_DIRECTORY, SCRIPTLETS_JAVA_DIRECTORY)
+        		+ convertQNameToPath(getPackageName() + "/") 
+        ;
+    }
+   
+    
 
 }

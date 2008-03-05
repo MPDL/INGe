@@ -40,6 +40,7 @@ import java.net.URL;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.validation.SchemaFactory;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -65,10 +66,10 @@ public class XmlHelper {
 
     private static final Logger logger = Logger.getLogger(XmlHelper.class);
 	
-    public final static String DATASOURCES_XML_SCHEMA_FILE = ProcessCitationStyles.SCHEMAS_DIRECTORY + "/" + "escidoc/soap/item/0.3/item-list.xsd";
-    public final static String CITATIONSTYLE_XML_SCHEMA_FILE = ProcessCitationStyles.SCHEMAS_DIRECTORY + "/" + "citation-style.xsd";
-	public final static String SCHEMATRON_DIRECTORY = ProcessCitationStyles.SCHEMAS_DIRECTORY + "/" + "Schematron";
-    public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "/" + "layout-element.sch";
+    public final static String DATASOURCES_XML_SCHEMA_FILE = "escidoc/soap/item/0.3/item-list.xsd";
+    public final static String CITATIONSTYLE_XML_SCHEMA_FILE = "citation-style.xsd";
+	public final static String SCHEMATRON_DIRECTORY =  "Schematron/";
+    public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
     
     /**
      * Builds new DocumentBuilder
@@ -156,28 +157,34 @@ public class XmlHelper {
     		"org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();     
     		factory.setNamespaceAware(true); 
-    		factory.setValidating(true);     
+    		factory.setValidating(true); 
+    		factory.setXIncludeAware(true);
     		factory.setAttribute(
     			"http://java.sun.com/xml/jaxp/properties/schemaLanguage",
     			"http://www.w3.org/2001/XMLSchema" 
     		);
-    		factory.setAttribute(
-    			"http://java.sun.com/xml/jaxp/properties/schemaSource",
-    			getResourceLocation(schemaUrl)
-    		);
+//    		factory.setAttribute(
+//    			"http://java.sun.com/xml/jaxp/properties/schemaSource",
+//    			 ResourceUtil.getResourceAsFile(schemaUrl)
+//    		);
+    		
+    		
     		DocumentBuilder builder = factory.newDocumentBuilder();
     		Validator handler = new Validator(); 
-    		builder.setErrorHandler(handler); 
-    		builder.parse(xmlDocumentUrl);
+    		builder.setErrorHandler(handler);
+    		
+    		builder.parse(ResourceUtil.getResourceAsFile(xmlDocumentUrl));
+    		
     		if(handler.validationError == true) 
     			throw new CitationStyleManagerException (  
     					"XML Document has Error:" +
     					handler.validationError + " "+
     					handler.saxParseException.getMessage()
     			);
-    	} catch(java.io.IOException ioe)    {        
+    	} catch(java.io.IOException ioe)    {
+    		logger.info("xmlDocumentUrl :" + xmlDocumentUrl);
 			throw new CitationStyleManagerException (  
-					"IOException " + ioe.getMessage()
+					"IOException ", ioe
 			);         
     	}
     	catch (SAXException e) {            
@@ -196,11 +203,17 @@ public class XmlHelper {
      * Validation of DataSource XML against the XML schema  
      * @param xmlDocumentUrl is URI to XML to be validated 
      * @throws CitationStyleManagerException 
+     * @throws IOException 
      */
 
-    public void validateDataSourceXML(final String xmlDocumentUrl) throws CitationStyleManagerException{
+    public void validateDataSourceXML(final String xmlDocumentUrl) throws CitationStyleManagerException, IOException{
     	
-    	validateSchema(DATASOURCES_XML_SCHEMA_FILE, xmlDocumentUrl);
+    	validateSchema(
+    			ResourceUtil.getUriToResources()
+    			+ ResourceUtil.SCHEMAS_DIRECTORY
+    			+ DATASOURCES_XML_SCHEMA_FILE
+    			, xmlDocumentUrl
+    	);
     }
 
     
@@ -210,24 +223,35 @@ public class XmlHelper {
      *  2) Schematron schema  
      * @param xmlDocumentUrl is URI to XML to be validated 
      * @throws CitationStyleManagerException
+     * @throws IOException 
      */
-    public void validateCitationStyleXML(final String xmlDocumentUrl) throws CitationStyleManagerException{
+    public void validateCitationStyleXML(final String xmlDocumentUrl) throws CitationStyleManagerException, IOException{
     	
     	// XML Schema validation
     	logger.info("XML Schema validation...");
-    	validateSchema(CITATIONSTYLE_XML_SCHEMA_FILE, xmlDocumentUrl);
+    	validateSchema(
+    			ResourceUtil.getUriToResources()
+    			+ ResourceUtil.SCHEMAS_DIRECTORY
+    			+ CITATIONSTYLE_XML_SCHEMA_FILE
+    			, xmlDocumentUrl
+    	);
     	logger.info("OK"); 
     	
     	// Schematron validation
-    	logger.info("Schematron validation..." + xmlDocumentUrl + ";" + SCHEMATRON_FILE);
+    	logger.info("Schematron validation..." + xmlDocumentUrl);
         SchtrnValidator validator = new SchtrnValidator();
-        validator.setEngineStylesheet( SCHEMATRON_DIRECTORY + "/" + "schematron-diagnose.xsl");
+        validator.setEngineStylesheet(
+    			ResourceUtil.getPathToSchemas()
+    			+ SCHEMATRON_DIRECTORY 
+    			+ "schematron-diagnose.xsl"
+        );
         validator.setParams(new SchtrnParams());
         validator.setBaseXML(true);
         try {
         	String info = validator.validate(
-    				xmlDocumentUrl, 
-    				SCHEMATRON_FILE
+    				xmlDocumentUrl,
+        			ResourceUtil.getPathToSchemas()
+        			+ SCHEMATRON_FILE
             ); 
             if (info != null && info.contains("Report: "))
             	throw new CitationStyleManagerException(info);
@@ -255,29 +279,6 @@ public class XmlHelper {
     	public void warning(SAXParseException exception) throws SAXException { }     
     }
 
-	/**
-	 * Generates file location (URI) independent of service location: 
-	 * in jboss .ear or stand alone  
-	 * @param fileName is a file name
-	 * @return file location
-	 * @throws IOException
-	 */
-	public String getResourceLocation(final String fileName) throws IOException
-	{
-		URL fileURL = getClass()
-						.getClassLoader()
-						.getResource(fileName);
-		String fileLoc;
-
-		if (fileURL == null)
-		{
-			fileLoc = (new File(".")).getAbsolutePath() + "/" + fileName;
-		}
-		else
-		{
-			fileLoc = fileURL.toString();
-		}
-		return fileLoc;
-	}    
+ 
 	
 }

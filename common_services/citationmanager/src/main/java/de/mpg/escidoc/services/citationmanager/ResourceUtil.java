@@ -36,6 +36,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+
+import org.apache.log4j.Logger;
+
+import sun.util.logging.resources.logging;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
@@ -46,6 +51,23 @@ import java.io.InputStreamReader;
  */
 public class ResourceUtil
 {
+	private static final Logger logger = Logger.getLogger(ResourceUtil.class);
+	
+    public final static String RESOURCES_DIRECTORY_LOCAL = "src/main/resources/";
+    public final static String RESOURCES_DIRECTORY_JAR = "";
+    public final static String CLASS_DIRECTORY = "target/classes/";
+
+    
+    public final static String DATASOURCES_DIRECTORY = "DataSources/";
+    public final static String CITATIONSTYLES_DIRECTORY = "CitationStyles/";
+    public static final String SCHEMAS_DIRECTORY = "Schemas/";
+    public static final String SORTINGS_DIRECTORY = "Transformations/";
+    
+    public final static String FONTSTYLES_FILENAME = "FontStyles";
+    
+    public final static String EXPLAIN_FILE = "explain-styles.xml";
+   
+	
     /**
      * Hidden constructor.
      */
@@ -63,7 +85,11 @@ public class ResourceUtil
      */
     public static File getResourceAsFile(final String fileName) throws FileNotFoundException
     {
-        File file = new File(ResourceUtil.class.getClassLoader().getResource(fileName).toString());
+        File file = null;
+        if (ResourceUtil.class.getClassLoader().getResource(fileName) != null)
+       	{
+        	file = new File(ResourceUtil.class.getClassLoader().getResource(fileName).getFile());
+       	}
         if (file == null)
         {
             file = new File(fileName);
@@ -116,64 +142,125 @@ public class ResourceUtil
     }
     
     /**
-     * Returns path to the directory of the class
-     * depending on the run context  
+     * Returns path to the directory of the classes
+     * depending on the run context (TOBE implemented further) 
      *     
      * @return path
      * @throws IOException 
      */
-    public static String getClassRoot() throws IOException
+    public static String getPathToClasses() throws IOException
     {
-    	String classString = ResourceUtil.class.getName().replaceAll("\\.", "/") + ".class";
+    	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
-        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
+        // jar context!!!
+//        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
+        if ( result.indexOf(".jar!") == -1 )
         {
         	return result;
         }
         else
         {
-        	return "";
+        	return RESOURCES_DIRECTORY_JAR;
         }
     }
 
 
-//    /**
-//     * Returns path to the resources directory 
-//     *     
-//     * @return path
-//     * @throws IOException 
-//     */
-//    public static String getPathToResources() throws IOException
-//    {
-//        return
-//    		getClassRoot().replace(ProcessCitationStyles.CLASS_DIRECTORY, ProcessCitationStyles.RESOURCES_DIRECTORY);
-//    }
-//    
-//    
-//    /**
-//     * Returns path to the Citation Styles directory 
-//     *     
-//     * @return path
-//     * @throws IOException 
-//     */
-//    public static String getPathToCitationStyles() throws IOException 
-//    {
-//        return
-//			getPathToResources() + ProcessCitationStyles.CITATIONSTYLES_DIRECTORY;
-//    }
-//    
-//    /**
-//     * Returns path to the Data Sources directory 
-//     *     
-//     * @return path
-//     * @throws IOException 
-//     */
-//    public static String getPathToDataSources() throws IOException 
-//    {
-//    	return
-//    		getPathToResources() + ProcessCitationStyles.DATASOURCES_DIRECTORY;
-//    }    
+    /**
+     * Returns path to the resources directory 
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToResources() throws IOException
+    {
+        return
+    		getPathToClasses().replace(CLASS_DIRECTORY, RESOURCES_DIRECTORY_LOCAL);
+    }
     
     
+    /**
+     * Returns path to the Citation Styles directory 
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToCitationStyles() throws IOException 
+    {
+        return
+			getPathToResources() + CITATIONSTYLES_DIRECTORY;
+    }
+
+   
+
+    /**
+     * Returns path to the Data Sources directory 
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToDataSources() throws IOException 
+    {
+    	return
+    		getPathToResources() + DATASOURCES_DIRECTORY;
+    }    
     
+    /**
+     * Returns path to the Schemas directory 
+     *     
+     * @return path
+     * @throws IOException 
+     */
+    public static String getPathToSchemas() throws IOException 
+    {
+        return
+			getPathToResources() + SCHEMAS_DIRECTORY;
+    }
+
+    /**
+     * Returns path to the Transformations directory 
+     *     
+     * @return path
+     * @throws IOException 
+     * @throws IOException 
+     */
+    public static String getPathToTransformations() throws IOException 
+    {
+    	return
+    	getPathToResources() + SORTINGS_DIRECTORY;
+    }
+    
+	/**
+	 * Generates file location (URI) independent of service location: 
+	 * in jboss .ear or stand alone  
+	 * @param fileName is a file name
+	 * @return file location
+	 * @throws IOException
+	 */
+//	public static String getUriToResources(final String fileName) throws IOException
+//	{
+//		URL fileURL = ResourceUtil.class.getClassLoader().getResource(fileName);
+//		String fileLoc;
+//
+//		if (fileURL == null)
+//		{
+//			fileLoc = (new File(".")).getAbsolutePath() + "/" + fileName;
+//		}
+//		else
+//		{
+//			fileLoc = fileURL.toString();
+//		}
+//		return fileLoc;
+//	}     
+
+	public static String getUriToResources() throws IOException
+	{
+		return 
+			getPathToClasses().equals(RESOURCES_DIRECTORY_JAR) ?
+					RESOURCES_DIRECTORY_JAR : 
+					RESOURCES_DIRECTORY_LOCAL;
+					
+		
+	}     
+	
+
 }
