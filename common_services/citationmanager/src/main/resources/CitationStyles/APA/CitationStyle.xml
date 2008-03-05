@@ -35,7 +35,7 @@
 			<parameters>
 				<valid-if><![CDATA[$F{@type}.equals("book-item")|| $F{@type}.equals("courseware-lecture")|| $F{@type}.equals("other")|| $F{@type}.equals("conference-paper") || $F{@type}.equals("conference-report")]]></valid-if>
 				<delimiter value=""/>
-				<ends-with value=".\n"/>
+				<ends-with value="."/>
 			</parameters>
 			<elements>
 				<!-- BOOK CHAPTER, element "creator" of type person -->
@@ -135,7 +135,7 @@
 		<cs-layout-definition name="Book">
 			<parameters>
 				<valid-if><![CDATA[$F{@type}.equals("book")||$F{@type}.equals("thesis")||$F{@type}.equals("proceedings")||$F{@type}.equals("journal")||$F{@type}.equals("series")||$F{@type}.equals("talk-at-event")]]></valid-if>
-				<ends-with value=".\n"/>
+				<ends-with value="."/>
 			</parameters>
 			<elements>
 				<!-- BOOK, element "creator" of type person -->
@@ -207,7 +207,7 @@
 		<cs-layout-definition name="JournalOrMagazineArticle">
 			<parameters>
 				<valid-if><![CDATA[$F{@type}.equals("article") || $F{@type}.equals("issue") || $F{@type}.equals("paper") || !($F{@type}.equals("book-item")|| $F{@type}.equals("courseware-lecture")|| $F{@type}.equals("other")|| $F{@type}.equals("conference-paper") || $F{@type}.equals("conference-report")||$F{@type}.equals("book")||$F{@type}.equals("thesis")||$F{@type}.equals("proceedings")||$F{@type}.equals("journal")||$F{@type}.equals("series")||$F{@type}.equals("talk-at-event"))]]></valid-if>
-				<ends-with value=".\n"/>
+				<ends-with value="."/>
 			</parameters>
 			<elements>
 				<!-- JOURNAL ARTICLE, element "creator" of type person -->
