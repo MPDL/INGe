@@ -166,12 +166,19 @@
 			<version>2.7.0</version>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>xalan</groupId>
+			<artifactId>xalan</artifactId>
+			<version>2.7.0</version>
+			<scope>test</scope>
+		</dependency>
 		 <dependency>
           <groupId>com.sun</groupId>
           <artifactId>tools</artifactId>
           <version>1.5</version>
           <scope>system</scope>
-          <systemPath>${java.home}/../lib/tools.jar</systemPath>
+          <!-- systemPath>${java.home}/../lib/tools.jar</systemPath-->
+          <systemPath>${java.home}/../../java-1.5.0-sun-1.5.0.13/lib/tools.jar</systemPath>
        </dependency>
 	</dependencies>
 
