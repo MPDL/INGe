@@ -34,22 +34,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.revisions.RelationVOWrapper;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -64,7 +62,6 @@ import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -152,12 +149,12 @@ public class ItemControllerSessionBean extends FacesBean
 
     /**
      * Creates a new PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule
+     * @param navigationRuleWhenSuccessful the navigation rule
      * which should be returned when the operation is successful.
      * @param pubCollectionRO The eSciDoc context.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String createNewPubItem(final String navigationRuleWhenSuccessfull, final PubCollectionRO pubCollectionRO)
+    public String createNewPubItem(final String navigationRuleWhenSuccessful, final PubCollectionRO pubCollectionRO)
     {
         if (logger.isDebugEnabled())
         {
@@ -175,12 +172,12 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not create item." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
             return ErrorPage.LOAD_ERRORPAGE;
         }
 
-        return navigationRuleWhenSuccessfull;
+        return navigationRuleWhenSuccessful;
     }
 
     /**
@@ -219,7 +216,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not save item." + "\n" + e.toString(), e);
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -256,7 +253,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.error("Could not submit item." + "\n" + e.toString());
             logger.error(e);
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -291,7 +288,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not submit item." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -320,7 +317,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not withdraw item." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -353,7 +350,7 @@ public class ItemControllerSessionBean extends FacesBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+                    ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -400,7 +397,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not delete item." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -432,7 +429,7 @@ public class ItemControllerSessionBean extends FacesBean
                 catch (Exception e)
                 {
                     logger.error("Could not submit item." + "\n" + e.toString());
-                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+                    ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -476,7 +473,7 @@ public class ItemControllerSessionBean extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not create revision." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -1167,6 +1164,59 @@ public class ItemControllerSessionBean extends FacesBean
 
         return itemList;
     }
+    
+    /**
+     * Returns all items in a list of item ids.
+     * @param itemRefs a list of item ids of items that should be retrieved.
+     * @return all items for a user with the given ids
+     * @throws Exception if framework access fails
+     */
+    public ArrayList<PubItemVO> retrieveItems(final List<PubItemRO> itemRefs) throws Exception
+    {
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Retrieving Item list: ");
+        }
+
+        // define the filter criteria
+        FilterTaskParamVO filter = new FilterTaskParamVO();
+        FilterTaskParamVO.PubItemRefFilter f1 = filter.new PubItemRefFilter(itemRefs);
+        filter.getFilterList().add(f1);
+        
+        // transform the filter criteria
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Transforming filters...");
+        }
+        String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
+
+        // retrieve the items applying the filter criteria
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Retrieving items...");
+        }
+        String xmlItemList = "";
+        try
+        {
+            xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+        }
+        catch (AuthenticationException e)
+        {
+            logger.debug(e.toString());
+            Login login = (Login) getSessionBean(Login.class);
+            login.forceLogout();
+            throw e;
+        }
+
+        // transform the itemList
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Transforming items...");
+        }
+        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
+
+        return itemList;
+    }
 
     /**
      * Returns an item by its id.
@@ -1732,54 +1782,37 @@ public class ItemControllerSessionBean extends FacesBean
      * @param pubItemVO the pubitem for which the revisions should be fetched
      * @return a list of wrapped ReleationVOs
      */
-    public List<RelationVOWrapper> retrieveRevisions(PubItemVO pubItemVO) throws Exception
+    public List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO) throws Exception
     {
-        List<RelationVOWrapper> wrappedRevisionList = new ArrayList<RelationVOWrapper>();
-        List<RelationVO> revisionVOList = new ArrayList<RelationVO>();
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-        .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-        
+        List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
+
         String xmlItem = "";
         
         if(loginHelper.getESciDocUserHandle() != null)
         {
-            revisionVOList = this.dataGathering.findRevisionsOfItem(loginHelper.getESciDocUserHandle(), pubItemVO.getReference());
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(loginHelper.getESciDocUserHandle(), pubItemVO.getReference()));
         }
         else
         {
             // TODO ScT: retrieve as super user (workaround for not logged in users until the framework changes this retrieve method for unauthorized users)
-            revisionVOList = this.dataGathering.findRevisionsOfItem(ItemControllerSessionBean.SUPER_USER_NAME, pubItemVO.getReference());
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(ItemControllerSessionBean.SUPER_USER_NAME, pubItemVO.getReference()));
         }
-        
-        // wrap the revisionVOs
-        for(int i = 0; i < revisionVOList.size(); i++)
-        {
-            try
-            {
-                // retrieve the source item which is referenced in the relationVO (needed to show the title)
-                // if user is logged in all revisions the user is allowed to see will be fetched. Otherwise only released revisions will  be fetched
-                if(loginHelper.getESciDocUserHandle() != null)
-                {
-                    xmlItem = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieve(revisionVOList.get(i).getSourceItemRef().getObjectId());
-                }
-                else
-                {
-                    xmlItem = ServiceLocator.getItemHandler().retrieve(revisionVOList.get(i).getSourceItemRef().getObjectId());
-                }
-                PubItemVO item = this.xmlTransforming.transformToPubItem(xmlItem);
-                wrappedRevisionList.add(new RelationVOWrapper(revisionVOList.get(i), item));
-            }
-            // Exception types underneath should not be thrown. Only ignore them while inserting in the list.
-            catch (AuthenticationException e)
-            {
-                logger.error(e.toString(), e);
-            }
-            catch (ItemNotFoundException e)
-            {
-                logger.error(e.toString(), e);
-            }
-        }
-        return wrappedRevisionList;
+            
+        List<PubItemRO> itemRefs = new ArrayList<PubItemRO>();
+        for (RelationVOPresentation relationVOPresentation : revisionVOList) {
+			itemRefs.add(relationVOPresentation.getSourceItemRef());
+		}
+        List<PubItemVO> itemList = retrieveItems(itemRefs);
+        for (RelationVOPresentation revision : revisionVOList) {
+			for (PubItemVO pubItem : itemList) {
+				if (revision.getSourceItemRef().equals(pubItem.getReference()))
+				{
+					revision.setSourceItem(pubItem);
+					break;
+				}
+			}
+		}
+        return revisionVOList;
     }
 
     /**

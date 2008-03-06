@@ -56,6 +56,7 @@ import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 /**
@@ -455,6 +456,40 @@ public class CommonUtils extends InternationalizedImpl
         for (int i = 0; i < list.size(); i++)
         {
             pubItemList.add(new PubItemVOPresentation(list.get(i)));
+        }
+
+        return pubItemList;
+    }
+
+    /**
+     * Converts a list of Relations to a list of RelationVOPresentation.
+     * @param list the list of RelationVO
+     * @return the list of RelationVOPresentation
+     */
+    public static List<RelationVOPresentation> convertToRelationVOPresentationList(List<RelationVO> list)
+    {
+        List<RelationVOPresentation> relationList = new ArrayList<RelationVOPresentation>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            relationList.add(new RelationVOPresentation(list.get(i)));
+        }
+
+        return relationList;
+    }
+
+    /**
+     * Converts a list of RelationVOPresentation to a list of Relations.
+     * @param list the list of RelationVOPresentation
+     * @return the list of RelationVO
+     */
+    public static ArrayList<RelationVO> convertToRelationVOList(List<RelationVOPresentation> list)
+    {
+        ArrayList<RelationVO> pubItemList = new ArrayList<RelationVO>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubItemList.add(new RelationVO(list.get(i)));
         }
 
         return pubItemList;

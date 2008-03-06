@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
+import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
@@ -45,42 +45,21 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
  * @author:  Thomas Diebäcker, created 22.10.2007
  * @version: $Revision: 1599 $ $LastChangedDate: 2007-11-21 20:51:24 +0100 (Mi, 21 Nov 2007) $
  */
-public class RevisionListSessionBean extends FacesBean
+public class RelationListSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "RevisionListSessionBean";
-    private static Logger logger = Logger.getLogger(RevisionListSessionBean.class);
+    public static final String BEAN_NAME = "RelationListSessionBean";
+    private static Logger logger = Logger.getLogger(RelationListSessionBean.class);
 
-    private List<RelationVOWrapper> relationVOWrapperList = new ArrayList<RelationVOWrapper>();
-    private RevisionListUI revisionListUI = null;
+    private List<RelationVOPresentation> relationList = null;
     private PubItemVO pubItemVO = null;
     private String revisionDescription = new String();
 
     /**
      * Public constructor.
      */
-    public RevisionListSessionBean()
+    public RelationListSessionBean()
     {
         this.init();
-    }
-
-    /**
-     * Retrieves all RevisionWrappers for the current item.
-     * @return the list of RelationVOWrappers
-     */
-    private List<RelationVOWrapper> retrieveRevisions(PubItemVO pubItemVO)
-    {
-        List<RelationVOWrapper> allRevisions = new ArrayList<RelationVOWrapper>();
-        
-        try
-        {
-            allRevisions = this.getItemControllerSessionBean().retrieveRevisions(pubItemVO); 
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create revision list." + "\n" + e.toString());
-        }
-
-        return allRevisions;
     }
 
     /**
@@ -89,36 +68,18 @@ public class RevisionListSessionBean extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-    public RevisionListUI getRevisionListUI()
-    {
-        return revisionListUI;
-    }
+    public List<RelationVOPresentation> getRelationList() {
+		return relationList;
+	}
 
-    public void setRevisisonListUI(RevisionListUI revisisonListUI)
-    {
-        this.revisionListUI = revisisonListUI;
-    }
+	public void setRelationList(List<RelationVOPresentation> relationList) {
+		this.relationList = relationList;
+	}
 
-    public List<RelationVOWrapper> getRelationVOWrapperList()
-    {
-        // lazy initialize relation list if pubItem is set
-        if ((this.relationVOWrapperList == null || this.relationVOWrapperList.size() == 0) && this.pubItemVO != null)
-        {
-            this.relationVOWrapperList = this.retrieveRevisions(this.pubItemVO);
-        }
-        
-        return relationVOWrapperList;
-    }
-
-    public void setRelationVOWrapperList(List<RelationVOWrapper> relationVOWrapperList)
-    {
-        this.relationVOWrapperList = relationVOWrapperList;
-    }
-
-    public PubItemVO getPubItemVO()
+	public PubItemVO getPubItemVO()
     {
         return pubItemVO;
     }
@@ -126,8 +87,6 @@ public class RevisionListSessionBean extends FacesBean
     public void setPubItemVO(PubItemVO pubItemVO)
     {
         // re-init the lists as this is a new PubItem
-        this.setRelationVOWrapperList(null);
-        this.setRevisisonListUI(null);
         this.setRevisionDescription(null);
         
         this.pubItemVO = pubItemVO;

@@ -151,7 +151,7 @@ public class ExportItems extends FacesBean
         catch (TechnicalException e)
         {
             logger.error("Could not ser the export formats." + "\n" + e.toString(), e);
-            ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
         
             return ErrorPage.LOAD_ERRORPAGE;
         }

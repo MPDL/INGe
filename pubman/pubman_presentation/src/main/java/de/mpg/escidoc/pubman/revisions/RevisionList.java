@@ -28,35 +28,41 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.releases;
+package de.mpg.escidoc.pubman.revisions;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.faces.component.html.HtmlPanelGroup;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.RelationVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 
 /**
- * Fragment class for Releasy history.
+ * Fragment class for Revision list.
  * 
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
  */
-public class ReleaseHistory extends FacesBean
+public class RevisionList extends FacesBean
 {
     public static final String BEAN_NAME = "ReleaseHistory";
     @SuppressWarnings("unused")
-    private static Logger logger = Logger.getLogger(ReleaseHistory.class);
+    private static Logger logger = Logger.getLogger(RevisionList.class);
     
     // Faces navigation string
-    public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
+    public final static String LOAD_REVISION_LIST = "loadRevisionList";
 
     /**
      * Public constructor.
      */
-    public ReleaseHistory()
+    public RevisionList()
     {
         this.init();
     }
@@ -69,29 +75,29 @@ public class ReleaseHistory extends FacesBean
     {
         super.init();
         
-        if (this.getSessionBean().getVersionList() == null)
-        {
-        	this.getSessionBean().setVersionList(getReleaseHistory(this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId()));
-        }
+//        if (this.getSessionBean().getRelationList() == null)
+//        {
+        	this.getSessionBean().setRelationList(retrieveRevisions(this.getItemControllerSessionBean().getCurrentPubItem()));
+//        }
     }
     
-    /**
-     * Retrieves all releases for the current pubitem.
-     * @param itemID the  id of the item for which the releases should be retrieved
-     * @return the list of PubItemVersionVOs
-     */
-    public List<PubItemVersionVO> getReleaseHistory(String itemID)
-    {
 
+    /**
+     * Retrieves all RevisionWrappers for the current item.
+     * @return the list of RelationVOWrappers
+     */
+    private List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO)
+    {
+        
         try
         {
-        	return this.getItemControllerSessionBean().retrieveReleasesForItem(itemID);
+            return this.getItemControllerSessionBean().retrieveRevisions(pubItemVO); 
         }
         catch (Exception e)
         {
-            logger.error("Could not retrieve release list for Item " + itemID, e);
+            logger.error("Could not create revision list." + "\n" + e.toString());
         }
-        
+
         return null;
     }
     
@@ -109,11 +115,11 @@ public class ReleaseHistory extends FacesBean
      * 
      * @return a reference to the scoped data bean (ItemVersionListSessionBean)
      */
-    protected ItemVersionListSessionBean getSessionBean()
+    protected RelationListSessionBean getSessionBean()
     {
-        return (ItemVersionListSessionBean)getSessionBean(ItemVersionListSessionBean.class);
+        return (RelationListSessionBean)getSessionBean(RelationListSessionBean.class);
     }
-
+    
     public String getDummy()
     {
     	return "";

@@ -236,7 +236,7 @@ public class EditItem extends FacesBean
         catch (Exception e)
         {
             logger.error("Could not retrieve the requested collection." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
 

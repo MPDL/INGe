@@ -28,8 +28,9 @@
              */
 %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-	<f:subview id="SearchResultList">
+	<f:subview id="ViewRevisions">
 		<br/>
+		<h:outputText value="#{RevisionList.dummy}"/>
 		<p>
 			<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemRevisionsPage.previousPageURI}">
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
@@ -46,8 +47,6 @@
 				</label>
 			</h3>
 		</div>
-		<h:panelGroup id="panRevisionList" binding="#{CreateRevision.panDynamicRevisionList}">
-		</h:panelGroup>
-		<!-- jsp:directive.include file="../list/itemList.jspf"/ -->
+		<jsp:directive.include file="../list/relationList.jspf"/>
 	</f:subview>
 </div>

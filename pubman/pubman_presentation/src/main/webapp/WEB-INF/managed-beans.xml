@@ -196,12 +196,12 @@
 	<managed-bean>
 		<managed-bean-name>LoginErrorPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.LoginErrorPage</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ErrorPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.ErrorPage</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
+		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ItemControllerSessionBean</managed-bean-name>
@@ -394,8 +394,13 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>	
 	<managed-bean>
-		<managed-bean-name>RevisionListSessionBean</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionListSessionBean</managed-bean-class>
+		<managed-bean-name>RevisionList</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RevisionList</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>	
+	<managed-bean>
+		<managed-bean-name>RelationListSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.revisions.RelationListSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>

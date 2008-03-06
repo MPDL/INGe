@@ -65,11 +65,11 @@ public class ItemListSessionBean extends FacesBean
     private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
     private String message = null;
-    private String sortBy = "TITLE";
-    private String sortOrder = "ASCENDING";
+    private String sortBy = "DATE";
+    private String sortOrder = "DESCENDING";
     private String type = null;
     
-    private int itemsPerPage = 5;
+    private int itemsPerPage = 10;
     private int currentPubItemListPointer = 0;
 
     /**

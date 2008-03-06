@@ -203,15 +203,20 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         {
             throw new RuntimeException("Error getting bean name of " + cls, e);
         }
+        
         Object result = FacesContext
                 .getCurrentInstance()
                 .getExternalContext()
                 .getRequestMap()
                 .get(name);
+        
+        logger.debug("Getting bean " + name + ": " + result);
+
         if (result == null)
         {
             try
             {
+            	logger.debug("Creating new request bean: " + name);
                 Object newBean = cls.newInstance();
                 FacesContext
                         .getCurrentInstance()
@@ -258,6 +263,9 @@ public class FacesBean extends InternationalizedImpl implements Serializable
                 .getExternalContext()
                 .getSessionMap()
                 .get(name);
+        
+        logger.debug("Getting bean " + name + ": " + result);
+
         if (result == null)
         {
             try
@@ -308,10 +316,14 @@ public class FacesBean extends InternationalizedImpl implements Serializable
                 .getExternalContext()
                 .getApplicationMap()
                 .get(name);
+        
+        logger.debug("Getting bean " + name + ": " + result);
+
         if (result == null)
         {
             try
             {
+            	 logger.debug("Creating new application bean: " + name);
                 Object newBean = cls.newInstance();
                 FacesContext
                         .getCurrentInstance()

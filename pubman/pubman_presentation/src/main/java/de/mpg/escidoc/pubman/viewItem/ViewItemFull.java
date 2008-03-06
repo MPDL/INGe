@@ -64,10 +64,10 @@ import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
+import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
-import de.mpg.escidoc.pubman.revisions.RevisionListSessionBean;
+import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
@@ -455,7 +455,7 @@ public class ViewItemFull extends FacesBean
                         + " different collections.");
             }
 
-            this.getRevisionListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+            this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
             
             return CreateRevision.LOAD_CREATEREVISION;
         }
@@ -468,8 +468,14 @@ public class ViewItemFull extends FacesBean
      */
     public String showRevisions()
     {
-        this.getRevisionListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
-        
+        this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        try
+        {
+        	this.getRelationListSessionBean().setRelationList(this.getItemControllerSessionBean().retrieveRevisions(this.getItemControllerSessionBean().getCurrentPubItem()));
+        }
+        catch (Exception e) {
+			logger.error("Error setting revision list", e);
+		}
         return ViewItemRevisionsPage.LOAD_VIEWREVISIONS;
     }
 
@@ -609,17 +615,6 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
-     * creates the  Release History in the session bean. This is used to examine if the release history button should be disabled if no releases are available
-     *
-     */
-    private void createReleaseHistory()
-    {
-        this.getItemVersionListSessionBean().setVersionList(null);
-        this.getReleaseHistory();
-        //this.getReleaseHistory().init();
-    }
-    
-    /**
      * Shows the given Message below the itemList after next Reload of the DepositorWS.
      * 
      * @param message the message to be displayed
@@ -648,7 +643,7 @@ public class ViewItemFull extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
     
     /**
@@ -658,7 +653,7 @@ public class ViewItemFull extends FacesBean
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean)getBean(ViewItemSessionBean.class);
+        return (ViewItemSessionBean)getSessionBean(ViewItemSessionBean.class);
     }
     
     /**
@@ -668,7 +663,7 @@ public class ViewItemFull extends FacesBean
      */
     protected WithdrawItemSessionBean getWithdrawItemSessionBean()
     {
-        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
+        return (WithdrawItemSessionBean)getSessionBean(WithdrawItemSessionBean.class);
     }
     
     /**
@@ -677,7 +672,7 @@ public class ViewItemFull extends FacesBean
      */
     protected SubmitItemSessionBean getSubmitItemSessionBean()
     {
-        return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.class);
+        return (SubmitItemSessionBean)getSessionBean(SubmitItemSessionBean.class);
     }
     
     /**
@@ -699,7 +694,7 @@ public class ViewItemFull extends FacesBean
      */
     protected SearchResultListSessionBean getSearchResultListSessionBean()
     {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
+        return (SearchResultListSessionBean)getSessionBean(SearchResultListSessionBean.class);
     }
 
     /**
@@ -709,7 +704,7 @@ public class ViewItemFull extends FacesBean
      */
     protected RightsManagementSessionBean getRightsManagementSessionBean()
     {
-        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.class);
+        return (RightsManagementSessionBean)getSessionBean(RightsManagementSessionBean.class);
     }
     
     /**
@@ -719,7 +714,7 @@ public class ViewItemFull extends FacesBean
      */
     protected ItemVersionListSessionBean getItemVersionListSessionBean()
     {
-        return (ItemVersionListSessionBean)getBean(ItemVersionListSessionBean.class);
+        return (ItemVersionListSessionBean)getSessionBean(ItemVersionListSessionBean.class);
     }
 
     /**
@@ -727,9 +722,9 @@ public class ViewItemFull extends FacesBean
      * 
      * @return a reference to the scoped data bean (RevisionListSessionBean)
      */
-    protected RevisionListSessionBean getRevisionListSessionBean()
+    protected RelationListSessionBean getRelationListSessionBean()
     {
-        return (RevisionListSessionBean)getBean(RevisionListSessionBean.class);
+        return (RelationListSessionBean)getSessionBean(RelationListSessionBean.class);
     }
     
     /**
@@ -739,7 +734,7 @@ public class ViewItemFull extends FacesBean
      */
     protected CommonSessionBean getSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
+        return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
     }
     
     /**
@@ -749,7 +744,7 @@ public class ViewItemFull extends FacesBean
      */
     protected CollectionListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
+        return (CollectionListSessionBean)getSessionBean(CollectionListSessionBean.class);
     }
 
     /**
@@ -759,7 +754,7 @@ public class ViewItemFull extends FacesBean
      */
     protected ReleaseHistory getReleaseHistory()
     {
-        return (ReleaseHistory)getBean(ReleaseHistory.class);
+        return (ReleaseHistory)getRequestBean(ReleaseHistory.class);
     }
 
     // Getters and Setters

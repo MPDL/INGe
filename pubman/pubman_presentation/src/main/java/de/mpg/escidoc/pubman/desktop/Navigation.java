@@ -51,7 +51,7 @@ import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
-import de.mpg.escidoc.pubman.revisions.RevisionListSessionBean;
+import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.NavigationRule;
@@ -205,7 +205,6 @@ public class Navigation extends FacesBean
         }
         else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
         {
-            this.getRevisionListSessionBean().setRevisisonListUI(null);
             createRevision = (CreateRevision) getBean(CreateRevision.class);
             createRevision.init();
         }
@@ -306,9 +305,9 @@ public class Navigation extends FacesBean
      *
      * @return a reference to the scoped data bean (RevisionListSessionBean)
      */
-    protected RevisionListSessionBean getRevisionListSessionBean()
+    protected RelationListSessionBean getRevisionListSessionBean()
     {
-        return (RevisionListSessionBean) getBean(RevisionListSessionBean.class);
+        return (RelationListSessionBean) getBean(RelationListSessionBean.class);
     }
 
     /**

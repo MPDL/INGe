@@ -30,8 +30,6 @@
 
 package de.mpg.escidoc.pubman.revisions;
 
-import java.util.List;
-
 import javax.faces.component.html.HtmlPanelGroup;
 
 import org.apache.log4j.Logger;
@@ -40,8 +38,6 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.revisions.ui.RevisionListUI;
-import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 
@@ -85,11 +81,7 @@ public class CreateRevision extends FacesBean
         {
             logger.debug("CreateRevision.init()");
         }
-        
-        if (this.getSessionBean().getRevisionListUI() == null)
-        {
-            this.createDynamicItemList();
-        }
+
     }
     
     public String confirm()
@@ -139,38 +131,15 @@ public class CreateRevision extends FacesBean
 
         return CreateRevision.LOAD_CREATEREVISION;
     }
-    
-    /**
-     * Creates the item panel newly according to the values in the FacesBean.
-     */
-    protected void createDynamicItemList()
-    {
-        this.panDynamicRevisionList.getChildren().clear();
-        
-        if (this.getSessionBean().getRelationVOWrapperList() != null)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Creating dynamic revision list with " + this.getSessionBean().getRelationVOWrapperList().size() + " entries.");
-            }
-            
-            // create a RevisionListUI for all Relations
-            List<RelationVOWrapper> relationVOWrapperList = this.getSessionBean().getRelationVOWrapperList();
-            this.getSessionBean().setRevisisonListUI(new RevisionListUI(relationVOWrapperList));
-            
-            // add the UI to the dynamic panel
-            this.getPanDynamicRevisionList().getChildren().add(this.getSessionBean().getRevisionListUI());
-        }
-    }
 
     /**
      * Returns the RevisionListSessionBean.
      * 
      * @return a reference to the scoped data bean (RevisionListSessionBean)
      */
-    protected RevisionListSessionBean getSessionBean()
+    protected RelationListSessionBean getSessionBean()
     {
-        return (RevisionListSessionBean)getBean(RevisionListSessionBean.class);
+        return (RelationListSessionBean)getBean(RelationListSessionBean.class);
     }
 
     /**

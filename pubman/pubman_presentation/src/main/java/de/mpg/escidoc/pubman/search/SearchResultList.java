@@ -308,7 +308,7 @@ public class SearchResultList extends ItemList
                 } catch (TechnicalException e)
                 {
                     logger.error("Errors retrieving export data.", e);
-                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+                    ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
                 
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -342,7 +342,7 @@ public class SearchResultList extends ItemList
                 catch (IOException e1)
                 {
                     logger.debug("IO Error by writing the export data: " + e1.toString());
-                    ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e1);
+                    ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e1);
                     
                     return ErrorPage.LOAD_ERRORPAGE;
                 }
@@ -553,14 +553,13 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items.", e);
-            ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) this.getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
         
         // sort the items and force the UI to update
         this.sortItemList();
-        this.createDynamicItemList2();
         
         if(this.getItemListSessionBean().getCurrentPubItemList().size() < 1)
         {
@@ -603,7 +602,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items." + "\n" + e.toString());
-            ((ErrorPage) getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }

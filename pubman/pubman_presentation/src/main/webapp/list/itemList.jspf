@@ -46,7 +46,7 @@ All rights reserved. Use is subject to license terms.
 				<h:outputText value=" #{lbl.ItemList_ObjectsPerPage}"/>
 				<h:commandButton value="|<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
 				<h:commandButton value="<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
-				<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}">
+				<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}" first="#{((ItemListSessionBean.currentPubItemListPointer - ItemListSessionBean.currentPubItemListPointer % (ItemListSessionBean.itemsPerPage * 10)) / (ItemListSessionBean.itemsPerPage * 10)) * 10}" rows="10">
 				
 					<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
 					<tr:commandButton text="#{page}" disabled="true" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
@@ -62,7 +62,7 @@ All rights reserved. Use is subject to license terms.
 				</h:selectOneMenu>
 				
 				<h:outputLabel for="sortBy" value="#{lbl.ItemList_SortBy}"/>
-				<h:selectOneMenu id="sortBy" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}">
+				<h:selectOneMenu id="sortBy" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
 					<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
 				</h:selectOneMenu>
 				
