@@ -38,6 +38,7 @@ import org.junit.Ignore;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -57,6 +58,7 @@ import org.w3c.dom.Document;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
+import de.mpg.escidoc.services.citationmanager.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 
@@ -86,8 +88,11 @@ public class CitationStyleHandlerTest {
     @Before
     public final void getItemList() throws Exception
     {
-        itemList = TestHelper.readFile("src/test/resources/DataSources/item-list-inga.xml");
-        assertNotNull("Item list xml is not found", itemList);
+    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml"; 
+    	logger.info("Data Source:" + dsName);
+    			
+        itemList = ResourceUtil.getResourceAsString(dsName);
+        assertNotNull("Item list xml is not found:", dsName);
     }
     
 
@@ -116,37 +121,13 @@ public class CitationStyleHandlerTest {
 			
 		}
     }
-
-    
-    /**
-     * Validates DataSource against XML Schema  
-     * @throws IOException 
-     */
-    @Test
-    public final void testDataSourceValidation() throws IOException{
-    	
-		long start = 0;
-		XmlHelper xh = new XmlHelper();
-		String dsName = "src/test/resources/DataSources/item-list-inga.xml"; 
-        try {
-        	
-        	start = System.currentTimeMillis();
-        	xh.validateDataSourceXML(dsName);
-            logger.info("DataSource file:" + dsName + " is valid.");
-            
-        }catch (CitationStyleManagerException e){
-            logger.error("DataSource file:" + dsName + " is not valid.\n" + e.toString());
-            fail();
-        }
-        logger.error("Data Source Validation time : " + (System.currentTimeMillis() - start));
-    }
     
     /**
      * Test service with a wrong Citation Style 
      * @throws Exception Any exception.
      */
     
-    @Test(expected = FileNotFoundException.class) 
+    @Test(expected = CitationStyleManagerException.class) 
     public final void testWrongStyleCitManOutput() throws Exception  {
     	byte[] result = pcs.getOutput("XYZ", "pdf", itemList);
     }
@@ -161,7 +142,5 @@ public class CitationStyleHandlerTest {
     	byte[] result = pcs.getOutput("APA", "xyz", itemList);
     }
 
-
-    
 		
 }
