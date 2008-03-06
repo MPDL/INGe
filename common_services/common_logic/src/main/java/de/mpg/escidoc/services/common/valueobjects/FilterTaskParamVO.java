@@ -126,6 +126,14 @@ public class FilterTaskParamVO extends ValueObject
         }
 
         /**
+         * Creates a new instance with a given list.
+         */
+        public PubItemRefFilter(List<PubItemRO> list)
+        {
+        	this.idList = list;
+        }
+
+        /**
          * @return the idList
          */
         public List<PubItemRO> getIdList()

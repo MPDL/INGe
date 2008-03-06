@@ -36,11 +36,9 @@ import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
  * 
  * @updated 18-Okt-2007 15:42:32
  */
-public class RelationVO extends ValueObject {
+public class RelationVO extends ValueObject
+{
 
-	
-	 
-	
 	/**
 	 * The type of a relation between two items.
 	 */
@@ -65,6 +63,26 @@ public class RelationVO extends ValueObject {
 	 */
 	private PubItemRO targetItemRef;
 
+	/**
+	 * Default constructor.
+	 */
+	public RelationVO()
+	{
+		
+	}
+	
+	/**
+	 * Clone constructor.
+	 * @param relation The relation to be cloned.
+	 */
+	public RelationVO(RelationVO relation)
+	{
+		this.description = relation.description;
+		this.sourceItemRef = relation.sourceItemRef;
+		this.targetItemRef = relation.targetItemRef;
+		this.type = relation.type;
+	}
+	
 	/**
 	 * description of the content relation, e. g. the reason for the relation.
 	 */

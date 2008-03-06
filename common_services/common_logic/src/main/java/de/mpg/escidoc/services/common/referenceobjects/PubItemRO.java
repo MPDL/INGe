@@ -109,4 +109,18 @@ public class PubItemRO extends ReferenceObject implements Cloneable
     public void setVersionNumber(int newVal){
         versionNumber = newVal;
     }
+
+	@Override
+	public boolean equals(Object object) {
+		if (super.equals(object))
+		{
+			return (((PubItemRO) object).versionNumber == this.versionNumber);
+		}
+		else
+		{
+			return false;
+		}
+	}
+    
+    
 }
