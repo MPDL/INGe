@@ -67,14 +67,6 @@ public class ResourceUtil
     
     public final static String EXPLAIN_FILE = "explain-styles.xml";
    
-	
-    /**
-     * Hidden constructor.
-     */
-    protected ResourceUtil()
-    {
-
-    }
 
     /**
      * Gets a resource as InputStream.
@@ -221,7 +213,6 @@ public class ResourceUtil
      *     
      * @return path
      * @throws IOException 
-     * @throws IOException 
      */
     public static String getPathToTransformations() throws IOException 
     {
@@ -229,13 +220,13 @@ public class ResourceUtil
     	getPathToResources() + SORTINGS_DIRECTORY;
     }
     
-	/**
-	 * Generates file location (URI) independent of service location: 
-	 * in jboss .ear or stand alone  
-	 * @param fileName is a file name
-	 * @return file location
-	 * @throws IOException
-	 */
+//	/**
+//	 * Generates file location (URI) independent of service location: 
+//	 * in jboss .ear or stand alone  
+//	 * @param fileName is a file name
+//	 * @return file location
+//	 * @throws IOException
+//	 */
 //	public static String getUriToResources(final String fileName) throws IOException
 //	{
 //		URL fileURL = ResourceUtil.class.getClassLoader().getResource(fileName);
@@ -252,6 +243,11 @@ public class ResourceUtil
 //		return fileLoc;
 //	}     
 
+	/**
+	 * Gets URI to the resources
+	 * @return uri to the resources
+	 * @throws IOException
+	 */
 	public static String getUriToResources() throws IOException
 	{
 		return 
