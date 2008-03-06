@@ -38,16 +38,18 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Properties;
 
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
+import de.mpg.escidoc.services.citationmanager.ResourceUtil;
 
 /**
  * Helper class for all test classes.
  *
- * @author Johannes M&uuml;ller (initial)
+ * @author Johannes M&uuml;ller (initial) 
  * @author $Author: mfranke $ (last change)
  * @version $Revision: 63 $ $LastChangedDate: 2007-08-09 17:36:48 +0200 (Do, 09 Aug 2007) $
  */
@@ -146,15 +148,17 @@ public class TestHelper
     	}
     }
     
-    public static Properties getTestProperties(String csName)
+    public static Properties getTestProperties(String csName) throws FileNotFoundException, IOException 
     {
-    	File propsFile = new File( 
-    			ProcessCitationStyles.CITATIONSTYLES_DIRECTORY + "/" + 
-    			csName + "/" + 
-    			"test.properties" );
+    	InputStream is = ResourceUtil.getResourceAsStream(
+    			ResourceUtil.getPathToCitationStyles()
+    			+ ResourceUtil.CITATIONSTYLES_DIRECTORY 
+    			+ csName
+    			+ "/test.properties" 
+    	); 
     	Properties props = new Properties();
     	try {
-			props.load(new FileInputStream(propsFile));
+			props.load(is);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
