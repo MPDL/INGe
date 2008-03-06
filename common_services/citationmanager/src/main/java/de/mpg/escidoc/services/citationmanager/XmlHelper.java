@@ -153,8 +153,8 @@ public class XmlHelper {
      */
     public void validateSchema(final String schemaUrl, final String xmlDocumentUrl) throws CitationStyleManagerException   {    
     	try{
-    		System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
-    		"org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
+    		// System.setProperty("javax.xml.parsers.DocumentBuilderFactory",
+    		// "org.apache.xerces.jaxp.DocumentBuilderFactoryImpl");
     		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();     
     		factory.setNamespaceAware(true); 
     		factory.setValidating(true); 
