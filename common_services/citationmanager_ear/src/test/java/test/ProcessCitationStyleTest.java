@@ -46,6 +46,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
+import de.mpg.escidoc.services.citationmanager.ResourceUtil;
 
 /**
  * Test class for citation manager processing component
@@ -67,6 +68,7 @@ import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 public class ProcessCitationStyleTest extends TestCase {
 
     private Logger logger = Logger.getLogger(getClass());
+    
     private final String DEFAULT_CITSTYLE = "APA";
 	
     @Test
@@ -76,7 +78,7 @@ public class ProcessCitationStyleTest extends TestCase {
     	long exec_time = 0;
     	int FAILED = 0;
     	String cs = System.getProperty("citation.style", DEFAULT_CITSTYLE);
-    	Properties tp = TestHelper.getTestProperties(cs);
+    	Properties tp = TestHelper.getTestProperties(cs); 
     	String ds = tp.getProperty("data.source");
     	boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
     	
@@ -96,10 +98,10 @@ public class ProcessCitationStyleTest extends TestCase {
         logger.info("Number of tests: " + testsNumber);
 
         //get DataSource
-		Document document = JRXmlUtils.parse(ProcessCitationStyles.DATASOURCES_DIRECTORY + "/" + ds + ".xml");
+		Document document = JRXmlUtils.parse(ResourceUtil.DATASOURCES_DIRECTORY + ds + ".xml");
         
 		ProcessCitationStyles p = new ProcessCitationStyles();
-		File csPath = new File(ProcessCitationStyles.CITATIONSTYLES_DIRECTORY);
+		File csPath = new File(ResourceUtil.CITATIONSTYLES_DIRECTORY);
 		
 		//get xmls
         p.loadFontStylesFromXml(csPath);
