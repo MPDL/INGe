@@ -1,6 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
@@ -163,9 +161,9 @@
 	</modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>http://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17</developerConnection>
+		<url>http://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17</url>
 	</scm>
 
 	<distributionManagement>
@@ -395,11 +393,11 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername></escidoc.pubman_presentation.email.mailservername>
-				<escidoc.pubman_presentation.email.sender></escidoc.pubman_presentation.email.sender>
-				<escidoc.pubman_presentation.email.withauthentication></escidoc.pubman_presentation.email.withauthentication>
-				<escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
-				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
+				<escidoc.pubman_presentation.email.mailservername />
+				<escidoc.pubman_presentation.email.sender />
+				<escidoc.pubman_presentation.email.withauthentication />
+				<escidoc.pubman_presentation.email.authenticationuser />
+				<escidoc.pubman_presentation.email.authenticationpwd />
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
@@ -474,11 +472,11 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername></escidoc.pubman_presentation.email.mailservername>
-				<escidoc.pubman_presentation.email.sender></escidoc.pubman_presentation.email.sender>
-				<escidoc.pubman_presentation.email.withauthentication></escidoc.pubman_presentation.email.withauthentication>
-				<escidoc.pubman_presentation.email.authenticationuser></escidoc.pubman_presentation.email.authenticationuser>
-				<escidoc.pubman_presentation.email.authenticationpwd></escidoc.pubman_presentation.email.authenticationpwd>
+				<escidoc.pubman_presentation.email.mailservername />
+				<escidoc.pubman_presentation.email.sender />
+				<escidoc.pubman_presentation.email.withauthentication />
+				<escidoc.pubman_presentation.email.authenticationuser />
+				<escidoc.pubman_presentation.email.authenticationpwd />
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
