@@ -296,14 +296,13 @@ public class ViewItemSourceUI extends ContainerPanelUI
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume() + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
-                    // TODO: FrM: I sometimes get a NPE here. I think it is because of lacking parentheses, but I am not into the semantics. Have to clarify with ScT.
-                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() == null
-                    		|| !this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals(""))
+                    else if((this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() == null)
+                    		&& (!this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume()));
                     }
-                    else if(this.pubItem.getMetadata().getSources().get(i).getVolume() == null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null
-                    		|| this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals(""))
+                    else if((this.pubItem.getMetadata().getSources().get(i).getVolume() == null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null)
+                    		&& (this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(" " + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
