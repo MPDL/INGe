@@ -2,19 +2,19 @@
   <parent>
     <artifactId>pubman</artifactId>
     <groupId>de.mpg.escidoc.pubman</groupId>
-    <version>2.0.17</version>
+    <version>2.0.18-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.pubman</groupId>
   <artifactId>pubman_logic</artifactId>
   <name>pubman_logic</name>
   <packaging>ejb</packaging>
-  <version>2.0.17</version>
+  <version>2.0.18-SNAPSHOT</version>
   
   <scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17/pubman_logic</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17/pubman_logic</developerConnection>
-		<url>http://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</developerConnection>
+		<url>http://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
   
   <build>
