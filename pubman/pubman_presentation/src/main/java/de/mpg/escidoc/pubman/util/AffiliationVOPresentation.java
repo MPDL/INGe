@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
+import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 public class AffiliationVOPresentation extends AffiliationVO
@@ -53,6 +54,7 @@ public class AffiliationVOPresentation extends AffiliationVO
 	public String startSearch()
 	{
 		((AffiliationBean) getSessionBean(AffiliationBean.class)).setSelectedAffiliation(this);
+		((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(this);
 		return ((AffiliationBean) getSessionBean(AffiliationBean.class)).startSearch();
 	}
 	

@@ -14,6 +14,7 @@ import org.apache.myfaces.trinidad.model.TreeModel;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -73,6 +74,7 @@ public class AffiliationBean extends FacesBean {
 				}
 			}
 		}
+		((AffiliationDetail) getSessionBean(AffiliationDetail.class)).setAffiliationVO(selectedAffiliation);
 		logger.debug("Selected affiliation is " + selectedAffiliation);
 	}
 	
