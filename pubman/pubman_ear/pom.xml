@@ -20,38 +20,6 @@
 
 	<build>
 		<plugins>
-			<plugin><!-- copy my configuration to jboss -->
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<id>prepare-deployment</id>
-						<phase>process-resources</phase>
-						<configuration>
-							<tasks>
-								<!-- copy pubman properties to server cond -->
-								<copy file="target/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf" overwrite="true" />
-								<!-- copy validation descriptor to server -->
-								<copy file="target/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy" overwrite="true" />
-								<!--  
-									<xslt processor="trax"
-									in="/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/properties-service.xml" style="/tmp/transform.xsl"
-									out="/tmp/out.xml" />  -->
-							</tasks>
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-				<dependencies>
-					<dependency>
-						<groupId>ant</groupId>
-						<artifactId>ant-trax</artifactId>
-						<version>1.6.5</version>
-					</dependency>
-				</dependencies>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
@@ -63,6 +31,7 @@
 						<webModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
 							<artifactId>pubman_presentation</artifactId>
+							<contextRoot>/pubman</contextRoot>
 						</webModule>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -220,41 +189,41 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>endnotemanager</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -399,7 +368,7 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
-								<id>prepare-deployment</id>
+								<id>prepare-test-deployment</id>
 								<phase>generate-test-sources</phase>
 								<goals>
 									<goal>run</goal>
@@ -422,22 +391,34 @@
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
 											todir="${project.build.directory}/jboss/server/conf">
 										</copy>
-
+									</tasks>
+								</configuration>
+							</execution>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
 										<!-- configuration for the deploy jboss server -->
 										<!-- copy over the validation datasource descriptor -->
 										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml"
-											todir="${project.build.directory}/jboss/server/deploy">
+											todir="${jboss.install.dir}/server/default/deploy">
 										</copy>
 										<!-- copy over the configuration file -->
 										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
-											todir="${project.build.directory}/jboss/server/conf">
+											todir="${jboss.install.dir}/server/default/conf">
 										</copy>
 
 										<!-- configuration for the runtime server jboss server -->
-										<!--  
-											<xslt processor="trax"
-											in="/home/endres/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA/server/default/deploy/properties-service.xml" style="/tmp/transform.xsl"
-											out="/tmp/out.xml" />  -->
+										<xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml"
+											style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
+										<copy overwrite="true" file="${project.build.directory}/properties-service.temp"
+											toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
+										</copy>
+
 									</tasks>
 								</configuration>
 							</execution>
