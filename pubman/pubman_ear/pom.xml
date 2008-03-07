@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
@@ -10,12 +10,12 @@
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>2.0.17-SNAPSHOT</version>
+	<version>2.0.17</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17/pubman_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-2.0.17/pubman_ear</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/tags/pubman-2.0.17/pubman_ear</url>
 	</scm>
 
 	<build>
@@ -230,14 +230,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>2.0.17-SNAPSHOT</version>
+			<version>2.0.17</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>2.0.17-SNAPSHOT</version>
+			<version>2.0.17</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -380,16 +380,13 @@
 											<fileset dir="src/jboss/configuration42x" />
 										</copy>
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml"
-											todir="${project.build.directory}/jboss/server/deploy">
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy">
 										</copy>
 										<!-- copy over the jboss service descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml"
-											todir="${project.build.directory}/jboss/server/conf">
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf">
 										</copy>
 										<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
-											todir="${project.build.directory}/jboss/server/conf">
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf">
 										</copy>
 									</tasks>
 								</configuration>
@@ -404,19 +401,15 @@
 									<tasks>
 										<!-- configuration for the deploy jboss server -->
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml"
-											todir="${jboss.install.dir}/server/default/deploy">
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
 										</copy>
 										<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties"
-											todir="${jboss.install.dir}/server/default/conf">
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
 										</copy>
 
 										<!-- configuration for the runtime server jboss server -->
-										<xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml"
-											style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
-										<copy overwrite="true" file="${project.build.directory}/properties-service.temp"
-											toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
+										<xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
+										<copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
 										</copy>
 
 									</tasks>
