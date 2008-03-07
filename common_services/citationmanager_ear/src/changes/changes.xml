@@ -45,5 +45,6 @@
     <action dev="vmakarenko" type="fix">
         Excluded the unittests.
       </action>
+      </release>
   </body>
 </document>
