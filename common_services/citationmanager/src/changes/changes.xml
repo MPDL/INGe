@@ -41,5 +41,10 @@
         Lots of changes for the maven build environment.
       </action>
     </release>
+    <release version="1.0.1" date="2008-03-07" description="Release of all modules">
+    <action dev="vmakarenko" type="fix">
+        Corrected some path entries. Included the unittests.
+      </action>
+    </release>
   </body>
 </document>
