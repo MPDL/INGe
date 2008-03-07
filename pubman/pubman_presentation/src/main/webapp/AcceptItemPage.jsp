@@ -65,7 +65,7 @@
 										<div class="contentActions">
 											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
 											<ul>
-												<li><ui:hyperlink id="lnkHelp" onClick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#AcceptanceComment');return false" text="#{lbl.mainMenu_lnkHelp}"/></li>
+												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#AcceptanceComment');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
 												<li><h:commandLink id="lnkAccept"  value="#{lbl.AcceptItem_lnkAccept}" action="#{AcceptItem.accept}"/></li>
 												<li><h:commandLink id="lnkCancel" immediate="true"  value="#{lbl.AcceptItem_lnkCancel}" action="#{AcceptItem.cancel}"/></li>
 											</ul>

@@ -27,7 +27,6 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-<%@ page contentType="text/html" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
@@ -39,19 +38,19 @@
 		</h1>
 		<h:panelGrid columns="2" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
 			<h:outputText styleClass="itemInformation" value="Publication:" />
-			<h:outputText styleClass="itemInformation" value="#{acceptItemAcceptItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
+			<h:outputText styleClass="itemInformation" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
 
 			<h:outputText styleClass="itemInformation" value="Creator:" />
-			<h:outputText styleClass="itemInformation" value="#{acceptItemAcceptItem.creators}"/>
+			<h:outputText styleClass="itemInformation" value="#{AcceptItem.creators}"/>
 		</h:panelGrid>
 		
 		<h:panelGrid style="margin-bottom: 20px;">
-			<h:outputText binding="#{acceptItemAcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus" rendered="#{acceptItemAcceptItem.valMessage != null}"/>
+			<h:outputText value="#{AcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus" rendered="#{AcceptItem.valMessage != null}"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panContent" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
 			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.AcceptItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" style="height: 60px; width: 320px" binding="#{acceptItemAcceptItem.acceptanceComment}"/>
+			<h:inputTextarea id="txtaComment" style="height: 60px; width: 320px" binding="#{AcceptItem.acceptanceComment}"/>
 		</h:panelGrid>
 	</f:subview>
 </div>
