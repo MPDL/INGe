@@ -21,26 +21,6 @@
 	<build>
 		<plugins>
 			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.1</version>
-				<executions>
-					<execution>
-						<id>prepare-deployment</id>
-						<phase>cargo:configure</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<tasks>
-								<copy overwrite="true" file="target/classes/validation-ds.xml" todir="target/jboss/server/deploy"></copy>
-								<copy overwrite="true" file="target/classes/pubman.properties" todir="target/jboss/server/conf"></copy>
-								<sleep seconds="3"></sleep>
-							</tasks>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
@@ -126,6 +106,11 @@
 							<artifactId>wss4j</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>com.lowagie</groupId>
+							<artifactId>itext</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -206,41 +191,41 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>endnotemanager</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -309,6 +294,12 @@
 			<groupId>postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>8.1-404.jdbc3</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.lowagie</groupId>
+			<artifactId>itext</artifactId>
+			<version>1.3.1</version>
 			<scope>runtime</scope>
 		</dependency>
 	</dependencies>
