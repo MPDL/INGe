@@ -84,8 +84,8 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>1.5</source>
-							<target>1.5</target>
+							<source>${jdk.version}</source>
+							<target>${jdk.version}</target>
 						</configuration>
 					</execution>
 				</executions>
