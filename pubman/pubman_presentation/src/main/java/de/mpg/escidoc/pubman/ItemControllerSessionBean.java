@@ -1272,6 +1272,14 @@ public class ItemControllerSessionBean extends FacesBean
         }
         releaseList = this.xmlTransforming.transformToPubItemVersionVOList(xmlReleaseList);
 
+        // Remove non-released versions.
+        for (int i = releaseList.size() - 1; i >= 0; i--) {
+			if (releaseList.get(i).getState() != PubItemVO.State.RELEASED)
+			{
+				releaseList.remove(i);
+			}
+		}
+        
         return releaseList;
     }
     

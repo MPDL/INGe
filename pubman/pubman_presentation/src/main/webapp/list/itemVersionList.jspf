@@ -37,14 +37,14 @@ All rights reserved. Use is subject to license terms.
 			<h:dataTable id="listtable" var="item" value="#{ItemVersionListSessionBean.versionList}" rowClasses="odd, even">
 				<h:column>
 					<h:panelGroup styleClass="listItemHeader">
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}:#{item.reference.versionNumber}" >
+						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}" >
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{item.reference.versionNumber}"/>
 						</h:outputLink>
 					</h:panelGroup>
 				</h:column>
 				<h:column>
 					<h:panelGroup styleClass="listItemHeader">
-						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate}: #{item.modificationDate}"/>
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{item.modificationDate}"/>
 					</h:panelGroup>
 				</h:column>
 			</h:dataTable>

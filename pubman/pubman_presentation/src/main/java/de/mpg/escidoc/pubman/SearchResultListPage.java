@@ -76,7 +76,7 @@ public class SearchResultListPage extends BreadcrumbPage
         // Perform initializations inherited from our superclass
         super.init();
 
-        this.getViewItemSessionBean().setHasBeenRedirected(false);
+        this.getViewItemSessionBean().setHasBeenRedirected(true);
 
         ExportItems fragment = (ExportItems) getSessionBean(ExportItems.class);
         fragment.disableExportPanComps(false);

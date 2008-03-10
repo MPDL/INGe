@@ -97,7 +97,7 @@ public class DepositorWSPage extends BreadcrumbPage
             logger.error("Could not login." + "\n" + e.toString());
         }
         
-        this.getViewItemSessionBean().setHasBeenRedirected(false);
+        this.getViewItemSessionBean().setHasBeenRedirected(true);
         
         //redirect to the referring GUI Tool page if the application has been started as GUI Tool
         CommonSessionBean sessionBean = getCommonSessionBean();

@@ -165,8 +165,7 @@ public class ViewItemFull extends FacesBean
         
         if(this.pubItem != null)
         {
-            LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver()
-            .resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+            LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
             boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getPubCollection());
