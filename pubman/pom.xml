@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>2.0.18-SNAPSHOT</version>
+	<version>2.0.17</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -343,7 +343,7 @@
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.5</targetJdk>
+					<targetJdk>${jdk.version}</targetJdk>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -359,6 +359,9 @@
 		<profile>
 			<id>env-development</id>
 			<properties>
+			<!-- the jdk version to use -->
+				<jdk.version>1.5</jdk.version>
+				
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
@@ -440,6 +443,9 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
+			<!-- the jdk version to use -->
+				<jdk.version>1.5</jdk.version>
+				
 				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
