@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
@@ -324,7 +325,7 @@
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
-					<targetJdk>1.5</targetJdk>
+					<targetJdk>${jdk.version}</targetJdk>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -340,11 +341,16 @@
 		<profile>
 			<id>env-development</id>
 			<properties>
+				<!-- the jdk version to use -->
+				<jdk.version>1.5</jdk.version>
+				
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
-				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
+				<cargo.jvmargs>
+					-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties
+				</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
@@ -413,11 +419,16 @@
 				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
+				<!-- the jdk version to use -->
+				<jdk.version>1.5</jdk.version>
+
 				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
-				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
+				<cargo.jvmargs>
+					-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties
+				</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
