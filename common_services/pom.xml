@@ -508,7 +508,6 @@
 			<id>Windows</id>
 			<activation>
 				<os>
-					<name>Windows</name>
 					<family>windows</family>
 				</os>
 			</activation>
@@ -521,6 +520,7 @@
 			<!-- this profile gets activated if os is linux -->
 			<id>Linux</id>
 			<activation>
+
 				<os>
 					<name>Linux</name>
 					<family>linux</family>
