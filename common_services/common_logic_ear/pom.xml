@@ -283,7 +283,7 @@
 							</container>
 							<configuration>
 								<type>existing</type>
-								<home>/${project.build.directory}/jboss/server</home>
+								<home>${project.build.directory}/jboss/server</home>
 								<properties>
 									<cargo.servlet.port>${cargo.port}</cargo.servlet.port>
 									<cargo.rmi.port>${cargo.rmi.port}</cargo.rmi.port>
