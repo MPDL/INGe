@@ -536,7 +536,6 @@
 			<id>Windows</id>
 			<activation>
 				<os>
-					<name>Windows</name>
 					<family>windows</family>
 				</os>
 			</activation>
