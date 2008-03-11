@@ -37,14 +37,14 @@ import org.junit.runners.Suite;
  * @author Peter Broszeit (initial creation)
  * @author $Author: wfrank $ (last modification)
  * @version $Revision: 329 $ $LastChangedDate: 2007-12-06 09:44:45 +0100 (Thu, 06 Dec 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 11.03.2008
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({//TestContext.class
-                    TestItem.class
-                    //,TestRelation.class
-                    //,TestItemRetrieve.class
-                    //,TestContainer.class
+@Suite.SuiteClasses({TestContext.class
+                    ,TestItem.class
+                    ,TestRelation.class
+                    ,TestItemRetrieve.class
+                    ,TestContainer.class
                     })
 public class TestObjectManager
 {

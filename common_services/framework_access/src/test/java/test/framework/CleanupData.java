@@ -30,9 +30,10 @@ package test.framework;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
+
+import test.framework.aa.CleanupUserData;
 import test.framework.om.CleanupContextData;
 import test.framework.oum.CleanupOrgUnitData;
-import test.framework.um.CleanupUserData;
 
 /**
  * Test of the eSciDoc-Framework services.

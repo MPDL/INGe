@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item:item
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.4"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:item="http://www.escidoc.de/schemas/item/0.4"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	objid="escidoc:testitem1">
+	<item:properties>
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent6" />
+		<prop:content-model-specific></prop:content-model-specific>
+	</item:properties>
+	<md-records:md-records>
+		<md-records:md-record name="escidoc">
+			<dc-md>
+				<dc:title
+					xmlns:dc="http://purl.org/dc/elements/1.1/">Quasiparticle calculations for point defects at semiconductor surfaces</dc:title>
+				<dc:description
+					xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:description>
+				<dc:format
+					xmlns:dc="http://purl.org/dc/elements/1.1/">application/pdf</dc:format>
+			</dc-md>
+		</md-records:md-record>
+	</md-records:md-records>
+	<escidocComponents:components>
+		<escidocComponents:component>
+			<escidocComponents:properties>
+				<prop:description>The full text of the publication.</prop:description>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>pre-print</prop:content-category>
+				<prop:file-name>schindlmayr-springer.pdf</prop:file-name>
+				<prop:mime-type>application/pdf</prop:mime-type>
+				<prop:file-size>649066</prop:file-size>
+			</escidocComponents:properties>
+			<escidocComponents:content xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="XXX_CONTENT_REF_XXX" />
+		</escidocComponents:component>
+	</escidocComponents:components>
+</item:item>
+

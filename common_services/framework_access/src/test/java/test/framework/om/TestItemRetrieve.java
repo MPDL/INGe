@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestItemRetrieve extends TestItemBase
 {
-    private static final String FILTER_NONE = "<param><filter name=\"created-by\">" + ILLEGAL_ID + "</filter></param>";
+    private static final String FILTER_NONE = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">" + ILLEGAL_ID + "</filter></param>";
 
     private Logger logger = Logger.getLogger(getClass());
 
@@ -75,7 +75,7 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrievePublicReleasedItems() throws Exception
     {
-        String filter = "<param><filter name=\"latest-version-status\">released</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler().retrieveItems(filter);
@@ -92,7 +92,7 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrievePendingContentItems() throws Exception
     {
-        String filter = "<param><filter name=\"latest-version-status\">pending</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">pending</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -109,7 +109,7 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveOwnContentItems() throws Exception
     {
-        String filter = "<param><filter name=\"created-by\">" + USERID + "</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/created-by\">" + USERID + "</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -133,7 +133,7 @@ public class TestItemRetrieve extends TestItemBase
         ids[1] = getId(item);
         item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
         ids[2] = getId(item);
-        String filter = "<param><filter name=\"items\">" + "<id>" + ids[0] + "</id>" + "<id>" + ids[1] + "</id>" + "<id>" + ids[2] + "</id>" + "</filter></param>";
+        String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">" + "<id>" + ids[0] + "</id>" + "<id>" + ids[1] + "</id>" + "<id>" + ids[2] + "</id>" + "</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -151,7 +151,7 @@ public class TestItemRetrieve extends TestItemBase
     public void retrieveContentItemsOfTypePublication() throws Exception
     {
         String item = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_FILE));
-        String filter = "<param><filter name=\"content-model\">" + PUBITEM_TYPE_ID + "</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + PUBITEM_TYPE_ID + "</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -168,7 +168,7 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrieveContentItemsOfNotExistingType() throws Exception
     {
-        String filter = "<param><filter name=\"content-model\">" + ILLEGAL_ID + "</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + ILLEGAL_ID + "</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
@@ -202,7 +202,7 @@ public class TestItemRetrieve extends TestItemBase
     @Test
     public void retrievePendingContentItemRefs() throws Exception
     {
-        String filter = "<param><filter name=\"latest-version-status\">pending</filter></param>";
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/properties/public-status\">pending</filter></param>";
         logger.debug("Filter=" + filter);
         long zeit = -System.currentTimeMillis();
         String items = ServiceLocator.getItemHandler(userHandle).retrieveItemRefs(filter);

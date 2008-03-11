@@ -42,7 +42,7 @@
 							${escidoc.framework_access.framework.url}/axis/services/RoleHandlerService?wsdl
 						</url>
 						<url>
-							${escidoc.framework_access.framework.url}/axis/services/ContentTypeHandlerService?wsdl
+							${escidoc.framework_access.framework.url}/axis/services/ContentModelHandlerService?wsdl
 						</url>
 						<url>
 							${escidoc.framework_access.framework.url}/axis/services/ContextHandlerService?wsdl
@@ -74,6 +74,18 @@
 						<url>
 							${escidoc.framework_access.framework.url}/srw/search?wsdl
 						</url>
+						<url>
+							${escidoc.framework_access.framework.url}/axis/services/WorkflowDefinitionHandlerService?wsdl
+						</url>
+						<url>
+							${escidoc.framework_access.framework.url}/axis/services/WorkflowInstanceHandlerService?wsdl
+						</url>
+						<url>
+							${escidoc.framework_access.framework.url}/axis/services/WorkflowTemplateHandlerService?wsdl
+						</url>
+						<url>
+							${escidoc.framework_access.framework.url}/axis/services/WorkflowTypeHandlerService?wsdl
+						</url>
 					</urls>
 					<mappings>
 						<mapping>
@@ -81,7 +93,7 @@
 								http://www.escidoc.de/services/OrganizationalUnitHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.oum
+								de.escidoc.www.services.oum
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -89,7 +101,7 @@
 								http://www.escidoc.de/services/UserManagementWrapperService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.um
+								de.escidoc.www.services.aa
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -97,7 +109,7 @@
 								http://www.escidoc.de/services/UserAccountHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.um
+								de.escidoc.www.services.aa
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -105,15 +117,15 @@
 								http://www.escidoc.de/services/RoleHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.um
+								de.escidoc.www.services.aa
 							</targetPackage>
 						</mapping>
 						<mapping>
 							<namespace>
-								http://www.escidoc.de/services/ContentTypeHandlerService/0.1
+								http://www.escidoc.de/services/ContentModelHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.ctm
+								de.escidoc.www.services.cmm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -121,7 +133,7 @@
 								http://www.escidoc.de/services/ContextHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.om
+								de.escidoc.www.services.om
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -129,7 +141,7 @@
 								http://www.escidoc.de/services/ItemHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.om
+								de.escidoc.www.services.om
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -137,7 +149,7 @@
 								http://www.escidoc.de/services/SemanticStoreHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.ssh
+								de.escidoc.www.services.ssh
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -145,7 +157,7 @@
 								http://www.escidoc.de/services/ScopeHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.sm
+								de.escidoc.www.services.sm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -153,7 +165,7 @@
 								http://www.escidoc.de/services/AggregationDefinitionHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.sm
+								de.escidoc.www.services.sm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -161,7 +173,7 @@
 								http://www.escidoc.de/services/StatisticDataHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.sm
+								de.escidoc.www.services.sm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -169,7 +181,7 @@
 								http://www.escidoc.de/services/ReportDefinitionHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.sm
+								de.escidoc.www.services.sm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -177,7 +189,7 @@
 								http://www.escidoc.de/services/ReportHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.sm
+								de.escidoc.www.services.sm
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -185,7 +197,7 @@
 								http://www.escidoc.de/services/ContainerHandlerService/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.om
+								de.escidoc.www.services.om
 							</targetPackage>
 						</mapping>
 						<mapping>
@@ -193,7 +205,39 @@
 								http://www.escidoc.de/srw/search/0.1
 							</namespace>
 							<targetPackage>
-								de.fiz.escidoc.search
+								de.escidoc.www.services.sb
+							</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>
+								http://www.escidoc.de/services/WorkflowDefinitionHandlerService/0.1
+							</namespace>
+							<targetPackage>
+								de.escidoc.www.services.wm
+							</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>
+								http://www.escidoc.de/services/WorkflowInstanceHandlerService/0.1
+							</namespace>
+							<targetPackage>
+								de.escidoc.www.services.wm
+							</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>
+								http://www.escidoc.de/services/WorkflowTemplateHandlerService/0.1
+							</namespace>
+							<targetPackage>
+								de.escidoc.www.services.wm
+							</targetPackage>
+						</mapping>
+						<mapping>
+							<namespace>
+								http://www.escidoc.de/services/WorkflowTypeHandlerService/0.1
+							</namespace>
+							<targetPackage>
+								de.escidoc.www.services.wm
 							</targetPackage>
 						</mapping>
 					</mappings>

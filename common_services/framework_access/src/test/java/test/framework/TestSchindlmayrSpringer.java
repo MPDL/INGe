@@ -55,29 +55,29 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 import test.framework.om.TestItemBase;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.application.violated.LockingException;
-import de.fiz.escidoc.common.exceptions.application.violated.OptimisticLockingException;
-import de.fiz.escidoc.common.exceptions.system.FedoraSystemException;
-import de.fiz.escidoc.common.exceptions.system.KowariSystemException;
-import de.fiz.escidoc.common.exceptions.system.PIDGeneratorSystemException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
-import de.fiz.escidoc.common.exceptions.system.XmlParserSystemException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.application.violated.LockingException;
+import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
+import de.escidoc.core.common.exceptions.system.FedoraSystemException;
+// import de.fiz.escidoc.common.exceptions.system.KowariSystemException;
+// import de.escidoc.core.common.exceptions.system.PIDGeneratorSystemException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.escidoc.core.common.exceptions.system.XmlParserSystemException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Test cases for the schindlmayr-springer item.
  *
  * @author Peter (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 10.03.2008
  */ 
 public class TestSchindlmayrSpringer extends TestItemBase
 {
@@ -177,7 +177,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     private String update(String item) throws LockingException, MissingMethodParameterException,
             InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
             SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
-            KowariSystemException, RemoteException, ServiceException
+            RemoteException, ServiceException
     {
         String id = getId(item);
         String updatedItem = ServiceLocator.getItemHandler(userHandle).update(id, item);
@@ -188,7 +188,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     private void submit(String item) throws LockingException, MissingMethodParameterException,
             InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
             SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
-            KowariSystemException, RemoteException, ServiceException
+            RemoteException, ServiceException
     {
         String id = getId(item);
         String md = getModificationDate(item);
@@ -197,7 +197,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
         return;
     }
 
-    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, PIDGeneratorSystemException, AuthenticationException, AuthorizationException, SystemException, RemoteException, ServiceException
+    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException, AuthorizationException, SystemException, RemoteException, ServiceException
     {
         String id = getVersion(item);
         String md = getModificationDate(item);

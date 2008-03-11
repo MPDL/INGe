@@ -59,7 +59,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestFile extends TestBase
 { 
-    private static final String ITEM_FILE = "src/test/resources/test/TestFile/schindlmayr-springer.xml";
+    private static final String ITEM_FILE = "src/test/resources/test/TestFile/new_schindlmayr-springer.xml";
     private static final String COMPONENT_FILE = "src/test/resources/test/TestFile/schindlmayr-springer.pdf";
     private static final String MIME_TYPE = "application/pdf";
 
@@ -121,7 +121,7 @@ public class TestFile extends TestBase
         // Extract the href and create the method.
         String href = getValue(
                 document,
-                "//*[local-name() = 'content' and namespace-uri() = 'http://www.escidoc.de/schemas/components/0.3']/@*[local-name() = 'href' and namespace-uri() = 'http://www.w3.org/1999/xlink']");
+                "//*[local-name() = 'content' and namespace-uri() = 'http://www.escidoc.de/schemas/components/0.4']/@*[local-name() = 'href' and namespace-uri() = 'http://www.w3.org/1999/xlink']");
         assertNotNull(href);
         logger.debug("href=" + href);
         String url = ServiceLocator.getFrameworkUrl() + href;

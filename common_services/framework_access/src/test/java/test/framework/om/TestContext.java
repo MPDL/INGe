@@ -35,16 +35,16 @@ import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import test.framework.TestBase;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service ContextHandler.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class TestContext extends TestBase
 {
@@ -172,7 +172,7 @@ public class TestContext extends TestBase
     /**
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveMembers(java.lang.String,java.lang.String)}.
      */
-    @Test
+/*    @Test
     public void retrieveMembers() throws Exception
     {
         String id = PUBMAN_COLLECTION_ID;
@@ -184,11 +184,11 @@ public class TestContext extends TestBase
         logger.debug("Members(" + id + ")=" + members);
         assertNotNull(members);
     }
-
+*/
     /**
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveContexts(java.lang.String,java.lang.String)}.
      */
-    @Test
+/*    @Test
     public void retrieveMembersNotExisting() throws Exception
     {
         String id = PUBMAN_COLLECTION_ID;
@@ -200,7 +200,7 @@ public class TestContext extends TestBase
         logger.debug("Members(" + id + ")=" + members);
         assertNotNull(members);
     }
-
+*/
     /**
      * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveContexts(java.lang.String,java.lang.String)}.
      */

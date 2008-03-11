@@ -26,34 +26,33 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */ 
-package test.framework.um;
+package test.framework.aa;
 
 import static org.junit.Assert.assertNotNull;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 import test.framework.TestBase;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Shows all stored users.
  *
  * @author Peter (initial creation)
  * @author $Author: pbroszei $ (last modification)
- * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
+ * @version $Revision: 284 $ $LastChangedDate: 2007-10-09 10:22:45 +0200 (Di, 09 Okt 2007) $
  * @revised by BrP: 04.09.2007
  */
-public class TestShowUserData extends TestBase
+public class CleanupUserData extends TestBase
 {
     private Logger logger = Logger.getLogger(getClass());
 
-    private void showUser(String user) throws Exception
+    private void deleteUser(String user) throws Exception
     {
         final String xPath = "//user-account[1]";
         final String attributes[] = {"objid"};
-        final String nodes[] = {"login-name","name","email","active"};
+        final String nodes[] = {"login-name"};//,"name","email","active"};
         Document doc = getDocument(user, false);        
         logger.info(LINE);
         for (int i=0; i<attributes.length; ++i)
@@ -67,26 +66,26 @@ public class TestShowUserData extends TestBase
         }
     }
     
-    private void showGrants(String grants) throws Exception
-    {
-        Document grantsDoc = getDocument(grants, false);
-        NodeList nodelist = selectNodeList(grantsDoc, "//current-grants/grant");
-        for (int i=0; i<nodelist.getLength(); ++i)
-        {
-            String xpath = "//grant[" + i + "]/properties/";
-            String roleId = getAttributeValue(nodelist.item(i), "properties/role", "objid");
-            logger.info("Role[" + i + "]: " + roleId);
-            try
-            {
-                String objectId = getAttributeValue(nodelist.item(i), "properties/object", "objid");
-                logger.info("Object[" + i + "]: " + objectId);
-            }
-            catch(Exception e)
-            {
-                logger.debug(e.getLocalizedMessage());
-            }
-        }
-    }
+//    private void showGrants(String grants) throws Exception
+//    {
+//        Document grantsDoc = getDocument(grants, false);
+//        NodeList nodelist = XPathAPI.selectNodeList(grantsDoc, "//current-grants/grant");
+//        for (int i=0; i<nodelist.getLength(); ++i)
+//        {
+//            String xpath = "//grant[" + i + "]/properties/";
+//            String roleId = getAttributeValue(nodelist.item(i), "properties/role", "objid");
+//            logger.info("Role[" + i + "]: " + roleId);
+//            try
+//            {
+//                String objectId = getAttributeValue(grantsDoc, "properties/object", "objid");
+//                logger.info("Object[" + i + "]: " + objectId);
+//            }
+//            catch(Exception e)
+//            {
+//                logger.debug(e.getLocalizedMessage());
+//            }
+//        }
+//    }
 
     /* (non-Javadoc)
      * @see test.framework.TestBase#setUp()
@@ -102,10 +101,6 @@ public class TestShowUserData extends TestBase
     @Test
     public void showUsers() throws Exception
     {
-        //TODO REMOVE MuJ
-        logger.info("Framework-URL: "+ServiceLocator.getFrameworkUrl());
-        // REMOVE END
-        
         String loginnames[] = { "roland"
                               , "inspector"
                               , "test_dep_scientist"
@@ -118,13 +113,13 @@ public class TestShowUserData extends TestBase
             String user = ServiceLocator.getUserAccountHandler(userHandle).retrieve(loginnames[i]);
             logger.debug("user=" + user);
             assertNotNull(user);
-            showUser(user);
-            String id = getAttributeValue(getDocument(user, false), "//user-account[1]", "objid");             
-            assertNotNull(id);
-            String grants = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(id);
-            logger.debug("grants=" + grants);
-            assertNotNull(grants);
-            showGrants(grants);
+            deleteUser(user);
+//            String id = getAttributeValue(getDocument(user, false), "//user-account[1]", "objid");             
+//            assertNotNull(id);
+//            String grants = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(id);
+//            logger.debug("grants=" + grants);
+//            assertNotNull(grants);
+//            showGrants(grants);
         }
     }
 }

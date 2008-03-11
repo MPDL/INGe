@@ -34,24 +34,24 @@ import static org.junit.Assert.assertFalse;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service ItemHandler.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: nbulatov $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 325 $ $LastChangedDate: 2007-11-28 18:07:29 +0100 (Wed, 28 Nov 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class TestItem extends TestItemBase
 {
     private Logger logger = Logger.getLogger(getClass());
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#create(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#create(java.lang.String)}.
      */
     @Test
     public void createContentItem() throws Exception
@@ -66,7 +66,7 @@ public class TestItem extends TestItemBase
     }
 
      /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveContentItem() throws Exception
@@ -83,7 +83,7 @@ public class TestItem extends TestItemBase
     }
 
      /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#retrieve(java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void retrieveContentItemNotExisting() throws Exception
@@ -103,7 +103,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#retrieve(java.lang.String)}.
      */
     @Ignore("Because of bug #xxx")
     @Test
@@ -130,7 +130,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
      */
     @Test
     public void updateContentItem() throws Exception
@@ -144,7 +144,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void updateContentItemNotExisting() throws Exception
@@ -164,7 +164,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#delete(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#delete(java.lang.String)}.
      */
     @Test
     public void deleteContentItem() throws Exception
@@ -178,7 +178,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#delete(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#delete(java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void deleteContentItemNotExisting() throws Exception
@@ -197,7 +197,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#submit(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#submit(java.lang.String,java.lang.String)}.
      */
     @Test
     public void submitContentItem() throws Exception
@@ -212,7 +212,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#submit(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#submit(java.lang.String,java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void submitContentItemNotExisting() throws Exception
@@ -232,7 +232,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
     @Test
     public void releaseContentItem() throws Exception
@@ -250,7 +250,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void releaseContentItemNotExisting() throws Exception
@@ -271,7 +271,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#update(java.lang.String,java.lang.String)}.
      */
     @Test
     public void modifyContentItem() throws Exception
@@ -286,6 +286,7 @@ public class TestItem extends TestItemBase
         ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
         item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
         long zeit = -System.currentTimeMillis();
+        item = item.replace("NEW", "UPDATED");
         item = ServiceLocator.getItemHandler(userHandle).update(id, item);
         assertFalse(md.equals(getModificationDate(item)));
         zeit += System.currentTimeMillis();
@@ -294,7 +295,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#assignVersionPid
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
      */
     @Test
     public void assignPidToContentItem() throws Exception
@@ -322,7 +323,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#assignVersionPid
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#assignVersionPid
      */
     @Test(expected = ItemNotFoundException.class)
     public void assignPidToContentItemNotExisting() throws Exception
@@ -346,7 +347,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
     @Test
     public void withdrawContentItem() throws Exception
@@ -372,7 +373,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void withdrawContentItemNotExisting() throws Exception
@@ -395,7 +396,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#release(java.lang.String,java.lang.String)}.
      */
     @Test(expected = AuthorizationException.class)
     public void withdrawContentItemNotAuthorized() throws Exception
@@ -425,7 +426,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveVersionHistory(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#retrieveVersionHistory(java.lang.String)}.
      */
     @Test
     public void retrieveContentItemHistory() throws Exception
@@ -452,7 +453,7 @@ public class TestItem extends TestItemBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.om.ItemHandlerLocal#retrieveVersionHistory(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.om.ItemHandlerLocal#retrieveVersionHistory(java.lang.String)}.
      */
     @Test(expected = ItemNotFoundException.class)
     public void retrieveContentItemHistoryNotExisting() throws Exception

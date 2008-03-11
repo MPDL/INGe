@@ -33,29 +33,29 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import test.framework.TestBase;
-import de.fiz.escidoc.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service OrganizationalUnitHandler.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 04.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class TestRetrieveOrganizationalUnit extends TestBase
 {
     private static final String ORGUNIT_ID = "escidoc:persistent1";
     private static final String FILTER_ALL = "<param></param>";
-    private static final String FILTER_BY_ID = "<param> <filter name=\"organizational-units\"><id>" + ORGUNIT_ID
+    private static final String FILTER_BY_ID = "<param> <filter name=\"http://purl.org/dc/elements/1.1/identifier\"><id>" + ORGUNIT_ID
             + "</id><id>escidoc:99999</id></filter></param>";
     private static final String FILTER_TOP_LEVEL = "<param><filter name=\"top-level-organizational-units\"/></param>";
 
     private Logger logger = Logger.getLogger(getClass());
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveOrganizationalUnit() throws Exception
@@ -71,7 +71,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveOrganizationalUnitWithSysAdmin() throws Exception
@@ -86,7 +86,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieve(java.lang.String)}.
      */
     @Test(expected = OrganizationalUnitNotFoundException.class)
     public void retrieveOrganizationalUnitNotExisting() throws Exception
@@ -100,7 +100,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieveParents(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieveParents(java.lang.String)}.
      */
     @Test
     public void retrieveParents() throws Exception
@@ -115,14 +115,14 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieveChildren(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieveChildren(java.lang.String)}.
      */
     @Test
     public void retrieveChildren() throws Exception
     {
         String id = ORGUNIT_ID;
         long zeit = -System.currentTimeMillis();
-        String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildren(id);
+        String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(id);
         zeit += System.currentTimeMillis();
         logger.info("retrieveChildren(" + id + ")->" + zeit + "ms");
         logger.debug("Children(" + id + ")=" + children);
@@ -131,7 +131,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
 
     /**
      * Test method for
-     * {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieveOrganizationalUnits(java.lang.String)}.
+     * {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieveOrganizationalUnits(java.lang.String)}.
      */
     @Test
     public void retrieveOrganizationalUnitsByID() throws Exception
@@ -147,7 +147,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
 
     /**
      * Test method for
-     * {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrieveOrganizationalUnits(java.lang.String)}.
+     * {@link de.escidoc.www.services.oum.OrganizationalUnitHandlerRemote#retrieveOrganizationalUnits(java.lang.String)}.
      */
     @Test
     public void retrieveTopLevelOrganizationalUnits() throws Exception
@@ -162,7 +162,7 @@ public class TestRetrieveOrganizationalUnit extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote#retrievePathList(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.oum.OrganizationalUnitHandler#retrievePathList(java.lang.String)}.
      */
     @Test
     public void retrieveOrganizationalUnitPathList() throws Exception

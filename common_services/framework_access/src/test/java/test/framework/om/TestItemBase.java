@@ -43,9 +43,8 @@ public class TestItemBase extends TestBase
     /**
      * A XML-file with the test item. 
      */
-    protected  static final String ITEM_FILE = "src/test/resources/test/item_without_components.xml";
-    protected  static final String CONTAINER_FILE = "src/test/resources/test/container1.xml";
-
+    protected  static final String ITEM_FILE = "src/test/resources/test/new_testitem1.xml";
+    protected  static final String CONTAINER_FILE = "src/test/resources/test/new_testcont1.xml";
     protected static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
     /**

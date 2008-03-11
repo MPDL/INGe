@@ -26,7 +26,7 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */ 
-package test.framework.um;
+package test.framework.aa;
 
 import static org.junit.Assert.assertNotNull;
 import org.apache.log4j.Logger;
@@ -38,16 +38,16 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * Testcases for the basic service UserAccountHandler.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 04.09.2007
+ * @revised by BrP: 11.03.2008
  */
 public class TestRetrieveUserAccount extends TestBase
 {
     private Logger logger = Logger.getLogger(getClass());
 
     /**
-     * Test method for {@link de.fiz.escidoc.um.UserAccountHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.aa.UserAccountHandler#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveUserAcountById() throws Exception
@@ -62,7 +62,7 @@ public class TestRetrieveUserAccount extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.um.UserAccountHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.aa.UserAccountHandler#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveUserAcountByHandle() throws Exception
@@ -76,7 +76,7 @@ public class TestRetrieveUserAccount extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.um.UserAccountHandlerRemote#retrieve(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.aa.UserAccountHandler#retrieve(java.lang.String)}.
      */
     @Test
     public void retrieveUserAcountByLoginName() throws Exception
@@ -91,7 +91,7 @@ public class TestRetrieveUserAccount extends TestBase
     }
 
     /**
-     * Test method for {@link de.fiz.escidoc.um.UserAccountHandlerRemote#retrieveCurrentGrants(java.lang.String)}.
+     * Test method for {@link de.escidoc.www.services.aa.UserAccountHandler#retrieveCurrentGrants(java.lang.String)}.
      */
     @Test
     public void retrieveCurrentGrants() throws Exception

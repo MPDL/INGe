@@ -30,12 +30,13 @@ package test.framework;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
-import test.framework.ctm.TestContentTypeModeller;
+
+import test.framework.aa.TestUserManagement;
+import test.framework.cmm.TestContentTypeModeller;
 import test.framework.om.TestObjectManager;
 import test.framework.oum.TestOrganizationalUnitManager;
 import test.framework.sb.TestSearch;
 import test.framework.st.TestStagingService;
-import test.framework.um.TestUserManagement;
 
 /**
  * Test of the eSciDoc-Framework services.

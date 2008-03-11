@@ -39,32 +39,32 @@ import org.apache.axis.client.Stub;
 import org.apache.axis.configuration.FileProvider;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.handler.WSHandlerConstants;
-import de.fiz.escidoc.ctm.ContentTypeHandlerRemote;
-import de.fiz.escidoc.ctm.ContentTypeHandlerRemoteServiceLocator;
-import de.fiz.escidoc.om.ContainerHandlerRemote;
-import de.fiz.escidoc.om.ContainerHandlerRemoteServiceLocator;
-import de.fiz.escidoc.om.ContextHandlerRemote;
-import de.fiz.escidoc.om.ContextHandlerRemoteServiceLocator;
-import de.fiz.escidoc.om.ItemHandlerRemote;
-import de.fiz.escidoc.om.ItemHandlerRemoteServiceLocator;
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote;
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemoteServiceLocator;
-import de.fiz.escidoc.sm.AggregationDefinitionHandlerRemote;
-import de.fiz.escidoc.sm.AggregationDefinitionHandlerRemoteServiceLocator;
-import de.fiz.escidoc.sm.ReportDefinitionHandlerRemote;
-import de.fiz.escidoc.sm.ReportDefinitionHandlerRemoteServiceLocator;
-import de.fiz.escidoc.sm.ReportHandlerRemote;
-import de.fiz.escidoc.sm.ReportHandlerRemoteServiceLocator;
-import de.fiz.escidoc.sm.ScopeHandlerRemote;
-import de.fiz.escidoc.sm.ScopeHandlerRemoteServiceLocator;
-import de.fiz.escidoc.sm.StatisticDataHandlerRemote;
-import de.fiz.escidoc.sm.StatisticDataHandlerRemoteServiceLocator;
-import de.fiz.escidoc.ssh.SemanticStoreHandlerRemote;
-import de.fiz.escidoc.ssh.SemanticStoreHandlerRemoteServiceLocator;
-import de.fiz.escidoc.um.UserAccountHandlerRemote;
-import de.fiz.escidoc.um.UserAccountHandlerRemoteServiceLocator;
-import de.fiz.escidoc.um.UserManagementWrapperRemote;
-import de.fiz.escidoc.um.UserManagementWrapperRemoteServiceLocator;
+import de.escidoc.www.services.cmm.ContentModelHandler;
+import de.escidoc.www.services.cmm.ContentModelHandlerServiceLocator;
+import de.escidoc.www.services.om.ContainerHandler;
+import de.escidoc.www.services.om.ContainerHandlerServiceLocator;
+import de.escidoc.www.services.om.ContextHandler;
+import de.escidoc.www.services.om.ContextHandlerServiceLocator;
+import de.escidoc.www.services.om.ItemHandler;
+import de.escidoc.www.services.om.ItemHandlerServiceLocator;
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
+import de.escidoc.www.services.oum.OrganizationalUnitHandlerServiceLocator;
+import de.escidoc.www.services.sm.AggregationDefinitionHandler;
+import de.escidoc.www.services.sm.AggregationDefinitionHandlerServiceLocator;
+import de.escidoc.www.services.sm.ReportDefinitionHandler;
+import de.escidoc.www.services.sm.ReportDefinitionHandlerServiceLocator;
+import de.escidoc.www.services.sm.ReportHandler;
+import de.escidoc.www.services.sm.ReportHandlerServiceLocator;
+import de.escidoc.www.services.sm.ScopeHandler;
+import de.escidoc.www.services.sm.ScopeHandlerServiceLocator;
+import de.escidoc.www.services.sm.StatisticDataHandler;
+import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
+import de.escidoc.www.services.ssh.SemanticStoreHandler;
+import de.escidoc.www.services.ssh.SemanticStoreHandlerServiceLocator;
+import de.escidoc.www.services.aa.UserAccountHandler;
+import de.escidoc.www.services.aa.UserAccountHandlerServiceLocator;
+import de.escidoc.www.services.aa.UserManagementWrapper;
+import de.escidoc.www.services.aa.UserManagementWrapperServiceLocator;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>
@@ -75,7 +75,7 @@ import de.fiz.escidoc.um.UserManagementWrapperRemoteServiceLocator;
  * @author Peter Broszeit (initial creation)
  * @author $Author: wfrank $ (last modification)
  * @version $Revision: 329 $ $LastChangedDate: 2007-12-06 09:44:45 +0100 (Thu, 06 Dec 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class ServiceLocator
 {
@@ -85,22 +85,22 @@ public class ServiceLocator
     private static final String SRW_DATABASE = "escidoc_";
     private static final String SRW_LANGUAGE = "all";
 
-    private static UserManagementWrapperRemoteServiceLocator authorizedUserManagementWrapperServiceLocator;
-    private static UserAccountHandlerRemoteServiceLocator authorizedUserAccountHandlerServiceLocator;
-    private static OrganizationalUnitHandlerRemoteServiceLocator publicOrganizationalUnitHandlerServiceLocator;
-    private static OrganizationalUnitHandlerRemoteServiceLocator authorizedOrganizationalUnitHandlerServiceLocator;
-    private static ContentTypeHandlerRemoteServiceLocator authorizedContentTypeHandlerServiceLocator;
-    private static ContextHandlerRemoteServiceLocator publicContextHandlerServiceLocator;
-    private static ContextHandlerRemoteServiceLocator authorizedContextHandlerServiceLocator;
-    private static ItemHandlerRemoteServiceLocator publicItemHandlerServiceLocator;
-    private static ItemHandlerRemoteServiceLocator authorizedItemHandlerServiceLocator;
-    private static ContainerHandlerRemoteServiceLocator authorizedContainerHandlerServiceLocator;
-    private static SemanticStoreHandlerRemoteServiceLocator authorizedSemanticScoreHandlerServiceLocator;
-    private static ScopeHandlerRemoteServiceLocator publicScopeHandlerServiceLocator;
-    private static AggregationDefinitionHandlerRemoteServiceLocator  publicAggregationDefinitionHandlerServiceLocator;
-    private static StatisticDataHandlerRemoteServiceLocator  publicStatisticDataHandlerServiceLocator;
-    private static ReportDefinitionHandlerRemoteServiceLocator  publicReportDefinitionHandlerServiceLocator;
-    private static ReportHandlerRemoteServiceLocator  publicReportHandlerServiceLocator;
+    private static UserManagementWrapperServiceLocator authorizedUserManagementWrapperServiceLocator;
+    private static UserAccountHandlerServiceLocator authorizedUserAccountHandlerServiceLocator;
+    private static OrganizationalUnitHandlerServiceLocator publicOrganizationalUnitHandlerServiceLocator;
+    private static OrganizationalUnitHandlerServiceLocator authorizedOrganizationalUnitHandlerServiceLocator;
+    private static ContentModelHandlerServiceLocator authorizedContentModelHandlerServiceLocator;
+    private static ContextHandlerServiceLocator publicContextHandlerServiceLocator;
+    private static ContextHandlerServiceLocator authorizedContextHandlerServiceLocator;
+    private static ItemHandlerServiceLocator publicItemHandlerServiceLocator;
+    private static ItemHandlerServiceLocator authorizedItemHandlerServiceLocator;
+    private static ContainerHandlerServiceLocator authorizedContainerHandlerServiceLocator;
+    private static SemanticStoreHandlerServiceLocator authorizedSemanticScoreHandlerServiceLocator;
+    private static ScopeHandlerServiceLocator publicScopeHandlerServiceLocator;
+    private static AggregationDefinitionHandlerServiceLocator  publicAggregationDefinitionHandlerServiceLocator;
+    private static StatisticDataHandlerServiceLocator  publicStatisticDataHandlerServiceLocator;
+    private static ReportDefinitionHandlerServiceLocator  publicReportDefinitionHandlerServiceLocator;
+    private static ReportHandlerServiceLocator  publicReportHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -129,16 +129,16 @@ public class ServiceLocator
      * @return A wrapper for the UserManagement.
      * @throws ServiceException
      */
-    public static UserManagementWrapperRemote getUserManagementWrapper(String userHandle) throws ServiceException
+    public static UserManagementWrapper getUserManagementWrapper(String userHandle) throws ServiceException
     {
         if (authorizedUserManagementWrapperServiceLocator == null)
         {
-            authorizedUserManagementWrapperServiceLocator = new UserManagementWrapperRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedUserManagementWrapperServiceLocator = new UserManagementWrapperServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("UserManagementWrapper URL=" + url);
             authorizedUserManagementWrapperServiceLocator.setUserManagementWrapperServiceEndpointAddress(url);
         }
-        UserManagementWrapperRemote handler = authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperService();
+        UserManagementWrapper handler = authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -150,16 +150,16 @@ public class ServiceLocator
      * @return A UserAccountHandler.
      * @throws ServiceException
      */
-    public static UserAccountHandlerRemote getUserAccountHandler(String userHandle) throws ServiceException
+    public static UserAccountHandler getUserAccountHandler(String userHandle) throws ServiceException
     {
         if (authorizedUserAccountHandlerServiceLocator == null)
         {
-            authorizedUserAccountHandlerServiceLocator = new UserAccountHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedUserAccountHandlerServiceLocator = new UserAccountHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("UserAccountHandler URL=" + url);
             authorizedUserAccountHandlerServiceLocator.setUserAccountHandlerServiceEndpointAddress(url);
         }
-        UserAccountHandlerRemote handler = authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
+        UserAccountHandler handler = authorizedUserAccountHandlerServiceLocator.getUserAccountHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -170,16 +170,16 @@ public class ServiceLocator
      * @return An OrganizationalUnitHandler.
      * @throws ServiceException
      */
-    public static OrganizationalUnitHandlerRemote getOrganizationalUnitHandler() throws ServiceException
+    public static OrganizationalUnitHandler getOrganizationalUnitHandler() throws ServiceException
     {
         if (publicOrganizationalUnitHandlerServiceLocator == null)
         {
-            publicOrganizationalUnitHandlerServiceLocator = new OrganizationalUnitHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicOrganizationalUnitHandlerServiceLocator = new OrganizationalUnitHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("OrganizationalUnitHandler URL=" + url);
             publicOrganizationalUnitHandlerServiceLocator.setOrganizationalUnitHandlerServiceEndpointAddress(url);
         }
-        OrganizationalUnitHandlerRemote handler = publicOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
+        OrganizationalUnitHandler handler = publicOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -191,16 +191,16 @@ public class ServiceLocator
      * @return An OrganizationalUnitHandler.
      * @throws ServiceException
      */
-    public static OrganizationalUnitHandlerRemote getOrganizationalUnitHandler(String userHandle) throws ServiceException
+    public static OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle) throws ServiceException
     {
         if (authorizedOrganizationalUnitHandlerServiceLocator == null)
         {
-            authorizedOrganizationalUnitHandlerServiceLocator = new OrganizationalUnitHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedOrganizationalUnitHandlerServiceLocator = new OrganizationalUnitHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("OrganizationalUnitHandler URL=" + url);
             authorizedOrganizationalUnitHandlerServiceLocator.setOrganizationalUnitHandlerServiceEndpointAddress(url);
         }
-        OrganizationalUnitHandlerRemote handler = authorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
+        OrganizationalUnitHandler handler = authorizedOrganizationalUnitHandlerServiceLocator.getOrganizationalUnitHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -212,16 +212,16 @@ public class ServiceLocator
      * @return A ContentTypeHandler.
      * @throws ServiceException
      */
-    public static ContentTypeHandlerRemote getContentTypeHandler(String userHandle) throws ServiceException
+    public static ContentModelHandler getContentModelHandler(String userHandle) throws ServiceException
     {
-        if (authorizedContentTypeHandlerServiceLocator == null)
+        if (authorizedContentModelHandlerServiceLocator == null)
         {
-            authorizedContentTypeHandlerServiceLocator = new ContentTypeHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
-            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedContentTypeHandlerServiceLocator.getContentTypeHandlerServiceWSDDServiceName();
-            Logger.getLogger(ServiceLocator.class).info("ContentTypeHandler URL=" + url);
-            authorizedContentTypeHandlerServiceLocator.setContentTypeHandlerServiceEndpointAddress(url);
+            authorizedContentModelHandlerServiceLocator = new ContentModelHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedContentModelHandlerServiceLocator.getContentModelHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("ContentModelHandler URL=" + url);
+            authorizedContentModelHandlerServiceLocator.setContentModelHandlerServiceEndpointAddress(url);
         }
-        ContentTypeHandlerRemote handler = authorizedContentTypeHandlerServiceLocator.getContentTypeHandlerService();
+        ContentModelHandler handler = authorizedContentModelHandlerServiceLocator.getContentModelHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -232,16 +232,16 @@ public class ServiceLocator
      * @return A ContextHandler.
      * @throws ServiceException
      */
-    public static ContextHandlerRemote getContextHandler() throws ServiceException
+    public static ContextHandler getContextHandler() throws ServiceException
     {
         if (publicContextHandlerServiceLocator == null)
         {
-            publicContextHandlerServiceLocator = new ContextHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicContextHandlerServiceLocator = new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicContextHandlerServiceLocator.getContextHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("ContextHandler URL=" + url);
             publicContextHandlerServiceLocator.setContextHandlerServiceEndpointAddress(url);
         }
-        ContextHandlerRemote handler = publicContextHandlerServiceLocator.getContextHandlerService();
+        ContextHandler handler = publicContextHandlerServiceLocator.getContextHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -254,16 +254,16 @@ public class ServiceLocator
      * @throws MalformedURLException
      * @throws ServiceException
      */
-    public static ContextHandlerRemote getContextHandler(String userHandle) throws ServiceException
+    public static ContextHandler getContextHandler(String userHandle) throws ServiceException
     {
         if (authorizedContextHandlerServiceLocator == null)
         {
-            authorizedContextHandlerServiceLocator = new ContextHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedContextHandlerServiceLocator = new ContextHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedContextHandlerServiceLocator.getContextHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("ContextHandler URL=" + url);
             authorizedContextHandlerServiceLocator.setContextHandlerServiceEndpointAddress(url);
         }
-        ContextHandlerRemote handler = authorizedContextHandlerServiceLocator.getContextHandlerService();
+        ContextHandler handler = authorizedContextHandlerServiceLocator.getContextHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -274,16 +274,16 @@ public class ServiceLocator
      * @return An ItemHandler.
      * @throws ServiceException
      */
-    public static ItemHandlerRemote getItemHandler() throws ServiceException
+    public static ItemHandler getItemHandler() throws ServiceException
     {
         if (publicItemHandlerServiceLocator == null)
         {
-            publicItemHandlerServiceLocator = new ItemHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicItemHandlerServiceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicItemHandlerServiceLocator.getItemHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("publicItemHandlerServiceLocator URL=" + url);
             publicItemHandlerServiceLocator.setItemHandlerServiceEndpointAddress(url);
         }
-        ItemHandlerRemote handler = publicItemHandlerServiceLocator.getItemHandlerService();
+        ItemHandler handler = publicItemHandlerServiceLocator.getItemHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -295,16 +295,16 @@ public class ServiceLocator
      * @return An ItemHandler.
      * @throws ServiceException
      */
-    public static ItemHandlerRemote getItemHandler(String userHandle) throws ServiceException
+    public static ItemHandler getItemHandler(String userHandle) throws ServiceException
     {
         if (authorizedItemHandlerServiceLocator == null)
         {
-            authorizedItemHandlerServiceLocator = new ItemHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedItemHandlerServiceLocator = new ItemHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedItemHandlerServiceLocator.getItemHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("authorizedItemHandlerServiceLocator URL=" + url);
             authorizedItemHandlerServiceLocator.setItemHandlerServiceEndpointAddress(url);
         }
-        ItemHandlerRemote handler = authorizedItemHandlerServiceLocator.getItemHandlerService();
+        ItemHandler handler = authorizedItemHandlerServiceLocator.getItemHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -316,16 +316,16 @@ public class ServiceLocator
      * @return A SemanticStoreHandler
      * @throws ServiceException
      */
-    public static SemanticStoreHandlerRemote getSemanticScoreHandler(String userHandle) throws ServiceException
+    public static SemanticStoreHandler getSemanticScoreHandler(String userHandle) throws ServiceException
     {
         if (authorizedSemanticScoreHandlerServiceLocator == null)
         {
-            authorizedSemanticScoreHandlerServiceLocator = new SemanticStoreHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedSemanticScoreHandlerServiceLocator = new SemanticStoreHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedSemanticScoreHandlerServiceLocator.getSemanticStoreHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("publicSemanticScoreHandlerServiceLocator URL=" + url);
             authorizedSemanticScoreHandlerServiceLocator.setSemanticStoreHandlerServiceEndpointAddress(url);
         }
-        SemanticStoreHandlerRemote handler = authorizedSemanticScoreHandlerServiceLocator.getSemanticStoreHandlerService();
+        SemanticStoreHandler handler = authorizedSemanticScoreHandlerServiceLocator.getSemanticStoreHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
@@ -379,16 +379,16 @@ public class ServiceLocator
      * @return A ScopeHandler.
      * @throws ServiceException
      */
-    public static ScopeHandlerRemote getScopeHandler() throws ServiceException
+    public static ScopeHandler getScopeHandler() throws ServiceException
     {
         if (publicScopeHandlerServiceLocator == null)
         {
-            publicScopeHandlerServiceLocator = new ScopeHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicScopeHandlerServiceLocator = new ScopeHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicScopeHandlerServiceLocator.getScopeHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("ScopeHandler URL=" + url);
             publicScopeHandlerServiceLocator.setScopeHandlerServiceEndpointAddress(url);
         }
-        ScopeHandlerRemote handler = publicScopeHandlerServiceLocator.getScopeHandlerService();
+        ScopeHandler handler = publicScopeHandlerServiceLocator.getScopeHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -399,16 +399,16 @@ public class ServiceLocator
      * @return A AggregationDefinitionHandler.
      * @throws ServiceException
      */
-    public static AggregationDefinitionHandlerRemote getAggregationDefinitionHandler() throws ServiceException
+    public static AggregationDefinitionHandler getAggregationDefinitionHandler() throws ServiceException
     {
         if (publicAggregationDefinitionHandlerServiceLocator == null)
         {
-            publicAggregationDefinitionHandlerServiceLocator = new AggregationDefinitionHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicAggregationDefinitionHandlerServiceLocator = new AggregationDefinitionHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("AggregationDefinitionHandler URL=" + url);
             publicScopeHandlerServiceLocator.setScopeHandlerServiceEndpointAddress(url);
         }
-        AggregationDefinitionHandlerRemote handler = publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
+        AggregationDefinitionHandler handler = publicAggregationDefinitionHandlerServiceLocator.getAggregationDefinitionHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -419,16 +419,16 @@ public class ServiceLocator
      * @return A StatisticDataHandler.
      * @throws ServiceException
      */
-    public static StatisticDataHandlerRemote getStatisticDataHandler() throws ServiceException
+    public static StatisticDataHandler getStatisticDataHandler() throws ServiceException
     {
         if (publicStatisticDataHandlerServiceLocator == null)
         {
-            publicStatisticDataHandlerServiceLocator = new StatisticDataHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicStatisticDataHandlerServiceLocator = new StatisticDataHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("StatisticDataHandler URL=" + url);
             publicStatisticDataHandlerServiceLocator.setStatisticDataHandlerServiceWSDDServiceName(url);
         }
-        StatisticDataHandlerRemote handler = publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
+        StatisticDataHandler handler = publicStatisticDataHandlerServiceLocator.getStatisticDataHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -439,16 +439,16 @@ public class ServiceLocator
      * @return A ReportDefinitionHandler.
      * @throws ServiceException
      */
-    public static ReportDefinitionHandlerRemote getReportDefinitionHandler() throws ServiceException
+    public static ReportDefinitionHandler getReportDefinitionHandler() throws ServiceException
     {
         if (publicReportDefinitionHandlerServiceLocator == null)
         {
-            publicReportDefinitionHandlerServiceLocator = new ReportDefinitionHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicReportDefinitionHandlerServiceLocator = new ReportDefinitionHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("ReportDefinitionHandler URL=" + url);
             publicReportDefinitionHandlerServiceLocator.setReportDefinitionHandlerServiceEndpointAddress(url);
         }
-        ReportDefinitionHandlerRemote handler = publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerService();
+        ReportDefinitionHandler handler = publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -459,16 +459,16 @@ public class ServiceLocator
      * @return A ReportHandler.
      * @throws ServiceException
      */
-    public static ReportHandlerRemote getReportHandler() throws ServiceException
+    public static ReportHandler getReportHandler() throws ServiceException
     {
         if (publicReportHandlerServiceLocator == null)
         {
-            publicReportHandlerServiceLocator = new ReportHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            publicReportHandlerServiceLocator = new ReportHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicReportHandlerServiceLocator.getReportHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("ReportHandler URL=" + url);
             publicReportHandlerServiceLocator.setReportHandlerServiceEndpointAddress(url);
         }
-        ReportHandlerRemote handler = publicReportHandlerServiceLocator.getReportHandlerService();
+        ReportHandler handler = publicReportHandlerServiceLocator.getReportHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
@@ -480,16 +480,16 @@ public class ServiceLocator
      * @return A ContainerHandler.
      * @throws ServiceException
      */
-    public static ContainerHandlerRemote getContainerHandler(String userHandle) throws ServiceException
+    public static ContainerHandler getContainerHandler(String userHandle) throws ServiceException
     {
         if (authorizedContainerHandlerServiceLocator == null)
         {
-            authorizedContainerHandlerServiceLocator = new ContainerHandlerRemoteServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            authorizedContainerHandlerServiceLocator = new ContainerHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
             String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedContainerHandlerServiceLocator.getContainerHandlerServiceWSDDServiceName();
             Logger.getLogger(ServiceLocator.class).info("authorizedContainerHandlerServiceLocator URL=" + url);
             authorizedContainerHandlerServiceLocator.setContainerHandlerServiceEndpointAddress(url);
         }
-        ContainerHandlerRemote handler = authorizedContainerHandlerServiceLocator.getContainerHandlerService();
+        ContainerHandler handler = authorizedContainerHandlerServiceLocator.getContainerHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }

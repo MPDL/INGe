@@ -26,7 +26,7 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */ 
-package test.framework.um;
+package test.framework.aa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -53,7 +53,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestLoginLogout
 {    
-    private static final String LOGIN_URL ="/um/loginResults";
+    private static final String LOGIN_URL ="/aa/login";
     private static final String USER_NAME = "test_dep_scientist";
     private static final String USER_PASSWORD = "escidoc";
 
@@ -64,7 +64,7 @@ public class TestLoginLogout
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + LOGIN_URL);
         postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
+        postMethod.addParameter("target", "http://10.20.0.8:8080");
         postMethod.addParameter("login", USER_NAME);
         postMethod.addParameter("password", USER_PASSWORD);
         logger.debug("PostMethod=" + postMethod.getURI());

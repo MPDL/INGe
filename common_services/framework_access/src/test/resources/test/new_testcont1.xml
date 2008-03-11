@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container:container
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.4"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.4"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:new1"
+	last-modification-date="2007-11-15T08:36:58.765Z">
+	<container:properties>
+		<srel:created-by objid="escidoc:user2" />
+		<prop:public-status>pending</prop:public-status>
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:content-model-specific
+			xmlns:prop="http://escidoc.de/core/01/properties/">
+		</prop:content-model-specific>
+	</container:properties>
+	<escidocMetadataRecords:md-records>
+
+		<escidocMetadataRecords:md-record name="escidoc">
+			<dc-md>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+					NEW container
+				</dc:title>
+				<dc:description
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					The NEW container.
+				</dc:description>
+			</dc-md>
+		</escidocMetadataRecords:md-record>
+
+
+	</escidocMetadataRecords:md-records>
+	
+</container:container>

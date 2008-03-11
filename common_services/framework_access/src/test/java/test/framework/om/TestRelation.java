@@ -33,16 +33,16 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContentRelationNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.notfound.ContentRelationNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Testcases for the relation part of the basic service ItemHandler.
  *
  * @author pbroszei (initial creation)
- * @author $Author$ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision$ $LastChangedDate$
  */
 public class TestRelation extends TestItemBase
@@ -81,7 +81,8 @@ public class TestRelation extends TestItemBase
     public void addRelationToContentItemNotExisting() throws Exception
     {
         String id = ILLEGAL_ID;
-        String md = createModificationDate("1967-08-13T12:00:00.000+01:00");
+        //String md = createModificationDate("1967-08-13T12:00:00.000+01:00");
+        String md = "1967-08-13T12:00:00.000+01:00";
         String param = "<param last-modification-date=\"" + md + "\">" +
                        "    <relation>" +
                        "        <targetId>" + id + "</targetId>" +
@@ -195,7 +196,8 @@ public class TestRelation extends TestItemBase
     public void removeRelationFromContentItemNotExisting() throws Exception
     {
         String sourceId = ILLEGAL_ID;
-        String sourceMd = createModificationDate("1967-08-13T12:00:00.000+01:00");
+        //String sourceMd = createModificationDate("1967-08-13T12:00:00.000+01:00");
+        String sourceMd = "1967-08-13T12:00:00.000+01:00";
         String param = "<param last-modification-date=\"" + sourceMd + "\">" +
                        "    <relation>" +
                        "        <targetId>" + sourceId + "</targetId>" +

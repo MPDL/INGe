@@ -79,18 +79,18 @@ import org.apache.xerces.dom.AttrImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Methods which are used in mostly all test cases.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author:pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision:60 $ $LastChangedDate:2007-01-25 13:08:48 +0100 (Do, 25 Jan 2007) $
- * Revised by BrP: 03.09.2007
+ * Revised by FrW: 10.03.2008
  */
 public class TestBase
 {
@@ -102,22 +102,22 @@ public class TestBase
     /**
      * The default users id.
      */
-    protected static final String USERID = "escidoc:user1";
+    protected static final String USERID = "escidoc:user2";
     
     /**
      * The default users name.
      */
-    protected static final String LOGINNAME = "test_dep_scientist";
+    protected static final String LOGINNAME = "test_dep_lib";
     
     /**
      * The default users password.
      */
-    protected static final String PASSWORD = "escidoc";
+    protected static final String PASSWORD = "pubman";
     
     /**
      * The id of the content model Publication Item.
      */
-    protected static final String PUBITEM_TYPE_ID = "escidoc:persistent4";
+    protected static final String PUBITEM_TYPE_ID = "escidoc:persistent6";
     
     /**
      * A line for separating output.
@@ -142,9 +142,9 @@ public class TestBase
     protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
     {
         // post the login data
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
+        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/login");
         postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
+        postMethod.addParameter("target", "http://10.20.0.8:8080");
         postMethod.addParameter("login", userid);
         postMethod.addParameter("password", password);
         HttpClient client = new HttpClient();

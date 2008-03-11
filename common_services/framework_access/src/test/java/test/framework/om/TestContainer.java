@@ -34,16 +34,16 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContainerNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Testcases for the basic service ContainerHandler.
  * 
  * @author Johannes Mueller (initial creation)
- * @author $Author: nbulatov $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 325 $ $LastChangedDate: 2007-11-28 18:07:29 +0100 (Mi, 28 Nov 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class TestContainer extends TestItemBase
 {
@@ -208,10 +208,18 @@ public class TestContainer extends TestItemBase
         ServiceLocator.getContainerHandler(userHandle).submit(id, createModificationDate(md));
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
+        //logger.info("md "+md);
+        String param = "<param last-modification-date=\"" + md + "\">" +
+        "    <url>http://localhost</url>" +
+        "</param>";
+        ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
+        ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param);
         ServiceLocator.getContainerHandler(userHandle).release(id, createModificationDate(md));
-        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         long zeit = -System.currentTimeMillis();
+        container = container.replace("NEW", "UPDATED");
         container = ServiceLocator.getContainerHandler(userHandle).update(id, container);
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
+        //logger.info("other md "+getModificationDate(container));
         assertFalse(md.equals(getModificationDate(container)));
         zeit += System.currentTimeMillis();
         logger.info("modifyContainer(" + id + ")->" + zeit + "ms");
@@ -234,6 +242,12 @@ public class TestContainer extends TestItemBase
         ServiceLocator.getContainerHandler(userHandle).submit(id, md);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         md = getModificationDate(container);
+        String param = "<param last-modification-date=\"" + md + "\">" +
+        "    <url>http://localhost</url>" +
+        "</param>";
+        logger.info("param(" + param + ")");
+        ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
+        ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param);
         md = createModificationDate(md);
         logger.info("release(" + id + "," + md + ")");
         ServiceLocator.getContainerHandler(userHandle).release(id, md);

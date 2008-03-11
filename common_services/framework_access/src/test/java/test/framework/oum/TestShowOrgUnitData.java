@@ -41,9 +41,9 @@ import test.framework.TestBase;
  * Testcases to show all stored organizational units.
  *
  * @author Peter (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 04.09.2007
+ * @revised by FrW: 10.03.2008
  */
 public class TestShowOrgUnitData extends TestBase
 {
@@ -75,7 +75,7 @@ public class TestShowOrgUnitData extends TestBase
                 node = selectSingleNode(doc, xPath + "[" + n + "]" + "/organization-details/" + nodes[i]);
                 logger.info(nodes[i] + "=" + node.getTextContent());
             }
-            String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildren(id);
+            String children = ServiceLocator.getOrganizationalUnitHandler().retrieveChildObjects(id);
             logger.debug("children=" + children);
             showUnits(children,line+LINE);
         }

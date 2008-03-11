@@ -26,7 +26,7 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */ 
-package test.framework.um;
+package test.framework.aa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;

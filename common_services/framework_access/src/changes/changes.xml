@@ -43,5 +43,10 @@
     </release>
      <release version="1.0.1" date="2008-03-07" description="Release of all modules">
     </release>
+    <release version="1.0.2-SNAPSHOT" date="2008-03-11" description="current development">
+    <action dev="wfrank" type="update">
+        Applied changes required for new framework release(version 0.9.1 build 224)
+      </action>
+    </release>
   </body>
 </document>

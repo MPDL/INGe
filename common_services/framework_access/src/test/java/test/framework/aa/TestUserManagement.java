@@ -26,22 +26,23 @@
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */ 
-package test.framework.ctm;
+package test.framework.aa;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
 /**
- * Test the Service UM (User Management) of the eSciDoc-Framework.
+ * Test the Services UM (User Management) of the eSciDoc-Framework.
  * 
  * @author Peter Broszeit (initial creation)
- * @author $Author: pbroszei $ (last modification)
+ * @author $Author: wfrank $ (last modification)
  * @version $Revision: 314 $ $LastChangedDate: 2007-11-07 13:12:14 +0100 (Wed, 07 Nov 2007) $
- * @revised by BrP: 03.09.2007
+ * @revised by FrW: 11.03.2008
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestContentTypes.class
+@Suite.SuiteClasses({TestLoginLogout.class
+                    ,TestRetrieveUserAccount.class
                     })
-public class TestContentTypeModeller
+public class TestUserManagement
 {
 }
