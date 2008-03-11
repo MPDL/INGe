@@ -12,7 +12,7 @@
      can be restricted to specific jars by specifying them in the archives
      attribute.
     -->
-   <classpath codebase="file:${cargo.jboss.install.dir}/server/default/lib/" archives="*"/>
+   <classpath codebase="file:${jboss.pathcorrection}${cargo.jboss.install.dir}/server/default/lib/" archives="*"/>
 
    <!-- ==================================================================== -->
    <!-- JSR-77 Single JBoss Server Management Domain                         -->
@@ -192,7 +192,7 @@
    <mbean code="org.jboss.services.binding.ServiceBindingManager"
      name="jboss.system:service=ServiceBindingManager">
      <attribute name="ServerName">cargo-binding</attribute>
-     <attribute name="StoreURL">file:${project.build.directory}/jboss/server/conf/cargo-binding.xml</attribute>
+     <attribute name="StoreURL">file:${jboss.pathcorrection}${project.build.directory}/jboss/server/conf/cargo-binding.xml</attribute>
      <attribute name="StoreFactoryClassName">
        org.jboss.services.binding.XMLServicesStoreFactory
      </attribute>
@@ -655,7 +655,7 @@
 
       <attribute name="URLs">
                       
-         deploy/, file:${cargo.jboss.install.dir}/server/default/deploy/
+         deploy/, file:${jboss.pathcorrection}${cargo.jboss.install.dir}/server/default/deploy/
       </attribute>
 
       <!-- Indicates if the scanner should recursively scan directories that
