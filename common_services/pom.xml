@@ -343,7 +343,7 @@
 			<properties>
 				<!-- the jdk version to use -->
 				<jdk.version>1.5</jdk.version>
-				
+
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
@@ -502,6 +502,34 @@
 		<profile>
 			<id>env-production-escidoc4</id>
 
+		</profile>
+		<profile>
+			<!-- this profile gets activated if os is windows -->
+			<id>Windows</id>
+			<activation>
+				<os>
+					<name>Windows</name>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- windows needs an extra slash in jboss-service.xml -->
+				<jboss.pathcorrection>/</jboss.pathcorrection>
+			</properties>
+		</profile>
+		<profile>
+			<!-- this profile gets activated if os is linux -->
+			<id>Linux</id>
+			<activation>
+				<os>
+					<name>Linux</name>
+					<family>linux</family>
+				</os>
+			</activation>
+			<properties>
+				<!-- linux doesn't need the extra slash like windows does -->
+				<jboss.pathcorrection></jboss.pathcorrection>
+			</properties>
 		</profile>
 	</profiles>
 </project>
