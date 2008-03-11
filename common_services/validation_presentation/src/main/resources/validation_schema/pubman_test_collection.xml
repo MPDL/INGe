@@ -140,13 +140,13 @@
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
 		
 			<!-- If a file is given, the content type is mandatory. -->
-			<iso:assert test="escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
 
 			<!-- If a file is given, the mime type is mandatory. -->
-			<iso:assert test="escidocComponents:properties/escidocComponents:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
 	
 			<!-- If a file is given, the visibility is mandatory. -->
-			<iso:assert test="escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
 			
 		</iso:rule>
 		
