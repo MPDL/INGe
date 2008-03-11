@@ -297,12 +297,12 @@ public class ViewItemSourceUI extends ContainerPanelUI
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume() + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
                     else if((this.pubItem.getMetadata().getSources().get(i).getVolume() != null && this.pubItem.getMetadata().getSources().get(i).getIssue() == null)
-                    		&& (!this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
+                    		|| (!this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getMetadata().getSources().get(i).getVolume()));
                     }
                     else if((this.pubItem.getMetadata().getSources().get(i).getVolume() == null && this.pubItem.getMetadata().getSources().get(i).getIssue() != null)
-                    		&& (this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
+                    		|| (this.pubItem.getMetadata().getSources().get(i).getVolume().trim().equals("") && !this.pubItem.getMetadata().getSources().get(i).getIssue().trim().equals("")))
                     {
                         this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(" " + " (" + this.pubItem.getMetadata().getSources().get(i).getIssue() + ")"));
                     }
