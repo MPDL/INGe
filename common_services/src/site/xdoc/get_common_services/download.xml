@@ -1,0 +1,119 @@
+<document>
+	<properties>
+		<author email="endres@mpdl.mpg.de">Thomas Endres</author>
+		<title>Download</title>
+	</properties>
+	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
+	<body>
+		<!-- The body of the document contains a number of sections -->
+		<section name="Download Common services">
+
+			<!-- Within sections, any XHTML can be used -->
+			<p>
+				The Common Services are distributed under the
+				<a href="../license.html">Common Development And Distribution License (CDDL)</a>.
+			</p>
+			<p>The Common Services are organised in several modules which implements services needed by the solutions like PubMan.</p>
+			<p>The artifacts (binaries, sources and javadoc) for each service can be downloaded from an Archiva server.</p>
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Module</th>
+						<th>Description</th>
+						<th>Archiva</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>citationmanager</td>
+						<td>Citationmanager</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/citationmanager">archiva dir</a>
+						</td>
+						
+					</tr>
+						<td>citationmanager_ear</td>
+						<td>Citationmanager integration tests</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/citationmanager_ear">archiva dir</a>
+						</td>
+					<tr>
+						<td>common_logic</td>
+						<td>Common Logic</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/common_logic">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>common_logic_ear</td>
+						<td>Common Logic integration tests</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/common_logic_ear">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>endnotemanager</td>
+						<td>Endnotemanager</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/endnotemanager">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>endnotemanager_ear</td>
+						<td>Endnotemanager integration tests</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/endnotemanager_ear">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>framework_access</td>
+						<td>Provides access to the framework</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/framework_access">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>validation</td>
+						<td>Provides validation of items</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>validation_presentation</td>
+						<td>Webmodule of validation</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation_presentation">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>validation_ear</td>
+						<td>Validation integration tests</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation_ear">archiva dir</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<h3>System requirements</h3>
+
+			<table border="1">
+				<tbody>
+					<tr>
+						<td>JDK</td>
+						<td>
+							1.5 or above
+						</td>
+					</tr>
+					<tr>
+						<td>Jboss</td>
+						<td>
+							Jboss 4.2.2 GA
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</body>
+</document>
