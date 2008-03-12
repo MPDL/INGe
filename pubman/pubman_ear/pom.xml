@@ -10,12 +10,12 @@
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>2.0.18</version>
+	<version>2.0.19-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman_ear-2.0.18</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman_ear-2.0.18</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/tags/pubman_ear-2.0.18</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
