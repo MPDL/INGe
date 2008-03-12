@@ -102,11 +102,6 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>postgresql</groupId>
-							<artifactId>postgresql</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
 							<groupId>trinidad</groupId>
 							<artifactId>trinidad-api</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
@@ -223,7 +218,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -260,13 +255,6 @@
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>8.1-404.jdbc3</version>
-			<scope>runtime</scope>
-		</dependency>
-
 		<dependency>
 			<groupId>trinidad</groupId>
 			<artifactId>trinidad-api</artifactId>
