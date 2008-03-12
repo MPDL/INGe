@@ -2,7 +2,7 @@
   <parent>
     <artifactId>common_services</artifactId>
     <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
@@ -22,8 +22,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>1.5</source>
-					<target>1.5</target>
+					<source>${jdk.version}</source>
+					<target>${jdk.version}</target>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2.SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
