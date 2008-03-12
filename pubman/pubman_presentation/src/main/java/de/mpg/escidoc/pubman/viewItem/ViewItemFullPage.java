@@ -104,7 +104,7 @@ public class ViewItemFullPage extends BreadcrumbPage
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean) getBean(CommonSessionBean.class);
+        return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
     }
 
     /**
@@ -114,7 +114,7 @@ public class ViewItemFullPage extends BreadcrumbPage
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+        return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
     }
 
 }

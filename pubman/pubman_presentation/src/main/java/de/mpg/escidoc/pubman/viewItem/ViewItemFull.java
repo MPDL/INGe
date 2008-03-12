@@ -53,6 +53,7 @@ import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -745,7 +746,17 @@ public class ViewItemFull extends FacesBean
     {
         return (CollectionListSessionBean)getSessionBean(CollectionListSessionBean.class);
     }
-
+    
+    /**
+     * Returns the ApplicationBean.
+     * 
+     * @return a reference to the scoped data bean (ApplicationBean)
+     */
+    protected ApplicationBean getApplicationBean()
+    {
+        return (ApplicationBean) getApplicationBean(ApplicationBean.class);
+    }
+    
     /**
      * Returns the ReleaseHistory.
      * 
@@ -777,4 +788,16 @@ public class ViewItemFull extends FacesBean
         this.valMessage = valMessage;
     }
     
+    public PubItemVO getPubItem() {
+		return pubItem;
+	}
+
+	public void setPubItem(PubItemVO pubItem) {
+		this.pubItem = pubItem;
+	}
+
+	public String getGenre()
+    {
+    	return getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+    }
 }

@@ -230,6 +230,9 @@ html > body fieldset{
 	height: 7em;
 }
 
+.last {
+	clear: right;
+}
 
 	/* LIST DISPLAY */
 	

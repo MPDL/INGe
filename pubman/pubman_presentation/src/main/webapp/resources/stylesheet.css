@@ -432,6 +432,10 @@ a.white {	color:#ffffff;}
   width: 55px;
 }
 
+.last {
+	clear: right;
+}
+
 .linkNavigation { color: #660000; font-size: 1.0em; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; text-decoration: none  ; }
 .linkNavigation:link { color: #660000; font-size: 0.95em; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; text-decoration: none  ; }
 .linkNavigation:visited { color: #660000; font-size: 0.95em; font-family: Arial, Helvetica, Geneva, Swiss, SunSans-Regular; text-decoration: none  ; }

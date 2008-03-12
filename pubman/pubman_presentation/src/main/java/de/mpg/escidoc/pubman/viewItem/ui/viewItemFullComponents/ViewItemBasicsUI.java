@@ -285,7 +285,7 @@ public class ViewItemBasicsUI extends ContainerPanelUI
             {
                 if(this.pubItem.getMetadata().getAlternativeTitles().size() > 0)
                 {
-                    for(int i = 0; i< this.pubItem.getMetadata().getAlternativeTitles().size(); i++)
+                    for(int i = 0; i < this.pubItem.getMetadata().getAlternativeTitles().size(); i++)
                     {
                         // switch the style classes
                         if(new Integer(i/2)*2 == i)
