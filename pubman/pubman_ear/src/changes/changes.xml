@@ -41,5 +41,10 @@
         Lots of changes for the maven build environment.
       </action>
     </release>
+    <release version="2.0.18" date="2008-03-12" description="Single release">
+      <action dev="tendres" type="update">
+        dependency changed to validation_presentation-1.0.2.
+      </action>
+    </release>
   </body>
 </document>
