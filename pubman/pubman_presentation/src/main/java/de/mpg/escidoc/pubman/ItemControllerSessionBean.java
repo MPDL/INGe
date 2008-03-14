@@ -52,7 +52,6 @@ import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
 import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -1372,7 +1371,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all items for the specified affiliation
      * @throws Exception if framework access fails
      */
-    public ArrayList<PubItemVO> searchItemsByAffiliation(AffiliationRO affiliationRO) throws Exception
+    public ArrayList<PubItemVO> searchItemsByAffiliation(AffiliationVO affiliation) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1380,7 +1379,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(affiliationRO);
+        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
         
         if (logger.isDebugEnabled())
         {

@@ -94,7 +94,7 @@ public class AffiliationBean extends FacesBean {
 		{
 			//start search by affiliation
 	        SearchResultList list = (SearchResultList)getSessionBean(SearchResultList.class);
-	        return list.startSearchForAffiliation(selectedAffiliation.getReference());
+	        return list.startSearchForAffiliation(selectedAffiliation);
 		}
 		else
 		{

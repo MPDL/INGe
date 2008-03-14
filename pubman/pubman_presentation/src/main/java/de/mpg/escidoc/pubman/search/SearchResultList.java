@@ -64,7 +64,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -637,7 +637,7 @@ public class SearchResultList extends ItemList
      * Searches Items by Affiliation 
      * @return string, identifying the page that should be navigated to after this methodcall
      */    
-    public String startSearchForAffiliation(AffiliationRO affiliationRO)
+    public String startSearchForAffiliation( AffiliationVO affiliation )
     {
         if (logger.isDebugEnabled())
         {
@@ -655,7 +655,7 @@ public class SearchResultList extends ItemList
         ArrayList<PubItemVO> itemsFound = null;
         try
         {
-            itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliationRO);
+            itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliation);
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AffiliationSearchResultList");
