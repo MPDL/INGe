@@ -32,20 +32,18 @@
 
 <document>
   <properties>
-    <title>Common services project</title>
+    <title>PubMan project</title>
     <author email="endres@mpdl.mpg.de">Thomas Endres</author>
   </properties>
   <body>
-    <release version="1.0.0" date="2008-02-21" description="Initial release">
+    <release version="2.0.17" date="2008-03-07" description="Initial release">
       <action dev="tendres" type="update">
         Lots of changes for the maven build environment.
       </action>
     </release>
-     <release version="1.0.1" date="2008-03-07" description="Release of all modules">
-    </release>
-    <release version="1.0.2-SNAPSHOT" date="2008-03-11" description="current development">
-    <action dev="wfrank" type="update">
-        Applied changes required for new framework release(version 0.9.1 build 224)
+    <release version="2.0.18" date="2008-03-11" description="Release of all modules">
+      <action dev="tendres" type="update">
+        Changed to validation_presentation version 1.0.2
       </action>
     </release>
   </body>
