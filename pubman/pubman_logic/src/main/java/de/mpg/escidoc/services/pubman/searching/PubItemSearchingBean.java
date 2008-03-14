@@ -367,42 +367,42 @@ public class PubItemSearchingBean implements PubItemSearching
     /**
      * {@inheritDoc}
      */
-    public List<PubItemVO> searchPubItemsByAffiliation(AffiliationRO affiliationRef) throws TechnicalException, AffiliationNotFoundException
+    public List<PubItemVO> searchPubItemsByAffiliation(AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException
     {
-        if (affiliationRef == null)
+        if (affiliation == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName()
                     + ":searchPubItemsByAffiliation:affiliationRef is null");
         }
         // First read the affiliation to get the PID
         String affiliationXML = null;
-        AffiliationVO affiliation = null;
-        try
-        {   
-            affiliationXML = ServiceLocator.getOrganizationalUnitHandler().retrieve(affiliationRef.getObjectId());
-            affiliation = xmlTransforming.transformToAffiliation(affiliationXML);
-        }
-        catch (OrganizationalUnitNotFoundException e)
-        {
-            throw new AffiliationNotFoundException(affiliationRef, e);
-        }
-        catch (SecurityException e)
-        {
-            // retrieve should not be secured.
-            throw new TechnicalException(e);
-        }
-        catch (RemoteException e)
-        {
-            throw new TechnicalException(e);
-        }
-        catch (UnmarshallingException e)
-        {
-            throw new TechnicalException(e);
-        }
-        catch (ServiceException e)
-        {
-
-        }
+        // AffiliationVO affiliation = null;
+//        try
+//        {   
+//            affiliationXML = ServiceLocator.getOrganizationalUnitHandler().retrieve(affiliationRef.getObjectId());
+//            affiliation = xmlTransforming.transformToAffiliation(affiliationXML);
+//        }
+//        catch (OrganizationalUnitNotFoundException e)
+//        {
+//            throw new AffiliationNotFoundException(affiliationRef, e);
+//        }
+//        catch (SecurityException e)
+//        {
+//            // retrieve should not be secured.
+//            throw new TechnicalException(e);
+//        }
+//        catch (RemoteException e)
+//        {
+//            throw new TechnicalException(e);
+//        }
+//        catch (UnmarshallingException e)
+//        {
+//            throw new TechnicalException(e);
+//        }
+//        catch (ServiceException e)
+//        {
+//
+//        }
 
         List<PubItemVO> searchResult = searchPubItemsForAffiliationAndChildren(affiliation);
 

@@ -40,6 +40,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.pubman.searching.ParseException;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**
  * Interface of the PubMan Search Service.
@@ -92,6 +93,6 @@ public interface PubItemSearching
 	 * @throws TechnicalException 
 	 * @throws AffiliationNotFoundException 
 	 */
-	public List<PubItemVO> searchPubItemsByAffiliation(AffiliationRO affilationRef) throws TechnicalException, AffiliationNotFoundException;
+	public List<PubItemVO> searchPubItemsByAffiliation(AffiliationVO affilation) throws TechnicalException, AffiliationNotFoundException;
 
 }
