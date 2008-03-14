@@ -6,16 +6,19 @@
 	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
 	<body>
 		<!-- The body of the document contains a number of sections -->
-		<section name="Download PubMan 2.0.17">
+		<section name="Download PubMan 2.0.18">
 
 			<!-- Within sections, any XHTML can be used -->
 			<p>PubMan is currently delivered in several formats for your convenience.</p>
 			<p>
-				PubMan 2.0.17 is ditributed under the
-				<a href="../license.html">Common Development And Distribution License (CDDL)</a>.
+				PubMan 2.0.18 is distributed under the
+				<a href="../license.html">Common Development And Distribution License (CDDL)</a>
+				.
 			</p>
-			<p>The binary delivery includes an ear file and two config files. With these files the PubMan 
-			application can be deployed to a JBoss Application server.</p>
+			<p>
+				The binary delivery includes an ear file and two config files. With these files the PubMan application can be deployed to a JBoss
+				Application server.
+			</p>
 			<table border="1">
 				<thead>
 					<tr>
@@ -25,21 +28,23 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>PubMan 2.0.17 (tar.bz2)</td>
+						<td>PubMan 2.0.18 (tar.bz2)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.17-bin/pubman-2.0.17-bin.tar.bz2">pubman-2.0.17-bin.tar.bz2</a>
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.tar.bz2">pubman-2.0.18-bin.tar.bz2
+							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>PubMan 2.0.17 (tar.gz)</td>
+						<td>PubMan 2.0.18 (tar.gz)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.17-bin/pubman-2.0.17-bin.tar.bz2">pubman-2.0.17-bin.tar.gz</a>
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.tar.bz2">pubman-2.0.18-bin.tar.gz
+							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>PubMan 2.0.17 (zip)</td>
+						<td>PubMan 2.0.18 (zip)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.17-bin/pubman-2.0.17-bin.tar.bz2">pubman-2.0.17-bin.zip</a>
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.tar.bz2">pubman-2.0.18-bin.zip</a>
 						</td>
 					</tr>
 				</tbody>
@@ -51,21 +56,15 @@
 				<tbody>
 					<tr>
 						<td>JDK</td>
-						<td>
-							1.5 or above
-						</td>
+						<td>1.5 or above</td>
 					</tr>
 					<tr>
 						<td>Jboss</td>
-						<td>
-							Jboss 4.2.2 GA
-						</td>
+						<td>Jboss 4.2.2 GA</td>
 					</tr>
 					<tr>
 						<td>Escidoc Framework instance</td>
-						<td>
-							Release Build 159
-						</td>
+						<td>Release Build 159</td>
 					</tr>
 				</tbody>
 			</table>
@@ -74,23 +73,95 @@
 			<ul>
 				<li>Install the Jboss 4.2.2 server</li>
 				<li>Unzip the PubMan release file to a directory</li>
-				<li>Copy the PubMan ear to the jboss <i>deploy</i> directory</li>
-				<li>Copy the <i>validation-ds.xml</i> file to the jboss <i>deploy</i> directory</li>
-				<li>Copy the <i>pubman.properties</i> file to the jboss <i>conf</i> directory</li>
-				<li>Now open the file <i>pubman.properties</i> and change the config settings to your needs</li>
-				<li>Open the file <i>properties-service.xml</i> in the jboss <i>deploy</i> directory and add the following entry:</li>
+				<li>
+					Copy the PubMan ear to the jboss
+					<i>deploy</i>
+					directory
+				</li>
+				<li>
+					Copy the
+					<i>validation-ds.xml</i>
+					file to the jboss
+					<i>deploy</i>
+					directory
+				</li>
+				<li>
+					Copy the
+					<i>pubman.properties</i>
+					file to the jboss
+					<i>conf</i>
+					directory
+				</li>
+				<li>
+					Now open the file
+					<i>pubman.properties</i>
+					and change the config settings to your needs
+				</li>
+				<li>
+					Open the file
+					<i>properties-service.xml</i>
+					in the jboss
+					<i>deploy</i>
+					directory and add the following entry:
+				</li>
 				<source>
-&lt;server&gt;
-    ...
-	&lt;attribute name="Properties"&gt;
-		pubman.properties.file=./pubman.properties
-        com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0
-    &lt;/attribute&gt;
-  	...
-&lt;/server&gt;
+			&lt;server&gt; 
+					... 
+					&lt;attribute name="Properties"&gt; pubman.properties.file=./pubman.properties
+					com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 
+					&lt;/attribute&gt; 
+					... 
+			&lt;/server&gt;
 				</source>
-				<li>Start the jboss server and PubMan should be available at <i>jboss_server_url</i>/pubman</li>
+				<li>
+					Start the jboss server and PubMan should be available at
+					<i>jboss_server_url</i>
+					/pubman
+				</li>
 			</ul>
+
+		</section>
+		<section name="Archiva artifacts">
+			<p>The Archiva server provides project artifacts like binary packages, source packages and downloadable javadoc documentation.</p>
+
+			<table border="1">
+				<thead>
+					<tr>
+						<th>Module</th>
+						<th>Description</th>
+						<th>Archiva</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>pubman_logic</td>
+						<td>Provides the logic of PubMan</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic">archiva dir</a>
+						</td>
+
+					</tr>
+					<td>pubman_presentation</td>
+					<td>Provides the presentation layer of PubMan</td>
+					<td>
+						<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_presentation">archiva dir</a>
+					</td>
+					<tr>
+						<td>pubman_ear</td>
+						<td>Provides the ear, the deployable to jboss servers</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_ear">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>pubman_logic_ear</td>
+						<td>Pubman logic integration tests</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.pubman/pubman_logic_ear">archiva dir</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
 
 		</section>
 	</body>
