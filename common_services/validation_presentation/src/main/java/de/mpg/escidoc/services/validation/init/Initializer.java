@@ -30,6 +30,7 @@ package de.mpg.escidoc.services.validation.init;
 import java.io.File;
 import java.io.StringReader;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -232,7 +233,7 @@ public class Initializer
     private static void insertValidationData(final Connection conn) throws Exception
     {
         URL dirUrl = Initializer.class.getClassLoader().getResource(SCHEMA_DIRECTORY);
-        String[] path = dirUrl.getPath().split("/|\\\\");
+        String[] path = (URLDecoder.decode(dirUrl.getPath(), "UTF-8")).split("/|\\\\");
         String modifiedPath = "";
         for (String pathElement : path)
         {
