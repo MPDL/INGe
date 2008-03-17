@@ -470,6 +470,22 @@ html > body fieldset{
 	float: none;
 }
 
+	/* ACCEPT ITEM*/
+	
+.messageItem {
+	margin-left: 20px;
+	margin-top: 5px;
+}
+
+.boxSpacing {
+	margin-bottom: 20px;
+}
+
+.acceptItemInputArea {
+	height: 60px;
+	width: 320px;
+}
+
 	/* FOOTER SECTION */
 
 #footer {
