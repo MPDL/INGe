@@ -1,0 +1,70 @@
+	/* ACTION MENU */
+			
+	
+.contentActions, .mainMenu {
+	padding: 5px;	
+	background-color: #f0f0f0;
+	border: 1px;
+	border-color: #ccc; 
+	border-style: solid;
+	line-height: 150%;
+}
+
+.contentActions li {
+	margin-left: 0px;
+	margin-bottom: 0.2ex;	
+}
+
+.contentTop {
+	margin-bottom: 0px;
+	height: 30px;
+}
+
+.mainContent {
+	margin-top: 10px;
+	margin-left: 200px;
+	margin-right: 12px; 
+	margin-bottom: 12px;
+}
+
+
+
+
+		
+			/* MAIN SECTION: MENUS */
+			
+.mainMenu{
+	
+}			
+
+.mainMenu ul, .contentActions ul{
+	list-style-type: none;
+	line-height: 170%;
+}
+
+.mainMenu h1, .contentActions h1{
+	margin-top: 0.8em;
+	font-size: 100%;
+	padding-left: 12px;
+	font-weight: bold;
+	font-variant: normal;
+	font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+}
+
+.mainMenu li, .contentActions li{
+	margin-left: 1em;
+	margin-bottom: 0.2ex;
+	font-weight: normal;
+	line-height: 150%;
+	
+}
+
+
+
+
+			
+			/* BREADCRUMB SECTION */
+
+.breadcrumb {
+	font-size: 80%;
+}
