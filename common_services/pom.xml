@@ -168,7 +168,7 @@
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</connection>
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/</url>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<distributionManagement>
