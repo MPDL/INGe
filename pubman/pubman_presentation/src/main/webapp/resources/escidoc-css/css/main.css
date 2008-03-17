@@ -52,3 +52,6 @@
 
 /* import old styles for editItem */
 @import url(./editItem.css);
+
+/* import updated css */
+@import url(./update.css);
