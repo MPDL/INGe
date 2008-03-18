@@ -51,6 +51,8 @@
 	width: 320px;
 }
 
+/*EXPORT*/
+
 .exportEmailButtonBox {
 	text-align: center;
 	margin-left: 20px;
@@ -122,4 +124,27 @@
 .exportEMailBodyText {
 	height: 100px;
 	width: 600px;
+}
+
+/*LOGIN_ERROR*/
+
+.loginErrorBGImage {
+	background-image: url(./images/BorderLeft_Red3.jpg);
+	background-position: left top;
+	background-repeat: repeat-y;
+	height: 580px;
+	width: 860px;
+}
+
+.loginErrorOrientationText {
+	left: 0px;
+	top: 0px;
+	position: absolute;
+}
+
+.loginErrorMessage {
+	height: 18px;
+	left: 50px;
+	top: 150px;
+	position: absolute;
 }
