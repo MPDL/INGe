@@ -27,13 +27,15 @@
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
-<div xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html"><f:subview
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+
+<div><f:subview
 	id="Navigation">
 	<ul>
-		<li><h:commandLink id="lnkHome" action="#{Navigation.loadHome}">
+		<h1><h:commandLink id="lnkHome" action="#{Navigation.loadHome}">
 			<h:outputText value="#{lbl.mainMenu_lnkHome}" />
-		</h:commandLink></li>
+		</h:commandLink></h1>
 		<h1><h:outputText id="lblMyWorkspace"
 			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace}">
 		</h:outputText></h1>

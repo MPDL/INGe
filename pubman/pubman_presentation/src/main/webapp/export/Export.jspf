@@ -28,7 +28,7 @@
 */ %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<div style="width: 140px; height: 220px">
+<div>
 
 	<f:subview id="Export">
 	
@@ -36,11 +36,12 @@
 				<h:outputText id="lblExport"
 					value="#{lbl.export_lblExport}" />
 				</h1>
-				<h:panelGrid>						
+				<h:panelGrid columns="1">				
 					<h:selectOneRadio binding="#{ExportItems.rbgExportFormats}" 
 									  id="rbgExportFormats"  
 									  value="#{ExportItemsSessionBean.exportFormatType}"
-									  rendered="#{ExportItems.visibleExport}" onclick="updateExportFormats()">
+									  rendered="#{ExportItems.visibleExport}" onclick="updateExportFormats()"
+									  layout="pageDirection">
 							 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 					</h:selectOneRadio>
 					<h:selectOneMenu binding="#{ExportItems.cboLayoutCitStyles}" 
@@ -50,7 +51,7 @@
 							 <f:selectItems value="#{ExportItems.LAYOUTCITATIONSTYLE_OPTIONS}"/>
 					</h:selectOneMenu>
 			  	</h:panelGrid>   
-			
+				<hr />
 				<h:panelGrid>
 					<%/*
 					<h:commandButton id="btnDisplayItems"
@@ -58,39 +59,39 @@
 									 actionListener="#{SearchResultList.prepareDisplayExportData}"									 
 			 			 		  	 onclick="#{SearchResultList.displayExportData}"
 									 rendered="#{ExportItems.visibleExport}" 
-									 disabled="false" />
+									 disabled="false" 
+									 styleClass="exportButton" />
 					*/%>
 					<h:commandButton id="btnDisplayItems"
 									 binding="#{ExportItems.btnDisplayItems}"
 									 value="#{lbl.export_btDisplay}"
 									 action="#{SearchResultList.showDisplayExportData}"									 
 									 rendered="#{ExportItems.visibleExport}" 
-									 disabled="false" />
+									 disabled="false" 
+									 styleClass="exportButton centeredExportButton" />
 				</h:panelGrid>		
-
+				<hr />
 				<h:selectOneRadio binding="#{ExportItems.rbgFileFormats}" 
 								  id="rbgFileFormats" 
 								  value="#{ExportItemsSessionBean.fileFormat}"
-								  rendered="#{ExportItems.visibleExport}" >
+								  rendered="#{ExportItems.visibleExport}"
+								  layout="pageDirection">
 						 <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 				</h:selectOneRadio>
 									 
-			
-			   	<h:panelGrid columns="2">
-
 					<h:commandButton id="btnExportDownload"
 									 binding="#{ExportItems.btnExportDownload}"
 									 value="#{lbl.export_btDownload}"
 									 actionListener="#{SearchResultList.downloadExportFile}"
-									 rendered="#{ExportItems.visibleExport}" />
+									 rendered="#{ExportItems.visibleExport}" 
+									 styleClass="exportButton" />
 				
 					<h:commandButton id="btnExportEMail"
 									 binding="#{ExportItems.btnExportEMail}"
 									 value="#{lbl.export_btEMail}"
 									 action="#{SearchResultList.showExportEmailPage}"
-									 rendered="#{ExportItems.visibleExport}" />
-						
-				</h:panelGrid>	
+									 rendered="#{ExportItems.visibleExport}" 
+									 styleClass="exportButton" />
 			
 				<h:commandButton action="#{ExportItems.updateExportFormats}" id="btnUpdateExportFormats" value="updateExportFormats"  style="visibility:hidden;"/>									
 </f:subview></div>

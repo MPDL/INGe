@@ -39,31 +39,35 @@
 		%>
 	</h:panelGrid>
 
-	<h:panelGrid id="panelBackSend" columns="2" style="text-align: center; margin-left: 20px; margin-top: 160px; margin-bottom: 15px; width: 650px;" border="0"
-		cellspacing="0" cellpadding="0">
+	<div class="exportIcon"></div>
+	<div class="exportIconHeader">
+		<h:outputText id="lblExport" value="#{lbl.export_lblExport}" />
+	</div>
+	
+	<h:panelGrid id="panelBackSend" columns="2" styleClass="exportEmailButtonBox">
 
-		<h:commandLink id="lnkBack" style="font-weight: bold; height: 20px; font-size: 16px" value="Back" action="#{ExportItems.backToList}" />
+		<h:commandLink id="lnkBack" styleClass="exportBackButton" value="Back" action="#{ExportItems.backToList}" />
 
-		<h:commandLink id="lnkSend" style="font-weight: bold; height: 20px;font-size: 16px" value="Send" action="#{ExportItems.sendEMail}" />
+		<h:commandLink id="lnkSend" styleClass="exportSendButton" value="Send" action="#{ExportItems.sendEMail}" />
 	</h:panelGrid>
-	<h:panelGrid id="panelEmailHeader" style="margin-left: 20px; top: 253px; background-color: #F7F7F7; width: 650px;">
+	<h:panelGrid id="panelEmailHeader" styleClass="exportEmailBox">
 
 		<h:outputLabel for="txtItemsAttached" id="lblItemsAttached" value="#{lbl.ExportEmail_lblItemsAttached}" />
 
-		<h:inputText id="txtItemsAttached" style="height: 20px; width: 400px" disabled="true" value="#{ExportItemsSessionBean.attExportFileName}" />
+		<h:inputText id="txtItemsAttached" styleClass="exportInputTexts" disabled="true" value="#{ExportItemsSessionBean.attExportFileName}" />
 
 		<h:outputLabel for="txtToRecipient" id="lblToRecipient" value="#{lbl.ExportEmail_lblToRecipient}" />
-		<h:inputText id="txtToRecipient" style="height: 20px; width: 400px" value="#{ExportItemsSessionBean.emailRecipients}" />
+		<h:inputText id="txtToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.emailRecipients}" />
 
 		<h:outputLabel for="txtCCRecipient" id="lblCCRecipient" value="#{lbl.ExportEmail_lblCCRecipient}" />
-		<h:inputText id="txtCCRecipient" style="height: 20px; width: 400px" />
+		<h:inputText id="txtCCRecipient" styleClass="exportInputTexts" />
 	</h:panelGrid>
-	<h:panelGrid id="panelEmailContent" style="margin-left: 20px; background-color: #F7F7F7; width: 650px">
+	<h:panelGrid id="panelEmailContent" styleClass="exportEmailBox">
 		<h:outputLabel for="txtEmailSubject" id="lblEmailSubject" value="#{lbl.ExportEmail_lblSubject}" />
-		<h:inputText id="txtEmailSubject" style="height: 20px; width: 600px" value="#{ExportItemsSessionBean.exportEmailSubject}" />
-		<h:inputTextarea id="txtaContent" style="height: 100px; width: 600px" value="#{ExportItemsSessionBean.exportEmailTxt}" />
+		<h:inputText id="txtEmailSubject" styleClass="exportEMailSubjectTextBox" value="#{ExportItemsSessionBean.exportEmailSubject}" />
+		<h:inputTextarea id="txtaContent" styleClass="exportEMailBodyText" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 
 		<h:outputLabel for="txtReturnToRecipient" id="lblReturnToRecipient" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
-		<h:inputText id="txtReturnToRecipient" style="height: 20px; width: 400px" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
+		<h:inputText id="txtReturnToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />
 		</h:panelGrid>
 </f:subview></div>

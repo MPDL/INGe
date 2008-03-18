@@ -51,17 +51,75 @@
 	width: 320px;
 }
 
-	/*Main Menu*/
-.mainMenu h1 {
-	
-}	
-	
-	/*Export Menu*/
-	
-.export h1, .export h1 span {
-	margin-top: 0.8em;
-	font-size: 100%;
-	font-weight: bold;
-	font-variant: normal;
-	font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+.exportEmailButtonBox {
+	text-align: center;
+	margin-left: 20px;
+	margin-top: 0px;
+	margin-bottom: 15px;
+	width: 650px;
+	border: 0px;
+	cellspacing: 0px;
+	cellpadding: 0px;
+}
+
+.exportEmailBox {
+	margin-left: 20px;
+	background-color: #F7F7F7;
+	width: 650px;
+}
+
+.exportBackButton, .exportSendButton {
+	height: 20px;
+	font-size: 16px;
+}
+
+.exportBackButton {
+	float: left;
+}
+
+.exportSendButton {
+	float: right;
+}
+
+.exportIconHeader {
+	margin-top: 52px;
+	margin-bottom: 30px;
+}
+
+.exportIcon {
+	class: nowrap;
+	width:71px;
+	height:71px;
+	float:left;
+	margin-left: 14px;
+	margin-top: 25px;
+	background-image:url("../images/Withdrawn_icon.png");
+	background-repeat:no-repeat;
+}
+
+.exportIconHeader span {
+	padding: 0.2em 0em 0em 1.7em;
+	margin-left: -40px;
+	background-repeat:no-repeat;
+	background-position: left;
+	font-variant: small-caps;
+	font-size: 1.7em;
+	font-weight: bolder;
+	color: #444;
+	letter-spacing: 0.1em;
+}
+
+.exportInputTexts {
+	height: 20px;
+	width: 400px;
+}
+
+.exportEMailSubjectTextBox {
+	height: 20px;
+	width: 600px;
+}
+
+.exportEMailBodyText {
+	height: 100px;
+	width: 600px;
 }

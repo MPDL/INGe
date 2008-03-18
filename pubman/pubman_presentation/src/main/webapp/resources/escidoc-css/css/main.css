@@ -55,3 +55,6 @@
 
 /* import updated css */
 @import url(./update.css);
+
+/* import all menu css */
+@import url(./menu.css);

@@ -1,7 +1,8 @@
 	/* ACTION MENU */
 			
 	
-.contentActions, .mainMenu {
+.contentActions, .mainMenu div, .export {
+	width: 138px;
 	padding: 5px;	
 	background-color: #f0f0f0;
 	border: 1px;
@@ -26,16 +27,17 @@
 	margin-right: 12px; 
 	margin-bottom: 12px;
 }
-
-
-
-
 		
 			/* MAIN SECTION: MENUS */
+
+#col1 {
+	background-color: #ffffff;
+}
 			
-.mainMenu{
-	
-}			
+.mainMenu, #col1 {
+	padding: 0px;
+	border: 0px;
+}
 
 .mainMenu ul, .contentActions ul{
 	list-style-type: none;
@@ -43,12 +45,21 @@
 }
 
 .mainMenu h1, .contentActions h1{
-	margin-top: 0.8em;
+	margin-top: 0.5em;
 	font-size: 100%;
-	padding-left: 12px;
+	padding: 0px;
 	font-weight: bold;
 	font-variant: normal;
 	font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+}
+
+.contentActions h1 {
+	padding-left: 12px;
+}
+
+.mainMenu h1 a {
+	text-decoration: none;
+	color: #444;
 }
 
 .mainMenu li, .contentActions li{
@@ -56,11 +67,44 @@
 	margin-bottom: 0.2ex;
 	font-weight: normal;
 	line-height: 150%;
-	
 }
 
+		/*Export Menu*/
 
+.export {
+	margin-top: 20px;
+}
+	
+.export h1, .export h1 span {
+	margin-top: 0.8em;
+	font-size: 100%;
+	font-weight: bold;
+	font-variant: normal;
+	font-family: Verdana, Arial, Helvetica, SunSans-Regular, Sans-Serif;
+}
+	
+.export select {
+	width: 80%;
+	margin-left: 10%;
+	margin-top: 5px;
+}
 
+.export hr {
+	width: 70%;
+	margin-left: 15%;
+	margin-top: 7px;
+	margin-bottom: 7px;
+}
+
+.exportButton {
+	background-color: #e2e2e2;
+	margin: 0px;
+	margin-right: 3px;
+}
+
+.centeredExportButton {
+	margin-left: 35px;
+}
 
 			
 			/* BREADCRUMB SECTION */
