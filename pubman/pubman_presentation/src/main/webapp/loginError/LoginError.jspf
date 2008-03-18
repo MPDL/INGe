@@ -27,8 +27,8 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-<div style="background-image: url(./images/BorderLeft_Red3.jpg); background-position: left top; background-repeat: repeat-y; height: 580px; width: 860px"
+<div styleClass="loginErrorBGImage"
 	xmlns:f="http://java.sun.com/jsf/core"><f:subview id="LoginError">
-	<h:outputText id="valOrientationText" styleClass="orientationHeader" style="left: 0px; top: 0px; position: absolute" value="#{lbl.LoginErrorPage}" />
-	<h:outputText id="lblLoginErrorMessage" style="height: 18px; left: 50px; top: 150px; position: absolute" value="#{msg.LoginErrorPage_loggedOffFromSystem}" />
+	<h:outputText id="valOrientationText" styleClass="orientationHeader loginErrorOrientationText" value="#{lbl.LoginErrorPage}" />
+	<h:outputText id="lblLoginErrorMessage" styleClass="loginErrorMessage" value="#{msg.LoginErrorPage_loggedOffFromSystem}" />
 </f:subview></div>
