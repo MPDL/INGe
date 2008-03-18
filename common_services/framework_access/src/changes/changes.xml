@@ -40,8 +40,10 @@
 			<action dev="tendres" type="update">Lots of changes for the maven build environment.</action>
 		</release>
 		<release version="1.0.1" date="2008-03-07" description="Release of all modules"></release>
-		<release version="1.0.2-SNAPSHOT" date="2008-03-11" description="current development">
+		<release version="1.0.2" date="2008-03-18" description="Single module release">
 			<action dev="wfrank" type="update">Applied changes required for new framework release(version 0.9.1 build 224)</action>
+		</release>
+		<release version="1.0.3-SNAPSHOT" date="2008-03-18" description="current development">
 		</release>
 	</body>
 </document>
