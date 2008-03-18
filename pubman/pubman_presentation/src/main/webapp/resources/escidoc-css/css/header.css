@@ -1,0 +1,143 @@
+
+#header{	position:fixed;
+	top:0px;
+	left:0px;	max-width:1200px;
+	height:95px;	overflow:hidden;
+	z-index:10;
+	padding:0;
+}
+
+.opaque {	
+	opacity: .9;
+	filter: alpha(opacity=90);
+}
+
+.headerMain{	position:fixed;	top:5px;
+	left:0px;	height:95px;
+}
+
+
+.headerLogo {
+	height:90px; 
+	width:189px;
+	/*position:fixed;*/ 
+	top:0px;
+}
+#nav{	
+	background-color:white;
+	
+}
+
+/* HEADER: METAMENU SECTION */
+
+
+/*.metaMenuMain, .metaMenuHelp{
+	overflow: hidden;
+	word-spacing: 1em;
+}*/
+
+/*
+.nav{
+	position:absolute;
+	right: 10px;
+	top:0px;
+}*/
+
+#topnav{
+	position:fixed;
+	top:0px;
+	left:200px;
+	background-color:white;
+	max-width:1000px;
+}
+	/* BREADCRUMB SECTION */
+
+.breadcrumb {
+	height: 20px;
+	margin-top: 4px;
+	margin-left: 12px;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
+
+	/* METAMENU SECTION */
+
+.metaMenu {
+	margin: 0px px 0px 0px;
+	height: 20px;
+	/*overflow: hidden;*/
+	max-width: 500px; 
+	
+	float:right;
+}
+
+.metaMenuMain, .metaMenuHelp{
+	font-size: 85%;
+	/*vertical-align: middle;*/
+	/*word-spacing: 1em;*/
+	margin-right:2em;
+	float:left;
+	
+}
+
+.metaMenuFlags{
+	margin-top:2px;		
+	
+}
+
+	/* FLAGS */
+	
+.countryFlag{
+	width:23px; 
+	height:15px; 
+	position:relative; 
+	right:28px;
+}
+
+.flag input{
+	cursor: pointer;
+	margin-left: 4px;
+	width: 23px;
+	height: 15px;
+	border: none;
+}
+
+			/* HEADER: SIMPLE SEARCH SECTION */
+	
+
+.simpleSearch {
+	position:relative;
+	top: 20px;
+	right: 0px;
+	width: 600px;
+	height: 20px;
+	margin-right: 12px;
+	margin-top: 35px;
+	position: absolute;
+	right:20px;
+	text-align: right;
+}
+
+.simpleSearchText, .simpleSearchForm {
+	margin-left: 12px;
+	text-align: center;
+}
+
+.simpleSearch input{
+	margin: 0px 4px 4px 0px;
+	vertical-align: middle;
+	font-size: 100%;
+	height: 20px;
+}
+
+.simpleSearchText {
+	line-height: 220%;
+	vertical-align: baseline;
+	font-size: 85%;
+}
+	/* SIMPLE SEARCH SECTION */
+
+#searchLinks{	position: absolute;
+	right: 0px;}
+
