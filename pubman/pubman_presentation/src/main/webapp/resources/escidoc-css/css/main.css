@@ -58,3 +58,7 @@
 
 /* import all menu css */
 @import url(./menu.css);
+
+@import url(./header.css);
+
+@import url(./images.css);
