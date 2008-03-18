@@ -23,13 +23,13 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* f r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur F rderung der Wissenschaft e.V.
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
 
-/* Layout independent adjustments | Layout-unabh ngige Anpassungen */
+/* Layout independent adjustments | Layout-unabhängige Anpassungen */
 /* Only if necessary | Nur bei Bedarf */
 /* @import url(../yaml/core/iehacks.css);*/
 
@@ -42,69 +42,81 @@
 label{
 	float: left;
 }
-/*************************************/
-#main{
-	/*overflow:visible;
-	position: relative;
-	padding:20px;*/
-}	
 
-#col3 { 	
-	overflow:hidden;
-}
-
-#col1, #col2{
-	position:fixed;
-	top:120px;
-}
-
-#col1{
-	left:10px;
-}
-
-#col2{
-	right:10px;
-}
 	/* HEADER SECTION */
 
-#header{
-	/*position:fixed;	
-	top:0px;
-	width:100%;
-	height:95px;
-	overflow:visible;
-	left: 0px;*/	
-	width:100%;
-	height:100px;  
+.headerLogo {
+	width: 220px;
+	height: 90px;
+	clear: both;
+	margin-right: 600px;
+	background-image: url(../images/logo.gif);
+	background-position: left top;
 }
 
-@media screen{
-  body>div#header{
-   position: fixed;
-  }
-}
- 
- * html body{
-	overflow:hidden;
-} 
- * html div#content{
-	height:100%;
-	overflow:auto;
-}
-/*************************************/
+.headerMain {left: 350px;}
 
+	/* HEADER: METAMENU SECTION */
 
-#main{
-	position:relative;
-	top:100px;
-	overflow:hidden;
+.metaMenu {
+	margin: 2px 0px 30px 12px;
+	height: 20px;
+	overflow: hidden;
 }
-	
+
+.metaMenuMain, .metaMenuHelp{
+	overflow: hidden;
+	word-spacing: 1em;
+}
+	/* HEADER: SIMPLE SEARCH SECTION */
+
+.simpleSearch {
+	top: 20px;
+	right: 0px;
+	width: 600px;
+	height: 20px;
+	margin-right: 12px;
+	margin-top: 35px;
+	position: absolute;
+	text-align: right;
+}
+
+.simpleSearchText, .simpleSearchForm {
+	margin-left: 12px;
+	text-align: center;
+}
+
+	/* BREADCRUMB SECTION */
+
+.breadcrumb {
+	height: 20px;
+	margin-top: 4px;
+	margin-left: 12px;
+	margin-bottom: 20px;
+	padding: 5px;
+}
+
 	/* MAIN SECTION */
 
 #nav_main {
-	/*margin-left: 200px;*/
+	margin-left: 200px;
 	height: 20px;
+}
+
+	/* MAIN SECTION: MAIN MENU */
+
+.mainMenu {
+}
+
+	/* ACTION MENU */
+
+.contentActions {
+	padding: 5px;	
+}
+
+.contentActions li {
+	margin-left: 0px;
+	margin-bottom: 0.2ex;	
 }
 
 	/* CONTENT SECTION - GENERAL*/
@@ -115,21 +127,15 @@ label{
 }
 
 .mainContent {
-	position:relative;
-	top:0px;
-	margin-top: 10px;
-	margin-left: 0px;
+	margin-top: -10px;
+	margin-left: 200px;
 	margin-right: 12px; 
 	margin-bottom: 12px;
-	height:600px;
-	width:954px;
-	border: 1px solid #AFAFAF;
 }
 
 .content {
 	padding: 5px;
 	margin-bottom: 5em;
-	margin-left:20px;
 }
 
 	/* EDIT ITEM */
@@ -143,9 +149,7 @@ label{
 	margin: 0.5em 1em 1em 0
 }
 						
-.editItem input, .editItem select, .editItem textarea{
-	display: block;
-}
+.editItem input, .editItem select, .editItem textarea{display: block;}
 
 .editItem textarea{
 	width: 25em;
@@ -156,16 +160,16 @@ label{
 
 .editItem legend {		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
 	position: absolute;
-    top: -0.9em;
-    left: 0.7em;	
+	top: -0.9em;
+	left: 0.7em;	
 	padding: 0em 1em 0.5em 2.3em;
 }		
 			
 .editItem fieldset{		/* !CONTAINS WORKAROUND FOR IE FIELDSET BUG! */
-    position: relative;
-    margin: 35px 0em 0em 0em;
-    max-width: 740px;
-    padding: 20px 12px 12px 12px;
+	position: relative;
+	margin: 35px 0em 0em 0em;
+	max-width: 740px;
+	padding: 20px 12px 12px 12px;
 }
 
 html > body fieldset{
@@ -176,7 +180,7 @@ html > body fieldset{
 	display: block;
 	padding: 0em 1em 1em 3em;
 	border: none;
-    background-repeat: no-repeat;
+	background-repeat: no-repeat;
 	margin: 0.5em 1em 0em 0em;
 	background-position: left top;
 	background-image: url(../images/add_file.gif);
@@ -188,15 +192,106 @@ html > body fieldset{
 
 /* FORM FEEDBACK EFFECTS */
 
+	/* ITEM DISPLAY */
 
-/* Advanced Search */
+.singleItem{
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.itemTitle {
+	margin-right: 1em;
+	padding-right: 6px;
+	width: 20%;
+	float: left;
+	margin-top: 0.2em;
+ }
+
+.itemText {
+	padding-left: 6px;
+	margin-top: 0.2em;
+ }
+
+.itemAffiliations {
+	position: relative;
+	width: 15em;
+	height: 12em;
+	overflow: hidden;
+	float: left;
+	margin: 8px;
+	padding-bottom: 5px;
+}
+
+.revisions{
+}
+
+.revisions .formField{
+	margin: 12px;
+	width: 410px;	
+	text-align: right;
+}
+
+.revisions .objectButtons{
+	display: inline;
+	width: 410px;
+	margin: 0px 0px 0px 302px;
+}
+
+.revisions .formField textarea{
+	margin: 0px 0px 12px 0px ;
+	width: 400px;
+	height: 7em;
+}
+
+
+	/* LIST DISPLAY */
+	
+.list{
+	padding: 5px;
+	margin-bottom: 5em;
+}
+
+.list input{
+	border: none;
+}
+
+.paginator{
+	text-align: center;
+	margin: 1em 1em 1em 0em;
+	width: 750px;
+	vertical-align: baseline;
+}
+
+.paginator select{
+	width: 3em;
+	margin: 0px 6px 0px 6px;
+}
+
+.paginator input{
+	margin: 0px 3px 0px 3px;
+	padding: 1px 3px 1px 3px;
+	background-color: white;
+	border: 1px solid #999 !important;
+	color: #444;
+}
+
+.paginator input:hover{
+	cursor: pointer; 
+	background-color: #ffffcc;
+	border: 1px solid #444;
+	color: black;
+}
+
+.paginator .disabled, .paginator .disabled:hover{
+	background-color: silver;
+	border: none;
+	color: black;
+}
 
 .listHeader, .listItemHeader{ /* Also used for Advanced Search */
-	padding: 2px 2px 2px 2px;
-    width: 950px;
-	height: 35px;
-	border: 1px solid #5A5A5A;
-	margin-bottom: 5px;
+	padding: 6px 14px 2px 12px;
+	width: 750px;
+	height: 28px;
 }
 
 .listHeader select{
@@ -217,10 +312,11 @@ html > body fieldset{
 
 .displayControls input, .displayControls input:hover{	
 	border: none;
-    padding: 0px 0px 0px 6px;
+	padding: 0px 0px 0px 6px;
 	vertical-align: middle;
-    background: transparent;
+	background: transparent;
 }
+
 
 .listIitemHeader input{
 	border: none;	
@@ -237,35 +333,9 @@ html > body fieldset{
 	
 	/* ADVANCED SEARCH */
 
-.border{
-	border:1px solid #5A5A5A;
-}
-
 .advancedSearch{
 	padding: 5px;
 	margin-bottom: 5em;
-	border:1px solid black;
-}
-
-.boxPositioning{
-	position:absolute;
-	float:left;
-	top:250px;	
-	margin:20px;
-	width:23%;
-}
-
-.alignRight{
-	position: relative;
-	left: 15%;	
-}
-
-.topSpace350{
-	top:350px;
-}
-
-.right{
-	left:26%;
 }
 
 .operatorCenter{
@@ -273,8 +343,9 @@ html > body fieldset{
 	margin-bottom: 1em;
 }
 
+
 .advancedSearch h2 {
-	/*font-variant: small-caps;*/
+	font-variant: small-caps;
 	font-size: 1.3em;
 	font-weight: bold;
 	color: #333;
@@ -296,7 +367,7 @@ html > body fieldset{
 
 .formField, .formFieldLanguage{
 	width: 750px;
-    padding: 12px 12px 12px 12px;
+	padding: 12px 12px 12px 12px;
 	border: 1px #dfdee2 solid;
 	background-color: #fafafa;
 }
@@ -350,6 +421,7 @@ html > body fieldset{
 
 .markAll a, .markAll a:hover{text-decoration: none; color: black;}
 
+
 .markAll input{
 	vertical-align: middle;
 	border: none;
@@ -367,49 +439,6 @@ html > body fieldset{
 	border: none;
 	text-align: left;
 }
-
-.smaller{
-	width:470px;
-	margin-top:10px;
-}
-
-.fromFieldProps{
-	height:100px;
-	width:450px;
-}
-
-.checkBoxList{
-/*	list-style-type:none;*/
-	position: relative;
-	top: 5px;
-	left:0px;
-	width:450px;	
-}
-
-.checkItem{
-	float:left;
-	width:40%;
-}
-
-.moreSpace{
-	width:45%;
-}
-.grayLine{
-	background-color:#F3F3F3;	
-}
-
-.inBoxHeader{
-	height:13px;
-	border:1px solid gray;
-	width:100%;
-	margin-left:-13px;
-	margin-top:-13px;	
-	font-weight:bold;	
-}
-
-.noBorder{
-	border:none;
-}	
 
 	/* MESSAGES */
 	
@@ -446,6 +475,7 @@ html > body fieldset{
 	width: 100px;
 }
 
+
 .export .radio{
 	padding: 0px 0px 0px 0px;
 }
@@ -463,11 +493,4 @@ html > body fieldset{
 	margin-left: 12px;
 	margin-right: 12px;
 	bottom: 4px;
-}
-
-.blackFont{
-	color:black;
-	font-weight:bold;
-	margin-left: 10px;
-	margin-top:10px;
 }
