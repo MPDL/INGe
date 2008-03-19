@@ -59,6 +59,11 @@
  	                	<dc:title>odt</dc:title>
 	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
  	                </format>
+ 	                <format>
+ 	                	<dc:title>snippet</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
+ 	                </format>
+ 	                
  	                <dc:creator>vdm</dc:creator>
  	        </citation-style>
  	        <citation-style>
@@ -79,6 +84,10 @@
  	                <format>
  	                	<dc:title>odt</dc:title>
 	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
+ 	                </format>
+ 	                <format>
+ 	                	<dc:title>snippet</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
  	                </format>
  	                <dc:creator>Kondic</dc:creator>
  	        </citation-style>
