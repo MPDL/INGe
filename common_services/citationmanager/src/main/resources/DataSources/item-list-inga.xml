@@ -692,7 +692,7 @@ References
 			</md-records:md-record>
 		</md-records:md-records>
 	</item:item>
-	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:"   last-modification-date="2006-12-21T13:15:23.485">
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:12345"   last-modification-date="2006-12-21T13:15:23.485">
 		<item:properties>
 			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
 			<item:created-by objid="escidoc:user2"/>
@@ -703,7 +703,8 @@ References
 				<item:version-status>released</item:version-status>
 			</item:version>
 			<item:content-model-specific/>
-		</item:properties>		<md-records:md-records>
+		</item:properties>		
+		<md-records:md-records>
 			<md-records:md-record name="escidoc"  schema="http://www.escidoc-project.de/metadata/schema/0.1"  >
 				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
 					<creator role="author">
@@ -1186,7 +1187,7 @@ References
 		</item:properties>
 		<md-records:md-records>
 			<md-records:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="manuscript">
+				<profile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="manuscript">
 					<publication:creator role="author">
 						<escidoc:person>
 							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
@@ -1217,7 +1218,7 @@ References
 					</publication:creator>
 					<dc:title xml:lang="en">PubMan: The first of all.</dc:title>
 					<dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
-				</escidocMetadataProfile:publication>
+				</profile:publication>
 			</md-records:md-record>
 		</md-records:md-records>
 	</item:item>
