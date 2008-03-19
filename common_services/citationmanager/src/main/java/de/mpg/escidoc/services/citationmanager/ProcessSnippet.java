@@ -59,7 +59,7 @@ import org.w3c.dom.NodeList;
 *
 * TODO: NS support 
 * 
-* @author makarenko (initial creation)
+* @author vmakarenko (initial creation)
 * @author $Author$ (last modification)
 * @version $Revision$ $LastChangedDate$
 *
@@ -163,9 +163,6 @@ public class ProcessSnippet {
 		//append metadata with snippets in sb [] 
 		for ( int i = 0; i < length; i++ )
 		{
-			logger.info("iteration:" + i);
-			
-			// create snippet element
 			Element snippetElement = doc.createElement( SNIPPET_ELEMENT_NAME );
 			CDATASection snippetCDATASection = doc.createCDATASection(extractPureCitation(sb[i].toString()));
 			snippetElement.appendChild(snippetCDATASection);

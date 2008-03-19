@@ -29,11 +29,13 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.net.URL;
 
@@ -103,6 +105,18 @@ public class XmlHelper {
     	return createDocumentBuilder().newDocument(); 
     }
     
+
+    
+    public static OutputFormat getOutputFormat(Document doc)
+    {
+        OutputFormat format = new OutputFormat(doc);
+        format.setIndenting(true);
+        format.setIndent(2);
+        format.setCDataElements(Parameters.CDATAElements);
+        format.setOmitComments(false);
+        return format;
+    }
+    
     /**
      * Writes org.w3c.dom.Document to XML file 
      * @param doc
@@ -113,13 +127,8 @@ public class XmlHelper {
     public static void output(Document doc, String xmlFileName) throws CitationStyleManagerException, IOException {
     
     	// TODO: to get rid of org.apache.xml.serialize.* 
-        OutputFormat format = new OutputFormat(doc);
-        format.setIndenting(true);
-        format.setIndent(2);
-        format.setCDataElements(Parameters.CDATAElements);
-        format.setOmitComments(false);
         FileOutputStream output = new FileOutputStream( xmlFileName );
-        XMLSerializer serializer = new XMLSerializer(output, format);
+        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
         serializer.serialize(doc);
     	
     }
@@ -132,16 +141,41 @@ public class XmlHelper {
     public static String outputString(Document doc) throws IOException {
     	
     	// TODO: to get rid of org.apache.xml.serialize.* 
-    	OutputFormat format = new OutputFormat(doc);
-    	format.setIndenting(true);
-    	format.setIndent(2);
-    	format.setCDataElements(Parameters.CDATAElements);
-        format.setOmitComments(false);
     	StringWriter output = new StringWriter();
-    	XMLSerializer serializer = new XMLSerializer(output, format);
+    	XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
+    	serializer.serialize(doc);
+    	return output.toString();
+
+    }
+
+    
+    /**
+     * Writes org.w3c.dom.Document to OutputStream 
+     * @param doc
+     * @throws IOException 
+     */
+    public static OutputStream output(Document doc) throws IOException 
+    {
+    	
+    	// TODO: to get rid of org.apache.xml.serialize.* 
+    	OutputStream baos = new ByteArrayOutputStream();
+    	XMLSerializer serializer = new XMLSerializer(baos, getOutputFormat(doc));
     	serializer.serialize(doc);
     	
-    	return output.toString();
+    	return baos;
+    }
+    
+    /**
+     * Writes org.w3c.dom.Document to OutputStream 
+     * @param doc
+     * @throws IOException 
+     */
+    public static void output(Document doc, OutputStream os) throws IOException 
+    {
+    	
+    	// TODO: to get rid of org.apache.xml.serialize.* 
+    	XMLSerializer serializer = new XMLSerializer(os, getOutputFormat(doc));
+    	serializer.serialize(doc);
     	
     }
     

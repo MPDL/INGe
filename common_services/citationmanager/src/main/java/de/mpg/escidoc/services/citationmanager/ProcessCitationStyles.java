@@ -104,8 +104,8 @@ import de.mpg.escidoc.services.citationmanager.XmlHelper;
 *
 * Citation Style Processing Engine   
 *
-* @author $Author: vdm $ (last modification)
-* @version $Revision: 146 $ $LastChangedDate: 2007-11-12 20:58:08 +0100 (Mon, 12 Nov 2007) $
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate$
 *
 */
 
@@ -142,12 +142,13 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final String TASK_PRINT = "print";
     private static final String TASK_HTML = "html";
     private static final String TASK_XML = "xml";
+    private static final String TASK_SNIPPET = "snippet";
     private static final String TASK_ODT = "odt";    
     private static final String TASK_VALIDATE_DS = "validate-ds";
     private static final String TASK_VALIDATE_CS = "validate-cs";
     
     // Output Formats enum
-    public static enum OutFormats { rtf, pdf, html, odt }; 
+    public static enum OutFormats { rtf, pdf, html, odt, snippet }; 
     
 
 //    public final static String REPORT_XML_ROOT_XPATH = "/item-list/item/md-records/md-record/publication";
@@ -1313,9 +1314,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
 		Document document = JRXmlUtils.parse(bis);
 //		logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
-
-		Map params = new HashMap();
-		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
+		
 
 		String csj = ResourceUtil.getPathToCitationStyles() + citationStyle + "/CitationStyle.jasper"; 
 		InputStream is = ResourceUtil.getResourceAsStream(csj);
@@ -1323,7 +1322,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		{
 			throw new CitationStyleManagerException("Cannot find: " + csj);
 		}
-			
+
+		Map params = new HashMap();
+		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
+		
+		// generate snippet export 
+		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
+		{
+			ProcessSnippet psn = new ProcessSnippet();
+			psn.export(document, params, is, os);
+			return;
+		}
+		
+		
 		JasperPrint jasperPrint = JasperFillManager.fillReport(
 				is,
 				params,
@@ -1345,7 +1356,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 				/* Switch off pagination and null pixel alignment for JRHtmlExporter */
 		        exporter.setParameter(JRHtmlExporterParameter.BETWEEN_PAGES_HTML, "");
 		        exporter.setParameter(JRHtmlExporterParameter.IS_USING_IMAGES_TO_ALIGN, Boolean.FALSE);
-                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+                exporter.setParameter(JRHtmlExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.FALSE);
 				break;
 			case rtf:
 				exporter = new JRRtfExporter();
