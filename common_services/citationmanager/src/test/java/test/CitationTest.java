@@ -6,12 +6,16 @@ package test;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
+import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.ResourceUtil;
 import de.mpg.escidoc.services.citationmanager.XmlHelper;
+import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 
 import static org.junit.Assert.*;
 
@@ -25,6 +29,12 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
+	private final String dsFileName = "item-list-inga.xml";  
+	
+	private String itemList;
+	
+	private CitationStyleHandler pcs = new ProcessCitationStyles();
+	
 	/**
      * Tests CitationStyle.xml (APA by default)
      * TODO: At the moment only the Validation method is being tested, 
@@ -33,26 +43,21 @@ public class CitationTest {
      *              relative path behavior. maven resource paths are not recognized.      
      * @throws IOException 
      */
+
+    /**
+     * Get test item list from XML 
+     * @throws Exception
+     */
+    @Before
+    public final void getItemList() throws Exception
+    {
+    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
+    	logger.info("Data Source:" + ds);
+    			
+        itemList = ResourceUtil.getResourceAsString(ds);
+        assertNotNull("Item list xml is not found:", ds);
+    }	
 	
-    @Test
-    public final void testCitationStyleXMLValidation() throws IOException{
-    	
-    	long start = 0;
-    	try {
-    		start = System.currentTimeMillis();
-    		xh.validateCitationStyleXML(
-    				ResourceUtil.getPathToCitationStyles()
-    				+ "APA/CitationStyle.xml"	
-    		);
-        	logger.info("Citation Style XML file for APA is valid.");
-    		
-    	}catch (CitationStyleManagerException e){
-    		logger.info("Citation Style XML file for APA style is not valid.\n" + e.toString());
-    		fail();
-    	}
-    	logger.info("Citation Style Validation time : " + (System.currentTimeMillis() - start));
-    }
-    
     /**
      * Validates DataSource against XML Schema  
      * @throws IOException 
@@ -102,4 +107,46 @@ public class CitationTest {
     	logger.info("Data Source Validation time : " + (System.currentTimeMillis() - start));
     }
 
+
+    /**
+     * Test service with a item list XML.
+     * All exports 
+     * @throws Exception Any exception.
+     */
+    @Test
+    public final void testCitManOutput() throws Exception {
+		long start;
+    	byte[] result;
+		for ( OutFormats ouf : OutFormats.values() ) {
+			String format = ouf.toString();
+	    	start = System.currentTimeMillis();
+	    	result = pcs.getOutput("APA", format, itemList);
+	        logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+	        logger.info(format + " length: " + result.length);
+	        assertTrue(format + " output should not be empty", result.length > 0);
+	        logger.info(format + " is OK");
+			
+		}
+    }
+    
+    /**
+     * Test service with a item list XML.
+     * Snippet export
+     * @throws Exception Any exception.
+     */
+    @Test
+    @Ignore
+    public final void testCitManOutputSnippet() throws Exception {
+    	long start;
+    	byte[] result;
+    	start = System.currentTimeMillis();
+    	String format = ProcessCitationStyles.OutFormats.snippet.toString();
+    	result = pcs.getOutput("APA", format, itemList);
+    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+    	logger.info(format + " length: " + result.length);
+    	logger.info("result=" + new String(result));
+    	assertTrue(format + " output should not be empty", result.length > 0);
+    	logger.info(format + " is OK");
+    }    
+    
 }
