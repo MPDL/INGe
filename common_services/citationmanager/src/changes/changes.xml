@@ -46,5 +46,12 @@
         Corrected some path entries. Included the unittests.
       </action>
     </release>
+    <release version="1.0.2" date="2008-03-19" description="single module release">
+    <action dev="schraut" type="update">
+        release for testing purpose
+      </action>
+    </release>
+    <release version="1.0.3-SNAPSHOT" date="2008-03-19" description="current development">
+    </release>
   </body>
 </document>
