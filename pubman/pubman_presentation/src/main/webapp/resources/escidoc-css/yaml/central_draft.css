@@ -2,8 +2,8 @@
 /**
  * "Yet Another Multicolumn Layout" - (X)HTML/CSS Framework
  *
- * (en) print stylesheet
- * (de) Druck-Stylesheet
+ * (en) draft for a central stylesheet
+ * (de) Vorlage für ein zentrales Stylesheets
  *
  * @copyright       Copyright 2005-2007, Dirk Jesse
  * @license         CC-A 2.0 (http://creativecommons.org/licenses/by/2.0/),
@@ -15,17 +15,13 @@
  * @lastmodified    $Date: 2007-10-05 19:05:21 +0200 (Fr, 05 Okt 2007) $
  */
 
-/* import print base styles | Basisformatierung für Drucklayout einbinden */
-@import url(../core/print_base.css);
+/* import core styles | Basis-Stylesheets einbinden */
+@import url(/yaml/core/base.css);
 
-/* #col1 - x
-** #col2 - 0
-** #col3 - 0
-*/
-@media print
-{
-  #col1, #col1_content { float:none; width: 100%; margin: 0; padding: 0; border: 0}
+/* import screen layout | Screen-Layout einbinden */
+/* @import url(/yaml/navigation/nav_shinybuttons.css);
+  @import url(/css/screen/basemod.css);
+  @import url(/css/screen/content.css); */
 
-  #col2 {display:none}
-  #col3 {display:none}
-}
+/* import print layout | Druck-Layout einbinden */
+/* @import url(/css/print/print_003.css); */
