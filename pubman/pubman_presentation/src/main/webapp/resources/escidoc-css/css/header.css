@@ -197,6 +197,7 @@ html > body #nav {
 }
 
 #nav_main span {
+	font-size: 100%;
 	font-weight: bold;
 	float: left;
 }
