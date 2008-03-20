@@ -28,6 +28,11 @@
  All rights reserved. Use is subject to license terms.
 -->
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+
+<jsp:output doctype-root-element="html"
+        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
 	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
 		<f:loadBundle var="lbl" basename="Label"/>
@@ -42,17 +47,19 @@
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 			</head>
 			<body><h:form id="form1">
-				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
 				<div id="page_margins">
 					<div id="page">
 						
 							<div id="header">
 								<jsp:directive.include file="desktop/Header.jspf" />
-								<jsp:directive.include file="desktop/Login.jspf" />
-								<jsp:directive.include file="desktop/Search.jspf" />
+								<div class="header">
+									<jsp:directive.include file="desktop/Login.jspf" />
+									<jsp:directive.include file="desktop/Search.jspf" />
+								</div>
 							</div>
 							<div id="nav">
-								<jsp:directive.include file="desktop/Breadcrumb.jspf" />
+									<jsp:directive.include file="desktop/Breadcrumb.jspf" />
 							</div>
 							<div id="main">
 								<div id="col1">
@@ -78,7 +85,6 @@
 									</div>
 								</div>
 							</div>
-						
 						</div>
 					</div>
 				</h:form>

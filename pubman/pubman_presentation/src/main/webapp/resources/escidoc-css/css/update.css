@@ -60,8 +60,6 @@
 	margin-bottom: 15px;
 	width: 650px;
 	border: 0px;
-	cellspacing: 0px;
-	cellpadding: 0px;
 }
 
 .exportEmailBox {
@@ -89,7 +87,6 @@
 }
 
 .exportIcon {
-	class: nowrap;
 	width:71px;
 	height:71px;
 	float:left;
