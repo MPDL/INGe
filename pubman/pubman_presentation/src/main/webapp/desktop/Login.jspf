@@ -27,9 +27,9 @@
  All rights reserved. Use is subject to license terms.
   */
 </jsp:scriptlet>
-<div class="header" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
-    <f:subview id="Login">
-        <div id="topnav">
+
+<div id="topnav" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+	<f:subview id="Login">
 	        <div id="headerMain">
 				<div class="metaMenu">
 			        <span class="metaMenuMain">
@@ -76,6 +76,5 @@
    					</span>
 				</div>
 			</div>
-		</div>
 	</f:subview>
 </div>
