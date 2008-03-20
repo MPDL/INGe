@@ -180,11 +180,42 @@ html > body #nav {
 }
 
 	/* BREADCRUMB SECTION */
-
+/*
 .breadcrumb {
 	height: 20px;
 	margin-top: 4px;
 	margin-left: 12px;
 	margin-bottom: 20px;
 	padding: 5px;
+}
+*/
+
+	/* BREADCRUMB SECTION */
+
+#nav_main {
+	font-size: 80%;
+}
+
+#nav_main span {
+	font-weight: bold;
+	float: left;
+}
+
+#nav_main ol {
+	list-style: none;
+	float: left;
+	text-align: left;
+	margin: 0px;
+	padding: 0px;
+}
+
+#nav_main ol li:last-child {
+	font-weight: bold;
+}
+
+#nav_main ol li {
+	float: left;
+	margin: 0px;
+	margin-left: 5px;
+	padding: 0px;
 }
