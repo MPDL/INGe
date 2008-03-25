@@ -29,7 +29,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<div>
+<div class="searchResult">
 <f:subview id="content">
 	<h1>
 		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>

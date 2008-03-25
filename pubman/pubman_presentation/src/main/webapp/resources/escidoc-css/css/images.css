@@ -167,7 +167,7 @@
 .singleItem h1{background-image:url(../images/document_icon.png);}
 .list h1{background-image:url(../images/document_icon.png);}
 
-.advancedSearch h1 {
+.advancedSearch h1, .searchResult h1 {
 	background-image:url(../images/advanced-search.png);
 	height: 26px;
 	padding: 0.2em 0em 0em 1.7em;	/* top right bottom left */ 
