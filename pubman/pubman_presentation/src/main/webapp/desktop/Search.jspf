@@ -32,7 +32,7 @@
 	<f:subview id="Search">
 		<div class="simpleSearch">
 			<span class="simpleSearchForm">
-				<h:inputText binding="#{Search.txtSearch}" id="txtSearch" value="#{SearchResultListSessionBean.searchString}" />
+				<h:inputText binding="#{Search.txtSearch}" id="txtSearch" value="#{SearchResultListSessionBean.searchString}" onkeyup="startQuicksearch(event);"/>
 				<h:commandButton action="#{Search.search}" id="btSearch" immediate="true" value="#{lbl.search_btSearch}" />
 				<h:selectBooleanCheckbox binding="#{Search.chkIncludeFiles}" id="chkIncludeFiles" value="#{SearchResultListSessionBean.includeFiles}" />
 				<h:outputText id="lblIncludeFiles" value="#{lbl.search_lblIncludeFiles}" />

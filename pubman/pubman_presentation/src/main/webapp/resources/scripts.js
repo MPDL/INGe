@@ -238,3 +238,12 @@ function goBack()
 {
   document.getElementById("form1:btGoBack").click();
 }
+
+function startQuicksearch(e)
+{
+		if((e.keyCode == 13) && (document.getElementById('form1:Search:txtSearch').value != ""))
+		{
+				document.getElementById('form1:Search:btSearch').click();
+				return false;
+		}
+}
