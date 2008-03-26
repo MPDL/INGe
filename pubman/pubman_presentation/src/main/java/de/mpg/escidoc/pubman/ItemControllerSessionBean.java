@@ -59,6 +59,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
@@ -1396,7 +1397,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
      */
-    public ArrayList<PubItemVO> searchItems(String searchString, boolean includeFiles) throws Exception
+    public ArrayList<PubItemResultVO> searchItems(String searchString, boolean includeFiles) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1404,7 +1405,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList) this.pubItemSearching.search(searchString, includeFiles);
+        ArrayList<PubItemResultVO> itemList = (ArrayList<PubItemResultVO>) this.pubItemSearching.search(searchString, includeFiles);
         
         if (logger.isDebugEnabled())
         {

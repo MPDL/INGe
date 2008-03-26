@@ -449,7 +449,7 @@ public class CommonUtils extends InternationalizedImpl
      * @param list the list of PubItemVOs
      * @return the list of PubItemVOPresentations
      */
-    public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<PubItemVO> list)
+    public static List<PubItemVOPresentation> convertToPubItemVOPresentationList(List<? extends PubItemVO> list)
     {
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
 
