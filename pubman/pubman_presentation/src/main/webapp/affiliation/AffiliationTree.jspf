@@ -42,7 +42,7 @@
 		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
 				<h:panelGroup>
-					<h:graphicImage value="../images/#{node.image}" height="20px" width="20px"/>
+					<h:graphicImage value="../images/#{node.image}" height="22px" width="22px"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
 				</h:panelGroup>
 			</f:facet>
