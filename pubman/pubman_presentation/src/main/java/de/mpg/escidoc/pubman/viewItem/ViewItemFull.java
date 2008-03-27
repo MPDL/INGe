@@ -30,28 +30,21 @@
 
 package de.mpg.escidoc.pubman.viewItem;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
-import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.component.html.HtmlMessages;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
-import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
-import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
@@ -73,13 +66,22 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.viewItem.ui.ViewItemFullUI;
+import de.mpg.escidoc.pubman.util.ObjectFormatter;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
+import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -109,6 +111,59 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
+    
+    private UIXIterator titleIterator = new UIXIterator();
+    
+    private UIXIterator creatorPersonsIterator = new UIXIterator();
+    
+    private UIXIterator creatorAffiliationsIterator = new UIXIterator();
+    
+    private UIXIterator languagesIterator = new UIXIterator();
+    
+    private UIXIterator abstractIterator = new UIXIterator();
+    
+    private UIXIterator eventAltTitleIterator = new UIXIterator();
+    
+    private UIXIterator sourceIterator = new UIXIterator();
+    
+    private UIXIterator sourceTitleIterator = new UIXIterator();
+    
+    private UIXIterator sourceCreatorPersonsIterator = new UIXIterator();
+    
+    private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();	
+    
+    private UIXIterator fileIterator = new UIXIterator();
+    
+    private PubCollectionVO pubCollection = null;
+    
+    /**
+     * The list of formatted organzations in an ArrayList.
+     */
+    private ArrayList<String> organizationArray;
+    
+    /**
+     * The list of affiliated organizations as VO List.
+     */
+    private ArrayList<ViewItemOrganization> organizationList;
+    
+    /**
+     * The list of affiliated organizations in a list.
+     */
+    private List<OrganizationVO> affiliatedOrganizationsList;
+    
+    /**
+     * The list of formatted creators in an ArrayList.
+     */
+    private ArrayList<String> creatorArray;
+    
+    /**
+     * The list of formatted creators which are organizations in an ArrayList.
+     */
+    private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
+    
+    private List<SourceBean> sourceList = new ArrayList<SourceBean>();
+    
+    private List<FileBean> fileList = new ArrayList<FileBean>();
     
     /**
      * Public constructor.
@@ -250,9 +305,53 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(true);
             }
             
+            // set up some pre-requisites
+            // the list of numbered affiliated organizations 
+            createAffiliatedOrganizationList();
             
-            // create a full view item UI
-            createViewItemFull(this.pubItem);
+            // the list of creators (persons and organizations)
+            createCreatorList();
+            
+            // the list of sources
+            for(int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
+            {
+            	this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
+            }
+            
+            // the list of files
+            // Check if the item is also in the search result list
+            List<PubItemVOPresentation> currentPubItemList = this.getItemListSessionBean().getCurrentPubItemList();
+            List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
+            for(int i = 0; i < currentPubItemList.size(); i++)
+            {
+            	if(this.pubItem.getReference().getObjectId().equals(currentPubItemList.get(i).getReference().getObjectId()))
+            	{
+            		if(this.pubItem.getReference().getVersionNumber() == currentPubItemList.get(i).getReference().getVersionNumber())
+            		{
+            			if(currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i).getSearchHitList().size() > 0)
+            			{
+            				for(int j = 0; j < currentPubItemList.get(i).getSearchHitList().size(); j++)
+            				{
+            					searchHitList.add(currentPubItemList.get(i).getSearchHitList().get(j));
+            				}
+            				
+            			}
+            		}
+            	}
+            }
+            
+            for(int i = 0; i < this.pubItem.getFiles().size(); i++)
+            {
+            	if(searchHitList.size() > 0 && !this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+                {
+            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getState(), searchHitList));
+                }
+            	else
+            	{
+            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getState()));
+            	}
+            }
+            
             
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
             // set up the release history of the item
@@ -279,112 +378,6 @@ public class ViewItemFull extends FacesBean
                 }
             }
         }
-    }
-
-    /**
-     * Creates a full view item UI
-     */
-    public void createViewItemFull(PubItemVO pubItem)
-    {
-        this.panelItemFull.getChildren().clear();
-        if (pubItem != null)
-        {
-            this.panelItemFull.getChildren().add(new ViewItemFullUI(pubItem));
-        }
-    }
-    
-    /**
-     * Prepares the file the user wants to download
-     * @author Tobias Schraut
-     * @throws IOException
-     * @throws Exception
-     */
-    public void downloadFile(int itemPosition, int filePosition) throws IOException, Exception
-    {
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-
-        // extract the location of the file
-        String fileLocation = ServiceLocator.getFrameworkUrl() + this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getContent();
-        String filename = this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getName(); // Filename suggested in browser Save As dialog
-        filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed by the http-response (filename will be cutted after the first empty space)
-        String contentType = this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getMimeType(); // For dialog, try
-        
-        // application/x-download
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
-        response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        response.setContentLength(new Long(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getSize()).intValue());
-        response.setContentType(contentType);
-
-        byte[] buffer = null;
-        if (filePosition != -1)
-        {
-            try
-            {
-                GetMethod method = new GetMethod(fileLocation);
-                method.setFollowRedirects(false);
-                if (loginHelper.getESciDocUserHandle() != null)
-                {
-                    // downloading by account user
-                    addHandleToMethod(method, loginHelper.getESciDocUserHandle());
-                }
-                
-                // Execute the method with HttpClient.
-                HttpClient client = new HttpClient();
-                client.executeMethod(method);
-                OutputStream out = response.getOutputStream();
-                InputStream input = method.getResponseBodyAsStream();
-                try
-                {
-                    buffer = new byte[new Long(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getSize()).intValue()];
-                    int numRead;
-                    long numWritten = 0;
-                    while ((numRead = input.read(buffer)) != -1) {
-                        out.write(buffer, 0, numRead);
-                        out.flush();
-                        numWritten += numRead;
-                    }
-                    facesContext.responseComplete();
-                }
-                catch (IOException e1)
-                {
-                    logger.debug("Download IO Error: " + e1.toString());
-                }
-                input.close();
-                out.close();
-            }
-            catch (FileNotFoundException e)
-            {
-                logger.debug("File not found: " + e.toString());
-            }
-        }
-    }
-
-    /**
-     * Method is called in jsp. Triggers download action
-     * @author Tobias Schraut
-     * @return String nav rule
-     * @throws Exception
-     */
-    public String handleDownloadAction(ActionEvent event) throws Exception
-    {
-        //find the index of the the button the user has clicked
-        HtmlOutputText result = (HtmlOutputText)((HtmlCommandButton)event.getSource()).getParent();
-        int indexButton = result.getChildren().indexOf(event.getSource());
-        
-        // then find the indexes of the item and the file the clicked button belongs to
-        int indexFile = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-1)).getValue().toString());
-        int indexItem = new Integer(((HtmlOutputText)result.getChildren().get(indexButton-2)).getValue().toString());
-        try
-        {
-            this.downloadFile(indexItem, indexFile);
-        }
-        catch (IOException e)
-        {
-            logger.debug("File Download Error: " + e.toString());
-        }
-        
-        return "";
     }
     
     /**
@@ -589,6 +582,436 @@ public class ViewItemFull extends FacesBean
             }
         }
         valMessage.setRendered(true);
+    }
+    
+    /**
+     * Generates the affiliated organization list as one string for presenting it in the jsp via the dynamic html component.
+     * Doubled organizations will be detected and merged. All organizzations will be numbered. 
+     */
+    private void createAffiliatedOrganizationList()
+    {
+        String formattedOrganization = "";
+        List<CreatorVO> tempCreatorList;
+        List<OrganizationVO> tempOrganizationList = null;
+        List<OrganizationVO> sortOrganizationList = null;
+        this.organizationArray = new ArrayList<String>();
+        this.organizationList = new ArrayList<ViewItemOrganization>();
+        tempOrganizationList = new ArrayList<OrganizationVO>();
+        sortOrganizationList = new ArrayList<OrganizationVO>();
+        tempCreatorList = this.pubItem.getMetadata().getCreators();
+        int affiliationPosition = 0;
+        for (int i = 0; i < tempCreatorList.size(); i++)
+        {
+            CreatorVO creator = new CreatorVO();
+            creator = tempCreatorList.get(i);
+            if (creator.getPerson() != null)
+            {
+                if (creator.getPerson().getOrganizations().size() > 0)
+                {
+                    for (int listSize = 0; listSize < creator.getPerson().getOrganizations().size(); listSize++)
+                    {
+                        tempOrganizationList.add(creator.getPerson().getOrganizations().get(listSize));
+                    }
+                    for (int j = 0; j < tempOrganizationList.size(); j++)
+                    {
+                        // if the organization is not in the list already, put
+                        // it in.
+                        if (!sortOrganizationList.contains(tempOrganizationList.get(j)))
+                        {
+                            affiliationPosition++;
+                            sortOrganizationList.add(tempOrganizationList.get(j));
+                            ViewItemOrganization viewOrganization = new ViewItemOrganization();
+                            if(tempOrganizationList.get(j).getName() != null)
+                            {
+                                viewOrganization.setOrganizationName(tempOrganizationList.get(j).getName().getValue());
+                            }
+                            viewOrganization.setOrganizationAddress(tempOrganizationList.get(j).getAddress());
+                            viewOrganization.setOrganizationIdentifier(tempOrganizationList.get(j).getIdentifier());
+                            viewOrganization.setPosition(new Integer(affiliationPosition).toString());
+                            if(tempOrganizationList.get(j).getName() != null)
+                            {
+                                viewOrganization.setOrganizationInfoPage(tempOrganizationList.get(j).getName().getValue(),
+                                        tempOrganizationList.get(j).getAddress());
+                            }
+                            this.organizationList.add(viewOrganization);
+                        }
+                    }
+                }
+            }
+        }
+        // save the List in the backing bean for later use.
+        this.affiliatedOrganizationsList = sortOrganizationList;
+        // generate a 'well-formed' list for presentation in the jsp
+        for (int k = 0; k < sortOrganizationList.size(); k++)
+        {
+        	String name = sortOrganizationList.get(k).getName() != null ? sortOrganizationList.get(k).getName().getValue() : "";
+            formattedOrganization = "<p>"+(k + 1) + ": " + name +"</p>" + "<p>" + sortOrganizationList.get(k).getAddress() + "</p>" + "<p>" + sortOrganizationList.get(k).getIdentifier() + "</p>";
+            this.organizationArray.add(formattedOrganization);
+        }
+    }
+    
+    /**
+     * Generates the creator list as list of formatted Strings.
+     * 
+     * @return String formatted creator list as string
+     */
+    private void createCreatorList()
+    {
+        StringBuffer creatorList = new StringBuffer();
+        String formattedCreator = "";
+        this.creatorArray = new ArrayList<String>();
+        this.creatorOrganizationsArray = new ArrayList<ViewItemCreatorOrganization>();
+        // counter for organization array
+        int counterOrganization = 0;
+        StringBuffer annotation;
+        ObjectFormatter formatter = new ObjectFormatter();
+        
+        
+        for (int i = 0; i < this.pubItem.getMetadata().getCreators().size(); i++)
+        {
+            CreatorVO creator = new CreatorVO();
+            creator = this.pubItem.getMetadata().getCreators().get(i);
+            annotation = new StringBuffer();
+            int organizationsFound = 0;
+            for (int j = 0; j < this.affiliatedOrganizationsList.size(); j++)
+            {
+                if (creator.getPerson() != null)
+                {
+                    if (creator.getPerson().getOrganizations().contains(this.affiliatedOrganizationsList.get(j)))
+                    {
+                        if (organizationsFound == 0)
+                        {
+                            annotation.append("   [");
+                        }
+                        if (organizationsFound > 0 && j < this.affiliatedOrganizationsList.size())
+                        {
+                            annotation.append(",");
+                        }
+                        annotation.append(new Integer(j + 1).toString());
+                        organizationsFound++;
+                    }
+                }
+            }
+            if (annotation.length() > 0)
+            {
+                annotation.append("]");
+            }
+            formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+            if (creator.getPerson() != null)
+            {
+                this.creatorArray.add(formattedCreator);
+            }
+            if (creator.getOrganization() != null)
+            {
+                ViewItemCreatorOrganization creatorOrganization = new ViewItemCreatorOrganization();
+                creatorOrganization.setOrganizationName(formattedCreator);
+                creatorOrganization.setPosition(new Integer(counterOrganization).toString());
+                creatorOrganization.setOrganizationAddress(creator.getOrganization().getAddress());
+                creatorOrganization.setOrganizationInfoPage(formattedCreator, creator.getOrganization()
+                        .getAddress());
+                this.creatorOrganizationsArray.add(creatorOrganization);
+                counterOrganization++;
+            }
+            creatorList.append(formattedCreator);
+        }
+    }
+    
+    
+    /**
+     * Returns the formatted Publishing Info according to filled elements
+     * @return String the formatted Publishing Info
+     */
+    public String getPublishingInfo()
+    {
+        StringBuffer publishingInfo = new StringBuffer();
+        publishingInfo.append("");
+        if(this.pubItem.getMetadata().getPublishingInfo() != null)
+        {
+            // Edition
+            if(this.pubItem.getMetadata().getPublishingInfo().getEdition() != null)
+            {
+                publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getEdition());
+            }
+            
+            // Comma
+            if((this.pubItem.getMetadata().getPublishingInfo().getEdition() != null && !this.pubItem.getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((this.pubItem.getMetadata().getPublishingInfo().getPlace() != null && !this.pubItem.getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null && !this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
+            {
+                    publishingInfo.append(". ");
+            }
+            
+            // Place
+            if(this.pubItem.getMetadata().getPublishingInfo().getPlace() != null)
+            {
+                publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getPlace().trim());
+            }
+            
+            // colon
+            if(this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null && !this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim().equals("") && this.pubItem.getMetadata().getPublishingInfo().getPlace() != null && !this.pubItem.getMetadata().getPublishingInfo().getPlace().trim().equals(""))
+            {
+                    publishingInfo.append(" : ");
+            }
+            
+            // Publisher
+            if(this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null)
+            {
+                publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim());
+            }
+        }
+        return publishingInfo.toString();
+    }
+    
+    /**
+     * Returns all Identifiers as formatted String
+     * @return String the formatted Identifiers
+     */
+    public String getIdentifiers()
+    {
+        StringBuffer identifiers = new StringBuffer();
+
+        if (this.pubItem.getMetadata().getIdentifiers() != null)
+        {
+            for (int i = 0; i < this.pubItem.getMetadata().getIdentifiers().size(); i++)
+            {
+                identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
+                identifiers.append(": ");
+                identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
+                {
+                    identifiers.append(", ");
+                }
+            }
+        }
+        return identifiers.toString();
+    }
+    
+    /**
+     * Returns a true or a false according top the existance of specified fields in the details section
+     * @return boolean
+     */
+    public boolean getShowDetails()
+    {
+    	if(this.pubItem.getMetadata() != null)
+        {
+            if((this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0)
+                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
+                    || this.pubItem.getMetadata().getPublishingInfo() != null
+                    || (this.pubItem.getMetadata().getTotalNumberOfPages() != null && !this.pubItem.getMetadata().getTotalNumberOfPages().trim().equals(""))
+                    || this.pubItem.getMetadata().getDegree() != null
+                    || (this.pubItem.getMetadata().getLocation() != null && !this.pubItem.getMetadata().getLocation().trim().equals(""))
+                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0))
+            {
+            	return true;
+            }
+            else
+            {
+            	return false;
+            }
+        }
+    	return false;
+    }
+    
+    /**
+     * Returns a true or a false according to the existance of an event in the item
+     * @return boolean
+     */
+    public boolean getShowEvents()
+    {
+    	if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getEvent() != null)
+        {
+            return true;
+        }
+        else
+        {
+          	return false;
+        }
+    }
+    
+    /**
+     * Returns a true or a false according to the existance of sources in the item
+     * @return boolean
+     */
+    public boolean getShowSources()
+    {
+    	if (this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getSources() != null && this.pubItem.getMetadata().getSources().size() > 0)
+        {
+            return true;
+        }
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns a true or a false according to the existance of files in the item
+     * @return boolean
+     */
+    public boolean getShowFiles()
+    {
+    	if (this.pubItem.getFiles() != null && this.pubItem.getFiles().size() > 0)
+        {
+            return true;
+        }
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns a true or a false according to the invited state of the item
+     * @return boolean
+     */
+    public boolean getInvited()
+    {
+    	if(this.pubItem.getMetadata().getEvent().getInvitationStatus() != null)
+        {
+    		if(this.pubItem.getMetadata().getEvent().getInvitationStatus().equals(EventVO.InvitationStatus.INVITED))
+            {
+    			return true;
+            }
+    		else
+    		{
+    			return false;
+    		}
+        }
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns a true or a false according to the state of the current item
+     * @return boolean
+     */
+    public boolean getItemIsWithdrawn()
+    {
+    	if(this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+        {
+    		return true;
+        }
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Gets the name of the Collection the item belongs to.
+     *
+     * @return String formatted Collection name
+     */
+    public String getCollectionName()
+    {
+        String collectionName = "";
+        if (this.pubCollection == null)
+        {
+            ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
+            try
+            {
+                this.pubCollection = itemControllerSessionBean
+                        .retrieveCollection(this.pubItem.getPubCollection().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Error retrieving collection", e);
+            }
+        }
+
+        if (this.pubCollection != null)
+        {
+            collectionName = this.pubCollection.getName();
+        }
+        return collectionName;
+    }
+    
+    /**
+     * Gets the affiliation of the Collection the item belongs to.
+     *
+     * @return String formatted Collection name
+     */
+    public String getAffiliations()
+    {
+        StringBuffer affiliations = new StringBuffer();
+        List<AffiliationRO> affiliationRefList = new ArrayList<AffiliationRO>();
+        List<AffiliationVO> affiliationList = new ArrayList<AffiliationVO>();
+        ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
+
+        if (this.pubCollection == null)
+        {
+            try
+            {
+                this.pubCollection = itemControllerSessionBean
+                        .retrieveCollection(this.pubItem.getPubCollection().getObjectId());
+            }
+            catch (Exception e)
+            {
+                logger.error("Error retrieving collection", e);
+            }
+        }
+
+        if (this.pubCollection != null)
+        {
+            affiliationRefList = this.pubCollection.getResponsibleAffiliations();
+        }
+        // first get all affiliations
+        if (affiliationRefList != null)
+        {
+            for (int i = 0; i < affiliationRefList.size(); i++)
+            {
+                try
+                {
+                    affiliationList.add(
+                            itemControllerSessionBean.retrieveAffiliation(affiliationRefList.get(i).getObjectId()));
+                }
+                catch (Exception e)
+                {
+                    logger.error("Error retrieving affiliation list", e);
+                }
+            }
+        }
+
+        // then extract the names and add to StringBuffer
+        for (int i = 0; i < affiliationList.size(); i++)
+        {
+            affiliations.append(affiliationList.get(i).getName());
+            if (i < affiliationList.size() - 1)
+            {
+                affiliations.append(", ");
+            }
+        }
+        return affiliations.toString();
+    }
+    
+    /**
+     * Returns a formatted String including the start and the end date of the event
+     * @return String the formatted date string
+     */
+    public String getStartEndDate()
+    {
+        StringBuffer date = new StringBuffer();
+        
+        if(this.pubItem.getMetadata().getEvent().getStartDate() != null)
+        {
+            date.append(this.pubItem.getMetadata().getEvent().getStartDate());
+        }
+        
+        if(this.pubItem.getMetadata().getEvent().getEndDate() != null)
+        {
+            date.append(" - ");
+            date.append(this.pubItem.getMetadata().getEvent().getEndDate());
+        }
+        return date.toString();
+    }
+    
+    /**
+     * Returns the Modification date as formatted String (YYYY-MM-DD)
+     * @return String the formatted date of modification
+     */
+    public String getModificationDate()
+    {
+    	return CommonUtils.format(this.pubItem.getModificationDate());
     }
     
     /**
@@ -798,6 +1221,193 @@ public class ViewItemFull extends FacesBean
 
 	public String getGenre()
     {
-    	return getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+    	String genre="";
+    	if(this.pubItem.getMetadata().getGenre() != null)
+    	{
+    		genre = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+    	}
+		return genre;
     }
+	
+	public String getReviewMethod()
+    {
+    	String reviewMethod="";
+    	if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getReviewMethod() != null)
+    	{
+    		reviewMethod = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getReviewMethod()));
+    	}
+		return reviewMethod;
+    }
+	
+	public String getDegreeType()
+    {
+    	String degreeType="";
+    	if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getDegree() != null)
+    	{
+    		degreeType = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getDegree()));
+    	}
+		return degreeType;
+    }
+	
+	public String getItemState()
+    {
+    	
+		String itemState="";
+		if(this.pubItem.getState() != null)
+		{
+			itemState = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getState()));
+		}
+		return itemState;
+    }
+
+	public ArrayList<String> getOrganizationArray() {
+		return organizationArray;
+	}
+
+	public void setOrganizationArray(ArrayList<String> organizationArray) {
+		this.organizationArray = organizationArray;
+	}
+
+	public ArrayList<ViewItemOrganization> getOrganizationList() {
+		return organizationList;
+	}
+
+	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
+		this.organizationList = organizationList;
+	}
+
+	public List<OrganizationVO> getAffiliatedOrganizationsList() {
+		return affiliatedOrganizationsList;
+	}
+
+	public void setAffiliatedOrganizationsList(
+			List<OrganizationVO> affiliatedOrganizationsList) {
+		this.affiliatedOrganizationsList = affiliatedOrganizationsList;
+	}
+
+	public ArrayList<String> getCreatorArray() {
+		return creatorArray;
+	}
+
+	public void setCreatorArray(ArrayList<String> creatorArray) {
+		this.creatorArray = creatorArray;
+	}
+
+	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
+		return creatorOrganizationsArray;
+	}
+
+	public void setCreatorOrganizationsArray(
+			ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray) {
+		this.creatorOrganizationsArray = creatorOrganizationsArray;
+	}
+
+	public UIXIterator getTitleIterator() {
+		return titleIterator;
+	}
+
+	public void setTitleIterator(UIXIterator titleIterator) {
+		this.titleIterator = titleIterator;
+	}
+
+	public UIXIterator getCreatorPersonsIterator() {
+		return creatorPersonsIterator;
+	}
+
+	public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
+		this.creatorPersonsIterator = creatorPersonsIterator;
+	}
+
+	public UIXIterator getCreatorAffiliationsIterator() {
+		return creatorAffiliationsIterator;
+	}
+
+	public void setCreatorAffiliationsIterator(
+			UIXIterator creatorAffiliationsIterator) {
+		this.creatorAffiliationsIterator = creatorAffiliationsIterator;
+	}
+
+	public UIXIterator getLanguagesIterator() {
+		return languagesIterator;
+	}
+
+	public void setLanguagesIterator(UIXIterator languagesIterator) {
+		this.languagesIterator = languagesIterator;
+	}
+
+	public UIXIterator getAbstractIterator() {
+		return abstractIterator;
+	}
+
+	public void setAbstractIterator(UIXIterator abstractIterator) {
+		this.abstractIterator = abstractIterator;
+	}
+
+	public UIXIterator getEventAltTitleIterator() {
+		return eventAltTitleIterator;
+	}
+
+	public void setEventAltTitleIterator(UIXIterator eventAltTitleIterator) {
+		this.eventAltTitleIterator = eventAltTitleIterator;
+	}
+
+	public UIXIterator getSourceIterator() {
+		return sourceIterator;
+	}
+
+	public void setSourceIterator(UIXIterator sourceIterator) {
+		this.sourceIterator = sourceIterator;
+	}
+
+	public UIXIterator getSourceTitleIterator() {
+		return sourceTitleIterator;
+	}
+
+	public void setSourceTitleIterator(UIXIterator sourceTitleIterator) {
+		this.sourceTitleIterator = sourceTitleIterator;
+	}
+
+	public UIXIterator getSourceCreatorPersonsIterator() {
+		return sourceCreatorPersonsIterator;
+	}
+
+	public void setSourceCreatorPersonsIterator(
+			UIXIterator sourceCreatorPersonsIterator) {
+		this.sourceCreatorPersonsIterator = sourceCreatorPersonsIterator;
+	}
+
+	public UIXIterator getSourceCreatorAffiliationsIterator() {
+		return sourceCreatorAffiliationsIterator;
+	}
+
+	public void setSourceCreatorAffiliationsIterator(
+			UIXIterator sourceCreatorAffiliationsIterator) {
+		this.sourceCreatorAffiliationsIterator = sourceCreatorAffiliationsIterator;
+	}
+
+	public List<SourceBean> getSourceList() {
+		return sourceList;
+	}
+
+	public void setSourceList(List<SourceBean> sourceList) {
+		this.sourceList = sourceList;
+	}
+
+	public UIXIterator getFileIterator() {
+		return fileIterator;
+	}
+
+	public void setFileIterator(UIXIterator fileIterator) {
+		this.fileIterator = fileIterator;
+	}
+
+	public List<FileBean> getFileList() {
+		return fileList;
+	}
+
+	public void setFileList(List<FileBean> fileList) {
+		this.fileList = fileList;
+	}
+	
+	
 }
