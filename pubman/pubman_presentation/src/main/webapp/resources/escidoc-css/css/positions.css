@@ -268,7 +268,7 @@ html > body fieldset{
 	margin: 0px 6px 0px 6px;
 }
 
-.paginator input{
+.paginator input, .paginator button {
 	margin: 0px 3px 0px 3px;
 	padding: 1px 3px 1px 3px;
 	background-color: white;
@@ -276,7 +276,7 @@ html > body fieldset{
 	color: #444;
 }
 
-.paginator input:hover{
+.paginator input:hover, .paginator button:hover{
 	cursor: pointer; 
 	background-color: #ffffcc;
 	border: 1px solid #444;
@@ -290,6 +290,7 @@ html > body fieldset{
 }
 
 .listHeader, .listItemHeader{ /* Also used for Advanced Search */
+	margin-top: 2px;
 	padding: 6px 14px 2px 12px;
 	width: 750px;
 	height: 28px;

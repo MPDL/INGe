@@ -34,7 +34,7 @@
 			<h:outputText styleClass="orientationHeader" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
 		</h1>
 
-		<h:panelGrid columns="2" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
+		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
 			<h:outputText value="Publication:" styleClass="itemInformation"/>
 			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
 
@@ -42,15 +42,15 @@
 			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.creators}"/>
 		</h:panelGrid>
 		
-		<h:panelGrid style="margin-bottom: 20px;">
-			<h:outputText binding="#{WithdrawItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
+		<h:panelGrid styleClass="withdrawMessage">
+			<h:outputText binding="#{WithdrawItem.valMessage}" id="valMessage" styleClass="messageStatus withdrawMessageVal"/>
 		</h:panelGrid>
 			
-		<h:panelGrid id="panContent" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
+		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
 
 			<h:outputLabel for="txtaComment" id="lblComment"
 					style="" value="#{lbl.WithdrawItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" style="height: 60px; width: 320px" binding="#{WithdrawItem.withdrawalComment}"/>
+			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" binding="#{WithdrawItem.withdrawalComment}"/>
 		</h:panelGrid>
 
 	</f:subview>

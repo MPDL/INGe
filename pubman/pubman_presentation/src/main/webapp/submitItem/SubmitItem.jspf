@@ -33,7 +33,7 @@
 			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.SubmitItemPage}: "/>
 			<h:outputText styleClass="orientationHeader" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
 		</h1>
-		<h:panelGrid columns="2" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
+		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
 			<h:outputText value="Publication:" styleClass="itemInformation"/>
 			<h:outputText styleClass="itemInformation" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
 
@@ -41,14 +41,14 @@
 			<h:outputText styleClass="itemInformation" value="#{SubmitItem.creators}"/>
 		</h:panelGrid>
 
-		<h:panelGrid style="margin-bottom: 20px;">
+		<h:panelGrid styleClass="withdrawMessage">
 			<h:outputText binding="#{SubmitItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
 		</h:panelGrid>
 
-		<h:panelGrid id="panContent" style="margin-left: 10px; margin-top: 5px;" border="0" cellspacing="5" cellpadding="0">
+		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
 
 			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.SubmitItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" style="height: 60px; width: 320px" binding="#{SubmitItem.submissionComment}"/>
+			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" binding="#{SubmitItem.submissionComment}"/>
 
 		</h:panelGrid>
 	</f:subview>

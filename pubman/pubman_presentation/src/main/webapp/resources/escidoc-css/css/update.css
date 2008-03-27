@@ -145,3 +145,64 @@
 	top: 150px;
 	position: absolute;
 }
+
+/*STATISTICS*/
+.statisticsSmallFont {
+	font-size: 14px;
+}
+
+.itemInformationFontSize {
+	font-size: 16px;
+}
+
+#panItemStatisticsTitle {
+	margin-top: 100px;
+}
+
+#valItemStatisitics {
+	font-weight: bold;
+}
+
+.panItemStatisticsBox {
+	border: 1px black dotted;
+	text-align: center;
+}
+
+.statisticsCloseLink {
+	margin-top: 20px;
+	margin-left: 145px;
+}
+
+/*WITHDRAW ITEM (AND SUBMIT ITEM)*/
+.withdrawOverview {
+	margin-left: 10px;
+	margin-top: 5px;
+	border: 0px;
+}
+
+.withdrawMessage {
+	margin-bottom: 20px;
+}
+
+.withdrawMessageVal {
+	margin-left: 10px;
+	margin-top: 10px
+}
+
+.withdrawCommentPanel {
+	margin-left: 10px;
+	margin-top: 5px;
+	border: 0px;
+}
+
+.withdrawCommentTextarea {
+	height: 60px;
+	width: 320px;
+}
+
+/*AFFILIATION TREE*/
+
+.p_OraTreeNodeAdjust {
+padding-bottom: 3px;
+padding-top: 0px;
+}

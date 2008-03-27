@@ -30,39 +30,39 @@
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="ViewItemStatisitcs">
 		<div>
- 		 <h:panelGrid id="panItemStatisticsTitle" columns="2" style="margin-top: 100px;">
+ 		 <h:panelGrid id="panItemStatisticsTitle" columns="2">
 			<h:graphicImage id="imgStat" url="/images/document_icon.png" />			
 			<h3>
 				<label>
-					<h:outputText id="valItemStatisitics" value="Item Statistics" style="font-size: 16px; font-weight: bold;"/>
+					<h:outputText id="valItemStatisitics" value="Item Statistics" styleClass="itemInformationFontSize"/>
 				</label>
 			</h3>
 		</h:panelGrid>	
 		</div>
-		<h:panelGrid id="panItemStatistics" columns="3" style="border: 1px black dotted; text-align: center;">
+		<h:panelGrid id="panItemStatistics" columns="3" styleClass="panItemStatisticsBox">
 					
 					<h:outputText value="" />
-					<h:outputText value="Total" styleClass="itemInformation" style="font-size: 16px"/>
-					<h:outputText value="Anonymous" styleClass="itemInformation" style="font-size: 16px"/>
+					<h:outputText value="Total" styleClass="itemInformation itemInformationFontSize"/>
+					<h:outputText value="Anonymous" styleClass="itemInformation itemInformationFontSize"/>
 					
-					<h:outputText value="Item Retrievals" style="font-size: 14px"/>
+					<h:outputText value="Item Retrievals" styleClass="statisticsSmallFont"/>
 					<h:outputText value="22"/>
 					<h:outputText value="5" />
 					
-					<h:outputText value="File Downloads" style="font-size: 14px"/>
+					<h:outputText value="File Downloads" styleClass="statisticsSmallFont"/>
 					<h:outputText value="46" />
 					<h:outputText value="5" />
 					
-					<h:outputText value="Filename1" style="font-size: 14px"/>
+					<h:outputText value="Filename1" styleClass="statisticsSmallFont"/>
 					<h:outputText value="23" />
 					<h:outputText value="3" />
 					
-					<h:outputText value="Filename2" style="font-size: 14px"/>
+					<h:outputText value="Filename2" styleClass="statisticsSmallFont"/>
 					<h:outputText value="23" />
 					<h:outputText value="3" />
 		  </h:panelGrid>	
 				
-		  <div style="margin-top: 20px; margin-left: 145px;">	
+		  <div styleClass="statisticsCloseLink">	
 		  	<a href="javascript:window.close()"> <h:outputText  id="lnkClose" value="Close Window"/></a>
 		  </div>	
 				
