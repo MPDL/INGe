@@ -206,9 +206,10 @@ function downloadFile(FileID)
   document.getElementById("form1:SearchResultList:"+FileID).click();
 }
 
-function downloadFileViewItem(FileID) 
+function downloadFileViewItem(element) 
 {
-  document.getElementById("form1:viewItemFull:"+FileID).click();
+	var button = element.previousSibling;
+	button.click();
 }
 
 function bookmark(url, title) {
