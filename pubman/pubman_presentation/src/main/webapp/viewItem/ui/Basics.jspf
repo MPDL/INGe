@@ -39,6 +39,9 @@
 		<h:outputText value="#{ViewItemFull.genre}"/>
 	</h2>
 	
+	<!-- COinS -->
+	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
+	
 	<!-- Title -->
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblTitle}"/>

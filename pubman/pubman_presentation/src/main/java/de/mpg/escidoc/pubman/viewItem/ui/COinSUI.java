@@ -208,6 +208,133 @@ public class COinSUI
     }
     
     /**
+     * Generates the desired unescaped HTML Span Tag for COinS.
+     *
+     * @param pubitemVO the complete pub item
+     * @return HtmlOutputText a HtmlOutputText component which contains the unescaped span tag
+     */
+    public String getCOinSString(PubItemVO pubitemVO)
+    {
+        StringBuffer coinsContent = new StringBuffer();
+        
+        if(pubitemVO != null)
+        {
+            if(pubitemVO.getMetadata() != null)
+            {
+                String rft_genre = "";
+                String rft_atitle = "";
+                String rft_title = "";
+                String rft_aulast = "";
+                String rft_aufirst = "";
+                String rft_au = "";
+                String rft_issn = "";
+                String rft_isbn = "";
+                String rft_id = "";
+                String rft_volume = "";
+                String rft_issue = "";
+                String rft_pages = "";
+                String rft_date = "";
+                
+                if(pubitemVO.getMetadata().getGenre() != null)
+                {
+                    rft_genre = RFT_GENRE_PREFIX + pubitemVO.getMetadata().getGenre().name();
+                }
+                
+                if(pubitemVO.getMetadata().getTitle() != null)
+                {
+                    rft_atitle = RFT_ATIITLE_PREFIX + pubitemVO.getMetadata().getTitle().getValue();
+                    rft_atitle = rft_atitle != null ? rft_atitle.replace(" ", "+") : "";
+                }
+                
+                // add the title of the first source
+                if(pubitemVO.getMetadata().getSources() != null)
+                {
+                    if(pubitemVO.getMetadata().getSources().size() > 0)
+                    {
+                        if(pubitemVO.getMetadata().getSources().get(0).getTitle() != null)
+                        {
+                        	rft_title = RFT_TITLE_PREFIX + pubitemVO.getMetadata().getSources().get(0).getTitle().getValue();
+                        	rft_title = rft_title != null ? rft_title.replace(" ", "+") : "";
+                        }
+                    }
+                }
+                // examine if the desired attributes are filled or not
+                // if not the prefix should be also omitted 
+                if(!getLastName(pubitemVO).equals(""))
+                {
+                    rft_aulast = RFT_AULAST_PREFIX + getLastName(pubitemVO);
+                }
+                
+                if(!getFirstName(pubitemVO).equals(""))
+                {
+                    rft_aufirst = RFT_AUFIRST_PREFIX + getFirstName(pubitemVO);
+                }
+                
+                if(!getCompleteNames(pubitemVO).equals(""))
+                {
+                    rft_au = RFT_AU_PREFIX + getCompleteNames(pubitemVO);
+                }
+                
+                if(!getISSN(pubitemVO).equals(""))
+                {
+                    rft_issn = RFT_ISSN_PREFIX + getISSN(pubitemVO);
+                }
+                
+                if(!getISBN(pubitemVO).equals(""))
+                {
+                    rft_isbn = RFT_ISBN_PREFIX + getISBN(pubitemVO);
+                }
+                
+                if(!getSourceIdentifier(pubitemVO).equals(""))
+                {
+                    rft_id = RFT_ID_PREFIX + getSourceIdentifier(pubitemVO);
+                }
+                
+                if(!getSourceVolume(pubitemVO).equals(""))
+                {
+                    rft_volume = RFT_VOLUME_PREFIX + getSourceVolume(pubitemVO);
+                }
+                
+                if(!getSourceIssue(pubitemVO).equals(""))
+                {
+                    rft_issue = RFT_ISSUE_PREFIX + getSourceIssue(pubitemVO);
+                }
+                
+                if(!getSourcePages(pubitemVO).equals(""))
+                {
+                    rft_pages = RFT_PAGES_PREFIX + getSourcePages(pubitemVO);
+                }
+                
+                if(!getDate(pubitemVO).equals(""))
+                {
+                    rft_date = RFT_DATE_PREFIX + getDate(pubitemVO);
+                }
+                
+                // Then put all fields together
+                coinsContent.append(COINS_START_TAG);
+                coinsContent.append(CTX_VER);
+                coinsContent.append(RFT_VAL_FMT);
+                coinsContent.append(RFR_ID);
+                coinsContent.append(rft_genre);
+                coinsContent.append(rft_atitle);
+                coinsContent.append(rft_title);
+                coinsContent.append(rft_aulast);
+                coinsContent.append(rft_aufirst);
+                coinsContent.append(rft_au);
+                coinsContent.append(rft_issn);
+                coinsContent.append(rft_isbn);
+                coinsContent.append(rft_id);
+                coinsContent.append(rft_volume);
+                coinsContent.append(rft_issue);
+                coinsContent.append(rft_pages);
+                coinsContent.append(rft_date);
+                coinsContent.append(COINS_END_TAG);
+            }
+        }
+        return coinsContent.toString();
+    }
+    
+    /**
      * @param pubitemVO the pubitem in which the firstname of the first creator (person should be found)
      * @return the firstname of the first creator
      */

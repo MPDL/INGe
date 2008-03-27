@@ -72,6 +72,7 @@ import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.bean.FileBean;
 import de.mpg.escidoc.pubman.viewItem.bean.SourceBean;
+import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
@@ -111,6 +112,8 @@ public class ViewItemFull extends FacesBean
     private static final String FUNCTION_NEW_REVISION = "new_revision";
     
     private static final String VALIDATION_ERROR_MESSAGE = "depositorWS_NotSuccessfullySubmitted";
+    
+    private String coins;
     
     private UIXIterator titleIterator = new UIXIterator();
     
@@ -311,6 +314,10 @@ public class ViewItemFull extends FacesBean
             
             // the list of creators (persons and organizations)
             createCreatorList();
+            
+            // create the COinS information
+            COinSUI coins = new COinSUI();
+            this.coins = coins.getCOinSString(this.pubItem);
             
             // the list of sources
             for(int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
@@ -1408,6 +1415,14 @@ public class ViewItemFull extends FacesBean
 	public void setFileList(List<FileBean> fileList) {
 		this.fileList = fileList;
 	}
-	
+
+	public String getCoins() {
+		return coins;
+	}
+
+	public void setCoins(String oinS) {
+		this.coins = oinS;
+	}
+
 	
 }
