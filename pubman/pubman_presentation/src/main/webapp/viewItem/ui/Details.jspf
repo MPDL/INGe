@@ -1,0 +1,144 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<f:subview id="Details">
+	
+	<h2>
+		<h:graphicImage height="25" width="21" value="./images/bt_nb1_22xy22_cont.gif"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderDetails}"/>
+	</h2>
+	
+	<h:panelGroup rendered="#{ViewItemFull.showDetails}">
+		<!-- Abstract -->
+		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index">
+			<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
+			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2!=ViewItemFull.abstractIterator.rowIndex}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/>
+				<h:outputText value=" <#{abstract.language}>" rendered="#{abstract.language != null && abstract.language != ''}"/>
+			<h:outputText value="</div>" escape="false"/>
+			
+			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
+			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2!=ViewItemFull.abstractIterator.rowIndex}"/>
+				<h:outputText value="#{abstract.value}"/>
+				<h:outputText value="&#160;" escape="false" rendered="#{abstract == null || abstract.value == ''}"/>
+			<h:outputText value="</div>" escape="false"/>
+		</tr:iterator>
+		
+		
+		<!-- Table of contents -->
+		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblTOC}"/>
+			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.tableOfContents.language}>" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents.language != null && ViewItemFull.pubItem.metadata.tableOfContents.language != ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<!-- Publishing Info -->
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblPublishingInfo}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.publishingInfo}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.publishingInfo == null || ViewItemFull.publishingInfo == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		
+		<!-- Total number of pages -->
+		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblPages}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.totalNumberOfPages}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.totalNumberOfPages == null || ViewItemFull.pubItem.metadata.totalNumberOfPages == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<!-- Degree Type -->
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblDegreeType}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.degreeType}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.degreeType == null || ViewItemFull.degreeType == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<!-- Publication location -->
+		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblPublicationLocation}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.location}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.location == null || ViewItemFull.pubItem.metadata.location == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<!-- Identifiers -->
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblIdentifiers}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.identifiers}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.identifiers == null || ViewItemFull.identifiers == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		
+		<!-- Edition -->
+		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblEdition}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.publishingInfo.edition}" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo != null}"/>
+			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo == null || ViewItemFull.pubItem.metadata.publishingInfo.edition == ''}"/>
+		<h:outputText value="</div>" escape="false"/>
+	
+	</h:panelGroup>
+	
+	<!-- Show a 'no entries message' if no details are available -->
+	<h:panelGroup  rendered="#{ViewItemFull.showDetails == false}">
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="&#160;" escape="false" />
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntries}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</h:panelGroup>
+	
+</f:subview>

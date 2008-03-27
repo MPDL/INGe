@@ -40,26 +40,125 @@
 	</h2>
 	
 	<!-- Title -->
-	<h:panelGroup styleClass="itemTitle odd">
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblTitle}"/>
-		<h:outputText value="<#{ViewItemFull.pubItem.metadata.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.title.language != null && ViewItemFull.pubItem.metadata.title.language != ''}"/>
-	</h:panelGroup>
-	<h:panelGroup styleClass="itemTitle odd last">
-		<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
-	</h:panelGroup>
+		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.title.language != null && ViewItemFull.pubItem.metadata.title.language != ''}"/>
+	<h:outputText value="</div>" escape="false"/>
 	
-	<h:dataTable var="altTitle" value="#{ViewItemFull.pubItem.metadata.alternativeTitles}" rowClasses="even, odd" >
-		<h:column>
-			<h:panelGroup styleClass="itemTitle">
-				<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}"/>
-				<h:outputText value="<#{altTitle.language}>" rendered="#{altTitle.language != null && altTitle.language != ''}"/>
-			</h:panelGroup>
-		</h:column>
-		<h:column>
-			<h:panelGroup styleClass="itemTitle last">
-				<h:outputText value="#{altTitle.value}"/>
-			</h:panelGroup>
-		</h:column>
-	</h:dataTable>
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Alternative Title(s) -->
+	<tr:iterator var="altTitle" value="#{ViewItemFull.pubItem.metadata.alternativeTitles}" binding="#{ViewItemFull.titleIterator}" varStatus="index">
+		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}"/>
+			<h:outputText value=" <#{altTitle.language}>" rendered="#{altTitle.language != null && altTitle.language != ''}"/>
+		<h:outputText value="</div>" escape="false"/>	
+		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
+			<h:outputText value="#{altTitle.value}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</tr:iterator>
+	
+	<!-- Creator(s) -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblCreators}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
+		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{ViewItemFull.creatorPersonsIterator.rowIndex > 0}"/>
+			<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorPersonsIterator.rowIndex > 0}" escape="false"/>
+		<h:outputText value="</div>" escape="false" rendered="#{ViewItemFull.creatorPersonsIterator.rowIndex > 0}"/>
+		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.creatorPersonsIterator.rowIndex%2)*2==ViewItemFull.creatorPersonsIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.creatorPersonsIterator.rowIndex%2)*2 != ViewItemFull.creatorPersonsIterator.rowIndex}"/>
+			<h:outputText value="#{creatorPerson}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</tr:iterator>
+	
+	<!-- Affiliated Organizations -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
+			<h:outputText value="<div class='itemAffiliations'>" escape="false"/>
+				<h:outputText value="<p>" escape="false"/>
+					<h:outputText value="#{creatorAffiliation.position}: #{creatorAffiliation.organizationName}"/>
+				<h:outputText value="</p>" escape="false"/>
+				<h:outputText value="<p>" escape="false"/>
+					<h:outputText value="#{creatorAffiliation.organizationAddress}"/>
+				<h:outputText value="</p>" escape="false"/>
+				<h:outputText value="<p>" escape="false"/>
+					<h:outputText value="#{creatorAffiliation.organizationIdentifier}"/>
+				<h:outputText value="</p>" escape="false"/>
+			<h:outputText value="</div>" escape="false"/>
+		</tr:iterator>
+		<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	
+	<!-- Dates -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblDates}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="<p>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateCreated}: " rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.dateCreated}"/>
+				<h:outputText value=" | " rendered="#{ViewItemFull.pubItem.metadata.dateModified != null || ViewItemFull.pubItem.metadata.dateSubmitted != null || ViewItemFull.pubItem.metadata.dateAccepted != null || ViewItemFull.pubItem.metadata.datePublishedOnline != null || ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateModified}: " rendered="#{ViewItemFull.pubItem.metadata.dateModified != null}" />
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.dateModified}"/>
+				<h:outputText value=" | " rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null || ViewItemFull.pubItem.metadata.dateAccepted != null || ViewItemFull.pubItem.metadata.datePublishedOnline != null || ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateSubmitted}: " rendered="#{ViewItemFull.pubItem.metadata.dateSubmitted != null}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.dateSubmitted}"/>
+				<h:outputText value=" | " rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null || ViewItemFull.pubItem.metadata.datePublishedOnline != null || ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateAccepted}: " rendered="#{ViewItemFull.pubItem.metadata.dateAccepted != null}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.dateAccepted}"/>
+				<h:outputText value=" | " rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null || ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDatePublishedOnline}: " rendered="#{ViewItemFull.pubItem.metadata.datePublishedOnline != null}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.datePublishedOnline}"/>
+				<h:outputText value=" | " rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
+		<h:outputText value="</p>" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Subject -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblSubject}"/>
+		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.subject.language}>" rendered="#{ViewItemFull.pubItem.metadata.subject.language != null && ViewItemFull.pubItem.metadata.subject.language != ''}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
+		<h:outputText value="&#160;" rendered="#{ViewItemFull.pubItem.metadata.subject == null || ViewItemFull.pubItem.metadata.subject.value == null || ViewItemFull.pubItem.metadata.subject.value == ''}" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Language(s) -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblLanguages}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<tr:iterator var="languages" value="#{ViewItemFull.pubItem.metadata.languages}" binding="#{ViewItemFull.languagesIterator}" varStatus="index">
+			<h:outputText value="#{languages}"/>
+			<h:outputText value=", " rendered="#{ViewItemFull.languagesIterator.rowIndex +1 < ViewItemFull.languagesIterator.rowCount}"/>
+		</tr:iterator>
+		<h:outputText value="&#160;" rendered="#{ViewItemFull.languagesIterator.rowCount == 0}" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Review method -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblRevisionMethod}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.reviewMethod}"/>
+		<h:outputText value="&#160;" rendered="#{ViewItemFull.reviewMethod == null || ViewItemFull.reviewMethod == ''}" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
 	
 </f:subview>

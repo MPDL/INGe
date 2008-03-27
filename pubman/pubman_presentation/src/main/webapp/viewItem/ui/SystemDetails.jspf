@@ -1,0 +1,120 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<f:subview id="SystemDetails">
+	
+	<h2>
+		<h:graphicImage height="25" width="21" value="./images/bt_nb1_22xy22_cont.gif"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}"/>
+	</h2>
+	
+	
+	<!-- Item version -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.reference.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
+		<h:commandButton value="#{lbl.ViewItemFull_btnItemVersions}" immediate="true" type="submit" action="#{ViewItemFull.showReleaseHistory}"/>
+		<h:commandButton value="#{lbl.ViewItemFull_btnItemStatistics}" immediate="true" type="submit" onclick="openCenteredWindow('ViewItemStatisticsPage.jsp', 650, 350, 'Item statistics')"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Collection name -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.collectionName}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	
+	<!--Affiliation -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblIsAffiliatedTo}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.affiliations}"/>
+	<h:outputText value="</div>" escape="false"/>
+		
+	
+	<!-- Date of last modification -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblLastModified}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.modificationDate}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!--Intellectual revision -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblItemRevisions}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:commandButton value="#{lbl.ViewItemFull_btnItemRevisions}" immediate="true" type="submit" action="#{ViewItemFull.showRevisions}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Item state -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn == false}"/>
+	<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn}"/>
+		<h:outputText value="#{ViewItemFull.itemState}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!--Cite item as -->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.pubItem.pid}"/>
+		<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.pid == null || ViewItemFull.pubItem.pid == ''}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- Identifier -->
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.pubItem.reference.objectId}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+</f:subview>
