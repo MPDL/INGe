@@ -241,9 +241,29 @@ function goBack()
 
 function startQuicksearch(e)
 {
-		if((e.keyCode == 13) && (document.getElementById('form1:Search:txtSearch').value != ""))
+	var allInputs = document.getElementsByTagName('input');
+	var buttonID = "";
+	var fieldID = "";
+	
+	for(var i = 0; i < allInputs.length - 1; i++)
+	{
+		var inputElement = allInputs[i];
+		var len = inputElement.id.length;
+		var positionFID = eval(len - 9);
+		var positionBID = eval(len - 8);
+		if ( inputElement.id.substr( positionFID, len ) == "txtSearch" )
 		{
-				document.getElementById('form1:Search:btSearch').click();
+			fieldID = inputElement.id;
+		}
+		if ( inputElement.id.substr( positionBID, len ) == "btSearch" )
+		{
+			buttonID = inputElement.id;
+		}
+	}
+
+		if((e.keyCode == 13) && (document.getElementById(fieldID).value != "") && (buttonID != ""))
+		{
+				document.getElementById(buttonID).click();
 				return false;
 		}
 }
