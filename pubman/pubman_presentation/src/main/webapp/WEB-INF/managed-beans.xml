@@ -350,7 +350,7 @@
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>ViewItemFullPage</managed-bean-name>
-		<managed-bean-class>de.mpg.escidoc.pubman.viewItem.ViewItemFullPage</managed-bean-class>
+		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemFullPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
