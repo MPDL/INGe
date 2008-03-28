@@ -973,7 +973,7 @@ public class ItemControllerSessionBean extends FacesBean
                 // delete source if title is not filled
                 if (pubItem.getMetadata().getSources().get(i) == null
                         || pubItem.getMetadata().getSources().get(i).getTitle() == null
-                        || pubItem.getMetadata().getSources().get(i).getTitle().getValue() == null)
+                        || pubItem.getMetadata().getSources().get(i).getTitle().getValue() == null || pubItem.getMetadata().getSources().get(i).getTitle().getValue().trim().equals(""))
                 {
                     pubItem.getMetadata().getSources().remove(i);
                 }
@@ -1381,7 +1381,7 @@ public class ItemControllerSessionBean extends FacesBean
 
         // retrieve the items applying the searchString
         ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
-        
+       
         if (logger.isDebugEnabled())
         {
             logger.debug("Found " + itemList.size());
