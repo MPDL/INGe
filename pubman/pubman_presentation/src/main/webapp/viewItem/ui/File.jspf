@@ -34,8 +34,10 @@
 <f:subview id="File">
 	
 	<h2>
-		<h:graphicImage height="25" width="21" value="images/upload_queue_icon.png"/>
-		<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/>
+			<div class="icon uploadIcon"></div>
+			<div class="viewItemHeader">
+				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/>
+			</div>
 	</h2>
 	
 	<tr:iterator var="file" value="#{ViewItemFull.fileList}" binding="#{ViewItemFull.fileIterator}" varStatus="index">

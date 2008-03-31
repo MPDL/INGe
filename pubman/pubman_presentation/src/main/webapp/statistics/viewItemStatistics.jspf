@@ -29,15 +29,10 @@
 %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="ViewItemStatisitcs">
-		<div>
- 		 <h:panelGrid id="panItemStatisticsTitle" columns="2">
-			<h:graphicImage id="imgStat" url="/images/document_icon.png" />			
-			<h3>
-				<label>
-					<h:outputText id="valItemStatisitics" value="Item Statistics" styleClass="itemInformationFontSize"/>
-				</label>
-			</h3>
-		</h:panelGrid>	
+		<div class="floatbox">
+		<h1>
+			<div class="icon basicIcon"></div><div id="valItemStatisitics" class="editItemBlockHeaders">Item Statistics</div>
+		</h1>
 		</div>
 		<h:panelGrid id="panItemStatistics" columns="3" styleClass="panItemStatisticsBox">
 					

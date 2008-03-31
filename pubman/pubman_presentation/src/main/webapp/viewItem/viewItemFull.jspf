@@ -33,10 +33,10 @@
 
 		<jsp:directive.include file="ui/Basics.jspf"/>
 		<jsp:directive.include file="ui/Details.jspf"/>
-		<jsp:directive.include file="ui/SystemDetails.jspf"/>
 		<jsp:directive.include file="ui/Event.jspf"/>
 		<jsp:directive.include file="ui/Source.jspf"/>
 		<jsp:directive.include file="ui/File.jspf"/>
+		<jsp:directive.include file="ui/SystemDetails.jspf"/>
 
 		<jsp:directive.include file="../desktop/messages.jspf"/>
 	</f:subview>

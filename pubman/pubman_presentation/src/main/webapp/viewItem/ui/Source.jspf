@@ -34,8 +34,10 @@
 <f:subview id="Source">
 	
 	<h2>
-		<h:graphicImage height="25" width="21" value="images/eseminar_icon.png"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource}"/>
+			<div class="icon eventIcon"></div>
+			<div class="viewItemHeader">
+				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource}"/>
+			</div>
 	</h2>
 	
 	<tr:iterator var="source" value="#{ViewItemFull.sourceList}" binding="#{ViewItemFull.sourceIterator}" varStatus="index">

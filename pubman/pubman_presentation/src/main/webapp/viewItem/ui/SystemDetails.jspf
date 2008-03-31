@@ -34,10 +34,11 @@
 <f:subview id="SystemDetails">
 	
 	<h2>
-		<h:graphicImage height="25" width="21" value="./images/bt_nb1_22xy22_cont.gif"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}"/>
+			<div class="icon detailsIcon"></div>
+			<div class="viewItemHeader">
+				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}"/>
+			</div>
 	</h2>
-	
 	
 	<!-- Item version -->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
@@ -46,8 +47,6 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.reference.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
-		<h:commandButton value="#{lbl.ViewItemFull_btnItemVersions}" immediate="true" type="submit" action="#{ViewItemFull.showReleaseHistory}"/>
-		<h:commandButton value="#{lbl.ViewItemFull_btnItemStatistics}" immediate="true" type="submit" onclick="openCenteredWindow('ViewItemStatisticsPage.jsp', 650, 350, 'Item statistics')"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Collection name -->
@@ -79,33 +78,14 @@
 		<h:outputText value="#{ViewItemFull.modificationDate}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
-	<!--Intellectual revision -->
-	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblItemRevisions}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:commandButton value="#{lbl.ViewItemFull_btnItemRevisions}" immediate="true" type="submit" action="#{ViewItemFull.showRevisions}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
 	<!-- Item state -->
-	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
-	<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn == false}"/>
-	<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn}"/>
+	<h:outputText value="<div class='itemText'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn == false}"/>
+	<h:outputText value="<div class='itemText withdrawn'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn}"/>
 		<h:outputText value="#{ViewItemFull.itemState}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<!--Cite item as -->
-	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.pid}"/>
-		<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.pid == null || ViewItemFull.pubItem.pid == ''}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Identifier -->

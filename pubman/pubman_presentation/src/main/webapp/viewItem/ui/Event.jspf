@@ -32,10 +32,12 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <f:subview id="Event">
-	
+
 	<h2>
-		<h:graphicImage height="25" width="21" value="./images/eseminar_icon.png"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}"/>
+			<div class="icon eventIcon"></div>
+			<div class="viewItemHeader">
+				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}"/>
+			</div>
 	</h2>
 	
 	<h:panelGroup rendered="#{ViewItemFull.showEvents}">

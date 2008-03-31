@@ -206,3 +206,15 @@
 padding-bottom: 3px;
 padding-top: 0px;
 }
+
+/*VIEW ITEM*/
+.linkHead a {
+font-size: 80%;
+margin-left: 5px;
+float: right;
+}
+
+.viewItemHeader {
+padding-top: 5px;
+font-size: 1em;
+}
