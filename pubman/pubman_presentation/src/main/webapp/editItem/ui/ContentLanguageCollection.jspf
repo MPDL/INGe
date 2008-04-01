@@ -31,17 +31,18 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:dataTable var="language" value="#{EditItem.contentLanguageCollection.contentLanguageManager.objectDM}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+<h:dataTable var="language" styleClass="fullWidth" value="#{EditItem.contentLanguageCollection.contentLanguageManager.objectDM}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
-		<h:panelGrid columns="4" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-			<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblContentLanguage}" />
+		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
 			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{language}">
 				<f:selectItems value="#{EditItem.contentLanguageCollection.languageOptions}"/>
 			</h:selectOneMenu>
-			<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.addObject}" />
-			<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.removeObject}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 1}"/>
+		
+			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.addObject}" />
+			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentLanguageCollection.contentLanguageManager.removeObject}" rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentLanguageCollection.contentLanguageManager.size < 2}"/>
-		</h:panelGrid>
+		</h:panelGroup>
 	</h:column>
 </h:dataTable>
 

@@ -31,18 +31,23 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:dataTable var="data" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+<h:dataTable var="data" styleClass="fullWidth" value="#{EditItem.contentAbstractCollection.contentAbstractManager.objectDM}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
-		<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-			<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblAbstract}" />
-			<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
+		<h:panelGroup layout="block" styleClass="editItemLeftCol floatbox">			
+			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAbstract}" />
+			<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{data.value}"/>
+		</h:panelGroup>	
+		<h:panelGroup layout="block" styleClass="editItemRightCol floatbox">	
+			<div>
+			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
 			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
 				<f:selectItems value="#{EditItem.contentAbstractCollection.languageOptions}"/>
-			</h:selectOneMenu>
-			<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
-			<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
+			</h:selectOneMenu>			
+			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
+			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size < 2}"/>
-		</h:panelGrid>
+			</div>
+		</h:panelGroup>
 	</h:column>
 </h:dataTable>
 

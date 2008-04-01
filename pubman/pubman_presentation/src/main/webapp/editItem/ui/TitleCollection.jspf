@@ -31,31 +31,47 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGrid styleClass="editItemOuterPanel" cellspacing="0">
-	<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblTitel}" />
-		<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>
-		<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{EditItem.titleCollection.titleIF.title.language}">
-			<f:selectItems value="#{EditItem.titleCollection.languageOptions}"/>
-		</h:selectOneMenu>
-		<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.addTitle}" />
-		<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}"/>
-		<h:outputText value=" " rendered="#{EditItem.titleCollection.alternativeTitleManager.size < 1}"/>
-	</h:panelGrid>
+
+	<h:panelGroup layout="block" styleClass="floatbox">
+		<h:panelGroup layout="block" styleClass="editItemLeftCol">
+			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
+			<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="editItemRightCol">			
+				<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblPubLanguage}" />
+				<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{EditItem.titleCollection.titleIF.title.language}">
+					<f:selectItems value="#{EditItem.titleCollection.languageOptions}"/>
+				</h:selectOneMenu>			
+				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.addTitle}" />
+				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.removeTitle}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}"/>
+				<h:outputText value=" " rendered="#{EditItem.titleCollection.alternativeTitleManager.size < 1}"/>
+			
+		</h:panelGroup>
+	</h:panelGroup>
 	
-	<h:dataTable var="data" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+<h:panelGroup layout="block" styleClass="floatbox">	
+	<h:dataTable var="data" styleClass="fullWidth" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 		<h:column>
-			<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-				<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblAlternativeTitel}" />
-				<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
+			<h:panelGroup layout="block" styleClass="editItemLeftCol">
+				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAltTitle}" />
+				<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemRightCol">
+				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentLanguage}" />
+				<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{EditItem.titleCollection.titleIF.title.language}">
 					<f:selectItems value="#{EditItem.titleCollection.languageOptions}"/>
 				</h:selectOneMenu>
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
-			</h:panelGrid>
+				
+				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
+				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
+			</h:panelGroup>
+		
 		</h:column>
 	</h:dataTable>
-</h:panelGrid>
+</h:panelGroup>
+	
+
+	
+
 
 

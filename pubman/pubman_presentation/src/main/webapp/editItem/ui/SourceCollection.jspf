@@ -31,189 +31,281 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGrid styleClass="editItemOuterPanel" cellspacing="0" cellpadding="0">
-	<h:dataTable var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
+
+	<h:dataTable var="sourceBean" styleClass="fullWidth" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
 		<h:column>
-
-			<h:panelGrid columns="2" styleClass="editItemInnerPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
-			<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblSource}"/>
-		<h:outputText value=" " />
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblGenre}"/>
-			<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}">
+		<%-- GENRE --%>
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+			<h:panelGroup layout="block" styleClass="editItemSingleCol">								
+				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblGenre}"/>
+				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}">
 					<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
-		</h:selectOneMenu>
-			</h:panelGrid>
+				</h:selectOneMenu>
+			</h:panelGroup>
+		
+		<%-- Title --%>
+		<%/* The source embedded titleCollection */%>
 			
-			<%/* The source embedded titleCollection */%>
-			<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-			<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblTitel}" />
-			<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{sourceBean.titleCollection.titleIF.title.language}">
-					<f:selectItems value="#{sourceBean.titleCollection.languageOptions}"/>
-			</h:selectOneMenu>
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" 
-					title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
-					action="#{sourceBean.titleCollection.addTitle}" />
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" 
-					title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
-					action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
-			<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
-			</h:panelGrid>
-			<h:dataTable var="data" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-				<h:column>
-					<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblAlternativeTitel}" />
-					<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
-						<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
+				<h:panelGroup layout="block" styleClass="floatbox">
+					<h:panelGroup layout="block" styleClass="editItemLeftCol">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
+						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="editItemRightCol">
+						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
+						<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{sourceBean.titleCollection.titleIF.title.language}">
 							<f:selectItems value="#{sourceBean.titleCollection.languageOptions}"/>
-					</h:selectOneMenu>
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" 
+						</h:selectOneMenu>
+						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
-							action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}"
-							title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}"  
-							action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" />
-					</h:panelGrid>
+							action="#{sourceBean.titleCollection.addTitle}" />
+						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
+							title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
+							action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
+						<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
+					</h:panelGroup>
+				</h:panelGroup>	
+				
+				<%-- ALTERNATIVE TITLE --%>
+				<h:dataTable var="data" styleClass="fullWidth" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+					<h:column>					
+						<h:panelGroup layout="block" styleClass="floatbox">
+							<h:panelGroup layout="block" styleClass="editItemLeftCol">
+								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
+								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="editItemRightCol">
+								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentLanguage}" />
+								<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
+									<f:selectItems value="#{sourceBean.titleCollection.languageOptions}"/>
+								</h:selectOneMenu>
+								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
+									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
+									action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
+								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}"
+									title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblAlternativeTitel}"  
+									action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" />						
+							</h:panelGroup>
+						</h:panelGroup>		
+					</h:column>
+				</h:dataTable>		
+			</h:panelGroup><%-- end editItemOuterBlockPanel --%>
+			
+			
+		
+		
+		
+		
+			<%-- CREATOR --%>	
+			<h2>
+				<h:panelGroup layout="block" styleClass="icon affiliationsIcon"></h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
+					<h:outputText value="#{lbl.EditItem_lblCreatorOfSource}" />
+				</h:panelGroup>
+			</h2>
+			<%/* The source embedded creatorCollection */%>
+				<h:dataTable styleClass="fullWidth" var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
+					<h:column>
+						<%/* Creator */%>
+						<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+						<h:panelGroup layout="block" styleClass="editItemSingleCol">
+							<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorRole}"/>
+							<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
+								<f:selectItems value="#{creatorBean.creatorRoles}"/>
+							</h:selectOneMenu>
+						</h:panelGroup>
+						
+						<%/* Creator's Person */%>
+						
+							<h:panelGroup layout="block" styleClass="editItemSingleCol">
+								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorType}"/>
+								<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
+									valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit()">
+									<f:selectItems value="#{creatorBean.creatorTypes}"/>
+								</h:selectOneMenu>							
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="floatbox" rendered="#{creatorBean.personType}">
+								<h:panelGroup layout="block" styleClass="editItemLeftCol">
+									<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPersonFamilyName}"/>
+									<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.familyName}"/>				
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="editItemRightCol">
+									<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPersonGivenName}"/>
+									<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.givenName}"/>
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block">
+							<%/* Creator's Person's list of Organisations */%>
+							<h:dataTable var="persOrga"  value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+								<h:column>									
+										<%--<h:panelGroup layout="block" styleClass="editItemSingleCol">
+											<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblOrganization}" />
+											<h:outputText styleClass="editItemTextFieldShort" value="#{persOrga.identifier}" />
+											
+										</h:panelGroup>--%>
+										<h:panelGroup layout="block" styleClass="editItemSingleCol">	
+											<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+											<h:inputText styleClass="editItemTextFieldMedium" value="#{persOrga.name.value}"/>
+											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" 
+												title="#{lbl.EditItem_btSelect} #{lbl.EditItem_lblOrganization}" 
+												action="#{creatorBean.selectPersonOrganisation}" />
+										</h:panelGroup>
+										<h:panelGroup layout="block" styleClass="editItemSingleCol">										
+											<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>									
+											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
+												title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
+												action="#{creatorBean.personOrganisationManager.addObject}" />
+											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
+												title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
+												action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />
+											<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
+										</h:panelGroup>
+									
+								</h:column>
+							</h:dataTable>
+							</h:panelGroup>
+							
+							<%/* Creator's Organisation */%>
+							<h:panelGroup styleClass="fullWidth" rendered="#{creatorBean.organisationType}">
+								<h:panelGroup layout="block" styleClass="editItemSingleCol">
+									<%--<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblOrganization}" />
+									<h:outputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.organization.identifier}" />--%>
+									<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+									<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>
+									<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace10">	
+									<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
+									<%--<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
+									action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
+									<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
+									action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>
+									<h:outputText value=" " rendered="#{sourceBean.creatorCollection.creatorManager.size < 2}"/>	--%>								
+								</h:panelGroup>
+							</h:panelGroup>			
+							 	
+						</h:panelGroup><%-- end editItemOuterBlockPanel --%>
+						<h:panelGroup layout="block" styleClass="editItemAddLink">
+								<h:panelGroup layout="block" styleClass="editItemLeftCol">
+									<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}"/>
+									<h:commandLink value="#{lbl.EditItem_lblAddCreator}" title="#{lbl.EditItem_lblAddCreator} #{lbl.EditItem_lblOrganization}" 
+									action="#{sourceBean.creatorCollection.creatorManager.addObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}" />
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="editItemRightCol">
+									<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>
+									<h:commandLink value="#{lbl.EditItem_lblDeleteCreator}" title="#{lbl.EditItem_lblDeleteCreator} #{lbl.EditItem_lblOrganization}" 
+									action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>			
+								</h:panelGroup>	
+								<h:outputText value=" " rendered="#{sourceBean.creatorCollection.creatorManager.size < 2}"/>				
+		       				 </h:panelGroup> 
 				</h:column>
-			</h:dataTable>
-
-			<%/* The source publishing attributes */%>
-			<h:panelGrid columns="2" styleClass="editItemInnerPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblPublishingInfo}"/>
-		<h:outputText value=" " />
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblPublisher}"/>
-		<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.source.publishingInfo.publisher}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblPlace}"/>
-		<h:inputText styleClass="editItemTextFieldMedium" value="#{sourceBean.source.publishingInfo.place}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblEdition}"/>
-		<h:inputText styleClass="editItemTextFieldMedium" value="#{sourceBean.source.publishingInfo.edition}"/>
-			</h:panelGrid>
-
-			<%/* The source attributes */%>
-			<h:panelGrid columns="2" styleClass="editItemInnerPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblVolume}"/>
-		<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.volume}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblIssue}"/>
-		<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.issue}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblStartpage}"/>
-		<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.startPage}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblEndpage}"/>
-		<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.endPage}"/>
-		<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblSequenceNumber}"/>
-		<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.sequenceNumber}"/>
-			</h:panelGrid>
-
+				
+		</h:dataTable>
+			<%-- END CREATOR --%>		
+					
+					
+		
+		<%-- DETAILS --%>
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon detailsIcon"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblDetailsOfSource}" />
+			</h:panelGroup>
+		</h2>	
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">			
+				
+			<%-- SOURCE PUBLISHING INFO --%>			
+				
+			<%-- Publisher --%>
+			<h:panelGroup layout="block" styleClass="editItemSingleCol floatbox">
+				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPublisher}" />				
+				<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.source.publishingInfo.publisher}"/>
+			</h:panelGroup>
+			<%-- Place, Edition --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPlace}"/>
+					<h:inputText styleClass="editItemTextFieldMedium" value="#{sourceBean.source.publishingInfo.place}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblEdition}" />
+					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.publishingInfo.edition}" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- Vol, Issue --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVolume}" />
+					<h:inputText styleClass="editItemTextFieldMedium" value="#{sourceBean.source.volume}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblIssue}" />
+					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.issue}" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- startpage, endpage, seqno --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblStartpage}" />
+					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.startPage}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblEndpage}" />
+					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.endPage}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol3">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblSequenceNumber}" />
+					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.sequenceNumber}" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- Identifier --%>
+			
 			<%/* The source embedded identifierCollection */%>
-			<h:dataTable var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+			<h:dataTable var="identifier" styleClass="fullWidth" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 				<h:column>
-					<h:panelGrid columns="5" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblIdentifier}" />
+					<h:panelGroup layout="block">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblIdentifier}" />
 						<h:selectOneMenu styleClass="editItemComboBoxVeryShort" value="#{identifier.typeString}">
 							<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}"/>
-					</h:selectOneMenu>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{identifier.id}" />
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" 
+						</h:selectOneMenu>
+						<h:inputText styleClass="editItemTextFieldShort" value="#{identifier.id}" />						
+						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" 
 							action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" 
+							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
 							title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" 
 							action="#{sourceBean.identifierCollection.identifierManager.removeObject}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 1}"/>
-					<h:outputText value=" " rendered="#{sourceBean.identifierCollection.identifierManager.size < 2}"/>
-					</h:panelGrid>
-				</h:column>
-			</h:dataTable>
-
-			<%/* The source embedded creatorCollection */%>
-			<h:dataTable var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
-				<h:column>
-					<%/* Creator */%>
-					<h:panelGrid columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0" cellpadding="0">
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblCreatorRole}"/>
-						<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
-							<f:selectItems value="#{creatorBean.creatorRoles}"/>
-					</h:selectOneMenu>
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblCreatorType}"/>
-						<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
-							valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit()">
-							<f:selectItems value="#{creatorBean.creatorTypes}"/>
-					</h:selectOneMenu>
-					</h:panelGrid>
+						<h:outputText value=" " rendered="#{sourceBean.identifierCollection.identifierManager.size < 2}"/>
+					</h:panelGroup>				
 					
-					<%/* Creator's Person */%>
-					<h:panelGrid columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0" cellpadding="0" rendered="#{creatorBean.personType}">
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblPersonGivenName}"/>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.givenName}"/>
-					<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblPersonFamilyName}"/>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.familyName}"/>
-					</h:panelGrid>
-					
-					<%/* Creator's Person's list of Organisations */%>
-					<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
-						<h:column>
-							<h:panelGrid columns="2" cellspacing="0" cellpadding="0">
-								<h:panelGrid columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0" cellpadding="0">
-								<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganization}" />
-								<h:outputText styleClass="editItemTextFieldShort" value="#{persOrga.identifier}" />
-								<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganizationName}" />
-								<h:inputText styleClass="editItemTextFieldMedium" value="#{persOrga.name.value}"/>
-								<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganizationAddress}" />
-								<h:inputText styleClass="editItemTextArea" value="#{persOrga.address}"/>
-								</h:panelGrid>
-								<h:panelGrid columns="3" columnClasses="editItemButtonColumn, editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-									<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btSelect}" 
-										title="#{lbl.EditItem_btSelect} #{lbl.EditItem_lblOrganization}" 
-										action="#{creatorBean.selectPersonOrganisation}" />
-									<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" 
-										title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
-										action="#{creatorBean.personOrganisationManager.addObject}" />
-									<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" 
-										title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
-										action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />
-								<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
-								</h:panelGrid>
-							</h:panelGrid>
-						</h:column>
-					</h:dataTable>
-		
-					<%/* Creator's Organisation */%>
-					<h:panelGrid columns="2" cellspacing="0" cellpadding="0" rendered="#{creatorBean.organisationType}">
-						<h:panelGrid columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0" cellpadding="0" rendered="#{creatorBean.organisationType}">
-						<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganization}" />
-						<h:outputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.organization.identifier}" />
-						<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganizationName}" />
-						<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>
-						<h:outputText styleClass="editItemLabelColumn" value="#{lbl.EditItem_lblOrganizationAddress}" />
-						<h:inputText styleClass="editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
-						</h:panelGrid>
-						<h:panelGrid cellspacing="0" cellpadding="0">
-							<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
-						</h:panelGrid>
-					</h:panelGrid>
-				</h:column>
-				<h:column>
-					<h:panelGrid columns="2" columnClasses="editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
-							action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
-						<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
-							action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>
-					<h:outputText value=" " rendered="#{sourceBean.creatorCollection.creatorManager.size < 2}"/>
-					</h:panelGrid>
+				
 				</h:column>
 			</h:dataTable>
 			
-		</h:column>
-		<h:column>
-			<h:panelGrid columns="2" columnClasses="editItemButtonColumn, editItemButtonColumn" cellspacing="0" cellpadding="0">
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblSource}" 
+		</h:panelGroup><%-- end editItemOuterBlockPanel --%>	
+		<h:panelGroup layout="block" styleClass="editItemAddLink">
+		<h:panelGroup layout="block" styleClass="editItemLeftCol">
+		<h:panelGroup layout="block" styleClass="icon addIcon" />
+			<h:commandLink value="#{lbl.EditItem_btAddSource}" title="#{lbl.EditItem_btAddSource}" 
 					action="#{EditItem.sourceCollection.sourceManager.addObject}" />
-				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblSource}" 
+			</h:panelGroup>	
+			<h:panelGroup layout="block" styleClass="editItemRightCol">	
+			<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EditItem.sourceCollection.sourceManager.size > 1}"/>	
+			<h:commandLink value="#{lbl.EditItem_btRemoveSource}" title="#{lbl.EditItem_btRemoveSource}" 
 					action="#{EditItem.sourceCollection.sourceManager.removeObject}" rendered="#{EditItem.sourceCollection.sourceManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.sourceCollection.sourceManager.size < 2}"/>
-			</h:panelGrid>
+			</h:panelGroup>
+		</h:panelGroup>
+					
+			
+			
+			
+		
 		</h:column>
 		
 	</h:dataTable>
-</h:panelGrid>
+
 
 	
 
