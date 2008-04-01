@@ -65,7 +65,7 @@
 	<h:panelGrid id="panelEmailContent" styleClass="exportEmailBox">
 		<h:outputLabel for="txtEmailSubject" id="lblEmailSubject" value="#{lbl.ExportEmail_lblSubject}" />
 		<h:inputText id="txtEmailSubject" styleClass="exportEMailSubjectTextBox" value="#{ExportItemsSessionBean.exportEmailSubject}" />
-		<h:inputTextarea id="txtaContent" styleClass="exportEMailBodyText" value="#{ExportItemsSessionBean.exportEmailTxt}" />
+		<h:outputText id="txtaContent" styleClass="exportEMailBodyText" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 
 		<h:outputLabel for="txtReturnToRecipient" id="lblReturnToRecipient" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
 		<h:inputText id="txtReturnToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.exportEmailReplyToAddr}" />

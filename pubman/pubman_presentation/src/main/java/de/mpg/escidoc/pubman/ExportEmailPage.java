@@ -47,8 +47,6 @@ public class ExportEmailPage extends BreadcrumbPage
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ExportEmailPage.class);
 
-    ExportItems fragment = (ExportItems) getSessionBean(ExportItems.class);
-
     /**
      * Public constructor
      */
@@ -67,12 +65,11 @@ public class ExportEmailPage extends BreadcrumbPage
         // Perform initializations inherited from our superclass
         super.init();
  
-        fragment.disableExportPanComps(true);
-        
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
         
         sb.setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);    
         sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
+        sb.setEnableExport(false);
     }
 
     /*
