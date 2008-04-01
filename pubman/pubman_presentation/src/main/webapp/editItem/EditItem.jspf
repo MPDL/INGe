@@ -52,7 +52,7 @@
 				<h:outputText value="#{lbl.EditItem_lblBasic}" />
 			</h:panelGroup>
 		</h2>
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">				
 				<h:outputLabel styleClass="colLbl" id="lblGenre" value="#{lbl.EditItem_lblGenre} *"/>
 				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort">
@@ -197,7 +197,7 @@
 				<h:outputText value="#{lbl.EditItem_lblPublishing}" />
 			</h:panelGroup>
 		</h2>
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">			
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
 			<h:panelGroup layout="block" styleClass="floatbox">
 				<h:panelGroup layout="block" styleClass="editItemCol1">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDateCreated}"/>					
@@ -290,7 +290,7 @@
 				<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
 			</h:panelGroup>			
 			<%-- SUBJECT --%>
-			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox">
+			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">			
 					<h:outputLabel styleClass="colLbl" for="txtaSubject" id="lblSubject" value="#{lbl.EditItem_lblSubject}" />
 					<h:inputTextarea id="txtaSubject" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.subject.value}" />
@@ -303,11 +303,11 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			<%-- ABSTRACT --%>
-			<h:panelGroup layout="block" id="panDynamicAbstract" styleClass="floatbox">
+			<h:panelGroup layout="block" id="panDynamicAbstract" styleClass="floatbox fullWidth">
 				<jsp:directive.include file="ui/ContentAbstractCollection.jspf"/>
 			</h:panelGroup>
 			<%-- TOC --%>
-			<h:panelGroup layout="block" id="panTableOfContent" styleClass="floatbox">
+			<h:panelGroup layout="block" id="panTableOfContent" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">
 					<h:outputLabel styleClass="colLbl" for="txtaTableOfContent" id="lblTableOfContent" value="#{lbl.EditItem_lblTableOfContent}" />
 					<h:inputTextarea id="txtaTableOfContent" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.tableOfContents.value}" />
@@ -332,7 +332,7 @@
 		</h2>	
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
 			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>		
-			<h:panelGroup id="panEventAttributes">
+			<h:panelGroup layout="block" id="panEventAttributes">
 				<h:panelGroup layout="block" styleClass="editItemSingleCol">
 					<h:outputLabel styleClass="colLbl" id="lblEventPlace" for="txtEventPlace" value="#{lbl.EditItem_lblPlace}" />
 					<h:inputText id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" styleClass="editItemTextFieldMedium" />
