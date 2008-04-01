@@ -23,70 +23,215 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 
 
+
+/* HEADERS */
+
+.orientationHeader {
+	/*color: #000000;*/
+	font-family: Verdana,Arial,Helvetica; 
+	font-size: 18px; 
+	font-variant: small-caps; 
+	/*font-weight: bold;*/
+	margin-left: 10px;
+	margin-top: 10px; 
+}
+
+label{
+	font-size: 11px;
+	color:black;
+}
+
 .editItemOuterPanel {
-  margin-left: 10px;
+ 	margin-left: 10px;
+ 	margin-bottom:10px;
+ 	margin-top:10px;
+	width:800px;
+ 	padding-left:10px;
+ 	padding-right:10px;
+ 	padding_bottom:10px;
+ 	float:left;
+ 
 }
 
-.editItemOuterBlockPanel {
-  margin-left: 10px; 
-  margin-top: 10px;
+
+
+.editItemOuterBlockPanel {	
+	margin:0px;
+	margin-top:10px;
+	/*margin-bottom:20px;*/
+	padding: 10px;  	
+	border:1px solid #DDDDDD;
+	background-color:#F3F3F3;	
 }
 
-.editItemInnerPanel {
-  margin-left: 0px; 
-  margin-top: 0px;
+.editItemAddLink{			
+	float:left;		
+	width:100%;
+	margin-top:5px;
 }
 
-.editItemLabelColumn {  
-  width: 190px;
-  height: 22px;
-  vertical-align: top; 
+.editItemAddLink input{
+	background-color:white;
+	border:none;
+	color:black;
+	text-decoration:underline;
+	overflow:visible;
 }
 
-.editItemFieldColumn {
-  vertical-align: top; 
+.underlined{
+	text-decoration:underline;	
+	font-size: 1em;
 }
 
-.editItemButtonColumn {
-  vertical-align: top; 
+.fullWidth{
+	width:100%;
 }
 
-.editItemBlankColumn {  
-  width: 335px;
-  height: 22px;
-  vertical-align: top; 
+.lightBorder{
+	border:1px solid #DDDDDD;
+	margin-bottom:10px;
+}
+
+.floatLeft{
+	float:left;	
+}
+
+.addButton{
+	margin-top:15px;	
+}
+
+.inlineButton{
+	position:relative;
+	top:5px;		
+	height:20px;
+}
+
+.noLineBreak{
+	position:relative;
+	top:-25px;
+	left:300px;
+
+}
+
+.noBorder{
+	border:none;
+}
+
+.topSpace{
+	margin-top:20px;
+}
+
+.topSpace10{
+	margin-top:20px;
+}
+
+.checkboxLbl{
+	position:relative;
+	top:-17px;
+	left:18px;
+}
+
+.editItemEmbeddedAddLink input{
+	background-color:white;
+	border:none;
+	color:black;
+	text-decoration:underline;
+	overflow:visible;
+}
+
+.checkBoxItem label{
+	position:relative;
+	top:16px;
+	left:20px;
+}
+
+.checkBoxItem input{
+	border:none;
 }
 
 .editItemTextArea {  
   height: 60px; 
-  width: 320px;
-  margin-right: 5px;
+  width: 250px;
+  /*margin-right: 5px;*/  
 }
 
-.affiliationDetailTextArea {  
-  height: 80px; 
-  width: 600px;
-  margin-left: 10px;
-  margin-top: 10px;
+.editItemSingleCol{	
+	/*clear:right;*/	
+	margin-left:10px;	
 }
 
-.editItemFileUpload {  
-  width: 375px;
-  margin-right: 5px;
+.editItemLeftCol{	
+	display: inline;
+	float: left;
+	/*clear:left;*/
+	/*width:40%;*/	
+	margin-left:10px;
+	margin-right:10px;	
 }
 
-.editItemTextFieldDate {  
-  width: 75px;
+.smallerLeftCol{
+	/*width:30%;*/
+}
+.noLblSpace{
+	margin-bottom:-12px;
+	
 }
 
-.editItemTextFieldSingle {  
-  width: 10px;
+.editItemRightCol{
+	display: inline;
+	float:left;
+	/*clear: right;*/
+	overflow:hidden;			
+	/*width:40%;*/
+	/*height:40px;*/	
+	margin-left:10px;	
+}
+
+.editItemCol1{	
+	display: inline;
+	float: left;
+	height:40px;
+	width:30%;	
+	margin-left:10px;
+}
+
+.editItemCol3{	
+	display: inline;
+	float:left;
+	/*clear: right;*/
+	overflow:hidden;			
+	width:30%;
+	height:40px;	
+	margin-left:10px;
+}
+
+.colLbl{
+	display:block;
+	float:none;
+}
+
+.editItemFileBox{
+	border:1px solid #DDDDDD;
+	margin:10px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+
+
+.editItemOuterBlockPanel span{
+	color:black;
+	font-size:100.01%;
+}
+
+.labelPosition{
+	position:relative;
+	top:10px;
 }
 
 .editItemTextFieldVeryShort {  
@@ -98,11 +243,7 @@
 }
 
 .editItemTextFieldMedium {  
-  width: 320px;
-}
-
-.editItemTextFieldLong {  
-  width: 450px;
+  width: 300px;
 }
 
 .editItemComboBoxLanguage {  
@@ -128,11 +269,34 @@
 }
 
 .editItemBlockHeaders {
-  margin-top: 10px;
-  font-weight: bold;
+ 
+  color:black;
+  font-family: Verdana; 
 }
 
-.editDynamicButton {  
-  height: 20px;
-  width: 55px;
+.editItemBlockSubHeaders{
+	font-weight:normal;
+	color:black;
+	background-color:white;
+	position:relative;
+	top:17px;
+	left:30px;
 }
+
+.editItemButtomLinks{	
+	float:left;
+	left:0px;	
+	z-index:10;
+	width:800px;	
+}
+
+.alignRight{
+	float:right;
+	left:0px;
+}
+
+.noBorderNoBgColor{
+	background-color:white;
+	border:none;
+}
+
