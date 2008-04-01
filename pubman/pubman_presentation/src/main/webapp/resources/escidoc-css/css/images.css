@@ -55,27 +55,38 @@
 /* edit item icons*/
 /*  ICONS  */
 
-.addIcon{
-	class: nowrap;
-	width:30px;
-	height:30px;
+.icon{
+	position:relative;
+	top:-3px;
+	width:23px;
+	height:23px;
+	margin-left: 5px;
+	margin-right:5px;
 	float:left;
-	margin-left: 4px;
-	/*margin-bottom:20px;*/
+}
+
+.addIcon{
+	class: nowrap;	
+	top:0px;	
 	background-image:url("../images/add_file.gif");
-	background-repeat:no-repeat;
-	
+	background-repeat:no-repeat;	
+}
+
+.removeIcon{
+	class: nowrap;
+	top:0px;	
+	background-image:url("../images/remove_file_22.gif");
+	background-repeat:no-repeat;	
 }
 
 
-.uploadIcon{
-	width:30px;
-	height:30px;
-	float:left;
-	margin-right: 4px;
-	margin-left:4px;
-	/*margin-bottom:20px;*/
-	background-image:url("../images/upload_queue_icon.png");
+.uploadIcon{	
+	background-image:url("../images/files_22.gif");
+	background-repeat:no-repeat;
+}
+
+.URLIcon{	
+	background-image:url("../images/network-workgroup.gif");
 	background-repeat:no-repeat;
 }
 
@@ -86,19 +97,14 @@
 	float:left;
 	background-image:url("../images/item.gif");
 	background-repeat:no-repeat;
-
 }
 
 .orientationHeader{
-	class: nowrap;
-	
+	class: nowrap;	
 }
 
-.basicIcon{
-	width:30px;
-	height:30px;
-	float: left;
-	background-image:url("../images/doctemp_30x30.gif");
+.basicIcon{	
+	background-image:url("../images/accessories-text-editor_22.gif");
 	background-repeat:no-repeat;
 }
 
@@ -106,53 +112,32 @@
 	class: nowrap;
 }
 
-.affiliationsIcon{
-	width:35px;
-	height:25px;
-	margin-left: 4px;
-	float: left;
-	background-image:url("../images/affiliations_tree.gif");
+.affiliationsIcon{	
+	background-image:url("../images/affiliations_tree_22.gif");
 	background-repeat:no-repeat;	
 }
 
-.datesIcon{
-	width:30px;
-	height:24px;
-	margin-left: 4px;
-	float: left;
-	background-image:url("../images/bt_ablaufdatum_27xy28_cont.png");
+.datesIcon{	
+	background-image:url("../images/publications_22.gif");
 	background-repeat:no-repeat;
 	
 }
 
-.detailsIcon{
-	width:30px;
-	height:25px;
-	margin-left: 4px;
-	float: left;
+.detailsIcon{	
 	background-image:url("../images/details.gif");
 	background-repeat:no-repeat;
 	
 }
 
-.eventIcon{
-	width:40px;
-	height:30px;
-	margin-left: 4px;
-	float: left;
-	background-image:url("../images/eseminar_icon.png");
+.eventIcon{	
+	background-image:url("../images/eseminar_icon_22.gif");
 	background-repeat:no-repeat;
-	
+	padding-bottom: 5px;
 }
 
-.sourceIcon{
-	width:34px;
-	height:31px;
-	margin-left: 4px;
-	float: left;
-	background-image:url("../images/source_icon.png");
+.sourceIcon{	
+	background-image:url("../images/source_icon_22.gif");
 	background-repeat:no-repeat;
-	
 }
 
 /*********************************************************/
