@@ -247,7 +247,7 @@
 				<jsp:directive.include file="ui/IdentifierCollection.jspf"/>
 			</h:panelGroup>
 			<%-- Location, Pages --%>
-			<h:panelGroup layout="block" styleClass="floatbox">
+			<h:panelGroup layout="block" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">
 					<h:outputLabel styleClass="colLbl" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
 					<h:inputText id="txtLocation" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.location}" />
@@ -258,7 +258,7 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			<%-- Review Type --%>
-			<h:panelGroup layout="block" styleClass="floatbox">
+			<h:panelGroup layout="block" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">
 					<h:outputLabel styleClass="colLbl" for="cboReviewType" id="lblReviewType" value="#{lbl.EditItem_lblReviewType}" />
 					<h:selectOneMenu id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}">
@@ -330,7 +330,7 @@
 				<h:outputText value="#{lbl.EditItem_lblEvent}"/>
 			</h:panelGroup>
 		</h2>	
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox fullWidth">			
 			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>		
 			<h:panelGroup layout="block" id="panEventAttributes">
 				<h:panelGroup layout="block" styleClass="editItemSingleCol">
