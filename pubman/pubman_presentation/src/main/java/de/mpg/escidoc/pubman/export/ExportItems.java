@@ -47,6 +47,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 
 
 /**
@@ -68,12 +69,7 @@ public class ExportItems extends FacesBean
 
     // binded components in JSP
     private HtmlMessages valMessage = new HtmlMessages();
-    private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
-    private HtmlSelectOneRadio rbgExportFormats = new HtmlSelectOneRadio();
-    private HtmlSelectOneRadio rbgFileFormats = new HtmlSelectOneRadio();
-    private HtmlCommandButton btnDisplayItems = new HtmlCommandButton();
-    private HtmlCommandButton btnExportDownload = new HtmlCommandButton();
-    private HtmlCommandButton btnExportEMail = new HtmlCommandButton();
+    //private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
     // constants for comboBoxes and HtmlSelectOneRadios
     public SelectItem EXPORTFORMAT_STRUCTURED = new SelectItem("STRUCTURED", getLabel("Export_ExportFormat_STRUCTURED"));
@@ -127,7 +123,7 @@ public class ExportItems extends FacesBean
      */
     protected RightsManagementSessionBean getRightsManagementSessionBean()
     {
-        return (RightsManagementSessionBean)getBean(RightsManagementSessionBean.class);
+        return (RightsManagementSessionBean)getSessionBean(RightsManagementSessionBean.class);
     }
 
     /**
@@ -158,129 +154,7 @@ public class ExportItems extends FacesBean
          return "OK";
     }
     
-    /**
-     * Gets the export citation layout styles and the export file formats from the external service 
-     * and sets them. 
-     * ToDo StG. TO be finished and used.
-     */
-    /*private void fillExportFormats(){
-        logger.debug(">>> setFormats "); 
-        //get the existing export formats from the external services calling the itemExporting interface in 
-        // pubman_logic. 
-         ArrayList<ExportFormatVO> listExportFormatVO = this.getItemControllerSessionBean().retrieveExportFormats();
-         
-         if (logger.isDebugEnabled())
-         {
-             logger.debug(">>> listExportFormatVO.size: " + listExportFormatVO.size());                     
-         }         
-        ArrayList<Option>  layoutStylesOptionsAL = new ArrayList();
-        ArrayList<Option>  fileFormatsAL = new ArrayList();
 
-        //set the options in order to fill the dropdown list and the radion buttons
-        for (int i=0; i<listExportFormatVO.size(); i++){
-           
-            ExportFormatVO tempExportFormatVO = listExportFormatVO.get(i);
- 
-            if (tempExportFormatVO.getFormatType() == ExportFormatVO.FormatType.STRUCTURED){
-                this.getItemControllerSessionBean().setCurrentExportFormat(tempExportFormatVO);   
-            }
-            
-            //if this is a layout format
-            if (tempExportFormatVO.getFormatType() == ExportFormatVO.FormatType.LAYOUT){
-                
-                String layoutStyleName = tempExportFormatVO.getName();
-               SelectItem tempOpt = new SelectItem(layoutStyleName.toUpperCase());   
-                       
-                if (logger.isDebugEnabled())
-                {
-                    logger.debug(">>> Added export layout format: " + tempOpt.getValue());                     
-                }
-                                
-                layoutStylesOptionsAL.add(tempOpt);
-                for (int j=0; j < tempExportFormatVO.getFileFormats().size(); j++){
-                    
-                    // extract the right string cause the file format comes as mimetype form the xml-source. e.g. text/html 
-                    String ff = (String)tempExportFormatVO.getFileFormats().get(j);
-                    ff = ff.substring(ff.indexOf("/"));
-                    logger.debug(">>> the actual file format: " + ff);
-                    logger.debug(">>> Added export layout format: " + tempOpt.getValue());
-                    if ( !fileFormatsAL.contains(ff) ){
-                        
-                        tempOpt = new SelectItem(ff);
-                        fileFormatsAL.add(tempOpt);
-                    }
-                }
-            }
-         }
- 
-        LAYOUTCITATIONSTYLE_OPTIONS = (Option[])layoutStylesOptionsAL.toArray();
-        FILEFORMAT_OPTIONS =  (Option[])fileFormatsAL.toArray();
-        if (logger.isDebugEnabled())
-        {
-            logger.debug(">>> LAYOUTCITATIONSTYLE_OPTIONS: " + LAYOUTCITATIONSTYLE_OPTIONS.toString());                     
-            logger.debug(">>> FILEFORMAT_OPTIONS: " + FILEFORMAT_OPTIONS.toString());                     
-        }
-        
-    }*/
-        
-    public HtmlSelectOneMenu getCboLayoutCitStyles()
-    {
-        return cboLayoutCitStyles;
-    }
-
-    public void setCboLayoutCitStyles(HtmlSelectOneMenu cboLayoutCitStyles)
-    {
-        this.cboLayoutCitStyles = cboLayoutCitStyles;
-    }
-
-    public HtmlSelectOneRadio getRbgExportFormats()
-    {
-        return rbgExportFormats;
-    }
-
-    public void setRbgExportFormats(HtmlSelectOneRadio rbgExportFormats)
-    {
-        this.rbgExportFormats = rbgExportFormats;
-    }
-
-    public HtmlSelectOneRadio getRbgFileFormats()
-    {
-        return rbgFileFormats;
-    }
-
-    public void setBtnDisplayItems(HtmlCommandButton b)
-    {
-        this.btnDisplayItems = b;
-    }
-
-    public HtmlCommandButton getBtnDisplayItems()
-    {
-        return btnDisplayItems;
-    }
-    public void setBtnExportDownload(HtmlCommandButton b)
-    {
-        this.btnExportDownload = b;
-    }
-
-    public HtmlCommandButton getBtnExportDownload()
-    {
-        return btnExportDownload;
-    }
-
-    public void setBtnExportEMail(HtmlCommandButton b)
-    {
-        this.btnExportEMail = b;
-    }
-
-    public HtmlCommandButton getBtnExportEMail()
-    {
-        return btnExportEMail;
-    }
-   
-     public void setRbgFileFormats(HtmlSelectOneRadio rbgFileFormats)
-    {
-        this.rbgFileFormats = rbgFileFormats;
-    }
     
     public SelectItem[] getEXPORTFORMAT_OPTIONS()
     {
@@ -304,7 +178,7 @@ public class ExportItems extends FacesBean
     
     public ExportItemsSessionBean getSessionBean()
     {
-        return (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
+        return (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
     }
 
     /**
@@ -313,52 +187,10 @@ public class ExportItems extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
         
-    /*
-     * Set up the current export format and its allowed file format. 
-     * (Now there is only one structured format. When more then the method should be adjusted.)
-     */
-    /*public void updateExportFileFormat(){
-        
-        String selExportFormat = this.getSessionBean().getExportFormatType();        
-        
-        ArrayList<ExportFormatVO> listExportFormatVO  = this.getSessionBean().getListExportFormatVO();
- 
-        //Vorschalg: ist besser wenn in die GUI bzw. ein Listener nach der richtigen kombination
-        // "name - file format name" aufpasst. Dann kann man die werde von der Oberfäche holen
-        // und den curExportFormat setzen.
-        //name des exports holen 
-        //cboLayoutCitStyles.getSelected()
-        //von der Liste aller Formate den ausgewählten ExportVormatVO hole.
-        //entsprechende file formate selektierbar setzten. die andere deselektierbar.
-        //das erste als default set nehmen.
-        
-        //ToDo StG. so mit loop über alle exprt formate ist sehr aufwändig. TO BE REMOVED. siehe vorschlag oben.
-        for (int j=0; j < listExportFormatVO.size(); j++){
-            ExportFormatVO  tempEFVO = (ExportFormatVO)listExportFormatVO.get(j);
-            
-            if ( selExportFormat.equals((String)ExportItems.EXPORTFORMAT_STRUCTURED.getValue()) && 
-                    tempEFVO.equals(selExportFormat)  )
-            {
-                this.getItemControllerSessionBean().setCurrentExportFormat(tempEFVO);
-            }
- 
-            else if ( selExportFormat.equals((String)ExportItems.EXPORTFORMAT_LAYOUT.getValue()) ){
-                 if ( tempEFVO.getName().equals(this.getSessionBean().getExportFormatName()) && 
-                     tempEFVO.getFileFormats().contains( this.getSessionBean().getFileFormat()) ){
-                    
-                    tempEFVO.setSelectedFileFormat(this.getSessionBean().getFileFormat());
-                    this.getItemControllerSessionBean().setCurrentExportFormat(tempEFVO);    
-                    
-                } else { //error message "selected combination is not valid"
-                }
-            } 
-        }                     
-    };*/
-    
     
     /*
      * Updates the GUI relatively the selected export format. 
@@ -367,8 +199,9 @@ public class ExportItems extends FacesBean
         
         // get the selected export format by the FacesBean
     	
-    	
-        String selExportFormat = this.getSessionBean().getExportFormatType(); 
+
+    	ExportItemsSessionBean sb = this.getSessionBean(); 
+        String selExportFormat = sb.getExportFormatType(); 
         
         if (logger.isDebugEnabled())
         {
@@ -383,23 +216,20 @@ public class ExportItems extends FacesBean
         // change the GUI according to the values
         if (selExportFormat.equals((String)this.EXPORTFORMAT_STRUCTURED.getValue()))
         {    
-             cboLayoutCitStyles.setDisabled(true);  
-             this.getSessionBean().setExportFormatName("ENDNOTE");
-             
-             this.getSessionBean().setFileFormat(FileFormatVO.TEXT_NAME);
-             rbgFileFormats.setDisabled(true);         
+             sb.setExportFormatType(FormatType.STRUCTURED.toString());
+             sb.setExportFormatName("ENDNOTE");
+             sb.setFileFormat(FileFormatVO.TEXT_NAME);       
         }
         else if (selExportFormat.equals((String)this.EXPORTFORMAT_LAYOUT.getValue()))
         {
-            cboLayoutCitStyles.setDisabled(false);  
-            this.getSessionBean().setExportFormatName("APA");
+            sb.setExportFormatType(FormatType.LAYOUT.toString());
+            sb.setExportFormatName("APA");
             //set default fileFormat of APA to PDF 
             String fileFormat = this.getSessionBean().getFileFormat();  
-            if ( fileFormat != null | fileFormat.trim().equals("") || 
+            if ( fileFormat != null || fileFormat.trim().equals("") || 
             		fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
             	)
-            	this.getSessionBean().setFileFormat(FileFormatVO.PDF_NAME);
-            rbgFileFormats.setDisabled(false);  
+            	this.getSessionBean().setFileFormat(FileFormatVO.PDF_NAME); 
          }
         
     }
@@ -412,12 +242,7 @@ public class ExportItems extends FacesBean
      * Disables the export components when the email page gets open. 
      */
     public void disableExportPanComps(boolean b){
-        rbgFileFormats.setDisabled(b);   
-        cboLayoutCitStyles.setDisabled(b);
-        rbgExportFormats.setDisabled(b);
-        btnDisplayItems.setDisabled(b);
-        btnExportDownload.setDisabled(b);
-        btnExportEMail.setDisabled(b);        
+    
     }
         
         
@@ -480,13 +305,13 @@ public class ExportItems extends FacesBean
             }catch (TechnicalException e)
             {
                 logger.error("Could not ser the export formats." + "\n" + e.toString());
-                ((ErrorPage)getBean(ErrorPage.class)).setException(e);
+                ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
                 return ErrorPage.LOAD_ERRORPAGE;
             }
             
             if (status.equals("sent")){
                 logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
-                SearchResultList searchResultList = (SearchResultList)getBean(SearchResultList.class);                
+                SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
                 searchResultList.showMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
                 
                 return (SearchResultList.LOAD_SEARCHRESULTLIST);

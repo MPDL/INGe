@@ -38,6 +38,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.export.ExportItems;
+import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
@@ -78,8 +79,7 @@ public class SearchResultListPage extends BreadcrumbPage
 
         this.getViewItemSessionBean().setHasBeenRedirected(true);
 
-        ExportItems fragment = (ExportItems) getSessionBean(ExportItems.class);
-        fragment.disableExportPanComps(false);
+        ((ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class)).setEnableExport(true);
 
         //redirect to the referring GUI Tool page if the application has been started as GUI Tool
         CommonSessionBean sessionBean = getCommonSessionBean();
@@ -96,7 +96,7 @@ public class SearchResultListPage extends BreadcrumbPage
      */
     protected SearchResultList getSearchResultList()
     {
-        return (SearchResultList) getBean(SearchResultList.class);
+        return (SearchResultList) getSessionBean(SearchResultList.class);
     }
 
     /**
@@ -110,10 +110,10 @@ public class SearchResultListPage extends BreadcrumbPage
         logger.info(" prerender ExportItems >>>");
 
         super.prerender();
-        SearchResultList fragment = (SearchResultList) getBean(SearchResultList.class);
+        SearchResultList fragment = (SearchResultList) getSessionBean(SearchResultList.class);
         fragment.handleMessage();
 
-        ExportItems exportItems = (ExportItems) getBean(ExportItems.class);
+        ExportItems exportItems = (ExportItems)getSessionBean(ExportItems.class);
         exportItems.updateExportFormats();
     }
 
@@ -143,7 +143,7 @@ public class SearchResultListPage extends BreadcrumbPage
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean) getBean(CommonSessionBean.class);
+        return (CommonSessionBean) getSessionBean(CommonSessionBean.class);
     }
 
     /**
@@ -153,7 +153,7 @@ public class SearchResultListPage extends BreadcrumbPage
      */
     protected ViewItemSessionBean getViewItemSessionBean()
     {
-        return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
+        return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
     }
 
 }

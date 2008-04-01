@@ -57,7 +57,10 @@ public class ExportItemsSessionBean extends FacesBean
     private String exportFormatName = "APA";
     private String fileFormat = FileFormatVO.PDF_NAME;
     private ExportFormatVO curExportFormatVO = new ExportFormatVO();        
-    private FileFormatVO curFileFormatVO = new FileFormatVO();        
+    private FileFormatVO curFileFormatVO = new FileFormatVO();
+    
+    private boolean enableLayout = true;
+    private boolean enableExport = true;
 
     //email properties
     private File attExportFile = null;
@@ -164,9 +167,15 @@ public class ExportItemsSessionBean extends FacesBean
     public void setExportFormatType(String exportFormatType)
     {
          if (exportFormatType.equals("STRUCTURED"))
+         {
              this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-         else if  (exportFormatType.equals("LAYOUT"))   
+         	 this.enableLayout = false;
+         }
+         else if  (exportFormatType.equals("LAYOUT"))
+         {
         	 this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+        	 this.enableLayout = true;
+         }
          this.exportFormatType = exportFormatType;
     }
  
@@ -178,7 +187,7 @@ public class ExportItemsSessionBean extends FacesBean
     public void setExportFormatName(String exportFormatName)
     {
         if ( exportFormatName == null || exportFormatName.trim().equals("") )
-        	exportFormatName = "ENDNOTE";
+        	exportFormatName = "APA";
         this.exportFormatName = exportFormatName; 
         this.curExportFormatVO.setName(exportFormatName);
     }
@@ -330,5 +339,25 @@ public class ExportItemsSessionBean extends FacesBean
         //logger.debug("getExportDisplayData ");
         return exportDisplayData;
     }
+
+
+	public boolean getEnableLayout() {
+		return enableLayout;
+	}
+
+
+	public void setEnableLayout(boolean enableLayout) {
+		this.enableLayout = enableLayout;
+	}
+
+
+	public boolean getEnableExport() {
+		return enableExport;
+	}
+
+
+	public void setEnableExport(boolean enableExport) {
+		this.enableExport = enableExport;
+	}
 
 }
