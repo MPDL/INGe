@@ -75,7 +75,7 @@
 				<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
 			</h:panelGroup>
 		</h2>
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">				
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">				
 			<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
 		</h:panelGroup>
 		<h:panelGroup layout="block" styleClass="editItemAddLink">
@@ -103,7 +103,7 @@
 		
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
-      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
       			<h:panelGroup layout="block" styleClass="editItemSingleCol">
       				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
       				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
@@ -169,7 +169,7 @@
 			</h:panelGroup>
 		</h2>					
       		
-      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
       			<h:panelGroup layout="block" styleClass="editItemSingleCol">
       				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblURL}"/>      				
            				<h:inputText value="" />
