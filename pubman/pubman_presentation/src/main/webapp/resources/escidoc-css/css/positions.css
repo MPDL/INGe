@@ -269,7 +269,7 @@ html > body fieldset{
 }
 
 .paginator input, .paginator button {
-	margin: 0px 3px 0px 3px;
+	margin: 0px 2px 0px 2px;
 	padding: 1px 3px 1px 3px;
 	background-color: white;
 	border: 1px solid #999 !important;
