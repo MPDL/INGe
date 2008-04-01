@@ -35,7 +35,7 @@
 	<h:dataTable var="sourceBean" styleClass="fullWidth" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
 		<h:column>
 		<%-- GENRE --%>
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">								
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblGenre}"/>
 				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}">
@@ -97,6 +97,7 @@
 		
 		
 			<%-- CREATOR --%>	
+			<h:panelGroup layout="block">
 			<h2>
 				<h:panelGroup layout="block" styleClass="icon affiliationsIcon"></h:panelGroup>
 				<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
@@ -202,11 +203,13 @@
 				</h:column>
 				
 		</h:dataTable>
+		</h:panelGroup>
 			<%-- END CREATOR --%>		
 					
 					
 		
 		<%-- DETAILS --%>
+		<h:panelGroup layout="block">
 		<h2>
 			<h:panelGroup layout="block" styleClass="icon detailsIcon"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
@@ -282,7 +285,7 @@
 				
 				</h:column>
 			</h:dataTable>
-			
+			</h:panelGroup>
 		</h:panelGroup><%-- end editItemOuterBlockPanel --%>	
 		<h:panelGroup layout="block" styleClass="editItemAddLink">
 		<h:panelGroup layout="block" styleClass="editItemLeftCol">
