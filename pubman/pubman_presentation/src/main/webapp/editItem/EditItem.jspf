@@ -45,7 +45,7 @@
 /* <ui:messageGroup id="valMessage" binding="#{EditItem.valMessage}" styleClass="valMessage" visible="false"/> */
 %>
 	<%-- BASIC --%>
-	<h:panelGroup layout="block" id="panBasic" styleClass="editItemOuterPanel">
+	<h:panelGroup layout="block" id="panBasic" styleClass="editItemOuterPanel floatbox">
 		<h2>
 			<h:panelGroup layout="block" styleClass="icon basicIcon"></h:panelGroup>
 			<h:panelGroup layout="block" id="lblBasic" styleClass="editItemBlockHeaders">
@@ -61,10 +61,7 @@
 			</h:panelGroup>
 			
 			<jsp:directive.include file="ui/TitleCollection.jspf"/>
-		</h:panelGroup>
-		
-		
-		
+		</h:panelGroup>		
 	</h:panelGroup>
 	
 	<%-- PERSON ORGANIZATION --%>
@@ -332,7 +329,7 @@
 		</h2>	
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox fullWidth">			
 			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>		
-			<h:panelGroup layout="block" id="panEventAttributes">
+			<h:panelGroup layout="block" id="panEventAttributes" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemSingleCol">
 					<h:outputLabel styleClass="colLbl" id="lblEventPlace" for="txtEventPlace" value="#{lbl.EditItem_lblPlace}" />
 					<h:inputText id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" styleClass="editItemTextFieldMedium" />
