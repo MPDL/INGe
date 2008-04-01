@@ -37,11 +37,10 @@
 					
 				</head>
 				<body class="page">
-					<h:outputText id="pageDummy" value="#{FacesBean.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+					<h:outputText id="pageDummy" value="#{FacesBean.beanName}" />
 					<h:form id="form1">
-						<div style="position: absolute; left: 0px; top: 0px; width: 400px; height: 200px">
-							<h:inputTextarea id="txtaCollectionDescription" 
-								style="height: 190px; width: 390px"  value="#{EditItem.collectionDescription}"/>
+						<div>
+							<h:inputTextarea id="txtaCollectionDescription" value="#{EditItem.collectionDescription}"/>
 						</div>
 					</h:form>
 				</body>
