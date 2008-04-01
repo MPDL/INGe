@@ -45,6 +45,7 @@
 	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
 	
 	<!-- LinkHeader -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='linkHead floatbox'>" escape="false"/>
 		<h:commandLink>
 					<h:outputText value="Item Log"/>
@@ -67,8 +68,10 @@
 		</h:commandLink>
 		
 	<h:outputText value="</div>" escape="false"/>
+</div>
 	
 	<!--Cite item as -->
+<div class="itemElementLine floatbox">	
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/>
 	<h:outputText value="</div>" escape="false"/>
@@ -77,8 +80,10 @@
 		<h:outputText value="#{ViewItemFull.pubItem.pid}"/>
 		<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.pid == null || ViewItemFull.pubItem.pid == ''}"/>
 	<h:outputText value="</div>" escape="false"/>
+</div>	
 	
 	<!-- Title -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblTitle}"/>
 		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.title.language != null && ViewItemFull.pubItem.metadata.title.language != ''}"/>
@@ -87,8 +92,10 @@
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
 	<h:outputText value="</div>" escape="false"/>
-	
+</div>
+
 	<!-- Alternative Title(s) -->
+<div class="itemElementLine floatbox">
 	<tr:iterator var="altTitle" value="#{ViewItemFull.pubItem.metadata.alternativeTitles}" binding="#{ViewItemFull.titleIterator}" varStatus="index">
 		<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
@@ -100,8 +107,10 @@
 			<h:outputText value="#{altTitle.value}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
-	
+</div>
+
 	<!-- Creator(s) -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblCreators}"/>
 	<h:outputText value="</div>" escape="false"/>
@@ -116,13 +125,15 @@
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 		<h:outputText value="<div class='itemText odd'>&#160;</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0}" escape="false"/>
+</div>
 	
 	<!-- Affiliated Organizations -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
-	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+	<h:outputText value="<div class='itemText floatingItemBox odd floatbox'>" escape="false"/>
 		<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
 			<h:outputText value="<div class='itemAffiliations'>" escape="false"/>
 				<h:outputText value="<p>" escape="false"/>
@@ -138,9 +149,10 @@
 		</tr:iterator>
 		<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
-	
+</div>	
 	
 	<!-- Dates -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblDates}"/>
 	<h:outputText value="</div>" escape="false"/>
@@ -166,8 +178,10 @@
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 		<h:outputText value="</p>" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
+</div>
 	
 	<!-- Subject -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblSubject}"/>
 		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.subject.language}>" rendered="#{ViewItemFull.pubItem.metadata.subject.language != '' && ViewItemFull.pubItem.metadata.subject.language != ''}"/>
@@ -177,8 +191,10 @@
 		<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
 		<h:outputText value="&#160;" rendered="#{ViewItemFull.pubItem.metadata.subject == '' || ViewItemFull.pubItem.metadata.subject.value == '' || ViewItemFull.pubItem.metadata.subject.value == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
+</div>
 	
 	<!-- Language(s) -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblLanguages}"/>
 	<h:outputText value="</div>" escape="false"/>
@@ -190,8 +206,10 @@
 		</tr:iterator>
 		<h:outputText value="&#160;" rendered="#{ViewItemFull.languagesIterator.rowCount == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
+</div>
 	
 	<!-- Review method -->
+<div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblRevisionMethod}"/>
 	<h:outputText value="</div>" escape="false"/>
@@ -200,5 +218,7 @@
 		<h:outputText value="#{ViewItemFull.reviewMethod}"/>
 		<h:outputText value="&#160;" rendered="#{ViewItemFull.reviewMethod == '' || ViewItemFull.reviewMethod == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
-	
+</div>
+
+
 </f:subview>

@@ -208,6 +208,11 @@ padding-top: 0px;
 }
 
 /*VIEW ITEM*/
+.linkHead {
+float: left;
+width: 98%;
+}
+
 .linkHead a {
 font-size: 80%;
 margin-left: 5px;

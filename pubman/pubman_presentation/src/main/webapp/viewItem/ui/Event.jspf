@@ -43,6 +43,7 @@
 	<h:panelGroup rendered="#{ViewItemFull.showEvents}">
 		
 		<!-- Event Title -->
+<div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblEventTitle}"/>
 			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.event.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.event.title.language != null && ViewItemFull.pubItem.metadata.event.title.language != ''}"/>
@@ -52,8 +53,10 @@
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
 			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.title == null || ViewItemFull.pubItem.metadata.event.title.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
+</div>
 		
 		<!-- Alternative event titles -->
+<div class="itemElementLine floatbox">	
 		<tr:iterator var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" varStatus="index">
 			<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2==ViewItemFull.eventAltTitleIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2!=ViewItemFull.eventAltTitleIterator.rowIndex}"/>
@@ -67,8 +70,10 @@
 				<h:outputText value="&#160;" escape="false" rendered="#{eventAltTitles == null || eventAltTitles.value == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
+</div>
 		
 		<!-- Event place -->
+<div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblEventPlace}"/>
 			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.event.place.language}>" rendered="#{ViewItemFull.pubItem.metadata.event.place.language != null && ViewItemFull.pubItem.metadata.event.place.language != ''}"/>
@@ -78,8 +83,10 @@
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
 			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.place == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
+</div>
 		
 		<!-- Start / End date -->
+<div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblEventStartEndDate}"/>
 		<h:outputText value="</div>" escape="false"/>
@@ -88,11 +95,14 @@
 			<h:outputText value="#{ViewItemFull.startEndDate}"/>
 			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
+</div>
 		
 		<!-- Invited -->
+<div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}" rendered="#{ViewItemFull.invited}"/>
 		<h:outputText value="</div>" escape="false"/>
+</div>
 		
 	</h:panelGroup>	
 		

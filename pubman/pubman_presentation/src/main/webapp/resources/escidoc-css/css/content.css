@@ -241,11 +241,23 @@ input:focus, textarea:focus{
 	text-align: right;
 	font-weight: bold;
 	font-size: 95%;
+	width: 20%;
 }
 
 .itemText {
 	overflow: hidden;
 	font-size: 95%;
+	width: 75%;
+}
+
+.itemFullLine {
+	overflow: hidden;
+	font-size: 95%;
+	width: 98%;
+}
+
+.itemElementLine {
+	width: 100%;
 }
 
 .itemAffiliations {	background-color: white;}

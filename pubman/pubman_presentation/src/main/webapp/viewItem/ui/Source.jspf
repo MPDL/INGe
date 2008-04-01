@@ -43,6 +43,7 @@
 	<tr:iterator var="source" value="#{ViewItemFull.sourceList}" binding="#{ViewItemFull.sourceIterator}" varStatus="index">
 		<h:panelGroup rendered="#{ViewItemFull.showSources}">
 			<!-- Title -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceTitle}"/>
 				<h:outputText value=" <#{source.source.title.language}>" rendered="#{source.source.title != null && source.source.title.language != null && source.source.title.language != ''}"/>
@@ -51,8 +52,10 @@
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
 				<h:outputText value="#{source.source.title.value}"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>
 			
 			<!-- Alternative Title(s) -->
+<div class="itemElementLine floatbox">	
 			<tr:iterator var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" varStatus="index">
 				<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2==ViewItemFull.sourceTitleIterator.rowIndex}"/>
 				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2 != ViewItemFull.sourceTitleIterator.rowIndex}"/>
@@ -64,9 +67,10 @@
 					<h:outputText value="#{altTitle.value}"/>
 				<h:outputText value="</div>" escape="false"/>
 			</tr:iterator>
-			
+</div>			
 			
 			<!-- Genre -->
+<div class="itemElementLine floatbox">	
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceGenre}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -75,8 +79,10 @@
 				<h:outputText value="#{source.source.genre}"/>
 				<h:outputText value="&#160;" rendered="#{source.source.genre == null || source.source.genre == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>
 			
 			<!-- Creator(s) -->
+<div class="itemElementLine floatbox">	
 			<h:outputText value="<div class='itemTitle'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceCreators}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -91,8 +97,10 @@
 				<h:outputText value="</div>" escape="false"/>
 			</tr:iterator>
 			<h:outputText value="&#160;" rendered="#{ViewItemFull.sourceCreatorPersonsIterator.rowCount < 1}" escape="false"/>
+</div>
 			
 			<!-- Affiliated Organizations -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceAffiliations}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -113,8 +121,10 @@
 				</tr:iterator>
 				<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>			
 			
 			<!-- Volume / Issue -->
+<div class="itemElementLine floatbox">	
 			<h:outputText value="<div class='itemTitle'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceVolumeIssue}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -126,8 +136,10 @@
 				<h:outputText value=")" rendered="#{source.source.issue != null && source.source.issue != ''}" />
 				<h:outputText value="&#160;" rendered="#{(source.source.volume == null || source.source.volume == '') && (source.source.issue == null || source.source.issue == '')}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>
 		
 			<!-- Sequence Number -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceSequenceNo}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -136,9 +148,10 @@
 				<h:outputText value="#{source.source.sequenceNumber}"/>
 				<h:outputText value="&#160;" rendered="#{source.source.sequenceNumber == null || source.source.sequenceNumber == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
-			
+</div>			
 			
 			<!-- Identifiers -->
+<div class="itemElementLine floatbox">	
 			<h:outputText value="<div class='itemTitle'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceIdentifier}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -147,8 +160,10 @@
 				<h:outputText value="#{source.identifiers}"/>
 				<h:outputText value="&#160;" rendered="#{source.identifiers == null || source.identifiers == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>			
 			
 			<!-- Edition -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceEdition}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -157,9 +172,10 @@
 				<h:outputText value="#{source.source.publishingInfo.edition}" rendered="#{source.source.publishingInfo != null}"/>
 				<h:outputText value="&#160;" rendered="#{source.source.publishingInfo == null || source.source.publishingInfo.edition == null || source.source.publishingInfo.edition == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
-			
+</div>			
 			
 			<!-- Publishing Info -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourcePubInfo}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -168,9 +184,10 @@
 				<h:outputText value="#{source.publishingInfo}"/>
 				<h:outputText value="&#160;" rendered="#{source.publishingInfo == null || source.publishingInfo == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
-			
+</div>			
 			
 			<!-- Start-/Endpage -->
+<div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/>
 			<h:outputText value="</div>" escape="false"/>
@@ -179,6 +196,7 @@
 				<h:outputText value="#{source.startEndPage}"/>
 				<h:outputText value="&#160;" rendered="#{source.startEndPage == null || source.startEndPage == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
+</div>			
 			
 		</h:panelGroup>
 	</tr:iterator>
