@@ -38,6 +38,31 @@
  
 	/* GENERAL */
 	
+#page{
+	width:expression(
+		document.body.clientWidth 
+		> 1620? "1620px": "auto")
+}
+
+#col1, #col2 {
+	top: 100px;
+	margin-top: 10px;
+}
+
+#col1 {
+	left: 10px
+}
+
+#col2 {
+	right: 10px;;
+}
+
+#col3 {
+	z-index: 1;
+}
+	
+	
+	
 .clear {clear: both;}
 label{
 	float: left;
