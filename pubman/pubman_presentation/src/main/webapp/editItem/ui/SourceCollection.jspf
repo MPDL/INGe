@@ -261,7 +261,7 @@
 			<%-- Identifier --%>
 			
 			<%/* The source embedded identifierCollection */%>
-			<h:dataTable var="identifier" styleClass="fullWidth" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+			<h:dataTable var="identifier" styleClass="fullWidth floatbox" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" rendered="#{sourceBean.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 				<h:column>
 					<h:panelGroup layout="block">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblIdentifier}" />

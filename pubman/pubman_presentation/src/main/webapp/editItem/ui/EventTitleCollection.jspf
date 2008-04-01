@@ -47,7 +47,7 @@
 	</h:panelGroup>
 </h:panelGroup>
 
-<h:dataTable var="data" styleClass="fullWidth" value="#{EditItem.eventTitleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+<h:dataTable var="data" styleClass="fullWidth floatbox" value="#{EditItem.eventTitleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
 		<h:panelGroup layout="block" styleClass="editItemLeftCol">
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
