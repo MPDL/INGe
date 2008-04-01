@@ -45,6 +45,7 @@ import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -108,8 +109,12 @@ public class SearchPubItemsByAffiliationTest extends TestBase
         logger.debug("Waiting 15 seconds to let the framework indexing happen...");
         Thread.sleep(15000);
 
+        AffiliationVO affi = new AffiliationVO();
+        AffiliationRO affRo = new AffiliationRO("escidoc:persistent1");
+        affi.setReference(affRo);
+        
         // search the item on the same organizational level where the item was created
-        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(new AffiliationRO("escidoc:persistent1"));   
+        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(affi);   
         assertNotNull(searchResultList);
         assertTrue("No items could be found!", searchResultList.size() != 0 );
         boolean itemFound = false;
@@ -125,8 +130,12 @@ public class SearchPubItemsByAffiliationTest extends TestBase
         }
         assertTrue("Could not find the created item!", itemFound);
      
+        affi = new AffiliationVO();
+        affRo = new AffiliationRO("escidoc:persistent1");
+        affi.setReference(affRo);
+        
         // search the item on one organizational level above where the item was created
-        searchResultList = pubSearching.searchPubItemsByAffiliation(new AffiliationRO("escidoc:persistent1"));   
+        searchResultList = pubSearching.searchPubItemsByAffiliation(affi);   
         assertNotNull(searchResultList);
         assertTrue("No items could be found!", searchResultList.size() != 0 );
         itemFound = false;
