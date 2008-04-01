@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:dataTable var="identifier" styleClass="fullWidth" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{EditItem.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
+<h:dataTable var="identifier" styleClass="fullWidth floatbox" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{EditItem.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
 		<h:panelGroup layout="block" styleClass="editItemLeftCol">
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblIdentifier}" />

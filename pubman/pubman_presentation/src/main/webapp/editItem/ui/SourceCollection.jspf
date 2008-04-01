@@ -136,7 +136,7 @@
 								</h:panelGroup>
 							</h:panelGroup>
 							
-							<h:panelGroup layout="block">
+							<h:panelGroup layout="block" styleClass="floatbox fullWidth">
 							<%/* Creator's Person's list of Organisations */%>
 							<h:dataTable var="persOrga"  value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 								<h:column>									
@@ -168,7 +168,7 @@
 							</h:panelGroup>
 							
 							<%/* Creator's Organisation */%>
-							<h:panelGroup styleClass="fullWidth" rendered="#{creatorBean.organisationType}">
+							<h:panelGroup styleClass="fullWidth floatbox" rendered="#{creatorBean.organisationType}">
 								<h:panelGroup layout="block" styleClass="editItemSingleCol">
 									<%--<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblOrganization}" />
 									<h:outputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.organization.identifier}" />--%>
@@ -178,11 +178,7 @@
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace10">	
 									<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
-									<%--<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
-									action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
-									<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblOrganization}" 
-									action="#{sourceBean.creatorCollection.creatorManager.removeObject}" rendered="#{sourceBean.creatorCollection.creatorManager.size > 1}"/>
-									<h:outputText value=" " rendered="#{sourceBean.creatorCollection.creatorManager.size < 2}"/>	--%>								
+																	
 								</h:panelGroup>
 							</h:panelGroup>			
 							 	
@@ -216,7 +212,7 @@
 				<h:outputText value="#{lbl.EditItem_lblDetailsOfSource}" />
 			</h:panelGroup>
 		</h2>	
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">			
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
 				
 			<%-- SOURCE PUBLISHING INFO --%>			
 				
