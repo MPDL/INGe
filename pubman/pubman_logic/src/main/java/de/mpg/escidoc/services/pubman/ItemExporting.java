@@ -57,6 +57,12 @@ public interface ItemExporting {
      */
     public List<ExportFormatVO> explainExportFormats() throws TechnicalException;
 
+    /**
+     * Returns a list of ExportFormatsXML representing the existing export formats (layout and structered)
+     * as well as their file formats.
+     */
+    public String explainExportFormatsXML() throws TechnicalException;
+    
 	/**
      * This method provides the formatted output in the specified export format.
      * 
@@ -67,4 +73,16 @@ public interface ItemExporting {
  	 */
 	public byte[] getOutput(ExportFormatVO exportFormat, java.util.List<PubItemVO> pubItemVOList) throws TechnicalException;
 
+	
+	/**
+     * This method provides the formatted output in the specified export format.
+     * 
+     * @param exportFormat  This contains the export format type, name and file format
+     *                      according to which the output is created. 
+     * @param outputFormat  contains the file output format type (like txt, pdf, rtf, etc.), 
+     * @param itemList      contains the item list to be exported
+     *                      Item list should be formatted in accordance with item-list.xsd
+ 	 */
+	public byte[] getOutput(String exportFormat, String outputFormat, String itemList) throws TechnicalException;
+	
 }
