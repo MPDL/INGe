@@ -31,221 +31,352 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div style="width: 860px;"><f:subview id="EditItem">
-<h1><h:outputText id="valOrientationText" styleClass="orientationHeader" style="left: 0px; top: 0px" value="#{lbl.EditItemPage}" /></h1>
+<div><f:subview id="EditItem">
+<h1>
+	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>
+	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
+		<h:outputText value="#{lbl.EditItemPage} : " />
+		<h:outputText styleClass="underlined" value="#{EditItem.pubItem.pubCollection.objectId}" />
+	</h:panelGroup>
+</h1>
 <h:messages errorClass="errorMessage" infoClass="infoMessage" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
 
 <%
 /* <ui:messageGroup id="valMessage" binding="#{EditItem.valMessage}" styleClass="valMessage" visible="false"/> */
 %>
-
-	<h:panelGrid id="panBasics" styleClass="editItemOuterPanel">
-		<h:panelGroup layout="block" id="panBasic">
-			<h:outputText id="lblBasic" value="#{lbl.EditItem_lblBasic}" styleClass="editItemBlockHeaders" />
+	<%-- BASIC --%>
+	<h:panelGroup layout="block" id="panBasic" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon basicIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblBasic" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblBasic}" />
+			</h:panelGroup>
+		</h2>
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+			<h:panelGroup layout="block" styleClass="editItemSingleCol">				
+				<h:outputLabel styleClass="colLbl" id="lblGenre" value="#{lbl.EditItem_lblGenre} *"/>
+				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort">
+					<f:selectItems value="#{EditItem.genres}" />
+				</h:selectOneMenu>
+			</h:panelGroup>
+			
+			<jsp:directive.include file="ui/TitleCollection.jspf"/>
 		</h:panelGroup>
-	</h:panelGrid>
-	<h:panelGrid id="panCollection" styleClass="editItemOuterPanel">
-		<h:panelGroup layout="block" id="collection">
-			<h:outputLabel id="lblCollection" value="#{lbl.EditItem_lblCollection}" styleClass="editItemLabelColumn"/>
-			<h:panelGroup id="valCollectionAndInfo" styleClass="editItemInnerPanel editItemFieldColumn">
-				<h:outputText id="valCollection" value="#{EditItem.pubItem.pubCollection.objectId}" />
-				<h:graphicImage id="imgCollectionInformation" onclick="showCollectionDescription()" url="/images/info.gif" />
+		
+		
+		
+	</h:panelGroup>
+	
+	<%-- PERSON ORGANIZATION --%>
+	<h:panelGroup layout="block" id="panPersonsAndOrganizations" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon affiliationsIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblPersonsAndOrganizations" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
+			</h:panelGroup>
+		</h2>
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">				
+			<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="editItemAddLink">
+			<h:panelGroup layout="block" styleClass="editItemLeftCol">
+				<h:panelGroup layout="block" styleClass="icon addIcon"/>
+				<h:commandLink value="#{lbl.EditItem_lblAddCreator}" action="#{EditItem.creatorCollection.creatorManager.addObject}" />
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemRightCol">
+				<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EditItem.creatorCollection.creatorManager.size > 1}"/>
+				<h:commandLink value="#{lbl.EditItem_lblDeleteCreator}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{EditItem.creatorCollection.creatorManager.size > 1}"/>
+				<h:outputText value=" " rendered="#{EditItem.creatorCollection.creatorManager.size < 2}"/>
 			</h:panelGroup>
 		</h:panelGroup>
-		</h:panelGrid>
-	<br/>
-	<h:panelGrid id="panGenre" styleClass="editItemOuterPanel">
-		<h:panelGroup layout="block" id="genre">
-			<h:outputLabel id="lblGenre" value="#{lbl.EditItem_lblGenre} *" styleClass="editItemLabelColumn"/>
-			<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort editItemFieldColumn">
-				<f:selectItems value="#{EditItem.genres}" />
-			</h:selectOneMenu>
-		</h:panelGroup>
-	</h:panelGrid>
+	</h:panelGroup>
 	
-	<br/>
-	<h:panelGrid id="panDynamicTitle" styleClass="editItemOuterPanel">
-		<jsp:directive.include file="ui/TitleCollection.jspf"/>
-	</h:panelGrid>
 	
-	<h:panelGrid id="panFiles" columns="1" styleClass="editItemOuterPanel">
-		<h:outputText id="lblFiles" style="font-weight: bold;" value="#{lbl.EditItem_lblFile}" />
-		<tr:table var="component" id="fileUploads" value="#{EditItem.files}" styleClass="editItemOuterBlockPanel" varStatus="index">
-			<tr:column>
-				<h:panelGrid columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemButtonColumn" cellspacing="0" cellpadding="0" styleClass="editItemOuterBlockPanel">
-					<tr:outputLabel value="#{lbl.EditItem_lblPath}"/>
-					<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
-					<tr:commandButton text="Upload" rendered="#{component.file.size == 0}" styleClass="editDynamicButton"/>
-					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
-					<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}" />
-					<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
-					<tr:outputLabel value=" " rendered="#{component.file.size == 0}"/>
-					<tr:commandButton text="#{lbl.EditItem_btRemove}" rendered="#{component.file.size > 0}" action="#{component.removeFile}" styleClass="editDynamicButton"/>
-					<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
-					<tr:outputText value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value=" " rendered="#{component.index+1 < EditItem.numberOfFiles}"/>
-					<tr:commandButton text="#{lbl.EditItem_btAdd}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles}" styleClass="editDynamicButton" />
-					<tr:outputLabel value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
-					<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-						<f:selectItems value="#{EditItem.contentTypes}" />
+	<%-- FILES --%>
+	<h:panelGroup layout="block" id="panFiles" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon uploadIcon"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblFile}" />
+			</h:panelGroup>
+		</h2>		
+		
+			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
+      		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
+      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
+      				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
+      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
+      				<%-- BUTTON --%>
+      				<tr:commandButton text="Upload File" rendered="#{component.file.size == 0}" styleClass="inlineButton noLineBreak"/>      				
+      			</h:panelGroup>
+           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
+           			<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+            			<f:selectItems value="#{EditItem.visibilities}" />
+           			</h:selectOneMenu>
+           		</h:panelGroup>
+           		<h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{component.file.size > 0}">
+           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.file.size > 0}"/>
+           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
+           				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}" />
+           			</h:panelGroup>
+           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
+           				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+            				<f:selectItems value="#{EditItem.contentTypes}" />
+           				</h:selectOneMenu>
+           			</h:panelGroup>
+           			<h:panelGroup layout="block" styleClass="editItemCol3">           				
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
+           				<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
+           			</h:panelGroup>
+           		</h:panelGroup>
+           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
+           			<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>	
+           		</h:panelGroup>
+           		
+           		<%--<h:panelGroup layout="block" styleClass="editItemSingleCol">
+           			<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
+           			<tr:outputLabel value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
+           		</h:panelGroup>--%>  
+           		</h:panelGroup>
+           		<h:panelGroup layout="block" styleClass="editItemAddLink">
+					<h:panelGroup layout="block" styleClass="editItemLeftCol">
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}"/>
+						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}" />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="editItemRightCol">
+						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.file.size > 0}"/>
+						<tr:commandLink text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.file.size > 0}" action="#{component.removeFile}"/>						
+					</h:panelGroup>
+		        </h:panelGroup>  	
+		        	
+       		</tr:iterator> 
+		
+		
+        
+	</h:panelGroup>
+	
+	<%-- FILES LOCATOR --%>
+	<h:panelGroup layout="block" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon URLIcon"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblFileLoc}" />
+			</h:panelGroup>
+		</h2>					
+      		
+      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">
+      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
+      				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblURL}"/>      				
+           				<h:inputText value="" />
+           				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_lnkSave}"/>						
+					</h:panelGroup>
+		        </h:panelGroup>  	
+		        	
+       		<h:panelGroup layout="block" styleClass="editItemAddLink">
+					<h:panelGroup layout="block" styleClass="editItemLeftCol">
+						<h:panelGroup layout="block" styleClass="icon addIcon" />
+						<h:commandLink value="#{lbl.EditItem_btAddFileLoc}"  />
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="editItemRightCol">
+						<h:panelGroup layout="block" styleClass="icon removeIcon"/>
+						<h:commandLink value="#{lbl.EditItem_btRemoveFileLoc}" />						
+					</h:panelGroup>
+		        </h:panelGroup>   
+	</h:panelGroup>
+	
+	<%-- PUBLISHING --%>
+	<h:panelGroup layout="block" id="panPublishing" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon datesIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblPublishing" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblPublishing}" />
+			</h:panelGroup>
+		</h2>
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel">			
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDateCreated}"/>					
+					<h:inputText id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" onkeypress="return restrictDateEntry(event)"></h:inputText>					
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDateModified}"/>
+					<h:inputText id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" onkeypress="return restrictDateEntry(event)"></h:inputText>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol3">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDateSubmitted}"/>
+					<h:inputText id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" onkeypress="return restrictDateEntry(event)"></h:inputText>
+				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDateAccepted}"/>
+					<h:inputText id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" onkeypress="return restrictDateEntry(event)"></h:inputText>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDatePublishedOnline}"/>
+					<h:inputText id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" onkeypress="return restrictDateEntry(event)"></h:inputText>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol3">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDatePublishedInPrint}"/>
+					<h:inputText id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" onkeypress="return restrictDateEntry(event)"></h:inputText>
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- Publisher --%>
+			<h:panelGroup layout="block" styleClass="editItemSingleCol floatbox">
+				<h:outputLabel styleClass="colLbl" id="lblPublisher" for="txtaPublisher" value="#{lbl.EditItem_lblPublisher}" />
+				<h:inputTextarea id="txtaPublisher" styleClass="editItemTextArea editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" />
+			</h:panelGroup>
+			<%-- Place, Edition --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" id="lblPlace" for="txtPlace" value="#{lbl.EditItem_lblPlace}" />
+					<h:inputText id="txtPlace" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
+					<h:inputText id="txtEdition" styleClass="editItemTextFieldShort" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- Identifier --%>
+			<h:panelGroup layout="block" id="panDynamicIdentifier" styleClass="floatbox">
+				<jsp:directive.include file="ui/IdentifierCollection.jspf"/>
+			</h:panelGroup>
+			<%-- Location, Pages --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
+					<h:inputText id="txtLocation" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.location}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{lbl.EditItem_lblTotalNoOfPages}" />
+					<h:inputText id="txtTotalNoOfPages" value="#{EditItem.pubItem.metadata.totalNumberOfPages}" />
+				</h:panelGroup>
+			</h:panelGroup>
+			<%-- Review Type --%>
+			<h:panelGroup layout="block" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" for="cboReviewType" id="lblReviewType" value="#{lbl.EditItem_lblReviewType}" />
+					<h:selectOneMenu id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}">
+						<f:selectItems value="#{EditItem.reviewMethods}" />
 					</h:selectOneMenu>
-					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
-					<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
-					<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-						<f:selectItems value="#{EditItem.visibilities}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
+					<h:selectOneMenu id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}">
+						<f:selectItems value="#{EditItem.degreeTypes}" />
 					</h:selectOneMenu>
-					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
-					<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>
-					<tr:outputLabel value=" " rendered="#{component.file.size > 0}"/>
-			    </h:panelGrid>
-			</tr:column>
-		</tr:table>
-	</h:panelGrid>
+				</h:panelGroup>
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
 	
-	<h:panelGrid id="panPersonsAndOrganizations" styleClass="editItemOuterBlockPanel" cellspacing="0">
-		<h:outputText id="lblPersonsAndOrganizations" style="font-weight: bold" value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
-	</h:panelGrid>
-	<h:panelGrid id="panDynamicCreator" styleClass="editItemOuterPanel" cellspacing="0">
-		<jsp:directive.include file="ui/CreatorCollection.jspf"/>
-	</h:panelGrid>
-
-	<h:panelGrid id="panPublishing" columns="2" styleClass="editItemOuterBlockPanel" columnClasses="editItemLabelColumn, editItemFieldColumn" cellspacing="0">
-		<h:outputText id="lblPublishing" style="font-weight: bold; margin-right: 76px" value="#{lbl.EditItem_lblPublishing}" />
-		<h:outputText id="space6" />
-		<h:outputLabel id="lblDateCreated" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
-		<h:panelGroup>
-			<h:inputText id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblDateModified" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
-		<h:panelGroup>
-			<h:inputText id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblDateSubmitted" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
-		<h:panelGroup>
-			<h:inputText id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblDateAccepted" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
-		<h:panelGroup>
-			<h:inputText id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblDatePublishedOnline" for="txtDatePublishedOnline" value="#{lbl.EditItem_lblDatePublishedOnline}" />
-		<h:panelGroup>
-			<h:inputText id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblDatePublishedInPrint" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
-		<h:panelGroup>
-			<h:inputText id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" onkeypress="return restrictDateEntry(event)">
-			</h:inputText>
-			<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
-		</h:panelGroup>
-		<h:outputLabel id="lblPublishingInfo" style="" value="#{lbl.EditItem_lblPublishingInfo}" />
-		<h:outputText id="space7" />
-		<h:outputLabel id="lblPublisher" for="txtaPublisher" value="#{lbl.EditItem_lblPublisher}" />
-		<h:inputTextarea id="txtaPublisher" styleClass="editItemTextArea" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" />
-		<h:outputLabel id="lblPlace" for="txtPlace" value="#{lbl.EditItem_lblPlace}" />
-		<h:inputText id="txtPlace" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
-		<h:outputLabel id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
-		<h:inputText id="txtEdition" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
-	</h:panelGrid>
-
-	<h:panelGrid id="panDynamicIdentifier" styleClass="editItemOuterPanel">
-		<jsp:directive.include file="ui/IdentifierCollection.jspf"/>
-	</h:panelGrid>
-
-	<h:panelGrid id="panLocation" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemOuterPanel" cellspacing="0">
-		<h:outputLabel id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
-		<h:inputText id="txtLocation" styleClass="editItemTextFieldMedium" value="#{EditItem.pubItem.metadata.location}" />
-		<h:outputLabel for="cboReviewType" id="lblReviewType" value="#{lbl.EditItem_lblReviewType}" />
-		<h:selectOneMenu id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}" style="height: 20px; width: 80px">
-			<f:selectItems value="#{EditItem.reviewMethods}" />
-		</h:selectOneMenu>
-		<h:outputLabel for="cboDegreeType" id="lblDegreeType" style="" value="#{lbl.EditItem_lblDegreeType}" />
-		<h:selectOneMenu id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}" style="height: 20px; width: 80px">
-			<f:selectItems value="#{EditItem.degreeTypes}" />
-		</h:selectOneMenu>
-		<h:outputLabel for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{lbl.EditItem_lblTotalNoOfPages}" />
-		<h:inputText id="txtTotalNoOfPages" style="height: 20px; width: 80px" value="#{EditItem.pubItem.metadata.totalNumberOfPages}" />
-	</h:panelGrid>
-
-	<h:panelGrid id="panContent" styleClass="editItemOuterBlockPanel">
-		<h:outputText id="lblContent" style="font-weight: bold" value="#{lbl.EditItem_lblContent}" />
-
-		<h:panelGrid id="panDynamicContentLanguage" styleClass="editItemInnerPanel" cellspacing="0">
-			<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panSubject" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel"
-			cellspacing="0">
-			<h:outputLabel for="txtaSubject" id="lblSubject" value="#{lbl.EditItem_lblSubject}" />
-			<h:inputTextarea id="txtaSubject" styleClass="editItemTextArea" value="#{EditItem.pubItem.metadata.subject.value}" />
-			<h:selectOneMenu id="cboSubjectLanguage" value="#{EditItem.pubItem.metadata.subject.language}" styleClass="editItemComboBoxLanguage">
-				<f:selectItems value="#{EditItem.languages}" />
-			</h:selectOneMenu>
-		</h:panelGrid>
-
-		<h:panelGrid id="panDynamicAbstract" styleClass="editItemInnerPanel" cellspacing="0">
-			<jsp:directive.include file="ui/ContentAbstractCollection.jspf"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panTableOfContent" columns="3" columnClasses="editItemLabelColumn, editItemFieldColumn, editItemFieldColumn" styleClass="editItemInnerPanel"
-			cellspacing="0">
-			<h:outputLabel for="txtaTableOfContent" id="lblTableOfContent" value="#{lbl.EditItem_lblTableOfContent}" />
-			<h:inputTextarea id="txtaTableOfContent" styleClass="editItemTextArea" value="#{EditItem.pubItem.metadata.tableOfContents.value}" />
-			<h:selectOneMenu id="cboTOCLanguage" value="#{EditItem.pubItem.metadata.tableOfContents.language}" styleClass="editItemComboBoxLanguage">
-				<f:selectItems value="#{EditItem.languages}" />
-			</h:selectOneMenu>
-		</h:panelGrid>
-	</h:panelGrid>
-
-	<h:panelGrid id="panSourceAndEvent" columns="1" styleClass="editItemOuterPanel">
-		<h:outputText id="lblSourceAndEvent" style="font-weight: bold;" value="#{lbl.EditItem_lblSourceAndEvent}" />
-
-		<h:panelGrid id="panSource" styleClass="editItemInnerPanel" cellspacing="0">
-			<jsp:directive.include file="ui/SourceCollection.jspf"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panDynamicEventTitle" styleClass="editItemInnerPanel" cellspacing="0">
-			<h:outputLabel id="lblEvent" value="#{lbl.EditItem_lblEvent}" />
-			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>
-		</h:panelGrid>
-
-		<h:panelGrid id="panEventAttributes" columns="2" columnClasses="editItemLabelColumn, editItemFieldColumn" styleClass="editItemInnerPanel" cellspacing="0">
-			<h:outputLabel id="lblEventPlace" for="txtEventPlace" value="#{lbl.EditItem_lblPlace}" />
-			<h:inputText id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" styleClass="editItemTextFieldMedium" />
-			<h:outputLabel id="lblEventStartDate" for="txtEventStartDate" value="#{lbl.EditItem_lblStartDate}" />
-			<h:panelGroup>
-				<h:inputText id="txtEventStartDate" value="#{EditItem.pubItem.metadata.event.startDate}" styleClass="editItemTextFieldDate"
-					onkeypress="return restrictDateEntry(event)">
-				</h:inputText>
-				<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
+	<%-- DETAILS --%>
+	<h:panelGroup layout="block" id="panContent" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon detailsIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblContent" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblContent}" />
 			</h:panelGroup>
-			<h:outputLabel id="lblEventEndDate" for="txtEventEndDate" value="#{lbl.EditItem_lblEndDate}" />
-			<h:panelGroup>
-				<h:inputText id="txtEventEndDate" value="#{EditItem.pubItem.metadata.event.endDate}" styleClass="editItemTextFieldDate"
-					onkeypress="return restrictDateEntry(event)">
-				</h:inputText>
-				<h:outputText value="#{lbl.EditItem_lblDateFormat}" />
+		</h2>
+			
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+			<%-- LANG --%>
+			<h:panelGroup layout="block" id="panDynamicContentLanguage">
+				<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
+			</h:panelGroup>			
+			<%-- SUBJECT --%>
+			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">			
+					<h:outputLabel styleClass="colLbl" for="txtaSubject" id="lblSubject" value="#{lbl.EditItem_lblSubject}" />
+					<h:inputTextarea id="txtaSubject" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.subject.value}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" for="cboSubjectLanguage" value="#{lbl.EditItem_lblContentLanguage}" />
+					<h:selectOneMenu id="cboSubjectLanguage" value="#{EditItem.pubItem.metadata.subject.language}" styleClass="editItemComboBoxLanguage">
+						<f:selectItems value="#{EditItem.languages}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
 			</h:panelGroup>
-			<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{lbl.EditItem_lblInvitationstatus}" />
-			<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" />
-		</h:panelGrid>
-	</h:panelGrid>
-
+			<%-- ABSTRACT --%>
+			<h:panelGroup layout="block" id="panDynamicAbstract" styleClass="floatbox">
+				<jsp:directive.include file="ui/ContentAbstractCollection.jspf"/>
+			</h:panelGroup>
+			<%-- TOC --%>
+			<h:panelGroup layout="block" id="panTableOfContent" styleClass="floatbox">
+				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+					<h:outputLabel styleClass="colLbl" for="txtaTableOfContent" id="lblTableOfContent" value="#{lbl.EditItem_lblTableOfContent}" />
+					<h:inputTextarea id="txtaTableOfContent" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.tableOfContents.value}" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentLanguage}" />
+					<h:selectOneMenu id="cboTOCLanguage" value="#{EditItem.pubItem.metadata.tableOfContents.language}" styleClass="editItemComboBoxLanguage">
+						<f:selectItems value="#{EditItem.languages}" />
+					</h:selectOneMenu>
+				</h:panelGroup>
+			</h:panelGroup>		
+					
+		</h:panelGroup>
+	</h:panelGroup>	
+	<%-- EVENT --%>
+	<h:panelGroup layout="block" id="panEvent" styleClass="editItemOuterPanel">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon eventIcon"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblEvent}"/>
+			</h:panelGroup>
+		</h2>	
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
+			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>		
+			<h:panelGroup id="panEventAttributes">
+				<h:panelGroup layout="block" styleClass="editItemSingleCol">
+					<h:outputLabel styleClass="colLbl" id="lblEventPlace" for="txtEventPlace" value="#{lbl.EditItem_lblPlace}" />
+					<h:inputText id="txtEventPlace" value="#{EditItem.pubItem.metadata.event.place.value}" styleClass="editItemTextFieldMedium" />
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" id="lblEventStartDate" for="txtEventStartDate" value="#{lbl.EditItem_lblStartDate}" />	
+					<h:panelGroup>
+						<h:inputText id="txtEventStartDate" value="#{EditItem.pubItem.metadata.event.startDate}" styleClass="editItemTextFieldDate"
+						onkeypress="return restrictDateEntry(event)">
+						</h:inputText>
+						<%--<h:outputText value="#{lbl.EditItem_lblDateFormat}" />--%>
+					</h:panelGroup>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemCol1">
+					<h:outputLabel styleClass="colLbl" id="lblEventEndDate" for="txtEventEndDate" value="#{lbl.EditItem_lblEndDate}" />	
+					<h:panelGroup>
+						<h:inputText id="txtEventEndDate" value="#{EditItem.pubItem.metadata.event.endDate}" styleClass="editItemTextFieldDate"
+						onkeypress="return restrictDateEntry(event)">
+						</h:inputText>
+						<%--<h:outputText value="#{lbl.EditItem_lblDateFormat}" />--%>
+					</h:panelGroup>	
+				</h:panelGroup>
+			
+				<h:panelGroup layout="block" styleClass="editItemCol3 topSpace">					
+					<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" styleClass="noBorder" />
+					<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" styleClass="checkboxLbl" value="#{lbl.EditItem_lblInvitationstatus}" />	
+				</h:panelGroup>			
+			</h:panelGroup>
+		</h:panelGroup>
+	</h:panelGroup>
+	<%-- SOURCE --%>
+	<h:panelGroup layout="block" id="panSource" styleClass="editItemOuterPanel lightBorder floatbox">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon sourceIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblSource" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblSource}" />
+			</h:panelGroup>
+		</h2>
+		<jsp:directive.include file="ui/SourceCollection.jspf"/>
+	
+		
+	</h:panelGroup>
+	
+	
 	<jsp:directive.include file="../desktop/messages.jspf"/>
 
 </f:subview></div>
