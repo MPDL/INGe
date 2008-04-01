@@ -115,6 +115,7 @@
 			<h:outputText value="#{creatorPerson}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
+		<h:outputText value="<div class='itemText odd'>&#160;</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0}" escape="false"/>
 	
 	<!-- Affiliated Organizations -->
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
