@@ -91,15 +91,10 @@ All rights reserved. Use is subject to license terms.
 					</h:panelGroup>
 					<br/>
 					<h:panelGroup rendered="#{item.shortView}">
-						<h:outputLabel value="#{lbl.ViewItemShort_lblCreators}"/>
-						<h:outputText value="#{item.creators}"/>
-						<br/>
-						<h:outputLabel value="#{lbl.ViewItemShort_lblDates}"/>
-						<h:outputText value="#{item.latestDate}"/>
-						<br/>
+						<jsp:directive.include file="../viewItem/ViewItemShort.jspf"/>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{item.mediumView}">
-						medium
+						<jsp:directive.include file="../viewItem/ViewItemMedium.jspf"/>
 					</h:panelGroup>
 				</h:column>
 			</h:dataTable>
