@@ -169,7 +169,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
 		}
 		else
 		{
-			return null;
+			return new BreadcrumbItem("HomePage", "HomePage");
 		}
 	}
 

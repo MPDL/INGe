@@ -133,4 +133,5 @@ public class CollapsiblePanelUI extends ContainerPanelUI implements ActionListen
             this.toggleContainerVisibility();
         }
     }
+    
 }

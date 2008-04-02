@@ -177,7 +177,7 @@ public class ErrorPage extends BreadcrumbPage
      */
     protected CommonSessionBean getCommonSessionBean()
     {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
+        return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
     }
     
     /**

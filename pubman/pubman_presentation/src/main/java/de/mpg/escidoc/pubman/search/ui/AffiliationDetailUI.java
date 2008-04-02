@@ -55,6 +55,7 @@ public class AffiliationDetailUI extends CollapsiblePanelUI
     public AffiliationDetailUI( String[] detailList )
     {
         super();
+    	toggleContainerVisibility();
         
         // this direct access has to be done to get the collapsible buttons inside the title box
         this.panTitleBar.getChildren().add(0, this.htmlElementUI.getStartTagWithStyleClass("div", "listHeader dark"));

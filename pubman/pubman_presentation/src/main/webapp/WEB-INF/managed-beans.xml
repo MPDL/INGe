@@ -423,4 +423,9 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.editItem.FileUploadBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>NoSearchResultsPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.NoSearchResultsPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>

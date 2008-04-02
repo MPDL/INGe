@@ -68,13 +68,9 @@
 									</div>
 									<div id="col3">
 										<div class="content">
-											<h:panelGrid id="panPageAlert" binding="#{ErrorPage.panPageAlert}">
-											</h:panelGrid>
-											<h:panelGrid id="panButtons" columns="1">
-												<h:outputLink value="#{ApplicationBean.appContext}#{ErrorPage.previousPageURI}">
-													<h:outputText value="#{ErrorPage.previousPageName}"/>
-												</h:outputLink>
-											</h:panelGrid>
+											<h:outputLink value="#{ApplicationBean.appContext}#{ErrorPage.previousPageURI}">
+												<h:outputText value="#{ErrorPage.previousPageName}"/>
+											</h:outputLink>
 										</div>
 									</div>
 								</div>
