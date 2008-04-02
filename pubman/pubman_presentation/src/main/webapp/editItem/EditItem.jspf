@@ -32,8 +32,9 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <div><f:subview id="EditItem">
-<h1>
-	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>
+
+<h1 id="editItemHeader">
+	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
 		<h:outputText value="#{lbl.EditItemPage} : " />
 		<h:outputText styleClass="underlined" value="#{EditItem.pubItem.pubCollection.objectId}" />
