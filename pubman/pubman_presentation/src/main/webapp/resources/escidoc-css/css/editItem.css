@@ -40,7 +40,20 @@
 	/*font-weight: bold;*/
 	margin-left: 10px;
 	margin-top: 10px; 
+	
 }
+
+#editItemHeader{
+	
+	background-image:none;
+	background-color:transparent;
+	
+	/*width:30px;
+	height:30px;*/
+	/*margin-right: 4px;*/
+	
+}
+
 
 label{
 	font-size: 11px;
@@ -272,6 +285,7 @@ label{
  
   color:black;
   font-family: Verdana; 
+  font-variant: normal;
 }
 
 .editItemBlockSubHeaders{
