@@ -89,9 +89,14 @@ All rights reserved. Use is subject to license terms.
 						<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
 						<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
 					</h:panelGroup>
+					<br/>
 					<h:panelGroup rendered="#{item.shortView}">
 						<h:outputLabel value="#{lbl.ViewItemShort_lblCreators}"/>
 						<h:outputText value="#{item.creators}"/>
+						<br/>
+						<h:outputLabel value="#{lbl.ViewItemShort_lblDates}"/>
+						<h:outputText value="#{item.latestDate}"/>
+						<br/>
 					</h:panelGroup>
 					<h:panelGroup rendered="#{item.mediumView}">
 						medium
