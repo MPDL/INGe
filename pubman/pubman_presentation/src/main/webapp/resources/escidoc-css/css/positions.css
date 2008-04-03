@@ -68,60 +68,7 @@ label{
 	float: left;
 }
 
-	/* HEADER SECTION */
-/*
-.headerLogo {
-	width: 189px;
-	height: 90px;
-	clear: both;
-	margin-right: 600px;
-	background-image: url(../images/logo.gif);
-	background-position: left top;
-}*/
-/*
-.headerMain {left: 350px;}
-*/
-	/* HEADER: METAMENU SECTION */
-/*
-.metaMenu {
-	margin: 2px 0px 30px 12px;
-	height: 20px;
-	overflow: hidden;
-}
 
-.metaMenuMain, .metaMenuHelp{
-	overflow: hidden;
-	word-spacing: 1em;
-}
-*/
-	/* HEADER: SIMPLE SEARCH SECTION */
-/*
-.simpleSearch {
-	top: 20px;
-	right: 0px;
-	width: 600px;
-	height: 20px;
-	margin-right: 12px;
-	margin-top: 35px;
-	position: absolute;
-	text-align: right;
-}
-
-.simpleSearchText, .simpleSearchForm {
-	margin-left: 12px;
-	text-align: center;
-}
-*/
-	/* BREADCRUMB SECTION */
-/*
-.breadcrumb {
-	height: 20px;
-	margin-top: 4px;
-	margin-left: 12px;
-	margin-bottom: 20px;
-	padding: 5px;
-}
-*/
 	/* MAIN SECTION */
 
 #nav_main {
