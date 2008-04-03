@@ -144,7 +144,7 @@ label{
 	margin-top:20px;
 }
 
-.checkboxLbl{
+.checkboxLbl, .formGroupTitle label{
 	position:relative;
 	top:-17px;
 	left:18px;
@@ -312,5 +312,11 @@ label{
 .noBorderNoBgColor{
 	background-color:white;
 	border:none;
+}
+
+/*************************************************************************************************************/
+
+.formGroupTitle input label{
+	
 }
 
