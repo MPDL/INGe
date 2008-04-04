@@ -57,12 +57,18 @@ public interface EmailHandling
      * @param pwd        the password of the user
      * @param senderAddress    the email address of the sender
      * @param recipientsAddresses    the email address(es) of the recipients
+     * @param recipientsCCAddresses    the CC email address(es) of the recipients
+     * @param recipientsBCCAddresses    the BCC email address(es) of the recipients
      * @param replytoAddresses    the replyto address(es)
 	 * @param text    the content text of the email
 	 * @param subject    the subject of the email
      * @param attachments    the names/paths of the files to be attached
 	 */
     public String sendMail(String smtpHost,String usr,String pwd,
-                         String senderAddress,String[] recipientsAddresses, String[] replytoAddresses,
+                         String senderAddress, 
+                         String[] recipientsAddresses,
+                         String[] recipientsCCAddresses,                         
+                         String[] recipientsBCCAddresses,                         
+                         String[] replytoAddresses,
                          String subject,String text, String[] attachments) throws TechnicalException ;
 } 

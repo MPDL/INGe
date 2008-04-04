@@ -83,7 +83,11 @@ public class EmailHandlingBean implements EmailHandling
      * {@inheritDoc}
      */
     public String sendMail(String smtpHost,String usr,String pwd,
-                String senderAddress,String[] recipientsAddresses, String[] replytoAddresses,
+                String senderAddress, 
+                String[] recipientsAddresses,
+                String[] recipientsCCAddresses,
+                String[] recipientsBCCAddresses,
+                String[] replytoAddresses,
                 String subject,String text, String[] attachments) throws  TechnicalException    
          {
              logger.debug("EmailHandlingBean sendMail...");
@@ -124,11 +128,28 @@ public class EmailHandlingBean implements EmailHandling
                  Message message = new MimeMessage(mailSession);
                  message.setFrom(new InternetAddress(senderAddress));
                  
-                 
-                 for (int i=0; i < recipientsAddresses.length; i++){
-                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(recipientsAddresses[i]));
-                     logger.debug(">>> recipient  "+ recipientsAddresses[i]);
+                 //add TO recipients
+                 for ( String ra : recipientsAddresses )
+                 {
+                	 message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
+                	 logger.debug(">>> recipientTO: "+ ra);
                  }
+                 
+                 //add CC recipients
+                 if ( recipientsCCAddresses != null )
+	                 for ( String racc : recipientsCCAddresses )
+	                 {
+	                	 message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
+	                	 logger.debug(">>> recipientCC  "+ racc);
+	                 }
+                 
+                 //add BCC recipients
+                 if ( recipientsBCCAddresses != null )
+	                 for ( String rabcc : recipientsBCCAddresses )
+	                 {
+	                	 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
+	                	 logger.debug(">>> recipientBCC  "+ rabcc);
+	                 }
                  
                  message.setSubject(subject);
                  Date date = new Date();
