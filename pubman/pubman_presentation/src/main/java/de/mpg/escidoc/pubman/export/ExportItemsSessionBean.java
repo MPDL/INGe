@@ -69,6 +69,8 @@ public class ExportItemsSessionBean extends FacesBean
     private String exportEmailSubject = ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT;
     private String exportEmailReplyToAddr = "";
     private String emailRecipients = "";
+    private String emailCCRecipients = "";
+    private String emailBCCRecipients = "";
     private String emailSenderProp = "";
     private String emailServernameProp = "";
     private String emailWithAuthProp = "";
@@ -358,6 +360,26 @@ public class ExportItemsSessionBean extends FacesBean
 
 	public void setEnableExport(boolean enableExport) {
 		this.enableExport = enableExport;
+	}
+
+
+	public String getEmailCCRecipients() {
+		return emailCCRecipients;
+	}
+
+
+	public void setEmailCCRecipients(String emailCCRecipients) {
+		this.emailCCRecipients = emailCCRecipients;
+	}
+
+
+	public String getEmailBCCRecipients() {
+		return emailBCCRecipients;
+	}
+
+
+	public void setEmailBCCRecipients(String emailBCCRecipients) {
+		this.emailBCCRecipients = emailBCCRecipients;
 	}
 
 }

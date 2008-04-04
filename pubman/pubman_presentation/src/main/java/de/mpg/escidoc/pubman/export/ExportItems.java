@@ -288,6 +288,7 @@ public class ExportItems extends FacesBean
             String[] replyToAddresses = new String[] {this.getSessionBean().getExportEmailReplyToAddr()};
             String[] attachments = new String[]{this.getSessionBean().getAttExportFile().getPath()};
             String recipientsAddressesStr = this.getSessionBean().getEmailRecipients();
+            String recipientsCCAddressesStr = this.getSessionBean().getEmailCCRecipients();
             
              if ( recipientsAddressesStr == null || recipientsAddressesStr.trim().equals("") )
             {
@@ -297,11 +298,20 @@ public class ExportItems extends FacesBean
                 return null;
             }
            String[] recipientsAddresses = recipientsAddressesStr.split(","); //somereceiver@web.de
-            
+           
+           String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
+           
             try { 
+//                 status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
+//                                                          senderAddress, recipientsAddresses, replyToAddresses, 
+//                                                          subject, text, attachments);
                  status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
-                                                          senderAddress, recipientsAddresses, replyToAddresses, 
-                                                          subject, text, attachments);
+                		 senderAddress, 
+                		 recipientsAddresses, 
+                		 recipientsCCAddresses,
+                		 null,
+                		 replyToAddresses, 
+                		 subject, text, attachments);
             }catch (TechnicalException e)
             {
                 logger.error("Could not ser the export formats." + "\n" + e.toString());

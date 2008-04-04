@@ -1476,6 +1476,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param pwd        the password of the user
      * @param senderAddress    the email address of the sender
      * @param recipientsAddresses    the email address(es) of the recipients
+     * @param recipientsCCAddresses    the email address(es) of the recipients
      * @param replytoAddresses    the replyto address(es)
      * @param text    the content text of the email
      * @param subject    the subject of the email
@@ -1483,12 +1484,15 @@ public class ItemControllerSessionBean extends FacesBean
       *@throws Exception if wrong pws or user or emailing data 
     */
    public String  sendEmail(String smtpHost,String usr,String pwd,
-           String senderAddress,String[] recipientsAddresses, String[] replyToAddresses,
+           String senderAddress,String[] recipientsAddresses,
+           String[] recipientsCCAddresses,
+           String[] recipientsBCCAddresses,
+           String[] replyToAddresses,
            String subject,String text, String[] attachments) throws TechnicalException{
  
        logger.debug("sendEmail....");        
        String status = "not sent";
-       status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, replyToAddresses, 
+       status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
                               subject, text, attachments);
        logger.debug("status " + status);        
       
