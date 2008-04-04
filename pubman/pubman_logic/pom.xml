@@ -49,17 +49,17 @@
   	</plugins>
   </build>
   
-  <dependencies>
+  <dependencies> 
     <dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 	</dependency>
     <dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>endnotemanager</artifactId>
-			<version>1.0.1</version>
+			<artifactId>exportmanager</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 	</dependency>
      <dependency>
@@ -71,9 +71,9 @@
   	<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.1</version>
+			<version>1.0.2-SNAPSHOT</version>
 			<scope>compile</scope>
-	</dependency>
+	</dependency> 
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
