@@ -60,11 +60,11 @@
 		<h:inputText id="txtToRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.emailRecipients}" />
 
 		<h:outputLabel for="txtCCRecipient" id="lblCCRecipient" value="#{lbl.ExportEmail_lblCCRecipient}" />
-		<h:inputText id="txtCCRecipient" styleClass="exportInputTexts" />
+		<h:inputText id="txtCCRecipient" styleClass="exportInputTexts" value="#{ExportItemsSessionBean.emailCCRecipients}" />
 	</h:panelGrid>
 	<h:panelGrid id="panelEmailContent" styleClass="exportEmailBox">
 		<h:outputLabel for="txtEmailSubject" id="lblEmailSubject" value="#{lbl.ExportEmail_lblSubject}" />
-		<h:inputText id="txtEmailSubject" styleClass="exportEMailSubjectTextBox" value="#{ExportItemsSessionBean.exportEmailSubject}" />
+		<h:outputText id="txtEmailSubject" styleClass="exportEMailSubjectTextBox" value="#{ExportItemsSessionBean.exportEmailSubject}" />
 		<h:outputText id="txtaContent" styleClass="exportEMailBodyText" value="#{ExportItemsSessionBean.exportEmailTxt}" />
 
 		<h:outputLabel for="txtReturnToRecipient" id="lblReturnToRecipient" value="#{lbl.ExportEmail_lblReturnToRecipient}" />
