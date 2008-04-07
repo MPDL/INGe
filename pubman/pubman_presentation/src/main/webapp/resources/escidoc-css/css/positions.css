@@ -267,6 +267,12 @@ html > body fieldset{
 	width: 750px;
 	height: 28px;
 	color:black;
+	border:1px solid #afafaf;
+}
+
+
+.listItemHeader{
+	height: 20px;
 }
 
 .listHeader select{
@@ -277,6 +283,13 @@ html > body fieldset{
 .listHeader label{
 	float: none;
 	vertical-align: 2px;
+}
+
+
+/* list */
+
+#listtable, .odd, .even{
+	width:100%;
 }
 
 .displayControls {
@@ -293,6 +306,32 @@ html > body fieldset{
 	
 }
 
+.listItemHeader input{
+	margin-right:5px;
+}
+
+.listHeaderControls{
+	float:right;
+	
+}
+
+.listHeaderControls input{
+	margin-left:5px;
+	
+}
+
+.listHeaderSort{
+ float:none;
+ margin-right:50px;
+}
+
+.listHeaderSort select{
+	margin-left:5px;
+}
+
+.listHeaderSelectItems{
+	float:left;
+}
 
 .listItemHeader input{
 	border: none;	
@@ -306,6 +345,21 @@ html > body fieldset{
 	font-weight: bold;
 	margin: -20px 0px 0px 0px;
 }
+
+.listItemHeader{
+	height:20px;
+}
+
+.listItemHeaderTitle{
+	float:left;
+}
+
+.listItemHeaderViews{
+	float:right;
+}
+
+
+
 	
 	/* ADVANCED SEARCH */
 
