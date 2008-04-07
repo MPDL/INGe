@@ -23,7 +23,7 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<displayName>exportmanager</displayName>
+					<displayName>structuredexportmanager_ear</displayName>
 					<description>structuredexportmanager_ear integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<modules>
@@ -63,7 +63,7 @@
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>exportmanager</artifactId>
+							<artifactId>structuredexportmanager</artifactId>
 						</ejbModule>
 					</modules>
 				</configuration>
@@ -266,7 +266,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>exportmanager</artifactId>
+			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
