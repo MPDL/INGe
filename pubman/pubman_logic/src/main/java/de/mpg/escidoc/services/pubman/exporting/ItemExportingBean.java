@@ -53,9 +53,9 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.escidoc.services.exportmanager.StructuredExportHandler;
-import de.mpg.escidoc.services.exportmanager.StructuredExportManagerException;
-import de.mpg.escidoc.services.exportmanager.StructuredExportXSLTNotFoundException;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 
 
