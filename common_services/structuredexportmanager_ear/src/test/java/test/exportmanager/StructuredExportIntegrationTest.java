@@ -54,7 +54,7 @@ import javax.naming.InitialContext;
 
 public class StructuredExportIntegrationTest 
 {
-		private StructuredExportHandler export;
+		private StructuredExportHandler export; 
 	    private String itemList;
 		private String badItemList;
 	    private String endNoteTestOutput;
