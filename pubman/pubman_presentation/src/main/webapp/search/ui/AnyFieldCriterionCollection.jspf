@@ -56,47 +56,47 @@
 		
 		<%/* panContainer */%>
 		<h:panelGroup rendered="#{!anyFieldCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
+			<div class="formField floatbox">
+				<div class=" light fullWidth floatbox">
 					<div class="searchTerm">
 						<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
 						<h:inputText value="#{anyFieldCriterionBean.criterionVO.searchString}" />
 					</div>
-				</h:panelGroup>
+				
 
-				<h:panelGroup>
-					<div class="formGroupTitle">
+				
+					<div class="formGroupTitle floatbox">
 						<h:selectOneRadio layout="pageDirection" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}" onchange="submit()">
 							<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
 						</h:selectOneRadio>
-						<h:panelGroup>
+						<h:panelGroup styleClass="check checkItem">
 							<h:selectBooleanCheckbox value="#{anyFieldCriterionBean.includeFiles}" disabled="#{anyFieldCriterionBean.includeFilesDisabled}"/>
-							<h:outputText value="#{lbl.adv_search_lblChkInclude}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkInclude}" />
 						</h:panelGroup>					
 					</div>
-				</h:panelGroup>
+				</div>	
 				
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{anyFieldCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
+				
+					
+						
+						<div class="objectButtons floatbox">							
+							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size > 1}"/>
+							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
+							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{anyFieldCriterionBean.clearCriterion}" />
+						</div>
+					
+				
 			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size > 1}"/>
-				</div>
-			</h:panelGroup>
+			
 		</h:panelGroup>
 
-		<h:panelGroup>
-			<div class="operatorCenter">
+		
+			<div class="operatorCenter floatbox">
 				<h:selectOneMenu value="#{anyFieldCriterionBean.logicOperator}">
 					<f:selectItems value="#{anyFieldCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

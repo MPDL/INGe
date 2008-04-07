@@ -38,52 +38,44 @@
 		<h:panelGroup> 
 			<div class="listHeader dark">
 				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				
 					<h3>
 						<h:outputText value="#{lbl.adv_search_lbHeaderOrgan}" />
 					</h3>
-				</h:panelGroup>
+				
 			
 				<%/* panControls */%>
-				<h:panelGroup>
+				
 					<div class="displayControls">
 						<h:commandButton image="images/up.gif" action="#{organizationCriterionBean.collapse}" rendered="#{!organizationCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{organizationCriterionBean.expand}" rendered="#{organizationCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
-		<h:panelGroup rendered="#{!organizationCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
-					<div class="searchTerm">
-						<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
-						<h:inputText value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
-					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{organizationCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size > 1}"/>
+		<h:panelGroup layout="block" styleClass="formField floatbox" rendered="#{!organizationCriterionBean.collapsed}">	
+				
+				<div class="searchTerm">
+					<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText value="#{organizationCriterionBean.organizationCriterionVO.searchString}" />
 				</div>
-			</h:panelGroup>
+				<div class="objectButtons">					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{organizationCriterionBean.clearCriterion}" />
+				</div>			
+			
 		</h:panelGroup>
 
-		<h:panelGroup>
+		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{organizationCriterionBean.logicOperator}">
 					<f:selectItems value="#{organizationCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

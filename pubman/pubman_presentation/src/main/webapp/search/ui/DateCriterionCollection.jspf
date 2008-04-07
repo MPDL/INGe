@@ -38,90 +38,95 @@
 		<h:panelGroup> 
 			<div class="listHeader dark">
 				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				
 					<h3>
 						<h:outputText value="#{lbl.adv_search_lbHeaderDate}" />
 					</h3>
-				</h:panelGroup>
+				
 			
 				<%/* panControls */%>
-				<h:panelGroup>
+				
 					<div class="displayControls">
 						<h:commandButton image="images/up.gif" action="#{dateCriterionBean.collapse}" rendered="#{!dateCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{dateCriterionBean.expand}" rendered="#{dateCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
 		<h:panelGroup rendered="#{!dateCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
-					<div class="searchTerm">
-						<h:outputLabel value="#{lbl.adv_search_lblFrom}" />
-						<h:inputText immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
-						<h:outputLabel value="#{lbl.adv_search_lblTo}" />
-						<h:inputText immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+			<div class="formField floatbox">		
+				<div class="innerPanel floatbox">		
+					<div class="searchTerm leftHalf floatbox">
+						<div class="dateCol wider topSpace10">
+							<h:outputLabel value="#{lbl.adv_search_lblFrom}" />
+							<h:inputText styleClass="dateField" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+						</div>
+						<div class="dateCol wider">
+							<h:outputLabel value="#{lbl.adv_search_lblTo}" />
+							<h:inputText styleClass="dateField" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+						</div>
 					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
+				
+				<div class="rightHalf floatbox">
+					<div class="objectButtons floatbox rightHalfInnerPanel">
 						<h:outputLabel value="#{lbl.adv_search_lblChkType}" />
 						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{dateCriterionBean.selectAll}" />
 					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="formGroupCheckboxes">
-						<h:panelGrid columns="6">
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchAccepted}" />
-								<h:outputText value="accepted" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchCreated}" />
-								<h:outputText value="created" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchModified}" />
-								<h:outputText value="modified" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedOnline}" />
-								<h:outputText value="published online" />
-							</h:panelGroup>
-							<h:panelGroup>
+				
+				
+					<div class="formGroupCheckboxMatrix floatbox rightHalfInnerPanel">
+						<h:panelGroup layout="block" styleClass="checkboxCol dateColShort">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedPrint}" />
-								<h:outputText value="published in print" />
-							</h:panelGroup>		
-							<h:panelGroup>
+								<h:outputLabel value="published in print" />
+							</h:panelGroup>	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchSubmitted}" />
-								<h:outputText value="submitted" />
+								<h:outputLabel value="submitted" />
 							</h:panelGroup>
-						</h:panelGrid>
-					</div>				
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{dateCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size > 1}"/>
+						</h:panelGroup>							
+						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedOnline}" />
+								<h:outputLabel value="published online" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchModified}" />
+								<h:outputLabel value="modified" />
+							</h:panelGroup>
+						</h:panelGroup>							
+						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchAccepted}" />
+								<h:outputLabel value="accepted" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchCreated}" />
+								<h:outputLabel value="created" />
+							</h:panelGroup>							
+						</h:panelGroup>
+					</div>	
+				</div>				
 				</div>
-			</h:panelGroup>
+				<div class="objectButtons floatbox">					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />				
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{dateCriterionBean.clearCriterion}" />
+				</div>
+			</div>
+				
+			
 		</h:panelGroup>
 
-		<h:panelGroup>
+		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{dateCriterionBean.logicOperator}">
 					<f:selectItems value="#{dateCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

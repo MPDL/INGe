@@ -38,52 +38,48 @@
 		<h:panelGroup> 
 			<div class="listHeader dark">
 				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				
 					<h3>
 						<h:outputText value="#{lbl.adv_search_lbHeaderIdent}" />
 					</h3>
-				</h:panelGroup>
+				
 			
 				<%/* panControls */%>
-				<h:panelGroup>
+				
 					<div class="displayControls">
 						<h:commandButton image="images/up.gif" action="#{identifierCriterionBean.collapse}" rendered="#{!identifierCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{identifierCriterionBean.expand}" rendered="#{identifierCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
 		<h:panelGroup rendered="#{!identifierCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
+			<div class="formField floatbox">
+				
 					<div class="searchTerm">
 						<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
 						<h:inputText value="#{identifierCriterionBean.identifierCriterionVO.searchString}" />
 					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{identifierCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />
+				<div class="objectButtons floatbox">						
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.identifierCriterionCollection.identifierCriterionManager.addObject}" />					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{identifierCriterionBean.clearCriterion}" />
 				</div>
-			</h:panelGroup>
+			</div>
+			
+				
+			
 		</h:panelGroup>
 
-		<h:panelGroup>
+		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{identifierCriterionBean.logicOperator}">
 					<f:selectItems value="#{identifierCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

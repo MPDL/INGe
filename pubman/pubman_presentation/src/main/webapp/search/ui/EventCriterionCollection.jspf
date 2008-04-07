@@ -38,52 +38,44 @@
 		<h:panelGroup> 
 			<div class="listHeader dark">
 				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				
 					<h3>
 						<h:outputText value="#{lbl.adv_search_lbHeaderEvent}" />
 					</h3>
-				</h:panelGroup>
+				
 			
 				<%/* panControls */%>
-				<h:panelGroup>
+				
 					<div class="displayControls">
 						<h:commandButton image="images/up.gif" action="#{eventCriterionBean.collapse}" rendered="#{!eventCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{eventCriterionBean.expand}" rendered="#{eventCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
 		<h:panelGroup rendered="#{!eventCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
-					<div class="searchTerm">
-						<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
-						<h:inputText value="#{eventCriterionBean.eventCriterionVO.searchString}" />
-					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{eventCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size > 1}"/>
+			<div class="formField floatbox">			
+				<div class="searchTerm">
+					<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</div>
-			</h:panelGroup>
-		</h:panelGroup>
-
-		<h:panelGroup>
+				<div class="objectButtons floatbox">
+					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{eventCriterionBean.clearCriterion}" />
+				</div>
+			</div>	
+			
+		</h:panelGroup>		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{eventCriterionBean.logicOperator}">
 					<f:selectItems value="#{eventCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

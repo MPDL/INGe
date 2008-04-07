@@ -38,110 +38,116 @@
 		<h:panelGroup> 
 			<div class="listHeader dark">
 				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				
 					<h3>
 					<h:outputText value="#{lbl.adv_search_lbHeaderPerson}" />
 				</h3>
-				</h:panelGroup>
+				
 			
 				<%/* panControls */%>
-				<h:panelGroup>
+				
 					<div class="displayControls">
 						<h:commandButton image="images/up.gif" action="#{personCriterionBean.collapse}" rendered="#{!personCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{personCriterionBean.expand}" rendered="#{personCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
 		<h:panelGroup rendered="#{!personCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
-					<div class="searchTerm">
+			<div class="formField floatbox">				
+				<div class="searchTerm">
 					<h:outputLabel value="#{lbl.adv_search_lblSearchPerson}" />
 					<h:inputText immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
-					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-					<h:outputLabel value="#{lbl.adv_search_lblChkRole}" />
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{personCriterionBean.selectAll}" />
-					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="formGroupCheckboxes">
-						<h:panelGrid columns="6">
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAuthor}" />
-							<h:outputText value="Author" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchEditor}" />
-							<h:outputText value="Editor" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAdvisor}" />
-							<h:outputText value="Advisor" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchArtist}" />
-							<h:outputText value="Artist" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchCommentator}" />
-							<h:outputText value="Commentator" />
-							</h:panelGroup>		
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchContributor}" />
-							<h:outputText value="Contributor" />
-							</h:panelGroup>
-							
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchIllustrator}" />
-							<h:outputText value="Illustrator" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPainter}" />
-							<h:outputText value="Painter" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPhotographer}" />
-							<h:outputText value="Photographer" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranscriber}" />
-							<h:outputText value="Transcriber" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranslator}" />
-							<h:outputText value="Translator" />
-							</h:panelGroup>
-							<h:outputText value=" " />
-						</h:panelGrid>
-					</div>				
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{personCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size > 1}"/>
 				</div>
-			</h:panelGroup>
+				
+				
+				<div class="objectButtons floatbox">
+					<h:outputLabel value="#{lbl.adv_search_lblChkRole}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{personCriterionBean.selectAll}" />
+				</div>
+				
+				
+					<div class="formGroupCheckboxMatrix floatbox">
+						<h:panelGroup layout="block" styleClass="checkboxCol">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAuthor}" />
+								<h:outputLabel value="Author" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchIllustrator}" />
+								<h:outputLabel value="Illustrator" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol">	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchEditor}" />
+								<h:outputLabel value="Editor" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPainter}" />
+								<h:outputLabel value="Painter" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol">		
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAdvisor}" />
+								<h:outputLabel value="Advisor" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPhotographer}" />
+								<h:outputLabel value="Photographer" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol">	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchArtist}" />
+								<h:outputLabel value="Artist" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranscriber}" />
+								<h:outputLabel value="Transcriber" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol">	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchCommentator}" />
+								<h:outputLabel value="Commentator" />
+							</h:panelGroup>	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranslator}" />
+								<h:outputLabel value="Translator" />
+							</h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol">		
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{personCriterionBean.searchContributor}" />
+								<h:outputLabel value="Contributor" />
+							</h:panelGroup>	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">						
+								<h:outputLabel value=" " />
+							</h:panelGroup>
+						</h:panelGroup>
+					</div>				
+				
+				<div class="objectButtons floatbox">					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />					
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{personCriterionBean.clearCriterion}" />
+				</div>
+			</div>	
+				
+			
 		</h:panelGroup>
 
-		<h:panelGroup>
+		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{personCriterionBean.logicOperator}">
 					<f:selectItems value="#{personCriterionBean.logicOptions}"/>
 			</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+		
 		
 	</h:column>
 </h:dataTable>

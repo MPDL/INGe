@@ -55,112 +55,120 @@
 		</h:panelGroup>
 		
 		<%/* panContainer */%>
+		
 		<h:panelGroup rendered="#{!genreCriterionBean.collapsed}">
-			<div class="formField">
-				<h:panelGroup>
-					<div class="clearButton">
-					<h:outputLabel value="#{lbl.adv_search_lblChkGenre}" />
+			<div class="formField floatbox">	
+				<div class="innerPanel">			
+					<div class="objectButtons floatbox">
+						<h:outputLabel value="#{lbl.adv_search_lblChkGenre}" />
 						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{genreCriterionBean.selectAll}" />
 					</div>
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="formGroupCheckboxes">
-						<h:panelGrid columns="6">
-							<h:panelGroup>
+				
+				
+					<div class="formGroupCheckboxMatrix floatbox">
+						<h:panelGroup layout="block" styleClass="checkboxCol short">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchArticle}" />
-							<h:outputText value="Article" />
+								<h:outputLabel value="Article" />
 							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBook}" />
-							<h:outputText value="Book" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBookItem}" />
-							<h:outputText value="Book Item" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPaper}" />
-							<h:outputText value="Paper" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchCoursewareLecture}" />
-							<h:outputText value="Courseware/Lecture" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchProceedings}" />
-							<h:outputText value="Proceedings" />
-							</h:panelGroup>
-							
-							<h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchIssue}" />
-							<h:outputText value="Issue" />
+								<h:outputLabel value="Issue" />
 							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchJournal}" />
-							<h:outputText value="Journal" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchManuscript}" />
-							<h:outputText value="Manuscript" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPoster}" />
-							<h:outputText value="Poster" />
-							</h:panelGroup>
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchConferencePaper}" />
-							<h:outputText value="Conference Paper" />
-							</h:panelGroup>		
-							<h:panelGroup>
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchOther}" />
-							<h:outputText value="Other" />
-							</h:panelGroup>
-
-							<h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchReport}" />
-							<h:outputText value="Report" />
+								<h:outputLabel value="Report" />
 							</h:panelGroup>
-							<h:panelGroup>
+						</h:panelGroup>
+						<h:panelGroup layout="block" styleClass="checkboxCol short">	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBook}" />
+								<h:outputLabel value="Book" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchJournal}" />
+								<h:outputLabel value="Journal" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchSeries}" />
-							<h:outputText value="Series" />
+								<h:outputLabel value="Series" />
 							</h:panelGroup>
-							<h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="checkboxCol short">							
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBookItem}" />
+								<h:outputLabel value="Book Item" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchManuscript}" />
+								<h:outputLabel value="Manuscript" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchTalkAtEvent}" />
-							<h:outputText value="Talk at event" />
+								<h:outputLabel value="Talk at event" />
 							</h:panelGroup>
-							<h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="checkboxCol long">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchCoursewareLecture}" />
+								<h:outputLabel value="Courseware/Lecture" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPaper}" />
+								<h:outputLabel value="Paper" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchThesis}" />
-							<h:outputText value="Thesis" />
+								<h:outputLabel value="Thesis" />
 							</h:panelGroup>
-							<h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="checkboxCol long">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchConferencePaper}" />
+								<h:outputLabel value="Conference Paper" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPoster}" />
+								<h:outputLabel value="Poster" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchOther}" />
+								<h:outputLabel value="Other" />
+							</h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="checkboxCol long">	
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchConferenceReport}" />
-							<h:outputText value="Conference Report" />
+								<h:outputLabel value="Conference Report" />
+							</h:panelGroup>								
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchProceedings}" />
+								<h:outputLabel value="Proceedings" />
 							</h:panelGroup>
-							<h:outputText value=" " />
-						</h:panelGrid>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:outputLabel value=" " />		
+							</h:panelGroup>					
+						</h:panelGroup>
 					</div>				
-				</h:panelGroup>
-				<h:panelGroup>
-					<div class="clearButton">
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{genreCriterionBean.clearCriterion}" />
-					</div>
-				</h:panelGroup>
-			</div>
-			<h:panelGroup>
-				<div class="objectButtons">
+				
+				</div>
+			
+			
+				<div class="objectButtons floatbox">
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size > 1}"/>
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{genreCriterionBean.clearCriterion}" />
 				</div>
-			</h:panelGroup>
+			</div>
 		</h:panelGroup>
 
-		<h:panelGroup>
+		
 			<div class="operatorCenter">
 				<h:selectOneMenu value="#{genreCriterionBean.logicOperator}">
 					<f:selectItems value="#{genreCriterionBean.logicOptions}"/>
 			</h:selectOneMenu>
 			</div>
-		</h:panelGroup>
+	
 		
 	</h:column>
 </h:dataTable>
