@@ -56,22 +56,28 @@ All rights reserved. Use is subject to license terms.
 				<h:commandButton value=">|" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
 			</h:panelGroup>
 			<div class="displayControls"></div>
-			<h:panelGroup layout="block" styleClass="listHeader dark">
+			<h:panelGroup layout="block" styleClass="listHeader dark floatbox">
+				<div class="listHeaderSelectItems">
 				<h:selectOneMenu immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}">
 					<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />
 				</h:selectOneMenu>
+				</div>
 				
+				<div class="listHeaderSort">
 				<h:outputLabel for="sortBy" value="#{lbl.ItemList_SortBy}"/>
 				<h:selectOneMenu id="sortBy" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
 					<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
 				</h:selectOneMenu>
 				
+				
+				
 				<h:outputLabel for="sortOrderAsc" value="#{lbl.ItemList_SortOrderAscending}" rendered="#{ItemListSessionBean.isAscending}"/>
 				<h:outputLabel for="sortOrderDesc" value="#{lbl.ItemList_SortOrderDescending}" rendered="#{!ItemListSessionBean.isAscending}"/>
 				<h:commandButton id="sortOrderAsc" image="images/sort_icon_ascending.jpg" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
 				<h:commandButton id="sortOrderDesc" image="images/sort_icon_descending.jpg" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
+				</div>
 				
-				<h:panelGroup layout="block" styleClass="displayControls">
+				<h:panelGroup layout="block" styleClass="displayControls listHeaderControls">
 					<h:outputLabel value="#{lbl.ItemList_Details}"/>
 					<h:commandButton image="images/short_view_item.jpg" actionListener="#{ItemListSessionBean.switchToShortView}"/>
 					<h:commandButton image="images/medium_view_item.jpg" actionListener="#{ItemListSessionBean.switchToMediumView}"/>
@@ -81,13 +87,17 @@ All rights reserved. Use is subject to license terms.
 				first="#{ItemListSessionBean.currentPubItemListPointer}"
 				rows="#{ItemListSessionBean.itemsPerPage}" rowClasses="odd, even">
 				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
-						<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}:#{item.reference.versionNumber}" >
-							<h:outputText value="#{item.metadata.title}"/>
-						</h:outputLink>
-						<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
-						<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+					<h:panelGroup layout="block" styleClass="listItemHeader dark">
+						<div class="listItemHeaderTitle">
+							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
+							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}:#{item.reference.versionNumber}" >
+								<h:outputText value="#{item.metadata.title}"/>
+							</h:outputLink>
+						</div>
+						<div class="listItemHeaderViews">
+							<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
+							<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+						</div>
 					</h:panelGroup>
 					<br/>
 					<h:panelGroup rendered="#{item.shortView}">
