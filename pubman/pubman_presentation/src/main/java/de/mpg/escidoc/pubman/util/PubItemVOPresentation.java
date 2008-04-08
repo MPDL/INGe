@@ -58,7 +58,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private List<OrganizationVO> affiliatedOrganizationsList;
     
     /**
-     * The list of formatted creators in an ArrayList.
+     * The list of formatted creators (persons) in an ArrayList.
      */
     private ArrayList<String> creatorArray;
     
@@ -66,6 +66,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      * The list of formatted creators which are organizations in an ArrayList.
      */
     private ArrayList<ViewItemCreatorOrganization> creatorOrganizationsArray;
+    
+    /**
+     * The list of formatted creators (persons AND organizations) in an ArrayList.
+     */
+    private ArrayList<String> allCreatorsList = new ArrayList<String>();
     
     /**
      * the first source of the item (for display in the medium view)
@@ -78,7 +83,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     private java.util.List<SearchHitVO> searchHitList = new java.util.ArrayList<SearchHitVO>();
     
     /**
-     * List of search hits wrapped in a diisplay optimized bean
+     * List of search hits wrapped in a display optimized bean
      */
     private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
     
@@ -116,6 +121,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         {
         	this.firstSource = item.getMetadata().getSources().get(0);
         }
+        
+        getCountCreators();
         
         // get the information for the CoinS tag
         COinSUI coins = new COinSUI();
@@ -585,6 +592,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
                 counterOrganization++;
             }
             creatorList.append(formattedCreator);
+            this.allCreatorsList.add(formattedCreator);
         }
     }
     
@@ -690,6 +698,39 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	}
     	return furtherSources;
     }
+    
+    /**
+     * Counts the creators and returns the number as int (inportant for rendering in )
+     * @return int number of creators
+     */
+    public int getCountCreators()
+    {
+    	int creators = 0;
+    	if(this.creatorArray != null)
+    	{
+    		creators = creators + this.creatorArray.size();
+    	}
+    	if(this.creatorOrganizationsArray != null)
+    	{
+    		creators = creators + this.creatorOrganizationsArray.size();
+    	}
+    	return creators;
+    }
+    
+    /**
+     * Counts the affiliated organizations and returns the number as int (inportant for rendering in )
+     * @return int number of organiozations
+     */
+    public int getCountAffiliatedOrganizations()
+    {
+    	int organizations = 0;
+    	if(this.affiliatedOrganizationsList != null)
+    	{
+    		organizations = organizations + this.affiliatedOrganizationsList.size();
+    	}
+    	return organizations;
+    }
+
 
 	public void switchToMediumView()
     {
@@ -775,6 +816,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	public void setCoins(String coins) {
 		this.coins = coins;
 	}
+
+	public ArrayList<String> getAllCreatorsList() {
+		return allCreatorsList;
+	}
+
+	public void setAllCreatorsList(ArrayList<String> allCreatorsList) {
+		this.allCreatorsList = allCreatorsList;
+	}
+	
 	
 	
 }

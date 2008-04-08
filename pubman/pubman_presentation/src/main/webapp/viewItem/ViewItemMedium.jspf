@@ -41,13 +41,15 @@
 		<h:outputText value="#{lbl.ViewItemMedium_lblCreators}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
-	<tr:iterator var="creatorPerson" value="#{item.creatorArray}" binding="#{ViewItemMedium.creatorPersonsIterator}" varStatus="index">
+	<tr:iterator var="creator" value="#{item.allCreatorsList}" binding="#{ViewItemMedium.creatorPersonsIterator}" varStatus="index">
 		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{ViewItemMedium.creatorPersonsIterator.rowIndex > 0}"/>
 			<h:outputText value="&#160;" rendered="#{ViewItemMedium.creatorPersonsIterator.rowIndex > 0}" escape="false"/>
 		<h:outputText value="</div>" escape="false" rendered="#{ViewItemMedium.creatorPersonsIterator.rowIndex > 0}"/>
 		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemMedium.creatorPersonsIterator.rowIndex%2)*2==ViewItemMedium.creatorPersonsIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemMedium.creatorPersonsIterator.rowIndex%2)*2 != ViewItemMedium.creatorPersonsIterator.rowIndex}"/>
-			<h:outputText value="#{creatorPerson}"/>
+		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{item.countCreators == 0}"/>
+			<h:outputText value="#{creator}"/>
+			<h:outputText value="&#160;" rendered="#{item.countCreators == 0}" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 	
@@ -71,6 +73,7 @@
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
 		<h:outputText value="&#160;" rendered="#{ViewItemMedium.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
+		<h:outputText value="&#160;" rendered="#{item.countAffiliatedOrganizations == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Dates -->
@@ -129,6 +132,16 @@
 		<h:outputText value="#{item.eventTitle}"/>
 		<h:outputText value="&#160;" rendered="#{item.eventTitle == null || item.eventTitle == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
+	
+	<!-- empty row-->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="&#160;" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="&#160;" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
 	
 	<!-- first source genre-->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
@@ -203,6 +216,15 @@
 			<h:outputText value="#{item.furtherSources} #{lbl.ViewItemMedium_lblSourceFurtherSources}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</h:panelGroup>
+	
+	<!-- empty row-->
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="&#160;" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="&#160;" escape="false"/>
+	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Files -->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
