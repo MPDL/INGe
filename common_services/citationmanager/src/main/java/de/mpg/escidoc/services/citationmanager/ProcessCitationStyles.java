@@ -121,6 +121,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     
     public final static String DEFAULT_REPORTNAME = "Report";
     
+    public final static String CITATION_XML_FILENAME = "/CitationStyle.xml";
+    
     
     // ResourceContext
     public static enum ResourcesContext { jboss, local };
@@ -142,7 +144,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final String TASK_PRINT = "print";
     private static final String TASK_HTML = "html";
     private static final String TASK_XML = "xml";
-    private static final String TASK_SNIPPET = "snippet";
     private static final String TASK_ODT = "odt";    
     private static final String TASK_VALIDATE_DS = "validate-ds";
     private static final String TASK_VALIDATE_CS = "validate-cs";
@@ -317,7 +318,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             		// TODO: Ignore Path             		
 //            		path +
             		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/CitationStyle.xml"
+            		+ name 
+            		+ CITATION_XML_FILENAME
             );
         } catch (Exception e) {
         	throw new CitationStyleManagerException("Error by CitationStylesCollection loading: " + e);
@@ -352,7 +354,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     private void writeCitationStyleToXml(File path, String name) throws IOException, SAXException, CitationStyleManagerException {
         try {
-            csc.writeToXml(path + "/" + name + "/CitationStyle.xml");
+            csc.writeToXml(path + "/" + name + CITATION_XML_FILENAME);
         } catch (IOException e) {
             throw new IOException("Cannot write to XML:" + e);
         } catch (SAXException e) {
@@ -1493,7 +1495,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public String explainStyles() throws CitationStyleManagerException {
 		
-		String fileString = null; 
+		String fileString = null;
+		
 		try {
 			fileString = ResourceUtil.getResourceAsString(
 					ResourceUtil.getPathToSchemas()
@@ -1504,6 +1507,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		}
 		return fileString;
 	}
+	
 	
 	public byte[] getOutput(String citationStyle, final String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
 		
@@ -1742,7 +1746,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 try {
                 	xh.validateCitationStyleXML(
                 			ResourceUtil.getPathToCitationStyles()
-                			+ csName +"/" + "CitationStyle.xml" );
+                			+ csName + CITATION_XML_FILENAME );
                 	logger.info("Citation Style XML file for " + csName + " is valid.");
             	}catch (CitationStyleManagerException e){
             		logger.info("Citation Style definition file:" + csName + " is not valid.\n" + e.toString());
