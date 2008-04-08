@@ -183,6 +183,7 @@ html > body fieldset{
 .itemText {
 	padding-left: 6px;
 	margin-top: 0.2em;
+	text-align:left;
  }
 
 .itemAffiliations {
@@ -335,6 +336,7 @@ html > body fieldset{
 
 .listItemHeader input{
 	border: none;	
+	margin-right:5px;
 }
 
 .listItemHeader  a{
