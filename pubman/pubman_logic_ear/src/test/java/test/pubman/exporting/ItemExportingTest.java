@@ -111,12 +111,12 @@ public class ItemExportingTest extends TestBase
         List<ExportFormatVO> exportFormatsVOList = itemExporting.explainExportFormats();
         assertNotNull(exportFormatsVOList);
         assertFalse(exportFormatsVOList.isEmpty());
-        assertEquals(3, exportFormatsVOList.size());
-
         for (ExportFormatVO formatVO : exportFormatsVOList)
         {
             logger.debug(formatVO);
         }
+        assertEquals(2, exportFormatsVOList.size());
+
     }
     
     /**
