@@ -85,20 +85,20 @@
 		<h:outputText value="<p>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItem_lblDateCreated}: " rendered="#{item.metadata.dateCreated != ''}"/>
 			<h:outputText value="#{item.metadata.dateCreated}"/>
-				<h:outputText value=" | " rendered="#{item.metadata.dateModified != ''}"/>
-			<h:outputText value="#{lbl.ViewItem_lblDateModified}: " rendered="#{item.metadata.dateModified != ''}" />
+				<h:outputText value=" | " rendered="#{item.metadata.dateModified != null && item.metadata.dateModified != ''}" />
+			<h:outputText value="#{lbl.ViewItem_lblDateModified}: " rendered="#{item.metadata.dateModified != null && item.metadata.dateModified != ''}" />
 			<h:outputText value="#{item.metadata.dateModified}"/>
-				<h:outputText value=" | " rendered="#{item.metadata.dateSubmitted != ''}"/>
-			<h:outputText value="#{lbl.ViewItem_lblDateSubmitted}: " rendered="#{item.metadata.dateSubmitted != ''}"/>
+				<h:outputText value=" | " rendered="#{item.metadata.dateSubmitted != null && item.metadata.dateSubmitted != ''}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateSubmitted}: " rendered="#{item.metadata.dateSubmitted != null && item.metadata.dateSubmitted != ''}"/>
 			<h:outputText value="#{item.metadata.dateSubmitted}"/>
-				<h:outputText value=" | " rendered="#{item.metadata.dateAccepted != ''}"/>
-			<h:outputText value="#{lbl.ViewItem_lblDateAccepted}: " rendered="#{item.metadata.dateAccepted != ''}"/>
+				<h:outputText value=" | " rendered="#{item.metadata.dateAccepted != null && item.metadata.dateAccepted != ''}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDateAccepted}: " rendered="#{item.metadata.dateAccepted != null && item.metadata.dateAccepted != ''}"/>
 			<h:outputText value="#{item.metadata.dateAccepted}"/>
-				<h:outputText value=" | " rendered="#{item.metadata.datePublishedOnline != ''}"/>
-			<h:outputText value="#{lbl.ViewItem_lblDatePublishedOnline}: " rendered="#{item.metadata.datePublishedOnline != ''}"/>
+				<h:outputText value=" | " rendered="#{item.metadata.datePublishedOnline != null && item.metadata.datePublishedOnline != ''}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDatePublishedOnline}: " rendered="#{item.metadata.datePublishedOnline != null && item.metadata.datePublishedOnline != ''}"/>
 			<h:outputText value="#{item.metadata.datePublishedOnline}"/>
-				<h:outputText value=" | " rendered="#{item.metadata.datePublishedInPrint != ''}"/>
-			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{item.metadata.datePublishedInPrint != ''}"/>
+				<h:outputText value=" | " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
+			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{item.metadata.datePublishedInPrint}"/>
 		<h:outputText value="</p>" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
