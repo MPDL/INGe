@@ -40,7 +40,7 @@
 					<h:outputText id="pageDummy" value="#{FacesBean.beanName}" />
 					<h:form id="form1">
 						<div>
-							<h:inputTextarea id="txtaCollectionDescription" value="#{EditItem.collectionDescription}"/>
+							<h:inputTextarea id="txtaContextDescription" value="#{EditItem.contextDescription}"/>
 						</div>
 					</h:form>
 				</body>

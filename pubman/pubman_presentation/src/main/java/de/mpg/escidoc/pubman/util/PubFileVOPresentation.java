@@ -7,20 +7,20 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 
 public class PubFileVOPresentation extends FacesBean {
 
 	private int index;
-	private PubFileVO file;
+	private FileVO file;
 	private HtmlCommandButton removeButton = new HtmlCommandButton();
 	
 	public PubFileVOPresentation()
 	{
-		this.file = new PubFileVO();
+		this.file = new FileVO();
 	}
 	
-	public PubFileVOPresentation(int fileIndex, PubFileVO file)
+	public PubFileVOPresentation(int fileIndex, FileVO file)
 	{
 		this.index = fileIndex; 
 		this.file = file;
@@ -35,11 +35,11 @@ public class PubFileVOPresentation extends FacesBean {
 		this.index = index;
 	}
 
-	public PubFileVO getFile() {
+	public FileVO getFile() {
 		return file;
 	}
 
-	public void setFile(PubFileVO file) {
+	public void setFile(FileVO file) {
 		this.file = file;
 	}
 
@@ -63,7 +63,7 @@ public class PubFileVOPresentation extends FacesBean {
 			// ensure that at least one upload component is visible
 			if(editItem.getPubItem().getFiles().size() == 0)
 			{
-				editItem.getPubItem().getFiles().add(new PubFileVO());
+				editItem.getPubItem().getFiles().add(new FileVO());
 			}
 			if(editItem.getFiles().size() == 0)
 			{

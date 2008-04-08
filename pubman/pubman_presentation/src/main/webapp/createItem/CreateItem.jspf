@@ -38,7 +38,7 @@
 			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>	  
 			</h1>
 
-			<jsp:directive.include file="../list/collectionList.jspf"/>
+			<jsp:directive.include file="../list/contextList.jspf"/>
 	
 			<div>
 				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItemPage.cancel}" />

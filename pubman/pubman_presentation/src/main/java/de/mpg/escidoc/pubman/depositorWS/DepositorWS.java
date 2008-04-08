@@ -45,7 +45,7 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -167,13 +167,15 @@ public class DepositorWS extends ItemList
             //      Inserted by FrM to check item State
             for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
             {
-                logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
-                if (item.getState() != PubItemVO.State.PENDING && item.getState() != PubItemVO.State.RELEASED)
+                logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
+                if (item.getVersion().getState() != PubItemVO.State.PENDING && item.getVersion().getState() != PubItemVO.State.RELEASED)
                 {
                     this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
                     return null;
                 }
-                getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
+                // TODO FrM: Survey this change.
+                //getItemControllerSessionBean().setCurrentPubItem(new PubItemVO(item));
+                getItemControllerSessionBean().setCurrentPubItem(item);
             }
             // force reload of list next time this page is navigated to
             this.getItemListSessionBean().setListDirty(true);
@@ -208,8 +210,8 @@ public class DepositorWS extends ItemList
         // Inserted by FrM to check item State
         for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
-            logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
-            if (item.getState() != PubItemVO.State.PENDING)
+            logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
+            if (item.getVersion().getState() != PubItemVO.State.PENDING)
             {
                 this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
                 return null;
@@ -235,7 +237,7 @@ public class DepositorWS extends ItemList
             ValidationReportVO report = null;
             try
             {
-                report = itemValidating.validateItemObject(new PubItemVO(pubItem), "submit_item");
+                report = itemValidating.validateItemObject(pubItem, "submit_item");
             }
             catch (Exception e)
             {
@@ -294,8 +296,8 @@ public class DepositorWS extends ItemList
         //      Inserted by FrM to check item State
         for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
-            logger.debug("Checking item: " + item.getReference().getObjectId() + ":" + item.getState());
-            if (item.getState() != PubItemVO.State.RELEASED)
+            logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
+            if (item.getVersion().getState() != PubItemVO.State.RELEASED)
             {
                 this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
                 return null;
@@ -335,7 +337,7 @@ public class DepositorWS extends ItemList
         // Inserted by FrM to check item State
         for (PubItemVO item : this.getItemListSessionBean().getSelectedPubItems())
         {
-            if (item.getState() != PubItemVO.State.PENDING)
+            if (item.getVersion().getState() != PubItemVO.State.PENDING)
             {
                 this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
                 return null;
@@ -493,13 +495,13 @@ public class DepositorWS extends ItemList
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      *
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean)getBean(ContextListSessionBean.class);
     }
 
     /**

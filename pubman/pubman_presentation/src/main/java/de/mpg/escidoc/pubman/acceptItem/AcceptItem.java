@@ -31,7 +31,6 @@
 package de.mpg.escidoc.pubman.acceptItem;
 
 import javax.faces.component.html.HtmlInputTextarea;
-import javax.faces.component.html.HtmlOutputText;
 
 import org.apache.log4j.Logger;
 
@@ -114,9 +113,9 @@ public class AcceptItem extends FacesBean
 
         if (logger.isDebugEnabled())
         {
-            if (this.getPubItem() != null && this.getPubItem().getReference() != null)
+            if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
             {
-                logger.debug("Item that is being accepted: " + this.getPubItem().getReference().getObjectId());
+                logger.debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
             }
             else
             {

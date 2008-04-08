@@ -43,20 +43,20 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
-import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
+import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
  * Navigation.java Backing Bean for the Navigation side bar of pubman. Additionally there is some internationalization
@@ -236,33 +236,33 @@ public class Navigation extends FacesBean
         // force reload of list next time this page is navigated to
         this.getItemListSessionBean().setListDirty(true);
 
-        // if there is only one collection for this user we can skip the
+        // if there is only one context for this user we can skip the
         // CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
+        if (this.getCollectionListSessionBean().getContextList().size() == 0)
         {
-            logger.warn("The user does not have privileges for any collection.");
+            logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
+        if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {
-            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
+            PubContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has only privileges for one collection (ID: "
-                        + pubCollectionVO.getReference().getObjectId() + ")");
+                logger.debug("The user has only privileges for one context (ID: "
+                        + contextVO.getReference().getObjectId() + ")");
             }
 
             return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
-                    pubCollectionVO.getReference());
+                    contextVO.getReference());
         }
         else
         {
-            // more than one collection exists for this user; let him choose the right one
+            // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has privileges for "
-                        + this.getCollectionListSessionBean().getCollectionList().size()
-                        + " different collections.");
+                        + this.getCollectionListSessionBean().getContextList().size()
+                        + " different contexts.");
             }
 
             return CreateItem.LOAD_CREATEITEM;
@@ -321,13 +321,13 @@ public class Navigation extends FacesBean
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      *
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean) getBean(ContextListSessionBean.class);
     }
 
     /**

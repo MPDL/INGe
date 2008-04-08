@@ -104,7 +104,7 @@ public class ViewItemPanelUI extends CollapsiblePanelUI implements ActionListene
         this.pubItemVOWrapper = pubItemVOWrapper;
         
         // set link in the title bar
-        this.setTitle(actionMethodForTitleLink, this.pubItemVOWrapper.getValueObject().getReference().getObjectId(), this.pubItemVOWrapper.getValueObject().getMetadata().getTitle().getValue());        
+        this.setTitle(actionMethodForTitleLink, this.pubItemVOWrapper.getValueObject().getVersion().getObjectId(), this.pubItemVOWrapper.getValueObject().getMetadata().getTitle().getValue());        
 
         // initialize list controls        
         this.chkSelectItem.setId(CommonUtils.createUniqueId(this.chkSelectItem));

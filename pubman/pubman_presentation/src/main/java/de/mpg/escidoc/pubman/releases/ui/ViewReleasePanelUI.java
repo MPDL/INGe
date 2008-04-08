@@ -50,8 +50,8 @@ import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 
 /**
  * ContainerPanelUI for keeping ViewCollectionUIs.
@@ -64,7 +64,7 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(ViewReleasePanelUI.class);
     
-    private PubItemVersionVO pubItemVersionVO = null;
+    private EventLogEntryVO pubItemVersionVO = null;
     private HtmlCommandLink viewItemLink = new HtmlCommandLink();
     private HtmlOutputText viewItemText = new HtmlOutputText();
     private UIParameter version = new UIParameter();
@@ -74,8 +74,8 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
 
     /**
      * Public constructor.
-     * @param pubCollectionVOWrapper the wrapper with the ValueObject that should be displayed
-     * @param collectionListUI the parent ListUI, to be able to call the selectOneItem-method to deselect all other
+     * @param pubItemVersionVOWrapper the wrapper with the ValueObject that should be displayed
+     * @param releaseListUI the parent ListUI, to be able to call the selectOneItem-method to deselect all other
      *        objects when one gets selected (emulate the radioButtonGroup)
      */
     public ViewReleasePanelUI(PubItemVersionVOWrapper pubItemVersionVOWrapper, ReleaseListUI releaseListUI, int position)

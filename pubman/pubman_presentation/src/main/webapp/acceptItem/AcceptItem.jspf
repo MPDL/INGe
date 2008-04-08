@@ -38,7 +38,7 @@
 		</h1>
 		<h:panelGrid columns="2" styleClass="messageItem">
 			<h:outputText styleClass="itemInformation" value="Publication:" />
-			<h:outputText styleClass="itemInformation" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
+			<h:outputText styleClass="itemInformation" value="#{AcceptItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
 
 			<h:outputText styleClass="itemInformation" value="Creator:" />
 			<h:outputText styleClass="itemInformation" value="#{AcceptItem.creators}"/>

@@ -111,9 +111,9 @@ public class WithdrawItem extends FacesBean
 
         if (logger.isDebugEnabled())
         {
-            if (this.getPubItem() != null && this.getPubItem().getReference() != null)
+            if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
             {
-                logger.debug("Item that is being withdrawn: " + this.getPubItem().getReference().getObjectId());
+                logger.debug("Item that is being withdrawn: " + this.getPubItem().getVersion().getObjectId());
             }
             else
             {
@@ -177,7 +177,7 @@ public class WithdrawItem extends FacesBean
             
             // remove the item by ID/version of the reference
         	this.getItemListSessionBean().setListDirty(true);
-            this.getItemListSessionBean().removeFromCurrentListByRO(this.getPubItem().getReference());
+            this.getItemListSessionBean().removeFromCurrentListByRO(this.getPubItem().getVersion());
 
             this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_WITHDRAWN);
         }

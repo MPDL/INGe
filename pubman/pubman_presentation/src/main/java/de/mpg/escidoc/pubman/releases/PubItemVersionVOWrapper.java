@@ -31,17 +31,17 @@
 package de.mpg.escidoc.pubman.releases;
 
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 
 /**
- * Wrapper for PubItemVersionVOs that provides additional attributes for the presentation layer. 
+ * Wrapper for EventLogEntryVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
 public class PubItemVersionVOWrapper extends ValueObjectWrapper
 {
-    protected PubItemVersionVO version = null;
+    protected EventLogEntryVO version = null;
     
     /**
      * Public constructor.
@@ -51,27 +51,27 @@ public class PubItemVersionVOWrapper extends ValueObjectWrapper
         super();
     }
     
-    public PubItemVersionVOWrapper(PubItemVersionVO pubItemVersionVO)
+    public PubItemVersionVOWrapper(EventLogEntryVO pubItemVersionVO)
     {
         this.version = pubItemVersionVO;
     }
     
-    public PubItemVersionVO getValueObject()
+    public EventLogEntryVO getValueObject()
     {
-        return (PubItemVersionVO)this.valueObject;
+        return (EventLogEntryVO)this.valueObject;
     }
 
-    public void setValueObject(PubItemVersionVO pubItemVersionVO)
+    public void setValueObject(EventLogEntryVO pubItemVersionVO)
     {
         this.valueObject = pubItemVersionVO;
     }
 
-    public PubItemVersionVO getVersion()
+    public EventLogEntryVO getVersion()
     {
         return version;
     }
 
-    public void setVersion(PubItemVersionVO version)
+    public void setVersion(EventLogEntryVO version)
     {
         this.version = version;
     }

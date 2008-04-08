@@ -10,8 +10,6 @@ import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 
-import org.apache.myfaces.trinidad.component.UIXIterator;
-
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.Internationalized;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;

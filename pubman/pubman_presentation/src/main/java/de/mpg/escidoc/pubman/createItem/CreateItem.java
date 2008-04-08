@@ -37,11 +37,10 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.pubman.home.Home;
-import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
  * Fragment class for CreateItem.
@@ -94,31 +93,31 @@ public class CreateItem extends FacesBean
             logger.debug("New Submission");
         }
 
-        // if there is only one collection for this user we can skip the CreateItem-Dialog and
+        // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
+        if (this.getContextListSessionBean().getContextList().size() == 0)
         {
-            logger.warn("The user does not have privileges for any collection.");
+            logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
+        if (this.getContextListSessionBean().getContextList().size() == 1)
         {
-            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
+            PubContextVO contextVO = this.getContextListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has only privileges for one collection (ID: "
-                        + pubCollectionVO.getReference().getObjectId() + ")");
+                logger.debug("The user has only privileges for one context (ID: "
+                        + contextVO.getReference().getObjectId() + ")");
             }
             return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
-                    pubCollectionVO.getReference());
+                    contextVO.getReference());
         }
         else
         {
-            // more than one collection exists for this user; let him choose the right one
+            // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has privileges for "
-                        + this.getCollectionListSessionBean().getCollectionList().size() + " different collections.");
+                        + this.getContextListSessionBean().getContextList().size() + " different contexts.");
             }
 
             return CreateItem.LOAD_CREATEITEM;
@@ -126,23 +125,23 @@ public class CreateItem extends FacesBean
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      *
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getContextListSessionBean()
     {
-        return (CollectionListSessionBean) getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      *
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getSessionBean()
+    protected ContextListSessionBean getSessionBean()
     {
-        return (CollectionListSessionBean) getSessionBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
     }
 
     /**
@@ -163,8 +162,8 @@ public class CreateItem extends FacesBean
         return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
     }
 
-	public List<PubCollectionVOPresentation> getCurrentCollectionList() {
-		return getSessionBean().getCollectionList();
+	public List<PubContextVOPresentation> getCurrentCollectionList() {
+		return getSessionBean().getContextList();
 	}
 
 }

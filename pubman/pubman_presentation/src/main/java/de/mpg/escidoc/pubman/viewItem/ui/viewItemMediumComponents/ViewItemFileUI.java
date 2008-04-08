@@ -39,7 +39,7 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
@@ -223,7 +223,7 @@ public class ViewItemFileUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 //*** SEARCH HITS (IF POSSIBLE) ***
-                if(this.pubItem instanceof PubItemResultVO && this.pubItem.getState() != null && !this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+                if(this.pubItem instanceof PubItemResultVO && this.pubItem.getVersion().getState() != null && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
                 {
                     PubItemResultVO resultItem = (PubItemResultVO)this.pubItem;
                     // label
@@ -252,7 +252,7 @@ public class ViewItemFileUI extends HtmlPanelGroup
      * @param resultItem the search result item
      * @param fileRO the reference of the file where the full text was found
      */
-    private void addSearchResultHitsToPage(PubItemResultVO resultItem, PubFileRO fileRO)
+    private void addSearchResultHitsToPage(PubItemResultVO resultItem, FileRO fileRO)
     {
         // browse through the list of files and examine which of the files is the one the search result hits where found in
         for(int i = 0; i < resultItem.getSearchHitList().size(); i++)

@@ -28,40 +28,40 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.collectionList;
+package de.mpg.escidoc.pubman.contextList;
 
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
- * Wrapper for PubCollectionVOs that provides additional attributes for the presentation layer. 
+ * Wrapper for PubContextVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Thomas Diebäcker, created 29.08.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class PubCollectionVOWrapper extends ValueObjectWrapper
+public class PubContextVOWrapper extends ValueObjectWrapper
 {
     private boolean expanded = false;
     
     /**
      * Public constructor.
      */
-    public PubCollectionVOWrapper()
+    public PubContextVOWrapper()
     {        
         super();
     }
     
-    public PubCollectionVOWrapper(PubCollectionVO pubCollectionVO)
+    public PubContextVOWrapper(PubContextVO contextVO)
     {
-        super(pubCollectionVO);
+        super(contextVO);
     }
 
-    public PubCollectionVO getValueObject()
+    public PubContextVO getValueObject()
     {
-        return (PubCollectionVO)this.valueObject;
+        return (PubContextVO)this.valueObject;
     }
 
-    public void setValueObject(PubCollectionVO pubItemVO)
+    public void setValueObject(PubContextVO pubItemVO)
     {
         this.valueObject = pubItemVO;
     }

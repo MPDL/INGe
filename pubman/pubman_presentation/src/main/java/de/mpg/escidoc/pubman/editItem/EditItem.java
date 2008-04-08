@@ -60,7 +60,7 @@ import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
 import de.mpg.escidoc.pubman.editItem.bean.ContentLanguageCollection;
@@ -75,9 +75,9 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -129,8 +129,8 @@ public class EditItem extends FacesBean
     // panels for dynamic components
     private HtmlPanelGrid panDynamicFile = new HtmlPanelGrid();
 
-    /** pub collection name. */
-    private String pubCollectionName = null;
+    /** pub context name. */
+    private String contextName = null;
 
 //  FIXME delegated internal collections
     private TitleCollection titleCollection;
@@ -196,9 +196,9 @@ public class EditItem extends FacesBean
 
         if (logger.isDebugEnabled())
         {
-            if (this.getPubItem() != null && this.getPubItem().getReference() != null)
+            if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
             {
-                logger.debug("Item that is being edited: " + this.getPubItem().getReference().getObjectId());
+                logger.debug("Item that is being edited: " + this.getPubItem().getVersion().getObjectId());
             }
             else
             {
@@ -207,8 +207,8 @@ public class EditItem extends FacesBean
         }
         this.getAffiliationSessionBean().setBrowseByAffiliation(true);
 
-        // fetch the name of the pub collection
-        this.pubCollectionName = this.getCollectionName();
+        // fetch the name of the pub context
+        this.contextName = this.getContextName();
     }
 
     /**
@@ -225,17 +225,17 @@ public class EditItem extends FacesBean
         return item;
     }
 
-    private String getCollectionName()
+    private String getContextName()
     {
         try
         {
-            PubCollectionVO pubCollection = this.getItemControllerSessionBean().retrieveCollection(
-                     this.getPubItem().getPubCollection().getObjectId());
-            return pubCollection.getName();
+            PubContextVO context = this.getItemControllerSessionBean().retrieveContext(
+                     this.getPubItem().getContext().getObjectId());
+            return context.getName();
         }
         catch (Exception e)
         {
-            logger.error("Could not retrieve the requested collection." + "\n" + e.toString());
+            logger.error("Could not retrieve the requested context." + "\n" + e.toString());
             ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -326,8 +326,8 @@ public class EditItem extends FacesBean
             
             if (pubItem.getFiles().size() == 0)
             {
-            	pubItem.getFiles().add(new PubFileVO());
-//            	PubFileVO new_file = new PubFileVO();
+            	pubItem.getFiles().add(new FileVO());
+//            	FileVO new_file = new FileVO();
 //            	new_file.setDescription("meine Beschreibung...");
 //            	pubItem.getFiles().add(new_file);
             }
@@ -713,7 +713,7 @@ public class EditItem extends FacesBean
             PubItemVO oldPubItem = null;
             try
             {
-                oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getReference().getObjectId());
+                oldPubItem = this.getItemControllerSessionBean().retrieveItem(newPubItem.getVersion().getObjectId());
             }
             catch (Exception e)
             {
@@ -853,12 +853,12 @@ public class EditItem extends FacesBean
      */
     public String addFile()
     {
-    	//this.item.getFiles().add(new PubFileVO());
+    	//this.item.getFiles().add(new FileVO());
     	//this.files.add(new PubFileVOPresentation());
     	// avoid to upload more than one item before filling the metadata
     	if(this.getEditItemSessionBean().getFiles() != null && this.getEditItemSessionBean().getFiles().size() > 0 && this.getEditItemSessionBean().getFiles().get(this.getEditItemSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     	{
-    		this.item.getFiles().add(new PubFileVO());
+    		this.item.getFiles().add(new FileVO());
     		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation());
     	}
     	return "loadEditItem";
@@ -875,27 +875,27 @@ public class EditItem extends FacesBean
     }
 
     /**
-     * Retrieves the description of a collection from the framework.
-     * @return the collection description
+     * Retrieves the description of a context from the framework.
+     * @return the context description
      */
-    public String getCollectionDescription()
+    public String getContextDescription()
     {
-        String collectionDescription = "Could not retrieve collection description.";
+        String contextDescription = "Could not retrieve context description.";
         
         try
         {
-            PubCollectionVO collection = this.getItemControllerSessionBean().getCurrentCollection();
-            collectionDescription = collection.getDescription();
+            PubContextVO context = this.getItemControllerSessionBean().getCurrentContext();
+            contextDescription = context.getDescription();
         }
         catch (Exception e)
         {
-            logger.error("Could not retrieve collection." + "\n" + e.toString());
+            logger.error("Could not retrieve context." + "\n" + e.toString());
 
-            ((ErrorPage)getBean(ErrorPage.class)).setException(e);
+            ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
             return ErrorPage.LOAD_ERRORPAGE;
         }
 
-        return collectionDescription;
+        return contextDescription;
     }
 
     /**
@@ -917,13 +917,13 @@ public class EditItem extends FacesBean
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      *
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean)getBean(ContextListSessionBean.class);
     }
 
     /**
@@ -965,9 +965,9 @@ public class EditItem extends FacesBean
     {
         LoginHelper loginHelper = (LoginHelper)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
 
-        boolean itemHasID = this.getPubItem().getReference() != null && this.getPubItem().getReference().getObjectId() != null;
+        boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
 
-        this.lnkAccept.setRendered(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getPubCollection()));
+        this.lnkAccept.setRendered(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getContext()));
         this.lnkDelete.setRendered(!this.isInModifyMode() && itemHasID);
         this.lnkSaveAndSubmit.setRendered(!this.isInModifyMode());
         this.lnkSave.setRendered(!this.isInModifyMode());
@@ -979,9 +979,9 @@ public class EditItem extends FacesBean
      */
     private boolean isInModifyMode()
     {
-        boolean isModifyMode = this.getPubItem().getState() != null
-            && (this.getPubItem().getState().equals(PubItemVO.State.SUBMITTED)
-                    || this.getPubItem().getState().equals(PubItemVO.State.RELEASED));
+        boolean isModifyMode = this.getPubItem().getVersion().getState() != null
+            && (this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED)
+                    || this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED));
 
         return isModifyMode;
     }
@@ -1003,7 +1003,7 @@ public class EditItem extends FacesBean
     public SelectItem[] getGenres()
     {
         List<MdsPublicationVO.Genre> allowedGenres = null;
-        allowedGenres = this.getItemControllerSessionBean().getCurrentCollection().getAllowedGenres();
+        allowedGenres = this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres();
         return ((ApplicationBean) getApplicationBean(ApplicationBean.class))
                 .getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
     }
@@ -1211,12 +1211,12 @@ public class EditItem extends FacesBean
     
     public String getPubCollectionName()
     {
-        return pubCollectionName;
+        return contextName;
     }
 
     public void setPubCollectionName(String pubCollection)
     {
-        this.pubCollectionName = pubCollection;
+        this.contextName = pubCollection;
     }
 
     public SourceCollection getSourceCollection()

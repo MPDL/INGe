@@ -111,9 +111,9 @@ public class SubmitItem extends FacesBean
 
         if (logger.isDebugEnabled())
         {
-            if (this.getPubItem() != null && this.getPubItem().getReference() != null)
+            if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
             {
-                logger.debug("Item that is being submitted: " + this.getPubItem().getReference().getObjectId());
+                logger.debug("Item that is being submitted: " + this.getPubItem().getVersion().getObjectId());
             }
             else
             {

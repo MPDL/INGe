@@ -36,10 +36,10 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
  * Fragment class for CreateRevision.
@@ -106,7 +106,7 @@ public class CreateRevision extends FacesBean
             logger.debug("confirmCollectionChoose()");
         }
         
-        PubCollectionVO selectedCollection = this.getCollectionListSessionBean().getSelectedCollection();
+        PubContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedContext();
         
         if (selectedCollection != null)
         {            
@@ -152,13 +152,13 @@ public class CreateRevision extends FacesBean
     }
 
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      * 
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean)getBean(ContextListSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicRevisionList()

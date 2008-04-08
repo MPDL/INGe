@@ -38,7 +38,7 @@
 		</p>
 		<h1>
 		<h:outputText id="valOrientationText" value="#{lbl.ViewItemReleaseHistory_Header}"/>
-		<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.reference.objectId}"/>
+		<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
 		</h1>
 		<div class="listHeader dark">
 			<h3>

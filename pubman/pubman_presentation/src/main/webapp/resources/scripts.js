@@ -145,7 +145,7 @@ function computeCheckedItems(element)
 
 function showCollectionDescription()
 {
-	openCenteredWindow("editItem/CollectionDescription.jsp", 400, 200, "Description"); // // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow("editItem/contextDescription.jsp", 400, 200, "Description"); // // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }					
 
 /**

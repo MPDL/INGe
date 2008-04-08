@@ -37,7 +37,7 @@
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
 		<h:outputText value="#{lbl.EditItemPage} : " />
-		<h:outputText styleClass="underlined" value="#{EditItem.pubItem.pubCollection.objectId}" />
+		<h:outputText styleClass="underlined" value="#{EditItem.pubItem.context.objectId}" />
 	</h:panelGroup>
 </h1>
 <h:messages errorClass="errorMessage" infoClass="infoMessage" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
@@ -101,45 +101,45 @@
 		
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
-      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
-      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
-      				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
-      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
-      				<%-- BUTTON --%>
-      				<tr:commandButton text="Upload File" rendered="#{component.file.size == 0}" styleClass="inlineButton noLineBreak"/>      				
-      			</h:panelGroup>
-           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
-           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
-           			<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-            			<f:selectItems value="#{EditItem.visibilities}" />
-           			</h:selectOneMenu>
-           		</h:panelGroup>
-           		<h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{component.file.size > 0}">
-           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.file.size > 0}"/>
-           			<h:panelGroup layout="block" styleClass="editItemCol1">
-           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
-           				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}" />
-           			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="editItemCol1">
-           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
-           				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-            				<f:selectItems value="#{EditItem.contentTypes}" />
-           				</h:selectOneMenu>
-           			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="editItemCol3">           				
-           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
-           				<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
-           			</h:panelGroup>
-           		</h:panelGroup>
-           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
-           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
-           			<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>	
-           		</h:panelGroup>
-           		
-           		<%--<h:panelGroup layout="block" styleClass="editItemSingleCol">
-           			<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
-           			<tr:outputLabel value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
-           		</h:panelGroup>--%>  
+	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
+	      				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
+	      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
+	      				<%-- BUTTON --%>
+	      				<tr:commandButton text="Upload File" rendered="#{component.file.size == 0}" styleClass="inlineButton noLineBreak"/>      				
+	      			</h:panelGroup>
+	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+	           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.file.size > 0}"/>
+	           			<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+	            			<f:selectItems value="#{EditItem.visibilities}" />
+	           			</h:selectOneMenu>
+	           		</h:panelGroup>
+	           		<h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{component.file.size > 0}">
+	           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.file.size > 0}"/>
+	           			<h:panelGroup layout="block" styleClass="editItemCol1">
+	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{component.file.size > 0}"/>
+	           				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}" />
+	           			</h:panelGroup>
+	           			<h:panelGroup layout="block" styleClass="editItemCol1">
+	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
+	           				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+	            				<f:selectItems value="#{EditItem.contentTypes}" />
+	           				</h:selectOneMenu>
+	           			</h:panelGroup>
+	           			<h:panelGroup layout="block" styleClass="editItemCol3">           				
+	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
+	           				<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
+	           			</h:panelGroup>
+	           		</h:panelGroup>
+	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+	           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{component.file.size > 0}"/>
+	           			<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.file.size > 0}"/>	
+	           		</h:panelGroup>
+	           		
+	           		<%--<h:panelGroup layout="block" styleClass="editItemSingleCol">
+	           			<tr:outputLabel value="#{lbl.EditItem_lblSize} (#{lbl.EditItem_lblDimension})" rendered="#{component.file.size > 0}"/>
+	           			<tr:outputLabel value="#{component.file.size / 1024}" rendered="#{component.file.size > 0}"/>
+	           		</h:panelGroup>--%>  
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">

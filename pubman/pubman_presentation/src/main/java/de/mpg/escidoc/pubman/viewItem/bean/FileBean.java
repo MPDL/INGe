@@ -55,9 +55,9 @@ import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO.State;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -70,7 +70,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class FileBean implements ActionListener
 {
 	private static Logger logger = Logger.getLogger(FileBean.class);
-	private PubFileVO file;
+	private FileVO file;
 	private int position;
 	private State itemState;
 	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
@@ -83,7 +83,7 @@ public class FileBean implements ActionListener
      * @param position
      * @param itemState
      */
-    public FileBean(PubFileVO file, int position, State itemState)
+    public FileBean(FileVO file, int position, State itemState)
 	{
 		this.file = file;
 		this.position = position;
@@ -97,7 +97,7 @@ public class FileBean implements ActionListener
      * @param itemState
      * @param resultitem
      */
-    public FileBean(PubFileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
+    public FileBean(FileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
 	{
 		this.file = file;
 		this.position = position;
@@ -113,7 +113,7 @@ public class FileBean implements ActionListener
      * @param itemState
      * @param resultitem
      */
-    protected void initialize(PubFileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
+    protected void initialize(FileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
     {
         // set some html elements which cannot be completely constructed in the jsp
     	
@@ -358,11 +358,11 @@ public class FileBean implements ActionListener
     	}
     }
 
-    public PubFileVO getFile() {
+    public FileVO getFile() {
 		return file;
 	}
 
-	public void setFile(PubFileVO file) {
+	public void setFile(FileVO file) {
 		this.file = file;
 	}
 

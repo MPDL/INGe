@@ -90,7 +90,7 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
 							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
-							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.reference.objectId}:#{item.reference.versionNumber}" >
+							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.version.objectId}:#{item.version.versionNumber}" >
 								<h:outputText value="#{item.metadata.title}"/>
 							</h:outputLink>
 						</div>

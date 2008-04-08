@@ -30,10 +30,7 @@
 
 package de.mpg.escidoc.pubman.revisions;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.component.html.HtmlPanelGroup;
 
 import org.apache.log4j.Logger;
 
@@ -41,8 +38,6 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
-import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 
 /**
  * Fragment class for Revision list.

@@ -44,10 +44,10 @@
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorType}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
+				<h:selectOneRadio styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
 					valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();//document.getElementById('form1:EditItem:dummybutton').click();">
 					<f:selectItems value="#{creatorBean.creatorTypes}"/>
-				</h:selectOneMenu>
+				</h:selectOneRadio>
 			</h:panelGroup>
 			
 			<%/* Creator's Person */%>

@@ -44,7 +44,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
@@ -98,13 +98,13 @@ public class ItemListSessionBean extends FacesBean
      * Remove an item by the given ID from the current item list.
      * @param itemToBeRemoved the RO of the item to be removed
      */
-    public void removeFromCurrentListByRO(PubItemRO itemToBeRemoved)
+    public void removeFromCurrentListByRO(ItemRO itemToBeRemoved)
     {
         for (int i = 0; i < this.currentPubItemList.size(); i++)
         {
             PubItemVO pubItem = this.currentPubItemList.get(i);
-            if (pubItem.getReference().getObjectId().equals(itemToBeRemoved.getObjectId())
-                    && pubItem.getReference().getVersionNumber() == itemToBeRemoved.getVersionNumber())
+            if (pubItem.getVersion().getObjectId().equals(itemToBeRemoved.getObjectId())
+                    && pubItem.getVersion().getVersionNumber() == itemToBeRemoved.getVersionNumber())
             {
                 this.currentPubItemList.remove(pubItem);
             }

@@ -35,7 +35,7 @@
 		</h1>
 		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
 			<h:outputText value="Publication:" styleClass="itemInformation"/>
-			<h:outputText styleClass="itemInformation" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.reference.objectId}"/>
+			<h:outputText styleClass="itemInformation" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.version.objectId}"/>
 
 			<h:outputText value="Creator:" styleClass="itemInformation"/>
 			<h:outputText styleClass="itemInformation" value="#{SubmitItem.creators}"/>

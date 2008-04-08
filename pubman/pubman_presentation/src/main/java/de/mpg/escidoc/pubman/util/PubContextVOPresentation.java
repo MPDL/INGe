@@ -4,20 +4,20 @@ import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
- * Wrapper class for collections to be used in the presentation.
+ * Wrapper class for contexts to be used in the presentation.
  * @author franke
  * @author $Author: $
  * @version: $Revision: 1641 $ $LastChangedDate: 2007-12-04 16:52:04 +0100 (Di, 04 Dez 2007)$
  */
-public class PubCollectionVOPresentation extends PubCollectionVO {
+public class PubContextVOPresentation extends PubContextVO {
 
 	private boolean selected = false;
 	private boolean details = false;
 
-	public PubCollectionVOPresentation(PubCollectionVO item)
+	public PubContextVOPresentation(PubContextVO item)
 	{
 		super(item);
 	}

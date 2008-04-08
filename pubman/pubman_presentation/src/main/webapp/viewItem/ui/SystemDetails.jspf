@@ -47,7 +47,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.reference.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.version.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	
@@ -58,7 +58,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.collectionName}"/>
+		<h:outputText value="#{ViewItemFull.contextName}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>	
 	
@@ -103,7 +103,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.reference.objectId}"/>
+		<h:outputText value="#{ViewItemFull.pubItem.version.objectId}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	

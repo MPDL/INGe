@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.collectionList;
+package de.mpg.escidoc.pubman.contextList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,37 +38,37 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.PubCollectionVOPresentation;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
  * @author:  Thomas Diebäcker, created 12.10.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
-public class CollectionListSessionBean extends FacesBean
+public class ContextListSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "CollectionListSessionBean";
-    private static Logger logger = Logger.getLogger(CollectionListSessionBean.class);
+    public static final String BEAN_NAME = "ContextListSessionBean";
+    private static Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
-    private List<PubCollectionVOPresentation> collectionList = new ArrayList<PubCollectionVOPresentation>();
+    private List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
     /**
      * Public constructor.
      */
-    public CollectionListSessionBean()
+    public ContextListSessionBean()
     {
-        this.collectionList = this.retrieveCollections();
+        this.contextList = this.retrieveContexts();
     }
 
     /**
-     * Retrieves all collections for the current user.
-     * @return the list of PubCollectionVOs
+     * Retrieves all contexts for the current user.
+     * @return the list of PubContextVOs
      */
-    private List<PubCollectionVOPresentation> retrieveCollections()
+    private List<PubContextVOPresentation> retrieveContexts()
     {
-        List<PubCollectionVOPresentation> allCollections = new ArrayList<PubCollectionVOPresentation>();
+        List<PubContextVOPresentation> allCollections = new ArrayList<PubContextVOPresentation>();
         
         try
         {
@@ -76,7 +76,7 @@ public class CollectionListSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not create collection list." + "\n" + e.toString());
+            logger.error("Could not create context list." + "\n" + e.toString());
 
             allCollections.addAll(this.getDummyCollections(3));            
             
@@ -86,24 +86,24 @@ public class CollectionListSessionBean extends FacesBean
         return allCollections;
     }
 
-    private List<PubCollectionVOPresentation> getDummyCollections(int numberofDummies)
+    private List<PubContextVOPresentation> getDummyCollections(int numberofDummies)
     {
-        List<PubCollectionVOPresentation> dummyCollections = new ArrayList<PubCollectionVOPresentation>();
+        List<PubContextVOPresentation> dummyCollections = new ArrayList<PubContextVOPresentation>();
 
         for (int i = 0; i < numberofDummies; i++)
         {
-            dummyCollections.add(this.createDummyCollection(i + 1));
+            dummyCollections.add(this.createDummyContext(i + 1));
         }
         
         return dummyCollections;
     }
     
-    private PubCollectionVOPresentation createDummyCollection(int number)
+    private PubContextVOPresentation createDummyContext(int number)
     {
-        PubCollectionVOPresentation vo = new PubCollectionVOPresentation(new PubCollectionVO());
+        PubContextVOPresentation vo = new PubContextVOPresentation(new PubContextVO());
         vo.setName("TestCollection " + number + ". DO NOT TRY TO CREATE ITEMS WITH THIS!");
-        vo.setDescription("This is the description of the collection No. " + number + ".");
-        PubCollectionRO ro = new PubCollectionRO();
+        vo.setDescription("This is the description of the context No. " + number + ".");
+        ContextRO ro = new ContextRO();
         ro.setObjectId("escidoc:dummyCollection" + number);
         vo.setReference(ro);
         
@@ -116,22 +116,22 @@ public class CollectionListSessionBean extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-    public List<PubCollectionVOPresentation> getCollectionList()
+    public List<PubContextVOPresentation> getContextList()
     {
-        return collectionList;
+        return contextList;
     }
 
-    public void setCollectionList(List<PubCollectionVOPresentation> collectionList)
+    public void setContextList(List<PubContextVOPresentation> contextList)
     {
-        this.collectionList = collectionList;
+        this.contextList = contextList;
     }
 
-    public PubCollectionVOPresentation getSelectedCollection()
+    public PubContextVOPresentation getSelectedContext()
     {
-    	for (PubCollectionVOPresentation coll : collectionList) {
+    	for (PubContextVOPresentation coll : contextList) {
 			if (coll.getSelected())
 			{
 				return coll;

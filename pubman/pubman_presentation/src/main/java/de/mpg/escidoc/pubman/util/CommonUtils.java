@@ -52,9 +52,9 @@ import javax.faces.model.SelectItem;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.collectionList.PubCollectionVOWrapper;
+import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
@@ -430,18 +430,18 @@ public class CommonUtils extends InternationalizedImpl
     /**
      * Converts a list of PubCollectionVOPresentations to a list of PubCollections.
      * @param list the list of PubCollectionVOPresentations
-     * @return the list of PubCollectionVOs
+     * @return the list of PubContextVOs
      */
-    public static ArrayList<PubCollectionVO> convertToPubCollectionVOList(List<PubCollectionVOPresentation> list)
+    public static ArrayList<PubContextVO> convertToPubContextVOList(List<PubContextVOPresentation> list)
     {
-        ArrayList<PubCollectionVO> pubCollectionList = new ArrayList<PubCollectionVO>();
+        ArrayList<PubContextVO> contextList = new ArrayList<PubContextVO>();
 
         for (int i = 0; i < list.size(); i++)
         {
-            pubCollectionList.add(new PubCollectionVO(list.get(i)));
+            contextList.add(new PubContextVO(list.get(i)));
         }
 
-        return pubCollectionList;
+        return contextList;
     }
 
     /**
@@ -497,19 +497,19 @@ public class CommonUtils extends InternationalizedImpl
 
     /**
      * Converts a list of PubCollections to a list of PubCollectionVOPresentations.
-     * @param list the list of PubCollectionVOs
+     * @param list the list of PubContextVOs
      * @return the list of PubCollectionVOPresentations
      */
-    public static List<PubCollectionVOPresentation> convertToPubCollectionVOPresentationList(List<PubCollectionVO> list)
+    public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<PubContextVO> list)
     {
-        List<PubCollectionVOPresentation> pubCollectionList = new ArrayList<PubCollectionVOPresentation>();
+        List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
         for (int i = 0; i < list.size(); i++)
         {
-            pubCollectionList.add(new PubCollectionVOPresentation(list.get(i)));
+            contextList.add(new PubContextVOPresentation(list.get(i)));
         }
 
-        return pubCollectionList;
+        return contextList;
     }
 
     /**
@@ -534,13 +534,13 @@ public class CommonUtils extends InternationalizedImpl
      * @param valueObjectList the list of valueObjects
      * @return the list of ValueObjectWrappers
      */
-    public static List<PubCollectionVOWrapper> convertToPubCollectionVOWrapperList(List<PubCollectionVO> valueObjectList)
+    public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(List<PubContextVO> valueObjectList)
     {
-        List wrapperList = new ArrayList<PubCollectionVOWrapper>();
+        List wrapperList = new ArrayList<PubContextVOWrapper>();
 
         for (int i = 0; i < valueObjectList.size(); i++)
         {
-            wrapperList.add(new PubCollectionVOWrapper(valueObjectList.get(i)));
+            wrapperList.add(new PubContextVOWrapper(valueObjectList.get(i)));
         }
 
         return wrapperList;
@@ -556,7 +556,7 @@ public class CommonUtils extends InternationalizedImpl
     {
         for (int i = 0; i < itemList.size(); i++)
         {
-            if (itemList.get(i).getReference().getObjectId().equals(itemID))
+            if (itemList.get(i).getVersion().getObjectId().equals(itemID))
             {
                 return itemList.get(i);
             }

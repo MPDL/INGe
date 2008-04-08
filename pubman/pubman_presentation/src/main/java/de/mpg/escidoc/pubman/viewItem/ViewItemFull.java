@@ -54,7 +54,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -77,7 +77,7 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -137,7 +137,7 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator fileIterator = new UIXIterator();
     
-    private PubCollectionVO pubCollection = null;
+    private PubContextVO context = null;
     
     /**
      * The list of formatted organzations in an ArrayList.
@@ -227,7 +227,7 @@ public class ViewItemFull extends FacesBean
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
-            boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getPubCollection());
+            boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
             boolean isDepositor = loginHelper.getAccountUser().isDepositor();
             boolean isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
             boolean isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
@@ -256,7 +256,7 @@ public class ViewItemFull extends FacesBean
             }
             
             // set the action links in the action menu according to the item state
-            if (this.pubItem.getState().toString().equals(PubItemVO.State.RELEASED.toString()))
+            if (this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString()))
             {
                 this.getViewItemSessionBean().getLnkDelete().setRendered(false);
                 this.getViewItemSessionBean().getLnkEdit().setRendered(false);
@@ -274,8 +274,8 @@ public class ViewItemFull extends FacesBean
                     this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
                 }
             }
-            else if (this.pubItem.getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
-                    || this.pubItem.getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
+            else if (this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
+                    || this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
             {
                 this.getViewItemSessionBean().getLnkDelete().setRendered(false);
                 this.getViewItemSessionBean().getLnkEdit().setRendered(false);
@@ -298,7 +298,7 @@ public class ViewItemFull extends FacesBean
             // (disable all links except 'create new revision' if the item is not the last version)
             // TODO ScT: Vergleich zwischen aktueller Versionsnummer und getLastVersionNumber() einbauen, wenn common_logic 0.15.9 da ist!
             
-            if(this.pubItem.getReference().getVersionNumber() != this.pubItem.getLatestVersionNumber())
+            if(this.pubItem.getVersion().getVersionNumber() != this.pubItem.getLatestVersion().getVersionNumber())
             {
                 this.getViewItemSessionBean().getLnkDelete().setRendered(false);
                 this.getViewItemSessionBean().getLnkEdit().setRendered(false);
@@ -331,9 +331,9 @@ public class ViewItemFull extends FacesBean
             List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
             for(int i = 0; i < currentPubItemList.size(); i++)
             {
-            	if(this.pubItem.getReference().getObjectId().equals(currentPubItemList.get(i).getReference().getObjectId()))
+            	if(this.pubItem.getVersion().getObjectId().equals(currentPubItemList.get(i).getVersion().getObjectId()))
             	{
-            		if(this.pubItem.getReference().getVersionNumber() == currentPubItemList.get(i).getReference().getVersionNumber())
+            		if(this.pubItem.getVersion().getVersionNumber() == currentPubItemList.get(i).getVersion().getVersionNumber())
             		{
             			if(currentPubItemList.get(i).getSearchHitList() != null && currentPubItemList.get(i).getSearchHitList().size() > 0)
             			{
@@ -349,13 +349,13 @@ public class ViewItemFull extends FacesBean
             
             for(int i = 0; i < this.pubItem.getFiles().size(); i++)
             {
-            	if(searchHitList.size() > 0 && !this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+            	if(searchHitList.size() > 0 && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
                 {
-            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getState(), searchHitList));
+            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState(), searchHitList));
                 }
             	else
             	{
-            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getState()));
+            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState()));
             	}
             }
             
@@ -372,11 +372,11 @@ public class ViewItemFull extends FacesBean
                 {
                     if(this.getSessionBean().isRunAsGUITool())
                     {
-                    	fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
+                    	fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
                     }
                     else
                     {
-                    	fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getReference().getObjectId()+":"+ this.pubItem.getReference().getVersionNumber());
+                    	fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
                     }
                 }
                 catch (IOException e)
@@ -422,37 +422,37 @@ public class ViewItemFull extends FacesBean
 
     /**
      * Redirects the user to the create new revision page
-     * Changed by DiT, 29.11.2007: only show collections when user has privileges for more than one collection
+     * Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
      * 
      * @return Sring nav rule to load the create new revision page
      */
     public String createNewRevision()
     {
-        // Changed by DiT, 29.11.2007: only show collections when user has privileges for more than one collection
-        // if there is only one collection for this user we can skip the CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
+        // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
+        // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
+        if (this.getCollectionListSessionBean().getContextList().size() == 0)
         {
-            logger.warn("The user does not have privileges for any collection.");
+            logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
+        if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {            
-            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
+            PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one collection (ID: " 
-                        + pubCollectionVO.getReference().getObjectId() + ")");
+                        + context.getReference().getObjectId() + ")");
             }
             
-            return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, pubCollectionVO.getReference(), this.pubItem, null);
+            return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context.getReference(), this.pubItem, null);
         }
         else
         {
-            // more than one collection exists for this user; let him choose the right one
+            // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getCollectionList().size() 
-                        + " different collections.");
+                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getContextList().size() 
+                        + " different contexts.");
             }
 
             this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
@@ -894,7 +894,7 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getItemIsWithdrawn()
     {
-    	if(this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+    	if(this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
         {
     		return true;
         }
@@ -909,34 +909,34 @@ public class ViewItemFull extends FacesBean
      *
      * @return String formatted Collection name
      */
-    public String getCollectionName()
+    public String getContextName()
     {
-        String collectionName = "";
-        if (this.pubCollection == null)
+        String contextName = "";
+        if (this.context == null)
         {
             ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
             try
             {
-                this.pubCollection = itemControllerSessionBean
-                        .retrieveCollection(this.pubItem.getPubCollection().getObjectId());
+                this.context = itemControllerSessionBean
+                        .retrieveContext(this.pubItem.getContext().getObjectId());
             }
             catch (Exception e)
             {
-                logger.error("Error retrieving collection", e);
+                logger.error("Error retrieving context", e);
             }
         }
 
-        if (this.pubCollection != null)
+        if (this.context != null)
         {
-            collectionName = this.pubCollection.getName();
+            contextName = this.context.getName();
         }
-        return collectionName;
+        return contextName;
     }
     
     /**
-     * Gets the affiliation of the Collection the item belongs to.
+     * Gets the affiliation of the context the item belongs to.
      *
-     * @return String formatted Collection name
+     * @return String formatted context name
      */
     public String getAffiliations()
     {
@@ -945,12 +945,12 @@ public class ViewItemFull extends FacesBean
         List<AffiliationVO> affiliationList = new ArrayList<AffiliationVO>();
         ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
 
-        if (this.pubCollection == null)
+        if (this.context == null)
         {
             try
             {
-                this.pubCollection = itemControllerSessionBean
-                        .retrieveCollection(this.pubItem.getPubCollection().getObjectId());
+                this.context = itemControllerSessionBean
+                        .retrieveContext(this.pubItem.getContext().getObjectId());
             }
             catch (Exception e)
             {
@@ -958,9 +958,9 @@ public class ViewItemFull extends FacesBean
             }
         }
 
-        if (this.pubCollection != null)
+        if (this.context != null)
         {
-            affiliationRefList = this.pubCollection.getResponsibleAffiliations();
+            affiliationRefList = this.context.getResponsibleAffiliations();
         }
         // first get all affiliations
         if (affiliationRefList != null)
@@ -1168,13 +1168,13 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      * 
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getSessionBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
     }
     
     /**
@@ -1260,9 +1260,9 @@ public class ViewItemFull extends FacesBean
     {
     	
 		String itemState="";
-		if(this.pubItem.getState() != null)
+		if(this.pubItem.getVersion().getState() != null)
 		{
-			itemState = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getState()));
+			itemState = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getVersion().getState()));
 		}
 		return itemState;
     }

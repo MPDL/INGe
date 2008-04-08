@@ -37,7 +37,6 @@ import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;

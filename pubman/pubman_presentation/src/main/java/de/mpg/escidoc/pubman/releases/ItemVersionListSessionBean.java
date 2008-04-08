@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory.
@@ -50,7 +50,7 @@ public class ItemVersionListSessionBean extends FacesBean
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemVersionListSessionBean.class);
     
-    private List<PubItemVersionVO> versionList = new ArrayList<PubItemVersionVO>();
+    private List<EventLogEntryVO> versionList = new ArrayList<EventLogEntryVO>();
     
     /**
      * Public constructor.
@@ -69,11 +69,11 @@ public class ItemVersionListSessionBean extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	public List<PubItemVersionVO> getVersionList() {
+	public List<EventLogEntryVO> getVersionList() {
 		return versionList;
 	}
 
-	public void setVersionList(List<PubItemVersionVO> versionList) {
+	public void setVersionList(List<EventLogEntryVO> versionList) {
 		this.versionList = versionList;
 	}
     

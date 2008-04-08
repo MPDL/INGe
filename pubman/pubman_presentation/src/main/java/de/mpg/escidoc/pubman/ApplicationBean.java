@@ -41,8 +41,8 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -232,7 +232,7 @@ public class ApplicationBean extends FacesBean
      */
     public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry)
     {
-    	PubFileVO.Visibility[] values = PubFileVO.Visibility.values();
+    	FileVO.Visibility[] values = FileVO.Visibility.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }
@@ -254,7 +254,7 @@ public class ApplicationBean extends FacesBean
      */
     public SelectItem[] getSelectItemsContentType(final boolean includeNoItemSelectedEntry)
     {
-        PubFileVO.ContentType[] values = PubFileVO.ContentType.values();
+        FileVO.ContentType[] values = FileVO.ContentType.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }

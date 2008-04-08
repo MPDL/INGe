@@ -46,7 +46,7 @@ import javax.faces.event.ActionEvent;
 
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 
 /**
  * UI component for listing files in the view item page.
@@ -79,7 +79,7 @@ public class FileUI
 	 * @param position
 	 *            index of the item in the corresponding file list
 	 */
-	public FileUI(PubFileVO file, int position) {
+	public FileUI(FileVO file, int position) {
 		initialize(file, position);
 	}
 
@@ -91,7 +91,7 @@ public class FileUI
 	 * @param position
 	 *            index of the item in the corresponding file list
 	 */
-	protected void initialize(PubFileVO file, int position) {
+	protected void initialize(FileVO file, int position) {
 		UIViewRoot viewRoot = FacesContext.getCurrentInstance().getViewRoot();
 		if (viewRoot == null) {
 			viewRoot = new UIViewRoot();

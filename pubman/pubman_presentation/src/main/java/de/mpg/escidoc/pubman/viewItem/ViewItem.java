@@ -63,7 +63,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.collectionList.CollectionListSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
@@ -81,8 +81,8 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -158,7 +158,7 @@ public class ViewItem extends FacesBean
     /**
      * The file(s) of the item.
      */
-    private ArrayList<PubFileVO> fileArray;
+    private ArrayList<FileVO> fileArray;
     private UIColumn fileColumn = new UIColumn();
     private HtmlOutputText fileText = new HtmlOutputText();
     private HtmlDataTable fileTable = new HtmlDataTable();
@@ -224,9 +224,9 @@ public class ViewItem extends FacesBean
      */
     private int numberItemAlternativeTitlesCollapsed;
     /**
-     * The affiliation of the collection.
+     * The affiliation of the context.
      */
-    private String affiliationOfCollection;
+    private String affiliationOfContext;
     /**
      * The table of contents of the item.
      */
@@ -254,7 +254,7 @@ public class ViewItem extends FacesBean
     /**
      * The related PubCollection.
      */
-    private PubCollectionVO pubCollection;
+    private PubContextVO context;
     /**
      * The list of creators in one string.
      */
@@ -295,7 +295,7 @@ public class ViewItem extends FacesBean
      * number of ceators which should be displayed when shown collapsed.
      */
     private int numberCreatorListCollapsed;
-    // the pub collection the item is related to
+    // the pub context the item is related to
     private HtmlCommandButton btnPreviousItem1 = new HtmlCommandButton();
     private HtmlCommandButton btnNextItem1 = new HtmlCommandButton();
     private HtmlCommandButton btnBackToList1 = new HtmlCommandButton();
@@ -400,7 +400,7 @@ public class ViewItem extends FacesBean
         // otherwise get the ID of the current item from ItemController
         else
         {
-            itemID = this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId();
+            itemID = this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId();
         }
         // setting the URL parameter for redirecting in authentication error
         // case
@@ -415,7 +415,7 @@ public class ViewItem extends FacesBean
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // set the action links in the action menu according to the item state
-        if (this.pubItem.getState().toString().equals(PubItemVO.State.RELEASED.toString()))
+        if (this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString()))
         {
             this.lnkDelete.setRendered(false);
             this.lnkEdit.setRendered(false);
@@ -429,8 +429,8 @@ public class ViewItem extends FacesBean
                 this.lnkWithdraw.setRendered(false);
             }
         }
-        else if (this.pubItem.getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
-                || this.pubItem.getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
+        else if (this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString())
+                || this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString()))
         {
             this.lnkDelete.setRendered(false);
             this.lnkEdit.setRendered(false);
@@ -483,8 +483,8 @@ public class ViewItem extends FacesBean
         // get the referenced PubCollection
         try
         {
-            this.pubCollection = this.getItemControllerSessionBean().retrieveCollection(
-                    this.pubItem.getPubCollection().getObjectId());
+            this.context = this.getItemControllerSessionBean().retrieveContext(
+                    this.pubItem.getContext().getObjectId());
         }
         catch (Exception e)
         {
@@ -501,7 +501,7 @@ public class ViewItem extends FacesBean
             // .getResponsibleAffiliations().get(0).getObjectId());
             // TODO ScT: Workaround, solange der Bug im Framework noch besteht, der im obigen Ausdruck
             // "escidoc:persistent3" liefert
-            this.affiliationOfCollection = getAffiliation("escidoc:persistent1");
+            this.affiliationOfContext = getAffiliation("escidoc:persistent1");
         }
         catch (Exception e)
         {
@@ -531,14 +531,14 @@ public class ViewItem extends FacesBean
             {
                 // disable the 'previous' button if the currently viewed item is
                 // the first in the list
-                if (this.pubItem.getReference().getObjectId().equals(
-                        this.getItemListSessionBean().getSelectedPubItems().get(0).getReference().getObjectId()))
+                if (this.pubItem.getVersion().getObjectId().equals(
+                        this.getItemListSessionBean().getSelectedPubItems().get(0).getVersion().getObjectId()))
                 {
                     this.btnPreviousItem1.setDisabled(true);
                 }
-                if (this.pubItem.getReference().getObjectId().equals(
+                if (this.pubItem.getVersion().getObjectId().equals(
                         this.getItemListSessionBean().getSelectedPubItems().get(
-                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getReference()
+                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getVersion()
                                 .getObjectId()))
                 {
                     this.btnNextItem1.setDisabled(true);
@@ -550,16 +550,16 @@ public class ViewItem extends FacesBean
         {
             if (this.getItemListSessionBean().getSelectedPubItems().size() > 0)
             {
-                if (this.pubItem.getReference().getObjectId()
+                if (this.pubItem.getVersion().getObjectId()
                         .equals(
-                                this.getItemListSessionBean().getSelectedPubItems().get(0).getReference()
+                                this.getItemListSessionBean().getSelectedPubItems().get(0).getVersion()
                                         .getObjectId()))
                 {
                     this.btnPreviousItem1.setDisabled(true);
                 }
-                if (this.pubItem.getReference().getObjectId().equals(
+                if (this.pubItem.getVersion().getObjectId().equals(
                         this.getItemListSessionBean().getSelectedPubItems().get(
-                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getReference()
+                                this.getItemListSessionBean().getSelectedPubItems().size() - 1).getVersion()
                                 .getObjectId()))
                 {
                     this.btnNextItem1.setDisabled(true);
@@ -903,7 +903,7 @@ public class ViewItem extends FacesBean
      */
     public String getAffiliationOfCollection()
     {
-        return this.affiliationOfCollection;
+        return this.affiliationOfContext;
     }
 
     /**
@@ -1160,12 +1160,12 @@ public class ViewItem extends FacesBean
     /**
      * gets the list of files of the item
      * 
-     * @return ArrayList<PubFileVO> the list of files
+     * @return ArrayList<FileVO> the list of files
      */
-    private ArrayList<PubFileVO> getFiles()
+    private ArrayList<FileVO> getFiles()
     {
-        ArrayList<PubFileVO> pubFileList = new ArrayList<PubFileVO>();
-        this.fileArray = new ArrayList<PubFileVO>();
+        ArrayList<FileVO> pubFileList = new ArrayList<FileVO>();
+        this.fileArray = new ArrayList<FileVO>();
         if (this.pubItem.getFiles() != null)
         {
             for (int i = 0; i < this.pubItem.getFiles().size(); i++)
@@ -2214,7 +2214,7 @@ public class ViewItem extends FacesBean
         {
             fc.getExternalContext().redirect(
                     "viewItemPage.jsp?itemId="
-                            + this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId());
+                            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
         }
         catch (IOException e)
         {
@@ -2309,7 +2309,7 @@ public class ViewItem extends FacesBean
         {
             fc.getExternalContext().redirect(
                     "viewItemPage.jsp?itemId="
-                            + this.getItemControllerSessionBean().getCurrentPubItem().getReference().getObjectId());
+                            + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
         }
         catch (IOException e)
         {
@@ -2344,8 +2344,8 @@ public class ViewItem extends FacesBean
             {
                 for (int i = 0; i < this.getItemListSessionBean().getSelectedPubItems().size(); i++)
                 {
-                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
-                            .equals(this.pubItem.getReference().getObjectId()))
+                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getVersion().getObjectId()
+                            .equals(this.pubItem.getVersion().getObjectId()))
                     {
                         selection = "DWS_SPI_" + i;
                     }
@@ -2355,8 +2355,8 @@ public class ViewItem extends FacesBean
             {
                 for (int i = 0; i < this.getItemListSessionBean().getCurrentPubItemList().size(); i++)
                 {
-                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getReference().getObjectId()
-                            .equals(this.pubItem.getReference().getObjectId()))
+                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getVersion().getObjectId()
+                            .equals(this.pubItem.getVersion().getObjectId()))
                     {
                         selection = "DWS_CPI_" + i;
                     }
@@ -2371,8 +2371,8 @@ public class ViewItem extends FacesBean
             {
                 for (int i = 0; i < this.getItemListSessionBean().getSelectedPubItems().size(); i++)
                 {
-                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getReference().getObjectId()
-                            .equals(this.pubItem.getReference().getObjectId()))
+                    if (this.getItemListSessionBean().getSelectedPubItems().get(i).getVersion().getObjectId()
+                            .equals(this.pubItem.getVersion().getObjectId()))
                     {
                         selection = "SRL_SPI_" + i;
                     }
@@ -2382,8 +2382,8 @@ public class ViewItem extends FacesBean
             {
                 for (int i = 0; i < this.getItemListSessionBean().getCurrentPubItemList().size(); i++)
                 {
-                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getReference()
-                            .getObjectId().equals(this.pubItem.getReference().getObjectId()))
+                    if (this.getItemListSessionBean().getCurrentPubItemList().get(i).getVersion()
+                            .getObjectId().equals(this.pubItem.getVersion().getObjectId()))
                     {
                         selection = "SRL_CPI_" + i;
                     }
@@ -2429,29 +2429,29 @@ public class ViewItem extends FacesBean
         }
         
         // if there is only one collection for this user we can skip the CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 0)
+        if (this.getCollectionListSessionBean().getContextList().size() == 0)
         {
-            logger.warn("The user does not have privileges for any collection.");
+            logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getCollectionList().size() == 1)
+        if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {            
-            PubCollectionVO pubCollectionVO = this.getCollectionListSessionBean().getCollectionList().get(0);
+            PubContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has only privileges for one collection (ID: " 
-                        + pubCollectionVO.getReference().getObjectId() + ")");
+                logger.debug("The user has only privileges for one context (ID: " 
+                        + contextVO.getReference().getObjectId() + ")");
             }
             
-            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, pubCollectionVO.getReference());
+            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM, contextVO.getReference());
         }
         else
         {
-            // more than one collection exists for this user; let him choose the right one
+            // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getCollectionList().size() 
-                        + " different collections.");
+                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getContextList().size() 
+                        + " different contexts.");
             }
 
             return CreateItem.LOAD_CREATEITEM;
@@ -2475,13 +2475,13 @@ public class ViewItem extends FacesBean
         if (commonBean.isRunAsGUITool() == true)
         {
             itemCitation = "http://" + request.getLocalName() + ":" + request.getLocalPort() + request.getContextPath()
-                    + "/tools/viewing/?" + PARAMETERNAME_ITEM_ID + "=" + this.pubItem.getReference().getObjectId();
+                    + "/tools/viewing/?" + PARAMETERNAME_ITEM_ID + "=" + this.pubItem.getVersion().getObjectId();
         }
         else
         {
             itemCitation = "http://" + request.getLocalName() + ":" + request.getLocalPort() + request.getContextPath()
                     + "/faces/viewItemPage.jsp?" + PARAMETERNAME_ITEM_ID + "="
-                    + this.pubItem.getReference().getObjectId();
+                    + this.pubItem.getVersion().getObjectId();
         }
         return itemCitation;
     }
@@ -2495,7 +2495,7 @@ public class ViewItem extends FacesBean
     {
         String bookmarkTitle = "";
         bookmarkTitle = "PubMan Item " + this.pubItem.getMetadata().getTitle().getValue() + " (ID: "
-                + this.pubItem.getReference().getObjectId() + ")";
+                + this.pubItem.getVersion().getObjectId() + ")";
         return bookmarkTitle;
     }
 
@@ -2507,7 +2507,7 @@ public class ViewItem extends FacesBean
     private String getWithdrawalComment()
     {
         String comment = "";
-        if (this.pubItem.getWithdrawalComment() != null && this.pubItem.getState().equals(PubItemVO.State.WITHDRAWN))
+        if (this.pubItem.getWithdrawalComment() != null && this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
         {
             if (!this.pubItem.getWithdrawalComment().equals(""))
             {
@@ -2593,13 +2593,13 @@ public class ViewItem extends FacesBean
     }
     
     /**
-     * Returns the CollectionListSessionBean.
+     * Returns the ContextListSessionBean.
      * 
-     * @return a reference to the scoped data bean (CollectionListSessionBean)
+     * @return a reference to the scoped data bean (ContextListSessionBean)
      */
-    protected CollectionListSessionBean getCollectionListSessionBean()
+    protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (CollectionListSessionBean)getBean(CollectionListSessionBean.class);
+        return (ContextListSessionBean)getBean(ContextListSessionBean.class);
     }
 
     /**
@@ -2838,12 +2838,12 @@ public class ViewItem extends FacesBean
         this.creatorsList = creatorsList;
     }
 
-    public ArrayList<PubFileVO> getFileArray()
+    public ArrayList<FileVO> getFileArray()
     {
         return fileArray;
     }
 
-    public void setFileArray(ArrayList<PubFileVO> fileArray)
+    public void setFileArray(ArrayList<FileVO> fileArray)
     {
         this.fileArray = fileArray;
     }
@@ -3078,14 +3078,14 @@ public class ViewItem extends FacesBean
         this.panSources = panSources;
     }
 
-    public PubCollectionVO getPubCollection()
+    public PubContextVO getPubCollection()
     {
-        return pubCollection;
+        return context;
     }
 
-    public void setPubCollection(PubCollectionVO pubCollection)
+    public void setPubCollection(PubContextVO context)
     {
-        this.pubCollection = pubCollection;
+        this.context = context;
     }
 
     public PubItemVO getPubItem()
@@ -3180,7 +3180,7 @@ public class ViewItem extends FacesBean
 
     public void setAffiliationOfCollection(String affiliationOfCollection)
     {
-        this.affiliationOfCollection = affiliationOfCollection;
+        this.affiliationOfContext = affiliationOfCollection;
     }
 
     public String getItemCitation()

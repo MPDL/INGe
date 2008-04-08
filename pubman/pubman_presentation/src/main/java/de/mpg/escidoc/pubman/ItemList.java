@@ -34,10 +34,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UISelectBoolean;
-import javax.faces.component.UIViewRoot;
-import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -47,7 +43,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
-import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -203,7 +198,7 @@ public abstract class ItemList extends FacesBean
 
             try
             {
-            	String viewItemPage = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1", selectedItems.get(0).getReference().getObjectId());
+            	String viewItemPage = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceFirst("\\$1", selectedItems.get(0).getVersion().getObjectId());
             	FacesContext.getCurrentInstance().getExternalContext().redirect(viewItemPage);
             }
             catch (Exception e) {
