@@ -37,14 +37,14 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import test.pubman.TestBase;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
 
@@ -90,7 +90,7 @@ public class SearchTest extends TestBase
            
         
         // create PubItem and submit (automatically releases the pubItem)
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         assertNotNull(myItemRef);
         
         // wait a little bit for indexing...
@@ -105,7 +105,7 @@ public class SearchTest extends TestBase
         assertEquals("Wrong number of search results",1, searchResultList.size());
         PubItemResultVO result = searchResultList.get(0);
         
-        PubItemVO item = getPubItemFromFramework(result.getReference(), user);
+        PubItemVO item = getPubItemFromFramework(result.getVersion(), user);
         ObjectComparator oc = new ObjectComparator(item,result);
         assertTrue( oc.toString(),oc.isEqual());
     }
@@ -128,7 +128,7 @@ public class SearchTest extends TestBase
         String title = "Der kleine Prinz"+System.nanoTime();
         myItem.getMetadata().getTitle().setValue(title);
         // Add file to item
-        PubFileVO file = new PubFileVO();
+        FileVO file = new FileVO();
         String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
         file.setContent(uploadFile(testfile, "application/pdf", user.getHandle()).toString());
         file.setContentType(ContentType.PUBLISHER_VERSION);
@@ -140,7 +140,7 @@ public class SearchTest extends TestBase
         
         
         // create PubItem and submit (automatically releases the pubItem)
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         getPubItemFromFramework(myItemRef, user);
         
         // wait a little bit for indexing...
@@ -155,7 +155,7 @@ public class SearchTest extends TestBase
         assertEquals("Wrong number of search results",1, searchResultList.size());
         PubItemResultVO result = searchResultList.get(0);
         
-        PubItemVO item = getPubItemFromFramework(result.getReference(), user);        
+        PubItemVO item = getPubItemFromFramework(result.getVersion(), user);        
         ObjectComparator oc = new ObjectComparator(item,result);
         assertTrue( oc.toString(),oc.isEqual());
     }

@@ -39,7 +39,7 @@ import org.junit.Before;
 import org.junit.Test;
 import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -124,7 +124,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testPersonSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -145,8 +145,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -178,7 +178,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testIdentifierSearch():");
         logger.debug(itemXML);
    
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
@@ -197,8 +197,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -233,7 +233,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testTopicSearch():");
         logger.debug(itemXML);
    
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
         // wait a little bit for indexing...
@@ -251,8 +251,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -285,7 +285,7 @@ public class AdvancedSearchTest extends TestBase
          logger.debug("itemXML for testTitleSearch():");
          logger.debug(itemXML);
     
-         PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+         ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
          logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
     
          // wait a little bit for indexing...
@@ -303,8 +303,8 @@ public class AdvancedSearchTest extends TestBase
          boolean itemFound = false;
          for (PubItemResultVO item:searchResultList)
          {
-             logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-             if (item.getReference().equals(myItemRef))
+             logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+             if (item.getVersion().equals(myItemRef))
              {
                  itemFound = true;
              }
@@ -339,7 +339,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testEventSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -357,8 +357,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -393,7 +393,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testSourceSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -411,8 +411,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -444,7 +444,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testOrganizationSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -462,8 +462,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -496,7 +496,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testGenreSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -516,8 +516,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
@@ -550,7 +550,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testDateSearch():");
         logger.debug(itemXML);
 
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -572,8 +572,8 @@ public class AdvancedSearchTest extends TestBase
         boolean itemFound = false;
         for (PubItemResultVO item:searchResultList)
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }

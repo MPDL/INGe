@@ -35,29 +35,31 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import test.pubman.TestBase;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
 import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
 import de.fiz.escidoc.om.ItemHandlerRemote;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -92,7 +94,7 @@ public class PubItemDepositingTest extends TestBase
     {
         PubItemVO savedItem = pmDepositing.savePubItem(initPubItem, accountUser);
         assertNotNull(savedItem);
-        assertNotNull(savedItem.getReference());
+        assertNotNull(savedItem.getVersion());
 
         // compare metadata
         ObjectComparator oc = null;
@@ -108,10 +110,10 @@ public class PubItemDepositingTest extends TestBase
         }
 
         // retrieve item again
-        PubItemVO retrievedPubItem = getPubItemFromFramework(savedItem.getReference(), accountUser);
+        PubItemVO retrievedPubItem = getPubItemFromFramework(savedItem.getVersion(), accountUser);
 
         // compare pubItem properties
-        oc = new ObjectComparator(savedItem.getReference(), retrievedPubItem.getReference());
+        oc = new ObjectComparator(savedItem.getVersion(), retrievedPubItem.getVersion());
         assertEquals(0, oc.getDiffs().size());
         assertNull(retrievedPubItem.getPid());
         // compare the whole object
@@ -136,21 +138,21 @@ public class PubItemDepositingTest extends TestBase
 
     /**
      * Test for
-     * {@link PubItemDepositing#createPubItem(PubCollectionRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}.
+     * {@link PubItemDepositing#createPubItem(ContextRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}.
      * 
      * @throws Exception
      */
     @Test
     public void testCreatePubItem() throws Exception
     {
-        PubCollectionRO pmCollectionRef = new PubCollectionRO();
+        ContextRO pmCollectionRef = new ContextRO();
         pmCollectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
         PubItemVO pubItem = pmDepositing.createPubItem(pmCollectionRef, user);
         assertNotNull(pubItem);
-        assertEquals(PUBMAN_TEST_COLLECTION_ID, pubItem.getPubCollection().getObjectId());
+        assertEquals(PUBMAN_TEST_COLLECTION_ID, pubItem.getContext().getObjectId());
 
         String context = ServiceLocator.getContextHandler(user.getHandle()).retrieve(pmCollectionRef.getObjectId());
-        PubCollectionVO pubCollection = xmlTransforming.transformToPubCollection(context);
+        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
         assertNotNull(pubItem.getMetadata());
         if (pubCollection.getDefaultMetadata() != null)
         {
@@ -160,7 +162,7 @@ public class PubItemDepositingTest extends TestBase
 
     /**
      * Test for
-     * {@link PubItemDepositing#createPubItem(PubCollectionRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}.
+     * {@link PubItemDepositing#createPubItem(ContextRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}.
      * with empty PubCollectionRef.
      * 
      * @throws Exception
@@ -219,7 +221,7 @@ public class PubItemDepositingTest extends TestBase
         // new item
         PubItemVO initPubItem = getComplexPubItemWithoutFiles();
         // Add file to item
-        PubFileVO initPubFile = new PubFileVO();
+        FileVO initPubFile = new FileVO();
         String testfile = "src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif";
         initPubFile.setDescription("Sehen Sie B6?");
         initPubFile.setVisibility(Visibility.PUBLIC);
@@ -240,7 +242,7 @@ public class PubItemDepositingTest extends TestBase
             fail("This failure is due to FIZ bug #288");
         }
         assertEquals("Wrong number of files", 1, savedItem.getFiles().size());
-        PubFileVO pubFile = savedItem.getFiles().get(0);
+        FileVO pubFile = savedItem.getFiles().get(0);
         assertNotNull(pubFile.getContent());
         assertNotNull(pubFile.getReference());
         assertEquals(initPubFile.getName(), pubFile.getName());
@@ -291,15 +293,15 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO pubItem = getNewPubItemWithoutFiles();
         // submit the item
         pubItem = pmDepositing.submitPubItem(pubItem, "testSaveExistingSubmittedPubItem", user);
-        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getState());
+        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
 
-        assertTrue(user.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
         // change some values
         pubItem.getMetadata().setGenre(Genre.ARTICLE);
         pubItem.getMetadata().setDatePublishedInPrint(getActualDateString());
         // save changed item
         savePubItem(pubItem, user);
-        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getState());
+        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
     }
 
     /**
@@ -319,15 +321,15 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO item = getNewPubItemWithoutFiles();
         // submit the item
         PubItemVO savedItem = pmDepositing.submitPubItem(item, "testSaveExistingReleasedPubItem", user);
-        assertEquals(PubItemVO.State.RELEASED, savedItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, savedItem.getVersion().getState());
 
-        assertTrue(user.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
         // change some values
         savedItem.getMetadata().setGenre(Genre.ARTICLE);
         savedItem.getMetadata().setDatePublishedInPrint(getActualDateString());
         // save changed item
         savedItem = savePubItem(savedItem, user);
-        assertEquals(PubItemVO.State.SUBMITTED, savedItem.getState());
+        assertEquals(PubItemVO.State.SUBMITTED, savedItem.getVersion().getState());
     }
 
     /**
@@ -369,7 +371,7 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO savedItem = savePubItem(item, user);
 
         // change id
-        savedItem.getReference().setObjectId("Xdoesnotexist");
+        savedItem.getVersion().setObjectId("Xdoesnotexist");
 
         // save changed item
         savePubItem(savedItem, user);
@@ -377,7 +379,7 @@ public class PubItemDepositingTest extends TestBase
 
     /**
      * Test for
-     * {@link PubItemDepositing#deletePubItem(PubItemRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}
+     * {@link PubItemDepositing#deletePubItem(ItemRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}
      * 
      * @throws Exception
      */
@@ -388,13 +390,13 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO item = savePubItem(getNewPubItemWithoutFiles(), user);
 
         // delete the pubItem
-        pmDepositing.deletePubItem(item.getReference(), user);
-        ServiceLocator.getItemHandler(user.getHandle()).retrieve(item.getReference().getObjectId());
+        pmDepositing.deletePubItem(item.getVersion(), user);
+        ServiceLocator.getItemHandler(user.getHandle()).retrieve(item.getVersion().getObjectId());
     }
 
     /**
      * Test for
-     * {@link PubItemDepositing#deletePubItem(PubItemRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}
+     * {@link PubItemDepositing#deletePubItem(ItemRO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)}
      * 
      * @throws Exception
      */
@@ -405,13 +407,13 @@ public class PubItemDepositingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        item.setReference(null);
+        item.setVersion(null);
         PubItemVO pubItem = pmDepositing.submitPubItem(item, "Test Submit", user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
+        assertNotNull(pubItem.getVersion());
 
         // delete the pubItem
-        pmDepositing.deletePubItem(pubItem.getReference(), user);
+        pmDepositing.deletePubItem(pubItem.getVersion(), user);
     }
 
     /**
@@ -425,24 +427,24 @@ public class PubItemDepositingTest extends TestBase
     {
         AccountUserVO libUser = getUserTestDepLibWithHandle();
         // check user role
-        assertTrue(libUser.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(libUser.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
 
         // create pubItem
         PubItemVO item = getNewPubItemWithoutFiles();
-        item.setReference(null);
+        item.setVersion(null);
 
         // submit and release the item
         // in R2, the PubItemDepositing.submit method automatically releases the item, too!
         PubItemVO releasedItem = pmDepositing.submitPubItem(item, "Test Submit", libUser);
         assertNotNull(releasedItem);
-        assertEquals(PubItemVO.State.RELEASED, releasedItem.getState());
-        logger.info("Item was submitted and released. ObjId: " + releasedItem.getReference().getObjectId());
+        assertEquals(PubItemVO.State.RELEASED, releasedItem.getVersion().getState());
+        logger.info("Item was submitted and released. ObjId: " + releasedItem.getVersion().getObjectId());
 
         // try to delete the pubItem
         // and check whether it cannot be deleted (which is correct)
         try
         {
-            pmDepositing.deletePubItem(releasedItem.getReference(), libUser);
+            pmDepositing.deletePubItem(releasedItem.getVersion(), libUser);
             fail("The item could be deleted although it is released!");
         }
         catch (AuthorizationException e)
@@ -450,7 +452,7 @@ public class PubItemDepositingTest extends TestBase
         }
 
         // remember the version number of the released item
-        int releasedItemVersion = releasedItem.getReference().getVersionNumber();
+        int releasedItemVersion = releasedItem.getVersion().getVersionNumber();
 
         // change item slightly
         // the item has to be changed to be able to really update it, see FIZ bug #376:
@@ -461,19 +463,19 @@ public class PubItemDepositingTest extends TestBase
         // update the item
         String releasedItemXml = xmlTransforming.transformToItem(releasedItem);
         ItemHandlerRemote ihr = ServiceLocator.getItemHandler(libUser.getHandle());
-        String updatedItemXml = ihr.update(releasedItem.getReference().getObjectId(), releasedItemXml);
+        String updatedItemXml = ihr.update(releasedItem.getVersion().getObjectId(), releasedItemXml);
         PubItemVO updatedItem = xmlTransforming.transformToPubItem(updatedItemXml);
 
         // check whether the version number of the updated item higher than before
-        int updatedItemVersion = updatedItem.getReference().getVersionNumber();
+        int updatedItemVersion = updatedItem.getVersion().getVersionNumber();
         assertTrue("Updated item version: " + updatedItemVersion + "; released item version: " + releasedItemVersion, updatedItemVersion > releasedItemVersion);
 
         // check whether its status is pending now
-        assertEquals("Status: " + updatedItem.getState(), PubItemVO.State.PENDING, updatedItem.getState());
+        assertEquals("Status: " + updatedItem.getVersion().getState(), PubItemVO.State.PENDING, updatedItem.getVersion().getState());
 
         // TODO tendres: check whether this deletion of the item should be checked at all. according bug was stated as invalid
 //        // try to delete the item
-//        String itemVersionObjectId = updatedItem.getReference().getObjectId() + ":" + updatedItemVersion;
+//        String itemVersionObjectId = updatedItem.getVersion().getObjectId() + ":" + updatedItemVersion;
 //        logger.info("Trying to delete item '" + itemVersionObjectId + "'...");
 //        try
 //        {
@@ -496,16 +498,16 @@ public class PubItemDepositingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        item.setReference(null);
+        item.setVersion(null);
         PubItemVO submittedPubItem = pmDepositing.submitPubItem(item, "Test Submit", user);
         assertNotNull(submittedPubItem);
-        assertNotNull(submittedPubItem.getReference());
+        assertNotNull(submittedPubItem.getVersion());
 
         // retrieve item to verify state
-        PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getReference(), user);
+        PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getVersion(), user);
 
         // as long as no workflow is used, item is released after submission!!!!!
-        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getVersion().getState());
     }
 
     /**
@@ -521,13 +523,13 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO item = savePubItem(getNewPubItemWithoutFiles(), user);
         PubItemVO submittedPubItem = pmDepositing.submitPubItem(item, "Test Submit", user);
         assertNotNull(submittedPubItem);
-        assertNotNull(submittedPubItem.getReference());
+        assertNotNull(submittedPubItem.getVersion());
 
         // retrieve item to verify state
-        PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getReference(), user);
+        PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getVersion(), user);
 
         // as long as no workflow is used, item is released after submission!!!!!
-        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getVersion().getState());
     }
 
     /**
@@ -564,20 +566,20 @@ public class PubItemDepositingTest extends TestBase
         // The next line can not be used at the moment, because the item is also released.
         // pubItem = pmDepositing.submitPubItem(pubItem, "testAcceptExistingSubmittedPubItem", user);
         TaskParamVO taskParam = new TaskParamVO(pubItem.getModificationDate(), "testAcceptExistingSubmittedPubItem");
-        ServiceLocator.getItemHandler(user.getHandle()).submit(pubItem.getReference().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
-        ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { pubItem.getReference().getObjectId(), user.getUserid() });
+        ServiceLocator.getItemHandler(user.getHandle()).submit(pubItem.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
+        ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { pubItem.getVersion().getObjectId(), user.getUserid() });
         // item has to be retrieved again to get actual modification date
-        String item = ServiceLocator.getItemHandler(user.getHandle()).retrieve(pubItem.getReference().getObjectId());
+        String item = ServiceLocator.getItemHandler(user.getHandle()).retrieve(pubItem.getVersion().getObjectId());
         pubItem = xmlTransforming.transformToPubItem(item);
-        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getState());
+        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
 
-        assertTrue(user.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
         // Accept the Pubitem
         pubItem = pmDepositing.acceptPubItem(pubItem, "Test Accept", user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
+        assertNotNull(pubItem.getVersion());
         // as long as no workflow is used, item is released after accept!!!!!
-        assertEquals(PubItemVO.State.RELEASED, pubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, pubItem.getVersion().getState());
     }
 
     /**
@@ -596,23 +598,23 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO pubItem = getNewPubItemWithoutFiles();
         // submit the item
         pubItem = pmDepositing.submitPubItem(pubItem, "testAcceptExistingReleasedPubItem", user);
-        assertEquals(PubItemVO.State.RELEASED, pubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, pubItem.getVersion().getState());
 
-        assertTrue(user.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
         // save changed item
         pubItem.getMetadata().setGenre(Genre.ISSUE);
         pubItem = savePubItem(pubItem, user);
-        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getState());
+        assertEquals(PubItemVO.State.SUBMITTED, pubItem.getVersion().getState());
         // accept the item
         pubItem = pmDepositing.acceptPubItem(pubItem, "Test Accept", user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
+        assertNotNull(pubItem.getVersion());
         // as long as no workflow is used, item is released after accept!!!!!
-        assertEquals(PubItemVO.State.RELEASED, pubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, pubItem.getVersion().getState());
     }
 
     /**
-     * Test for {@link PubItemDepositing#createRevisionOfItem(PubItemVO, String, PubCollectionRO, AccountUserVO)}
+     * Test for {@link PubItemDepositing#createRevisionOfItem(PubItemVO, String, ContextRO, AccountUserVO)}
      * 
      * @author Peter Broszeit
      * @throws Exception
@@ -628,18 +630,18 @@ public class PubItemDepositingTest extends TestBase
         // and submit (release) it
         pubItem = pmDepositing.submitPubItem(pubItem, "Test Create Revision", user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
+        assertNotNull(pubItem.getVersion());
         // Create a revision of this item.
-        pubItem = pmDepositing.createRevisionOfItem(pubItem, "This is a isRevisionOf relation.", pubItem.getPubCollection(), user);
+        pubItem = pmDepositing.createRevisionOfItem(pubItem, "This is a isRevisionOf relation.", pubItem.getContext(), user);
         pubItem = pmDepositing.savePubItem(pubItem, user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
-        assertEquals(PubItemVO.State.PENDING, pubItem.getState());
-        assertEquals(pubItem.getReference().getVersionNumber(), 1);
+        assertNotNull(pubItem.getVersion());
+        assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
+        assertEquals(pubItem.getVersion().getVersionNumber(), 1);
     }
 
     /**
-     * Test for {@link PubItemDepositing#createRevisionOfItem(PubItemVO, String, PubCollectionRO, AccountUserVO)}
+     * Test for {@link PubItemDepositing#createRevisionOfItem(PubItemVO, String, ContextRO, AccountUserVO)}
      * 
      * @author Peter Broszeit
      * @throws Exception
@@ -655,19 +657,19 @@ public class PubItemDepositingTest extends TestBase
         // and submit (release) it
         pubItem = pmDepositing.submitPubItem(pubItem, "Test Create Revision", user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
+        assertNotNull(pubItem.getVersion());
         // Create a revision of this item.
-        pubItem = pmDepositing.createRevisionOfItem(pubItem, "This is a isRevisionOf relation.", pubItem.getPubCollection(), user);
+        pubItem = pmDepositing.createRevisionOfItem(pubItem, "This is a isRevisionOf relation.", pubItem.getContext(), user);
         pubItem = pmDepositing.savePubItem(pubItem, user);
         assertNotNull(pubItem);
-        assertNotNull(pubItem.getReference());
-        assertEquals(PubItemVO.State.PENDING, pubItem.getState());
+        assertNotNull(pubItem.getVersion());
+        assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
         // Update the revision.
         pubItem.getMetadata().getTitle().setValue("This is a revision.");
         pubItem.getMetadata().getTitle().setLanguage("en");
         pubItem = pmDepositing.savePubItem(pubItem, user);
         assertNotNull(pubItem);
-        assertEquals(PubItemVO.State.PENDING, pubItem.getState());
+        assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
     }
 
     /**
@@ -678,10 +680,10 @@ public class PubItemDepositingTest extends TestBase
     @Test
     public void testGetPubCollectionListForDepositing() throws Exception
     {
-        List<PubCollectionVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
+        List<PubContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
         assertNotNull(pubCollectionList);
         assertEquals(2, pubCollectionList.size());
-        PubCollectionVO pubCollection = pubCollectionList.get(0);
+        PubContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
         assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());

@@ -44,7 +44,7 @@ import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -99,11 +99,11 @@ public class RetrievePubCollectionTest extends TestBase
         // Get context list
         String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
         // ... and transform to PubCollections.
-        List<PubCollectionVO> pubCollectionList = xmlTransforming.transformToPubCollectionList(contextList);
+        List<PubContextVO> pubCollectionList = xmlTransforming.transformToPubContextList(contextList);
 
         assertNotNull(pubCollectionList);
         assertEquals(2, pubCollectionList.size());
-        PubCollectionVO pubCollection = pubCollectionList.get(0);
+        PubContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         //assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
         //assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
@@ -132,12 +132,12 @@ public class RetrievePubCollectionTest extends TestBase
         String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
         //logger.debug("getPubCollectionByType() - retrieved collection XML=" + toString(getDocument(contextList, false), false));
         // ... and transform to PubCollections.
-        List<PubCollectionVO> pubCollectionList = xmlTransforming.transformToPubCollectionList(contextList);
+        List<PubContextVO> pubCollectionList = xmlTransforming.transformToPubContextList(contextList);
 
         assertNotNull(pubCollectionList);
         assertTrue("At least one (sample) PubMan collection has to exist in the framework!", pubCollectionList.size() >= 1);
 
-        for (PubCollectionVO pubCollection : pubCollectionList)
+        for (PubContextVO pubCollection : pubCollectionList)
         {
             assertNotNull(pubCollection.getReference());
             if (pubCollection.getReference().getObjectId() == PUBMAN_TEST_COLLECTION_ID)
@@ -175,11 +175,11 @@ public class RetrievePubCollectionTest extends TestBase
         // Get context list
         String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
         // ... and transform to PubCollections.
-        List<PubCollectionVO> pubCollectionList = xmlTransforming.transformToPubCollectionList(contextList);
+        List<PubContextVO> pubCollectionList = xmlTransforming.transformToPubContextList(contextList);
 
         assertNotNull(pubCollectionList);
         assertEquals(2, pubCollectionList.size());
-        PubCollectionVO pubCollection = pubCollectionList.get(0);
+        PubContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         // assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
         // assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());
@@ -197,7 +197,7 @@ public class RetrievePubCollectionTest extends TestBase
         // Get context list
         String context = ServiceLocator.getContextHandler(user.getHandle()).retrieve(PUBMAN_TEST_COLLECTION_ID);
         // ... and transform to PubCollections.
-        PubCollectionVO pubCollection = xmlTransforming.transformToPubCollection(context);
+        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
 
         assertNotNull(pubCollection);
         assertNotNull(pubCollection.getReference());

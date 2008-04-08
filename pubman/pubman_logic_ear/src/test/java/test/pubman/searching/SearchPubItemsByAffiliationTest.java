@@ -43,7 +43,7 @@ import org.junit.Test;
 
 import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -102,19 +102,19 @@ public class SearchPubItemsByAffiliationTest extends TestBase
         creatorOrg.setName(textVO);
         creatorOrg.setIdentifier("escidoc:persistent26");
         myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.COMMENTATOR));
-        PubItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getReference();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
         logger.debug("Waiting 15 seconds to let the framework indexing happen...");
         Thread.sleep(15000);
 
-        AffiliationVO affi = new AffiliationVO();
-        AffiliationRO affRo = new AffiliationRO("escidoc:persistent1");
-        affi.setReference(affRo);
+        AffiliationRO affiliationRO = new AffiliationRO("escidoc:persistent1");
+        AffiliationVO affiliationVO = new AffiliationVO();
+        affiliationVO.setReference(affiliationRO);
         
         // search the item on the same organizational level where the item was created
-        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(affi);   
+        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
         assertNotNull(searchResultList);
         assertTrue("No items could be found!", searchResultList.size() != 0 );
         boolean itemFound = false;
@@ -122,28 +122,24 @@ public class SearchPubItemsByAffiliationTest extends TestBase
         logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
         for (PubItemVO item:searchResultList)            
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }
         }
         assertTrue("Could not find the created item!", itemFound);
      
-        affi = new AffiliationVO();
-        affRo = new AffiliationRO("escidoc:persistent1");
-        affi.setReference(affRo);
-        
         // search the item on one organizational level above where the item was created
-        searchResultList = pubSearching.searchPubItemsByAffiliation(affi);   
+        searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
         assertNotNull(searchResultList);
         assertTrue("No items could be found!", searchResultList.size() != 0 );
         itemFound = false;
         logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
         for (PubItemVO item:searchResultList)            
         {
-            logger.info("Found item '"+item.getReference().getObjectId()+"'.");
-            if (item.getReference().equals(myItemRef))
+            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+            if (item.getVersion().equals(myItemRef))
             {
                 itemFound = true;
             }

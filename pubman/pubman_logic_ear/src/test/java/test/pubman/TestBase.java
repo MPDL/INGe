@@ -63,8 +63,8 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -290,7 +290,7 @@ public class TestBase
     protected PubItemVO getNewPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
-
+        
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         TextVO title = new TextVO();
@@ -320,9 +320,9 @@ public class TestBase
         mds.getCreators().add(creator);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         return item;
     }
 
@@ -334,9 +334,9 @@ public class TestBase
         MdsPublicationVO mds = getMdsPublication();
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         return item;
     }
 
@@ -556,7 +556,7 @@ public class TestBase
     /**
      * Helper: Retrieves the item from the Framework ItemHandler and transforms it to a PubItemVO.
      */
-    protected PubItemVO getPubItemFromFramework(PubItemRO pubItemRef, AccountUserVO accountUser) throws Exception
+    protected PubItemVO getPubItemFromFramework(ItemRO pubItemRef, AccountUserVO accountUser) throws Exception
     {
         XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
         String retrievedItem = ServiceLocator.getItemHandler(accountUser.getHandle()).retrieve(pubItemRef.getObjectId());

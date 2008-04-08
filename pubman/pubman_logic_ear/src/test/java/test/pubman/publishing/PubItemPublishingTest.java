@@ -42,12 +42,12 @@ import org.junit.Test;
 import test.pubman.TestBase;
 import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
@@ -83,7 +83,7 @@ public class PubItemPublishingTest extends TestBase
     }
 
     /**
-     * Test of {@link PubItemPublishing#releasePubItem(PubItemRO, java.util.Date, AccountUserVO)}
+     * Test of {@link PubItemPublishing#releasePubItem(ItemRO, java.util.Date, AccountUserVO)}
      * 
      * @throws Exception
      */
@@ -92,21 +92,21 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
 
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
-        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
 
         // TODO FRM: uncomment after framework bugfix #188
         // assertNotNull("PID is null", releasedPubItem.getPid());
     }
 
     /**
-     * Test of {@link PubItemPublishing#releasePubItem(PubItemRO, java.util.Date, AccountUserVO)}
+     * Test of {@link PubItemPublishing#releasePubItem(ItemRO, java.util.Date, AccountUserVO)}
      * 
      * @throws Exception
      */
@@ -117,7 +117,7 @@ public class PubItemPublishingTest extends TestBase
         // new item
         PubItemVO item = getNewPubItemWithoutFiles();
         // Add file to item
-        PubFileVO file = new PubFileVO();
+        FileVO file = new FileVO();
         String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
@@ -128,24 +128,24 @@ public class PubItemPublishingTest extends TestBase
         file.setDescription("Ein Farbtest.");
         item.getFiles().add(file);
 
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
 
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
-        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getState());
-        assertNotNull("PID is null (is okay, because PID concept not yet implemented by FIZ, see FIZ bugs 270,271)", releasedPubItem.getPid());
+        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
+        assertNotNull("PID is null (is okay, because PID concept not yet implemented by FIZ, see FIZ bugs 270,271)", releasedPubItem.getVersion().getPid());
 
         assertEquals(1, releasedPubItem.getFiles().size());
-        PubFileVO pubFile = releasedPubItem.getFiles().get(0);
+        FileVO pubFile = releasedPubItem.getFiles().get(0);
         assertNotNull("PID of file is null (is okay, because PID concept not yet implemented by FIZ, see FIZ bugs 270,271)", pubFile.getPid());
 
     }
 
     /**
-     * Test of {@link PubItemPublishing#releasePubItem(PubItemRO, java.util.Date, AccountUserVO)} with invald state.
+     * Test of {@link PubItemPublishing#releasePubItem(ItemRO, java.util.Date, AccountUserVO)} with invald state.
      * 
      * @throws Exception
      */
@@ -158,7 +158,7 @@ public class PubItemPublishingTest extends TestBase
         assertNotNull(pubItemSaved);
         try
         {
-            pmPublishing.releasePubItem(pubItemSaved.getReference(), pubItemSaved.getModificationDate(), "Test Release", user);
+            pmPublishing.releasePubItem(pubItemSaved.getVersion(), pubItemSaved.getModificationDate(), "Test Release", user);
             fail("Exception expected!!!");
 
         }
@@ -169,7 +169,7 @@ public class PubItemPublishingTest extends TestBase
     }
 
     /**
-     * Test of {@link PubItemPublishing#withdrawPubItem(PubItemRO, java.util.Date, String, AccountUserVO)}
+     * Test of {@link PubItemPublishing#withdrawPubItem(ItemRO, java.util.Date, String, AccountUserVO)}
      * 
      * @throws Exception
      */
@@ -179,7 +179,7 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         // retrieve item
@@ -187,7 +187,7 @@ public class PubItemPublishingTest extends TestBase
         assertNotNull(submittedPubItem);
 
         // release not necessary, is included in submit
-        assertEquals(PubItemVO.State.RELEASED, submittedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, submittedPubItem.getVersion().getState());
 
         pmPublishing.withdrawPubItem(submittedPubItem, submittedPubItem.getModificationDate(), "That is why", user);
 
@@ -198,7 +198,7 @@ public class PubItemPublishingTest extends TestBase
             // The following code cannot be reached, because an exception will be thrown before. Reason:
             // Withdrawn items cannot be retrieved (by objectId)
             // TODO FRM: Check whether this behaviour of the framework is okay.
-            assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getState());
+            assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getVersion().getState());
             assertEquals("That is why", withdrawnPubItem.getWithdrawalComment());
         }
         catch (ItemNotFoundException e)
@@ -210,7 +210,7 @@ public class PubItemPublishingTest extends TestBase
     }
 
     /**
-     * Test of {@link PubItemPublishing#withdrawPubItem(PubItemRO, java.util.Date, String, AccountUserVO)}
+     * Test of {@link PubItemPublishing#withdrawPubItem(ItemRO, java.util.Date, String, AccountUserVO)}
      * with valid state.
      *
      * @throws Exception Any exception.
@@ -220,25 +220,25 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
 
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
-        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
 
         pmPublishing.withdrawPubItem(releasedPubItem, releasedPubItem.getModificationDate(),
                 "Dies ist dör withdrawal comment", user); //"Dies ist dör „withdrawal comment“"
 
         PubItemVO withdrawnPubItem = getPubItemFromFramework(pubItemRef, user);
         assertNotNull(withdrawnPubItem);
-        assertEquals(withdrawnPubItem.getState(), PubItemVO.State.WITHDRAWN);
+        assertEquals(withdrawnPubItem.getVersion().getState(), PubItemVO.State.WITHDRAWN);
     }
 
     /**
-     * Test of {@link PubItemPublishing#withdrawPubItem(PubItemRO, java.util.Date, String, AccountUserVO)}
+     * Test of {@link PubItemPublishing#withdrawPubItem(ItemRO, java.util.Date, String, AccountUserVO)}
      * with valid state.
      *
      * @throws Exception Any exception exept a security exception.
@@ -248,26 +248,26 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
 
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
-        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
         String withdrawalComment = "Dies ist dör withdrawal comment"; //"Dies ist dör „withdrawal comment“"
         pmPublishing.withdrawPubItem(releasedPubItem, releasedPubItem.getModificationDate(),
                 withdrawalComment, otherUser);
 
         PubItemVO withdrawnPubItem = getPubItemFromFramework(pubItemRef, user);
         assertNotNull(withdrawnPubItem);
-        assertEquals(withdrawnPubItem.getState(), PubItemVO.State.WITHDRAWN);
+        assertEquals(withdrawnPubItem.getVersion().getState(), PubItemVO.State.WITHDRAWN);
         //assertEquals(withdrawnPubItem.getCurrentVersion().getComment(), withdrawalComment);
     }
 
     /**
-     * Test of {@link PubItemPublishing#withdrawPubItem(PubItemRO, java.util.Date, String, AccountUserVO)}
+     * Test of {@link PubItemPublishing#withdrawPubItem(ItemRO, java.util.Date, String, AccountUserVO)}
      * with valid state.
      *
      * @throws Exception Any exception exept a security exception.
@@ -278,14 +278,14 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        PubItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getReference();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
 
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
-        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getState());
+        assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
         String withdrawalComment = "Dies ist dör withdrawal comment"; //"Dies ist dör „withdrawal comment“"
         // Here, a SecurityExeption should be thrown
         pmPublishing.withdrawPubItem(releasedPubItem, releasedPubItem.getModificationDate(),
@@ -294,7 +294,7 @@ public class PubItemPublishingTest extends TestBase
     }
 
     /**
-     * Test of {@link PubItemPublishing#withdrawPubItem(PubItemRO, java.util.Date, String, AccountUserVO)} with invalid
+     * Test of {@link PubItemPublishing#withdrawPubItem(ItemRO, java.util.Date, String, AccountUserVO)} with invalid
      * state.
      * 
      * @throws Exception
@@ -304,7 +304,7 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        item.setReference(null);
+        item.setVersion(null);
         PubItemVO pubItemSaved = pmDepositing.savePubItem(item, user);
         assertNotNull(pubItemSaved);
 
