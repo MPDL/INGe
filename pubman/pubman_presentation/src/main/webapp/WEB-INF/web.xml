@@ -104,7 +104,13 @@
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
- 
+	
+	<!-- Initializer Servlet -->
+	<servlet>
+		<servlet-name>Initializer Servlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.pubman.init.InitializerServlet</servlet-class>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
   <!-- resource loader servlet -->
 	<servlet>
 		<servlet-name>resources</servlet-name>
