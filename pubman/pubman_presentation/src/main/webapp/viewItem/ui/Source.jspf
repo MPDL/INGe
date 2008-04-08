@@ -76,8 +76,8 @@
 			<h:outputText value="</div>" escape="false"/>
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
-				<h:outputText value="#{source.source.genre}"/>
-				<h:outputText value="&#160;" rendered="#{source.source.genre == null || source.source.genre == ''}" escape="false"/>
+				<h:outputText value="#{source.genre}"/>
+				<h:outputText value="&#160;" rendered="#{source.genre == null || source.genre == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
