@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.pubman.valueobjects;
 
 import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 
 

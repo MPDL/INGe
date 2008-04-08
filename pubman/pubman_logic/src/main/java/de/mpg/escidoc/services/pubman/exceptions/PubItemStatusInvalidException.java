@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.exceptions;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Exception for invalid item status errors.
@@ -45,7 +45,7 @@ public class PubItemStatusInvalidException extends PubManException
     /**
      * The reference of the pubitem with invalid status.
      */
-    private PubItemRO pubItemRef;
+    private ItemRO pubItemRef;
 
     /**
      * * Creates a new instance, sets the according member variable.
@@ -53,7 +53,7 @@ public class PubItemStatusInvalidException extends PubManException
      * @param pubItemRef The reference of the pubitem with invalid status.
      * @param cause The throwable which caused this exception.
      */
-    public PubItemStatusInvalidException(PubItemRO pubItemRef, Throwable cause)
+    public PubItemStatusInvalidException(ItemRO pubItemRef, Throwable cause)
     {
         super(cause);
         this.pubItemRef = pubItemRef;
@@ -62,7 +62,7 @@ public class PubItemStatusInvalidException extends PubManException
     /**
      * @return The reference of the pubitem with invalid status.
      */
-    public PubItemRO getPubItemRef()
+    public ItemRO getPubItemRef()
     {
         return pubItemRef;
     }

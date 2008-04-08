@@ -31,14 +31,17 @@
 package de.mpg.escidoc.services.pubman.publishing;
 
 import java.util.Date;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
+
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
+
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
 import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
@@ -50,11 +53,11 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -99,7 +102,7 @@ public class PubItemPublishingBean implements PubItemPublishing
      * {@inheritDoc}
      */
     public void releasePubItem(
-            final PubItemRO pubItemRef,
+            final ItemRO pubItemRef,
             final Date lastModificationDate,
             final String releaseComment,
             final AccountUserVO user) throws
@@ -170,7 +173,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                 + PropertyReader
                     .getProperty("escidoc.pubman.item.pattern")
                     .replaceAll("\\$1", pubItemRef.getObjectId() + ":"
-                            + actualItemVO.getReference().getVersionNumber());
+                            + actualItemVO.getVersion().getVersionNumber());
 
             LOGGER.debug("URL given to PID resolver: " + url);
 
@@ -179,13 +182,13 @@ public class PubItemPublishingBean implements PubItemPublishing
 
             // Assign version PID
             result = adminHandler.assignVersionPid(
-                    actualItemVO.getReference().getObjectId() + ":"
-                    + actualItemVO.getReference().getVersionNumber(), paramXml);
+                    actualItemVO.getVersion().getObjectId() + ":"
+                    + actualItemVO.getVersion().getVersionNumber(), paramXml);
 
             LOGGER.debug("Object PID assigned: " + result);
 
             // Loop over files
-            for (PubFileVO file : actualItemVO.getFiles())
+            for (FileVO file : actualItemVO.getFiles())
             {
                 // Build PidParam
                 url = PropertyReader.getProperty("escidoc.pubman.instance.url")
@@ -200,7 +203,7 @@ public class PubItemPublishingBean implements PubItemPublishing
                 paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
                 // Assign floating PID
-                result = adminHandler.assignContentPid(actualItemVO.getReference().getObjectId(),
+                result = adminHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
                         file.getReference().getObjectId(), paramXml);
 
                 LOGGER.debug("PID assigned: " + result);
@@ -255,7 +258,7 @@ public class PubItemPublishingBean implements PubItemPublishing
         {
             throw new IllegalArgumentException(getClass() + ".withdrawPubItem: pubItem reference is null.");
         }
-        if (pubItem.getReference().getObjectId() == null)
+        if (pubItem.getVersion().getObjectId() == null)
         {
             throw new IllegalArgumentException(getClass()
                     + ".withdrawPubItem: pubItem reference does not contain an objectId.");
@@ -269,7 +272,7 @@ public class PubItemPublishingBean implements PubItemPublishing
         LOGGER.debug(user.getReference().getObjectId() + "=" + pubItem.getOwner().getObjectId() + "?");
 
         if (user.getGrants().contains(new GrantVO("escidoc:role-administrator",
-                pubItem.getPubCollection().getObjectId())))
+                pubItem.getContext().getObjectId())))
         {
             throw new SecurityException();
         }
@@ -277,35 +280,35 @@ public class PubItemPublishingBean implements PubItemPublishing
         // Check the withdrawal comment - must not be null or empty.
         if (withdrawalComment == null || withdrawalComment.trim().length() == 0)
         {
-            throw new MissingWithdrawalCommentException(pubItem.getReference());
+            throw new MissingWithdrawalCommentException(pubItem.getVersion());
         }
         try
         {
             TaskParamVO param = new TaskParamVO(lastModificationDate, withdrawalComment);
-            ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getReference().getObjectId(),
+            ServiceLocator.getItemHandler(user.getHandle()).withdraw(pubItem.getVersion().getObjectId(),
                     xmlTransforming.transformToTaskParam(param));
             ApplicationLog.info(PMLogicMessages.PUBITEM_WITHDRAWN,
-                    new Object[] {pubItem.getReference().getObjectId(), user.getUserid()});
+                    new Object[] {pubItem.getVersion().getObjectId(), user.getUserid()});
         }
         catch (LockingException e)
         {
-            throw new PubItemLockedException(pubItem.getReference(), e);
+            throw new PubItemLockedException(pubItem.getVersion(), e);
         }
         catch (AlreadyWithdrawnException e)
         {
-            throw new PubItemStatusInvalidException(pubItem.getReference(), e);
+            throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
         }
         catch (ItemNotFoundException e)
         {
-            throw new PubItemNotFoundException(pubItem.getReference(), e);
+            throw new PubItemNotFoundException(pubItem.getVersion(), e);
         }
         catch (NotPublishedException e)
         {
-            throw new PubItemStatusInvalidException(pubItem.getReference(), e);
+            throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
         }
         catch (InvalidStatusException e)
         {
-            throw new PubItemStatusInvalidException(pubItem.getReference(), e);
+            throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
         }
         catch (Exception e)
         {

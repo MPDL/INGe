@@ -32,15 +32,19 @@ package de.mpg.escidoc.services.pubman.depositing;
 
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_CREATED;
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
+
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
+
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
+
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidContextException;
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
 import de.fiz.escidoc.common.exceptions.application.missing.MissingAttributeValueException;
@@ -57,13 +61,13 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
@@ -138,7 +142,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public PubItemVO createPubItem(PubCollectionRO pubCollectionRef, AccountUserVO user) throws TechnicalException, SecurityException, PubCollectionNotFoundException
+    public PubItemVO createPubItem(ContextRO pubCollectionRef, AccountUserVO user) throws TechnicalException, SecurityException, PubCollectionNotFoundException
     {
         if (pubCollectionRef == null)
         {
@@ -154,11 +158,11 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
 
         // retrieve PubCollection for default metadata
-        PubCollectionVO collection = null;
+        PubContextVO collection = null;
         try
         {
             String context = de.mpg.escidoc.services.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(pubCollectionRef.getObjectId());
-            collection = xmlTransforming.transformToPubCollection(context);
+            collection = xmlTransforming.transformToPubContext(context);
         }
         catch (ContextNotFoundException e)
         {
@@ -171,11 +175,11 @@ public class PubItemDepositingBean implements PubItemDepositing
 
         // create new PubItemVO
         PubItemVO result = new PubItemVO();
-        result.setPubCollection(pubCollectionRef);
-        if (collection.getDefaultMetadata() != null)
+        result.setContext(pubCollectionRef);
+        if (collection.getDefaultMetadata() != null && collection.getDefaultMetadata() instanceof MdsPublicationVO)
         {
             // set default values of collection
-            result.setMetadata(collection.getDefaultMetadata());
+            result.setMetadata((MdsPublicationVO) collection.getDefaultMetadata());
         }
         else
         {
@@ -189,7 +193,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public void deletePubItem(PubItemRO pubItemRef, AccountUserVO user) throws TechnicalException, PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException, de.fiz.escidoc.common.exceptions.application.security.SecurityException
+    public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws TechnicalException, PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException, de.fiz.escidoc.common.exceptions.application.security.SecurityException
     {
         if (pubItemRef == null)
         {
@@ -234,7 +238,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public List<PubCollectionVO> getPubCollectionListForDepositing(AccountUserVO user) throws SecurityException, TechnicalException
+    public List<PubContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws SecurityException, TechnicalException
     {
         if (user == null)
         {
@@ -255,7 +259,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
             filterParam.getFilterList().add(typeFilter);
             // Peter Broszeit: PubCollectionStatusFilter added.
-            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(PubCollectionVO.State.OPENED);
+            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(PubContextVO.State.OPENED);
             filterParam.getFilterList().add(statusFilter);
 
             // ... and transform filter to xml
@@ -264,7 +268,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             // Get context list
             String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
             // ... and transform to PubCollections.
-            return xmlTransforming.transformToPubCollectionList(contextList);
+            return xmlTransforming.transformToPubContextList(contextList);
 
         }
         catch (Exception e)
@@ -314,32 +318,35 @@ public class PubItemDepositingBean implements PubItemDepositing
             String itemStored;
             PubItemVO pubItemStored;
             // Check whether item has to be created or updated
-            if (pubItem.getReference() == null)
+            if (pubItem.getVersion() == null || pubItem.getVersion().getObjectId() == null)
             {
                 itemStored = itemHandler.create(itemXML);
                 message = PUBITEM_CREATED;
             }
             else
             {
-                boolean itemHasToBeSubmitted = pubItem.getState().equals(PubItemVO.State.RELEASED);
+            	
+            	logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
+            	
+                boolean itemHasToBeSubmitted = PubItemVO.State.RELEASED.equals(pubItem.getVersion().getState());
                 // Update the item and set message
-                itemStored = itemHandler.update(pubItem.getReference().getObjectId(), itemXML);
+                itemStored = itemHandler.update(pubItem.getVersion().getObjectId(), itemXML);
                 message = PUBITEM_UPDATED;
                 // Submit item if original in state released.
                 if (itemHasToBeSubmitted)
                 {
                     pubItemStored = xmlTransforming.transformToPubItem(itemStored);
                     TaskParamVO taskParam = new TaskParamVO(pubItemStored.getModificationDate(), "Submission during save released item.");
-                    itemHandler.submit(pubItemStored.getReference().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
-                    ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { pubItemStored.getReference().getObjectId(), user.getUserid() });
+                    itemHandler.submit(pubItemStored.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
+                    ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { pubItemStored.getVersion().getObjectId(), user.getUserid() });
 
                     // Retrieve item once again.
-                    itemStored = itemHandler.retrieve(pubItemStored.getReference().getObjectId());
+                    itemStored = itemHandler.retrieve(pubItemStored.getVersion().getObjectId());
                 }
             }
             // Transform the item and log the action.
             pubItemStored = xmlTransforming.transformToPubItem(itemStored);
-            ApplicationLog.info(message, new Object[] { pubItemStored.getReference().getObjectId(), user.getUserid() });
+            ApplicationLog.info(message, new Object[] { pubItemStored.getVersion().getObjectId(), user.getUserid() });
             return pubItemStored;
         }
         catch (MissingAttributeValueException e)
@@ -348,7 +355,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
         catch (ContextNotFoundException e)
         {
-            throw new PubCollectionNotFoundException(pubItem.getPubCollection(), e);
+            throw new PubCollectionNotFoundException(pubItem.getContext(), e);
         }
         catch (MissingElementValueException e)
         {
@@ -356,23 +363,23 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
         catch (LockingException e)
         {
-            throw new PubItemLockedException(pubItem.getReference(), e);
+            throw new PubItemLockedException(pubItem.getVersion(), e);
         }
         catch (InvalidContextException e)
         {
-            throw new PubCollectionNotFoundException(pubItem.getPubCollection(), e);
+            throw new PubCollectionNotFoundException(pubItem.getContext(), e);
         }
         catch (ItemNotFoundException e)
         {
-            throw new PubItemNotFoundException(pubItem.getReference(), e);
+            throw new PubItemNotFoundException(pubItem.getVersion(), e);
         }
         catch (AlreadyPublishedException e)
         {
-            throw new PubItemAlreadyReleasedException(pubItem.getReference(), e);
+            throw new PubItemAlreadyReleasedException(pubItem.getVersion(), e);
         }
         catch (InvalidStatusException e)
         {
-            throw new PubItemStatusInvalidException(pubItem.getReference(), e);
+            throw new PubItemStatusInvalidException(pubItem.getVersion(), e);
         }
         catch (FileNotFoundException e)
         {
@@ -431,27 +438,27 @@ public class PubItemDepositingBean implements PubItemDepositing
         try
         {
             TaskParamVO taskParam = new TaskParamVO(savedPubItem.getModificationDate(), submissionComment);
-            itemHandler.submit(savedPubItem.getReference().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
-            ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { savedPubItem.getReference().getObjectId(), user.getUserid() });
+            itemHandler.submit(savedPubItem.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
+            ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { savedPubItem.getVersion().getObjectId(), user.getUserid() });
 
             // Because no workflow system is used at this time
             // automatic release is triggered here
             // item has to be retrieved again to get actual modification date
-            String item = itemHandler.retrieve(savedPubItem.getReference().getObjectId());
+            String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
             pubItemActual = xmlTransforming.transformToPubItem(item);
-            pmPublishing.releasePubItem(pubItemActual.getReference(), pubItemActual.getModificationDate(), submissionComment, user);
+            pmPublishing.releasePubItem(pubItemActual.getVersion(), pubItemActual.getModificationDate(), submissionComment, user);
 
             // Retrieve item once again.
-            item = itemHandler.retrieve(pubItemActual.getReference().getObjectId());
+            item = itemHandler.retrieve(pubItemActual.getVersion().getObjectId());
             pubItemActual = xmlTransforming.transformToPubItem(item);
         }
         catch (InvalidStatusException e)
         {
-            throw new PubItemStatusInvalidException(savedPubItem.getReference(), e);
+            throw new PubItemStatusInvalidException(savedPubItem.getVersion(), e);
         }
         catch (ItemNotFoundException e)
         {
-            throw new PubItemNotFoundException(savedPubItem.getReference(), e);
+            throw new PubItemNotFoundException(savedPubItem.getVersion(), e);
         }
         catch (Exception e)
         {
@@ -503,15 +510,15 @@ public class PubItemDepositingBean implements PubItemDepositing
             // Because no workflow system is used at this time
             // automatic release is triggered here
             // item has to be retrieved again to get actual modification date
-            pmPublishing.releasePubItem(pubItem.getReference(), pubItem.getModificationDate(), acceptComment, user);
+            pmPublishing.releasePubItem(pubItem.getVersion(), pubItem.getModificationDate(), acceptComment, user);
 
             // Retrieve item once again.
-            String item = itemHandler.retrieve(pubItem.getReference().getObjectId());
+            String item = itemHandler.retrieve(pubItem.getVersion().getObjectId());
             pubItem = xmlTransforming.transformToPubItem(item);
         }
         catch (ItemNotFoundException e)
         {
-            throw new PubItemNotFoundException(pubItem.getReference(), e);
+            throw new PubItemNotFoundException(pubItem.getVersion(), e);
         }
         catch (Exception e)
         {
@@ -522,18 +529,18 @@ public class PubItemDepositingBean implements PubItemDepositing
     }
 
     /* (non-Javadoc)
-     * @see de.mpg.escidoc.services.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services.common.valueobjects.PubItemVO, java.lang.String, de.mpg.escidoc.services.common.valueobjects.PubCollectionVO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)
+     * @see de.mpg.escidoc.services.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services.common.valueobjects.PubItemVO, java.lang.String, de.mpg.escidoc.services.common.valueobjects.PubContextVO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)
      */
-    public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment, PubCollectionRO pubCollection, AccountUserVO owner) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException
+    public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment, ContextRO pubCollection, AccountUserVO owner) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException
     {
-        logger.debug("createRevisionOfItem(" + originalPubItem.getReference().getObjectId() + "," + relationComment + "," + pubCollection.getObjectId() + "," + owner.getHandle());
+        logger.debug("createRevisionOfItem(" + originalPubItem.getVersion().getObjectId() + "," + relationComment + "," + pubCollection.getObjectId() + "," + owner.getHandle());
         // Create an empty new item.
         PubItemVO copiedPubItem = new PubItemVO();
         // Set the owner.
         copiedPubItem.setOwner(owner.getReference());
         // Set the collection.
-        copiedPubItem.setPubCollection(pubCollection);
-        // Set new empty metada.
+        copiedPubItem.setContext(pubCollection);
+        // Set new empty metadata.
         copiedPubItem.setMetadata(new MdsPublicationVO());
         // Copy the genre.
         copiedPubItem.getMetadata().setGenre(originalPubItem.getMetadata().getGenre());
@@ -562,35 +569,10 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             copiedPubItem.getMetadata().setSubject((TextVO)originalPubItem.getMetadata().getSubject().clone());
         }
-//        // create it in the Framework
-//        copiedPubItem = savePubItem(copiedPubItem, owner);
-        // create the content relation isRevisionOf from the revision to the pubItem.
-//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-//        simpleDateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//        String date = simpleDateFormat.format(copiedPubItem.getModificationDate());
-//        String param = "<param last-modification-date=\"" + date + "\">" +
-//                       "    <relation>" +
-//                       "        <targetId>" + originalPubItem.getReference().getObjectId() + "</targetId>" +
-//                       "        <predicate>" + PREDICATE_ISREVISIONOF + "</predicate>" +
-//                       "    </relation>" +
-//                       "</param>";
-//        logger.debug("Param=" + param);
-//        try
-//        {
-//            // Create the relation
-//            ServiceLocator.getItemHandler(owner.getHandle()).addContentRelations(copiedPubItem.getReference().getObjectId(), param);
-//            // Retrieve the item for a new modification date
-//            String item = ServiceLocator.getItemHandler(owner.getHandle()).retrieve(copiedPubItem.getReference().getObjectId());
-//            // Transform the item
-//            copiedPubItem = xmlTransforming.transformToPubItem(item);
-//        }
-//        catch (Exception e)
-//        {
-//            throw new TechnicalException(e);
-//        }
-        PubItemRelationVO relation = new PubItemRelationVO();
+
+        ItemRelationVO relation = new ItemRelationVO();
         relation.setType(PREDICATE_ISREVISIONOF);
-        relation.setTargetItemRef(originalPubItem.getReference());
+        relation.setTargetItemRef(originalPubItem.getVersion());
         relation.setDescription(relationComment);
         copiedPubItem.getRelations().add(relation);
         // return the new created revision of the given pubItem.

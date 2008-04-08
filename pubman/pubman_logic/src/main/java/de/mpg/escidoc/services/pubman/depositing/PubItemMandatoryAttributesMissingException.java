@@ -55,7 +55,7 @@ public class PubItemMandatoryAttributesMissingException extends DepositingExcept
      */
     public PubItemMandatoryAttributesMissingException(PubItemVO pubItem)
     {
-        super(pubItem!=null?pubItem.getReference():null);
+        super(pubItem!=null?pubItem.getVersion():null);
         invalidPubItem = pubItem;
     }
 

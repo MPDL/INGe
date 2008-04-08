@@ -35,27 +35,27 @@ import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
-import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.message.MessageElement;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
-import de.fiz.escidoc.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
+
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
@@ -63,11 +63,9 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.logging.MessageCreator;
-import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
@@ -522,7 +520,7 @@ public class PubItemSearchingBean implements PubItemSearching
         searchRetrieveRequest.setQuery(extendedCqlSearchString);
         // TODO NiH: Replace by appropriate implementation
         // ADDED by MuJ to increase record count (without this, only about 20 records are returned)
-        NonNegativeInteger nni = new NonNegativeInteger("100");
+        NonNegativeInteger nni = new NonNegativeInteger("500");
         searchRetrieveRequest.setMaximumRecords(nni);
         ////////////////////////////////////////        
         searchRetrieveRequest.setRecordPacking("xml");
@@ -530,6 +528,7 @@ public class PubItemSearchingBean implements PubItemSearching
         try
         {
             searchResult = ServiceLocator.getSearchHandler( language ).searchRetrieveOperation(searchRetrieveRequest);
+            logger.debug("Search result: " + searchResult.getNumberOfRecords());
         }
         catch (Exception e)
         {
@@ -550,6 +549,9 @@ public class PubItemSearchingBean implements PubItemSearching
                     + ". Diagnostics returned. See log for details.");
         }
 
+        long time = new Date().getTime();
+        logger.debug("START TIME: " + time);
+        
         // transform to PubItem list
         ArrayList<PubItemResultVO> pubItemResultList = new ArrayList<PubItemResultVO>();
         if (searchResult.getRecords() != null)
@@ -582,6 +584,8 @@ public class PubItemSearchingBean implements PubItemSearching
             }
         }
 
+        logger.debug("END TIME: " + (new Date().getTime() - time));
+        
         return pubItemResultList;
     }
 

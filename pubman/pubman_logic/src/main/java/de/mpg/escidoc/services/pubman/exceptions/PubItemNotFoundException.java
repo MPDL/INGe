@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.exceptions;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 
 /**
@@ -46,7 +46,7 @@ public class PubItemNotFoundException extends PubManException
     /**
      * The reference of the pubitem that was not found.
      */
-    private PubItemRO pubItemRef;
+    private ItemRO pubItemRef;
 
     /**
      * Creates a new instance with the given pubItemRef and cause.
@@ -54,7 +54,7 @@ public class PubItemNotFoundException extends PubManException
      * @param pubItemRef The reference of the pubitem that was not found.
      * @param cause The throwable which caused this exception.
      */
-    public PubItemNotFoundException(PubItemRO pubItemRef, Throwable cause)
+    public PubItemNotFoundException(ItemRO pubItemRef, Throwable cause)
     {
         super(cause);
         this.pubItemRef = pubItemRef;
@@ -63,7 +63,7 @@ public class PubItemNotFoundException extends PubManException
     /**
      * @return The reference of the pubitem that was not found.
      */
-    public PubItemRO getPubItemRef()
+    public ItemRO getPubItemRef()
     {
         return pubItemRef;
     }

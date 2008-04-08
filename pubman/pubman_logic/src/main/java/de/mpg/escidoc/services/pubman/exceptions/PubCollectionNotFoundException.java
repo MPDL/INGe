@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.exceptions;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 
 /**
  * Exception class used for missing pubcollections.
@@ -45,7 +45,7 @@ public class PubCollectionNotFoundException extends PubManException
     /**
      * The reference of the collection that could not be found.
      */
-    private PubCollectionRO pubCollectionRef;
+    private ContextRO pubCollectionRef;
     
     /**
      * Creates a new instance, sets the according member variable.
@@ -53,7 +53,7 @@ public class PubCollectionNotFoundException extends PubManException
      * @param collection The collection that caused this exception.
      * @param cause The throwable that caused this exception.
      */
-    public PubCollectionNotFoundException(PubCollectionRO collection, Throwable cause)
+    public PubCollectionNotFoundException(ContextRO collection, Throwable cause)
     {
         super(cause);
         this.pubCollectionRef = collection;         
@@ -62,7 +62,7 @@ public class PubCollectionNotFoundException extends PubManException
     /**
      * @return The reference of the collection that could not be found. 
      */
-    public PubCollectionRO getPubCollectionRef()
+    public ContextRO getPubCollectionRef()
     {
         return pubCollectionRef;
     }

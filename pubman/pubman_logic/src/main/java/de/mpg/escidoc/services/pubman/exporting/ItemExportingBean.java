@@ -46,17 +46,16 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.XmlHelper;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
+import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
-import de.mpg.escidoc.services.pubman.ItemExporting;
 
 
 /**
@@ -206,12 +205,12 @@ public class ItemExportingBean implements ItemExporting
    		 //interface later!!! 
    		 try
    		 {
-   			 FOR: for ( String ef : XmlHelper.getListOfStyles() )
-   				 if ( exportFormat.equals(ef) )
-   				 {
-   					 flag = true;
-   					 break FOR; 
-   				 }
+//   			 FOR: for ( String ef : XmlHelper.getListOfStyles() )
+//   				 if ( exportFormat.equals(ef) )
+//   				 {
+//   					 flag = true;
+//   					 break FOR; 
+//   				 }
    		 }
    		 catch (Exception e) 
    		 {

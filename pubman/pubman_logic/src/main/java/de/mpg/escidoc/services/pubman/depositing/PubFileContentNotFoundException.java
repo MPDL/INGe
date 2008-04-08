@@ -31,8 +31,9 @@
 package de.mpg.escidoc.services.pubman.depositing;
 
 import java.util.List;
+
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 
 /**
  * Exception class used to determine that the content for a given file could not be found.
@@ -47,7 +48,7 @@ public class PubFileContentNotFoundException extends TechnicalException
     /**
      * The list of files containing the file whose content was not found.
      */
-    private List<PubFileVO> pubFiles;
+    private List<FileVO> pubFiles;
 
     /**
      * Creates a new instance, sets the according member variable.
@@ -55,7 +56,7 @@ public class PubFileContentNotFoundException extends TechnicalException
      * @param files The list of files containing the file whose content was not found.
      * @param cause The throwable that caused this exception.
      */
-    public PubFileContentNotFoundException(List<PubFileVO> files, Throwable cause)
+    public PubFileContentNotFoundException(List<FileVO> files, Throwable cause)
     {
         super(cause);
         this.pubFiles = files;
@@ -64,7 +65,7 @@ public class PubFileContentNotFoundException extends TechnicalException
     /**
      * @return The list of files containing the file whose content was not found.
      */
-    public List<PubFileVO> getPubFiles()
+    public List<FileVO> getPubFiles()
     {
         return pubFiles;
     }

@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.depositing;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Exception class used for item which are locked.
@@ -45,7 +45,7 @@ public class PubItemLockedException extends DepositingException
     /**
      * The reference of the pubitem that is locked.
      */
-    private PubItemRO pubItemRef;
+    private ItemRO pubItemRef;
 
     /**
      * Creates a new instance with the given pubItemRef and cause.
@@ -53,7 +53,7 @@ public class PubItemLockedException extends DepositingException
      * @param pubItemRef The reference of the pubitem that is locked.
      * @param cause The throwable which caused this exception.
      */
-    public PubItemLockedException(PubItemRO pubItemRef, Throwable cause)
+    public PubItemLockedException(ItemRO pubItemRef, Throwable cause)
     {
         super(pubItemRef, cause);
     }
@@ -61,7 +61,7 @@ public class PubItemLockedException extends DepositingException
     /**
      * @return The reference of the pubitem that is locked.
      */
-    public PubItemRO getPubItemRef()
+    public ItemRO getPubItemRef()
     {
         return pubItemRef;
     }

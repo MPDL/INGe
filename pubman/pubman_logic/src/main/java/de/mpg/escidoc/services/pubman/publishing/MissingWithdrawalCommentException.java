@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.publishing;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 
 /**
@@ -48,7 +48,7 @@ public class MissingWithdrawalCommentException extends PublishingException
      * 
      * @param pubItemRef The reference of the pubitem.
      */
-    public MissingWithdrawalCommentException(PubItemRO pubItemRef)
+    public MissingWithdrawalCommentException(ItemRO pubItemRef)
     {
         super(pubItemRef);
     }
@@ -69,7 +69,7 @@ public class MissingWithdrawalCommentException extends PublishingException
      * @param pubItemRef The reference of the pubitem.
      * @param cause The throwable which caused this exception.
      */
-    public MissingWithdrawalCommentException(PubItemRO pubItemRef, Throwable cause)
+    public MissingWithdrawalCommentException(ItemRO pubItemRef, Throwable cause)
     {
         super(pubItemRef, cause);
     }

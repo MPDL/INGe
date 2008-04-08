@@ -31,16 +31,18 @@
 package de.mpg.escidoc.services.pubman.util;
 
 import java.io.IOException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.publishing.PubItemPublishingBean;
 
 /**
  *

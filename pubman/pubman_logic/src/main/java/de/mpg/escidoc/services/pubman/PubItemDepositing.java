@@ -32,10 +32,10 @@ package de.mpg.escidoc.services.pubman;
 
 import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
@@ -90,7 +90,7 @@ public interface PubItemDepositing
 	 * @exception SecurityException,
 	 * @exception PubCollectionNotFoundException
 	 */
-    public PubItemVO createPubItem(PubCollectionRO collectionRef, AccountUserVO user)
+    public PubItemVO createPubItem(ContextRO collectionRef, AccountUserVO user)
 	  throws TechnicalException, SecurityException, PubCollectionNotFoundException;
 
     /**
@@ -101,7 +101,7 @@ public interface PubItemDepositing
 	 * @exception TechnicalException TechnicalException
 	 * @exception DepositingException ,
 	 */
-    public void deletePubItem(PubItemRO itemRef, AccountUserVO user)
+    public void deletePubItem(ItemRO itemRef, AccountUserVO user)
 	  throws TechnicalException, SecurityException, PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException;
 
     /**
@@ -111,7 +111,7 @@ public interface PubItemDepositing
 	 * @exception TechnicalException,
 	 * @exception SecurityException
 	 */
-    public java.util.List<PubCollectionVO> getPubCollectionListForDepositing(AccountUserVO user)
+    public java.util.List<PubContextVO> getPubCollectionListForDepositing(AccountUserVO user)
 	  throws TechnicalException, SecurityException;
 
     /**
@@ -169,5 +169,5 @@ public interface PubItemDepositing
 	 * @throws PubItemMandatoryAttributesMissingException 
 	 * @throws SecurityException 
 	 */
-	public PubItemVO createRevisionOfItem(PubItemVO pubItem, String relationComment, PubCollectionRO pubCollection, AccountUserVO user) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException;
+	public PubItemVO createRevisionOfItem(PubItemVO pubItem, String relationComment, ContextRO pubCollection, AccountUserVO user) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException;
 }

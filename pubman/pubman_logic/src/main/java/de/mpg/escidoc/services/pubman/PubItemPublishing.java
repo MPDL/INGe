@@ -32,7 +32,7 @@ package de.mpg.escidoc.services.pubman;
 
 import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
@@ -67,7 +67,7 @@ public interface PubItemPublishing {
 	 * @throws PubItemLockedException 
 	 * @throws SecurityException 
 	 */
-	public void releasePubItem(PubItemRO pubItemRef, java.util.Date lastModificationDate, String releaseComment, AccountUserVO user) throws TechnicalException, PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException, SecurityException;
+	public void releasePubItem(ItemRO pubItemRef, java.util.Date lastModificationDate, String releaseComment, AccountUserVO user) throws TechnicalException, PubItemStatusInvalidException, PubItemNotFoundException, PubItemLockedException, SecurityException;
 
 	/**
 	 * Withdraws the publication item identified by the given pubItemRef.

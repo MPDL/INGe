@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.publishing;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.pubman.exceptions.PubManException;
 
 /**
@@ -46,14 +46,14 @@ public class PublishingException extends PubManException
     /**
      * The reference of the pubitem.
      */
-    private PubItemRO pubItemRef;
+    private ItemRO pubItemRef;
 
     /**
      * Creates a new instance with the given pubitem reference.
      * 
      * @param pubItemRef The reference of the pubitem.
      */
-    public PublishingException(PubItemRO pubItemRef)
+    public PublishingException(ItemRO pubItemRef)
     {
         super();
         this.pubItemRef = pubItemRef;
@@ -75,7 +75,7 @@ public class PublishingException extends PubManException
      * @param pubItemRef The reference of the pubitem.
      * @param cause The throwable which caused this exception.
      */
-    public PublishingException(PubItemRO pubItemRef, Throwable cause)
+    public PublishingException(ItemRO pubItemRef, Throwable cause)
     {
         super(cause);
         this.pubItemRef = pubItemRef;
@@ -86,7 +86,7 @@ public class PublishingException extends PubManException
      * 
      * @return the reference of the pubitem
      */
-    public PubItemRO getPubItemRef()
+    public ItemRO getPubItemRef()
     {
         return pubItemRef;
     }
@@ -96,7 +96,7 @@ public class PublishingException extends PubManException
      * 
      * @param pubItemRef the pubItemRef to set
      */
-    public void setPubItemRef(PubItemRO pubItemRef)
+    public void setPubItemRef(ItemRO pubItemRef)
     {
         this.pubItemRef = pubItemRef;
     }

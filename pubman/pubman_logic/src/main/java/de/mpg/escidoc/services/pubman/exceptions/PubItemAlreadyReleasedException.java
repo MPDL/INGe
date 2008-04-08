@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.exceptions;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 
 /**
@@ -46,7 +46,7 @@ public class PubItemAlreadyReleasedException extends PubManException
     /**
      * The reference of the pubitem that was already released.
      */
-    private PubItemRO pubItemRef;
+    private ItemRO pubItemRef;
 
     /**
      * Creates a new instance with the given pubItemRef and cause.
@@ -54,7 +54,7 @@ public class PubItemAlreadyReleasedException extends PubManException
      * @param pubItemRef The reference of the pubitem that was already released.
      * @param cause The throwable which caused this exception.
      */
-    public PubItemAlreadyReleasedException(PubItemRO pubItemRef, Throwable cause)
+    public PubItemAlreadyReleasedException(ItemRO pubItemRef, Throwable cause)
     {
         super(cause);
         this.pubItemRef = pubItemRef;
@@ -63,7 +63,7 @@ public class PubItemAlreadyReleasedException extends PubManException
     /**
      * @return The reference of the pubitem that was already released.
      */
-    public PubItemRO getPubItemRef()
+    public ItemRO getPubItemRef()
     {
         return pubItemRef;
     }
