@@ -41,7 +41,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.transform.Transformer;
@@ -51,8 +50,6 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
-import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -186,9 +183,15 @@ public class ItemValidatingBean implements ItemValidating
             ValidationSchemaNotFoundException,
             TechnicalException
     {
-
-        return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem(itemVO), "default"));
-
+    	if (itemVO instanceof PubItemVO)
+    	{
+    		return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem((PubItemVO)itemVO), "default"));
+    	}
+    	else
+    	{
+    		// TODO: Implementation for other content models.
+    		return null;
+    	}
     }
 
     /**
@@ -201,9 +204,16 @@ public class ItemValidatingBean implements ItemValidating
             TechnicalException
     {
 
-        return transformXmlToValidationReport(
-                validateItemXml(xmlTransforming.transformToItem(itemVO), validationPoint));
-
+    	if (itemVO instanceof PubItemVO)
+    	{
+	        return transformXmlToValidationReport(
+	                validateItemXml(xmlTransforming.transformToItem((PubItemVO)itemVO), validationPoint));
+    	}
+    	else
+    	{
+    		// TODO: Implementation for other content models.
+    		return null;
+    	}
     }
 
     /**

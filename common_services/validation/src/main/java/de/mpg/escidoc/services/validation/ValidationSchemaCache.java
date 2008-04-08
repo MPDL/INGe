@@ -681,7 +681,7 @@ public final class ValidationSchemaCache
     }
 
     /**
-     * Initialize Connection to postgres database.
+     * Initialize Connection to database.
      *
      * @throws TechnicalException Any exception.
      */
