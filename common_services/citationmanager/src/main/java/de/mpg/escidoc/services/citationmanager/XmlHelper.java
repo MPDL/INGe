@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.citationmanager;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -46,10 +47,14 @@ import javax.xml.validation.SchemaFactory;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import com.topologi.schematron.SchtrnParams;
@@ -314,5 +319,34 @@ public class XmlHelper {
     }
 
  
+
+	/* 
+	 * Returns list of Citation Styles 
+	 */
+	public static String[] getListOfStyles() throws CitationStyleManagerException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
+
+		Document doc = createDocumentBuilder().parse(
+				new InputSource(
+						ResourceUtil.getResourceAsStream(
+								ResourceUtil.getPathToSchemas() 
+								+ ResourceUtil.EXPLAIN_FILE
+						)
+				)
+		);
+		
+		Element root = doc.getDocumentElement( );
+		
+		NodeList identifierElements = root.getElementsByTagName("dc:identifier");
+		
+		String[] str = new String[ identifierElements.getLength( ) ];
+		
+		for (int i = 0; i < str.length; i++) 
+			str[i] = identifierElements.item(i).getTextContent();
+		
+		return str;
+		
+	}
+    
+    
 	
 }
