@@ -66,14 +66,12 @@
 }
 
 .addIcon{
-	class: nowrap;	
 	top:0px;	
 	background-image:url("../images/add_file.gif");
 	background-repeat:no-repeat;	
 }
 
 .removeIcon{
-	class: nowrap;
 	top:0px;	
 	background-image:url("../images/remove_file_22.gif");
 	background-repeat:no-repeat;	
@@ -100,7 +98,6 @@
 }
 
 .orientationHeader{
-	class: nowrap;	
 }
 
 .basicIcon{	
@@ -109,7 +106,6 @@
 }
 
 .editItemBlockHeaders{
-	class: nowrap;
 }
 
 .affiliationsIcon{	
