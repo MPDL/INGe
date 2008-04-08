@@ -101,11 +101,26 @@ public class ProcessSnippet {
 		
 		Element root = doc.getDocumentElement(  );
 		
-		NodeList itemElements = root.getElementsByTagName( 
-				getElementWithPrefix(XmlHelper.outputString(doc), ITEM_ELEMENT_NAME) 
-		);
-		
+		// doesn't work for different prefixes! 
+//		NodeList itemElements = root.getElementsByTagName( 
+//				getElementWithPrefix(XmlHelper.outputString(doc), ITEM_ELEMENT_NAME) 
+//		);
+		// works everywhere
+		//remove all text nodes
+		NodeList itemElements = root.getChildNodes(); 
 		int length = itemElements.getLength( ) ; 
+		int k = 0;
+		for ( int i = 0; i < length; i++ )
+		{
+			Node n = itemElements.item(k);
+			if ( n.getNodeType() == Node.TEXT_NODE )
+				root.removeChild(n);
+			else
+				k++;
+		}
+		
+		itemElements = root.getChildNodes(); 
+		length = itemElements.getLength( ) ; 
 		Node[] itemsArr = new Node[length];
 		
 		// clean up doc and populate items array
@@ -122,7 +137,6 @@ public class ProcessSnippet {
 			itemsArr[i] = root.removeChild(itemElements.item(0));
 		}
 
-		
 		// set up exporter
 		JRExporter exporter = new JRHtmlExporter( );
 		/* Switch off pagination and null pixel alignment for JRHtmlExporter */
@@ -159,10 +173,13 @@ public class ProcessSnippet {
 			root.removeChild(itemsArr[i]);
 			
 		}
+
 		
 		//append metadata with snippets in sb [] 
 		for ( int i = 0; i < length; i++ )
 		{
+			// logger.info("iteration:" + i + "; pea:" +  pea[i]);
+			
 			Element snippetElement = doc.createElement( SNIPPET_ELEMENT_NAME );
 			CDATASection snippetCDATASection = doc.createCDATASection(extractPureCitation(sb[i].toString()));
 			snippetElement.appendChild(snippetCDATASection);
@@ -205,11 +222,11 @@ public class ProcessSnippet {
 	    Matcher m = p.matcher(html);
 	    //omit first match, i.e. citation header
 	    m.find();
-	    return m.find() ? m.group(1) : html; 
+	    return (m.find() ? m.group(1) : html).replace("<br/> ", ""); 
 	}
 
 	/**
-	 * Get of NS prefix (dirty hack, TODO: make everything with correct NS)  
+	 * Get of NS prefix (dirty hack, TODO: replace with proper NS support)  
 	 * @param xml
 	 * @return
 	 */
