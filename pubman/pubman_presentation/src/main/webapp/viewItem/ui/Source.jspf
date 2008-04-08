@@ -160,39 +160,28 @@
 				<h:outputText value="#{source.identifiers}"/>
 				<h:outputText value="&#160;" rendered="#{source.identifiers == null || source.identifiers == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
-</div>			
-			
-			<!-- Edition -->
-<div class="itemElementLine floatbox">				
-			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblSourceEdition}"/>
-			<h:outputText value="</div>" escape="false"/>
-			
-			<h:outputText value="<div class='itemText odd'>" escape="false"/>
-				<h:outputText value="#{source.source.publishingInfo.edition}" rendered="#{source.source.publishingInfo != null}"/>
-				<h:outputText value="&#160;" rendered="#{source.source.publishingInfo == null || source.source.publishingInfo.edition == null || source.source.publishingInfo.edition == ''}" escape="false"/>
-			<h:outputText value="</div>" escape="false"/>
-</div>			
+</div>					
 			
 			<!-- Publishing Info -->
 <div class="itemElementLine floatbox">				
-			<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourcePubInfo}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
-			<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="<div class='itemText odd'>" escape="false"/>
 				<h:outputText value="#{source.publishingInfo}"/>
+				<h:outputText value=", #{source.source.publishingInfo.edition}" rendered="#{source.source.publishingInfo != null || source.source.publishingInfo.edition == null || source.source.publishingInfo.edition == ''}"/>
 				<h:outputText value="&#160;" rendered="#{source.publishingInfo == null || source.publishingInfo == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>			
 			
 			<!-- Start-/Endpage -->
 <div class="itemElementLine floatbox">				
-			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="<div class='itemTitle'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
-			<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:outputText value="<div class='itemText'>" escape="false"/>
 				<h:outputText value="#{source.startEndPage}"/>
 				<h:outputText value="&#160;" rendered="#{source.startEndPage == null || source.startEndPage == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>

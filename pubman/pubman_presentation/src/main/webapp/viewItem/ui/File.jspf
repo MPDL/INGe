@@ -43,23 +43,9 @@
 	<tr:iterator var="file" value="#{ViewItemFull.fileList}" binding="#{ViewItemFull.fileIterator}" varStatus="index">
 		<h:panelGroup rendered="#{ViewItemFull.showFiles}">
 			
-<div class="itemElementLine floatbox">				
-			<tr:iterator var="hit" value="#{file.searchHits}">
-				<h:outputText value="<div class='itemFullLine odd'>" escape="false"/>
-					<h:outputText value="<span class='item'>" escape="false"/>
-						<h:outputText value="<p>" escape="false"/>
-							<h:outputText value="<samp>" escape="false"/>
-								<h:outputText value="#{hit.beforeSearchHitString}"/>
-									<h:outputText value="<em>" escape="false"/>
-										<h:outputText value="#{hit.searchHitString}"/>
-									<h:outputText value="</em>" escape="false"/>
-								<h:outputText value="#{hit.afterSearchHitString}"/>
-							<h:outputText value="</samp>" escape="false"/>
-						<h:outputText value="</p>" escape="false"/>
-					<h:outputText value="</span>" escape="false"/>
-				<h:outputText value="</div>" escape="false"/>
-			</tr:iterator>
-</div>			
+	
+
+
 			<!-- Title -->
 <div class="itemElementLine floatbox">	
 			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
@@ -75,7 +61,10 @@
 					<h:outputText value="#{file.file.name}" rendered="#{file.itemWithdrawn == false}"/>
 				</h:commandLink>
 				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn} #{lbl.ViewItemFull_lblNoAccess}" rendered="#{file.itemWithdrawn == true}"/>
-			<h:outputText value="</div>" escape="false"/>
+				<h:outputText value=" #{lbl.ViewItemMedium_lblFileVisibility}: "/>
+					<h:outputText value="#{file.visibility}" rendered="#{file.itemWithdrawn == false}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{file.itemWithdrawn == true}"/>
+			<h:outputText value="</div>" escape="false"/>		
 </div>
 			
 			<!-- File Size / Mime Type -->
@@ -123,11 +112,33 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{file.itemWithdrawn == true}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
-			
+
+			<!-- Fulltext Search Result -->
+<div class="itemElementLine floatbox">				
+			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/>
+			<h:outputText value="</div>" escape="false"/>
+			<tr:iterator var="hit" value="#{file.searchHits}">
+				<h:outputText value="<div class='itemText odd'>" escape="false"/>
+					<h:outputText value="<span class='item'>" escape="false"/>
+						<h:outputText value="<p>" escape="false"/>
+							<h:outputText value="<samp>" escape="false"/>
+								<h:outputText value="#{hit.beforeSearchHitString}"/>
+									<h:outputText value="<em>" escape="false"/>
+										<h:outputText value="#{hit.searchHitString}"/>
+									<h:outputText value="</em>" escape="false"/>
+								<h:outputText value="#{hit.afterSearchHitString}"/>
+							<h:outputText value="</samp>" escape="false"/>
+						<h:outputText value="</p>" escape="false"/>
+					<h:outputText value="</span>" escape="false"/>
+				<h:outputText value="</div>" escape="false"/>
+			</tr:iterator>
+</div>	
+	
 		</h:panelGroup>
 		<br/>
 		<br/>
-	</tr:iterator>
+	</tr:iterator>		
 	
 	<!-- Show a 'no entries message' if no sources are available -->
 	<h:panelGroup  rendered="#{ViewItemFull.showFiles == false}">

@@ -79,6 +79,7 @@
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.publishingInfo}"/>
+			<h:outputText value=", #{ViewItemFull.pubItem.metadata.publishingInfo.edition}" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo != null || ViewItemFull.pubItem.metadata.publishingInfo.edition == ''}"/>
 			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.publishingInfo == null || ViewItemFull.publishingInfo == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>		
@@ -130,18 +131,6 @@
 			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.identifiers == null || ViewItemFull.identifiers == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>		
-		
-		<!-- Edition -->
-<div class="itemElementLine floatbox">	
-		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblEdition}"/>
-		<h:outputText value="</div>" escape="false"/>
-		
-		<h:outputText value="<div class='itemText odd'>" escape="false"/>
-			<h:outputText value="#{ViewItemFull.pubItem.metadata.publishingInfo.edition}" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo != null}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo == null || ViewItemFull.pubItem.metadata.publishingInfo.edition == ''}"/>
-		<h:outputText value="</div>" escape="false"/>
-</div>
 	
 	</h:panelGroup>
 	

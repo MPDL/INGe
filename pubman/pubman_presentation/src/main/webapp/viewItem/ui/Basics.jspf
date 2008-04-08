@@ -36,8 +36,9 @@
 	<h2>
 			<div class="icon basicIcon"></div>
 			<div class="viewItemHeader">
-				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderItem}"/>
-				<h:outputText value="#{ViewItemFull.genre}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblTitle}: "/>
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
+				<h:outputText value=" (#{ViewItemFull.genre})"/>
 			</div>
 	</h2>
 	
@@ -81,29 +82,17 @@
 		<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.pid == null || ViewItemFull.pubItem.pid == ''}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>	
-	
-	<!-- Title -->
-<div class="itemElementLine floatbox">
-	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblTitle}"/>
-		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.title.language != null && ViewItemFull.pubItem.metadata.title.language != ''}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
-	<h:outputText value="</div>" escape="false"/>
-</div>
 
 	<!-- Alternative Title(s) -->
 <div class="itemElementLine floatbox">
 	<tr:iterator var="altTitle" value="#{ViewItemFull.pubItem.metadata.alternativeTitles}" binding="#{ViewItemFull.titleIterator}" varStatus="index">
-		<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
-		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}"/>
 			<h:outputText value=" <#{altTitle.language}>" rendered="#{altTitle.language != null && altTitle.language != ''}"/>
 		<h:outputText value="</div>" escape="false"/>	
-		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
-		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
 			<h:outputText value="#{altTitle.value}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
