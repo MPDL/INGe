@@ -42,7 +42,7 @@
 			<ul>
 				<li>
 					<a href="/validation_presentation/rest/validateItemXml">validateItemXml (returns ValidationReportXml)</a>:
-					This service expects a POST request containing the item XML that should be validated.<br/>
+					This service operation expects a POST request containing the item XML that should be validated.<br/>
 					Optionally, a validation point can be passed as request parameter in the form<br/>
 					<code>?validation-point=&lt;validationPoint&gt;</code><br/>
 					It returns an XML validation report.
