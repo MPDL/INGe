@@ -56,6 +56,7 @@ import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 import de.fiz.escidoc.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
+import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -69,6 +70,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
 import de.mpg.escidoc.services.pubman.valueobjects.AnyFieldCriterionVO;
@@ -123,6 +125,14 @@ public class PubItemSearchingBean implements PubItemSearching
      */
     @EJB
     private XmlTransforming xmlTransforming;
+    
+    
+    /**
+     * A ItemExporting instance.
+     */
+    @EJB
+    private ItemExporting itemExporting;
+    
 
     /**
      * compiles the search query from the criterion list and executes the advanced search.
@@ -363,6 +373,37 @@ public class PubItemSearchingBean implements PubItemSearching
             return new ArrayList<PubItemResultVO>();
         }
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] searchAndOutput(String searchString, 
+    		String exportFormat, String outputFormat) throws ParseException,
+    		TechnicalException {
+
+    	List<PubItemResultVO> pubItemResultVOList = search(searchString, false);
+    	
+    	// cast List<PubItemResultVO> to List<PubItemVO>: element by element 
+    	List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();  
+    	for ( PubItemResultVO pubItemResultVO : pubItemResultVOList )
+    		pubItemVOList.add( (PubItemVO) pubItemResultVO );
+
+    	String itemList = xmlTransforming.transformToItemList(pubItemVOList);
+
+
+    	byte[] exportData = null;
+    	try{
+    		exportData = itemExporting.getOutput( exportFormat, outputFormat, itemList );
+    	}  
+    	catch (Exception e) 
+    	{
+    		throw new TechnicalException(e);
+    	}   
+
+    	return exportData;
+    }
+    
 
     /**
      * {@inheritDoc}
@@ -658,4 +699,5 @@ public class PubItemSearchingBean implements PubItemSearching
     {
         return cqlQuery;
     }
+
 }
