@@ -28,41 +28,39 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.referenceobjects;
+package test.valueobjects;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import test.TestBase;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
- * The class for PubFile references.
- * @revised by MuJ: 27.08.2007
- * @author Full Access
- * @version 1.0
- * @updated 04-Sep-2007 11:43:19
+ * For testing the methods in {@link AccountUserVO}.
+ *
+ * @author Johannes Mueller (initial creation)
+ * @author $Author: jmueller $ (last modification)
+ * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
+ *
  */
-public class PubFileRO extends ReferenceObject
+public class AccountUserVOTest extends TestBase
 {
-    /**
-     * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
-     * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
-     * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
-     * for the Application Server, once for the local test).
-     * 
-     * @author Johannes Mueller
-     */
-    private static final long serialVersionUID = 1L;
-    /**
-     * Creates a new instance.
-     */
-	public PubFileRO()
-    {
-        super();
-	}
 
     /**
-     * Creates a new instance with the given objectId.
-     * @param objectId The id of the object.
+     * @throws Exception 
      */
-    public PubFileRO(String objectId)
+	@Ignore
+    @Test
+    public void testIsModeratorFunction() throws Exception
     {
-        super(objectId);
+        String adminUserHandle = loginSystemAdministrator();
+        AccountUserVO admin = getAccountUser(adminUserHandle);
+        
+        assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
     }
+    
 }

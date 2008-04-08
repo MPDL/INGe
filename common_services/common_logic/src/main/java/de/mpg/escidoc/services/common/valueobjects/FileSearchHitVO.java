@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 
 /**
  * Representation of a search hit in a file.
@@ -43,7 +43,7 @@ public class FileSearchHitVO
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -54,12 +54,12 @@ public class FileSearchHitVO
     /**
      * Reference to the file.
      */
-    private PubFileRO fileReference;
+    private FileRO fileReference;
 
     /**
      * Delivers the reference to the file.
      */
-    public PubFileRO getFileReference()
+    public FileRO getFileReference()
     {
         return fileReference;
     }
@@ -69,7 +69,7 @@ public class FileSearchHitVO
      * 
      * @param newVal the reference to set.
      */
-    public void setFileReference(PubFileRO newVal)
+    public void setFileReference(FileRO newVal)
     {
         this.fileReference = newVal;
     }

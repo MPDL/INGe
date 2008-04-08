@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for PubItemVersionVO -->
 	<!-- Type: PubItemVersionVO... -->
-	<mapping name="version" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO"
+	<mapping name="version" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO"
 		>
 
 		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->

@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 
 /**
  * A file that is contained in an item.
@@ -39,11 +39,11 @@ import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
  * @version $Revision: 632 $ $LastChangedDate: 2007-11-21 12:45:14 +0100 (Wed, 21 Nov 2007) $ by $Author: pbroszei $
  * @updated 21-Nov-2007 12:05:47
  */
-public class PubFileVO extends ValueObject implements Cloneable
+public class FileVO extends ValueObject implements Cloneable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -70,7 +70,7 @@ public class PubFileVO extends ValueObject implements Cloneable
         PUBLIC, PRIVATE
     }
 
-    private PubFileRO reference;
+    private FileRO reference;
     /**
      * The name of the file including the extension.
      */
@@ -78,7 +78,7 @@ public class PubFileVO extends ValueObject implements Cloneable
     /**
      * The visibility of the file for users of the system.
      */
-    private PubFileVO.Visibility visibility;
+    private FileVO.Visibility visibility;
     /**
      * A short description of the file.
      */
@@ -102,7 +102,7 @@ public class PubFileVO extends ValueObject implements Cloneable
     /**
      * The content type of the file.
      */
-    private PubFileVO.ContentType contentType;
+    private FileVO.ContentType contentType;
     /**
 	 * The size of the file in Bytes.
 	 * Has to be zero if no content is given.
@@ -123,7 +123,7 @@ public class PubFileVO extends ValueObject implements Cloneable
      * 
      * @author Thomas Diebaecker
      */
-    public PubFileVO()
+    public FileVO()
     {
     }
 
@@ -133,7 +133,7 @@ public class PubFileVO extends ValueObject implements Cloneable
      * @author Thomas Diebaecker
      * @param other The instance to copy.
      */
-    public PubFileVO(PubFileVO other)
+    public FileVO(FileVO other)
     {
         this.setContent(other.getContent());
         this.setContentType(other.getContentType());                
@@ -158,7 +158,7 @@ public class PubFileVO extends ValueObject implements Cloneable
     @Override
     public Object clone()
     {
-        return new PubFileVO(this);
+        return new FileVO(this);
     }
 
     /**
@@ -177,7 +177,7 @@ public class PubFileVO extends ValueObject implements Cloneable
      * 
      * @see de.mpg.escidoc.services.common.referenceobjects.ReferenceObject
      */
-    public PubFileRO getReference()
+    public FileRO getReference()
     {
         return reference;
     }
@@ -188,7 +188,7 @@ public class PubFileVO extends ValueObject implements Cloneable
 	 * 
 	 * @param newVal
 	 */
-    public void setReference(PubFileRO newVal)
+    public void setReference(FileRO newVal)
     {
         reference = newVal;
     }
@@ -305,7 +305,7 @@ public class PubFileVO extends ValueObject implements Cloneable
     /**
      * Delivers the content type of the file.
      */
-    public PubFileVO.ContentType getContentType()
+    public FileVO.ContentType getContentType()
     {
         return contentType;
     }
@@ -315,7 +315,7 @@ public class PubFileVO extends ValueObject implements Cloneable
 	 * 
 	 * @param newVal
 	 */
-    public void setContentType(PubFileVO.ContentType newVal)
+    public void setContentType(FileVO.ContentType newVal)
     {
         contentType = newVal;
     }
@@ -323,7 +323,7 @@ public class PubFileVO extends ValueObject implements Cloneable
     /**
      * Delivers the visibility of the file.
      */
-    public PubFileVO.Visibility getVisibility()
+    public FileVO.Visibility getVisibility()
     {
         return visibility;
     }
@@ -333,7 +333,7 @@ public class PubFileVO extends ValueObject implements Cloneable
 	 * 
 	 * @param newVal
 	 */
-    public void setVisibility(PubFileVO.Visibility newVal)
+    public void setVisibility(FileVO.Visibility newVal)
     {
         visibility = newVal;
     }
@@ -419,7 +419,7 @@ public class PubFileVO extends ValueObject implements Cloneable
         }
         else
         {
-            PubFileVO.ContentType newVal = PubFileVO.ContentType.valueOf(newValString);
+            FileVO.ContentType newVal = FileVO.ContentType.valueOf(newValString);
             contentType = newVal;
         }
     }
@@ -449,7 +449,7 @@ public class PubFileVO extends ValueObject implements Cloneable
         }
         else
         {
-            PubFileVO.Visibility newVal = PubFileVO.Visibility.valueOf(newValString);
+            FileVO.Visibility newVal = FileVO.Visibility.valueOf(newValString);
             visibility = newVal;
         }
     }

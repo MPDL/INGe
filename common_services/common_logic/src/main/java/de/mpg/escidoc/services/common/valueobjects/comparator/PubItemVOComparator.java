@@ -30,11 +30,11 @@
 
 package de.mpg.escidoc.services.common.valueobjects.comparator;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.ReviewMethod;
@@ -421,7 +421,7 @@ public class PubItemVOComparator implements Comparator<PubItemVO>
     /**
      * Retrieves the creator name of an item. Helper method for compareCreator.
      *
-     * @param pubItem The PubItemVO.
+     * @param pubItem The ItemVO.
      * @return The name of the first creator.
      */
     private String getCreatorName(PubItemVO pubItem)

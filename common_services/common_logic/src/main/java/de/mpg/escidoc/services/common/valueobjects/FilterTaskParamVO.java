@@ -33,9 +33,10 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Valueobject representing a filter taskParam.
@@ -49,7 +50,7 @@ public class FilterTaskParamVO extends ValueObject
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -109,26 +110,26 @@ public class FilterTaskParamVO extends ValueObject
     }
 
     /**
-     * Class to filter by PubItem references. As long as no common content item refs are defined we use the PubItemRO.
+     * Class to filter by item references. As long as no common content item refs are defined we use the ItemRO.
      */
-    public class PubItemRefFilter implements Filter
+    public class ItemRefFilter implements Filter
     {
         /**
          * List of ids.
          */
-        private List<PubItemRO> idList = new ArrayList<PubItemRO>();
+        private List<ItemRO> idList = new ArrayList<ItemRO>();
 
         /**
          * Creates a new instance.
          */
-        public PubItemRefFilter()
+        public ItemRefFilter()
         {
         }
 
         /**
          * Creates a new instance with a given list.
          */
-        public PubItemRefFilter(List<PubItemRO> list)
+        public ItemRefFilter(List<ItemRO> list)
         {
         	this.idList = list;
         }
@@ -136,7 +137,7 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * @return the idList
          */
-        public List<PubItemRO> getIdList()
+        public List<ItemRO> getIdList()
         {
             return idList;
         }
@@ -150,7 +151,7 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * The PubCollection state.
          */
-        private PubCollectionVO.State state;
+        private ContextVO.State state;
 
         /**
          * Creates a new instance with the given state. As long as no common content item states are defined we use the
@@ -158,7 +159,7 @@ public class FilterTaskParamVO extends ValueObject
          * 
          * @param state The state to filter for.
          */
-        public PubCollectionStatusFilter(PubCollectionVO.State state)
+        public PubCollectionStatusFilter(ContextVO.State state)
         {
             this.state = state;
         }
@@ -166,7 +167,7 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * @return the state
          */
-        public PubCollectionVO.State getState()
+        public ContextVO.State getState()
         {
             return state;
         }
@@ -174,29 +175,29 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * @param state the state to set
          */
-        public void setState(PubCollectionVO.State state)
+        public void setState(ContextVO.State state)
         {
             this.state = state;
         }
     }
 
     /**
-     * Class to filter by PubItem status.
+     * Class to filter by item status.
      */
-    public class PubItemStatusFilter implements Filter
+    public class ItemStatusFilter implements Filter
     {
         /**
          * The item state.
          */
-        private PubItemVO.State state;
+        private ItemVO.State state;
 
         /**
          * Creates a new instance with the given state. As long as no common content item states are defined we use the
-         * PubItemVO state.
+         * ItemVO state.
          * 
          * @param state The state to filter for.
          */
-        public PubItemStatusFilter(PubItemVO.State state)
+        public ItemStatusFilter(ItemVO.State state)
         {
             this.state = state;
         }
@@ -204,7 +205,7 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * @return the state
          */
-        public PubItemVO.State getState()
+        public ItemVO.State getState()
         {
             return state;
         }
@@ -212,7 +213,7 @@ public class FilterTaskParamVO extends ValueObject
         /**
          * @param state the state to set
          */
-        public void setState(PubItemVO.State state)
+        public void setState(ItemVO.State state)
         {
             this.state = state;
         }

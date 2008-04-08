@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START
+	
+	The contents of this file are subject to the terms of the
+	Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance
+	with the License.
+	
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE
+	or http://www.escidoc.de/license.
+	See the License for the specific language governing permissions
+	and limitations under the License.
+	
+	When distributing Covered Code, include this CDDL HEADER in each
+	file and include the License file at license/ESCIDOC.LICENSE.
+	If applicable, add the following below this CDDL HEADER, with the
+	fields enclosed by brackets "[]" replaced with your own identifying
+	information: Portions Copyright [yyyy] [name of copyright owner]
+	
+	CDDL HEADER END
+	
+	
+	Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+	für wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V.
+	All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for ContextVO -->
+	<!-- Type: ContextVO... -->
+	<mapping abstract="true" ns="http://www.escidoc.de/schemas/context/0.3" class="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false"
+		flexible="true" allow-repeats="true">
+
+		<!-- Node: context.@objid -->
+		<!-- Field: ContextVO.reference [ContextRO] -->
+		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+
+		<!-- Node: context.properties -->
+		<structure name="properties" ns="http://www.escidoc.de/schemas/context/0.3" ordered="false" flexible="true" usage="optional">
+
+			<!-- Node: context.properties.created-by.@objid -->
+			<!-- Field: ContextVO.creator [AccountUserRO] -->
+			<structure name="created-by" ns="http://www.escidoc.de/schemas/context/0.3" field="creator"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
+
+			<!-- Node: context.properties.public-status -->
+			<!-- Field: ContextVO.state [ContextVO.State] -->
+			<value style="element" name="public-status" ns="http://www.escidoc.de/schemas/context/0.3" field="state"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubCollectionStateEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+			<!-- Node: context.properties.name -->
+			<!-- Field: ContextVO.name [String] -->
+			<value style="element" name="name" ns="http://www.escidoc.de/schemas/context/0.3" field="name" usage="optional" />
+
+			<!-- Node: context.properties.description -->
+			<!-- Field: ContextVO.description [String] -->
+			<value style="element" name="description" ns="http://www.escidoc.de/schemas/context/0.3" field="description" usage="optional" />
+
+			<!-- Node: context.properties.organizational-units -->
+			<!-- Field: ContextVO.responsibleAffiliations [List<AffiliationRO>] -->
+			<collection name="organizational-units" ns="http://www.escidoc.de/schemas/context/0.3" field="responsibleAffiliations"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">
+
+				<!-- Node: context.properties.organizational-unit -->
+				<!-- Field: ContextVO.responsibleAffiliations[X] [AffiliationRO] -->
+				<structure name="organizational-unit" ns="http://www.escidoc.de/schemas/context/0.3"
+					type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
+
+					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+
+				</structure>
+
+			</collection>
+
+		</structure>
+
+		<!-- Node: context.admin-descriptor -->
+		<structure name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" ordered="false" flexible="true" usage="optional">
+
+			<!-- Node: context.admin-descriptor.properties -->
+			<!-- IGNORED -->
+			<structure name="properties" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
+
+			<!-- Node: context.admin-descriptor.allowed-content-types(*) -->
+			<structure name="allowed-content-types" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
+
+				<!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type -->
+				<!-- ASSUMPTION: There is exactly ONE allowed-content-type delivered, cf. -->
+				<!-- http://zim01.gwdg.de:8080/browse/AS-221 -->
+				<structure name="allowed-content-type" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
+
+                    <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-md-schema -->
+                    <!-- IGNORED -->
+                    <structure name="allowed-md-schema" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
+
+                    <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-genres -->
+                    <!-- Field: PubCollectionVO.allowedGenres [List<MdsPublicationVO.Genre>] -->
+                    <structure name="allowed-genres" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
+                    
+                        <collection field="allowedGenres" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.genreListFactory" usage="optional">
+
+                            <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-genres.allowed-genre -->
+                            <value style="element" name="allowed-genre" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" type="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO$Genre"
+                                deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum" serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+                                usage="optional" />
+
+                        </collection>
+					</structure>
+
+				</structure>
+			</structure>
+
+			<!-- Node: context.admin-descriptor.submission-methods -->
+			<!-- Field: ContextVO.allowedSubmissionMethods [List<ContextVO.SubmissionMethod>] -->
+			<collection name="submission-methods" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="allowedSubmissionMethods"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.submissionMethodListFactory" usage="optional">
+
+				<!-- Node: context.admin-descriptor.submission-methods.method -->
+				<value style="element" name="method" ns="http://www.escidoc.de/schemas/admindescriptor/0.3"
+					type="de.mpg.escidoc.services.common.valueobjects.ContextVO$SubmissionMethod"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeSubmissionMethodEnum"
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+			</collection>
+
+			<!-- Node: context.admin-descriptor.component-visibility -->
+			<!-- Field: ContextVO.defaultFileVisibility [PubFileVO.Visibility] -->
+			<value style="element" name="component-visibility" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="defaultFileVisibility"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeFileVisibilityEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+			<!-- Node: context.admin-descriptor.visibility-of-references -->
+			<!-- IGNORED -->
+			<structure name="visibility-of-references" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
+
+			<!-- Node: context.admin-descriptor.visibility-of-annotations -->
+			<!-- IGNORED -->
+			<structure name="visibility-of-annotations" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
+
+		</structure>
+
+	</mapping>
+
+</binding>

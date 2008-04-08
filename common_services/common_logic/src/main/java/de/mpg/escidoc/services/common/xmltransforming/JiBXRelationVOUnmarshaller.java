@@ -39,7 +39,7 @@ import org.jibx.runtime.IUnmarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.jibx.runtime.impl.UnmarshallingContext;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
@@ -134,7 +134,7 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable
                 String subject = ctx.attributeText(RDF_NAMESPACE, RDF_SUBJECT_ATTRIBUTE_NAME);
                 int lastSlashPosition = subject.lastIndexOf('/');
                 String subjectObjectId = subject.substring(lastSlashPosition + 1);
-                PubItemRO subjectRef = new PubItemRO(subjectObjectId);
+                ItemRO subjectRef = new ItemRO(subjectObjectId);
                 ctx.parsePastStartTag(RDF_NAMESPACE, RDF_DESCRIPTION_ELEMENT_NAME);
 
                 // process all predicate-object pairs in the Description.
@@ -148,7 +148,7 @@ public class JiBXRelationVOUnmarshaller implements IUnmarshaller, IAliasable
                         String predicate = ctx.attributeText(RDF_NAMESPACE, RDF_PREDICATE_ATTRIBUTE_NAME);
                         lastSlashPosition = predicate.lastIndexOf('/');
                         String predicateObjectId = subject.substring(lastSlashPosition + 1);
-                        PubItemRO predicateRef = new PubItemRO(predicateObjectId);
+                        ItemRO predicateRef = new ItemRO(predicateObjectId);
                         // add new RelationVO
                         RelationVO relation = new RelationVO();
                         relation.setSourceItemRef(subjectRef);

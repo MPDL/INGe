@@ -35,17 +35,18 @@ import org.jibx.runtime.IMarshaller;
 import org.jibx.runtime.IMarshallingContext;
 import org.jibx.runtime.JiBXException;
 import org.jibx.runtime.impl.MarshallingContext;
+
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubItemRefFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubItemStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.TopLevelAffiliationFilter;
 
@@ -144,7 +145,7 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "created-by");
                 }
-                else if (filter instanceof PubItemRefFilter)
+                else if (filter instanceof ItemRefFilter)
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "items");
                 }
@@ -160,7 +161,7 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "public-status");
                 }
-                else if (filter instanceof PubItemStatusFilter)
+                else if (filter instanceof ItemStatusFilter)
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "latest-version-status");
                 }
@@ -185,15 +186,15 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     }
 
                 }
-                else if (filter instanceof PubItemRefFilter)
+                else if (filter instanceof ItemRefFilter)
                 {
-                    PubItemRefFilter pubItemRefFilter = (PubItemRefFilter)filter;
+                    ItemRefFilter itemRefFilter = (ItemRefFilter)filter;
 
                     // loop through all entries in the id list
-                    for (PubItemRO pubItemRO : pubItemRefFilter.getIdList())
+                    for (ItemRO itemRO : itemRefFilter.getIdList())
                     {
                         ctx.startTag(m_index, ID_ELEMENT_NAME).closeStartContent();
-                        ctx.content(pubItemRO.getObjectId());
+                        ctx.content(itemRO.getObjectId());
                         ctx.endTag(m_index, ID_ELEMENT_NAME);
                     }
 
@@ -213,10 +214,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     PubCollectionStatusFilter pubCollectionStatusFilter = (PubCollectionStatusFilter)filter;
                     ctx.content(pubCollectionStatusFilter.getState().toString().replace('_', '-').toLowerCase());
                 }
-                else if (filter instanceof PubItemStatusFilter)
+                else if (filter instanceof ItemStatusFilter)
                 {
-                    PubItemStatusFilter pubItemStatusFilter = (PubItemStatusFilter)filter;
-                    ctx.content(pubItemStatusFilter.getState().toString().replace('_', '-').toLowerCase());
+                    ItemStatusFilter itemStatusFilter = (ItemStatusFilter)filter;
+                    ctx.content(itemStatusFilter.getState().toString().replace('_', '-').toLowerCase());
                 }
                 else if (filter instanceof FrameworkItemTypeFilter)
                 {

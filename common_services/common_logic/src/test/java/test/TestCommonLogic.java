@@ -28,46 +28,29 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.xmltransforming.wrappers;
+package test;
 
-import java.io.Serializable;
-import java.util.List;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import test.referenceobjects.ReferenceObjectTest;
+import test.valueobjects.ValueObjectTest;
+import test.valueobjects.comparator.ComparatorTest;
+import test.xmltransforming.XmlTransformingTest;
 
 /**
- * This class is used by the XML transforming classes to wrap a list of PubItemVersionVOs.
- * The reason for this is that JiBX cannot bind directly to ArrayLists.
+ * Component test suite for common_logic.
  *
- * @author Johannes Mueller (initial creation)
+ * @author Peter Broszeit (initial creation)
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 13.08.2007
+ * @revised by MuJ: 06.09.2007
  */
-public class PubItemVersionVOListWrapper implements Serializable
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ReferenceObjectTest.class
+                    ,ValueObjectTest.class                                        
+                    ,ComparatorTest.class
+                    ,XmlTransformingTest.class
+                    })
+public class TestCommonLogic
 {
-    /**
-     * The wrapped list of PubItemVersionVOs.
-     */
-    private List<PubItemVersionVO> pubItemVersionVOList;
-
-    /**
-     * Unwraps the list of PubItemVersionVOs.
-     * 
-     * @return The list of PubItemVersionVOs
-     */
-    public List<PubItemVersionVO> getPubItemVersionVOList()
-    {
-        return pubItemVersionVOList;
-    }
-
-    /**
-     * Wraps a list of PubItemVersionVOs.
-     * 
-     * @param pubItemVOList The list of PubItemVersionVOs to wrap
-     */
-    public void setPubItemVersionVOList(List<PubItemVersionVO> pubItemVOList)
-    {
-        this.pubItemVersionVOList = pubItemVOList;
-    }
-
 }

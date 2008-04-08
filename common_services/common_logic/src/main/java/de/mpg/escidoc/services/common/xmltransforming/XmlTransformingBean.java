@@ -63,19 +63,20 @@ import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
@@ -83,11 +84,11 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingExce
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubCollectionVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubContextVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubItemVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubItemVersionVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -420,10 +421,10 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public String transformToItem(PubItemVO pubItemVO) throws TechnicalException
+    public String transformToItem(PubItemVO itemVO) throws TechnicalException
     {
         logger.debug("transformToItem(PubItemVO)");
-        if (pubItemVO == null)
+        if (itemVO == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItem:pubItemVO is null");
         }
@@ -436,14 +437,14 @@ public class XmlTransformingBean implements XmlTransforming
             mctx.setIndent(2);
             StringWriter sw = new StringWriter();
             mctx.setOutput(sw);
-            mctx.marshalDocument(pubItemVO, "UTF-8", null, sw);
+            mctx.marshalDocument(itemVO, "UTF-8", null, sw);
             // use the following call to omit the leading "<?xml" tag of the generated XML
             // mctx.marshalDocument(pubItemVO);
             utf8item = sw.toString().trim();
         }
         catch (JiBXException e)
         {
-            throw new MarshallingException(pubItemVO.getClass().getSimpleName(), e);
+            throw new MarshallingException(itemVO.getClass().getSimpleName(), e);
         }
         catch (ClassCastException e)
         {
@@ -451,7 +452,7 @@ public class XmlTransformingBean implements XmlTransforming
         }
         if (logger.isDebugEnabled())
         {
-            logger.debug("transformToItem(PubItemVO) - result: String utf8item=" + utf8item);
+            logger.debug("transformToItem(ItemVO) - result: String utf8item=" + utf8item);
         }
         return utf8item;
     }
@@ -459,21 +460,21 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public PubCollectionVO transformToPubCollection(String context) throws TechnicalException
+    public PubContextVO transformToPubContext(String context) throws TechnicalException
     {
         logger.debug("transformToPubCollection(String) - String context=" + context);
         if (context == null)
         {
-            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubCollection:context is null");
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubContext:context is null");
         }
-        PubCollectionVO pubCollectionVO = null;
+        PubContextVO contextVO = null;
         try
         {
-            // unmarshal PubCollectionVO from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubCollectionVO.class);
+            // unmarshal ContextVO from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubContextVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(context);
-            pubCollectionVO = (PubCollectionVO)uctx.unmarshalDocument(sr, null);
+            contextVO = (PubContextVO)uctx.unmarshalDocument(sr, null);
         }
         catch (JiBXException e)
         {
@@ -483,29 +484,29 @@ public class XmlTransformingBean implements XmlTransforming
         }
         catch (ClassCastException e)
         {
-            throw new TechnicalException(e);
+            throw new TechnicalException(context, e);
         }
-        return pubCollectionVO;
+        return contextVO;
     }
 
     /**
      * {@inheritDoc}
      */
-    public List<PubCollectionVO> transformToPubCollectionList(String contextList) throws TechnicalException
+    public List<PubContextVO> transformToPubContextList(String contextList) throws TechnicalException
     {
         logger.debug("transformToPubCollectionList(String) - String contextList=" + contextList);
         if (contextList == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubCollectionList:contextList is null");
         }
-        PubCollectionVOListWrapper pubCollectionVOListWrapper = null;
+        PubContextVOListWrapper pubContextVOListWrapper = null;
         try
         {
-            // unmarshal PubCollectionVOListWrapper from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubItemVOListWrapper.class);
+            // unmarshal PubContextVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubContextVOListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(contextList);
-            pubCollectionVOListWrapper = (PubCollectionVOListWrapper)uctx.unmarshalDocument(sr, null);
+            pubContextVOListWrapper = (PubContextVOListWrapper)uctx.unmarshalDocument(sr, null);
         }
         catch (JiBXException e)
         {
@@ -517,9 +518,9 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<PubCollectionVO>
-        List<PubCollectionVO> pubCollectionList = pubCollectionVOListWrapper.getPubCollectionVOList();
-        return pubCollectionList;
+        // unwrap the List<PubContextVO>
+        List<PubContextVO> pubContextList = pubContextVOListWrapper.getPubContextVOList();
+        return pubContextList;
     }
 
     /**
@@ -535,7 +536,7 @@ public class XmlTransformingBean implements XmlTransforming
         PubItemVO pubItemVO = null;
         try
         {
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubItemVO.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(item);
             pubItemVO = (PubItemVO)uctx.unmarshalDocument(sr, null);
@@ -583,7 +584,7 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<PubItemVO>
+        // unwrap the List<ItemVO>
         List<PubItemVO> pubItemList = pubItemVOListWrapper.getPubItemVOList();
 
         return pubItemList;
@@ -626,7 +627,7 @@ public class XmlTransformingBean implements XmlTransforming
      */
     public String transformToItemList(List<PubItemVO> pubItemVOList) throws TechnicalException
     {
-        logger.debug("transformToItemList(List<PubItemVO>)");
+        logger.debug("transformToItemList(List<ItemVO>)");
         if (pubItemVOList == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItemList:pubItemVOList is null");
@@ -657,7 +658,7 @@ public class XmlTransformingBean implements XmlTransforming
         }
         if (logger.isDebugEnabled())
         {
-            logger.debug("transformToItemList(List<PubItemVO>) - result: String utf8itemList=\n" + utf8itemList);
+            logger.debug("transformToItemList(List<ItemVO>) - result: String utf8itemList=\n" + utf8itemList);
         }
         return utf8itemList;
     }
@@ -793,21 +794,21 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public List<PubItemVersionVO> transformToPubItemVersionVOList(String versionList) throws TechnicalException
+    public List<EventLogEntryVO> transformToEventVOList(String versionList) throws TechnicalException
     {
         logger.debug("transformToPubItemVersionVOList(String) - String versionList=\n" + versionList);
         if (versionList == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemVersionVOList:versionList is null");
         }
-        PubItemVersionVOListWrapper pubItemVersionVOListWrapper = null;
+        EventVOListWrapper eventVOListWrapper = null;
         try
         {
-            // unmarshal PubItemVersionVOListWrapper from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubItemVersionVOListWrapper.class);
+            // unmarshal EventVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", EventVOListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(versionList);
-            pubItemVersionVOListWrapper = (PubItemVersionVOListWrapper)uctx.unmarshalDocument(sr, null);
+            eventVOListWrapper = (EventVOListWrapper)uctx.unmarshalDocument(sr, null);
         }
         catch (JiBXException e)
         {
@@ -819,9 +820,9 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<PubItemVersionVO>
-        List<PubItemVersionVO> pubItemVersionList = pubItemVersionVOListWrapper.getPubItemVersionVOList();
-        return pubItemVersionList;
+        // unwrap the List<EventLogEntryVO>
+        List<EventLogEntryVO> eventList = eventVOListWrapper.getEventVOList();
+        return eventList;
     }
     
     /**
@@ -891,7 +892,7 @@ public class XmlTransformingBean implements XmlTransforming
                 logger.debug("descriptionXpath: " + descriptionXpath);
                 String subject = getAttributeValue(relationsDoc, descriptionXpath, "rdf:about");
                 String subjectObjectId = subject.substring(subject.lastIndexOf('/') + 1);
-                PubItemRO subjectRef = new PubItemRO(subjectObjectId);
+                ItemRO subjectRef = new ItemRO(subjectObjectId);
 
                 NodeList subjectRelations = selectNodeList(relationsDoc, "//*[local-name() = 'Description' and namespace-uri() = 'http://www.w3.org/1999/02/22-rdf-syntax-ns#'][" + i + "]/*");
                 for (int j = 1; j <= subjectRelations.getLength(); j++)
@@ -903,7 +904,7 @@ public class XmlTransformingBean implements XmlTransforming
                     {
                         String predicate = relation.getAttributes().getNamedItem("rdf:resource").getTextContent();
                         String predicateObjectId = predicate.substring(predicate.lastIndexOf('/') + 1);
-                        PubItemRO predicateRef = new PubItemRO(predicateObjectId);
+                        ItemRO predicateRef = new ItemRO(predicateObjectId);
 
                         // add relation to list
                         logger.debug(subjectObjectId + " isRevisionOf " + predicateObjectId);

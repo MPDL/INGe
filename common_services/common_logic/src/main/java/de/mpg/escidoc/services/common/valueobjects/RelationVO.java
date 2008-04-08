@@ -29,7 +29,7 @@
 */
 
 package de.mpg.escidoc.services.common.valueobjects;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Represents the content relation between two items.
@@ -57,11 +57,11 @@ public class RelationVO extends ValueObject
 	/**
 	 * The item ref of the item that is the source/start of the relation.
 	 */
-	private PubItemRO sourceItemRef;
+	private ItemRO sourceItemRef;
 	/**
 	 * Describes the reference of the target item.
 	 */
-	private PubItemRO targetItemRef;
+	private ItemRO targetItemRef;
 
 	/**
 	 * Default constructor.
@@ -94,14 +94,14 @@ public class RelationVO extends ValueObject
 	/**
 	 * the item ref of the item that is the source/start of the relation 
 	 */
-	public PubItemRO getSourceItemRef(){
+	public ItemRO getSourceItemRef(){
 		return sourceItemRef;
 	}
 
 	/**
 	 * Describes the reference of the target item.
 	 */
-	public PubItemRO getTargetItemRef(){
+	public ItemRO getTargetItemRef(){
 		return targetItemRef;
 	}
 
@@ -110,7 +110,7 @@ public class RelationVO extends ValueObject
 	 * 
 	 * @param newVal
 	 */
-	public void setSourceItemRef(PubItemRO newVal){
+	public void setSourceItemRef(ItemRO newVal){
 		sourceItemRef = newVal;
 	}
 
@@ -119,7 +119,7 @@ public class RelationVO extends ValueObject
 	 * 
 	 * @param newVal
 	 */
-	public void setTargetItemRef(PubItemRO newVal){
+	public void setTargetItemRef(ItemRO newVal){
 		targetItemRef = newVal;
 	}
 

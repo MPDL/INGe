@@ -45,12 +45,12 @@ public class ContextFilterParamVO extends FilterParamVO
     /**
      * The context state to filter for.
      */
-    private PubCollectionVO.State state;
+    private ContextVO.State state;
 
     /**
      * @return The context state to filter for.
      */
-    public PubCollectionVO.State getState()
+    public ContextVO.State getState()
     {
         return state;
     }
@@ -60,7 +60,7 @@ public class ContextFilterParamVO extends FilterParamVO
      * 
      * @param newVal
      */
-    public void setState(PubCollectionVO.State newVal)
+    public void setState(ContextVO.State newVal)
     {
         state = newVal;
     }

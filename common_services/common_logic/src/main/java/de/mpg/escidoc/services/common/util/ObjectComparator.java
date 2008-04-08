@@ -38,6 +38,8 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * Compares two objects and creates a list of differences.
  * 
@@ -272,6 +274,7 @@ public class ObjectComparator
     {
         for (Field field : theClass.getDeclaredFields())
         {
+        	
             field.setAccessible(true);
             Object fieldValue1 = field.get(o1);
             Object fieldValue2 = field.get(o2);

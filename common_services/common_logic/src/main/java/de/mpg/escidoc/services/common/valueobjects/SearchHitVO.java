@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 
 /**
  * Representation of a search hit.
@@ -42,7 +42,7 @@ public class SearchHitVO extends ValueObject
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -67,10 +67,10 @@ public class SearchHitVO extends ValueObject
     private java.util.List<TextFragmentVO> textFragmentList = new java.util.ArrayList<TextFragmentVO>();
     private SearchHitType type;
     /**
-     * This PubFileRO points to the File containing the search hit. When the search hit is of type metadata, this
+     * This FileRO points to the File containing the search hit. When the search hit is of type metadata, this
      * property should not be set.
      */
-    private PubFileRO hitReference;
+    private FileRO hitReference;
 
     /**
      * Delivers the list of text fragments belonging to this search hit.
@@ -102,7 +102,7 @@ public class SearchHitVO extends ValueObject
      * Delivers the reference to the file containing the search hit. When the search hit is of type metadata, this
      * property should not be set.
      */
-    public PubFileRO getHitReference()
+    public FileRO getHitReference()
     {
         return hitReference;
     }
@@ -113,7 +113,7 @@ public class SearchHitVO extends ValueObject
      * 
      * @param newVal
      */
-    public void setHitReference(PubFileRO newVal)
+    public void setHitReference(FileRO newVal)
     {
         hitReference = newVal;
     }

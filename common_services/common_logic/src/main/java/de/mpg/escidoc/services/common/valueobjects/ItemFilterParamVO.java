@@ -53,7 +53,7 @@ public class ItemFilterParamVO extends FilterParamVO
     /**
      * The item state to filter for.
      */
-    private PubItemVO.State state;
+    private ItemVO.State state;
 
     /**
      * @return Object ids of creators as filter criteria.
@@ -74,7 +74,7 @@ public class ItemFilterParamVO extends FilterParamVO
     /**
      * @return The item state to filter for.
      */
-    public PubItemVO.State getState()
+    public ItemVO.State getState()
     {
         return state;
     }
@@ -82,7 +82,7 @@ public class ItemFilterParamVO extends FilterParamVO
     /**
      * @param newVal The item state to filter for.
      */
-    public void setState(PubItemVO.State newVal)
+    public void setState(ItemVO.State newVal)
     {
         state = newVal;
     }

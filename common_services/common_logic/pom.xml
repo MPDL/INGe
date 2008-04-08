@@ -30,8 +30,8 @@
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>${jdk.version}</source>
-					<target>${jdk.version}</target>
+					<source>1.5</source>
+					<target>1.5</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -96,7 +96,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.1</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>

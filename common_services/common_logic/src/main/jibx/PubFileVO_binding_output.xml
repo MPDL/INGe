@@ -30,11 +30,11 @@
 <binding>
 	<!-- concrete mapping for PubFileVO -->
 	<mapping name="component" ns="http://www.escidoc.de/schemas/components/0.3"
-		class="de.mpg.escidoc.services.common.valueobjects.PubFileVO">
+		class="de.mpg.escidoc.services.common.valueobjects.FileVO">
 
 		<!-- Node: component.@objid -->
 		<!-- Field: PubFileVO.reference [PubItemRO] -->
-		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.PubFileRO"
+		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.FileRO"
 			usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>

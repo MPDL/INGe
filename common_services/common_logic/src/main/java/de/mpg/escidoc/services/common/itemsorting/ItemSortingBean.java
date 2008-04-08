@@ -31,17 +31,20 @@
 package de.mpg.escidoc.services.common.itemsorting;
 
 import java.util.Collections;
+
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
+
 import de.mpg.escidoc.services.common.ItemSorting;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.comparator.EventLogEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVersionVOComparator;
 
 /**
 * This class provides the ejb implementation of the {@link ItemSorting} interface.
@@ -98,7 +101,7 @@ public class ItemSortingBean implements ItemSorting
       * 
       * @author Johannes Mueller
       */
-      public java.util.List<PubItemVersionVO> sortItemVersionList(java.util.List<PubItemVersionVO> itemList, PubItemVersionVOComparator.Criteria criterium, PubItemVersionVOComparator.Order sortOrder)
+      public java.util.List<EventLogEntryVO> sortItemVersionList(java.util.List<EventLogEntryVO> itemList, EventLogEntryVOComparator.Criteria criterium, EventLogEntryVOComparator.Order sortOrder)
       {
          if (logger.isDebugEnabled())
          {
@@ -111,16 +114,16 @@ public class ItemSortingBean implements ItemSorting
          }
      
          // instanciate the comparator with the sorting criteria
-         PubItemVersionVOComparator pubItemVersionVOComparator = new PubItemVersionVOComparator(criterium);
+         EventLogEntryVOComparator eventLogEntryVOComparator = new EventLogEntryVOComparator(criterium);
          
          // sort ascending or descending
-         if (sortOrder.equals(PubItemVersionVOComparator.Order.ASCENDING))
+         if (sortOrder.equals(EventLogEntryVOComparator.Order.ASCENDING))
          {
-             Collections.sort(itemList, pubItemVersionVOComparator);
+             Collections.sort(itemList, eventLogEntryVOComparator);
          }
-         else if (sortOrder.equals((PubItemVersionVOComparator.Order.DESCENDING)))
+         else if (sortOrder.equals((EventLogEntryVOComparator.Order.DESCENDING)))
          {
-             Collections.sort(itemList, Collections.reverseOrder(pubItemVersionVOComparator));
+             Collections.sort(itemList, Collections.reverseOrder(eventLogEntryVOComparator));
          }
          return itemList;       
      }

@@ -35,14 +35,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.ejb.EJB;
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
+
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidTripleStoreOutputFormatException;
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidTripleStoreQueryException;
 import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
@@ -57,7 +60,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
@@ -99,16 +102,16 @@ public class DataGatheringBean implements DataGathering
 
 
     /* (non-Javadoc)
-     * @see de.mpg.escidoc.services.common.DataGathering#findRevisionsOfItem(de.mpg.escidoc.services.common.referenceobjects.PubItemRO)
+     * @see de.mpg.escidoc.services.common.DataGathering#findRevisionsOfItem(de.mpg.escidoc.services.common.referenceobjects.ItemRO)
      */
-    public List<RelationVO> findRevisionsOfItem(String userHandle, PubItemRO pubItemRef) throws TechnicalException
+    public List<RelationVO> findRevisionsOfItem(String userHandle, ItemRO itemRef) throws TechnicalException
     {
-        if (pubItemRef == null)
+        if (itemRef == null)
         {
-            throw new IllegalArgumentException(getClass().getSimpleName() + ".findRevisionsOfItem:pubItemRef is null");
+            throw new IllegalArgumentException(getClass().getSimpleName() + ".findRevisionsOfItem:itemRef is null");
         }
         String param = "<param>"
-            + "<query>* " + PREDICATE_ISREVISIONOF + " &lt;info:fedora/" + pubItemRef.getObjectId() + "&gt;</query>"
+            + "<query>* " + PREDICATE_ISREVISIONOF + " &lt;info:fedora/" + itemRef.getObjectId() + "&gt;</query>"
             + "<format>" + OUTPUT_FORMAT + "</format>"
             + "</param>";
         logger.debug("Param=" + param);
@@ -120,47 +123,47 @@ public class DataGatheringBean implements DataGathering
         }
         catch (InvalidTripleStoreOutputFormatException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (InvalidTripleStoreQueryException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (InvalidXmlException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (MissingElementValueException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (AuthenticationException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (AuthorizationException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (SystemException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (RemoteException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
         catch (ServiceException e)
         {
-            logger.debug("findRevisionsOfItem(PubItemRO)", e);
+            logger.debug("findRevisionsOfItem(ItemRO)", e);
             throw new TechnicalException(e);
         }
     }

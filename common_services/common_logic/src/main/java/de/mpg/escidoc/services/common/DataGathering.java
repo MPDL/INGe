@@ -32,7 +32,7 @@ package de.mpg.escidoc.services.common;
 
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -73,5 +73,5 @@ public interface DataGathering
      * @param pubItemRef The reference to an item for which the revisions will be searched.
      * @throws TechnicalException 
      */
-    public java.util.List<RelationVO> findRevisionsOfItem(java.lang.String userHandle, PubItemRO pubItemRef) throws TechnicalException;
+    public java.util.List<RelationVO> findRevisionsOfItem(java.lang.String userHandle, ItemRO pubItemRef) throws TechnicalException;
 }

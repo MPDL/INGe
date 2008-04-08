@@ -13,7 +13,7 @@
         <escidocItem:public-status>released</escidocItem:public-status>
         <escidocItem:context objid="escidoc:persistent3" />
         <escidocItem:content-model objid="escidoc:persistent4" />        
-        <escidocItem:lock-status>unlocked</escidocItem:lock-status>        
+        <escidocItem:lock-status>unlocked</escidocItem:lock-status>
         <escidocItem:version>
             <escidocItem:number>1</escidocItem:number>
             <escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
@@ -21,7 +21,7 @@
             <escidocItem:valid-status>valid</escidocItem:valid-status>
             <escidocItem:modified-by objid="escidoc:user1" />
             <escidocItem:comment>Current version comment</escidocItem:comment>            
-        	<escidocItem:pid>hdl:someHandle/test/escidoc:4747</escidocItem:pid> 
+        	<escidocItem:pid>hdl:someHandle/test/escidoc:4747</escidocItem:pid>
         </escidocItem:version>
         <escidocItem:latest-version>
             <escidocItem:number>1</escidocItem:number>

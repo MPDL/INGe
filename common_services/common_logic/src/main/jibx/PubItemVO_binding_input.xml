@@ -30,13 +30,20 @@
 <binding>
 
 	<!-- concrete mapping for PubItemVO -->
-	<mapping name="item" ns="http://www.escidoc.de/schemas/item/0.3"
-		class="de.mpg.escidoc.services.common.valueobjects.PubItemVO" ordered="false" allow-repeats="true" flexible="true">
+	<mapping ns="http://www.escidoc.de/schemas/item/0.3"
+		class="de.mpg.escidoc.services.common.valueobjects.ItemVO" abstract="true" ordered="false" allow-repeats="true">
 
 		<!-- Node: item.@objid -->
-		<!-- Field: PubItemVO.reference [PubItemRO] -->
-		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.PubItemRO"
-			test-method="alreadyExistsInFramework" usage="optional">
+		<!-- Field: PubItemVO.version [PubItemRO] -->
+		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+		<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
+		<structure field="latestVersion" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+		<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
+		<structure field="latestRelease" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
 
@@ -44,10 +51,6 @@
 		<!-- useful to allow schema validation -->
 		<!-- value style="attribute" name="schemaLocation" ns="http://www.w3.org/2001/XMLSchema-instance"
 			constant="http://www.escidoc.de/schemas/item/0.3 soap/item/0.3/item.xsd" usage="optional" /-->
-
-		<!-- Node: item.@last-modification-date -->
-		<!-- Field: PubItemVO.modificationDate [java.util.Date] -->
-		<value style="attribute" name="last-modification-date" field="modificationDate" usage="optional" />
 
 		<structure name="properties" ns="http://www.escidoc.de/schemas/item/0.3" ordered="false" flexible="true"
 			allow-repeats="true">
@@ -65,16 +68,9 @@
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 			</structure>
 
-			<!-- Node: item.properties.public-status -->
-			<!-- Field: PubItemVO.state -->
-			<value style="element" name="public-status" ns="http://www.escidoc.de/schemas/item/0.3" field="state"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubItemStateEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
-
 			<!-- Node: item.properties.context -->
-			<structure name="context" ns="http://www.escidoc.de/schemas/item/0.3" field="pubCollection"
-				type="de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO" usage="optional">
+			<structure name="context" ns="http://www.escidoc.de/schemas/item/0.3" field="contextRO"
+				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
 
 				<!-- Node: item.properties.context.@objid -->
 				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
@@ -100,26 +96,12 @@
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 				usage="optional" />
 
-
-			<!-- Node: item.properties.pid -->
-			<!-- Field: PubItemVO.pid -->
-			<!-- Commented out: PID is defined in version -->
-			<!--			<value style="element" name="pid" ns="http://www.escidoc.de/schemas/item/0.3" field="pid"-->
-			<!--				usage="optional"/>-->
-
-			<!-- Node: item.properties.version -->
-			<structure name="version" ns="http://www.escidoc.de/schemas/item/0.3" ordered="false" usage="optional">
-
-				<!-- Node: item.properties.version.number -->
-				<!-- Field: PubItemVO.reference[PubItemRO].versionNumber -->
-				<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.PubItemRO"
-					test-method="alreadyExistsInFramework" usage="optional">
-					<value style="element" name="number" ns="http://www.escidoc.de/schemas/item/0.3"
-						get-method="getVersionNumber" set-method="setVersionNumber" usage="optional" />
-				</structure>
-
-				<structure name="date" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" />
-
+			<!-- Node: item.version -->
+			<!-- Field: PubItemVO.version [ItemRO] -->
+			<structure field="version" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" name="version">
+				<value style="element" name="number" ns="http://www.escidoc.de/schemas/item/0.3" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="http://www.escidoc.de/schemas/item/0.3" field="modificationDate" usage="optional" />
+				
 				<!-- Node: item.properties.version.version-status -->
 				<!-- Field: PubItemVO.state [PubItemVO.State] -->
 				<value style="element" name="version-status" ns="http://www.escidoc.de/schemas/item/0.3" field="state"
@@ -129,23 +111,27 @@
 
 				<structure name="valid-status" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" />
 				<structure name="modified-by" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" />
-				<value name="comment" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" field="withdrawalComment" />
-
-				<!-- Node: item.properties.version.pid -->
-				<!-- Field: PubItemVO.pid [String] -->
-				<value style="element" name="pid" ns="http://www.escidoc.de/schemas/item/0.3" field="pid"
-					usage="optional" />
-
+				
+				<value style="element" name="comment" ns="http://www.escidoc.de/schemas/item/0.3" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="http://www.escidoc.de/schemas/item/0.3" field="pid" usage="optional" />
 			</structure>
-
-			<!-- Node: item.properties.latest-version -->
-			<structure name="latest-version" ns="http://www.escidoc.de/schemas/item/0.3" ordered="false" flexible="true"
-				usage="optional">
-
-				<!-- Node: item.properties.latest-version.number -->
-				<!-- Field: PubItemVO.latestVersionNumber [int] -->
-				<value style="element" name="number" ns="http://www.escidoc.de/schemas/item/0.3" field="latestVersionNumber" usage="optional" />
-
+	
+			<!-- Node: item.latest-version -->
+			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
+			<structure field="latestVersion" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" name="latest-version">
+				<value style="element" name="number" ns="http://www.escidoc.de/schemas/item/0.3" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="http://www.escidoc.de/schemas/item/0.3" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="http://www.escidoc.de/schemas/item/0.3" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="http://www.escidoc.de/schemas/item/0.3" field="pid" usage="optional" />
+			</structure>
+	
+			<!-- Node: item.latest-release -->
+			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
+			<structure field="latestRelease" ns="http://www.escidoc.de/schemas/item/0.3" usage="optional" name="latest-release">
+				<value style="element" name="number" ns="http://www.escidoc.de/schemas/item/0.3" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="http://www.escidoc.de/schemas/item/0.3" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="http://www.escidoc.de/schemas/item/0.3" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="http://www.escidoc.de/schemas/item/0.3" field="pid" usage="optional" />
 			</structure>
 
 			<!-- Node: item.properties.content-model-specific -->
@@ -166,38 +152,34 @@
 		<!-- /structure-->
 
 		<!-- Node: item.md-records -->
-		<structure name="md-records" ns="http://www.escidoc.de/schemas/metadatarecords/0.3" ordered="false"
-			flexible="true" allow-repeats="true">
+		<structure name="md-records" ns="http://www.escidoc.de/schemas/metadatarecords/0.3">
+		
 			<!-- Node: item.md-records.md-record -->
-			<structure name="md-record" ns="http://www.escidoc.de/schemas/metadatarecords/0.3" ordered="false"
-				flexible="true" allow-repeats="true">
-
-				<!-- Node: item.md-records.md-record.@name -->
-				<!-- mandatory in XML, useless in VO -->
-				<value style="attribute" name="name" constant="escidoc" />
-
-				<!-- Node: item.md-records.md-record.publication -->
-				<!-- Field: PubItemVO.metadata [MdsPublicationVO] -->
-				<structure field="metadata" />
-
-			</structure>
+			<!-- Field: metadataSets [List<MetadataSetVO>] -->
+			<collection name="md-record" ns="http://www.escidoc.de/schemas/metadatarecords/0.3" field="metadataSets"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubItemMetadataSetVOListFactory"
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
+				
+					<structure ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/" map-as="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO" />
+				
+			</collection>
 		</structure>
-
+		
 		<!-- Node: item.relations -->
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="http://www.escidoc.de/schemas/relations/0.3" field="relations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubItemRelationVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO" test-method="hasRelations"
+			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO" />
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
 		</collection>
 
 		<!-- Node: item.components -->
 		<!-- Field: PubItemVO.files -->
 		<collection name="components" ns="http://www.escidoc.de/schemas/components/0.3" field="files"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.PubFileVO" test-method="hasFiles" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.PubFileVO" />
+			item-type="de.mpg.escidoc.services.common.valueobjects.FileVO" test-method="hasFiles" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
 		</collection>
 
 	</mapping>

@@ -29,10 +29,10 @@
 
 <binding>
 
-    <mapping name="version-history" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.PubItemVersionVOListWrapper">
+    <mapping name="version-history" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper">
     
-        <collection field="pubItemVersionVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubItemVersionVOListFactory">
-            <structure type="de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO" usage="optional" />
+        <collection field="eventVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.eventVOListFactory">
+            <structure type="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" usage="optional" />
         </collection>
         
     </mapping>

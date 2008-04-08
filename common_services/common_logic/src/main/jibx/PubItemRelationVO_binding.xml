@@ -29,11 +29,11 @@
 
 <binding>
     <!-- concrete mapping for PubItemRelationVO -->
-    <mapping name="relation" ns="http://www.escidoc.de/schemas/relations/0.3" class="de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO">
+    <mapping name="relation" ns="http://www.escidoc.de/schemas/relations/0.3" class="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO">
 
         <!-- Node: relation.@objid -->
         <!-- Field: PubItemRealtionVO.targetItemRef [PubItemRO] -->
-        <structure field="targetItemRef" type="de.mpg.escidoc.services.common.referenceobjects.PubItemRO" usage="optional">
+        <structure field="targetItemRef" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" usage="optional">
             <value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
         </structure>
 

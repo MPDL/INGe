@@ -33,10 +33,10 @@ package de.mpg.escidoc.services.common.valueobjects.comparator;
 import java.util.Comparator;
 import java.util.Date;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 
 /**
- * The class implements the comparison of two PubItemVOs for the criteria which
+ * The class implements the comparison of two EventVOs for the criteria which
  * has to be given in the constructor. Note: this comparator imposes orderings
  * that are inconsistent with equals.
  * 
@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
  * @author Johannes Mueller (initial creation)
  * @version $Revision: 611 $ $LastChangedDate: 2007-07-09 16:4
  */
-public class PubItemVersionVOComparator implements Comparator<PubItemVersionVO>
+public class EventLogEntryVOComparator implements Comparator<EventLogEntryVO>
 {
     /**
      * The possible sorting criteria.
@@ -73,7 +73,7 @@ public class PubItemVersionVOComparator implements Comparator<PubItemVersionVO>
 	 * 
 	 * @param criteria    criteria
 	 */
-    public PubItemVersionVOComparator(Criteria criteria)
+    public EventLogEntryVOComparator(Criteria criteria)
     {
         if (criteria == null)
         {
@@ -87,13 +87,13 @@ public class PubItemVersionVOComparator implements Comparator<PubItemVersionVO>
      * 
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
-    public int compare(PubItemVersionVO pubItemVersion1, PubItemVersionVO pubItemVersion2)
+    public int compare(EventLogEntryVO event1, EventLogEntryVO event2)
     {
-        if (pubItemVersion1 == null)
+        if (event1 == null)
         {
             throw new IllegalArgumentException("First argument is null.");
         }
-        if (pubItemVersion2 == null)
+        if (event2 == null)
         {
             throw new IllegalArgumentException("Second argument is null.");
         }
@@ -101,7 +101,7 @@ public class PubItemVersionVOComparator implements Comparator<PubItemVersionVO>
         switch (criteria)
         {
             case DATE:
-                rc = compareDate(pubItemVersion1, pubItemVersion2);
+                rc = compareDate(event1, event2);
                 break;
             default:
                 assert false : "illegal criteria";
@@ -111,29 +111,29 @@ public class PubItemVersionVOComparator implements Comparator<PubItemVersionVO>
 
     
     /**
-     * This method compares the dates of two PubItemVersionVOs using the modificationDate attribute. Both itemVersions
+     * This method compares the dates of two EventVOs using the modificationDate attribute. Both itemVersions
      * must not be null. If no date is given (is null) it is greater than a given date.
      * 
-     * @param pubItemVersion1 The first pubItem version.
-     * @param pubItemVersion2 The second pubItem version.
+     * @param event1 The first event version.
+     * @param event2 The second pubItem version.
      * @return 0 if the item versions are equal, -1 if the first argument is less than the second, 1 otherwise.
      */
-    private int compareDate(PubItemVersionVO pubItemVersion1, PubItemVersionVO pubItemVersion2)
+    private int compareDate(EventLogEntryVO event1, EventLogEntryVO event2)
     {
-        Date pubItemVersion1date = pubItemVersion1.getModificationDate();
-        Date pubItemVersion2date = pubItemVersion2.getModificationDate();
-        if (pubItemVersion1date == null && pubItemVersion2date == null)
+        Date event1date = event1.getModificationDate();
+        Date event2date = event2.getModificationDate();
+        if (event1date == null && event2date == null)
         {
             return EQUAL;
         }
-        if (pubItemVersion1date == null)
+        if (event1date == null)
         {
             return GREATER;
         }
-        if (pubItemVersion2date == null)
+        if (event2date == null)
         {
             return LESS;
         }
-        return pubItemVersion1date.compareTo(pubItemVersion2date);
+        return event1date.compareTo(event2date);
     }
 }

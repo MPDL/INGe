@@ -28,10 +28,12 @@
  */
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.Date;
 import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Publication object which consists of descriptive metadata and may have one or more files associated.
@@ -40,11 +42,11 @@ import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
  * @version $Revision: 641 $ $LastChangedDate: 2007-11-22 14:49:16 +0100 (Thu, 22 Nov 2007) $ by $Author: jmueller $
  * @updated 21-Nov-2007 11:52:58
  */
-public class PubItemVO extends ValueObject implements Cloneable
+public class ItemVO extends ValueObject implements Cloneable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -73,49 +75,48 @@ public class PubItemVO extends ValueObject implements Cloneable
         LOCKED, UNLOCKED
     }
 
-    private java.util.List<PubFileVO> files = new java.util.ArrayList<PubFileVO>();
-    private MdsPublicationVO metadata;
-    /**
-     * This date is updated whenever the item is stored.
-     */
-    private java.util.Date modificationDate;
+    private java.util.List<FileVO> files = new java.util.ArrayList<FileVO>();
+    private List<MetadataSetVO> metadataSets = new java.util.ArrayList<MetadataSetVO>();
+
     private AccountUserRO owner;
     /**
      * The persistent identifier of the released item.
      */
     private String pid;
-    private PubCollectionRO pubCollection;
-    private PubItemRO reference;
+    private ContextRO contextRO;
+    
     /**
-     * This is the number of the latest item version that exists. Comparing this number with the number of the current
-     * item's versionNumber (which is contained in its reference) helps to determine whether the current item's version
-     * is the latest version that exists or not.
+     * Version information of this item version.
      */
-    private int latestVersionNumber = -1;
+    private ItemRO version = new ItemRO();
+    
+    /**
+     * Version information of the latest version of this item.
+     */
+    private ItemRO latestVersion = new ItemRO();
+    
+    /**
+     * Version information of the latest release of this item.
+     */
+    private ItemRO latestRelease = new ItemRO();
+
     /**
      * This list of relations is a quickfix and cannot be found in the model yet. The reason for this is that the
      * relations are delivered with every item retrieval from the framework, and they get deleted when they are note
      * provided on updates. TODO MuJ or BrP: model and implement correctly, transforming too. Remove quickfix-VO
-     * ("PubItemRelationVO").
+     * ("ItemRelationVO").
      */
-    private List<PubItemRelationVO> relations = new java.util.ArrayList<PubItemRelationVO>();
-    /**
-     * The state of the item.
-     */
-    private PubItemVO.State state;
+    private List<ItemRelationVO> relations = new java.util.ArrayList<ItemRelationVO>();
+
     private java.util.Date creationDate;
-    private PubItemVO.LockStatus lockStatus;
-    /**
-     * A comment which has to be given when an item is withdrawn.
-     */
-    private String withdrawalComment;
+    private ItemVO.LockStatus lockStatus;
 
     /**
-     * Public contructor.
+     * Public constructor.
      * 
      * @author Thomas Diebaecker
      */
-    public PubItemVO()
+    public ItemVO()
     {
         super();
     }
@@ -126,38 +127,42 @@ public class PubItemVO extends ValueObject implements Cloneable
      * @author Thomas Diebaecker
      * @param other The instance to copy.
      */
-    public PubItemVO(PubItemVO other)
+    public ItemVO(ItemVO other)
     {
         this.setCreationDate(other.getCreationDate());
-        for (PubFileVO file : other.getFiles())
+        for (FileVO file : other.getFiles())
         {
-            this.getFiles().add((PubFileVO)file.clone());
+            this.getFiles().add((FileVO)file.clone());
         }
         this.setLockStatus(other.getLockStatus());
-        if (other.getMetadata() != null)
-        {
-            this.setMetadata((MdsPublicationVO)other.getMetadata().clone());
-        }
-        this.setModificationDate(other.getModificationDate());
+        for (MetadataSetVO mds : other.getMetadataSets()) {
+			this.getMetadataSets().add(mds.clone());
+		}
         if (other.getOwner() != null)
         {
             this.setOwner((AccountUserRO)other.getOwner().clone());
         }
         this.setPid(other.getPid());
-        if (other.getPubCollection() != null)
+        if (other.getContext() != null)
         {
-            this.setPubCollection((PubCollectionRO)other.getPubCollection().clone());
+            this.setContext((ContextRO)other.getContext().clone());
         }
-        if (other.getReference() != null)
+        if (other.getVersion() != null)
         {
-            this.setReference((PubItemRO)other.getReference().clone());
+            this.setVersion((ItemRO)other.getVersion().clone());
         }
-        for (PubItemRelationVO relation : other.getRelations())
+        if (other.getLatestVersion() != null)
         {
-            this.getRelations().add((PubItemRelationVO)relation.clone());
+            this.setLatestVersion((ItemRO)other.getLatestVersion().clone());
         }
-        this.setState(other.getState());
-        this.setWithdrawalComment(other.getWithdrawalComment());
+        if (other.getLatestRelease() != null)
+        {
+            this.setLatestRelease((ItemRO)other.getLatestRelease().clone());
+        }
+        for (ItemRelationVO relation : other.getRelations())
+        {
+            this.getRelations().add((ItemRelationVO)relation.clone());
+        }
     }
 
     /**
@@ -168,7 +173,7 @@ public class PubItemVO extends ValueObject implements Cloneable
     @Override
     public Object clone()
     {
-        return new PubItemVO(this);
+        return new ItemVO(this);
     }
 
     /**
@@ -177,7 +182,7 @@ public class PubItemVO extends ValueObject implements Cloneable
      */
     boolean alreadyExistsInFramework()
     {
-        return (this.reference != null);
+        return (this.version != null);
     }
 
     /**
@@ -209,25 +214,17 @@ public class PubItemVO extends ValueObject implements Cloneable
     /**
      * Delivers the list of files in this item.
      */
-    public java.util.List<PubFileVO> getFiles()
+    public java.util.List<FileVO> getFiles()
     {
         return files;
     }
 
     /**
-     * Delivers the metadata of the item.
+     * Delivers the metadata sets of the item.
      */
-    public MdsPublicationVO getMetadata()
+    public List<MetadataSetVO> getMetadataSets()
     {
-        return metadata;
-    }
-
-    /**
-     * Delivers the date of the last modification of the item.
-     */
-    public java.util.Date getModificationDate()
-    {
-        return modificationDate;
+        return metadataSets;
     }
 
     /**
@@ -249,53 +246,25 @@ public class PubItemVO extends ValueObject implements Cloneable
     /**
      * Delivers the reference of the collection the item is contained in.
      */
-    public PubCollectionRO getPubCollection()
+    public ContextRO getContext()
     {
-        return pubCollection;
+        return contextRO;
     }
 
     /**
      * Delivers the reference of the item.
      */
-    public PubItemRO getReference()
+    public ItemRO getVersion()
     {
-        return reference;
+        return version;
     }
 
     /**
      * Delivers the list of relations in this item.
      */
-    public java.util.List<PubItemRelationVO> getRelations()
+    public java.util.List<ItemRelationVO> getRelations()
     {
         return relations;
-    }
-
-    /**
-     * Delivers the state of the item.
-     */
-    public PubItemVO.State getState()
-    {
-        return state;
-    }
-
-    /**
-     * Sets the metadata of the item.
-     * 
-     * @param newVal
-     */
-    public void setMetadata(MdsPublicationVO newVal)
-    {
-        metadata = newVal;
-    }
-
-    /**
-     * Sets the date of the last modification of the item.
-     * 
-     * @param newVal
-     */
-    public void setModificationDate(java.util.Date newVal)
-    {
-        modificationDate = newVal;
     }
 
     /**
@@ -323,9 +292,9 @@ public class PubItemVO extends ValueObject implements Cloneable
      * 
      * @param newVal
      */
-    public void setPubCollection(PubCollectionRO newVal)
+    public void setContext(ContextRO newVal)
     {
-        pubCollection = newVal;
+        contextRO = newVal;
     }
 
     /**
@@ -333,19 +302,9 @@ public class PubItemVO extends ValueObject implements Cloneable
      * 
      * @param newVal
      */
-    public void setReference(PubItemRO newVal)
+    public void setVersion(ItemRO newVal)
     {
-        reference = newVal;
-    }
-
-    /**
-     * Sets the state of the item.
-     * 
-     * @param newVal
-     */
-    public void setState(PubItemVO.State newVal)
-    {
-        state = newVal;
+        version = newVal;
     }
 
     /**
@@ -389,36 +348,45 @@ public class PubItemVO extends ValueObject implements Cloneable
      */
     public String getWithdrawalComment()
     {
-        return withdrawalComment;
+    	if (getVersion().getState() == ItemVO.State.WITHDRAWN)
+    	{
+    		return getVersion().getLastMessage();
+    	}
+    	else
+    	{
+    		return null;
+    	}
     }
 
     /**
-     * Sets the comment which has to be given when an item is withdrawn.
-     * 
-     * @param newVal
+     * Delivers the comment which has to be given when an item is withdrawn.
      */
-    public void setWithdrawalComment(String newVal)
+    public Date getModificationDate()
     {
-        withdrawalComment = newVal;
+    	if (getVersion() != null)
+    	{
+    		return getVersion().getModificationDate();
+    	}
+    	else
+    	{
+    		return null;
+    	}
     }
+    
+	public ItemRO getLatestVersion() {
+		return latestVersion;
+	}
 
-    /**
-     * Delivers the number of the latest item version that exists. Comparing this number with the number of the current
-     * item's versionNumber (which is contained in its reference) helps to determine whether the current item's version
-     * is the latest version that exists or not.
-     */
-    public int getLatestVersionNumber()
-    {
-        return latestVersionNumber;
-    }
+	public void setLatestVersion(ItemRO latestVersion) {
+		this.latestVersion = latestVersion;
+	}
 
-    /**
-     * Sets the number of the latest item version that exists. Comparing this number with the number of the current
-     * item's versionNumber (which is contained in its reference) helps to determine whether the current item's version
-     * is the latest version that exists or not.
-     */
-    public void setLatestVersionNumber(int latestVersionNumber)
-    {
-        this.latestVersionNumber = latestVersionNumber;
-    }
+	public ItemRO getLatestRelease() {
+		return latestRelease;
+	}
+
+	public void setLatestRelease(ItemRO latestRelease) {
+		this.latestRelease = latestRelease;
+	}
+    
 }

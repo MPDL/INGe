@@ -35,7 +35,7 @@
     <!-- Type: PubItemResultVO... -->
     <mapping name="item" ns="http://www.escidoc.de/schemas/item/0.3"
       class="de.mpg.escidoc.services.common.valueobjects.PubItemResultVO"
-      extends="de.mpg.escidoc.services.common.valueobjects.PubItemVO">
+      extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
 
         <!-- Node: search-result-record.item -->
         <!-- embed the concrete mapping for the super class [PubItemVO] -->

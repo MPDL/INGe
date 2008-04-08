@@ -33,41 +33,29 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
+import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 /**
- * This class is used by the XML transforming classes to wrap a list of PubCollectionVOs.
+ * This class is used by the XML transforming classes to wrap a list of Metadata sets.
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
- * @author Johannes Mueller (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 03.09.2007
+ * @author mfranke (initial creation)
+ * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: mfranke $
  */
-public class PubCollectionVOListWrapper implements Serializable
+public class MetadataSetVOListWrapper implements Serializable
 {
-    /**
-     * The wrapped list of PubCollectionVOs.
-     */
-    private List<PubCollectionVO> pubCollectionVOList;
 
-    /**
-     * Unwraps the list of PubCollectionVOs.
-     * 
-     * @return The list of PubCollectionVOs
-     */
-    public List<PubCollectionVO> getPubCollectionVOList()
-    {
-        return pubCollectionVOList;
-    }
+	/**
+	 * The list.
+	 */
+	List<MetadataSetVO> metadataSets;
 
-    /**
-     * Wraps a list of PubCollectionVOs.
-     * 
-     * @param pubCollectionVOList The list of PubCollectionVOs to wrap
-     */
-    public void setPubCollectionVOList(List<PubCollectionVO> pubCollectionVOList)
-    {
-        this.pubCollectionVOList = pubCollectionVOList;
-    }
+	public List<MetadataSetVO> getMetadataSets() {
+		return metadataSets;
+	}
 
+	public void setMetadataSets(List<MetadataSetVO> metadataSets) {
+		this.metadataSets = metadataSets;
+	}
+	
 }

@@ -52,12 +52,14 @@
 	<!-- The bindings -->
 	<!--  -->
 	<include path="MdsPublicationVO_binding_output.xml" />
+	<include path="ContextVO_binding.xml" />
 	<include path="PubCollectionVO_binding.xml" />
 	<include path="PubCollectionVOListWrapper_binding.xml" />
 	<include path="PubFileVO_binding_output.xml" />
     <include path="PubItemRelationVO_binding.xml" />
     <include path="PubItemResultVO_binding_output.xml" />
 	<include path="PubItemVO_binding_output.xml" />
+	<include path="PubItemVO_binding.xml" />
 	<include path="PubItemVOListWrapper_binding_output.xml" />
 
 </binding>

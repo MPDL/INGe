@@ -41,30 +41,29 @@ import java.util.TimeZone;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVersionVO;
+import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO.SubmissionMethod;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.ReviewMethod;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO.SubmissionMethod;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO.LockStatus;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -211,6 +210,18 @@ public class JiBXHelper
     }
 
     /**
+     * Factory method to create a <code>java.util.ArrayList&lt;MdsPublicationVO.Genre></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;MdsPublicationVO.Genre></code>
+     */
+    public static List<MdsPublicationVO.Genre> genreListFactory()
+    {
+    	System.out.println("XXXX");
+        return new ArrayList<MdsPublicationVO.Genre>();
+    }
+
+    /**
      * Factory method to create a <code>java.util.ArrayList&lt;OrganizationVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
@@ -222,58 +233,69 @@ public class JiBXHelper
     }
 
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubCollectionVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;ContextVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubCollectionVO></code>
+     * @return A new <code>java.util.ArrayList&lt;ContextVO></code>
      */
-    public static List<PubCollectionVO> pubCollectionVOListFactory()
+    public static List<ContextVO> pubCollectionVOListFactory()
     {
-        return new ArrayList<PubCollectionVO>();
+        return new ArrayList<ContextVO>();
     }
 
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubFileVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;FileVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubFileVO></code>
+     * @return A new <code>java.util.ArrayList&lt;FileVO></code>
      */
-    public static List<PubFileVO> pubFileVOListFactory()
+    public static List<FileVO> pubFileVOListFactory()
     {
-        return new ArrayList<PubFileVO>();
+        return new ArrayList<FileVO>();
     }
     
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubItemVersionVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;EventLogEntryVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubItemVersionVO></code>
+     * @return A new <code>java.util.ArrayList&lt;EventLogEntryVO></code>
      */
-    public static List<PubItemVersionVO> pubItemVersionVOListFactory()
+    public static List<EventLogEntryVO> eventVOListFactory()
     {
-        return new ArrayList<PubItemVersionVO>();
+        return new ArrayList<EventLogEntryVO>();
     }
 
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubItemVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;ItemVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubItemVO></code>
+     * @return A new <code>java.util.ArrayList&lt;ItemVO></code>
      */
-    public static List<PubItemVO> pubItemVOListFactory()
+    public static List<ItemVO> pubItemVOListFactory()
     {
-        return new ArrayList<PubItemVO>();
+        return new ArrayList<ItemVO>();
+    }
+
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;MetadataSetVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;MetadataSetVO></code>
+     */
+    public static List<MetadataSetVO> pubItemMetadataSetVOListFactory()
+    {
+        return new ArrayList<MetadataSetVO>();
     }
     
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubItemRelationVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;ItemRelationVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubItemRelationVO></code>
+     * @return A new <code>java.util.ArrayList&lt;ItemRelationVO></code>
      */
-    public static List<PubItemRelationVO> pubItemRelationVOListFactory()
+    public static List<ItemRelationVO> pubItemRelationVOListFactory()
     {
-        return new ArrayList<PubItemRelationVO>();
+        return new ArrayList<ItemRelationVO>();
     }
 
     /**
@@ -310,10 +332,10 @@ public class JiBXHelper
     }
 
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;PubCollectionVO.SubmissionMethod></code> as the
+     * Factory method to create a <code>java.util.ArrayList&lt;ContextVO.SubmissionMethod></code> as the
      * implementation of a <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;PubCollectionVO.SubmissionMethod></code>
+     * @return A new <code>java.util.ArrayList&lt;ContextVO.SubmissionMethod></code>
      */
     public static List<SubmissionMethod> submissionMethodListFactory()
     {
@@ -487,10 +509,10 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a content-type like defined in components.xsd to the corresponding
-     * PubFileVO.ContentType Enum.
+     * FileVO.ContentType Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return The corresponding PubFileVO.ContentType Enum
+     * @return The corresponding FileVO.ContentType Enum
      * @throws WrongEnumException
      */
     public static ContentType deserializeContentTypeEnum(String enumValue) throws WrongEnumException
@@ -654,12 +676,12 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a visibility-type like defined in components.xsd to the corresponding
-     * <code>PubFileVO.Visibility</code> Enum. As JiBX v1.1.3 calls the deserialization method for all optional
+     * <code>FileVO.Visibility</code> Enum. As JiBX v1.1.3 calls the deserialization method for all optional
      * attributes also (see http://www.mail-archive.com/jibx-users@lists.sourceforge.net/msg00003.html), a
      * <code>null</code> value is returned when this method is called with a <code>null</code> parameter.
      * 
      * @param enumValue The String to deserialize
-     * @return Visibility The corresponding <code>PubFileVO.Visibility</code> Enum (or <code>null</code>)
+     * @return Visibility The corresponding <code>FileVO.Visibility</code> Enum (or <code>null</code>)
      * @throws WrongEnumException
      */
     public static Visibility deserializeFileVisibilityEnum(String enumValue) throws WrongEnumException
@@ -805,10 +827,10 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing an invitation status like defined in escidocenumtypes.xsd to the corresponding
-     * <code>EventVO.InvitationStatus</code> Enum.
+     * <code>EventLogEntryVO.InvitationStatus</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return InvitationStatus The corresponding <code>EventVO.InvitationStatus</code> Enum
+     * @return InvitationStatus The corresponding <code>EventLogEntryVO.InvitationStatus</code> Enum
      * @throws WrongEnumException
      */
     public static InvitationStatus deserializeInvitationStatusEnum(String enumValue) throws WrongEnumException
@@ -835,10 +857,10 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a lock-status-type like defined in item.xsd to the corresponding
-     * <code>PubItemVO.LockStatus</code> Enum.
+     * <code>ItemVO.LockStatus</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return ValidityStatus The corresponding <code>PubItemVO.LockStatus</code> Enum
+     * @return ValidityStatus The corresponding <code>ItemVO.LockStatus</code> Enum
      * @throws WrongEnumException
      */
     public static LockStatus deserializeLockStatusEnum(String enumValue) throws WrongEnumException
@@ -969,15 +991,15 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a status-type like defined in context.xsd to the corresponding
-     * <code>PubCollectionVO.State</code> Enum.
+     * <code>ContextVO.State</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return PubCollectionVO.State The corresponding <code>PubCollectionVO.State</code> Enum
+     * @return ContextVO.State The corresponding <code>ContextVO.State</code> Enum
      * @throws WrongEnumException
      */
-    public static PubCollectionVO.State deserializePubCollectionStateEnum(String enumValue) throws WrongEnumException
+    public static ContextVO.State deserializePubCollectionStateEnum(String enumValue) throws WrongEnumException
     {
-        PubCollectionVO.State state = null;
+        ContextVO.State state = null;
         if (enumValue == null)
         {
             throw new WrongEnumException("context status is null.");
@@ -987,7 +1009,7 @@ public class JiBXHelper
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
-                state = PubCollectionVO.State.valueOf(upperCaseText);
+                state = ContextVO.State.valueOf(upperCaseText);
             }
             catch (IllegalArgumentException e)
             {
@@ -999,15 +1021,15 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a status-type like defined in item.xsd to the corresponding
-     * <code>PubItemVO.State</code> Enum.
+     * <code>ItemVO.State</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return PubItemVO.State The corresponding <code>PubItemVO.State</code> Enum
+     * @return ItemVO.State The corresponding <code>ItemVO.State</code> Enum
      * @throws WrongEnumException
      */
-    public static PubItemVO.State deserializePubItemStateEnum(String enumValue) throws WrongEnumException
+    public static ItemVO.State deserializePubItemStateEnum(String enumValue) throws WrongEnumException
     {
-        PubItemVO.State state = null;
+        ItemVO.State state = null;
         if (enumValue == null)
         {
             throw new WrongEnumException("item status is null.");
@@ -1017,7 +1039,7 @@ public class JiBXHelper
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
-                state = PubItemVO.State.valueOf(upperCaseText);
+                state = ItemVO.State.valueOf(upperCaseText);
             }
             catch (IllegalArgumentException e)
             {
@@ -1059,15 +1081,15 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a submission method like not yet defined in any XSD to the corresponding
-     * <code>PubCollectionVO.SubmissionMethod</code> Enum.
+     * <code>ContextVO.SubmissionMethod</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return SubmissionMethod The corresponding <code>PubCollectionVO.SubmissionMethod</code> Enum
+     * @return SubmissionMethod The corresponding <code>ContextVO.SubmissionMethod</code> Enum
      * @throws WrongEnumException
      */
     public static SubmissionMethod deserializeSubmissionMethodEnum(String enumValue) throws WrongEnumException
     {
-        PubCollectionVO.SubmissionMethod submissionMethod = null;
+        ContextVO.SubmissionMethod submissionMethod = null;
         if (enumValue == null)
         {
             throw new WrongEnumException("submission-method is null.");
@@ -1077,7 +1099,7 @@ public class JiBXHelper
             String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
             try
             {
-                submissionMethod = PubCollectionVO.SubmissionMethod.valueOf(upperCaseText);
+                submissionMethod = ContextVO.SubmissionMethod.valueOf(upperCaseText);
             }
             catch (IllegalArgumentException e)
             {
@@ -1089,10 +1111,10 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing a visibility-type like defined in components.xsd to the corresponding
-     * <code>PubFileVO.Visibility</code> Enum.
+     * <code>FileVO.Visibility</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return State The corresponding <code>PubFileVO.Visibility</code> Enum
+     * @return State The corresponding <code>FileVO.Visibility</code> Enum
      * @throws WrongEnumException
      */
     public static Visibility deserializeVisibilityEnum(String enumValue) throws WrongEnumException

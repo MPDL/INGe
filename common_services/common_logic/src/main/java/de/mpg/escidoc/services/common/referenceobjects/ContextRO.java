@@ -28,94 +28,63 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.valueobjects;
+package de.mpg.escidoc.services.common.referenceobjects;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
 
 /**
- * Version information of a publication item.
+ * The class for PubCollection references.
  * 
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @created 17-Okt-2007 18:51:45
+ * @revised by MuJ: 27.08.2007
+ * @version 1.0
+ * @updated 21-Nov-2007 12:38:41
  */
-public class PubItemVersionVO extends ValueObject
+public class ContextRO extends ReferenceObject implements Cloneable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
      * 
      * @author Johannes Mueller
      */
- 
-
+    private static final long serialVersionUID = 1L;
     /**
-     * Reference to the according item.
+     * Creates a new instance.
      */
-    private PubItemRO reference;
-    /**
-     * The modification date of the version.
-     */
-    private java.util.Date modificationDate;
-    /**
-     * The state of the item version.
-     */
-    private PubItemVO.State state;
-
-    /**
-     * @return Reference to the according item.
-     */
-    public PubItemRO getReference()
+    public ContextRO()
     {
-        return reference;
+        super();
     }
 
     /**
-     * @return The modification date of the version.
+     * Creates a new instance with the given objectId.
+     * @param objectId The id of the object.
      */
-    public java.util.Date getModificationDate()
+    public ContextRO(String objectId)
     {
-        return modificationDate;
+        super(objectId);
     }
 
     /**
-     * @return The state of the item version.
-     */
-    public PubItemVO.State getState()
-    {
-        return state;
-    }
-
-    /**
-     * Reference to the according item.
+     * Copy constructor.
      * 
-     * @param newVal
+     * @author Thomas Diebaecker
+     * @param other The instance to copy.
      */
-    public void setReference(PubItemRO newVal)
+    public ContextRO(ContextRO other)
     {
-        reference = newVal;
+        super(other);
     }
-
+    
     /**
-     * The modification date of the version.
-     * 
-     * @param newVal
+     * {@inheritDoc}
+     * @author Thomas Diebaecker
      */
-    public void setModificationDate(java.util.Date newVal)
+    @Override
+    public Object clone()
     {
-        modificationDate = newVal;
+        return new ContextRO(this);
     }
-
-    /**
-     * Sets the state of the item version.
-     * 
-     * @param newVal
-     */
-    public void setState(PubItemVO.State newVal)
-    {
-        state = newVal;
-    }
-
 }

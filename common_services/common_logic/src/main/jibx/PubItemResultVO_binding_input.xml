@@ -55,7 +55,7 @@
 
 					<!-- Node: search-result-record.highlight.search-hit.@objid -->
 					<!-- Field: SearchHitVO.hitReference [PubFileRO] -->
-					<structure field="hitReference" type="de.mpg.escidoc.services.common.referenceobjects.PubFileRO"
+					<structure field="hitReference" type="de.mpg.escidoc.services.common.referenceobjects.FileRO"
 						usage="optional">
 						<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId"
 							usage="optional" />

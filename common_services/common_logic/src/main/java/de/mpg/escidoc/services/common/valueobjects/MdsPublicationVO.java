@@ -49,7 +49,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-     * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
@@ -448,7 +448,7 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      * {@inheritDoc}
      */
     @Override
-    public Object clone()
+    public MdsPublicationVO clone()
     {
         return new MdsPublicationVO(this);
     }

@@ -30,23 +30,23 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
  * Represents one content relation to one item. In contrast to RelationVO (which
  * contains subject, predicate and object), this class only contains predicate
  * and object.
  * 
- * This class is a workaround for the relations contained in the PubItemVO
+ * This class is a workaround for the relations contained in the ItemVO
  * (therefore it has no source, in contrast to RelationVO). 
  * 
  * @updated 18-Okt-2007 15:42:32
  */
-public class PubItemRelationVO extends ValueObject implements Cloneable {
+public class ItemRelationVO extends ValueObject implements Cloneable {
 	
 	/**
     * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-    * 'de.mpg.escidoc.services.common.valueobjects.PubItemVO; local class incompatible: stream classdesc
+    * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
     * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
     * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
     * for the Application Server, once for the local test).
@@ -68,7 +68,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	/**
 	 * Describes the reference of the target item.
 	 */
-	private PubItemRO targetItemRef;
+	private ItemRO targetItemRef;
 
 	/**
 	 * This no-argument constructor is needed by JiBX!
@@ -76,7 +76,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	 * @param type
 	 * @param targetItemRef
 	 */
-	public PubItemRelationVO() {
+	public ItemRelationVO() {
 		super();
 	}
 
@@ -84,7 +84,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	 * @param type
 	 * @param targetItemRef
 	 */
-	public PubItemRelationVO(String type, PubItemRO targetItemRef) {
+	public ItemRelationVO(String type, ItemRO targetItemRef) {
 		super();
 		setType(type);
 		setTargetItemRef(targetItemRef);
@@ -97,7 +97,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	 * @param other
 	 *            The instance to copy.
 	 */
-	public PubItemRelationVO(PubItemRelationVO other) {
+	public ItemRelationVO(ItemRelationVO other) {
 		this(other.getType(), other.getTargetItemRef());
 		this.setDescription(other.getDescription());
 	}
@@ -109,7 +109,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	 */
 	@Override
 	public Object clone() {
-		return new PubItemRelationVO(this);
+		return new ItemRelationVO(this);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	/**
 	 * Describes the reference of the target item.
 	 */
-	public PubItemRO getTargetItemRef() {
+	public ItemRO getTargetItemRef() {
 		return targetItemRef;
 	}
 
@@ -131,7 +131,7 @@ public class PubItemRelationVO extends ValueObject implements Cloneable {
 	 * 
 	 * @param newVal
 	 */
-	public void setTargetItemRef(PubItemRO newVal) {
+	public void setTargetItemRef(ItemRO newVal) {
 		targetItemRef = newVal;
 	}
 
