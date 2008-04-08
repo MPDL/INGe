@@ -32,12 +32,15 @@ package test.common.datagathering;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 import java.util.Map;
+
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import test.common.AffiliationCreator;
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.DataGathering;
@@ -63,7 +66,7 @@ public class CreateOrganizationsTest extends TestBase
     private static final Logger logger = Logger.getLogger(CreateOrganizationsTest.class);
 
     /**
-     * This Map contains a mapping between abbrevations and object ids. See the {@link test.common.AffiliationCreator}
+     * This Map contains a mapping between abbreviations and object ids. See the {@link test.common.AffiliationCreator}
      * class for details.
      */
     private static Map<String, String> abbreviationToObjIdMapping;

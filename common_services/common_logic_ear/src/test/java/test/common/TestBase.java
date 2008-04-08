@@ -56,8 +56,10 @@ import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
+import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -91,7 +93,7 @@ import de.fiz.escidoc.common.exceptions.application.security.AuthenticationExcep
 import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
 import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -168,10 +170,13 @@ public class TestBase
      */
     private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
     {
+    	
+    	logger.debug("Framework URL: " + ServiceLocator.getFrameworkUrl());
+    	
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
         postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
+        postMethod.addParameter("target", ServiceLocator.getFrameworkUrl());
         postMethod.addParameter("login", userid);
         postMethod.addParameter("password", password);
         HttpClient client = new HttpClient();
@@ -291,9 +296,9 @@ public class TestBase
         item.setMetadata(mds);
 
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         return item;
     }
 
@@ -311,9 +316,9 @@ public class TestBase
         item.setMetadata(mds);
 
         // (2) pubCollection
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
 
         return item;
     }
@@ -329,9 +334,9 @@ public class TestBase
 
         // properties of the item
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
 
         // item metadata
         MdsPublicationVO mds = new MdsPublicationVO();
@@ -394,9 +399,9 @@ public class TestBase
 
         // properties of the item
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        itemResult.setPubCollection(collectionRef);
+        itemResult.setContext(collectionRef);
 
         // item metadata
         MdsPublicationVO mds = new MdsPublicationVO();
@@ -452,9 +457,9 @@ public class TestBase
         item.setMetadata(mds);
 
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
 
         return item;
     }
@@ -853,6 +858,11 @@ public class TestBase
         String fileString = null;
         String line;
         File file = new File(fileName);
+        if (!file.exists())
+        {
+        	URL fileUrl = TestBase.class.getClassLoader().getResource(fileName);
+        	file = new File(fileUrl.getFile());
+        }
         BufferedReader dis = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
         fileBuffer = new StringBuffer();
         while ((line = dis.readLine()) != null)
@@ -985,9 +995,20 @@ public class TestBase
         }
         File schemaFile = new File(schemaFileName);
 
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        Schema theSchema = sf.newSchema(schemaFile);
-        return theSchema;
+        if (schemaFile.exists())
+        {
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema theSchema = sf.newSchema(schemaFile);
+            return theSchema;
+        }
+        else
+        {
+        	URL schemaUrl = TestBase.class.getClassLoader().getResource(schemaFileName);
+        	Source schemaSource = new StreamSource(schemaUrl.getFile());
+        	SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            Schema theSchema = sf.newSchema(schemaSource);
+            return theSchema;
+        }
     }
 
     /**
@@ -1220,7 +1241,13 @@ public class TestBase
         String fwUrl = ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
 
-        method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
+        File file = new File(filename);
+        if (!file.exists())
+        {
+        	URL fileUrl = TestBase.class.getClassLoader().getResource(filename);
+        	file = new File(fileUrl.getFile());
+        }
+        method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(file)));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
 

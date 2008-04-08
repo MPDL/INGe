@@ -95,7 +95,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
     private static XmlTransforming xmlTransforming;
     private String userHandle;
     private String adminUserHandle;
-    private static final String ITEM_LIST_SCHEMA_FILE = "misc/xsd/soap/item/0.3/item-list.xsd";
+    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.3/item-list.xsd";
 
     /**
      * Get an {@link XmlTransforming} instance once.
@@ -166,7 +166,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
         String createdItemXml = ihr.create(itemXml);
         PubItemVO createdItemVO = xmlTransforming.transformToPubItem(createdItemXml);
-        String createdItemId = createdItemVO.getReference().getObjectId();
+        String createdItemId = createdItemVO.getVersion().getObjectId();
         String md = getModificationDate(createdItemXml);
         logger.info("PubItem '" + createdItemId + "' created. Title: " + createdItemVO.getMetadata().getTitle());
         ihr.submit(createdItemId, "<param last-modification-date=\"" + md + "\"/>");
@@ -190,7 +190,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         for (int i = 0; i < itemCount; i++)
         {
             PubItemVO item = createAndReleaseItem(userHandle, itemTitle);
-            String itemRef = item.getReference().getObjectId();
+            String itemRef = item.getVersion().getObjectId();
             assertNotNull(itemRef);
             itemRefs.add(itemRef);
         }

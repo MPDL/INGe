@@ -28,11 +28,16 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package test.common;
+package test;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import test.common.datagathering.DataGatheringTest;
+import test.common.emailhandling.EmailHandlingTest;
+import test.common.encoding.EncodingTest;
+import test.common.valueobjects.ValueObjectTest;
+import test.common.valueobjects.comparator.ComparatorTest;
 import test.common.xmltransforming.XmlTransformingIntegrationTest;
 
 /**
@@ -43,7 +48,12 @@ import test.common.xmltransforming.XmlTransformingIntegrationTest;
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({XmlTransformingIntegrationTest.class                     
+@Suite.SuiteClasses({XmlTransformingIntegrationTest.class
+					,DataGatheringTest.class
+					,ValueObjectTest.class                                        
+                    ,ComparatorTest.class
+                    ,EncodingTest.class
+                    ,EmailHandlingTest.class
                     })
 public class TestCommonLogicIntegration
 {

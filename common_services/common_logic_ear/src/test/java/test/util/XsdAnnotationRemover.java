@@ -50,8 +50,8 @@ import java.util.List;
  */
 public class XsdAnnotationRemover
 {
-    private static final String XSD_INPUT_FOLDER = "V:\\development\\common_logic\\misc\\xsd";
-    private static final String XSD_OUTPUT_FOLDER = "V:\\development\\common_logic\\misc\\xsd_without_annotations";
+    private static final String XSD_INPUT_FOLDER = "xsd";
+    private static final String XSD_OUTPUT_FOLDER = "xsd_without_annotations";
 
     private static List<File> fileList;
 

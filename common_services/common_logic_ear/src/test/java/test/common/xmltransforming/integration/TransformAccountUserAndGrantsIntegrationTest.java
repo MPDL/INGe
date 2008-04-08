@@ -33,24 +33,27 @@ package test.common.xmltransforming.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
 import javax.xml.rpc.ServiceException;
+
 import org.apache.commons.httpclient.HttpException;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
 import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
 import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
 import de.fiz.escidoc.um.UserAccountHandlerRemote;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -65,7 +68,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 {
-    private static final String ACCOUNT_USER_SCHEMA_FILE = "misc/xsd/soap/user-account/0.3/user-account.xsd";
+    private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.3/user-account.xsd";
     private static final String PUBMAN_COLLECTION_ID = "escidoc:persistent3";
     private static final String TEST_DEP_SCIENTIST_LOGIN_NAME = "test_dep_scientist";
     private static final String TEST_DEP_SCIENTIST_ID = "escidoc:user1";
@@ -164,7 +167,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXML);
 
         // check results
-        assertEquals(4, grants.size());
+        assertEquals(7, grants.size());
         List<GrantVO> accountUserGrants = accountUser.getGrants();
         // check whether test_dep_scientist is 'Depositor' and 'System Administrator'
         int allExpectedGrantsPresent = 0;
@@ -242,7 +245,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXML);
 
         // check results
-        assertEquals(6, grants.size());
+        assertEquals(5, grants.size());
         List<GrantVO> accountUserGrants = accountUser.getGrants();
         // check whether test_dep_scientist is 'Depositor' and 'Moderator of PubCollection escidoc:persistent3' and 'System Administrator'
         int allExpectedGrantsPresent = 0;
@@ -266,7 +269,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         }
         assertEquals(7, allExpectedGrantsPresent);
         assertTrue(accountUser.isDepositor());
-        assertTrue(accountUser.isModerator(new PubCollectionRO(PUBMAN_COLLECTION_ID)));
+        assertTrue(accountUser.isModerator(new ContextRO(PUBMAN_COLLECTION_ID)));
     }
 
     /**
@@ -352,7 +355,6 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertNotNull(accountUser);
         assertEquals("escidoc:user42", accountUser.getReference().getObjectId());
         assertEquals(userid, accountUser.getUserid());
-        // assertEquals("Shibboleth-Handle-1",accountUser.getPassword());
         assertTrue(accountUser.isActive());
         assertEquals("roland", accountUser.getName());
         assertEquals("roland@roland", accountUser.getEmail());

@@ -45,11 +45,11 @@ import org.w3c.dom.Node;
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -125,13 +125,13 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         logger.info("PubItemVO created from the scratch.");
 
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         String testFileName = "test/xmltransforming/ItemUpdateAndBaseURLTest/galaxy.gif";
         // first upload the file to the framework
         String stagingURL = uploadFile(testFileName, "image/gif", scientistUserHandle).toString();
         fileVO.setContent(stagingURL);
         logger.info("File uploaded to staging area. Retrieved URL stored in FileVO.content[String]: " + stagingURL);
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
         fileVO.setName("galaxy.gif");
         fileVO.setDescription("The Universe within 50000 Light Years");

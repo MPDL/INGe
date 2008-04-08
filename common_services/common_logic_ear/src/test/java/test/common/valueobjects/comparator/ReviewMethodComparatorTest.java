@@ -31,10 +31,13 @@
 package test.common.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
@@ -60,7 +63,7 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase
         Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD)) ;
         for (PubItemVO itemVO : list)
         {
-            logger.debug(itemVO.getMetadata().getReviewMethod()+ " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug(itemVO.getMetadata().getReviewMethod()+ " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"1","1","3","2","4"}; 
         assertObjectIdOrder(list, expectedIdOrder);
@@ -76,7 +79,7 @@ public class ReviewMethodComparatorTest extends ComparatorTestBase
         Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.REVIEW_METHOD))) ;
         for (PubItemVO itemVO : list)
         {
-            logger.debug(itemVO.getMetadata().getReviewMethod() + " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug(itemVO.getMetadata().getReviewMethod() + " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"4","2","3","1","1"}; 
         assertObjectIdOrder(list, expectedIdOrder);

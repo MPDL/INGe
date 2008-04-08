@@ -30,13 +30,13 @@
 
 package test.common.valueobjects;
 
+import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-
 import test.common.TestBase;
-import static org.junit.Assert.assertTrue;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 
 /**
  * For testing the methods in {@link AccountUserVO}.
@@ -58,7 +58,7 @@ public class AccountUserVOTest extends TestBase
         String adminUserHandle = loginSystemAdministrator();
         AccountUserVO admin = getAccountUser(adminUserHandle);
         
-        assertTrue(admin.isModerator(new PubCollectionRO(PUBMAN_TEST_COLLECTION_ID)));
+        assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
     }
     
 }

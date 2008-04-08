@@ -34,31 +34,34 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+
 import java.io.File;
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.fiz.escidoc.om.ItemHandlerRemote;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubItemRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.ReviewMethod;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -80,12 +83,12 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     private static XmlTransforming xmlTransforming;
     private AccountUserVO user;
     private String userHandle;
-    private static String TEST_FILE_ROOT = "test/xmltransforming/integration/transformPubItemIntegrationTest/";
+    private static String TEST_FILE_ROOT = "xmltransforming/integration/transformPubItemIntegrationTest/";
     private static String ITEM_WITHOUT_COMPONENTS_FILE = TEST_FILE_ROOT + "item_without_components.xml";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String PDF_RUNAWAY_FILE = TEST_FILE_ROOT + "RunawayMassiveBinariesAndClusterEjectionScenarios.pdf";
-    private static final String ITEM_SCHEMA_FILE = "misc/xsd/soap/item/0.3/item.xsd";
-    private static final String ITEM_LIST_SCHEMA_FILE = "misc/xsd/soap/item/0.3/item-list.xsd";
+    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.3/item.xsd";
+    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.3/item-list.xsd";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
     private static final String PREDICATE_FEDORARELATIONSHIP = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#fedoraRelationship";
     private static final String PREDICATE_ISMEMBEROF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isMemberOf";
@@ -160,12 +163,12 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         PubItemVO pubItem = xmlTransforming.transformToPubItem(itemPostCreate);
         // check results
         String expectedObjid = getObjid(itemPostCreate);
-        assertEquals(expectedObjid, pubItem.getReference().getObjectId());
-        assertEquals(1, pubItem.getReference().getVersionNumber());
-        assertEquals(PubItemVO.State.PENDING, pubItem.getState());
+        assertEquals(expectedObjid, pubItem.getVersion().getObjectId());
+        assertEquals(1, pubItem.getVersion().getVersionNumber());
+        assertEquals(PubItemVO.State.PENDING, pubItem.getVersion().getState());
         assertEquals(null, pubItem.getPid());
-        assertNotNull(pubItem.getModificationDate());
-        assertEquals("escidoc:persistent3", pubItem.getPubCollection().getObjectId());
+        assertNotNull(pubItem.getVersion().getModificationDate());
+        assertEquals("escidoc:persistent3", pubItem.getContext().getObjectId());
         assertEquals("escidoc:user1", pubItem.getOwner().getObjectId());
         assertTrue(0 == pubItem.getFiles().size());
         MdsPublicationVO md = pubItem.getMetadata();
@@ -231,13 +234,13 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.info("Transformed returned item to PubItemVO.");
         // check results
         assertNotNull(pubItemVO);
-        if (pubItemVO.getPubCollection() != null)
+        if (pubItemVO.getContext() != null)
         {
-            logger.debug("pubItemVO.pubItemVO.getPubCollection().getObjectId(): " + pubItemVO.getPubCollection().getObjectId());
+            logger.debug("pubItemVO.pubItemVO.getPubCollection().getObjectId(): " + pubItemVO.getContext().getObjectId());
         }
-        if (pubItemVO.getReference() != null)
+        if (pubItemVO.getVersion() != null)
         {
-            logger.debug("pubItemVO.pubItemVO.getReference().getObjectId(): " + pubItemVO.getReference().getObjectId());
+            logger.debug("pubItemVO.pubItemVO.getVersion().getObjectId(): " + pubItemVO.getVersion().getObjectId());
         }
     }
 
@@ -255,10 +258,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
 
         logger.info("Content: " + fileVO.getContent());
 
@@ -298,10 +301,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         // add first file to PubItemVO
-        PubFileVO fileVO1 = new PubFileVO();
+        FileVO fileVO1 = new FileVO();
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO1.setContentType(ContentType.POST_PRINT);
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
@@ -310,10 +313,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
         // add second file to PubItemVO
-        PubFileVO fileVO2 = new PubFileVO();
+        FileVO fileVO2 = new FileVO();
         // first upload the file to the framework
         fileVO2.setContent(uploadFile(PDF_RUNAWAY_FILE, "application/pdf", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO2.setContentType(ContentType.COPYRIGHT_TRANSFER_AGREEMENT);
         fileVO2.setName("RunawayMassiveBinariesAndClusterEjectionScenarios.pdf");
         fileVO2.setDescription("The production of runaway massive binaries offers key insights into the evolution of close "
@@ -360,10 +363,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
@@ -381,16 +384,16 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // transform the returned item to a PubItemVO
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
         logger.debug("Create: Returned item transformed back to PubItemVO.");
-        if (pubItemVOPostCreate.getReference() != null)
+        if (pubItemVOPostCreate.getVersion() != null)
         {
-            logger.debug("pubItemVOPostCreate.getReference().getObjectId() (objid): " + pubItemVOPostCreate.getReference().getObjectId());
+            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): " + pubItemVOPostCreate.getVersion().getObjectId());
         }
         else
         {
-            fail("pubItemVOPostCreate.getReference() is null!");
+            fail("pubItemVOPostCreate.getVersion() is null!");
         }
         
-        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getModificationDate());
+        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getVersion().getModificationDate());
         // transform the PubItemVO into an item again
         String pubItemXMLPreUpdate = xmlTransforming.transformToItem(pubItemVOPostCreate);
         String id = getObjid(pubItemXMLPreUpdate);
@@ -407,7 +410,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         PubItemVO pubItemVOPostUpdate = xmlTransforming.transformToPubItem(pubItemXMLPostUpdate);
         logger.debug("Update: Returned item transformed back to PubItemVO.");
         // check results
-        assertTrue(pubItemVOPostUpdate.getLatestVersionNumber() > 1);        
+        assertTrue(pubItemVOPostUpdate.getLatestVersion().getVersionNumber() > 1);        
         // compare the metadata sets peu a peu (good for bug tracking)
         MdsPublicationVO mdsPublication1 = pubItemVOPreCreate.getMetadata();
         MdsPublicationVO mdsPublication2 = pubItemVOPostUpdate.getMetadata();
@@ -435,10 +438,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
@@ -456,19 +459,19 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // transform the returned item to a PubItemVO
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
         logger.debug("Create: Returned item transformed back to PubItemVO.");
-        if (pubItemVOPostCreate.getReference() != null)
+        if (pubItemVOPostCreate.getVersion() != null)
         {
-            logger.debug("pubItemVOPostCreate.getReference().getObjectId() (objid): " + pubItemVOPostCreate.getReference().getObjectId());
+            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): " + pubItemVOPostCreate.getVersion().getObjectId());
         }
         else
         {
-            logger.debug("pubItemVOPostCreate.getReference() is null!");
+            logger.debug("pubItemVOPostCreate.getVersion() is null!");
         }
-        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getModificationDate());
+        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getVersion().getModificationDate());
         // switch content type to another value
-        List<PubFileVO> files = pubItemVOPostCreate.getFiles();
+        List<FileVO> files = pubItemVOPostCreate.getFiles();
         assertEquals("Item does not contain exactly one file as expected.", 1, files.size());
-        PubFileVO file = files.get(0);
+        FileVO file = files.get(0);
         ContentType currentContentType = file.getContentType();
         if (currentContentType == ContentType.ABSTRACT)
         {
@@ -524,10 +527,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // create new PubItemVO containing some metadata content
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
         // add first file to PubItemVO
-        PubFileVO fileVO1 = new PubFileVO();
+        FileVO fileVO1 = new FileVO();
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO1.setContentType(ContentType.POST_PRINT);
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
@@ -536,10 +539,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
         // add second file to PubItemVO
-        PubFileVO fileVO2 = new PubFileVO();
+        FileVO fileVO2 = new FileVO();
         // first upload the file to the framework
         fileVO2.setContent(uploadFile(PDF_RUNAWAY_FILE, "application/pdf", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO2.setContentType(ContentType.COPYRIGHT_TRANSFER_AGREEMENT);
         fileVO2.setName("RunawayMassiveBinariesAndClusterEjectionScenarios.pdf");
         fileVO2.setDescription("The production of runaway massive binaries offers key insights into the evolution of close "
@@ -568,15 +571,15 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // transform the returned item to a PubItemVO
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
         logger.debug("Create: Returned item transformed back to PubItemVO.");
-        if (pubItemVOPostCreate.getReference() != null)
+        if (pubItemVOPostCreate.getVersion() != null)
         {
-            logger.debug("pubItemVOPostCreate.getReference().getObjectId() (objid): " + pubItemVOPostCreate.getReference().getObjectId());
+            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): " + pubItemVOPostCreate.getVersion().getObjectId());
         }
         else
         {
-            logger.debug("pubItemVOPostCreate.getReference() is null!");
+            logger.debug("pubItemVOPostCreate.getVersion() is null!");
         }
-        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getModificationDate());
+        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getVersion().getModificationDate());
         // transform the PubItemVO into an item again
         String pubItemXMLPreUpdate = xmlTransforming.transformToItem(pubItemVOPostCreate);
         String id = getObjid(pubItemXMLPreUpdate);
@@ -675,15 +678,15 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // transform the returned item to a PubItemVO
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
         logger.debug("Create: Returned item transformed back to PubItemVO.");
-        if (pubItemVOPostCreate.getReference() != null)
+        if (pubItemVOPostCreate.getVersion() != null)
         {
-            logger.debug("pubItemVOPostCreate.getReference().getObjectId() (objid): " + pubItemVOPostCreate.getReference().getObjectId());
+            logger.debug("pubItemVOPostCreate.getVersion().getObjectId() (objid): " + pubItemVOPostCreate.getVersion().getObjectId());
         }
         else
         {
-            logger.debug("pubItemVOPostCreate.getReference() is null!");
+            logger.debug("pubItemVOPostCreate.getVersion() is null!");
         }
-        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getModificationDate());
+        logger.debug("pubItemVOPostCreate.getModificationDate(): " + pubItemVOPostCreate.getVersion().getModificationDate());
         // test the transformation: transform the PubItemVO into an item
         zeit = -System.currentTimeMillis();
         String pubItemXMLPreUpdate = xmlTransforming.transformToItem(pubItemVOPostCreate);
@@ -724,14 +727,14 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         String targetItemPreCreateXml = xmlTransforming.transformToItem(targetItemPreCreate);
         String targetItemPostCreateXml = ServiceLocator.getItemHandler(userHandle).create(targetItemPreCreateXml);
         PubItemVO targetItemPostCreate = xmlTransforming.transformToPubItem(targetItemPostCreateXml);
-        PubItemRO targetItemRef = targetItemPostCreate.getReference();
+        ItemRO targetItemRef = targetItemPostCreate.getVersion();
 
         // create a "source" item and add some fancy relations to the "target" item
         PubItemVO sourceItemPreCreate = getPubItemWithoutFiles();
-        List<PubItemRelationVO> sourceItemRelations = sourceItemPreCreate.getRelations();
-        sourceItemRelations.add(new PubItemRelationVO(PREDICATE_ISREVISIONOF, targetItemRef));
-        sourceItemRelations.add(new PubItemRelationVO(PREDICATE_FEDORARELATIONSHIP, targetItemRef));
-        sourceItemRelations.add(new PubItemRelationVO(PREDICATE_ISMEMBEROF, targetItemRef));
+        List<ItemRelationVO> sourceItemRelations = sourceItemPreCreate.getRelations();
+        sourceItemRelations.add(new ItemRelationVO(PREDICATE_ISREVISIONOF, targetItemRef));
+        sourceItemRelations.add(new ItemRelationVO(PREDICATE_FEDORARELATIONSHIP, targetItemRef));
+        sourceItemRelations.add(new ItemRelationVO(PREDICATE_ISMEMBEROF, targetItemRef));
 
         // validate and create the "source" item
         String sourceItemPreCreateXml = xmlTransforming.transformToItem(sourceItemPreCreate);
@@ -744,10 +747,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         assertNotNull(sourceItemPostCreate);
 
         // check relations
-        List<PubItemRelationVO> relations = sourceItemPostCreate.getRelations();
+        List<ItemRelationVO> relations = sourceItemPostCreate.getRelations();
         assertEquals(3, relations.size());
         int containsExpectedRelations = 0;
-        for (PubItemRelationVO relation : relations)
+        for (ItemRelationVO relation : relations)
         {
             if (relation.getType().equals(PREDICATE_ISREVISIONOF))
             {
@@ -792,9 +795,9 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.debug("pubItem2 created. objid: " + objid2);
         // retrieve the two items from the framework using a FilterTaskParamVO
         FilterTaskParamVO filter = new FilterTaskParamVO();
-        PubItemRefFilter f1 = filter.new PubItemRefFilter();
-        f1.getIdList().add(new PubItemRO(objid1));
-        f1.getIdList().add(new PubItemRO(objid2));
+        ItemRefFilter f1 = filter.new ItemRefFilter();
+        f1.getIdList().add(new ItemRO(objid1));
+        f1.getIdList().add(new ItemRO(objid2));
         filter.getFilterList().add(f1);
         String filterXML = xmlTransforming.transformToFilterTaskParam(filter);
         logger.debug("Used filter to retrieve the items: \n" + filterXML);
@@ -819,10 +822,10 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         PubItemVO pubItemVOPreCreate = getComplexPubItemWithoutFiles();
         MdsPublicationVO mdsPreCreate = pubItemVOPreCreate.getMetadata();
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.POST_PRINT);
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein <a href=\"http://www.escidoc.de/farbtest_wasserfarben.jpg\"> Farbtest mit Wasserfarben.</a>");
@@ -889,33 +892,33 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         PubItemVO pubItemVOPostCreate = xmlTransforming.transformToPubItem(pubItemXMLPostCreate);
 
         // TaskParam for submission
-        TaskParamVO submitParam = new TaskParamVO(pubItemVOPostCreate.getModificationDate(), "Submission comment");
+        TaskParamVO submitParam = new TaskParamVO(pubItemVOPostCreate.getVersion().getModificationDate(), "Submission comment");
         
         // Submit the item
-        ihr.submit(pubItemVOPostCreate.getReference().getObjectId(), xmlTransforming.transformToTaskParam(submitParam));
+        ihr.submit(pubItemVOPostCreate.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(submitParam));
         
         // Retrieve the item again
-        String pubItemXMLPostSubmission = ihr.retrieve(pubItemVOPostCreate.getReference().getObjectId());
+        String pubItemXMLPostSubmission = ihr.retrieve(pubItemVOPostCreate.getVersion().getObjectId());
         PubItemVO pubItemVOPostSubmission = xmlTransforming.transformToPubItem(pubItemXMLPostSubmission);
         
         // TaskParam for release
-        TaskParamVO releaseParam = new TaskParamVO(pubItemVOPostSubmission.getModificationDate(), "Release comment");
+        TaskParamVO releaseParam = new TaskParamVO(pubItemVOPostSubmission.getVersion().getModificationDate(), "Release comment");
         
         // Submit the item
-        ihr.release(pubItemVOPostSubmission.getReference().getObjectId(), xmlTransforming.transformToTaskParam(releaseParam));
+        ihr.release(pubItemVOPostSubmission.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(releaseParam));
         
         // Retrieve the item again
-        String pubItemXMLPostRelease = ihr.retrieve(pubItemVOPostCreate.getReference().getObjectId());
+        String pubItemXMLPostRelease = ihr.retrieve(pubItemVOPostCreate.getVersion().getObjectId());
         PubItemVO pubItemVOPostRelease = xmlTransforming.transformToPubItem(pubItemXMLPostRelease);
         
         // TaskParam for withdrawal
-        TaskParamVO withDrawalparam = new TaskParamVO(pubItemVOPostRelease.getModificationDate(), WITHDRAWAL_COMMENT);
+        TaskParamVO withDrawalparam = new TaskParamVO(pubItemVOPostRelease.getVersion().getModificationDate(), WITHDRAWAL_COMMENT);
  
         // Withdraw the item
-        ihr.withdraw(pubItemVOPostRelease.getReference().getObjectId(), xmlTransforming.transformToTaskParam(withDrawalparam));
+        ihr.withdraw(pubItemVOPostRelease.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(withDrawalparam));
         
         // Retrieve the item again
-        String pubItemXMLPostWithdrawal = ihr.retrieve(pubItemVOPostRelease.getReference().getObjectId());
+        String pubItemXMLPostWithdrawal = ihr.retrieve(pubItemVOPostRelease.getVersion().getObjectId());
         PubItemVO pubItemVOPostWithdrawal = xmlTransforming.transformToPubItem(pubItemXMLPostWithdrawal);
                 
         logger.info("Returned item transformed back to PubItemVO.");

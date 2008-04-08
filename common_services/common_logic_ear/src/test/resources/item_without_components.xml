@@ -10,8 +10,7 @@
 	xmlns:properties="http://www.escidoc.de/schemas/properties/0.2"
 	xmlns:relations="http://www.escidoc.de/schemas/relations/0.2"
 	xmlns:resources="http://www.escidoc.de/schemas/resources/0.2" xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<item:properties>
 		<item:context objid="escidoc:persistent3" />
 		<item:content-model objid="escidoc:persistent4" />

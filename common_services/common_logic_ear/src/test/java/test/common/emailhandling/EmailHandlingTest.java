@@ -31,15 +31,20 @@
 package test.common.emailhandling;
 
 import static org.junit.Assert.assertNotNull;
+
 import java.io.File;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Test class for {@link de.mpg.escidoc.services.common.emailhandling.EmailHandlingBean}
@@ -74,18 +79,21 @@ public class EmailHandlingTest extends TestBase
      * TODO all these mail settings have to become properties!!
      */
     @BeforeClass
-    public static void setUpBeforeClass() throws  NamingException
+    public static void setUpBeforeClass() throws  Exception
     {
+    	
+    	logger.debug("E-Mail props: " + PropertyReader.getProperty("escidoc.pubman_presentation.email.mailservername"));
+    	
         // sets the handler
         emailHandling = getEmailHandling();
-        username = "pubman";
-        password = "cGVSeP";
-        smtpHost = "localhost";        
-        recipientsAddresses = new String[] {"escidoc-code@mpisoc.mpg.de"}; 
-        replyToAddresses = new String[]{"pubman@mpisoc.mpg.de"};
+        username = PropertyReader.getProperty("escidoc.pubman_presentation.email.authenticationuser");
+        password = PropertyReader.getProperty("escidoc.pubman_presentation.email.authenticationpwd");
+        smtpHost = PropertyReader.getProperty("escidoc.pubman_presentation.email.mailservername");
+        recipientsAddresses = new String[] {PropertyReader.getProperty("escidoc.pubman_presentation.email.sender")}; 
+        replyToAddresses = new String[]{PropertyReader.getProperty("escidoc.pubman_presentation.email.sender")};
         subject = "Testing Email sending";
         text = "Text of the email...... ";
-        senderAddress ="pubman@mpisoc.mpg.de";//someone@web.de
+        senderAddress = PropertyReader.getProperty("escidoc.pubman_presentation.email.sender");//someone@web.de
         attachments = null;
     }
     
@@ -103,7 +111,7 @@ public class EmailHandlingTest extends TestBase
         assertNotNull(file);
         file.getAbsolutePath();
         attachments = new String[]{file.getAbsolutePath()};
-        emailHandling.sendMail(smtpHost, username, password, senderAddress, recipientsAddresses, replyToAddresses, 
+        emailHandling.sendMail(smtpHost, username, password, senderAddress, recipientsAddresses, null, null, replyToAddresses, 
                                subject, text, attachments);
     }
 

@@ -45,11 +45,11 @@ import org.w3c.dom.Node;
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -117,11 +117,11 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         PubItemVO pubItemVOPreCreate = getPubItemWithoutFiles();
 
         // add file to PubItemVO
-        PubFileVO fileVO = new PubFileVO();
+        FileVO fileVO = new FileVO();
         String testFileName = "test/xmltransforming/integration/bug213SetContentTypeToNullTest/Bundhose_PLU-213.jpg";
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.POST_PRINT);
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
@@ -149,11 +149,11 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         logger.debug("Returned item transformed back to PubItemVO.");
 
         // add another file to PubItemVO
-        fileVO = new PubFileVO();
+        fileVO = new FileVO();
         testFileName = "test/xmltransforming/integration/bug213SetContentTypeToNullTest/Koax-System PCE 213.jpg";
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
-        // set some properties of the PubFileVO (mandatory fields first of all)
+        // set some properties of the FileVO (mandatory fields first of all)
         fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");

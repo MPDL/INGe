@@ -32,11 +32,13 @@ package test.common.valueobjects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import org.junit.Test;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubItemRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 
 /**
@@ -57,9 +59,9 @@ public class FilterTaskParamVOTest
     {
         FilterTaskParamVO filter = new FilterTaskParamVO();
         FilterTaskParamVO.Filter f1 = filter.new RoleFilter("Depositor", new AccountUserRO("objectId911"));
-        PubItemRefFilter f2 = filter.new PubItemRefFilter();
-        f2.getIdList().add(new PubItemRO("escidoc:item3"));
-        f2.getIdList().add(new PubItemRO("escidoc:item4"));
+        ItemRefFilter f2 = filter.new ItemRefFilter();
+        f2.getIdList().add(new ItemRO("escidoc:item3"));
+        f2.getIdList().add(new ItemRO("escidoc:item4"));
         filter.getFilterList().add(f1);
         filter.getFilterList().add(f2);
         assertEquals(2,filter.getFilterList().size());
@@ -67,7 +69,7 @@ public class FilterTaskParamVOTest
         assertTrue(RoleFilter.class.isAssignableFrom(f1b.getClass()));
         assertEquals("Depositor", ((RoleFilter)f1b).getRole());
         FilterTaskParamVO.Filter f2b = filter.getFilterList().get(1);
-        assertTrue(PubItemRefFilter.class.isAssignableFrom(f2b.getClass()));
-        assertEquals(2, ((PubItemRefFilter)f2b).getIdList().size());
+        assertTrue(ItemRefFilter.class.isAssignableFrom(f2b.getClass()));
+        assertEquals(2, ((ItemRefFilter)f2b).getIdList().size());
     }
 }

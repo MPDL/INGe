@@ -31,10 +31,13 @@
 package test.common.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
@@ -62,7 +65,7 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase
         for (PubItemVO itemVO : list)
         {
             PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-            logger.debug((pubInfo!=null?pubInfo.getPublisher():"null")+ " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug((pubInfo!=null?pubInfo.getPublisher():"null")+ " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"1","1","3","2","4"}; 
         assertObjectIdOrder(list, expectedIdOrder);
@@ -79,7 +82,7 @@ public class PublishingInfoComparatorTest extends ComparatorTestBase
         for (PubItemVO itemVO : list)
         {
             PublishingInfoVO pubInfo = itemVO.getMetadata().getPublishingInfo();
-            logger.debug((pubInfo!=null?pubInfo.getPublisher():"null")+ " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug((pubInfo!=null?pubInfo.getPublisher():"null")+ " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"4","2","3","1","1"}; 
         assertObjectIdOrder(list, expectedIdOrder);

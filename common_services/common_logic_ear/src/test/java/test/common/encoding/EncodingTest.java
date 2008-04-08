@@ -31,12 +31,15 @@
 package test.common.encoding;
 
 import java.util.List;
+
 import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;

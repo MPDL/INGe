@@ -33,22 +33,25 @@ package test.common.xmltransforming.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO;
-import de.mpg.escidoc.services.common.valueobjects.PubCollectionVO.SubmissionMethod;
+import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO.SubmissionMethod;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -122,7 +125,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         logger.info("Retrieved pubman collection '" + PUBMAN_TEST_COLLECTION_ID + "':\n" + toString(getDocument(context, false), false));        
         assertNotNull(context);
 
-        PubCollectionVO pubCollection = xmlTransforming.transformToPubCollection(context);
+        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
         assertNotNull(pubCollection);
         assertEquals(getExpectedPubCollection().getDefaultMetadata(), pubCollection.getDefaultMetadata());
 
@@ -135,13 +138,13 @@ public class TransformPubCollectionIntegrationTest extends TestBase
      * 
      * @return the expected pubCollectionVO
      */
-    private PubCollectionVO getExpectedPubCollection()
+    private PubContextVO getExpectedPubCollection()
     {
-        PubCollectionVO expected = new PubCollectionVO();
+        PubContextVO expected = new PubContextVO();
         expected.setName(PUBMAN_TEST_COLLECTION_NAME);
         expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
-        expected.setState(PubCollectionVO.State.OPENED);
-        expected.setReference(new PubCollectionRO("escidoc:persistent3"));
+        expected.setState(PubContextVO.State.OPENED);
+        expected.setReference(new ContextRO("escidoc:persistent3"));
         expected.setCreator(new AccountUserRO("escidoc:user42"));
         expected.setDefaultFileVisibility(null);
         expected.setDefaultMetadata(null);

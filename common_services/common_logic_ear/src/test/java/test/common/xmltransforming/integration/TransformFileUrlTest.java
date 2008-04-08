@@ -28,53 +28,51 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package test.common.xmltransforming.component;
+package test.common.xmltransforming.integration;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
+import java.net.URL;
 
 import org.apache.log4j.Logger;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.LockVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Test class for {@link XmlTransforming} methods for LockVo transformation.
- *
+ * Test class for {@link XmlTransforming#transformToFilterTaskParam(FilterTaskParamVO)}.
+ * 
+ * @author Johannes Mueller (initial creation)
  * @author $Author: jmueller $ (last modification)
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
  * @revised by MuJ: 03.09.2007
  */
-public class TransformLockTest extends TestBase
+public class TransformFileUrlTest extends TestBase
 {
-    private static XmlTransforming xmlTransforming;
+	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
     private Logger logger = Logger.getLogger(getClass());
 
     /**
-     * @throws Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception
-    {
-        xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
-    }
-    
-    /**
-     * Test for {@link XmlTransforming#transformToLockVO(String)}.
+     * Test for {@link XmlTransforming#transformUploadResponseToFileURL(String)}.
      * 
-     * @throws TechnicalException 
      * @throws Exception
      */
-    @Ignore("Not implemenmted yet")
     @Test
-    public void testTransformToLockVO() throws TechnicalException
+    public void transformUploadResponseToFileURL() throws Exception
     {
-        logger.info("### testTransformToLockVO ###");
-        LockVO lock = xmlTransforming.transformToLockVO("lockInformation xml");
-        assertNotNull("Transforming of LockVO not implemented yet.", lock);
+        String uploadResponseXML = readFile("src/test/resources/xmltransforming/component/transformFileUrlTest/staging-file_sample1.xml");
+
+        URL expectedURL = new URL(ServiceLocator.getFrameworkUrl()
+                + "/st/staging-file/escidoctoken:2a1082d0-d6c8-11db-8655-af79371c28f2");
+
+        URL url = xmlTransforming.transformUploadResponseToFileURL(uploadResponseXML);
+        logger.debug("Deserialized URL: " + url.toString());
+        logger.debug("Expected URL:     " + expectedURL.toString());
+
+        assertTrue(url.equals(expectedURL));
     }
 }

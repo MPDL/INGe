@@ -32,10 +32,13 @@ package test.common.valueobjects;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Collections;
 import java.util.Date;
+
 import org.junit.Before;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;

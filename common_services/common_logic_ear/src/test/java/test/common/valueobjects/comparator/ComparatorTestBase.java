@@ -31,10 +31,12 @@
 package test.common.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.List;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
@@ -81,11 +83,11 @@ public class ComparatorTestBase
     {
         PubItemVO item = new PubItemVO();
         // State
-        item.setState(PubItemVO.State.PENDING);
+        item.getVersion().setState(PubItemVO.State.PENDING);
         // RO
-        PubItemRO ref = new PubItemRO();
+        ItemRO ref = new ItemRO();
         ref.setObjectId("1");
-        item.setReference(ref);
+        item.setVersion(ref);
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         TextVO title = new TextVO();
@@ -109,9 +111,9 @@ public class ComparatorTestBase
         mds.getCreators().add(creator);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("/ir/context/escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         // Source
         SourceVO source = new SourceVO();
         source.getCreators().add(creator);
@@ -133,11 +135,11 @@ public class ComparatorTestBase
     {
         PubItemVO item = new PubItemVO();
         // State
-        item.setState(PubItemVO.State.PENDING);
+        item.getVersion().setState(PubItemVO.State.PENDING);
         // RO
-        PubItemRO ref = new PubItemRO();
+        ItemRO ref = new ItemRO();
         ref.setObjectId("2");
-        item.setReference(ref);
+        item.setVersion(ref);
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         TextVO title = new TextVO();
@@ -162,9 +164,9 @@ public class ComparatorTestBase
         mds.getCreators().add(creator);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("/ir/context/escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         // Source
         SourceVO source = new SourceVO();
         source.getCreators().add(creator);
@@ -186,11 +188,11 @@ public class ComparatorTestBase
     {
         PubItemVO item = new PubItemVO();
         // State
-        item.setState(PubItemVO.State.PENDING);
+        item.getVersion().setState(PubItemVO.State.PENDING);
         // RO
-        PubItemRO ref = new PubItemRO();
+        ItemRO ref = new ItemRO();
         ref.setObjectId("3");
-        item.setReference(ref);
+        item.setVersion(ref);
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         TextVO title = new TextVO();
@@ -222,9 +224,9 @@ public class ComparatorTestBase
         mds.getCreators().add(creator2);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("/ir/context/escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         // Source
         SourceVO source = new SourceVO();
         source.getCreators().add(creator);
@@ -248,11 +250,11 @@ public class ComparatorTestBase
     {
         PubItemVO item = new PubItemVO();
         // State
-        item.setState(PubItemVO.State.PENDING);
+        item.getVersion().setState(PubItemVO.State.PENDING);
         // RO
-        PubItemRO ref = new PubItemRO();
+        ItemRO ref = new ItemRO();
         ref.setObjectId("4");
-        item.setReference(ref);
+        item.setVersion(ref);
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         TextVO title = new TextVO();
@@ -271,9 +273,9 @@ public class ComparatorTestBase
         mds.getCreators().add(creator);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("/ir/context/escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         return item;
     }
 
@@ -289,7 +291,7 @@ public class ComparatorTestBase
         {
             PubItemVO pubItem = pubItemList.get(i);
             String id = idList[i];
-            assertEquals(id, pubItem.getReference().getObjectId());
+            assertEquals(id, pubItem.getVersion().getObjectId());
         }
     }
 }

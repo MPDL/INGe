@@ -66,15 +66,33 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 			</search-result:text-fragment>
 		</search-result:search-hit>
 	</search-result:highlight>
-	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441"
+	<escidocItem:item last-modification-date="2007-03-21T00:01:00.0Z" objid="escidoc:441"
 		xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3">
 		<escidocItem:properties>
 			<escidocItem:creation-date>2007-03-21T00:00:00.0Z</escidocItem:creation-date>
-			<escidocItem:created-by objid="escidoc:user1"/>
+			<escidocItem:created-by objid="escidoc:user1" />
 			<escidocItem:public-status>released</escidocItem:public-status>
-			<escidocItem:context objid="escidoc:persistent3"/>
-			<escidocItem:content-model objid="escidoc:persistent4"/>
+			<escidocItem:context objid="escidoc:persistent3" />
+			<escidocItem:content-model objid="escidoc:persistent4" />
 			<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+			<escidocItem:version objid="escidoc:21280:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-03-21T00:01:00.0Z</escidocItem:date>
+				<escidocItem:version-status>released</escidocItem:version-status>
+				<escidocItem:valid-status>valid</escidocItem:valid-status>
+				<escidocItem:modified-by objid="escidoc:user2" />
+				<escidocItem:comment>Test Title FrM</escidocItem:comment>
+				<escidocItem:pid>hdl:someHandle/test/escidoc:21280:1</escidocItem:pid>
+			</escidocItem:version>
+			<escidocItem:latest-version objid="escidoc:21280:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-03-21T00:01:00.0Z</escidocItem:date>
+			</escidocItem:latest-version>
+			<escidocItem:latest-release objid="escidoc:21280:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-03-21T00:01:00.0Z</escidocItem:date>
+				<escidocItem:pid>hdl:someHandle/test/escidoc:21280:1</escidocItem:pid>
+			</escidocItem:latest-release>
 			<escidocItem:content-model-specific />
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records
@@ -94,7 +112,7 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 		</escidocMetadataRecords:md-records>
 		<escidocComponents:components
 			xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
-			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:00:00.0Z">
+			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:01:00.0Z">
 				<escidocComponents:properties>
 					<escidocComponents:creation-date>2007-03-21T00:00:00.0Z</escidocComponents:creation-date>
 					<escidocComponents:created-by objid="escidoc:user1"/>

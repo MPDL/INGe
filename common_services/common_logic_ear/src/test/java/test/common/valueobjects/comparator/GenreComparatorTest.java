@@ -32,8 +32,10 @@ package test.common.valueobjects.comparator;
 
 import java.util.ArrayList;
 import java.util.Collections;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
@@ -59,7 +61,7 @@ public class GenreComparatorTest extends ComparatorTestBase
         Collections.sort(list, new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE)) ;
         for (PubItemVO itemVO : list)
         {
-            logger.debug(itemVO.getMetadata().getGenre()+ " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug(itemVO.getMetadata().getGenre()+ " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"2","1","1","3","4"}; 
         assertObjectIdOrder(list, expectedIdOrder);
@@ -75,7 +77,7 @@ public class GenreComparatorTest extends ComparatorTestBase
         Collections.sort(list, Collections.reverseOrder(new PubItemVOComparator(PubItemVOComparator.Criteria.GENRE))) ;
         for (PubItemVO itemVO : list)
         {
-            logger.debug(itemVO.getMetadata().getGenre()+ " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug(itemVO.getMetadata().getGenre()+ " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"4","3","1","1","2"}; 
         assertObjectIdOrder(list, expectedIdOrder);

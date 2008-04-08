@@ -28,13 +28,14 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package test.common.xmltransforming.component;
+package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.UnsupportedEncodingException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -53,22 +54,22 @@ import org.w3c.dom.Document;
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubCollectionRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubFileRO;
-import de.mpg.escidoc.services.common.referenceobjects.PubItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.FileRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.ContentType;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO.LockStatus;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
@@ -133,7 +134,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         PubItemResultVO pubItemResult = xmlTransforming.transformToPubItemResultVO(searchResultXml);
         assertNotNull(pubItemResult);
         assertEquals(getExpectedPubItem().getMetadata(), pubItemResult.getMetadata());
-        assertEquals(State.RELEASED, pubItemResult.getState());
+        assertEquals(State.RELEASED, pubItemResult.getVersion().getState());
 
         // check the results
         ObjectComparator oc = new ObjectComparator(getExpectedPubItem(), pubItemResult);
@@ -182,9 +183,9 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
 
         // pubItemResult.getFiles()
         assertEquals(3, pubItemResult.getFiles().size());
-        PubFileVO file1 = pubItemResult.getFiles().get(0);
+        FileVO file1 = pubItemResult.getFiles().get(0);
         assertEquals("/ir/item/escidoc:22/components/component/escidoc:23/content", file1.getContent());
-        assertEquals(PubFileVO.ContentType.ABSTRACT, file1.getContentType());
+        assertEquals(FileVO.ContentType.ABSTRACT, file1.getContentType());
         dateString = "2007-10-05T11:24:42.546Z";
         xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
         date = xmlGregorianCalendar.toGregorianCalendar().getTime();
@@ -229,7 +230,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         assertEquals("Test", textFragment1.getData().substring(hitWord.getStartIndex(), hitWord.getEndIndex() + 1));
 
         // pubItemResult.getState()
-        assertEquals(State.RELEASED, pubItemResult.getState());
+        assertEquals(State.RELEASED, pubItemResult.getVersion().getState());
 
         // pubItemResult.getWithdrawalComment();
 
@@ -288,12 +289,27 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
     protected PubItemVO getExpectedPubItem() throws Exception
     {
         PubItemVO item = new PubItemVO();
-        item.setReference(new PubItemRO("escidoc:441"));
-        item.setState(State.RELEASED);
-        GregorianCalendar cal = new GregorianCalendar(2007, Calendar.MARCH, 21);
-        cal.setTimeZone(TimeZone.getTimeZone("+0000"));
-        item.setCreationDate(cal.getTime());
-        item.setModificationDate(cal.getTime());
+        item.setVersion(new ItemRO("escidoc:441"));
+        item.getVersion().setState(State.RELEASED);
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
+        
+        Date modDate = sdf.parse("2007-03-21T00:01:00.0+0000");
+        Date creationDate = sdf.parse("2007-03-21T00:00:00.0+0000");
+        
+        item.getVersion().setModificationDate(modDate);
+        item.getVersion().setLastMessage("Test Title FrM");
+        item.getVersion().setVersionNumber(1);
+        item.getVersion().setPid("hdl:someHandle/test/escidoc:21280:1");
+        item.setLatestVersion(new ItemRO("escidoc:441"));
+        item.getLatestVersion().setModificationDate(modDate);
+        item.getLatestVersion().setVersionNumber(1);
+        item.setLatestRelease(new ItemRO("escidoc:441"));
+        item.getLatestRelease().setModificationDate(modDate);
+        item.getLatestRelease().setVersionNumber(1);
+        item.getLatestRelease().setPid("hdl:someHandle/test/escidoc:21280:1");
+
+        item.setCreationDate(creationDate);
         item.setLockStatus(LockStatus.UNLOCKED);
         item.setOwner(new AccountUserRO("escidoc:user1"));
 
@@ -314,20 +330,20 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         mds.getCreators().add(creator);
         item.setMetadata(mds);
         // PubCollectionRef
-        PubCollectionRO collectionRef = new PubCollectionRO();
+        ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("escidoc:persistent3");
-        item.setPubCollection(collectionRef);
+        item.setContext(collectionRef);
         // PubFile
-        PubFileVO file = new PubFileVO();
-        file.setReference(new PubFileRO("escidoc:442"));
+        FileVO file = new FileVO();
+        file.setReference(new FileRO("escidoc:442"));
         file.setContent("/ir/item/escidoc:441/components/component/escidoc:442/content");
         file.setContentType(ContentType.ABSTRACT);
         file.setVisibility(Visibility.PUBLIC);
         file.setName("farbtest.gif");
         file.setDescription("Ein Farbtest.");
         file.setPid("PIDBLA");
-        file.setLastModificationDate(cal.getTime());
-        file.setCreationDate(cal.getTime());
+        file.setLastModificationDate(modDate);
+        file.setCreationDate(creationDate);
         item.getFiles().add(file);
         return item;
     }
@@ -345,7 +361,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         SearchHitVO hitVO1 = new SearchHitVO();
 
         hitVO1.setType(SearchHitType.FULLTEXT);
-        hitVO1.setHitReference(new PubFileRO("escidoc:442"));
+        hitVO1.setHitReference(new FileRO("escidoc:442"));
 
         TextFragmentVO tf = new TextFragmentVO();
         String textFragmentData = "„Schönen guten Tag“, antwortete der kleine Prinz, der sich umdrehte, aber nichts sah.";

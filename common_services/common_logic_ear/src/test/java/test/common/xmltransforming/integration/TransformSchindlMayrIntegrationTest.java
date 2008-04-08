@@ -31,11 +31,14 @@
 package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -43,9 +46,10 @@ import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.PubFileVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -84,9 +88,9 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
     public void testCreateItemWithFileAndTransformToPubItem() throws Exception
     {
         PubItemVO pubItem = xmlTransforming.transformToPubItem(createItemWithFile(loginScientist()));
-        List<PubFileVO> files = pubItem.getFiles();
+        List<FileVO> files = pubItem.getFiles();
         logger.debug("#" + files.size() + " files");
-        for (PubFileVO file : files)
+        for (FileVO file : files)
         {
             StringBuffer sb = new StringBuffer();
             sb.append("Name=" + file.getName()+"\n");
@@ -111,9 +115,9 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
         String item = createItemWithFile(userHandle);
         logger.debug("create=" + item);
         PubItemVO pubItem = xmlTransforming.transformToPubItem(item);
-        List<PubFileVO> files = pubItem.getFiles();
+        List<FileVO> files = pubItem.getFiles();
         logger.debug("#" + files.size() + " files");
-        for (PubFileVO file : files)
+        for (FileVO file : files)
         {
             StringBuffer sb = new StringBuffer();
             sb.append("Name=" + file.getName()+"\n");
@@ -126,14 +130,14 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
         // Update the item
         item = xmlTransforming.transformToItem(pubItem);
         logger.debug("transform=" + item);
-        item = ServiceLocator.getItemHandler(userHandle).update(pubItem.getReference().getObjectId(),item);
+        item = ServiceLocator.getItemHandler(userHandle).update(pubItem.getVersion().getObjectId(),item);
         logger.debug("update=" + item);
         pubItem = xmlTransforming.transformToPubItem(item);
         
         // Download files
         files = pubItem.getFiles();
         logger.debug("#" + files.size() + " files");
-        for (PubFileVO file : files)
+        for (FileVO file : files)
         {
             logger.debug("Name=" + file.getName());
             logger.debug("Size=" + file.getSize());

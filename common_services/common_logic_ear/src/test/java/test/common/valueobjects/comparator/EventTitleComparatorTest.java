@@ -31,10 +31,13 @@
 package test.common.valueobjects.comparator;
 
 import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 import java.util.Collections;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -67,7 +70,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase
                 event = itemVO.getMetadata().getEvent();
             }
             
-            logger.debug((event!=null?event.getTitle().getValue():"null") + " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug((event!=null?event.getTitle().getValue():"null") + " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"2","1","1","3","4"}; 
         assertObjectIdOrder(list, expectedIdOrder);
@@ -89,7 +92,7 @@ public class EventTitleComparatorTest extends ComparatorTestBase
                 event = itemVO.getMetadata().getEvent();
             }
             
-            logger.debug((event!=null?event.getTitle().getValue():"null") + " ("+itemVO.getReference().getObjectId()+")");
+            logger.debug((event!=null?event.getTitle().getValue():"null") + " ("+itemVO.getVersion().getObjectId()+")");
         }
         String[] expectedIdOrder = new String[]{"4","3","1","1","2"}; 
         assertObjectIdOrder(list, expectedIdOrder);

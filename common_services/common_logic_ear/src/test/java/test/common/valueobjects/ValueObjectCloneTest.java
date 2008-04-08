@@ -31,7 +31,9 @@
 package test.common.valueobjects;
 
 import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 

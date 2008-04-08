@@ -33,9 +33,9 @@ package test.common;
 import java.util.HashMap;
 import java.util.Map;
 
-//import org.apache.xml.utils.PrefixResolver;
-import com.sun.org.apache.xml.internal.utils.PrefixResolver;
 import org.w3c.dom.Node;
+
+import com.sun.org.apache.xml.internal.utils.PrefixResolver;
 
 /**
  * This class maps namespace URIs to namespace prefixes for XPath evaluations.

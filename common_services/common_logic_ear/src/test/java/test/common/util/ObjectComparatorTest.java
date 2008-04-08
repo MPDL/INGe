@@ -30,12 +30,14 @@
 
 package test.common.util;
 
-import org.apache.log4j.Logger;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
+
+import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;

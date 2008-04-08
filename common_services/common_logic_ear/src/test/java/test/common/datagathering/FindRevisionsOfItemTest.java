@@ -32,10 +32,14 @@ package test.common.datagathering;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import java.util.List;
+
 import javax.naming.NamingException;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -82,7 +86,7 @@ public class FindRevisionsOfItemTest extends TestBase
         // create the item with one file
         String item = createItemWithFile(userHandle);
         PubItemVO pubItem = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToPubItem(item);
-        logger.debug("Target is " + pubItem.getReference().getObjectId());
+        logger.debug("Target is " + pubItem.getVersion().getObjectId());
 
         // Create two revisions
         // revision 1
@@ -92,12 +96,12 @@ public class FindRevisionsOfItemTest extends TestBase
         // add relation source 1 -- isRevisionOf --> target
         String param = "<param last-modification-date=\"" + sourceMd + "\">" +
                        "    <relation>" +
-                       "        <targetId>" + pubItem.getReference().getObjectId() + "</targetId>" +
+                       "        <targetId>" + pubItem.getVersion().getObjectId() + "</targetId>" +
                        "        <predicate>" + PREDICATE_ISREVISIONOF + "</predicate>" +
                        "    </relation>" +
                        "</param>";
         ServiceLocator.getItemHandler(userHandle).addContentRelations(sourceId1, param);
-        logger.debug(sourceId1 + " isRevisionOf " + pubItem.getReference().getObjectId());
+        logger.debug(sourceId1 + " isRevisionOf " + pubItem.getVersion().getObjectId());
         // revision 2
         source = ServiceLocator.getItemHandler(userHandle).create(readFile(ITEM_WITHOUT_COMPONENTS));
         String sourceId2 = getObjid(source);
@@ -105,21 +109,21 @@ public class FindRevisionsOfItemTest extends TestBase
         // add relation source 1 -- isRevisionOf --> target
         param = "<param last-modification-date=\"" + sourceMd + "\">" +
                 "    <relation>" +
-                "        <targetId>" + pubItem.getReference().getObjectId() + "</targetId>" +
+                "        <targetId>" + pubItem.getVersion().getObjectId() + "</targetId>" +
                 "        <predicate>" + PREDICATE_ISREVISIONOF + "</predicate>" +
                 "    </relation>" +
                 "</param>";
         ServiceLocator.getItemHandler(userHandle).addContentRelations(sourceId2, param);
-        logger.debug(sourceId2 + " isRevisionOf " + pubItem.getReference().getObjectId());
+        logger.debug(sourceId2 + " isRevisionOf " + pubItem.getVersion().getObjectId());
 
         // Call the gathering method
-        List<RelationVO> revisions = getDataGathering().findRevisionsOfItem(userHandle, pubItem.getReference());
+        List<RelationVO> revisions = getDataGathering().findRevisionsOfItem(userHandle, pubItem.getVersion());
         // Check the result
         assertNotNull(revisions);
         assertTrue(revisions.size() == 2);
-        assertTrue(revisions.get(0).getTargetItemRef().getObjectId().equals(pubItem.getReference().getObjectId()));
+        assertTrue(revisions.get(0).getTargetItemRef().getObjectId().equals(pubItem.getVersion().getObjectId()));
         assertTrue(revisions.get(0).getSourceItemRef().getObjectId().equals(sourceId1));
-        assertTrue(revisions.get(1).getTargetItemRef().getObjectId().equals(pubItem.getReference().getObjectId()));
+        assertTrue(revisions.get(1).getTargetItemRef().getObjectId().equals(pubItem.getVersion().getObjectId()));
         assertTrue(revisions.get(1).getSourceItemRef().getObjectId().equals(sourceId2));
     }
 }

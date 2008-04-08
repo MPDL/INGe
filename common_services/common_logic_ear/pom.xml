@@ -53,11 +53,6 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>axis</groupId>
-							<artifactId>axis</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
 							<groupId>wss4j</groupId>
 							<artifactId>wss4j</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
@@ -84,8 +79,8 @@
 							<goal>testCompile</goal>
 						</goals>
 						<configuration>
-							<source>${jdk.version}</source>
-							<target>${jdk.version}</target>
+							<source>1.5</source>
+							<target>1.5</target>
 						</configuration>
 					</execution>
 				</executions>
@@ -104,7 +99,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-							<test>TestCommonLogic</test>
+							<test>TestCommonLogicIntegration</test>
 						</configuration>
 					</execution>
 				</executions>
