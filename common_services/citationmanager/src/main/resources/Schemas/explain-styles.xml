@@ -42,7 +42,7 @@
 	 >
  	        <citation-style>
 	                <dc:title>APA Citation Style</dc:title>
- 	                <dc:identifier>123</dc:identifier>
+ 	                <dc:identifier>APA</dc:identifier>
  	                <format>
  	                	<dc:title>pdf</dc:title> 
 	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
@@ -63,32 +63,6 @@
  	                	<dc:title>snippet</dc:title>
 	 	                <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
  	                </format>
- 	                
  	                <dc:creator>vdm</dc:creator>
- 	        </citation-style>
- 	        <citation-style>
- 	                <dc:title>MLA Citation Style</dc:title>
- 	                <dc:identifier>223</dc:identifier>
- 	                <format>
- 	                	<dc:title>pdf</dc:title> 
-	 	                <dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
- 	                </format>
- 	                <format>
- 	                	<dc:title>rtf</dc:title>
-	 	                <dc:format xsi:type="dcterms:IMT">application/rtf</dc:format>
- 	                </format>
- 	                <format>
- 	                	<dc:title>html</dc:title>
-	 	                <dc:format xsi:type="dcterms:IMT">text/html</dc:format>
- 	                </format>
- 	                <format>
- 	                	<dc:title>odt</dc:title>
-	 	                <dc:format xsi:type="dcterms:IMT">application/vnd.oasis.opendocument.text</dc:format>
- 	                </format>
- 	                <format>
- 	                	<dc:title>snippet</dc:title>
-	 	                <dc:format xsi:type="dcterms:IMT">application/xml</dc:format>
- 	                </format>
- 	                <dc:creator>Kondic</dc:creator>
  	        </citation-style>
  	</citation-styles>
