@@ -74,6 +74,7 @@ public interface PubItemSearching
 	 */
 	public List<PubItemResultVO> search(String searchString, boolean searchInFiles) throws ParseException, TechnicalException;
 
+	
     /**
      * Searches for publication items that matches the given query.
      * 
@@ -84,6 +85,19 @@ public interface PubItemSearching
      */
     public List<PubItemResultVO> advancedSearch(ArrayList<CriterionVO> list, String language) throws ParseException, TechnicalException;
 
+    /**
+     * Searches for publication items that matches the given query 
+     * and returns output as one of the export formats.
+     * 
+	 * @param searchString The search query.
+     * @param exportFormat - is the one of the eSciDoc export formats
+     * @param outputFormat - is the one of the eSciDoc export file formats
+     * @return the result of the output according as byte array   
+     * @throws ParseException 
+     * @throws TechnicalException 
+     */
+    public byte[] searchAndOutput(String searchString, String exportFormat, String outputFormat) throws ParseException, TechnicalException;
+    
 	/**
 	 * Searches for all items that belong to the given affiliation. An item belongs to an affilation if it
      * has the affiliationPID set in the item metadata as a creator-organization-id or a creator-person-organisation-id.
