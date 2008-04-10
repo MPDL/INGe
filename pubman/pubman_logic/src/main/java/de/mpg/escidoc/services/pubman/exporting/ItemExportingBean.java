@@ -46,6 +46,7 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
+import de.mpg.escidoc.services.citationmanager.XmlHelper;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -164,9 +165,6 @@ public class ItemExportingBean implements ItemExporting
    	 	if ( exportFormat == null || exportFormat.trim().equals("") )
    	 		throw new TechnicalException("exportFormat is empty");
    	 	
-   	 	if ( outputFormat == null || outputFormat.trim().equals("") )
-   	 		throw new TechnicalException("outputFormat is empty");
-   	 	
    	 	if ( itemList == null || itemList.trim().equals("") )
    	 		throw new TechnicalException("itemList is empty");
    	 	
@@ -205,12 +203,12 @@ public class ItemExportingBean implements ItemExporting
    		 //interface later!!! 
    		 try
    		 {
-//   			 FOR: for ( String ef : XmlHelper.getListOfStyles() )
-//   				 if ( exportFormat.equals(ef) )
-//   				 {
-//   					 flag = true;
-//   					 break FOR; 
-//   				 }
+   			 FOR: for ( String ef : XmlHelper.getListOfStyles() )
+   				 if ( exportFormat.equals(ef) )
+   				 {
+   					 flag = true;
+   					 break FOR; 
+   				 }
    		 }
    		 catch (Exception e) 
    		 {
@@ -218,6 +216,10 @@ public class ItemExportingBean implements ItemExporting
    		 }
    		 
    		 if ( flag ){
+   			 
+   	   	 	if ( outputFormat == null || outputFormat.trim().equals("") )
+   	   	 		throw new TechnicalException("outputFormat should be not empty for exportFormat:" + exportFormat);
+
    			 outputFormat = outputFormat.trim();
    			 // workaround to find out whether the output format is presented  
    			 //TODO: should be taken directly from xml description of the export 
@@ -230,7 +232,6 @@ public class ItemExportingBean implements ItemExporting
    		 				 " for export format: " + exportFormat + " is not supported");
    			 
    			 try{
-//   				 exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
    				 exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
    				 return exportData;
    			 }  
