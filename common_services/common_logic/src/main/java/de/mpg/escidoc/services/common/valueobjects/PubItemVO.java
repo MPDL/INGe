@@ -22,6 +22,17 @@ public class PubItemVO extends ItemVO {
 		super(itemVO);
 	}
 	
+	/**
+     * {@inheritDoc}
+     * 
+     * @author Tobias Schraut
+     */
+    @Override
+    public Object clone()
+    {
+        return new PubItemVO(this);
+    }
+    
 	
 	public MdsPublicationVO getMetadata()
 	{
