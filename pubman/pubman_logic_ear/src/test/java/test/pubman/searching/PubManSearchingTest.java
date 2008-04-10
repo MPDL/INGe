@@ -41,7 +41,8 @@ import org.junit.runners.Suite;
  * Revised by NiH: 22.08.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ BracketsTest.class
+@Suite.SuiteClasses({ 
+					 BracketsTest.class
                      ,ConstantsTest.class
                      ,ExpressionsTest.class                    
                      ,OperationsTest.class
@@ -50,6 +51,7 @@ import org.junit.runners.Suite;
                      ,SearchPubItemsByAffiliationTest.class
                      ,SearchTest.class
                      ,AdvancedSearchTest.class
+                     ,SearchAndOutputTest.class
                     })
 public class PubManSearchingTest
 {
