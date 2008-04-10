@@ -35,20 +35,14 @@ public class AffiliationVOPresentation extends AffiliationVO
 		
 	}
 	
-	public String getImage()
+	public boolean getMps()
 	{
-		if ("MPS".equals(getAbbreviation()))
-		{
-			return "minerva.png";
-		}
-		else if (parent == null)
-		{
-			return "affiliations_tree.gif";
-		}
-		else
-		{
-			return "documents.gif";
-		}
+		return ("MPS".equals(getAbbreviation()));
+	}
+	
+	public boolean getTopLevel()
+	{
+		return (parent == null);
 	}
 
 	public String startSearch()
@@ -111,5 +105,5 @@ public class AffiliationVOPresentation extends AffiliationVO
             return result;
         }
     }
-
+    
 }
