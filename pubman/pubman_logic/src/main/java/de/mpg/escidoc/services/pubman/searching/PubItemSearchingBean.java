@@ -372,38 +372,61 @@ public class PubItemSearchingBean implements PubItemSearching
         }
     }
     
-    
     /**
      * {@inheritDoc}
      */
-    public byte[] searchAndOutput(String searchString, 
+    public byte[] searchAndOutput(String cqlSearchString, String language, 
     		String exportFormat, String outputFormat) throws ParseException,
     		TechnicalException {
 
-    	List<PubItemResultVO> pubItemResultVOList = search(searchString, false);
     	
-    	// cast List<PubItemResultVO> to List<PubItemVO>: element by element 
-    	List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();  
-    	for ( PubItemResultVO pubItemResultVO : pubItemResultVOList )
-    		pubItemVOList.add( (PubItemVO) pubItemResultVO );
+        if ( cqlSearchString == null )
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":search:searchString is null");
+        }
 
-    	String itemList = xmlTransforming.transformToItemList(pubItemVOList);
-
-
+        if ( exportFormat == null || exportFormat.trim().equals("") )
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":search:exportFormat is empty");
+        }
+        
     	byte[] exportData = null;
-    	try{
-    		exportData = itemExporting.getOutput( exportFormat, outputFormat, itemList );
-    	}  
-    	catch (Exception e) 
-    	{
-    		throw new TechnicalException(e);
-    	}   
-
+    	
+        if ( !cqlSearchString.trim().equals("") )
+        {
+        	
+            // execute search for publication items
+        	List<PubItemResultVO> pubItemResultVOList = cqlSearchForPubItems( cqlSearchString, language );
+        	
+            //List<PubItemResultVO> to List<PubItemVO>
+        	ArrayList<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
+            pubItemVOList.addAll((Arrays.asList(pubItemResultVOList.toArray(new PubItemVO[pubItemResultVOList.size()]))));
+        	
+            // cast List<PubItemResultVO> to List<PubItemVO>: element by element 
+//        	for ( PubItemResultVO pubItemResultVO : pubItemResultVOList )
+//        		pubItemVOList.add( (PubItemVO) pubItemResultVO );
+            
+        	String itemList = xmlTransforming.transformToItemList(pubItemVOList);
+        	
+        	logger.debug("itemList=" + itemList);
+        	
+        	try
+        	{
+        		exportData = itemExporting.getOutput( exportFormat, outputFormat, itemList );
+        	}  
+        	catch (Exception e) 
+        	{
+        		throw new TechnicalException(e);
+        	}   
+        }
+        
     	return exportData;
     }
     
 
-    /**
+    /**escidoc.framework_access.content-type.id.publication
      * {@inheritDoc}
      */
     public List<PubItemVO> searchPubItemsByAffiliation(AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException
@@ -514,10 +537,12 @@ public class PubItemSearchingBean implements PubItemSearching
 
         logger.debug("Search for " + extendedCqlSearchString);
 
+        
         // call framework Search service
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion("1.1");
         searchRetrieveRequest.setQuery(extendedCqlSearchString);
+
         // TODO NiH: Replace by appropriate implementation
         // ADDED by MuJ to increase record count (without this, only about 20 records are returned)
         NonNegativeInteger nni = new NonNegativeInteger("500");
@@ -525,6 +550,7 @@ public class PubItemSearchingBean implements PubItemSearching
         ////////////////////////////////////////        
         searchRetrieveRequest.setRecordPacking("xml");
         SearchRetrieveResponseType searchResult = null;
+        
         try
         {
             searchResult = ServiceLocator.getSearchHandler( language ).searchRetrieveOperation(searchRetrieveRequest);
@@ -611,7 +637,7 @@ public class PubItemSearchingBean implements PubItemSearching
                     + ":createCqlQuery:queryType is null");
         }
         
-        QueryParser parser = new QueryParser(searchString);
+        QueryParser parser = new QueryParser(searchString); 
         switch( queryType ) {
         	
         	case TITLE: 
