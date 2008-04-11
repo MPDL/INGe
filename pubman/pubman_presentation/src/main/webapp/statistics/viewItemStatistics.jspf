@@ -40,10 +40,10 @@
 			<h:outputText value="#{lbl.statistics_btnBack}" styleClass="statisticsBackLink"/>
 		</h:outputLink>
 		
-		<h1>
-			<div class="icon basicIcon"></div><div id="valItemStatisitics" class="editItemBlockHeaders">
+		<h2>
+			<div class="plaindocIcon"></div><div id="valItemStatisitics" class="viewItemTopHeader">
 			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.itemID}" /></div>
-		</h1>
+		</h2>
 		</div>
 		
 		 

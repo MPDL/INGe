@@ -34,8 +34,8 @@
 <f:subview id="Basics">
 	
 	<h2>
-			<div class="icon basicIcon"></div>
-			<div class="viewItemHeader">
+			<div class="plaindocIcon"></div>
+			<div class="viewItemTopHeader">
 				<h:outputText value="#{lbl.ViewItemFull_lblTitle}: "/>
 				<h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/>
 				<h:outputText value=" (#{ViewItemFull.genre})"/>

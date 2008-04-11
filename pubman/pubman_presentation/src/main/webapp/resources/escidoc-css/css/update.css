@@ -154,7 +154,7 @@ table.statisticTable {
 	border: none;
 	border-collapse: collapse;
 	text-align: center;	
-	
+	margin-left: 40px;
 }
 
 table.statisticTable td {
@@ -162,8 +162,6 @@ table.statisticTable td {
 	padding: 2px;
 	margin: 0px;	
 }
-
-
 
 table.statisticTable th {
 	font-weight: normal;
@@ -231,6 +229,12 @@ width: 98%;
 font-size: 80%;
 margin-left: 5px;
 float: right;
+}
+
+.viewItemTopHeader {
+padding-top: 10px;
+font-size: 1em;
+font-variant: normal;
 }
 
 .viewItemHeader {

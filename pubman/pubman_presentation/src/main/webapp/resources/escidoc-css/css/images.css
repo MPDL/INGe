@@ -136,6 +136,15 @@
 	background-repeat:no-repeat;
 }
 
+.plaindocIcon{
+	width:30px;
+	height:30px;
+	margin-right: 10px;
+	float:left;
+	background-image:url("../images/doctemp_30x30.gif");
+	background-repeat:no-repeat;
+}
+
 /*********************************************************/
 
 .pubItem{background: #FFF url(../images/document_icon.png) no-repeat left 0em;}
