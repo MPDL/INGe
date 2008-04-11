@@ -35,7 +35,7 @@ All rights reserved. Use is subject to license terms.
 	<f:subview id="list">
 		<div class="paginator">
 			<h:panelGroup layout="block" styleClass="paginator">
-				<h:outputText value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
+				<h:outputLabel value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
 				<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
 					<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 					<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
@@ -43,7 +43,7 @@ All rights reserved. Use is subject to license terms.
 					<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
 					<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 				</h:selectOneMenu>
-				<h:outputText value=" #{lbl.ItemList_ObjectsPerPage}"/>
+				<h:outputLabel value=" #{lbl.ItemList_ObjectsPerPage}"/>
 				<h:commandButton value="|<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
 				<h:commandButton value="<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
 				<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}" first="#{((ItemListSessionBean.currentPubItemListPointer - ItemListSessionBean.currentPubItemListPointer % (ItemListSessionBean.itemsPerPage * 10)) / (ItemListSessionBean.itemsPerPage * 10)) * 10}" rows="10">
@@ -85,7 +85,7 @@ All rights reserved. Use is subject to license terms.
 			</h:panelGroup>
 			<h:dataTable id="listtable" var="item" value="#{ItemListSessionBean.currentPubItemList}"
 				first="#{ItemListSessionBean.currentPubItemListPointer}"
-				rows="#{ItemListSessionBean.itemsPerPage}" rowClasses="odd, even">
+				rows="#{ItemListSessionBean.itemsPerPage}" rowClasses="">
 				<h:column>
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
