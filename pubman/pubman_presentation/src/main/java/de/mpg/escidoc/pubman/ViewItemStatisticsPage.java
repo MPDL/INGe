@@ -30,21 +30,22 @@
 
 package de.mpg.escidoc.pubman;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
+
 /**
- * BackingBean for SearchResultListPage.jsp.
+ * Backing Bean for ViewStatisticsPage.jsp
  *
- * @author: Thomas Diebäcker, created 24.01.2007
- * @version: $Revision: 1320 $ $LastChangedDate: 2007-10-23 11:15:29 +0200 (Di, 23 Okt 2007) $
- * Revised by DiT: 14.08.2007
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
 public class ViewItemStatisticsPage extends BreadcrumbPage
 {
-    private static Logger logger = Logger.getLogger(ViewItemStatisticsPage.class);
+    public static final String LOAD_VIEWSTATISTICS = "loadViewStatistics";
+   
 
     /**
      * Public constructor.
@@ -62,8 +63,7 @@ public class ViewItemStatisticsPage extends BreadcrumbPage
     {
         // Perform initializations inherited from our superclass
         super.init();
-
-        //this.getViewItemSessionBean().setHasBeenRedirected(false);
+        
     }
 
     /**
@@ -84,5 +84,17 @@ public class ViewItemStatisticsPage extends BreadcrumbPage
     {
         return (ViewItemSessionBean) getBean(ViewItemSessionBean.class);
     }
-
+    
+    /**
+     * Returns the ItemControllerSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ItemControllerSessionBean)
+     */
+    protected ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
+    }
+    
+    
+    
 }

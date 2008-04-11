@@ -147,30 +147,44 @@
 }
 
 /*STATISTICS*/
-.statisticsSmallFont {
-	font-size: 14px;
+
+
+table.statisticTable {
+	margin-top: 15px;
+	border: none;
+	border-collapse: collapse;
+	text-align: center;	
+	
 }
 
-.itemInformationFontSize {
-	font-size: 16px;
+table.statisticTable td {
+	border: 1px solid #ccc;
+	padding: 2px;
+	margin: 0px;	
 }
 
-#panItemStatisticsTitle {
+
+
+table.statisticTable th {
+	font-weight: normal;
+	border: 1px solid #ccc;
+	background-color: #e2e2e2;
+	padding: 2px;
+	margin: 0px;	
+}
+
+table.statisticTable td.statisticTableLeftCol {
+	text-align: right;
+	padding-left: 20px;
+}
+
+.itemStatisticHeader {
+	font-weight: bold;	
+}
+
+.statisticsBackLink {
 	margin-top: 100px;
-}
-
-#valItemStatisitics {
-	font-weight: bold;
-}
-
-.panItemStatisticsBox {
-	border: 1px black dotted;
-	text-align: center;
-}
-
-.statisticsCloseLink {
-	margin-top: 20px;
-	margin-left: 145px;
+	
 }
 
 /*WITHDRAW ITEM (AND SUBMIT ITEM)*/

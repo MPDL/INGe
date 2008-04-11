@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
+import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 
 public class PubFileVOPresentation extends FacesBean {
@@ -82,4 +83,20 @@ public class PubFileVOPresentation extends FacesBean {
 		return "loadEditItem";
 		
 	}
+	
+	
+	public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception
+    {
+        
+        String fileID = file.getReference().getObjectId();
+        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID);
+        return result;
+    }
+    
+    public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception
+    {
+        String fileID = file.getReference().getObjectId();
+        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID);
+        return result;
+    }
 }

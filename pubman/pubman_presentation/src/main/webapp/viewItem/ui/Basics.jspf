@@ -52,7 +52,7 @@
 					<h:outputText value="Item Log"/>
 		</h:commandLink>
 	
-		<h:commandLink onclick="openCenteredWindow('ViewItemStatisticsPage.jsp', 650, 350, 'Item statistics')">
+		<h:commandLink action="#{ViewItemFull.showStatistics}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	

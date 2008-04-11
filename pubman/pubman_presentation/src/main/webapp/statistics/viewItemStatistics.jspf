@@ -27,39 +27,84 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 	<f:subview id="ViewItemStatisitcs">
 		<div class="floatbox">
+		
+		<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemStatisticsPage.previousPageURI}">
+			<h:outputText value="#{lbl.statistics_btnBack}" styleClass="statisticsBackLink"/>
+		</h:outputLink>
+		
 		<h1>
-			<div class="icon basicIcon"></div><div id="valItemStatisitics" class="editItemBlockHeaders">Item Statistics</div>
+			<div class="icon basicIcon"></div><div id="valItemStatisitics" class="editItemBlockHeaders">
+			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.itemID}" /></div>
 		</h1>
 		</div>
-		<h:panelGrid id="panItemStatistics" columns="3" styleClass="panItemStatisticsBox">
-					
-					<h:outputText value="" />
-					<h:outputText value="Total" styleClass="itemInformation itemInformationFontSize"/>
-					<h:outputText value="Anonymous" styleClass="itemInformation itemInformationFontSize"/>
-					
-					<h:outputText value="Item Retrievals" styleClass="statisticsSmallFont"/>
-					<h:outputText value="22"/>
-					<h:outputText value="5" />
-					
-					<h:outputText value="File Downloads" styleClass="statisticsSmallFont"/>
-					<h:outputText value="46" />
-					<h:outputText value="5" />
-					
-					<h:outputText value="Filename1" styleClass="statisticsSmallFont"/>
-					<h:outputText value="23" />
-					<h:outputText value="3" />
-					
-					<h:outputText value="Filename2" styleClass="statisticsSmallFont"/>
-					<h:outputText value="23" />
-					<h:outputText value="3" />
-		  </h:panelGrid>	
+		
+		 
+		
+		<table class="statisticTable">
+			<tr>
+				<th class="statisticTableLeftCol"> </th>
 				
-		  <div styleClass="statisticsCloseLink">	
-		  	<a href="javascript:window.close()"> <h:outputText  id="lnkClose" value="Close Window"/></a>
-		  </div>	
+				<th><h:outputText value="#{lbl.statistics_lblAllUsers}" /></th>
 				
+				<th><h:outputText value="#{lbl.statistics_lblAnonymousUsers}" /></th>
+			</tr>
+			
+			
+			<tr>
+				<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblItemRetrievals}" styleClass="itemStatisticHeader"/></td>
+				
+				<td> </td>
+				
+				<td> </td>
+			</tr>
+			
+			
+			<tr>
+				<td class="statisticTableLeftCol"> </td>
+				
+				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" /></td>
+				
+				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" /></td>
+			</tr>
+		
+		
+			<tr>
+				<td class="statisticTableLeftCol"><h:outputText value="Downloads" styleClass="itemStatisticHeader"/></td>
+				
+				<td></td>
+				
+				<td></td>
+			</tr>
+			
+			
+			<tr>
+				<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblAllFiles}" /></td>
+				
+				<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" /></td>
+				
+				<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /></td>
+			</tr>		
+		
+		
+			<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">	
+				<tr>
+					<td class="statisticTableLeftCol"><h:outputText value="#{file.file.name}" /></td>
+					
+					<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /></td>
+					
+					<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /></td>
+				</tr>	
+			</tr:iterator>	
+		
+		</table>
+		
 	</f:subview>
 </div>

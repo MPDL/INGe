@@ -54,6 +54,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
@@ -459,6 +460,23 @@ public class CommonUtils extends InternationalizedImpl
         }
 
         return pubItemList;
+    }
+    
+    /**
+     * Converts a list of PubItems to a list of PubItemVOPresentations.
+     * @param list the list of PubItemVOs
+     * @return the list of PubItemVOPresentations
+     */
+    public static List<PubFileVOPresentation> convertToPubFileVOPresentationList(List<? extends FileVO> list)
+    {
+        List<PubFileVOPresentation> pubFileList = new ArrayList<PubFileVOPresentation>();
+
+        for (int i = 0; i < list.size(); i++)
+        {
+            pubFileList.add(new PubFileVOPresentation(i, list.get(i)));
+        }
+
+        return pubFileList;
     }
 
     /**

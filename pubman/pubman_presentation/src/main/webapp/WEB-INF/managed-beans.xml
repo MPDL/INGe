@@ -414,6 +414,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>ViewItemStatistics</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.statistics.ViewItemStatistics</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>ViewItemRevisionsPage</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemRevisionsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>

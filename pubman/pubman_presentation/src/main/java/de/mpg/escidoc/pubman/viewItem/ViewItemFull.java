@@ -53,6 +53,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
+import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
@@ -477,6 +478,17 @@ public class ViewItemFull extends FacesBean
 			logger.error("Error setting revision list", e);
 		}
         return ViewItemRevisionsPage.LOAD_VIEWREVISIONS;
+    }
+    
+    /**
+     * Redirects the user to the statistics page.
+     * 
+     * @return String nav rule to load the create new revision page.
+     */
+    public String showStatistics()
+    {
+       
+        return ViewItemStatisticsPage.LOAD_VIEWSTATISTICS;
     }
 
     /**

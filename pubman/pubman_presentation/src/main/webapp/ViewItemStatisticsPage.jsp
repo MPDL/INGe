@@ -52,17 +52,33 @@
 					<div id="page_margins">
 						<div id="page">
 							<h:form id="form1">
-								  <div id="main">							 
+								<div id="header">
+									<jsp:directive.include file="../desktop/Header.jspf"/>
+									<jsp:directive.include file="../desktop/Login.jspf"/>
+									<jsp:directive.include file="../desktop/Search.jspf"/>
+								</div>
+								<div id="nav">
+									<jsp:directive.include file="../desktop/Breadcrumb.jspf"/>
+								</div>
+								<div id="main">
+									<div id="col1">
+										<span class="mainMenu">
+											<jsp:directive.include file="desktop/Navigation.jspf"/> 
+										</span>
+									</div>
+									
 									<div id="col3">
-										<div>
+										<div class="content">
 											<jsp:directive.include file="statistics/viewItemStatistics.jspf"/>
 										</div>
 									</div>
 								</div>
+								<jsp:directive.include file="../desktop/messages.jspf"/>
 							</h:form>
 						 </div>
 					  </div>
 				</body>
+			<script type="text/javascript" src="/clickheat/js/clickheat.js"></script><script type="text/javascript">clickHeatPage = 'view_Item';initClickHeat();</script>
 			</html>
 		
 	</f:view>
