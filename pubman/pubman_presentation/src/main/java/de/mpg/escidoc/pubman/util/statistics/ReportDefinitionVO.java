@@ -1,6 +1,6 @@
 package de.mpg.escidoc.pubman.util.statistics;
 
-public class ReportDefinitionVO implements Comparable<ReportDefinitionVO>
+public class ReportDefinitionVO
 {
     
     private String objectId;
@@ -49,13 +49,6 @@ public class ReportDefinitionVO implements Comparable<ReportDefinitionVO>
     public void setScopeID(String scopeID)
     {
         this.scopeID = scopeID;
-    }
-
-    @Override
-    public int compareTo(ReportDefinitionVO o)
-    {
-        return sql.compareTo(o.getSql());
-    }
-    
+    }   
     
 }
