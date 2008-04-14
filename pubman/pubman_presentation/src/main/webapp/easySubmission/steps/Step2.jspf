@@ -64,7 +64,7 @@
 				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value="#{lbl.easy_submission_btnCancel}"  styleClass="easySubmissionNextButton" type="submit"/>
 			</div>
 			<div class="easySubmissionsNextSection">
-				<h:commandButton action="#{EasySubmission.loadStep3Manual}" value="#{lbl.easy_submission_btnNext}"  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:commandButton action="#{EasySubmission.loadStep3Manual}" value="#{lbl.easy_submission_btnNext}" disabled="#{EasySubmission.disableNextButton}"  styleClass="easySubmissionNextButton" type="submit"/>
 			</div>
 		</div>
 	</div>

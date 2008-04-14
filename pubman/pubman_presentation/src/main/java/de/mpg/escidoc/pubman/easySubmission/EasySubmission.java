@@ -743,6 +743,31 @@ public class EasySubmission extends FacesBean
 		return locatorNumber;
 	}
     
+    /**
+     * This method examines if the user has already selected a context for creating an item. If yes, the 'Next' button will be enabled, otherwise disabled
+     * @return boolean Flag if the 'Next' button should be enabled or disabled
+     */
+    public boolean getDisableNextButton()
+    {
+    	boolean disableButton = true;
+    	int countSelectedContexts = 0;
+    	// examine if a context for creating the item has been selected
+    	if(this.getContextListSessionBean().getContextList() != null)
+    	{
+    		for(int i = 0; i < this.getContextListSessionBean().getContextList().size(); i++)
+        	{
+        		if(this.getContextListSessionBean().getContextList().get(i).getSelected() == true)
+        		{
+        			countSelectedContexts ++;
+        		}
+        	}
+    	}
+    	if(countSelectedContexts > 0)
+    	{
+    		disableButton = false;
+    	}
+    	return disableButton;
+    }
     public String getSourceTitle()
     {
     	String sourceTitle = "";
