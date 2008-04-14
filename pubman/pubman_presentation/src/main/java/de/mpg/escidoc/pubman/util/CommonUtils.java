@@ -46,6 +46,7 @@ import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.component.html.HtmlSelectOneMenu;
+import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -185,6 +186,23 @@ public class CommonUtils extends InternationalizedImpl
         }
 
         return (String) comboBox.getValue();
+    }
+    
+    /**
+     * Returns the current value of a comboBox. Used in UIs.
+     * @param comboBox the comboBox for which the value should be returned
+     * @return the current value of the comboBox
+     */
+    public static String getUIValue(HtmlSelectOneRadio radioButton)
+    {
+        if (radioButton.getSubmittedValue() != null
+                && radioButton.getSubmittedValue() instanceof String[]
+                && ((String[]) radioButton.getSubmittedValue()).length > 0)
+        {
+            return ((String[]) radioButton.getSubmittedValue())[0];
+        }
+
+        return (String) radioButton.getValue();
     }
 
     /**

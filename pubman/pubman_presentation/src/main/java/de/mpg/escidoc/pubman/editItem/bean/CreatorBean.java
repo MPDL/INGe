@@ -108,6 +108,22 @@ public class CreatorBean extends FacesBean
         // affiliation tree
         return "loadAffiliationTree";
     }
+    
+    /**
+     * Action navigation call to select one persons organisation for easy submission
+     * @return
+     */
+    public String selectPersonOrganisationEasySubmission()
+    {
+        currentOrgaForSelection = (OrganizationVO) personOrganisationManager.getObjectDM().getRowData();
+
+        // Set this value to let the affiliation tree know where to jump after selection.
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("EasySubmission");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(currentOrgaForSelection);
+        
+        // affiliation tree
+        return "loadAffiliationTree";
+    }
 
     /**
      * Action navigation call to select the creator organisation
@@ -128,6 +144,25 @@ public class CreatorBean extends FacesBean
         return "loadAffiliationTree";
     }
 
+    /**
+     * Action navigation call to select the creator organisation for Easy Submission
+     * @return
+     */
+    public String selectOrganisationEasySubmission()
+    {
+        if (creator.getOrganization() == null)
+        {
+            creator.setOrganization(new OrganizationVO());
+        }
+        currentOrgaForSelection = creator.getOrganization();
+
+        // Set this value to let the affiliation tree know where to jump after selection.
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("EasySubmission");
+        ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(currentOrgaForSelection);
+        
+        return "loadAffiliationTree";
+    }
+    
     /**
      * ValueChangeListener method to handle changes in the creatorType. 
      * @param event

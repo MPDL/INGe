@@ -3,6 +3,9 @@ package de.mpg.escidoc.pubman.util;
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
@@ -37,6 +40,11 @@ public class PubContextVOPresentation extends PubContextVO {
 	public void setDetails(boolean details) {
 		this.details = details;
 	}
+	
+	private ContextListSessionBean getContextListSessionBean()
+	{
+		return ((ContextListSessionBean) getSessionBean(ContextListSessionBean.class));
+	}
     
     public void showDetails()
     {
@@ -52,6 +60,21 @@ public class PubContextVOPresentation extends PubContextVO {
     {
     	selected = true;
     	return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EditItem.LOAD_EDITITEM, getReference());
+    }
+    
+    public String selectForEasySubmission()
+    {
+    	// deselect all other contexts
+    	if(this.getContextListSessionBean().getContextList() != null)
+    	{
+    		for(int i = 0; i < this.getContextListSessionBean().getContextList().size(); i++)
+        	{
+        		this.getContextListSessionBean().getContextList().get(i).setSelected(false);
+        	}
+    	}
+    	selected = true;
+    	EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
+    	return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
     }
     
     /**

@@ -90,6 +90,16 @@ public class AffiliationBean extends FacesBean {
 			}
 			return "loadEditItem";
 		}
+		if ("EasySubmission".equals(source))
+		{
+			if (cache != null && cache instanceof OrganizationVO)
+			{
+				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getName()));
+				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
+				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getPid());
+			}
+			return "loadNewEasySubmission";
+		}
 		else if (selectedAffiliation != null)
 		{
 			//start search by affiliation

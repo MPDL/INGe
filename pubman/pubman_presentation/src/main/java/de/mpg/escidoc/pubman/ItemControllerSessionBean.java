@@ -1380,8 +1380,8 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
-       
+        //ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
+        ArrayList<PubItemVO> itemList = null;
         if (logger.isDebugEnabled())
         {
             logger.debug("Found " + itemList.size());
@@ -1492,8 +1492,8 @@ public class ItemControllerSessionBean extends FacesBean
  
        logger.debug("sendEmail....");        
        String status = "not sent";
-       status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
-                              subject, text, attachments);
+       /*status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
+                              subject, text, attachments);*/
        logger.debug("status " + status);        
       
         return status;
