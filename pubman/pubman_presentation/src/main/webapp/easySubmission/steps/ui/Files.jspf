@@ -1,0 +1,95 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<f:subview id="Source">
+	
+	<%-- FILES --%>
+	<tr:iterator var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" varStatus="index">
+     		<h:panelGroup >
+     			<h:panelGroup layout="block" styleClass="editItemSingleCol">
+     				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblUploaded}" rendered="#{component.file.size > 0}"/>
+     				<tr:outputLabel styleClass="colLbl" value="#{component.file.name}, " rendered="#{component.file.size > 0}"/>		
+     				
+     				<tr:outputLabel styleClass="colLbl" value="#{component.contentCategory}, " rendered="#{component.file.size > 0}"/>	
+     				
+     				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileVisibility}"  rendered="#{component.file.size > 0}"/>	
+     				<tr:outputLabel styleClass="colLbl" value="#{component.visibility}, " rendered="#{component.file.size > 0}"/>	
+     				
+     				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileFileDescription}" rendered="#{component.file.size > 0}"/>
+     				<tr:outputLabel styleClass="colLbl" value="#{component.file.description}" rendered="#{component.file.size > 0}"/>	
+     				
+     				<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.file.size > 0}"/>
+				<tr:commandLink text="#{lbl.easy_submission_btnRemoveFile}" rendered="#{component.file.size > 0}" action="#{component.removeFileEasySubmission}"/>	
+			
+     			</h:panelGroup>
+     			<h:panelGroup layout="block" styleClass="editItemSingleCol">
+     				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lbleasy_submission_lblFilePath}" rendered="#{component.file.size == 0}"/>
+     				<tr:inputFile value="#{EasySubmission.uploadedFile}" rendered="#{component.file.size == 0}"/>
+     				<%-- BUTTON --%>
+     				<tr:commandButton text="#{lbl.easy_submission_btnUploadFile}" rendered="#{component.file.size == 0}" styleClass="inlineButton noLineBreak" action="#{EasySubmission.upload}"/>      				
+     			</h:panelGroup>
+     			<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileProperties}" rendered="#{component.file.size == 0}"/>
+          		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+          			<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileVisibility}"  rendered="#{component.file.size == 0}"/>
+          			<h:selectOneRadio value="#{component.file.visibility}" rendered="#{component.file.size == 0}">
+           			<f:selectItems value="#{EasySubmission.visibilities}" />
+          			</h:selectOneRadio>
+          		</h:panelGroup>
+          		<h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{component.file.size == 0}">
+          			
+          			<h:panelGroup layout="block" styleClass="editItemCol1">
+          				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileName}" rendered="#{component.file.size == 0}"/>
+          				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size == 0}" />
+          			</h:panelGroup>
+          			<h:panelGroup layout="block" styleClass="editItemCol1">
+          				<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileContentCategory}" rendered="#{component.file.size == 0}"/>
+          				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size == 0}">
+           				<f:selectItems value="#{EasySubmission.contentTypes}" />
+          				</h:selectOneMenu>
+          			</h:panelGroup>
+          		</h:panelGroup>
+          		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+          			<tr:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFileDescription}" rendered="#{component.file.size == 0}"/>
+          			<tr:inputText value="#{component.file.description}" rows="4" rendered="#{component.file.size == 0}"/>	
+          		</h:panelGroup>
+         		</h:panelGroup>
+         		<h:panelGroup layout="block" styleClass="editItemAddLink">
+			<h:panelGroup layout="block" styleClass="editItemLeftCol">
+				<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}"/>
+				<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}" />
+			</h:panelGroup>
+			
+        </h:panelGroup>  	
+       	
+    </tr:iterator> 
+</f:subview>

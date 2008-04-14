@@ -438,4 +438,14 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.NoSearchResultsPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>EasySubmission</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmission</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>EasySubmissionSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 </faces-config>

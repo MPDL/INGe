@@ -48,6 +48,11 @@
 			action="#{CreateItem.newSubmission}">
 			<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission}" />
 		</h:commandLink></li>
+		
+		<li><h:commandLink
+			action="#{EasySubmission.newEasySubmission}">
+			<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission}"/>
+		</h:commandLink></li>
 	</ul>
 	<h:outputText id="pageDummy" value="#{Navigation.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 </f:subview></div>

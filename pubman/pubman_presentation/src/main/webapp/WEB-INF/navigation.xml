@@ -262,6 +262,15 @@
 		<from-view-id>
 		*</from-view-id>
 		<navigation-case>
+			<from-outcome>loadNewEasySubmission</from-outcome>
+			<to-view-id>
+			/EasySubmissionPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
 			<from-outcome>loadViewStatistics</from-outcome>
 			<to-view-id>
 			/ViewItemStatisticsPage.jsp</to-view-id>

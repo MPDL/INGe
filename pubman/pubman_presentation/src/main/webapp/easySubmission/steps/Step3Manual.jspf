@@ -1,0 +1,84 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<f:subview id="easySubmissionStep3Manual">
+	
+	<h1>
+		<div class="basicIcon"></div>
+		<div class="orientationHeader"><h:outputText value="#{lbl.EasySubmission}"/></div>
+	</h1>
+	
+	<div class="easySubmissionBox floatbox">
+		<div class="easySubmissionBoxHeader">
+			<ol class="five">
+				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
+				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
+				<li class="easySubmissionActivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></p></li>
+				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>4</span></p></li>
+				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>5</span></p></li>
+			</ol>
+		</div>
+		<div class="easySubmissionBoxBody">
+			<h3><h:outputText value="#{msg.easy_submission_Step3Manual}"/></h3>
+			<div class="easySubmissionBoxBodyContent">
+				
+				<%-- Genre --%>
+				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblGenre} *"/>
+				<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}">
+					<f:selectItems value="#{EasySubmission.genres}" />
+				</h:selectOneMenu>
+				
+				<%-- Title --%>
+				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblTitle} *"/>
+				<h:inputTextarea rows="5" value="#{EasySubmission.item.metadata.title.value}"/>
+				
+				<jsp:directive.include file="./ui/Files.jspf"/>
+				<jsp:directive.include file="./ui/Locators.jspf"/>
+			</div>
+		</div>
+	</div>
+	<div class="easySubmissionControls floatbox">
+		<div>
+			<div class="easySubmissionsBackSection">
+				<h:commandButton action="#{EasySubmission.loadStep2}" value="#{lbl.easy_submission_btnBack}"  styleClass="easySubmissionBackButton" type="submit"/>
+			</div
+			<div class="easySubmissionsCancelSection">
+				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value="#{lbl.easy_submission_btnCancel}"  styleClass="easySubmissionNextButton" type="submit"/>
+			</div>
+			<div class="easySubmissionsNextSection">
+				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value="#{lbl.easy_submission_btnNext}"  styleClass="easySubmissionNextButton" type="submit"/>
+			</div>
+		</div>
+	</div>
+	<h:outputText value="This is Step 1"/>
+</f:subview>
