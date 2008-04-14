@@ -1380,8 +1380,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
 
         // retrieve the items applying the searchString
-        //ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
-        ArrayList<PubItemVO> itemList = null;
+        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
         if (logger.isDebugEnabled())
         {
             logger.debug("Found " + itemList.size());
