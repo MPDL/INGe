@@ -120,7 +120,6 @@
 									</escidoc:publishing-info>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:attribute name="type"></xsl:attribute>
 									<dc:title xml:lang="en"></dc:title>
 									<escidoc:creator role="author">
 										<escidoc:person>
