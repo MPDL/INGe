@@ -34,7 +34,7 @@
 <div>
 	<f:subview id="content">
 		<div>
-			<h1>
+			<h1 class="bottomSpace">
 				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>	   
 			</h1>
 			
