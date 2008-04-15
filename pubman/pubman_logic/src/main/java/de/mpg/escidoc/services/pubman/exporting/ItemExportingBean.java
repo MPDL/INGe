@@ -221,12 +221,8 @@ public class ItemExportingBean implements ItemExporting
    	   	 		throw new TechnicalException("outputFormat should be not empty for exportFormat:" + exportFormat);
 
    			 outputFormat = outputFormat.trim();
-   			 // workaround to find out whether the output format is presented  
-   			 //TODO: should be taken directly from xml description of the export 
-   			 //rather then hardcoded in FileFormatVO class    
    		 	 if ( 
-   		 			 FileFormatVO.getMimeTypeByName(outputFormat).equals(FileFormatVO.PDF_MIMETYPE)
-   		 			 && !outputFormat.equals(FileFormatVO.PDF_NAME) 
+   		 			 ! FileFormatVO.isOutputFormatSupported(outputFormat) 
    		 		)
    		 		 throw new TechnicalException("file output format: " + outputFormat + 
    		 				 " for export format: " + exportFormat + " is not supported");
