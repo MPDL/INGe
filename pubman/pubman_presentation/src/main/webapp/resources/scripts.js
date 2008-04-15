@@ -212,6 +212,11 @@ function downloadFileViewItem(element)
 	button.click();
 }
 
+function selectExternalService(element) 
+{
+	document.getElementById(element).click();
+}
+
 function bookmark(url, title) {
 
 	alert('URL:' + url + '\nTitle:' + title);
