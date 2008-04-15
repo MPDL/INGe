@@ -111,6 +111,13 @@
 		<servlet-class>de.mpg.escidoc.pubman.init.InitializerServlet</servlet-class>
 		<load-on-startup>2</load-on-startup>
 	</servlet>
+	
+	<!-- Initializer Servlet -->
+	<servlet>
+		<servlet-name>SearchAndOutput Servlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.pubman.searching.webservice.RestServlet</servlet-class>
+	</servlet>
+	
   <!-- resource loader servlet -->
 	<servlet>
 		<servlet-name>resources</servlet-name>
@@ -136,6 +143,11 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SearchAndOutput Servlet</servlet-name>
+		<url-pattern>/SearchAndOutput/*</url-pattern>
 	</servlet-mapping>
 
 	<servlet-mapping>
