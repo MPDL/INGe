@@ -28,16 +28,12 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package test;
+package test.metadata;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.metadata.MetadataTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+import de.mpg.escidoc.services.common.util.BibTexUtil;
 
 /**
  * Component test suite for common_logic.
@@ -47,12 +43,9 @@ import test.xmltransforming.XmlTransformingTest;
  * @revised by MuJ: 06.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataTest.class
+@Suite.SuiteClasses({BibTexUtilTest.class
+                    ,MetadataHandlerTest.class
                     })
-public class TestCommonLogic
+public class MetadataTest
 {
 }

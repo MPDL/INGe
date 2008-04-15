@@ -1,6 +1,7 @@
 package de.mpg.escidoc.services.common.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,6 +13,14 @@ import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 public class BibTexUtil {
 	
 	private static Logger logger = Logger.getLogger(BibTexUtil.class);
+	
+	public static final String ESCAPE_CHARACTERS = "$&%#_";
+
+	public enum Genre
+	{
+		article, book, booklet, conference, inbook, incollection, inproceedings,
+		manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished
+	}
 	
 	private static Map<BibTexUtil.Genre, MdsPublicationVO.Genre> genreMapping = new HashMap<BibTexUtil.Genre, MdsPublicationVO.Genre>();
 	static
@@ -32,7 +41,7 @@ public class BibTexUtil {
 		genreMapping.put(BibTexUtil.Genre.unpublished, MdsPublicationVO.Genre.OTHER);
 	}
 	
-	private static Map<String, String> encodingTable = new HashMap<String, String>();
+	private static Map<String, String> encodingTable = new LinkedHashMap<String, String>();
 	static
 	{		
 		encodingTable.put("\\acute{e}", "\u00e9");
@@ -99,38 +108,21 @@ public class BibTexUtil {
 
 		encodingTable.put("\\hspace{0 cm}", "\u0000");
 		encodingTable.put("\\hspace{0 pt}", "\u0000");
-		encodingTable.put("{\\#}", "\u0023");
-		encodingTable.put("\\#", "\u0023");
-		encodingTable.put("{\\$}", "\u0024");
-		encodingTable.put("\\$", "\u0024");
-		encodingTable.put("{\\%}", "\u0025");
-		encodingTable.put("\\%", "\u0025");
-		encodingTable.put("{\\&}", "\u0026");
-		encodingTable.put("\\&", "\u0026");
+//		encodingTable.put("{\\#}", "\u0023");
+//		encodingTable.put("\\#", "\u0023");
+//		encodingTable.put("{\\$}", "\u0024");
+//		encodingTable.put("\\$", "\u0024");
+//		encodingTable.put("{\\%}", "\u0025");
+//		encodingTable.put("\\%", "\u0025");
+//		encodingTable.put("{\\&}", "\u0026");
+//		encodingTable.put("\\&", "\u0026");
 		encodingTable.put("\\symbol{94}", "\u005e");
-		encodingTable.put("{\\_}", "\u005f");
-		encodingTable.put("\\_", "\u005f");
+//		encodingTable.put("{\\_}", "\u005f");
+//		encodingTable.put("\\_", "\u005f");
 		encodingTable.put("\\symbol{126}", "\u007e");
 		encodingTable.put("\\~{}", "\u007e");
 		encodingTable.put("$\\sim$", "\u007e");
 
-		encodingTable.put("{\\#}", "\u0023");
-		encodingTable.put("\\#", "\u0023");
-		encodingTable.put("{\\$}", "\u0024");
-		encodingTable.put("\\$", "\u0024");
-		encodingTable.put("{\\%}", "\u0025");
-		encodingTable.put("\\%", "\u0025");
-		encodingTable.put("{\\&}", "\u0026");
-		encodingTable.put("\\&", "\u0026");
-		encodingTable.put("\\symbol{94}", "\u005e");
-		encodingTable.put("{\\_}", "\u005f");
-		encodingTable.put("\\_", "\u005f");
-		encodingTable.put("{\\{}", "\u007b");
-		encodingTable.put("\\{", "\u007b");
-		encodingTable.put("{\\}}", "\u007d");
-		encodingTable.put("\\}", "\u007d");
-		encodingTable.put("\\symbol{126}", "\u007e");
-		encodingTable.put("\\~{}", "\u007e");
 		encodingTable.put("{!`}", "\u00a1");
 		encodingTable.put("{\\copyright}", "\u00a9");
 		encodingTable.put("{?`}", "\u00bf");
@@ -228,9 +220,9 @@ public class BibTexUtil {
 		encodingTable.put("\\^{U}", "\u00db");
 		encodingTable.put("\\^U", "\u00db");
 		encodingTable.put("{\\\"{U}}", "\u00dc");
-		encodingTable.put("{\\\"u}", "\u00dc");
+		encodingTable.put("{\\\"U}", "\u00dc");
 		encodingTable.put("\\\"{U}", "\u00dc");
-		encodingTable.put("\\\"u", "\u00dc");
+		encodingTable.put("\\\"U", "\u00dc");
 		encodingTable.put("{\\'{Y}}", "\u00dd");
 		encodingTable.put("{\\'Y}", "\u00dd");
 		encodingTable.put("\\'{Y}", "\u00dd");
@@ -517,38 +509,60 @@ public class BibTexUtil {
 		for (String element : encodingTable.keySet()) {
 			text = text.replace(element, encodingTable.get(element));
 		}
-		return stripBraces(text);
+		return deEscapeCharacters(stripBraces(text));
 	}
 	
-	public static String stripBraces(String in)
+	public static String deEscapeCharacters(String text)
 	{
-		if (in.startsWith("\"") && in.endsWith("\""))
-		{
-			in = in.substring(1, in.length() - 1);
+		
+		for (int i = 0; i < ESCAPE_CHARACTERS.length(); i++) {
+			text = deEscapeCharacter(text, ESCAPE_CHARACTERS.substring(i, i + 1));
 		}
-		else if (in.startsWith("'") && in.endsWith("'"))
+		
+		return text;
+	}
+	
+	private static String deEscapeCharacter(String text, String character)
+	{
+		int position = text.indexOf("\\" + character);
+		if (position >= 0)
 		{
-			in = in.substring(1, in.length() - 1);
+			return text.substring(0, position).replace(character, "") + character + deEscapeCharacter(text.substring(position + 2), character);
+		}
+		else
+		{
+			return text.replace(character, "");
+		}
+	}
+
+	public static String stripBraces(String text)
+	{
+		if (text.startsWith("\"") && text.endsWith("\""))
+		{
+			text = text.substring(1, text.length() - 1);
+		}
+		else if (text.startsWith("'") && text.endsWith("'"))
+		{
+			text = text.substring(1, text.length() - 1);
 		}
 		Pattern pattern = Pattern.compile("\\{([^\\}]*)\\}");
 		while (true)
 		{
-			Matcher matcher = pattern.matcher(in);
+			Matcher matcher = pattern.matcher(text);
 			if (matcher.find())
 			{
-				in = matcher.replaceAll("$1");
+				text = matcher.replaceAll("$1");
 			}
 			else
 			{
 				break;
 			}
 		}
-		return in.trim();
+		return text.trim();
 	}
 	
 	public static String parseMonth(String monthString)
 	{
-		logger.debug("Parsing " + monthString);
 		return monthTable.get(bibtexDecode(monthString.trim().toLowerCase()));
 	}
 	
@@ -558,11 +572,5 @@ public class BibTexUtil {
 
 	public static void setGenreMapping(Map<BibTexUtil.Genre, MdsPublicationVO.Genre> genreMapping) {
 		BibTexUtil.genreMapping = genreMapping;
-	}
-
-	public enum Genre
-	{
-		article, book, booklet, conference, inbook, incollection, inproceedings,
-		manual, mastersthesis, misc, phdthesis, proceedings, techreport, unpublished
 	}
 }
