@@ -26,33 +26,50 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package test;
+package de.mpg.escidoc.services.common.util.creators;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.List;
 
-import test.metadata.MetadataHandlerTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+public class OxfordJournalFormat extends AuthorFormat {
+	
+	@Override
+	public String getPattern() {
+		return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
+	}
 
-/**
- * Component test suite for common_logic.
- *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataHandlerTest.class
-                    })
-public class TestCommonLogic
-{
+	@Override
+	public List<Author> getAuthors(String authorsString) throws Exception
+	{
+
+		String[] authors = authorsString.split(" *, (and)? *");
+
+		for (int i = 0; i < authors.length; i++) {
+			authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");
+		}
+		List<Author> result = getAuthorListNormalFormat(authors);
+		return result;
+	}
+
+	@Override
+	public int getSignificance() {
+		return 1;
+	}
+
+	@Override
+	public String getDescription() {
+		return "Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1";
+	}
+
+	@Override
+	public String getName() {
+		return "OxfordJournalFormat";
+	}
+
+	@Override
+	public String getWarning() {
+		return null;
+	}
+
 }

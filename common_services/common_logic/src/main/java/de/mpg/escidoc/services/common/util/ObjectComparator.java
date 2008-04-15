@@ -38,8 +38,6 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
-import org.apache.log4j.Logger;
-
 /**
  * Compares two objects and creates a list of differences.
  * 

@@ -26,33 +26,45 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package test;
+package de.mpg.escidoc.services.common.util.creators;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.List;
 
-import test.metadata.MetadataHandlerTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+public class BibTeXSpecialFormat1 extends AuthorFormat {
+	
+	@Override
+	public String getPattern() {
+		return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
+	}
 
-/**
- * Component test suite for common_logic.
- *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataHandlerTest.class
-                    })
-public class TestCommonLogic
-{
+	@Override
+	public List<Author> getAuthors(String authorsString) {
+
+		String[] authors = authorsString.split(" *(,| and | und | et ) *");
+		
+		return getAuthorListNormalFormat(authors, "~");
+	}
+
+	@Override
+	public int getSignificance() {
+		return 11;
+	}
+
+	@Override
+	public String getDescription() {
+		return "Firstname~Lastname[, Firstname~Lastname]";
+	}
+
+	@Override
+	public String getName() {
+		return "Bibtex Special format with tilde, comma-separated";
+	}
+
+	@Override
+	public String getWarning() {
+		return null;
+	}
+
 }

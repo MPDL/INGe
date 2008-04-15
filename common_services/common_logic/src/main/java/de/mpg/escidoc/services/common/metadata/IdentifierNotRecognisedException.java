@@ -27,32 +27,26 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
+package de.mpg.escidoc.services.common.metadata;
 
-package test;
+public class IdentifierNotRecognisedException extends Exception {
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+	public IdentifierNotRecognisedException() {
+		super();
+	}
 
-import test.metadata.MetadataHandlerTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+	public IdentifierNotRecognisedException(String message, Throwable cause) {
+		super(message, cause);
+	}
 
-/**
- * Component test suite for common_logic.
- *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataHandlerTest.class
-                    })
-public class TestCommonLogic
-{
+	public IdentifierNotRecognisedException(String message) {
+		super(message);
+	}
+
+	public IdentifierNotRecognisedException(Throwable cause) {
+		super(cause);
+	}
+
+	
+	
 }

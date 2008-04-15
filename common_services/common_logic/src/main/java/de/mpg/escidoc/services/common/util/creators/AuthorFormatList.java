@@ -26,33 +26,45 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package test;
+package de.mpg.escidoc.services.common.util.creators;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.util.Arrays;
 
-import test.metadata.MetadataHandlerTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+public class AuthorFormatList {
+	
+	private static AuthorFormat[] formats = new AuthorFormat[]
+	{
+		
+		new WesternFormat1(),
+		new WesternFormat2(),
+		new WesternFormat3(),
+		new WesternFormat4(),
+		new WesternFormat5(),
+		new WesternFormat6(),
+		new WesternFormat7(),
+		new WesternFormat8(),
+		new WesternFormat9(),
+		new OxfordJournalFormat(),
+		new ScienceDirectFormat(),
+		new BibTeXSpecialFormat1()
 
-/**
- * Component test suite for common_logic.
- *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataHandlerTest.class
-                    })
-public class TestCommonLogic
-{
+	};
+	
+	static
+	{
+		Arrays.sort(formats);
+	}
+
+	public static AuthorFormat[] getFormats() {
+		AuthorFormat[] result = new AuthorFormat[formats.length];
+		System.arraycopy(formats, 0, result, 0, formats.length);
+		return result;
+	}
+
+	public static void setFormats(AuthorFormat[] formats) {
+		AuthorFormatList.formats = formats;
+	}
+	
 }

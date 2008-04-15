@@ -27,32 +27,23 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
+package de.mpg.escidoc.services.common.metadata;
 
-package test;
+public class MetadataResourceNotFoundException extends Exception {
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+	public MetadataResourceNotFoundException() {
+	}
 
-import test.metadata.MetadataHandlerTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
+	public MetadataResourceNotFoundException(String message) {
+		super(message);
+	}
 
-/**
- * Component test suite for common_logic.
- *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
- */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataHandlerTest.class
-                    })
-public class TestCommonLogic
-{
+	public MetadataResourceNotFoundException(Throwable cause) {
+		super(cause);
+	}
+
+	public MetadataResourceNotFoundException(String message, Throwable cause) {
+		super(message, cause);
+	}
+
 }
