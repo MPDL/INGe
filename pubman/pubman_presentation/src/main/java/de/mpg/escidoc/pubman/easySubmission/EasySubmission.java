@@ -81,7 +81,7 @@ public class EasySubmission extends FacesBean
     
     private HtmlSelectOneMenu dateSelect;
     
-    // constants for HtmlSelectOneRadios
+    // constants for the submission method
     public SelectItem SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
     public SelectItem SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
     public SelectItem[] SUBMISSION_METHOD_OPTIONS = new SelectItem[]{SUBMISSION_METHOD_MANUAL, SUBMISSION_METHOD_FETCH_IMPORT};
@@ -94,6 +94,11 @@ public class EasySubmission extends FacesBean
     public SelectItem DATE_PUBLISHED_ONLINE = new SelectItem("DATE_PUBLISHED_ONLINE", getLabel("easy_submission_lblDatePublishedOnline"));
     public SelectItem DATE_MODIFIED = new SelectItem("DATE_MODIFIED", getLabel("easy_submission_lblDateModified"));
     public SelectItem[] DATE_TYPE_OPTIONS = new SelectItem[]{DATE_CREATED, DATE_SUBMITTED, DATE_ACCEPTED, DATE_PUBLISHED_IN_PRINT, DATE_PUBLISHED_ONLINE, DATE_MODIFIED};
+    
+    // constants for external service type
+    public SelectItem EXTERNAL_SERVICE_ESCIDOC = new SelectItem("ESCIDOC", getLabel("easy_submission_lblIDTypeEscidoc"));
+    public SelectItem EXTERNAL_SERVICE_ARXIV = new SelectItem("ARXIV", getLabel("easy_submission_lblIDTypeArxiv"));
+    public SelectItem[] EXTERNAL_SERVICE_OPTIONS = new SelectItem[]{EXTERNAL_SERVICE_ARXIV, EXTERNAL_SERVICE_ESCIDOC};
 
     // Faces navigation string
     public final static String LOAD_EASYSUBMISSION = "loadEasySubmission";
@@ -109,6 +114,13 @@ public class EasySubmission extends FacesBean
     private CreatorCollection creatorCollection;
     
     private String selectedDate;
+    
+    private UploadedFile uploadedBibTexFile;
+    
+    /**
+     * the ID for the object to fetch by the external service
+     */
+    private String serviceID;
     
     
     /**
@@ -372,6 +384,13 @@ public class EasySubmission extends FacesBean
         return ctransforming.transformUploadResponseToFileURL(response);        
     }
     
+    public String uploadBibtexFile()
+    {
+    	//TODO: process BibTex file here...
+    	//this.uploadedBibTexFile.getInputStream();
+    	return "loadNewEasySubmission";
+    }
+    
     public String cancelEasySubmission()
     {
     	this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
@@ -463,6 +482,55 @@ public class EasySubmission extends FacesBean
     		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDatePublishedInPrint(this.selectedDate);
     	}
     }
+    
+    
+    /**
+     * This method selects the import method 'fetch metadata from external systems'
+     * @return String naigation string
+     */
+    public String selectImportExternal()
+    {
+    	this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL);
+    	return "loadNewEasySubmission";
+    }
+    
+    /**
+     * This method selects the import method 'Upload Bibtex file'
+     * @return String naigation string
+     */
+    public String selectImportBibtex()
+    {
+    	this.getEasySubmissionSessionBean().setImportMethod(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX);
+    	return "loadNewEasySubmission";
+    }
+    
+    /**
+     * returns a flag which sets the fields of the import method 'fetch metadata from external systems' to disabled or not
+     * @return boolean the flag for disabling
+     */
+    public boolean getDisableExternalFields()
+    {
+    	boolean disable = false;
+    	if(this.getEasySubmissionSessionBean().getImportMethod().equals(EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX))
+    	{
+    		disable = true;
+    	}
+    	return disable;
+    }
+    
+    /**
+     * returns a flag which sets the fields of the import method 'Upload Bibtex file' to disabled or not
+     * @return boolean the flag for disabling
+     */
+    public boolean getDisableBibtexFields()
+    {
+    	boolean disable = false;
+    	if(this.getEasySubmissionSessionBean().getImportMethod().equals(EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL))
+    	{
+    		disable = true;
+    	}
+    	return disable;
+    }
 
     /**
      * Returns the CollectionListSessionBean.
@@ -522,6 +590,16 @@ public class EasySubmission extends FacesBean
 
 	public void setDATE_TYPE_OPTIONS(SelectItem[] date_type_options) {
 		DATE_TYPE_OPTIONS = date_type_options;
+	}
+	
+	
+
+	public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
+		return EXTERNAL_SERVICE_OPTIONS;
+	}
+
+	public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
+		EXTERNAL_SERVICE_OPTIONS = external_service_options;
 	}
 
 	public HtmlSelectOneRadio getRadioSelect() {
@@ -609,6 +687,24 @@ public class EasySubmission extends FacesBean
 
 	public void setDateSelect(HtmlSelectOneMenu dateSelect) {
 		this.dateSelect = dateSelect;
+	}
+
+	public String getServiceID() {
+		return serviceID;
+	}
+
+	public void setServiceID(String serviceID) {
+		this.serviceID = serviceID;
+	}
+	
+	
+
+	public UploadedFile getUploadedBibTexFile() {
+		return uploadedBibTexFile;
+	}
+
+	public void setUploadedBibTexFile(UploadedFile uploadedBibTexFile) {
+		this.uploadedBibTexFile = uploadedBibTexFile;
 	}
 
 	/**

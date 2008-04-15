@@ -55,7 +55,13 @@ public class EasySubmissionSessionBean extends FacesBean
     public static final String SUBMISSION_METHOD_MANUAL = "MANUAL";
     public static final String SUBMISSION_METHOD_FETCH_IMPORT = "FETCH_IMPORT";
     
+    public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
+    public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
+    
     public static final String DATE_TYPE_CREATED = "DATE_CREATED";
+    
+    public static final String EXTERNAL_SERVICE_ESCIDOC = "ESCIDOC";
+    public static final String EXTERNAL_SERVICE_ARXIV = "ARXIV";
     
     public static final String ES_STEP1 = "STEP1";
     public static final String ES_STEP2 = "STEP2";
@@ -69,6 +75,10 @@ public class EasySubmissionSessionBean extends FacesBean
     private String currentSubmissionStep = ES_STEP1;
     
     private String currentDateType = DATE_TYPE_CREATED;
+    
+    private String currentExternalServiceType = EXTERNAL_SERVICE_ARXIV;
+    
+    private String importMethod = "";
     
     private PubContextVO context;
     
@@ -156,6 +166,26 @@ public class EasySubmissionSessionBean extends FacesBean
 
 	public void setCurrentDateType(String currentDateType) {
 		this.currentDateType = currentDateType;
+	}
+
+
+	public String getImportMethod() {
+		return importMethod;
+	}
+
+
+	public void setImportMethod(String importMethod) {
+		this.importMethod = importMethod;
+	}
+
+
+	public String getCurrentExternalServiceType() {
+		return currentExternalServiceType;
+	}
+
+
+	public void setCurrentExternalServiceType(String currentExternalServiceType) {
+		this.currentExternalServiceType = currentExternalServiceType;
 	}
 
     
