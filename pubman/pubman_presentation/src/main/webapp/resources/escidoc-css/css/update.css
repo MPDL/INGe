@@ -241,3 +241,8 @@ font-variant: normal;
 padding-top: 5px;
 font-size: 1em;
 }
+
+/*MISC*/
+.margin5Right {
+	margin-right: 5px;
+}

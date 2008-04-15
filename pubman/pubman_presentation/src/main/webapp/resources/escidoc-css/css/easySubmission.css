@@ -135,15 +135,87 @@
   
   .easySubmissionBoxBodyContent {
   	margin-left: 50px;
+  	margin-right: 25px;
   	margin-bottom: 25px;
   }
   
   .easySubmissionBoxBodyContent h3 {
+  	width: 510px;
+  	display: block;
+  	overflow: hidden;
   	margin-top: 0px;
   	margin-left: 0px;
   	margin-bottom: 25px;
   }
+
+  .easySubmissionBoxButton {
+  	background-color: #FFFFFF;
+  	border:1px solid #DDDDDD;
+  }
+
+  .easySubmissionBoxBodyLine {
+  	width: 510px;
+  	display: block;
+  	overflow: hidden;
+  }
   
+  .easySubmissionBoxBodyLine > input {
+  	margin-right: 2px;
+  }
+ 
+  .easySubmissionBoxBodyLine > label {
+  	font-size: 1em;
+  }
+ 
+  .easySubmissionBoxBodyLine * {
+  	float: left;
+  }
+
+  .easySubmissionBoxBodySubLine {
+  	margin-left: 17px;
+  	width: 485px;
+  	display: block;
+  	overflow: hidden;
+  }
+  
+  .easySubmissionBoxBodySubLine * {
+	float: left;
+  }
+  
+  .easySubmissionBoxBodySubLine input, .easySubmissionBoxBodySubLine > button {
+	margin-right: 5px;
+  }
+
+  .bibTeXImportIDItem {
+  	width: 200px;
+  	display: block;
+  	overflow: hidden;
+  	margin-left: 20px;
+  	float: left;
+  }
+  
+  .bibTeXImportIDItem * {
+	float: left;
+  }
+  
+  .bibTeXImportIDItem input, .bibTeXImportIDItem select, .bibTeXImportIDItem label {
+  	width: 190px;
+  	display: block;
+  	overflow: hidden;
+  }
+
+
+
+
+
+
+
+
+
+
+
+/*
+
   .easySubmissionBoxBodyContent ol {
   	list-style: none;
 	margin: 0px;
@@ -190,14 +262,14 @@
   
   .collectionListHeader {
   	min-width: 600px;
-  /*	background-color: #9a9a9a;*/
+
   	padding-left: 5px;
   	padding-top: 2px;
   	padding-bottom: 2px;
   }
   
   .collectionListBody {
-  /*	background-color: ##f5f5f5;*/
+
   	padding: 5px;
   	padding-left: 20px;
   	padding-right: 20px;
@@ -229,7 +301,7 @@
   	float: left;
   }
   
-  
+*/  
 
 
     
