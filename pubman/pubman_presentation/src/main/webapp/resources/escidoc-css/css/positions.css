@@ -220,6 +220,30 @@ html > body fieldset{
 
 	/* LIST DISPLAY */
 	
+.orientationHeader{
+	margin-bottom:20px;
+}	
+	
+.showItemsMenu{
+	float:left;
+	margin-bottom:10px;
+	margin-right:5px;
+	padding-left:0px;
+	color:black;
+}
+
+.messageBox{
+	padding-bottom: 20px;
+}
+
+.rightSpace{
+	margin-right:5px;
+}
+
+.paginatorControls{
+	float:left;
+}
+	
 .list{
 	padding: 5px;
 	margin-bottom: 5em;
