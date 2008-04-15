@@ -64,7 +64,13 @@ public class FileFormatVO extends ValueObject {
     
     public static final String ODT_NAME = "odt";
     public static final String ODT_MIMETYPE = "application/vnd.oasis.opendocument.text";
+    
+    public static final String SNIPPET_NAME = "snippet";
+    public static final String SNIPPET_MIMETYPE = "application/xml";
 
+    public static final String DEFAULT_NAME = PDF_NAME;
+    public static final String DEFAULT_MIMETYPE = PDF_MIMETYPE;
+    
     /**
      * The mime type of FileFormat
      */    
@@ -81,17 +87,32 @@ public class FileFormatVO extends ValueObject {
      */
     public static String getMimeTypeByName(String name)
     {
+    	name = name == null || name.trim().equals("") ? "" : name.trim();  
     	// if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
     	// by default
     	return
-    		name == null 			? PDF_MIMETYPE	: 
-    		name.equals(PDF_NAME) 	? PDF_MIMETYPE	: 
-    		name.equals(RTF_NAME) 	? RTF_MIMETYPE	: 
-    		name.equals(HTML_NAME)	? HTML_MIMETYPE	: 
-            name.equals(ODT_NAME)	? ODT_MIMETYPE	: 
-            name.equals(TEXT_NAME)	? TEXT_MIMETYPE	: 
-            						  PDF_MIMETYPE; // default
+    		name.equals(TEXT_NAME)		? TEXT_MIMETYPE	: 
+    		name.equals(PDF_NAME) 		? PDF_MIMETYPE	: 
+    		name.equals(RTF_NAME) 		? RTF_MIMETYPE	: 
+    		name.equals(HTML_NAME)		? HTML_MIMETYPE	: 
+            name.equals(ODT_NAME)		? ODT_MIMETYPE	: 
+            name.equals(SNIPPET_NAME)	? SNIPPET_MIMETYPE	: 
+            						  	DEFAULT_MIMETYPE; 
     }
+    
+
+    // workaround to find out whether the output format is presented  
+	//TODO: should be taken directly from xml description of the export 
+	//rather then hardcoded in FileFormatVO class    
+    public static boolean isOutputFormatSupported(String outputFormat)
+    {
+    	return !(
+    			getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) 
+    			&& !outputFormat.equals(DEFAULT_NAME)
+    			); 
+    }
+
+    
     
 	/**
 	 * get mimeType
