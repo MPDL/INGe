@@ -241,6 +241,11 @@ html > body fieldset{
 	margin-right:5px;
 }
 
+.topSpace5{
+	position:relative;
+	top:5px;
+}
+
 .paginatorControls{
 	float:left;
 }
@@ -321,7 +326,8 @@ html > body fieldset{
 .displayControls {
 	float: right;
 	vertical-align: 2px;
-	margin: -20px 5px 0px 0px;
+	/*argin: -20px 5px 0px 0px;*/
+	margin: 5px 5px 0px 0px;
 }
 
 .displayControls input, .displayControls input:hover{	
@@ -347,7 +353,8 @@ html > body fieldset{
 }
 
 .listHeaderSort{
- float:none;
+ float:left;
+ margin-left:20px;
  margin-right:50px;
 }
 
