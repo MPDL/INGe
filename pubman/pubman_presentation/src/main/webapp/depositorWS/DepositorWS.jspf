@@ -35,16 +35,15 @@
 	<f:subview id="content">
 		<div>
 			<h1>
-			<h:outputText id="valOrientationText"
-				styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>	   
+				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>	   
 			</h1>
 			
-			<div style="padding-bottom: 20px">
+			<div styleClass="messageBox">
 				<h:outputText id="valNoItemsMsg" styleClass="messageError" value="#{msg.depositorWS_valNoItemsMsg}" rendered="#{DepositorWS.enableNoItemMsg}"/>
 				<h:outputText value="#{DepositorWS.valMessage}" id="valMessage" styleClass="messageStatus" rendered="#{DepositorWS.showMessage}"/>
 			</div>
 
-			<h:outputLabel for="cboItemstate" id="lblItemstate" value="#{lbl.depositorWS_lblItemstate}"/>
+			<h:outputLabel styleClass="rightSpace" for="cboItemstate" id="lblItemstate" value="#{lbl.depositorWS_lblItemstate}"/>
 			<h:selectOneMenu id="cboItemstate" binding="#{DepositorWS.cboItemstate}" 
 					value="#{DepositorWSSessionBean.selectedItemState}" onchange="changeItemState();">
 				<f:selectItems id="selectItems" value="#{DepositorWS.ITEMSTATE_OPTIONS}"/>
