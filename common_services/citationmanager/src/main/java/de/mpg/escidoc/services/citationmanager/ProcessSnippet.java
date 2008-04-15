@@ -70,6 +70,7 @@ public class ProcessSnippet {
     private static final String PUBLICATION_NS = "http://escidoc.mpg.de/metadataprofile/schema/0.1/";
     private static final String PARENT_ELEMENT_NAME = "content-model-specific";
     private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
+    private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
     private static final String ITEM_ELEMENT_NAME = "item";
     
 	/**
@@ -98,7 +99,7 @@ public class ProcessSnippet {
 		if ( params == null ) 
 			throw new CitationStyleManagerException("Filling parameters are null");
 		
-		
+		 
 		Element root = doc.getDocumentElement(  );
 		
 		// doesn't work for different prefixes! 
@@ -180,7 +181,10 @@ public class ProcessSnippet {
 		{
 			// logger.info("iteration:" + i + "; pea:" +  pea[i]);
 			
-			Element snippetElement = doc.createElement( SNIPPET_ELEMENT_NAME );
+			Element snippetElement = doc.createElement(SNIPPET_ELEMENT_NAME);
+			snippetElement.setAttribute("xmlns:dcterms", SNIPPET_NS);
+			
+			
 			CDATASection snippetCDATASection = doc.createCDATASection(extractPureCitation(sb[i].toString()));
 			snippetElement.appendChild(snippetCDATASection);
 			
