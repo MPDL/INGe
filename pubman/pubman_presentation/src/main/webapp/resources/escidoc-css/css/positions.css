@@ -219,10 +219,11 @@ html > body fieldset{
 
 
 	/* LIST DISPLAY */
-	
-.orientationHeader{
+
+
+.bottomSpace{
 	margin-bottom:20px;
-}	
+}
 	
 .showItemsMenu{
 	float:left;
