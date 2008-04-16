@@ -26,8 +26,8 @@
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
-
-package test.java.test;
+ 
+package test;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
