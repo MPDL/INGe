@@ -42,6 +42,7 @@ import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.statistics.PubItemSimpleStatistics;
 import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -71,10 +72,14 @@ public class ViewItemStatistics extends FacesBean
    
     /** The current pub item*/
     private PubItemVO pubItem;
+
+
+    private PubItemSimpleStatistics stat;
     
    
     public ViewItemStatistics() {
         this.init();
+        
     }
     
     
@@ -87,6 +92,8 @@ public class ViewItemStatistics extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
+        
+        
         //get current PubItem and its ID
         pubItem = getItemControllerSessionBean().getCurrentPubItem();
         itemId = pubItem.getVersion().getObjectId();
@@ -95,30 +102,32 @@ public class ViewItemStatistics extends FacesBean
         List<FileVO> files = pubItem.getFiles();
         fileList = CommonUtils.convertToPubFileVOPresentationList(files);
         
-        
+        //Get Statistics handler
+        stat = new SimpleStatistics();
     }
     
     public String getNumberOfItemRetrievalsAllUsers() throws Exception
     {
-        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, itemId);
+        
+        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS, itemId);
         return result;
     }
     
     public String getNumberOfItemRetrievalsAnonymousUsers() throws Exception
     {
-        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, itemId);
+        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS, itemId);
         return result;
     }
     
     public String getNumberOfFileDownloadsPerItemAllUsers() throws Exception
     {
-        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS, itemId);
+        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS, itemId);
         return result;
     }
     
     public String getNumberOfFileDownloadsPerItemAnonymousUsers() throws Exception
     {
-        String result = SimpleStatistics.getSimpleStatisticValue(SimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS, itemId);
+        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS, itemId);
         return result;
     }
     
