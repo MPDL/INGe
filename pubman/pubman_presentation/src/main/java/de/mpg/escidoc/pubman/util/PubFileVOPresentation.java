@@ -153,8 +153,8 @@ public class PubFileVOPresentation extends FacesBean {
  		
 		editItemSessionBean.getLocators().remove(this.index);
 		
-		editItem.reorganizeFileIndexes();
-		
+		editItem.reorganizeLocatorIndexes();
+		editItem.init();
 		return "loadEditItem";		
 	}
 	
