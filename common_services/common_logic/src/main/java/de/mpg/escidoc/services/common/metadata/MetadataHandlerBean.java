@@ -142,6 +142,16 @@ public class MetadataHandlerBean implements MetadataHandler
 		itemVO.setMetadata(mds);
 
 		List entries = file.getEntries();
+		
+		if (entries == null || entries.size() == 0)
+		{
+			throw new NoEntryInBibtexException();
+		}
+		else if (entries.size() > 1)
+		{
+			throw new MultipleEntriesInBibtexException();
+		}
+		
 		for (Object object : entries) {
 			logger.debug("Entry: " + object);
 			if (object instanceof BibtexEntry)
