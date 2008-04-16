@@ -36,9 +36,9 @@
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 			</h:outputLink>
 		</p>
-		<h1>
-		<h:outputText id="valOrientationText" value="#{lbl.ViewItemRevisions_Header}"/>
-		<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
+		<h1 class="bottomSpace">
+			<h:outputText id="valOrientationText" value="#{lbl.ViewItemRevisions_Header} "/>
+			<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
 		</h1>
 		<div class="listHeader dark">
 			<h3>
