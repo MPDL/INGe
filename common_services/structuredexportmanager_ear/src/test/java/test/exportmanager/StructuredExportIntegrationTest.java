@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package test.java.test.structuredexportmanager;
+package test.structuredexportmanager;
 
  
 import static org.junit.Assert.*;
@@ -46,7 +46,7 @@ import org.junit.Test;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 
-import test.java.test.TestHelper;
+import test.TestHelper;
 
 import javax.naming.InitialContext;
 
