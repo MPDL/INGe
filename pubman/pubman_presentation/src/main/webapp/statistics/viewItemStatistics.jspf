@@ -42,11 +42,11 @@
 		
 		<h2>
 			<div class="plaindocIcon"></div><div id="valItemStatisitics" class="viewItemTopHeader">
-			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.itemID}" /></div>
+			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" /></div>
 		</h2>
 		</div>
 		
-		 
+		
 		
 		<table class="statisticTable">
 			<tr>
@@ -61,49 +61,42 @@
 			<tr>
 				<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblItemRetrievals}" styleClass="itemStatisticHeader"/></td>
 				
-				<td> </td>
-				
-				<td> </td>
-			</tr>
-			
-			
-			<tr>
-				<td class="statisticTableLeftCol"> </td>
-				
 				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAllUsers}" /></td>
 				
 				<td><h:outputText value="#{ViewItemStatistics.numberOfItemRetrievalsAnonymousUsers}" /></td>
 			</tr>
 		
-		
-			<tr>
-				<td class="statisticTableLeftCol"><h:outputText value="Downloads" styleClass="itemStatisticHeader"/></td>
-				
-				<td></td>
-				
-				<td></td>
-			</tr>
+			<h:panelGroup rendered ="#{ViewItemStatistics.filesAvailable}">
 			
-			
-			<tr>
-				<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblAllFiles}" /></td>
-				
-				<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" /></td>
-				
-				<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /></td>
-			</tr>		
-		
-		
-			<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">	
 				<tr>
-					<td class="statisticTableLeftCol"><h:outputText value="#{file.file.name}" /></td>
+					<td class="statisticTableLeftCol">&#160;</td>
 					
-					<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /></td>
+					<td>&#160;</td>
 					
-					<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /></td>
-				</tr>	
-			</tr:iterator>	
+					<td>&#160;</td>
+				</tr>
+			
+				<tr>
+					<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblAllFiles}" styleClass="itemStatisticHeader"/></td>
+					
+					<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAllUsers}" /></td>
+					
+					<td><h:outputText value="#{ViewItemStatistics.numberOfFileDownloadsPerItemAnonymousUsers}" /></td>
+				</tr>
+				
+			
+			
+				<tr:iterator value="#{ViewItemStatistics.fileList}" var="file" binding="#{ViewItemStatistics.fileIterator}" varStatus="index">	
+					<tr>
+						<td class="statisticTableLeftCol"><h:outputText value="#{lbl.statistics_lblFile} " styleClass="itemStatisticHeader"/><h:outputText value="#{file.file.name}" /></td>
+						
+						<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAllUsers}" /></td>
+						
+						<td><h:outputText value="#{file.numberOfFileDownloadsPerFileAnonymousUsers}" /></td>
+					</tr>	
+				</tr:iterator>	
 		
+		</h:panelGroup>
 		</table>
 		
 	</f:subview>

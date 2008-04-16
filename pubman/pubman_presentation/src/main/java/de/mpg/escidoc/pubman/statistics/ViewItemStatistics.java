@@ -36,6 +36,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
+import de.fiz.escidoc.om.ItemHandlerRemote;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -44,6 +45,7 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Backing Bean for viewItemStatistics.jspf
@@ -92,6 +94,8 @@ public class ViewItemStatistics extends FacesBean
         //get all files, convert to presentation objects and add them to the list
         List<FileVO> files = pubItem.getFiles();
         fileList = CommonUtils.convertToPubFileVOPresentationList(files);
+        
+        
     }
     
     public String getNumberOfItemRetrievalsAllUsers() throws Exception
@@ -173,5 +177,9 @@ public class ViewItemStatistics extends FacesBean
     public void setItemID(String itemID)
     {
         this.itemId = itemID;
+    }
+    
+    public boolean getFilesAvailable() {
+        return fileList.size() > 0;
     }
 }

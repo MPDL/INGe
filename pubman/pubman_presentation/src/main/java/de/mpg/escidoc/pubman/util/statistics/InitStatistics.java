@@ -142,7 +142,8 @@ public class InitStatistics
     }
     
     
-    protected List<ReportDefinitionVO> retrieveReportDefinitionListFromFile() throws Exception{
+    protected List<ReportDefinitionVO> retrieveReportDefinitionListFromFile() throws Exception
+    {
        
         URL url = InitStatistics.class.getClassLoader().getResource(REPORTDEFINITION_FILE);
         if (url == null)
