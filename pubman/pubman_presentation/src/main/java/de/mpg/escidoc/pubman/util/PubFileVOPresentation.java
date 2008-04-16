@@ -7,7 +7,6 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
-import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -141,9 +140,21 @@ public class PubFileVOPresentation extends FacesBean {
 			//return "loadEditItemIntermediate";
 		}
 		editItem.reorganizeFileIndexes();
-		//editItem.init();
+		editItem.init();
 		return "loadEditItem";
 		
+	}
+	
+	public String removeLocatorEditItem ()
+	{
+		EditItem editItem = (EditItem)getSessionBean(EditItem.class);
+		EditItemSessionBean editItemSessionBean = (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
+ 		
+		editItemSessionBean.getLocators().remove(this.index);
+		
+		editItem.reorganizeFileIndexes();
+		
+		return "loadEditItem";		
 	}
 	
 	public String removeFileEasySubmission ()

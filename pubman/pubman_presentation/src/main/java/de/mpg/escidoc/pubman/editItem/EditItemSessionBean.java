@@ -51,6 +51,8 @@ public class EditItemSessionBean extends FacesBean
 	private static Logger logger = Logger.getLogger(EditItemSessionBean.class);
 
 	private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+	
+	private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
 
 	/**
 	 * Public constructor.
@@ -82,4 +84,13 @@ public class EditItemSessionBean extends FacesBean
 		this.files = files;
 	}
 
+	public List<PubFileVOPresentation> getLocators() {
+		return locators;
+	}
+
+	public void setLocators(List<PubFileVOPresentation> locators) {
+		this.locators = locators;
+	}
+
+	
 }

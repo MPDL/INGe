@@ -175,6 +175,8 @@ public class EditItem extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
+        EditItemSessionBean eisb = this.getEditItemSessionBean();
+        
         this.fileTable = new CoreTable();
         
         Map map = FacesContext.getCurrentInstance().getExternalContext().getInitParameterMap();
@@ -342,12 +344,41 @@ public class EditItem extends FacesBean
     private void bindFiles()
     {
     	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
+    	List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    	
+    	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			PubFileVOPresentation filepres = new PubFileVOPresentation(i, this.item.getFiles().get(i));
-			files.add(filepres);
+			if(this.item.getFiles().get(i).getSize() > 0)
+			{
+				PubFileVOPresentation filepres = new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), this.item.getFiles().get(i),false);
+				files.add(filepres);
+			}
 		}
     	this.getEditItemSessionBean().setFiles(files);
+    	
+    	// add locators
+    	for (int i = 0; i < this.item.getFiles().size(); i++)
+    	{
+			if(this.item.getFiles().get(i).getLocator() != null && ! this.item.getFiles().get(i).getLocator().trim().equals(""))
+			{
+				PubFileVOPresentation locatorpres = new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size()-1, this.item.getFiles().get(i), true);
+				locators.add(locatorpres);
+			}
+		}
+    	this.getEditItemSessionBean().setLocators(locators);
+    	
+    	// make sure that at least one locator and one file is stored in the  EditItemSessionBean
+    	if(this.getEditItemSessionBean().getFiles().size() < 1)
+    	{
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), new FileVO(), false));
+    	}
+    	if(this.getEditItemSessionBean().getLocators().size() < 1)
+    	{
+    		FileVO newLocator = new FileVO();
+    		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+    	}
     }
     
     /**
@@ -360,6 +391,20 @@ public class EditItem extends FacesBean
     		for(int i = 0; i < this.getEditItemSessionBean().getFiles().size(); i++)
         	{
         		this.getEditItemSessionBean().getFiles().get(i).setIndex(i);
+        	}
+    	}
+    }
+    
+    /**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeLocatorIndexes()
+    {
+    	if(this.getEditItemSessionBean().getLocators() != null)
+    	{
+    		for(int i = 0; i < this.getEditItemSessionBean().getLocators().size(); i++)
+        	{
+        		this.getEditItemSessionBean().getLocators().get(i).setIndex(i);
         	}
     	}
     }
@@ -856,10 +901,40 @@ public class EditItem extends FacesBean
     	//this.item.getFiles().add(new FileVO());
     	//this.files.add(new PubFileVOPresentation());
     	// avoid to upload more than one item before filling the metadata
+    	EditItemSessionBean eisb = this.getEditItemSessionBean();
     	if(this.getEditItemSessionBean().getFiles() != null && this.getEditItemSessionBean().getFiles().size() > 0 && this.getEditItemSessionBean().getFiles().get(this.getEditItemSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     	{
     		this.item.getFiles().add(new FileVO());
     		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation());
+    	}
+    	return "loadEditItem";
+    }
+    
+    /**
+     * This method adds a locator to the list of locators of the item 
+     * @return navigation string (null)
+     */
+    public String addLocator()
+    {
+    	if(this.getEditItemSessionBean().getLocators() != null)
+    	{
+    		FileVO newLocator = new FileVO();
+    		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size()-1, newLocator, true));
+    	}
+    	EditItemSessionBean eisb = this.getEditItemSessionBean();
+    	return "loadEditItem";
+    }
+    
+    /**
+     * This method saves the latest locator to the list of files of the item 
+     * @return navigation string (null)
+     */
+    public String saveLocator()
+    {
+    	if(this.getEditItemSessionBean().getLocators() != null)
+    	{
+    		this.item.getFiles().add(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile());
     	}
     	return "loadEditItem";
     }
@@ -1235,6 +1310,14 @@ public class EditItem extends FacesBean
 
 	public void setFiles(List<PubFileVOPresentation> files) {
 		this.getEditItemSessionBean().setFiles(files);
+	}
+	
+	public List<PubFileVOPresentation> getLocators() {
+		return this.getEditItemSessionBean().getLocators();
+	}
+
+	public void setLocators(List<PubFileVOPresentation> locators) {
+		this.getEditItemSessionBean().setLocators(locators);
 	}
 
 	public UploadedFile getUploadedFile() {
