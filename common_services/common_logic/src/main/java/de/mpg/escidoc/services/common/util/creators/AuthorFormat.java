@@ -33,6 +33,8 @@ package de.mpg.escidoc.services.common.util.creators;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -114,8 +116,8 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 	
 	public static Set<String> getNamesFromFile(String filename) throws Exception
 	{
-		File file = ResourceUtil.getResourceAsFile(filename);
-		BufferedReader br = new BufferedReader(new FileReader(file));
+		InputStream file = ResourceUtil.getResourceAsStream(filename);
+		BufferedReader br = new BufferedReader(new InputStreamReader(file));
 		String name = "";
 		Set<String> result = new HashSet<String>();
 		while ((name = br.readLine()) != null)

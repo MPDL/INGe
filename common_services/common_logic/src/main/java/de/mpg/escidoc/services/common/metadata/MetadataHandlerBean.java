@@ -284,6 +284,12 @@ public class MetadataHandlerBean implements MetadataHandler
 					}
 				}
 				
+				// affiliation
+				if (fields.get("affiliation") != null)
+				{
+					
+				}
+				
 				// author
 				if (fields.get("author") != null)
 				{
