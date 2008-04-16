@@ -143,8 +143,8 @@
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
-						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index == EditItem.numberOfFiles && component.file.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index == EditItem.numberOfFiles && component.file.size > 0}" />
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}"/>
+						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.file.size > 0}"/>
@@ -193,8 +193,8 @@
 		        	
        			<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
-						<h:panelGroup layout="block" styleClass="icon addIcon" />
-						<tr:commandLink text="#{lbl.EditItem_btAddFileLoc}" action="#{EditItem.addLocator}" />
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{locator.index+1 == EditItem.numberOfLocators}"/>
+						<tr:commandLink text="#{lbl.EditItem_btAddFileLoc}" action="#{EditItem.addLocator}" rendered="#{locator.index+1 == EditItem.numberOfLocators}"/>
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
 						<h:panelGroup layout="block" styleClass="icon removeIcon"/>
