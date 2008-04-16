@@ -86,6 +86,10 @@ public class RestServlet extends HttpServlet
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
             {
+    	String cqlQuery = null;
+    	String language = null;
+    	String exportFormat = null;
+    	String outputFormat = null;
     	try
     	{
     		try
@@ -98,7 +102,7 @@ public class RestServlet extends HttpServlet
     			InitialContext ctx = new InitialContext();
     			pubItemSearching = (PubItemSearching) ctx.lookup(PubItemSearching.SERVICE_NAME);
 
-    			String cqlQuery = req.getParameter("cqlQuery");
+    			cqlQuery = req.getParameter("cqlQuery");
 
     			if ( cqlQuery == null || cqlQuery.trim().equals("") )
     			{
@@ -109,7 +113,7 @@ public class RestServlet extends HttpServlet
 
     			//TODO: default values for all parameters 
     			// should be defined later in VOs
-    			String language = req.getParameter("language");
+    			language = req.getParameter("language");
     			language = language == null ? "" : language.trim().toLowerCase();
     			if ( language.equals("") )
     			{
@@ -121,7 +125,7 @@ public class RestServlet extends HttpServlet
     				return;
     			}
 
-    			String exportFormat = req.getParameter("exportFormat");
+    			exportFormat = req.getParameter("exportFormat");
     			exportFormat = exportFormat == null ? "" : exportFormat.trim().toUpperCase();
     			if ( exportFormat.equals("") )
     			{
@@ -135,7 +139,6 @@ public class RestServlet extends HttpServlet
     				return;
     			}
 
-    			String outputFormat = null;
     			if ( exportFormat.equals("ENDNOTE") )
     			{
     				outputFormat = FileFormatVO.TEXT_NAME;
@@ -161,6 +164,7 @@ public class RestServlet extends HttpServlet
 					}	
 				}
 
+    			byte[] result = pubItemSearching.searchAndOutput(cqlQuery, language, exportFormat, outputFormat);
 
     			String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
     			LOGGER.debug("fileName: " + fileName);
@@ -172,7 +176,6 @@ public class RestServlet extends HttpServlet
 
     			resp.addHeader( "Content-Disposition","attachment; filename=" + fileName );
 
-    			byte[] result = pubItemSearching.searchAndOutput(cqlQuery, language, exportFormat, outputFormat);
     			resp.setContentLength( result.length  );
 
     			for ( byte b : result )
@@ -195,7 +198,7 @@ public class RestServlet extends HttpServlet
     	{
     		throw new ServletException(e);
     	}
-            }
+   }
 
     
 /**
@@ -227,21 +230,24 @@ public class RestServlet extends HttpServlet
     
     private void handleException(final Exception e, final HttpServletResponse resp) throws Exception
     {
-        PrintWriter out = resp.getWriter();
-        out.println("Error: " + e.getMessage());
-        out.println();
-        StackTraceElement[] stacktrace = e.getStackTrace();
-        for (int i = 0; i < stacktrace.length; i++)
-        {
-            StackTraceElement element = stacktrace[i];
-            out.println("at "
-                    + element.getClassName()
-                    + "."
-                    + element.getMethodName()
-                    + "("
-                    + element.getLineNumber()
-                    + ")");
-        }
-        resp.setStatus(500);
+        PrintWriter pw = resp.getWriter();
+        pw.print("Error: ");
+        e.printStackTrace(pw);
+        pw.close();
+    	
+//    	String msg = "Error: " + e.getMessage() + "\n\n"; 
+//        for ( StackTraceElement ste : e.getStackTrace() )
+//        {
+//        	msg +=  
+//        			"at "
+//        			+ ste.getClassName()
+//        			+ "."
+//        			+ ste.getMethodName()
+//        			+ "("
+//        			+ ste.getLineNumber()
+//        			+ ")\n"
+//        			;
+//        }
+//        resp.sendError( HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage() );
     }
 }
