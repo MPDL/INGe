@@ -39,6 +39,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
@@ -92,6 +93,9 @@ public class CreateItem extends FacesBean
         {
             logger.debug("New Submission");
         }
+        
+        // first clear the EditItemSessionBean
+        this.getEditItemSessionBeanSessionBean().clean();
 
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
@@ -151,6 +155,15 @@ public class CreateItem extends FacesBean
     protected ItemListSessionBean getItemListSessionBean()
     {
         return (ItemListSessionBean) getSessionBean(ItemListSessionBean.class);
+    }
+    
+    /**
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected EditItemSessionBean getEditItemSessionBeanSessionBean()
+    {
+        return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
     }
 
     /**
