@@ -106,7 +106,7 @@
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink>
+			<h:commandLink action="#{EasySubmission.fetchMetadata}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
 				<input type="button" class="easySubmissionNextButton"/>
 			</h:commandLink>

@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.pubman.easySubmission;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -57,12 +60,14 @@ import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving and submitting a
@@ -75,6 +80,12 @@ public class EasySubmission extends FacesBean
 {
     public static final String BEAN_NAME = "EasySubmission";
     private static Logger logger = Logger.getLogger(EasySubmission.class);
+    
+    // Metadata Service
+    private MetadataHandler mdHandler = null;
+    
+    // XML Transforming Service
+    private XmlTransforming xmlTransforming = null;
     
     private HtmlSelectOneRadio radioSelect;
     
@@ -127,6 +138,17 @@ public class EasySubmission extends FacesBean
      */
     public EasySubmission()
     {
+        try
+        {
+            InitialContext initialContext = new InitialContext();
+            this.mdHandler = (MetadataHandler) initialContext.lookup(MetadataHandler.SERVICE_NAME);
+            this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+        }
+        catch (NamingException ne)
+        {
+            throw new RuntimeException("Validation service not initialized", ne);
+        }
+
         this.init();
     }
     
@@ -385,9 +407,64 @@ public class EasySubmission extends FacesBean
     
     public String uploadBibtexFile()
     {
-    	//TODO: process BibTex file here...
-    	//this.uploadedBibTexFile.getInputStream();
+    	try
+    	{
+    		BufferedReader reader = new BufferedReader(new InputStreamReader(this.uploadedBibTexFile.getInputStream()));
+    		StringBuffer content = new StringBuffer();
+    		String line;
+    		
+    		while ((line = reader.readLine()) != null)
+    		{
+    			content.append(line + "\n");
+    		}
+    		String result = mdHandler.bibtex2item(content.toString());
+    		PubItemVO itemVO = xmlTransforming.transformToPubItem(result);
+    		itemVO.setContext(getItem().getContext());
+    		this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
+    		this.setItem(itemVO);
+    	}
+    	catch (Exception e) {
+			logger.error("Error reading bibtex file", e);
+		}
     	return "loadNewEasySubmission";
+    }
+    
+    public String fetchMetadata()
+    {
+    	if (getServiceID() != null && !"".equals(getServiceID()))
+    	{
+    		PubItemVO itemVO = null;
+    		String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+    		if ("ARXIV".equals(service))
+    		{
+    			try
+    			{
+	    			String result = mdHandler.fetchOAIRecord(getServiceID(), "http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:", "arXiv");
+	    			itemVO = xmlTransforming.transformToPubItem(result);
+	    			getItem().setMetadata(itemVO.getMetadata());
+    			}
+    			catch (Exception e) {
+    				logger.error("Error fetching from arxiv", e);
+					// TODO: message
+				}
+    		}
+    		else if ("ESCIDOC".equals(service))
+    		{
+    			try
+    			{
+	    			String result = ServiceLocator.getItemHandler().retrieve(getServiceID());
+	    			itemVO = xmlTransforming.transformToPubItem(result);
+	    			getItem().setMetadata(itemVO.getMetadata());
+    			}
+    			catch (Exception e) {
+    				logger.error("Error fetching from escidoc", e);
+					// TODO: message
+				}
+    		}
+    	}
+    	
+    	
+    	return loadPreview();
     }
     
     public String cancelEasySubmission()
