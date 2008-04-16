@@ -425,44 +425,65 @@ public class EasySubmission extends FacesBean
     	}
     	catch (Exception e) {
 			logger.error("Error reading bibtex file", e);
+			error(getMessage("fetch_metadata_bibtex_error"));
+			return null;
 		}
     	return "loadNewEasySubmission";
     }
     
     public String fetchMetadata()
     {
-    	if (getServiceID() != null && !"".equals(getServiceID()))
+    	if (EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL.equals(this.getEasySubmissionSessionBean().getImportMethod()))
     	{
-    		PubItemVO itemVO = null;
-    		String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
-    		if ("ARXIV".equals(service))
+	    	if (getServiceID() != null && !"".equals(getServiceID()))
+	    	{
+	    		PubItemVO itemVO = null;
+	    		String service = this.getEasySubmissionSessionBean().getCurrentExternalServiceType();
+	    		if ("ARXIV".equals(service))
+	    		{
+	    			try
+	    			{
+		    			String result = mdHandler.fetchOAIRecord(getServiceID(), "http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:", "arXiv");
+		    			itemVO = xmlTransforming.transformToPubItem(result);
+		    			getItem().setMetadata(itemVO.getMetadata());
+	    			}
+	    			catch (Exception e) {
+	    				logger.error("Error fetching from arxiv", e);
+						
+	    				error(getMessage("fetch_metadata_arxiv_error"));
+	    				
+	    				return null;
+					}
+	    		}
+	    		else if ("ESCIDOC".equals(service))
+	    		{
+	    			try
+	    			{
+		    			String result = ServiceLocator.getItemHandler().retrieve(getServiceID());
+		    			itemVO = xmlTransforming.transformToPubItem(result);
+		    			getItem().setMetadata(itemVO.getMetadata());
+	    			}
+	    			catch (Exception e) {
+	    				logger.error("Error fetching from escidoc", e);
+	    				error(getMessage("fetch_metadata_arxiv_error"));
+	    				return null;
+					}
+	    		}
+	    		else
+	    		{
+	    			warn(getMessage("fetch_metadata_arxiv_no_id"));
+    				return null;
+	    		}
+	    	}
+    	}
+    	else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this.getEasySubmissionSessionBean().getImportMethod()))
+    	{
+    		String uploadResult = uploadBibtexFile();
+    		if (uploadResult == null)
     		{
-    			try
-    			{
-	    			String result = mdHandler.fetchOAIRecord(getServiceID(), "http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:", "arXiv");
-	    			itemVO = xmlTransforming.transformToPubItem(result);
-	    			getItem().setMetadata(itemVO.getMetadata());
-    			}
-    			catch (Exception e) {
-    				logger.error("Error fetching from arxiv", e);
-					// TODO: message
-				}
-    		}
-    		else if ("ESCIDOC".equals(service))
-    		{
-    			try
-    			{
-	    			String result = ServiceLocator.getItemHandler().retrieve(getServiceID());
-	    			itemVO = xmlTransforming.transformToPubItem(result);
-	    			getItem().setMetadata(itemVO.getMetadata());
-    			}
-    			catch (Exception e) {
-    				logger.error("Error fetching from escidoc", e);
-					// TODO: message
-				}
+    			return null;
     		}
     	}
-    	
     	
     	return loadPreview();
     }

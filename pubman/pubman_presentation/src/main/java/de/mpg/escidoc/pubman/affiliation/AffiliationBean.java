@@ -28,7 +28,7 @@ public class AffiliationBean extends FacesBean {
 	public static final String LOAD_AFFILIATION_TREE = "loadAffiliationTree";
 	
 	private TreeModel tree;
-	List<AffiliationVOPresentation> affiliations;
+
 	private List<AffiliationVOPresentation> selected = null;
 	AffiliationVOPresentation selectedAffiliation = null;
 	private String source = null;
@@ -40,15 +40,15 @@ public class AffiliationBean extends FacesBean {
 	 */
 	public AffiliationBean() throws Exception
 	{
-		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean().retrieveTopLevelAffiliations());
-		tree = new ChildPropertyTreeModel(affiliations, "children");
+		tree = new ChildPropertyTreeModel(getAffiliations(), "children");
 	}
 	
 	public TreeModel getTree() {
 		return tree;
 	}
 
-	public void setTree(TreeModel tree) {
+	public void setTree(TreeModel tree)
+	{
 		this.tree = tree;
 	}
 	
@@ -66,7 +66,7 @@ public class AffiliationBean extends FacesBean {
 		
 		if (value != null)
 		{
-			for (AffiliationVOPresentation affiliation : affiliations) {
+			for (AffiliationVOPresentation affiliation : getAffiliations()) {
 				selectedAffiliation = findAffiliationByName(value, affiliation);
 				if (selectedAffiliation != null)
 				{
@@ -86,7 +86,7 @@ public class AffiliationBean extends FacesBean {
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getName()));
 				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
-				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getPid());
+				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}
 			return "loadEditItem";
 		}
@@ -96,7 +96,7 @@ public class AffiliationBean extends FacesBean {
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getName()));
 				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
-				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getPid());
+				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}
 			return "loadNewEasySubmission";
 		}
@@ -174,4 +174,8 @@ public class AffiliationBean extends FacesBean {
 		this.selectedAffiliation = selectedAffiliation;
 	}
 	
+	public List<AffiliationVOPresentation> getAffiliations()
+	{
+		return ((AffiliationTree)getApplicationBean(AffiliationTree.class)).getAffiliations();
+	}
 }

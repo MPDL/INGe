@@ -78,7 +78,7 @@ public class EasySubmissionSessionBean extends FacesBean
     
     private String currentExternalServiceType = EXTERNAL_SERVICE_ARXIV;
     
-    private String importMethod = "";
+    private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
     
     private PubContextVO context;
     

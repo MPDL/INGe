@@ -220,6 +220,7 @@ public class EditItem extends FacesBean
      */
     public PubItemVO getPubItem()
     {
+    	
         if (item == null)
         {
             item = this.getItemControllerSessionBean().getCurrentPubItem();

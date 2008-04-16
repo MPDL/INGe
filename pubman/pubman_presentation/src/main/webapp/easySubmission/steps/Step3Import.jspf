@@ -48,6 +48,7 @@
 		</div>
 		<div class="easySubmissionBoxBody">
 			<h3><h:outputText value="#{msg.easy_submission_Step3Import}"/></h3>
+			<h:messages/>
 			<div class="easySubmissionBoxBodyContent">
 				<div>
 					<div class="easySubmissionBoxBodyLine">
@@ -87,7 +88,6 @@
 							<h:outputText value="#{lbl.easy_submission_lblBibtexPath}"/>
 						</div>
 						<tr:inputFile value="#{EasySubmission.uploadedBibTexFile}" disabled="#{EasySubmission.disableBibtexFields}"/>
-						<h:commandButton value="#{lbl.easy_submission_lblBibtexUpload}" action="#{EasySubmission.uploadBibtexFile}" type="submit" disabled="#{EasySubmission.disableBibtexFields}" styleClass="easySubmissionBoxButton"/>
 					</div>
 				</div>
 				

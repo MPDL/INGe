@@ -58,6 +58,8 @@ public class AffiliationTreePage extends BreadcrumbPage
 	public AffiliationTreePage()
     {
 	    this.init();
+	    getSessionBean(ItemControllerSessionBean.class);
+	    
 	}
 
 	/**
