@@ -101,7 +101,7 @@
 		
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
-	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox" style="width: 100%;">
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	      				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
 	      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
@@ -127,8 +127,8 @@
 	           				</h:selectOneMenu>
 	           			</h:panelGroup>
 	           			<h:panelGroup layout="block" styleClass="editItemCol3">           				
-	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" rendered="#{component.file.size > 0}"/>
-	           				<tr:inputText value="#{component.file.mimeType}" rendered="#{component.file.size > 0}"/>
+	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" />
+	           				<tr:inputText value="#{component.file.mimeType}" />
 	           			</h:panelGroup>
 	           		</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -143,8 +143,8 @@
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
-						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.file.size > 0}" />
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index == EditItem.numberOfFiles && component.file.size > 0}"/>
+						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index == EditItem.numberOfFiles && component.file.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.file.size > 0}"/>
@@ -166,25 +166,42 @@
 				<h:outputText value="#{lbl.EditItem_lblFileLoc}" />
 			</h:panelGroup>
 		</h2>					
-      		
+      		<tr:iterator var="locator" id="locatorUploads" value="#{EditItem.locators}" varStatus="index">
       		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
       			<h:panelGroup layout="block" styleClass="editItemSingleCol">
       				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblURL}"/>      				
-           				<h:inputText value="" />
-           				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_lnkSave}"/>						
+           				<h:inputText value="#{locator.file.locator}" />
+           				<tr:commandButton styleClass="inlineButton" text="#{lbl.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
+		        
+		        <h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblFileProperties}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           				<tr:inputText value="#{locator.file.name}" rendered="#{locator.file.locator != null && locator.file.locator != ''}" />
+           			</h:panelGroup>
+           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           				<tr:outputText value="#{locator.contentCategory}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           			</h:panelGroup>
+           		</h:panelGroup>
+           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           			<tr:inputText value="#{locator.file.description}" autoSubmit="true" rows="4" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
+           		</h:panelGroup>
 		        	
-       		<h:panelGroup layout="block" styleClass="editItemAddLink">
-					<h:panelGroup layout="block" styleClass="editItemLeftCol">
+       			<h:panelGroup layout="block" styleClass="editItemAddLink">
+					<h:panelGroup layout="block" styleClass="editItemLeftCol" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
 						<h:panelGroup layout="block" styleClass="icon addIcon" />
-						<h:commandLink value="#{lbl.EditItem_btAddFileLoc}"  />
+						<tr:commandLink text="#{lbl.EditItem_btAddFileLoc}" action="#{EditItem.addLocator}" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:panelGroup layout="block" styleClass="editItemRightCol" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
 						<h:panelGroup layout="block" styleClass="icon removeIcon"/>
-						<h:commandLink value="#{lbl.EditItem_btRemoveFileLoc}" />						
+						<tr:commandLink text="#{lbl.EditItem_btRemoveFileLoc}" action="#{locator.removeLocatorEditItem}"/>						
 					</h:panelGroup>
-		        </h:panelGroup>   
+		        </h:panelGroup>  
+		   	</tr:iterator> 
 	</h:panelGroup>
 	
 	<%-- PUBLISHING --%>
