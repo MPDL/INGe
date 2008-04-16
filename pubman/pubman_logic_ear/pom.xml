@@ -105,6 +105,11 @@
 							<artifactId>itext</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>javabib</groupId>
+							<artifactId>javabib</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -289,6 +294,12 @@
 			<artifactId>itext</artifactId>
 			<version>1.3.1</version>
 			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
+			<version>20040801</version>
+			<scope>compile</scope>
 		</dependency>
 	</dependencies>
 
