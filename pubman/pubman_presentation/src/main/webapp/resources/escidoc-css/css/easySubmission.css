@@ -103,7 +103,7 @@
   }
     
   .easySubmissionActivated {
-	background-color:#000000;
+	background-color:#555555;
 
   }
   
@@ -114,7 +114,7 @@
   
   .easySubmissionDone {
   	background-color:#000000;
-  	opacity: 0.5;
+  	opacity: 0.3;
 	filter: alpha(opacity=50);
   }
   
@@ -167,7 +167,7 @@
   	font-size: 1em;
   }
  
-  .easySubmissionBoxBodyLine * {
+  .easySubmissionBoxBodyLine > * {
   	float: left;
   }
 
@@ -178,7 +178,7 @@
   	overflow: hidden;
   }
   
-  .easySubmissionBoxBodySubLine * {
+  .easySubmissionBoxBodySubLine > * {
 	float: left;
   }
   
@@ -200,6 +200,11 @@
 	border-bottom: 1px solid #AFAFAF;
   }
   
+  .easySubmissionRadioButtonWorkaround {
+  	width:15px;
+  	height: 12px;
+  }
+  
   .bibTeXImportIDItem {
   	width: 200px;
   	display: block;
@@ -208,7 +213,7 @@
   	float: left;
   }
   
-  .bibTeXImportIDItem * {
+  .bibTeXImportIDItem > * {
 	float: left;
   }
   
@@ -218,8 +223,17 @@
   	overflow: hidden;
   }
 
+  .easySubmissionBasicInfItem {
+  	width: 200px;
+  	margin-right: 20px;
+  	display: block;
+  	overflow: hidden;
+  	float: left;
+  }
 
-
+  .easySubmissionBasicInfItem > * {
+  	float: left;
+  }
 
 
 
