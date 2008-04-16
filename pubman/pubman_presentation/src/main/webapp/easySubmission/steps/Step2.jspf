@@ -64,7 +64,7 @@
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink action="#{EasySubmission.loadStep3Manual}">
+			<h:commandLink action="#{EasySubmission.loadStep3Manual}" disabled="#{EasySubmission.disableNextButton}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
 				<h:commandButton action="#{EasySubmission.loadStep3Manual}" value=" " disabled="#{EasySubmission.disableNextButton}"  styleClass="easySubmissionNextButton" type="submit"/>
 			</h:commandLink>
