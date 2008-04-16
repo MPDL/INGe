@@ -16,6 +16,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
 import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
@@ -650,12 +651,12 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         StringBuffer files = new StringBuffer();
 
-        if (this.getFiles() != null)
+        if (this.getFileList() != null)
         {
-            files.append(this.getFiles().size());
+            files.append(this.getFileList().size());
 
             // if there is only 1 file, display "File attached", otherwise display "Files attached" (plural)
-            if (this.getFiles().size() == 1)
+            if (this.getFileList().size() == 1)
             {
                 files.append(" " + getLabel("ViewItemShort_lblFileAttached"));
             }
@@ -668,6 +669,74 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
     
     /**
+     * This method examines the pubitem concerning its locators and generates
+     * a display string for the page according to the number of locators detected.
+     *
+     * @param pubitemVo the pubitem to be examined
+     * @return String the formatted String to display the occurencies of locators
+     */
+    public String getLocatorInfo()
+    {
+        StringBuffer locators = new StringBuffer();
+
+        if (this.getLocatorList() != null)
+        {
+        	locators.append(this.getLocatorList().size());
+
+            // if there is only 1 locator, display "Locator", otherwise display "Locators" (plural)
+            if (this.getLocatorList().size() == 1)
+            {
+            	locators.append(" " + getLabel("ViewItemShort_lblLocatorAttached"));
+            }
+            else
+            {
+            	locators.append(" " + getLabel("ViewItemShort_lblLocatorsAttached"));
+            }
+        }
+        return locators.toString();
+    }
+    
+    /**
+     * This method examines which file is really a file and not a locator and returns a list of native files
+     * @return List<FileVO> file list
+     */
+    private List<FileVO> getFileList()
+    {
+    	List<FileVO> fileList = new ArrayList<FileVO>();
+    	if(this.getFiles() != null)
+    	{
+    		for(int i = 0; i < this.getFiles().size(); i++)
+    		{
+    			if(this.getFiles().get(i).getLocator() == null || this.getFiles().get(i).getLocator().trim().equals(""))
+    			{
+    				fileList.add(this.getFiles().get(i));
+    			}
+    		}
+    	}
+    	return fileList;
+    }
+    
+    /**
+     * This method examines which file is a locator and not a file and returns a list of locators
+     * @return List<FileVO> locator list
+     */
+    private List<FileVO> getLocatorList()
+    {
+    	List<FileVO> locatorList = new ArrayList<FileVO>();
+    	if(this.getFiles() != null)
+    	{
+    		for(int i = 0; i < this.getFiles().size(); i++)
+    		{
+    			if(this.getFiles().get(i).getLocator() != null && !this.getFiles().get(i).getLocator().trim().equals(""))
+    			{
+    				locatorList.add(this.getFiles().get(i));
+    			}
+    		}
+    	}
+    	return locatorList;
+    }
+    
+    /**
      * Counts the files and gives info back as int
      * @return int the amount of files belonging to this item
      */
@@ -675,11 +744,26 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
     	int countedFiles = 0;
     	
-    	if(this.getFiles() != null)
+    	if(this.getFileList() != null)
     	{
-    		countedFiles = this.getFiles().size();
+    		countedFiles = this.getFileList().size();
     	}
     	return countedFiles;
+    }
+    
+    /**
+     * Counts the locators and gives info back as int
+     * @return int the amount of locators belonging to this item
+     */
+    public int getAmountOfLocators()
+    {
+    	int countedLocators = 0;
+    	
+    	if(this.getLocatorList() != null)
+    	{
+    		countedLocators = this.getLocatorList().size();
+    	}
+    	return countedLocators;
     }
     
     /**
