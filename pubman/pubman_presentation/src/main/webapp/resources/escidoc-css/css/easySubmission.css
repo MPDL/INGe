@@ -113,8 +113,8 @@
   }
   
   .easySubmissionDone {
-  	background-color:#000000;
-  	opacity: 0.3;
+  	background-color:#555555;
+  	opacity: 0.4;
 	filter: alpha(opacity=50);
   }
   
