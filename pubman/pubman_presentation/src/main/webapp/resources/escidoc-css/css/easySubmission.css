@@ -31,10 +31,6 @@
  .borderless {
  	border: 0px;
  }
- 
- .green {
- 	background-color:#00FFFF;
- }
 
 /* BOX */
 
@@ -122,6 +118,10 @@
 	filter: alpha(opacity=50);
   }
   
+ .easySubmissionLast > span{
+  	border-right: 2px solid black !important;
+  }
+  
   /* BODY */
   
   .easySubmissionBoxBody {
@@ -185,7 +185,21 @@
   .easySubmissionBoxBodySubLine input, .easySubmissionBoxBodySubLine > button {
 	margin-right: 5px;
   }
+  
+  .trinidadRadiobuttonTable {
+	width: 400px;
+  }
 
+  .easySubmissionSubBox {
+  	display: block;
+	border:1px solid #AFAFAF;
+  }
+  
+  .easySubmissionSubBoxHeader {
+	background-color: #DDDDDD;
+	border-bottom: 1px solid #AFAFAF;
+  }
+  
   .bibTeXImportIDItem {
   	width: 200px;
   	display: block;
@@ -335,14 +349,19 @@
  	float: left;
   	height: 24px;
   	background-color: #FFFFFF;
-  	border:1px solid #DDDDDD;
+  	border:0px solid #DDDDDD;
   }
   
   .easySubmissionControls label {
   	padding-top: 1px;
  	font-size: 100%;
- 	margin-left: 22px;
-  	margin-right: 22px;
+ 	padding-left: 22px;
+  	padding-right: 22px;
+  }
+  
+  .easySubmissionsBackSection, .easySubmissionsNextSection {
+  	background-color: #FFFFFF;
+  	border:1px solid #DDDDDD;
   }
   
   .easySubmissionsBackSection {
@@ -353,16 +372,6 @@
 	width: 24px;
 	background-image:url("../images/media-playback-start1.png");
 	background-repeat:no-repeat;
-  }
-  
-  .easySubmissionsCancelSection {
-  	float: left;
-  }
-  
-  .easySubmissionCancelButton {
-  	margin-left: 150px;
-  	width: 100px;
-  	padding-bottom: 2px;
   }
   
   .easySubmissionsNextSection {

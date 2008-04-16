@@ -33,17 +33,18 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 <div>
 	<f:subview id="list">
-		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.contextList}" rowClasses="odd, even">
+		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.contextList}">
 			<h:column>
-				<h:panelGroup styleClass="listItemHeader">
+				<h:panelGroup styleClass="easySubmissionSubBox">
 					
-						<h:panelGroup layout="block" id="link">
+						<h:panelGroup layout="block" id="link"  styleClass="easySubmissionBoxBodyLine easySubmissionSubBoxHeader">
 							<h:graphicImage url="../images/haken.gif" rendered="#{context.selected == 'true'}"/>
+							<h:panelGroup layout="block" style="width:15px;" rendered="#{context.selected == 'false'}">&nbsp;</h:panelGroup>
 							<h:commandLink action="#{context.selectForEasySubmission}">
 								<h:outputText value="#{context.name}"/>
 							</h:commandLink>
 						</h:panelGroup>
-						<h:panelGroup layout="block" id="description">
+						<h:panelGroup layout="block" id="description" styleClass="easySubmissionBoxBodySubLine">
 							<h:outputText value="#{context.description}"/>
 						</h:panelGroup>
 					

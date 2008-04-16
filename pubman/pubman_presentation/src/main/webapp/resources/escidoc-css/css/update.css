@@ -246,3 +246,8 @@ font-size: 1em;
 .margin5Right {
 	margin-right: 5px;
 }
+
+.trinidadRadiobuttonTable td input {
+	margin-right: 5px;
+	float: left;
+}

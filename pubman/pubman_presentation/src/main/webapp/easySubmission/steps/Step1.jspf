@@ -54,7 +54,7 @@
     			<h:selectOneRadio id="rbgSubmissionMethod"  
 									  value="#{EasySubmissionSessionBean.currentSubmissionMethod}"
 									  layout="pageDirection"
-									  styleClass="borderless"
+									  styleClass="borderless trinidadRadiobuttonTable"
 									  binding="#{EasySubmission.radioSelect}">
 							 <f:selectItems value="#{EasySubmission.SUBMISSION_METHOD_OPTIONS}"/>
 				</h:selectOneRadio>
@@ -63,16 +63,18 @@
 	</div>
 	<div class="easySubmissionControls floatbox">
 		<div>
+			
 			<div class="easySubmissionsBackSection deactivatedControl">
+			<h:commandLink action="#{EasySubmission.cancelEasySubmission}">
 				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value=" " styleClass="easySubmissionBackButton" type="submit"/>
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
-			</div>
-			<div class="easySubmissionsCancelSection">
-				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value="#{lbl.easy_submission_btnCancel}"  styleClass="easySubmissionCancelButton" type="submit"/>
+			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
+			<h:commandLink action="#{EasySubmission.selectSubmissionMethod}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
 				<h:commandButton action="#{EasySubmission.selectSubmissionMethod}" value=" " styleClass="easySubmissionNextButton" type="submit"/>
+			</h:commandLink>
 			</div>
 		</div>
 	</div>
