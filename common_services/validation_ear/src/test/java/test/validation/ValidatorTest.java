@@ -31,10 +31,13 @@ package test.validation;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import javax.naming.InitialContext;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
 import test.TestHelper;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
