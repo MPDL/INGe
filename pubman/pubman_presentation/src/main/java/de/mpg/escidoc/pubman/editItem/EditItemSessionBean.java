@@ -73,6 +73,15 @@ public class EditItemSessionBean extends FacesBean
 		// Perform initializations inherited from our superclass
 		super.init();
 	}
+	
+	/**
+	 * This method clears the file and the locator list
+	 */
+	public void clean()
+	{
+		this.files.clear();
+		this.locators.clear();
+	}
 
 	public List<PubFileVOPresentation> getFiles() 
 	{

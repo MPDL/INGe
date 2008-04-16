@@ -43,6 +43,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -162,7 +163,15 @@ public class EasySubmission extends FacesBean
     	
     	this.locatorVisibilities = ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
     	
-    	EasySubmissionSessionBean esb = this.getEasySubmissionSessionBean();
+    	String fwUrl = "";
+    	try 
+    	{
+			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+		} 
+    	catch (ServiceException e) 
+    	{
+			logger.error("FW URL not found!", e);
+		}
     	
     	// if the user has reached Step 3, an item has already been created and must be set in the EasySubmissionSessionBean for further manipulation
     	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
@@ -172,7 +181,14 @@ public class EasySubmission extends FacesBean
     		if(this.getEasySubmissionSessionBean().getFiles() == null)
     		{
     			// add a locator
-    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, true));
+    			FileVO newLocator = new FileVO();
+        		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+        		// set up a dummy content
+        		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
+        		newLocator.setMimeType("image/jpg");
+        		newLocator.setSize(new Long(123));
+    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, false));
     		}
@@ -184,7 +200,14 @@ public class EasySubmission extends FacesBean
     		if(this.getEasySubmissionSessionBean().getLocators().size() < 1)
     		{
     			//add a locator
-    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, true));
+    			FileVO newLocator = new FileVO();
+        		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+        		// set up a dummy content
+        		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
+        		newLocator.setMimeType("image/jpg");
+        		newLocator.setSize(new Long(123));
+    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
     	}
     	
@@ -216,7 +239,21 @@ public class EasySubmission extends FacesBean
     	
     	EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
     	this.getItemControllerSessionBean().setCurrentPubItem(null);
-    	// set the current submission step to step2
+    	//clean the EasySubmissionSessionBean
+    	easySubmissionSessionBean.getFiles().clear();
+    	easySubmissionSessionBean.getLocators().clear();
+    	
+    	// deselect the  selected context
+    	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    	if(contextListSessionBean.getContextList() != null)
+    	{
+    		for(int i = 0; i < contextListSessionBean.getContextList().size(); i++)
+        	{
+        		contextListSessionBean.getContextList().get(i).setSelected(false);
+        	}
+    	}
+    	
+    	// set the current submission step to step1
     	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
     	
     	return "loadNewEasySubmission";
@@ -241,11 +278,25 @@ public class EasySubmission extends FacesBean
      */
     public String addLocator()
     {
+    	String fwUrl = "";
+    	try 
+    	{
+			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+		} 
+    	catch (ServiceException e) 
+    	{
+			logger.error("FW URL not found!", e);
+		}
     	if(this.getEasySubmissionSessionBean().getLocators() != null)
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
     		newLocator.getFile().setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+    		// set up a dummy content
+    		newLocator.getFile().setContent(fwUrl + "/escidoc-logo.jpg");
+    		newLocator.getFile().setMimeType("image/jpg");
+    		newLocator.getFile().setSize(new Long(123));
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
     	return "loadNewEasySubmission";

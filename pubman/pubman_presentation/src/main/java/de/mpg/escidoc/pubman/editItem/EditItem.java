@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.editItem;
 
+import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,6 +45,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -334,7 +336,10 @@ public class EditItem extends FacesBean
 //            	new_file.setDescription("meine Beschreibung...");
 //            	pubItem.getFiles().add(new_file);
             }
-            bindFiles();
+            if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
+            {
+            	bindFiles();
+            }
         }
         else
         {
@@ -346,6 +351,16 @@ public class EditItem extends FacesBean
     {
     	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     	List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    	
+    	String fwUrl = "";
+    	try 
+    	{
+			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+		} 
+    	catch (ServiceException e) 
+    	{
+			logger.error("FW URL not found!", e);
+		}
     	
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
@@ -378,6 +393,11 @@ public class EditItem extends FacesBean
     	{
     		FileVO newLocator = new FileVO();
     		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+    		// set up a dummy content
+    		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
+    		newLocator.setMimeType("image/jpg");
+    		newLocator.setSize(new Long(123));
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
     }
@@ -411,15 +431,26 @@ public class EditItem extends FacesBean
     }
     
     /**
-     * This method binds the uploaded files to the files in the PubItem during the save process
+     * This method binds the uploaded files and locators to the files in the PubItem during the save process
      */
-    private void bindUploadedFiles()
+    private void bindUploadedFilesAndLocators()
     {
+    	// first clear the file list
+    	this.getPubItem().getFiles().clear();
+		// add the files
     	if(this.getFiles() != null && this.getFiles().size() > 0)
     	{
     		for(int i = 0; i < this.getFiles().size(); i++)
     		{
-    			this.getPubItem().getFiles().set(i, this.getFiles().get(i).getFile());
+    			this.getPubItem().getFiles().add(this.getFiles().get(i).getFile());
+    		}
+    	}
+    	// add the locators
+		if(this.getLocators() != null && this.getLocators().size() > 0)
+    	{
+    		for(int i = 0; i < this.getLocators().size(); i++)
+    		{
+    			this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
     		}
     	}
     }
@@ -509,7 +540,7 @@ public class EditItem extends FacesBean
     {
 
         // bind the temporary uploaded files to the files in the current item
-    	bindUploadedFiles();
+    	bindUploadedFilesAndLocators();
     	
     	/*
          * FrM: Validation with validation point "default"
@@ -877,7 +908,7 @@ public class EditItem extends FacesBean
     public void fileUploaded(ValueChangeEvent event)
     {
        
-    	int indexUpload = this.item.getFiles().size()-1;
+    	int indexUpload = this.getEditItemSessionBean().getFiles().size()-1;
         
         UploadedFile file = (UploadedFile) event.getNewValue();
       String contentURL;
@@ -886,12 +917,12 @@ public class EditItem extends FacesBean
         contentURL = uploadFile(file);
     	if(contentURL != null && !contentURL.trim().equals(""))
     	{
-    		this.item.getFiles().get(indexUpload).setSize(new Long(file.getLength()));
-            this.item.getFiles().get(indexUpload).setName(file.getFilename());
-            this.item.getFiles().get(indexUpload).setMimeType(file.getContentType());
-            this.item.getFiles().get(indexUpload).setContent(contentURL);
+    		this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
+            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setName(file.getFilename());
+            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
+            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setContent(contentURL);
     	}
-        bindFiles();
+        //bindFiles();
       }
     }
     
@@ -905,10 +936,10 @@ public class EditItem extends FacesBean
     	//this.files.add(new PubFileVOPresentation());
     	// avoid to upload more than one item before filling the metadata
     	EditItemSessionBean eisb = this.getEditItemSessionBean();
-    	if(this.getEditItemSessionBean().getFiles() != null && this.getEditItemSessionBean().getFiles().size() > 0 && this.getEditItemSessionBean().getFiles().get(this.getEditItemSessionBean().getFiles().size()-1).getFile().getSize() > 0)
+    	if(this.getEditItemSessionBean().getFiles() != null)
     	{
     		this.item.getFiles().add(new FileVO());
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation());
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), new FileVO(), false));
     	}
     	return "loadEditItem";
     }
@@ -919,11 +950,25 @@ public class EditItem extends FacesBean
      */
     public String addLocator()
     {
+    	String fwUrl = "";
+    	try 
+    	{
+			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+		} 
+    	catch (ServiceException e) 
+    	{
+			logger.error("FW URL not found!", e);
+		}
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
     		FileVO newLocator = new FileVO();
     		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
-    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size()-1, newLocator, true));
+    		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+    		// set up a dummy content
+    		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
+    		newLocator.setMimeType("image/jpg");
+    		newLocator.setSize(new Long(123));
+    		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     	}
     	EditItemSessionBean eisb = this.getEditItemSessionBean();
     	return "loadEditItem";
@@ -937,7 +982,7 @@ public class EditItem extends FacesBean
     {
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
-    		this.item.getFiles().add(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile());
+    		
     	}
     	return "loadEditItem";
     }
@@ -1347,6 +1392,16 @@ public class EditItem extends FacesBean
 			fileNumber = this.getEditItemSessionBean().getFiles().size();
 		}
 		return fileNumber;
+	}
+	
+	public int getNumberOfLocators()
+	{
+		int locatorNumber = 0;
+		if(this.getEditItemSessionBean().getLocators() != null)
+		{
+			locatorNumber = this.getEditItemSessionBean().getLocators().size();
+		}
+		return locatorNumber;
 	}
 	
     
