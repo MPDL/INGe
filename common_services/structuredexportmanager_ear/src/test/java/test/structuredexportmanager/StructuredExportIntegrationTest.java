@@ -29,7 +29,7 @@
 
 package test.structuredexportmanager;
 
- 
+    
 import static org.junit.Assert.*;
 
 /**
