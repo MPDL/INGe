@@ -635,7 +635,9 @@ public class EditItem extends FacesBean
         ValidationReportVO report = null;
         try
         {
-            report = this.itemValidating.validateItemObject(getPubItem(), "submit_item");
+        	PubItemVO item = new PubItemVO(getPubItem());
+        	
+            report = this.itemValidating.validateItemObject(item, "submit_item");
         }
         catch (Exception e)
         {

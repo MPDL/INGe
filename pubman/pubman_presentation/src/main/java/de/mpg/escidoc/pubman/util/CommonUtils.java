@@ -633,4 +633,5 @@ public class CommonUtils extends InternationalizedImpl
 
         return limitedString;
     }
+
 }

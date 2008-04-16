@@ -746,7 +746,14 @@ public class EasySubmission extends FacesBean
     public void setPublicationLanguage(String language)
     {
     	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().clear();
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().add(language);
+    	if (language != null)
+    	{
+    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().add(language);
+    	}
+    	else
+    	{
+    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().add("");
+    	}
     }
     
     /**
