@@ -65,6 +65,28 @@
 	float:left;
 }
 
+.helpIcon{
+	position:relative;
+	top:-25px;
+	left:240px;
+	width:18px;
+	height:18px;
+	backgound-color:#ffffff;	
+	border:none;	
+}
+
+.helpIcon:hover{ 
+	border:none;
+}
+
+.headingAndIcon{
+	width:100%;
+	height:25px;
+	float:left;
+	font-size:100%;
+	
+}
+
 .addIcon{
 	top:0px;	
 	background-image:url("../images/add_file.gif");
