@@ -51,49 +51,72 @@
 		<div class="easySubmissionBoxBody">
 			<h3><h:outputText value="#{msg.easy_submission_Step5Manual}"/></h3>
 			<div class="easySubmissionBoxBodyContent">
-			
+				
 				<%-- Title --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle} *"/>
-				<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
+				<div class="easySubmissionBoxBodyLine">
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle} *"/>
+					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
+					</div>
+				</div>
 				
-				<%-- Date --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDate} *"/>
-          		<h:inputText value="#{EasySubmission.selectedDate}"/>	
+				<div class="easySubmissionBoxBodyLine">
+					<%-- Date --%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDate} *"/>
+          				<h:inputText value="#{EasySubmission.selectedDate}"/>
+          			</div>
           		
-          		<%-- Date Type --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateType} *"/>
-				<h:selectOneMenu id="cboDateType" value="#{EasySubmissionSessionBean.currentDateType}" binding="#{EasySubmission.dateSelect}">
-					<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
-				</h:selectOneMenu>
+          			<%-- Date Type --%>
+          			<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateType} *"/>
+						<h:selectOneMenu id="cboDateType" value="#{EasySubmissionSessionBean.currentDateType}" binding="#{EasySubmission.dateSelect}">
+							<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
+						</h:selectOneMenu>
+					</div>
 				
-				<%-- Publication Language --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage} *"/>
-				<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
-					<f:selectItems value="#{EasySubmission.publicationLanguages}" />
-				</h:selectOneMenu>
+					<%-- Publication Language --%>
+					<div class="easySubmissionLangItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage} *"/>
+						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
+							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
+						</h:selectOneMenu>
+					</div>
+				</div>
 				
-				<%-- Keywords --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords} *"/>
-          		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
+				<div class="easySubmissionBoxBodyLine">
+					<%-- Keywords --%>
+					<div class="easySubmissionLastItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords} *"/>
+    	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
+					</div>
+				</div>
           		
-          		<%-- Abstract --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract} *"/>
-          		<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
+          		<div class="easySubmissionBoxBodyLine">
+          			<%-- Abstract --%>
+          			<div class="easySubmissionLastItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract} *"/>
+          				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
+          			</div>
+          		</div>
+          		
 			</div>
 		</div>
 	</div>
 	<div class="easySubmissionControls floatbox">
 		<div>
+			<h:commandLink>
 			<div class="easySubmissionsBackSection">
-				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value="#{lbl.easy_submission_btnBack}"  styleClass="easySubmissionBackButton" type="submit"/>
-			</div
-			<div class="easySubmissionsCancelSection">
-				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value="#{lbl.easy_submission_btnCancel}"  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value=""  styleClass="easySubmissionBackButton" type="submit"/>
+				<h:outputLabel value="#{lbl.easy_submission_btnBack}"/>
 			</div>
+			</h:commandLink>
+			<h:commandLink>
 			<div class="easySubmissionsNextSection">
-				<h:commandButton action="#{EasySubmission.loadPreview}" value="#{lbl.easy_submission_btnPreview}"  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:outputLabel value="#{lbl.easy_submission_btnPreview}"/>
+				<h:commandButton action="#{EasySubmission.loadPreview}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
 			</div>
+			</h:commandLink>
 		</div>
 	</div>
-	<h:outputText value="This is Step 1"/>
 </f:subview>

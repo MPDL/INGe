@@ -137,7 +137,7 @@
   .easySubmissionBoxBodyContent {
   	margin-left: 50px;
   	margin-right: 25px;
-  	margin-bottom: 25px;
+  	margin-bottom: 15px;
   }
   
   .easySubmissionBoxBodyContent h3 {
@@ -240,7 +240,7 @@
   	float: left;
   }
   
-  .easySubmissionBasicInfItem input, .easySubmissionBasicInfItem select, .easySubmissionBasicInfItem label {
+  .easySubmissionBasicInfItem input, .easySubmissionBasicInfItem select, .easySubmissionBasicInfItem label, .easySubmissionBasicInfItem textarea {
   	width: 230px;
   }
 
@@ -281,100 +281,52 @@
   
   
   
-
-
-
-
-/*
-
-  .easySubmissionBoxBodyContent ol {
-  	list-style: none;
-	margin: 0px;
-	padding: 0px;
-  }
   
-  .easySubmissionBoxBodyContent ol li {
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+
+
+  .easySubmissionDateItem {
+  	width: 160px;
+  	display: block;
   	overflow: hidden;
-	margin: 0px;
-	padding: 0px;
-  }
-
-  .easySubmissionBoxBodyContent > ol > li > input {
-  	float: left;
-	margin: 0px;
-	margin-left: 30px;
-	margin-top: 6px;
-	padding: 0px;
-  }
- 
-  .easySubmissionBoxBodyContent > ol > li label {
-  	font-size: 100%;
-  	float: left;
-	margin: 0px;
-	margin-left: 5px;
-	margin-top: 5px;
-	padding: 0px;
-	overflow: hidden;
-	width: 490px;
-  }
-  
-   .easySubmissionBoxBodyContent > ol > li .easySubmitadditionalInformationLabel {
-   	float: left;
-  	margin-left: 50px;
-  }
-  
-  .collectionList {
-  	width: 90%;
-  }
-  
-  ol li.collectionListItem  {
-  	margin-bottom: 5px;
-  }
-  
-  .collectionListHeader {
-  	min-width: 600px;
-
-  	padding-left: 5px;
-  	padding-top: 2px;
-  	padding-bottom: 2px;
-  }
-  
-  .collectionListBody {
-
-  	padding: 5px;
-  	padding-left: 20px;
-  	padding-right: 20px;
-  }
-  
-   .easySubmissionIDForm {
-   	margin-left: 100px;
-   	margin-bottom: 5px;
-   	width: 80%;
   	float: left;
   }
   
-  .easySubmissionIDForm > div {
-  	padding-left: 5px;
-  	padding-right: 5px;
-  	padding-bottom: 3px;
-   	width: 30%;
+  .easySubmissionDateItem input, .easySubmissionDateItem select, .easySubmissionDateItem label {
+  	width: 150px;
+  }
+  
+
+  .easySubmissionLangItem {
+  	width: 180px;
+  	display: block;
+  	overflow: hidden;
   	float: left;
   }
-  
-  .easySubmissionIDForm select, .easySubmissionForm input {
-  	width: 120px;
+
+  .easySubmissionLangItem select {
+  	width: 50px;
   }
-  
-   .easySubmissionBibtexForm {
-   	margin-left: 50px;
-   	margin-bottom: 5px;
-   	width: 80%;
+
+  .easySubmissionLastItem {
+  	width: 375px;
+  	display: block;
+  	overflow: hidden;
   	float: left;
   }
-  
-*/  
 
-
+  .easySubmissionLastItem textarea, .easySubmissionLastItem label {
+  	width: 370px;
+  }
     
 /* CONTROLS */
 
