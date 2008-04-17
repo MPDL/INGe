@@ -55,7 +55,7 @@
 				<%-- Title --%>
 				<div class="easySubmissionBoxBodyLine">
 					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle} *"/>
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
 					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 				</div>
@@ -77,7 +77,7 @@
 				
 					<%-- Publication Language --%>
 					<div class="easySubmissionLangItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage} *"/>
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage}"/>
 						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
 							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
 						</h:selectOneMenu>
@@ -87,7 +87,7 @@
 				<div class="easySubmissionBoxBodyLine">
 					<%-- Keywords --%>
 					<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords} *"/>
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords}"/>
     	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
 					</div>
 				</div>
@@ -95,7 +95,7 @@
           		<div class="easySubmissionBoxBodyLine">
           			<%-- Abstract --%>
           			<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract} *"/>
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract}"/>
           				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
           			</div>
           		</div>
