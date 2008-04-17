@@ -52,15 +52,21 @@
 			<h3><h:outputText value="#{msg.easy_submission_Step3Manual}"/></h3>
 			<div class="easySubmissionBoxBodyContent">
 				
-				<%-- Genre --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblGenre} *"/>
-				<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}">
-					<f:selectItems value="#{EasySubmission.genres}" />
-				</h:selectOneMenu>
+				<div class="easySubmissionBoxBodyLine">
+					<%-- Genre --%>
+					<div class="easySubmissionBasicInfItem margin5Right">
+					<h:outputLabel value="#{lbl.easy_submission_lblGenre} *"/>
+					<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}">
+						<f:selectItems value="#{EasySubmission.genres}" />
+					</h:selectOneMenu>
+					</div>
 				
-				<%-- Title --%>
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblTitle} *"/>
-				<h:inputTextarea rows="5" value="#{EasySubmission.item.metadata.title.value}"/>
+					<%-- Title --%>
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel value="#{lbl.easy_submission_lblTitle} *"/>
+					<h:inputTextarea rows="5" value="#{EasySubmission.item.metadata.title.value}"/>
+					</div>
+				</div>
 				
 				<jsp:directive.include file="./ui/Files.jspf"/>
 				<jsp:directive.include file="./ui/Locators.jspf"/>
@@ -70,13 +76,16 @@
 	<div class="easySubmissionControls floatbox">
 		<div>
 			<div class="easySubmissionsBackSection">
-				<h:commandButton action="#{EasySubmission.loadStep2}" value="#{lbl.easy_submission_btnBack}"  styleClass="easySubmissionBackButton" type="submit"/>
-			</div
-			<div class="easySubmissionsCancelSection">
-				<h:commandButton action="#{EasySubmission.cancelEasySubmission}" value="#{lbl.easy_submission_btnCancel}"  styleClass="easySubmissionNextButton" type="submit"/>
+			<h:commandLink action="#{EasySubmission.loadStep2}">
+				<h:commandButton action="#{EasySubmission.loadStep2}" value=" "  styleClass="easySubmissionBackButton" type="submit"/>
+				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
+			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value="#{lbl.easy_submission_btnNext}"  styleClass="easySubmissionNextButton" type="submit"/>
+			<h:commandLink action="#{EasySubmission.loadStep4Manual}">
+				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
+				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
+			</h:commandLink>
 			</div>
 		</div>
 	</div>

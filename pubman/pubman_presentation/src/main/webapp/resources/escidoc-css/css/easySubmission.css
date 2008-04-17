@@ -39,7 +39,8 @@
  	margin-left: 75px;
  	margin-right: 75px;
  	width: 600px;
-	padding: 0px;  
+	padding: 0px;
+	padding-bottom: 25px;
 	border:1px solid #DDDDDD;
 	background-color:#FFFFFF;	
  }
@@ -119,7 +120,7 @@
   }
   
  .easySubmissionLast > span{
-  	border-right: 2px solid black !important;
+  	border-right: 2px solid #555555 !important;
   }
   
   /* BODY */
@@ -155,8 +156,10 @@
 
   .easySubmissionBoxBodyLine {
   	width: 510px;
+  	margin-top: 7px;
   	display: block;
   	overflow: hidden;
+  	float: left;
   }
   
   .easySubmissionBoxBodyLine > input {
@@ -173,9 +176,11 @@
 
   .easySubmissionBoxBodySubLine {
   	margin-left: 17px;
-  	width: 485px;
+  	margin-top: 7px;
+  	width: 470px;
   	display: block;
   	overflow: hidden;
+  	float: left;
   }
   
   .easySubmissionBoxBodySubLine > * {
@@ -191,11 +196,16 @@
   }
 
   .easySubmissionSubBox {
+  	width: 510px;
+  	padding-bottom: 7px;
   	display: block;
+  	overflow: hidden;
 	border:1px solid #AFAFAF;
+	float: left;
   }
   
   .easySubmissionSubBoxHeader {
+  	margin: 0px;
 	background-color: #DDDDDD;
 	border-bottom: 1px solid #AFAFAF;
   }
@@ -224,20 +234,53 @@
   }
 
   .easySubmissionBasicInfItem {
-  	width: 200px;
-  	margin-right: 20px;
+  	width: 220px;
   	display: block;
   	overflow: hidden;
   	float: left;
+  }
+  
+  .easySubmissionBasicInfItem input, .easySubmissionBasicInfItem select {
+  	width: 220px;
   }
 
   .easySubmissionBasicInfItem > * {
   	float: left;
   }
 
+  .easySubmissionFileListBox {
+  	margin-top: 10px;
+  	width: 415px;
+  	display: block;
+  	overflow: hidden;
+  	float: left;
+  }
+  
+  .easySubmissionFileListBox > * {
+  	float: left;
+  }
 
+  .easySubmissionFileListButton {
+  	margin-top: 10px;
+  	width: 95px;
+  	float: left;
+  }
 
-
+  .easySubmissionVisibilityLine {
+  	float: right;
+  }
+  
+  .easySubmissionVisibilityLine * {
+  	float: left;
+  }
+  
+  .easySubmissionVisibilityLine input {
+  	margin-left: 5px;
+	margin-right: 2px;
+  }
+  
+  
+  
 
 
 
