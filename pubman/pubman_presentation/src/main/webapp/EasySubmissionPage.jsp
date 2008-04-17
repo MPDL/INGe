@@ -66,12 +66,7 @@
 										</span>
 									</div>
 									<div id="col2">
-										<div class="contentActions">
-											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
-											<ul>
-												
-											</ul>
-										</div>
+											&#xa0;
 									</div>
 									<div id="col3">
 										<div class="content">
