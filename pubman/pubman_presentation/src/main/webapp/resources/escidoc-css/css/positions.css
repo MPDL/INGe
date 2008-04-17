@@ -178,6 +178,7 @@ html > body fieldset{
 	width: 20%;
 	float: left;
 	margin-top: 0.2em;
+	overflow: hidden;
  }
 
 .itemText {
