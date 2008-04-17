@@ -327,8 +327,12 @@ html > body fieldset{
 .displayControls {
 	float: right;
 	vertical-align: 2px;
-	/*argin: -20px 5px 0px 0px;*/
+	/*margin: -20px 5px 0px 0px;*/
 	margin: 5px 5px 0px 0px;
+}
+
+.moveTop{
+	margin: -20px 5px 0px 0px;
 }
 
 .displayControls input, .displayControls input:hover{	
