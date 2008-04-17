@@ -192,12 +192,16 @@ public class EasySubmission extends FacesBean
         		newLocator.setSize(new Long(123));
     			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
-    			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, false));
+    			FileVO newFile = new FileVO();
+    			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getFiles().size() < 1)
     		{
     			// add a file
-    			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, false));
+    			FileVO newFile = new FileVO();
+    			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getLocators().size() < 1)
     		{
@@ -227,6 +231,14 @@ public class EasySubmission extends FacesBean
     	// set the desired submission method in the session bean
     	EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
     	easySubmissionSessionBean.setCurrentSubmissionMethod(submittedValue);
+    	
+    	// select the default context if only one exists
+    	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
+    	if(contextListSessionBean.getContextList() != null && contextListSessionBean.getContextList().size() == 1)
+    	{
+    		contextListSessionBean.getContextList().get(0).setSelected(false);
+    		contextListSessionBean.getContextList().get(0).selectForEasySubmission();
+    	}
     	
     	// set the current submission step to step2
     	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
@@ -269,7 +281,9 @@ public class EasySubmission extends FacesBean
     {
     	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0 && this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     	{
-    		this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), false));
+    		FileVO newFile = new FileVO();
+			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    		this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     	}
     	return "loadNewEasySubmission";
     }
@@ -380,7 +394,11 @@ public class EasySubmission extends FacesBean
     	if(contentURL != null && !contentURL.trim().equals(""))
     	{
     		this.getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
-            this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
+    		// set the file name automatically if it is not filled by the user
+    		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+    		{
+    			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
+    		}
             this.getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
             this.getFiles().get(indexUpload).getFile().setContent(contentURL);
     	}
@@ -881,7 +899,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getVisibilities()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
+        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(false);
     }
     
     /**
