@@ -101,7 +101,7 @@
 		
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
-	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox" style="width: 100%;">
+	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	      				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}"/>
 	      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}"/>
@@ -345,7 +345,7 @@
 				<h:outputText value="#{lbl.EditItem_lblEvent}"/>
 			</h:panelGroup>
 		</h2>	
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox fullWidth">			
+		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">			
 			<jsp:directive.include file="ui/EventTitleCollection.jspf"/>		
 			<h:panelGroup layout="block" id="panEventAttributes" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemSingleCol">
