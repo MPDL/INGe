@@ -204,6 +204,8 @@ public class ItemValidatingBean implements ItemValidating
             TechnicalException
     {
 
+    	LOGGER.debug("Validating a " + itemVO.getClass().getSimpleName());
+    	
     	if (itemVO instanceof PubItemVO)
     	{
 	        return transformXmlToValidationReport(
