@@ -48,13 +48,13 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 {
 	private static Logger logger = Logger.getLogger(AuthorFormat.class);
 	
-	protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüß]+)";
+	protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìô]+)";
 	protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
 	protected static final String NAME = "(" + WORD + "(-" + WORD + ")*)";
 	protected static final String INITIAL ="(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
 	protected static final String INITIALS ="(" + INITIAL + "(-" + INITIAL + ")*)";
 	protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor)";
-	protected static final String PREFIX = "(von|von und zu|zu|de la|la|de|du|of)";
+	protected static final String PREFIX = "(von|von und zu|zu|de la|la|de|du|of|van|van der|van den)";
 	protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( ?(" + NAME + "|" + INITIALS + "))*)";
 	
 	protected Set<String> givenNames = null;
@@ -79,14 +79,12 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 	public boolean isGivenName(String name) throws Exception
 	{
 		boolean result = getGivenNames().contains(name);
-		System.out.println(name + " is " + (result ? "" : "not ") + "a given name");
 		return result;
 	}
 	
 	public boolean isSurname(String name) throws Exception
 	{
 		boolean result = getSurnames().contains(name);
-		System.out.println(name + " is " + (result ? "" : "not ") + "a surname");
 		return result;
 	}
 

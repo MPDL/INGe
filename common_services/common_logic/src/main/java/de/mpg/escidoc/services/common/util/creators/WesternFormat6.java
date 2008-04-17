@@ -54,7 +54,7 @@ public class WesternFormat6 extends AuthorFormat {
 
 	@Override
 	public String getDescription() {
-		return "Vorname Nachname[, Vor-Name Nach-Name]";
+		return "Nachname, Vorname[; Nach-Name, Vor-Name]";
 	}
 
 	@Override

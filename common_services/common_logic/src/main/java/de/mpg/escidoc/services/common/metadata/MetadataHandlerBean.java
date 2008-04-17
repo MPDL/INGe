@@ -66,11 +66,13 @@ import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  *
@@ -294,10 +296,19 @@ public class MetadataHandlerBean implements MetadataHandler
 					}
 				}
 				
+				String affiliation = null;
+				String affiliationAddress = null;
+				
 				// affiliation
 				if (fields.get("affiliation") != null)
 				{
-					
+					affiliation = BibTexUtil.bibtexDecode(fields.get("affiliation").toString());
+				}
+				
+				// affiliationaddress
+				if (fields.get("affiliationaddress") != null)
+				{
+					affiliationAddress = BibTexUtil.bibtexDecode(fields.get("affiliationaddress").toString());
 				}
 				
 				// author
@@ -309,7 +320,7 @@ public class MetadataHandlerBean implements MetadataHandler
 						for (Object author : authors.getList()) {
 							if (author instanceof BibtexPerson)
 							{
-								addCreator(mds, (BibtexPerson)author, CreatorVO.CreatorRole.AUTHOR);
+								addCreator(mds, (BibtexPerson)author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
 							}
 							else
 							{
@@ -320,7 +331,7 @@ public class MetadataHandlerBean implements MetadataHandler
 					if (fields.get("author") instanceof BibtexPerson)
 					{
 						BibtexPerson author = (BibtexPerson) fields.get("author");
-						addCreator(mds, (BibtexPerson)author, CreatorVO.CreatorRole.AUTHOR);
+						addCreator(mds, (BibtexPerson)author, CreatorVO.CreatorRole.AUTHOR, affiliation, affiliationAddress);
 					}
 					else if (fields.get("author") instanceof BibtexString)
 					{
@@ -338,6 +349,14 @@ public class MetadataHandlerBean implements MetadataHandler
 								else
 								{
 									personVO.setGivenName(author.getInitial());
+								}
+								if (affiliation != null || affiliationAddress != null)
+								{
+									OrganizationVO organization = new OrganizationVO();
+									organization.setName(new TextVO(affiliation));
+									organization.setAddress(affiliationAddress);
+									organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+									personVO.getOrganizations().add(organization);
 								}
 								CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.AUTHOR);
 								mds.getCreators().add(creatorVO);
@@ -358,7 +377,7 @@ public class MetadataHandlerBean implements MetadataHandler
 						for (Object editor : editors.getList()) {
 							if (editor instanceof BibtexPerson)
 							{
-								addCreator(mds, (BibtexPerson)editor, CreatorVO.CreatorRole.EDITOR);
+								addCreator(mds, (BibtexPerson)editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
 							}
 							else
 							{
@@ -369,7 +388,7 @@ public class MetadataHandlerBean implements MetadataHandler
 					if (fields.get("editor") instanceof BibtexPerson)
 					{
 						BibtexPerson editor = (BibtexPerson) fields.get("editor");
-						addCreator(mds, (BibtexPerson)editor, CreatorVO.CreatorRole.EDITOR);
+						addCreator(mds, (BibtexPerson)editor, CreatorVO.CreatorRole.EDITOR, affiliation, affiliationAddress);
 					}
 					else if (fields.get("editor") instanceof BibtexString)
 					{
@@ -390,6 +409,14 @@ public class MetadataHandlerBean implements MetadataHandler
 								else
 								{
 									personVO.setGivenName(author.getInitial());
+								}
+								if (affiliation != null || affiliationAddress != null)
+								{
+									OrganizationVO organization = new OrganizationVO();
+									organization.setName(new TextVO(affiliation));
+									organization.setAddress(affiliationAddress);
+									organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+									personVO.getOrganizations().add(organization);
 								}
 								CreatorVO creatorVO = new CreatorVO(personVO, CreatorVO.CreatorRole.EDITOR);
 								mds.getCreators().add(creatorVO);
@@ -458,11 +485,19 @@ public class MetadataHandlerBean implements MetadataHandler
 		return xmlTransforming.transformToItem(itemVO);
 	}
 
-	private void addCreator(MdsPublicationVO publicationVO, BibtexPerson person, CreatorVO.CreatorRole role)
+	private void addCreator(MdsPublicationVO publicationVO, BibtexPerson person, CreatorVO.CreatorRole role, String affiliation, String affiliationAddress) throws Exception
 	{
 		PersonVO personVO = new PersonVO();
 		personVO.setFamilyName(BibTexUtil.bibtexDecode(person.getLast() + (person.getLineage() != null ? " " + person.getLineage() : "") + (person.getPreLast() != null ? ", " + person.getPreLast() : "")));
 		personVO.setGivenName(BibTexUtil.bibtexDecode(person.getFirst()));
+		if (affiliation != null || affiliationAddress != null)
+		{
+			OrganizationVO organization = new OrganizationVO();
+			organization.setName(new TextVO(affiliation));
+			organization.setAddress(affiliationAddress);
+			organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+			personVO.getOrganizations().add(organization);
+		}
 		CreatorVO creatorVO = new CreatorVO(personVO, role);
 		publicationVO.getCreators().add(creatorVO);
 	}
