@@ -58,7 +58,7 @@ public class EasySubmissionSessionBean extends FacesBean
     public static final String IMPORT_METHOD_EXTERNAL = "EXTERNAL";
     public static final String IMPORT_METHOD_BIBTEX = "BIBTEX";
     
-    public static final String DATE_TYPE_CREATED = "DATE_CREATED";
+    public static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
     
     public static final String EXTERNAL_SERVICE_ESCIDOC = "ESCIDOC";
     public static final String EXTERNAL_SERVICE_ARXIV = "ARXIV";
@@ -74,7 +74,7 @@ public class EasySubmissionSessionBean extends FacesBean
     
     private String currentSubmissionStep = ES_STEP1;
     
-    private String currentDateType = DATE_TYPE_CREATED;
+    private String currentDateType = DATE_PUBLISHED_IN_PRINT;
     
     private String currentExternalServiceType = EXTERNAL_SERVICE_ARXIV;
     
