@@ -41,6 +41,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
@@ -64,6 +65,7 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
@@ -294,7 +296,30 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ".savePubItem: user is null.");
         }
+        
+        String fwUrl = "";
+        try 
+        {
+            fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+        } 
+        catch (ServiceException e) 
+        {
+            logger.error("FW URL not found!", e);
+        }
+        //check if there are any FileVOs that are Locators (without content). If so, add dummy content due to framework bug
+        List<FileVO> fileList = pubItem.getFiles();
+        for (FileVO fileVO : fileList) {
+            
+            if(fileVO.getLocator() != null)
+            {
+                fileVO.setContent(fwUrl + "/escidoc-logo.jpg");
+                fileVO.setMimeType("image/jpg");
+                fileVO.setSize(new Long(123));
+            }
+            
+        }
       
+        
         // Transform the item to XML
         String itemXML = xmlTransforming.transformToItem(pubItem);
         if (logger.isDebugEnabled())
@@ -325,9 +350,9 @@ public class PubItemDepositingBean implements PubItemDepositing
             }
             else
             {
-            	
-            	logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
-            	
+                
+                logger.debug("pubItem.getVersion(): " + pubItem.getVersion());
+                
                 boolean itemHasToBeSubmitted = PubItemVO.State.RELEASED.equals(pubItem.getVersion().getState());
                 // Update the item and set message
                 itemStored = itemHandler.update(pubItem.getVersion().getObjectId(), itemXML);
