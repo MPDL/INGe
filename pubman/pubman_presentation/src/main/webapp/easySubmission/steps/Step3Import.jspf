@@ -115,5 +115,4 @@
 			</div>
 		</div>
 	</div>
-	<h:outputText value="This is Step 3"/>
 </f:subview>

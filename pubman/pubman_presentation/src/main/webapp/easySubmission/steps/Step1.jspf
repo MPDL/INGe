@@ -78,5 +78,4 @@
 			</div>
 		</div>
 	</div>
-	<h:outputText value="This is Step 1"/>
 </f:subview>
