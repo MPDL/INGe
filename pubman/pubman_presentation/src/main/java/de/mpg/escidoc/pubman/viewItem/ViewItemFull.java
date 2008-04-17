@@ -138,6 +138,8 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator fileIterator = new UIXIterator();
     
+    private UIXIterator locatorIterator = new UIXIterator();
+    
     private PubContextVO context = null;
     
     /**
@@ -168,6 +170,8 @@ public class ViewItemFull extends FacesBean
     private List<SourceBean> sourceList = new ArrayList<SourceBean>();
     
     private List<FileBean> fileList = new ArrayList<FileBean>();
+    
+    private List<FileBean> locatorList = new ArrayList<FileBean>();
     
     /**
      * Public constructor.
@@ -348,6 +352,9 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
+            int countFiles = 0;
+            int countLocators = 0;
+            
             for(int i = 0; i < this.pubItem.getFiles().size(); i++)
             {
             	if(searchHitList.size() > 0 && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
@@ -356,7 +363,18 @@ public class ViewItemFull extends FacesBean
                 }
             	else
             	{
-            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState()));
+            		// add locators
+            		if(this.pubItem.getFiles().get(i).getLocator() != null && !this.pubItem.getFiles().get(i).getLocator().trim().equals(""))
+            		{
+            			this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
+            			countLocators ++;
+            		}
+            		// add files
+            		else
+            		{
+            			this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), countFiles, this.pubItem.getVersion().getState()));
+            			countFiles ++;
+            		}
             	}
             }
             
@@ -867,7 +885,23 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowFiles()
     {
-    	if (this.pubItem.getFiles() != null && this.pubItem.getFiles().size() > 0)
+    	if (this.fileList != null && this.fileList.size() > 0)
+        {
+            return true;
+        }
+    	else
+    	{
+    		return false;
+    	}
+    }
+    
+    /**
+     * Returns a true or a false according to the existance of locators in the item
+     * @return boolean
+     */
+    public boolean getShowLocators()
+    {
+    	if (this.locatorList != null && this.locatorList.size() > 0)
         {
             return true;
         }
@@ -1436,5 +1470,22 @@ public class ViewItemFull extends FacesBean
 		this.coins = oinS;
 	}
 
+	public List<FileBean> getLocatorList() {
+		return locatorList;
+	}
+
+	public void setLocatorList(List<FileBean> locatorList) {
+		this.locatorList = locatorList;
+	}
+
+	public UIXIterator getLocatorIterator() {
+		return locatorIterator;
+	}
+
+	public void setLocatorIterator(UIXIterator locatorIterator) {
+		this.locatorIterator = locatorIterator;
+	}
+
+	
 	
 }
