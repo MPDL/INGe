@@ -234,14 +234,14 @@
   }
 
   .easySubmissionBasicInfItem {
-  	width: 220px;
+  	width: 250px;
   	display: block;
   	overflow: hidden;
   	float: left;
   }
   
-  .easySubmissionBasicInfItem input, .easySubmissionBasicInfItem select {
-  	width: 220px;
+  .easySubmissionBasicInfItem input, .easySubmissionBasicInfItem select, .easySubmissionBasicInfItem label {
+  	width: 230px;
   }
 
   .easySubmissionBasicInfItem > * {
