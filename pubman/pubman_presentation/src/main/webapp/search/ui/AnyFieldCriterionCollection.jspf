@@ -37,20 +37,17 @@
 		<%/* panTitleBar */%>
 		<h:panelGroup> 
 			<div class="listHeader dark">
-				<%/* panTitelComponent */%>
-				<h:panelGroup>
+				<%/* panTitelComponent */%>				
 					<h3>
 						<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
-					</h3>
-				</h:panelGroup>
+					</h3>			
 			
-				<%/* panControls */%>
-				<h:panelGroup>
-					<div class="displayControls">
+				<%/* panControls */%>				
+					<div class="displayControls moveTop">
 						<h:commandButton image="images/up.gif" action="#{anyFieldCriterionBean.collapse}" rendered="#{!anyFieldCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{anyFieldCriterionBean.expand}" rendered="#{anyFieldCriterionBean.collapsed}"/>	
 					</div>
-				</h:panelGroup>
+				
 			</div>
 		</h:panelGroup>
 		

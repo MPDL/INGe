@@ -46,7 +46,7 @@
 			
 				<%/* panControls */%>
 				
-					<div class="displayControls">
+					<div class="displayControls moveTop">
 						<h:commandButton image="images/up.gif" action="#{organizationCriterionBean.collapse}" rendered="#{!organizationCriterionBean.collapsed}" />	
 						<h:commandButton image="images/down.gif" action="#{organizationCriterionBean.expand}" rendered="#{organizationCriterionBean.collapsed}"/>	
 					</div>
