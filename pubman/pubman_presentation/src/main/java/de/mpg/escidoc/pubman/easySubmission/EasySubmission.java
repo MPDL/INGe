@@ -63,6 +63,8 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
+import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -460,20 +462,38 @@ public class EasySubmission extends FacesBean
     {
     	try
     	{
-    		BufferedReader reader = new BufferedReader(new InputStreamReader(this.uploadedBibTexFile.getInputStream()));
     		StringBuffer content = new StringBuffer();
-    		String line;
-    		
-    		while ((line = reader.readLine()) != null)
+    		try
     		{
-    			content.append(line + "\n");
+    			BufferedReader reader = new BufferedReader(new InputStreamReader(this.uploadedBibTexFile.getInputStream()));
+	    		String line;
+	    		
+	    		while ((line = reader.readLine()) != null)
+	    		{
+	    			content.append(line + "\n");
+	    		}
     		}
+    		catch (NullPointerException npe) {
+    			logger.error("Error reading bibtex file", npe);
+    			warn(getMessage("fetch_metadata_bibtex_empty_file"));
+    			return null;
+			}
     		String result = mdHandler.bibtex2item(content.toString());
     		PubItemVO itemVO = xmlTransforming.transformToPubItem(result);
     		itemVO.setContext(getItem().getContext());
     		this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
     		this.setItem(itemVO);
     	}
+    	catch (MultipleEntriesInBibtexException meibe) {
+    		logger.error("Error reading bibtex file", meibe);
+			warn(getMessage("fetch_metadata_bibtex_multiple_entries"));
+			return null;
+		}
+    	catch (NoEntryInBibtexException neibe) {
+    		logger.error("Error reading bibtex file", neibe);
+			warn(getMessage("fetch_metadata_bibtex_no_entries"));
+			return null;
+		}
     	catch (Exception e) {
 			logger.error("Error reading bibtex file", e);
 			error(getMessage("fetch_metadata_bibtex_error"));
@@ -520,12 +540,12 @@ public class EasySubmission extends FacesBean
 	    				return null;
 					}
 	    		}
-	    		else
-	    		{
-	    			warn(getMessage("fetch_metadata_arxiv_no_id"));
-    				return null;
-	    		}
 	    	}
+	    	else
+    		{
+    			warn(getMessage("fetch_metadata_arxiv_no_id"));
+				return null;
+    		}
     	}
     	else if (EasySubmissionSessionBean.IMPORT_METHOD_BIBTEX.equals(this.getEasySubmissionSessionBean().getImportMethod()))
     	{

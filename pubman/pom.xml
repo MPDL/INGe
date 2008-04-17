@@ -343,7 +343,7 @@
 				<configuration>
 					<sourceEncoding>utf-8</sourceEncoding>
 					<minimumTokens>100</minimumTokens>
-					<targetJdk>${jdk.version}</targetJdk>
+					<targetJdk>1.5</targetJdk>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -429,12 +429,8 @@
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
-				<!-- DB settings -->
-				<db.driver>org.postgresql.Driver</db.driver>
-				<db.url>jdbc:postgresql://localhost:5432/</db.url>
-				<db.name>validation</db.name>
-				<db.superuser.login>postgres</db.superuser.login>
-				<db.superuser.password>postgres</db.superuser.password>
+				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+				
 			</properties>
 		</profile>
 		<profile>
@@ -511,12 +507,8 @@
 				<framework.admin.username>roland</framework.admin.username>
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
-				<!-- DB settings -->
-				<db.driver>org.postgresql.Driver</db.driver>
-				<db.url>jdbc:postgresql://localhost:5432/</db.url>
-				<db.name>validation</db.name>
-				<db.superuser.login>postgres</db.superuser.login>
-				<db.superuser.password>postgres</db.superuser.password>
+				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+				
 			</properties>
 		</profile>
 		<profile>
