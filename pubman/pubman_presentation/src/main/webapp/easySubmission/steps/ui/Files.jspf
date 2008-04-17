@@ -58,8 +58,6 @@
      						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath}" rendered="#{component.file.size == 0}"/>
      					</h:panelGroup>
      					<tr:inputFile value="#{EasySubmission.uploadedFile}" rendered="#{component.file.size == 0}"/>
-     					<%-- BUTTON --%>
-     					<tr:commandButton text="#{lbl.easy_submission_btnUploadFile}" rendered="#{component.file.size == 0}" styleClass="easySubmissionBoxButton" action="#{EasySubmission.upload}"/>      				
      				</h:panelGroup>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
      					<tr:outputLabel value="#{lbl.easy_submission_lblFileProperties}" rendered="#{component.file.size == 0}"/>
@@ -88,6 +86,8 @@
           				<tr:outputLabel value="#{lbl.easy_submission_lblFileDescription}" rendered="#{component.file.size == 0}"/>
           				<tr:inputText value="#{component.file.description}" rows="4" rendered="#{component.file.size == 0}"/>	
           			</h:panelGroup>
+          			<%-- BUTTON --%>
+     					<tr:commandButton text="#{lbl.easy_submission_btnUploadFile}" rendered="#{component.file.size == 0}" styleClass="easySubmissionBoxButton" action="#{EasySubmission.upload}"/>     
          		</h:panelGroup>
          	
          		<h:panelGroup layout="block" styleClass="editItemAddLink">
