@@ -25,7 +25,7 @@
 	für wissenschaftlich-technische Information mbH and Max-Planck-
 	Gesellschaft zur Förderung der Wissenschaft e.V.
 	All rights reserved. Use is subject to license terms.
--->
+--> 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
 	<xsl:template name="msc">
