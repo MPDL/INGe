@@ -55,8 +55,8 @@
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
 			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{file.itemWithdrawn == true}"/>
-				<tr:commandButton action="#{file.downloadFile}" icon="./resources/escidoc-css/images/network-workgroup.gif" rendered="#{file.itemWithdrawn == false}"/>
-				<tr:commandButton action="#{file.downloadFile}" icon="./resources/escidoc-css/images/network-workgroup.gif" disabled="true" rendered="#{file.itemWithdrawn == true}"/>
+				<tr:commandButton styleClass="networkIcon" action="#{file.downloadFile}" icon="./resources/escidoc-css/images/network-workgroup.gif" rendered="#{file.itemWithdrawn == false}"/>
+				<tr:commandButton styleClass="networkIcon" action="#{file.downloadFile}" icon="./resources/escidoc-css/images/network-workgroup.gif" disabled="true" rendered="#{file.itemWithdrawn == true}"/>
 				<h:commandLink onclick="downloadFileViewItem(this); return false" rendered="#{file.itemWithdrawn == false}">
 					<h:outputText value="#{file.file.name}" rendered="#{file.itemWithdrawn == false}"/>
 				</h:commandLink>
