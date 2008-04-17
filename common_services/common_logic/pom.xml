@@ -89,6 +89,13 @@
 					<ejbVersion>3.0</ejbVersion>
 				</configuration>
 			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skip>false</skip>
+					<test>TestCommonLogic</test>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 
