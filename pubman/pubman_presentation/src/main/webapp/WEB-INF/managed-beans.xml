@@ -251,7 +251,7 @@
 	<managed-bean>
 		<managed-bean-name>AffiliationTree</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.affiliation.AffiliationTree</managed-bean-class>
-		<managed-bean-scope>request</managed-bean-scope>
+		<managed-bean-scope>application</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
 		<managed-bean-name>AffiliationBean</managed-bean-name>
