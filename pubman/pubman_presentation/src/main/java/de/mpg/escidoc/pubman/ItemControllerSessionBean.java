@@ -944,8 +944,9 @@ public class ItemControllerSessionBean extends FacesBean
         {
             for (int i = (pubItem.getFiles().size() - 1); i >= 0; i--)
             {
-                if (pubItem.getFiles().get(i).getName() == null
-                        || pubItem.getFiles().get(i).getName().length() == 0)
+                if ((pubItem.getFiles().get(i).getName() == null
+                        || pubItem.getFiles().get(i).getName().length() == 0) && (pubItem.getFiles().get(i).getLocator() == null
+                        || pubItem.getFiles().get(i).getLocator().length() == 0))
                 {
                     pubItem.getFiles().remove(i);
                 }

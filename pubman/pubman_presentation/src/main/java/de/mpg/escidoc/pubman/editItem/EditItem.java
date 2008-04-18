@@ -392,12 +392,12 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getLocators().size() < 1)
     	{
     		FileVO newLocator = new FileVO();
-    		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		/*newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
     		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
     		// set up a dummy content
     		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
     		newLocator.setMimeType("image/jpg");
-    		newLocator.setSize(new Long(123));
+    		newLocator.setSize(new Long(123));*/
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
     }
@@ -962,15 +962,14 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
     		FileVO newLocator = new FileVO();
-    		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		/*newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
     		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
     		// set up a dummy content
     		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
     		newLocator.setMimeType("image/jpg");
-    		newLocator.setSize(new Long(123));
+    		newLocator.setSize(new Long(123));*/
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     	}
-    	EditItemSessionBean eisb = this.getEditItemSessionBean();
     	return "loadEditItem";
     }
     
@@ -1164,7 +1163,7 @@ public class EditItem extends FacesBean
      */
     public SelectItem[] getVisibilities()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
+        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(false);
     }
 
     public SelectItem[] getInvitationStatuses()
