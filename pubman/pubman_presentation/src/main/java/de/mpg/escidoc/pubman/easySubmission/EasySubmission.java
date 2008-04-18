@@ -493,7 +493,7 @@ public class EasySubmission extends FacesBean
     		}
     		catch (NullPointerException npe) {
     			logger.error("Error reading bibtex file", npe);
-    			warn(getMessage("fetch_metadata_bibtex_empty_file"));
+    			warn(getMessage("easy_submission_bibtex_empty_file"));
     			return null;
 			}
     		String result = mdHandler.bibtex2item(content.toString());
@@ -504,17 +504,17 @@ public class EasySubmission extends FacesBean
     	}
     	catch (MultipleEntriesInBibtexException meibe) {
     		logger.error("Error reading bibtex file", meibe);
-			warn(getMessage("fetch_metadata_bibtex_multiple_entries"));
+			warn(getMessage("easy_submission_bibtex_multiple_entries"));
 			return null;
 		}
     	catch (NoEntryInBibtexException neibe) {
     		logger.error("Error reading bibtex file", neibe);
-			warn(getMessage("fetch_metadata_bibtex_no_entries"));
+			warn(getMessage("easy_submission_bibtex_no_entries"));
 			return null;
 		}
     	catch (Exception e) {
 			logger.error("Error reading bibtex file", e);
-			error(getMessage("fetch_metadata_bibtex_error"));
+			error(getMessage("easy_submission_bibtex_error"));
 			return null;
 		}
     	return "loadNewEasySubmission";
@@ -539,7 +539,7 @@ public class EasySubmission extends FacesBean
 	    			catch (Exception e) {
 	    				logger.error("Error fetching from arxiv", e);
 						
-	    				error(getMessage("fetch_metadata_arxiv_error"));
+	    				error(getMessage("easy_submission_arxiv_error"));
 	    				
 	    				return null;
 					}
@@ -554,14 +554,14 @@ public class EasySubmission extends FacesBean
 	    			}
 	    			catch (Exception e) {
 	    				logger.error("Error fetching from escidoc", e);
-	    				error(getMessage("fetch_metadata_arxiv_error"));
+	    				error(getMessage("easy_submission_arxiv_error"));
 	    				return null;
 					}
 	    		}
 	    	}
 	    	else
     		{
-    			warn(getMessage("fetch_metadata_arxiv_no_id"));
+    			warn(getMessage("easy_submission_arxiv_no_id"));
 				return null;
     		}
     	}

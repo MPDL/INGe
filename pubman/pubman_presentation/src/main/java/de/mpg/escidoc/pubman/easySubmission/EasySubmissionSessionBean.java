@@ -39,6 +39,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving and submitting a
@@ -79,6 +80,8 @@ public class EasySubmissionSessionBean extends FacesBean
     private String currentExternalServiceType = EXTERNAL_SERVICE_ARXIV;
     
     private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
+    
+    private OrganizationVO currentlySelecting = null;
     
     private PubContextVO context;
     
@@ -188,6 +191,14 @@ public class EasySubmissionSessionBean extends FacesBean
 		this.currentExternalServiceType = currentExternalServiceType;
 	}
 
-    
+
+	public OrganizationVO getCurrentlySelecting() {
+		return currentlySelecting;
+	}
+
+
+	public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
+		this.currentlySelecting = currentlySelecting;
+	}
     
 }
