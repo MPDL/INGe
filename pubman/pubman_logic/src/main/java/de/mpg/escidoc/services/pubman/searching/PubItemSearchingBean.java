@@ -82,6 +82,7 @@ import de.mpg.escidoc.services.pubman.valueobjects.PersonCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.SourceCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.TitleCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.TopicCriterionVO;
+import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
 
 /**
@@ -107,7 +108,8 @@ public class PubItemSearchingBean implements PubItemSearching
     private enum QueryType
     {
         TITLE, TITLE_LANG, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_LANG,
-        GENRE, DATE_FROM, DATE_TO, DATE_TYPE, TOPIC, TOPIC_LANG, SOURCE, SOURCE_LANG, EVENT, EVENT_LANG, IDENTIFIER
+        GENRE, DATE_FROM, DATE_TO, DATE_TYPE, TOPIC, TOPIC_LANG, SOURCE, SOURCE_LANG, EVENT, EVENT_LANG, IDENTIFIER,
+        CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE
     };
 
     //the cql query string of the advanced search method
@@ -328,6 +330,15 @@ public class PubItemSearchingBean implements PubItemSearching
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
             }
+            else if (criterion.getClass() == LanguageCriterionVO.class)
+            {
+                LanguageCriterionVO criterionVO = (LanguageCriterionVO)criterion;
+                // create cql query with a logic operator (if needed)
+                query.append("(");
+                query.append(createCqlQuery(criterionVO.getSearchString(), QueryType.LANGUAGE ));
+                query.append(")");
+                query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            }
         }
 
         // execute search for publication items
@@ -354,21 +365,46 @@ public class PubItemSearchingBean implements PubItemSearching
         }
         if (searchString.length() > 0)
         {
-            // create cql query
-            QueryParser parser = new QueryParser(searchString);
-            parser.addCQLIndex("escidoc.metadata");
-            if (searchInFiles)
+        	StringBuffer query = new StringBuffer();
+        	
+        	query.append("( ");
+            
+            if ( searchInFiles == true )
             {
-                parser.addCQLIndex("escidoc.fulltext");
+                query.append(createCqlQuery(searchString, QueryType.ANY_INCLUDE ));
+                query.append(" or ");
+                query.append(createCqlQuery(searchString, QueryType.IDENTIFIER ));
             }
-            String cqlQuery = parser.parse();
-
-            // execute search for publication items
-            return cqlSearchForPubItems(cqlQuery, null );
+            else
+            {
+                query.append(createCqlQuery(searchString, QueryType.ANY ));
+                query.append(" or ");
+                query.append(createCqlQuery(searchString, QueryType.IDENTIFIER ));
+            }
+                       
+            //TODO tendres: Workaround for bug PUBMAN-250. a proper fix should be implemented in future!
+            
+            query.append(" not ");
+            query.append(createCqlQuery(searchString, QueryType.CONTEXT_OBJECTID ));
+            
+            query.append(" not ");
+            query.append(createCqlQuery(searchString, QueryType.CREATED_BY_OBJECTID ));
+                        
+            query.append(" )");
+            
+         // execute search for publication items
+            if (query.length() > 0)
+            {
+                return cqlSearchForPubItems(query.toString(), null);
+            }
+            else
+            {
+                return new ArrayList<PubItemResultVO>();
+            }
         }
-        else
+        else 
         {
-            return new ArrayList<PubItemResultVO>();
+        	return new ArrayList<PubItemResultVO>();
         }
     }
     
@@ -639,7 +675,9 @@ public class PubItemSearchingBean implements PubItemSearching
                 parser.addCQLIndex("escidoc.fulltext");
                 break;
         	case PERSON:	
-        		parser.addCQLIndex("escidoc.any-persons");  
+        		// parser.addCQLIndex("escidoc.any-persons");
+        		parser.addCQLIndex("escidoc.family-name");
+        		parser.addCQLIndex("escidoc.first-name");
         		break;
         	case PERSON_ROLE:	
         		parser.addCQLIndex("escidoc.creator.role");  
@@ -680,6 +718,15 @@ public class PubItemSearchingBean implements PubItemSearching
         		break;
         	case IDENTIFIER:
         		parser.addCQLIndex("escidoc.any-identifier");
+        		break;
+        	case CONTEXT_OBJECTID:
+        		parser.addCQLIndex("escidoc.context.objid");
+        		break;
+        	case CREATED_BY_OBJECTID:
+        		parser.addCQLIndex("escidoc.created-by.objid");
+        		break;
+        	case LANGUAGE:
+        		parser.addCQLIndex("escidoc.language");
         		break;
         	default:
         		throw new TechnicalException();
