@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.viewItem;
 
 import java.io.IOException;
+import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -238,6 +239,37 @@ public class ViewItemFull extends FacesBean
             boolean isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
             boolean isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
             boolean isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
+
+            //@author Markus Haarlaender - added Links from ViewItemFull-Basics and restructured Action Links
+            
+            boolean isLoggedIn = loginHelper.isLoggedIn();
+            boolean isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
+            boolean isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
+            boolean isStateWithdrawn = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            boolean isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+            boolean isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+            boolean isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+            
+            
+            this.getViewItemSessionBean().getLnkNewSubmission().setRendered(isLoggedIn);
+            
+            this.getViewItemSessionBean().getLnkEdit().setRendered(isStatePending && isLatestVersion && isOwner);
+            this.getViewItemSessionBean().getLnkSubmit().setRendered(isStatePending && isLatestVersion && isOwner);
+            this.getViewItemSessionBean().getLnkDelete().setRendered(isStatePending && isLatestVersion && isOwner);
+            
+            this.getViewItemSessionBean().getLnkWithdraw().setRendered(isStateReleased && isLatestVersion && isOwner);
+            this.getViewItemSessionBean().getLnkModify().setRendered((isStateReleased || isStateSubmitted) && isLatestVersion && !isModifyDisabled && isModerator);
+            this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(isStateReleased && isLatestRelease && !isCreateNewRevisionDisabled && isDepositor);
+            
+            this.getViewItemSessionBean().getLnkViewLog().setRendered(isLatestVersion && !isStateWithdrawn && isLoggedIn && (isDepositor || isModerator));
+            this.getViewItemSessionBean().getLnkViewReleaseHistory().setRendered(isLatestRelease);
+            this.getViewItemSessionBean().getLnkViewRevisions().setRendered(isLatestRelease);
+            this.getViewItemSessionBean().getLnkViewStatistics().setRendered(isLatestRelease);
+            
+            //-------
+            
+            
+            /*
             
             // enable or disable the action links according to the login state
             if (loginHelper.getESciDocUserHandle() != null)
@@ -249,6 +281,9 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getLnkWithdraw().setRendered(isOwner);
                 this.getViewItemSessionBean().getLnkModify().setRendered(!isModifyDisabled && isModerator);
                 this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(!isCreateNewRevisionDisabled && isDepositor);
+                
+           
+                
             }
             else
             {
@@ -259,7 +294,12 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getLnkWithdraw().setRendered(false);
                 this.getViewItemSessionBean().getLnkModify().setRendered(false);
                 this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(false);
+                
+              
+                
             }
+            
+            
             
             // set the action links in the action menu according to the item state
             if (this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString()))
@@ -304,7 +344,7 @@ public class ViewItemFull extends FacesBean
             // (disable all links except 'create new revision' if the item is not the last version)
             // TODO ScT: Vergleich zwischen aktueller Versionsnummer und getLastVersionNumber() einbauen, wenn common_logic 0.15.9 da ist!
             
-            if(this.pubItem.getVersion().getVersionNumber() != this.pubItem.getLatestVersion().getVersionNumber())
+            if(!isLatestVersion)
             {
                 this.getViewItemSessionBean().getLnkDelete().setRendered(false);
                 this.getViewItemSessionBean().getLnkEdit().setRendered(false);
@@ -313,6 +353,7 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getLnkModify().setRendered(false);
                 this.getViewItemSessionBean().getLnkCreateNewRevision().setRendered(true);
             }
+            */
             
             // set up some pre-requisites
             // the list of numbered affiliated organizations 

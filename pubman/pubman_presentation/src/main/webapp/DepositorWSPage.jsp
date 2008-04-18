@@ -72,12 +72,6 @@
 											<ul>
 												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"
 													  value="#{lbl.mainMenu_lnkHelp}"/></li>
-												<li><h:commandLink binding="#{DepositorWS.lnkView}" id="lnkView" action="#{DepositorWS.viewItem}"
-													  value="#{lbl.actionMenu_lnkView}"/></li>
-												<li><h:commandLink binding="#{DepositorWS.lnkEdit}" id="lnkEdit" action="#{DepositorWS.editItem}" 
-													  value="#{lbl.actionMenu_lnkEdit}"/></li>
-												<li><h:commandLink binding="#{DepositorWS.lnkSubmit}" id="lnkSubmit" action="#{DepositorWS.submitSelectedItems}"
-													  value="#{lbl.actionMenu_lnkSubmit}"/></li>
 											</ul>
 										</div>
 									</div>

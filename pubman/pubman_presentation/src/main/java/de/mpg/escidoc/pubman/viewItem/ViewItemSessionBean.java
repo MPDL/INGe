@@ -69,7 +69,13 @@ public class ViewItemSessionBean extends FacesBean
     private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
     private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
     private HtmlCommandLink lnkModify = new HtmlCommandLink();
-    private HtmlCommandLink lnkCreateNewRevision = new HtmlCommandLink();    
+    private HtmlCommandLink lnkCreateNewRevision = new HtmlCommandLink(); 
+    
+    //the basic links
+    private HtmlCommandLink lnkViewReleaseHistory = new HtmlCommandLink();
+    private HtmlCommandLink lnkViewRevisions = new HtmlCommandLink();
+    private HtmlCommandLink lnkViewStatistics = new HtmlCommandLink();
+    private HtmlCommandLink lnkViewLog = new HtmlCommandLink();
     
     // Flag if view item has already been redirected
     private boolean hasBeenRedirected = false;
@@ -264,5 +270,45 @@ public class ViewItemSessionBean extends FacesBean
     public void setLnkCreateNewRevision(HtmlCommandLink lnkCreateNewRevision)
     {
         this.lnkCreateNewRevision = lnkCreateNewRevision;
+    }
+
+    public HtmlCommandLink getLnkViewReleaseHistory()
+    {
+        return lnkViewReleaseHistory;
+    }
+
+    public void setLnkViewReleaseHistory(HtmlCommandLink lnkViewReleaseHistory)
+    {
+        this.lnkViewReleaseHistory = lnkViewReleaseHistory;
+    }
+
+    public HtmlCommandLink getLnkViewRevisions()
+    {
+        return lnkViewRevisions;
+    }
+
+    public void setLnkViewRevisions(HtmlCommandLink lnkViewRevisions)
+    {
+        this.lnkViewRevisions = lnkViewRevisions;
+    }
+
+    public HtmlCommandLink getLnkViewStatistics()
+    {
+        return lnkViewStatistics;
+    }
+
+    public void setLnkViewStatistics(HtmlCommandLink lnkViewStatistics)
+    {
+        this.lnkViewStatistics = lnkViewStatistics;
+    }
+
+    public HtmlCommandLink getLnkViewLog()
+    {
+        return lnkViewLog;
+    }
+
+    public void setLnkViewLog(HtmlCommandLink lnkViewLog)
+    {
+        this.lnkViewLog = lnkViewLog;
     }        
 }

@@ -48,11 +48,11 @@
 	<!-- LinkHeader -->
 <div class="itemElementLine floatbox">
 	<h:outputText value="<div class='linkHead floatbox'>" escape="false"/>
-		<h:commandLink>
+		<h:commandLink binding="#{ViewItemSessionBean.lnkViewLog}">
 					<h:outputText value="Item Log"/>
 		</h:commandLink>
 	
-		<h:commandLink action="#{ViewItemFull.showStatistics}">
+		<h:commandLink binding="#{ViewItemSessionBean.lnkViewStatistics}" action="#{ViewItemFull.showStatistics}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	
@@ -60,11 +60,11 @@
 			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
-		<h:commandLink  action="#{ViewItemFull.showRevisions}">
+		<h:commandLink binding="#{ViewItemSessionBean.lnkViewRevisions}" action="#{ViewItemFull.showRevisions}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
-		<h:commandLink  action="#{ViewItemFull.showReleaseHistory}">
+		<h:commandLink binding="#{ViewItemSessionBean.lnkViewReleaseHistory}" action="#{ViewItemFull.showReleaseHistory}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 		</h:commandLink>
 		
