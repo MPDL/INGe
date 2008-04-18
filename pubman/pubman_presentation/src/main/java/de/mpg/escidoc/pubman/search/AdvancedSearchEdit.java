@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.search;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import javax.faces.model.SelectItem;
-
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
@@ -42,7 +40,7 @@ import de.mpg.escidoc.pubman.search.bean.IdentifierCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
-import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**
@@ -58,7 +56,7 @@ public class AdvancedSearchEdit extends SearchResultList
     /** faces navigation string */
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
     
-    private String languageString = Locale.getDefault().getLanguage(); 
+    private String languageString;
 
     // delegated internal collections
 	private AnyFieldCriterionCollection anyFieldCriterionCollection;
@@ -69,6 +67,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private SourceCriterionCollection sourceCriterionCollection;
     private EventCriterionCollection eventCriterionCollection;
     private IdentifierCriterionCollection identifierCriterionCollection;
+    private LanguageCriterionCollection languageCriterionCollection;
     
    /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -85,6 +84,7 @@ public class AdvancedSearchEdit extends SearchResultList
         sourceCriterionCollection = new SourceCriterionCollection();
         eventCriterionCollection = new EventCriterionCollection();
         identifierCriterionCollection = new IdentifierCriterionCollection();
+        languageCriterionCollection = new LanguageCriterionCollection();
         
         this.init();
         
@@ -115,6 +115,7 @@ public class AdvancedSearchEdit extends SearchResultList
         sourceCriterionCollection.clearAllForms();
         eventCriterionCollection.clearAllForms();
         identifierCriterionCollection.clearAllForms();
+        languageCriterionCollection.clearAllForms();
         return null;
 	}
 	
@@ -138,6 +139,7 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionVOList.addAll(sourceCriterionCollection.getFilledCriterionVO());
     	criterionVOList.addAll(eventCriterionCollection.getFilledCriterionVO());
     	criterionVOList.addAll(identifierCriterionCollection.getFilledCriterionVO());
+    	criterionVOList.addAll(languageCriterionCollection.getFilledCriterionVO());
     
         //start the advanced search in the PubItemSearching interface
         SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
@@ -152,21 +154,6 @@ public class AdvancedSearchEdit extends SearchResultList
             return list.startAdvancedSearch(criterionVOList, languageString);
         }
     }
-
-    public SelectItem[] getLanguageOptions()
-    {
-    	return CommonUtils.getLanguageOptions();
-    }
-
-	public String getLanguageString()
-	{
-		return languageString;
-	}
-
-	public void setLanguageString(String languageString)
-	{
-		this.languageString = languageString;
-	}
 
     public PersonCriterionCollection getPersonCriterionCollection()
 	{
@@ -246,6 +233,15 @@ public class AdvancedSearchEdit extends SearchResultList
 	public void setSourceCriterionCollection(SourceCriterionCollection sourceCriterionCollection)
 	{
 		this.sourceCriterionCollection = sourceCriterionCollection;
+	}
+	public LanguageCriterionCollection getLanguageCriterionCollection()
+	{
+		return languageCriterionCollection;
+	}
+
+	public void setLanguageCriterionCollection(LanguageCriterionCollection languageCriterionCollection)
+	{
+		this.languageCriterionCollection = languageCriterionCollection;
 	}
 	
 }

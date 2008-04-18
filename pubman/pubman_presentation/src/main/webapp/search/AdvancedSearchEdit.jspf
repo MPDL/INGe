@@ -44,9 +44,7 @@
 				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}" />
 				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}" />
 			</div>
-			
-			
-			
+
 			<%/* @ include file="../tools/ListControl.jspf" */%>
 			
 			
@@ -74,12 +72,10 @@
 		   	<h:panelGroup id="panelIdentifierCriterionCollection">
 				<%@ include file="ui/IdentifierCriterionCollection.jspf"%>
 		</h:panelGroup>
-		<div class="formFieldLanguage">
-				<h:outputLabel id="lblLanguage" value="#{lbl.adv_search_txtLanguage}" />
-				<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{AdvancedSearchEdit.languageString}">
-					<f:selectItems value="#{AdvancedSearchEdit.languageOptions}"/>
-				</h:selectOneMenu>
-			</div>
+		   	<h:panelGroup id="panelLanguageCriterionCollection">
+				<%@ include file="ui/LanguageCriterionCollection.jspf"%>
+		</h:panelGroup>
+		
 		<div class="objectButtons floatbox">				
 				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btStart}" action="#{AdvancedSearchEdit.startSearch}" />
 				<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClearAll}" action="#{AdvancedSearchEdit.clearAllForms}" />
