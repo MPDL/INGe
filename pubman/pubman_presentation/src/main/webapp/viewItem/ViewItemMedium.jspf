@@ -232,17 +232,17 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:graphicImage url="./resources/escidoc-css/images/network-workgroup.gif" rendered="#{item.amountOfFiles > 0}"/>
+		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{item.amountOfFiles > 0}"/>
 		<h:outputText value="#{item.fileInfo}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Locators -->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value=" "/>
+		<h:outputText value="#{lbl.ViewItemShort_lblLocator}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:graphicImage url="./resources/escidoc-css/images/network-workgroup.gif" rendered="#{item.amountOfLocators > 0}"/>
+		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{item.amountOfLocators > 0}"/>
 		<h:outputText value="#{item.locatorInfo}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
