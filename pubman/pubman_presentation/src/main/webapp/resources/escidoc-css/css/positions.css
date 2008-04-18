@@ -76,6 +76,17 @@ label{
 	height: 20px;
 }
 
+/* HOME */
+
+.homeTitle .helpIcon {	
+	left:480px;
+	
+}
+.homeTitle .headingAndIcon span{
+	position:relative;
+	top:5px;
+}
+
 	/* MAIN SECTION: MAIN MENU */
 /*
 .mainMenu {
