@@ -1179,6 +1179,11 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Retrieving Item list: ");
         }
 
+        if (itemRefs == null || itemRefs.isEmpty())
+        {
+        	return new ArrayList<PubItemVO>();
+        }
+        
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
         FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);

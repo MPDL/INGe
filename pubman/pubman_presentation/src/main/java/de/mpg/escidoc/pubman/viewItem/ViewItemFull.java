@@ -218,8 +218,9 @@ public class ViewItemFull extends FacesBean
             catch (Exception e)
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
-                Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
+                Login login = (Login)getSessionBean(Login.class);
                 login.forceLogout();
+                // TODO: Error handling
             }
         }
         else

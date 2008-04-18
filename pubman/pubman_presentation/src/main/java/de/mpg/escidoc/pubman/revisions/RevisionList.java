@@ -90,7 +90,7 @@ public class RevisionList extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not create revision list." + "\n" + e.toString());
+            logger.error("Could not create revision list.", e);
         }
 
         return null;
