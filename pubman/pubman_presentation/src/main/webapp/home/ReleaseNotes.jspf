@@ -29,12 +29,12 @@
 </jsp:scriptlet>
 <div xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 	<f:subview id="Home">
-			<h1>
-				<h:outputText id="hdrApplicationtitle" value="#{ApplicationBean.appTitle} - "/>
-				<h:outputText id="valOrientationText"
-					value="#{lbl.HomePage}">
-				</h:outputText>
-			 </h1>
+			
+			 <h1 class="homeTitle"><div class="headingAndIcon floatbox"><h:outputText id="hdrApplicationtitle" value="#{ApplicationBean.appTitle} - "/>
+				<h:outputText id="valOrientationText" value="#{lbl.HomePage}">
+				</h:outputText></div>						
+				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
+			</h1>
 				<br/>
 				<br/>
 				
