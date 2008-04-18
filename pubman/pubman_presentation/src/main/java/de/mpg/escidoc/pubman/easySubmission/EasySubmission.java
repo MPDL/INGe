@@ -165,16 +165,6 @@ public class EasySubmission extends FacesBean
     	
     	this.locatorVisibilities = ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
     	
-    	String fwUrl = "";
-    	try 
-    	{
-			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-		} 
-    	catch (ServiceException e) 
-    	{
-			logger.error("FW URL not found!", e);
-		}
-    	
     	// if the user has reached Step 3, an item has already been created and must be set in the EasySubmissionSessionBean for further manipulation
     	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
     	{
@@ -186,11 +176,7 @@ public class EasySubmission extends FacesBean
     			FileVO newLocator = new FileVO();
         		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
-        		// set up a dummy content
-        		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
-        		newLocator.setMimeType("image/jpg");
-        		newLocator.setSize(new Long(123));
-    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+        		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
     			FileVO newFile = new FileVO();
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
@@ -209,11 +195,7 @@ public class EasySubmission extends FacesBean
     			FileVO newLocator = new FileVO();
         		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
-        		// set up a dummy content
-        		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
-        		newLocator.setMimeType("image/jpg");
-        		newLocator.setSize(new Long(123));
-    			this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+        		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
     	}
     	
@@ -294,25 +276,12 @@ public class EasySubmission extends FacesBean
      */
     public String addLocator()
     {
-    	String fwUrl = "";
-    	try 
-    	{
-			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-		} 
-    	catch (ServiceException e) 
-    	{
-			logger.error("FW URL not found!", e);
-		}
     	if(this.getEasySubmissionSessionBean().getLocators() != null)
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
     		newLocator.getFile().setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
     		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
-    		// set up a dummy content
-    		newLocator.getFile().setContent(fwUrl + "/escidoc-logo.jpg");
-    		newLocator.getFile().setMimeType("image/jpg");
-    		newLocator.getFile().setSize(new Long(123));
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
     	return "loadNewEasySubmission";
@@ -350,6 +319,11 @@ public class EasySubmission extends FacesBean
     
     public String saveLocator()
     {
+    	// set the name if it is not filled
+    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getName() == null || this.getLocators().get(this.getLocators().size()-1).getFile().getName().trim().equals(""))
+    	{
+    		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator());
+    	}
     	return "loadNewEasySubmission";
     }
     
@@ -362,9 +336,7 @@ public class EasySubmission extends FacesBean
        
     	int indexUpload = this.getItem().getFiles().size()-1;
     	
-    	EasySubmissionSessionBean essb = getEasySubmissionSessionBean();
-        
-        UploadedFile file = (UploadedFile) event.getNewValue();
+    	 UploadedFile file = (UploadedFile) event.getNewValue();
       String contentURL;
       if (file != null)
       {
@@ -384,9 +356,7 @@ public class EasySubmission extends FacesBean
        
     	int indexUpload = this.getFiles().size()-1;
     	
-    	EasySubmissionSessionBean essb = getEasySubmissionSessionBean();
-        
-        UploadedFile file = this.uploadedFile;
+    	UploadedFile file = this.uploadedFile;
       String contentURL;
       if (file != null)
       {
