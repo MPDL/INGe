@@ -677,7 +677,7 @@ public class PubItemSearchingBean implements PubItemSearching
         	case PERSON:	
         		// parser.addCQLIndex("escidoc.any-persons");
         		parser.addCQLIndex("escidoc.family-name");
-        		parser.addCQLIndex("escidoc.first-name");
+        		parser.addCQLIndex("escidoc.given-name");
         		break;
         	case PERSON_ROLE:	
         		parser.addCQLIndex("escidoc.creator.role");  
