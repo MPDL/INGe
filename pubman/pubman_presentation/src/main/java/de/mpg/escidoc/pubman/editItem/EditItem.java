@@ -352,16 +352,6 @@ public class EditItem extends FacesBean
     	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     	List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
     	
-    	String fwUrl = "";
-    	try 
-    	{
-			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-		} 
-    	catch (ServiceException e) 
-    	{
-			logger.error("FW URL not found!", e);
-		}
-    	
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
@@ -392,12 +382,6 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getLocators().size() < 1)
     	{
     		FileVO newLocator = new FileVO();
-    		/*newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
-    		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
-    		// set up a dummy content
-    		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
-    		newLocator.setMimeType("image/jpg");
-    		newLocator.setSize(new Long(123));*/
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
     }
@@ -950,24 +934,9 @@ public class EditItem extends FacesBean
      */
     public String addLocator()
     {
-    	String fwUrl = "";
-    	try 
-    	{
-			fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
-		} 
-    	catch (ServiceException e) 
-    	{
-			logger.error("FW URL not found!", e);
-		}
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
     		FileVO newLocator = new FileVO();
-    		/*newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
-    		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
-    		// set up a dummy content
-    		newLocator.setContent(fwUrl + "/escidoc-logo.jpg");
-    		newLocator.setMimeType("image/jpg");
-    		newLocator.setSize(new Long(123));*/
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     	}
     	return "loadEditItem";
