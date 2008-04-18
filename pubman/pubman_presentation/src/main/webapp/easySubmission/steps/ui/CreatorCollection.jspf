@@ -79,7 +79,7 @@
 							<h:inputText value="#{persOrga.name.value}"/>
 							<h:inputText value="#{persOrga.address}" styleClass="margin5Top"/>
 						</div>
-						<div class="easySubmissionCreatorLine">
+						<div class="easySubmissionAddOrgButtonLine">
 							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="inlineButton" />
 						</div>
 													
@@ -101,7 +101,7 @@
 							<h:inputText value="#{creatorBean.creator.organization.name.value}"/>
 							<h:inputText value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
 						</div>
-						<div class="easySubmissionCreatorLine">				
+						<div class="easySubmissionAddOrgButtonLine">				
 							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="inlineButton" />
 						</div>
 					</h:panelGroup>

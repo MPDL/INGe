@@ -195,9 +195,9 @@
   	padding-bottom: 7px;
   	display: block;
   	overflow: hidden;
-	border:1px solid #AFAFAF;
+	border:1px solid #DDDDDD;
 	float: left;
-	background-color: #DFDFDF;
+	background-color: #e6e6e6;
   }
   
   .easySubmissionSubBoxHeader {
@@ -301,6 +301,15 @@
 	margin-right: 2px;
   }
   
+  .easySubmissionAddOrgButtonLine {
+  	float: left;
+  	margin-top: 1em;
+  }
+  
+  .easySubmissionAddOrgButtonLine * {
+  	float: left;
+  }
+  
   .easySubmissionBasicSubItem {
   	width: 230px;
   	display: block;
@@ -315,14 +324,6 @@
   .easySubmissionBasicSubItem > * {
   	float: left;
   }
-  
-  
-  
-  
-  
-  
-  
-  
   
   .easySubmissionSubSubItem {
   	width: 460px;
