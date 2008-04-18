@@ -80,12 +80,12 @@
 							<h:inputText value="#{persOrga.address}" styleClass="margin5Top"/>
 						</div>
 						<div class="easySubmissionCreatorLine">
-							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="easySubmissionBoxButton" />
+							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="inlineButton" />
 						</div>
 													
 						<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">		
-							<h:commandButton value="#{lbl.easy_submission_btnAddMoreOrgs}" action="#{creatorBean.personOrganisationManager.addObject}" styleClass="easySubmissionBoxButton" />
-							<h:commandButton value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" styleClass="easySubmissionBoxButton" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
+							<h:commandButton value="#{lbl.easy_submission_btnAddMoreOrgs}" action="#{creatorBean.personOrganisationManager.addObject}" styleClass="inlineButton" />
+							<h:commandButton value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" styleClass="inlineButton" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
 						</h:panelGroup>			
 					</h:panelGroup>
 				</h:column>
@@ -102,7 +102,7 @@
 							<h:inputText value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
 						</div>
 						<div class="easySubmissionCreatorLine">				
-							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="easySubmissionBoxButton" />
+							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="inlineButton" />
 						</div>
 					</h:panelGroup>
 											

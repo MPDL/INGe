@@ -42,7 +42,7 @@
 	padding: 0px;
 	padding-bottom: 25px;
 	border:1px solid #DDDDDD;
-	background-color:#FFFFFF;	
+	background-color:#F7F7F7;	
  }
  
  /* HEADER */
@@ -149,11 +149,6 @@
   	margin-bottom: 25px;
   }
 
-  .easySubmissionBoxButton {
-  	background-color: #FFFFFF;
-  	border:1px solid #DDDDDD;
-  }
-
   .easySubmissionBoxBodyLine {
   	width: 510px;
   	margin-top: 7px;
@@ -202,12 +197,24 @@
   	overflow: hidden;
 	border:1px solid #AFAFAF;
 	float: left;
+	background-color: #DFDFDF;
   }
   
   .easySubmissionSubBoxHeader {
   	margin: 0px;
-	background-color: #DDDDDD;
+	background-color: #AFAFAF;
 	border-bottom: 1px solid #AFAFAF;
+  }
+  
+  .easySubmissionSubSubBox {
+  	margin-left: 17px;
+  	width: 475px;
+  	padding-bottom: 7px;
+  	display: block;
+  	overflow: hidden;
+	border:1px solid #AFAFAF;
+	float: left;
+/*	background-color: #DFDFDF;*/
   }
   
   .easySubmissionRadioButtonWorkaround {
@@ -316,8 +323,13 @@
   
   
   
-  
+  .easySubmissionSubSubItem {
+  	width: 460px;
+  }
 
+  .easySubmissionSubSubItem input, .easySubmissionSubSubItem select, .easySubmissionSubSubItem label, .easySubmissionSubSubItem textarea {
+  	width: 450px;
+  }
 
   .easySubmissionDateItem {
   	width: 160px;
