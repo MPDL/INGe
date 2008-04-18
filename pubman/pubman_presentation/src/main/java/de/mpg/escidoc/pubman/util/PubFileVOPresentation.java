@@ -7,6 +7,7 @@ import javax.faces.context.FacesContext;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
@@ -160,17 +161,21 @@ public class PubFileVOPresentation extends FacesBean {
 	
 	public String removeFileEasySubmission ()
 	{
- 		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
+		EasySubmission easySubmission = (EasySubmission)getSessionBean(EasySubmission.class); 
+		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
  		
  		easySubmissionSessionBean.getFiles().remove(this.index);
+ 		easySubmission.init();
 		return "loadNewEasySubmission";		
 	}
 	
 	public String removeLocatorEasySubmission ()
 	{
- 		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
+		EasySubmission easySubmission = (EasySubmission)getSessionBean(EasySubmission.class); 
+		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
  		
  		easySubmissionSessionBean.getLocators().remove(this.index);
+ 		easySubmission.init();
 		return "loadNewEasySubmission";		
 	}
 	

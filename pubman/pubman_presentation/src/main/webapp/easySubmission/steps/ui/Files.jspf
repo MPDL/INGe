@@ -102,7 +102,7 @@
          	
 
 					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}"/>
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}"/>
 							<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}" />
 					</h:panelGroup>
         		 	

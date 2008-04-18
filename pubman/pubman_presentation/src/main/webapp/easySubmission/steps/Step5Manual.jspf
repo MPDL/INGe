@@ -105,13 +105,13 @@
 	</div>
 	<div class="easySubmissionControls floatbox">
 		<div>
-			<h:commandLink>
+			<h:commandLink action="#{EasySubmission.loadStep4Manual}">
 			<div class="easySubmissionsBackSection">
 				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value=""  styleClass="easySubmissionBackButton" type="submit"/>
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}"/>
 			</div>
 			</h:commandLink>
-			<h:commandLink>
+			<h:commandLink action="#{EasySubmission.loadPreview}">
 			<div class="easySubmissionsNextSection">
 				<h:outputLabel value="#{lbl.easy_submission_btnPreview}"/>
 				<h:commandButton action="#{EasySubmission.loadPreview}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
