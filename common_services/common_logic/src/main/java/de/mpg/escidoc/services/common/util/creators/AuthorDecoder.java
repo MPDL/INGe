@@ -39,8 +39,6 @@ import org.apache.log4j.Logger;
 
 public class AuthorDecoder {
 
-	private static final String[] delimiters = new String[]{",", ";", "|", "und", "and"};
-	
 	private List<List<Author>> authorListList = new ArrayList<List<Author>>();
 	private AuthorFormat bestFormat = null;
 	
@@ -66,9 +64,10 @@ public class AuthorDecoder {
 	public AuthorDecoder(String authors) throws Exception
 	{
 		
-		logger.debug("Testing '" + authors + "'");
+		// normalize the string
+		authors = authors.replaceAll("\\s+", " ").trim();
 		
-		authors = authors.trim();
+		logger.debug("Testing '" + authors + "'");
 		
 		AuthorFormat[] authorFormats = AuthorFormatList.getFormats();
 		

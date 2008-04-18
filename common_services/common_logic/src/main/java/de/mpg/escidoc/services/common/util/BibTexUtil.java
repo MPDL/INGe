@@ -509,6 +509,9 @@ public class BibTexUtil {
 		for (String element : encodingTable.keySet()) {
 			text = text.replace(element, encodingTable.get(element));
 		}
+		
+		// normalize
+		text = text.replaceAll("[ \\t][ \\t]+", " ").replaceAll("\\n ", "\n");
 		return deEscapeCharacters(stripBraces(text));
 	}
 	

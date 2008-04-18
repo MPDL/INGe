@@ -50,12 +50,13 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 	
 	protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìô]+)";
 	protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
-	protected static final String NAME = "(" + WORD + "(-" + WORD + ")*)";
+	protected static final String NAME = "(" + WORD + "( *- *" + WORD + ")*)";
 	protected static final String INITIAL ="(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
-	protected static final String INITIALS ="(" + INITIAL + "(-" + INITIAL + ")*)";
+	protected static final String INITIALS ="(" + INITIAL + "( *-? *" + INITIAL + ")*)";
 	protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor)";
-	protected static final String PREFIX = "(von|von und zu|zu|de la|la|de|du|of|van|van der|van den)";
-	protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( ?(" + NAME + "|" + INITIALS + "))*)";
+	protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den)";
+	protected static final String MIDDLEFIX = "(y|dela|de la)";
+	protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
 	
 	protected Set<String> givenNames = null;
 	protected Set<String> surnames = null;

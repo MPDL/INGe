@@ -121,50 +121,10 @@ public class DataGatheringBean implements DataGathering
             List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
             return relations;
         }
-        catch (InvalidTripleStoreOutputFormatException e)
+        catch (Exception e)
         {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (InvalidTripleStoreQueryException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (InvalidXmlException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (MissingElementValueException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (AuthenticationException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (AuthorizationException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (SystemException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (RemoteException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (ServiceException e)
-        {
-            logger.debug("findRevisionsOfItem(ItemRO)", e);
-            throw new TechnicalException(e);
+        	logger.error("Error retrieving revisions.", e);
+        	throw new TechnicalException(e);
         }
     }
 
