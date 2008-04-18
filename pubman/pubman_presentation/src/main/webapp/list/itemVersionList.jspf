@@ -37,7 +37,7 @@ All rights reserved. Use is subject to license terms.
 			<h:dataTable id="listtable" var="entry" value="#{ItemVersionListSessionBean.versionList}" rowClasses="odd, even">
 				<h:column>
 					<h:panelGroup styleClass="listItemHeader">
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.version.objectId}" >
+						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.reference.objectId}" >
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
 						</h:outputLink>
 					</h:panelGroup>
