@@ -257,7 +257,7 @@
 
   .easySubmissionFileListBox {
   	margin-top: 10px;
-  	width: 415px;
+  	width: 400px;
   	display: block;
   	overflow: hidden;
   	float: left;
@@ -269,7 +269,8 @@
 
   .easySubmissionFileListButton {
   	margin-top: 10px;
-  	width: 95px;
+  	width: 90px;
+  	overflow: hidden;
   	float: left;
   }
 
@@ -307,7 +308,7 @@
   	float: left;
   }
   
-  .easySubmissionBasicSubItem input, .easySubmissionBasicSubItem button, .easySubmissionBasicSubItem select, .easySubmissionBasicSubItem label, .easySubmissionBasicSubItem textarea {
+  .easySubmissionBasicSubItem input, .easySubmissionBasicSubItem button, .easySubmissionBasicSubItem select, .easySubmissionBasicSubItem label, .easySubmissionBasicSubItem textarea, .easySubmissionBasicSubItem span {
   	width: 220px;
   }
 
