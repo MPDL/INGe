@@ -52,10 +52,6 @@
 						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
-						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
-						<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{sourceBean.titleCollection.titleIF.title.language}">
-							<f:selectItems value="#{sourceBean.titleCollection.languageOptions}"/>
-						</h:selectOneMenu>
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 							action="#{sourceBean.titleCollection.addTitle}" />
@@ -75,10 +71,6 @@
 								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="editItemRightCol">
-								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentLanguage}" />
-								<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
-									<f:selectItems value="#{sourceBean.titleCollection.languageOptions}"/>
-								</h:selectOneMenu>
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 									action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />

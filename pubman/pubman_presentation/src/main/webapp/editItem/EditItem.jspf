@@ -321,12 +321,6 @@
 					<h:outputLabel styleClass="colLbl" for="txtaSubject" id="lblSubject" value="#{lbl.EditItem_lblSubject}" />
 					<h:inputTextarea id="txtaSubject" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.subject.value}" />
 				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="editItemRightCol">
-					<h:outputLabel styleClass="colLbl" for="cboSubjectLanguage" value="#{lbl.EditItem_lblContentLanguage}" />
-					<h:selectOneMenu id="cboSubjectLanguage" value="#{EditItem.pubItem.metadata.subject.language}" styleClass="editItemComboBoxLanguage">
-						<f:selectItems value="#{EditItem.languages}" />
-					</h:selectOneMenu>
-				</h:panelGroup>
 			</h:panelGroup>
 			<%-- ABSTRACT --%>
 			<h:panelGroup layout="block" id="panDynamicAbstract" styleClass="floatbox fullWidth">
@@ -337,12 +331,6 @@
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">
 					<h:outputLabel styleClass="colLbl" for="txtaTableOfContent" id="lblTableOfContent" value="#{lbl.EditItem_lblTableOfContent}" />
 					<h:inputTextarea id="txtaTableOfContent" styleClass="editItemTextFieldMedium editItemTextArea" value="#{EditItem.pubItem.metadata.tableOfContents.value}" />
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="editItemRightCol">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentLanguage}" />
-					<h:selectOneMenu id="cboTOCLanguage" value="#{EditItem.pubItem.metadata.tableOfContents.language}" styleClass="editItemComboBoxLanguage">
-						<f:selectItems value="#{EditItem.languages}" />
-					</h:selectOneMenu>
 				</h:panelGroup>
 			</h:panelGroup>		
 					

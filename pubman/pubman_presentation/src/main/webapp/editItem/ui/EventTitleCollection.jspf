@@ -37,10 +37,6 @@
 		<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.eventTitleCollection.titleIF.title.value}"/>
 	</h:panelGroup>
 	<h:panelGroup layout="block" styleClass="editItemRightCol">
-		<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
-		<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{EditItem.eventTitleCollection.titleIF.title.language}">
-			<f:selectItems value="#{EditItem.eventTitleCollection.languageOptions}"/>
-		</h:selectOneMenu>
 		<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.eventTitleCollection.addTitle}" />
 		<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.eventTitleCollection.removeTitle}" rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size > 0}"/>
 		<h:outputText value=" " rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size < 1}"/>

@@ -39,10 +39,6 @@
 		</h:panelGroup>	
 		<h:panelGroup layout="block" styleClass="editItemRightCol floatbox">	
 			<div>
-			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
-			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
-				<f:selectItems value="#{EditItem.contentAbstractCollection.languageOptions}"/>
-			</h:selectOneMenu>			
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size < 2}"/>
