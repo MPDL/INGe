@@ -61,7 +61,7 @@
      				</h:panelGroup>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
      					<tr:outputLabel value="#{lbl.easy_submission_lblFileProperties}" rendered="#{component.file.size == 0}"/>
-        		  		<h:panelGroup layout="block" styleClass="easySubmissionVisibilityLine ">
+        		  		<h:panelGroup layout="block" styleClass="easySubmissionVisibilityLine">
           					<tr:outputLabel value="#{lbl.easy_submission_lblFileVisibility}"  rendered="#{component.file.size == 0}"/>
           					<h:selectOneRadio value="#{component.file.visibility}" rendered="#{component.file.size == 0}">
            						<f:selectItems value="#{EasySubmission.visibilities}" />

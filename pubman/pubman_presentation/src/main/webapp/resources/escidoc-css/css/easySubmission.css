@@ -279,9 +279,34 @@
 	margin-right: 2px;
   }
   
+  .easySubmissionCreatorLine {
+  	float: left;
+  	margin-top: 1.25em;
+  }
   
+  .easySubmissionCreatorLine * {
+  	float: left;
+  }
   
+  .easySubmissionCreatorLine input {
+  	margin-left: 5px;
+	margin-right: 2px;
+  }
   
+  .easySubmissionBasicSubItem {
+  	width: 230px;
+  	display: block;
+  	overflow: hidden;
+  	float: left;
+  }
+  
+  .easySubmissionBasicSubItem input, .easySubmissionBasicSubItem button, .easySubmissionBasicSubItem select, .easySubmissionBasicSubItem label, .easySubmissionBasicSubItem textarea {
+  	width: 220px;
+  }
+
+  .easySubmissionBasicSubItem > * {
+  	float: left;
+  }
   
   
   

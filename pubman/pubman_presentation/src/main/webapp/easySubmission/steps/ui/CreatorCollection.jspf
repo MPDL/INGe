@@ -34,76 +34,94 @@
 <h:panelGroup layout="block" styleClass="">
 	<h:dataTable  var="creatorBean" styleClass="fullWidth" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
 		<h:column>
-			<h:panelGroup layout="block" styleClass="fullWidth floatbox">
+			
+		<h:panelGroup layout="block" styleClass="easySubmissionSubBox">
 			<%/* Creator */%>
-			<h:panelGroup layout="block" styleClass="editItemSingleCol">
-				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblCreator}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
-					<f:selectItems value="#{creatorBean.creatorRoles}"/>
-				</h:selectOneMenu>
-			</h:panelGroup>
-			<h:panelGroup layout="block" styleClass="editItemSingleCol">
-				<h:selectOneRadio styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
-					valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();//document.getElementById('form1:EditItem:dummybutton').click();">
-					<f:selectItems value="#{creatorBean.creatorTypes}"/>
-				</h:selectOneRadio>
+			
+			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+				<h:panelGroup layout="block" styleClass="easySubmissionDateItem">
+					<h:outputLabel value="#{lbl.easy_submission_lblCreator}"/>
+						<h:selectOneMenu value="#{creatorBean.creator.roleString}">
+							<f:selectItems value="#{creatorBean.creatorRoles}"/>
+						</h:selectOneMenu>
+				</h:panelGroup>
+			
+				<h:panelGroup layout="block" styleClass="easySubmissionCreatorLine">
+					<h:selectOneRadio value="#{creatorBean.creator.typeString}" 
+						valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();//document.getElementById('form1:EditItem:dummybutton').click();">
+						<f:selectItems value="#{creatorBean.creatorTypes}"/>
+					</h:selectOneRadio>
+				</h:panelGroup>
 			</h:panelGroup>
 			
 			<%/* Creator's Person */%>
-			<h:panelGroup layout="block" styleClass="" rendered="#{creatorBean.personType}">
-				<h:panelGroup layout="block" styleClass="editItemLeftCol">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFamilyName}"/>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.familyName}"/>
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="editItemRightCol">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblFirstName}"/>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.givenName}"/>
-				</h:panelGroup>
+			<h:panelGroup layout="block"  styleClass="easySubmissionBoxBodySubLine" rendered="#{creatorBean.personType}">
+				<div class="easySubmissionBasicSubItem">
+					<h:outputLabel value="#{lbl.easy_submission_lblFamilyName}"/>
+					<h:inputText value="#{creatorBean.creator.person.familyName}"/>
+				</div>
+				
+				<div class="easySubmissionBasicSubItem">
+					<h:outputLabel value="#{lbl.easy_submission_lblFirstName}"/>
+					<h:inputText value="#{creatorBean.creator.person.givenName}"/>
+				</div>
+				
 			</h:panelGroup>
-			</h:panelGroup>
+			
 			<%/* Creator's Person's list of Organisations */%>
-			<h:panelGroup layout="block" styleClass="fullWidth">
-			<h:dataTable var="persOrga" styleClass="fullWidth" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+			
+			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:column>
-						<h:panelGroup layout="block" styleClass="editItemSingleCol">	
-							<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.easy_submission_lblOrganization}" />
-							<h:inputText styleClass="editItemTextFieldMedium" value="#{persOrga.name.value}"/>
-							<h:commandButton styleClass="inlineButton" value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" />
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="editItemSingleCol">								
-							<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>		
-							<h:commandButton styleClass="inlineButton" value="#{lbl.easy_submission_btnAddMoreOrgs}" action="#{creatorBean.personOrganisationManager.addObject}" />
-							<h:commandButton styleClass="inlineButton" value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
-							<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
-						</h:panelGroup>					
-					
+					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">	
+						<div class="easySubmissionBasicSubItem">
+							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
+							<h:inputText value="#{persOrga.name.value}"/>
+							<h:inputText value="#{persOrga.address}" styleClass="margin5Top"/>
+						</div>
+						<div class="easySubmissionCreatorLine">
+							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="easySubmissionBoxButton" />
+						</div>
+													
+						<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">		
+							<h:commandButton value="#{lbl.easy_submission_btnAddMoreOrgs}" action="#{creatorBean.personOrganisationManager.addObject}" styleClass="easySubmissionBoxButton" />
+							<h:commandButton value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" styleClass="easySubmissionBoxButton" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
+						</h:panelGroup>			
+					</h:panelGroup>
 				</h:column>
 			</h:dataTable>
 			</h:panelGroup>
+			
 			<%/* Creator's Organisation */%>
-			<h:panelGroup layout="block" styleClass="fullWidth" rendered="#{creatorBean.organisationType}">
+			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{creatorBean.organisationType}">
 				<h:panelGroup layout="block" rendered="#{creatorBean.organisationType}">
-					<h:panelGroup layout="block" styleClass="editItemSingleCol">
-						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.easy_submission_lblOrganization}" />
-						<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>					
-						<h:commandButton styleClass="inlineButton" value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" />
+					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
+						<div class="easySubmissionBasicSubItem">
+							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
+							<h:inputText value="#{creatorBean.creator.organization.name.value}"/>
+							<h:inputText value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
+						</div>
+						<div class="easySubmissionCreatorLine">				
+							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="easySubmissionBoxButton" />
+						</div>
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace">						
-						<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
-					</h:panelGroup>					
+											
+						
+									
 				</h:panelGroup>				
-			</h:panelGroup>		
-			<h:panelGroup layout="block" styleClass="editItemAddLink">
-				<h:panelGroup layout="block" styleClass="editItemLeftCol">
+			</h:panelGroup>	
+			
+				
+		</h:panelGroup>
+				<h:panelGroup layout="block"  styleClass="easySubmissionBoxBodyLine">	
 					<h:panelGroup layout="block" styleClass="icon addIcon"/>
 					<h:commandLink value="#{lbl.easy_submission_btnAddCreator}" action="#{EasySubmission.creatorCollection.creatorManager.addObject}" />
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="editItemRightCol">
+				
+				
 					<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 1}"/>
 					<h:commandLink value="#{lbl.easy_submission_btnRemoveCreator}" action="#{EasySubmission.creatorCollection.creatorManager.removeObject}" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 1}"/>
 					<h:outputText value=" " rendered="#{EasySubmission.creatorCollection.creatorManager.size < 2}"/>
 				</h:panelGroup>
-			</h:panelGroup>	
 		</h:column>		
 	</h:dataTable>
 </h:panelGroup>
