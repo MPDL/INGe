@@ -439,6 +439,32 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     }
     
     /**
+     * Returns the title (80 Chars) and crops the last characters.
+     * Specification says 100 chars, but this is too long, 50 is too short.
+     * @return String the title
+     */
+    public String getShortTitle()
+    {
+    	if(getMetadata().getTitle() != null 
+    			&& getMetadata().getTitle().getValue() != null 
+    			&& !getMetadata().getTitle().getValue().trim().equals(""))
+    	{
+    		if(getMetadata().getTitle().getValue().length() > 80)
+    		{
+    			return getMetadata().getTitle().getValue().substring(0, 79) + "...";
+    		}
+    		else
+    		{
+    			return getMetadata().getTitle().getValue();
+    		}
+    	}
+    	else
+    	{
+    		return null;
+    	}
+    }
+    
+    /**
      * Returns the source title (50 Chars) of the first source and crops the last characters 
      * @return String the event title
      */

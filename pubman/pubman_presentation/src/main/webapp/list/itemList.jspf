@@ -93,7 +93,7 @@ All rights reserved. Use is subject to license terms.
 						<div class="listItemHeaderTitle">
 							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
 							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.version.objectId}:#{item.version.versionNumber}" >
-								<h:outputText value="#{item.metadata.title}"/>
+								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
 						</div>
 						<div class="listItemHeaderViews">

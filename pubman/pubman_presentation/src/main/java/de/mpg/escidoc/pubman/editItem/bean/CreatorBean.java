@@ -10,6 +10,7 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
@@ -108,6 +109,19 @@ public class CreatorBean extends FacesBean
         // affiliation tree
         return "loadAffiliationTree";
     }
+
+    /**
+     * @return true if this element is selecting the organisation.
+     */
+    public boolean getSelecting()
+    {
+        currentOrgaForSelection = (OrganizationVO) personOrganisationManager.getObjectDM().getRowData();
+
+        // Set this value to let the affiliation tree know where to jump after selection.
+        OrganizationVO selecting = ((EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class)).getCurrentlySelecting();
+
+        return (currentOrgaForSelection.equals(selecting));
+    }
     
     /**
      * Action navigation call to select one persons organisation for easy submission
@@ -120,6 +134,7 @@ public class CreatorBean extends FacesBean
         // Set this value to let the affiliation tree know where to jump after selection.
         ((AffiliationBean)getSessionBean(AffiliationBean.class)).setSource("EasySubmission");
         ((AffiliationBean)getSessionBean(AffiliationBean.class)).setCache(currentOrgaForSelection);
+        ((EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class)).setCurrentlySelecting(currentOrgaForSelection);
         
         // affiliation tree
         return "loadAffiliationTree";

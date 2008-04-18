@@ -26,11 +26,49 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 */ %>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="AffiliationDetail">
-				<br/>
-				<h:panelGroup id="panelAffiliationDetail"
-					binding="#{AffiliationDetail.panelAffiliationDetail}">
+		<br/>
+		<h:panelGroup id="panelAffiliationDetail" styleClass="advancedSearch" layout="block">
+			<h:panelGroup styleClass="listHeader dark" layout="block">
+				<h3>
+					<h:outputText value="#{AffiliationDetail.affiliationVO.name}"/>
+					<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.abbreviation != ''}">
+						(<h:outputText value="#{AffiliationDetail.affiliationVO.abbreviation}"/>)
+					</h:panelGroup>
+				</h3>
+				<h:panelGroup styleClass="displayControls" layout="block">
+					<h:commandButton action="#{AffiliationDetail.toggleDetails}" image="images/down.gif" rendered="#{!AffiliationDetail.renderDetails}"/>
+					<h:commandButton action="#{AffiliationDetail.toggleDetails}" image="images/up.gif" rendered="#{AffiliationDetail.renderDetails}"/>
 				</h:panelGroup>
+			</h:panelGroup>
+			<h:panelGroup styleClass="formField" layout="block" rendered="#{AffiliationDetail.renderDetails}">
+				<h:outputText value="#{AffiliationDetail.affiliationVO.description}"/>
+				<br/><br/>
+				<h:outputText value="#{AffiliationDetail.affiliationVO.address}"/>
+				<br/>
+				<h:outputText value="#{AffiliationDetail.affiliationVO.postcode}"/>
+				<h:outputText value="#{AffiliationDetail.affiliationVO.city}"/>
+				<br/>
+				<br/>
+				<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.telephone != ''}">
+					<h:outputText value="#{lbl.affiliation_detail_phone}"/>: <h:outputText value="#{AffiliationDetail.affiliationVO.telephone}"/>, 
+				</h:panelGroup>
+				<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.fax != ''}">
+					<h:outputText value="#{lbl.affiliation_detail_fax}"/>: <h:outputText value="#{AffiliationDetail.affiliationVO.fax}"/>, 
+				</h:panelGroup>
+				<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.email != ''}">
+					<h:outputText value="#{lbl.affiliation_detail_email}"/>: <h:outputText value="#{AffiliationDetail.affiliationVO.email}"/>, 
+				</h:panelGroup>
+				<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.homepageUrl != ''}">
+					<h:outputLink value="#{AffiliationDetail.affiliationVO.homepageUrl}" target="_blank">
+						<h:outputText value="#{AffiliationDetail.affiliationVO.homepageUrl}"/>
+					</h:outputLink>
+				</h:panelGroup>
+				<br/>
+			</h:panelGroup>
+		</h:panelGroup>
 	</f:subview>
 </div>

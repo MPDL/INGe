@@ -43,9 +43,9 @@
 			<ol class="five">
 				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
 				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
-				<li class="easySubmissionActivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></p></li>
-				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>4</span></p></li>
-				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>5</span></p></li>
+				<li class="easySubmissionActivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></li>
+				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>4</span></li>
+				<li class="easySubmissionDeactivated"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>5</span></li>
 			</ol>
 		</div>
 		<div class="easySubmissionBoxBody">

@@ -48,6 +48,7 @@
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				</head>
 				<body>
+					<h:outputText id="pageDummy" value="#{EasySubmissionPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 					<div id="page_margins">
 						<div id="page">
 							<tr:form usesUpload="true">

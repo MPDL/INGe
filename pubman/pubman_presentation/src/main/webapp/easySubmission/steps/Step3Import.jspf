@@ -43,7 +43,7 @@
 			<ol class="three">
 				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
 				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
-				<li class="easySubmissionActivated easySubmissionLast"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></p></li>
+				<li class="easySubmissionActivated easySubmissionLast"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></li>
 			</ol>
 		</div>
 		<div class="easySubmissionBoxBody">

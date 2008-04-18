@@ -50,6 +50,9 @@ public class AffiliationDetail
     public static final String BEAN_NAME = "AffiliationDetail";
     
     private AffiliationVO affiliationVO;
+    
+    private boolean renderDetails = false;
+    
     private HtmlPanelGroup panelAffiliationDetail = new HtmlPanelGroup();
     private AffiliationDetailUI affiliationDetailUI;
     private HTMLElementUI htmlElement = new HTMLElementUI();
@@ -72,84 +75,14 @@ public class AffiliationDetail
     public void setAffiliationVO(AffiliationVO affiliationVO)
     {
         this.affiliationVO = affiliationVO;
-
-        this.panelAffiliationDetail.getChildren().clear();
-        this.panelAffiliationDetail.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "advancedSearch"));
-        this.panDetail.setId(CommonUtils.createUniqueId(this.panDetail));
-        this.panDetail.getChildren().clear();
-        this.txtName.setId(CommonUtils.createUniqueId(this.txtName));
-        this.panDetail.getChildren().add(htmlElement.getStartTag("h3"));
-        this.panDetail.getChildren().add(htmlElement.getStartTag("label"));
-        if (affiliationVO.getPid() == null)
-        {
-            if( affiliationVO.getAbbreviation().length() == 0 )
-            {
-                this.txtName.setValue(affiliationVO.getName() );
-            }
-            else 
-            { 
-                this.txtName.setValue(affiliationVO.getName() + " (" + affiliationVO.getAbbreviation() + ")");
-            }
-        }
-        else
-        {
-            if( affiliationVO.getAbbreviation().length() == 0 )
-            {
-                this.txtName.setValue(affiliationVO.getName() + ", " + affiliationVO.getPid());        
-            }
-            else 
-            {
-                this.txtName.setValue(affiliationVO.getName() + " (" + affiliationVO.getAbbreviation() + ")" + ", " + affiliationVO.getPid());        
-            }    
-        }
-        this.panDetail.getChildren().add(this.txtName);
-        this.panDetail.getChildren().add(htmlElement.getEndTag("label"));
-        this.panDetail.getChildren().add(htmlElement.getEndTag("h3"));
-        String[] detailList = new String[5];
-        detailList[0] = affiliationVO.getDescription();
-        
-        detailList[1] = affiliationVO.getAddress();
-        StringBuffer buffer = new StringBuffer();
-        buffer.append(affiliationVO.getPostcode());
-        buffer.append( " " ); 
-        buffer.append(affiliationVO.getCity());
-        buffer.append( " " ); 
-        buffer.append(affiliationVO.getRegion());
-        buffer.append( " " ); 
-        buffer.append(affiliationVO.getCountryCode());
-        detailList[2] = buffer.toString();
-        buffer.setLength(0);
-        if (affiliationVO.getTelephone().length() > 0)
-        {
-            buffer.append("Telephone: ");
-            buffer.append(affiliationVO.getTelephone());
-            buffer.append( ", " ); 
-        }
-        if (affiliationVO.getFax().length() > 0)
-        {
-            buffer.append("Fax: ");
-            buffer.append(affiliationVO.getFax());
-            buffer.append( ", " ); 
-        }
-        if (affiliationVO.getEmail().length() > 0)
-        {
-            buffer.append("Email: ");
-            buffer.append(affiliationVO.getEmail());
-            buffer.append( ", " ); 
-        }
-        if (affiliationVO.getHomepageUrl() != null && affiliationVO.getHomepageUrl().toString().length() > 0 )
-        {
-            buffer.append(affiliationVO.getHomepageUrl());
-        }
-        detailList[3] = buffer.toString();
-        buffer.setLength(0);
-        detailList[4] = buffer.toString();
-        affiliationDetailUI = new AffiliationDetailUI( detailList );
-        affiliationDetailUI.setTitelComponent(panDetail);
-        this.panelAffiliationDetail.getChildren().add(affiliationDetailUI);
-        this.panelAffiliationDetail.getChildren().add(htmlElement.getEndTag("div"));
     }
 
+    public String toggleDetails()
+    {
+    	renderDetails = !renderDetails;
+    	return null;
+    }
+    
     public HtmlPanelGroup getPanelAffiliationDetail()
     {
         return panelAffiliationDetail;
@@ -159,4 +92,13 @@ public class AffiliationDetail
     {
         this.panelAffiliationDetail = panelAffiliationDetail;
     }
+
+	public boolean getRenderDetails() {
+		return renderDetails;
+	}
+
+	public void setRenderDetails(boolean renderDetails) {
+		this.renderDetails = renderDetails;
+	}
+    
 }

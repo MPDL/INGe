@@ -439,6 +439,11 @@
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
 	<managed-bean>
+		<managed-bean-name>EasySubmissionPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.EasySubmissionPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
 		<managed-bean-name>EasySubmission</managed-bean-name>
 		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmission</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
