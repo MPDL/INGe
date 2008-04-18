@@ -246,6 +246,8 @@ font-size: 1em;
 	border:none;
 	background-color: #f8f8f8;
 	margin-right:5px;
+	position:relative;
+	top:3px;
 }
 
 /*MISC*/
