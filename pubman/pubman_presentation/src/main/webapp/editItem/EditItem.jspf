@@ -37,7 +37,7 @@
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
 		<h:outputText value="#{lbl.EditItemPage} : " />
-		<h:outputText styleClass="underlined" value="#{EditItem.pubItem.context.objectId}" />
+		<h:outputText styleClass="underlined" value="#{EditItem.contextName}" />
 	</h:panelGroup>
 </h1>
 <h:messages errorClass="errorMessage" infoClass="infoMessage" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
@@ -312,9 +312,9 @@
 			
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<%-- LANG --%>
-			<h:panelGroup layout="block" id="panDynamicContentLanguage">
+			<h:panelGroup layout="block">
 				<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
-			</h:panelGroup>			
+			</h:panelGroup>		
 			<%-- SUBJECT --%>
 			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">			

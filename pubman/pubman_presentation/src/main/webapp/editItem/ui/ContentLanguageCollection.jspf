@@ -35,7 +35,7 @@
 	<h:column>
 		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
-			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{language}">
+			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{language}" id="selectContentLanguage">
 				<f:selectItems value="#{EditItem.contentLanguageCollection.languageOptions}"/>
 			</h:selectOneMenu>
 		

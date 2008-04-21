@@ -230,20 +230,24 @@ public class EditItem extends FacesBean
         return item;
     }
 
-    private String getContextName()
+    public String getContextName()
     {
-        try
-        {
-            PubContextVO context = this.getItemControllerSessionBean().retrieveContext(
-                     this.getPubItem().getContext().getObjectId());
-            return context.getName();
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not retrieve the requested context." + "\n" + e.toString());
-            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
-            return ErrorPage.LOAD_ERRORPAGE;
-        }
+    	if (contextName == null)
+    	{
+	        try
+	        {
+	            PubContextVO context = this.getItemControllerSessionBean().retrieveContext(
+	                     this.getPubItem().getContext().getObjectId());
+	            return context.getName();
+	        }
+	        catch (Exception e)
+	        {
+	            logger.error("Could not retrieve the requested context." + "\n" + e.toString());
+	            ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
+	            return ErrorPage.LOAD_ERRORPAGE;
+	        }
+    	}
+    	return contextName;
 
     }
 
