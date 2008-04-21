@@ -48,6 +48,7 @@ import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
+import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
@@ -168,6 +169,7 @@ public class Navigation extends FacesBean
         EditItem editItem;
         CreateRevision createRevision;
         ReleaseHistory releaseHistory;
+        ViewItemLog viewItemLog;
 
         // special re-initializaion for pages with dynamic page elements which
         // must be re-inited
@@ -210,9 +212,15 @@ public class Navigation extends FacesBean
         }
         else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY))
         {
-            this.getItemVersionSessionBean().setVersionList(null);
+            this.getItemVersionSessionBean().resetVersionLists();
             releaseHistory = (ReleaseHistory) getBean(ReleaseHistory.class);
             releaseHistory.init();
+        }
+        else if (navigationString.equals(ViewItemLog.LOAD_ITEM_LOG))
+        {
+            this.getItemVersionSessionBean().resetVersionLists();
+            viewItemLog = (ViewItemLog) getBean(ViewItemLog.class);
+            viewItemLog.init();
         }
         else
         {

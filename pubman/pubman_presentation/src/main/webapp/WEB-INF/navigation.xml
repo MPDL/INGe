@@ -276,4 +276,13 @@
 			/ViewItemStatisticsPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadViewItemLog</from-outcome>
+			<to-view-id>
+			/ViewItemLogPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

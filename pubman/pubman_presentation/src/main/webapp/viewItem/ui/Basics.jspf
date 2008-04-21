@@ -48,7 +48,7 @@
 	<!-- LinkHeader -->
 <div class="itemElementLine floatbox">
 	<h:outputText value="<div class='linkHead floatbox'>" escape="false"/>
-		<h:commandLink binding="#{ViewItemSessionBean.lnkViewLog}">
+		<h:commandLink binding="#{ViewItemSessionBean.lnkViewLog}" action="#{ViewItemFull.showItemLog}">
 					<h:outputText value="Item Log"/>
 		</h:commandLink>
 	

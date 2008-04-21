@@ -1230,22 +1230,22 @@ public class ItemControllerSessionBean extends FacesBean
      * @return the item with the requested id
      * @throws Exception if framework access fails
      */
-    public List<VersionHistoryEntryVO> retrieveReleasesForItem(String itemID) throws Exception
+    public List<VersionHistoryEntryVO> retrieveVersionHistoryForItem(String itemID) throws Exception
     {
-        List<VersionHistoryEntryVO> releaseList = new ArrayList<VersionHistoryEntryVO>();
+        List<VersionHistoryEntryVO> versionHistoryList = new ArrayList<VersionHistoryEntryVO>();
 
         if (logger.isDebugEnabled())
         {
             logger.debug("Retrieving releases for Item with id: " + itemID);
         }
         
-        String xmlReleaseList = "";
+        String xmlVersionHistoryList = "";
         //login with escidoc user handle
         if(loginHelper.getESciDocUserHandle() != null)
         {
             try
             {
-                xmlReleaseList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveVersionHistory(itemID);
+                xmlVersionHistoryList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveVersionHistory(itemID);
             }
             catch (AuthenticationException e)
             {
@@ -1260,7 +1260,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             try
             {
-                xmlReleaseList = ServiceLocator.getItemHandler().retrieveVersionHistory(itemID);
+                xmlVersionHistoryList = ServiceLocator.getItemHandler().retrieveVersionHistory(itemID);
             }
             catch (AuthenticationException e)
             {
@@ -1276,17 +1276,10 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        releaseList = this.xmlTransforming.transformToEventVOList(xmlReleaseList);
+        versionHistoryList = this.xmlTransforming.transformToEventVOList(xmlVersionHistoryList);
 
-        // Remove non-released versions.
-        for (int i = releaseList.size() - 1; i >= 0; i--) {
-			if (releaseList.get(i).getState() != PubItemVO.State.RELEASED)
-			{
-				releaseList.remove(i);
-			}
-		}
         
-        return releaseList;
+        return versionHistoryList;
     }
     
     

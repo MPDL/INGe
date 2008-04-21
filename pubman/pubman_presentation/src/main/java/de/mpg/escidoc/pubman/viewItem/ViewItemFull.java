@@ -60,6 +60,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
@@ -549,6 +550,17 @@ public class ViewItemFull extends FacesBean
     {
        
         return ViewItemStatisticsPage.LOAD_VIEWSTATISTICS;
+    }
+    
+    /**
+     * Redirects the user to the Item Log page.
+     * 
+     * @return String nav rule to load the create new revision page.
+     */
+    public String showItemLog()
+    {
+        this.getItemVersionListSessionBean().resetVersionLists();
+        return ViewItemLog.LOAD_ITEM_LOG;
     }
 
     /**
@@ -1127,7 +1139,7 @@ public class ViewItemFull extends FacesBean
      */
     public String showReleaseHistory()
     {
-        this.getItemVersionListSessionBean().setVersionList(null);
+        this.getItemVersionListSessionBean().resetVersionLists();
         
         return ReleaseHistory.LOAD_RELEASE_HISTORY;
     }

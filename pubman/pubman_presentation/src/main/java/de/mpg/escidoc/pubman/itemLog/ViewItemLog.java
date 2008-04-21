@@ -1,3 +1,5 @@
+
+
 /*
 *
 * CDDL HEADER START
@@ -28,7 +30,8 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.releases;
+
+package de.mpg.escidoc.pubman.itemLog;
 
 import java.util.List;
 
@@ -36,28 +39,33 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
+
+
 /**
- * Fragment class for Releasy history.
- * 
- * @author: Tobias Schraut, created 18.10.2007
- * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
+ * Fragment class for viewItemLog.jspf
+ *
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-public class ReleaseHistory extends FacesBean
+public class ViewItemLog extends FacesBean
 {
-    public static final String BEAN_NAME = "ReleaseHistory";
+    public static final String BEAN_NAME = "ViewItemLog";
     @SuppressWarnings("unused")
-    private static Logger logger = Logger.getLogger(ReleaseHistory.class);
+    private static Logger logger = Logger.getLogger(ViewItemLog.class);
     
     // Faces navigation string
-    public final static String LOAD_RELEASE_HISTORY = "loadReleaseHistory";
+    public final static String LOAD_ITEM_LOG = "loadViewItemLog";
 
     /**
      * Public constructor.
      */
-    public ReleaseHistory()
+    public ViewItemLog()
     {
         this.init();
     }
@@ -72,21 +80,21 @@ public class ReleaseHistory extends FacesBean
         
         if (this.getSessionBean().getVersionList() == null)
         {
-        	this.getSessionBean().initVersionLists(getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
+            this.getSessionBean().initVersionLists(getVersionHistory(this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()));
         }
     }
     
     /**
-     * Retrieves all releases for the current pubitem.
+     * Retrieves all event logs for the current pubitem.
      * @param itemID the  id of the item for which the releases should be retrieved
-     * @return the list of VersionHistoryEntryVOs
+     * @return the list of EventLogEntryVOs
      */
     public List<VersionHistoryEntryVO> getVersionHistory(String itemID)
     {
 
         try
         {
-        	return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
+            return this.getItemControllerSessionBean().retrieveVersionHistoryForItem(itemID);
         }
         catch (Exception e)
         {
@@ -117,6 +125,6 @@ public class ReleaseHistory extends FacesBean
 
     public String getDummy()
     {
-    	return "";
+        return "";
     }
 }
