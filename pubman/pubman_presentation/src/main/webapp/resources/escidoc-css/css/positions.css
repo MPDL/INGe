@@ -374,6 +374,11 @@ html > body fieldset{
  margin-right:50px;
 }
 
+.listHeaderSort input{
+	border:none;
+	background-color:#e2e2e2;
+}
+
 .listHeaderSort select{
 	margin-left:5px;
 }
