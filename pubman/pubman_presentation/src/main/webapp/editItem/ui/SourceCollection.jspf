@@ -50,8 +50,7 @@
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
-					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="editItemRightCol">
+					
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 							action="#{sourceBean.titleCollection.addTitle}" />
@@ -69,8 +68,7 @@
 							<h:panelGroup layout="block" styleClass="editItemLeftCol">
 								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
 								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="editItemRightCol">
+							
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 									action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
@@ -145,7 +143,7 @@
 												action="#{creatorBean.selectPersonOrganisation}" />
 										</h:panelGroup>
 										<h:panelGroup layout="block" styleClass="editItemSingleCol">										
-											<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>									
+											<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>									
 											<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 												title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblOrganization}" 
 												action="#{creatorBean.personOrganisationManager.addObject}" />
@@ -169,7 +167,7 @@
 									<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace10">	
-									<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
+									<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
 																	
 								</h:panelGroup>
 							</h:panelGroup>			
@@ -239,11 +237,11 @@
 			<h:panelGroup layout="block" styleClass="floatbox">
 				<h:panelGroup layout="block" styleClass="editItemCol1">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblStartpage}" />
-					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.startPage}" />
+					<h:inputText styleClass="editItemTextFieldShort1" value="#{sourceBean.source.startPage}" />
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="editItemCol1">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblEndpage}" />
-					<h:inputText styleClass="editItemTextFieldShort" value="#{sourceBean.source.endPage}" />
+					<h:inputText styleClass="editItemTextFieldShort1" value="#{sourceBean.source.endPage}" />
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="editItemCol3">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblSequenceNumber}" />
