@@ -54,6 +54,7 @@ import bibtex.dom.BibtexFile;
 import bibtex.dom.BibtexPerson;
 import bibtex.dom.BibtexPersonList;
 import bibtex.dom.BibtexString;
+import bibtex.dom.BibtexToplevelComment;
 import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -145,20 +146,22 @@ public class MetadataHandlerBean implements MetadataHandler
 
 		List entries = file.getEntries();
 		
+		boolean entryFound = false;
+		
 		if (entries == null || entries.size() == 0)
 		{
 			throw new NoEntryInBibtexException();
 		}
-		else if (entries.size() > 1)
-		{
-			throw new MultipleEntriesInBibtexException();
-		}
-		
+
 		for (Object object : entries) {
-			logger.debug("Entry: " + object);
+			logger.debug("Entry: " + object.getClass());
 			if (object instanceof BibtexEntry)
 			{
-								
+				if (entryFound)
+				{
+					throw new MultipleEntriesInBibtexException();
+				}
+				entryFound = true;		
 				BibtexEntry entry = (BibtexEntry) object;
 				
 				// genre
@@ -475,6 +478,10 @@ public class MetadataHandlerBean implements MetadataHandler
 					mds.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, BibTexUtil.bibtexDecode(fields.get("url").toString())));
 				}
 				
+			}
+			else if (object instanceof BibtexToplevelComment)
+			{
+				logger.debug("Comment found: " + ((BibtexToplevelComment)object).getContent());
 			}
 		}
 		

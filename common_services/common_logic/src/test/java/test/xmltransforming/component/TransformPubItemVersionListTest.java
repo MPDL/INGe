@@ -93,6 +93,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase
         assertNotNull(entry0.getModificationDate());
         assertEquals(ItemVO.State.RELEASED, entry0.getState());
         assertNotNull(entry0.getEvents());
+        assertEquals("Accepted", entry0.getReference().getLastMessage());
         
         List<EventLogEntryVO> events = entry0.getEvents();
         

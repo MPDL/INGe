@@ -37,17 +37,19 @@
 		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
 		<structure field="reference">
 
-			<!-- Node: version.@objid -->
+			<!-- Node: @objid -->
 			<!-- Field: PubItemVersionVO.reference.objectId [String] -->
 			<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 
-			<!-- Node: version.pid ignored -->
+			<!-- Node: pid ignored -->
 			<structure name="pid" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional"/>
 
-			<!-- Node: version.version-number -->
+			<!-- Node: pid ignored -->
+			<structure name="pid" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional"/>
+
+			<!-- Node: version-number -->
 			<!-- Field: PubItemVersionVO.reference.versionNumber [int] -->
 			<value style="element" name="version-number" ns="http://www.escidoc.de/schemas/versionhistory/0.3" set-method="setVersionNumber" usage="optional" />
-
 
 		</structure>
 
@@ -62,7 +64,13 @@
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 		<structure name="valid-status" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />
-		<structure name="comment" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />
+
+		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
+		<structure field="reference">
+			<!-- Node: comment -->
+			<!-- Field: PubItemVersionVO.reference.lastMessage [String] -->
+			<value style="element" name="comment" ns="http://www.escidoc.de/schemas/versionhistory/0.3" set-method="setLastMessage" usage="optional" />
+		</structure>
 		
 		<collection name="events" ns="http://www.escidoc.de/schemas/versionhistory/0.3" field="events"
 			factory="org.jibx.runtime.Utility.arrayListFactory"
