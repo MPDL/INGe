@@ -35,7 +35,8 @@
 	<f:subview id="AdvancedSearchEdit">
 		<div class="advancedSearch">
 			
-				<h1><div class="headingAndIcon floatbox">Advanced Search</div>					
+				<h1 class="bottomSpace">
+				<h:outputText id="hdrApplicationtitle" styleClass="orientationHeader" value="#{lbl.search_lblAdvancedSearch}"/>			
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-70003.2');return false"/>
 					
 			</h1>

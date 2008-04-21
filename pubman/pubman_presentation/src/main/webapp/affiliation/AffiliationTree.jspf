@@ -34,8 +34,9 @@
 <div>
 	<f:loadBundle var="lbl"	basename="Label" />
 	<f:subview id="AffiliationTreePage">
-		<h1>
-			<h:outputText id="txtOrga" value="#{lbl.AffiliationTree_txtHeadline}"/>
+		<h1 class="bottomSpace">
+			<h:outputText id="txtOrga" styleClass="orientationHeader" value="#{lbl.AffiliationTree_txtHeadline}"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-70003.2');return false"/>
 		</h1>
 		<br/>
 		

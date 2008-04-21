@@ -35,7 +35,8 @@
 	<f:subview id="content">
 		<div>
 			<h1 class="bottomSpace">
-				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>	   
+				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.DepositorWSPage}"/>
+				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>	   
 			</h1>
 			
 			<div styleClass="messageBox">
