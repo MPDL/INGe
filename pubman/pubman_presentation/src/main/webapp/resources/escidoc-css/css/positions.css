@@ -299,9 +299,10 @@ html > body fieldset{
 }
 
 .paginator .disabled, .paginator .disabled:hover{
-	background-color: silver;
-	border: none;
-	color: black;
+	background-color: #efefef;
+	border-color: silver !important;
+	color: silver;
+	font-weight: bold;
 }
 
 .listHeader, .listItemHeader{ /* Also used for Advanced Search */

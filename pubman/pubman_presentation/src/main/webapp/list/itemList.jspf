@@ -52,7 +52,7 @@ All rights reserved. Use is subject to license terms.
 					<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}" first="#{((ItemListSessionBean.currentPubItemListPointer - ItemListSessionBean.currentPubItemListPointer % (ItemListSessionBean.itemsPerPage * 10)) / (ItemListSessionBean.itemsPerPage * 10)) * 10}" rows="10">
 				
 						<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
-						<tr:commandButton text="#{page}" disabled="true" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+						<tr:commandButton text="#{page}" disabled="true" styleClass="disabled" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
 					
 					</tr:iterator>
 					<h:commandButton value=">" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
