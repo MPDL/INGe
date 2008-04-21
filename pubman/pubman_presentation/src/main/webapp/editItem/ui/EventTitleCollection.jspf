@@ -35,8 +35,7 @@
 	<h:panelGroup layout="block" styleClass="editItemLeftCol">
 		<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 		<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.eventTitleCollection.titleIF.title.value}"/>
-	</h:panelGroup>
-	<h:panelGroup layout="block" styleClass="editItemRightCol">
+	
 		<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.eventTitleCollection.addTitle}" />
 		<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.eventTitleCollection.removeTitle}" rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size > 0}"/>
 		<h:outputText value=" " rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size < 1}"/>
