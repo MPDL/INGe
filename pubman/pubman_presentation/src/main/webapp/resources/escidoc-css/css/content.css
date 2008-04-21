@@ -94,6 +94,7 @@ input:focus, textarea:focus{
 	font-size: 0.9em;
 	font-weight: bold;
 	color: #515151;
+	height:18px;
 }
 
 .inlineButtonDisabled, .inlineButtonDisabled:hover, .inlineButtonDisabled:active, .inlineButtonDisabled:focus, 
