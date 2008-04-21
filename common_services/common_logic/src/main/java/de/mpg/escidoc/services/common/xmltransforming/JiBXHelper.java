@@ -46,6 +46,7 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -255,14 +256,14 @@ public class JiBXHelper
     }
     
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;EventLogEntryVO></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;EventLogEntryVO></code>
+     * @return A new <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code>
      */
-    public static List<EventLogEntryVO> eventVOListFactory()
+    public static List<VersionHistoryEntryVO> eventVOListFactory()
     {
-        return new ArrayList<EventLogEntryVO>();
+        return new ArrayList<VersionHistoryEntryVO>();
     }
 
     /**
@@ -827,10 +828,10 @@ public class JiBXHelper
 
     /**
      * Deserializes a String containing an invitation status like defined in escidocenumtypes.xsd to the corresponding
-     * <code>EventLogEntryVO.InvitationStatus</code> Enum.
+     * <code>VersionHistoryEntryVO.InvitationStatus</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return InvitationStatus The corresponding <code>EventLogEntryVO.InvitationStatus</code> Enum
+     * @return InvitationStatus The corresponding <code>VersionHistoryEntryVO.InvitationStatus</code> Enum
      * @throws WrongEnumException
      */
     public static InvitationStatus deserializeInvitationStatusEnum(String enumValue) throws WrongEnumException
@@ -988,7 +989,42 @@ public class JiBXHelper
         }
         return genre; // null is a possible return value
     }
-
+    
+    /**
+     * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the corresponding
+     * <code>SourceVO.Genre</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
+     * @throws WrongEnumException
+     */
+    public static EventLogEntryVO.EventType deserializeEventTypeEnum(String enumValue) throws WrongEnumException
+    {
+        EventLogEntryVO.EventType type = null;
+        if ("create".equals(enumValue))
+        {
+        	return EventLogEntryVO.EventType.CREATE;
+        }
+        else if ("update".equals(enumValue))
+        {
+        	return EventLogEntryVO.EventType.UPDATE;
+        }
+        else if ("submitted".equals(enumValue))
+        {
+        	return EventLogEntryVO.EventType.SUBMIT;
+        }
+        else if ("released".equals(enumValue))
+        {
+        	return EventLogEntryVO.EventType.RELEASE;
+        }
+        else if ("withdrawn".equals(enumValue))
+        {
+        	return EventLogEntryVO.EventType.WITHDRAW;
+        }
+        
+        return type; // null is a possible return value
+    }
+    
     /**
      * Deserializes a String containing a status-type like defined in context.xsd to the corresponding
      * <code>ContextVO.State</code> Enum.

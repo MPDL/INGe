@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
@@ -38,7 +40,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  * @created 17-Okt-2007 18:51:45
  */
-public class EventLogEntryVO extends ValueObject
+public class VersionHistoryEntryVO extends ValueObject
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -63,6 +65,10 @@ public class EventLogEntryVO extends ValueObject
      * The state of the item version.
      */
     private ItemVO.State state;
+    /**
+     * The list of events for this history entry.
+     */
+    private List<EventLogEntryVO> events;
 
     /**
      * @return Reference to the according item.
@@ -117,5 +123,13 @@ public class EventLogEntryVO extends ValueObject
     {
         state = newVal;
     }
+
+	public List<EventLogEntryVO> getEvents() {
+		return events;
+	}
+
+	public void setEvents(List<EventLogEntryVO> events) {
+		this.events = events;
+	}
 
 }

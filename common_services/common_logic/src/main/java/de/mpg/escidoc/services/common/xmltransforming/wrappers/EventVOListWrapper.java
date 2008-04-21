@@ -33,7 +33,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of EventVOs.
@@ -48,14 +48,14 @@ public class EventVOListWrapper implements Serializable
     /**
      * The wrapped list of EventVOs.
      */
-    private List<EventLogEntryVO> eventVOList;
+    private List<VersionHistoryEntryVO> eventVOList;
 
     /**
      * Unwraps the list of EventVOs.
      * 
      * @return The list of EventVOs
      */
-    public List<EventLogEntryVO> getEventVOList()
+    public List<VersionHistoryEntryVO> getEventVOList()
     {
         return eventVOList;
     }
@@ -65,7 +65,7 @@ public class EventVOListWrapper implements Serializable
      * 
      * @param pubItemVOList The list of EventVOs to wrap
      */
-    public void setEventVOList(List<EventLogEntryVO> pubItemVOList)
+    public void setEventVOList(List<VersionHistoryEntryVO> pubItemVOList)
     {
         this.eventVOList = pubItemVOList;
     }

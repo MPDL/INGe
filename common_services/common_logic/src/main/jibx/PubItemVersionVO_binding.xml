@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for PubItemVersionVO -->
 	<!-- Type: PubItemVersionVO... -->
-	<mapping name="version" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO"
+	<mapping name="version" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO"
 		>
 
 		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
@@ -63,8 +63,12 @@
 
 		<structure name="valid-status" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />
 		<structure name="comment" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />
-		<structure name="events" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />
-
+		
+		<collection name="events" ns="http://www.escidoc.de/schemas/versionhistory/0.3" field="events"
+			factory="org.jibx.runtime.Utility.arrayListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" />
+		</collection>
 	</mapping>
 
 </binding>

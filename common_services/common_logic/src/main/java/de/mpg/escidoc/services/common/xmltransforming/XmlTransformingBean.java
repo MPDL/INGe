@@ -67,7 +67,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -794,7 +794,7 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public List<EventLogEntryVO> transformToEventVOList(String versionList) throws TechnicalException
+    public List<VersionHistoryEntryVO> transformToEventVOList(String versionList) throws TechnicalException
     {
         logger.debug("transformToPubItemVersionVOList(String) - String versionList=\n" + versionList);
         if (versionList == null)
@@ -820,8 +820,8 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<EventLogEntryVO>
-        List<EventLogEntryVO> eventList = eventVOListWrapper.getEventVOList();
+        // unwrap the List<VersionHistoryEntryVO>
+        List<VersionHistoryEntryVO> eventList = eventVOListWrapper.getEventVOList();
         return eventList;
     }
     

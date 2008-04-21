@@ -31,6 +31,7 @@
 package test.xmltransforming.component;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.util.List;
 
@@ -40,6 +41,8 @@ import org.junit.Test;
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
@@ -76,10 +79,29 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase
 
         // transform the version history XML to a list of EventVOs
         long zeit = -System.currentTimeMillis();
-        List<EventLogEntryVO> versionList = xmlTransforming.transformToEventVOList(itemVersionHistoryXml);
+        List<VersionHistoryEntryVO> versionList = xmlTransforming.transformToEventVOList(itemVersionHistoryXml);
         zeit += System.currentTimeMillis();
         logger.info("transformPubItemVersionList() -> " + zeit + "ms");
 
         assertNotNull(versionList);
+        assertEquals(3, versionList.size());
+        
+        VersionHistoryEntryVO entry0 = versionList.get(0);
+        
+        assertNotNull(entry0);
+        assertEquals(3, entry0.getReference().getVersionNumber());
+        assertNotNull(entry0.getModificationDate());
+        assertEquals(ItemVO.State.RELEASED, entry0.getState());
+        assertNotNull(entry0.getEvents());
+        
+        List<EventLogEntryVO> events = entry0.getEvents();
+        
+        assertEquals(3, events.size());
+        
+        EventLogEntryVO event0 = events.get(0);
+        
+        assertEquals(EventLogEntryVO.EventType.RELEASE, event0.getType());
+        assertNotNull(event0.getDate());
+        assertEquals("Accepted", event0.getComment());
     }
 }

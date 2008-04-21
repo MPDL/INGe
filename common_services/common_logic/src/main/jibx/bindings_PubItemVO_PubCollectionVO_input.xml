@@ -43,6 +43,7 @@
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
+	<namespace prefix="premis" uri="http://www.loc.gov/standards/premis/v1" default="none" />
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
@@ -58,6 +59,7 @@
 	<include path="PubItemRelationVO_binding.xml" />
 	<include path="PubItemResultVO_binding_input.xml" />
 	<include path="PubItemVersionVO_binding.xml" />
+	<include path="EventLogEntryVO_binding.xml" />
 	<include path="PubItemVersionVOListWrapper_binding.xml" />
 	<include path="PubItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />

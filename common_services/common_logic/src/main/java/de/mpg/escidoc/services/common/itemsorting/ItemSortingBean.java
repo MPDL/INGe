@@ -41,9 +41,9 @@ import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.ItemSorting;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.comparator.EventLogEntryVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
 /**
@@ -101,7 +101,7 @@ public class ItemSortingBean implements ItemSorting
       * 
       * @author Johannes Mueller
       */
-      public java.util.List<EventLogEntryVO> sortItemVersionList(java.util.List<EventLogEntryVO> itemList, EventLogEntryVOComparator.Criteria criterium, EventLogEntryVOComparator.Order sortOrder)
+      public java.util.List<VersionHistoryEntryVO> sortItemVersionList(java.util.List<VersionHistoryEntryVO> itemList, VersionHistoryEntryVOComparator.Criteria criterium, VersionHistoryEntryVOComparator.Order sortOrder)
       {
          if (logger.isDebugEnabled())
          {
@@ -114,16 +114,16 @@ public class ItemSortingBean implements ItemSorting
          }
      
          // instanciate the comparator with the sorting criteria
-         EventLogEntryVOComparator eventLogEntryVOComparator = new EventLogEntryVOComparator(criterium);
+         VersionHistoryEntryVOComparator versionHistoryEntryVOComparator = new VersionHistoryEntryVOComparator(criterium);
          
          // sort ascending or descending
-         if (sortOrder.equals(EventLogEntryVOComparator.Order.ASCENDING))
+         if (sortOrder.equals(VersionHistoryEntryVOComparator.Order.ASCENDING))
          {
-             Collections.sort(itemList, eventLogEntryVOComparator);
+             Collections.sort(itemList, versionHistoryEntryVOComparator);
          }
-         else if (sortOrder.equals((EventLogEntryVOComparator.Order.DESCENDING)))
+         else if (sortOrder.equals((VersionHistoryEntryVOComparator.Order.DESCENDING)))
          {
-             Collections.sort(itemList, Collections.reverseOrder(eventLogEntryVOComparator));
+             Collections.sort(itemList, Collections.reverseOrder(versionHistoryEntryVOComparator));
          }
          return itemList;       
      }

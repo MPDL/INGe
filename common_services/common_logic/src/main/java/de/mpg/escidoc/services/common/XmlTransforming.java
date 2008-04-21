@@ -37,7 +37,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -291,13 +291,13 @@ public interface XmlTransforming
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.
      * de/schemas/..." (version-history.xsd) to the corresponding
-     * <code>List<EventLogEntryVO></code>.
-     * @return The corresponding <code>List<EventLogEntryVO></code>
+     * <code>List<VersionHistoryEntryVO></code>.
+     * @return The corresponding <code>List<VersionHistoryEntryVO></code>
      * 
      * @param versionList XML String that is valid according to "http://www.escidoc.de/schemas/..." (version-history.xsd)
      * @exception TechnicalException
      */
-    public List<EventLogEntryVO> transformToEventVOList(String versionList) throws TechnicalException;
+    public List<VersionHistoryEntryVO> transformToEventVOList(String versionList) throws TechnicalException;
 
     /**
      * Transforms an XML String to the corresponding <code>List<RelationVO></code>.

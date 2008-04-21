@@ -32,9 +32,9 @@ package de.mpg.escidoc.services.common;
 
 
 
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.comparator.EventLogEntryVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
 /**
@@ -72,5 +72,5 @@ public interface ItemSorting
 	 * @param order Descending or ascending order.
      * @return The sorted list.
 	 */
-	public java.util.List<EventLogEntryVO> sortItemVersionList(java.util.List<EventLogEntryVO> itemVersionList, EventLogEntryVOComparator.Criteria criterium, EventLogEntryVOComparator.Order order);
+	public java.util.List<VersionHistoryEntryVO> sortItemVersionList(java.util.List<VersionHistoryEntryVO> itemVersionList, VersionHistoryEntryVOComparator.Criteria criterium, VersionHistoryEntryVOComparator.Order order);
 }

@@ -30,42 +30,45 @@
 
 package de.mpg.escidoc.services.common.util.creators;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.List;
 
-public class AuthorFormatList {
+public class ResidualFormat extends AuthorFormat {
 	
-	private static AuthorFormat[] formats = new AuthorFormat[]
-	{
-		
-		new WesternFormat1(),
-		new WesternFormat2(),
-		new WesternFormat3(),
-		new WesternFormat4(),
-		new WesternFormat5(),
-		new WesternFormat6(),
-		new WesternFormat7(),
-		new WesternFormat8(),
-		new WesternFormat9(),
-		new OxfordJournalFormat(),
-		new ScienceDirectFormat(),
-		new BibTeXSpecialFormat1(),
-		new ResidualFormat()
-
-	};
-	
-	static
-	{
-		Arrays.sort(formats);
+	@Override
+	public String getPattern() {
+		return ".";
 	}
 
-	public static AuthorFormat[] getFormats() {
-		AuthorFormat[] result = new AuthorFormat[formats.length];
-		System.arraycopy(formats, 0, result, 0, formats.length);
+	@Override
+	public List<Author> getAuthors(String authorsString) {
+
+		List<Author> result = new ArrayList<Author>();
+		Author author = new Author();
+		author.setSurname(authorsString);
+		author.setFormat(this);
+		result.add(author);
 		return result;
 	}
 
-	public static void setFormats(AuthorFormat[] formats) {
-		AuthorFormatList.formats = formats;
+	@Override
+	public int getSignificance() {
+		return Integer.MAX_VALUE;
 	}
-	
+
+	@Override
+	public String getDescription() {
+		return "Everything is written into the surname of a single author";
+	}
+
+	@Override
+	public String getName() {
+		return "Residual format, taken if no other format matched";
+	}
+
+	@Override
+	public String getWarning() {
+		return "The system was not able to identify the authors' names.";
+	}
+
 }

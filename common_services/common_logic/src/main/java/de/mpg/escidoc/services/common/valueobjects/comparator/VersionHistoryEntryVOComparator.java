@@ -33,7 +33,7 @@ package de.mpg.escidoc.services.common.valueobjects.comparator;
 import java.util.Comparator;
 import java.util.Date;
 
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 /**
  * The class implements the comparison of two EventVOs for the criteria which
@@ -44,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
  * @author Johannes Mueller (initial creation)
  * @version $Revision: 611 $ $LastChangedDate: 2007-07-09 16:4
  */
-public class EventLogEntryVOComparator implements Comparator<EventLogEntryVO>
+public class VersionHistoryEntryVOComparator implements Comparator<VersionHistoryEntryVO>
 {
     /**
      * The possible sorting criteria.
@@ -73,7 +73,7 @@ public class EventLogEntryVOComparator implements Comparator<EventLogEntryVO>
 	 * 
 	 * @param criteria    criteria
 	 */
-    public EventLogEntryVOComparator(Criteria criteria)
+    public VersionHistoryEntryVOComparator(Criteria criteria)
     {
         if (criteria == null)
         {
@@ -87,7 +87,7 @@ public class EventLogEntryVOComparator implements Comparator<EventLogEntryVO>
      * 
      * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
      */
-    public int compare(EventLogEntryVO event1, EventLogEntryVO event2)
+    public int compare(VersionHistoryEntryVO event1, VersionHistoryEntryVO event2)
     {
         if (event1 == null)
         {
@@ -118,7 +118,7 @@ public class EventLogEntryVOComparator implements Comparator<EventLogEntryVO>
      * @param event2 The second pubItem version.
      * @return 0 if the item versions are equal, -1 if the first argument is less than the second, 1 otherwise.
      */
-    private int compareDate(EventLogEntryVO event1, EventLogEntryVO event2)
+    private int compareDate(VersionHistoryEntryVO event1, VersionHistoryEntryVO event2)
     {
         Date event1date = event1.getModificationDate();
         Date event2date = event2.getModificationDate();

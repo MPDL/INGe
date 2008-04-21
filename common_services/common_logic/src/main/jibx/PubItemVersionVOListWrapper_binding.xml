@@ -32,7 +32,7 @@
     <mapping name="version-history" ns="http://www.escidoc.de/schemas/versionhistory/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper">
     
         <collection field="eventVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.eventVOListFactory">
-            <structure type="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" usage="optional" />
+            <structure type="de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO" usage="optional" />
         </collection>
         
     </mapping>
