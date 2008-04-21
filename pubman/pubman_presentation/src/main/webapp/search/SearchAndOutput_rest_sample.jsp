@@ -30,7 +30,6 @@
 */
 %>
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
-<%@page session="true"%>
 <html>
 	<head>
 		<title>eSciDoc Search and Output Service</title>
