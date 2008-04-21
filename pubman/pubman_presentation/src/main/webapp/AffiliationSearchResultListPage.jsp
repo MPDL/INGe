@@ -75,7 +75,6 @@
 											<ul>
 												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false"
 													  value="#{lbl.mainMenu_lnkHelp}"/></li>
-												<li><h:commandLink binding="#{SearchResultList.lnkView}" id="lnkView" action="#{SearchResultList.viewItem}"  value="#{lbl.actionMenu_lnkView}" /></li>
 											</ul>
 										</div>
 									</div>
