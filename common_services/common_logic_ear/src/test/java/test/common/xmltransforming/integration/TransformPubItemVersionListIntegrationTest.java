@@ -70,9 +70,9 @@ import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.comparator.EventLogEntryVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -204,19 +204,19 @@ public class TransformPubItemVersionListIntegrationTest extends
 		logger.info("Version history of PubItem '" + itemId + "' retrieved.");
 		logger.debug(itemVersionHistoryXml);
 
-		// transform the version history XML to a list of EventLogEntryVOs
+		// transform the version history XML to a list of VersionHistoryEntryVOs
 		long zeit = -System.currentTimeMillis();
-		List<EventLogEntryVO> versionList = xmlTransforming
+		List<VersionHistoryEntryVO> versionList = xmlTransforming
 				.transformToEventVOList(itemVersionHistoryXml);
 		zeit += System.currentTimeMillis();
-		logger.info("transformToEventLogEntryVOList(" + itemId + ") -> "
+		logger.info("transformToVersionHistoryEntryVOList(" + itemId + ") -> "
 				+ zeit + "ms");
 		assertEquals(updateCount + 1, versionList.size());
 
 		logger.info("########################Unsorted list:");
 		for (int i = 0; i < updateCount + 1; i++) {
-			logger.debug("EventLogEntryVO[" + i + "]:");
-			EventLogEntryVO pubItemVersion = versionList.get(i);
+			logger.debug("VersionHistoryEntryVO[" + i + "]:");
+			VersionHistoryEntryVO pubItemVersion = versionList.get(i);
 			ItemRO ref = pubItemVersion.getReference();
 			assertNotNull(ref);
 			logger.debug(" -reference.objectId: " + ref.getObjectId());
@@ -234,15 +234,15 @@ public class TransformPubItemVersionListIntegrationTest extends
 		}
 
 		// sort the version history list
-		List<EventLogEntryVO> sortedVersionList = itemSorting
+		List<VersionHistoryEntryVO> sortedVersionList = itemSorting
 				.sortItemVersionList(versionList,
-						EventLogEntryVOComparator.Criteria.DATE,
-						EventLogEntryVOComparator.Order.ASCENDING);
+						VersionHistoryEntryVOComparator.Criteria.DATE,
+						VersionHistoryEntryVOComparator.Order.ASCENDING);
 
 		logger.info("########################Sorted list:");
 		for (int i = 0; i < updateCount + 1; i++) {
-			logger.debug("EventLogEntryVO[" + i + "]:");
-			EventLogEntryVO pubItemVersion = sortedVersionList.get(i);
+			logger.debug("VersionHistoryEntryVO[" + i + "]:");
+			VersionHistoryEntryVO pubItemVersion = sortedVersionList.get(i);
 			ItemRO ref = pubItemVersion.getReference();
 			assertNotNull(ref);
 			logger.debug(" -reference.objectId: " + ref.getObjectId());
