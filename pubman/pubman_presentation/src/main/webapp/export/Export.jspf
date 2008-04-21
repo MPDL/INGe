@@ -50,7 +50,7 @@
 							 <f:selectItems value="#{ExportItems.LAYOUTCITATIONSTYLE_OPTIONS}"/>
 					</h:selectOneMenu>
 			  	</h:panelGrid>   
-				<hr />
+
 				<h:panelGrid>
 					<%/*
 					<h:commandButton id="btnDisplayItems"
