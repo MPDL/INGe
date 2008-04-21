@@ -55,7 +55,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -1230,9 +1230,9 @@ public class ItemControllerSessionBean extends FacesBean
      * @return the item with the requested id
      * @throws Exception if framework access fails
      */
-    public List<EventLogEntryVO> retrieveReleasesForItem(String itemID) throws Exception
+    public List<VersionHistoryEntryVO> retrieveReleasesForItem(String itemID) throws Exception
     {
-        List<EventLogEntryVO> releaseList = new ArrayList<EventLogEntryVO>();
+        List<VersionHistoryEntryVO> releaseList = new ArrayList<VersionHistoryEntryVO>();
 
         if (logger.isDebugEnabled())
         {

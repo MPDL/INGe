@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 /**
  * Fragment class for Releasy history.
@@ -78,9 +78,9 @@ public class ReleaseHistory extends FacesBean
     /**
      * Retrieves all releases for the current pubitem.
      * @param itemID the  id of the item for which the releases should be retrieved
-     * @return the list of EventLogEntryVOs
+     * @return the list of VersionHistoryEntryVOs
      */
-    public List<EventLogEntryVO> getReleaseHistory(String itemID)
+    public List<VersionHistoryEntryVO> getReleaseHistory(String itemID)
     {
 
         try

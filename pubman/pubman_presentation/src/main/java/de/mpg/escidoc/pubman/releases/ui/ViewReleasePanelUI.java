@@ -50,7 +50,7 @@ import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
-import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
@@ -64,7 +64,7 @@ public class ViewReleasePanelUI extends ContainerPanelUI implements ActionListen
     @SuppressWarnings("unused")
     private static final Logger logger = Logger.getLogger(ViewReleasePanelUI.class);
     
-    private EventLogEntryVO pubItemVersionVO = null;
+    private VersionHistoryEntryVO pubItemVersionVO = null;
     private HtmlCommandLink viewItemLink = new HtmlCommandLink();
     private HtmlOutputText viewItemText = new HtmlOutputText();
     private UIParameter version = new UIParameter();
