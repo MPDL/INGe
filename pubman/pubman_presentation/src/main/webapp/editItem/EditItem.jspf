@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<div><f:subview id="EditItem">
+<div class="editItemPage"><f:subview id="EditItem">
 
 <h1 id="editItemHeader">
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
