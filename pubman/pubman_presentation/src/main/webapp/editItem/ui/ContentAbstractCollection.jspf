@@ -36,13 +36,11 @@
 		<h:panelGroup layout="block" styleClass="editItemLeftCol floatbox">			
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAbstract}" />
 			<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{data.value}"/>
-		</h:panelGroup>	
-		<h:panelGroup layout="block" styleClass="editItemRightCol floatbox">	
-			<div>
+		
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size < 2}"/>
-			</div>
+			
 		</h:panelGroup>
 	</h:column>
 </h:dataTable>
