@@ -236,6 +236,8 @@ label{
 	margin-bottom:5px;
 }
 
+.editItemPage 
+
 .colLbl{
 	display:block;
 	float:none;
@@ -263,6 +265,10 @@ label{
 
 .editItemTextFieldVeryShort {  
   width: 75px;
+}
+
+.editItemTextFieldShort1 {  
+  width: 110px;
 }
 
 .editItemTextFieldShort {  
