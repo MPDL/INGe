@@ -77,7 +77,7 @@
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="editItemSingleCol">								
-							<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>		
+							<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>		
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{creatorBean.personOrganisationManager.addObject}" />
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
 							<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
