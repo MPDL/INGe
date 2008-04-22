@@ -43,7 +43,7 @@
 		<div class="listHeader dark">
 			<h3>
 				<label>
-					<h:outputText id="valItemDetails" value="#{lbl.ViewItemReleaseHistory_lblReleaseHistory}  #{ItemControllerSessionBean.currentPubItem.metadata.title.value}"/>
+					<h:outputText id="valItemDetails" value="#{ItemControllerSessionBean.currentPubItem.metadata.title.value}"/>
 				</label>
 			</h3>
 		</div>
