@@ -63,13 +63,13 @@
 				<div class="easySubmissionBoxBodyLine">
 					<%-- Date --%>
 					<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDate} *"/>
+						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDate}"/>
           				<h:inputText value="#{EasySubmission.selectedDate}"/>
           			</div>
           		
           			<%-- Date Type --%>
           			<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateType} *"/>
+						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDateType}"/>
 						<h:selectOneMenu id="cboDateType" value="#{EasySubmissionSessionBean.currentDateType}" binding="#{EasySubmission.dateSelect}">
 							<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
 						</h:selectOneMenu>

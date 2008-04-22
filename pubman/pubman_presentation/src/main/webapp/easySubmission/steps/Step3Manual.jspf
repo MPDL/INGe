@@ -55,7 +55,7 @@
 				<div class="easySubmissionBoxBodyLine">
 					<%-- Genre --%>
 					<div class="easySubmissionBasicInfItem margin5Right">
-					<h:outputLabel value="#{lbl.easy_submission_lblGenre} *"/>
+					<h:outputLabel value="* #{lbl.easy_submission_lblGenre}"/>
 					<h:selectOneMenu id="cboGenre" value="#{EasySubmission.item.metadata.genre}">
 						<f:selectItems value="#{EasySubmission.genres}" />
 					</h:selectOneMenu>
@@ -63,7 +63,7 @@
 				
 					<%-- Title --%>
 					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel value="#{lbl.easy_submission_lblTitle} *"/>
+					<h:outputLabel value="* #{lbl.easy_submission_lblTitle}"/>
 					<h:inputTextarea rows="5" value="#{EasySubmission.item.metadata.title.value}"/>
 					</div>
 				</div>
