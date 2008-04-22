@@ -46,7 +46,7 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class ViewItemLogPage extends BreadcrumbPage
 {
-    private static Logger logger = Logger.getLogger(ViewItemReleaseHistoryPage.class);
+    private static Logger logger = Logger.getLogger(ViewItemLogPage.class);
 
     public static final String BEAN_NAME = "ViewItemLogPage";
 
