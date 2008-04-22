@@ -31,8 +31,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <div class="searchResult">
 <f:subview id="content">
-	<h1>
+	<h1 class="bottomSpace">
 		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>
+		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false"/>
 	</h1>
 	<p>
 		<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"

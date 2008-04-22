@@ -30,9 +30,8 @@
 <div xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
 	<f:subview id="Home">
 			
-			 <h1 class="bottomSpace"><h:outputText id="hdrApplicationtitle" styleClass="orientationHeader" value="#{ApplicationBean.appTitle} - "/>
-				<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.HomePage}">
-				</h:outputText>						
+			 <h1 class="bottomSpace"><h:outputText id="hdrApplicationtitle" value="#{ApplicationBean.appTitle} - "/>
+				<h:outputText id="valOrientationText" value="#{lbl.HomePage}" />					
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
 			</h1>
 				<br/>
