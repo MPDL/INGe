@@ -123,6 +123,35 @@
 	width: 600px;
 }
 
+.exportFileTypeRadios, exportFormatRadios {
+	width: 151px;
+	overflow: hidden;
+}
+
+.exportFileTypeRadios *, .exportFormatRadios * {
+	float: left;
+	overflow: hidden;
+}
+
+.exportFileTypeRadios label, .exportFormatRadios label {
+	display: block;
+	margin-left: 3px;
+	margin-bottom: 2px;
+}
+
+.exportFormatRadios label {
+	width: 130px;
+}
+
+.exportFileTypeRadios label {
+	width: 55px;
+}
+
+.exportFileTypeRadios input, .exportFormatRadios input {
+	display: block;
+	height: 17px;
+}
+
 /*LOGIN_ERROR*/
 
 .loginErrorBGImage {

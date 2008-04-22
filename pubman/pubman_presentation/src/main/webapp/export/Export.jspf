@@ -39,6 +39,7 @@
 				<h:panelGrid columns="1">				
 					<h:selectOneRadio id="rbgExportFormats"  
 									  value="#{ExportItemsSessionBean.exportFormatType}"
+									  styleClass="exportFormatRadios"
 									  onclick="updateExportFormats()"
 									  layout="pageDirection"
 									  disabled="#{!ExportItemsSessionBean.enableExport}">
@@ -68,6 +69,7 @@
 				<hr />
 				<h:selectOneRadio id="rbgFileFormats" 
 								  value="#{ExportItemsSessionBean.fileFormat}"
+								  styleClass="exportFileTypeRadios"
 								  disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}"
 								  layout="pageDirection"
 								  >
