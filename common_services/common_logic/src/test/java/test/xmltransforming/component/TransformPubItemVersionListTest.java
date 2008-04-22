@@ -62,6 +62,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase
 
     private static final String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformPubItemVersionListTest/";
     private static final String VERSION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "version-list-sample.xml";
+    private static final String VERSION_LIST_SAMPLE_FILE2 = TEST_FILE_ROOT + "version-list-sample2.xml";
     
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
@@ -104,5 +105,45 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase
         assertEquals(EventLogEntryVO.EventType.RELEASE, event0.getType());
         assertNotNull(event0.getDate());
         assertEquals("Accepted", event0.getComment());
+    }
+    /**
+     * @throws Exception
+     */
+    @Test
+    public void testTransformPubItemVersionList2() throws Exception
+    {
+        // create version list
+        String itemVersionHistoryXml = readFile(VERSION_LIST_SAMPLE_FILE2);
+        assertNotNull(itemVersionHistoryXml);
+
+        logger.info(itemVersionHistoryXml);
+
+        // transform the version history XML to a list of EventVOs
+        long zeit = -System.currentTimeMillis();
+        List<VersionHistoryEntryVO> versionList = xmlTransforming.transformToEventVOList(itemVersionHistoryXml);
+        zeit += System.currentTimeMillis();
+        logger.info("transformPubItemVersionList() -> " + zeit + "ms");
+
+        assertNotNull(versionList);
+        assertEquals(8, versionList.size());
+        
+        VersionHistoryEntryVO entry0 = versionList.get(0);
+        
+        assertNotNull(entry0);
+        assertEquals(8, entry0.getReference().getVersionNumber());
+        assertNotNull(entry0.getModificationDate());
+        assertEquals(ItemVO.State.RELEASED, entry0.getState());
+        assertNotNull(entry0.getEvents());
+        assertEquals("TestKommentar", entry0.getReference().getLastMessage());
+        
+        List<EventLogEntryVO> events = entry0.getEvents();
+        
+        assertEquals(3, events.size());
+        
+        EventLogEntryVO event0 = events.get(0);
+        
+        assertEquals(EventLogEntryVO.EventType.RELEASE, event0.getType());
+        assertNotNull(event0.getDate());
+        assertEquals("TestKommentar", event0.getComment());
     }
 }
