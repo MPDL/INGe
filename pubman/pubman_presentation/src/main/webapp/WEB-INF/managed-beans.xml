@@ -453,4 +453,14 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean</managed-bean-class>
 		<managed-bean-scope>session</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ViewItemLogPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.ViewItemLogPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>ViewItemLog</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.itemLog.ViewItemLog</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>

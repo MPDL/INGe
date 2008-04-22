@@ -30,9 +30,9 @@
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="SearchResultList">
 		<br/>
-		<h:outputText value="#{ReleaseHistory.dummy}"/>
+		<h:outputText value="#{ViewItemLog.dummy}"/>
 		<p>
-			<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemReleaseHistoryPage.previousPageURI}">
+			<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemLogPage.previousPageURI}">
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 			</h:outputLink>
 		</p>
