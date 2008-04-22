@@ -177,8 +177,6 @@ public class EditItem extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
-        EditItemSessionBean eisb = this.getEditItemSessionBean();
-        
         this.fileTable = new CoreTable();
         
         Map map = FacesContext.getCurrentInstance().getExternalContext().getInitParameterMap();
@@ -359,7 +357,7 @@ public class EditItem extends FacesBean
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			if(this.item.getFiles().get(i).getSize() > 0)
+			if(this.item.getFiles().get(i).getLocator() == null || this.item.getFiles().get(i).getLocator().trim().equals(""))
 			{
 				PubFileVOPresentation filepres = new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), this.item.getFiles().get(i),false);
 				files.add(filepres);
@@ -526,8 +524,7 @@ public class EditItem extends FacesBean
      */
     public String save()
     {
-
-        // bind the temporary uploaded files to the files in the current item
+    	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFilesAndLocators();
     	
     	/*
@@ -553,7 +550,9 @@ public class EditItem extends FacesBean
                 logger.debug("Saving item...");
             }
 
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+            this.getItemListSessionBean().setListDirty(true);
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
 
             if (retVal == null)
             {
@@ -569,7 +568,9 @@ public class EditItem extends FacesBean
         else if (report.isValid())
         {
             // TODO FrM: Informative messages
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false);
+        	this.getItemListSessionBean().setListDirty(true);
+        	String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
 
             if (retVal == null)
             {
@@ -653,6 +654,9 @@ public class EditItem extends FacesBean
          * FrM: Validation with validation point "submit_item"
          */
         
+    	// bind the temporary uploaded files to the files in the current item
+    	bindUploadedFilesAndLocators();
+    	
         ValidationReportVO report = null;
         try
         {
@@ -757,6 +761,9 @@ public class EditItem extends FacesBean
          * Copied by DiT from saveAndSubmit(), written by FrM: Validation with validation point "accept_item"
          */
         
+    	// bind the temporary uploaded files to the files in the current item
+    	bindUploadedFilesAndLocators();
+    	
         ValidationReportVO report = null;
 
         try
@@ -924,10 +931,9 @@ public class EditItem extends FacesBean
     	//this.item.getFiles().add(new FileVO());
     	//this.files.add(new PubFileVOPresentation());
     	// avoid to upload more than one item before filling the metadata
-    	EditItemSessionBean eisb = this.getEditItemSessionBean();
     	if(this.getEditItemSessionBean().getFiles() != null)
     	{
-    		this.item.getFiles().add(new FileVO());
+    		//this.item.getFiles().add(new FileVO());
     		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), new FileVO(), false));
     	}
     	return "loadEditItem";
@@ -955,7 +961,11 @@ public class EditItem extends FacesBean
     {
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
-    		
+    		// set the name if it is not filled
+        	if(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getName() == null || this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getName().trim().equals(""))
+        	{
+        		this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getLocator());
+        	}
     	}
     	return "loadEditItem";
     }

@@ -36,6 +36,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the EditItem.
@@ -81,6 +82,17 @@ public class EditItemSessionBean extends FacesBean
 	{
 		this.files.clear();
 		this.locators.clear();
+		
+		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
+    	if(this.getFiles().size() < 1)
+    	{
+    		this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), new FileVO(), false));
+    	}
+    	if(this.getLocators().size() < 1)
+    	{
+    		FileVO newLocator = new FileVO();
+    		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
+    	}
 	}
 
 	public List<PubFileVOPresentation> getFiles() 
