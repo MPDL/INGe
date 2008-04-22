@@ -43,11 +43,11 @@
 		<!-- Identifier -->
 <div class="itemElementLine floatbox">		
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblVersion}"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="<#{ViewItemFull.pubItem.version.objectId}>"/>
+		<h:outputText value="#{ViewItemFull.pubItem.version.objectId}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 
