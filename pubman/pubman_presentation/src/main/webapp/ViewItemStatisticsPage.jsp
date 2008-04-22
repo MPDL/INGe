@@ -73,7 +73,7 @@
 										</h1>
 										<ul>
 											<li>
-												<h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false" value="#{lbl.mainMenu_lnkHelp}"/>
+												<h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ItemStatistics');return false" value="#{lbl.mainMenu_lnkHelp}"/>
 											</li>
 										</ul>
 									</div>
