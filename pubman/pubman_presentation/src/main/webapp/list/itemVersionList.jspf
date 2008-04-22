@@ -58,7 +58,7 @@ All rights reserved. Use is subject to license terms.
 				</tr>
 
 				<tr>
-					<td>Description</td>
+					<td><h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}" /></td>
 					
 					<td><h:outputText value="#{entry.reference.lastMessage}" /></td>
 					
@@ -69,24 +69,6 @@ All rights reserved. Use is subject to license terms.
 		
 		</table>
 		
-		 
-		<%-- 
-		
-			<h:dataTable id="listtable" var="entry" value="#{ItemVersionListSessionBean.releaseList}" rowClasses="odd, even">
-				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.reference.objectId}" >
-							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
-						</h:outputLink>
-					</h:panelGroup>
-				</h:column>
-				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
-						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{entry.modificationDate}"/>
-					</h:panelGroup>
-				</h:column>
-			</h:dataTable>
-		--%>
 		</div>
 	</f:subview>
 </div>

@@ -34,54 +34,35 @@ All rights reserved. Use is subject to license terms.
 <div>
 	<f:subview id="list">
 		<div class="paginator">
-		
-		<%--  
-			<h:dataTable id="listtable" var="entry" value="#{ItemVersionListSessionBean.versionList}" rowClasses="odd, even">
-				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.reference.objectId}" >
-							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
-						</h:outputLink>
-					</h:panelGroup>
-				</h:column>
-				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
-						<h:outputText value="#{lbl.ViewItemLog_lblModDate} #{entry.modificationDate}"/>
-					</h:panelGroup>
-				</h:column>
-			</h:dataTable>
-			
-			--%>
+	
 			<table>
-			
-			
-			<tr:iterator value="#{ItemVersionListSessionBean.versionList}" var="versionEntry" varStatus="index" binding="#{ItemVersionListSessionBean.versionIterator}">	
-				<tr:iterator value="#{versionEntry.events}" var="eventEntry" varStatus="index" binding="#{ItemVersionListSessionBean.eventLogIterator}">
+
+				<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
 					<tr>
 						<td>
-							<h:outputLink value="viewItemFullPage.jsp?itemId=#{versionEntry.reference.objectId}" >
-								<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{versionEntry.reference.versionNumber}"/>
+							<h:outputLink value="viewItemFullPage.jsp?itemId=#{eventEntry.versionHistoryVO.reference.objectId}" >
+								<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
 							</h:outputLink>
 						</td>
 						
 						
 						<td>
 							<h:panelGroup styleClass="listItemHeader">
-								<h:outputText value="#{ItemVersionListSessionBean.currentTypeLabel} #{eventEntry.date}"/>
+								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.date}"/>
 							</h:panelGroup>
 						</td>
 	
 					</tr>
 	
 					<tr>
-						<td>Description/Comment</td>
+						<td><h:outputText value="#{lbl.ViewItemLog_lblComment}" /></td>
 						
 						<td><h:outputText value="#{eventEntry.comment}" /></td>
 						
 						
 					</tr>
 				</tr:iterator>		
-			</tr:iterator>	
+			
 		
 		
 		</table>

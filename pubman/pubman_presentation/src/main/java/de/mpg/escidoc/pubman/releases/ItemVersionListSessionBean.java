@@ -38,6 +38,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.EventLogEntryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
@@ -57,11 +58,9 @@ public class ItemVersionListSessionBean extends FacesBean
     
     private List<VersionHistoryEntryVO> releaseList = new ArrayList<VersionHistoryEntryVO>();
     
-    private List<EventLogEntryVO> eventLogList = new ArrayList<EventLogEntryVO>();
+    private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
-    private UIXIterator versionIterator = new UIXIterator();
-    
-    private UIXIterator eventLogIterator = new UIXIterator();
+   
     
     /**
      * Public constructor.
@@ -94,7 +93,7 @@ public class ItemVersionListSessionBean extends FacesBean
 	    
 	    this.releaseList = new ArrayList<VersionHistoryEntryVO>();
 	    
-	    this.eventLogList = new ArrayList<EventLogEntryVO>();
+	    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 	    
 	    for(VersionHistoryEntryVO vEntry : versionList)
 	    {
@@ -109,7 +108,7 @@ public class ItemVersionListSessionBean extends FacesBean
             List<EventLogEntryVO> eventList = vEntry.getEvents();
             for (EventLogEntryVO eEntry : eventList)
             {
-                eventLogList.add(eEntry);
+                eventLogList.add(new EventLogEntryVOPresentation(eEntry, vEntry));
             }
 	            
 	            
@@ -138,51 +137,16 @@ public class ItemVersionListSessionBean extends FacesBean
         this.releaseList = releaseList;
     }
 
-    public List<EventLogEntryVO> getEventLogList()
+    public List<EventLogEntryVOPresentation> getEventLogList()
     {
         return eventLogList;
     }
 
-    public void setEventLogList(List<EventLogEntryVO> eventLogList)
+    public void setEventLogList(List<EventLogEntryVOPresentation> eventLogList)
     {
         this.eventLogList = eventLogList;
     }
-
-    public UIXIterator getVersionIterator()
-    {
-        return versionIterator;
-    }
-
-    public void setVersionIterator(UIXIterator versionIterator)
-    {
-        this.versionIterator = versionIterator;
-    }
-
-    public UIXIterator getEventLogIterator()
-    {
-        return eventLogIterator;
-    }
-
-    public void setEventLogIterator(UIXIterator eventLogIterator)
-    {
-        this.eventLogIterator = eventLogIterator;
-    }
     
-    public String getCurrentTypeLabel() {
-        VersionHistoryEntryVO currentVersionVO = versionList.get(versionIterator.getRowIndex());
-        EventLogEntryVO currentEventEntry = currentVersionVO.getEvents().get(eventLogIterator.getRowIndex());
-        
-        switch (currentEventEntry.getType()){
-        
-            case CREATE : return "Created on: ";
-            case RELEASE : return "Released on: ";
-            case SUBMIT : return "Submitted on: ";
-            case UPDATE : return "Updated on: ";
-            case WITHDRAW : return "Withdrawn on: ";
-            
-            
-        }
-        return "";
-    }
+    
     
 }
