@@ -101,19 +101,20 @@
 						<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 						<h:panelGroup layout="block" styleClass="editItemSingleCol">
 							<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorRole}"/>
-							<h:selectOneRadio styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
+							<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
 								<f:selectItems value="#{creatorBean.creatorRoles}"/>
-							</h:selectOneRadio>
+							</h:selectOneMenu>
+							
 						</h:panelGroup>
 						
 						<%/* Creator's Person */%>
 						
 							<h:panelGroup layout="block" styleClass="editItemSingleCol">
 								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorType}"/>
-								<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.typeString}" 
+								<h:selectOneRadio styleClass="radioLbl" value="#{creatorBean.creator.typeString}" 
 									valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit()">
 									<f:selectItems value="#{creatorBean.creatorTypes}"/>
-								</h:selectOneMenu>							
+								</h:selectOneRadio>							
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="floatbox" rendered="#{creatorBean.personType}">
 								<h:panelGroup layout="block" styleClass="editItemLeftCol">
