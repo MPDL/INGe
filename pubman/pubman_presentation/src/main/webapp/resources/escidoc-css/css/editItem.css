@@ -87,7 +87,12 @@ label{
 
 .radioLbl tr td *{
 	float:left;
-	margin-right:10px;
+	margin-right:5px;
+}
+
+.radioLbl tr td label{
+	
+	margin-right:20px;
 }
 
 .editItemAddLink{			
