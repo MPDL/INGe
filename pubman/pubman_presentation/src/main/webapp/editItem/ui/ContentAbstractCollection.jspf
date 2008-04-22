@@ -35,7 +35,7 @@
 	<h:column>
 		<h:panelGroup layout="block" styleClass="editItemLeftCol floatbox">			
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAbstract}" />
-			<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{data.value}"/>
+			<h:inputTextarea styleClass="editItemComboBoxLong editItemTextArea" value="#{data.value}"/>
 		
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>

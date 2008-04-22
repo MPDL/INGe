@@ -34,13 +34,13 @@
 <h:dataTable var="identifier" styleClass="fullWidth floatbox" value="#{EditItem.identifierCollection.identifierManager.objectDM}" rendered="#{EditItem.identifierCollection.identifierManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
 		<h:panelGroup layout="block" styleClass="editItemLeftCol">
-			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblIdentifier}" />
+			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblIdentifier}" />
 			<h:selectOneMenu styleClass="editItemComboBoxVeryShort" value="#{identifier.typeString}">
 				<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
 			</h:selectOneMenu>
-			</h:panelGroup>
-		<h:panelGroup layout="block" styleClass="editItemRightCol">
-			<h:inputText styleClass="editItemTextFieldMedium" value="#{identifier.id}" />
+			<%--</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="editItemRightCol">--%>
+			<h:inputText styleClass="editItemTextFieldMedium leftSpace10" value="#{identifier.id}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.identifierCollection.identifierManager.addObject}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.identifierCollection.identifierManager.removeObject}" rendered="#{EditItem.identifierCollection.identifierManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.identifierCollection.identifierManager.size < 2}"/>

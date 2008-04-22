@@ -101,9 +101,9 @@
 						<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 						<h:panelGroup layout="block" styleClass="editItemSingleCol">
 							<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblCreatorRole}"/>
-							<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
+							<h:selectOneRadio styleClass="editItemComboBoxShort" value="#{creatorBean.creator.roleString}">
 								<f:selectItems value="#{creatorBean.creatorRoles}"/>
-							</h:selectOneMenu>
+							</h:selectOneRadio>
 						</h:panelGroup>
 						
 						<%/* Creator's Person */%>
