@@ -40,39 +40,17 @@
 			</div>
 	</h2>
 	
-	<!-- Item version -->
+		<!-- Identifier -->
 <div class="itemElementLine floatbox">		
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblVersion}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.version.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
+		<h:outputText value="<#{ViewItemFull.pubItem.version.objectId}>"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
-	
-	<!-- Collection name -->
-<div class="itemElementLine floatbox">	
-	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.contextName}"/>
-	<h:outputText value="</div>" escape="false"/>
-</div>	
-	
-	<!--Affiliation -->
-<div class="itemElementLine floatbox">		
-	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblIsAffiliatedTo}"/>
-	<h:outputText value="</div>" escape="false"/>
-	
-	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.affiliations}"/>
-	<h:outputText value="</div>" escape="false"/>
-</div>		
-	
+
 	<!-- Date of last modification -->
 <div class="itemElementLine floatbox">	
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
@@ -83,7 +61,7 @@
 		<h:outputText value="#{ViewItemFull.modificationDate}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
-	
+
 	<!-- Item state -->
 <div class="itemElementLine floatbox">		
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
@@ -95,8 +73,85 @@
 		<h:outputText value="#{ViewItemFull.itemState}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
+
+	<!-- Collection name -->
+
+<div class="itemElementLine floatbox">	
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/>
+	<h:outputText value="</div>" escape="false"/>
 	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>	
+
+
+
+	
+	<!-- Item version -->
+<!--
+<div class="itemElementLine floatbox">		
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{ViewItemFull.pubItem.version.versionNumber}#{lbl.ViewItemFull_lblReleased} #{ViewItemFull.modificationDate}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>
+-->	
+	<!-- Collection name -->
+<!--
+<div class="itemElementLine floatbox">	
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.contextName}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>	
+-->	
+	<!--Affiliation -->
+<!--
+<div class="itemElementLine floatbox">		
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblIsAffiliatedTo}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.affiliations}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>		
+-->
+	<!-- Date of last modification -->
+<!--
+<div class="itemElementLine floatbox">	
+	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblLastModified}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputText value="#{ViewItemFull.modificationDate}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>
+-->	
+	<!-- Item state -->
+<!--
+<div class="itemElementLine floatbox">		
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/>
+	<h:outputText value="</div>" escape="false"/>
+	
+	<h:outputText value="<div class='itemText'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn == false}"/>
+	<h:outputText value="<div class='itemText withdrawn'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn}"/>
+		<h:outputText value="#{ViewItemFull.itemState}"/>
+	<h:outputText value="</div>" escape="false"/>
+</div>
+-->	
 	<!-- Identifier -->
+<!--
 <div class="itemElementLine floatbox">		
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>
@@ -106,5 +161,5 @@
 		<h:outputText value="#{ViewItemFull.pubItem.version.objectId}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
-	
+-->
 </f:subview>
