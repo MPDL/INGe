@@ -39,6 +39,7 @@
 		<h1 class="bottomSpace">
 			<h:outputText id="valOrientationText" value="#{lbl.ViewItemRevisions_Header} "/>
 			<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ViewRevision');return false"/>
 		</h1>
 		<div class="listHeader dark">
 			<h3>
