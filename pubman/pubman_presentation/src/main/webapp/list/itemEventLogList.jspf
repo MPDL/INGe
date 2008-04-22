@@ -33,40 +33,37 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 <div>
 	<f:subview id="list">
-		<div class="paginator">
-	
 			<table>
 
 				<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
-					<tr>
-						<td>
+				
+					<div class='listItem odd'>
+						<div class='itemTitle odd'>
 							<h:outputLink value="viewItemFullPage.jsp?itemId=#{eventEntry.versionHistoryVO.reference.objectId}" >
 								<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
 							</h:outputLink>
-						</td>
-						
-						
-						<td>
-							<h:panelGroup styleClass="listItemHeader">
+						</div>
+						<div class='itemText odd'>
 								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.date}"/>
-							</h:panelGroup>
-						</td>
+						</div>
+					</div>
 	
-					</tr>
-	
-					<tr>
-						<td><h:outputText value="#{lbl.ViewItemLog_lblComment}" /></td>
+					
+					<div class="listItem">
+						<div class='itemTitle'>
+							<h:outputText value="#{lbl.ViewItemLog_lblComment}" />
+						</div>
+						<div class='itemText'>
+							<h:outputText value="#{eventEntry.comment}" />
+						</div>
+					</div>
 						
-						<td><h:outputText value="#{eventEntry.comment}" /></td>
-						
-						
-					</tr>
+					
 				</tr:iterator>		
 			
 		
 		
 		</table>
 			
-		</div>
 	</f:subview>
 </div>

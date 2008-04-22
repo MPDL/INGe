@@ -445,6 +445,7 @@
 	width: 24px;
 	background-image:url("../images/media-playback-start1.png");
 	background-repeat:no-repeat;
+	background-color: #f5f5f5;
   }
   
   .easySubmissionsNextSection {
@@ -455,6 +456,7 @@
 	width: 24px;
 	background-image:url("../images/media-playback-start.png");
 	background-repeat:no-repeat;
+	background-color: #f5f5f5;
   }
   
   .deactivatedControl {
