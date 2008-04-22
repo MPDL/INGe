@@ -140,7 +140,7 @@
 }
 
 .exportFormatRadios label {
-	width: 130px;
+	width: 110px;
 }
 
 .exportFileTypeRadios label {
@@ -150,7 +150,23 @@
 .exportFileTypeRadios input, .exportFormatRadios input {
 	display: block;
 	height: 17px;
+	border: 0px;
 }
+
+.exportDownloadButton, .exportSendMailButton {
+	display: block;
+	overflow: hidden;
+	float: left;
+}
+
+.exportDownloadButton {
+	width: 80px;
+}
+
+.exportSendMailButton {
+	width: 45px;
+}
+
 
 /*LOGIN_ERROR*/
 

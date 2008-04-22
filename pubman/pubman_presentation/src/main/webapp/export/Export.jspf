@@ -80,13 +80,13 @@
 									 value="#{lbl.export_btDownload}"
 									 actionListener="#{SearchResultList.downloadExportFile}"
 									 disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}"
-									 styleClass="exportButton" />
+									 styleClass="exportButton exportDownloadButton" />
 				
 					<h:commandButton id="btnExportEMail"
 									 value="#{lbl.export_btEMail}"
 									 action="#{SearchResultList.showExportEmailPage}"
 									 disabled="#{!ExportItemsSessionBean.enableExport}"
-									 styleClass="exportButton" />
+									 styleClass="exportButton exportSendMailButton" />
 			
 				<h:commandButton action="#{ExportItems.updateExportFormats}" id="btnUpdateExportFormats" value="updateExportFormats"  style="visibility:hidden;"/>									
 </f:subview></div>
