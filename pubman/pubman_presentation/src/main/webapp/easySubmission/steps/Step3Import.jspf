@@ -54,10 +54,12 @@
 			<div class="easySubmissionBoxBodyContent">
 				<div>
 					<div class="easySubmissionBoxBodyLine">
-						<h:outputText value="<input type='radio' name='providedFormat' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectExternal&quot;);'" escape="false" />
+					<div class="trinidadRadiobuttonTable">
+						<h:outputText value="<input type='radio' name='providedFormat' id='easySubmission:easySubmissionStep3Import:eSubID' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectExternal&quot;);'" escape="false" />
 						<h:outputText value="checked='checked'" rendered="#{EasySubmission.disableBibtexFields}"/>
 						<h:outputText value="/>" escape="false"/>
-						<h:outputLabel value="#{lbl.easy_submission_lblProvideID}"/>
+						<h:outputLabel value="#{lbl.easy_submission_lblProvideID}" for="eSubID"/>
+					</div>
 					</div>
 					<div class="easySubmissionBoxBodySubLine">
 						<h:outputText value="#{lbl.easy_submission_lblYouCanFetch}"/>
@@ -77,10 +79,12 @@
 				</div>
 				<div>
 					<div class="easySubmissionBoxBodyLine">
-    					<h:outputText value="<input type='radio' name='providedFormat' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectBibtex&quot;);'" escape="false" />
+					<div class="trinidadRadiobuttonTable">
+    					<h:outputText value="<input type='radio' name='providedFormat' id='easySubmission:easySubmissionStep3Import:eSubBib' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectBibtex&quot;);'" escape="false" />
 						<h:outputText value="checked='checked'" rendered="#{EasySubmission.disableExternalFields}"/>
 						<h:outputText value="/>" escape="false"/>
-    					<h:outputLabel value="#{lbl.easy_submission_lblUploadBibtex}"/>
+    					<h:outputLabel value="#{lbl.easy_submission_lblUploadBibtex}" for="eSubBib"/>
+    				</div>
     				</div>
     				<div class="easySubmissionBoxBodySubLine">
     					<h:outputText value="#{lbl.easy_submission_lblImportReferences}"/>
