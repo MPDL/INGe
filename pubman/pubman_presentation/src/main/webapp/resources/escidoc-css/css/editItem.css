@@ -263,6 +263,10 @@ label{
 	top:10px;
 }
 
+.leftSpace10{
+	margin-left:10px;
+}
+
 .editItemTextFieldVeryShort {  
   width: 75px;
 }
@@ -306,6 +310,10 @@ label{
   color:black;
   font-family: Verdana; 
   font-variant: normal;
+}
+
+.redStar{
+	color:red;
 }
 
 .editItemBlockSubHeaders{
