@@ -32,9 +32,16 @@
 <f:loadBundle var="lbl" basename="Label"/>
 
 
-	<h:dataTable var="sourceBean" styleClass="fullWidth" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
+	<h:dataTable var="sourceBean" styleClass="" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
 		<h:column>
 		<%-- GENRE --%>
+		<h:panelGroup layout="block" styleClass="floatbox">
+		<h2>
+			<h:panelGroup layout="block" styleClass="icon sourceIcon"></h:panelGroup>
+			<h:panelGroup layout="block" id="lblSource" styleClass="editItemBlockHeaders">
+				<h:outputText value="#{lbl.EditItem_lblSource}" />
+			</h:panelGroup>
+		</h2>
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">								
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblGenre}"/>
@@ -46,8 +53,8 @@
 		<%-- Title --%>
 		<%/* The source embedded titleCollection */%>
 			
-				<h:panelGroup layout="block" styleClass="floatbox">
-					<h:panelGroup layout="block" styleClass="editItemLeftCol">
+				
+					<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
 					
@@ -59,13 +66,13 @@
 							action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
 						<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
 					</h:panelGroup>
-				</h:panelGroup>	
+				
 				
 				<%-- ALTERNATIVE TITLE --%>
 				<h:dataTable var="data" styleClass="fullWidth" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 					<h:column>					
-						<h:panelGroup layout="block" styleClass="floatbox">
-							<h:panelGroup layout="block" styleClass="editItemLeftCol">
+						<h:panelGroup layout="block" styleClass="">
+							<h:panelGroup layout="block" styleClass="editItemSingleCol">
 								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
 								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
 							
@@ -80,7 +87,7 @@
 					</h:column>
 				</h:dataTable>		
 			</h:panelGroup><%-- end editItemOuterBlockPanel --%>
-			
+		</h:panelGroup>
 			
 		
 		
@@ -190,7 +197,7 @@
 				</h:column>
 				
 		</h:dataTable>
-		</h:panelGroup>
+	</h:panelGroup>
 			<%-- END CREATOR --%>		
 					
 					
