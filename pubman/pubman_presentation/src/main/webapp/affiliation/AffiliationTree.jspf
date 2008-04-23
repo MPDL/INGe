@@ -48,7 +48,7 @@
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
 					<h:commandButton image="./images/info.gif" onclick="loadDesciption('#{node.description}','#{node.address},'#{node.telephone}','#{node.fax}','#{node.email}','#{node.homepageUrl}');return false"/>
-				</h:panelGroup>description, address, telephone, fax, email, homepageUrl
+				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
 		
