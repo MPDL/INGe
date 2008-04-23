@@ -34,8 +34,9 @@
 <div>
 	<f:subview id="CreateItem">
 		<div>
-			<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>	  
+			<h1 class="bottomSpace">
+				<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>
+				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#NewSubmission');return false"/>	  
 			</h1>
 
 			<jsp:directive.include file="../list/contextList.jspf"/>

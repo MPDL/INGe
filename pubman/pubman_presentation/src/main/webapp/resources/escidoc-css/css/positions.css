@@ -197,7 +197,12 @@ html > body fieldset{
 	padding-left: 6px;
 	margin-top: 0.2em;
 	text-align:left;
+	width: 75% !important;
  }
+
+html > body .itemText {
+	width: 77% !important;
+}
 
 .itemAffiliations {
 	position: relative;

@@ -30,8 +30,9 @@
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="ChooseCollection">
 		<div>
-			<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}"/>	 
+			<h1 class="bottomSpace">
+			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>	 
 			</h1>
 			<h2>
 				<h:outputText id="chooseCollection" value="#{lbl.CreateNewRevision_ChooseCollection}" />

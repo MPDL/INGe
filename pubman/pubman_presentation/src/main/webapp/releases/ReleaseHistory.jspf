@@ -36,9 +36,10 @@
 				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 			</h:outputLink>
 		</p>
-		<h1>
+		<h1 class="bottomSpace">
 		<h:outputText id="valOrientationText" value="#{lbl.ViewItemReleaseHistory_Header}"/>
 		<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
+		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ReleaseHistory');return false"/>
 		</h1>
 		<div class="listHeader dark">
 			<h3>

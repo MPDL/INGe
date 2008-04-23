@@ -67,17 +67,12 @@
 						</span>
 						</div>
 				<div id="col2">
-										<div class="contentActions">
-											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
-											<ul>
-												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ReleaseHistory');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
-											</ul>
-										</div>
-									</div>
-									<div id="col3">
-										<div class="content">
-				<jsp:directive.include file="releases/ReleaseHistory.jspf"/>
+					&#xa0;
 				</div>
+				<div id="col3">
+					<div class="content">
+				<jsp:directive.include file="releases/ReleaseHistory.jspf"/>
+					</div>
 				</div>
 		</div>
 		</h:form>
