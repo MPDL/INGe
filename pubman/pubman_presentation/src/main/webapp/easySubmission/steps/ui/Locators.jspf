@@ -36,6 +36,7 @@
 		<tr:iterator var="locator" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
     		
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
+    			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}"/></h3>
      				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
      					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
      					<tr:outputLabel value="#{locator.file.locator}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>		
