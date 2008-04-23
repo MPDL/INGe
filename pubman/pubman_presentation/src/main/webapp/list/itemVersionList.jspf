@@ -33,42 +33,40 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 <div>
 	<f:subview id="list">
-		<div class="paginator">
-		
-		
+
 		<table>
 			
 			
 			<tr:iterator value="#{ItemVersionListSessionBean.releaseList}" var="entry" varStatus="index">	
 				
-				<tr>
-					<td>
+				<div class='listItem odd'>
+					<div class='itemTitle odd'>
 						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.reference.objectId}" >
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
 						</h:outputLink>
-					</td>
+					</div>
 					
 					
-					<td>
-						<h:panelGroup styleClass="listItemHeader">
-							<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{entry.modificationDate}"/>
-						</h:panelGroup>
-					</td>
+					<div class='itemText odd'>
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{entry.modificationDate}"/>
+					</div>
 
-				</tr>
+				</div>
 
-				<tr>
-					<td><h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}" /></td>
+				<div class="listItem">
+					<div class='itemTitle'>
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}:" />
+					</div>
 					
-					<td><h:outputText value="#{entry.reference.lastMessage}" /></td>
+					<div class='itemText'>
+						<h:outputText value="#{entry.reference.lastMessage}" />
+					</div>
 					
 					
-				</tr>	
+				</div>	
 			</tr:iterator>	
 		
 		
 		</table>
-		
-		</div>
 	</f:subview>
 </div>
