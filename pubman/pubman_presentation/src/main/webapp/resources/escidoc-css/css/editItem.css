@@ -103,6 +103,11 @@ label{
 	margin-top:5px;
 }
 
+
+.editItemAddLink a{
+	font-size:10px;
+}
+
 .editItemAddLink input{
 	background-color:white;
 	border:none;
