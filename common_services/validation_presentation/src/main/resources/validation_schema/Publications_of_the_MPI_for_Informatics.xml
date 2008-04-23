@@ -71,7 +71,7 @@
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
-		<iso:active pattern="review_method_required"/>
+		<!--<iso:active pattern="review_method_required"/>-->
 	</iso:phase>
 
 	<iso:phase id="accept_item">
@@ -88,7 +88,7 @@
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
-		<iso:active pattern="review_method_required"/>
+		<!--<iso:active pattern="review_method_required"/>-->
 	</iso:phase>
 
 	<!-- Validation rules -->
