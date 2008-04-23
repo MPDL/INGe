@@ -48,7 +48,8 @@
 	<h:dataTable var="data" styleClass="fullWidth" value="#{EditItem.titleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 		<h:column>
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">
-				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAltTitle}" />
+				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAltTitle}"/>
+				
 				<%-- 
 				<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>		
 				--%>

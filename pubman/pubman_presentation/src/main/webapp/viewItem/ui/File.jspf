@@ -100,40 +100,31 @@
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
-			<!-- Visibility -->
-<div class="itemElementLine floatbox">	
-			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-				<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/>
-			<h:outputText value="</div>" escape="false"/>
 			
-			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{file.itemWithdrawn == true}"/>
-				<h:outputText value="#{file.visibility}" rendered="#{file.itemWithdrawn == false}"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{file.itemWithdrawn == true}"/>
-			<h:outputText value="</div>" escape="false"/>
-</div>
 
 			<!-- Fulltext Search Result -->
-<div class="itemElementLine floatbox">				
-			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/>
-			<h:outputText value="</div>" escape="false"/>
-			<tr:iterator var="hit" value="#{file.searchHits}">
-				<h:outputText value="<div class='itemText odd'>" escape="false"/>
-					<h:outputText value="<span class='item'>" escape="false"/>
-						<h:outputText value="<p>" escape="false"/>
-							<h:outputText value="<samp>" escape="false"/>
-								<h:outputText value="#{hit.beforeSearchHitString}"/>
-									<h:outputText value="<em>" escape="false"/>
-										<h:outputText value="#{hit.searchHitString}"/>
-									<h:outputText value="</em>" escape="false"/>
-								<h:outputText value="#{hit.afterSearchHitString}"/>
-							<h:outputText value="</samp>" escape="false"/>
-						<h:outputText value="</p>" escape="false"/>
-					<h:outputText value="</span>" escape="false"/>
+<h:panelGroup rendered="#{file.showSearchHits}">			
+	<div class="itemElementLine floatbox">				
+				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/>
 				<h:outputText value="</div>" escape="false"/>
-			</tr:iterator>
-</div>	
+				<tr:iterator var="hit" value="#{file.searchHits}">
+					<h:outputText value="<div class='itemText odd'>" escape="false"/>
+						<h:outputText value="<span class='item'>" escape="false"/>
+							<h:outputText value="<p>" escape="false"/>
+								<h:outputText value="<samp>" escape="false"/>
+									<h:outputText value="#{hit.beforeSearchHitString}"/>
+										<h:outputText value="<em>" escape="false"/>
+											<h:outputText value="#{hit.searchHitString}"/>
+										<h:outputText value="</em>" escape="false"/>
+									<h:outputText value="#{hit.afterSearchHitString}"/>
+								<h:outputText value="</samp>" escape="false"/>
+							<h:outputText value="</p>" escape="false"/>
+						<h:outputText value="</span>" escape="false"/>
+					<h:outputText value="</div>" escape="false"/>
+				</tr:iterator>
+	</div>
+</h:panelGroup>	
 	
 		</h:panelGroup>
 		<br/>

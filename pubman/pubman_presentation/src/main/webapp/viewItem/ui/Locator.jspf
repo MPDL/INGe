@@ -98,19 +98,7 @@
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
-			<!-- Visibility -->
-<div class="itemElementLine floatbox">	
-			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblLocatorVisibility}"/>
-			<h:outputText value="</div>" escape="false"/>
-			
-			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{locator.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{locator.itemWithdrawn == true}"/>
-				<h:outputText value="#{locator.visibility}" rendered="#{locator.itemWithdrawn == false}"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{locator.itemWithdrawn == true}"/>
-			<h:outputText value="</div>" escape="false"/>
-</div>
-	
+
 		</h:panelGroup>
 		<br/>
 		<br/>

@@ -93,7 +93,8 @@
 		<h:outputText value="</div>" escape="false"/>	
 		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
-			<h:outputText value="#{altTitle.value}"/>
+			<h:outputText value="#{altTitle.value}" rendered="#{altTitle.value != ''}"/>
+			<h:outputText value="&#160;" rendered="#{altTitle.value == ''}" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 </div>
