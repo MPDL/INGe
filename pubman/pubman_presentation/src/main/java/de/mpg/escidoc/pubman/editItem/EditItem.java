@@ -439,6 +439,9 @@ public class EditItem extends FacesBean
     			this.getPubItem().getFiles().add(this.getLocators().get(i).getFile());
     		}
     	}
+		// finally clean the session bean
+		this.getEditItemSessionBean().getFiles().clear();
+		this.getEditItemSessionBean().getLocators().clear();
     }
     
     /**
