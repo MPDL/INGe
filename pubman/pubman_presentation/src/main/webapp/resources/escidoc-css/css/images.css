@@ -113,11 +113,11 @@
 }
 
 .itemIcon{
-	width:30px;
-	height:30px;
+	width:33px;
+	height:33px;
 	margin-right: 10px;
 	float:left;
-	background-image:url("../images/item.gif");
+	background-image:url("../images/PM_sm_h1_32.gif");
 	background-repeat:no-repeat;
 }
 
@@ -138,7 +138,7 @@
 }
 
 .datesIcon{	
-	background-image:url("../images/PM_SM_h2_event_22.gif");
+	background-image:url("../images/PM_SM_h2_publication_22.gif");
 	background-repeat:no-repeat;
 	
 }
