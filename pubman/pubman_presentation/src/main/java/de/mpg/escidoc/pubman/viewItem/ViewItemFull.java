@@ -86,6 +86,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -121,6 +122,8 @@ public class ViewItemFull extends FacesBean
     private UIXIterator titleIterator = new UIXIterator();
     
     private UIXIterator creatorPersonsIterator = new UIXIterator();
+    
+    private UIXIterator creatorOrganizationsIterator = new UIXIterator();
     
     private UIXIterator creatorAffiliationsIterator = new UIXIterator();
     
@@ -176,6 +179,9 @@ public class ViewItemFull extends FacesBean
     private List<FileBean> locatorList = new ArrayList<FileBean>();
     private LoginHelper loginHelper;
     
+    /**The url used for the citation*/
+    private String citationURL;
+   
     /**
      * Public constructor.
      */
@@ -233,6 +239,19 @@ public class ViewItemFull extends FacesBean
         
         if(this.pubItem != null)
         {
+            //set citation url
+            try
+            {
+                String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+                citationURL = pubmanUrl + "viewItemFullPage.jsp?itemId=" + getPubItem().getVersion().getObjectIdAndVersion();
+                
+            }
+            catch (IOException e)
+            {
+                e.printStackTrace();
+                citationURL = "";
+            }
+            
             loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
@@ -1378,6 +1397,13 @@ public class ViewItemFull extends FacesBean
 		return itemState;
     }
 
+	
+	public String getCitationURL()
+	{
+	   return citationURL;
+	    
+	}
+	
 	public ArrayList<String> getOrganizationArray() {
 		return organizationArray;
 	}
@@ -1550,6 +1576,21 @@ public class ViewItemFull extends FacesBean
 	public void setLocatorIterator(UIXIterator locatorIterator) {
 		this.locatorIterator = locatorIterator;
 	}
+
+    public UIXIterator getCreatorOrganizationsIterator()
+    {
+        return creatorOrganizationsIterator;
+    }
+
+    public void setCreatorOrganizationsIterator(UIXIterator creatorOrganizationsIterator)
+    {
+        this.creatorOrganizationsIterator = creatorOrganizationsIterator;
+    }
+
+    public void setCitationURL(String citationURL)
+    {
+        this.citationURL = citationURL;
+    }
 
 	
 	

@@ -98,11 +98,16 @@
 </div>
 		
 		<!-- Invited -->
+<h:panelGroup rendered="#{ViewItemFull.invited}">
 <div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-			<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}" rendered="#{ViewItemFull.invited}"/>
+			<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}"/>
+		<h:outputText value="</div>" escape="false"/>
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+			<h:graphicImage url="../images/haken.gif"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
+</h:panelGroup>
 		
 	</h:panelGroup>	
 		

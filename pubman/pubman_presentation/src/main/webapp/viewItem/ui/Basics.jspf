@@ -78,8 +78,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.pid}"/>
-		<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.pid == null || ViewItemFull.pubItem.pid == ''}"/>
+		<h:outputText value="#{ViewItemFull.citationURL}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>	
 
@@ -114,7 +113,25 @@
 			<h:outputText value="#{creatorPerson}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
-		<h:outputText value="<div class='itemText odd'>&#160;</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0}" escape="false"/>
+		
+	
+	<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" binding="#{ViewItemFull.creatorOrganizationsIterator}" varStatus="index">
+		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{ViewItemFull.creatorOrganizationsIterator.rowIndex > 0 || ViewItemFull.creatorPersonsIterator.rowCount > 0}"/>
+			<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorOrganizationsIterator.rowIndex > 0  || ViewItemFull.creatorPersonsIterator.rowCount > 0}" escape="false"/>
+		<h:outputText value="</div>" escape="false" rendered="#{ViewItemFull.creatorOrganizationsIterator.rowIndex > 0  || ViewItemFull.creatorPersonsIterator.rowCount > 0}"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.creatorOrganizationsIterator.rowIndex%2)*2==ViewItemFull.creatorOrganizationsIterator.rowIndex}"/>
+		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.creatorOrganizationsIterator.rowIndex%2)*2 != ViewItemFull.creatorOrganizationsIterator.rowIndex}"/>
+			<h:outputText value="#{creatorOrganization.organizationName}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</tr:iterator>
+	
+	<h:outputText value="<div class='itemText odd'>&#160;</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0 && ViewItemFull.creatorOrganizationsIterator.rowCount == 0}" escape="false"/>
+
+
+
+
+
 </div>
 	
 	<!-- Affiliated Organizations -->
