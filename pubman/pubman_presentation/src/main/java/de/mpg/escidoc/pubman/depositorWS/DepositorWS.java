@@ -516,7 +516,20 @@ public class DepositorWS extends ItemList
 
     public SelectItem[] getITEMSTATE_OPTIONS()
     {
-        return this.getApplicationBean().getSelectItemsItemState();
+    	SelectItem[] allItemStates = this.getApplicationBean().getSelectItemsItemState();
+    	SelectItem[] cleanedItemStates = new SelectItem[allItemStates.length-1];
+    	// remove state 'in revision' if it is in the list
+    	if(allItemStates != null)
+    	{
+    		for(int i = 0; i < allItemStates.length; i++)
+    		{
+    			if(!allItemStates[i].getValue().equals(PubItemVO.State.IN_REVISION.name()))
+    			{
+    				cleanedItemStates[i] = allItemStates[i];
+    			}
+    		}
+    	}
+    	return cleanedItemStates;
     }
 
     public HtmlOutputLink getLnkDelete()
