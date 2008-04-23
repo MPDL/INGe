@@ -62,6 +62,10 @@ public abstract class BreadcrumbPage extends FacesBean
                 .createValueExpression(FacesContext.getCurrentInstance().getELContext(), "#{BreadcrumbItemHistoryRequestBean.navigation}", List.class);
             bcComponent.setValueExpression("value", value);
         }
+        else
+        {
+        	logger.warn("Breadcrumb navigation not found.");
+        }
     }
 
     public String getPreviousPageURI()

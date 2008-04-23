@@ -3,11 +3,14 @@ package de.mpg.escidoc.pubman.editItem.bean;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Bean to handle the CreatorCollection on a single jsp.
@@ -17,6 +20,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class CreatorCollection
 {
+	private static Logger logger = Logger.getLogger(CreatorCollection.class);
+	
 	private List<CreatorVO> parentVO;
 	private CreatorManager creatorManager;
 	
@@ -62,6 +67,7 @@ public class CreatorCollection
 			newVO.setPerson(new PersonVO());
             // create a new Organization for this person
             OrganizationVO newPersonOrganization = new OrganizationVO();
+
             newPersonOrganization.setName(new TextVO());
             newVO.getPerson().getOrganizations().add(newPersonOrganization);
 

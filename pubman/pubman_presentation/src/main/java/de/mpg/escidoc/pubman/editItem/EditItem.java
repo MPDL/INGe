@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.pubman.editItem;
 
-import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -45,7 +44,6 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -65,7 +63,6 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
-import de.mpg.escidoc.pubman.editItem.bean.ContentLanguageCollection;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
@@ -73,6 +70,7 @@ import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.ListItem;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
@@ -87,6 +85,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -138,11 +137,12 @@ public class EditItem extends FacesBean
     private TitleCollection titleCollection;
     private TitleCollection eventTitleCollection;
     private ContentAbstractCollection contentAbstractCollection;
-    private ContentLanguageCollection contentLanguageCollection;
     private CreatorCollection creatorCollection;
     private IdentifierCollection identifierCollection;
     private SourceCollection sourceCollection;
 
+    private List<ListItem> languages = null;
+    
     private UploadedFile uploadedFile;
     
     private CoreTable fileTable = new CoreTable();
@@ -191,7 +191,6 @@ public class EditItem extends FacesBean
         titleCollection = new TitleCollection(this.getPubItem().getMetadata());
         eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
         contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
-        contentLanguageCollection = new ContentLanguageCollection(this.getPubItem().getMetadata().getLanguages());
         creatorCollection = new CreatorCollection(this.getPubItem().getMetadata().getCreators());
         identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
         sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
@@ -281,6 +280,7 @@ public class EditItem extends FacesBean
                 {
                     // create a new Organization for this person
                     OrganizationVO newPersonOrganization = new OrganizationVO();
+                    
                     newPersonOrganization.setName(new TextVO());
                     creatorVO.getPerson().getOrganizations().add(newPersonOrganization);
                 }
@@ -289,7 +289,7 @@ public class EditItem extends FacesBean
             // add ContentLanguage if needed to be able to bind uiComponents to it
             if (pubItem.getMetadata().getLanguages().size() == 0)
             {
-                pubItem.getMetadata().getLanguages().add(new String());
+                pubItem.getMetadata().getLanguages().add("");
             }
 
             // add Event if needed to be able to bind uiComponents to it
@@ -489,7 +489,52 @@ public class EditItem extends FacesBean
         return ctransforming.transformUploadResponseToFileURL(response);        
     }
 
-    /**
+    public String addLanguage()
+    {
+    	getPubItem().getMetadata().getLanguages().add("");
+    	return null;
+    }
+
+    public String removeLanguage()
+    {
+    	getPubItem().getMetadata().getLanguages().remove(getPubItem().getMetadata().getLanguages().size() - 1);
+    	return null;
+    }
+    
+    public boolean getRenderRemoveLanguage()
+    {
+    	return (getPubItem().getMetadata().getLanguages().size() > 1);
+    }
+
+    public List<ListItem> getLanguages()
+    {
+    	if (languages == null)
+    	{
+    		languages = new ArrayList<ListItem>();
+    		if (getPubItem().getMetadata().getLanguages().size() == 0)
+    		{
+    			getPubItem().getMetadata().getLanguages().add("");
+    		}
+    		int counter = 0;
+    		for (Iterator<String> iterator = getPubItem().getMetadata().getLanguages().iterator(); iterator.hasNext();) {
+    			String value = (String) iterator.next();
+    			ListItem item = new ListItem();
+    			item.setValue(value);
+    			item.setIndex(counter++);
+    			item.setStringList(getPubItem().getMetadata().getLanguages());
+    			item.setItemList(languages);
+    			languages.add(item);
+    		}
+    	}
+    	return languages;
+    }
+    
+	public SelectItem[] getLanguageOptions()
+    {
+    	return CommonUtils.getLanguageOptions();
+    }
+	
+	/**
      * Validates the item.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
@@ -1253,11 +1298,6 @@ public class EditItem extends FacesBean
         this.lnkSaveAndSubmit = lnkSaveAndSubmit;
     }
 
-    public SelectItem[] getLanguages()
-    {
-        return CommonUtils.getLanguageOptions();
-    }
-
     public TitleCollection getEventTitleCollection()
     {
         return eventTitleCollection;
@@ -1286,16 +1326,6 @@ public class EditItem extends FacesBean
     public void setContentAbstractCollection(ContentAbstractCollection contentAbstractCollection)
     {
         this.contentAbstractCollection = contentAbstractCollection;
-    }
-
-    public ContentLanguageCollection getContentLanguageCollection()
-    {
-        return contentLanguageCollection;
-    }
-
-    public void setContentLanguageCollection(ContentLanguageCollection contentLanguageCollection)
-    {
-        this.contentLanguageCollection = contentLanguageCollection;
     }
 
     public CreatorCollection getCreatorCollection()
@@ -1389,6 +1419,5 @@ public class EditItem extends FacesBean
 		}
 		return locatorNumber;
 	}
-	
-    
+
 }

@@ -6,6 +6,8 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
@@ -15,6 +17,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation.
@@ -24,6 +27,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
  */
 public class CreatorBean extends FacesBean
 {
+	private static Logger logger = Logger.getLogger(CreatorBean.class);
+	
     private CreatorVO creator;
     private PersonOrganisationManager personOrganisationManager;
 
@@ -62,7 +67,7 @@ public class CreatorBean extends FacesBean
             {
                 // create a new Organization for this person
                 OrganizationVO newPersonOrganization = new OrganizationVO();
-                newPersonOrganization.setName(new TextVO());
+                newPersonOrganization.setName(new TextVO());                
                 creator.getPerson().getOrganizations().add(newPersonOrganization);
             }
         }
@@ -72,6 +77,7 @@ public class CreatorBean extends FacesBean
             {
                 OrganizationVO newOrga = new OrganizationVO();
                 newOrga.setName(new TextVO());
+                
                 creator.setOrganization(newOrga);
             }
             if (creator.getOrganization() != null && creator.getOrganization().getName() == null)
@@ -210,6 +216,7 @@ public class CreatorBean extends FacesBean
         public OrganizationVO createNewObject()
         {
             OrganizationVO newOrga = new OrganizationVO();
+ 
             newOrga.setName(new TextVO());
             return newOrga;
         }

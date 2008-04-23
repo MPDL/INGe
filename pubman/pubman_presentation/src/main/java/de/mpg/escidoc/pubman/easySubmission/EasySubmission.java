@@ -44,7 +44,6 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -73,6 +72,9 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.validation.ItemValidating;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
+import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**
  * Fragment class for the easy submission. This class provides all functionality for editing, saving and submitting a
@@ -91,6 +93,9 @@ public class EasySubmission extends FacesBean
     
     // XML Transforming Service
     private XmlTransforming xmlTransforming = null;
+    
+    // Validation Service
+    private ItemValidating itemValidating = null;
     
     private HtmlSelectOneRadio radioSelect;
     
@@ -148,6 +153,7 @@ public class EasySubmission extends FacesBean
             InitialContext initialContext = new InitialContext();
             this.mdHandler = (MetadataHandler) initialContext.lookup(MetadataHandler.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
         }
         catch (NamingException ne)
         {
@@ -604,6 +610,31 @@ public class EasySubmission extends FacesBean
     	{
     		mapSelectedDate();
     	}
+    	
+    	// validate
+    	try
+    	{
+    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_3");
+    		if (!report.isValid())
+    		{
+    			for (ValidationReportItemVO item : report.getItems()) {
+					if (item.isRestrictive())
+					{
+						error(getMessage(item.getContent()));
+					}
+					else
+					{
+						warn(getMessage(item.getContent()));
+					}
+				}
+    			return null;
+    		}
+    		
+    	}
+    	catch (Exception e) {
+			logger.error("Validation error", e);
+		}
+    	
     	this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP4);
     	this.init();
     	return "loadNewEasySubmission";
@@ -611,14 +642,65 @@ public class EasySubmission extends FacesBean
     
     public String loadStep5Manual()
     {
+    	// validate
+    	try
+    	{
+    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_4");
+    		if (!report.isValid())
+    		{
+    			for (ValidationReportItemVO item : report.getItems()) {
+					if (item.isRestrictive())
+					{
+						error(getMessage(item.getContent()));
+					}
+					else
+					{
+						warn(getMessage(item.getContent()));
+					}
+				}
+    			return null;
+    		}
+    		
+    	}
+    	catch (Exception e) {
+			logger.error("Validation error", e);
+		}
+
     	this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
     	return "loadNewEasySubmission";
     }
     
     public String loadPreview()
     {
+
+    	// Map entered date to entered type
     	mapSelectedDate();
     	//TODO: source genre erzeugen!
+
+    	// validate
+    	try
+    	{
+    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_5");
+    		if (!report.isValid())
+    		{
+    			for (ValidationReportItemVO item : report.getItems()) {
+					if (item.isRestrictive())
+					{
+						error(getMessage(item.getContent()));
+					}
+					else
+					{
+						warn(getMessage(item.getContent()));
+					}
+				}
+    			return null;
+    		}
+    		
+    	}
+    	catch (Exception e) {
+			logger.error("Validation error", e);
+		}
+
     	// put the item in the EasySubmissionSessionBean into the ItemControllerSessionBean and load the EditItemPage as preview
     	//this.getItemControllerSessionBean().setCurrentPubItem(this.getEasySubmissionSessionBean().getCurrentItem());
     	return "loadEditItem";

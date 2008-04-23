@@ -82,6 +82,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
      */
     protected void prerender()
     {
+    	logger.debug("prerender");
     }
 
     /**

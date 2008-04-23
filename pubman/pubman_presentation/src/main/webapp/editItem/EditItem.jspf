@@ -312,10 +312,23 @@
 		</h2>
 			
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+		
+			<br/>
 			<%-- LANG --%>
-			<h:panelGroup layout="block">
-				<jsp:directive.include file="ui/ContentLanguageCollection.jspf"/>
-			</h:panelGroup>		
+			<h:dataTable var="language" id="lgTable" styleClass="fullWidth" value="#{EditItem.languages}" rowClasses="list-row-even, list-row-odd">
+				<h:column>
+					<h:panelGroup layout="block" styleClass="editItemSingleCol">
+						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
+						<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{language.value}" id="selectContentLanguage" valueChangeListener="#{language.valueChanged}">
+							<f:selectItems value="#{EditItem.languageOptions}"/>
+						</h:selectOneMenu>
+					
+						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{language.addItem}" />
+						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{language.removeItem}" rendered="#{language.moreThanOne}"/>
+						<h:outputText value=" " rendered="#{!language.moreThanOne}"/>
+					</h:panelGroup>
+				</h:column>
+			</h:dataTable>
 			<%-- SUBJECT --%>
 			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">			

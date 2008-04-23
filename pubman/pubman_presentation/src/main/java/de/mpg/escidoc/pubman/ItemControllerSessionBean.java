@@ -71,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -105,8 +106,6 @@ public class ItemControllerSessionBean extends FacesBean
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
     private PubContextVO currentContext = null;
-
-    public static final String SUPER_USER_NAME = "Shibboleth-Handle-1";
 
     /**
      * Public constructor, initializing used Beans.
@@ -609,7 +608,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (logger.isDebugEnabled())
         {
-            if (pubItem != null && pubItem.getVersion() != null)
+            if (pubItem != null && pubItem.getVersion() != null && pubItem.getVersion().getObjectId() != null)
             {
                 logger.debug("Saving PubItem: " + pubItem.getVersion().getObjectId());
             }
@@ -1006,7 +1005,7 @@ public class ItemControllerSessionBean extends FacesBean
                         }                
                     }
 
-                    // delete unfilled creators
+                    // delete unfilled source creators
                     if (pubItem.getMetadata().getSources().get(i).getCreators() != null)
                     {
                         for (int j = 0; j < pubItem.getMetadata().getSources().get(i).getCreators().size(); j++)
@@ -1072,6 +1071,55 @@ public class ItemControllerSessionBean extends FacesBean
                 }
             }
         }
+        
+        
+        // assign the external org id to default organisation
+        try
+        {
+        	for (CreatorVO creator : pubItem.getMetadata().getCreators()) {
+				if (creator.getPerson() != null)
+				{
+					for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
+						if (organization.getIdentifier() == null)
+						{
+							organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+						}
+					}
+				}
+				else
+				{
+					if (creator.getOrganization() != null && creator.getOrganization().getIdentifier() == null)
+					{
+						creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+					}
+				}
+			}
+        	for (SourceVO source : pubItem.getMetadata().getSources()) {
+	        	for (CreatorVO creator : source.getCreators()) {
+					if (creator.getPerson() != null)
+					{
+						for (OrganizationVO organization : creator.getPerson().getOrganizations()) {
+							if (organization.getIdentifier() == null)
+							{
+								organization.setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+							}
+						}
+					}
+					else
+					{
+						if (creator.getOrganization() != null && creator.getOrganization().getIdentifier() == null)
+						{
+							creator.getOrganization().setIdentifier(PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+						}
+					}
+				}
+        	}
+        }
+        catch (Exception e) {
+			logger.error("Error getting external org id", e);
+		}
+
+        
     }
 
     /**
@@ -1805,7 +1853,7 @@ public class ItemControllerSessionBean extends FacesBean
         else
         {
             // TODO ScT: retrieve as super user (workaround for not logged in users until the framework changes this retrieve method for unauthorized users)
-            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(ItemControllerSessionBean.SUPER_USER_NAME, pubItemVO.getVersion()));
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
         }
             
         List<ItemRO> itemRefs = new ArrayList<ItemRO>();
