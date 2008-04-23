@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
@@ -58,6 +58,11 @@ function loadHelp(url, anchor)
 {
 	// use the h:output tag to output the bean property
 	openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+}
+
+function loadDescription(description, address, telephone, fax, email, homepageUrl)
+{
+	openCenteredWindow( "", 600, 400, "Organisation Description");
 }
 
 function openCenteredWindow(page, width, height, windowName)
@@ -150,7 +155,7 @@ function showCollectionDescription()
 
 /**
  * Allow only numbers, "-" and "v" and "c" (for copy and pasting with strg-c and strg-v) for dte fields.
- * @author Thomas Diebäcker
+ * @author Thomas Diebï¿½cker
  */
 function restrictDateEntry(e)
 {							
