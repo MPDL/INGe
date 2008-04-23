@@ -42,7 +42,9 @@
 		
 		<h2>
 			<div class="plaindocIcon"></div><div id="valItemStatisitics" class="viewItemTopHeader">
-			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" /></div>
+			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" />
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ItemStatistics');return false"/>
+			</div>
 		</h2>
 		</div>
 		
