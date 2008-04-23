@@ -28,7 +28,9 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-
+.sourceCreator{
+	
+}
 
 /* HEADERS */
 
@@ -64,7 +66,7 @@ label{
  	margin-left: 10px;
  	margin-bottom:10px;
  	margin-top:10px;
-	width:600px;
+	width:610px;
  	padding-left:10px;
  	padding-right:10px;
  	padding_bottom:10px;
@@ -82,7 +84,7 @@ label{
 	padding: 10px;  	
 	border:1px solid #DDDDDD;
 	background-color:#F3F3F3;
-		
+	float:left;	
 }
 
 .radioLbl tr td *{
@@ -254,9 +256,12 @@ label{
 	padding-top:10px;
 	padding-bottom:10px;
 	padding-right:5px;
-	width:680px;
+	width:560px;
 }
 
+.noFloat{
+	float:none !important;
+}
 
 .editItemOuterBlockPanel span{
 	color:black;
