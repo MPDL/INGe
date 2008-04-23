@@ -91,7 +91,7 @@ All rights reserved. Use is subject to license terms.
 				<h:column>
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
-							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}"/>
+							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{ItemListSessionBean.isSearchResultList == 'true'}"/>
 							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.version.objectId}:#{item.version.versionNumber}" >
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
