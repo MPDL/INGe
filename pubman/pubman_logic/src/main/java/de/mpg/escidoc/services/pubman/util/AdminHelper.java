@@ -42,6 +42,7 @@ import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -125,7 +126,7 @@ public class AdminHelper
         {
             try
             {
-                adminUserHandle = loginUser("roland", "Shibboleth-Handle-1");
+                adminUserHandle = loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
             }
             catch (Exception e)
             {
