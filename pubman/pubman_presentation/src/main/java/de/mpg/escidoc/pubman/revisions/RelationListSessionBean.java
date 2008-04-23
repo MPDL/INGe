@@ -100,4 +100,14 @@ public class RelationListSessionBean extends FacesBean
     {
         this.revisionDescription = revisionDescription;
     }
+    
+    public boolean getShowRelations()
+    {
+        boolean showRelations = false;
+        if(this.relationList != null && this.relationList.size() > 0)
+        {
+            showRelations = true;
+        }
+        return showRelations;
+    }
 }
