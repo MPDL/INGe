@@ -35,6 +35,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
@@ -59,6 +60,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.MetadataHandler;
@@ -168,7 +170,7 @@ public class EasySubmission extends FacesBean
     	// if the user has reached Step 3, an item has already been created and must be set in the EasySubmissionSessionBean for further manipulation
     	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
     	{
-    		this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem());
+    		//this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem());
     		//bindFiles();
     		if(this.getEasySubmissionSessionBean().getFiles() == null)
     		{
@@ -238,6 +240,7 @@ public class EasySubmission extends FacesBean
     	//clean the EasySubmissionSessionBean
     	easySubmissionSessionBean.getFiles().clear();
     	easySubmissionSessionBean.getLocators().clear();
+    	easySubmissionSessionBean.setSelectedDate("");
     	
     	// deselect the  selected context
     	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
@@ -303,11 +306,19 @@ public class EasySubmission extends FacesBean
      */
     private void bindUploadedFiles()
     {
+    	this.getItem().getFiles().clear();
     	if(this.getFiles() != null && this.getFiles().size() > 0)
     	{
     		for(int i = 0; i < this.getFiles().size(); i++)
     		{
-    			this.getItem().getFiles().set(i, this.getFiles().get(i).getFile());
+    			this.getItem().getFiles().add(this.getFiles().get(i).getFile());
+    		}
+    	}
+    	if(this.getLocators() != null && this.getLocators().size() > 0)
+    	{
+    		for(int i = 0; i < this.getLocators().size(); i++)
+    		{
+    			this.getItem().getFiles().add(this.getLocators().get(i).getFile());
     		}
     	}
     }
@@ -576,16 +587,22 @@ public class EasySubmission extends FacesBean
     public String loadStep4Manual()
     {
     	// save the files and locators in the item in the EasySubmissionSessionBean
-    	this.getEasySubmissionSessionBean().getCurrentItem().getFiles().clear();
+    	this.getItemControllerSessionBean().getCurrentPubItem().getFiles().clear();
     	// first add the files
     	for(int i = 0; i < this.getEasySubmissionSessionBean().getFiles().size(); i++)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getFiles().add(this.getEasySubmissionSessionBean().getFiles().get(i).getFile());
+    		this.getItemControllerSessionBean().getCurrentPubItem().getFiles().add(this.getEasySubmissionSessionBean().getFiles().get(i).getFile());
     	}
     	// then add the locators
     	for(int i = 0; i < this.getEasySubmissionSessionBean().getLocators().size(); i++)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getFiles().add(this.getEasySubmissionSessionBean().getLocators().get(i).getFile());
+    		this.getItemControllerSessionBean().getCurrentPubItem().getFiles().add(this.getEasySubmissionSessionBean().getLocators().get(i).getFile());
+    	}
+    	
+    	// additionally map the dates if the user comes from  Step5
+    	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP5))
+    	{
+    		mapSelectedDate();
     	}
     	this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP4);
     	this.init();
@@ -601,8 +618,9 @@ public class EasySubmission extends FacesBean
     public String loadPreview()
     {
     	mapSelectedDate();
+    	//TODO: source genre erzeugen!
     	// put the item in the EasySubmissionSessionBean into the ItemControllerSessionBean and load the EditItemPage as preview
-    	this.getItemControllerSessionBean().setCurrentPubItem(this.getEasySubmissionSessionBean().getCurrentItem());
+    	//this.getItemControllerSessionBean().setCurrentPubItem(this.getEasySubmissionSessionBean().getCurrentItem());
     	return "loadEditItem";
     }
     
@@ -612,30 +630,38 @@ public class EasySubmission extends FacesBean
     private void mapSelectedDate()
     {
     	String selectedDateType = CommonUtils.getUIValue(this.dateSelect);
+    	
+    	// first delete all previously entered dates
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateCreated("");
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateSubmitted("");
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateAccepted("");
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDatePublishedOnline("");
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateModified("");
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDatePublishedInPrint("");
     	// map the selected date type to the referring metadata property
     	if(selectedDateType.equals("DATE_CREATED"))
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDateCreated(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateCreated(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     	else if(selectedDateType.equals("DATE_SUBMITTED"))
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDateSubmitted(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateSubmitted(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     	else if(selectedDateType.equals("DATE_ACCEPTED"))
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDateAccepted(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateAccepted(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     	else if(selectedDateType.equals("DATE_PUBLISHED_ONLINE"))
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDatePublishedOnline(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDatePublishedOnline(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     	else if(selectedDateType.equals("DATE_MODIFIED"))
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDateModified(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDateModified(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     	else
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setDatePublishedInPrint(this.selectedDate);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setDatePublishedInPrint(this.getEasySubmissionSessionBean().getSelectedDate());
     	}
     }
     
@@ -766,12 +792,20 @@ public class EasySubmission extends FacesBean
 		this.radioSelect = radioSelect;
 	}
 
-	public PubItemVO getItem() {
+	/*public PubItemVO getItem() {
 		return this.getEasySubmissionSessionBean().getCurrentItem();
 	}
 
 	public void setItem(PubItemVO item) {
 		this.getEasySubmissionSessionBean().setCurrentItem(item);
+	}*/
+	
+	public PubItemVO getItem() {
+		return this.getItemControllerSessionBean().getCurrentPubItem();
+	}
+
+	public void setItem(PubItemVO item) {
+		this.getItemControllerSessionBean().setCurrentPubItem(item);
 	}
 	
 	public List<PubFileVOPresentation> getFiles() {
@@ -897,19 +931,19 @@ public class EasySubmission extends FacesBean
      */
     public String getPublicationLanguage()
     {
-    	return this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().get(0);
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLanguages().get(0);
     }
     
     public void setPublicationLanguage(String language)
     {
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().clear();
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLanguages().clear();
     	if (language != null)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().add(language);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLanguages().add(language);
     	}
     	else
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getLanguages().add("");
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getLanguages().add("");
     	}
     }
     
@@ -919,38 +953,38 @@ public class EasySubmission extends FacesBean
      */
     public String getAbstract()
     {
-    	if(this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts() == null || this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts().size() < 1)
+    	if(this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts() == null || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().size() < 1)
     	{
     		TextVO newAbstract = new TextVO();
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts().add(newAbstract);
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().add(newAbstract);
     	}
-    	return this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts().get(0).getValue();
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().get(0).getValue();
     }
     
     public void setAbstract(String publicationAbstract)
     {
     	TextVO newAbstract = new TextVO();
     	newAbstract.setValue(publicationAbstract);
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts().clear();
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getAbstracts().add(newAbstract);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().clear();
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getAbstracts().add(newAbstract);
     }
     
     public String getSubject()
     {
-    	if(this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSubject() == null)
+    	if(this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject() == null)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setSubject(new TextVO());
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setSubject(new TextVO());
     	}
-    	return this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSubject().getValue();
+    	return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject().getValue();
     }
     
     public void setSubject(String publicationSubject)
     {
-    	if(this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSubject() == null)
+    	if(this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject() == null)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().setSubject(new TextVO());
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().setSubject(new TextVO());
     	}
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSubject().setValue(publicationSubject);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSubject().setValue(publicationSubject);
     }
     
     /**
@@ -1030,19 +1064,53 @@ public class EasySubmission extends FacesBean
     public String getSourceTitle()
     {
     	String sourceTitle = "";
-    	if(this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSources() == null || this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSources().size() < 1)
+    	if(this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources() == null || this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().size() < 1)
     	{
-    		this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSources().add(new SourceVO());
+    		this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().add(new SourceVO());
     	}
     	// return the title value oif the first source 
-    	sourceTitle = this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSources().get(0).getTitle().getValue();
+    	sourceTitle = this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getTitle().getValue();
     	return sourceTitle;
     }
     
     public void setSourceTitle(String title)
     {
-    	this.getEasySubmissionSessionBean().getCurrentItem().getMetadata().getSources().get(0).getTitle().setValue(title);
+    	this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getTitle().setValue(title);
     }
     
+    /**
+	 * localized creation of SelectItems for the source genres available
+	 * @return SelectItem[] with Strings representing source genres
+	 */
+	public SelectItem[] getSourceGenreOptions()
+	{
+	    InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
+	    ResourceBundle bundleLabel = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+
+	    SelectItem NO_ITEM_SET = new SelectItem("", bundleLabel.getString("EditItem_NO_ITEM_SET"));
+	    SelectItem GENRE_BOOK = new SelectItem(SourceVO.Genre.BOOK, bundleLabel.getString("ENUM_GENRE_BOOK"));
+	    SelectItem GENRE_ISSUE = new SelectItem(SourceVO.Genre.ISSUE, bundleLabel.getString("ENUM_GENRE_ISSUE"));
+	    SelectItem GENRE_JOURNAL = new SelectItem(SourceVO.Genre.JOURNAL, bundleLabel.getString("ENUM_GENRE_JOURNAL"));
+	    SelectItem GENRE_PROCEEDINGS = new SelectItem(SourceVO.Genre.PROCEEDINGS, bundleLabel.getString("ENUM_GENRE_PROCEEDINGS"));
+	    SelectItem GENRE_SERIES = new SelectItem(SourceVO.Genre.SERIES, bundleLabel.getString("ENUM_GENRE_SERIES"));
+	    return new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES };
+	}
+	
+    public SourceVO getSource()
+    {
+    	SourceVO source = null; 
+    	if(this.getItem().getMetadata().getSources() != null && this.getItem().getMetadata().getSources().size() > 0)
+    	{
+    		source = this.getItem().getMetadata().getSources().get(0);
+    	}
+    	return source; 
+    }
     
+    public void setSource(SourceVO source)
+    {
+    	if(this.getItem().getMetadata().getSources() != null && this.getItem().getMetadata().getSources().size() > 0)
+    	{
+    		this.getItem().getMetadata().getSources().set(0, source);
+    	}
+    }
 }

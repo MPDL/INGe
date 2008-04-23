@@ -85,11 +85,13 @@ public class EasySubmissionSessionBean extends FacesBean
     
     private PubContextVO context;
     
-    private PubItemVO currentItem;
+    //private PubItemVO currentItem;
     
     private List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
+    
+    private String selectedDate;
 
      
     /**
@@ -132,14 +134,14 @@ public class EasySubmissionSessionBean extends FacesBean
 	}
 
 
-	public PubItemVO getCurrentItem() {
+	/*public PubItemVO getCurrentItem() {
 		return currentItem;
 	}
 
 
 	public void setCurrentItem(PubItemVO currentItem) {
 		this.currentItem = currentItem;
-	}
+	}*/
 
 
 	public List<PubFileVOPresentation> getFiles() {
@@ -200,5 +202,16 @@ public class EasySubmissionSessionBean extends FacesBean
 	public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
 		this.currentlySelecting = currentlySelecting;
 	}
+
+
+	public String getSelectedDate() {
+		return selectedDate;
+	}
+
+
+	public void setSelectedDate(String selectedDate) {
+		this.selectedDate = selectedDate;
+	}
     
+	
 }
