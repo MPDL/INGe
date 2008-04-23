@@ -23,14 +23,15 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
 package de.mpg.escidoc.pubman.statistics;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -98,9 +99,16 @@ public class ViewItemStatistics extends FacesBean
         pubItem = getItemControllerSessionBean().getCurrentPubItem();
         itemId = pubItem.getVersion().getObjectId();
          
-        //get all files, convert to presentation objects and add them to the list
+        //get all files, remove Locators, convert to presentation objects and add them to the list
         List<FileVO> files = pubItem.getFiles();
-        fileList = CommonUtils.convertToPubFileVOPresentationList(files);
+        List<FileVO> realFiles = new ArrayList<FileVO>();        
+       
+        for(FileVO fileVO : files) 
+        {
+            if (fileVO.getLocator()== null) realFiles.add(fileVO);
+        }
+        
+        fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);
         
         //Get Statistics handler
         stat = new SimpleStatistics();
