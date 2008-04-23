@@ -103,9 +103,12 @@ label{
 	margin-top:5px;
 }
 
+.editItemAddLink .editItemLeftCol{
+	margin-left:-5px;
+}
 
 .editItemAddLink a{
-	font-size:10px;
+	font-size:11px;
 }
 
 .editItemAddLink input{
@@ -286,6 +289,11 @@ label{
   width: 75px;
 }
 
+.editItemTextField100, .editItemTextField100 * {  
+  width: 100px;
+  float:left;
+}
+
 .editItemTextFieldShort1 {  
   width: 110px;
 }
@@ -304,7 +312,7 @@ label{
   margin-top: 1px;
 }
 
-.editItemComboBoxVeryShort {  
+. leftSpace10 {  
   width: 75px;
 }
 
