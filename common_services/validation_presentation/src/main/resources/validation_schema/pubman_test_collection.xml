@@ -60,13 +60,13 @@
 	<iso:phase id="easy_submission_step_3">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
-		<iso:active pattern="component_required"/>
+		<!-- iso:active pattern="component_required"/ -->
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
-		<iso:active pattern="component_required"/>
+		<!-- iso:active pattern="component_required"/ -->
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 	</iso:phase>
@@ -74,7 +74,7 @@
 	<iso:phase id="easy_submission_step_5">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
-		<iso:active pattern="component_required"/>
+		<!-- iso:active pattern="component_required"/ -->
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
