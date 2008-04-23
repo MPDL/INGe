@@ -396,11 +396,11 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername />
-				<escidoc.pubman_presentation.email.sender />
-				<escidoc.pubman_presentation.email.withauthentication />
-				<escidoc.pubman_presentation.email.authenticationuser />
-				<escidoc.pubman_presentation.email.authenticationpwd />
+				<escidoc.pubman_presentation.email.mailservername>mailhost.rzg.mpg.de</escidoc.pubman_presentation.email.mailservername>
+				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
+				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
+				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
+				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
@@ -408,7 +408,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
+				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
@@ -474,11 +474,11 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername />
-				<escidoc.pubman_presentation.email.sender />
-				<escidoc.pubman_presentation.email.withauthentication />
-				<escidoc.pubman_presentation.email.authenticationuser />
-				<escidoc.pubman_presentation.email.authenticationpwd />
+				<escidoc.pubman_presentation.email.mailservername>mailhost.rzg.mpg.de</escidoc.pubman_presentation.email.mailservername>
+				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
+				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
+				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
+				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman/</escidoc.pubman.instance.url>
@@ -486,7 +486,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.framework_access.framework.url>http://192.129.1.95:8080</escidoc.framework_access.framework.url>
+				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
