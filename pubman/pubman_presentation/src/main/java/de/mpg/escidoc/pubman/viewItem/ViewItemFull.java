@@ -174,6 +174,7 @@ public class ViewItemFull extends FacesBean
     private List<FileBean> fileList = new ArrayList<FileBean>();
     
     private List<FileBean> locatorList = new ArrayList<FileBean>();
+    private LoginHelper loginHelper;
     
     /**
      * Public constructor.
@@ -232,7 +233,7 @@ public class ViewItemFull extends FacesBean
         
         if(this.pubItem != null)
         {
-            LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
             boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
@@ -963,6 +964,16 @@ public class ViewItemFull extends FacesBean
     	{
     		return false;
     	}
+    }
+    
+    /**
+     * Returns a true or a false according to the user state (logged in or not)
+     * @author Markus Haarlaender
+     * @return boolean
+     */
+    public boolean getShowSystemDetails()
+    {
+        return loginHelper.isLoggedIn();
     }
     
     /**

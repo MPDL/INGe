@@ -32,7 +32,7 @@
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
 <f:subview id="SystemDetails">
-	
+	<h:panelGroup rendered="#{ViewItemFull.showSystemDetails}">
 	<h2>
 			<div class="icon detailsIcon"></div>
 			<div class="viewItemHeader">
@@ -47,7 +47,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.version.objectId}"/>
+		<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 
@@ -86,7 +86,7 @@
 	<h:outputText value="</div>" escape="false"/>
 </div>	
 
-
+</h:panelGroup>
 
 	
 	<!-- Item version -->
