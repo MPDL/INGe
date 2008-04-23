@@ -122,9 +122,15 @@
 			</div>
 			</h:commandLink>
 			<h:commandLink action="#{EasySubmission.loadPreview}">
+			<div class="easySubmissionsCancelSection">
+				<h:commandButton action="#{EasySubmission.loadPreview}" value=""  styleClass="easySubmissionCancelButton" type="submit"/>
+				<h:outputLabel value="#{lbl.easy_submission_btnAddDetails}"/>
+			</div>
+			</h:commandLink>
+			<h:commandLink action="#{EasySubmission.save}">
 			<div class="easySubmissionsNextSection">
-				<h:outputLabel value="#{lbl.easy_submission_btnPreview}"/>
-				<h:commandButton action="#{EasySubmission.loadPreview}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:outputLabel value="#{lbl.easy_submission_btnSave}"/>
+				<h:commandButton action="#{EasySubmission.save}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
 			</div>
 			</h:commandLink>
 		</div>

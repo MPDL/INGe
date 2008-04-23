@@ -34,9 +34,11 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.context.FacesContext;
@@ -55,13 +57,16 @@ import org.apache.myfaces.trinidad.model.UploadedFile;
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
@@ -141,6 +146,8 @@ public class EasySubmission extends FacesBean
      * the ID for the object to fetch by the external service
      */
     private String serviceID;
+    
+    private HtmlMessages valMessage = new HtmlMessages();
     
     
     /**
@@ -342,6 +349,121 @@ public class EasySubmission extends FacesBean
     		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator());
     	}
     	return "loadNewEasySubmission";
+    }
+    
+    /**
+     * Saves the item.
+     * @return string, identifying the page that should be navigated to after this methodcall
+     */
+    public String save()
+    {
+    	mapSelectedDate();
+    	// bind the temporary uploaded files to the files in the current item
+    	bindUploadedFiles();
+    	
+    	/*
+         * FrM: Validation with validation point "default"
+         */
+        ValidationReportVO report = null;
+        try
+        {
+        	PubItemVO itemVO = new PubItemVO(this.getItem());
+            report = this.itemValidating.validateItemObject(itemVO, "default");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Validation error", e);
+        }
+        logger.debug("Validation Report: " + report);
+
+        if (report.isValid() && !report.hasItems())
+        {
+
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Saving item...");
+            }
+
+            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+            this.getItemListSessionBean().setListDirty(true);
+            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            }
+            return retVal;
+        }
+        else if (report.isValid())
+        {
+            // TODO FrM: Informative messages
+            this.getItemListSessionBean().setListDirty(true);
+        	String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+
+            if (retVal == null)
+            {
+                this.showValidationMessages(
+                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+            }
+            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            {
+                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            }
+            return retVal;
+        }
+        else
+        {           
+            // Item is invalid, do not submit anything.
+            this.showValidationMessages(report);
+            return null;
+        }        
+    }
+    
+    /**
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected ItemListSessionBean getItemListSessionBean()
+    {
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
+    }
+    
+    /**
+     * Displays validation messages.
+     * @author Michael Franke
+     * @param report The Validation report object.
+     */
+    private void showValidationMessages(ValidationReportVO report)
+    {
+        for (Iterator<ValidationReportItemVO> iter = report.getItems().iterator(); iter.hasNext();)
+        {
+            ValidationReportItemVO element = (ValidationReportItemVO) iter.next();
+            if (element.isRestrictive())
+            {
+                error(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+            }
+            else
+            {
+                info(getMessage(element.getContent()).replaceAll("\\$1", element.getElement()));
+            }
+        }
+
+        valMessage.setRendered(true);
+    }
+    
+    /**
+     * Shows the given Message below the itemList after next Reload of the DepositorWS. 
+     * @param message the message to be displayed
+     */
+    private void showMessage(String message)
+    {
+        message = getMessage(message);
+        this.getItemListSessionBean().setMessage(message);
     }
     
     /**
@@ -675,8 +797,6 @@ public class EasySubmission extends FacesBean
 
     	// Map entered date to entered type
     	mapSelectedDate();
-    	//TODO: source genre erzeugen!
-
     	// validate
     	try
     	{
@@ -700,9 +820,6 @@ public class EasySubmission extends FacesBean
     	catch (Exception e) {
 			logger.error("Validation error", e);
 		}
-
-    	// put the item in the EasySubmissionSessionBean into the ItemControllerSessionBean and load the EditItemPage as preview
-    	//this.getItemControllerSessionBean().setCurrentPubItem(this.getEasySubmissionSessionBean().getCurrentItem());
     	return "loadEditItem";
     }
     
@@ -1195,4 +1312,14 @@ public class EasySubmission extends FacesBean
     		this.getItem().getMetadata().getSources().set(0, source);
     	}
     }
+
+	public HtmlMessages getValMessage() {
+		return valMessage;
+	}
+
+	public void setValMessage(HtmlMessages valMessage) {
+		this.valMessage = valMessage;
+	}
+    
+    
 }
