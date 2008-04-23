@@ -1479,7 +1479,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param text    the content text of the email
      * @param subject    the subject of the email
      * @param attachments    the names/paths of the files to be attached
-      *@throws Exception if wrong pws or user or emailing data 
+     * @throws Exception if wrong pws or user or emailing data 
     */
    public String  sendEmail(String smtpHost,String usr,String pwd,
            String senderAddress,String[] recipientsAddresses,
@@ -1490,8 +1490,8 @@ public class ItemControllerSessionBean extends FacesBean
  
        logger.debug("sendEmail....");        
        String status = "not sent";
-       /*status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
-                              subject, text, attachments);*/
+       status = emailHandling.sendMail(smtpHost, usr, pwd, senderAddress, recipientsAddresses, recipientsCCAddresses, recipientsBCCAddresses, replyToAddresses, 
+                              subject, text, attachments);
        logger.debug("status " + status);        
       
         return status;
