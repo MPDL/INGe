@@ -422,7 +422,7 @@
   	padding-right: 22px;
   }
   
-  .easySubmissionsBackSection, .easySubmissionsNextSection {
+  .easySubmissionsBackSection, .easySubmissionsNextSection, easySubmissionsCancelSection {
   	cursor: pointer;	
 	border-top: 1px white solid;
 	border-left: 1px solid white;
@@ -433,7 +433,7 @@
 	color: #515151;
   }
   
-  .easySubmissionsBackSection label, .easySubmissionsNextSection label {
+  .easySubmissionsBackSection label, .easySubmissionsNextSection label, .easySubmissionsCancelSection label {
 	margin-top: 2px;
   }
   
@@ -446,6 +446,17 @@
 	background-image:url("../images/media-playback-start1.png");
 	background-repeat:no-repeat;
 	background-color: #f5f5f5;
+  }
+  
+  .easySubmissionsCancelSection {
+  	float: left;
+  	margin-left: 150px;
+  	width: 100px;
+  	padding-bottom: 2px;
+  }
+  
+  .easySubmissionCancelButton {
+  	background-color: #f5f5f5;
   }
   
   .easySubmissionsNextSection {
