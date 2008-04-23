@@ -34,8 +34,8 @@
 <f:subview id="File">
 	
 	<h2 id="fileSection">
-			<div class="icon uploadIcon"></div>
 			<div class="viewItemHeader">
+			<div class="icon uploadIcon"></div>
 				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/>
 			</div>
 	</h2>

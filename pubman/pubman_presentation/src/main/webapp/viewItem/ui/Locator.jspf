@@ -34,8 +34,8 @@
 <f:subview id="Locator">
 	
 	<h2>
-			<div class="icon uploadIcon"></div>
 			<div class="viewItemHeader">
+			<div class="icon uploadIcon"></div>
 				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/>
 			</div>
 	</h2>

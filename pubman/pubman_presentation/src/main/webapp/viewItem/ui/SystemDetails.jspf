@@ -34,8 +34,8 @@
 <f:subview id="SystemDetails">
 	<h:panelGroup rendered="#{ViewItemFull.showSystemDetails}">
 	<h2>
-			<div class="icon detailsIcon"></div>
 			<div class="viewItemHeader">
+			<div class="icon detailsIcon"></div>
 				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}"/>
 			</div>
 	</h2>

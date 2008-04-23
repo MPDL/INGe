@@ -34,8 +34,8 @@
 <f:subview id="Event">
 
 	<h2>
-			<div class="icon eventIcon"></div>
 			<div class="viewItemHeader">
+			<div class="icon eventIcon"></div>
 				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}"/>
 			</div>
 	</h2>
