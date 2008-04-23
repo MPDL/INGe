@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.emailhandling;
 
+import java.io.File;
 import java.util.Date;
 import java.util.Properties;
 
@@ -96,9 +97,9 @@ public class EmailHandlingBean implements EmailHandling
              logger.debug("EmailHandlingBean sendMail...");
              String status = "not sent";
              try { 
-                 logger.debug("Email smtpHost usr "+ smtpHost+"; "+usr+"; "+pwd);                 
-                 logger.debug("Email subject text attachments "+ subject+"; "+text+"; "+attachments[0]);
-                 logger.debug("Email sender recipients replytoAddresses "+ senderAddress+"; "+recipientsAddresses[0]+"; "+replytoAddresses[0]+" ");
+                 logger.debug("Email: smtpHost, usr, pwd (" + smtpHost + ", " + usr + ", " + pwd + ")");                 
+                 logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", " + attachments[0] + ")");
+                 logger.debug("Email: sender, recipients[0], replytoAddresses ("+ senderAddress + ", " + recipientsAddresses[0] + ", " + replytoAddresses[0] + ")");
                                                  
                  // Setup mail server
                   Properties props = System.getProperties();
@@ -203,18 +204,15 @@ public class EmailHandlingBean implements EmailHandling
     protected void addAtachments(String[] attachments, Multipart multipart)
     throws MessagingException, AddressException
     {
-        for(int i = 0; i<= attachments.length -1; i++)
+        for( String filename : attachments )
         {
-            String filename = attachments[i];
             MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-            
+             
             //use a JAF FileDataSource as it does MIME type detection
             DataSource source = new FileDataSource(filename);
             attachmentBodyPart.setDataHandler(new DataHandler(source));
             
-            //assume that the filename you want to send is the same as the
-            //actual file name - could alter this to remove the file path
-            attachmentBodyPart.setFileName(filename);
+            attachmentBodyPart.setFileName( new File(filename).getName() );
             
             //add the attachment
             multipart.addBodyPart(attachmentBodyPart);
