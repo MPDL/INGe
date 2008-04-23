@@ -46,6 +46,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
 /**
@@ -138,6 +139,21 @@ public class ItemListSessionBean extends FacesBean
 			}
 		}
         return selectedPubItems;
+    }
+    
+    public boolean getIsSearchResultList()
+    {
+    	boolean isSearchresultList = false;
+    	
+    	// check in the list of one item is of type search result
+    	if(this.currentPubItemList != null && this.currentPubItemList.size() > 0)
+    	{
+    		if(this.currentPubItemList.get(0).getSearchHitList() != null && this.currentPubItemList.get(0).getSearchHitList().size() > 0)
+    		{
+    			isSearchresultList = true;
+    		}
+    	}
+    	return isSearchresultList;
     }
 
     public String getMessage()
