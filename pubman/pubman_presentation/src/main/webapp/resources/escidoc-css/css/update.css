@@ -295,6 +295,11 @@ font-size: 1em;
 	top:3px;
 }
 
+.subLabel {
+	font-weight: bold;
+	margin-left: 3px;
+}
+
 /*MISC*/
 .margin5Right {
 	margin-right: 5px;
