@@ -60,11 +60,21 @@
 					</div>
 				</div>
 				
+				<%-- Genre of Source --%>
+				<div class="easySubmissionBoxBodyLine">
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
+					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
+						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
+					</h:selectOneMenu>
+					</div>
+				</div>
+				
 				<div class="easySubmissionBoxBodyLine">
 					<%-- Date --%>
 					<div class="easySubmissionDateItem">
 						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDate}"/>
-          				<h:inputText value="#{EasySubmission.selectedDate}"/>
+          				<h:inputText value="#{EasySubmissionSessionBean.selectedDate}"/>
           			</div>
           		
           			<%-- Date Type --%>
