@@ -65,7 +65,7 @@
 			<jsp:directive.include file="ui/TitleCollection.jspf"/>
 		</h:panelGroup>		
 	</h:panelGroup>
-	
+	 
 	<%-- PERSON ORGANIZATION --%>
 	<h:panelGroup layout="block" id="panPersonsAndOrganizations" styleClass="editItemOuterPanel">
 		<h2>
@@ -130,7 +130,7 @@
 	           			</h:panelGroup>
 	           			<h:panelGroup layout="block" styleClass="editItemCol3">           				
 	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" />
-	           				<tr:inputText value="#{component.file.mimeType}" />
+	           				<tr:inputText styleClass="editItemComboBoxShort" value="#{component.file.mimeType}" />
 	           			</h:panelGroup>
 	           		</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -161,7 +161,7 @@
 	</h:panelGroup>
 	
 	<%-- FILES LOCATOR --%>
-	<h:panelGroup layout="block" styleClass="editItemOuterPanel">
+	<h:panelGroup layout="block" styleClass="editItemOuterPanel floatbox">
 		<h2>
 			<h:panelGroup layout="block" styleClass="icon URLIcon"></h:panelGroup>
 			<h:panelGroup layout="block" styleClass="editItemBlockHeaders">
@@ -176,7 +176,7 @@
            				<h:outputText value="#{locator.file.locator}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
            				<tr:commandButton styleClass="inlineButton" text="#{lbl.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>						
 					</h:panelGroup>
-		        </h:panelGroup>  	
+		        	
 		        
 		        <h:panelGroup layout="block" styleClass="editItemSingleCol">
            			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
@@ -185,24 +185,24 @@
            			</h:selectOneMenu>
            		</h:panelGroup>
 	           		
-		        <h:panelGroup layout="block" styleClass="editItemFileBox" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+		        <h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
            			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblFileProperties}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
-           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           			<h:panelGroup layout="block" styleClass="editItemLeftCol">
            				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
            				<tr:inputText value="#{locator.file.name}" rendered="#{locator.file.locator != null && locator.file.locator != ''}" />
            			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="editItemCol1">
+           			<h:panelGroup layout="block" styleClass="editItemRightCol">
            				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
            				<h:selectOneMenu id="cboContentType" value="#{locator.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
             				<f:selectItems value="#{EditItem.contentTypes}" />
            				</h:selectOneMenu>
-           			</h:panelGroup>
+           			</h:panelGroup>           			
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="editItemSingleCol">
-           			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
-           			<tr:inputText value="#{locator.file.description}" autoSubmit="true" rows="4" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
-           		</h:panelGroup>
-		        	
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           				<tr:inputText value="#{locator.file.description}" autoSubmit="true" rows="4" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
+           			</h:panelGroup>
+		    </h:panelGroup>      	
        			<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{locator.index+1 == EditItem.numberOfLocators}"/>
@@ -380,12 +380,7 @@
 	</h:panelGroup>
 	<%-- SOURCE --%>
 	<h:panelGroup layout="block" id="panSource" styleClass="editItemOuterPanel lightBorder floatbox">
-		<h2>
-			<h:panelGroup layout="block" styleClass="icon sourceIcon"></h:panelGroup>
-			<h:panelGroup layout="block" id="lblSource" styleClass="editItemBlockHeaders">
-				<h:outputText value="#{lbl.EditItem_lblSource}" />
-			</h:panelGroup>
-		</h2>
+		
 		<jsp:directive.include file="ui/SourceCollection.jspf"/>
 	
 		
