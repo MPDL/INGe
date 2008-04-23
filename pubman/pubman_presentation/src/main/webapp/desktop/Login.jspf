@@ -51,7 +51,7 @@
 						<h:outputText value="   "/>
 					</span>
 					<span class="metaMenuHelp">
-						<h:outputLink id="lnkHelp" value="#{lbl.mainMenu_lnkHelp}" onclick="loadHelp{'#{InternationalizationHelper.selectedHelpPage}' , '');"/>
+						<h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" />
 					</span>
 					<span class="metaMenuFlags">
 						<span class="flag">
