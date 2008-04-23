@@ -282,6 +282,7 @@ public class StatisticReportsHandlingTemp {
         logger.debug("Retrieving statistic record with ID: " + repParams.getReportDefinitionObjID());
         String reportParamsXML = transformToReportParams(repParams);
         String reportXML = StatisticReportsHandlingTemp.postRESTReport(reportParamsXML);
+        logger.debug(reportXML);
         ReportVO report = StatisticReportsHandlingTemp.transformToReportVO(reportXML);
         
         return report;

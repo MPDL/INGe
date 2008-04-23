@@ -131,9 +131,6 @@
 				<h:outputText value="<p>" escape="false"/>
 					<h:outputText value="#{creatorAffiliation.organizationAddress}"/>
 				<h:outputText value="</p>" escape="false"/>
-				<h:outputText value="<p>" escape="false"/>
-					<h:outputText value="#{creatorAffiliation.organizationIdentifier}"/>
-				<h:outputText value="</p>" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
 		<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>

@@ -49,8 +49,10 @@
 		<h:column>
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAltTitle}" />
+				<%-- 
 				<h:inputTextarea styleClass="editItemTextArea" value="#{EditItem.titleCollection.titleIF.title.value}"/>		
-				
+				--%>
+				<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
 				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.titleCollection.alternativeTitleManager.addObject}" />
 				<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.titleCollection.alternativeTitleManager.removeObject}" />
 			</h:panelGroup>
