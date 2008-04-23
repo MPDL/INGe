@@ -71,6 +71,19 @@
 											<h:outputLink value="#{ApplicationBean.appContext}#{ErrorPage.previousPageURI}">
 												<h:outputText value="#{ErrorPage.previousPageName}"/>
 											</h:outputLink>
+											<br/>
+											<h:outputText value="#{lbl.ErrorPage_errorOccurred}"/>
+											<br/>
+											<input type="button" id="error-button" onclick="toggleErrorMessage()" value="+"/>
+											<br/>
+											<div style="width: 600px; height: 30px; overflow: hidden; background-color: #F0F0F0" id="error-message-div">
+												<h:outputText value="#{ErrorPage.exception.message}"/>
+												<br/>
+												<br/>
+												<pre>
+													<h:outputText value="#{ErrorPage.stackTrace}"/>
+												</pre>
+											</div>
 										</div>
 									</div>
 								</div>

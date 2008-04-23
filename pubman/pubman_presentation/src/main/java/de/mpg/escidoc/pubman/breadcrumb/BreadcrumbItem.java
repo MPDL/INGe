@@ -30,6 +30,11 @@
 
 package de.mpg.escidoc.pubman.breadcrumb;
 
+import java.lang.reflect.Method;
+
+import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 
 /**
@@ -38,8 +43,9 @@ import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
  * @author: Tobias Schraut, created 30.05.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $ Revised by ScT: 16.08.2007
  */
-public class BreadcrumbItem extends InternationalizedImpl
+public class BreadcrumbItem extends FacesBean
 {
+	private static Logger logger = Logger.getLogger(BreadcrumbItem.class);
 
 	// The String that should be displayed in the breadcrumb menu, e.g. "ViewItem"
     private String displayValue;
@@ -50,6 +56,9 @@ public class BreadcrumbItem extends InternationalizedImpl
     
     // Flag indicating that this item is the last one.
     private boolean isLast = false;
+    
+    // Method for default action.
+    private Method defaultAction;
 
     /**
      * Default constructor.
@@ -62,10 +71,11 @@ public class BreadcrumbItem extends InternationalizedImpl
      * Public constructor(with two parameters, the value to display and the page name that should be displayed).
      * You may only use one of the public static final BreadcrumbItem's defined above.
      */
-    public BreadcrumbItem(String displayValue, String page)
+    public BreadcrumbItem(String displayValue, String page, Method defaultAction)
     {
         this.displayValue = displayValue;
         this.page = page;
+        this.defaultAction = defaultAction;
     }
 
     /**
@@ -96,7 +106,15 @@ public class BreadcrumbItem extends InternationalizedImpl
         this.page = page;
     }
 
-    @Override
+    public Method getDefaultAction() {
+		return defaultAction;
+	}
+
+	public void setDefaultAction(Method defaultAction) {
+		this.defaultAction = defaultAction;
+	}
+
+	@Override
     public String toString()
     {
         return "[" + displayValue + "]";
@@ -121,4 +139,22 @@ public class BreadcrumbItem extends InternationalizedImpl
 		this.isLast = isLast;
 	}
 
+	public String executeDefaultAction()
+	{
+		if (defaultAction != null)
+		{
+			try
+			{
+				Class<?> beanClass = defaultAction.getDeclaringClass();
+				Object bean = getBean(beanClass);
+				return defaultAction.invoke(bean, null).toString();
+			}
+			catch (Exception e) {
+				logger.error("Error executing default action", e);
+			}
+			
+		}
+		return null;
+	}
+	
 }

@@ -278,3 +278,19 @@ function startQuicksearch(e)
 				return false;
 		}
 }
+
+function toggleErrorMessage()
+{
+	var button = document.getElementById('error-button');
+
+	if (button.value == '+')
+	{
+		document.getElementById('error-message-div').style.height = 'auto';
+		button.value = '-';
+	}
+	else
+	{
+		document.getElementById('error-message-div').style.height = '30px';
+		button.value = '+';
+	}
+}

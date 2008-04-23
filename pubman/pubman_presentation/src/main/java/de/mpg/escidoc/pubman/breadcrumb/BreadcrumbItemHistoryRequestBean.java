@@ -20,19 +20,6 @@ public class BreadcrumbItemHistoryRequestBean extends FacesBean
         
         logger.debug("INIT");
         
-        BreadcrumbItemHistorySessionBean bcHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
-        FacesContext fc = FacesContext.getCurrentInstance();
-        String page = fc.getViewRoot().getViewId().substring(1);
-        String pageName = page.substring(0, page.lastIndexOf("."));
-        
-        if ("HomePage".equals(pageName))
-        {
-            bcHistory.clear();
-        }
-        
-        breadCrumbItem = new BreadcrumbItem(pageName, page);
-        bcHistory.setCurrentItem(breadCrumbItem);
-        bcHistory.push(breadCrumbItem);
     }
     
     public List<BreadcrumbItem> getNavigation()

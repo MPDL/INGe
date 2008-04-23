@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 import javax.el.ValueExpression;
@@ -43,9 +44,10 @@ public abstract class BreadcrumbPage extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         String page = fc.getViewRoot().getViewId().substring(1);
         String pageName = page.substring(0, page.lastIndexOf("."));
+        Method defaultAction = getDefaultAction();
         
         BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
-        breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page));
+        breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction));
         previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
         
         UIComponent bcComponent = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:Breadcrumb:BreadcrumbNavigation");
@@ -88,6 +90,11 @@ public abstract class BreadcrumbPage extends FacesBean
     	catch (IOException e) {
 			logger.error("Error redirecting to previous page", e);
 		}
+    	return null;
+    }
+    
+    protected Method getDefaultAction()
+    {
     	return null;
     }
 }

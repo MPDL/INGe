@@ -69,6 +69,12 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
      */
     public void push(final BreadcrumbItem newItem)
     {
+    	
+    	if ("HomePage".equals(newItem.getPageLabel()))
+    	{
+    		breadcrumbs.clear();
+    	}
+    	
         BreadcrumbItem lastItem = null;
         int index = breadcrumbs.size() - 1;
         if (index >= 0)
@@ -169,7 +175,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
 		}
 		else
 		{
-			return new BreadcrumbItem("HomePage", "HomePage");
+			return new BreadcrumbItem("HomePage", "HomePage", null);
 		}
 	}
 

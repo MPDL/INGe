@@ -171,6 +171,23 @@ public class ErrorPage extends BreadcrumbPage
         return "";
     }
     
+    public String getStackTrace()
+    {
+		StringBuffer buffer = new StringBuffer();
+    	if (exception != null)
+    	{
+    		StackTraceElement[] stackTrace = exception.getStackTrace();
+    		for (StackTraceElement stackTraceElement : stackTrace) {
+				buffer.append(" at ");
+				buffer.append(stackTraceElement.getClassName());
+				buffer.append(" (");
+				buffer.append(stackTraceElement.getLineNumber());
+				buffer.append(")\n");
+			}
+    	}
+    	return buffer.toString();
+    }
+    
     /**
      * Returns the CommonSessionBean.
      * @return a reference to the scoped data bean (CommonSessionBean)

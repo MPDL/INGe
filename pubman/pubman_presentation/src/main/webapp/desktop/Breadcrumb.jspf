@@ -32,13 +32,16 @@
 <div>
 	<f:subview id="Breadcrumb">
 		<div id="nav_main">
-			<span>You are here:</span>
+			<span><h:outputText value="#{lbl.BreadCrumb_info}"/></span>
 			<ol>
 				<tr:iterator id="BreadcrumbNavigation" var="item">
 					<li>
-						<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast}">
+						<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
 							<tr:outputText value="#{item.pageLabel}" />
 						</tr:goLink>
+						<tr:commandLink action="#{item.executeDefaultAction}" rendered="#{!item.isLast && item.defaultAction != null}">
+							<tr:outputText value="#{item.pageLabel}" />
+						</tr:commandLink>
 						<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
 						<tr:outputText value=" > " rendered="#{!item.isLast}"/>
 					</li>

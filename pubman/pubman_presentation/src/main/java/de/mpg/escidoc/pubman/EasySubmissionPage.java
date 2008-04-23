@@ -30,8 +30,13 @@
 
 package de.mpg.escidoc.pubman;
 
+import java.lang.reflect.Method;
+
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 
 /**
  * BackingBean for EasySubmissionPage.jsp. This one is empty because all code is implemented in the BackingBean of the
@@ -43,6 +48,8 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
  */
 public class EasySubmissionPage extends BreadcrumbPage
 {
+	private static Logger logger = Logger.getLogger(EasySubmissionPage.class);
+	
 	public final static String BEAN_NAME = "EasySubmissionPage";
 	
     /**
@@ -63,4 +70,17 @@ public class EasySubmissionPage extends BreadcrumbPage
         super.init();
     }
 
+    protected Method getDefaultAction()
+    {
+    	EasySubmission easySubmission = (EasySubmission)getRequestBean(EasySubmission.class);
+    	Method da = null;
+    	try
+    	{
+    		da = easySubmission.getClass().getMethod("newEasySubmission", null);
+    	}
+    	catch (Exception e) {
+			logger.error("Error getting default action", e);
+		}
+    	return da;
+    }
 }
