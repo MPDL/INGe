@@ -60,9 +60,10 @@
 				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{file.itemWithdrawn == false}"/>
 					<h:outputText value="#{file.file.name}" rendered="#{file.itemWithdrawn == false}"/>
 				</h:commandLink>
-
+			<h:panelGroup styleClass="subLabel">
 				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn} #{lbl.ViewItemFull_lblNoAccess}" rendered="#{file.itemWithdrawn == true}"/>
 				<h:outputText value=" #{lbl.ViewItemMedium_lblFileVisibility}: "/>
+			</h:panelGroup>
 					<h:outputText value="#{file.visibility}" rendered="#{file.itemWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{file.itemWithdrawn == true}"/>
 			<h:outputText value="</div>" escape="false"/>		
