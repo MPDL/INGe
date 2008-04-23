@@ -103,12 +103,12 @@
 
 
 .uploadIcon{	
-	background-image:url("../images/files_22.gif");
+	background-image:url("../images/PM_SM_h2_files_locators_22.gif");
 	background-repeat:no-repeat;
 }
 
 .URLIcon{	
-	background-image:url("../images/network-workgroup.gif");
+	background-image:url("../images/PM_SM_h2_files_locators_22.gif");
 	background-repeat:no-repeat;
 }
 
@@ -125,7 +125,7 @@
 }
 
 .basicIcon{	
-	background-image:url("../images/accessories-text-editor_22.gif");
+	background-image:url("../images/PM_SM_h2_basic_22.gif");
 	background-repeat:no-repeat;
 }
 
@@ -133,30 +133,30 @@
 }
 
 .affiliationsIcon{	
-	background-image:url("../images/affiliations_tree_22.gif");
+	background-image:url("../images/PM_SM_h2_creators_22.gif");
 	background-repeat:no-repeat;	
 }
 
 .datesIcon{	
-	background-image:url("../images/publications_22.gif");
+	background-image:url("../images/PM_SM_h2_event_22.gif");
 	background-repeat:no-repeat;
 	
 }
 
 .detailsIcon{	
-	background-image:url("../images/details.gif");
+	background-image:url("../images/PM_SM_h2_details_22.gif");
 	background-repeat:no-repeat;
 	
 }
 
 .eventIcon{	
-	background-image:url("../images/eseminar_icon_22.gif");
+	background-image:url("../images/PM_SM_h2_event_22.gif");
 	background-repeat:no-repeat;
 	padding-bottom: 5px;
 }
 
 .sourceIcon{	
-	background-image:url("../images/source_icon_22.gif");
+	background-image:url("../images/PM_SM_h2_source_22.gif");
 	background-repeat:no-repeat;
 }
 
