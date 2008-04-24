@@ -36,7 +36,7 @@
 
  .easySubmissionBox {
  	margin:10px;
- 	margin-left: 75px;
+ 	margin-left: 49px;
  	margin-right: 75px;
  	width: 600px;
 	padding: 0px;
@@ -152,7 +152,7 @@
 
   .easySubmissionBoxBodyLine {
   	width: 510px;
-  	margin-top: 7px;
+  /*	margin-top: 7px;*/
   	display: block;
   	overflow: hidden;
   	float: left;
@@ -221,7 +221,9 @@
   	display: block;
   	/*background-color: silver;*/
   	/*overflow: hidden;*/
+  	padding-top: 6px;
   	padding-left: 10px;
+  	padding-bottom: 3px;
   	margin-top: 0px;
   	margin-left: 0px;
   	margin-bottom: 0px;
@@ -385,21 +387,21 @@
   }
 
   .easySubmissionLastItem {
-  	width: 375px;
+  	width: 485px;
   	display: block;
   	overflow: hidden;
   	float: left;
   }
 
   .easySubmissionLastItem textarea, .easySubmissionLastItem label {
-  	width: 370px;
+  	width: 480px;
   }
     
 /* CONTROLS */
 
   .easySubmissionControls {
  	margin:10px;
- 	margin-left: 75px;
+ 	margin-left: 49px;
  	margin-right: 75px;
  	width: 600px;
 	padding: 0px;  
@@ -445,10 +447,11 @@
 	font-weight: bold;
 	color: #515151;
 	overflow: hidden;
+	height: 24px;
   }
   
   .easySubmissionsBackSection label, .easySubmissionsNextSection label, .easySubmissionsCancelSection label {
-	margin-top: 2px;
+	margin-top: 4px;
   }
   
   .easySubmissionsBackSection {

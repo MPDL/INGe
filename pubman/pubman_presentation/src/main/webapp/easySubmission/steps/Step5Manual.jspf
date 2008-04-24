@@ -52,13 +52,6 @@
 			<h3><h:outputText value="#{msg.easy_submission_Step5Manual}"/></h3>
 			<div class="easySubmissionBoxBodyContent">
 				
-				<%-- Title --%>
-				<div class="easySubmissionBoxBodyLine">
-					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
-					</div>
-				</div>
 				
 				<%-- Genre of Source --%>
 				<div class="easySubmissionBoxBodyLine">
@@ -67,6 +60,13 @@
 					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
 						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
 					</h:selectOneMenu>
+					</div>
+				
+				<%-- Title --%>
+				
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
+					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 				</div>
 				
@@ -123,7 +123,6 @@
 			</h:commandLink>
 			<h:commandLink action="#{EasySubmission.loadPreview}">
 			<div class="easySubmissionsCancelSection">
-				
 				<h:outputLabel value="#{lbl.easy_submission_btnAddDetails}"/>
 			</div>
 			</h:commandLink>
