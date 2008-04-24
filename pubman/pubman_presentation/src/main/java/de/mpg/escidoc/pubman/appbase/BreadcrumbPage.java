@@ -44,8 +44,14 @@ public abstract class BreadcrumbPage extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         String page = fc.getViewRoot().getViewId().substring(1);
         String pageName = page.substring(0, page.lastIndexOf("."));
-        Method defaultAction = getDefaultAction();
-        
+        Method defaultAction = null;
+        try
+        {
+        	defaultAction = getDefaultAction();
+        }
+    	catch (NoSuchMethodException e) {
+			logger.error("Error getting default action", e);
+		}
         BreadcrumbItemHistorySessionBean breadcrumbItemHistorySessionBean = (BreadcrumbItemHistorySessionBean) getSessionBean(BreadcrumbItemHistorySessionBean.class);
         breadcrumbItemHistorySessionBean.push(new BreadcrumbItem(pageName, page, defaultAction));
         previousItem = breadcrumbItemHistorySessionBean.getPreviousItem();
@@ -93,7 +99,7 @@ public abstract class BreadcrumbPage extends FacesBean
     	return null;
     }
     
-    protected Method getDefaultAction()
+    protected Method getDefaultAction() throws NoSuchMethodException
     {
     	return null;
     }

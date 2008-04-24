@@ -42,9 +42,6 @@
 </h1>
 <h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
 
-<%
-/* <ui:messageGroup id="valMessage" binding="#{EditItem.valMessage}" styleClass="valMessage" visible="false"/> */
-%>
 	<%-- BASIC --%>
 	<h:panelGroup layout="block" id="panBasic" styleClass="editItemOuterPanel floatbox">
 		<h2>

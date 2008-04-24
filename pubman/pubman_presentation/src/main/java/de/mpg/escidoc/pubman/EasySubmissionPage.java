@@ -70,17 +70,9 @@ public class EasySubmissionPage extends BreadcrumbPage
         super.init();
     }
 
-    protected Method getDefaultAction()
+    protected Method getDefaultAction() throws NoSuchMethodException
     {
     	EasySubmission easySubmission = (EasySubmission)getRequestBean(EasySubmission.class);
-    	Method da = null;
-    	try
-    	{
-    		da = easySubmission.getClass().getMethod("newEasySubmission", null);
-    	}
-    	catch (Exception e) {
-			logger.error("Error getting default action", e);
-		}
-    	return da;
+    	return easySubmission.getClass().getMethod("newEasySubmission", null);
     }
 }

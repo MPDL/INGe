@@ -31,12 +31,14 @@
 package de.mpg.escidoc.pubman;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 
 import javax.faces.context.FacesContext;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.desktop.Navigation;
 
 /**
  * BackingBean for EditItemPage.jsp.
@@ -105,5 +107,11 @@ public class EditItemPage extends BreadcrumbPage
     {
         return (CommonSessionBean)getSessionBean(CommonSessionBean.class);
     }
+
+	@Override
+	protected Method getDefaultAction() throws NoSuchMethodException
+	{
+		return Navigation.class.getMethod("newSubmission", null);
+	}
 
 }

@@ -69,6 +69,8 @@ import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 public class Navigation extends FacesBean
 {
     private static Logger logger = Logger.getLogger(Navigation.class);
+
+    public static final String BEAN_NAME = "Navigation";
     private List<NavigationRule> navRules;
 
     /** identifier from the breadcrump component in the page */
@@ -186,40 +188,40 @@ public class Navigation extends FacesBean
         }
         if (navigationString.equals(EditItem.LOAD_EDITITEM))
         {
-            editItem = (EditItem) getBean(EditItem.class);
+            editItem = (EditItem) getRequestBean(EditItem.class);
             editItem.init();
         }
         else if (navigationString.equals(DepositorWS.LOAD_DEPOSITORWS))
         {
-            depositorWorkspace = (DepositorWS) getBean(DepositorWS.class);
+            depositorWorkspace = (DepositorWS) getRequestBean(DepositorWS.class);
             this.getItemListSessionBean().setListDirty(true);
             depositorWorkspace.init();
         }
         else if (navigationString.equals(ViewItemFull.LOAD_VIEWITEM))
         {
-            viewItem = (ViewItemFull) getBean(ViewItemFull.class);
+            viewItem = (ViewItemFull) getRequestBean(ViewItemFull.class);
             viewItem.init();
         }
         else if (navigationString.equals(SearchResultList.LOAD_SEARCHRESULTLIST))
         {
-            searchResultList = (SearchResultList) getBean(SearchResultList.class);
+            searchResultList = (SearchResultList) getSessionBean(SearchResultList.class);
             searchResultList.init();
         }
         else if (navigationString.equals(ViewItemRevisionsPage.LOAD_VIEWREVISIONS))
         {
-            createRevision = (CreateRevision) getBean(CreateRevision.class);
+            createRevision = (CreateRevision) getRequestBean(CreateRevision.class);
             createRevision.init();
         }
         else if (navigationString.equals(ReleaseHistory.LOAD_RELEASE_HISTORY))
         {
             this.getItemVersionSessionBean().resetVersionLists();
-            releaseHistory = (ReleaseHistory) getBean(ReleaseHistory.class);
+            releaseHistory = (ReleaseHistory) getRequestBean(ReleaseHistory.class);
             releaseHistory.init();
         }
         else if (navigationString.equals(ViewItemLog.LOAD_ITEM_LOG))
         {
             this.getItemVersionSessionBean().resetVersionLists();
-            viewItemLog = (ViewItemLog) getBean(ViewItemLog.class);
+            viewItemLog = (ViewItemLog) getRequestBean(ViewItemLog.class);
             viewItemLog.init();
         }
         else
@@ -305,7 +307,7 @@ public class Navigation extends FacesBean
      */
     protected ItemVersionListSessionBean getItemVersionSessionBean()
     {
-        return (ItemVersionListSessionBean) getBean(ItemVersionListSessionBean.class);
+        return (ItemVersionListSessionBean) getSessionBean(ItemVersionListSessionBean.class);
     }
 
     /**
@@ -315,7 +317,7 @@ public class Navigation extends FacesBean
      */
     protected RelationListSessionBean getRevisionListSessionBean()
     {
-        return (RelationListSessionBean) getBean(RelationListSessionBean.class);
+        return (RelationListSessionBean) getSessionBean(RelationListSessionBean.class);
     }
 
     /**
@@ -335,7 +337,7 @@ public class Navigation extends FacesBean
      */
     protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (ContextListSessionBean) getBean(ContextListSessionBean.class);
+        return (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
     }
 
     /**
@@ -344,7 +346,7 @@ public class Navigation extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean) getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -353,7 +355,7 @@ public class Navigation extends FacesBean
      */
     protected AdvancedSearchEdit getAdvancedSearchEdit()
     {
-        return (AdvancedSearchEdit) getBean(AdvancedSearchEdit.class);
+        return (AdvancedSearchEdit) getSessionBean(AdvancedSearchEdit.class);
     }
 
     /**
@@ -362,7 +364,7 @@ public class Navigation extends FacesBean
      */
     protected SearchResultList getSearchResultList()
     {
-        return (SearchResultList) getBean(SearchResultList.class);
+        return (SearchResultList) getSessionBean(SearchResultList.class);
     }
 
 }
