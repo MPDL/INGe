@@ -147,6 +147,8 @@ public class ViewItemFull extends FacesBean
     
     private PubContextVO context = null;
     
+    private boolean fromEasySubmission = false;
+    
     /**
      * The list of formatted organzations in an ArrayList.
      */
@@ -1602,6 +1604,12 @@ public class ViewItemFull extends FacesBean
         this.citationURL = citationURL;
     }
 
-	
-	
+	public boolean getFromEasySubmission() {
+		return fromEasySubmission;
+	}
+
+	public void setFromEasySubmission(boolean fromEasySubmission) {
+		this.fromEasySubmission = fromEasySubmission;
+	}
+
 }

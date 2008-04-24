@@ -61,6 +61,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -361,67 +362,71 @@ public class EasySubmission extends FacesBean
     	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFiles();
     	
-    	/*
-         * FrM: Validation with validation point "default"
-         */
-        ValidationReportVO report = null;
-        try
-        {
-        	PubItemVO itemVO = new PubItemVO(this.getItem());
-            report = this.itemValidating.validateItemObject(itemVO, "default");
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException("Validation error", e);
-        }
-        logger.debug("Validation Report: " + report);
-
-        if (report.isValid() && !report.hasItems())
-        {
-
-            if (logger.isDebugEnabled())
-            {
-                logger.debug("Saving item...");
-            }
-
-            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
-            this.getItemListSessionBean().setListDirty(true);
-            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
-
-            if (retVal == null)
-            {
-                this.showValidationMessages(
-                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
-            }
-            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
-            {
-                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-            }
-            return retVal;
-        }
-        else if (report.isValid())
-        {
-            // TODO FrM: Informative messages
-            this.getItemListSessionBean().setListDirty(true);
-        	String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
-
-            if (retVal == null)
-            {
-                this.showValidationMessages(
-                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
-            }
-            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
-            {
-                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-            }
-            return retVal;
-        }
-        else
-        {           
-            // Item is invalid, do not submit anything.
-            this.showValidationMessages(report);
-            return null;
-        }        
+    	((ViewItemFull)getSessionBean(ViewItemFull.class)).setFromEasySubmission(true);
+    	
+    	return ((EditItem)getRequestBean(EditItem.class)).save();
+    	
+//    	/*
+//         * FrM: Validation with validation point "default"
+//         */
+//        ValidationReportVO report = null;
+//        try
+//        {
+//        	PubItemVO itemVO = new PubItemVO(this.getItem());
+//            report = this.itemValidating.validateItemObject(itemVO, "default");
+//        }
+//        catch (Exception e)
+//        {
+//            throw new RuntimeException("Validation error", e);
+//        }
+//        logger.debug("Validation Report: " + report);
+//
+//        if (report.isValid() && !report.hasItems())
+//        {
+//
+//            if (logger.isDebugEnabled())
+//            {
+//                logger.debug("Saving item...");
+//            }
+//
+//            //String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS, false); 
+//            this.getItemListSessionBean().setListDirty(true);
+//            String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+//
+//            if (retVal == null)
+//            {
+//                this.showValidationMessages(
+//                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+//            }
+//            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+//            {
+//                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+//            }
+//            return retVal;
+//        }
+//        else if (report.isValid())
+//        {
+//            // TODO FrM: Informative messages
+//            this.getItemListSessionBean().setListDirty(true);
+//        	String retVal = this.getItemControllerSessionBean().saveCurrentPubItem(ViewItemFull.LOAD_VIEWITEM, false);
+//
+//            if (retVal == null)
+//            {
+//                this.showValidationMessages(
+//                        this.getItemControllerSessionBean().getCurrentItemValidationReport());
+//            }
+//            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+//            {
+//                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+//            }
+//            return retVal;
+//        }
+//        else
+//        {           
+//            // Item is invalid, do not submit anything.
+//            this.showValidationMessages(report);
+//            return null;
+//        }        
     }
     
     /**
