@@ -87,4 +87,14 @@
 		<h:outputText value="#{item.locatorInfo}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
+	<!-- Comments for item list on revision page -->
+	<h:panelGroup rendered="#{ItemListSessionBean.isRevisionView}">
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="Comment:"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{item.version.lastMessage}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</h:panelGroup>
 </f:subview>

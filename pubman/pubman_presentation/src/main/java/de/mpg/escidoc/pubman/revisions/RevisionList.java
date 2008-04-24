@@ -30,12 +30,16 @@
 
 package de.mpg.escidoc.pubman.revisions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
@@ -70,10 +74,24 @@ public class RevisionList extends FacesBean
     {
         super.init();
         
-//        if (this.getSessionBean().getRelationList() == null)
-//        {
-        	this.getSessionBean().setRelationList(retrieveRevisions(this.getItemControllerSessionBean().getCurrentPubItem()));
-//        }
+        List<RelationVOPresentation> relationVOList = retrieveRevisions(getItemControllerSessionBean().getCurrentPubItem());
+        
+        List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
+        
+        for (RelationVOPresentation relationVO : relationVOList)
+        {
+            PubItemVO sourceItem = relationVO.getSourceItem();
+            if (sourceItem!=null) pubItemVOList.add(sourceItem);
+
+        }
+        
+        
+        List<PubItemVOPresentation> sourcePubItemPresentVOList = CommonUtils.convertToPubItemVOPresentationList(pubItemVOList);
+   
+        this.getItemListSessionBean().setCurrentPubItemList(sourcePubItemPresentVOList);
+        this.getItemListSessionBean().setIsRevisionView(true);
+        this.getItemListSessionBean().setListDirty(true);
+    
     }
     
 
@@ -118,5 +136,10 @@ public class RevisionList extends FacesBean
     public String getDummy()
     {
     	return "";
+    }
+    
+    protected ItemListSessionBean getItemListSessionBean() 
+    {
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 }

@@ -1856,20 +1856,23 @@ public class ItemControllerSessionBean extends FacesBean
             revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
         }
             
-        List<ItemRO> itemRefs = new ArrayList<ItemRO>();
+        List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
         for (RelationVOPresentation relationVOPresentation : revisionVOList) {
-			itemRefs.add(relationVOPresentation.getSourceItemRef());
+			sourceItemRefs.add(relationVOPresentation.getSourceItemRef());
 		}
-        List<PubItemVO> itemList = retrieveItems(itemRefs);
+        List<PubItemVO> sourceItemList = retrieveItems(sourceItemRefs);
+
         for (RelationVOPresentation revision : revisionVOList) {
-			for (PubItemVO pubItem : itemList) {
-				if (revision.getSourceItemRef().equals(pubItem.getVersion()))
+			for (PubItemVO pubItem : sourceItemList) {
+				if (revision.getSourceItemRef().getObjectId().equals(pubItem.getVersion().getObjectId()))
 				{
 					revision.setSourceItem(pubItem);
 					break;
 				}
 			}
 		}
+        
+        
         return revisionVOList;
     }
 

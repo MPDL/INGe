@@ -72,15 +72,20 @@
 </div>
 	
 	<!--Cite item as -->
-<div class="itemElementLine floatbox">	
-	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/>
-	<h:outputText value="</div>" escape="false"/>
+<h:panelGroup rendered="#{ViewItemFull.showCiteItem}">
+	<div class="itemElementLine floatbox">	
+		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd'>" escape="false"/>
+		<h:outputLink value="#{ViewItemFull.citationURL}">
+			<h:outputText value="#{ViewItemFull.citationURL}"/>
+		</h:outputLink>	
+		<h:outputText value="</div>" escape="false"/>
 	
-	<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.citationURL}"/>
-	<h:outputText value="</div>" escape="false"/>
-</div>	
+	</div>
+</h:panelGroup>	
 
 	<!-- Alternative Title(s) -->
 <div class="itemElementLine floatbox">

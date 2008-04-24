@@ -36,6 +36,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	private boolean selected = false;
 	private boolean shortView = true;
 	
+	
+	/**
+	 * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
+	 */
+	private boolean isRevisionView = false;
+	
+	
 	/**
 	 * The content for the CoinS tag for each item
 	 */
@@ -932,6 +939,18 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	public void setAllCreatorsList(ArrayList<String> allCreatorsList) {
 		this.allCreatorsList = allCreatorsList;
 	}
+
+    public boolean getIsRevisionView()
+    {
+        return isRevisionView;
+    }
+
+    public void setIsRevisionView(boolean isRevisionView)
+    {
+        this.isRevisionView = isRevisionView;
+    }
+	
+	
 	
 	
 	

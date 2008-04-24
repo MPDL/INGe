@@ -243,7 +243,7 @@ public class ViewItemFull extends FacesBean
             try
             {
                 String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
-                citationURL = pubmanUrl + "viewItemFullPage.jsp?itemId=" + getPubItem().getVersion().getObjectIdAndVersion();
+                citationURL = pubmanUrl + "faces/viewItemFullPage.jsp?itemId=" + getPubItem().getVersion().getObjectIdAndVersion();
                 
             }
             catch (IOException e)
@@ -993,6 +993,16 @@ public class ViewItemFull extends FacesBean
     public boolean getShowSystemDetails()
     {
         return loginHelper.isLoggedIn();
+    }
+    
+    /**
+     * Returns a boolean according to the user item state
+     * @author Markus Haarlaender
+     * @return boolean
+     */
+    public boolean getShowCiteItem()
+    {
+        return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
     }
     
     /**

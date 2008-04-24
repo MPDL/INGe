@@ -41,9 +41,7 @@ All rights reserved. Use is subject to license terms.
 				
 				<div class='listItem odd'>
 					<div class='itemTitle odd'>
-						<h:outputLink value="viewItemFullPage.jsp?itemId=#{entry.reference.objectId}" >
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
-						</h:outputLink>
 					</div>
 					
 					

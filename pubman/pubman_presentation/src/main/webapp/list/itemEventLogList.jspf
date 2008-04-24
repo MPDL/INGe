@@ -39,9 +39,7 @@ All rights reserved. Use is subject to license terms.
 				
 					<div class='listItem odd'>
 						<div class='itemTitle odd'>
-							<h:outputLink value="viewItemFullPage.jsp?itemId=#{eventEntry.versionHistoryVO.reference.objectId}" >
-								<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
-							</h:outputLink>
+							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
 						</div>
 						<div class='itemText odd'>
 								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.date}"/>

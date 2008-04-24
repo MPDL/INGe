@@ -74,6 +74,11 @@ public class ItemListSessionBean extends FacesBean
     private int currentPubItemListPointer = 0;
 
     /**
+     * True if the list is shown as  revisions list, additional information is displayed then (release date, description)
+     */
+    private boolean isRevisionView;
+
+    /**
      * Default constructor.
      */
 //    public ItemListSessionBean()
@@ -92,6 +97,7 @@ public class ItemListSessionBean extends FacesBean
         super.init();
         
         this.isListDirty = true;
+        this.isRevisionView = false;
         
     }
 
@@ -122,10 +128,22 @@ public class ItemListSessionBean extends FacesBean
     public void setCurrentPubItemList(List<PubItemVOPresentation> currentPubItemList)
     {
     	logger.debug("ILSB.setCurrentPubItemList: " + this);
+    	
+    	resetPresentationFlags();
+    	
         this.currentPubItemList = currentPubItemList;
         
         // clear the selectedList
         this.getSelectedPubItems().clear();
+    }
+
+    /**
+     * Resets the flags for specialized type of listViews, e.g. the revision list. Called every time when a new pubItem List is set.
+     */
+    private void resetPresentationFlags()
+    {
+        setIsRevisionView(false);
+        
     }
 
     public List<PubItemVOPresentation> getSelectedPubItems()
@@ -194,6 +212,7 @@ public class ItemListSessionBean extends FacesBean
     public void setListDirty(boolean isListDirty)
     {
         this.isListDirty = isListDirty;
+        
     }
     
     public int getCurrentPubItemListSize()
@@ -480,4 +499,14 @@ public class ItemListSessionBean extends FacesBean
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	 public boolean getIsRevisionView()
+	    {
+	        return isRevisionView;
+	    }
+
+	    public void setIsRevisionView(boolean isRevisionView)
+	    {
+	        this.isRevisionView = isRevisionView;
+	    }
 }

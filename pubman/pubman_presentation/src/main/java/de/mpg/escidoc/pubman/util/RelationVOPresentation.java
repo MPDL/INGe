@@ -6,7 +6,9 @@ import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 public class RelationVOPresentation extends RelationVO
 {
 
-	private PubItemVO item;
+	private PubItemVO sourceItem;
+	
+	
 	
 	public RelationVOPresentation(RelationVO relation)
 	{
@@ -14,11 +16,11 @@ public class RelationVOPresentation extends RelationVO
 	}
 
 	public PubItemVO getSourceItem() {
-		return item;
+		return sourceItem;
 	}
 
 	public void setSourceItem(PubItemVO item) {
-		this.item = item;
+		this.sourceItem = item;
 	}
 	
 }

@@ -49,6 +49,6 @@
 				</label>
 			</h3>
 		</h:panelGroup>
-		<jsp:directive.include file="../list/relationList.jspf"/>
+		<jsp:directive.include file="../list/itemList.jspf"/>
 	</f:subview>
 </div>

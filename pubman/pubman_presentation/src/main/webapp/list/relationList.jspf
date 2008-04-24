@@ -36,7 +36,7 @@ All rights reserved. Use is subject to license terms.
 		<div class="paginator">
 			<h:dataTable id="listtable" var="item" value="#{RelationListSessionBean.relationList}" rowClasses="odd, even">
 				<h:column>
-					<h:panelGroup styleClass="listItemHeader">
+					<h:panelGroup>
 						<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.sourceItemRef.objectId}:#{item.sourceItemRef.versionNumber}" >
 							<h:outputText value="#{item.sourceItem.metadata.title}"/>
 						</h:outputLink>

@@ -79,7 +79,7 @@ All rights reserved. Use is subject to license terms.
 					<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderDesc" image="images/sort_icon_descending.jpg" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
 				</div>
 				
-				<h:panelGroup layout="block" styleClass="displayControls listHeaderControls">
+				<h:panelGroup layout="block" styleClass="displayControls listHeaderControls" rendered="#{!ItemListSessionBean.isRevisionView}">
 					<h:outputLabel value="#{lbl.ItemList_Details}"/>
 					<h:commandButton image="images/short_view_item.jpg" actionListener="#{ItemListSessionBean.switchToShortView}"/>
 					<h:commandButton image="images/medium_view_item.jpg" actionListener="#{ItemListSessionBean.switchToMediumView}"/>
@@ -96,10 +96,18 @@ All rights reserved. Use is subject to license terms.
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
 						</div>
-						<div class="listItemHeaderViews">
-							<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
-							<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
-						</div>
+						<h:panelGroup rendered="#{ItemListSessionBean.isRevisionView}">
+							<div class="listItemHeaderTitle">
+								<h:outputText value="#{lbl.ViewItemRevisions_lblReleaseDate} #{item.latestRelease.modificationDate}"/>
+							</div>
+						</h:panelGroup>
+						<h:panelGroup rendered="#{!ItemListSessionBean.isRevisionView}">
+							<div class="listItemHeaderViews">
+								<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
+								<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
+							</div>
+						</h:panelGroup>
+						
 					</h:panelGroup>
 					<br/>
 					<h:panelGroup rendered="#{item.shortView}">
