@@ -62,7 +62,7 @@ All rights reserved. Use is subject to license terms.
 			<div class="displayControls"></div>
 			<h:panelGroup layout="block" styleClass="listHeader dark floatbox">
 				<div class="listHeaderSelectItems">
-					<h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}">
+					<h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}" rendered="#{ItemListSessionBean.isSearchResultList}">
 						<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />
 					</h:selectOneMenu>
 				</div>
@@ -91,7 +91,7 @@ All rights reserved. Use is subject to license terms.
 				<h:column>
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
-							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{ItemListSessionBean.isSearchResultList == 'true'}"/>
+							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{ItemListSessionBean.isSearchResultList}"/>
 							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.version.objectId}:#{item.version.versionNumber}" >
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>

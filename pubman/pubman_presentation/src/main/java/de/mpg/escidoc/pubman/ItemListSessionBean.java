@@ -166,7 +166,7 @@ public class ItemListSessionBean extends FacesBean
     	// check in the list of one item is of type search result
     	if(this.currentPubItemList != null && this.currentPubItemList.size() > 0)
     	{
-    		if(this.currentPubItemList.get(0).getSearchHitList() != null && this.currentPubItemList.get(0).getSearchHitList().size() > 0)
+    		if(this.currentPubItemList.get(0).isSearchResult() == true)
     		{
     			isSearchresultList = true;
     		}

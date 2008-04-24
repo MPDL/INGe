@@ -93,6 +93,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
      */
     private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
     
+    private boolean isSearchResult = false;
+    
     //For handling the resource bundles (i18n)
     private Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
@@ -113,6 +115,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		if (item instanceof PubItemResultVO)
 		{
 			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
+			this.isSearchResult = true;
 		}
 		
 		// set up some pre-requisites
@@ -949,9 +952,13 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         this.isRevisionView = isRevisionView;
     }
-	
-	
-	
-	
+
+	public boolean isSearchResult() {
+		return isSearchResult;
+	}
+
+	public void setSearchResult(boolean isSearchResult) {
+		this.isSearchResult = isSearchResult;
+	}
 	
 }
