@@ -232,7 +232,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{item.amountOfFiles > 0}"/>
+		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{item.amountOfFiles > 0}"/>
 		<h:outputText value="#{item.fileInfo}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
@@ -242,7 +242,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{item.amountOfLocators > 0}"/>
+		<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{item.amountOfLocators > 0}"/>
 		<h:outputText value="#{item.locatorInfo}"/>
 	<h:outputText value="</div>" escape="false"/>
 	

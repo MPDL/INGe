@@ -57,7 +57,7 @@
 			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{file.itemWithdrawn == true}"/>
 
 				<h:commandLink action="#{file.downloadFile}" rendered="#{file.itemWithdrawn == false}">
-				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locators_16.gif" rendered="#{file.itemWithdrawn == false}"/>
+				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{file.itemWithdrawn == false}"/>
 					<h:outputText value="#{file.file.name}" rendered="#{file.itemWithdrawn == false}"/>
 				</h:commandLink>
 			<h:panelGroup styleClass="subLabel">
