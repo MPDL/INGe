@@ -2,28 +2,40 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import javax.faces.model.SelectItem;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
+
+
 
 /**
  * Abstract bean with common criterion behaviour.
  * 
  * @author Mario Wagner
  */
-public abstract class CriterionBean extends InternationalizedImpl
+public abstract class CriterionBean extends FacesBean
 {
 	protected boolean collapsed = false;
 	private String logicOperator;
 	
-    public static final SelectItem LOGIC_AND = new SelectItem("And", "And");
-    public static final SelectItem LOGIC_OR = new SelectItem("Or", "Or");
-    public static final SelectItem LOGIC_NOT = new SelectItem("Not", "Not");
-    public static final SelectItem[] LOGIC_OPTIONS = new SelectItem[]{LOGIC_AND, LOGIC_OR, LOGIC_NOT};
+    public SelectItem LOGIC_AND = new SelectItem("And", this.getLabel("adv_search_logicop_and"));
+    public SelectItem LOGIC_OR = new SelectItem("Or", this.getLabel("adv_search_logicop_or"));
+    public SelectItem LOGIC_NOT = new SelectItem("Not", this.getLabel("adv_search_logicop_not"));
+    public SelectItem[] LOGIC_OPTIONS = new SelectItem[]{LOGIC_AND, LOGIC_OR, LOGIC_NOT};
 
+    public enum LogicOptions
+    {
+    	LOGIC_AND, LOGIC_OR, LOGIC_NOT
+    }
+    
     public SelectItem[] getLogicOptions()
     {
-        return LOGIC_OPTIONS;
+    	LogicOptions[] values = LogicOptions.values();
+
+        return ((ApplicationBean)getApplicationBean(ApplicationBean.class)).getSelectItemsForEnum(false, values);
     }
 
     public abstract CriterionVO getCriterionVO();

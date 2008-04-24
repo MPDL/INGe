@@ -80,31 +80,31 @@
 						<h:panelGroup layout="block" styleClass="checkboxCol dateColShort">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedPrint}" />
-								<h:outputLabel value="published in print" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" />
 							</h:panelGroup>	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchSubmitted}" />
-								<h:outputLabel value="submitted" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" />
 							</h:panelGroup>
 						</h:panelGroup>							
 						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedOnline}" />
-								<h:outputLabel value="published online" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchModified}" />
-								<h:outputLabel value="modified" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" />
 							</h:panelGroup>
 						</h:panelGroup>							
 						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchAccepted}" />
-								<h:outputLabel value="accepted" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchCreated}" />
-								<h:outputLabel value="created" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" />
 							</h:panelGroup>							
 						</h:panelGroup>
 					</div>	

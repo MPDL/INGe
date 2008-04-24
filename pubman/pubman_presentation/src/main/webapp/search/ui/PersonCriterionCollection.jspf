@@ -73,57 +73,57 @@
 						<h:panelGroup layout="block" styleClass="checkboxCol">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAuthor}" />
-								<h:outputLabel value="Author" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchIllustrator}" />
-								<h:outputLabel value="Illustrator" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol">	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchEditor}" />
-								<h:outputLabel value="Editor" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPainter}" />
-								<h:outputLabel value="Painter" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PAINTER}" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol">		
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchAdvisor}" />
-								<h:outputLabel value="Advisor" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ADVISOR}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchPhotographer}" />
-								<h:outputLabel value="Photographer" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol">	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchArtist}" />
-								<h:outputLabel value="Artist" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ARTIST}" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranscriber}" />
-								<h:outputLabel value="Transcriber" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol">	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchCommentator}" />
-								<h:outputLabel value="Commentator" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" />
 							</h:panelGroup>	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchTranslator}" />
-								<h:outputLabel value="Translator" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol">		
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{personCriterionBean.searchContributor}" />
-								<h:outputLabel value="Contributor" />
+								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" />
 							</h:panelGroup>	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">						
 								<h:outputLabel value=" " />
