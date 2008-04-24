@@ -313,3 +313,17 @@ font-size: 1em;
 	margin-right: 5px;
 	float: left;
 }
+
+.errorPageExpander {
+	width: 16px;
+	height: 16px;
+	margin-left: 584px;
+	margin-bottom: -10px;
+}
+
+.errorMessageContent {
+	width: 600px;
+	height: 30px;
+	overflow: hidden;
+	background-color: #F0F0F0;
+}

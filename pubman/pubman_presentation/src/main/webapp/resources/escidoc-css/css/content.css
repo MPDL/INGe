@@ -311,7 +311,6 @@ input:focus, textarea:focus{
 }
  
 .messageStatus, .messageError{	
-	position: relative;
 	top: -0.8em;
 	padding: 12px 0px 12px 0px;
 	font-family: Courier, "Courier New", monospace !important;

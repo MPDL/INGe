@@ -72,11 +72,12 @@
 												<h:outputText value="#{ErrorPage.previousPageName}"/>
 											</h:outputLink>
 											<br/>
-											<h:outputText value="#{lbl.ErrorPage_errorOccurred}"/>
+											<span class="messageError">
+												<h:outputText value="#{lbl.ErrorPage_errorOccurred}"/>
+											</span>
+											<input type="button" id="error-button" onclick="toggleErrorMessage()" value="+" class="inlineButton errorPageExpander"/>
 											<br/>
-											<input type="button" id="error-button" onclick="toggleErrorMessage()" value="+"/>
-											<br/>
-											<div style="width: 600px; height: 30px; overflow: hidden; background-color: #F0F0F0" id="error-message-div">
+											<div class="errorMessageContent" id="error-message-div">
 												<h:outputText value="#{ErrorPage.exception.message}"/>
 												<br/>
 												<br/>
