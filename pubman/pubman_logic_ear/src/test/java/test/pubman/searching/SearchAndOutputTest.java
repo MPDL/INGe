@@ -117,13 +117,7 @@ public class SearchAndOutputTest extends TestBase
         assertTrue("Empty output", ! searchResultString.trim().equals("") );
         logger.debug("output: " + searchResultString);
 
-        
-//        List<PubItemResultVO> searchResultList = pubSearching.search(query, false);
-//        assertNotNull(searchResultList);
-//        assertEquals("Wrong number of search results",1, searchResultList.size());
-//        PubItemResultVO result = searchResultList.get(0);
-//        
-//        PubItemVO item = getPubItemFromFramework(result.getReference(), user);
+        pubItemDepositing.deletePubItem(myItemRef, user);
 //        ObjectComparator oc = new ObjectComparator(item,result);
 //        assertTrue( oc.toString(), oc.isEqual());
     }
