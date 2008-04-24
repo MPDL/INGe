@@ -1,4 +1,3 @@
-
 <%
             /* 
             CDDL HEADER START
@@ -33,26 +32,23 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <div style="width: 860px;"><f:subview id="ExportEmailView">
 
-	<h:panelGrid id="panelMsg">
-		<%
-		/* <ui:messageGroup binding="#{ExportItems.valMessage}" id="valMessage" styleClass="valMessage" visible="false"/> */
-		%>
-	</h:panelGrid>
-
-	
 	
 	<h1>
 		<h:outputText id="lblExport" value="#{lbl.export_lblExport}" />
 		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ExportEMail');return false"/>
 	</h1>
 	
+
 	
 	<h:panelGrid id="panelBackSend" columns="2" styleClass="exportEmailButtonBox">
 
-		<h:commandLink id="lnkBack" styleClass="exportBackButton" value="Back" action="#{ExportItems.backToList}" />
+		<h:commandLink id="lnkBack" styleClass="exportBackButton" value="#{lbl.ExportEmail_lblBack}" action="#{ExportItems.backToList}" />
 
-		<h:commandLink id="lnkSend" styleClass="exportSendButton" value="Send" action="#{ExportItems.sendEMail}" />
+		<h:commandLink id="lnkSend" styleClass="exportSendButton" value="#{lbl.ExportEmail_lblSend}" action="#{ExportItems.sendEMail}" />	
 	</h:panelGrid>
+	
+	<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
+	
 	<h:panelGrid id="panelEmailHeader" styleClass="exportEmailBox">
 
 		<h:outputLabel for="txtItemsAttached" id="lblItemsAttached" value="#{lbl.ExportEmail_lblItemsAttached}" />
