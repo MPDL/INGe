@@ -34,9 +34,10 @@
 <f:subview id="Locators">
 	<%-- LOCATORS --%>
 		<tr:iterator var="locator" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
-    		
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
+    			
+    			
     			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}"/></h3>
+    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
      				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
      					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
      					<tr:outputLabel value="#{locator.file.locator}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>		
@@ -57,6 +58,7 @@
     			
     			
     		<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.locator == null || locator.file.locator == ''}">
+    			<h3><h:outputText value="#{lbl.EditItem_lblFileLoc}"/></h3>
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
     				<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>   

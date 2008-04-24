@@ -144,9 +144,10 @@
   	width: 510px;
   	display: block;
   	overflow: hidden;
-  	margin-top: 0px;
+  	margin-top: 25px;
   	margin-left: 0px;
-  	margin-bottom: 25px;
+  	margin-bottom: 0px;
+  	float: left;
   }
 
   .easySubmissionBoxBodyLine {
@@ -213,6 +214,18 @@
 	border:1px solid #DDDDDD;
 	float: left;
 	background-color: #e6e6e6;
+  }
+  
+  .easySubmissionSubBox h3 {
+  	/*width: 50px;*/
+  	display: block;
+  	/*background-color: silver;*/
+  	/*overflow: hidden;*/
+  	padding-left: 10px;
+  	margin-top: 0px;
+  	margin-left: 0px;
+  	margin-bottom: 0px;
+  	float: left;
   }
   
   .easySubmissionSubBoxHeader {
@@ -408,10 +421,10 @@
 	padding: 0px;
   }
   
-  .easySubmissionControls input {
+  .easySubmissionControls input, .easySubmissionControls label {
  	float: left;
   	height: 24px;
-  	background-color: #FFFFFF;
+  	/*background-color: #FFFFFF;*/
   	border:0px solid #DDDDDD;
   }
   
@@ -422,7 +435,7 @@
   	padding-right: 22px;
   }
   
-  .easySubmissionsBackSection, .easySubmissionsNextSection, easySubmissionsCancelSection {
+  .easySubmissionsBackSection, .easySubmissionsNextSection, .easySubmissionsCancelSection {
   	cursor: pointer;	
 	border-top: 1px white solid;
 	border-left: 1px solid white;
@@ -431,6 +444,7 @@
   	background-color: #f5f5f5;
 	font-weight: bold;
 	color: #515151;
+	overflow: hidden;
   }
   
   .easySubmissionsBackSection label, .easySubmissionsNextSection label, .easySubmissionsCancelSection label {
@@ -450,8 +464,8 @@
   
   .easySubmissionsCancelSection {
   	float: left;
-  	margin-left: 150px;
-  	width: 100px;
+  	margin-left: 80px;
+  	width: 180px;
   	padding-bottom: 2px;
   }
   

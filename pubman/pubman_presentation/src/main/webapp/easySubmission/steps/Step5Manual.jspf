@@ -123,7 +123,7 @@
 			</h:commandLink>
 			<h:commandLink action="#{EasySubmission.loadPreview}">
 			<div class="easySubmissionsCancelSection">
-				<h:commandButton action="#{EasySubmission.loadPreview}" value=""  styleClass="easySubmissionCancelButton" type="submit"/>
+				
 				<h:outputLabel value="#{lbl.easy_submission_btnAddDetails}"/>
 			</div>
 			</h:commandLink>

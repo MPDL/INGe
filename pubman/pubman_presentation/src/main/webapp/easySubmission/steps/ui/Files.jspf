@@ -53,6 +53,7 @@
      			</h:panelGroup>
      			
      			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.size == 0}">
+     				<h3><h:outputText value="#{lbl.EditItem_lblFile}"/></h3>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
      					<h:panelGroup layout="block" styleClass="margin5Right">
      						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath}" rendered="#{component.file.size == 0}"/>
