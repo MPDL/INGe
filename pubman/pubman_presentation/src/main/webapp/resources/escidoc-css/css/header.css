@@ -105,6 +105,10 @@
 	text-align: center;
 }
 
+.simpleSearch .inlineButton {
+	top: 0px;
+}
+
 #searchLinks{
 	position: absolute;
 	right: 0px;

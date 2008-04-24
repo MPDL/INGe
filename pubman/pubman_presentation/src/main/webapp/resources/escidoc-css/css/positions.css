@@ -491,7 +491,10 @@ margin-left: -10px;
 	width: 750px;
 	height: 35px;
 	text-align: right;
+}
 
+.formField .objectButtons {
+	width: 744px;
 }
 
 .objectButtons label{
