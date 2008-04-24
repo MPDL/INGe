@@ -222,6 +222,9 @@
 		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
 			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
 		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:organization">
+			<iso:assert test="escidoc:organization-name != ''">CreatorOrganizationNameNotProvided</iso:assert>
+		</iso:rule>
 	</iso:pattern>
 	
 	<!-- if "Publisher place" or "Publisher edition" is filled, "Publisher name" has to be filled also -->

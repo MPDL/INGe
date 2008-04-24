@@ -91,33 +91,7 @@
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="creator_required"/>
-		<iso:active pattern="correct_date_format"/>	<!-- If a file is given, the filename is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-
-	<!-- If a file is given, the content type is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-
-	<!-- If a file is given, the mime type is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-
-	<!-- If a file is given, the visibility is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
+		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
 		
 		<iso:active pattern="date_required"/>
@@ -214,7 +188,6 @@
 		
 	</iso:pattern>
 
-
 	<!-- Validation point specific -->	
 	
 	<!-- Title is required -->
@@ -247,6 +220,9 @@
 		</iso:rule>
 		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
 			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:organization">
+			<iso:assert test="escidoc:organization-name != ''">CreatorOrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
