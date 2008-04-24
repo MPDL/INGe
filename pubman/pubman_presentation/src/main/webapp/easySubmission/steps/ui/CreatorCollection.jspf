@@ -77,7 +77,7 @@
 						<div class="easySubmissionBasicSubItem">
 							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
 							<h:inputText value="#{persOrga.name.value}"/>
-							<h:inputText value="#{persOrga.address}" styleClass="margin5Top"/>
+							<h:inputTextarea value="#{persOrga.address}" styleClass="margin5Top"/>
 						</div>
 						<div class="easySubmissionAddOrgButtonLine">
 							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" styleClass="inlineButton" />
@@ -99,11 +99,7 @@
 						<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
 							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
 							<h:inputText value="#{creatorBean.creator.organization.name.value}"/>
-							<h:inputTextarea rows="3" value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
-							
-							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
-							<h:commandButton value="#{lbl.easy_submission_btnRemoveOrg}" action="#{creatorBean.personOrganisationManager.removeObject}" styleClass="inlineButton" rendered="#{creatorBean.personOrganisationManager.size > 1}" />
-							
+							<h:inputTextarea value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>
 						</h:panelGroup>
 						<div class="easySubmissionAddOrgButtonLine">				
 							<h:commandButton value="#{lbl.easy_submission_btnOrgSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" styleClass="inlineButton" />
