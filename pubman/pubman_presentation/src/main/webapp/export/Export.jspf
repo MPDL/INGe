@@ -58,12 +58,12 @@
 									 value="#{lbl.export_btDisplay}"
 									 actionListener="#{SearchResultList.prepareDisplayExportData}"									 
 			 			 		  	 onclick="#{SearchResultList.displayExportData}"
-									 styleClass="exportButton" />
+									 styleClass="inlineButton" />
 					*/%>
 					<h:commandButton id="btnDisplayItems"
 									 value="#{lbl.export_btDisplay}"
 									 action="#{SearchResultList.showDisplayExportData}"									  
-									 styleClass="exportButton centeredExportButton"
+									 styleClass="inlineButton centeredExportButton"
 									 disabled="#{!ExportItemsSessionBean.enableExport}"/>
 				</h:panelGrid>		
 				<hr />
@@ -80,13 +80,13 @@
 									 value="#{lbl.export_btDownload}"
 									 actionListener="#{SearchResultList.downloadExportFile}"
 									 disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}"
-									 styleClass="exportButton exportDownloadButton" />
+									 styleClass="inlineButton exportDownloadButton" />
 				
 					<h:commandButton id="btnExportEMail"
 									 value="#{lbl.export_btEMail}"
 									 action="#{SearchResultList.showExportEmailPage}"
 									 disabled="#{!ExportItemsSessionBean.enableExport}"
-									 styleClass="exportButton exportSendMailButton" />
+									 styleClass="inlineButton exportSendMailButton" />
 			
 				<h:commandButton action="#{ExportItems.updateExportFormats}" id="btnUpdateExportFormats" value="updateExportFormats"  style="visibility:hidden;"/>									
 </f:subview></div>

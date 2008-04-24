@@ -39,11 +39,13 @@
 		%>
 	</h:panelGrid>
 
-	<div class="exportIcon"></div>
-	<div class="exportIconHeader">
+	
+	
+	<h1>
 		<h:outputText id="lblExport" value="#{lbl.export_lblExport}" />
 		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ExportEMail');return false"/>
-	</div>
+	</h1>
+	
 	
 	<h:panelGrid id="panelBackSend" columns="2" styleClass="exportEmailButtonBox">
 

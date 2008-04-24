@@ -157,6 +157,8 @@
 	display: block;
 	overflow: hidden;
 	float: left;
+	margin: 0px;
+	margin-right: 3px;
 }
 
 .exportDownloadButton {
