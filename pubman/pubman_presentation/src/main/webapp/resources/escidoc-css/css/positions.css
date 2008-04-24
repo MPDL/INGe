@@ -320,6 +320,20 @@ html > body .itemText {
 	border:1px solid #afafaf;
 }
 
+.listItemHeader input {
+	padding: 0px;
+	border: 0px !important;
+}
+
+.listHeader input {
+	padding: 0px;
+}
+
+.displayControls input {
+	padding: 0px !important;
+	border: 0px !important;
+}
+
 .listItem {
 	margin: 0px;
 	padding: 2px 14px 2px 12px;
