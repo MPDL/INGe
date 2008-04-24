@@ -75,12 +75,12 @@ input, select, submit, textarea, button{
 }
 
 input:hover, textarea:hover{
-	background-color: #ffffcc;
+	background-color: #FFF8D9;
 	border: 1px solid black;
 }
 
 input:focus, textarea:focus{
-	background-color: #fffbe8;
+	background-color: #FFFBE8;
 	border: 1px solid black;
 }
 

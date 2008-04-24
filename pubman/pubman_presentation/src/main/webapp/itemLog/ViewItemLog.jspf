@@ -39,7 +39,7 @@
 		<h1  class="bottomSpace">
 			<h:outputText id="valOrientationText" value="#{lbl.ViewItemLog_Header}"/>
 			<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ItemLog');return false"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-120005');return false"/>
 		</h1>
 		<div class="listHeader dark">
 			<h3>
