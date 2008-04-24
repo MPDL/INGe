@@ -34,10 +34,13 @@
 <div>
 	<f:loadBundle var="lbl"	basename="Label" />
 	<f:subview id="AffiliationTreePage">
-		<h1 class="bottomSpace">
+		<h2>
+		<div class="viewItemTopHeader">
+			<div class="icon affiliationsIcon"></div>
 			<h:outputText id="txtOrga" styleClass="orientationHeader" value="#{lbl.AffiliationTree_txtHeadline}"/>
 			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-80003.3');return false"/>
-		</h1>
+		</div>	
+		</h2>
 		<br/>
 		
 		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
