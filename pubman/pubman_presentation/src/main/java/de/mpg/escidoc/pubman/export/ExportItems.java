@@ -86,6 +86,7 @@ public class ExportItems extends FacesBean
     public static final String MESSAGE_NO_EXPORTDATA_DELIVERED = "exportItems_NoDataDelivered";
     public static final String MESSAGE_EXPORT_EMAIL_SENT = "exportItems_EmailSent";
     public static final String MESSAGE_EXPORT_EMAIL_NOTSENT = "exportItems_EmailNotSent";
+    public static final String MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED = "exportItems_RecipientsAreNotDefined";
     public static final String MESSAGE_EXPORT_EMAIL_TEXT = "exportItems_EmailText";
     public static final String MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT = "exportItems_EmailSubjectText";
     
@@ -287,21 +288,31 @@ public class ExportItems extends FacesBean
             String recipientsAddressesStr = this.getSessionBean().getEmailRecipients();
             String recipientsCCAddressesStr = this.getSessionBean().getEmailCCRecipients();
             
-             if ( recipientsAddressesStr == null || recipientsAddressesStr.trim().equals("") )
+            String[] recipientsAddresses = null;
+            boolean OK = false;
+            if ( recipientsAddressesStr != null && ! recipientsAddressesStr.trim().equals("") )
             {
-               String message = getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_NOTSENT);
-               info(message);
-               valMessage.setRendered(true);
-                return null;
+            	recipientsAddresses = recipientsAddressesStr.split(",");
+                FOR: for ( String ra : recipientsAddresses )
+                {
+                	if ( !ra.trim().equals("") )
+                	{
+                		OK = true;
+                		break FOR;
+                	}
+                }
+
             }
-           String[] recipientsAddresses = recipientsAddressesStr.split(","); //somereceiver@web.de
+            
+            if ( !OK )
+            {
+            	error(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_RECIPIENTS_ARE_NOT_DEFINED));
+            	return null;
+            }
            
            String[] recipientsCCAddresses = recipientsCCAddressesStr.split(",");
            
             try { 
-//                 status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
-//                                                          senderAddress, recipientsAddresses, replyToAddresses, 
-//                                                          subject, text, attachments);
                  status =  this.getItemControllerSessionBean().sendEmail(smtpHost, usr, pwd,
                 		 senderAddress, 
                 		 recipientsAddresses, 
@@ -309,7 +320,8 @@ public class ExportItems extends FacesBean
                 		 null,
                 		 replyToAddresses, 
                 		 subject, text, attachments);
-            }catch (TechnicalException e)
+            }
+            catch (TechnicalException e)
             {
                 logger.error("Could not ser the export formats." + "\n" + e.toString());
                 ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
