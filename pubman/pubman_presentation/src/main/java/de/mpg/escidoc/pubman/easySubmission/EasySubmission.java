@@ -278,6 +278,12 @@ public class EasySubmission extends FacesBean
      */
     public String addFile()
     {
+    	// first try to upload the entered file
+    	upload();
+    	
+    	// then try to save the locator
+    	saveLocator();
+    	
     	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0 && this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     	{
     		FileVO newFile = new FileVO();
@@ -293,7 +299,15 @@ public class EasySubmission extends FacesBean
      */
     public String addLocator()
     {
-    	if(this.getEasySubmissionSessionBean().getLocators() != null)
+    	//  first try to upload the entered file
+    	upload();
+    	
+    	// then try to save the locator
+    	saveLocator();
+    	
+    	if(this.getEasySubmissionSessionBean().getLocators() != null 
+    			&& this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getLocator() != null 
+    			&& !this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getLocator().trim().equals(""))
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
@@ -719,7 +733,13 @@ public class EasySubmission extends FacesBean
     
     public String loadStep4Manual()
     {
-    	// save the files and locators in the item in the EasySubmissionSessionBean
+    	// first try to upload the entered file
+    	upload();
+    	
+    	// then try to save the locator
+    	saveLocator();
+    	
+    	// save the files and locators in the item in the ItemControllerSessionBean
     	this.getItemControllerSessionBean().getCurrentPubItem().getFiles().clear();
     	// first add the files
     	for(int i = 0; i < this.getEasySubmissionSessionBean().getFiles().size(); i++)

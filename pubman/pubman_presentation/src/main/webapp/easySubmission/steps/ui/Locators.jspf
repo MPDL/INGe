@@ -36,7 +36,7 @@
 		<tr:iterator var="locator" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
     			
     			
-    			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}"/></h3>
+    			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex == 0}"/></h3>
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
      				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
      					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
@@ -90,18 +90,11 @@
            			</h:panelGroup>
            		</h:panelGroup>
            		</h:panelGroup>
-           		
-           		<%-- BUTTON --%>
-           		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-          			<h:panelGroup layout="block" styleClass="easySubmissionVisibilityLine">
-   						<tr:commandButton text="#{lbl.easy_submission_btnLocatorSave}" styleClass="inlineButton" action="#{EasySubmission.saveLocator}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>       
-					</h:panelGroup>
-				</h:panelGroup>
 			</h:panelGroup>
     			
         		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-					<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount && locator.file.locator != null && locator.file.locator != ''}"/>
-					<tr:commandLink text="#{lbl.easy_submission_btnLocatorAdd}" action="#{EasySubmission.addLocator}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount && locator.file.locator != null && locator.file.locator != ''}"/>
+					<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
+					<tr:commandLink text="#{lbl.easy_submission_btnLocatorAdd}" action="#{EasySubmission.addLocator}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
        			</h:panelGroup> 
        		
    	</tr:iterator> 

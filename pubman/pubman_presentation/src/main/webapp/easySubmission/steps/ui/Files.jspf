@@ -92,19 +92,12 @@
           					</h:panelGroup>
           				</h:panelGroup>
           			</h:panelGroup>
-          			
-          			<%-- BUTTON --%>
-          			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-          				<h:panelGroup layout="block" styleClass="easySubmissionVisibilityLine">
-     						<tr:commandButton text="#{lbl.easy_submission_btnUploadFile}" rendered="#{component.file.size == 0}" styleClass="inlineButton" action="#{EasySubmission.upload}"/>     
-     					</h:panelGroup>
-     				</h:panelGroup>
          		</h:panelGroup>
          	
 
 					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}"/>
-							<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount && component.file.size > 0}" />
+						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount}"/>
+							<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount}" />
 					</h:panelGroup>
         		 	
        	</h:panelGroup>
