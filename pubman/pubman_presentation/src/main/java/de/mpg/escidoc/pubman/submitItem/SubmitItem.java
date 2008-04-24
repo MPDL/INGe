@@ -30,8 +30,12 @@
 
 package de.mpg.escidoc.pubman.submitItem;
 
+import java.io.IOException;
+
 import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.component.html.HtmlOutputText;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
@@ -138,7 +142,9 @@ public class SubmitItem extends FacesBean
      */
     public final String submit()
     {
-        String retVal;
+    	FacesContext fc = FacesContext.getCurrentInstance();
+    	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+    	String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
         //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
         String comment;
@@ -164,6 +170,19 @@ public class SubmitItem extends FacesBean
         logger.debug("Now submitting, then go to " + navigateTo);
         
         retVal = this.getItemControllerSessionBean().submitCurrentPubItem(comment, navigateTo);
+        
+        // redirect to the view item page afterwards (if no error occured)
+        if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+        	try 
+            {
+    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getVersionNumber());
+    		} 
+            catch (IOException e) {
+    			logger.error("Could not redirect to View Item Page", e);
+    		}
+        }
+        
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
             this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
