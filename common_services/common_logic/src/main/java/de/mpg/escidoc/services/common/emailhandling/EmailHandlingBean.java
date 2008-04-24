@@ -58,6 +58,8 @@ import javax.mail.internet.MimeMultipart;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+import sun.security.krb5.internal.rcache.ReplayCache;
+
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
@@ -116,13 +118,13 @@ public class EmailHandlingBean implements EmailHandling
                  //props.put("mail.smtp.starttls",        "true");
                  //props.put("mail.smtp.ssl",                    "true");
 
-                 String keyStore = System.getProperty("javax.net.ssl.keyStore");
-                 if(keyStore == null)
-                     System.out.println("javax.net.ssl.trustStore is not defined");
-                 else
-                     System.out.println("javax.net.ssl.keyStore is : " + keyStore);
-
-                 logger.debug("System Properties  "+ props.toString());                
+//                 String keyStore = System.getProperty("javax.net.ssl.keyStore");
+//                 if(keyStore == null)
+//                     System.out.println("javax.net.ssl.trustStore is not defined");
+//                 else
+//                     System.out.println("javax.net.ssl.keyStore is : " + keyStore);
+//
+//                 logger.debug("System Properties  "+ props.toString());                
                  
                  // Get a mail session with authentication
                  MailAuthenticator authenticator = new MailAuthenticator(usr, pwd);
@@ -154,6 +156,20 @@ public class EmailHandlingBean implements EmailHandling
 	                	 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
 	                	 logger.debug(">>> recipientBCC  "+ rabcc);
 	                 }
+
+                 //add replyTo 
+                 if ( replytoAddresses != null )
+                 {
+                	 InternetAddress[] adresses = new InternetAddress[ recipientsAddresses.length ];
+                	 int i = 0;
+                	 for ( String a : replytoAddresses )
+                	 {
+                		 adresses[i] = new InternetAddress(a);
+                		 i++;
+                		 logger.debug(">>> replyToaddress  "+ a);
+                	 }
+                	 message.setReplyTo(adresses);
+                 }
                  
                  message.setSubject(subject);
                  Date date = new Date();
