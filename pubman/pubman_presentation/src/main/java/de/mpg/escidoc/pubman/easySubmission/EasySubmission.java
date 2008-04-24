@@ -683,7 +683,7 @@ public class EasySubmission extends FacesBean
     		}
     	}
     	
-    	return loadPreview();
+    	return "loadEditItem";
     }
     
     public String cancelEasySubmission()

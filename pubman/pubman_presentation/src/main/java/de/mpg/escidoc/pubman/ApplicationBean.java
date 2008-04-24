@@ -343,7 +343,14 @@ public class ApplicationBean extends FacesBean
      */
     public String convertEnumToString(final Object enumObject)
     {
-        return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
+    	if (enumObject != null)
+    	{
+    		return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
+    	}
+    	else
+    	{
+    		return "ENUM_EMPTY";
+    	}
     }
 
     /**
