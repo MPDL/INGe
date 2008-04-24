@@ -40,7 +40,7 @@
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
 	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
-	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
+	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.3"/>
 	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
@@ -56,6 +56,31 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_3">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_4">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_5">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -118,7 +143,7 @@
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
 		<iso:rule context="publication:source">
-			<iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert>
+			<!--<iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert>-->
 		</iso:rule>
 	</iso:pattern>
 	
@@ -138,33 +163,37 @@
 		</iso:rule>
 	</iso:pattern>
 	
-	<!-- If a file is given, the filename is mandatory. -->
 	<iso:pattern name="component_data_required" id="component_data_required">
+	
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
+			
+			<!-- If a file is given, the filename is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
+		
+			<!-- If a file is given, the content type is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
 
-	<!-- If a file is given, the content type is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-
-	<!-- If a file is given, the mime type is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
+			<!-- If a file is given, the mime type is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
+	
+			<!-- If a file is given, the visibility is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
+			
 		</iso:rule>
+		
+	</iso:pattern>
+	
+	<iso:pattern name="component_required" id="component_required">
+	
+		<iso:rule context="escidocComponents:components">
+			
+			<!-- A file or a locator has to be given. -->
+			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != ''] or escidocComponents:component[escidocComponents:properties/escidocComponents:locator-url != '']">ComponentRequired</iso:assert>
+			
+		</iso:rule>
+		
 	</iso:pattern>
 
-	<!-- If a file is given, the visibility is mandatory. -->
-	<iso:pattern name="component_data_required" id="component_data_required">
-		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
 
 	<!-- Validation point specific -->	
 	

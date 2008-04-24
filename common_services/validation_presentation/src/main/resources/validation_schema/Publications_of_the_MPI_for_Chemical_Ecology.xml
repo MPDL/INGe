@@ -39,7 +39,7 @@
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
 	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
-	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/item/0.3/components"/>
+	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.3"/>
 	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	
@@ -55,6 +55,31 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_3">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_4">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+	</iso:phase>
+
+	<iso:phase id="easy_submission_step_5">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<!-- iso:active pattern="component_required"/ -->
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
 	</iso:phase>
 
 	<iso:phase id="submit_item">
@@ -112,7 +137,7 @@
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
 		<iso:rule context="publication:source">
-			<iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert>
+			<!--<iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert>-->
 		</iso:rule>
 	</iso:pattern>
 	
