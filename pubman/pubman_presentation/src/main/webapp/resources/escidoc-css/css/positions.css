@@ -207,7 +207,7 @@ html > body .itemText {
 .itemAffiliations {
 	position: relative;
 	width: 15em;
-	height: 12em;
+	height: 5em;
 	overflow: hidden;
 	float: left;
 	margin: 8px;
