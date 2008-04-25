@@ -42,7 +42,7 @@
 			</div>
 	</h2>
 	
-	<h:panelGroup display="block" rendered = "#{EasySubmission.fromEasySubmission}">
+	<h:panelGroup layout="block" rendered = "#{EasySubmission.fromEasySubmission}">
 			<h:outputText styleClass="messageError" value="#{msg.easy_submission_preview_hint}"/>
 	</h:panelGroup>	
 	
