@@ -42,6 +42,10 @@
 			</div>
 	</h2>
 	
+	<h:panelGroup display="block" rendered = "#{EasySubmission.fromEasySubmission}">
+			<h:outputText styleClass="messageError" value="#{msg.easy_submission_preview_hint}"/>
+	</h:panelGroup>	
+	
 	<!-- COinS -->
 	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
 	
