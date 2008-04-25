@@ -117,7 +117,7 @@
 		<div>
 			<h:commandLink action="#{EasySubmission.loadStep4Manual}">
 			<div class="easySubmissionsBackSection">
-				<h:commandButton action="#{EasySubmission.loadStep4Manual}" value=""  styleClass="easySubmissionBackButton" type="submit"/>
+				<h:panelGroup styleClass="easySubmissionBackButton"/>
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}"/>
 			</div>
 			</h:commandLink>
@@ -129,7 +129,7 @@
 			<h:commandLink action="#{EasySubmission.save}">
 			<div class="easySubmissionsNextSection">
 				<h:outputLabel value="#{lbl.easy_submission_btnSave}"/>
-				<h:commandButton action="#{EasySubmission.save}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:panelGroup styleClass="easySubmissionNextButton"/>
 			</div>
 			</h:commandLink>
 		</div>

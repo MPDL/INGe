@@ -61,14 +61,14 @@
 		<div>
 			<div class="easySubmissionsBackSection">
 			<h:commandLink action="#{EasySubmission.loadStep3Manual}">
-				<h:commandButton action="#{EasySubmission.loadStep3Manual}" value=" "  styleClass="easySubmissionBackButton" type="submit"/>
+				<h:panelGroup styleClass="easySubmissionBackButton"/>
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
 			<h:commandLink action="#{EasySubmission.loadStep5Manual}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
-				<h:commandButton action="#{EasySubmission.loadStep5Manual}" value=" "  styleClass="easySubmissionNextButton" type="submit"/>
+				<h:panelGroup styleClass="easySubmissionNextButton"/>
 			</h:commandLink>
 			</div>
 		</div>

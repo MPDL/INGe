@@ -74,12 +74,12 @@ input, select, submit, textarea, button{
 	vertical-align: middle;
 }
 
-input:hover, textarea:hover{
+input:hover, textarea:hover, .easySubmissionsBackSection:hover, .easySubmissionsNextSection:hover, .easySubmissionsCancelSection:hover {
 	background-color: #FFF8D9;
 	border: 1px solid black;
 }
 
-input:focus, textarea:focus{
+input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissionsNextSection:focus, .easySubmissionsCancelSection:focus {
 	background-color: #FFFBE8;
 	border: 1px solid black;
 }
