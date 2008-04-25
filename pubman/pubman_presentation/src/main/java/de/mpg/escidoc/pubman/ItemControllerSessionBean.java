@@ -55,6 +55,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -528,6 +529,20 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Initialize the item...");
         }
+        
+        // version
+        if (newPubItem.getVersion() == null)
+        {
+        	ItemRO version = new ItemRO();
+        	newPubItem.setVersion(version);
+        }
+        
+        // Status
+        if (newPubItem.getVersion().getState() == null)
+        {
+        	newPubItem.getVersion().setState(ItemVO.State.PENDING);
+        }
+        
         // Title
         if (newPubItem.getMetadata().getTitle() == null)
         {

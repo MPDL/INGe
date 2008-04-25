@@ -147,8 +147,6 @@ public class ViewItemFull extends FacesBean
     
     private PubContextVO context = null;
     
-    private boolean fromEasySubmission = false;
-    
     /**
      * The list of formatted organzations in an ArrayList.
      */
@@ -259,7 +257,11 @@ public class ViewItemFull extends FacesBean
             //DiT: multiple new conditions for link-activation added
             boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
             boolean isDepositor = loginHelper.getAccountUser().isDepositor();
-            boolean isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+            boolean isOwner = true;
+            if (this.pubItem.getOwner() != null)
+            {
+            	isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+            }
             boolean isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
             boolean isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
 
@@ -1623,13 +1625,5 @@ public class ViewItemFull extends FacesBean
     {
         this.citationURL = citationURL;
     }
-
-	public boolean getFromEasySubmission() {
-		return fromEasySubmission;
-	}
-
-	public void setFromEasySubmission(boolean fromEasySubmission) {
-		this.fromEasySubmission = fromEasySubmission;
-	}
 
 }

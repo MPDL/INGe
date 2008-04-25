@@ -143,6 +143,8 @@ public class EasySubmission extends FacesBean
     
     private UploadedFile uploadedBibTexFile;
     
+    private boolean fromEasySubmission = false;
+    
     /**
      * the ID for the object to fetch by the external service
      */
@@ -376,7 +378,7 @@ public class EasySubmission extends FacesBean
     	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFiles();
     	
-    	((ViewItemFull)getRequestBean(ViewItemFull.class)).setFromEasySubmission(true);
+    	this.setFromEasySubmission(true);
     	
     	return ((EditItem)getRequestBean(EditItem.class)).save();
     	
@@ -1344,6 +1346,14 @@ public class EasySubmission extends FacesBean
 
 	public void setValMessage(HtmlMessages valMessage) {
 		this.valMessage = valMessage;
+	}
+
+	public boolean isFromEasySubmission() {
+		return fromEasySubmission;
+	}
+
+	public void setFromEasySubmission(boolean fromEasySubmission) {
+		this.fromEasySubmission = fromEasySubmission;
 	}
     
     
