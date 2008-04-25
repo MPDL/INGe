@@ -197,6 +197,7 @@ html > body fieldset{
 	padding-left: 6px;
 	margin-top: 0.2em;
 	text-align:left;
+	float: left;
 	width: 75% !important;
  }
 
