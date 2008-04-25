@@ -137,24 +137,33 @@ public class EmailHandlingBean implements EmailHandling
                  //add TO recipients
                  for ( String ra : recipientsAddresses )
                  {
-                	 message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
-                	 logger.debug(">>> recipientTO: "+ ra);
+                	 if ( ra != null && !ra.trim().equals("") )
+                	 {
+                		 message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
+                		 logger.debug(">>> recipientTO: "+ ra);
+                	 }
                  }
                  
                  //add CC recipients
                  if ( recipientsCCAddresses != null )
 	                 for ( String racc : recipientsCCAddresses )
 	                 {
-	                	 message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
-	                	 logger.debug(">>> recipientCC  "+ racc);
+	                	 if ( racc != null && !racc.trim().equals("") )
+	                	 {
+	                		 message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
+	                		 logger.debug(">>> recipientCC  "+ racc);
+	                	 }
 	                 }
                  
                  //add BCC recipients
                  if ( recipientsBCCAddresses != null )
 	                 for ( String rabcc : recipientsBCCAddresses )
 	                 {
-	                	 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
-	                	 logger.debug(">>> recipientBCC  "+ rabcc);
+	                	 if ( rabcc != null && !rabcc.trim().equals("") )
+	                	 {
+	                		 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
+	                		 logger.debug(">>> recipientBCC  "+ rabcc);
+	                	 }
 	                 }
 
                  //add replyTo 
@@ -164,11 +173,15 @@ public class EmailHandlingBean implements EmailHandling
                 	 int i = 0;
                 	 for ( String a : replytoAddresses )
                 	 {
-                		 adresses[i] = new InternetAddress(a);
-                		 i++;
-                		 logger.debug(">>> replyToaddress  "+ a);
+	                	 if ( a != null && !a.trim().equals("") )
+	                	 {
+	                		 adresses[i] = new InternetAddress(a);
+	                		 i++;
+	                		 logger.debug(">>> replyToaddress  "+ a);
+	                	 }	 
                 	 }
-                	 message.setReplyTo(adresses);
+                	 if ( i > 0 )
+                		 message.setReplyTo(adresses);
                  }
                  
                  message.setSubject(subject);
