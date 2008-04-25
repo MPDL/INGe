@@ -440,8 +440,8 @@ public class EditItem extends FacesBean
     		}
     	}
 		// finally clean the session bean
-		this.getEditItemSessionBean().getFiles().clear();
-		this.getEditItemSessionBean().getLocators().clear();
+		/*this.getEditItemSessionBean().getFiles().clear();
+		this.getEditItemSessionBean().getLocators().clear();*/
     }
     
     /**
