@@ -107,7 +107,7 @@ label{
 	margin-left:-5px;
 }
 
-.editItemAddLink a{
+.editItemLeftCol a, .editItemRightCol a{
 	font-size:11px;
 }
 
