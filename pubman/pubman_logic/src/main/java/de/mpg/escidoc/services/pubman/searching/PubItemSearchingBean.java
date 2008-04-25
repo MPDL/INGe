@@ -371,24 +371,36 @@ public class PubItemSearchingBean implements PubItemSearching
             
             if ( searchInFiles == true )
             {
+            	query.append("( ");
                 query.append(createCqlQuery(searchString, QueryType.ANY_INCLUDE ));
+                query.append(") ");
                 query.append(" or ");
+                query.append("( ");
                 query.append(createCqlQuery(searchString, QueryType.IDENTIFIER ));
+                query.append(") ");
             }
             else
             {
+            	query.append("( ");
                 query.append(createCqlQuery(searchString, QueryType.ANY ));
+                query.append(") ");
                 query.append(" or ");
+                query.append("( ");
                 query.append(createCqlQuery(searchString, QueryType.IDENTIFIER ));
+                query.append(") ");
             }
                        
             //TODO tendres: Workaround for bug PUBMAN-250. a proper fix should be implemented in future!
             
             query.append(" not ");
+            query.append("( ");
             query.append(createCqlQuery(searchString, QueryType.CONTEXT_OBJECTID ));
+            query.append(") ");
             
             query.append(" not ");
+            query.append("( ");
             query.append(createCqlQuery(searchString, QueryType.CREATED_BY_OBJECTID ));
+            query.append(") ");
                         
             query.append(" )");
             
