@@ -1348,7 +1348,7 @@ public class EasySubmission extends FacesBean
 		this.valMessage = valMessage;
 	}
 
-	public boolean isFromEasySubmission() {
+	public boolean getFromEasySubmission() {
 		return fromEasySubmission;
 	}
 
