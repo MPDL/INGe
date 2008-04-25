@@ -376,7 +376,7 @@ public class EasySubmission extends FacesBean
     	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFiles();
     	
-    	((ViewItemFull)getSessionBean(ViewItemFull.class)).setFromEasySubmission(true);
+    	((ViewItemFull)getRequestBean(ViewItemFull.class)).setFromEasySubmission(true);
     	
     	return ((EditItem)getRequestBean(EditItem.class)).save();
     	
