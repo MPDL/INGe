@@ -36,9 +36,10 @@
 		<tr:iterator var="locator" value="#{EasySubmission.locators}" binding="#{EasySubmission.locatorIterator}" varStatus="index">
     			
     			
-    			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex == 0}"/></h3>
-    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
+    			
+    			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+    			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
      					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl} " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
      					<tr:outputLabel value="#{locator.file.locator}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>		
      					
@@ -51,7 +52,10 @@
      					<tr:outputLabel value="#{locator.file.description}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
      				</h:panelGroup>
 					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" rendered="#{locator.file.locator != null && locator.file.locator != ''}" action="#{locator.removeLocatorEasySubmission}"/>	
+				</h:panelGroup>
      			</h:panelGroup>
+     			
+     			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/></h3>
     			
     			
     		<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.locator == null || locator.file.locator == ''}">
@@ -89,7 +93,7 @@
            		</h:panelGroup>
 			</h:panelGroup>
     			
-        		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
+        		<h:panelGroup layout="block" styleClass="editItemLeftCol easySubmissionBoxBodyLine">
 					<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
 					<tr:commandLink text="#{lbl.easy_submission_btnLocatorAdd}" action="#{EasySubmission.addLocator}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
        			</h:panelGroup> 
