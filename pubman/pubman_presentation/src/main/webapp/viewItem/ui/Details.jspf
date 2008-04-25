@@ -141,7 +141,7 @@
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntries}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</h:panelGroup>
 	
