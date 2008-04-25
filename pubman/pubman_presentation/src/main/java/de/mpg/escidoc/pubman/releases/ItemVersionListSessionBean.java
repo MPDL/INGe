@@ -39,6 +39,7 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.EventLogEntryVOPresentation;
+import de.mpg.escidoc.pubman.util.VersionHistoryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
@@ -54,9 +55,9 @@ public class ItemVersionListSessionBean extends FacesBean
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(ItemVersionListSessionBean.class);
     
-    private List<VersionHistoryEntryVO> versionList = new ArrayList<VersionHistoryEntryVO>();
-    
-    private List<VersionHistoryEntryVO> releaseList = new ArrayList<VersionHistoryEntryVO>();
+    private List<VersionHistoryVOPresentation> versionList = new ArrayList<VersionHistoryVOPresentation>();
+   
+    private List<VersionHistoryVOPresentation> releaseList = new ArrayList<VersionHistoryVOPresentation>();
     
     private List<EventLogEntryVOPresentation> eventLogList = new ArrayList<EventLogEntryVOPresentation>();
     
@@ -79,23 +80,29 @@ public class ItemVersionListSessionBean extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-	public List<VersionHistoryEntryVO> getVersionList() {
+	public List<VersionHistoryVOPresentation> getVersionList() {
 		return versionList;
 	}
 
-	public void setVersionList(List<VersionHistoryEntryVO> versionList) {
+	public void setVersionList(List<VersionHistoryVOPresentation> versionList) {
 		this.versionList = versionList;
 	}
 	
-	public void initVersionLists(List<VersionHistoryEntryVO> versionList)
+	public void initVersionLists(List<VersionHistoryEntryVO> vList)
 	{
-	    this.versionList = versionList;
+	    this.versionList = new ArrayList<VersionHistoryVOPresentation>();
 	    
-	    this.releaseList = new ArrayList<VersionHistoryEntryVO>();
+	    for (VersionHistoryEntryVO vEntry : vList)
+	    {
+	        this.versionList.add(new VersionHistoryVOPresentation(vEntry));
+	    }
+	    
+	    
+	    this.releaseList = new ArrayList<VersionHistoryVOPresentation>();
 	    
 	    this.eventLogList = new ArrayList<EventLogEntryVOPresentation>();
 	    
-	    for(VersionHistoryEntryVO vEntry : versionList)
+	    for(VersionHistoryVOPresentation vEntry : versionList)
 	    {
 	        //if state=released add to release list
             if (vEntry.getState() == PubItemVO.State.RELEASED)
@@ -127,12 +134,12 @@ public class ItemVersionListSessionBean extends FacesBean
         this.eventLogList = null;
 	}
 
-    public List<VersionHistoryEntryVO> getReleaseList()
+    public List<VersionHistoryVOPresentation> getReleaseList()
     {
         return releaseList;
     }
 
-    public void setReleaseList(List<VersionHistoryEntryVO> releaseList)
+    public void setReleaseList(List<VersionHistoryVOPresentation> releaseList)
     {
         this.releaseList = releaseList;
     }

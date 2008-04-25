@@ -46,6 +46,10 @@
 			<h:outputText styleClass="messageError" value="#{msg.easy_submission_preview_hint}"/>
 	</h:panelGroup>	
 	
+	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isStateWithdrawn}">
+			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}"/>
+	</h:panelGroup>	
+	
 	<!-- COinS -->
 	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
 	

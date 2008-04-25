@@ -42,7 +42,7 @@ All rights reserved. Use is subject to license terms.
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
 						</div>
 						<div class='itemText odd'>
-								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.date}"/>
+								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.formattedDate}"/>
 						</div>
 					</div>
 	

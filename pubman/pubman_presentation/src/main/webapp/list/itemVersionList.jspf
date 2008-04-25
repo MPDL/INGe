@@ -46,7 +46,7 @@ All rights reserved. Use is subject to license terms.
 					
 					
 					<div class='itemText odd'>
-						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{entry.modificationDate}"/>
+						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblReleaseDate} #{entry.formattedModificationDate}"/>
 					</div>
 
 				</div>

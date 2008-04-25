@@ -181,6 +181,7 @@ public class ViewItemFull extends FacesBean
     
     /**The url used for the citation*/
     private String citationURL;
+    private boolean isStateWithdrawn;
    
     /**
      * Public constructor.
@@ -270,7 +271,7 @@ public class ViewItemFull extends FacesBean
             boolean isLoggedIn = loginHelper.isLoggedIn();
             boolean isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
             boolean isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
-            boolean isStateWithdrawn = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            isStateWithdrawn = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString());
             boolean isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
             boolean isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
             boolean isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
@@ -1624,6 +1625,16 @@ public class ViewItemFull extends FacesBean
     public void setCitationURL(String citationURL)
     {
         this.citationURL = citationURL;
+    }
+
+    public boolean getIsStateWithdrawn()
+    {
+        return isStateWithdrawn;
+    }
+
+    public void setStateWithdrawn(boolean isStateWithdrawn)
+    {
+        this.isStateWithdrawn = isStateWithdrawn;
     }
 
 }
