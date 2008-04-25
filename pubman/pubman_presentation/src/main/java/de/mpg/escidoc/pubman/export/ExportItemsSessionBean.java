@@ -201,10 +201,15 @@ public class ExportItemsSessionBean extends FacesBean
 
     public void setFileFormat(String fileFormat)    
     {
-        if ( fileFormat == null || fileFormat.trim().equals("") )
+        if ( 
+        		fileFormat == null || fileFormat.trim().equals("")
+        		//  ENDNOTE fileForamt is always TXT
+        		|| getExportFormatName().equals("ENDNOTE")
+        )
         	fileFormat = FileFormatVO.TEXT_NAME;
+        
         this.fileFormat = fileFormat;
-
+        
         curFileFormatVO.setName(fileFormat);
         curFileFormatVO.setMimeType(FileFormatVO.getMimeTypeByName(fileFormat));
         this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
