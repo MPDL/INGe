@@ -55,7 +55,9 @@
 				</h:panelGroup>
      			</h:panelGroup>
      			
-     			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/></h3>
+     			<h:outputText value="<h3>" escape="false" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
+     			<h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
+     			<h:outputText value="</h3>" escape="false" rendered="#{EasySubmission.locatorIterator.rowIndex+1 == EasySubmission.locatorIterator.rowCount}"/>
     			
     			
     		<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.locator == null || locator.file.locator == ''}">

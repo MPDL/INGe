@@ -144,15 +144,15 @@
   	width: 510px;
   	display: block;
   	overflow: hidden;
-  	margin-top: 25px;
+  	margin-top: 7px;
   	margin-left: 0px;
-  	margin-bottom: 0px;
+  	margin-bottom: 7px;
   	float: left;
   }
 
   .easySubmissionBoxBodyLine {
   	width: 510px;
-  /*	margin-top: 7px;*/
+  	margin-top: 7px;
   	display: block;
   	overflow: hidden;
   	float: left;
@@ -286,8 +286,8 @@
   }
 
   .easySubmissionFileListBox {
-  	margin-top: 10px;
-  	width: 400px;
+  	margin: 10px;
+  	width: 380px;
   	display: block;
   	overflow: hidden;
   	float: left;

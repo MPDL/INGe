@@ -36,8 +36,9 @@
 	<%-- FILES --%>
 	<tr:iterator var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" varStatus="index">
      		<h:panelGroup >
-     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
+     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine" rendered="#{component.file.size > 0}">
+     			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.size > 0}">
+     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox" rendered="#{component.file.size > 0}">
      					<tr:outputLabel value="#{lbl.easy_submission_lblUploaded}" rendered="#{component.file.size > 0}"/>
      					<tr:outputLabel value="#{component.file.name}, " rendered="#{component.file.size > 0}"/>		
      				
@@ -50,6 +51,7 @@
      					<tr:outputLabel value="#{component.file.description}" rendered="#{component.file.size > 0}"/>	
      				</h:panelGroup>
 					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" rendered="#{component.file.size > 0}" action="#{component.removeFileEasySubmission}"/>	
+				</h:panelGroup>
      			</h:panelGroup>
      			
      			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.size == 0}">
@@ -95,9 +97,9 @@
          		</h:panelGroup>
          	
 
-					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
+					<h:panelGroup layout="block" styleClass="editItemLeftCol easySubmissionBoxBodyLine">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount}"/>
-							<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount}" />
+						<tr:commandLink text="#{lbl.easy_submission_btnAddFile}" action="#{EasySubmission.addFile}" rendered="#{EasySubmission.fileIterator.rowIndex+1 ==  EasySubmission.fileIterator.rowCount}" />
 					</h:panelGroup>
         		 	
        	</h:panelGroup>
