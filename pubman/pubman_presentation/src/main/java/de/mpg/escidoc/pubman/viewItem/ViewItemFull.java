@@ -244,6 +244,8 @@ public class ViewItemFull extends FacesBean
             try
             {
                 String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+                
+                if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
                 citationURL = pubmanUrl + "faces/viewItemFullPage.jsp?itemId=" + getPubItem().getVersion().getObjectIdAndVersion();
                 
             }
