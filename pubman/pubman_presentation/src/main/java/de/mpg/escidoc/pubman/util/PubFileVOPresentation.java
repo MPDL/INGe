@@ -4,6 +4,8 @@ import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 
+import org.apache.myfaces.trinidad.component.UIXIterator;
+
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
@@ -165,6 +167,8 @@ public class PubFileVOPresentation extends FacesBean {
 		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
  		
  		easySubmissionSessionBean.getFiles().remove(this.index);
+ 		easySubmission.reorganizeFileIndexes();
+ 		easySubmission.setFileIterator(new UIXIterator());
  		easySubmission.init();
 		return "loadNewEasySubmission";		
 	}
@@ -175,6 +179,8 @@ public class PubFileVOPresentation extends FacesBean {
 		EasySubmissionSessionBean easySubmissionSessionBean = this.getEasySubmissionSessionBean();
  		
  		easySubmissionSessionBean.getLocators().remove(this.index);
+ 		easySubmission.reorganizeLocatorIndexes();
+ 		easySubmission.setLocatorIterator(new UIXIterator());
  		easySubmission.init();
 		return "loadNewEasySubmission";		
 	}

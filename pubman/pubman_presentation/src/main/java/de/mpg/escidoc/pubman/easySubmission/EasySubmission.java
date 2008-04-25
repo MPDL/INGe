@@ -371,7 +371,36 @@ public class EasySubmission extends FacesBean
     	{
     		this.getLocators().get(this.getLocators().size()-1).getFile().setSize(new Long(11));
     	}
+    	this.locatorIterator = new UIXIterator();
     	return "loadNewEasySubmission";
+    }
+    
+    /**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeFileIndexes()
+    {
+    	if(this.getEasySubmissionSessionBean().getFiles() != null)
+    	{
+    		for(int i = 0; i < this.getEasySubmissionSessionBean().getFiles().size(); i++)
+        	{
+        		this.getEasySubmissionSessionBean().getFiles().get(i).setIndex(i);
+        	}
+    	}
+    }
+    
+    /**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeLocatorIndexes()
+    {
+    	if(this.getEasySubmissionSessionBean().getLocators() != null)
+    	{
+    		for(int i = 0; i < this.getEasySubmissionSessionBean().getLocators().size(); i++)
+        	{
+        		this.getEasySubmissionSessionBean().getLocators().get(i).setIndex(i);
+        	}
+    	}
     }
     
     /**
