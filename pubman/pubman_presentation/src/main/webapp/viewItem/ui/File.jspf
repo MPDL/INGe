@@ -88,6 +88,7 @@
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
 				<h:outputText value="#{file.contentCategory}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{file.contentCategory == null || file.contentCategory == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
@@ -99,6 +100,7 @@
 			
 			<h:outputText value="<div class='itemText'>" escape="false"/>
 				<h:outputText value="#{file.file.description}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{file.file.description == null || file.file.description == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			

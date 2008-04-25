@@ -51,7 +51,7 @@
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.title == null || ViewItemFull.pubItem.metadata.event.title.value == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.title == null || ViewItemFull.pubItem.metadata.event.title.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
@@ -67,9 +67,18 @@
 			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2==ViewItemFull.eventAltTitleIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2!=ViewItemFull.eventAltTitleIterator.rowIndex}"/>
 				<h:outputText value="#{eventAltTitles.value}"/>
-				<h:outputText value="&#160;" escape="false" rendered="#{eventAltTitles == null || eventAltTitles.value == ''}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{eventAltTitles == null || eventAltTitles.value == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
+		
+		<h:panelGroup rendered = "#{ViewItemFull.eventAltTitleIterator.rowCount == 0}">
+			<h:outputText value="<div class='itemTitle'>" escape="false" />
+					<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/>
+			<h:outputText value="</div>" escape="false"/>	
+			<h:outputText value="<div class='itemText'>" escape="false"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" />
+			<h:outputText value="</div>" escape="false"/>
+		</h:panelGroup>
 </div>
 		
 		<!-- Event place -->
@@ -81,7 +90,7 @@
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.place == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.event.place == null || ViewItemFull.pubItem.metadata.event.place.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
@@ -93,7 +102,7 @@
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.startEndDate}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.startEndDate == null || ViewItemFull.startEndDate == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		

@@ -101,6 +101,15 @@
 			<h:outputText value="&#160;" rendered="#{altTitle.value == ''}" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
+	
+	<h:panelGroup rendered = "#{ViewItemFull.titleIterator.rowCount == 0}">
+		<h:outputText value="<div class='itemTitle'>" escape="false" />
+				<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}"/>
+		<h:outputText value="</div>" escape="false"/>	
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" />
+		<h:outputText value="</div>" escape="false"/>
+	</h:panelGroup>
 </div>
 
 	<!-- Creator(s) -->
@@ -131,9 +140,7 @@
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 	
-	<h:outputText value="<div class='itemText odd'>&#160;</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0 && ViewItemFull.creatorOrganizationsIterator.rowCount == 0}" escape="false"/>
-
-
+	<h:outputText value="<div class='itemText odd'>#{lbl.ViewItemFull_lblNoEntry}</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0 && ViewItemFull.creatorOrganizationsIterator.rowCount == 0}" escape="false"/>
 
 
 
@@ -156,7 +163,7 @@
 				<h:outputText value="</p>" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
-		<h:outputText value="&#160;" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>	
 	
@@ -186,6 +193,7 @@
 			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 		<h:outputText value="</p>" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{!ViewItemFull.showDates}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	
@@ -198,7 +206,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}"/>
-		<h:outputText value="&#160;" rendered="#{ViewItemFull.pubItem.metadata.subject == '' || ViewItemFull.pubItem.metadata.subject.value == '' || ViewItemFull.pubItem.metadata.subject.value == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.pubItem.metadata.subject == '' || ViewItemFull.pubItem.metadata.subject.value == '' || ViewItemFull.pubItem.metadata.subject.value == null}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	
@@ -213,7 +221,7 @@
 			<h:outputText value="#{languages}"/>
 			<h:outputText value=", " rendered="#{ViewItemFull.languagesIterator.rowIndex +1 < ViewItemFull.languagesIterator.rowCount}"/>
 		</tr:iterator>
-		<h:outputText value="&#160;" rendered="#{ViewItemFull.languagesIterator.rowCount == 0}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.languagesIterator.rowCount == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	
@@ -225,7 +233,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{ViewItemFull.reviewMethod}"/>
-		<h:outputText value="&#160;" rendered="#{ViewItemFull.reviewMethod == '' || ViewItemFull.reviewMethod == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.reviewMethod == '' || ViewItemFull.reviewMethod == null}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 

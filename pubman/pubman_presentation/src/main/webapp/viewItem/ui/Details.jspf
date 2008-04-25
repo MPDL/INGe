@@ -53,7 +53,7 @@
 			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2!=ViewItemFull.abstractIterator.rowIndex}"/>
 				<h:outputText value="#{abstract.value}"/>
-				<h:outputText value="&#160;" escape="false" rendered="#{abstract == null || abstract.value == ''}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{abstract == null || abstract.value == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
 </div>		
@@ -67,7 +67,7 @@
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
@@ -80,7 +80,7 @@
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.publishingInfo}"/>
 			<h:outputText value=", #{ViewItemFull.pubItem.metadata.publishingInfo.edition}" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo != null || ViewItemFull.pubItem.metadata.publishingInfo.edition == ''}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.publishingInfo == null || ViewItemFull.publishingInfo == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.publishingInfo == null || ViewItemFull.publishingInfo == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>		
 		
@@ -92,7 +92,7 @@
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.totalNumberOfPages}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.totalNumberOfPages == null || ViewItemFull.pubItem.metadata.totalNumberOfPages == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.totalNumberOfPages == null || ViewItemFull.pubItem.metadata.totalNumberOfPages == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>	
 		
@@ -104,7 +104,7 @@
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.degreeType}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.degreeType == null || ViewItemFull.degreeType == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.degreeType == null || ViewItemFull.degreeType == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
@@ -116,7 +116,7 @@
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.location}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.pubItem.metadata.location == null || ViewItemFull.pubItem.metadata.location == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.location == null || ViewItemFull.pubItem.metadata.location == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
@@ -128,7 +128,7 @@
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.identifiers}"/>
-			<h:outputText value="&#160;" escape="false" rendered="#{ViewItemFull.identifiers == null || ViewItemFull.identifiers == ''}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.identifiers == null || ViewItemFull.identifiers == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>		
 	
@@ -141,7 +141,7 @@
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntries}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</h:panelGroup>
 	

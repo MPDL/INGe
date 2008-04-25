@@ -1007,6 +1007,26 @@ public class ViewItemFull extends FacesBean
         return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
     }
     
+    
+    /**
+     * Returns false if all dates are empty
+     * @author Markus Haarlaender
+     * @return boolean
+     */
+    public boolean getShowDates()
+    {
+        return
+        !(
+                (this.getPubItem().getMetadata().getDatePublishedInPrint().equals("") || this.getPubItem().getMetadata().getDatePublishedInPrint() == null ) &&
+                (this.getPubItem().getMetadata().getDatePublishedOnline().equals("") || this.getPubItem().getMetadata().getDatePublishedOnline() == null ) &&
+                (this.getPubItem().getMetadata().getDateAccepted().equals("") ||  this.getPubItem().getMetadata().getDateAccepted() == null ) &&
+                (this.getPubItem().getMetadata().getDateSubmitted().equals("") ||  this.getPubItem().getMetadata().getDateSubmitted() == null ) &&
+                (this.getPubItem().getMetadata().getDateModified().equals("") ||  this.getPubItem().getMetadata().getDateModified() == null ) &&
+                (this.getPubItem().getMetadata().getDateCreated().equals("") || this.getPubItem().getMetadata().getDateCreated() == null ) 
+                
+        );
+    }
+    
     /**
      * Returns a true or a false according to the invited state of the item
      * @return boolean

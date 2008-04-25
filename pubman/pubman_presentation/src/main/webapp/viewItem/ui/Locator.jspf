@@ -73,6 +73,7 @@
 			
 			<h:outputText value="<div class='itemText'>" escape="false"/>
 				<h:outputText value="#{locator.file.name}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{locator.file.name == null || locator.file.name == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
@@ -84,6 +85,7 @@
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
 				<h:outputText value="#{locator.contentCategory}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{locator.contentCategory == null || locator.contentCategory == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			
@@ -95,6 +97,7 @@
 			
 			<h:outputText value="<div class='itemText'>" escape="false"/>
 				<h:outputText value="#{locator.file.description}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{locator.file.description == null || locator.file.description == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			

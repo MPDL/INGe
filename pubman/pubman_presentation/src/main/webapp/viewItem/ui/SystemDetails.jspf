@@ -59,6 +59,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{ViewItemFull.modificationDate}"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.modificationDate == null || ViewItemFull.modificationDate == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 
@@ -71,6 +72,7 @@
 	<h:outputText value="<div class='itemText'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn == false}"/>
 	<h:outputText value="<div class='itemText withdrawn'>" escape="false" rendered="#{ViewItemFull.itemIsWithdrawn}"/>
 		<h:outputText value="#{ViewItemFull.itemState}"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.itemState == null || ViewItemFull.itemState == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 
