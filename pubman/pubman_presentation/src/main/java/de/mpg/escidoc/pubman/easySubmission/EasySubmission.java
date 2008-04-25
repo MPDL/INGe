@@ -360,10 +360,16 @@ public class EasySubmission extends FacesBean
     
     public String saveLocator()
     {
+    	EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
     	// set the name if it is not filled
     	if(this.getLocators().get(this.getLocators().size()-1).getFile().getName() == null || this.getLocators().get(this.getLocators().size()-1).getFile().getName().trim().equals(""))
     	{
     		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator());
+    	}
+    	// set a dummy file size for rendering purposes
+    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator() != null && !this.getLocators().get(this.getLocators().size()-1).getFile().getLocator().trim().equals(""))
+    	{
+    		this.getLocators().get(this.getLocators().size()-1).getFile().setSize(new Long(11));
     	}
     	return "loadNewEasySubmission";
     }

@@ -39,18 +39,15 @@
     			<h3><h:outputText value="#{msg.easy_submission_Step3ManualLocators}" rendered="#{EasySubmission.locatorIterator.rowIndex == 0}"/></h3>
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
      				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
-     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
+     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorSavedUrl} " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>   
      					<tr:outputLabel value="#{locator.file.locator}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>		
      					
-     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorName}: " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
      					<tr:outputLabel value="#{locator.file.name}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
      				
-     					<tr:outputLabel value="#{locator.contentCategory}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
+     					<tr:outputLabel value=" #{locator.contentCategory}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
      				
-     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorVisibility}"  rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
-     					<tr:outputLabel value="#{locator.visibility}, " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
-     				
-     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorDescription}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorDescription}: " rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
      					<tr:outputLabel value="#{locator.file.description}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>	
      				</h:panelGroup>
 					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" rendered="#{locator.file.locator != null && locator.file.locator != ''}" action="#{locator.removeLocatorEasySubmission}"/>	
@@ -62,31 +59,31 @@
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
     				<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>   
-    					<tr:inputText value="#{locator.file.locator}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>    				
+    					<tr:inputText value="#{locator.file.locator}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>   
     				</h:panelGroup>
     			</h:panelGroup>
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-    				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorProperties}" styleClass="margin5Top" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>   
+    				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorProperties}" styleClass="margin5Top" rendered="#{locator.file.size == 0}"/>   
     			</h:panelGroup>
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionSubSubBox">
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
            			
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.locator == null || locator.file.locator == ''}">   
-           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}" />
-           				<tr:inputText value="#{locator.file.name}"/>
+           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">   
+           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}"  rendered="#{locator.file.size == 0}"/>
+           				<tr:inputText value="#{locator.file.name}"  rendered="#{locator.file.size == 0}"/>
            			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.locator == null || locator.file.locator == ''}">   
-           				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"/>
-           				<tr:outputLabel value="#{locator.contentCategory}" />
+           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">   
+           				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"  rendered="#{locator.file.size == 0}"/>
+           				<tr:outputLabel value="#{locator.contentCategory}"  rendered="#{locator.file.size == 0}"/>
            			</h:panelGroup>
            		</h:panelGroup>
-           		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{locator.file.locator == null || locator.file.locator == ''}">  
+           		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">  
            			<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem"> 
-           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorDescription}"/>
-           				<tr:inputText value="#{locator.file.description}" rows="4"/>	
+           				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorDescription}"  rendered="#{locator.file.size == 0}"/>
+           				<tr:inputText value="#{locator.file.description}" rows="4"  rendered="#{locator.file.size == 0}"/>	
            			</h:panelGroup>
            		</h:panelGroup>
            		</h:panelGroup>
