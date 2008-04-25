@@ -54,7 +54,7 @@ h1{
 	font-size: 1.7em;
 	font-weight: bolder;
 	color: #444;
-	letter-spacing: 0.1em;	margin-top: 2em;
+	letter-spacing: 0.1em;	margin-top: 0em;
 }
 
 a:link, a:visited {color: black; text-decoration: underline;}
@@ -74,12 +74,12 @@ input, select, submit, textarea, button{
 	vertical-align: middle;
 }
 
-input:hover, textarea:hover, .easySubmissionsBackSection:hover, .easySubmissionsNextSection:hover, .easySubmissionsCancelSection:hover {
+input:hover, textarea:hover, .easySubmissionsBackSection:hover, .easySubmissionsNextSection:hover {
 	background-color: #FFF8D9;
 	border: 1px solid black;
 }
 
-input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissionsNextSection:focus, .easySubmissionsCancelSection:focus {
+input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissionsNextSection:focus {
 	background-color: #FFFBE8;
 	border: 1px solid black;
 }
@@ -311,13 +311,17 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 }
  
 .messageStatus, .messageError{	
+	width: 650px;
+	display: block;
 	top: -0.8em;
 	padding: 12px 0px 12px 0px;
 	font-family: Courier, "Courier New", monospace !important;
+	border: 1px solid black;
 }
  
 .messageError{
-	color:red;		   
+	color:red;
+	border-color: red;		   
 }
 
 #inputerror {

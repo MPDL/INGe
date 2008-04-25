@@ -154,7 +154,7 @@ label{
 
 }
 
-.noBorder{
+.noBorder, .noBorder:hover{
 	border:none;
 }
 

@@ -53,23 +53,6 @@
 			<div class="easySubmissionBoxBodyContent">
 				
 				
-				<%-- Genre of Source --%>
-				<div class="easySubmissionBoxBodyLine">
-					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
-						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
-					</h:selectOneMenu>
-					</div>
-				
-				<%-- Title --%>
-				
-					<div class="easySubmissionBasicInfItem">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
-					</div>
-				</div>
-				
 				<div class="easySubmissionBoxBodyLine">
 					<%-- Date --%>
 					<div class="easySubmissionDateItem">
@@ -91,6 +74,23 @@
 						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
 							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
 						</h:selectOneMenu>
+					</div>
+				</div>
+				
+				
+				<div class="easySubmissionBoxBodyLine">
+					<%-- Genre of Source --%>
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
+					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
+						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
+					</h:selectOneMenu>
+					</div>
+				
+					<%-- Title --%>
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
+					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 				</div>
 				
@@ -121,11 +121,11 @@
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}"/>
 			</div>
 			</h:commandLink>
-			<h:commandLink action="#{EasySubmission.loadPreview}">
+			
 			<div class="easySubmissionsCancelSection">
-				<h:outputLabel value="#{lbl.easy_submission_btnAddDetails}"/>
+				<h:commandLink value="#{lbl.easy_submission_btnAddDetails}" action="#{EasySubmission.loadPreview}"/>
 			</div>
-			</h:commandLink>
+			
 			<h:commandLink action="#{EasySubmission.save}">
 			<div class="easySubmissionsNextSection">
 				<h:outputLabel value="#{lbl.easy_submission_btnSave}"/>
