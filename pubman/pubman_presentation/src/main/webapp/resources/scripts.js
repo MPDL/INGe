@@ -60,9 +60,13 @@ function loadHelp(url, anchor)
 	openCenteredWindow(url + anchor, 600, 400, "Help"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
 
-function loadDescription(description, address, telephone, fax, email, homepageUrl)
+function loadDescription(html)
 {
-	openCenteredWindow( "", 600, 400, "Organisation Description");
+	
+	//myWindow=window.open('','myWindow','width=600,height=400');
+	//myWindow.document.write(html);
+	//myWindow.focus();
+	openCenteredWindowTest(html, 600, 400, "Description" );
 }
 
 function openCenteredWindow(page, width, height, windowName)
@@ -79,6 +83,24 @@ function openCenteredWindow(page, width, height, windowName)
 	
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open(page, windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	newWindow.focus();
+}
+
+function openCenteredWindowTest(html, width, height, windowName)
+{
+	var bw, bh, bl, bt, topPos, leftPos, attributes;
+	
+	bw = window.outerWidth;
+	bh = window.outerHeight;
+	bl = window.screenX;
+	bt = window.screenY;
+	
+	leftPos = Math.floor((bw-width)/2) + bl;
+	topPos = Math.floor((bh-height)/2) + bt;
+	
+	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
+	newWindow = window.open('', windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	newWindow.document.write(html);
 	newWindow.focus();
 }
 

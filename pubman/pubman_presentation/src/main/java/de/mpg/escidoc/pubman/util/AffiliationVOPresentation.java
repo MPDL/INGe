@@ -44,6 +44,49 @@ public class AffiliationVOPresentation extends AffiliationVO
 	{
 		return (parent == null);
 	}
+	
+	/**
+	 * This returns a description of the affiliation in a html form
+	 * @return html description 
+	 */
+	public String getHtmlDescription()
+	{
+		StringBuffer html = new StringBuffer();
+		html.append("<h1>Organisation Description</h1>");	
+		html.append("<div class=\"formField\">");
+		if( this.getDescription() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getDescription());
+			html.append("</span>");
+		}
+		if( this.getAddress() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getAddress());
+			html.append("</span>");
+		}
+		if( this.getTelephone() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getTelephone());
+			html.append("</span>");
+		}
+		if( this.getFax() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getFax());
+			html.append("</span>");
+		}
+		if( this.getEmail() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getEmail());
+			html.append("</span>");
+		}
+		if( this.getHomepageUrl() != null && this.getHomepageUrl().toString() != "" ) {
+			html.append("<span class=\"affDescription\">");
+			html.append(this.getHomepageUrl());
+			html.append("</span>");
+		}
+		html.append("</div>");
+		return html.toString();
+	}
 
 	public String startSearch()
 	{
