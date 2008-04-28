@@ -523,7 +523,7 @@ public class ItemControllerSessionBean extends FacesBean
      * 
      * @return the initialized item.
      */
-    private PubItemVO initializeItem(PubItemVO newPubItem)
+    public PubItemVO initializeItem(PubItemVO newPubItem)
     {
         if (logger.isDebugEnabled())
         {
@@ -598,11 +598,19 @@ public class ItemControllerSessionBean extends FacesBean
 	        newPubItem.getMetadata().getSources().add(newSource);
         }
         // Event
+        // add Event if needed to be able to bind uiComponents to it
         if (newPubItem.getMetadata().getEvent() == null)
         {
-	        EventVO newEvent = new EventVO();
-	        newEvent.setTitle(new TextVO());
-	        newPubItem.getMetadata().setEvent(newEvent);
+            EventVO eventVO = new EventVO();
+            newPubItem.getMetadata().setEvent(eventVO);
+        }
+        if (newPubItem.getMetadata().getEvent().getTitle() == null)
+        {
+        	newPubItem.getMetadata().getEvent().setTitle(new TextVO());
+        }
+        if (newPubItem.getMetadata().getEvent().getPlace() == null)
+        {
+        	newPubItem.getMetadata().getEvent().setPlace(new TextVO());
         }
         
         return newPubItem;

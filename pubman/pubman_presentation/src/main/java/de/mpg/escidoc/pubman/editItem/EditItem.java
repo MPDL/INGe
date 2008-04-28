@@ -257,87 +257,10 @@ public class EditItem extends FacesBean
         // get the item that is currently edited
         PubItemVO pubItem = this.getPubItem();
 
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Initializing item..." + pubItem);
-        }
-
         if (pubItem != null)
         {
-            // add PublishingInfoVO if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getPublishingInfo() == null)
-            {
-                PublishingInfoVO newPublishingInfo = new PublishingInfoVO();
-                pubItem.getMetadata().setPublishingInfo(newPublishingInfo);
-            }
-
-            // add PersonOrganization if needed to be able to bind uiComponents to it
-            for (int i = 0; i < pubItem.getMetadata().getCreators().size(); i++)
-            {
-                CreatorVO creatorVO = pubItem.getMetadata().getCreators().get(i);
-
-                if (creatorVO.getPerson() != null && creatorVO.getPerson().getOrganizations().size() == 0)
-                {
-                    // create a new Organization for this person
-                    OrganizationVO newPersonOrganization = new OrganizationVO();
-                    
-                    newPersonOrganization.setName(new TextVO());
-                    creatorVO.getPerson().getOrganizations().add(newPersonOrganization);
-                }
-            }
-
-            // add ContentLanguage if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getLanguages().size() == 0)
-            {
-                pubItem.getMetadata().getLanguages().add("");
-            }
-
-            // add Event if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getEvent() == null)
-            {
-                EventVO eventVO = new EventVO();
-                pubItem.getMetadata().setEvent(eventVO);
-            }
-            if (pubItem.getMetadata().getEvent().getTitle() == null)
-            {
-                pubItem.getMetadata().getEvent().setTitle(new TextVO());
-            }
-            if (pubItem.getMetadata().getEvent().getPlace() == null)
-            {
-                pubItem.getMetadata().getEvent().setPlace(new TextVO());
-            }
-    
-            // add Identifier if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getIdentifiers().size() == 0)
-            {
-                pubItem.getMetadata().getIdentifiers().add(new IdentifierVO());
-            }
-
-            // add Abstract if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getAbstracts().size() == 0)
-            {
-                pubItem.getMetadata().getAbstracts().add(new TextVO());
-            }
-            // ScT
-            // add TOC if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getTableOfContents() == null)
-            {
-                pubItem.getMetadata().setTableOfContents(new TextVO());
-            }
-            
-            // add subject if needed to be able to bind uiComponents to it
-            if (pubItem.getMetadata().getSubject() == null)
-            {
-                pubItem.getMetadata().setSubject(new TextVO());
-            }
-            
-            if (pubItem.getFiles().size() == 0)
-            {
-            	pubItem.getFiles().add(new FileVO());
-//            	FileVO new_file = new FileVO();
-//            	new_file.setDescription("meine Beschreibung...");
-//            	pubItem.getFiles().add(new_file);
-            }
+        	this.getItemControllerSessionBean().initializeItem(pubItem);
+        
             if(this.getEditItemSessionBean().getFiles().size() == 0 || this.getEditItemSessionBean().getLocators().size() == 0)
             {
             	bindFiles();

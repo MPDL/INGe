@@ -71,6 +71,7 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -707,6 +708,14 @@ public class EasySubmission extends FacesBean
 		    			itemVO = xmlTransforming.transformToPubItem(result);
 		    			getItem().setMetadata(itemVO.getMetadata());
 	    			}
+	    			catch (IdentifierNotRecognisedException inre)
+	    			{
+	    				logger.error("Error fetching from arxiv", inre);
+						
+	    				error(getMessage("easy_submission_arxiv_identifier_error") + "\n" + inre.getMessage());
+	    				
+	    				return null;
+	    			}
 	    			catch (Exception e) {
 	    				logger.error("Error fetching from arxiv", e);
 						
@@ -725,7 +734,7 @@ public class EasySubmission extends FacesBean
 	    			}
 	    			catch (Exception e) {
 	    				logger.error("Error fetching from escidoc", e);
-	    				error(getMessage("easy_submission_arxiv_error"));
+	    				error(getMessage("easy_submission_escidoc_error"));
 	    				return null;
 					}
 	    		}
@@ -1414,19 +1423,23 @@ public class EasySubmission extends FacesBean
     	}
     }
 
-	public HtmlMessages getValMessage() {
+	public HtmlMessages getValMessage()
+	{
 		return valMessage;
 	}
 
-	public void setValMessage(HtmlMessages valMessage) {
+	public void setValMessage(HtmlMessages valMessage)
+	{
 		this.valMessage = valMessage;
 	}
 
-	public boolean getFromEasySubmission() {
+	public boolean getFromEasySubmission()
+	{
 		return fromEasySubmission;
 	}
 
-	public void setFromEasySubmission(boolean fromEasySubmission) {
+	public void setFromEasySubmission(boolean fromEasySubmission)
+	{
 		this.fromEasySubmission = fromEasySubmission;
 	}
     

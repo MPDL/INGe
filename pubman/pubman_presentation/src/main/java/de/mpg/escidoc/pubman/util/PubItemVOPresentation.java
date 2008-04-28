@@ -24,6 +24,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Wrapper class for items to be used in the presentation.
@@ -905,6 +906,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	selected = ((Boolean)event.getNewValue()).booleanValue();
     }
 
+    public String getLink() throws Exception
+    {
+    	if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
+    	{
+    		return PropertyReader
+    				.getProperty("escidoc.pubman.item.pattern")
+    				.replaceAll("\\$1", this.getVersion().getObjectId()
+    						+ (this.getVersion().getVersionNumber() != 0 ? ":" 
+    								+ this.getVersion().getVersionNumber() : ""));
+    	}
+    	else
+    	{
+    		return null;
+    	}
+    }
+    
 	public java.util.List<SearchHitVO> getSearchHitList() {
 		return searchHitList;
 	}

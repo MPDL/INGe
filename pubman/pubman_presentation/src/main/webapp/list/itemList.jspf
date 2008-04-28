@@ -92,7 +92,7 @@ All rights reserved. Use is subject to license terms.
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
 							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{ItemListSessionBean.isSearchResultList}"/>
-							<h:outputLink value="viewItemFullPage.jsp?itemId=#{item.version.objectId}:#{item.version.versionNumber}" >
+							<h:outputLink value="#{item.link}" >
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
 						</div>
@@ -118,6 +118,33 @@ All rights reserved. Use is subject to license terms.
 					</h:panelGroup>
 				</h:column>
 			</h:dataTable>
+		</div>
+		<div class="paginator">
+			<h:panelGroup layout="block" styleClass="paginatorTop floatbox">
+				<div class="showItemsMenu floatbox">
+					<h:outputText value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
+					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
+						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
+						<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
+						<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
+						<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
+						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
+					</h:selectOneMenu>
+					<h:outputText value=" #{lbl.ItemList_ObjectsPerPage}"/>
+				</div>
+				<div class="paginatorControls">
+					<h:commandButton value="|<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
+					<h:commandButton value="<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
+					<tr:iterator id="paginator2" var="page" value="#{ItemListSessionBean.pages}" first="#{((ItemListSessionBean.currentPubItemListPointer - ItemListSessionBean.currentPubItemListPointer % (ItemListSessionBean.itemsPerPage * 10)) / (ItemListSessionBean.itemsPerPage * 10)) * 10}" rows="10">
+				
+						<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+						<tr:commandButton text="#{page}" disabled="true" styleClass="disabled" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+					
+					</tr:iterator>
+					<h:commandButton value=">" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
+					<h:commandButton value=">|" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
+				</div>
+			</h:panelGroup>
 		</div>
 	</f:subview>
 </div>
