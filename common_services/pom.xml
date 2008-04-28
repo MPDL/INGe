@@ -163,6 +163,8 @@
 		<module>validation_ear</module>
 		<module>common_logic_ear</module>
 		<module>validation_presentation</module>
+		<module>structuredexportmanager</module>
+		<module>structuredexportmanager_ear</module>
 	</modules>
 
 	<scm>
