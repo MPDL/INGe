@@ -57,39 +57,39 @@ public class AffiliationVOPresentation extends AffiliationVO
 		ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 			
 		StringBuffer html = new StringBuffer();
-		html.append("<h1>"+labelBundle.getString("AffiliationTree_txtHeadlineDetails")+"</h1>");	
+		html.append("<div class=\"affDetails\"><h1>"+labelBundle.getString("AffiliationTree_txtHeadlineDetails")+"</h1>");	
 		html.append("<div class=\"formField\">");
 		if( this.getDescription() != "" ) {
-			html.append("<div class=\"affDescription\">");
+			html.append("<div>");
 			html.append(this.getDescription());
 			html.append("</div><br/>");
 		}
 		if( this.getAddress() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<span>");
 			html.append(this.getAddress());
-			html.append("</span><br/>");
+			html.append("</span><br/><br/>");
 		}
 		if( this.getTelephone() != "" ) {
-			html.append("<span class=\"affDescription\">"+labelBundle.getString("AffiliationTree_txtPhone")+": ");
+			html.append("<span>"+labelBundle.getString("AffiliationTree_txtPhone")+": ");
 			html.append(this.getTelephone());
 			html.append("</span>");
 		}
 		if( this.getFax() != "" ) {
-			html.append("<span class=\"affDescription\">, &nbsp;"+labelBundle.getString("AffiliationTree_txtFax")+": ");
+			html.append("<span>, &nbsp;"+labelBundle.getString("AffiliationTree_txtFax")+": ");
 			html.append(this.getFax());
 			html.append("</span>");
 		}
 		if( this.getEmail() != "" ) {
-			html.append("<span class=\"affDescription\">, &nbsp;"+labelBundle.getString("AffiliationTree_txtEmail")+": ");
+			html.append("<span>, &nbsp;"+labelBundle.getString("AffiliationTree_txtEmail")+": ");
 			html.append(this.getEmail());
 			html.append("</span>");
 		}
 		if( this.getHomepageUrl() != null && this.getHomepageUrl().toString() != "" ) {
-			html.append("<span class=\"affDescription\">, &nbsp;");
+			html.append("<span>, &nbsp;");
 			html.append(this.getHomepageUrl());
 			html.append("</span>");
 		}
-		html.append("</div>");
+		html.append("</div></div>");
 		return html.toString();
 	}
 
