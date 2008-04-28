@@ -176,7 +176,7 @@ public class SubmitItem extends FacesBean
         {
         	try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getVersionNumber());
+    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getLatestVersion().getVersionNumber());
     		} 
             catch (IOException e) {
     			logger.error("Could not redirect to View Item Page", e);
