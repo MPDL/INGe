@@ -202,7 +202,11 @@ html > body fieldset{
  }
 
 html > body .itemText {
-	width: 76.8% !important;
+	width: 75% !important;
+}
+
+.paginator .itemText {
+width: 76% !important;
 }
 
 .itemAffiliations {
