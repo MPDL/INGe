@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.common;
 
+import java.util.List;
+
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -74,4 +76,15 @@ public interface DataGathering
      * @throws TechnicalException 
      */
     public java.util.List<RelationVO> findRevisionsOfItem(java.lang.String userHandle, ItemRO pubItemRef) throws TechnicalException;
+
+    
+    /**
+     * Searches for the items from which this Revision was c reated using the semantic store service and the
+     * relation isRevisionOf.
+     * 
+     * @param userHandle The user handle of the authenticated user who uses this method
+     * @param pubItemRef The reference to an revision item
+     * @throws TechnicalException 
+     */
+    public List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException;
 }

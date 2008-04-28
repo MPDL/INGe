@@ -127,6 +127,34 @@ public class DataGatheringBean implements DataGathering
         	throw new TechnicalException(e);
         }
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public List<RelationVO> findParentItemsOfRevision(String userHandle, ItemRO itemRef) throws TechnicalException
+    {
+        if (itemRef == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ".findRevisionsOfItem:itemRef is null");
+        }
+        String param = "<param>"
+            + "<query>&lt;info:fedora/" + itemRef.getObjectId() + "&gt; " + PREDICATE_ISREVISIONOF + " *</query>"
+            + "<format>" + OUTPUT_FORMAT + "</format>"
+            + "</param>";
+        logger.debug("Param=" + param);
+        try
+        {
+            String result = ServiceLocator.getSemanticScoreHandler(userHandle).spo(param);
+            List<RelationVO> relations = xmlTransforming.transformToRelationVOList(result);
+            return relations;
+        }
+        catch (Exception e)
+        {
+            logger.error("Error retrieving revisions.", e);
+            throw new TechnicalException(e);
+        }
+    }
+
 
     /**
      * {@inheritDoc}
