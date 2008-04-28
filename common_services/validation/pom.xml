@@ -9,12 +9,12 @@
 	<artifactId>validation</artifactId>
 	<name>validation</name>
 	<packaging>ejb</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/validation-1.0.2</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/validation-1.0.2</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/tags/validation-1.0.2</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -72,7 +72,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
