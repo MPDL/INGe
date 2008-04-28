@@ -1,6 +1,7 @@
 package de.mpg.escidoc.pubman.util;
 
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 
@@ -51,36 +52,40 @@ public class AffiliationVOPresentation extends AffiliationVO
 	 */
 	public String getHtmlDescription()
 	{
+		InternationalizationHelper i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+        .get(InternationalizationHelper.BEAN_NAME);
+		ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+			
 		StringBuffer html = new StringBuffer();
-		html.append("<h1>Organisation Description</h1>");	
+		html.append("<h1>"+labelBundle.getString("AffiliationTree_txtHeadlineDetails")+"</h1>");	
 		html.append("<div class=\"formField\">");
 		if( this.getDescription() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<div class=\"affDescription\">");
 			html.append(this.getDescription());
-			html.append("</span>");
+			html.append("</div><br/>");
 		}
 		if( this.getAddress() != "" ) {
 			html.append("<span class=\"affDescription\">");
 			html.append(this.getAddress());
-			html.append("</span>");
+			html.append("</span><br/>");
 		}
 		if( this.getTelephone() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<span class=\"affDescription\">"+labelBundle.getString("AffiliationTree_txtPhone")+": ");
 			html.append(this.getTelephone());
 			html.append("</span>");
 		}
 		if( this.getFax() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<span class=\"affDescription\">, &nbsp;"+labelBundle.getString("AffiliationTree_txtFax")+": ");
 			html.append(this.getFax());
 			html.append("</span>");
 		}
 		if( this.getEmail() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<span class=\"affDescription\">, &nbsp;"+labelBundle.getString("AffiliationTree_txtEmail")+": ");
 			html.append(this.getEmail());
 			html.append("</span>");
 		}
 		if( this.getHomepageUrl() != null && this.getHomepageUrl().toString() != "" ) {
-			html.append("<span class=\"affDescription\">");
+			html.append("<span class=\"affDescription\">, &nbsp;");
 			html.append(this.getHomepageUrl());
 			html.append("</span>");
 		}
