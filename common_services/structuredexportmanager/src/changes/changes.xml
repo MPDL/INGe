@@ -36,10 +36,11 @@
     <author email="makarenko@mpdl.mpg.de">Vladislav Makarenko</author>
   </properties>
   <body>
-    <release version="1.0.0" date="2008-03-31" description="Initial release">
+    <release version="1.0.0" date="2008-04-28" description="Initial release">
       <action dev="vdm" type="update">
         Initial import to svn.
       </action>
     </release>
+    <release version="1.0.1-SNAPSHOT" date="2008-04-28" description="Current development"/>
   </body>
 </document>

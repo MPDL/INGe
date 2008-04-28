@@ -51,7 +51,9 @@
         release for testing purpose
       </action>
     </release>
-    <release version="1.0.3-SNAPSHOT" date="2008-03-19" description="current development">
+    <release version="1.0.3" date="2008-04-28" description="Release of all modules">
+    </release>
+     <release version="1.0.4-SNAPSHOT" date="2008-04-28" description="current development">
     </release>
   </body>
 </document>

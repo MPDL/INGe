@@ -46,5 +46,7 @@
         Interface changes towards pubman.
       </action>
       </release>
+     <release version="1.0.2" date="2008-04-28" description="Release of all modules">
+     <release version="1.0.3-SNAPSHOT" date="2008-04-28" description="Current development">
   </body>
 </document>
