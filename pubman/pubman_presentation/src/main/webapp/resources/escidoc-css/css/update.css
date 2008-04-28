@@ -329,3 +329,15 @@ font-size: 1em;
 	overflow: hidden;
 	background-color: #F0F0F0;
 }
+
+/* Affiliation Details */
+
+.affDetails{
+	padding:20px;
+}
+
+.affDetails h1{
+	
+	margin-bottom:20px;
+}
+
