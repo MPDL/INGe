@@ -66,7 +66,7 @@ function loadDescription(html)
 	//myWindow=window.open('','myWindow','width=600,height=400');
 	//myWindow.document.write(html);
 	//myWindow.focus();
-	openCenteredWindowTest(html, 600, 400, "Description" );
+	openCenteredWindowTest(html, 900, 400, "Description" );
 }
 
 function openCenteredWindow(page, width, height, windowName)
@@ -101,6 +101,30 @@ function openCenteredWindowTest(html, width, height, windowName)
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open('', windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 	newWindow.document.write(html);
+	
+	var scriptElem = document.createElement('script');
+        scriptElem.type = 'text/javascript';
+        scriptElem.src = 'resources/scripts.js';
+
+    var head = document.getElementsByName('head')[0];
+    if( head ) head.appendChild( scriptElem );    
+
+    var scriptElement = document.createElement( "script" );
+    scriptElement.setAttribute( "src", "resources/scripts.js" );
+    newWindow.document.body.appendChild( scriptElement );
+	
+	var cssElem = document.createElement('script');
+        cssElem.type = 'text/css';
+        cssElem.src = './resources/escidoc-css/css/main.css';
+	
+	 var head = document.getElementsByName('head')[1];
+    if( head ) head.appendChild( cssElem );    
+
+    var cssElement = document.createElement( "link" );
+    cssElement.setAttribute( "href", "./resources/escidoc-css/css/main.css" );
+    cssElement.setAttribute( "type", "text/css" );
+    cssElement.setAttribute( "rel", "stylesheet" );
+    newWindow.document.body.appendChild( cssElement );
 	newWindow.focus();
 }
 
