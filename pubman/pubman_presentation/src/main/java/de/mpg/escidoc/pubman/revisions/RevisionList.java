@@ -74,6 +74,8 @@ public class RevisionList extends FacesBean
     {
         super.init();
         
+        
+        //get Revisions
         List<RelationVOPresentation> relationVOList = retrieveRevisions(getItemControllerSessionBean().getCurrentPubItem());
         
         List<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
@@ -82,6 +84,19 @@ public class RevisionList extends FacesBean
         {
             PubItemVO sourceItem = relationVO.getSourceItem();
             if (sourceItem!=null) pubItemVOList.add(sourceItem);
+
+        }
+        
+        //get ParentItems
+        
+        List<RelationVOPresentation> relationVOList2 = retrieveParentItems(getItemControllerSessionBean().getCurrentPubItem());
+        
+        List<PubItemVO> parentPubItemVOList = new ArrayList<PubItemVO>();
+        
+        for (RelationVOPresentation relationVO : relationVOList2)
+        {
+            PubItemVO targetItem = relationVO.getTargetItem();
+            if (targetItem!=null) pubItemVOList.add(targetItem);
 
         }
         
@@ -105,6 +120,25 @@ public class RevisionList extends FacesBean
         try
         {
             return this.getItemControllerSessionBean().retrieveRevisions(pubItemVO); 
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not create revision list.", e);
+        }
+
+        return null;
+    }
+    
+    /**
+     * If the stated item is a revision, a list with RelationVO wrappers from which this revision was created is returned.
+     * @return the list of RelationVOWrappers
+     */
+    private List<RelationVOPresentation> retrieveParentItems(PubItemVO pubItemVO)
+    {
+        
+        try
+        {
+            return this.getItemControllerSessionBean().retrieveParentsForRevision(pubItemVO); 
         }
         catch (Exception e)
         {

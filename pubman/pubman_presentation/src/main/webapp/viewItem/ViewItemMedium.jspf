@@ -49,7 +49,7 @@
 		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemMedium.creatorPersonsIterator.rowIndex%2)*2 != ViewItemMedium.creatorPersonsIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{item.countCreators == 0}"/>
 			<h:outputText value="#{creator}"/>
-			<h:outputText value="&#160;" rendered="#{item.countCreators == 0}" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.countCreators == 0}" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 	
@@ -72,8 +72,8 @@
 				<h:outputText value="</p>" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
-		<h:outputText value="&#160;" rendered="#{ViewItemMedium.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
-		<h:outputText value="&#160;" rendered="#{item.countAffiliatedOrganizations == 0}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemMedium.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.countAffiliatedOrganizations == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Dates -->
@@ -83,6 +83,7 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="<p>" escape="false"/>
+		<%-- 
 			<h:outputText value="#{lbl.ViewItem_lblDateCreated}: " rendered="#{item.metadata.dateCreated != ''}"/>
 			<h:outputText value="#{item.metadata.dateCreated}"/>
 				<h:outputText value=" | " rendered="#{item.metadata.dateModified != null && item.metadata.dateModified != ''}" />
@@ -100,6 +101,8 @@
 				<h:outputText value=" | " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{item.metadata.datePublishedInPrint}"/>
+		--%>
+			<h:outputText value="#{item.datesAsString}"/>
 		<h:outputText value="</p>" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
@@ -110,7 +113,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{item.genre}"/>
-		<h:outputText value="&#160;" rendered="#{item.genre == null || item.genre == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.genre == null || item.genre == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Publishing info -->
@@ -120,7 +123,7 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="#{item.publishingInfo}"/>
-		<h:outputText value="&#160;" rendered="#{item.publishingInfo == null || item.publishingInfo == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfo == null || item.publishingInfo == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Event title -->
@@ -130,7 +133,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{item.eventTitle}"/>
-		<h:outputText value="&#160;" rendered="#{item.eventTitle == null || item.eventTitle == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.eventTitle == null || item.eventTitle == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- empty row-->
@@ -150,7 +153,7 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="#{item.sourceGenre}"/>
-		<h:outputText value="&#160;" rendered="#{item.sourceGenre == null || item.sourceGenre == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceGenre == null || item.sourceGenre == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Source title -->
@@ -160,7 +163,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{item.sourceTitle}"/>
-		<h:outputText value="&#160;" rendered="#{item.sourceTitle == null || item.sourceTitle == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.sourceTitle == null || item.sourceTitle == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Volume / issue of the source-->
@@ -173,7 +176,7 @@
 		<h:outputText value=" (" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
 		<h:outputText value="#{item.firstSource.issue}"/>
 		<h:outputText value=")" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
-		<h:outputText value="&#160;" rendered="#{item.firstSource == null || (item.firstSource != null && (item.firstSource.volume == null || item.firstSource.volume == '')) && (item.firstSource.issue == null || item.firstSource.issue == '')}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource == null || (item.firstSource != null && (item.firstSource.volume == null || item.firstSource.volume == '')) && (item.firstSource.issue == null || item.firstSource.issue == '')}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Start / End page -->
@@ -183,7 +186,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{item.startEndPageSource}"/>
-		<h:outputText value="&#160;" rendered="#{item.startEndPageSource == null || item.startEndPageSource == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.startEndPageSource == null || item.startEndPageSource == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Sequence number-->
@@ -193,7 +196,7 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="#{item.firstSource.sequenceNumber}"/>
-		<h:outputText value="&#160;" rendered="#{item.firstSource == null || (item.firstSource != null && item.firstSource.sequenceNumber == null) || item.firstSource.sequenceNumber == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.firstSource == null || (item.firstSource != null && item.firstSource.sequenceNumber == null) || item.firstSource.sequenceNumber == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Publishing info of the source -->
@@ -203,7 +206,7 @@
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{item.publishingInfoSource}"/>
-		<h:outputText value="&#160;" rendered="#{item.publishingInfoSource == null || item.publishingInfoSource == ''}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.publishingInfoSource == null || item.publishingInfoSource == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- note if more sources are available-->

@@ -287,6 +287,45 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
     }
     
+    public String getDatesAsString() 
+    {
+        ArrayList<String> dates = new ArrayList<String>();
+        
+        if (!(getMetadata().getDateCreated().equals("") || getMetadata().getDateCreated()==null))
+            dates.add(getLabel("ViewItem_lblDateCreated") + ": " + getMetadata().getDateCreated());
+        
+        if (!(getMetadata().getDateModified().equals("") ||  getMetadata().getDateModified() == null ))
+            dates.add(getLabel("ViewItem_lblDateModified") + ": " + getMetadata().getDateModified());
+  
+        if (!(getMetadata().getDateSubmitted().equals("") ||  getMetadata().getDateSubmitted() == null ))
+            dates.add(getLabel("ViewItem_lblDateSubmitted") + ": " + getMetadata().getDateSubmitted());
+        
+        if (!(getMetadata().getDateAccepted().equals("") ||  getMetadata().getDateAccepted() == null ))
+            dates.add(getLabel("ViewItem_lblDateAccepted") + ": " + getMetadata().getDateAccepted());
+        
+        if (!(getMetadata().getDatePublishedOnline().equals("") || getMetadata().getDatePublishedOnline() == null ))
+            dates.add(getLabel("ViewItem_lblDatePublishedOnline") + ": " + getMetadata().getDatePublishedOnline());
+        
+        if (!(getMetadata().getDatePublishedInPrint().equals("") || getMetadata().getDatePublishedInPrint() == null ))
+            dates.add(getLabel("ViewItem_lblDatePublishedInPrint") + ": " + getMetadata().getDatePublishedInPrint());
+        
+        
+        String allDates = "";
+        
+        for (String date : dates)
+        {
+            allDates = allDates + date + " | ";
+            
+        }
+        
+        //remove last two signs
+        allDates = allDates.substring(0, allDates.length()-2);
+        
+        return allDates;
+        
+        
+    }
+    
     /**
      * gets the genre of the item
      * @return String the genre of the item

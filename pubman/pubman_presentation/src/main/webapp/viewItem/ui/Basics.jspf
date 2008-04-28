@@ -182,6 +182,8 @@
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
+		
+		<%-- 
 		<h:outputText value="<p>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItem_lblDateCreated}: " rendered="#{ViewItemFull.pubItem.metadata.dateCreated != null && ViewItemFull.pubItem.metadata.dateCreated != ''}"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.dateCreated}" styleClass="nowrap" />
@@ -201,6 +203,9 @@
 			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{ViewItemFull.pubItem.metadata.datePublishedInPrint != null && ViewItemFull.pubItem.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{ViewItemFull.pubItem.metadata.datePublishedInPrint}"/>
 		<h:outputText value="</p>" escape="false"/>
+		
+		--%>
+		<h:outputText value="#{ViewItemFull.dates}"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{!ViewItemFull.showDates}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>

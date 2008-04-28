@@ -1013,6 +1013,18 @@ public class ViewItemFull extends FacesBean
     }
     
     
+    
+    public String getDates() 
+    {
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        pubItemList.add(getPubItem());
+        List<PubItemVOPresentation> pubItemPresentationList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+        PubItemVOPresentation pubItemPresentation = pubItemPresentationList.get(0);
+        
+        return pubItemPresentation.getDatesAsString();
+        
+    }
+    
     /**
      * Returns false if all dates are empty
      * @author Markus Haarlaender

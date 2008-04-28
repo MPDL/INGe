@@ -8,9 +8,21 @@ public class RelationVOPresentation extends RelationVO
 
 	private PubItemVO sourceItem;
 	
+	private PubItemVO targetItem;
 	
 	
-	public RelationVOPresentation(RelationVO relation)
+	
+	public PubItemVO getTargetItem()
+    {
+        return targetItem;
+    }
+
+    public void setTargetItem(PubItemVO targetItem)
+    {
+        this.targetItem = targetItem;
+    }
+
+    public RelationVOPresentation(RelationVO relation)
 	{
 		super(relation);
 	}

@@ -1890,6 +1890,48 @@ public class ItemControllerSessionBean extends FacesBean
         
         return revisionVOList;
     }
+    
+    /**
+     * @author Markus Haarlaender
+     * @param pubItemVO the pubitem (a revision) for which the parent items should be fetched
+     * @return a list of wrapped ReleationVOs that contain information about the items from which this revision was created
+     */
+    public List<RelationVOPresentation> retrieveParentsForRevision(PubItemVO pubItemVO) throws Exception
+    {
+        List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
+
+        String xmlItem = "";
+        
+        if(loginHelper.getESciDocUserHandle() != null)
+        {
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findParentItemsOfRevision(loginHelper.getESciDocUserHandle(), pubItemVO.getVersion()));
+        }
+        else
+        {
+            // TODO ScT: retrieve as super user (workaround for not logged in users until the framework changes this retrieve method for unauthorized users)
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findParentItemsOfRevision(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
+        }
+            
+        List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
+        for (RelationVOPresentation relationVOPresentation : revisionVOList) {
+            targetItemRefs.add(relationVOPresentation.getTargetItemRef());
+        }
+        List<PubItemVO> targetItemList = retrieveItems(targetItemRefs);
+
+        for (RelationVOPresentation revision : revisionVOList) {
+            for (PubItemVO pubItem : targetItemList) {
+                if (revision.getTargetItemRef().getObjectId().equals(pubItem.getVersion().getObjectId()))
+                {
+                    revision.setTargetItem(pubItem);
+                    break;
+                }
+            }
+        }
+        
+        
+        return revisionVOList;
+    }
+
 
     /**
      * Tests if the metadata of the two items have changed.
