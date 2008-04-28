@@ -43,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.lang.String;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -155,6 +156,7 @@ public class PubItemSearchingBean implements PubItemSearching
 
             if (criterion.getClass() == AnyFieldCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 AnyFieldCriterionVO criterionVO = (AnyFieldCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -168,9 +170,11 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == TitleCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 TitleCriterionVO criterionVO = (TitleCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -184,31 +188,36 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == PersonCriterionVO.class)
             {
-                PersonCriterionVO criterionVO = (PersonCriterionVO)criterion;
-                // create cql query with a logic operator (if needed)
-                query.append("(");
-                query.append(createCqlQuery(criterionVO.getSearchString(), QueryType.PERSON ));
-                if (criterionVO.getCreatorRole().size() > 0)
-                {
-                    query.append(" AND (");
-                    for (int j = 0; j < criterionVO.getCreatorRole().size(); j++)
-                    {
-                        query.append(createCqlQuery(criterionVO.getCreatorRole().get(j).toString(), QueryType.PERSON_ROLE ));
-                        if (j < criterionVO.getCreatorRole().size() - 1)
-                        {
-                            query.append(" OR ");
-                        }
-                    }
-                    query.append(")");
-                }
-                query.append(")");
-                query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	if( criterion.getSearchString().length() != 0 )  { 
+            	
+            		PersonCriterionVO criterionVO = (PersonCriterionVO)criterion;
+            		// create cql query with a logic operator (if needed)
+            		query.append("(");
+            		query.append(createCqlQuery(criterionVO.getSearchString(), QueryType.PERSON ));
+            		if (criterionVO.getCreatorRole().size() > 0)
+            		{
+            			query.append(" AND (");
+            			for (int j = 0; j < criterionVO.getCreatorRole().size(); j++)
+            			{
+            				query.append(createCqlQuery(criterionVO.getCreatorRole().get(j).toString(), QueryType.PERSON_ROLE ));
+            				if (j < criterionVO.getCreatorRole().size() - 1)
+            				{
+            					query.append(" OR ");
+            				}
+            			}
+            			query.append(")");
+            		}
+            		query.append(")");
+            		query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == OrganizationCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 OrganizationCriterionVO criterionVO = (OrganizationCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -222,6 +231,7 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == GenreCriterionVO.class)
             {
@@ -241,6 +251,7 @@ public class PubItemSearchingBean implements PubItemSearching
             }
             else if (criterion.getClass() == DateCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 DateCriterionVO criterionVO = (DateCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -272,9 +283,11 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == TopicCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 TopicCriterionVO criterionVO = (TopicCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -288,9 +301,11 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == SourceCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 SourceCriterionVO criterionVO = (SourceCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -304,9 +319,11 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == EventCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 EventCriterionVO criterionVO = (EventCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
@@ -320,15 +337,18 @@ public class PubItemSearchingBean implements PubItemSearching
                 }
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == IdentifierCriterionVO.class)
             {
+            	if( criterion.getSearchString().length() != 0 )  { 
                 IdentifierCriterionVO criterionVO = (IdentifierCriterionVO)criterion;
                 // create cql query with a logic operator (if needed)
                 query.append("(");
                 query.append(createCqlQuery(criterionVO.getSearchString(), QueryType.IDENTIFIER ));
                 query.append(")");
                 query.append(createLogicOperator(criterionVO.getLogicOperator(), i, list.size()));
+            	}
             }
             else if (criterion.getClass() == LanguageCriterionVO.class)
             {
