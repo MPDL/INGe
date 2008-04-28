@@ -51,10 +51,10 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable
      */
     private static final long serialVersionUID = 1L;
 
-    	/**
-	 * The possible invitation status of the event.
-	 * @updated 22-Okt-2007 15:26:37
-	 */
+        /**
+     * The possible invitation status of the event.
+     * @updated 22-Okt-2007 15:26:37
+     */
     public enum InvitationStatus
     {
         INVITED
@@ -85,9 +85,9 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Delivers the invitations status of the event. The invitation status is the
-	 * information whether the creator was explicitly invited. 
-	 */
+     * Delivers the invitations status of the event. The invitation status is the
+     * information whether the creator was explicitly invited. 
+     */
     public InvitationStatus getInvitationStatus()
     {
         return invitationStatus;
@@ -118,11 +118,11 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the invitations status of the event. The invitation status is the
-	 * information whether the creator was explicitly invited.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the invitations status of the event. The invitation status is the
+     * information whether the creator was explicitly invited.
+     * 
+     * @param newVal
+     */
     public void setInvitationStatus(InvitationStatus newVal)
     {
         invitationStatus = newVal;
@@ -203,20 +203,20 @@ public class EventVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the end date of the event.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the end date of the event.
+     * 
+     * @param newVal
+     */
     public void setEndDate(String newVal)
     {
         endDate = newVal;
     }
 
     /**
-	 * Sets the start date of the event.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the start date of the event.
+     * 
+     * @param newVal
+     */
     public void setStartDate(String newVal)
     {
         startDate = newVal;

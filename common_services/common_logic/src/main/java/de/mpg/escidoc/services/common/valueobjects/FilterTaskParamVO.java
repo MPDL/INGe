@@ -131,7 +131,7 @@ public class FilterTaskParamVO extends ValueObject
          */
         public ItemRefFilter(List<ItemRO> list)
         {
-        	this.idList = list;
+            this.idList = list;
         }
 
         /**

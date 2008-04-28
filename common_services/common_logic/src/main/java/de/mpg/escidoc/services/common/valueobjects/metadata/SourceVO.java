@@ -84,10 +84,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Creates a new instance with the given title.
-	 * 
-	 * @param title
-	 */
+     * Creates a new instance with the given title.
+     * 
+     * @param title
+     */
     public SourceVO(TextVO title)
     {
         super();
@@ -103,10 +103,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the title of the source, e.g. the title of the journal or the book.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the title of the source, e.g. the title of the journal or the book.
+     * 
+     * @param newVal
+     */
     public void setTitle(TextVO newVal)
     {
         title = newVal;
@@ -130,10 +130,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the volume of the source in which the described item was published in.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the volume of the source in which the described item was published in.
+     * 
+     * @param newVal
+     */
     public void setVolume(String newVal)
     {
         volume = newVal;
@@ -148,10 +148,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the issue of the source in which the described item was published in.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the issue of the source in which the described item was published in.
+     * 
+     * @param newVal
+     */
     public void setIssue(String newVal)
     {
         issue = newVal;
@@ -166,10 +166,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the page where the described item starts.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the page where the described item starts.
+     * 
+     * @param newVal
+     */
     public void setStartPage(String newVal)
     {
         startPage = newVal;
@@ -184,10 +184,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the page where the described item ends.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the page where the described item ends.
+     * 
+     * @param newVal
+     */
     public void setEndPage(String newVal)
     {
         endPage = newVal;
@@ -202,11 +202,11 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the sequence number, i. e. the number of the described item within the
-	 * source.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the sequence number, i. e. the number of the described item within the
+     * source.
+     * 
+     * @param newVal
+     */
     public void setSequenceNumber(String newVal)
     {
         sequenceNumber = newVal;
@@ -222,12 +222,12 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
 
     /**
-	 * Sets the publishing info, i. e. the institution which published the item and
-	 * additional information, e.g. the publisher name and place of a book or the
-	 * university where an theses has been created.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the publishing info, i. e. the institution which published the item and
+     * additional information, e.g. the publisher name and place of a book or the
+     * university where an theses has been created.
+     * 
+     * @param newVal
+     */
     public void setPublishingInfo(PublishingInfoVO newVal)
     {
         publishingInfo = newVal;
@@ -258,10 +258,10 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     }
     
     /**
-	 * Sets the genre of the source.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the genre of the source.
+     * 
+     * @param newVal
+     */
     public void setGenre(Genre newVal)
     {
         genre = newVal;

@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,46 +25,60 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.Arrays;
 
-public class AuthorFormatList {
-	
-	private static AuthorFormat[] formats = new AuthorFormat[]
-	{
-		
-		new WesternFormat1(),
-		new WesternFormat2(),
-		new WesternFormat3(),
-		new WesternFormat4(),
-		new WesternFormat5(),
-		new WesternFormat6(),
-		new WesternFormat7(),
-		new WesternFormat8(),
-		new WesternFormat9(),
-		new OxfordJournalFormat(),
-		new ScienceDirectFormat(),
-		new BibTeXSpecialFormat1(),
-		new ResidualFormat()
+/**
+ * Class to define all valid AuthorFormats.
+ *
+ * @author franke
+ * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
+ *
+ */
+public final class AuthorFormatList
+{
 
-	};
-	
-	static
-	{
-		Arrays.sort(formats);
-	}
+    private static AuthorFormat[] formats = new AuthorFormat[]
+    {
 
-	public static AuthorFormat[] getFormats() {
-		AuthorFormat[] result = new AuthorFormat[formats.length];
-		System.arraycopy(formats, 0, result, 0, formats.length);
-		return result;
-	}
+        new WesternFormat1(),
+        new WesternFormat2(),
+        new WesternFormat3(),
+        new WesternFormat4(),
+        new WesternFormat5(),
+        new WesternFormat6(),
+        new WesternFormat7(),
+        new WesternFormat8(),
+        new WesternFormat9(),
+        new OxfordJournalFormat(),
+        new ScienceDirectFormat(),
+        new BibTeXSpecialFormat1(),
+        new ResidualFormat()
 
-	public static void setFormats(AuthorFormat[] formats) {
-		AuthorFormatList.formats = formats;
-	}
-	
+    };
+
+    static
+    {
+        Arrays.sort(formats);
+    }
+
+    private AuthorFormatList()
+    {
+    }
+
+    public static AuthorFormat[] getFormats()
+    {
+        AuthorFormat[] result = new AuthorFormat[formats.length];
+        System.arraycopy(formats, 0, result, 0, formats.length);
+        return result;
+    }
+
+    public static void setFormats(AuthorFormat[] formats)
+    {
+        AuthorFormatList.formats = formats;
+    }
+
 }

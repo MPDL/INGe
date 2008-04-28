@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,45 +25,62 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.List;
 
-public class BibTeXSpecialFormat1 extends AuthorFormat {
-	
-	@Override
-	public String getPattern() {
-		return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
-	}
+/**
+ * Special parser to parse author strings like <code>Peter~Richards</code>.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ */
+public class BibTeXSpecialFormat1 extends AuthorFormat
+{
 
-	@Override
-	public List<Author> getAuthors(String authorsString) {
+    @Override
+    public String getPattern()
+    {
+        return "^\\s*" + GIVEN_NAME_FORMAT + "~" + NAME + "( *(,| and | und | et ) *"
+                + GIVEN_NAME_FORMAT + "~" + NAME + ")*\\s*$";
+    }
 
-		String[] authors = authorsString.split(" *(,| and | und | et ) *");
-		
-		return getAuthorListNormalFormat(authors, "~");
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public List<Author> getAuthors(String authorsString)
+    {
 
-	@Override
-	public int getSignificance() {
-		return 11;
-	}
+        String[] authors = authorsString.split(" *(,| and | und | et ) *");
 
-	@Override
-	public String getDescription() {
-		return "Firstname~Lastname[, Firstname~Lastname]";
-	}
+        return getAuthorListNormalFormat(authors, "~");
+    }
 
-	@Override
-	public String getName() {
-		return "Bibtex Special format with tilde, comma-separated";
-	}
+    @Override
+    public int getSignificance()
+    {
+        return 11;
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getDescription()
+    {
+        return "Firstname~Lastname[, Firstname~Lastname]";
+    }
+
+    @Override
+    public String getName()
+    {
+        return "Bibtex Special format with tilde, comma-separated";
+    }
+
+    @Override
+    public String getWarning()
+    {
+        return null;
+    }
 
 }

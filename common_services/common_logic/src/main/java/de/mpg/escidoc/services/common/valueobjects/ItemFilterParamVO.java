@@ -39,8 +39,8 @@ import java.util.List;
  */
 public class ItemFilterParamVO extends FilterParamVO
 {
-	
-	
+    
+    
 
     /**
      * Object ids of creators as filter criteria.

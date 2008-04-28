@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,46 +25,46 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.List;
 
 public class WesternFormat8 extends AuthorFormat {
-	
-	@Override
-	public String getPattern() {
-		return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
-	}
+    
+    @Override
+    public String getPattern() {
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+    }
 
-	@Override
-	public List<Author> getAuthors(String authorsString) throws Exception
-	{
+    @Override
+    public List<Author> getAuthors(String authorsString) throws Exception
+    {
 
-		String[] authors = authorsString.split(" *(,| and | und | et ) *");
-		
-		return getAuthorListCheckingNames(authorsString, authors);
-	}
+        String[] authors = authorsString.split(" *(,| and | und | et ) *");
+        
+        return getAuthorListCheckingNames(authorsString, authors);
+    }
 
-	@Override
-	public int getSignificance() {
-		return 3;
-	}
+    @Override
+    public int getSignificance() {
+        return 3;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Vorname Nachname[, Vor-Name Nach-Name]";
-	}
+    @Override
+    public String getDescription() {
+        return "Vorname Nachname[, Vor-Name Nach-Name]";
+    }
 
-	@Override
-	public String getName() {
-		return "Westliches Normalformat, komma-getrennt, mit Vor- und Nachnamensprüfung";
-	}
+    @Override
+    public String getName() {
+        return "Westliches Normalformat, komma-getrennt, mit Vor- und Nachnamensprüfung";
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getWarning() {
+        return null;
+    }
 
 }

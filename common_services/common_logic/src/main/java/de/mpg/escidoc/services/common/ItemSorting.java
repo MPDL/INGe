@@ -52,25 +52,25 @@ public interface ItemSorting
      */
     public static String SERVICE_NAME = "ejb/de/mpg/escidoc/services/common/ItemSorting";
    
-	/**
-	 * Method  for sorting  a list of pubItems according the given criterium and order.
-	 * It sorts the items by comparing them relatively their structure.
+    /**
+     * Method  for sorting  a list of pubItems according the given criterium and order.
+     * It sorts the items by comparing them relatively their structure.
      * 
-	 * @param itemList The list of items to sort.
-	 * @param criterium The sort criterium.
-	 * @param order Descending or ascending order.
-	 * @return The sorted list.
-	 */
-	public java.util.List<PubItemVO> sortItemList(java.util.List<PubItemVO> itemList, PubItemVOComparator.Criteria criterium, String order);
-
-	/**
-	 * Method for sorting a list of pubItemVersions according the given criterium and order.
-	 * 
-     * @author Johannes Mueller
-	 * @param itemVersionList The list of item versions to sort.
-	 * @param criterium The sort criterium.
-	 * @param order Descending or ascending order.
+     * @param itemList The list of items to sort.
+     * @param criterium The sort criterium.
+     * @param order Descending or ascending order.
      * @return The sorted list.
-	 */
-	public java.util.List<VersionHistoryEntryVO> sortItemVersionList(java.util.List<VersionHistoryEntryVO> itemVersionList, VersionHistoryEntryVOComparator.Criteria criterium, VersionHistoryEntryVOComparator.Order order);
+     */
+    public java.util.List<PubItemVO> sortItemList(java.util.List<PubItemVO> itemList, PubItemVOComparator.Criteria criterium, String order);
+
+    /**
+     * Method for sorting a list of pubItemVersions according the given criterium and order.
+     * 
+     * @author Johannes Mueller
+     * @param itemVersionList The list of item versions to sort.
+     * @param criterium The sort criterium.
+     * @param order Descending or ascending order.
+     * @return The sorted list.
+     */
+    public java.util.List<VersionHistoryEntryVO> sortItemVersionList(java.util.List<VersionHistoryEntryVO> itemVersionList, VersionHistoryEntryVOComparator.Criteria criterium, VersionHistoryEntryVOComparator.Order order);
 }

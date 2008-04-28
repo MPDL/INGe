@@ -59,8 +59,8 @@ public abstract class ReferenceObject implements Serializable
     private String objectId;
 
     /**
-	 * Creates a new instance.
-	 */
+     * Creates a new instance.
+     */
     public ReferenceObject()
     {
         objectId = null;
@@ -78,43 +78,43 @@ public abstract class ReferenceObject implements Serializable
     }
     
     /**
-	 * Creates a new instance with the given ID.
-	 * 
-	 * @param objectId
-	 */
+     * Creates a new instance with the given ID.
+     * 
+     * @param objectId
+     */
     public ReferenceObject(String objectId)
     {
         this.objectId = objectId;
     }
     
     /**
-	 * Delivers the technical objectId-attribute of corresponding ValueObject.
-	 */
+     * Delivers the technical objectId-attribute of corresponding ValueObject.
+     */
     public String getObjectId()
     {
         return objectId;
     }
 
     /**
-	 * Sets the technical objectId-attribute of corresponding ValueObject.
-	 * 
-	 * @param objectId
-	 */
+     * Sets the technical objectId-attribute of corresponding ValueObject.
+     * 
+     * @param objectId
+     */
     public void setObjectId(String objectId)
     {
         this.objectId = objectId;
     }
 
     /**
-	 * Softens the strict equivalence relation defined by the overwritten {@link java.
-	 * lang.Object#equals(Object)} method. Two ReferenceObjects are equal, if they are
-	 * identical, or if they are of the same type and contain the same objectId.
-	 * 
-	 * @returns true if the objects are equal according to the defined equivalence
-	 * relation.
-	 * 
-	 * @param object
-	 */
+     * Softens the strict equivalence relation defined by the overwritten {@link java.
+     * lang.Object#equals(Object)} method. Two ReferenceObjects are equal, if they are
+     * identical, or if they are of the same type and contain the same objectId.
+     * 
+     * @returns true if the objects are equal according to the defined equivalence
+     * relation.
+     * 
+     * @param object
+     */
     @Override
     public boolean equals(Object object)
     {

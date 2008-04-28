@@ -33,21 +33,22 @@ package de.mpg.escidoc.services.common.valueobjects;
 
 /**
  * Valueobject representing the export file format data needed for the export.
- * 
+ *
  * @version $Revision: 653 $ $LastChangedDate: 2007-12-11 11:07:02 +0100 (Tue, 11 Dec 2007) $ by $Author: vdm $
  */
 
-public class FileFormatVO extends ValueObject {
+public class FileFormatVO extends ValueObject
+{
 
-	/**
-	 * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
-	 * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
-	 * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
-	 * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
-	 * for the Application Server, once for the local test).
-	 * 
-	 * @author Johannes Mueller
-	 */
+    /**
+     * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
+     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
+     * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
+     * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
+     * for the Application Server, once for the local test).
+     *
+     * @author Johannes Mueller
+     */
    
 
     public static final String TEXT_NAME = "txt";
@@ -73,74 +74,73 @@ public class FileFormatVO extends ValueObject {
     
     /**
      * The mime type of FileFormat
-     */    
-	private String mimeType;
-	
+     */
+    private String mimeType;
+    
     /**
      * The name of FileFormat
-     */    
+     */
     private String name;
 
-    
     /**
      * Delivers the name of the selected file according to name of format.
      */
     public static String getMimeTypeByName(String name)
     {
-    	name = name == null || name.trim().equals("") ? "" : name.trim();  
-    	// if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
-    	// by default
-    	return
-    		name.equals(TEXT_NAME)		? TEXT_MIMETYPE	: 
-    		name.equals(PDF_NAME) 		? PDF_MIMETYPE	: 
-    		name.equals(RTF_NAME) 		? RTF_MIMETYPE	: 
-    		name.equals(HTML_NAME)		? HTML_MIMETYPE	: 
-            name.equals(ODT_NAME)		? ODT_MIMETYPE	: 
-            name.equals(SNIPPET_NAME)	? SNIPPET_MIMETYPE	: 
-            						  	DEFAULT_MIMETYPE; 
+        name = name == null || name.trim().equals("") ? "" : name.trim();  
+        // if name is not in scope of file format, set it to FileFormatVO.PDF_MIMETYPE
+        // by default
+        return
+            name.equals(TEXT_NAME)        ? TEXT_MIMETYPE    : 
+            name.equals(PDF_NAME)         ? PDF_MIMETYPE    : 
+            name.equals(RTF_NAME)         ? RTF_MIMETYPE    : 
+            name.equals(HTML_NAME)        ? HTML_MIMETYPE    : 
+            name.equals(ODT_NAME)        ? ODT_MIMETYPE    : 
+            name.equals(SNIPPET_NAME)    ? SNIPPET_MIMETYPE    : 
+                                          DEFAULT_MIMETYPE; 
     }
-    
 
     // workaround to find out whether the output format is presented  
-	//TODO: should be taken directly from xml description of the export 
-	//rather then hardcoded in FileFormatVO class    
+    //TODO: should be taken directly from xml description of the export 
+    //rather then hardcoded in FileFormatVO class    
     public static boolean isOutputFormatSupported(String outputFormat)
     {
-    	return !(
-    			getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) 
-    			&& !outputFormat.equals(DEFAULT_NAME)
-    			); 
+        return !(
+                getMimeTypeByName(outputFormat).equals(DEFAULT_MIMETYPE) 
+                && !outputFormat.equals(DEFAULT_NAME)
+                ); 
     }
 
-    
-    
-	/**
-	 * get mimeType
-	 */
-	public String getMimeType() {
-		return mimeType;
-	}
+    /**
+     * get mimeType
+     */
+    public String getMimeType()
+    {
+        return mimeType;
+    }
 
-	/**
-	 * set mimeType
-	 */
-	public void setMimeType(String mimeType) {
-		this.mimeType = mimeType;
-	}
+    /**
+     * set mimeType
+     */
+    public void setMimeType(String mimeType)
+    {
+        this.mimeType = mimeType;
+    }
 
-	/**
-	 * get name of the file format
-	 */
-	public String getName() {
-		return name;
-	}
+    /**
+     * get name of the file format
+     */
+    public String getName()
+    {
+        return name;
+    }
 
-	/**
-	 * set name of the file format
-	 */
-	public void setName(String name) {
-		this.name = name;
-	}
-    
-    
+    /**
+     * set name of the file format
+     */
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+
 }

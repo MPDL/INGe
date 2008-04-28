@@ -52,19 +52,19 @@ public class FileVO extends ValueObject implements Cloneable
      */
 
 
-    	/**
-	 * The possible content types of a file.
-	 * @updated 21-Nov-2007 12:05:47
-	 */
+        /**
+     * The possible content types of a file.
+     * @updated 21-Nov-2007 12:05:47
+     */
     public enum ContentType
     {
         ABSTRACT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, CORRESPONDENCE, SUPPLEMENTARY_MATERIAL, COPYRIGHT_TRANSFER_AGREEMENT
     }
 
-    	/**
-	 * The possible visibility of a file.
-	 * @updated 21-Nov-2007 12:05:47
-	 */
+        /**
+     * The possible visibility of a file.
+     * @updated 21-Nov-2007 12:05:47
+     */
     public enum Visibility
     {
         PUBLIC, PRIVATE
@@ -104,18 +104,18 @@ public class FileVO extends ValueObject implements Cloneable
      */
     private FileVO.ContentType contentType;
     /**
-	 * The size of the file in Bytes.
-	 * Has to be zero if no content is given.
-	 */
+     * The size of the file in Bytes.
+     * Has to be zero if no content is given.
+     */
     private long size;
     /**
      * The location from which the data of the file has to be fetched.
      */
     private String locator;
     /**
-	 * The MIME-type of this format.
-	 * Valid values see http://www.iana.org/assignments/media-types/
-	 */
+     * The MIME-type of this format.
+     * Valid values see http://www.iana.org/assignments/media-types/
+     */
     private String mimeType;
 
     /**
@@ -183,11 +183,11 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the files' reference.
-	 * @see de.mpg.escidoc.services.common.referenceobjects.ReferenceObject
-	 * 
-	 * @param newVal
-	 */
+     * Sets the files' reference.
+     * @see de.mpg.escidoc.services.common.referenceobjects.ReferenceObject
+     * 
+     * @param newVal
+     */
     public void setReference(FileRO newVal)
     {
         reference = newVal;
@@ -202,10 +202,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the name of the file including the extension.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the name of the file including the extension.
+     * 
+     * @param newVal
+     */
     public void setName(String newVal)
     {
         name = newVal;
@@ -220,10 +220,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the persistent identifier of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the persistent identifier of the file.
+     * 
+     * @param newVal
+     */
     public void setPid(String newVal)
     {
         pid = newVal;
@@ -238,10 +238,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the description of the file, i. e. a short description of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the description of the file, i. e. a short description of the file.
+     * 
+     * @param newVal
+     */
     public void setDescription(String newVal)
     {
         description = newVal;
@@ -256,10 +256,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the size of the file in Bytes.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the size of the file in Bytes.
+     * 
+     * @param newVal
+     */
     public void setSize(long newVal)
     {
         size = newVal;
@@ -274,11 +274,11 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the locator of the file, i. e. the location from which the data of the
-	 * file has to be fetched.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the locator of the file, i. e. the location from which the data of the
+     * file has to be fetched.
+     * 
+     * @param newVal
+     */
     public void setLocator(String newVal)
     {
         locator = newVal;
@@ -293,10 +293,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets a reference to the content of the file, i. e. to the data of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets a reference to the content of the file, i. e. to the data of the file.
+     * 
+     * @param newVal
+     */
     public void setContent(String newVal)
     {
         content = newVal;
@@ -311,10 +311,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the content type of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the content type of the file.
+     * 
+     * @param newVal
+     */
     public void setContentType(FileVO.ContentType newVal)
     {
         contentType = newVal;
@@ -329,30 +329,30 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the visibility of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the visibility of the file.
+     * 
+     * @param newVal
+     */
     public void setVisibility(FileVO.Visibility newVal)
     {
         visibility = newVal;
     }
 
     /**
-	 * Delivers the MIME-type of the file. For valid values see
-	 * http://www.iana.org/assignments/media-types/
-	 */
+     * Delivers the MIME-type of the file. For valid values see
+     * http://www.iana.org/assignments/media-types/
+     */
     public String getMimeType()
     {
         return mimeType;
     }
 
     /**
-	 * Sets the MIME-type of the file. For valid values see
-	 * http://www.iana.org/assignments/media-types/
-	 * 
-	 * @param newVal
-	 */
+     * Sets the MIME-type of the file. For valid values see
+     * http://www.iana.org/assignments/media-types/
+     * 
+     * @param newVal
+     */
     public void setMimeType(String newVal)
     {
         mimeType = newVal;
@@ -367,10 +367,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the creation date of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the creation date of the file.
+     * 
+     * @param newVal
+     */
     public void setCreationDate(java.util.Date newVal)
     {
         this.creationDate = newVal;
@@ -385,10 +385,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the date of the last modification of the file.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date of the last modification of the file.
+     * 
+     * @param newVal
+     */
     public void setLastModificationDate(java.util.Date newVal)
     {
         this.lastModificationDate = newVal;
@@ -407,10 +407,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the value of the contentType Enum by a String.
-	 * 
-	 * @param newValString
-	 */
+     * Sets the value of the contentType Enum by a String.
+     * 
+     * @param newValString
+     */
     public void setContentTypeString(String newValString)
     {
         if (newValString == null || newValString.length() == 0)
@@ -437,10 +437,10 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the value of the visibility Enum by a String.
-	 * 
-	 * @param newValString
-	 */
+     * Sets the value of the visibility Enum by a String.
+     * 
+     * @param newValString
+     */
     public void setVisibilityString(String newValString)
     {
         if (newValString == null || newValString.length() == 0)

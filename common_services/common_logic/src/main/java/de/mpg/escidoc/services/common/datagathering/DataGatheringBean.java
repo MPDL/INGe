@@ -123,8 +123,8 @@ public class DataGatheringBean implements DataGathering
         }
         catch (Exception e)
         {
-        	logger.error("Error retrieving revisions.", e);
-        	throw new TechnicalException(e);
+            logger.error("Error retrieving revisions.", e);
+            throw new TechnicalException(e);
         }
     }
     

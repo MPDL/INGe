@@ -79,10 +79,10 @@ public class OrganizationVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the address of the organization as used in the item.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the address of the organization as used in the item.
+     * 
+     * @param newVal
+     */
     public void setAddress(String newVal)
     {
         address = newVal;
@@ -138,10 +138,10 @@ public class OrganizationVO extends ValueObject implements Cloneable
     }
 
     /**
-	 * Sets the id of the corresponding affiliation in the system.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the id of the corresponding affiliation in the system.
+     * 
+     * @param newVal
+     */
     public void setIdentifier(String newVal)
     {
         identifier = newVal;

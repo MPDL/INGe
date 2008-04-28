@@ -58,19 +58,19 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     
 
-    	/**
-	 * The possible degree types for an item.
-	 * @updated 21-Nov-2007 11:48:44
-	 */
+        /**
+     * The possible degree types for an item.
+     * @updated 21-Nov-2007 11:48:44
+     */
     public enum DegreeType
     {
         MASTER, DIPLOMA, MAGISTER, PHD, STAATSEXAMEN, HABILITATION
     }
 
-    	/**
-	 * The possible review methods for an item.
-	 * @updated 21-Nov-2007 11:48:44
-	 */
+        /**
+     * The possible review methods for an item.
+     * @updated 21-Nov-2007 11:48:44
+     */
     public enum ReviewMethod
     {
         INTERNAL, PEER, NO_REVIEW
@@ -119,21 +119,21 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
      */
     private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
     /**
-	 * The language attribute is a valid ISO Language Code.  These codes are the lower-
-	 * case, two-letter codes as defined by ISO-639. You can find a full list of these
-	 * codes at a number of sites, such as: http://www.loc.gov/standards/iso639-
-	 * 2/englangn.html
-	 */
+     * The language attribute is a valid ISO Language Code.  These codes are the lower-
+     * case, two-letter codes as defined by ISO-639. You can find a full list of these
+     * codes at a number of sites, such as: http://www.loc.gov/standards/iso639-
+     * 2/englangn.html
+     */
     private java.util.List<String> languages = new java.util.ArrayList<String>();
     /**
      * The name of the library where the item is currently located.
      */
     private String location;
     /**
-	 * The institution which published the item and additional information, e.g. the
-	 * publisher name and place of a book, or the university where a theses has been
-	 * created. 
-	 */
+     * The institution which published the item and additional information, e.g. the
+     * publisher name and place of a book, or the university where a theses has been
+     * created. 
+     */
     private PublishingInfoVO publishingInfo;
     /**
      * The type of the scientific review process for the described item.
@@ -328,8 +328,8 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-	 * Free keywords.
-	 */
+     * Free keywords.
+     */
     public TextVO getSubject()
     {
         return subject;
@@ -414,20 +414,20 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-	 * Free keywords.
-	 * 
-	 * @param newVal
-	 */
+     * Free keywords.
+     * 
+     * @param newVal
+     */
     public void setSubject(TextVO newVal)
     {
         subject = newVal;
     }
 
     /**
-	 * Sets the table of contents of the item.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the table of contents of the item.
+     * 
+     * @param newVal
+     */
     public void setTableOfContents(TextVO newVal)
     {
         tableOfContents = newVal;
@@ -522,62 +522,62 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-	 * Delivers the list of languages of the item. Every language attribute is a valid
-	 * ISO Language Code. These codes are the lower- case, two-letter codes as defined
-	 * by ISO-639. You can find a full list of these codes at a number of sites, such
-	 * as:
-	 * http://www.loc.gov/standards/iso639-2/englangn.html
-	 */
+     * Delivers the list of languages of the item. Every language attribute is a valid
+     * ISO Language Code. These codes are the lower- case, two-letter codes as defined
+     * by ISO-639. You can find a full list of these codes at a number of sites, such
+     * as:
+     * http://www.loc.gov/standards/iso639-2/englangn.html
+     */
     public java.util.List<String> getLanguages()
     {
         return languages;
     }
 
     /**
-	 * Sets the date when the item was accepted (for scientific check).
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date when the item was accepted (for scientific check).
+     * 
+     * @param newVal
+     */
     public void setDateAccepted(String newVal)
     {
         dateAccepted = newVal;
     }
 
     /**
-	 * Sets the date when the item was created.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date when the item was created.
+     * 
+     * @param newVal
+     */
     public void setDateCreated(String newVal)
     {
         dateCreated = newVal;
     }
 
     /**
-	 * Sets the date when the item was modified.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date when the item was modified.
+     * 
+     * @param newVal
+     */
     public void setDateModified(String newVal)
     {
         dateModified = newVal;
     }
 
     /**
-	 * Sets the date when the item was published.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date when the item was published.
+     * 
+     * @param newVal
+     */
     public void setDatePublishedInPrint(String newVal)
     {
         datePublishedInPrint = newVal;
     }
 
     /**
-	 * Sets the date when the item was submitted.
-	 * 
-	 * @param newVal
-	 */
+     * Sets the date when the item was submitted.
+     * 
+     * @param newVal
+     */
     public void setDateSubmitted(String newVal)
     {
         dateSubmitted = newVal;
@@ -600,9 +600,9 @@ public class MdsPublicationVO extends MetadataSetVO implements Cloneable, TitleI
     }
 
     /**
-	 * 
-	 * @param newVal
-	 */
+     * 
+     * @param newVal
+     */
     public void setDatePublishedOnline(String newVal)
     {
         this.datePublishedOnline = newVal;

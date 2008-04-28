@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,50 +25,66 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.List;
 
-public class OxfordJournalFormat extends AuthorFormat {
-	
-	@Override
-	public String getPattern() {
-		return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
-	}
+/**
+ * Special parser to parse author strings like
+ * <code>Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1</code>.
+ * 
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ */
+public class OxfordJournalFormat extends AuthorFormat
+{
 
-	@Override
-	public List<Author> getAuthors(String authorsString) throws Exception
-	{
+    @Override
+    public String getPattern()
+    {
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?(, (and)? *"
+                + GIVEN_NAME_FORMAT + " " + NAME + " [0-9]+( \\*)?)*\\s*$";
+    }
 
-		String[] authors = authorsString.split(" *, (and)? *");
+    @Override
+    public List<Author> getAuthors(String authorsString) throws Exception
+    {
 
-		for (int i = 0; i < authors.length; i++) {
-			authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");
-		}
-		List<Author> result = getAuthorListNormalFormat(authors);
-		return result;
-	}
+        String[] authors = authorsString.split(" *, (and)? *");
 
-	@Override
-	public int getSignificance() {
-		return 1;
-	}
+        for (int i = 0; i < authors.length; i++)
+        {
+            authors[i] = authors[i].replaceAll(" [0-9]( \\*)?$", "");
+        }
+        List<Author> result = getAuthorListNormalFormat(authors);
+        return result;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1";
-	}
+    @Override
+    public int getSignificance()
+    {
+        return 1;
+    }
 
-	@Override
-	public String getName() {
-		return "OxfordJournalFormat";
-	}
+    @Override
+    public String getDescription()
+    {
+        return "Brian Richardson 1 *, Michael S. Watt 1, Euan G. Mason 2, and Darren J. Kriticos 1";
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getName()
+    {
+        return "OxfordJournalFormat";
+    }
+
+    @Override
+    public String getWarning()
+    {
+        return null;
+    }
 
 }

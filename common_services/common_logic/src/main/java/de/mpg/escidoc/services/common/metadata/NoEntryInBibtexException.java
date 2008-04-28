@@ -30,21 +30,45 @@
 
 package de.mpg.escidoc.services.common.metadata;
 
-public class NoEntryInBibtexException extends Exception {
+/**
+ * Exception thrown if a given BibTeX file contains no BibTeX entry.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ */
+public class NoEntryInBibtexException extends Exception
+{
 
-	public NoEntryInBibtexException() {
-	}
+    /**
+     * Default constructor.
+     */
+    public NoEntryInBibtexException()
+    {
+    }
 
-	public NoEntryInBibtexException(String message) {
-		super(message);
-	}
+    /**
+     * Default constructor.
+     */
+    public NoEntryInBibtexException(String message)
+    {
+        super(message);
+    }
 
-	public NoEntryInBibtexException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public NoEntryInBibtexException(Throwable cause)
+    {
+        super(cause);
+    }
 
-	public NoEntryInBibtexException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public NoEntryInBibtexException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 
 }

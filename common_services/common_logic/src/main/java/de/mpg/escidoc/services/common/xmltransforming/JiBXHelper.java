@@ -163,7 +163,7 @@ public class JiBXHelper
      */
     public static List<FileFormatVO> fileFormatVOListFactory()
     {
-    	return new ArrayList<FileFormatVO>();
+        return new ArrayList<FileFormatVO>();
     }
 
     /**
@@ -218,7 +218,7 @@ public class JiBXHelper
      */
     public static List<MdsPublicationVO.Genre> genreListFactory()
     {
-    	System.out.println("XXXX");
+        System.out.println("XXXX");
         return new ArrayList<MdsPublicationVO.Genre>();
     }
 
@@ -519,9 +519,9 @@ public class JiBXHelper
     public static ContentType deserializeContentTypeEnum(String enumValue) throws WrongEnumException
     {
         ContentType contentType;
-        if (enumValue == null)
+        if (enumValue == null || "".equals(enumValue))
         {
-            throw new WrongEnumException("content-type is null.");
+            return null;
         }
         String upperCaseText = enumValue.trim().replace(' ', '_').replace('-', '_').toUpperCase();
         try
@@ -1003,23 +1003,23 @@ public class JiBXHelper
         EventLogEntryVO.EventType type = null;
         if ("create".equals(enumValue))
         {
-        	return EventLogEntryVO.EventType.CREATE;
+            return EventLogEntryVO.EventType.CREATE;
         }
         else if ("update".equals(enumValue))
         {
-        	return EventLogEntryVO.EventType.UPDATE;
+            return EventLogEntryVO.EventType.UPDATE;
         }
         else if ("submitted".equals(enumValue))
         {
-        	return EventLogEntryVO.EventType.SUBMIT;
+            return EventLogEntryVO.EventType.SUBMIT;
         }
         else if ("released".equals(enumValue))
         {
-        	return EventLogEntryVO.EventType.RELEASE;
+            return EventLogEntryVO.EventType.RELEASE;
         }
         else if ("withdrawn".equals(enumValue))
         {
-        	return EventLogEntryVO.EventType.WITHDRAW;
+            return EventLogEntryVO.EventType.WITHDRAW;
         }
         
         return type; // null is a possible return value

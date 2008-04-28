@@ -93,10 +93,10 @@ public class MetadataSetVO extends ValueObject
         title = newVal;
     }
 
-	@Override
-	protected MetadataSetVO clone() {
-		return new MetadataSetVO(this);
-	}
+    @Override
+    protected MetadataSetVO clone() {
+        return new MetadataSetVO(this);
+    }
     
     
 }

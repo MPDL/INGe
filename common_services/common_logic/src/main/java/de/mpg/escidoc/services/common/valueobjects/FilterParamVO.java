@@ -41,8 +41,8 @@ import java.util.List;
  */
 public class FilterParamVO 
 {
-	
-	
+    
+    
 
     /**
      * One content model as filter criteria.

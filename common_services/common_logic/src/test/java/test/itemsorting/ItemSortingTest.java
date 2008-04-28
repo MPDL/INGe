@@ -50,9 +50,9 @@ public class ItemSortingTest
      * The functionality of ItemSorting.sortItemVersionList is rudimentary tested
      * in test.xmltransforming.integration.TransformPubItemVersionListIntegrationTest.testTransformPubItemVersionList
      */
-	@Test
-	public void testSortItemVersionList()
-	{
-		
-	}
+    @Test
+    public void testSortItemVersionList()
+    {
+        
+    }
 }

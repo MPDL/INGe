@@ -62,7 +62,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformParamTest extends TestBase
 {
-	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+    private static XmlTransforming xmlTransforming = new XmlTransformingBean();
     private Logger logger = Logger.getLogger(getClass());
     
     /**
@@ -87,11 +87,11 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
         
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         
     }
@@ -106,8 +106,8 @@ public class TransformParamTest extends TestBase
     {
         logger.info("### old_transformToFilterTaskParamCreatorAndState ###");
         String expectedXML = "<filter name=\"created-by\">escidoc:user1</filter>";
-        String expectedXML2 = "<filter name=\"latest-version-status\">pending</filter>";	
-        	
+        String expectedXML2 = "<filter name=\"latest-version-status\">pending</filter>";    
+            
         FilterTaskParamVO filter = new FilterTaskParamVO();
 
         Filter f1 = filter.new OwnerFilter(new AccountUserRO("escidoc:user1"));
@@ -120,19 +120,19 @@ public class TransformParamTest extends TestBase
         logger.debug("OwnerFilter + PubItemStatusFilter: " + xmlparam + "\n" + "Expected: " + expectedXML);
         
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         
         if( xmlparam.indexOf( expectedXML2 ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 
@@ -160,18 +160,18 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
         
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         if( xmlparam.indexOf( expectedXML2 ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 
@@ -196,11 +196,11 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
 
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 
@@ -217,7 +217,7 @@ public class TransformParamTest extends TestBase
         String expectedXML2 = "<id>escidoc:2</id>";
         String expectedXML3 = "<id>escidoc:3</id>";
                 
-        	
+            
         FilterTaskParamVO filter = new FilterTaskParamVO();
         ItemRefFilter f1 = filter.new ItemRefFilter();
         f1.getIdList().add(new ItemRO("escidoc:1"));
@@ -230,25 +230,25 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
 
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         if( xmlparam.indexOf( expectedXML2 ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         if( xmlparam.indexOf( expectedXML3 ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 
@@ -273,18 +273,18 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
 
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
         if( xmlparam.indexOf( expectedXML2 ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 
@@ -308,11 +308,11 @@ public class TransformParamTest extends TestBase
         logger.debug("Expected: " + expectedXML);
         
         if( xmlparam.indexOf( expectedXML ) > 0 ) {
-        	// data is okay
+            // data is okay
         }
         else {
-        	// data is not okay, fail test
-        	fail( "Received data is wrong!");
+            // data is not okay, fail test
+            fail( "Received data is wrong!");
         }
     }
 

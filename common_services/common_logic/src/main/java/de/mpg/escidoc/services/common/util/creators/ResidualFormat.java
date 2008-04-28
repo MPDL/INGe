@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,49 +25,64 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResidualFormat extends AuthorFormat {
-	
-	@Override
-	public String getPattern() {
-		return ".";
-	}
+/**
+ * Special parser to write the input string into the surname
+ * of a single author if no other parser matched the input.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+ */
+public class ResidualFormat extends AuthorFormat
+{
 
-	@Override
-	public List<Author> getAuthors(String authorsString) {
+    @Override
+    public String getPattern()
+    {
+        return ".";
+    }
 
-		List<Author> result = new ArrayList<Author>();
-		Author author = new Author();
-		author.setSurname(authorsString);
-		author.setFormat(this);
-		result.add(author);
-		return result;
-	}
+    @Override
+    public List<Author> getAuthors(String authorsString)
+    {
 
-	@Override
-	public int getSignificance() {
-		return Integer.MAX_VALUE;
-	}
+        List<Author> result = new ArrayList<Author>();
+        Author author = new Author();
+        author.setSurname(authorsString);
+        author.setFormat(this);
+        result.add(author);
+        return result;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Everything is written into the surname of a single author";
-	}
+    @Override
+    public int getSignificance()
+    {
+        return Integer.MAX_VALUE;
+    }
 
-	@Override
-	public String getName() {
-		return "Residual format, taken if no other format matched";
-	}
+    @Override
+    public String getDescription()
+    {
+        return "Everything is written into the surname of a single author";
+    }
 
-	@Override
-	public String getWarning() {
-		return "The system was not able to identify the authors' names.";
-	}
+    @Override
+    public String getName()
+    {
+        return "Residual format, taken if no other format matched";
+    }
+
+    @Override
+    public String getWarning()
+    {
+        return "The system was not able to identify the authors' names.";
+    }
 
 }

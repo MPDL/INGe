@@ -16,8 +16,8 @@ import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmarshaller
 {
-	private static Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
-	
+    private static Logger logger = Logger.getLogger(MetadataSetMarshaller.class);
+    
     private static final String NAME_ATTRIBUTE_NAME = "name";
     private static final String RECORD_ELEMENT_NAME = "md-record";
     private static final String DEFAULT_NAME = "escidoc";
@@ -101,15 +101,15 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
         }
     }
 
-	public boolean isPresent(IUnmarshallingContext ictx)
-			throws JiBXException {
-		return ictx.isAt(m_uri, m_name);
-	}
+    public boolean isPresent(IUnmarshallingContext ictx)
+            throws JiBXException {
+        return ictx.isAt(m_uri, m_name);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.jibx.runtime.IUnmarshaller#unmarshal(java.lang.Object,
-	 *  org.jibx.runtime.IUnmarshallingContext)
-	 */
+    /* (non-Javadoc)
+     * @see org.jibx.runtime.IUnmarshaller#unmarshal(java.lang.Object,
+     *  org.jibx.runtime.IUnmarshallingContext)
+     */
 //    public Object unmarshal(Object obj, IUnmarshallingContext ictx)
 //        throws JiBXException {
 //        

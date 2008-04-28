@@ -29,24 +29,46 @@
 */
 package de.mpg.escidoc.services.common.metadata;
 
-public class IdentifierNotRecognisedException extends Exception {
+/**
+ * Exception thrown if a source reports an error due to the given identifier.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ */
+public class IdentifierNotRecognisedException extends Exception
+{
 
-	public IdentifierNotRecognisedException() {
-		super();
-	}
+    /**
+     * Default constructor.
+     */
+    public IdentifierNotRecognisedException()
+    {
+        super();
+    }
 
-	public IdentifierNotRecognisedException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public IdentifierNotRecognisedException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 
-	public IdentifierNotRecognisedException(String message) {
-		super(message);
-	}
+    /**
+     * Default constructor.
+     */
+    public IdentifierNotRecognisedException(String message)
+    {
+        super(message);
+    }
 
-	public IdentifierNotRecognisedException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public IdentifierNotRecognisedException(Throwable cause)
+    {
+        super(cause);
+    }
 
-	
-	
 }

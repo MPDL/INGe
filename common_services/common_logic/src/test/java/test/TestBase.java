@@ -375,7 +375,7 @@ public abstract class TestBase
         // subject
         TextVO subject = new TextVO("This is the subject. Betreffs fußen auf Gerüchten für Äonen.", "de");
         String s1 = subject.getValue();
-    	logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
+        logger.debug("s1: " + s1.length() + " chars, " + s1.getBytes("UTF-8").length + " bytes, ü = " + (s1.contains("ü")));
         mds.setSubject(subject);
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
@@ -1003,15 +1003,15 @@ public abstract class TestBase
      */
     protected String getValue( Document document, String xpathExpression ) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return xPath.evaluate(xpathExpression, document);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return xPath.evaluate(xpathExpression, document);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1048,15 +1048,15 @@ public abstract class TestBase
      */
     public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1069,15 +1069,15 @@ public abstract class TestBase
      */
     public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     /**

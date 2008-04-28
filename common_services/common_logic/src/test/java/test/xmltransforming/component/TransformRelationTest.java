@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformRelationTest extends TestBase
 {
-	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+    private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     private Logger logger = Logger.getLogger(getClass());
     private static String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformRelationTest/";

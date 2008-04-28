@@ -49,9 +49,9 @@ public interface EmailHandling
     public static String SERVICE_NAME = "ejb/de/mpg/escidoc/services/common/EmailHandling";
  
     /**
-	 * Method for creating and sending an email with attached file. 
+     * Method for creating and sending an email with attached file. 
      * The sending requires authentication.
-	 * 
+     * 
      * @param smtpHost   the outgoing smpt mail server
      * @param usr        the user authorized to the server
      * @param pwd        the password of the user
@@ -60,10 +60,10 @@ public interface EmailHandling
      * @param recipientsCCAddresses    the CC email address(es) of the recipients
      * @param recipientsBCCAddresses    the BCC email address(es) of the recipients
      * @param replytoAddresses    the replyto address(es)
-	 * @param text    the content text of the email
-	 * @param subject    the subject of the email
+     * @param text    the content text of the email
+     * @param subject    the subject of the email
      * @param attachments    the names/paths of the files to be attached
-	 */
+     */
     public String sendMail(String smtpHost,String usr,String pwd,
                          String senderAddress, 
                          String[] recipientsAddresses,

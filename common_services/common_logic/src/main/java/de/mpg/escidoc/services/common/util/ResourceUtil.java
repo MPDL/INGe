@@ -50,9 +50,9 @@ import org.apache.log4j.Logger;
  */
 public class ResourceUtil
 {
-	
-	private static Logger logger = Logger.getLogger(ResourceUtil.class);
-	
+
+    private static Logger logger = Logger.getLogger(ResourceUtil.class);
+
     /**
      * Hidden constructor.
      */
@@ -70,23 +70,23 @@ public class ResourceUtil
      */
     public static File getResourceAsFile(final String fileName) throws FileNotFoundException
     {
-    	URL url = ResourceUtil.class.getClassLoader().getResource(fileName);
-    	File file = null;
-    	if (url != null)
-    	{
-    		logger.debug("Resource found: " + url.getFile());
-    		file = new File(url.getFile());
-    	}
-        
+        URL url = ResourceUtil.class.getClassLoader().getResource(fileName);
+        File file = null;
+        if (url != null)
+        {
+            logger.debug("Resource found: " + url.getFile());
+            file = new File(url.getFile());
+        }
+
         if (file == null)
         {
-        	
-        	logger.debug("Resource not found, getting file.");
-        	
+
+            logger.debug("Resource not found, getting file.");
+
             file = new File(fileName);
             if (!file.exists())
             {
-            	throw new FileNotFoundException("File '" + fileName + "' not found.");
+                throw new FileNotFoundException("File '" + fileName + "' not found.");
             }
         }
         return file;
@@ -132,33 +132,35 @@ public class ResourceUtil
 
     /**
      * Gets an array of files containing the files in a given directory.
-     * 
+     *
      * @param dir The name of the directory.
      * @return Array of files.
+     * @throws IOException Thrown if file is not found.
      */
     public static File[] getFilenamesInDirectory(String dir) throws IOException
     {
-    	File dirFile = getResourceAsFile(dir);
-    	
-    	logger.debug("dirFile: " + dirFile + " : " + dirFile.isDirectory() + " : " + dirFile.exists());
-    	
-    	if (dirFile == null)
-    	{
-    		return null;
-    	}
-    	else if (!dirFile.isDirectory())
-    	{
-    		throw new IOException("The given path is not a directory.");
-    	}
-    	else
-    	{
-    		ArrayList<File> fileArray = new ArrayList<File>();
-    		String[] fileNames = dirFile.list();
-    		for (int i = 0; i < fileNames.length; i++) {
-    			fileArray.add(new File(dirFile.getAbsolutePath() + "/" + fileNames[i]));
-			}
-    		return fileArray.toArray(new File[]{});
-    	}
+        File dirFile = getResourceAsFile(dir);
+
+        logger.debug("dirFile: " + dirFile + " : " + dirFile.isDirectory() + " : " + dirFile.exists());
+
+        if (dirFile == null)
+        {
+            return null;
+        }
+        else if (!dirFile.isDirectory())
+        {
+            throw new IOException("The given path is not a directory.");
+        }
+        else
+        {
+            ArrayList<File> fileArray = new ArrayList<File>();
+            String[] fileNames = dirFile.list();
+            for (int i = 0; i < fileNames.length; i++)
+            {
+                fileArray.add(new File(dirFile.getAbsolutePath() + "/" + fileNames[i]));
+            }
+            return fileArray.toArray(new File[]{});
+        }
     }
-    
+
 }

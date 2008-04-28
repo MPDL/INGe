@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,7 +25,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
@@ -44,240 +43,339 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 
+/**
+ * Abstract superclass for author string decoding formats. Provides basic functionality.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 131 $ $LastChangedDate: 2007-11-21 18:53:43 +0100 (Wed, 21 Nov 2007) $
+ */
 public abstract class AuthorFormat implements Comparable<AuthorFormat>
 {
-	private static Logger logger = Logger.getLogger(AuthorFormat.class);
-	
-	protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìô]+)";
-	protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
-	protected static final String NAME = "(" + WORD + "( *- *" + WORD + ")*)";
-	protected static final String INITIAL ="(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
-	protected static final String INITIALS ="(" + INITIAL + "( *-? *" + INITIAL + ")*)";
-	protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor)";
-	protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den)";
-	protected static final String MIDDLEFIX = "(y|dela|de la)";
-	protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
-	
-	protected Set<String> givenNames = null;
-	protected Set<String> surnames = null;
-	
-	public abstract List<Author> getAuthors(String authorString) throws Exception;
-	
-	public abstract String getPattern();
-	
-	public abstract int getSignificance();
+    private static Logger logger = Logger.getLogger(AuthorFormat.class);
 
-	public abstract String getName();
-	
-	public abstract String getDescription();
-	
-	public abstract String getWarning();
-	
-	public int compareTo(AuthorFormat o) {
-		return getSignificance() - o.getSignificance();
-	}
-	
-	public boolean isGivenName(String name) throws Exception
-	{
-		boolean result = getGivenNames().contains(name);
-		return result;
-	}
-	
-	public boolean isSurname(String name) throws Exception
-	{
-		boolean result = getSurnames().contains(name);
-		return result;
-	}
+    protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìô]+)";
+    protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
+    protected static final String NAME = "(" + WORD + "( *- *" + WORD + ")*)";
+    protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
+    protected static final String INITIALS = "(" + INITIAL + "( *-? *" + INITIAL + ")*)";
+    protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor)";
+    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den)";
+    protected static final String MIDDLEFIX = "(y|dela|de la)";
+    protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
 
-	public Set<String> getGivenNames() throws Exception {
-		if (givenNames == null)
-		{
-			givenNames = getNamesFromFile("metadata/names/givennames.txt");
-		}
-		return givenNames;
-	}
+    protected Set<String> givenNames = null;
+    protected Set<String> surnames = null;
 
-	public void setGivenNames(Set<String> givenNames) {
-		this.givenNames = givenNames;
-	}
+    /**
+     * This method is called to execute the parser.
+     * @param authorString
+     * @return A {@link List} of {@link Author} beans.
+     * @throws Exception Any exception.
+     */
+    public abstract List<Author> getAuthors(String authorString) throws Exception;
 
-	public Set<String> getSurnames() throws Exception {
-		if (surnames == null)
-		{
-			surnames = getNamesFromFile("metadata/names/surnames.txt");
-		}
-		return surnames;
-	}
+    /**
+     * Returns the regular expression to identify a string this Class can probably handle.
+     *
+     * @return A string containing a regular expression.
+     */
+    public abstract String getPattern();
 
-	public void setSurnames(Set<String> surnames) {
-		this.surnames = surnames;
-	}
-	
-	public static Set<String> getNamesFromFile(String filename) throws Exception
-	{
-		InputStream file = ResourceUtil.getResourceAsStream(filename);
-		BufferedReader br = new BufferedReader(new InputStreamReader(file));
-		String name = "";
-		Set<String> result = new HashSet<String>();
-		while ((name = br.readLine()) != null)
-		{
-			result.add(name);
-		}
-		return result;
-	}
-	
-	/**
-	 * Parses authors in the following formats:
-	 * "Peter Müller" or "Linda McCartney" or "John Gabriel Smith-Wesson" or "Karl H. Meiser"
-	 * 
-	 * Returns false results with e.g.
-	 * "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki Moon"
-	 * 
-	 * @param authors The authors as string array.
-	 * @return The authors as list of author objects.
-	 */
-	public List<Author> getAuthorListNormalFormat(String[] authors) {
-		return getAuthorListNormalFormat(authors, " ");
-	}
-	
-	/**
-	 * Parses authors in the following formats:
-	 * "Peter Müller" or "Linda McCartney" or "John Gabriel Smith-Wesson" or "Karl H. Meiser"
-	 * 
-	 * Returns false results with e.g.
-	 * "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki Moon"
-	 * 
-	 * @param authors The authors as string array.
-	 * @param separator The separator between first names and lastnames.
-	 * 
-	 * @return The authors as list of author objects.
-	 */
-	public List<Author> getAuthorListNormalFormat(String[] authors, String separator) {
+    /**
+     * This method is called to get an integer value that indicates how reliable the result of this parser is.
+     * @return An integer value between 1 (highly reliable) and {@link Integer.MAX_VALUE} (not reliable at all).
+     */
+    public abstract int getSignificance();
 
-		List<Author> result = new ArrayList<Author>();
-		for (String authorString : authors) {
-			int lastSpace = authorString.lastIndexOf(separator);
-			Author author = new Author();
-			
-			author.setGivenName(authorString.substring(0, lastSpace));
-			author.setSurname(authorString.substring(lastSpace + 1));
-			author.setFormat(this);
-			result.add(author);
-		}
-		
-		return result;
-	}
+    /**
+     * Returns the name of this parser.
+     * @return The name
+     */
+    public abstract String getName();
 
-	/**
-	 * Parses authors in the following formats:
-	 * "P. Müller" or "L. McCartney" or "J.-P. Smith-Wesson" or "K. H. Meiser" or "R-X Wang"
-	 * 
-	 * @param authors The authors as string array.
-	 * @return The authors as list of author objects.
-	 */
-	public List<Author> getAuthorListWithInitials(String[] authors) {
-		List<Author> result = new ArrayList<Author>();
-		for (String authorString : authors) {
-			
-			logger.debug("Testing " + authorString);
-			
-			int limit = authorString.lastIndexOf(". ");
-			
-			logger.debug("Limit " + limit);
-			
-			Author author = new Author();
-			author.setInitial(authorString.substring(0, limit + 1));
-			author.setSurname(authorString.substring(limit + 2));
-			author.setFormat(this);
-			result.add(author);
-		}
-		
-		return result;
-	}
+    /**
+     * Returns a description what kind of format this parser analyzes.
+     * @return The description.
+     */
+    public abstract String getDescription();
 
-	public List<Author> getAuthorListLeadingSurname(String[] authors, String limit) {
-		List<Author> result = new ArrayList<Author>();
-		for (String authorString : authors) {
-			int delimiter = authorString.indexOf(limit);
-			Author author = new Author();
-			
-			logger.debug("delimiter: " + delimiter);
-			
-			author.setGivenName(authorString.substring(delimiter + 1).trim());
-			author.setSurname(authorString.substring(0, delimiter).trim());
-			author.setFormat(this);
-			result.add(author);
-		}
-		
-		return result;
-	}
+    /**
+     * Should be implemented in case the format the parser analyzes is
+     * very special or is covered by other Parsers, too.
+     * @return A warning message why the result of this parser might be problematic.
+     */
+    public abstract String getWarning();
 
-	public List<Author> getAuthorListCheckingGivenNames(String[] authors)
-			throws Exception {
-		List<Author> result = new ArrayList<Author>();
-		for (String authorString : authors) {
-			int lastSpace = authorString.lastIndexOf(" ");
-			Author author = new Author();
-			
-			String givenName = authorString.substring(0, lastSpace);
-			String[] names = givenName.split(" |-");
-			for (int i = 0; i < names.length; i++) {
-				if (!isGivenName(names[i]))
-				{
-					return null;
-				}
-			}
-			String surname = authorString.substring(lastSpace + 1);
-			
-			author.setGivenName(givenName);
-			author.setSurname(surname);
-			author.setFormat(this);
-			result.add(author);
-		}
-		
-		return result;
-	}
-	
-	public List<Author> getAuthorListCheckingNames(String authorsString,
-			String[] authors) throws Exception {
-		List<Author> result = new ArrayList<Author>();
-		for (String authorString : authors) {
-			
-			Author author = new Author();
-			
-			String[] names = authorString.split(" ");
-			int part = 0;
-			while (isGivenName(names[part]))
-			{
-				part++;
-				if (part == names.length)
-				{
-					return null;
-				}
-			}
-			for (int i = part; i < names.length; i++)
-			{
-				if (!isSurname(names[i]))
-				{
-					return null;
-				}
-			}
-			
-			logger.debug("part: " + authorsString.indexOf(names[part]));
-			
-			if (part == 0)
-			{
-				return null;
-			}
-			String givenName = authorString.substring(0, authorsString.indexOf(names[part]) - 1);
-			String surname = authorString.substring(authorsString.indexOf(names[part]));
-			
-			author.setGivenName(givenName);
-			author.setSurname(surname);
-			author.setFormat(this);
-			result.add(author);
-		}
-		
-		return result;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    public int compareTo(AuthorFormat o)
+    {
+        return getSignificance() - o.getSignificance();
+    }
+
+    /**
+     * Checks a controlled vocabulary, if the given string is a given name.
+     * @param name The given string.
+     * @return <code>true</code> if the given string is contained in the list of given names.
+     * @throws Exception Any {@link Exception}.
+     */
+    public boolean isGivenName(String name) throws Exception
+    {
+        boolean result = getGivenNames().contains(name);
+        return result;
+    }
+
+    /**
+     * Checks a controlled vocabulary, if the given string is a surname.
+     * @param name The given string.
+     * @return <code>true</code> if the given string is contained in the list of surnames.
+     * @throws Exception Any {@link Exception}.
+     */
+    public boolean isSurname(String name) throws Exception
+    {
+        boolean result = getSurnames().contains(name);
+        return result;
+    }
+
+    /**
+     * Returns the list of given names. If the list is not initialized yet, this is done.
+     * @return The list of given names.
+     * @throws Exception Any {@link Exception}.
+     */
+    public Set<String> getGivenNames() throws Exception
+    {
+        if (givenNames == null)
+        {
+            givenNames = getNamesFromFile("metadata/names/givennames.txt");
+        }
+        return givenNames;
+    }
+
+    public void setGivenNames(Set<String> givenNames)
+    {
+        this.givenNames = givenNames;
+    }
+
+    /**
+     * Returns the list of surnames. If the list is not initialized yet, this is done.
+     * @return The list of surnames.
+     * @throws Exception Any {@link Exception}.
+     */
+    public Set<String> getSurnames() throws Exception
+    {
+        if (surnames == null)
+        {
+            surnames = getNamesFromFile("metadata/names/surnames.txt");
+        }
+        return surnames;
+    }
+
+    public void setSurnames(Set<String> surnames)
+    {
+        this.surnames = surnames;
+    }
+
+    /**
+     * Reads words from a file into a {@link Set}.
+     * @param filename The name of the file relative or absolute.
+     * The file should contain lines each with one line.
+     * @return A {@link Set} containing the words in a file.
+     * @throws Exception Any {@link Exception}.
+     */
+    public static Set<String> getNamesFromFile(String filename) throws Exception
+    {
+        InputStream file = ResourceUtil.getResourceAsStream(filename);
+        BufferedReader br = new BufferedReader(new InputStreamReader(file));
+        String name = "";
+        Set<String> result = new HashSet<String>();
+        while ((name = br.readLine()) != null)
+        {
+            result.add(name);
+        }
+        return result;
+    }
+
+    /**
+     * Parses authors in the following formats:
+     * "Peter Müller" or "Linda McCartney" or "John Gabriel Smith-Wesson" or "Karl H. Meiser"
+     *
+     * Returns false results with e.g.
+     * "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki Moon"
+     *
+     * @param authors The authors as string array.
+     * @return The authors as list of author objects.
+     */
+    public List<Author> getAuthorListNormalFormat(String[] authors)
+    {
+        return getAuthorListNormalFormat(authors, " ");
+    }
+
+    /**
+     * Parses authors in the following formats:
+     * "Peter Müller" or "Linda McCartney" or "John Gabriel Smith-Wesson" or "Karl H. Meiser"
+     *
+     * Returns false results with e.g.
+     * "Harald Grün Haselstein" or "Karl Kardinal Lehmann" or "Ban Ki Moon"
+     *
+     * @param authors The authors as string array.
+     * @param separator The separator between first names and lastnames.
+     *
+     * @return The authors as list of author objects.
+     */
+    public List<Author> getAuthorListNormalFormat(String[] authors, String separator)
+    {
+
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+            int lastSpace = authorString.lastIndexOf(separator);
+            Author author = new Author();
+
+            author.setGivenName(authorString.substring(0, lastSpace));
+            author.setSurname(authorString.substring(lastSpace + 1));
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+    }
+
+    /**
+     * Parses authors in the following formats:
+     * "P. Müller" or "L. McCartney" or "J.-P. Smith-Wesson" or "K. H. Meiser" or "R-X Wang"
+     *
+     * @param authors The authors as string array.
+     * @return The authors as list of author objects.
+     */
+    public List<Author> getAuthorListWithInitials(String[] authors)
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+
+            logger.debug("Testing " + authorString);
+
+            int limit = authorString.lastIndexOf(". ");
+
+            logger.debug("Limit " + limit);
+
+            Author author = new Author();
+            author.setInitial(authorString.substring(0, limit + 1));
+            author.setSurname(authorString.substring(limit + 2));
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+    }
+
+    /**
+     * Parses authors in the following formats:
+     * "Müller, Herbert", "Meier-Schmitz, K.L." etc.
+     *
+     * @param authors The authors as string array.
+     * @return The authors as list of author objects.
+     */
+    public List<Author> getAuthorListLeadingSurname(String[] authors, String limit)
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+            int delimiter = authorString.indexOf(limit);
+            Author author = new Author();
+
+            logger.debug("delimiter: " + delimiter);
+
+            author.setGivenName(authorString.substring(delimiter + 1).trim());
+            author.setSurname(authorString.substring(0, delimiter).trim());
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+    }
+
+    public List<Author> getAuthorListCheckingGivenNames(String[] authors)
+        throws Exception
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+            int lastSpace = authorString.lastIndexOf(" ");
+            Author author = new Author();
+
+            String givenName = authorString.substring(0, lastSpace);
+            String[] names = givenName.split(" |-");
+            for (int i = 0; i < names.length; i++)
+            {
+                if (!isGivenName(names[i]))
+                {
+                    return null;
+                }
+            }
+            String surname = authorString.substring(lastSpace + 1);
+
+            author.setGivenName(givenName);
+            author.setSurname(surname);
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+    }
+
+    /**
+     * Parses authors using controlled vocabularies.
+     *
+     * @param authorsString The complete author string.
+     * @param authors A string array holding the strings of single authors.
+     * @return A {@link List} of {@link Author} beans.
+     * @throws Exception Any {@link Exception}
+     */
+    public List<Author> getAuthorListCheckingNames(String authorsString,
+        String[] authors) throws Exception
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+
+            Author author = new Author();
+
+            String[] names = authorString.split(" ");
+            int part = 0;
+            while (isGivenName(names[part]))
+            {
+                part++;
+                if (part == names.length)
+                {
+                    return null;
+                }
+            }
+            for (int i = part; i < names.length; i++)
+            {
+                if (!isSurname(names[i]))
+                {
+                    return null;
+                }
+            }
+
+            logger.debug("part: " + authorsString.indexOf(names[part]));
+
+            if (part == 0)
+            {
+                return null;
+            }
+            String givenName = authorString.substring(0, authorsString.indexOf(names[part]) - 1);
+            String surname = authorString.substring(authorsString.indexOf(names[part]));
+
+            author.setGivenName(givenName);
+            author.setSurname(surname);
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+    }
 }

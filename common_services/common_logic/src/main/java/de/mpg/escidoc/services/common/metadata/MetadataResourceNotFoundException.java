@@ -29,21 +29,45 @@
 */
 package de.mpg.escidoc.services.common.metadata;
 
-public class MetadataResourceNotFoundException extends Exception {
+/**
+ * Exception thrown if a source cannot be found.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ */
+public class MetadataResourceNotFoundException extends Exception
+{
 
-	public MetadataResourceNotFoundException() {
-	}
+    /**
+     * Default constructor.
+     */
+    public MetadataResourceNotFoundException()
+    {
+    }
 
-	public MetadataResourceNotFoundException(String message) {
-		super(message);
-	}
+    /**
+     * Default constructor.
+     */
+    public MetadataResourceNotFoundException(String message)
+    {
+        super(message);
+    }
 
-	public MetadataResourceNotFoundException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public MetadataResourceNotFoundException(Throwable cause)
+    {
+        super(cause);
+    }
 
-	public MetadataResourceNotFoundException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public MetadataResourceNotFoundException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 
 }

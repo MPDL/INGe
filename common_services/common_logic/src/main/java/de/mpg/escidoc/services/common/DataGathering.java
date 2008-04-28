@@ -41,41 +41,47 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
  * Interface for gathering data to fill VOs with.
- * 
+ *
  * @author Johannes Mueller (initial creation)
  * @revised by MuJ: 05.09.2007
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  */
 public interface DataGathering
-{  
+{
     /**
-	 * The name of the EJB service.
-	 */
+     * The name of the EJB service.
+     */
     public static String SERVICE_NAME = "ejb/de/mpg/escidoc/services/common/DataGathering";
 
     /**
-	 * For a given affiliation, this method retrieves all affiliation paths. For every affiliation path,
-	 * an OrganizationVO is created and filled with the names of the affiliations in the corresponding
-	 * affiliation path. The list of OrganizationVOs is returned.
-	 * 
+     * For a given affiliation, this method retrieves all affiliation paths. For every affiliation path,
+     * an OrganizationVO is created and filled with the names of the affiliations in the corresponding
+     * affiliation path. The list of OrganizationVOs is returned.
+     *
      * @param userHandle The user handle of the authenticated user who uses this method
      * @param affiliation The affiliation for which the list of organizationVOs shall be created
      * @return The list of OrganizationVOs
-     * @throws TechnicalException 
-     * @throws AffiliationNotFoundException 
-	 */
-    public java.util.List<OrganizationVO> createOrganizationListFromAffiliation(java.lang.String userHandle, AffiliationVO affiliation)
-	  throws TechnicalException, AffiliationNotFoundException;
+     * @throws TechnicalException
+     * @throws AffiliationNotFoundException
+     */
+    public java.util.List<OrganizationVO> createOrganizationListFromAffiliation(
+            java.lang.String userHandle,
+            AffiliationVO affiliation)
+       throws TechnicalException, AffiliationNotFoundException;
 
     /**
      * Searches for the revisions of an item usind the semantic store service and the
      * relation isRevisionOf.
-     * 
+     *
      * @param userHandle The user handle of the authenticated user who uses this method
      * @param pubItemRef The reference to an item for which the revisions will be searched.
-     * @throws TechnicalException 
+     * @return
+     * @throws TechnicalException
      */
-    public java.util.List<RelationVO> findRevisionsOfItem(java.lang.String userHandle, ItemRO pubItemRef) throws TechnicalException;
+    public java.util.List<RelationVO> findRevisionsOfItem(
+            java.lang.String userHandle,
+            ItemRO pubItemRef)
+        throws TechnicalException;
 
     
     /**

@@ -69,10 +69,10 @@ public class VersionHistoryEntryVOComparator implements Comparator<VersionHistor
     private Criteria criteria;
 
     /**
-	 * Creates a new instance with the given criteria.
-	 * 
-	 * @param criteria    criteria
-	 */
+     * Creates a new instance with the given criteria.
+     * 
+     * @param criteria    criteria
+     */
     public VersionHistoryEntryVOComparator(Criteria criteria)
     {
         if (criteria == null)

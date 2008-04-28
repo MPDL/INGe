@@ -36,7 +36,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 
 /**
  * The class for item references.
- * 
+ *
  * @revised by MuJ: 27.08.2007
  * @version 1.0
  * @updated 21-Nov-2007 12:37:07
@@ -49,36 +49,36 @@ public class ItemRO extends ReferenceObject implements Cloneable
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
      * JiBX enhancement of VOs. Without the fixed serialVersionUID, the VOs have to be compiled twice for testing (once
      * for the Application Server, once for the local test).
-     * 
+     *
      * @author Johannes Mueller
      */
     private static final long serialVersionUID = 1L;
-    
+
     /**
      * The version number of the referenced item. This attribute is optional.
      */
     private int versionNumber;
-    
+
     /**
      * The date of the last modification of the referenced item.
      */
     private Date modificationDate;
-    
+
     /**
      * The message of the last action event of this item.
      */
     private String lastMessage;
-    
+
     /**
      * The state of the item.
      */
     private ItemVO.State state;
-    
+
     /**
      * The version PID of the item.
      */
     private String pid;
-    
+
     /**
      * Creates a new instance.
      */
@@ -98,7 +98,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
 
     /**
      * Copy constructor.
-     * 
+     *
      * @author Thomas Diebaecker
      * @param other The instance to copy.
      */
@@ -111,7 +111,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
         this.modificationDate = other.modificationDate;
         this.pid = other.pid;
     }
-    
+
     /**
      * {@inheritDoc}
      * @author Thomas Diebaecker
@@ -124,73 +124,79 @@ public class ItemRO extends ReferenceObject implements Cloneable
 
     /**
      * Get the full identification of an item version.
-     * 
+     *
      * @return A String in the form objid:versionNumber e.g. "escidoc:345:2"
      */
     public String getObjectIdAndVersion()
     {
-    	if (versionNumber != 0)
-    	{
-    		return getObjectId() + ":" + versionNumber;
-    	}
-    	else
-    	{
-    		return getObjectId();
-    	}
-    	
+        if (versionNumber != 0)
+        {
+            return getObjectId() + ":" + versionNumber;
+        }
+        else
+        {
+            return getObjectId();
+        }
+
     }
-    
+
     /**
      * Set the full identification of an item version.
-     * 
+     *
      * @param idString A String in the form objid:versionNumber e.g. "escidoc:345:2"
      */
     public void setObjectIdAndVersion(String idString)
     {
-    	int ix = idString.lastIndexOf(":");
-    	if (ix == -1)
-    	{
-    		setObjectId(idString);
-    		versionNumber = 0;
-    	}
-    	else
-    	{
-    		setObjectId(idString.substring(0, ix));
-    		versionNumber = Integer.parseInt(idString.substring(ix + 1));
-    	}
+        int ix = idString.lastIndexOf(":");
+        if (ix == -1)
+        {
+            setObjectId(idString);
+            versionNumber = 0;
+        }
+        else
+        {
+            setObjectId(idString.substring(0, ix));
+            versionNumber = Integer.parseInt(idString.substring(ix + 1));
+        }
     }
-    
+
     /**
-	 * The version number of the referenced item. This attribute is optional.
-	 */
-    public int getVersionNumber(){
+     * The version number of the referenced item. This attribute is optional.
+     */
+    public int getVersionNumber()
+    {
         return versionNumber;
     }
 
     /**
-	 * The version number of the referenced item. This attribute is optional.
-	 * 
-	 * @param newVal
-	 */
-    public void setVersionNumber(int newVal){
+     * The version number of the referenced item. This attribute is optional.
+     *
+     * @param newVal
+     */
+    public void setVersionNumber(int newVal)
+    {
         versionNumber = newVal;
     }
 
-	public Date getModificationDate() {
-		return modificationDate;
-	}
+    public Date getModificationDate()
+    {
+        return modificationDate;
+    }
 
-	public void setModificationDate(Date modificationDate) {
-		this.modificationDate = modificationDate;
-	}
+    public void setModificationDate(Date modificationDate)
+    {
+        this.modificationDate = modificationDate;
+    }
 
-	public String getLastMessage() {
-		return lastMessage;
-	}
+    public String getLastMessage()
+    {
+        return lastMessage;
+    }
 
-	public void setLastMessage(String lastMessage) {
-		this.lastMessage = lastMessage;
-	}
+    public void setLastMessage(String lastMessage)
+    {
+        this.lastMessage = lastMessage;
+    }
 
     /**
      * Delivers the state of the item.
@@ -202,7 +208,7 @@ public class ItemRO extends ReferenceObject implements Cloneable
 
     /**
      * Sets the state of the item.
-     * 
+     *
      * @param newVal
      */
     public void setState(ItemVO.State newVal)
@@ -210,25 +216,27 @@ public class ItemRO extends ReferenceObject implements Cloneable
         state = newVal;
     }
 
-	public String getPid() {
-		return pid;
-	}
+    public String getPid()
+    {
+        return pid;
+    }
 
-	public void setPid(String pid) {
-		this.pid = pid;
-	}
+    public void setPid(String pid)
+    {
+        this.pid = pid;
+    }
 
-	@Override
-	public boolean equals(Object object) {
-		if (super.equals(object))
-		{
-			return (((ItemRO) object).versionNumber == this.versionNumber);
-		}
-		else
-		{
-			return false;
-		}
-	}
-    
-    
+    @Override
+    public boolean equals(Object object)
+    {
+        if (super.equals(object))
+        {
+            return (((ItemRO) object).versionNumber == this.versionNumber);
+        }
+        else
+        {
+            return false;
+        }
+    }
+
 }

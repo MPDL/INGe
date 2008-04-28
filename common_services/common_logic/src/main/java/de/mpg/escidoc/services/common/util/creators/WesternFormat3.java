@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,7 +25,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
@@ -34,39 +33,39 @@ import java.util.List;
 
 public class WesternFormat3 extends AuthorFormat {
 
-	public static final String GIVEN_NAME_FORMAT = NAME + "( " + NAME + ")*";
-	
-	@Override
-	public String getPattern() {
-		return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(;| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
-	}
+    public static final String GIVEN_NAME_FORMAT = NAME + "( " + NAME + ")*";
+    
+    @Override
+    public String getPattern() {
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "( *(;| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + ")*\\s*$";
+    }
 
-	@Override
-	public List<Author> getAuthors(String authorsString) {
+    @Override
+    public List<Author> getAuthors(String authorsString) {
 
-		String[] authors = authorsString.split(" *(;| and | und | et ) *");
+        String[] authors = authorsString.split(" *(;| and | und | et ) *");
 
-		return getAuthorListNormalFormat(authors);
-	}
+        return getAuthorListNormalFormat(authors);
+    }
 
-	@Override
-	public int getSignificance() {
-		return 10;
-	}
+    @Override
+    public int getSignificance() {
+        return 10;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Vorname Nachname[; Vor-Name Nach-Name]";
-	}
+    @Override
+    public String getDescription() {
+        return "Vorname Nachname[; Vor-Name Nach-Name]";
+    }
 
-	@Override
-	public String getName() {
-		return "Westliches Normalformat, semikolon-getrennt";
-	}
+    @Override
+    public String getName() {
+        return "Westliches Normalformat, semikolon-getrennt";
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getWarning() {
+        return null;
+    }
 
 }

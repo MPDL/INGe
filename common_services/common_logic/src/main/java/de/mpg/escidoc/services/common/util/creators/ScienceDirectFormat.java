@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,57 +25,77 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ScienceDirectFormat extends AuthorFormat {
-	
-	@Override
-	public String getPattern() {
-		return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z], Corresponding Author Contact Information, E-mail The Corresponding Author( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
-	}
+/**
+* Very specialized parser to parse author strings like <code>Vorname Nachname[a]
+* , Corresponding Author Contact Information
+* , E-mail The Corresponding Author[, Vor-Name Nach-Name[b]]</code>.
+*
+* @author franke (initial creation)
+* @author $Author: mfranke $ (last modification)
+* @version $Revision: 106 $ $LastChangedDate: 2007-11-07 13:14:06 +0100 (Wed, 07 Nov 2007) $
+*/
+public class ScienceDirectFormat extends AuthorFormat
+{
 
-	@Override
-	public List<Author> getAuthors(String authorsString) throws Exception
-	{
+    @Override
+    public String getPattern()
+    {
+        return "^\\s*" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z], "
+        		+ "Corresponding Author Contact Information, E-mail The Corresponding Author"
+        		+ "( *(,| and | und | et ) *" + GIVEN_NAME_FORMAT + " " + NAME + "[a-z])*\\s*$";
+    }
 
-		String[] authors = authorsString.split(" *(,| and | und | et ) *");
-		List<String> newList = new ArrayList<String>();
-		for (int i = 0; i < authors.length; i++) {
-			if (i != 1 && i != 2)
-			{
-				newList.add(authors[i]);
-			}
-		}
-		List<Author> result = getAuthorListNormalFormat(newList.toArray(new String[]{}));
-		for (Author author : result) {
-			author.setSurname(author.getSurname().substring(0, author.getSurname().length() - 1 ));
-		}
-		return result;
-	}
+    @Override
+    public List<Author> getAuthors(String authorsString) throws Exception
+    {
 
-	@Override
-	public int getSignificance() {
-		return 1;
-	}
+        String[] authors = authorsString.split(" *(,| and | und | et ) *");
+        List<String> newList = new ArrayList<String>();
+        for (int i = 0; i < authors.length; i++)
+        {
+            if (i != 1 && i != 2)
+            {
+                newList.add(authors[i]);
+            }
+        }
+        List<Author> result = getAuthorListNormalFormat(newList.toArray(new String[]{}));
+        for (Author author : result)
+        {
+            author.setSurname(author.getSurname().substring(0, author.getSurname().length() - 1));
+        }
+        return result;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Vorname Nachname[a], Corresponding Author Contact Information, E-mail The Corresponding Author[, Vor-Name Nach-Name[b]]";
-	}
+    @Override
+    public int getSignificance()
+    {
+        return 1;
+    }
 
-	@Override
-	public String getName() {
-		return "ScienceDirectFormat";
-	}
+    @Override
+    public String getDescription()
+    {
+        return "Vorname Nachname[a], Corresponding Author Contact Information, "
+        		+ "E-mail The Corresponding Author[, Vor-Name Nach-Name[b]]";
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getName()
+    {
+        return "ScienceDirectFormat";
+    }
+
+    @Override
+    public String getWarning()
+    {
+        return null;
+    }
 
 }

@@ -124,12 +124,12 @@ public class VersionHistoryEntryVO extends ValueObject
         state = newVal;
     }
 
-	public List<EventLogEntryVO> getEvents() {
-		return events;
-	}
+    public List<EventLogEntryVO> getEvents() {
+        return events;
+    }
 
-	public void setEvents(List<EventLogEntryVO> events) {
-		this.events = events;
-	}
+    public void setEvents(List<EventLogEntryVO> events) {
+        this.events = events;
+    }
 
 }

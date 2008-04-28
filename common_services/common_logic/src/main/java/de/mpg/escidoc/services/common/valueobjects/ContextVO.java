@@ -121,7 +121,7 @@ public class ContextVO extends ValueObject
      */
     public ContextVO()
     {
-    	
+        
     }
     
     /**
@@ -131,16 +131,16 @@ public class ContextVO extends ValueObject
      */
     public ContextVO(ContextVO context)
     {
-    	this.allowedSubmissionMethods = context.allowedSubmissionMethods;
-    	this.creator = context.creator;
-    	this.defaultFileVisibility = context.defaultFileVisibility;
-    	this.defaultMetadata = context.defaultMetadata;
-    	this.description = context.description;
-    	this.name = context.name;
-    	this.reference = context.reference;
-    	this.responsibleAffiliations = context.responsibleAffiliations;
-    	this.state = context.state;
-    	this.validationPoints = context.validationPoints;
+        this.allowedSubmissionMethods = context.allowedSubmissionMethods;
+        this.creator = context.creator;
+        this.defaultFileVisibility = context.defaultFileVisibility;
+        this.defaultMetadata = context.defaultMetadata;
+        this.description = context.description;
+        this.name = context.name;
+        this.reference = context.reference;
+        this.responsibleAffiliations = context.responsibleAffiliations;
+        this.state = context.state;
+        this.validationPoints = context.validationPoints;
     }
     
     /**
@@ -310,7 +310,7 @@ public class ContextVO extends ValueObject
         return responsibleAffiliations;
     }
     
-	/**
+    /**
      * The possible genre values for items of the collection.
      */
     private java.util.List<MdsPublicationVO.Genre> allowedGenres = new java.util.ArrayList<MdsPublicationVO.Genre>();

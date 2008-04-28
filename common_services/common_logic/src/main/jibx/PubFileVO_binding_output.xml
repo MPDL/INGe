@@ -82,7 +82,8 @@
 			<value style="element" name="content-category" ns="http://www.escidoc.de/schemas/components/0.3"
 				field="contentType"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeContentTypeEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+				usage="optional"/>
 
 			<!-- Node: component.properties.file-name -->
 			<!-- Field: PubFileVO.name[String] -->

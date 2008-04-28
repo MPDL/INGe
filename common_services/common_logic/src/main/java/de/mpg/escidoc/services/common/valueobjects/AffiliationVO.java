@@ -96,7 +96,7 @@ public class AffiliationVO extends ValueObject
      */
     public AffiliationVO()
     {
-    	
+        
     }
     
     /**
@@ -129,11 +129,11 @@ public class AffiliationVO extends ValueObject
     }
     
     @Override
-	protected Object clone() throws CloneNotSupportedException {
-		return new AffiliationVO(this);
-	}
+    protected Object clone() throws CloneNotSupportedException {
+        return new AffiliationVO(this);
+    }
 
-	/**
+    /**
      * Helper method for JiBX transformations. This method helps JiBX to determine if this is a 'create' or an 'update'
      * transformation.
      */

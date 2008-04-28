@@ -51,7 +51,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformLockTest extends TestBase
 {
-	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+    private static XmlTransforming xmlTransforming = new XmlTransformingBean();
     private Logger logger = Logger.getLogger(getClass());
     
     /**

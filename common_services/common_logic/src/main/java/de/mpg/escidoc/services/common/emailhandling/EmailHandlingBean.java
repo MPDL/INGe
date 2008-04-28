@@ -95,136 +95,135 @@ public class EmailHandlingBean implements EmailHandling
                 String[] recipientsBCCAddresses,
                 String[] replytoAddresses,
                 String subject,String text, String[] attachments) throws  TechnicalException    
-         {
-             logger.debug("EmailHandlingBean sendMail...");
-             String status = "not sent";
-             try { 
-                 logger.debug("Email: smtpHost, usr, pwd (" + smtpHost + ", " + usr + ", " + pwd + ")");                 
-                 logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", " + attachments[0] + ")");
-                 logger.debug("Email: sender, recipients[0], replytoAddresses ("+ senderAddress + ", " + recipientsAddresses[0] + ", " + replytoAddresses[0] + ")");
-                                                 
-                 // Setup mail server
-                  Properties props = System.getProperties();
-                 props.put("mail.smtp.host", smtpHost); 
-                 props.put("mail.smtp.auth", "true");
-                 //props.put("mail.transport.protocol", "smtp");
-                 //props.put("mail.from", senderAddress);
-                 //props.put("mail.user", usr);
-                 //props.put("mail.smtp.allow8bitmime", "true");
-                           
-                 //props.put("mail.smtp.socketFactory.port",     "25");
-                 //props.put("mail.smtp.socketFactory.class",    "javax.net.ssl.SSLSocketFactory");
-                 //props.put("mail.smtp.socketFactory.fallback", "false");
-                 //props.put("mail.smtp.starttls",        "true");
-                 //props.put("mail.smtp.ssl",                    "true");
-
-//                 String keyStore = System.getProperty("javax.net.ssl.keyStore");
-//                 if(keyStore == null)
-//                     System.out.println("javax.net.ssl.trustStore is not defined");
-//                 else
-//                     System.out.println("javax.net.ssl.keyStore is : " + keyStore);
-//
-//                 logger.debug("System Properties  "+ props.toString());                
-                 
-                 // Get a mail session with authentication
-                 MailAuthenticator authenticator = new MailAuthenticator(usr, pwd);
-                 Session mailSession = Session.getInstance(props, authenticator);
-                                 
-                 // Define a new mail message
-                 Message message = new MimeMessage(mailSession);
-                 message.setFrom(new InternetAddress(senderAddress));
-                 
-                 //add TO recipients
-                 for ( String ra : recipientsAddresses )
-                 {
-                	 if ( ra != null && !ra.trim().equals("") )
-                	 {
-                		 message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
-                		 logger.debug(">>> recipientTO: "+ ra);
-                	 }
-                 }
-                 
-                 //add CC recipients
-                 if ( recipientsCCAddresses != null )
-	                 for ( String racc : recipientsCCAddresses )
-	                 {
-	                	 if ( racc != null && !racc.trim().equals("") )
-	                	 {
-	                		 message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
-	                		 logger.debug(">>> recipientCC  "+ racc);
-	                	 }
-	                 }
-                 
-                 //add BCC recipients
-                 if ( recipientsBCCAddresses != null )
-	                 for ( String rabcc : recipientsBCCAddresses )
-	                 {
-	                	 if ( rabcc != null && !rabcc.trim().equals("") )
-	                	 {
-	                		 message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
-	                		 logger.debug(">>> recipientBCC  "+ rabcc);
-	                	 }
-	                 }
-
-                 //add replyTo 
-                 if ( replytoAddresses != null )
-                 {
-                	 InternetAddress[] adresses = new InternetAddress[ recipientsAddresses.length ];
-                	 int i = 0;
-                	 for ( String a : replytoAddresses )
-                	 {
-	                	 if ( a != null && !a.trim().equals("") )
-	                	 {
-	                		 adresses[i] = new InternetAddress(a);
-	                		 i++;
-	                		 logger.debug(">>> replyToaddress  "+ a);
-	                	 }	 
-                	 }
-                	 if ( i > 0 )
-                		 message.setReplyTo(adresses);
-                 }
-                 
-                 message.setSubject(subject);
-                 Date date = new Date();
-                 message.setSentDate(date);
-                 
-                 // Create a message part to represent the body text
-                 BodyPart messageBodyPart = new MimeBodyPart();
-                 messageBodyPart.setText(text);
-                 
-                 //use a MimeMultipart as we need to handle the file attachments
-                 Multipart multipart = new MimeMultipart();
-                 
-                 //add the message body to the mime message
-                 multipart.addBodyPart(messageBodyPart);
-                                          
-                 // add any file attachments to the message
-                 addAtachments(attachments , multipart);
-                 
-                 // Put all message parts in the message
-                 message.setContent(multipart);
-
-                 logger.debug("Transport will send now....  ");
-                 
-                 /*Transport tr = mailSession.getTransport("smtp");
-                 tr.connect(smtpHost, 25, usr, "null");
-                 message.saveChanges();
-                 tr.sendMessage(message, message.getAllRecipients());
-                 tr.close(); */
-                 
-                 // Send the message
-                 Transport.send(message);      
-                 
-                 status = "sent";
-                 logger.debug("Email sent!");
-             }
-             catch (MessagingException e) 
-             {             
-                 logger.error("Error in sendMail(...)", e);
-                 throw new TechnicalException(e);      
-             }
-             return status;
-         }
+    {
+        logger.debug("EmailHandlingBean sendMail...");
+        String status = "not sent";
+        try
+        { 
+            logger.debug("Email: smtpHost, usr, pwd (" + smtpHost + ", " + usr + ", " + pwd + ")");                 
+            logger.debug("Email: subject, text, attachments[0] (" + subject + ", " + text + ", " + attachments[0] + ")");
+            logger.debug("Email: sender, recipients[0], replytoAddresses ("+ senderAddress + ", " + recipientsAddresses[0] + ", " + replytoAddresses[0] + ")");
+                                            
+           // Setup mail server
+             Properties props = System.getProperties();
+            props.put("mail.smtp.host", smtpHost); 
+           props.put("mail.smtp.auth", "true");
+            //props.put("mail.transport.protocol", "smtp");
+            //props.put("mail.from", senderAddress);
+            //props.put("mail.user", usr);
+            //props.put("mail.smtp.allow8bitmime", "true");
+            //props.put("mail.smtp.socketFactory.port",     "25");
+            //props.put("mail.smtp.socketFactory.class",    "javax.net.ssl.SSLSocketFactory");
+            //props.put("mail.smtp.socketFactory.fallback", "false");
+            //props.put("mail.smtp.starttls",        "true");
+            //props.put("mail.smtp.ssl",                    "true");
+    //                 String keyStore = System.getProperty("javax.net.ssl.keyStore");
+    //                 if(keyStore == null)
+    //                     System.out.println("javax.net.ssl.trustStore is not defined");
+    //                 else
+    //                     System.out.println("javax.net.ssl.keyStore is : " + keyStore);
+    //
+    //                 logger.debug("System Properties  "+ props.toString());                
+            
+            // Get a mail session with authentication
+            MailAuthenticator authenticator = new MailAuthenticator(usr, pwd);
+            Session mailSession = Session.getInstance(props, authenticator);
+                            
+            // Define a new mail message
+            Message message = new MimeMessage(mailSession);
+            message.setFrom(new InternetAddress(senderAddress));
+            
+            //add TO recipients
+            for ( String ra : recipientsAddresses )
+            {
+                if ( ra != null && !ra.trim().equals("") )
+                {
+                    message.addRecipient(Message.RecipientType.TO, new InternetAddress(ra));
+                    logger.debug(">>> recipientTO: "+ ra);
+                }
+            }
+            
+            //add CC recipients
+            if ( recipientsCCAddresses != null )
+                for ( String racc : recipientsCCAddresses )
+                {
+                    if ( racc != null && !racc.trim().equals("") )
+                    {
+                        message.addRecipient(Message.RecipientType.CC, new InternetAddress(racc));
+                        logger.debug(">>> recipientCC  "+ racc);
+                    }
+                }
+            
+            //add BCC recipients
+            if ( recipientsBCCAddresses != null )
+                for ( String rabcc : recipientsBCCAddresses )
+                {
+                    if ( rabcc != null && !rabcc.trim().equals("") )
+                    {
+                        message.addRecipient(Message.RecipientType.BCC, new InternetAddress(rabcc));
+                        logger.debug(">>> recipientBCC  "+ rabcc);
+                    }
+                }
+    
+           //add replyTo 
+            if ( replytoAddresses != null )
+            {
+                InternetAddress[] adresses = new InternetAddress[ recipientsAddresses.length ];
+                int i = 0;
+                for ( String a : replytoAddresses )
+                {
+                    if ( a != null && !a.trim().equals("") )
+                    {
+                        adresses[i] = new InternetAddress(a);
+                        i++;
+                        logger.debug(">>> replyToaddress  "+ a);
+                    }     
+                }
+                if ( i > 0 )
+                    message.setReplyTo(adresses);
+            }
+            
+            message.setSubject(subject);
+            Date date = new Date();
+            message.setSentDate(date);
+            
+            // Create a message part to represent the body text
+            BodyPart messageBodyPart = new MimeBodyPart();
+            messageBodyPart.setText(text);
+            
+            //use a MimeMultipart as we need to handle the file attachments
+            Multipart multipart = new MimeMultipart();
+            
+            //add the message body to the mime message
+            multipart.addBodyPart(messageBodyPart);
+                                     
+            // add any file attachments to the message
+            addAtachments(attachments , multipart);
+            
+            // Put all message parts in the message
+            message.setContent(multipart);
+    
+            logger.debug("Transport will send now....  ");
+           
+            /*Transport tr = mailSession.getTransport("smtp");
+            tr.connect(smtpHost, 25, usr, "null");
+            message.saveChanges();
+            tr.sendMessage(message, message.getAllRecipients());
+            tr.close(); */
+            
+            // Send the message
+            Transport.send(message);      
+            
+            status = "sent";
+            logger.debug("Email sent!");
+        }
+        catch (MessagingException e) 
+        {             
+            logger.error("Error in sendMail(...)", e);
+            throw new TechnicalException(e);      
+        }
+        return status;
+    }
 
     /*
      * A method to ass attachment files to a message
@@ -252,7 +251,8 @@ public class EmailHandlingBean implements EmailHandling
      * A class for authentication on the mail server when sending emails. It opnes a 
      * registration popup window.
      */ 
-    public class MailAuthenticator extends Authenticator{
+    public class MailAuthenticator extends Authenticator
+    {
 
         private final String user;
         private final String password;
@@ -266,7 +266,8 @@ public class EmailHandlingBean implements EmailHandling
             this.password = pwd;
         }
         
-        protected PasswordAuthentication getPasswordAuthentication() {            
+        protected PasswordAuthentication getPasswordAuthentication()
+        {
             PasswordAuthentication pwdAut = new PasswordAuthentication(this.user, this.password);
             return pwdAut;            
         }

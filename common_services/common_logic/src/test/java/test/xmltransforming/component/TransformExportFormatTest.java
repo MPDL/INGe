@@ -55,7 +55,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformExportFormatTest extends TestBase
 {
-	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+    private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     private Logger logger = Logger.getLogger(getClass());
 
@@ -83,12 +83,12 @@ public class TransformExportFormatTest extends TestBase
             logger.info("Style Id: " + formatVO.getId());
             logger.info("Style Description : " + formatVO.getDescription());
             for (FileFormatVO fileFormatVO : formatVO.getFileFormats()) 
-            	logger.info(
-            			"File Format name: " + fileFormatVO.getName()
-            			+ "; File Format mime-type: " + fileFormatVO.getMimeType() 
-            	);
+                logger.info(
+                        "File Format name: " + fileFormatVO.getName()
+                        + "; File Format mime-type: " + fileFormatVO.getMimeType() 
+                );
             for (String creator : formatVO.getCreators()) 
-            	logger.info("creator: " + creator);
+                logger.info("creator: " + creator);
         }
     }
 }

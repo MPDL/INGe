@@ -85,9 +85,9 @@ public class TransformPubCollectionTest extends TestBase
     @Test
     public void testTransformToPubCollection() throws Exception
     {
-    	
-    	System.out.println((new File(".")).getAbsolutePath());
-    	
+        
+        System.out.println((new File(".")).getAbsolutePath());
+        
         // read pubCollection (=context) [XML] from file
         String context = readFile(CONTEXT_PUBCOLLECTION_SAMPLE_FILE);
         assertNotNull(context);

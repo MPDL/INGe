@@ -66,10 +66,10 @@ public class PubItemVOComparator implements Comparator<PubItemVO>
     private Criteria criteria;
 
     /**
-	 * Creates a new instance with the given criteria.
-	 * 
-	 * @param criteria    criteria
-	 */
+     * Creates a new instance with the given criteria.
+     * 
+     * @param criteria    criteria
+     */
     public PubItemVOComparator(Criteria criteria)
     {
         if (criteria == null)

@@ -272,7 +272,7 @@ public class ObjectComparator
     {
         for (Field field : theClass.getDeclaredFields())
         {
-        	
+            
             field.setAccessible(true);
             Object fieldValue1 = field.get(o1);
             Object fieldValue2 = field.get(o2);

@@ -53,7 +53,7 @@ public class AccountUserVOTest extends TestBase
     /**
      * @throws Exception 
      */
-	@Ignore
+    @Ignore
     @Test
     public void testIsModeratorFunction() throws Exception
     {

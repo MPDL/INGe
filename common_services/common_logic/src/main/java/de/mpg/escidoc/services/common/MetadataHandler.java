@@ -29,10 +29,6 @@
 
 package de.mpg.escidoc.services.common;
 
-import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
-import de.mpg.escidoc.services.common.metadata.MetadataResourceNotFoundException;
-
-
 /**
  * Interface for Metadata Handler EJB.
  * @author franke (initial creation)
@@ -49,23 +45,25 @@ public interface MetadataHandler
     String SERVICE_NAME = "ejb/de/mpg/escidoc/services/metadata/MetadataHandler";
 
     /**
-     * Returns an publication item xml based on a given identifier. The service tries to identify the type of the identifier,
+     * Returns an publication item xml based on a given identifier.
+     * The service tries to identify the type of the identifier,
      * then tries to retrieve metadata from an external source.
-     * 
+     *
      * @param identifier An identifier for a resource.
      * @returns Item xml if the identifier identified a valid publication resource.
-     * @throws IdentifierNotRecognisedException Thrown if the identifier does not match a pattern recognized by the service.
-     * @throws MetadataResourceNotFoundException Thrown if the service was unable to retrieve a resource.
+     * @throws Exception Thrown if the identifier does not match a pattern
+     * recognized by the service.
      */
     public String fetchOAIRecord(String identifier, String source, String format) throws Exception;
 
     /**
      * Returns an publication item xml based on a given bibtex input.
-     * 
+     *
      * @param bibtex THe input in bibtex format.
      * @returns Item xml if the given input was a valid publication resource.
-     * @throws FormatNotRecognisedException Thrown if the identifier does not match a pattern recognized by the service.
+     * @throws Exception Thrown if the identifier does not match a pattern
+     * recognized by the service.
      */
     public String bibtex2item(String bibtex) throws Exception;
-    
+
 }

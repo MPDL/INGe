@@ -225,7 +225,7 @@
 			<xsl:when test="$code = '03Gxx'">MSC 03Gxx: MATHEMATICS SUBJECT CLASSIFICATION 2000 4</xsl:when>
 			<xsl:when test="$code = '03G12'">MSC 03G12: Quantum logic [See also 06C15, 81P10]</xsl:when>
 			<xsl:when test="$code = '03G15'">MSC 03G15: Cylindric and polyadic algebras; relation algebras</xsl:when>
-			<xsl:when test="$code = '03G20'">MSC 03G20: Łukasiewicz and Post algebras [See also 06D25, 06D30]</xsl:when>
+			<xsl:when test="$code = '03G20'">MSC 03G20: Lukasiewicz and Post algebras [See also 06D25, 06D30]</xsl:when>
 			<xsl:when test="$code = '03G25'">MSC 03G25: Other algebras related to logic [See also 03F45, 06D20, 06E25, 06F35]</xsl:when>
 			<xsl:when test="$code = '03G30'">MSC 03G30: Categorical logic, topoi [See also 18B25, 18C05, 18C10]</xsl:when>
 			<xsl:when test="$code = '03G99'">MSC 03G99: None of the above, but in this section</xsl:when>

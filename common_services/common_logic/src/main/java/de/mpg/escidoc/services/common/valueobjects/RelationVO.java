@@ -39,112 +39,112 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 public class RelationVO extends ValueObject
 {
 
-	/**
-	 * The type of a relation between two items.
-	 */
-	public enum RelationType {
-		ISREVISIONOF
-	}
+    /**
+     * The type of a relation between two items.
+     */
+    public enum RelationType {
+        ISREVISIONOF
+    }
 
-	/**
-	 * description of the content relation, e. g. the reason for the relation.
-	 */
-	private String description;
-	/**
-	 * The type of the relation, e. g. "isRevisionOf"
-	 */
-	private RelationType type;
-	/**
-	 * The item ref of the item that is the source/start of the relation.
-	 */
-	private ItemRO sourceItemRef;
-	/**
-	 * Describes the reference of the target item.
-	 */
-	private ItemRO targetItemRef;
+    /**
+     * description of the content relation, e. g. the reason for the relation.
+     */
+    private String description;
+    /**
+     * The type of the relation, e. g. "isRevisionOf"
+     */
+    private RelationType type;
+    /**
+     * The item ref of the item that is the source/start of the relation.
+     */
+    private ItemRO sourceItemRef;
+    /**
+     * Describes the reference of the target item.
+     */
+    private ItemRO targetItemRef;
 
-	/**
-	 * Default constructor.
-	 */
-	public RelationVO()
-	{
-		
-	}
-	
-	/**
-	 * Clone constructor.
-	 * @param relation The relation to be cloned.
-	 */
-	public RelationVO(RelationVO relation)
-	{
-		this.description = relation.description;
-		this.sourceItemRef = relation.sourceItemRef;
-		this.targetItemRef = relation.targetItemRef;
-		this.type = relation.type;
-	}
-	
-	/**
-	 * description of the content relation, e. g. the reason for the relation.
-	 */
-	public String getDescription(){
-		return description;
-	}
+    /**
+     * Default constructor.
+     */
+    public RelationVO()
+    {
+        
+    }
+    
+    /**
+     * Clone constructor.
+     * @param relation The relation to be cloned.
+     */
+    public RelationVO(RelationVO relation)
+    {
+        this.description = relation.description;
+        this.sourceItemRef = relation.sourceItemRef;
+        this.targetItemRef = relation.targetItemRef;
+        this.type = relation.type;
+    }
+    
+    /**
+     * description of the content relation, e. g. the reason for the relation.
+     */
+    public String getDescription(){
+        return description;
+    }
 
 
-	/**
-	 * the item ref of the item that is the source/start of the relation 
-	 */
-	public ItemRO getSourceItemRef(){
-		return sourceItemRef;
-	}
+    /**
+     * the item ref of the item that is the source/start of the relation 
+     */
+    public ItemRO getSourceItemRef(){
+        return sourceItemRef;
+    }
 
-	/**
-	 * Describes the reference of the target item.
-	 */
-	public ItemRO getTargetItemRef(){
-		return targetItemRef;
-	}
+    /**
+     * Describes the reference of the target item.
+     */
+    public ItemRO getTargetItemRef(){
+        return targetItemRef;
+    }
 
-	/**
-	 * the item ref of the item that is the source/start of the relation
-	 * 
-	 * @param newVal
-	 */
-	public void setSourceItemRef(ItemRO newVal){
-		sourceItemRef = newVal;
-	}
+    /**
+     * the item ref of the item that is the source/start of the relation
+     * 
+     * @param newVal
+     */
+    public void setSourceItemRef(ItemRO newVal){
+        sourceItemRef = newVal;
+    }
 
-	/**
-	 * Describes the reference of the target item.
-	 * 
-	 * @param newVal
-	 */
-	public void setTargetItemRef(ItemRO newVal){
-		targetItemRef = newVal;
-	}
+    /**
+     * Describes the reference of the target item.
+     * 
+     * @param newVal
+     */
+    public void setTargetItemRef(ItemRO newVal){
+        targetItemRef = newVal;
+    }
 
-	/**
-	 * Description of the content relation, e. g. the reason for the relation.
-	 * 
-	 * @param newVal
-	 */
-	public void setDescription(String newVal){
-		description = newVal;
-	}
+    /**
+     * Description of the content relation, e. g. the reason for the relation.
+     * 
+     * @param newVal
+     */
+    public void setDescription(String newVal){
+        description = newVal;
+    }
 
-	/**
-	 * The type of the relation, e. g. "isRevisionOf"
-	 */
-	public RelationType gettype(){
-		return type;
-	}
+    /**
+     * The type of the relation, e. g. "isRevisionOf"
+     */
+    public RelationType gettype(){
+        return type;
+    }
 
-	/**
-	 * The type of the relation, e. g. "isRevisionOf"
-	 * 
-	 * @param newVal
-	 */
-	public void settype(RelationType newVal){
-		type = newVal;
-	}
+    /**
+     * The type of the relation, e. g. "isRevisionOf"
+     * 
+     * @param newVal
+     */
+    public void settype(RelationType newVal){
+        type = newVal;
+    }
 }

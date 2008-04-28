@@ -835,15 +835,15 @@ public class XmlTransformingBean implements XmlTransforming
      */
     private static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     /**
@@ -856,15 +856,15 @@ public class XmlTransformingBean implements XmlTransforming
      */
     public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+        }
+        catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
     
     

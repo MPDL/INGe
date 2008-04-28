@@ -43,8 +43,8 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
  * @updated 18-Okt-2007 15:42:32
  */
 public class ItemRelationVO extends ValueObject implements Cloneable {
-	
-	/**
+    
+    /**
     * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
     * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
     * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after
@@ -54,109 +54,109 @@ public class ItemRelationVO extends ValueObject implements Cloneable {
     * @author Johannes Mueller
     */
    
-	
-	/**
-	 * description of the content relation, e. g. the reason for the relation.
-	 */
-	private String description;
+    
+    /**
+     * description of the content relation, e. g. the reason for the relation.
+     */
+    private String description;
 
-	/**
-	 * The type of the relation.
-	 */
-	private String type;
+    /**
+     * The type of the relation.
+     */
+    private String type;
 
-	/**
-	 * Describes the reference of the target item.
-	 */
-	private ItemRO targetItemRef;
+    /**
+     * Describes the reference of the target item.
+     */
+    private ItemRO targetItemRef;
 
-	/**
-	 * This no-argument constructor is needed by JiBX!
-	 * 
-	 * @param type
-	 * @param targetItemRef
-	 */
-	public ItemRelationVO() {
-		super();
-	}
+    /**
+     * This no-argument constructor is needed by JiBX!
+     * 
+     * @param type
+     * @param targetItemRef
+     */
+    public ItemRelationVO() {
+        super();
+    }
 
-	/**
-	 * @param type
-	 * @param targetItemRef
-	 */
-	public ItemRelationVO(String type, ItemRO targetItemRef) {
-		super();
-		setType(type);
-		setTargetItemRef(targetItemRef);
-	}
+    /**
+     * @param type
+     * @param targetItemRef
+     */
+    public ItemRelationVO(String type, ItemRO targetItemRef) {
+        super();
+        setType(type);
+        setTargetItemRef(targetItemRef);
+    }
 
-	/**
-	 * Copy constructor.
-	 * 
-	 * @author Thomas Diebaecker
-	 * @param other
-	 *            The instance to copy.
-	 */
-	public ItemRelationVO(ItemRelationVO other) {
-		this(other.getType(), other.getTargetItemRef());
-		this.setDescription(other.getDescription());
-	}
+    /**
+     * Copy constructor.
+     * 
+     * @author Thomas Diebaecker
+     * @param other
+     *            The instance to copy.
+     */
+    public ItemRelationVO(ItemRelationVO other) {
+        this(other.getType(), other.getTargetItemRef());
+        this.setDescription(other.getDescription());
+    }
 
-	/**
-	 * {@inheritDoc}
-	 * 
-	 * @author Thomas Diebaecker
-	 */
-	@Override
-	public Object clone() {
-		return new ItemRelationVO(this);
-	}
+    /**
+     * {@inheritDoc}
+     * 
+     * @author Thomas Diebaecker
+     */
+    @Override
+    public Object clone() {
+        return new ItemRelationVO(this);
+    }
 
-	/**
-	 * description of the content relation, e. g. the reason for the relation.
-	 */
-	public String getDescription() {
-		return description;
-	}
+    /**
+     * description of the content relation, e. g. the reason for the relation.
+     */
+    public String getDescription() {
+        return description;
+    }
 
-	/**
-	 * Describes the reference of the target item.
-	 */
-	public ItemRO getTargetItemRef() {
-		return targetItemRef;
-	}
+    /**
+     * Describes the reference of the target item.
+     */
+    public ItemRO getTargetItemRef() {
+        return targetItemRef;
+    }
 
-	/**
-	 * Describes the reference of the target item.
-	 * 
-	 * @param newVal
-	 */
-	public void setTargetItemRef(ItemRO newVal) {
-		targetItemRef = newVal;
-	}
+    /**
+     * Describes the reference of the target item.
+     * 
+     * @param newVal
+     */
+    public void setTargetItemRef(ItemRO newVal) {
+        targetItemRef = newVal;
+    }
 
-	/**
-	 * Description of the content relation, e. g. the reason for the relation.
-	 * 
-	 * @param newVal
-	 */
-	public void setDescription(String newVal) {
-		description = newVal;
-	}
+    /**
+     * Description of the content relation, e. g. the reason for the relation.
+     * 
+     * @param newVal
+     */
+    public void setDescription(String newVal) {
+        description = newVal;
+    }
 
-	/**
-	 * The type of the relation.
-	 */
-	public String getType() {
-		return type;
-	}
+    /**
+     * The type of the relation.
+     */
+    public String getType() {
+        return type;
+    }
 
-	/**
-	 * The type of the relation.
-	 * 
-	 * @param newVal
-	 */
-	public void setType(String newVal) {
-		type = newVal;
-	}
+    /**
+     * The type of the relation.
+     * 
+     * @param newVal
+     */
+    public void setType(String newVal) {
+        type = newVal;
+    }
 }

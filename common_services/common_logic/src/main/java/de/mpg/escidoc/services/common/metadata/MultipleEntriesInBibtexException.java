@@ -30,22 +30,46 @@
 
 package de.mpg.escidoc.services.common.metadata;
 
-public class MultipleEntriesInBibtexException extends Exception {
+/**
+ * Exception thrown if a given BibTeX file contains more than one BibTeX entry.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 146 $ $LastChangedDate: 2007-12-18 14:42:42 +0100 (Tue, 18 Dec 2007) $
+ */
+public class MultipleEntriesInBibtexException extends Exception
+{
 
-	public MultipleEntriesInBibtexException() {
-		super();
-	}
+    /**
+     * Default constructor.
+     */
+    public MultipleEntriesInBibtexException()
+    {
+        super();
+    }
 
-	public MultipleEntriesInBibtexException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public MultipleEntriesInBibtexException(String message, Throwable cause)
+    {
+        super(message, cause);
+    }
 
-	public MultipleEntriesInBibtexException(String message) {
-		super(message);
-	}
+    /**
+     * Default constructor.
+     */
+    public MultipleEntriesInBibtexException(String message)
+    {
+        super(message);
+    }
 
-	public MultipleEntriesInBibtexException(Throwable cause) {
-		super(cause);
-	}
+    /**
+     * Default constructor.
+     */
+    public MultipleEntriesInBibtexException(Throwable cause)
+    {
+        super(cause);
+    }
 
 }

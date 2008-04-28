@@ -193,7 +193,8 @@ public interface XmlTransforming
      * "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd).
      * 
      * @param affiliation A <code>AffiliationVO</code>
-     * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd)
+     * @return Corresponding XML that is valid according to
+     * "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd)
      * @throws TechnicalException
      * @throws MarshallingException
      */
@@ -294,7 +295,8 @@ public interface XmlTransforming
      * <code>List<VersionHistoryEntryVO></code>.
      * @return The corresponding <code>List<VersionHistoryEntryVO></code>
      * 
-     * @param versionList XML String that is valid according to "http://www.escidoc.de/schemas/..." (version-history.xsd)
+     * @param versionList XML String that is valid according to
+     * "http://www.escidoc.de/schemas/..." (version-history.xsd)
      * @exception TechnicalException
      */
     public List<VersionHistoryEntryVO> transformToEventVOList(String versionList) throws TechnicalException;

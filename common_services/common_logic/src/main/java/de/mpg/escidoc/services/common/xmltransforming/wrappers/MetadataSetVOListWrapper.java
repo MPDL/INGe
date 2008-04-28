@@ -45,17 +45,17 @@ import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 public class MetadataSetVOListWrapper implements Serializable
 {
 
-	/**
-	 * The list.
-	 */
-	List<MetadataSetVO> metadataSets;
+    /**
+     * The list.
+     */
+    List<MetadataSetVO> metadataSets;
 
-	public List<MetadataSetVO> getMetadataSets() {
-		return metadataSets;
-	}
+    public List<MetadataSetVO> getMetadataSets() {
+        return metadataSets;
+    }
 
-	public void setMetadataSets(List<MetadataSetVO> metadataSets) {
-		this.metadataSets = metadataSets;
-	}
-	
+    public void setMetadataSets(List<MetadataSetVO> metadataSets) {
+        this.metadataSets = metadataSets;
+    }
+    
 }

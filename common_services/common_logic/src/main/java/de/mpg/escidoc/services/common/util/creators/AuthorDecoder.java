@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,7 +25,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
@@ -37,120 +36,141 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
-public class AuthorDecoder {
+/**
+ * Main class for author string decoding.
+ *
+ * @author franke (initial creation)
+ * @author $Author: mfranke $ (last modification)
+ * @version $Revision: 131 $ $LastChangedDate: 2007-11-21 18:53:43 +0100 (Wed, 21 Nov 2007) $
+ */
+public class AuthorDecoder
+{
 
-	private List<List<Author>> authorListList = new ArrayList<List<Author>>();
-	private AuthorFormat bestFormat = null;
-	
-	private static Logger logger = Logger.getLogger(AuthorDecoder.class);
-	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) throws Exception
-	{
+    private List<List<Author>> authorListList = new ArrayList<List<Author>>();
+    private AuthorFormat bestFormat = null;
 
-		if (args == null || args.length == 0)
-		{
-			logger.debug("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
-		}
-		else
-		{
-			new AuthorDecoder(args[0]);
-		}
+    private static Logger logger = Logger.getLogger(AuthorDecoder.class);
 
-	}
-	
-	public AuthorDecoder(String authors) throws Exception
-	{
-		
-		// normalize the string
-		authors = authors.replaceAll("\\s+", " ").trim();
-		
-		logger.debug("Testing '" + authors + "'");
-		
-		AuthorFormat[] authorFormats = AuthorFormatList.getFormats();
-		
-		for (AuthorFormat authorFormat : authorFormats)
-		{
-			
-			logger.debug(authorFormat.getName() + ": " + authorFormat.getPattern());
-			
-			Pattern pattern = Pattern.compile(authorFormat.getPattern());
-			Matcher matcher = pattern.matcher(authors);
-			if (matcher.find())
-			{
-				logger.debug("Pattern found!");
+    /**
+     * @param args
+     */
+    public static void main(String[] args) throws Exception
+    {
 
-				List<Author> authorList = authorFormat.getAuthors(authors);
-				if (authorList != null)
-				{
-					authorListList.add(authorList);
-					if (bestFormat == null)
-					{
-						bestFormat = authorFormat;
-					}
-				}
-				
-			}
-		}
-		
-		if (bestFormat != null)
-		{
-			displayAuthors();
-		}
-		else
-		{
-			logger.debug("Diese Eingabe entspricht keinem bekannten Format.");
-		}
-		
-	}
-	
-	private void displayAuthors()
-	{
-		logger.debug("Best result (" + bestFormat.getName() + "):");
-		for (Author author : authorListList.get(0)) {
-			logger.debug(author);
-		}
+        if (args == null || args.length == 0)
+        {
+            logger.debug("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
+        }
+        else
+        {
+            new AuthorDecoder(args[0]);
+        }
 
-		if (authorListList.size() > 1)
-		{
-			List<Author> bestList = authorListList.get(0);
-			
-			boolean alternative = false;
-			
-			for (List<Author> list : authorListList)
-			{
-				if (list != bestList)
-				{
-					if (!alternative)
-					{
-						logger.debug("There are alternative interpretations:");
-						alternative = true;
-					}
-					for (int i = 0; i < list.size(); i++)
-					{
-						logger.debug(list.get(i) + (list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
-					}
-				}
-			}
-		}
-	}
+    }
 
-	public List<List<Author>> getAuthorListList() {
-		return authorListList;
-	}
+    /**
+     * Constructor that starts the processing of a given author string.
+     *
+     * @param authors The author string to be parsed.
+     * @throws Exception Any Exception.
+     */
+    public AuthorDecoder(String authors) throws Exception
+    {
 
-	public void setAuthorListList(List<List<Author>> authorListList) {
-		this.authorListList = authorListList;
-	}
+        // normalize the string
+        authors = authors.replaceAll("\\s+", " ").trim();
 
-	public AuthorFormat getBestFormat() {
-		return bestFormat;
-	}
+        logger.debug("Testing '" + authors + "'");
 
-	public void setBestFormat(AuthorFormat bestFormat) {
-		this.bestFormat = bestFormat;
-	}
-	
+        AuthorFormat[] authorFormats = AuthorFormatList.getFormats();
+
+        for (AuthorFormat authorFormat : authorFormats)
+        {
+
+            logger.debug(authorFormat.getName() + ": " + authorFormat.getPattern());
+
+            Pattern pattern = Pattern.compile(authorFormat.getPattern());
+            Matcher matcher = pattern.matcher(authors);
+            if (matcher.find())
+            {
+                logger.debug("Pattern found!");
+
+                List<Author> authorList = authorFormat.getAuthors(authors);
+                if (authorList != null)
+                {
+                    authorListList.add(authorList);
+                    if (bestFormat == null)
+                    {
+                        bestFormat = authorFormat;
+                    }
+                }
+
+            }
+        }
+
+        if (bestFormat != null)
+        {
+            displayAuthors();
+        }
+        else
+        {
+            logger.debug("Diese Eingabe entspricht keinem bekannten Format.");
+        }
+
+    }
+
+    private void displayAuthors()
+    {
+        logger.debug("Best result (" + bestFormat.getName() + "):");
+        for (Author author : authorListList.get(0))
+        {
+            logger.debug(author);
+        }
+
+        if (authorListList.size() > 1)
+        {
+            List<Author> bestList = authorListList.get(0);
+
+            boolean alternative = false;
+
+            for (List<Author> list : authorListList)
+            {
+                if (list != bestList)
+                {
+                    if (!alternative)
+                    {
+                        logger.debug("There are alternative interpretations:");
+                        alternative = true;
+                    }
+                    for (int i = 0; i < list.size(); i++)
+                    {
+                        logger.debug(
+                                list.get(i)
+                                + (list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
+                    }
+                }
+            }
+        }
+    }
+
+    public List<List<Author>> getAuthorListList()
+    {
+        return authorListList;
+    }
+
+    public void setAuthorListList(List<List<Author>> authorListList)
+    {
+        this.authorListList = authorListList;
+    }
+
+    public AuthorFormat getBestFormat()
+    {
+        return bestFormat;
+    }
+
+    public void setBestFormat(AuthorFormat bestFormat)
+    {
+        this.bestFormat = bestFormat;
+    }
+
 }

@@ -136,8 +136,8 @@ public class ItemVO extends ValueObject implements Cloneable
         }
         this.setLockStatus(other.getLockStatus());
         for (MetadataSetVO mds : other.getMetadataSets()) {
-			this.getMetadataSets().add(mds.clone());
-		}
+            this.getMetadataSets().add(mds.clone());
+        }
         if (other.getOwner() != null)
         {
             this.setOwner((AccountUserRO)other.getOwner().clone());
@@ -348,14 +348,14 @@ public class ItemVO extends ValueObject implements Cloneable
      */
     public String getWithdrawalComment()
     {
-    	if (getVersion().getState() == ItemVO.State.WITHDRAWN)
-    	{
-    		return getVersion().getLastMessage();
-    	}
-    	else
-    	{
-    		return null;
-    	}
+        if (getVersion().getState() == ItemVO.State.WITHDRAWN)
+        {
+            return getVersion().getLastMessage();
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -363,30 +363,30 @@ public class ItemVO extends ValueObject implements Cloneable
      */
     public Date getModificationDate()
     {
-    	if (getVersion() != null)
-    	{
-    		return getVersion().getModificationDate();
-    	}
-    	else
-    	{
-    		return null;
-    	}
+        if (getVersion() != null)
+        {
+            return getVersion().getModificationDate();
+        }
+        else
+        {
+            return null;
+        }
     }
     
-	public ItemRO getLatestVersion() {
-		return latestVersion;
-	}
+    public ItemRO getLatestVersion() {
+        return latestVersion;
+    }
 
-	public void setLatestVersion(ItemRO latestVersion) {
-		this.latestVersion = latestVersion;
-	}
+    public void setLatestVersion(ItemRO latestVersion) {
+        this.latestVersion = latestVersion;
+    }
 
-	public ItemRO getLatestRelease() {
-		return latestRelease;
-	}
+    public ItemRO getLatestRelease() {
+        return latestRelease;
+    }
 
-	public void setLatestRelease(ItemRO latestRelease) {
-		this.latestRelease = latestRelease;
-	}
+    public void setLatestRelease(ItemRO latestRelease) {
+        this.latestRelease = latestRelease;
+    }
     
 }

@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformInvalidPubItemTest extends XmlTransformingTestBase
 {
-	private static XmlTransforming xmlTransforming = new XmlTransformingBean();
+    private static XmlTransforming xmlTransforming = new XmlTransformingBean();
     private static Logger logger = Logger.getLogger(TransformInvalidPubItemTest.class);
 
     /**

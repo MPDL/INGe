@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -26,7 +25,7 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/ 
+*/
 
 package de.mpg.escidoc.services.common.util.creators;
 
@@ -34,37 +33,37 @@ import java.util.List;
 
 public class WesternFormat4 extends AuthorFormat {
 
-	@Override
-	public String getPattern() {
-		return "^(" + INITIALS + "[ -]?)+ ?" + NAME + "( *(;| and | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
-	}
+    @Override
+    public String getPattern() {
+        return "^(" + INITIALS + "[ -]?)+ ?" + NAME + "( *(;| and | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
+    }
 
-	@Override
-	public List<Author> getAuthors(String authorsString) {
+    @Override
+    public List<Author> getAuthors(String authorsString) {
 
-		String[] authors = authorsString.split(" *(;| and | und | et ) *");
+        String[] authors = authorsString.split(" *(;| and | und | et ) *");
 
-		return getAuthorListWithInitials(authors);
-	}
+        return getAuthorListWithInitials(authors);
+    }
 
-	@Override
-	public int getSignificance() {
-		return 11;
-	}
+    @Override
+    public int getSignificance() {
+        return 11;
+    }
 
-	@Override
-	public String getDescription() {
-		return "Nachname, Vorname[; Nach-Name, Vor-Name]";
-	}
+    @Override
+    public String getDescription() {
+        return "Nachname, Vorname[; Nach-Name, Vor-Name]";
+    }
 
-	@Override
-	public String getName() {
-		return "Westliches Normalformat mit Initialen, semikolon-getrennt";
-	}
+    @Override
+    public String getName() {
+        return "Westliches Normalformat mit Initialen, semikolon-getrennt";
+    }
 
-	@Override
-	public String getWarning() {
-		return null;
-	}
+    @Override
+    public String getWarning() {
+        return null;
+    }
 
 }

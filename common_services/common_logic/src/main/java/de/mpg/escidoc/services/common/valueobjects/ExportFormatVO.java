@@ -48,7 +48,7 @@ public class ExportFormatVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-	
+    
     /**
      * The possible file formats for this export format (i.e. pdf,html,..).
      */
@@ -172,26 +172,26 @@ public class ExportFormatVO extends ValueObject
     }
 
     public java.util.List<String> getCreators() {
-    	return creators;
+        return creators;
     }
     
     public void setCreators(java.util.List<String> creators) {
-    	this.creators = creators;
+        this.creators = creators;
     }
 
     /*
      * set description (optional)
      */
-	public String getDescription() {
-		return description;
-	}
+    public String getDescription() {
+        return description;
+    }
 
     /*
      * get description (optional)
      */
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
     
     /**
      * Returns the String representation of this object.
