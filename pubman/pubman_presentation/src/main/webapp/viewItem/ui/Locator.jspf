@@ -35,7 +35,7 @@
 	
 	<h2>
 			<div class="viewItemHeader">
-			<div class="icon uploadIcon"></div>
+			<div class="icon URLIcon"></div>
 				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/>
 			</div>
 	</h2>
@@ -57,7 +57,7 @@
 			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{locator.itemWithdrawn == true}"/>
 
 			<h:outputLink value="#{locator.file.locator}" rendered="#{locator.itemWithdrawn == false}" target="_blank">
-				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
+				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
 				<h:outputText value="#{locator.file.locator}" rendered="#{locator.itemWithdrawn == false}"/>
 			</h:outputLink>
 

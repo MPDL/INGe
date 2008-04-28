@@ -75,8 +75,8 @@ All rights reserved. Use is subject to license terms.
 				
 					<h:outputLabel styleClass="rightSpace" for="sortOrderAsc" value="#{lbl.ItemList_SortOrderAscending}" rendered="#{ItemListSessionBean.isAscending}"/>
 					<h:outputLabel styleClass="rightSpace" for="sortOrderDesc" value="#{lbl.ItemList_SortOrderDescending}" rendered="#{!ItemListSessionBean.isAscending}"/>
-					<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderAsc" image="./resources/escidoc-css/images/sorting.gif" value=" " rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
-					<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderDesc" image="./resources/escidoc-css/images/sorting.gif" value=" " rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
+					<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderAsc" image="./resources/escidoc-css/images/ascending.gif" value=" " rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
+					<h:commandButton styleClass="rightSpace topSpace5" id="sortOrderDesc" image="./resources/escidoc-css/images/descending.gif" value=" " rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}"/>
 				</div>
 				
 				<h:panelGroup layout="block" styleClass="displayControls listHeaderControls" rendered="#{!ItemListSessionBean.isRevisionView}">
