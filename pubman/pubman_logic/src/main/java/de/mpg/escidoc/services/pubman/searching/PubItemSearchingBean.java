@@ -57,7 +57,6 @@ import org.apache.axis.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -251,8 +250,8 @@ public class PubItemSearchingBean implements PubItemSearching
             }
             else if (criterion.getClass() == DateCriterionVO.class)
             {
-            	if( criterion.getSearchString().length() != 0 )  { 
                 DateCriterionVO criterionVO = (DateCriterionVO)criterion;
+                if( criterionVO.getFrom() != null && criterionVO.getFrom().length() != 0 )  { 
                 // create cql query with a logic operator (if needed)
                 query.append("(");
                 query.append(createCqlQuery(criterionVO.getFrom(), QueryType.DATE_FROM ));
@@ -493,7 +492,7 @@ public class PubItemSearchingBean implements PubItemSearching
                     + ":searchPubItemsByAffiliation:affiliationRef is null");
         }
         // First read the affiliation to get the PID
-        String affiliationXML = null;
+//        String affiliationXML = null;
         // AffiliationVO affiliation = null;
 //        try
 //        {   
