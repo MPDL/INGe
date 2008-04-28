@@ -62,6 +62,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
@@ -257,6 +258,11 @@ public class EasySubmission extends FacesBean
     	easySubmissionSessionBean.getFiles().clear();
     	easySubmissionSessionBean.getLocators().clear();
     	easySubmissionSessionBean.setSelectedDate("");
+    	
+    	// also make sure that the EditItemSessionBean is cleaned, too
+    	this.getEditItemSessionBean().getFiles().clear();
+    	this.getEditItemSessionBean().getLocators().clear();
+    	
     	
     	// deselect the  selected context
     	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
@@ -789,6 +795,29 @@ public class EasySubmission extends FacesBean
     		this.getItemControllerSessionBean().getCurrentPubItem().getFiles().add(this.getEasySubmissionSessionBean().getLocators().get(i).getFile());
     	}
     	
+    	// add an empty file and an empty locator if necessary for display purposes
+    	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0)
+    	{
+    		if(this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
+    		{
+    			FileVO newFile = new FileVO();
+    			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
+    		}
+    	}
+    	
+    	if(this.getEasySubmissionSessionBean().getLocators() != null && this.getEasySubmissionSessionBean().getLocators().size() > 0)
+    	{
+    		if(this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getSize() > 0)
+    		{
+    			PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
+        		// set fixed content type
+        		newLocator.getFile().setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+        		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
+    		}
+    	}
+    	
     	// additionally map the dates if the user comes from  Step5
     	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP5))
     	{
@@ -993,6 +1022,16 @@ public class EasySubmission extends FacesBean
     protected EasySubmissionSessionBean getEasySubmissionSessionBean()
     {
     	return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+    }
+    
+    /**
+     * Returns the EditItemSessionBean.
+     *
+     * @return a reference to the scoped data bean (EditItemSessionBean)
+     */
+    protected EditItemSessionBean getEditItemSessionBean()
+    {
+    	return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
     }
     
     /**
