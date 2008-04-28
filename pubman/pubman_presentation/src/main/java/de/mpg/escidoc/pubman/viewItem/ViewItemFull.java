@@ -245,8 +245,13 @@ public class ViewItemFull extends FacesBean
             {
                 String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
                 
+                String itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", getPubItem().getVersion().getObjectIdAndVersion());
+                
+                
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
-                citationURL = pubmanUrl + "faces/viewItemFullPage.jsp?itemId=" + getPubItem().getVersion().getObjectIdAndVersion();
+                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length()-1);
+                
+                citationURL = pubmanUrl + itemPattern;
                 
             }
             catch (IOException e)
