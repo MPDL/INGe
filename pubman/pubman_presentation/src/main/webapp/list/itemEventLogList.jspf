@@ -52,7 +52,7 @@ All rights reserved. Use is subject to license terms.
 							<h:outputText value="#{lbl.ViewItemLog_lblComment}" />
 						</div>
 						<div class='itemText'>
-							<h:outputText value="#{eventEntry.comment}" />
+							<h:outputText value="#{eventEntry.formattedComment}" />
 						</div>
 					</div>
 						

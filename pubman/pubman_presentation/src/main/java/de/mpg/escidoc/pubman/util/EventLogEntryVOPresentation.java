@@ -79,6 +79,16 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
         return "";
     }
 
+    /**Returns all comments except for update, because update-comments are not possible*/
+    public String getFormattedComment()
+    {
+        if (getType()==EventLogEntryVO.EventType.UPDATE)
+        {
+            return "Item updated";
+        }
+        else return getComment();
+        
+    }
     
     public String getFormattedDate()
     {
