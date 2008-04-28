@@ -32,6 +32,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -63,6 +65,8 @@ public class PropertyReader
     private static final String DEFAULT_PROPERTY_FILE = "pubman.properties";
 
     private static final String PROPERTY_FILE_KEY = "pubman.properties.file";
+    
+    private static URI solution;
 
     /**
      * Gets the value of a property for the given key from the system properties or the escidoc property file.
@@ -74,8 +78,9 @@ public class PropertyReader
      * @param key The key of the property.
      * @return The value of the property.
      * @throws IOException
+     * @throws URISyntaxException 
      */
-    public static String getProperty(String key) throws IOException
+    public static String getProperty(String key) throws IOException, URISyntaxException
     {
         // First check system properties
         String value = System.getProperty(key);
@@ -90,6 +95,7 @@ public class PropertyReader
         }
         // Get the property
         value = properties.getProperty(key);
+        // Logger.getLogger(PropertyReader.class).info("framework URL: "+value);
         return value;
     }
 
@@ -97,21 +103,45 @@ public class PropertyReader
      * Load the properties from the location defined by the system property <code>pubman.properties.file</code>.
      * If this property is not set the default file path <code>pubman.properties</code> is used.
      *
-     * @throws IOException If the properties file could not be found neither in the file system nor in the classpath.
+     * @throws IOException If the properties file could not be found neither in the file system nor in the classpath. 
+     * @throws URISyntaxException 
      */
-    private static void loadProperties() throws IOException
+    private static void loadProperties() throws IOException, URISyntaxException
     {
         // Try to get location of properties file from system property
         String propertiesFile = System.getProperty(PROPERTY_FILE_KEY);
         if (propertiesFile == null)
         {
+            try
+            {
+            solution = PropertyReader.class.getClassLoader().getResource("solution.properties").toURI();
+            }
+            catch (Exception e)
+            {
+                e.getMessage();
+            }
+            if (solution != null)
+            {
+                // Logger.getLogger(PropertyReader.class).info("Solution URI is "+solution.toString());
+                InputStream in = getInputStream(solution.getPath());
+                properties = new Properties();
+                properties.load(in);
+                String appname = properties.getProperty("appname");
+                propertiesFile = appname+".properties";
+            }
+            else
+            {
+             // Use Default location of properties file
+                propertiesFile = DEFAULT_PROPERTY_FILE;
+            }
             // Use Default location of properties file
-            propertiesFile = DEFAULT_PROPERTY_FILE;
+            //propertiesFile = DEFAULT_PROPERTY_FILE;
         }
         InputStream instream = getInputStream(propertiesFile);
         properties = new Properties();
         properties.load(instream);
         Logger.getLogger(PropertyReader.class).info("Properties loaded from " + propertiesFile);
+        //Logger.getLogger(PropertyReader.class).info(properties.toString());
     }
 
     /**
