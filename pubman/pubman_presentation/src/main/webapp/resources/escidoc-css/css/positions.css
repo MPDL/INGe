@@ -421,7 +421,7 @@ margin-left: -10px;
 }
 
 .listHeaderSort input{
-	border:none;
+	border: 0px !important;
 	background-color:#e2e2e2;
 }
 
