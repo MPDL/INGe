@@ -9,12 +9,12 @@
 	<artifactId>common_logic</artifactId>
 	<packaging>ejb</packaging>
 	<name>common_logic</name>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_logic-1.0.2</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_logic-1.0.2</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/tags/common_logic-1.0.2</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
