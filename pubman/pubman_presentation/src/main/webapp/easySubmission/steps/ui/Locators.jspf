@@ -61,7 +61,7 @@
     			
     			
     		<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{locator.file.locator == null || locator.file.locator == ''}">
-    			<h3><h:outputText value="#{lbl.EditItem_lblFileLoc}"/></h3>
+    			<h3><h:outputText value="#{lbl.easy_submission_lblLocator}"/></h3>
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
     				<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
     					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}" rendered="#{locator.file.locator == null || locator.file.locator == ''}"/>   
