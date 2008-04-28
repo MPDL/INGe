@@ -81,7 +81,7 @@ All rights reserved. Use is subject to license terms.
 				
 				<h:panelGroup layout="block" styleClass="displayControls listHeaderControls" rendered="#{!ItemListSessionBean.isRevisionView}">
 					<h:outputLabel value="#{lbl.ItemList_Details}"/>
-					<h:commandButton image="images/short_view_item.jpg" actionListener="#{ItemListSessionBean.switchToShortView}"/>
+					<h:commandButton image="images/short_view_item.gif" actionListener="#{ItemListSessionBean.switchToShortView}"/>
 					<h:commandButton image="images/medium_view_item.jpg" actionListener="#{ItemListSessionBean.switchToMediumView}"/>
 				</h:panelGroup>
 			</h:panelGroup>
@@ -103,7 +103,7 @@ All rights reserved. Use is subject to license terms.
 						</h:panelGroup>
 						<h:panelGroup rendered="#{!ItemListSessionBean.isRevisionView}">
 							<div class="listItemHeaderViews">
-								<h:commandButton image="../images/short_view_item.jpg" immediate="true" action="#{item.switchToShortView}"/>
+								<h:commandButton image="../images/short_view_item.gif" immediate="true" action="#{item.switchToShortView}"/>
 								<h:commandButton image="../images/medium_view_item.jpg" immediate="true" action="#{item.switchToMediumView}"/>
 							</div>
 						</h:panelGroup>

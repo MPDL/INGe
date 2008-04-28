@@ -335,15 +335,22 @@ html > body .itemText {
 	border: 0px !important;
 }
 
-.listItem {
+.listItemRow {
 	margin: 0px;
 	padding: 2px 14px 2px 12px;
 	width: 750px !important;
 	display: block;
 	overflow: hidden;
 	color:black;
+	border:0px;
+}
+
+.listItem {
 	border:1px solid #afafaf;
 	border-top: 0px;
+	display: block;
+	overflow: hidden;
+	width: 776px !important;
 }
 
 .listItem * {

@@ -38,8 +38,8 @@ All rights reserved. Use is subject to license terms.
 			
 			
 			<tr:iterator value="#{ItemVersionListSessionBean.releaseList}" var="entry" varStatus="index">	
-				
-				<div class='listItem odd'>
+			<div class="listItem">	
+				<div class='listItemRow odd'>
 					<div class='itemTitle odd'>
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{entry.reference.versionNumber}"/>
 					</div>
@@ -51,7 +51,7 @@ All rights reserved. Use is subject to license terms.
 
 				</div>
 
-				<div class="listItem">
+				<div class="listItemRow">
 					<div class='itemTitle'>
 						<h:outputText value="#{lbl.ViewItemReleaseHistory_lblComment}:" />
 					</div>
@@ -59,9 +59,8 @@ All rights reserved. Use is subject to license terms.
 					<div class='itemText'>
 						<h:outputText value="#{entry.reference.lastMessage}" />
 					</div>
-					
-					
 				</div>	
+			</div>
 			</tr:iterator>	
 		
 		

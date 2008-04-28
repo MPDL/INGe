@@ -36,8 +36,8 @@ All rights reserved. Use is subject to license terms.
 			<table>
 
 				<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
-				
-					<div class='listItem odd'>
+				<div class="listItem">	
+					<div class='listItemRow odd'>
 						<div class='itemTitle odd'>
 							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
 						</div>
@@ -47,7 +47,7 @@ All rights reserved. Use is subject to license terms.
 					</div>
 	
 					
-					<div class="listItem">
+					<div class="listItemRow">
 						<div class='itemTitle'>
 							<h:outputText value="#{lbl.ViewItemLog_lblComment}" />
 						</div>
@@ -55,7 +55,7 @@ All rights reserved. Use is subject to license terms.
 							<h:outputText value="#{eventEntry.formattedComment}" />
 						</div>
 					</div>
-						
+				</div>
 					
 				</tr:iterator>		
 			
