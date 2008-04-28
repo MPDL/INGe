@@ -67,13 +67,9 @@
 				<h:outputText value="<p>" escape="false"/>
 					<h:outputText value="#{creatorAffiliation.organizationAddress}"/>
 				<h:outputText value="</p>" escape="false"/>
-				<h:outputText value="<p>" escape="false"/>
-					<h:outputText value="#{creatorAffiliation.organizationIdentifier}"/>
-				<h:outputText value="</p>" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
-		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemMedium.creatorAffiliationsIterator.rowCount == 0}" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.countAffiliatedOrganizations == 0}" escape="false"/>
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemMedium.creatorAffiliationsIterator.rowCount == 0 && item.countAffiliatedOrganizations == 0}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<!-- Dates -->
