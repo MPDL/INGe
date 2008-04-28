@@ -31,14 +31,23 @@ package de.mpg.escidoc.services.framework;
 import gov.loc.www.zing.srw.service.ExplainPort;
 import gov.loc.www.zing.srw.service.SRWPort;
 import gov.loc.www.zing.srw.service.SRWSampleServiceLocator;
+
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
+
 import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.client.Stub;
 import org.apache.axis.configuration.FileProvider;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.handler.WSHandlerConstants;
+
+import de.escidoc.www.services.aa.UserAccountHandler;
+import de.escidoc.www.services.aa.UserAccountHandlerServiceLocator;
+import de.escidoc.www.services.aa.UserManagementWrapper;
+import de.escidoc.www.services.aa.UserManagementWrapperServiceLocator;
 import de.escidoc.www.services.cmm.ContentModelHandler;
 import de.escidoc.www.services.cmm.ContentModelHandlerServiceLocator;
 import de.escidoc.www.services.om.ContainerHandler;
@@ -61,10 +70,6 @@ import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
 import de.escidoc.www.services.ssh.SemanticStoreHandler;
 import de.escidoc.www.services.ssh.SemanticStoreHandlerServiceLocator;
-import de.escidoc.www.services.aa.UserAccountHandler;
-import de.escidoc.www.services.aa.UserAccountHandlerServiceLocator;
-import de.escidoc.www.services.aa.UserManagementWrapper;
-import de.escidoc.www.services.aa.UserManagementWrapperServiceLocator;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>
@@ -107,8 +112,9 @@ public class ServiceLocator
      *
      * @return The url as a String.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static String getFrameworkUrl() throws ServiceException
+    public static String getFrameworkUrl() throws ServiceException, URISyntaxException
     {
         String url;
         try
@@ -128,8 +134,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return A wrapper for the UserManagement.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static UserManagementWrapper getUserManagementWrapper(String userHandle) throws ServiceException
+    public static UserManagementWrapper getUserManagementWrapper(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedUserManagementWrapperServiceLocator == null)
         {
@@ -149,8 +156,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return A UserAccountHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static UserAccountHandler getUserAccountHandler(String userHandle) throws ServiceException
+    public static UserAccountHandler getUserAccountHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedUserAccountHandlerServiceLocator == null)
         {
@@ -169,8 +177,9 @@ public class ServiceLocator
      *
      * @return An OrganizationalUnitHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static OrganizationalUnitHandler getOrganizationalUnitHandler() throws ServiceException
+    public static OrganizationalUnitHandler getOrganizationalUnitHandler() throws ServiceException, URISyntaxException
     {
         if (publicOrganizationalUnitHandlerServiceLocator == null)
         {
@@ -190,8 +199,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return An OrganizationalUnitHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle) throws ServiceException
+    public static OrganizationalUnitHandler getOrganizationalUnitHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedOrganizationalUnitHandlerServiceLocator == null)
         {
@@ -211,8 +221,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return A ContentTypeHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ContentModelHandler getContentModelHandler(String userHandle) throws ServiceException
+    public static ContentModelHandler getContentModelHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedContentModelHandlerServiceLocator == null)
         {
@@ -231,8 +242,9 @@ public class ServiceLocator
      *
      * @return A ContextHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ContextHandler getContextHandler() throws ServiceException
+    public static ContextHandler getContextHandler() throws ServiceException, URISyntaxException
     {
         if (publicContextHandlerServiceLocator == null)
         {
@@ -253,8 +265,9 @@ public class ServiceLocator
      * @return A ContextHandler.
      * @throws MalformedURLException
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ContextHandler getContextHandler(String userHandle) throws ServiceException
+    public static ContextHandler getContextHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedContextHandlerServiceLocator == null)
         {
@@ -273,8 +286,9 @@ public class ServiceLocator
      *
      * @return An ItemHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ItemHandler getItemHandler() throws ServiceException
+    public static ItemHandler getItemHandler() throws ServiceException, URISyntaxException
     {
         if (publicItemHandlerServiceLocator == null)
         {
@@ -294,8 +308,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return An ItemHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ItemHandler getItemHandler(String userHandle) throws ServiceException
+    public static ItemHandler getItemHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedItemHandlerServiceLocator == null)
         {
@@ -315,8 +330,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return A SemanticStoreHandler
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static SemanticStoreHandler getSemanticScoreHandler(String userHandle) throws ServiceException
+    public static SemanticStoreHandler getSemanticScoreHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedSemanticScoreHandlerServiceLocator == null)
         {
@@ -336,8 +352,9 @@ public class ServiceLocator
      * @param language The 2 character ISO code of the language.
      * @return A SearchHandler (SRWPort).
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static SRWPort getSearchHandler(String language) throws ServiceException
+    public static SRWPort getSearchHandler(String language) throws ServiceException, URISyntaxException
     {
         if (language == null)
         {
@@ -358,8 +375,9 @@ public class ServiceLocator
      * @return A ExplainHandler (ExplainPort)
      * @throws ServiceException
      * @throws MalformedURLException
+     * @throws URISyntaxException 
      */
-    public static ExplainPort getExplainHandler(String language) throws ServiceException, MalformedURLException
+    public static ExplainPort getExplainHandler(String language) throws ServiceException, MalformedURLException, URISyntaxException
     {
         if (language == null)
         {
@@ -378,8 +396,9 @@ public class ServiceLocator
      *
      * @return A ScopeHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ScopeHandler getScopeHandler() throws ServiceException
+    public static ScopeHandler getScopeHandler() throws ServiceException, URISyntaxException
     {
         if (publicScopeHandlerServiceLocator == null)
         {
@@ -398,8 +417,9 @@ public class ServiceLocator
      *
      * @return A AggregationDefinitionHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static AggregationDefinitionHandler getAggregationDefinitionHandler() throws ServiceException
+    public static AggregationDefinitionHandler getAggregationDefinitionHandler() throws ServiceException, URISyntaxException
     {
         if (publicAggregationDefinitionHandlerServiceLocator == null)
         {
@@ -418,8 +438,9 @@ public class ServiceLocator
      *
      * @return A StatisticDataHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static StatisticDataHandler getStatisticDataHandler() throws ServiceException
+    public static StatisticDataHandler getStatisticDataHandler() throws ServiceException, URISyntaxException
     {
         if (publicStatisticDataHandlerServiceLocator == null)
         {
@@ -438,8 +459,9 @@ public class ServiceLocator
      *
      * @return A ReportDefinitionHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ReportDefinitionHandler getReportDefinitionHandler() throws ServiceException
+    public static ReportDefinitionHandler getReportDefinitionHandler() throws ServiceException, URISyntaxException
     {
         if (publicReportDefinitionHandlerServiceLocator == null)
         {
@@ -458,8 +480,9 @@ public class ServiceLocator
      *
      * @return A ReportHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ReportHandler getReportHandler() throws ServiceException
+    public static ReportHandler getReportHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (publicReportHandlerServiceLocator == null)
         {
@@ -469,7 +492,7 @@ public class ServiceLocator
             publicReportHandlerServiceLocator.setReportHandlerServiceEndpointAddress(url);
         }
         ReportHandler handler = publicReportHandlerServiceLocator.getReportHandlerService();
-        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }
 
@@ -479,8 +502,9 @@ public class ServiceLocator
      * @param userHandle The handle of the logged in user.
      * @return A ContainerHandler.
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    public static ContainerHandler getContainerHandler(String userHandle) throws ServiceException
+    public static ContainerHandler getContainerHandler(String userHandle) throws ServiceException, URISyntaxException
     {
         if (authorizedContainerHandlerServiceLocator == null)
         {
