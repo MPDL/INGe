@@ -70,7 +70,7 @@
 
 .exportBackButton, .exportSendButton {
 	height: 20px;
-	font-size: 16px;
+	font-size: 1em;
 }
 
 .exportBackButton {
