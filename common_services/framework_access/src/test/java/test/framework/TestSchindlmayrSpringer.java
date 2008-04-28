@@ -30,19 +30,23 @@ package test.framework;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
@@ -54,6 +58,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
+
 import test.framework.om.TestItemBase;
 import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
 import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
@@ -63,8 +68,6 @@ import de.escidoc.core.common.exceptions.application.security.AuthorizationExcep
 import de.escidoc.core.common.exceptions.application.violated.LockingException;
 import de.escidoc.core.common.exceptions.application.violated.OptimisticLockingException;
 import de.escidoc.core.common.exceptions.system.FedoraSystemException;
-// import de.fiz.escidoc.common.exceptions.system.KowariSystemException;
-// import de.escidoc.core.common.exceptions.system.PIDGeneratorSystemException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.SystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
@@ -115,7 +118,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     }
 
     private int download(String item) throws ServiceException, HttpException, IOException,
-            ParserConfigurationException, SAXException, TransformerException
+            ParserConfigurationException, SAXException, TransformerException, URISyntaxException
     {
         // Create a document from the response.
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -177,7 +180,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     private String update(String item) throws LockingException, MissingMethodParameterException,
             InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
             SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
-            RemoteException, ServiceException
+            RemoteException, ServiceException, URISyntaxException
     {
         String id = getId(item);
         String updatedItem = ServiceLocator.getItemHandler(userHandle).update(id, item);
@@ -188,7 +191,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     private void submit(String item) throws LockingException, MissingMethodParameterException,
             InvalidStatusException, ItemNotFoundException, XmlParserSystemException, WebserverSystemException,
             SqlDatabaseSystemException, AuthenticationException, FedoraSystemException, AuthorizationException,
-            RemoteException, ServiceException
+            RemoteException, ServiceException, URISyntaxException
     {
         String id = getId(item);
         String md = getModificationDate(item);
@@ -197,7 +200,8 @@ public class TestSchindlmayrSpringer extends TestItemBase
         return;
     }
 
-    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException, AuthorizationException, SystemException, RemoteException, ServiceException
+    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException, 
+    AuthorizationException, SystemException, RemoteException, ServiceException, URISyntaxException
     {
         String id = getVersion(item);
         String md = getModificationDate(item);
@@ -213,7 +217,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
     
     private void release(String item) throws OptimisticLockingException, LockingException,
             MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException,
-            AuthorizationException, SystemException, RemoteException, ServiceException
+            AuthorizationException, SystemException, RemoteException, ServiceException, URISyntaxException
     {
         String id = getId(item);
         String md = getModificationDate(item);

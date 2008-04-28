@@ -30,9 +30,13 @@ package test.framework.aa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
@@ -59,7 +63,7 @@ public class TestLoginLogout
 
     private static Logger logger = Logger.getLogger(TestLoginLogout.class);
 
-    private static String loginUser() throws ServiceException, HttpException, IOException
+    private static String loginUser() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + LOGIN_URL);

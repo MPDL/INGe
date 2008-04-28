@@ -41,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream; 
 import java.io.StringWriter;
 import java.rmi.RemoteException;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
@@ -139,7 +140,7 @@ public class TestBase
      * @throws IOException
      * @throws ServiceException
      */
-    protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
+    protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException 
     {
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/login");
@@ -479,7 +480,7 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected String loginScientist() throws ServiceException, HttpException, IOException
+    protected String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_scientist", "escidoc");
     }
@@ -492,7 +493,7 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected String loginLibrarian() throws ServiceException, HttpException, IOException
+    protected String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_lib", "pubman");
     }
@@ -529,7 +530,7 @@ public class TestBase
      * @throws RemoteException
      * @throws ServiceException
      */
-    protected void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, AuthenticationException, RemoteException, ServiceException
+    protected void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, AuthenticationException, RemoteException, ServiceException, URISyntaxException
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
     }

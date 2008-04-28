@@ -13,9 +13,9 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TestScopeHandler.class
-                   , TestAggregationDefinitionHandler.class
+//                   , TestAggregationDefinitionHandler.class
 //                   , TestStatisticDataHandler.class
-                   , TestReportDefinitionHandler.class
+//                   , TestReportDefinitionHandler.class
                    , TestReportHandler.class
                    })
 public class TestStatisticManager

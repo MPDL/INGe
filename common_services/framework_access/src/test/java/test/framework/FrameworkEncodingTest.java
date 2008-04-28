@@ -31,6 +31,7 @@ package test.framework;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
@@ -67,7 +68,7 @@ public class FrameworkEncodingTest
      * @throws ServiceException
      */
     @Test
-    public void testHttpGetEncoding() throws HttpException, IOException, ServiceException
+    public void testHttpGetEncoding() throws HttpException, IOException, ServiceException, URISyntaxException
     {
         // Retrieve organizational unit from the framework
         // This OU contains a description with a German umlaut "�" which will expose a wrong encoding:
