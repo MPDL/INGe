@@ -319,7 +319,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         }
         
         //remove last two signs
-        allDates = allDates.substring(0, allDates.length()-2);
+        if (allDates.length()>2)
+            allDates = allDates.substring(0, allDates.length()-2);
         
         return allDates;
         

@@ -99,6 +99,7 @@
 			<h:outputText value="#{item.metadata.datePublishedInPrint}"/>
 		--%>
 			<h:outputText value="#{item.datesAsString}"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.datesAsString == null || item.datesAsString == ''}" escape="false"/>
 		<h:outputText value="</p>" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 	
