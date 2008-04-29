@@ -124,6 +124,10 @@
 		<servlet-class>org.apache.myfaces.trinidad.webapp.ResourceServlet</servlet-class>
 	</servlet>
 	
+	<servlet>
+		<servlet-name>Redirect Servlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.pubman.servlet.RedirectServlet</servlet-class>
+	</servlet>
 	<!-- This filter is always required;  one of its functions is 
 		file upload. -->
 	<filter>
@@ -143,6 +147,11 @@
 	<servlet-mapping>
 		<servlet-name>Faces Servlet</servlet-name>
 		<url-pattern>/faces/*</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>Redirect Servlet</servlet-name>
+		<url-pattern>/item/*</url-pattern>
 	</servlet-mapping>
 	
 	<servlet-mapping>

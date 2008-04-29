@@ -39,7 +39,7 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 			<html>
 				<head>
-					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
+					<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
