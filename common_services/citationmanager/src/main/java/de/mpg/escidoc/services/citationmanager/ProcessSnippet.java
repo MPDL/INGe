@@ -53,6 +53,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
+
+
 /**
 *
 * HTML snippet generation class. 
@@ -72,6 +75,7 @@ public class ProcessSnippet {
     private static final String SNIPPET_ELEMENT_NAME = "dcterms:bibliographicCitation";
     private static final String SNIPPET_NS = "http://purl.org/dc/terms/";
     private static final String ITEM_ELEMENT_NAME = "item";
+	private static final String URL_ELEMENT_NAME = "dc:identifier";
     
 	/**
 	 * Takes org.w3c.dom.Document  doc, processes it with InputStream report,
@@ -184,6 +188,7 @@ public class ProcessSnippet {
 			Element snippetElement = doc.createElement(SNIPPET_ELEMENT_NAME);
 			snippetElement.setAttribute("xmlns:dcterms", SNIPPET_NS);
 			
+			addFrameworkPrefixUrl(doc, snippetElement, (Element)itemsArr[i]); 
 			
 			CDATASection snippetCDATASection = doc.createCDATASection(extractPureCitation(sb[i].toString()));
 			snippetElement.appendChild(snippetCDATASection);
@@ -214,6 +219,31 @@ public class ProcessSnippet {
 	}
 	
 	
+	private void addFrameworkPrefixUrl(Document doc, Element snippetElement, Element item) throws IOException {
+
+		String fw_url = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		
+		NodeList nl = item.getElementsByTagName("escidocComponents:components");
+		if ( nl == null )
+			return;
+		
+		Element e = (Element)nl.item(0);
+		if ( e == null )
+			return;
+		
+		nl = e.getElementsByTagName("escidocComponents:component");
+		if ( nl == null )
+			return;
+		
+		for ( int i = 0; i < nl.getLength(); i++ )
+		{
+			e = (Element)nl.item( i );
+			e = (Element)e.getElementsByTagName("escidocComponents:content").item( 0 );
+			e.setAttribute( "xlink:href", fw_url + e.getAttribute( "xlink:href" ) );
+		}
+	}
+
+
 	/**
 	 * Extracts pure citation html from generated html report 
 	 * @param html - reportPrint html
