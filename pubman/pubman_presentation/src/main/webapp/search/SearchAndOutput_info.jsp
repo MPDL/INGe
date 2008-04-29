@@ -31,6 +31,7 @@
 %>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 		<link rel="search" href="opensearch_apa_html_all.xml" type="application/opensearchdescription+xml" title="eSciDoc OS APA" />
 		<link rel="search" href="opensearch_endnote_all.xml" type="application/opensearchdescription+xml" title="eSciDoc OS EndNote" />
 		<title>eSciDoc SearchAndOutput Service</title>

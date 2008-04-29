@@ -32,6 +32,7 @@
 <%@page import="de.mpg.escidoc.services.framework.PropertyReader"%>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 		<title>eSciDoc Search and Output Service</title>
 		<script type="text/javascript" id="script">
 
@@ -61,7 +62,7 @@
 		<form name="form" method="post" action="rest">
 			<p>
 				This is the CQL search query:<br/>
-				<input type="text" name="cqlQuery" value="escidoc.metadata=test"></input>
+				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=test"></input>
 			</p>
 			<p>
 				<strong>Info:</strong> You can find
