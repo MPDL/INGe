@@ -34,20 +34,17 @@
 
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
 	<f:subview id="ViewItemStatisitcs">
-		<div class="floatbox">
+
 		
 		<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemStatisticsPage.previousPageURI}">
 			<h:outputText value="#{lbl.statistics_btnBack}" styleClass="statisticsBackLink"/>
 		</h:outputLink>
 		
-		<h2>
-		<div id="valItemStatisitics" class="viewItemTopHeader">
-			<div class="icon detailsIcon"></div>
-			<h:outputText value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" />
+		<h1 class="bottomSpace">
+			<h:outputText id="valOrientationText" value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" />
 			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ItemStatistics');return false"/>
-			</div>
-		</h2>
-		</div>
+		</h1>
+
 		
 		
 		
