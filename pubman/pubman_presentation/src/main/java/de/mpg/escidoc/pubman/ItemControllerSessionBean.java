@@ -41,6 +41,8 @@ import org.apache.log4j.Logger;
 
 import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
@@ -55,14 +57,14 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -495,8 +497,64 @@ public class ItemControllerSessionBean extends FacesBean
                     
         return newRevision;
     }
-   
+
+
     /**
+     * Redirects the user to the create new revision page
+     * Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
+     * 
+     * @return Sring nav rule to load the create new revision page
+     */
+    public String createItemFromTemplate()
+    {
+        // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
+        // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
+        if (this.getContextListSessionBean().getContextList().size() == 0)
+        {
+            logger.warn("The user does not have privileges for any context.");
+            return null;
+        }
+        
+        PubItemVO newItem = new PubItemVO(this.getCurrentPubItem());
+        newItem.getVersion().setObjectId(null);
+        newItem.getVersion().setVersionNumber(0);
+        newItem.getVersion().setState(ItemVO.State.PENDING);
+        this.setCurrentPubItem(newItem);
+        
+        if (this.getContextListSessionBean().getContextList().size() == 1)
+        {            
+            PubContextVO context = this.getContextListSessionBean().getContextList().get(0);
+            
+            newItem.setContext(context.getReference());
+            
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("The user has only privileges for one collection (ID: " 
+                        + context.getReference().getObjectId() + ")");
+            }
+            
+            return EditItem.LOAD_EDITITEM;
+        }
+        else
+        {
+            // more than one context exists for this user; let him choose the right one
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("The user has privileges for " + this.getContextListSessionBean().getContextList().size() 
+                        + " different contexts.");
+            }
+
+            newItem.setContext(null);
+            
+            return CreateItem.LOAD_CREATEITEM;
+        }
+    }
+    
+    private ContextListSessionBean getContextListSessionBean() {
+		return (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+	}
+
+	/**
      * Creates a new PubItem.
      * @return the new PubItem
      */

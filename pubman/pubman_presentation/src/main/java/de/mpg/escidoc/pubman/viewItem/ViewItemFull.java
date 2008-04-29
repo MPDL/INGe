@@ -31,7 +31,6 @@
 package de.mpg.escidoc.pubman.viewItem;
 
 import java.io.IOException;
-import java.security.acl.Owner;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -105,6 +104,10 @@ public class ViewItemFull extends FacesBean
     public static final String PARAMETERNAME_ITEM_ID = "itemId";
     // Faces navigation string
     public final static String LOAD_VIEWITEM = "loadViewItem";
+    
+    public boolean isDepositor = false;
+    public boolean isModerator = false;
+    
     // Validation Service
     private ItemValidating itemValidating = null; 
     private PubItemVO pubItem = null;
@@ -263,8 +266,8 @@ public class ViewItemFull extends FacesBean
             loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
-            boolean isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-            boolean isDepositor = loginHelper.getAccountUser().isDepositor();
+            isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+            isDepositor = loginHelper.getAccountUser().isDepositor();
             boolean isOwner = true;
             if (this.pubItem.getOwner() != null)
             {
@@ -1655,5 +1658,25 @@ public class ViewItemFull extends FacesBean
     {
         this.isStateWithdrawn = isStateWithdrawn;
     }
+
+	public boolean getIsDepositor()
+	{
+		return isDepositor;
+	}
+
+	public void setDepositor(boolean isDepositor)
+	{
+		this.isDepositor = isDepositor;
+	}
+
+	public boolean getIsModerator()
+	{
+		return isModerator;
+	}
+
+	public void setModerator(boolean isModerator)
+	{
+		this.isModerator = isModerator;
+	}
 
 }

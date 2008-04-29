@@ -70,6 +70,7 @@ public class ViewItemSessionBean extends FacesBean
     private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
     private HtmlCommandLink lnkModify = new HtmlCommandLink();
     private HtmlCommandLink lnkCreateNewRevision = new HtmlCommandLink(); 
+    private HtmlCommandLink lnkCreateItemFromTemplate = new HtmlCommandLink(); 
     
     //the basic links
     private HtmlCommandLink lnkViewReleaseHistory = new HtmlCommandLink();
@@ -272,7 +273,16 @@ public class ViewItemSessionBean extends FacesBean
         this.lnkCreateNewRevision = lnkCreateNewRevision;
     }
 
-    public HtmlCommandLink getLnkViewReleaseHistory()
+    public HtmlCommandLink getLnkCreateItemFromTemplate() {
+		return lnkCreateItemFromTemplate;
+	}
+
+	public void setLnkCreateItemFromTemplate(
+			HtmlCommandLink lnkCreateItemFromTemplate) {
+		this.lnkCreateItemFromTemplate = lnkCreateItemFromTemplate;
+	}
+
+	public HtmlCommandLink getLnkViewReleaseHistory()
     {
         return lnkViewReleaseHistory;
     }

@@ -59,7 +59,9 @@ public class PubContextVOPresentation extends PubContextVO {
     public String select()
     {
     	selected = true;
-    	return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EditItem.LOAD_EDITITEM, getReference());
+    	//return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EditItem.LOAD_EDITITEM, getReference());
+    	((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).getCurrentPubItem().setContext(this.getReference());
+    	return EditItem.LOAD_EDITITEM;
     }
     
     public String selectForEasySubmission()

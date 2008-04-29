@@ -41,6 +41,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 
 /**
@@ -95,8 +96,8 @@ public class CreateItem extends FacesBean
         }
         
         // first clear the EditItemSessionBean
-        this.getEditItemSessionBeanSessionBean().clean();
-
+        this.getEditItemSessionBean().clean();
+        
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
         if (this.getContextListSessionBean().getContextList().size() == 0)
@@ -123,8 +124,8 @@ public class CreateItem extends FacesBean
                 logger.debug("The user has privileges for "
                         + this.getContextListSessionBean().getContextList().size() + " different contexts.");
             }
-
-            return CreateItem.LOAD_CREATEITEM;
+            return this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
+            		this.getContextListSessionBean().getContextList().get(0).getReference());
         }
     }
 
@@ -161,7 +162,7 @@ public class CreateItem extends FacesBean
      * Returns the ItemListSessionBean.
      * @return a reference to the scoped data bean (ItemListSessionBean)
      */
-    protected EditItemSessionBean getEditItemSessionBeanSessionBean()
+    protected EditItemSessionBean getEditItemSessionBean()
     {
         return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
     }
@@ -172,7 +173,7 @@ public class CreateItem extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
 	public List<PubContextVOPresentation> getCurrentCollectionList() {
