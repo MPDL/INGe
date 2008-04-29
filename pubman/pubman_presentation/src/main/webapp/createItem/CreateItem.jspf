@@ -42,7 +42,7 @@
 			<jsp:directive.include file="../list/contextList.jspf"/>
 	
 			<div>
-				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateItemPage.cancel}" />
+				<h:commandButton id="cancel" styleClass="inlineButton" value="#{lbl.cancel}" action="#{CreateItemPage.cancel}" />
 			</div>
 		</div>
 	</f:subview>

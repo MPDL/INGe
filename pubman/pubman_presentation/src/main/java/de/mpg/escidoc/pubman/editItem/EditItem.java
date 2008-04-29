@@ -997,6 +997,7 @@ public class EditItem extends FacesBean
             return ErrorPage.LOAD_ERRORPAGE;
         }
         // replace all carriage returns by whitespaces
+        contextDescription = "<div class=\"affDetails\"><div class=\"formField\">"+contextDescription+"</div></div>";
         contextDescription = contextDescription.replaceAll("\r?\n"," ");
         return contextDescription;
     }

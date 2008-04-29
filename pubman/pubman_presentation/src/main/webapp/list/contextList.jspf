@@ -35,13 +35,13 @@ All rights reserved. Use is subject to license terms.
 	<f:subview id="list">
 		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.contextList}" rowClasses="odd, even">
 			<h:column>
-				<h:panelGroup styleClass="listItemHeader">
-					<h:panelGroup layout="block" id="link">
+				<h:panelGroup styleClass="easySubmissionSubBox">
+					<h:panelGroup layout="block" id="link" styleClass="easySubmissionBoxBodyLine easySubmissionSubBoxHeader">
 						<h:commandLink action="#{context.select}">
 							<h:outputText value="#{context.name}"/>
 						</h:commandLink>
 					</h:panelGroup>
-					<h:panelGroup layout="block" id="description">
+					<h:panelGroup layout="block" id="description" styleClass="easySubmissionBoxBodySubLine">
 						<h:outputText value="#{context.description}"/>
 					</h:panelGroup>
 					
