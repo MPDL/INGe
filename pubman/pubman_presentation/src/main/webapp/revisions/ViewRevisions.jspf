@@ -41,14 +41,16 @@
 			<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
 			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ViewRevision');return false"/>
 		</h1>
-		<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}" rendered="#{! RelationListSessionBean.showRelations}"/>
-		<h:panelGroup layout="block" styleClass="listHeader dark" rendered="#{RelationListSessionBean.showRelations}">
+		<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}" rendered="#{!RevisionList.showRevisions}"/>
+		<%-- 
+		<h:panelGroup layout="block" styleClass="listHeader dark" rendered="#{RevisionList.showRevisions}">
 			<h3>
 				<label>
 					<h:outputText id="valItemDetails" value="#{lbl.ViewItemReleaseHistory_lblIsRevisionOf}"/>
 				</label>
 			</h3>
 		</h:panelGroup>
+		--%>
 		<jsp:directive.include file="../list/itemList.jspf"/>
 	</f:subview>
 </div>

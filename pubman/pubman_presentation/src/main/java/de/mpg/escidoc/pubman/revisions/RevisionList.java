@@ -58,6 +58,8 @@ public class RevisionList extends FacesBean
     // Faces navigation string
     public final static String LOAD_REVISION_LIST = "loadRevisionList";
 
+    private List<PubItemVOPresentation> revisionList;
+    
     /**
      * Public constructor.
      */
@@ -101,9 +103,9 @@ public class RevisionList extends FacesBean
         }
         
         
-        List<PubItemVOPresentation> sourcePubItemPresentVOList = CommonUtils.convertToPubItemVOPresentationList(pubItemVOList);
+        revisionList = CommonUtils.convertToPubItemVOPresentationList(pubItemVOList);
    
-        this.getItemListSessionBean().setCurrentPubItemList(sourcePubItemPresentVOList);
+        this.getItemListSessionBean().setCurrentPubItemList(revisionList);
         this.getItemListSessionBean().setIsRevisionView(true);
         this.getItemListSessionBean().setListDirty(true);
     
@@ -175,5 +177,10 @@ public class RevisionList extends FacesBean
     protected ItemListSessionBean getItemListSessionBean() 
     {
         return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
+    }
+    
+    public boolean getShowRevisions()
+    {
+        return revisionList.size() > 0;
     }
 }

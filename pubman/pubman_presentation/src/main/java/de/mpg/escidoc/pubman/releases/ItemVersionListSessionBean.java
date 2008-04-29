@@ -45,7 +45,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 /**
- * Keeps all attributes that are used for the whole session by the ReleaseHistory.
+ * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and the Revision History.
  * @author:  Tobias Schraut, created 18.10.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
  */
