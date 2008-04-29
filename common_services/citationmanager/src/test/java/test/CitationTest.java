@@ -3,8 +3,6 @@
  */
 package test;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -140,6 +138,7 @@ public class CitationTest {
      * @throws Exception Any exception.
      */
     @Test
+    @Ignore
     public final void testCitManOutputSnippet() throws Exception {
     	long start;
     	byte[] result;
