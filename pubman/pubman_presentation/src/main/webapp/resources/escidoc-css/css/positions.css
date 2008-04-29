@@ -549,7 +549,9 @@ margin-left: -10px;
 }
 
 .checkItem label{
-	margin-left:5px;
+	margin-left:3px;
+	overflow:hidden;
+	display:block;
 }
 
 .formField, .formFieldLanguage{
@@ -611,16 +613,20 @@ margin-left: -10px;
 .formGroupCheckboxMatrix .checkItem label{
 	position:relative;
 	top:-17px;
-	left:18px;
+	left:15px;
 	
 }
 
 .short{
-	width:14%;
+	width:100px;
+}
+
+.medium{
+	width:110;
 }
 
 .long{
-	width:19%;
+	width:125px;
 }
 .dateCol{
 	width:120px;
