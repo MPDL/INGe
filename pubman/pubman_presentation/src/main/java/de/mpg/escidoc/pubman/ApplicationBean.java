@@ -66,6 +66,9 @@ public class ApplicationBean extends FacesBean
 
     // entry when no item in the comboBox is selected
     private SelectItem NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
+    
+    /** filename of the ear-internal property file */ 
+    private static final String PROPERTY_FILENAME = "solution.properties";
 
     /**
      * enum for select items.
@@ -402,7 +405,7 @@ public class ApplicationBean extends FacesBean
     {
         try
         {
-            Properties properties = CommonUtils.getProperties("version.properties");
+            Properties properties = CommonUtils.getProperties( PROPERTY_FILENAME );
             return properties.getProperty("escidoc.pubman.version");
         }
         catch (IOException e)
