@@ -44,6 +44,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 
@@ -146,6 +147,10 @@ public class SubmitItem extends FacesBean
     	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     	String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        if(navigateTo == null)
+        {
+        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
+        }
         //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
         String comment;
 
@@ -176,7 +181,7 @@ public class SubmitItem extends FacesBean
         {
         	try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getLatestVersion().getVersionNumber());
+    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     		} 
             catch (IOException e) {
     			logger.error("Could not redirect to View Item Page", e);
