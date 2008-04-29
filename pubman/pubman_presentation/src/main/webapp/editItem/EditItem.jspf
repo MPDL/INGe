@@ -53,7 +53,7 @@
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">				
 				
-				<h:outputLabel styleClass="colLbl" id="lblGenre" value="* #{lbl.EditItem_lblGenre}"/>
+				<h:outputLabel styleClass="colLbl" id="lblGenre" value="* #{lbl.EditItem_lblGenre}" title="#{msg.mandatoryField}" />
 				<h:selectOneMenu id="cboGenre" value="#{EditItem.pubItem.metadata.genre}" styleClass="editItemComboBoxShort">
 					<f:selectItems value="#{EditItem.genres}" />
 				</h:selectOneMenu>
