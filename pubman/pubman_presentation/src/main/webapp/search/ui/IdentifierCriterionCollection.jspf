@@ -47,8 +47,8 @@
 				<%/* panControls */%>
 				
 					<div class="displayControls moveTop">
-						<h:commandButton image="images/up.gif" action="#{identifierCriterionBean.collapse}" rendered="#{!identifierCriterionBean.collapsed}" />	
-						<h:commandButton image="images/down.gif" action="#{identifierCriterionBean.expand}" rendered="#{identifierCriterionBean.collapsed}"/>	
+						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{identifierCriterionBean.collapse}" rendered="#{!identifierCriterionBean.collapsed}" />	
+						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{identifierCriterionBean.expand}" rendered="#{identifierCriterionBean.collapsed}"/>	
 					</div>
 				
 			</div>
