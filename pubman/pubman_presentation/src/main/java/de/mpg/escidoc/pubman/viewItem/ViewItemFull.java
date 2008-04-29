@@ -437,7 +437,19 @@ public class ViewItemFull extends FacesBean
             {
             	if(searchHitList.size() > 0 && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
                 {
-            		this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState(), searchHitList));
+            		//this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState(), searchHitList));
+            		
+            		if(this.pubItem.getFiles().get(i).getLocator() != null && !this.pubItem.getFiles().get(i).getLocator().trim().equals(""))
+                    {
+                        this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
+                        countLocators ++;
+                    }
+                    // add files
+                    else
+                    {
+                        this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), countFiles, this.pubItem.getVersion().getState(), searchHitList));
+                        countFiles ++;
+                    }
                 }
             	else
             	{
