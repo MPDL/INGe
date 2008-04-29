@@ -471,6 +471,9 @@ margin-left: -10px;
 	float:right;
 }
 
+.listItemHeaderViews input, .listItemHeaderViews button, .listHeaderControls input, .listHeaderControls input, .listItemHeaderViews input:hover, .listItemHeaderViews button:hover, .listHeaderControls input:hover, .listHeaderControls input:hover {
+	background-color: #e2e2e2;
+}
 
 
 	
