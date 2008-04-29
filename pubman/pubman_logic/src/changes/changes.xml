@@ -41,5 +41,10 @@
         Lots of changes for the maven build environment.
       </action>
     </release>
+    <release version="3.0.0" date="2008-04-29" description="Release of all modules">
+      <action dev="tendres" type="update">
+        R3 release
+      </action>
+    </release>
   </body>
 </document>
