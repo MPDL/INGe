@@ -45,6 +45,11 @@
       <action dev="tendres" type="update">
         dependency changed to validation_presentation-1.0.2.
       </action>
+    <release version="3.0.0" date="2008-04-29" description="Release of all modules">
+      <action dev="tendres" type="update">
+        R3 release
+      </action>
+    </release>
     </release>
   </body>
 </document>
