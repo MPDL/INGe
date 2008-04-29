@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>2.0.18-SNAPSHOT</version>
+	<version>3.0.0</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -161,9 +161,9 @@
 	</modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.0.0</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.0.0</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-3.0.0</url>
 	</scm>
 
 	<distributionManagement>
@@ -549,7 +549,7 @@
 			</activation>
 			<properties>
 				<!-- linux doesn't need the extra slash like windows does -->
-				<jboss.pathcorrection></jboss.pathcorrection>
+				<jboss.pathcorrection />
 			</properties>
 		</profile>
 	</profiles>

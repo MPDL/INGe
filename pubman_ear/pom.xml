@@ -2,19 +2,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>2.0.18-SNAPSHOT</version>
+		<version>3.0.0</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
-	<artifactId>pubman_logic_ear</artifactId>
-	<name>pubman_logic_ear</name>
+	<artifactId>pubman_ear</artifactId>
+	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>2.0.18-SNAPSHOT</version>
+	<version>3.0.0</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic_ear</developerConnection>
-		<url>http://zim02.gwdg.de/repos/pubman/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.0.0/pubman_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.0.0/pubman_ear</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/tags/pubman-3.0.0/pubman_ear</url>
 	</scm>
 
 	<build>
@@ -28,9 +28,15 @@
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<modules>
 						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>validation_presentation</artifactId>
+							<groupId>de.mpg.escidoc.pubman</groupId>
+							<artifactId>pubman_presentation</artifactId>
+							<contextRoot>/pubman</contextRoot>
 						</webModule>
+						<jarModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>framework_access</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -51,20 +57,14 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>validation</artifactId>
 						</ejbModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>validation_presentation</artifactId>
+						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
-						<jarModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>framework_access</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>axis</groupId>
-							<artifactId>axis</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
@@ -86,18 +86,33 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
-							<groupId>net.sf.saxon</groupId>
-							<artifactId>saxon</artifactId>
-							<includeInApplicationXml>true</includeInApplicationXml>
-						</jarModule>
-						<jarModule>
-							<groupId>commons-beanutils</groupId>
-							<artifactId>commons-beanutils</artifactId>
+							<groupId>axis</groupId>
+							<artifactId>axis</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
 							<groupId>wss4j</groupId>
 							<artifactId>wss4j</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>net.sf.saxon</groupId>
+							<artifactId>saxon</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>trinidad</groupId>
+							<artifactId>trinidad-api</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>trinidad</groupId>
+							<artifactId>trinidad-impl</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
@@ -113,7 +128,13 @@
 					</modules>
 				</configuration>
 			</plugin>
-			<!-- enables the compile test resources feature in the ear -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<executions>
@@ -122,14 +143,9 @@
 						<goals>
 							<goal>testCompile</goal>
 						</goals>
-						<configuration>
-							<source>1.5</source>
-							<target>1.5</target>
-						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- disables the unittests, enables the integration tests -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
@@ -142,45 +158,27 @@
 							<goal>test</goal>
 						</goals>
 						<configuration>
-							<skip>false</skip>
-							<test>TestPubManLogic</test>
+							<skip>true</skip>
 						</configuration>
 					</execution>
 				</executions>
 			</plugin>
-			<!-- enables the process test resources feature in the ear -->
-			<plugin>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>process-test-resources</phase>
-						<goals>
-							<goal>testResources</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
-
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/sql</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-		<testResources>
-			<testResource>
-				<directory>src/test/resources</directory>
-				<filtering>true</filtering>
-			</testResource>
-		</testResources>
 	</build>
 
 	<dependencies>
+		<dependency>
+			<groupId>axis</groupId>
+			<artifactId>axis</artifactId>
+			<version>1.4</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>wss4j</groupId>
+			<artifactId>wss4j</artifactId>
+			<version>1.5.1</version>
+			<scope>compile</scope>
+		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -196,44 +194,51 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency> 
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>citationmanager</artifactId>
+			<version>1.0.3</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>citationmanager</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
-			<scope>compile</scope>
-			<type>ejb</type>
-		</dependency>
-	    <dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.0-SNAPSHOT</version>
+			<version>1.0.0</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.3</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>2.0.18-SNAPSHOT</version>
+			<version>3.0.0</version>
 			<scope>compile</scope>
 			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.pubman</groupId>
+			<artifactId>pubman_presentation</artifactId>
+			<version>3.0.0</version>
+			<scope>compile</scope>
+			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>xmlunit</groupId>
@@ -241,36 +246,7 @@
 			<version>1.0</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>jnpserver</groupId>
-			<artifactId>jnpserver</artifactId>
-			<version>4.0.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-ejb3-client</groupId>
-			<artifactId>jboss-ejb-client</artifactId>
-			<version>4.2.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-ejb3x</groupId>
-			<artifactId>jboss-ejb3x</artifactId>
-			<version>4.2.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jboss-annotations-ejb3</groupId>
-			<artifactId>jboss-annotations-ejb3</artifactId>
-			<version>4.2.2</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>jbossall-client</groupId>
-			<artifactId>jbossall-client</artifactId>
-			<version>4.2.2</version>
-			<scope>test</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>jasperreports</groupId>
 			<artifactId>jasperreports</artifactId>
@@ -281,7 +257,19 @@
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>trinidad</groupId>
+			<artifactId>trinidad-api</artifactId>
+			<version>1.2.6</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>trinidad</groupId>
+			<artifactId>trinidad-impl</artifactId>
+			<version>1.2.6</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>commons-beanutils</groupId>
@@ -293,7 +281,7 @@
 			<groupId>com.lowagie</groupId>
 			<artifactId>itext</artifactId>
 			<version>1.3.1</version>
-			<scope>runtime</scope>
+			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>javabib</groupId>
@@ -303,7 +291,6 @@
 		</dependency>
 	</dependencies>
 
-	
 	<profiles>
 		<profile>
 			<id>jboss40</id>
@@ -313,23 +300,6 @@
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
 						<version>0.3.1</version>
-						<executions>
-							<execution>
-								<id>start-container</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-									<goal>prepare-deployment</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>stop-container</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<container>
 								<containerId>jboss4x</containerId>
@@ -360,22 +330,6 @@
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
 						<version>1.0-20080229.093539-2</version>
-						<executions>
-							<execution>
-								<id>start-container</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>start</goal>
-								</goals>
-							</execution>
-							<execution>
-								<id>stop-container</id>
-								<phase>post-integration-test</phase>
-								<goals>
-									<goal>stop</goal>
-								</goals>
-							</execution>
-						</executions>
 						<configuration>
 							<wait>false</wait>
 							<container>
@@ -412,7 +366,7 @@
 						<version>1.1</version>
 						<executions>
 							<execution>
-								<id>prepare-deployment</id>
+								<id>prepare-test-deployment</id>
 								<phase>generate-test-sources</phase>
 								<goals>
 									<goal>run</goal>
@@ -424,18 +378,53 @@
 											<fileset dir="src/jboss/configuration42x" />
 										</copy>
 										<!-- copy over the validation datasource descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy" />
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${project.build.directory}/jboss/server/deploy">
+										</copy>
 										<!-- copy over the jboss service descriptor -->
-										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf" />
-											<!-- copy over the configuration file -->
-										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf" />
+										<copy overwrite="true" file="${project.build.directory}/classes/jboss-service.xml" todir="${project.build.directory}/jboss/server/conf">
+										</copy>
+										<!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${project.build.directory}/jboss/server/conf">
+										</copy>
+									</tasks>
+								</configuration>
+							</execution>
+							<execution>
+								<id>prepare-deployment</id>
+								<phase>process-resources</phase>
+								<goals>
+									<goal>run</goal>
+								</goals>
+								<configuration>
+									<tasks>
+										<!-- configuration for the deploy jboss server -->
+										<!-- copy over the validation datasource descriptor -->
+										<copy overwrite="true" file="${project.build.directory}/classes/validation-ds.xml" todir="${jboss.install.dir}/server/default/deploy">
+										</copy>
+										<!-- copy over the configuration file -->
+										<copy overwrite="true" file="${project.build.directory}/classes/pubman.properties" todir="${jboss.install.dir}/server/default/conf">
+										</copy>
+
+										<!-- configuration for the runtime server jboss server -->
+										<xslt processor="trax" in="${jboss.install.dir}/server/default/deploy/properties-service.xml" style="${project.build.directory}/classes/properties-service-transform.xsl" out="${project.build.directory}/properties-service.temp" />
+										<copy overwrite="true" file="${project.build.directory}/properties-service.temp" toFile="${jboss.install.dir}/server/default/deploy/properties-service.xml">
+										</copy>
+
 									</tasks>
 								</configuration>
 							</execution>
 						</executions>
+						<dependencies>
+							<dependency>
+								<groupId>ant</groupId>
+								<artifactId>ant-trax</artifactId>
+								<version>1.6.5</version>
+							</dependency>
+						</dependencies>
 					</plugin>
 				</plugins>
 			</build>
 		</profile>
 	</profiles>
+
 </project>
