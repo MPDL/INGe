@@ -314,14 +314,13 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 	width: 650px;
 	display: block;
 	top: -0.8em;
-	padding: 12px 0px 12px 0px;
+	padding: 7px 7px 7px 7px;
 	font-family: Courier, "Courier New", monospace !important;
-	border: 1px solid black;
+	border: 2px solid black;
 }
  
 .messageError{
-	color:red;
-	border-color: red;		   
+	color:red;	   
 }
 
 #inputerror {
