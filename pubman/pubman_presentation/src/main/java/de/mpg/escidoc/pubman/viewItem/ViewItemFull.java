@@ -1041,13 +1041,13 @@ public class ViewItemFull extends FacesBean
     public boolean getShowDates()
     {
         return
-        !(
-                (this.getPubItem().getMetadata().getDatePublishedInPrint().equals("") || this.getPubItem().getMetadata().getDatePublishedInPrint() == null ) &&
-                (this.getPubItem().getMetadata().getDatePublishedOnline().equals("") || this.getPubItem().getMetadata().getDatePublishedOnline() == null ) &&
-                (this.getPubItem().getMetadata().getDateAccepted().equals("") ||  this.getPubItem().getMetadata().getDateAccepted() == null ) &&
-                (this.getPubItem().getMetadata().getDateSubmitted().equals("") ||  this.getPubItem().getMetadata().getDateSubmitted() == null ) &&
-                (this.getPubItem().getMetadata().getDateModified().equals("") ||  this.getPubItem().getMetadata().getDateModified() == null ) &&
-                (this.getPubItem().getMetadata().getDateCreated().equals("") || this.getPubItem().getMetadata().getDateCreated() == null ) 
+        (
+                (this.getPubItem().getMetadata().getDatePublishedInPrint() != null && !this.getPubItem().getMetadata().getDatePublishedInPrint().equals("") ) ||
+                (this.getPubItem().getMetadata().getDatePublishedOnline() != null && !this.getPubItem().getMetadata().getDatePublishedOnline().equals("")) ||
+                (this.getPubItem().getMetadata().getDateAccepted() != null && !this.getPubItem().getMetadata().getDateAccepted().equals("")) ||
+                (this.getPubItem().getMetadata().getDateSubmitted() != null && !this.getPubItem().getMetadata().getDateSubmitted().equals("") ) ||
+                (this.getPubItem().getMetadata().getDateModified() != null && !this.getPubItem().getMetadata().getDateModified().equals("")) ||
+                (this.getPubItem().getMetadata().getDateCreated() != null && !this.getPubItem().getMetadata().getDateCreated().equals("")) 
                 
         );
     }

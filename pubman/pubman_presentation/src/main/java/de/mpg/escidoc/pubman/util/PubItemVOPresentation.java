@@ -292,22 +292,22 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         ArrayList<String> dates = new ArrayList<String>();
         
-        if (!(getMetadata().getDateCreated().equals("") || getMetadata().getDateCreated()==null))
+        if (getMetadata().getDateCreated()!=null && !getMetadata().getDateCreated().equals(""))
             dates.add(getLabel("ViewItem_lblDateCreated") + ": " + getMetadata().getDateCreated());
         
-        if (!(getMetadata().getDateModified().equals("") ||  getMetadata().getDateModified() == null ))
+        if (getMetadata().getDateModified() != null && !getMetadata().getDateModified().equals(""))
             dates.add(getLabel("ViewItem_lblDateModified") + ": " + getMetadata().getDateModified());
   
-        if (!(getMetadata().getDateSubmitted().equals("") ||  getMetadata().getDateSubmitted() == null ))
+        if (getMetadata().getDateSubmitted() != null && !getMetadata().getDateSubmitted().equals(""))
             dates.add(getLabel("ViewItem_lblDateSubmitted") + ": " + getMetadata().getDateSubmitted());
         
-        if (!(getMetadata().getDateAccepted().equals("") ||  getMetadata().getDateAccepted() == null ))
+        if (getMetadata().getDateAccepted() != null && !getMetadata().getDateAccepted().equals(""))
             dates.add(getLabel("ViewItem_lblDateAccepted") + ": " + getMetadata().getDateAccepted());
         
-        if (!(getMetadata().getDatePublishedOnline().equals("") || getMetadata().getDatePublishedOnline() == null ))
+        if (getMetadata().getDatePublishedOnline() != null && !getMetadata().getDatePublishedOnline().equals(""))
             dates.add(getLabel("ViewItem_lblDatePublishedOnline") + ": " + getMetadata().getDatePublishedOnline());
         
-        if (!(getMetadata().getDatePublishedInPrint().equals("") || getMetadata().getDatePublishedInPrint() == null ))
+        if (getMetadata().getDatePublishedInPrint() != null && !getMetadata().getDatePublishedInPrint().equals(""))
             dates.add(getLabel("ViewItem_lblDatePublishedInPrint") + ": " + getMetadata().getDatePublishedInPrint());
         
         
