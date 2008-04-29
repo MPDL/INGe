@@ -48,7 +48,7 @@
 				<h:panelGroup>
 					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px" rendered="#{node.mps}"/>
 					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
-					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
+					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
 					<h:commandButton styleClass="noBorder" image="./images/info.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
 					<%--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />--%>
