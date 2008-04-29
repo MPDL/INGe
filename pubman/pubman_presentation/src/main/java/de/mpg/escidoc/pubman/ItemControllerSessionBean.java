@@ -612,6 +612,16 @@ public class ItemControllerSessionBean extends FacesBean
         {
         	newPubItem.getMetadata().getEvent().setPlace(new TextVO());
         }
+        // add subject if needed to be able to bind uiComponents to it
+        if (newPubItem.getMetadata().getSubject() == null)
+        {
+        	newPubItem.getMetadata().setSubject(new TextVO());
+        }
+        //add TOC if needed to be able to bind uiComponents to it
+        if (newPubItem.getMetadata().getTableOfContents() == null)
+        {
+        	newPubItem.getMetadata().setTableOfContents(new TextVO());
+        }
         
         return newPubItem;
     }
