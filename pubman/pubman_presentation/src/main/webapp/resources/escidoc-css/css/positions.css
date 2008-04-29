@@ -122,6 +122,8 @@ label{
 	margin-bottom: 5em;
 }
 
+
+
 	/* EDIT ITEM */
 
 .editItem {
@@ -487,6 +489,10 @@ margin-left: -10px;
 #5A5A5A\ ganz dunkel
 
 */
+
+.smallFont{
+	font-size:80%;
+}
 
 
 .advancedSearch .formFieldLanguage .editItemComboBoxLanguage{
