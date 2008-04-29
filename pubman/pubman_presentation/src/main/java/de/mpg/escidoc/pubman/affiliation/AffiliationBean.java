@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.affiliation;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.el.ValueExpression;
@@ -34,6 +35,8 @@ public class AffiliationBean extends FacesBean {
 	private String source = null;
 	
 	private Object cache = null;
+	
+	private long timestamp;
 
 	/**
 	 * Default constructor.
@@ -41,9 +44,15 @@ public class AffiliationBean extends FacesBean {
 	public AffiliationBean() throws Exception
 	{
 		tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+		timestamp = new Date().getTime();
 	}
 	
 	public TreeModel getTree() {
+		if (timestamp < ((AffiliationTree)getApplicationBean(AffiliationTree.class)).getTimestamp())
+		{
+			tree = new ChildPropertyTreeModel(getAffiliations(), "children");
+			timestamp = new Date().getTime();
+		}
 		return tree;
 	}
 

@@ -43,7 +43,7 @@
 		</h2>
 		<br/>
 		
-		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
+		<tr:tree var="node" value="#{AffiliationTree.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
 			<f:facet name="nodeStamp">
 				<h:panelGroup>
 					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px" rendered="#{node.mps}"/>

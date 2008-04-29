@@ -102,7 +102,7 @@ public class InternationalizationHelper
         {
             locale = new Locale(language, country);
             fc.getViewRoot().setLocale(locale);
-            Locale.setDefault(locale);
+            //Locale.setDefault(locale);
             userLocale = locale;
             logger.debug("New locale: " + language + "_" + country + " : " + locale);
         }

@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.affiliation;
 
+import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -10,10 +11,12 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 public class AffiliationTree extends FacesBean {
 
 	List<AffiliationVOPresentation> affiliations;
+	long timestamp;
 	
 	public AffiliationTree() throws Exception
 	{
 		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean().retrieveTopLevelAffiliations());
+		timestamp = new Date().getTime();
 	}
 
 	public List<AffiliationVOPresentation> getAffiliations() {
@@ -32,6 +35,16 @@ public class AffiliationTree extends FacesBean {
 	public String getResetMessage() throws Exception
 	{
 		affiliations = CommonUtils.convertToAffiliationVOPresentationList(getItemControllerSessionBean().retrieveTopLevelAffiliations());
+		timestamp = new Date().getTime();
 		return getMessage("Affiliations_reloaded");
 	}
+
+	public long getTimestamp() {
+		return timestamp;
+	}
+
+	public void setTimestamp(long timestamp) {
+		this.timestamp = timestamp;
+	}
+	
 }
