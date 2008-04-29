@@ -117,7 +117,7 @@ public class SearchAndOutputTest extends TestBase
         assertTrue("Empty output", ! searchResultString.trim().equals("") );
         logger.debug("output: " + searchResultString);
 
-        pubItemDepositing.deletePubItem(myItemRef, user);
+        // pubItemDepositing.deletePubItem(myItemRef, user);
 //        ObjectComparator oc = new ObjectComparator(item,result);
 //        assertTrue( oc.toString(), oc.isEqual());
     }
