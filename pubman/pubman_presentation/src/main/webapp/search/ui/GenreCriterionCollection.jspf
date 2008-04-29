@@ -66,7 +66,7 @@
 				
 				
 					<div class="formGroupCheckboxMatrix floatbox">
-						<h:panelGroup layout="block" styleClass="checkboxCol short">
+						<h:panelGroup layout="block" styleClass="checkboxCol long">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchArticle}" />
 								<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" />

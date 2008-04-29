@@ -40,8 +40,8 @@
 					</h:panelGroup>
 				</h3>
 				<h:panelGroup styleClass="displayControls" layout="block">
-					<h:commandButton action="#{AffiliationDetail.toggleDetails}" image="images/down.gif" rendered="#{!AffiliationDetail.renderDetails}"/>
-					<h:commandButton action="#{AffiliationDetail.toggleDetails}" image="images/up.gif" rendered="#{AffiliationDetail.renderDetails}"/>
+					<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{AffiliationDetail.toggleDetails}" rendered="#{!AffiliationDetail.renderDetails}"/>
+					<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{AffiliationDetail.toggleDetails}" rendered="#{AffiliationDetail.renderDetails}"/>
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup styleClass="formField" layout="block" rendered="#{AffiliationDetail.renderDetails}">
