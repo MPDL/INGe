@@ -58,7 +58,7 @@
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblLinkSection}"/>
 	<h:outputText value="</div>" escape="false"/>
-	<h:outputText value="<div class='itemText floatbox'>" escape="false"/>
+	<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
 		<h:commandLink binding="#{ViewItemSessionBean.lnkViewLog}" action="#{ViewItemFull.showItemLog}">
 					<h:outputText value="Item Log"/>
 		</h:commandLink>
