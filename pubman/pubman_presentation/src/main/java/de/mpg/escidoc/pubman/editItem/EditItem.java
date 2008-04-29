@@ -974,6 +974,32 @@ public class EditItem extends FacesBean
 
         return contextDescription;
     }
+    
+    /**
+     * Retrieves the description of a context to open it in a popup box. This method removes all
+     * carriage returns because javascript throws an error if they are present.
+     * @return the context description without carriage returns
+     */
+    public String getContextDescriptionForPopup()
+    {
+        String contextDescription = "Could not retrieve context description.";
+        
+        try
+        {
+            PubContextVO context = this.getItemControllerSessionBean().getCurrentContext();
+            contextDescription = context.getDescription();
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not retrieve context." + "\n" + e.toString());
+
+            ((ErrorPage)getRequestBean(ErrorPage.class)).setException(e);
+            return ErrorPage.LOAD_ERRORPAGE;
+        }
+        // replace all carriage returns by whitespaces
+        contextDescription = contextDescription.replaceAll("\r?\n"," ");
+        return contextDescription;
+    }
 
     /**
      * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
