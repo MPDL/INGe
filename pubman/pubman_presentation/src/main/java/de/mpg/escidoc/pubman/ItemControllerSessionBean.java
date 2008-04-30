@@ -173,7 +173,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not create item." + "\n" + e.toString());
+            logger.error("Could not create item." + "\n" + e.toString(), e);
             ((ErrorPage) getSessionBean(ErrorPage.class)).setException(e);
 
             return ErrorPage.LOAD_ERRORPAGE;
@@ -571,7 +571,7 @@ public class ItemControllerSessionBean extends FacesBean
         // initialize the new item
         newPubItem = this.initializeItem(newPubItem);
         
-        return newPubItem;
+        return new PubItemVOPresentation(newPubItem);
     }
    
     /** 
@@ -651,22 +651,39 @@ public class ItemControllerSessionBean extends FacesBean
         if (newPubItem.getMetadata().getSources().size() == 0)
         {
         	SourceVO newSource = new SourceVO();
-        	TextVO newSourceTitle = new TextVO();        
-        	newSource.setTitle(newSourceTitle);
-        	PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO(); 
-        	newSource.setPublishingInfo(newSourcePublishingInfo);
-        	CreatorVO newSourceCreator = new CreatorVO();
-            // create a new Organization for this person
-            PersonVO newPerson = new PersonVO();
-            OrganizationVO newPersonOrganization = new OrganizationVO();
-            newPersonOrganization.setName(new TextVO());
-            newPerson.getOrganizations().add(newPersonOrganization);
-            
-            newSourceCreator.setOrganization(null);
-            newSourceCreator.setPerson(newPerson);
-
-	        newSource.getCreators().add(newSourceCreator);        
-	        newPubItem.getMetadata().getSources().add(newSource);
+        	newPubItem.getMetadata().getSources().add(newSource);
+        }
+        for (SourceVO source : newPubItem.getMetadata().getSources())
+        {
+			
+	        if (source.getTitle() == null)
+	        {
+	        	TextVO newSourceTitle = new TextVO();
+	        	source.setTitle(newSourceTitle);
+	        }
+	        if (source.getPublishingInfo() == null)
+	        {
+	        	PublishingInfoVO newSourcePublishingInfo = new PublishingInfoVO(); 
+	        	source.setPublishingInfo(newSourcePublishingInfo);
+	        }
+	        if (source.getCreators().size() == 0)
+	        {
+	        	CreatorVO newSourceCreator = new CreatorVO();
+	            // create a new Organization for this person
+	            PersonVO newPerson = new PersonVO();
+	            OrganizationVO newPersonOrganization = new OrganizationVO();
+	            newPersonOrganization.setName(new TextVO());
+	            newPerson.getOrganizations().add(newPersonOrganization);
+	            
+	            newSourceCreator.setOrganization(null);
+	            newSourceCreator.setPerson(newPerson);
+	
+		        source.getCreators().add(newSourceCreator);
+			}
+	        if (source.getIdentifiers().size() == 0)
+	        {
+	        	source.getIdentifiers().add(new IdentifierVO());
+	        }
         }
         // Event
         // add Event if needed to be able to bind uiComponents to it

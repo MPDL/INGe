@@ -57,8 +57,9 @@ public class ObjectFormatter extends InternationalizedImpl
     public String formatCreator(final CreatorVO creatorObject)
     {
         StringBuffer creator = new StringBuffer();
-        if (creatorObject.getRoleString() != null)
+        if (creatorObject != null && creatorObject.getRoleString() != null && !"".equals(creatorObject.getRoleString()))
         {
+
             creator.append(getLabel("ENUM_CREATORROLE_" + creatorObject.getRoleString()));
             creator.append(": ");
         }
