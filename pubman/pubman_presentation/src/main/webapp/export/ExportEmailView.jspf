@@ -47,7 +47,10 @@
 		<h:commandLink id="lnkSend" styleClass="exportSendButton" value="#{lbl.ExportEmail_lblSend}" action="#{ExportItems.sendEMail}" />	
 	</h:panelGrid>
 	
-	<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
+	<h:panelGroup layout="block" styleClass="messageBox" rendered="#{ExportItemsSessionBean.hasMessages}">
+		<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
+		<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
+	</h:panelGroup>
 	
 	<h:panelGrid id="panelEmailHeader" styleClass="exportEmailBox">
 
