@@ -73,7 +73,7 @@
 				all indexes are allowed.</label><br/>
 			</div>
 			<div class="editItemSingleCol">
-				<label class="colLbl">Choose a language:</label><br/>
+				<label class="colLbl">Choose a Language:</label><br/>
 				<select size="1" name="language" style="width:120px">
 					<option value="all">all languages</option>
 					<option value="en">en</option>
@@ -81,14 +81,14 @@
 				</select>
 			</div>
 			<div class="editItemSingleCol">
-				<label class="colLbl">Choose a Export format:</label><br/>
+				<label class="colLbl">Choose an Export format:</label><br/>
 				<select size="1" name="exportFormat" onchange="checkEndNote()" style="width:120px">
 					<option value="APA">APA</option>
 					<option value="ENDNOTE">EndNote</option>
 				</select>
 			</div>
 			<div class="editItemSingleCol">
-				<label class="colLbl">Choose a Output format:</label><br/>
+				<label class="colLbl">Choose an Output format:</label><br/>
 				<select size="1" name="outputFormat" style="width:120px">
 					<option value="pdf">PDF</option>
 					<option value="html">HTML</option>
@@ -98,7 +98,7 @@
 				</select>
 			</div>
 			<div class="editItemSingleCol">
-				<label class="colLbl">This is the address where to send it:</label><br/>
+				<label class="colLbl">This is the address where to send to:</label><br/>
 				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/SearchAndOutput"/>
 			</div>
 			<div class="editItemSingleCol">
