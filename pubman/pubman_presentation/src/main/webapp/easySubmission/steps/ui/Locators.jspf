@@ -83,7 +83,7 @@
            			</h:panelGroup>
            			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">   
            				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"  rendered="#{locator.file.size == 0}"/>
-           				<tr:outputLabel value="#{locator.contentCategory}"  rendered="#{locator.file.size == 0}"/>
+           				<tr:outputLabel value="#{locator.contentCategory}" styleClass="cursive" rendered="#{locator.file.size == 0}"/>
            			</h:panelGroup>
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">  

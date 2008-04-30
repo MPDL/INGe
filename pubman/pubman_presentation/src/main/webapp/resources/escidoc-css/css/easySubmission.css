@@ -31,6 +31,10 @@
  .borderless {
  	border: 0px;
  }
+ 
+ .cursive {
+ 	font-style: italic;
+ }
 
 /* BOX */
 
