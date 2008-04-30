@@ -36,16 +36,19 @@
 		<link rel="search" href="opensearch_endnote_all.xml" type="application/opensearchdescription+xml" title="eSciDoc OS EndNote" />
 		<title>eSciDoc SearchAndOutput Service</title>
 	</head>
-	<body bgcolor="white">
-		<h1>
+	<body>
+		<div id="col3">
+			<div class="content">
+		<h1 class="topSpace">
 			eSciDoc SearchAndOutput Service REST Interface
 		</h1>
-		<p>
+		<div class="topSpace">
+		<div class="editItemSingleCol">
 			Link: <a href="SearchAndOutput">Search and generate Output</a>
-		</p>
-		<p> 
-			This service expects a GET request containing following parameters:
-		</p>
+		</div>
+		<div class="editItemSingleCol topSpace"> 
+			<span>This service expects a GET request containing following parameters:</span><br/>
+		
 		<ul>
 			<li>
 				<strong>cqlQuery</strong> defines CQL search request (required).  
@@ -62,12 +65,12 @@
 				 
 			</li>
 		</ul>
-		<p> 
-			The service returns results of the search as attached file in the defined format.
-		</p>
-		<p>
+		</div>
+		<div class="editItemSingleCol"> 
+			The service returns results of the search as attached file in the defined format.<br/>
+		
 			Find <a href="SearchAndOutput_rest_sample.jsp">here</a> a sample application to call the service with JavaScript.
-		</p>
+		</div>
 		<h2>
 			OpenSearch indexes:
 		</h2>
@@ -79,5 +82,8 @@
 				exportFormat = EndNote, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider(location.protocol + '//' + location.host  + '/pubman/search/opensearch_endnote_all.xml');">Add</a>
 			</li>
 		  </ul>
+		  </div>
+		  </div>
+		  </div>
 	</body>
 </html>
