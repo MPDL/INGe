@@ -339,6 +339,7 @@ width: 76% !important;
 .displayControls input {
 	padding: 0px !important;
 	border: 0px !important;
+	background-color: #e2e2e2 !important;
 }
 
 .listItemRow {
@@ -474,7 +475,7 @@ margin-left: -10px;
 }
 
 .listItemHeaderViews input, .listItemHeaderViews button, .listHeaderControls input, .listHeaderControls input, .listItemHeaderViews input:hover, .listItemHeaderViews button:hover, .listHeaderControls input:hover, .listHeaderControls input:hover {
-	background-color: #e2e2e2;
+	background-color: #eeeeee;
 }
 
 

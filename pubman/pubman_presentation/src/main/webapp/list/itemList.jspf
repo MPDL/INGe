@@ -60,7 +60,7 @@ All rights reserved. Use is subject to license terms.
 				</div>
 			</h:panelGroup>
 			<div class="displayControls"></div>
-			<h:panelGroup layout="block" styleClass="listHeader dark floatbox">
+			<h:panelGroup layout="block" styleClass="listHeader darker floatbox">
 				<div class="listHeaderSelectItems">
 					<h:selectOneMenu styleClass="topSpace5" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.setSelection}" rendered="#{ItemListSessionBean.isSearchResultList}">
 						<f:selectItems value="#{ListControlSessionBean.selectMultipleItemOptions}" />

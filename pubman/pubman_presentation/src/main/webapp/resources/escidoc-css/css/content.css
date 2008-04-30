@@ -279,7 +279,8 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 .list h1{background-image:url(../images/document_icon.png);}
 
 .odd  {background-color: #f8f8f8;}
-.dark {background-color: #e2e2e2;}
+.dark {background-color: #eeeeee;}
+.darker {background-color: #e2e2e2;}
 
 .item {	
 	margin-bottom: 10px;
