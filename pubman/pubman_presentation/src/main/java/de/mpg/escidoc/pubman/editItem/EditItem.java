@@ -424,6 +424,13 @@ public class EditItem extends FacesBean
     	return null;
     }
     
+    private void cleanSessionBean()
+    {
+    	// finally clean the session bean
+		this.getEditItemSessionBean().getFiles().clear();
+		this.getEditItemSessionBean().getLocators().clear();
+    }
+    
     public boolean getRenderRemoveLanguage()
     {
     	return (getPubItem().getMetadata().getLanguages().size() > 1);
@@ -495,6 +502,8 @@ public class EditItem extends FacesBean
      */
     public String save()
     {
+    	EditItemSessionBean eisb = this.getEditItemSessionBean();
+    	ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
     	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFilesAndLocators();
     	
@@ -533,6 +542,7 @@ public class EditItem extends FacesBean
             else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
                 this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                cleanSessionBean();
             }
             return retVal;
         }
@@ -551,6 +561,7 @@ public class EditItem extends FacesBean
             else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
                 this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                cleanSessionBean();
             }
             return retVal;
         }
@@ -659,6 +670,7 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                cleanSessionBean();
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -677,6 +689,7 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                cleanSessionBean();
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -719,7 +732,8 @@ public class EditItem extends FacesBean
      */
     public String cancel()
     {
-        return DepositorWS.LOAD_DEPOSITORWS;
+    	cleanSessionBean();
+    	return DepositorWS.LOAD_DEPOSITORWS;
     }
 
     /**
@@ -804,6 +818,7 @@ public class EditItem extends FacesBean
             {
                 getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                cleanSessionBean();
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
             
