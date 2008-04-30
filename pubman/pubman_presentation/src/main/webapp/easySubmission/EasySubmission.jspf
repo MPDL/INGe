@@ -29,7 +29,10 @@
 %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="easySubmission">
-		<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
+		<h:panelGroup layout="block" styleClass="messageBox" rendered="#{EasySubmissionSessionBean.hasMessages}">
+			<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
+			<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+		</h:panelGroup>
 
 		<h:panelGroup rendered="#{EasySubmissionSessionBean.currentSubmissionStep == 'STEP1'}">
 			<jsp:directive.include file="steps/Step1.jspf"/>
