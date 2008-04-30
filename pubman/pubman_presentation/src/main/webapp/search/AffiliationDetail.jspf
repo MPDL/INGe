@@ -30,7 +30,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="AffiliationDetail">
-		<br/>
+
 		<h:panelGroup id="panelAffiliationDetail" styleClass="advancedSearch" layout="block">
 			<h:panelGroup styleClass="listHeader dark" layout="block">
 				<h3>
@@ -67,7 +67,7 @@
 						<h:outputText value="#{AffiliationDetail.affiliationVO.homepageUrl}"/>
 					</h:outputLink>
 				</h:panelGroup>
-				<br/>
+
 			</h:panelGroup>
 		</h:panelGroup>
 	</f:subview>

@@ -311,7 +311,7 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 }
  
 .messageStatus, .messageError{	
-	width: 650px;
+	width: 600px;
 	display: block;
 	top: -0.8em;
 	padding: 7px 7px 7px 7px;

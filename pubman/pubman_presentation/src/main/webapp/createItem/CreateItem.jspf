@@ -39,6 +39,10 @@
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#NewSubmission');return false"/>	  
 			</h1>
 
+			<h4>
+				<h:outputText value="#{msg.create_Item_Select_Collection}"/>
+			</h4>
+
 			<jsp:directive.include file="../list/contextList.jspf"/>
 	
 			<div>
