@@ -629,6 +629,19 @@ public class ItemControllerSessionBean extends FacesBean
         {
         	newPubItem.getMetadata().setPublishingInfo(new PublishingInfoVO());
         }
+        
+        // Identifiers
+        if (newPubItem.getMetadata().getIdentifiers().size() == 0)
+        {
+        	newPubItem.getMetadata().getIdentifiers().add(new IdentifierVO());
+        }
+        
+        // Abstracts
+        if (newPubItem.getMetadata().getAbstracts().size() == 0)
+        {
+        	newPubItem.getMetadata().getAbstracts().add(new TextVO());
+        }
+
         // Language
         if (newPubItem.getMetadata().getLanguages().size() == 0)
         {

@@ -68,7 +68,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     //get the selected language...
     protected InternationalizationHelper i18nHelper
             = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-
+    
     public FacesBean()
     {
     	super();
@@ -370,6 +370,11 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         }
     }
 
+    public boolean getHasMessages()
+    {
+    	return getFacesContext().getMessages().hasNext();
+    }
+    
     /**
      * Get the name of the actual bean.
      *

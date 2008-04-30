@@ -40,7 +40,7 @@
 		<h:commandLink value="#{EditItem.contextName}" styleClass="noBorder" onclick="loadDescription('#{EditItem.contextDescriptionForPopup}');return false"/>
 	</h:panelGroup>
 </h1>
-<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
+<h:messages style="border: 1px red dotted" errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 
 	<%-- BASIC --%>
 	<h:panelGroup layout="block" id="panBasic" styleClass="editItemOuterPanel floatbox">
