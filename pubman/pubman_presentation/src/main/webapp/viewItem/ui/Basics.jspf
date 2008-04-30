@@ -59,11 +59,11 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblLinkSection}"/>
 	<h:outputText value="</div>" escape="false"/>
 	<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
-		<h:commandLink binding="#{ViewItemSessionBean.lnkViewLog}" action="#{ViewItemFull.showItemLog}">
-					<h:outputText value="Item Log"/>
+		<h:commandLink action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+				<h:outputText value="Item Log"/>
 		</h:commandLink>
 	
-		<h:commandLink binding="#{ViewItemSessionBean.lnkViewStatistics}" action="#{ViewItemFull.showStatistics}">
+		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	
@@ -71,11 +71,11 @@
 			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
-		<h:commandLink binding="#{ViewItemSessionBean.lnkViewRevisions}" action="#{ViewItemFull.showRevisions}">
+		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
-		<h:commandLink binding="#{ViewItemSessionBean.lnkViewReleaseHistory}" action="#{ViewItemFull.showReleaseHistory}">
+		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{ViewItemFull.isLatestRelease}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 		</h:commandLink>
 		

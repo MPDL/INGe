@@ -328,6 +328,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
         
     }
     
+    public String getFormattedLatestReleaseModificationDate()
+    {
+        return CommonUtils.format(getLatestRelease().getModificationDate());
+    }
+    
     /**
      * gets the genre of the item
      * @return String the genre of the item

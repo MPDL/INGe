@@ -58,6 +58,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
@@ -184,7 +185,19 @@ public class ViewItemFull extends FacesBean
     
     /**The url used for the citation*/
     private String citationURL;
+    
+    /** Properties for action links rendering conditions*/
     private boolean isStateWithdrawn;
+    private boolean isLoggedIn;
+    private boolean isLatestVersion;
+    private boolean isLatestRelease;
+    private boolean isStateSubmitted;
+    private boolean isStateReleased;
+    private boolean isStatePending;
+    private boolean isOwner;
+    private boolean isModifyDisabled;
+    private boolean isCreateNewRevisionDisabled;
+    private boolean isFromEasySubmission;
    
     /**
      * Public constructor.
@@ -241,6 +254,11 @@ public class ViewItemFull extends FacesBean
             this.pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
         }
         
+        
+        //check if arriving from easy submission
+        EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
+        this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
+        
         if(this.pubItem != null)
         {
             //set citation url
@@ -268,29 +286,32 @@ public class ViewItemFull extends FacesBean
             //DiT: multiple new conditions for link-activation added
             isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
             isDepositor = loginHelper.getAccountUser().isDepositor();
-            boolean isOwner = true;
+            isOwner = true;
             if (this.pubItem.getOwner() != null)
             {
             	isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
             }
-            boolean isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
-            boolean isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
+            isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
+            isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
 
-            //@author Markus Haarlaender - added Links from ViewItemFull-Basics and restructured Action Links
+            //@author Markus Haarlaender - setting properties for Action Links
             
-            boolean isLoggedIn = loginHelper.isLoggedIn();
-            boolean isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
-            boolean isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
+            isLoggedIn = loginHelper.isLoggedIn();
+            isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
+            isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
             isStateWithdrawn = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString());
-            boolean isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
-            boolean isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
-            boolean isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+            isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+            isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+            isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
             
             
             this.getViewItemSessionBean().getLnkNewSubmission().setRendered(isLoggedIn);
             
+            /*
+            
             this.getViewItemSessionBean().getLnkEdit().setRendered(isStatePending && isLatestVersion && isOwner);
             this.getViewItemSessionBean().getLnkSubmit().setRendered(isStatePending && isLatestVersion && isOwner);
+            this.getViewItemSessionBean().getLnkRelease().setRendered(isStatePending && isLatestVersion && isOwner);
             this.getViewItemSessionBean().getLnkDelete().setRendered(isStatePending && isLatestVersion && isOwner);
             
             this.getViewItemSessionBean().getLnkWithdraw().setRendered(isStateReleased && isLatestVersion && isOwner);
@@ -301,7 +322,7 @@ public class ViewItemFull extends FacesBean
             this.getViewItemSessionBean().getLnkViewReleaseHistory().setRendered(isLatestRelease);
             this.getViewItemSessionBean().getLnkViewRevisions().setRendered(isLatestRelease);
             this.getViewItemSessionBean().getLnkViewStatistics().setRendered(isLatestRelease);
-            
+            */
             //-------
             
             
@@ -655,6 +676,11 @@ public class ViewItemFull extends FacesBean
             this.showValidationMessages(report);
             return null;
         }        
+    }
+    
+    public String submitItem2()
+    {
+        return submitItem();
     }
 
     /**
@@ -1691,4 +1717,98 @@ public class ViewItemFull extends FacesBean
 		this.isModerator = isModerator;
 	}
 
+    public boolean getIsLoggedIn()
+    {
+        return isLoggedIn;
+    }
+
+    public void setLoggedIn(boolean isLoggedIn)
+    {
+        this.isLoggedIn = isLoggedIn;
+    }
+
+    public boolean getIsLatestVersion()
+    {
+        return isLatestVersion;
+    }
+
+    public void setLatestVersion(boolean isLatestVersion)
+    {
+        this.isLatestVersion = isLatestVersion;
+    }
+
+    public boolean getIsLatestRelease()
+    {
+        return isLatestRelease;
+    }
+
+    public void setLatestRelease(boolean isLatestRelease)
+    {
+        this.isLatestRelease = isLatestRelease;
+    }
+
+    public boolean getIsStateSubmitted()
+    {
+        return isStateSubmitted;
+    }
+
+    public void setStateSubmitted(boolean isStateSubmitted)
+    {
+        this.isStateSubmitted = isStateSubmitted;
+    }
+
+    public boolean getIsStateReleased()
+    {
+        return isStateReleased;
+    }
+
+    public void setStateReleased(boolean isStateReleased)
+    {
+        this.isStateReleased = isStateReleased;
+    }
+
+    public boolean getIsStatePending()
+    {
+        return isStatePending;
+    }
+
+    public void setStatePending(boolean isStatePending)
+    {
+        this.isStatePending = isStatePending;
+    }
+
+    public boolean getIsOwner()
+    {
+        return isOwner;
+    }
+
+    public void setOwner(boolean isOwner)
+    {
+        this.isOwner = isOwner;
+    }
+
+    public boolean getIsModifyDisabled()
+    {
+        return isModifyDisabled;
+    }
+
+    public void setModifyDisabled(boolean isModifyDisabled)
+    {
+        this.isModifyDisabled = isModifyDisabled;
+    }
+
+    public boolean getIsCreateNewRevisionDisabled()
+    {
+        return isCreateNewRevisionDisabled;
+    }
+
+    public void setCreateNewRevisionDisabled(boolean isCreateNewRevisionDisabled)
+    {
+        this.isCreateNewRevisionDisabled = isCreateNewRevisionDisabled;
+    }
+
+    public boolean getIsFromEasySubmission()
+    {
+        return isFromEasySubmission;
+    }
 }

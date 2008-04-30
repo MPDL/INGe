@@ -65,6 +65,7 @@ public class ViewItemSessionBean extends FacesBean
     // the action links
     private HtmlCommandLink lnkEdit = new HtmlCommandLink();
     private HtmlCommandLink lnkSubmit = new HtmlCommandLink();
+    private HtmlCommandLink lnkRelease = new HtmlCommandLink();
     private HtmlCommandLink lnkDelete = new HtmlCommandLink();
     private HtmlCommandLink lnkWithdraw = new HtmlCommandLink();
     private HtmlCommandLink lnkNewSubmission = new HtmlCommandLink();
@@ -320,5 +321,15 @@ public class ViewItemSessionBean extends FacesBean
     public void setLnkViewLog(HtmlCommandLink lnkViewLog)
     {
         this.lnkViewLog = lnkViewLog;
+    }
+
+    public HtmlCommandLink getLnkRelease()
+    {
+        return lnkRelease;
+    }
+
+    public void setLnkRelease(HtmlCommandLink lnkRelease)
+    {
+        this.lnkRelease = lnkRelease;
     }        
 }

@@ -313,7 +313,12 @@ public class SourceBean
             startEndPage.append(" - ");
             startEndPage.append(source.getEndPage());
         }
-        return startEndPage.toString();
+        
+        if (startEndPage.equals(" - "))
+        {
+            return "";
+        }
+        else return startEndPage.toString();
     }
     
     /**
