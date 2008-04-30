@@ -80,6 +80,7 @@ import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -1375,7 +1376,14 @@ public class ItemControllerSessionBean extends FacesBean
         String xmlItemList = "";
         try
         {
-            xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+            if(loginHelper.getESciDocUserHandle() != null)
+            {
+                xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+            }
+            else
+            {
+                xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+            }
         }
         catch (AuthenticationException e)
         {
@@ -2016,8 +2024,9 @@ public class ItemControllerSessionBean extends FacesBean
         }
         else
         {
+            String adminHandle = AdminHelper.getAdminUserHandle();
             // TODO ScT: retrieve as super user (workaround for not logged in users until the framework changes this retrieve method for unauthorized users)
-            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findParentItemsOfRevision(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findParentItemsOfRevision(adminHandle, pubItemVO.getVersion()));
         }
             
         List<ItemRO> targetItemRefs = new ArrayList<ItemRO>();
