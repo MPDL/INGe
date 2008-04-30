@@ -519,6 +519,8 @@ public class ItemControllerSessionBean extends FacesBean
         newItem.getVersion().setObjectId(null);
         newItem.getVersion().setVersionNumber(0);
         newItem.getVersion().setState(ItemVO.State.PENDING);
+        newItem.getFiles().clear();
+        
         this.setCurrentPubItem(newItem);
         
         if (this.getContextListSessionBean().getContextList().size() == 1)
