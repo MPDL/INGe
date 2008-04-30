@@ -342,7 +342,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	String genre="";
     	if(getMetadata().getGenre() != null)
     	{
-    		genre = getLabel(getApplicationBean().convertEnumToString(getMetadata().getGenre()));
+    		genre = getLabel(this.i18nHelper.convertEnumToString(getMetadata().getGenre()));
     	}
 		return genre;
     }
@@ -356,7 +356,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	String sourceGenre="";
     	if(this.firstSource != null && this.firstSource.getGenre() != null)
     	{
-    		sourceGenre = getLabel(getApplicationBean().convertEnumToString(this.firstSource.getGenre()));
+    		sourceGenre = getLabel(this.i18nHelper.convertEnumToString(this.firstSource.getGenre()));
     	}
 		return sourceGenre;
     }

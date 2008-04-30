@@ -4,7 +4,7 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
@@ -34,8 +34,7 @@ public abstract class CriterionBean extends FacesBean
     public SelectItem[] getLogicOptions()
     {
     	LogicOptions[] values = LogicOptions.values();
-
-        return ((ApplicationBean)getApplicationBean(ApplicationBean.class)).getSelectItemsForEnum(false, values);
+    	return ((InternationalizationHelper)getSessionBean(InternationalizationHelper.class)).getSelectItemsForEnum(false, values);
     }
 
     public abstract CriterionVO getCriterionVO();

@@ -175,7 +175,7 @@ public class ViewItemSourceUI extends HtmlPanelGroup
                     
                     if(this.pubItem.getMetadata().getSources().get(i).getGenre() != null)
                     {
-                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getSources().get(i).getGenre())));
+                        this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getSources().get(i).getGenre())));
                     }
                     else
                     {

@@ -60,6 +60,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Bean for storing the information of files attached to items.
@@ -67,7 +68,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
  */
-public class FileBean implements ActionListener
+public class FileBean extends FacesBean implements ActionListener 
 {
 	private static Logger logger = Logger.getLogger(FileBean.class);
 	private FileVO file;
@@ -75,7 +76,6 @@ public class FileBean implements ActionListener
 	private State itemState;
 	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
-	
 
     /**
      * Public constructor
@@ -318,7 +318,7 @@ public class FileBean implements ActionListener
     	InternationalizedImpl internationalized = new InternationalizedImpl();
     	if(this.file.getContentType() != null)
     	{
-    		contentCategory = internationalized.getLabel(getApplicationBean().convertEnumToString(this.file.getContentType()));
+    		contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getContentType()));
     	}
     	return contentCategory;
     }
@@ -329,7 +329,7 @@ public class FileBean implements ActionListener
     	InternationalizedImpl internationalized = new InternationalizedImpl();
     	if(this.file.getVisibility() != null)
     	{
-    		visibility = internationalized.getLabel(getApplicationBean().convertEnumToString(this.file.getVisibility()));
+    		visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
     	}
     	return visibility;
     }

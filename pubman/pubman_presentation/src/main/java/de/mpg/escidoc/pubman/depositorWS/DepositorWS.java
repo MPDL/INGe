@@ -516,7 +516,7 @@ public class DepositorWS extends ItemList
 
     public SelectItem[] getITEMSTATE_OPTIONS()
     {
-    	SelectItem[] allItemStates = this.getApplicationBean().getSelectItemsItemState();
+    	SelectItem[] allItemStates = this.i18nHelper.getSelectItemsItemState();
     	SelectItem[] cleanedItemStates = new SelectItem[allItemStates.length-1];
     	// remove state 'in revision' if it is in the list
     	if(allItemStates != null)

@@ -293,7 +293,7 @@ public class CreatorBean extends FacesBean
      */
     public SelectItem[] getCreatorRoles()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsCreatorRole(true);
+        return this.i18nHelper.getSelectItemsCreatorRole(true);
     }
 
     /**
@@ -303,7 +303,7 @@ public class CreatorBean extends FacesBean
     public SelectItem[] getCreatorTypes()
     {
 
-        return ((ApplicationBean) getBean(ApplicationBean.class)).getSelectItemsCreatorType(false);
+        return this.i18nHelper.getSelectItemsCreatorType(false);
     }
 
 }

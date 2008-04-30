@@ -133,13 +133,13 @@ public class ListControlSessionBean extends FacesBean implements ValueChangeList
     public SelectItem[] getSelectMultipleItemOptions()
     {
         // SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
-        return ((ApplicationBean)getBean(ApplicationBean.class)).getSelectItemsItemListSelectMultipleItems();
+        return this.i18nHelper.getSelectItemsItemListSelectMultipleItems();
     }
 
     public SelectItem[] getSelectSortByOptions()
     {
         // PubItemVOComparator.Criteria enum
-        return ((ApplicationBean)getBean(ApplicationBean.class)).getSelectItemsItemListSortBy();
+        return this.i18nHelper.getSelectItemsItemListSortBy();
     }
 
     public String getSelectMultipleItems()

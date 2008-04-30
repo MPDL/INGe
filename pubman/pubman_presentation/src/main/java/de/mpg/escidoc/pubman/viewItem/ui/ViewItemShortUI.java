@@ -197,7 +197,7 @@ public class ViewItemShortUI extends ContainerPanelUI
             HtmlOutputText valueGenre = new HtmlOutputText();
             bindComponentLabel(
                     valueGenre,
-                    applicationBean.convertEnumToString(pubItemVOWrapper.getValueObject().getMetadata().getGenre()));
+                    this.i18nHelper.convertEnumToString(pubItemVOWrapper.getValueObject().getMetadata().getGenre()));
             this.getChildren().add(valueGenre);
         }
         else

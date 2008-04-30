@@ -1123,8 +1123,7 @@ public class EditItem extends FacesBean
     {
         List<MdsPublicationVO.Genre> allowedGenres = null;
         allowedGenres = this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres();
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class))
-                .getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+        return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
     }
 
     /**
@@ -1133,7 +1132,7 @@ public class EditItem extends FacesBean
      */
     public SelectItem[] getDegreeTypes()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsDegreeType(true);
+        return this.i18nHelper.getSelectItemsDegreeType(true);
     }
 
     /**
@@ -1142,7 +1141,7 @@ public class EditItem extends FacesBean
      */
     public SelectItem[] getReviewMethods()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsReviewMethod(true);
+        return this.i18nHelper.getSelectItemsReviewMethod(true);
     }
     
     /**
@@ -1151,7 +1150,7 @@ public class EditItem extends FacesBean
      */
     public SelectItem[] getContentTypes()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsContentType(true);
+        return this.i18nHelper.getSelectItemsContentType(true);
     }
     
     /**
@@ -1160,12 +1159,12 @@ public class EditItem extends FacesBean
      */
     public SelectItem[] getVisibilities()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(false);
+        return this.i18nHelper.getSelectItemsVisibility(false);
     }
 
     public SelectItem[] getInvitationStatuses()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsInvitationStatus(true);
+        return this.i18nHelper.getSelectItemsInvitationStatus(true);
     }
 
     public String loadAffiliationTree()

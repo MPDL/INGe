@@ -181,7 +181,7 @@ public class EasySubmission extends FacesBean
     {
     	super.init();
     	
-    	this.locatorVisibilities = ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(true);
+    	this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
     	
     	// if the user has reached Step 3, an item has already been created and must be set in the EasySubmissionSessionBean for further manipulation
     	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
@@ -1068,8 +1068,7 @@ public class EasySubmission extends FacesBean
     {
         List<MdsPublicationVO.Genre> allowedGenres = null;
         allowedGenres = this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres();
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class))
-                .getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+        return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
     }
 
     public SelectItem[] getSUBMISSION_METHOD_OPTIONS() {
@@ -1219,7 +1218,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getVisibilities()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsVisibility(false);
+        return this.i18nHelper.getSelectItemsVisibility(false);
     }
     
     /**
@@ -1309,7 +1308,7 @@ public class EasySubmission extends FacesBean
      */
     public SelectItem[] getContentTypes()
     {
-        return ((ApplicationBean) getApplicationBean(ApplicationBean.class)).getSelectItemsContentType(true);
+        return this.i18nHelper.getSelectItemsContentType(true);
     }
     
     /**

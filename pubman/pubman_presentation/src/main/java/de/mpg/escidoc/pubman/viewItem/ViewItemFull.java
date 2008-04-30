@@ -1456,7 +1456,7 @@ public class ViewItemFull extends FacesBean
     	String genre="";
     	if(this.pubItem.getMetadata().getGenre() != null)
     	{
-    		genre = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getGenre()));
+    		genre = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getGenre()));
     	}
 		return genre;
     }
@@ -1466,7 +1466,7 @@ public class ViewItemFull extends FacesBean
     	String reviewMethod="";
     	if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getReviewMethod() != null)
     	{
-    		reviewMethod = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getReviewMethod()));
+    		reviewMethod = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getReviewMethod()));
     	}
 		return reviewMethod;
     }
@@ -1476,7 +1476,7 @@ public class ViewItemFull extends FacesBean
     	String degreeType="";
     	if(this.pubItem.getMetadata() != null && this.pubItem.getMetadata().getDegree() != null)
     	{
-    		degreeType = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getMetadata().getDegree()));
+    		degreeType = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getMetadata().getDegree()));
     	}
 		return degreeType;
     }
@@ -1487,7 +1487,7 @@ public class ViewItemFull extends FacesBean
 		String itemState="";
 		if(this.pubItem.getVersion().getState() != null)
 		{
-			itemState = getLabel(getApplicationBean().convertEnumToString(this.pubItem.getVersion().getState()));
+			itemState = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getVersion().getState()));
 		}
 		return itemState;
     }

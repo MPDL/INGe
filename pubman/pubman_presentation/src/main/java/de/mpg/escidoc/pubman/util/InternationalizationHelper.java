@@ -37,6 +37,15 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 import org.apache.log4j.Logger;
+import javax.faces.model.SelectItem;
+import java.util.ResourceBundle;
+
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 
 /**
  * Class for Internationalization settings.
@@ -57,7 +66,16 @@ public class InternationalizationHelper
     
     public List<String> test = new ArrayList<String>();
     
+    // entry when no item in the comboBox is selected
+    private SelectItem NO_ITEM_SET = null;
     
+    /**
+     * enum for select items.
+     */
+    public enum SelectMultipleItems
+    {
+        SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
+    }
     
     Locale userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
 
@@ -71,6 +89,7 @@ public class InternationalizationHelper
         {
             selectedHelpPage = HELP_PAGE_EN;
         }
+        NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
     }
 
     // Getters and Setters
@@ -144,4 +163,255 @@ public class InternationalizationHelper
     {
         this.test = test;
     }
+    
+    /**
+     * Turn the values of an enum to an array of SelectItem.
+     *
+     * @param includeNoItemSelectedEntry Decide if a SelectItem with null value should be inserted.
+     * @param values The values of an enum.
+     * @return An array of SelectItem.
+     */
+    public SelectItem[] getSelectItemsForEnum(final boolean includeNoItemSelectedEntry, final Object[] values)
+    {
+        SelectItem[] selectItems = new SelectItem[values.length];
+
+        for (int i = 0; i < values.length; i++)
+        {
+            SelectItem selectItem = new SelectItem(values[i].toString(), getLabel(convertEnumToString(values[i])));
+            selectItems[i] = selectItem;
+        }
+
+        if (includeNoItemSelectedEntry)
+        {
+            selectItems = this.addNoItemSelectedEntry(selectItems);
+        }
+
+        return selectItems;
+    }
+    /**
+     * Adds an entry for NoItemSelected in front of the given array.
+     * @param selectItems the array where the entry should be added
+     * @return a new array with an entry for NoItemSelected
+     */
+    private SelectItem[] addNoItemSelectedEntry(final SelectItem[] selectItems)
+    {
+        SelectItem[] newSelectItems = new SelectItem[selectItems.length + 1];
+
+        // add the entry for NoItemSelected in front of the array
+        newSelectItems[0] = this.NO_ITEM_SET;
+        for (int i = 0; i < selectItems.length; i++)
+        {
+            newSelectItems[i + 1] = selectItems[i];
+        }
+
+        return newSelectItems;
+    }
+    /**
+     * TODO FrM: Check this
+     * Converts an enum to a String for output.
+     * @param enumObject the enum to convert
+     * @return the converted String for output
+     */
+    public String convertEnumToString(final Object enumObject)
+    {
+    	if (enumObject != null)
+    	{
+    		return "ENUM_" + enumObject.getClass().getSimpleName().toUpperCase() + "_" + enumObject;
+    	}
+    	else
+    	{
+    		return "ENUM_EMPTY";
+    	}
+    }
+    public String getLabel(String placeholder)
+    {
+        return ResourceBundle.getBundle(this.getSelectedLabelBundle()).getString(placeholder);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum genre.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for genre
+     */
+    public SelectItem[] getSelectItemsGenre(final boolean includeNoItemSelectedEntry)
+    {
+        MdsPublicationVO.Genre[] values = MdsPublicationVO.Genre.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum CreatorType.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for CreatorType
+     */
+    public SelectItem[] getSelectItemsCreatorType(final boolean includeNoItemSelectedEntry)
+    {
+        CreatorVO.CreatorType[] values = CreatorVO.CreatorType.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum CreatorRole.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for CreatorRole
+     */
+    public SelectItem[] getSelectItemsCreatorRole(final boolean includeNoItemSelectedEntry)
+    {
+        CreatorVO.CreatorRole[] values = CreatorVO.CreatorRole.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    /**
+     * Returns an array of SelectItems for the enum genre.
+     * @return array of SelectItems for genre
+     */
+    public SelectItem[] getSelectItemsGenre()
+    {
+        return this.getSelectItemsGenre(false);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum genre.
+     * @return array of SelectItems for genre
+     */
+    public SelectItem[] getSelectItemsDegreeType()
+    {
+        return this.getSelectItemsGenre(false);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum DegreeType.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for DegreeType
+     */
+    public SelectItem[] getSelectItemsDegreeType(final boolean includeNoItemSelectedEntry)
+    {
+        MdsPublicationVO.DegreeType[] values = MdsPublicationVO.DegreeType.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum genre.
+     * @return array of SelectItems for genre
+     */
+    public SelectItem[] getSelectItemsReviewMethod()
+    {
+        return this.getSelectItemsGenre(false);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum ReviewMethod.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for ReviewMethod
+     */
+    public SelectItem[] getSelectItemsReviewMethod(final boolean includeNoItemSelectedEntry)
+    {
+        MdsPublicationVO.ReviewMethod[] values = MdsPublicationVO.ReviewMethod.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum visibility.
+     * @return array of SelectItems for visibility
+     */
+    public SelectItem[] getSelectItemsVisibility()
+    {
+        return this.getSelectItemsVisibility(false);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum visibility.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for visibility
+     */
+    public SelectItem[] getSelectItemsVisibility(final boolean includeNoItemSelectedEntry)
+    {
+    	FileVO.Visibility[] values = FileVO.Visibility.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+    
+    /**
+     * Returns an array of SelectItems for the enum ContentType.
+     * @return array of SelectItems for ContentType
+     */
+    public SelectItem[] getSelectItemsContentType()
+    {
+        return this.getSelectItemsContentType(false);
+    }
+
+
+    /**
+     * Returns an array of SelectItems for the enum ContentType.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for ReviewMethod
+     */
+    public SelectItem[] getSelectItemsContentType(final boolean includeNoItemSelectedEntry)
+    {
+        FileVO.ContentType[] values = FileVO.ContentType.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum genre.
+     * @return array of SelectItems for genre
+     */
+    public SelectItem[] getSelectItemsInvitationStatus()
+    {
+        return this.getSelectItemsGenre(false);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum InvitationStatus.
+     * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
+     * @return array of SelectItems for InvitationStatus
+     */
+    public SelectItem[] getSelectItemsInvitationStatus(final boolean includeNoItemSelectedEntry)
+    {
+        EventVO.InvitationStatus[] values = EventVO.InvitationStatus.values();
+
+        return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum ItemState.
+     * @return array of SelectItems for ItemState
+     */
+    public SelectItem[] getSelectItemsItemState()
+    {
+        PubItemVO.State[] values = PubItemVO.State.values();
+
+        // TODO FrM: add an extra 'all', since it's not member of the enum
+        // selectItems[0] = new SelectItem("all", getLabel("depositorWS_ItemState_all"));
+
+        return getSelectItemsForEnum(false, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum ItemListSortBy.
+     * @return array of SelectItems for ItemListSortBy
+     */
+    public SelectItem[] getSelectItemsItemListSortBy()
+    {
+        PubItemVOComparator.Criteria[] values = PubItemVOComparator.Criteria.values();
+
+        return getSelectItemsForEnum(false, values);
+    }
+
+    /**
+     * Returns an array of SelectItems for the enum SelectMultipleItems.
+     * @return array of SelectItems for SelectMultipleItems
+     */
+    public SelectItem[] getSelectItemsItemListSelectMultipleItems()
+    {
+        InternationalizationHelper.SelectMultipleItems[] values = InternationalizationHelper.SelectMultipleItems.values();
+
+        return getSelectItemsForEnum(false, values);
+    }
+
 }

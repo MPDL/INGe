@@ -43,6 +43,7 @@ import javax.faces.event.ValueChangeEvent;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
@@ -390,13 +391,13 @@ public class ItemListSessionBean extends FacesBean
                     + event.getNewValue() + " [" + event.getNewValue().getClass() + "]");
         }
 
-        if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.SELECT_ALL.toString()))
+        if (event.getNewValue().equals(InternationalizationHelper.SelectMultipleItems.SELECT_ALL.toString()))
         {
         	for (PubItemVOPresentation item : currentPubItemList) {
 				item.setSelected(true);
 			}
         }
-        else if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.SELECT_VISIBLE.toString()))
+        else if (event.getNewValue().equals(InternationalizationHelper.SelectMultipleItems.SELECT_VISIBLE.toString()))
         {
         	int size = currentPubItemList.size();
         	for (int i = 0; i < itemsPerPage; i++)
@@ -411,7 +412,7 @@ public class ItemListSessionBean extends FacesBean
         		}
 			}
         }
-        else if (event.getNewValue().equals(ApplicationBean.SelectMultipleItems.DESELECT_ALL.toString()))
+        else if (event.getNewValue().equals(InternationalizationHelper.SelectMultipleItems.DESELECT_ALL.toString()))
         {
         	for (PubItemVOPresentation item : currentPubItemList) {
 				item.setSelected(false);

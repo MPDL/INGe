@@ -226,7 +226,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             
             if(this.pubItem.getMetadata().getGenre() != null)
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getGenre())));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(i18nHelper.convertEnumToString(this.pubItem.getMetadata().getGenre())));
             }
             else
             {
@@ -248,7 +248,7 @@ public class ViewItemBasicsUI extends HtmlPanelGroup
             
             if(this.pubItem.getMetadata().getDegree() != null)
             {
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(applicationBean.convertEnumToString(this.pubItem.getMetadata().getDegree())));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(i18nHelper.convertEnumToString(this.pubItem.getMetadata().getDegree())));
             }
             else
             {

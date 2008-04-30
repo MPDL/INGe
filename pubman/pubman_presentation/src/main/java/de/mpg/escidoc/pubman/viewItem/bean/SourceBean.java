@@ -36,6 +36,7 @@ import java.util.List;
 import javax.faces.context.FacesContext;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
@@ -50,7 +51,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
  */
-public class SourceBean
+public class SourceBean extends FacesBean
 {
     private SourceVO source;
     /**
@@ -335,7 +336,7 @@ public class SourceBean
     public String getGenre()
     {
     	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	return internationalized.getLabel(getApplicationBean().convertEnumToString(this.source.getGenre()));
+    	return internationalized.getLabel(this.i18nHelper.convertEnumToString(this.source.getGenre()));
     }
 
 	public String getIdentifiers() {
