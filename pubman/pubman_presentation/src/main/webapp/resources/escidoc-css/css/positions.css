@@ -430,8 +430,9 @@ margin-left: -10px;
 
 .listHeaderSort{
  float:left;
- margin-left:20px;
- margin-right:50px;
+ margin-left:10px;
+ margin-right:5px;
+ margin-top:3px;
 }
 
 .listHeaderSort input{
@@ -446,6 +447,10 @@ margin-left: -10px;
 .listHeaderSelectItems{
 	float:left;
 	
+}
+
+.listHeaderSelectItems select{
+	width:200px;
 }
 
 .listItemHeader input{

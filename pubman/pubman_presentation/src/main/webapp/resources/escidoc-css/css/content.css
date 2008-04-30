@@ -54,7 +54,7 @@ h1{
 	font-size: 1.7em;
 	font-weight: bolder;
 	color: #444;
-	letter-spacing: 0.1em;	margin-top: 0em;
+	line-height:1.2em;	margin-top: 0em;
 }
 
 a:link, a:visited {color: black; text-decoration: underline;}
@@ -218,6 +218,10 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 
 .content ul {
 	list-style-type: none;	
+}
+
+.editItemSingleCol ul{
+	list-style-type:disc;
 }
 
 .content li {
