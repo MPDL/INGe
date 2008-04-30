@@ -46,5 +46,10 @@
         R3 release
       </action>
     </release>
+      <release version="3.0.1" date="2008-04-30" description="Release of all modules">
+      <action dev="tendres" type="update">
+        Bugfixes
+      </action>
+    </release>
   </body>
 </document>
