@@ -64,7 +64,7 @@
 
 .mainMenu li, .contentActions li{
 	margin-left: 1em;
-	margin-bottom: 0.2ex;
+	margin-bottom: 3px;
 	font-weight: normal;
 	line-height: 150%;
 }
