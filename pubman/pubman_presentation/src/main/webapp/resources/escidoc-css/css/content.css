@@ -305,10 +305,15 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 
 .messageBox{	
 	width: 600px;
-	border: 1px #999 solid;
+	border: 2px black solid;
 	color: #444;
 	margin: 12px;
-	padding: 12px;
+/*	padding: 12px;*/
+}
+
+.messageBox h4 {
+	padding: 7px 7px 7px 7px;
+	font-family: Courier, "Courier New", monospace !important;
 }
  
 .messageStatus, .messageError{	
@@ -317,7 +322,7 @@ input:focus, textarea:focus, .easySubmissionsBackSection:focus, .easySubmissions
 	top: -0.8em;
 	padding: 7px 7px 7px 7px;
 	font-family: Courier, "Courier New", monospace !important;
-	border: 2px solid black;
+/*	border: 2px solid black;*/
 }
  
 .messageError{
