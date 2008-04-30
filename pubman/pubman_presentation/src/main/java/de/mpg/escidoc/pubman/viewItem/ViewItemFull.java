@@ -472,27 +472,27 @@ public class ViewItemFull extends FacesBean
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
             // set up the release history of the item
             //createReleaseHistory();
-            
-            // redirect if necessary
-            if(this.getViewItemSessionBean().isHasBeenRedirected() == false)
-            {
-                this.getViewItemSessionBean().setHasBeenRedirected(true);
-                try
-                {
-                    if(this.getSessionBean().isRunAsGUITool())
-                    {
-                    	fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
-                    }
-                    else
-                    {
-                    	fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
-                    }
-                }
-                catch (IOException e)
-                {
-                    logger.error(e);
-                }
-            }
+//            
+//            // redirect if necessary
+//            if(this.getViewItemSessionBean().isHasBeenRedirected() == false)
+//            {
+//                this.getViewItemSessionBean().setHasBeenRedirected(true);
+//                try
+//                {
+//                    if(this.getSessionBean().isRunAsGUITool())
+//                    {
+//                    	fc.getExternalContext().redirect("GTViewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
+//                    }
+//                    else
+//                    {
+//                    	fc.getExternalContext().redirect("viewItemFullPage.jsp?itemId=" + this.pubItem.getVersion().getObjectId()+":"+ this.pubItem.getVersion().getVersionNumber());
+//                    }
+//                }
+//                catch (IOException e)
+//                {
+//                    logger.error(e);
+//                }
+//            }
         }
     }
     

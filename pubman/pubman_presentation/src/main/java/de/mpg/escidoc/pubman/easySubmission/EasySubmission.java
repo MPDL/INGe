@@ -60,7 +60,6 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
-import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
@@ -68,7 +67,6 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
@@ -422,6 +420,10 @@ public class EasySubmission extends FacesBean
     	
     	this.setFromEasySubmission(true);
     	
+    	if (validateStep5("validate") == null)
+    	{
+    		return null;
+    	}
     	return ((EditItem)getRequestBean(EditItem.class)).save();
     	
 //    	/*
@@ -898,7 +900,12 @@ public class EasySubmission extends FacesBean
     	// Map entered date to entered type
     	mapSelectedDate();
     	// validate
-    	try
+    	
+    	return validateStep5("loadEditItem");
+    }
+
+	private String validateStep5(String navigateTo) {
+		try
     	{
     		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_5");
     		if (!report.isValid())
@@ -920,8 +927,8 @@ public class EasySubmission extends FacesBean
     	catch (Exception e) {
 			logger.error("Validation error", e);
 		}
-    	return "loadEditItem";
-    }
+    	return navigateTo;
+	}
     
     /**
      * This method maps the entered date into the MD record of the item according to the selected type

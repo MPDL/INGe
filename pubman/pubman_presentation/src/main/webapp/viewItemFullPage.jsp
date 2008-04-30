@@ -83,7 +83,7 @@
 													 value="#{lbl.actionMenu_lnkModify}"/></li>
 												<li><h:commandLink binding="#{ViewItemSessionBean.lnkCreateNewRevision}" id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}"
 													 value="#{lbl.actionMenu_lnkCreateNewRevision}"/></li>
-												<h:panelGroup rendered="#{ViewItemFull.isDepositor}">
+												<h:panelGroup rendered="#{ViewItemFull.isDepositor and !ViewItemFull.isStateWithdrawn}">
 													<li><h:commandLink binding="#{ViewItemSessionBean.lnkCreateItemFromTemplate}" id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}"
 													 	value="#{lbl.actionMenu_lnkCreateItemFromTemplate}"/></li>
 												</h:panelGroup>

@@ -42,15 +42,15 @@
 			<h:outputText styleClass="itemInformation" value="#{WithdrawItem.creators}"/>
 		</h:panelGrid>
 		
-		<h:panelGrid styleClass="withdrawMessage">
-			<h:outputText binding="#{WithdrawItem.valMessage}" id="valMessage" styleClass="messageStatus withdrawMessageVal"/>
+		<h:panelGrid styleClass="withdrawMessage" rendered="#{WithdrawItem.valMessage != null}">
+			<h:outputText value="#{WithdrawItem.valMessage}" id="valMessage" styleClass="messageStatus withdrawMessageVal"/>
 		</h:panelGrid>
 			
 		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
 
 			<h:outputLabel for="txtaComment" id="lblComment"
 					style="" value="#{lbl.WithdrawItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" binding="#{WithdrawItem.withdrawalComment}"/>
+			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{WithdrawItem.withdrawalComment}"/>
 		</h:panelGrid>
 
 	</f:subview>

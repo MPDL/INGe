@@ -226,8 +226,7 @@ public class ItemListSessionBean extends FacesBean
 	}
 
 	public void setItemsPerPage(int itemsPerPage) {
-		this.itemsPerPage = itemsPerPage;
-		currentPubItemListPointer = currentPubItemListPointer - currentPubItemListPointer % itemsPerPage;
+		
 	}
 
 	public int getCurrentPubItemListPointer() {
@@ -462,6 +461,15 @@ public class ItemListSessionBean extends FacesBean
         }
 
         return null;
+    }
+    
+    public void changeItemsPerPage(ValueChangeEvent event)
+    {
+    	if (event.getOldValue() != null && !event.getOldValue().equals(event.getNewValue()))
+    	{
+    		this.itemsPerPage = Integer.parseInt(event.getNewValue().toString());
+    		this.currentPubItemListPointer = this.currentPubItemListPointer - this.currentPubItemListPointer % this.itemsPerPage;
+    	}
     }
     
 	public class Page

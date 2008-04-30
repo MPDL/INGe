@@ -37,7 +37,7 @@ All rights reserved. Use is subject to license terms.
 			<h:panelGroup layout="block" styleClass="paginatorTop floatbox">
 				<div class="showItemsMenu floatbox">
 					<h:outputText value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
-					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
+					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.changeItemsPerPage}">
 						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 						<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
 						<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
@@ -123,7 +123,7 @@ All rights reserved. Use is subject to license terms.
 			<h:panelGroup layout="block" styleClass="paginatorTop floatbox">
 				<div class="showItemsMenu floatbox">
 					<h:outputText value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
-					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();">
+					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.changeItemsPerPage}">
 						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 						<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
 						<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>

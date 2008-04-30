@@ -44,13 +44,13 @@
 			<h:outputText styleClass="itemInformation" value="#{AcceptItem.creators}"/>
 		</h:panelGrid>
 		
-		<h:panelGrid styleClass="boxSpacing">
+		<h:panelGrid styleClass="boxSpacing" rendered="#{AcceptItem.valMessage != null}">
 			<h:outputText value="#{AcceptItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus" rendered="#{AcceptItem.valMessage != null}"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panContent" styleClass="messageItem">
 			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.AcceptItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="acceptItemInputArea" binding="#{AcceptItem.acceptanceComment}"/>
+			<h:inputTextarea id="txtaComment" styleClass="acceptItemInputArea" value="#{AcceptItem.acceptanceComment}"/>
 		</h:panelGrid>
 	</f:subview>
 </div>

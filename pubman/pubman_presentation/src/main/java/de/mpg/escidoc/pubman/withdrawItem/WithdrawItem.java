@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.withdrawItem;
 
 import java.io.IOException;
 
-import javax.faces.component.html.HtmlInputTextarea;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -44,6 +42,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 
@@ -63,9 +62,9 @@ public class WithdrawItem extends FacesBean
     // Faces navigation string
     public static final String LOAD_WITHDRAWITEM = "loadWithdrawItem";
 
-    private HtmlInputTextarea withdrawalComment;
+    private String withdrawalComment;
 
-    private HtmlOutputText valMessage;
+    private String valMessage;
     private String creators;
 
     private String navigationStringToGoBack;
@@ -149,34 +148,25 @@ public class WithdrawItem extends FacesBean
     	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     	String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
-        //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
-        String comment;
-
-        valMessage.setValue("");
-
-        if (withdrawalComment.getValue() != null)
+        if(navigateTo == null)
         {
-            comment = withdrawalComment.getValue().toString();
-        }
-        else
-        {
-            comment = null;
+        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
 
-        if (comment == null)
+        if (withdrawalComment == null || "".equals(withdrawalComment))
         {
-            valMessage.setValue(getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
+            valMessage = getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN);
             return null;
         }
 
-        retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, comment);
+        retVal = this.getItemControllerSessionBean().withdrawCurrentPubItem(navigateTo, withdrawalComment);
         
         // redirect to the view item page afterwards (if no error occured)
         if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
         	try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getLatestVersion().getVersionNumber());
+    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     		} 
             catch (IOException e) {
     			logger.error("Could not redirect to View Item Page", e);
@@ -248,30 +238,26 @@ public class WithdrawItem extends FacesBean
      */
     protected final WithdrawItemSessionBean getSessionBean()
     {
-        return (WithdrawItemSessionBean)getBean(WithdrawItemSessionBean.class);
+        return (WithdrawItemSessionBean)getSessionBean(WithdrawItemSessionBean.class);
     }
 
-    public final HtmlInputTextarea getWithdrawalComment()
-    {
-        return withdrawalComment;
-    }
+    public String getWithdrawalComment() {
+		return withdrawalComment;
+	}
 
-    public final void setWithdrawalComment(final HtmlInputTextarea withdrawalComment)
-    {
-        this.withdrawalComment = withdrawalComment;
-    }
+	public void setWithdrawalComment(String withdrawalComment) {
+		this.withdrawalComment = withdrawalComment;
+	}
 
-    public final HtmlOutputText getValMessage()
-    {
-        return valMessage;
-    }
+	public String getValMessage() {
+		return valMessage;
+	}
 
-    public final void setValMessage(final HtmlOutputText valMessage)
-    {
-        this.valMessage = valMessage;
-    }
+	public void setValMessage(String valMessage) {
+		this.valMessage = valMessage;
+	}
 
-    public final String getNavigationStringToGoBack()
+	public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

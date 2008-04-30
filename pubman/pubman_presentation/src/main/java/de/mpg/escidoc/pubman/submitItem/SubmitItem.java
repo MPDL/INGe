@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.submitItem;
 
 import java.io.IOException;
 
-import javax.faces.component.html.HtmlInputTextarea;
-import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -65,9 +63,9 @@ public class SubmitItem extends FacesBean
     public static final String LOAD_SUBMITITEM = "loadSubmitItem";
     public static final String JSP_NAME = "SubmitItemPage.jsp"; //DiT: to avoid JSF-Navigation
 
-    private HtmlInputTextarea submissionComment;
+    private String submissionComment;
 
-    private HtmlOutputText valMessage = new HtmlOutputText();
+    private String valMessage = null;
     private String creators;
     
     private String navigationStringToGoBack;
@@ -151,30 +149,10 @@ public class SubmitItem extends FacesBean
         {
         	navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-        //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
-        String comment;
-
-        if (submissionComment.getValue() != null)
-        {
-            comment = submissionComment.getValue().toString();
-        }
-        else
-        {
-            comment = null;
-        }
-
-        // Comment is not required, so this is not needed
-        /*
-        if (comment == null)
-        {
-            valMessage.setText(this.bundle.getString(DepositorWS.NO_SUBMISSION_COMMENT_GIVEN));
-            return null;
-        }
-        */
 
         logger.debug("Now submitting, then go to " + navigateTo);
         
-        retVal = this.getItemControllerSessionBean().submitCurrentPubItem(comment, navigateTo);
+        retVal = this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
         
         // redirect to the view item page afterwards (if no error occured)
         if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
@@ -225,8 +203,7 @@ public class SubmitItem extends FacesBean
 
         String message = this.getSessionBean().getMessage();
         
-        this.valMessage.setValue(message);
-        this.valMessage.setRendered(message != null);
+        this.valMessage = message;
         
         // keep the message just once
         this.getSessionBean().setMessage(null);
@@ -238,7 +215,7 @@ public class SubmitItem extends FacesBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -259,27 +236,23 @@ public class SubmitItem extends FacesBean
         return (SubmitItemSessionBean)getBean(SubmitItemSessionBean.class);
     }
 
-    public final HtmlInputTextarea getSubmissionComment()
-    {
-        return submissionComment;
-    }
+    public String getSubmissionComment() {
+		return submissionComment;
+	}
 
-    public final void setSubmissionComment(final HtmlInputTextarea submissionComment)
-    {
-        this.submissionComment = submissionComment;
-    }
+	public void setSubmissionComment(String submissionComment) {
+		this.submissionComment = submissionComment;
+	}
 
-    public final HtmlOutputText getValMessage()
-    {
-        return valMessage;
-    }
+	public String getValMessage() {
+		return valMessage;
+	}
 
-    public final void setValMessage(final HtmlOutputText valMessage)
-    {
-        this.valMessage = valMessage;
-    }
+	public void setValMessage(String valMessage) {
+		this.valMessage = valMessage;
+	}
 
-    public final String getNavigationStringToGoBack()
+	public final String getNavigationStringToGoBack()
     {
         return navigationStringToGoBack;
     }

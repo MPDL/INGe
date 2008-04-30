@@ -32,7 +32,6 @@ package de.mpg.escidoc.pubman.acceptItem;
 
 import java.io.IOException;
 
-import javax.faces.component.html.HtmlInputTextarea;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
@@ -43,6 +42,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 
@@ -63,7 +63,7 @@ public class AcceptItem extends FacesBean
     public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
     public static final String JSP_NAME = "AcceptItemPage.jsp"; //DiT: to avoid JSF-Navigation
 
-    private HtmlInputTextarea acceptanceComment;
+    private String acceptanceComment = null;
 
     private String valMessage = null;
     private String creators;
@@ -148,37 +148,21 @@ public class AcceptItem extends FacesBean
     	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     	String retVal;
         String navigateTo = getSessionBean().getNavigationStringToGoBack();
-        //retVal = this.getItemControllerSessionBean().saveCurrentPubItem(DepositorWS.LOAD_DEPOSITORWS);
-        String comment;
-
-        if (acceptanceComment.getValue() != null)
+        if(navigateTo == null)
         {
-            comment = acceptanceComment.getValue().toString();
+        	navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-        else
-        {
-            comment = null;
-        }
-
-        // Comment is not required, so this is not needed
-        /*
-        if (comment == null)
-        {
-            valMessage.setText(this.bundle.getString(DepositorWS.NO_SUBMISSION_COMMENT_GIVEN));
-            return null;
-        }
-        */
 
         logger.debug("Now acceptting, then go to " + navigateTo);
         
-        retVal = this.getItemControllerSessionBean().acceptCurrentPubItem(comment, navigateTo);
+        retVal = this.getItemControllerSessionBean().acceptCurrentPubItem(acceptanceComment, navigateTo);
         
         // redirect to the view item page afterwards (if no error occured)
         if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
         	try 
             {
-    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId() + ":" + this.getItemControllerSessionBean().getCurrentPubItem().getLatestVersion().getVersionNumber());
+    			fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
     		} 
             catch (IOException e) {
     			logger.error("Could not redirect to View Item Page", e);
@@ -235,7 +219,7 @@ public class AcceptItem extends FacesBean
      */
     public final ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -256,17 +240,15 @@ public class AcceptItem extends FacesBean
         return (AcceptItemSessionBean)getSessionBean(AcceptItemSessionBean.class);
     }
 
-    public final HtmlInputTextarea getAcceptanceComment()
-    {
-        return acceptanceComment;
-    }
+    public String getAcceptanceComment() {
+		return acceptanceComment;
+	}
 
-    public final void setAcceptanceComment(final HtmlInputTextarea acceptanceComment)
-    {
-        this.acceptanceComment = acceptanceComment;
-    }
+	public void setAcceptanceComment(String acceptanceComment) {
+		this.acceptanceComment = acceptanceComment;
+	}
 
-    public String getValMessage() {
+	public String getValMessage() {
 		return valMessage;
 	}
 

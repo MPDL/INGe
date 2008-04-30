@@ -41,14 +41,14 @@
 			<h:outputText styleClass="itemInformation" value="#{SubmitItem.creators}"/>
 		</h:panelGrid>
 
-		<h:panelGrid styleClass="withdrawMessage">
-			<h:outputText binding="#{SubmitItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
+		<h:panelGrid styleClass="withdrawMessage" rendered="#{SubmitItem.valMessage != null}">
+			<h:outputText value="#{SubmitItem.valMessage}" id="valMessage" style="margin-left: 10px; margin-top: 10px" styleClass="messageStatus"/>
 		</h:panelGrid>
 
 		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
 
 			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.SubmitItem_lblComment}"/>
-			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" binding="#{SubmitItem.submissionComment}"/>
+			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{SubmitItem.submissionComment}"/>
 
 		</h:panelGrid>
 	</f:subview>
