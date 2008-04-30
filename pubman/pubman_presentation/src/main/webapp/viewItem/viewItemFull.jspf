@@ -29,8 +29,12 @@
 %>
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="viewItemFull">
-		<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" />
-
+	
+	<h:panelGroup layout="block" styleClass="messageBox" rendered="#{ViewItemFull.hasMessages}">
+		<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
+		<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
+	</h:panelGroup>
+	
 		<jsp:directive.include file="ui/Basics.jspf"/>
 		<jsp:directive.include file="ui/Details.jspf"/>
 		<jsp:directive.include file="ui/Event.jspf"/>
