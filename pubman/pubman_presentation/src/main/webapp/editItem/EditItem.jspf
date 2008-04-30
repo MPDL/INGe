@@ -41,7 +41,7 @@
 	</h:panelGroup>
 </h1>
 <h:panelGroup layout="block" styleClass="messageBox" rendered="#{EditItem.hasMessages}">
-	<h4>Messages and Warnings</h4>
+	<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
 	<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 </h:panelGroup>
 

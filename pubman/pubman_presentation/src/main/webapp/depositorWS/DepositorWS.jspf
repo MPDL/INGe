@@ -39,10 +39,11 @@
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
 			</h1>
 			
-			<div styleClass="messageBox">
+			<h:panelGroup layout="block" styleClass="messageBox" rendered="#{DepositorWS.enableNoItemMsg || DepositorWS.showMessage}">
+				<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
 				<h:outputText id="valNoItemsMsg" styleClass="messageError" value="#{msg.depositorWS_valNoItemsMsg}" rendered="#{DepositorWS.enableNoItemMsg}"/>
 				<h:outputText value="#{DepositorWS.valMessage}" id="valMessage" styleClass="messageStatus" rendered="#{DepositorWS.showMessage}"/>
-			</div>
+			</h:panelGroup>
 
 			<h:outputLabel styleClass="rightSpace" for="cboItemstate" id="lblItemstate" value="#{lbl.depositorWS_lblItemstate}"/>
 			<h:selectOneMenu id="cboItemstate" binding="#{DepositorWS.cboItemstate}" 
