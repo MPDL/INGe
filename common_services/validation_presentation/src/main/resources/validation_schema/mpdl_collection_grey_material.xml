@@ -264,7 +264,7 @@
 	<!-- At least one file with visibility "public" has been uploaded for the item. -->
 	<iso:pattern name="public_file_required" id="public_file_required">
 		<iso:rule context="escidocComponents:components">
-			<iso:assert test="escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = 'public'">NoPublicFileProvided</iso:assert>
+			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '' and escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = 'public']">NoPublicFileProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
@@ -279,6 +279,13 @@
 	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
 		<iso:rule context="escidocMetadataProfile:publication">
 			<iso:assert test="publication:review-method = 'internal'">ReviewMethodInternalNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If source name is given, the source genre has to be given, too -->
+	<iso:pattern name="source_genre_required" id="source_genre_required" flag="restrictive">
+		<iso:rule context="escidocMetadataProfile:publication/publication:source">
+			<iso:assert test="not(dc:title != '') or (@type and @type != '')">SourceGenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 

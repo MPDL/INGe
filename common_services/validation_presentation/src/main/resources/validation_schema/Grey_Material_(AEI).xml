@@ -281,5 +281,12 @@
 			<iso:assert test="publication:review-method = 'internal'">ReviewMethodInternalNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
+	
+	<!-- If source name is given, the source genre has to be given, too -->
+	<iso:pattern name="source_genre_required" id="source_genre_required" flag="restrictive">
+		<iso:rule context="escidocMetadataProfile:publication/publication:source">
+			<iso:assert test="not(dc:title != '') or (@type and @type != '')">SourceGenreNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
 
 </iso:schema>
