@@ -55,57 +55,63 @@
 			
 		</script>
 	</head>
-	<body bgcolor="white">
-		<h1>
+	<body>
+		<div id="col3">
+			<div class="content">
+		<h1 class="topSpace">
 			eSciDoc Search And Output Service REST interface sample application
 		</h1>
+		<div class="topSpace">
 		<form name="form" method="post" action="rest">
-			<p>
-				This is the CQL search query:<br/>
+			<div class="editItemSingleCol">
+				<label class="colLbl">This is the CQL search query:</label><br/>
 				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=test"></input>
-			</p>
-			<p>
-				<strong>Info:</strong> You can find
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl"><strong>Info:</strong> You can find
 				<a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/srw/search/escidoc_all?operation=explain" target="_blank" >here</a> 
-				all indexes are allowed.
-			</p>
-			<p>
-				Choose a language:<br/>
-				<select size="1" name="language">
+				all indexes are allowed.</label><br/>
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">Choose a language:</label><br/>
+				<select size="1" name="language" style="width:120px">
 					<option value="all">all languages</option>
 					<option value="en">en</option>
 					<option value="de">de</option>
 				</select>
-			</p>
-			<p>
-				Choose a Export format:<br/>
-				<select size="1" name="exportFormat" onchange="checkEndNote()">
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">Choose a Export format:</label><br/>
+				<select size="1" name="exportFormat" onchange="checkEndNote()" style="width:120px">
 					<option value="APA">APA</option>
 					<option value="ENDNOTE">EndNote</option>
 				</select>
-			</p>
-			<p>
-				Choose a Output format:<br/>
-				<select size="1" name="outputFormat">
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">Choose a Output format:</label><br/>
+				<select size="1" name="outputFormat" style="width:120px">
 					<option value="pdf">PDF</option>
 					<option value="html">HTML</option>
 					<option value="rtf">RTF</option>
 					<option value="odt">ODT</option>
 					<option value="snippet">SNIPPET</option>
 				</select>
-			</p>
-			<p>
-				This is the address where to send it:<br/>
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">This is the address where to send it:</label><br/>
 				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/SearchAndOutput"/>
-			</p>
-			<p>
-				Then submit it here:<br/>
-				<input type="button" value="Submit" onclick="submitItem()"/>
-			</p>
-			<p>
-				The complete URI:<br/>
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">Then submit it here:</label><br/>
+				<input type="button" class="inlineButton" value="Submit" onclick="submitItem()"/>
+			</div>
+			<div class="editItemSingleCol">
+				<label class="colLbl">The complete URI:</label><br/>
 				<pre id="result" style="background-color: #EEEEEE"></pre>
-			</p>
+			</div>
 		</form>
+		</div>
+			</div>
+		</div>
 	</body>
 </html>
