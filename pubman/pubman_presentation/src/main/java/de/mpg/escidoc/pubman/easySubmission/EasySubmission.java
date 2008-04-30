@@ -838,7 +838,7 @@ public class EasySubmission extends FacesBean
     	// validate
     	try
     	{
-    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_3");
+    		ValidationReportVO report = itemValidating.validateItemObject(new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_3");
     		if (!report.isValid())
     		{
     			for (ValidationReportItemVO item : report.getItems()) {
@@ -869,7 +869,7 @@ public class EasySubmission extends FacesBean
     	// validate
     	try
     	{
-    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_4");
+    		ValidationReportVO report = itemValidating.validateItemObject(new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_4");
     		if (!report.isValid())
     		{
     			for (ValidationReportItemVO item : report.getItems()) {
@@ -907,10 +907,11 @@ public class EasySubmission extends FacesBean
 	private String validateStep5(String navigateTo) {
 		try
     	{
-    		ValidationReportVO report = itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "easy_submission_step_5");
+    		ValidationReportVO report = itemValidating.validateItemObject(new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_5");
     		if (!report.isValid())
     		{
-    			for (ValidationReportItemVO item : report.getItems()) {
+    			for (ValidationReportItemVO item : report.getItems())
+    			{
 					if (item.isRestrictive())
 					{
 						error(getMessage(item.getContent()));
