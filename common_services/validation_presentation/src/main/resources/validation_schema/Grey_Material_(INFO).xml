@@ -56,6 +56,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
@@ -79,6 +80,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -92,12 +94,13 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
-		<iso:active pattern="abstract_english_required"/>
+		<!-- <iso:active pattern="abstract_english_required"/> -->
 		<iso:active pattern="public_file_required"/>
-		<iso:active pattern="event_required"/>
-		<iso:active pattern="review_method_internal_required"/>
+		<!-- <iso:active pattern="event_required"/> -->
+		<!-- <iso:active pattern="review_method_internal_required"/> -->
 	</iso:phase>
 
 	<iso:phase id="accept_item">
@@ -111,12 +114,13 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
-		<iso:active pattern="abstract_english_required"/>
+		<!-- <iso:active pattern="abstract_english_required"/> -->
 		<iso:active pattern="public_file_required"/>
-		<iso:active pattern="event_required"/>
-		<iso:active pattern="review_method_internal_required"/>
+		<!-- <iso:active pattern="event_required"/> -->
+		<!-- <iso:active pattern="review_method_internal_required"/> -->
 	</iso:phase>
 
 
@@ -191,6 +195,7 @@
 		</iso:rule>
 		
 	</iso:pattern>
+
 
 	<!-- Validation point specific -->	
 	

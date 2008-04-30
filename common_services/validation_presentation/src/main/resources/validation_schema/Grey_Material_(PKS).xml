@@ -56,6 +56,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
@@ -79,6 +80,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -92,12 +94,13 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
-		<iso:active pattern="abstract_english_required"/>
+		<!-- <iso:active pattern="abstract_english_required"/> -->
 		<iso:active pattern="public_file_required"/>
-		<iso:active pattern="event_required"/>
-		<iso:active pattern="review_method_internal_required"/>
+		<!-- <iso:active pattern="event_required"/> -->
+		<!-- <iso:active pattern="review_method_internal_required"/> -->
 	</iso:phase>
 
 	<iso:phase id="accept_item">
@@ -111,12 +114,13 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
-		<iso:active pattern="abstract_english_required"/>
+		<!-- <iso:active pattern="abstract_english_required"/> -->
 		<iso:active pattern="public_file_required"/>
-		<iso:active pattern="event_required"/>
-		<iso:active pattern="review_method_internal_required"/>
+		<!-- <iso:active pattern="event_required"/> -->
+		<!-- <iso:active pattern="review_method_internal_required"/> -->
 	</iso:phase>
 
 
@@ -134,7 +138,7 @@
 	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="source_title_required" id="source_title_required">
 		<iso:rule context="publication:source">
-			<iso:assert test="dc:title != '' or not(* != '' or @xml:lang != '')">SourceTitleNotProvided</iso:assert>
+			<iso:assert test="dc:title != '' or not(normalize-space(.) != '' or .//*/@* != '')">SourceTitleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	 
@@ -222,7 +226,7 @@
 			<iso:assert test="escidoc:organization-name != '' or not(escidoc:address) or escidoc:address = ''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
-
+	 
 	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
 	<iso:pattern name="genre_constraint" id="genre_constraint">
 		<iso:rule context="escidocMetadataProfile:publication">

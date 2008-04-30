@@ -55,17 +55,20 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
 		<!-- iso:active pattern="public_file_required"/ -->
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
 		<!-- iso:active pattern="public_file_required"/ -->
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
@@ -74,12 +77,15 @@
 	<iso:phase id="easy_submission_step_5">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
 		<!-- iso:active pattern="public_file_required"/ -->
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
+		<iso:active pattern="source_title_required"/>
+		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
 	<iso:phase id="submit_item">
@@ -93,10 +99,11 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
-		<!--<iso:active pattern="review_method_required"/>-->
+<!--		<iso:active pattern="review_method_required"/>-->
 	</iso:phase>
 
 	<iso:phase id="accept_item">
@@ -110,6 +117,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_required"/>
 		<iso:active pattern="source_required"/>
@@ -137,7 +145,7 @@
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
 		<iso:rule context="publication:source">
-			<!--<iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert>-->
+			<!-- <iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert> -->
 		</iso:rule>
 	</iso:pattern>
 	
@@ -243,7 +251,7 @@
 	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
 	<iso:pattern name="date_required" id="date_required">
 		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="(@type = 'series' or @type = 'journal' or @type = 'manuscript' or @type = 'other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
+			<iso:assert test="(@type = 'series' or @type = 'journal' or @type = 'manuscript' or @type = 'other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
@@ -251,6 +259,13 @@
 	<iso:pattern name="source_required" id="source_required" flag="restrictive">
 		<iso:rule context="escidocMetadataProfile:publication">
 			<iso:assert test="not(@type = 'article' or @type = 'book-item' or @type = 'conference-paper') or (publication:source/dc:title != '')">SourceNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If source name is given, the source genre has to be given, too -->
+	<iso:pattern name="source_genre_required" id="source_genre_required" flag="restrictive">
+		<iso:rule context="escidocMetadataProfile:publication/publication:source">
+			<iso:assert test="not(dc:title != '') or (@type and @type != '')">SourceGenreNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
