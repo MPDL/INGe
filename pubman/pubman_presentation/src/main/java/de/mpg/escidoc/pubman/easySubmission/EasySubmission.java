@@ -67,6 +67,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
+import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
@@ -419,6 +420,15 @@ public class EasySubmission extends FacesBean
     	bindUploadedFiles();
     	
     	this.setFromEasySubmission(true);
+    	
+    	if (getItem() instanceof PubItemVOPresentation)
+    	{
+    	    ((PubItemVOPresentation)getItem()).setFromEasySubmission(true);
+    	}
+    	else
+    	{
+    	    logger.warn("Cannot cast PubItemVO to PubItemVOPresentation");
+    	}
     	
     	if (validateStep5("validate") == null)
     	{

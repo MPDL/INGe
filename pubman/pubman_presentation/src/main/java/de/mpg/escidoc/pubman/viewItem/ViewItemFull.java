@@ -1809,6 +1809,13 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsFromEasySubmission()
     {
-        return isFromEasySubmission;
+        if(getPubItem() instanceof PubItemVOPresentation)
+        {
+            return ((PubItemVOPresentation)getPubItem()).getIsFromEasySubmission();
+        }
+        else 
+        {
+            return false;
+        }
     }
 }

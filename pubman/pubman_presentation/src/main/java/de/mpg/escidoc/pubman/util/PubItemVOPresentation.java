@@ -96,6 +96,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     
     private boolean isSearchResult = false;
     
+    private boolean isFromEasySubmission;
+    
     //For handling the resource bundles (i18n)
     private Application application = FacesContext.getCurrentInstance().getApplication();
     //get the selected language...
@@ -1024,5 +1026,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	public void setSearchResult(boolean isSearchResult) {
 		this.isSearchResult = isSearchResult;
 	}
+
+    public boolean getIsFromEasySubmission()
+    {
+        return isFromEasySubmission;
+    }
+
+    public void setFromEasySubmission(boolean isFromEasySubmission)
+    {
+        this.isFromEasySubmission = isFromEasySubmission;
+    }
 	
 }

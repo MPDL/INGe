@@ -77,7 +77,7 @@
 												
 												<li><h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" 
 													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
-												
+
 												<li><h:commandLink id="lnkDelete" onclick="if(!confirmDelete('form1:viewItemFull'))return false;"
 													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 													 
