@@ -56,6 +56,7 @@ import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
@@ -469,8 +470,10 @@ public class ViewItemFull extends FacesBean
             
             return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context.getReference(), this.pubItem, null);
         }
-        else
-        {
+        else if (this.getCollectionListSessionBean().getContextList().size() > 1)
+        {            
+            PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
+
             // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
@@ -480,7 +483,13 @@ public class ViewItemFull extends FacesBean
 
             this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
             
-            return CreateRevision.LOAD_CREATEREVISION;
+            return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context.getReference(), this.pubItem, null);
+        }
+        else
+        {
+            logger.error("User has no privileges for any context.");
+            error("ViewItemFull_user_has_no_context");
+            return null;
         }
     }
     

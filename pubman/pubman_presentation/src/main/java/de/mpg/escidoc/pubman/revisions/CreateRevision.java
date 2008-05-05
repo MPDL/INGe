@@ -59,7 +59,7 @@ public class CreateRevision extends FacesBean
 
     // panel for dynamic components
     HtmlPanelGroup panDynamicRevisionList = new HtmlPanelGroup();  
-    HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();        
+    HtmlPanelGroup panDynamicCollectionList = new HtmlPanelGroup();
 
     /**
      * Public constructor.
@@ -139,7 +139,7 @@ public class CreateRevision extends FacesBean
      */
     protected RelationListSessionBean getSessionBean()
     {
-        return (RelationListSessionBean)getBean(RelationListSessionBean.class);
+        return (RelationListSessionBean)getSessionBean(RelationListSessionBean.class);
     }
 
     /**
@@ -148,7 +148,7 @@ public class CreateRevision extends FacesBean
      */
     protected ItemControllerSessionBean getItemControllerSessionBean()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
     /**
@@ -158,7 +158,7 @@ public class CreateRevision extends FacesBean
      */
     protected ContextListSessionBean getCollectionListSessionBean()
     {
-        return (ContextListSessionBean)getBean(ContextListSessionBean.class);
+        return (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
     }
 
     public HtmlPanelGroup getPanDynamicRevisionList()
@@ -170,4 +170,15 @@ public class CreateRevision extends FacesBean
     {
         this.panDynamicRevisionList = panDynamicRevisionList;
     }
+
+    public HtmlPanelGroup getPanDynamicCollectionList()
+    {
+        return panDynamicCollectionList;
+    }
+
+    public void setPanDynamicCollectionList(HtmlPanelGroup panDynamicCollectionList)
+    {
+        this.panDynamicCollectionList = panDynamicCollectionList;
+    }
+    
 }
