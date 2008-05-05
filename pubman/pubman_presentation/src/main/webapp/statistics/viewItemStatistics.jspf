@@ -42,7 +42,7 @@
 		
 		<h1 class="bottomSpace">
 			<h:outputText id="valOrientationText" value="#{lbl.statistics_lblHeader} #{ViewItemStatistics.pubItem.metadata.title.value}" />
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ItemStatistics');return false"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Statistics');return false"/>
 		</h1>
 
 		
