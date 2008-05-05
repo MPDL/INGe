@@ -126,9 +126,6 @@
 						<h:outputText value="<p>" escape="false"/>
 							<h:outputText value="#{creatorAffiliation.organizationAddress}"/>
 						<h:outputText value="</p>" escape="false"/>
-						<h:outputText value="<p>" escape="false"/>
-							<h:outputText value="#{creatorAffiliation.organizationIdentifier}"/>
-						<h:outputText value="</p>" escape="false"/>
 					<h:outputText value="</div>" escape="false"/>
 				</tr:iterator>
 				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.sourceCreatorAffiliationsIterator.rowCount == 0}" escape="false"/>

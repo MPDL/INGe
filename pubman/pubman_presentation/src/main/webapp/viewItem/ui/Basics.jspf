@@ -75,7 +75,7 @@
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
-		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{ViewItemFull.isLatestRelease}">
+		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 		</h:commandLink>
 		
