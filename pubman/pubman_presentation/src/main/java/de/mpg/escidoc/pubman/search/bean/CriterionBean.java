@@ -59,15 +59,15 @@ public abstract class CriterionBean extends FacesBean
 	public final void setLogicOperator(String logicOperator)
 	{
 		this.logicOperator = logicOperator;
-		if (logicOperator.equals("And"))
+		if (logicOperator.equals("LOGIC_AND"))
 		{
 			getCriterionVO().setLogicOperator(LogicOperator.AND);
 		}
-		else if (logicOperator.equals("Or"))
+		else if (logicOperator.equals("LOGIC_OR"))
 		{
 			getCriterionVO().setLogicOperator(LogicOperator.OR);
 		}
-		else if (logicOperator.equals("Not"))
+		else if (logicOperator.equals("LOGIC_NOT"))
 		{
 			getCriterionVO().setLogicOperator(LogicOperator.NOT);
 		}
