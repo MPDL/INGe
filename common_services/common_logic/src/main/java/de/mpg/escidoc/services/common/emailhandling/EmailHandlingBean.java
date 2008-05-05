@@ -225,6 +225,7 @@ public class EmailHandlingBean implements EmailHandling
         return status;
     }
 
+
     /*
      * A method to ass attachment files to a message
      */ 
