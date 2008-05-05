@@ -1172,53 +1172,158 @@ References
 			</md-records:md-record>
 		</md-records:md-records>
 	</item:item>
-	<item:item objid="escidoc:1601" xmlns:item="http://www.escidoc.de/schemas/item/0.3" last-modification-date="2007-10-17T13:25:55.828Z">
+	<item:item objid="escidoc:1601"
+		xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+		last-modification-date="2007-10-17T13:25:55.828Z">
 		<item:properties>
-			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
-			<item:created-by objid="escidoc:user2"/>
-			<item:context objid="escidoc:persistent3"/>
-			<item:content-model objid="escidoc:persistent4"/>
+			<item:creation-date>
+				2007-11-06T13:01:05.549Z
+			</item:creation-date>
+			<item:created-by objid="escidoc:user2" />
+			<item:context objid="escidoc:persistent3" />
+			<item:content-model objid="escidoc:persistent4" />
 			<item:lock-status>unlocked</item:lock-status>
 			<item:version>
 				<item:version-status>released</item:version-status>
 			</item:version>
-			<item:content-model-specific/>
+			<item:content-model-specific />
 		</item:properties>
 		<md-records:md-records>
 			<md-records:md-record name="escidoc">
-				<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="manuscript">
+				<escidocMetadataProfile:publication
+					xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:dcterms="http://purl.org/dc/terms/"
+					xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+					xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+					xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+					xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+					type="manuscript">
 					<publication:creator role="author">
 						<escidoc:person>
-							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
-							<escidoc:family-name>Meier</escidoc:family-name>
-							<escidoc:given-name>Hans</escidoc:given-name>
+							<escidoc:complete-name>
+								Hans Meier
+							</escidoc:complete-name>
+							<escidoc:family-name>
+								Meier
+							</escidoc:family-name>
+							<escidoc:given-name>
+								Hans
+							</escidoc:given-name>
 							<escidoc:organization>
-								<escidoc:organization-name>Test Organization</escidoc:organization-name>
-								<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+								<escidoc:organization-name>
+									Test Organization
+								</escidoc:organization-name>
+								<escidoc:address>
+									Max-Planck-Str. 1
+								</escidoc:address>
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
 					<publication:creator role="author">
 						<escidoc:person>
-							<escidoc:complete-name>Hans Meier</escidoc:complete-name>
-							<escidoc:family-name>Meier</escidoc:family-name>
-							<escidoc:given-name>Hans</escidoc:given-name>
+							<escidoc:complete-name>
+								Hans Meier
+							</escidoc:complete-name>
+							<escidoc:family-name>
+								Meier
+							</escidoc:family-name>
+							<escidoc:given-name>
+								Hans
+							</escidoc:given-name>
 							<escidoc:organization>
-								<escidoc:organization-name>Test Organization</escidoc:organization-name>
-								<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+								<escidoc:organization-name>
+									Test Organization
+								</escidoc:organization-name>
+								<escidoc:address>
+									Max-Planck-Str. 1
+								</escidoc:address>
 							</escidoc:organization>
 						</escidoc:person>
 					</publication:creator>
 					<publication:creator role="author">
 						<escidoc:organization>
-							<escidoc:organization-name>The creating affiliation</escidoc:organization-name>
-							<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+							<escidoc:organization-name>
+								The creating affiliation
+							</escidoc:organization-name>
+							<escidoc:identifier>
+								escidoc:persistent13
+							</escidoc:identifier>
 						</escidoc:organization>
 					</publication:creator>
-					<dc:title xml:lang="en">PubMan: The first of all.</dc:title>
-					<dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+					<dc:title xml:lang="en">
+						PubMan: The first of all.
+					</dc:title>
+					<dcterms:created xsi:type="dcterms:W3CDTF">
+						2007
+					</dcterms:created>
 				</escidocMetadataProfile:publication>
 			</md-records:md-record>
 		</md-records:md-records>
+		<escidocComponents:components>
+			<escidocComponents:component objid="escidoc:1297">
+				<escidocComponents:properties>
+					<escidocComponents:creation-date>
+						2008-04-28T14:13:43.046Z
+					</escidocComponents:creation-date>
+					<escidocComponents:valid-status>
+						valid
+					</escidocComponents:valid-status>
+					<escidocComponents:visibility>
+						public
+					</escidocComponents:visibility>
+					<escidocComponents:pid>
+						hdl:someHandle/test/escidoc:1297
+					</escidocComponents:pid>
+					<escidocComponents:content-category>
+						pre-print
+					</escidocComponents:content-category>
+					<escidocComponents:file-name>
+						Maven
+					</escidocComponents:file-name>
+					<escidocComponents:mime-type>
+						application/x-gzip
+					</escidocComponents:mime-type>
+					<escidocComponents:file-size>
+						19757
+					</escidocComponents:file-size>
+				</escidocComponents:properties>
+				<escidocComponents:content
+					xlink:href="/ir/item/escidoc:1296/components/component/escidoc:1297/content" />
+			</escidocComponents:component>
+			<escidocComponents:component objid="escidoc:1298">
+				<escidocComponents:properties>
+					<escidocComponents:creation-date>
+						2008-04-28T14:13:43.280Z
+					</escidocComponents:creation-date>
+					<escidocComponents:valid-status>
+						valid
+					</escidocComponents:valid-status>
+					<escidocComponents:visibility>
+						public
+					</escidocComponents:visibility>
+					<escidocComponents:pid>
+						hdl:someHandle/test/escidoc:1298
+					</escidocComponents:pid>
+					<escidocComponents:content-category>
+						supplementary-material
+					</escidocComponents:content-category>
+					<escidocComponents:file-name>
+						Kuehlung
+					</escidocComponents:file-name>
+					<escidocComponents:mime-type>
+						image/jpg
+					</escidocComponents:mime-type>
+					<escidocComponents:file-size>
+						123
+					</escidocComponents:file-size>
+					<escidocComponents:locator-url>
+						http://bmw.bazzi.biz/anleit/kuehlung_entlueften.pdf
+					</escidocComponents:locator-url>
+				</escidocComponents:properties>
+				<escidocComponents:content
+					xlink:href="/ir/item/escidoc:1296/components/component/escidoc:1298/content" />
+			</escidocComponents:component>
+		</escidocComponents:components>
 	</item:item>
 </item-list>
