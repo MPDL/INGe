@@ -44,15 +44,15 @@
 
 <h:dataTable var="data" styleClass="fullWidth floatbox" value="#{EditItem.eventTitleCollection.alternativeTitleManager.objectDM}" rendered="#{EditItem.eventTitleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
-		<h:panelGroup layout="block" styleClass="editItemLeftCol">
+		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
 			<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
-		</h:panelGroup>
+		<%--</h:panelGroup>
 		<h:panelGroup layout="block" styleClass="editItemRightCol">
 			<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
 			<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{data.language}">
 				<f:selectItems value="#{EditItem.eventTitleCollection.languageOptions}"/>
-			</h:selectOneMenu>
+			</h:selectOneMenu>--%>
 			
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
 			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
