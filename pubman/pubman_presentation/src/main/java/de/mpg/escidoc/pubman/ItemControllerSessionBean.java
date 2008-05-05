@@ -983,7 +983,8 @@ public class ItemControllerSessionBean extends FacesBean
     {
             if (pubItem != null)
             {
-                ValidationReportVO report = this.itemValidating.validateItemObject(pubItem, validationPoint);
+                PubItemVO itemVO = new PubItemVO(pubItem);
+                ValidationReportVO report = this.itemValidating.validateItemObject(itemVO, validationPoint);
                 currentItemValidationReport = report;
             }
         return null;
