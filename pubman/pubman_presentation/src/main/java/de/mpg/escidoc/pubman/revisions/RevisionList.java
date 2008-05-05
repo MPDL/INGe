@@ -108,6 +108,7 @@ public class RevisionList extends FacesBean
         this.getItemListSessionBean().setCurrentPubItemList(revisionList);
         this.getItemListSessionBean().setIsRevisionView(true);
         this.getItemListSessionBean().setListDirty(true);
+        this.getItemListSessionBean().setType("RevisionList");
     
     }
     

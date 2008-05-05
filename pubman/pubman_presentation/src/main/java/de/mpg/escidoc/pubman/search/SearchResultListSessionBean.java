@@ -29,9 +29,13 @@
 
 package de.mpg.escidoc.pubman.search;
 
+import java.util.ArrayList;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.
@@ -47,6 +51,18 @@ public class SearchResultListSessionBean extends FacesBean
 
     private String searchString = new String();
     private boolean includeFiles = false;
+    
+    //Criterion VOs in case of advanced search
+    private ArrayList<CriterionVO> criterionVOList;
+    
+    //Language in case of advanced search
+    private String language;
+    
+    //Affiliation in case of affiliation search
+    private AffiliationVO affiliation;
+   
+    
+    private SearchType type;
 
     /**
      * Public constructor.
@@ -54,6 +70,7 @@ public class SearchResultListSessionBean extends FacesBean
     public SearchResultListSessionBean()
     {
         this.init();
+        
     }
 
     /**
@@ -86,4 +103,50 @@ public class SearchResultListSessionBean extends FacesBean
     {
         this.includeFiles = includeFiles;
     }
+
+    public SearchType getType()
+    {
+        return type;
+    }
+
+    public void setType(SearchType type)
+    {
+        this.type = type;
+    }
+    
+    public enum SearchType 
+    {
+        NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
+    }
+
+    public ArrayList<CriterionVO> getCriterionVOList()
+    {
+        return criterionVOList;
+    }
+
+    public void setCriterionVOList(ArrayList<CriterionVO> criterionVOList)
+    {
+        this.criterionVOList = criterionVOList;
+    }
+
+    public String getLanguage()
+    {
+        return language;
+    }
+
+    public void setLanguage(String language)
+    {
+        this.language = language;
+    }
+
+    public AffiliationVO getAffiliation()
+    {
+        return affiliation;
+    }
+
+    public void setAffiliation(AffiliationVO affiliation)
+    {
+        this.affiliation = affiliation;
+    }
+
 }

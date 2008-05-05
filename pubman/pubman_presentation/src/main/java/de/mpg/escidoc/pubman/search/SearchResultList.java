@@ -60,6 +60,7 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
+import de.mpg.escidoc.pubman.search.SearchResultListSessionBean.SearchType;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
@@ -148,6 +149,10 @@ public class SearchResultList extends ItemList
         {
             logger.error("PubItemSearchingBean Initialization Failure: \n" + e);
         }
+        
+       
+        
+        
     }
 
     /**
@@ -541,6 +546,7 @@ public class SearchResultList extends ItemList
 
         String searchString = this.getSessionBean().getSearchString();
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
+        this.getSessionBean().setType(SearchType.NORMAL_SEARCH);
         
         try
         {
@@ -590,6 +596,10 @@ public class SearchResultList extends ItemList
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
         this.deleteMessage();
+        
+        this.getSessionBean().setType(SearchType.ADVANCED_SEARCH);
+        this.getSessionBean().setCriterionVOList(criterionVOList);
+        this.getSessionBean().setLanguage(language);
 
         try
         {
@@ -652,6 +662,8 @@ public class SearchResultList extends ItemList
 //      reset some error message from last request
         this.deleteMessage();
         
+        this.getSessionBean().setType(SearchType.AFFILIATION_SEARCH);
+        this.getSessionBean().setAffiliation(affiliation);
         
         ArrayList<PubItemVO> itemsFound = null;
         try

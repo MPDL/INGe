@@ -40,6 +40,7 @@ import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
 /**
@@ -86,6 +87,18 @@ public class SearchResultListPage extends BreadcrumbPage
         if (sessionBean.isRunAsGUITool())
         {
             redirectToGUITool();
+        }
+        
+        
+        //if list is dirty restart last search
+        if (getItemListSessionBean().isListDirty() && getSessionBean().getType() != null)
+        {
+            switch (getSessionBean().getType()) 
+            {
+                case NORMAL_SEARCH : getSearchResultList().startSearch(); break;
+                case ADVANCED_SEARCH : getSearchResultList().startAdvancedSearch(getSessionBean().getCriterionVOList(), getSessionBean().getLanguage()); break;
+                case AFFILIATION_SEARCH : getSearchResultList().startSearchForAffiliation(getSessionBean().getAffiliation()); break;
+            }
         }
     }
 
@@ -154,6 +167,26 @@ public class SearchResultListPage extends BreadcrumbPage
     protected ViewItemSessionBean getViewItemSessionBean()
     {
         return (ViewItemSessionBean) getSessionBean(ViewItemSessionBean.class);
+    }
+    
+    /**
+     * Returns the ItemListSessionBean.
+     * 
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected ItemListSessionBean getItemListSessionBean()
+    {
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
+    }
+    
+    /**
+     * Returns the SearchResultListSessionBean.
+     * 
+     * @return a reference to the scoped data bean (SearchResultListSessionBean)
+     */
+    protected SearchResultListSessionBean getSessionBean()
+    {
+        return (SearchResultListSessionBean)getSessionBean(SearchResultListSessionBean.class);
     }
 
 }
