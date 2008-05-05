@@ -278,19 +278,20 @@ public class SourceBean extends FacesBean
         StringBuffer publishingInfo = new StringBuffer();
         if(source.getPublishingInfo() != null)
         {
-            if(source.getPublishingInfo().getEdition() != null)
-            {
-                publishingInfo.append(source.getPublishingInfo().getEdition());
-            }
+            
             if(source.getPublishingInfo().getEdition() != null && source.getPublishingInfo().getPlace() != null)
             {
-                publishingInfo.append(", ");
                 publishingInfo.append(source.getPublishingInfo().getPlace());
             }
             if(source.getPublishingInfo().getPublisher() != null)
             {
                 publishingInfo.append(": ");
                 publishingInfo.append(source.getPublishingInfo().getPublisher());
+            }
+            if(source.getPublishingInfo().getEdition() != null)
+            {
+                publishingInfo.append(", ");
+                publishingInfo.append(source.getPublishingInfo().getEdition());
             }
         }
         return publishingInfo.toString();

@@ -46,7 +46,6 @@
 <div class="itemElementLine floatbox">				
 			<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblSourceTitle}"/>
-				<h:outputText value=" <#{source.source.title.language}>" rendered="#{source.source.title != null && source.source.title.language != null && source.source.title.language != ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
@@ -61,7 +60,6 @@
 				<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2==ViewItemFull.sourceTitleIterator.rowIndex}"/>
 				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2 != ViewItemFull.sourceTitleIterator.rowIndex}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}"/>
-					<h:outputText value=" <#{altTitle.language}>" rendered="#{altTitle.language != null && altTitle.language != ''}"/>
 				<h:outputText value="</div>" escape="false"/>	
 				<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2==ViewItemFull.sourceTitleIterator.rowIndex}"/>
 				<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.sourceTitleIterator.rowIndex%2)*2 != ViewItemFull.sourceTitleIterator.rowIndex}"/>
@@ -184,7 +182,6 @@
 			
 			<h:outputText value="<div class='itemText odd'>" escape="false"/>
 				<h:outputText value="#{source.publishingInfo}"/>
-				<h:outputText value=", #{source.source.publishingInfo.edition}" rendered="#{source.source.publishingInfo.edition != null && source.source.publishingInfo.edition != ''}"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{(source.publishingInfo == null || source.publishingInfo == '') && (source.source.publishingInfo.edition == null || source.source.publishingInfo.edition == '')}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>			

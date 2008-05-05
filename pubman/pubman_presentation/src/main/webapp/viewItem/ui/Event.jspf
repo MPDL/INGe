@@ -46,7 +46,6 @@
 <div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblEventTitle}"/>
-			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.event.title.language}>" rendered="#{ViewItemFull.pubItem.metadata.event.title.language != null && ViewItemFull.pubItem.metadata.event.title.language != ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
@@ -61,7 +60,6 @@
 			<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2==ViewItemFull.eventAltTitleIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2!=ViewItemFull.eventAltTitleIterator.rowIndex}"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/>
-				<h:outputText value=" <#{eventAltTitles.language}>" rendered="#{eventAltTitles.language != null && eventAltTitles.language != ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
 			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.eventAltTitleIterator.rowIndex%2)*2==ViewItemFull.eventAltTitleIterator.rowIndex}"/>
@@ -85,7 +83,6 @@
 <div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblEventPlace}"/>
-			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.event.place.language}>" rendered="#{ViewItemFull.pubItem.metadata.event.place.language != null && ViewItemFull.pubItem.metadata.event.place.language != ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>

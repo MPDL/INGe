@@ -104,7 +104,6 @@
 		<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblAlternativeTitle}"/>
-			<h:outputText value=" <#{altTitle.language}>" rendered="#{altTitle.language != null && altTitle.language != ''}"/>
 		<h:outputText value="</div>" escape="false"/>	
 		<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2==ViewItemFull.titleIterator.rowIndex}"/>
 		<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.titleIterator.rowIndex%2)*2 != ViewItemFull.titleIterator.rowIndex}"/>
@@ -217,7 +216,6 @@
 <div class="itemElementLine floatbox">
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblSubject}"/>
-		<h:outputText value=" <#{ViewItemFull.pubItem.metadata.subject.language}>" rendered="#{ViewItemFull.pubItem.metadata.subject != null && ViewItemFull.pubItem.metadata.subject.language != null && ViewItemFull.pubItem.metadata.subject.language != ''}"/>
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>

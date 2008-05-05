@@ -47,7 +47,6 @@
 			<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2!=ViewItemFull.abstractIterator.rowIndex}"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/>
-				<h:outputText value=" <#{abstract.language}>" rendered="#{abstract.language != null && abstract.language != ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
 			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
@@ -62,7 +61,6 @@
 <div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblTOC}"/>
-			<h:outputText value=" <#{ViewItemFull.pubItem.metadata.tableOfContents.language}>" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents.language != null && ViewItemFull.pubItem.metadata.tableOfContents.language != ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
