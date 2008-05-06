@@ -83,6 +83,28 @@
 	<h:outputText value="</div>" escape="false"/>
 </div>
 	
+	<!--Withdrawal Information -->
+<h:panelGroup rendered="#{ViewItemFull.itemIsWithdrawn}">
+	<div class="itemElementLine floatbox">	
+		<h:outputText value="<div class='itemTitle odd withdrawn'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblWithdrawalDate}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText odd withdrawn'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.withdrawalDate}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemTitle withdrawn'>" escape="false"/>
+			<h:outputText value="#{lbl.ViewItemFull_lblWithdrawalComment}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText withdrawn'>" escape="false"/>
+			<h:outputText value="#{ViewItemFull.pubItem.withdrawalComment}"/>
+		<h:outputText value="</div>" escape="false"/>
+	
+	</div>
+</h:panelGroup>	
+
 	<!--Cite item as -->
 <h:panelGroup rendered="#{ViewItemFull.showCiteItem}">
 	<div class="itemElementLine floatbox">	

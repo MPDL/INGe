@@ -1035,6 +1035,23 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
+     * Returns the formatted withdrawal date as string
+     * @return String formatted withdrawal date
+     */
+    public String getWithdrawalDate()
+    {
+    	String date = "";
+    	if(this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+        {
+    		if(this.pubItem.getModificationDate() != null)
+    		{
+    			date = CommonUtils.format(this.pubItem.getModificationDate());
+    		}
+        }
+    	return date;
+    }
+    
+    /**
      * Gets the name of the Collection the item belongs to.
      *
      * @return String formatted Collection name
