@@ -60,7 +60,6 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
-import de.mpg.escidoc.pubman.search.SearchResultListSessionBean.SearchType;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
@@ -149,10 +148,6 @@ public class SearchResultList extends ItemList
         {
             logger.error("PubItemSearchingBean Initialization Failure: \n" + e);
         }
-        
-       
-        
-        
     }
 
     /**
@@ -215,7 +210,7 @@ public class SearchResultList extends ItemList
         this.displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
         
         ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
-        //after the sepcificiation the file format of the displayed export data has to be html
+        //after the specification the file format of the displayed export data has to be html
         sb.setFileFormat("html");
  
         // set the currently selected items in the FacesBean
@@ -225,11 +220,11 @@ public class SearchResultList extends ItemList
             // export format and file format.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();                        
            
-            byte[] exportDataStream ;
             try 
             {
-                exportDataStream = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems()));
-            } catch(TechnicalException e)
+            	this.displayExportData = new String(this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems())));
+            } 
+            catch(TechnicalException e)
             {
                 logger.error("Could not get export data." + "\n" + e.toString());
                 ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
@@ -237,12 +232,8 @@ public class SearchResultList extends ItemList
                 return ErrorPage.LOAD_ERRORPAGE;
             }
             
-            if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.LAYOUT){
-            
-                this.displayExportData = new String(exportDataStream);            
-
-            } else {
-                this.displayExportData = new String(exportDataStream);   
+            if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.STRUCTURED)
+            {
                 this.displayExportData = HTMLEntityEncode(this.displayExportData);
                 this.displayExportData = "<html><head><title>Export Data</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px><pre>"
                 + "<table><tr>"
@@ -546,7 +537,6 @@ public class SearchResultList extends ItemList
 
         String searchString = this.getSessionBean().getSearchString();
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
-        this.getSessionBean().setType(SearchType.NORMAL_SEARCH);
         
         try
         {
@@ -596,10 +586,6 @@ public class SearchResultList extends ItemList
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
         this.deleteMessage();
-        
-        this.getSessionBean().setType(SearchType.ADVANCED_SEARCH);
-        this.getSessionBean().setCriterionVOList(criterionVOList);
-        this.getSessionBean().setLanguage(language);
 
         try
         {
@@ -662,8 +648,6 @@ public class SearchResultList extends ItemList
 //      reset some error message from last request
         this.deleteMessage();
         
-        this.getSessionBean().setType(SearchType.AFFILIATION_SEARCH);
-        this.getSessionBean().setAffiliation(affiliation);
         
         ArrayList<PubItemVO> itemsFound = null;
         try
