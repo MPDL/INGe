@@ -160,6 +160,11 @@
 	background-repeat:no-repeat;
 }
 
+.withdrawalIcon{	
+	background-image:url("../images/PM_h1_withdrawn_22.gif");
+	background-repeat:no-repeat;
+}
+
 .plaindocIcon{
 	width:30px;
 	height:30px;
