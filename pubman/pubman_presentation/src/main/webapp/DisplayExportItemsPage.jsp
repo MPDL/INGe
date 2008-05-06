@@ -22,11 +22,12 @@
 
 
  Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 --%>
 <%@page import="de.mpg.escidoc.pubman.export.ExportItemsSessionBean"%>
+<%@page contentType="text/html; charset=UTF-8" %> 
 <%@page session="true"%>
 
 <%
