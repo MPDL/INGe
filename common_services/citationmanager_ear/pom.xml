@@ -26,6 +26,7 @@
 					<displayName>citationmanager</displayName>
 					<description>citationmanager integration testing ear</description>
 					<resourcesDir>target/classes</resourcesDir>
+					<version>5</version>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>

@@ -26,6 +26,7 @@
 					<displayName>structuredexportmanager_ear</displayName>
 					<description>structuredexportmanager_ear integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>5</version>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
