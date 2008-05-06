@@ -144,6 +144,9 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator sourceCreatorPersonsIterator = new UIXIterator();
     
+    private UIXIterator sourceCreatorOrganizationsIterator = new UIXIterator(); 
+    
+    
     private UIXIterator sourceCreatorAffiliationsIterator = new UIXIterator();	
     
     private UIXIterator fileIterator = new UIXIterator();
@@ -1719,5 +1722,15 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
+    }
+
+    public UIXIterator getSourceCreatorOrganizationsIterator()
+    {
+        return sourceCreatorOrganizationsIterator;
+    }
+
+    public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
+    {
+        this.sourceCreatorOrganizationsIterator = sourceCreatorOrganizationsIterator;
     }
 }

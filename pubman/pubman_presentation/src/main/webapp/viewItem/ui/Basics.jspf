@@ -150,7 +150,7 @@
 		<h:outputText value="</div>" escape="false"/>
 	</tr:iterator>
 	
-	<h:outputText value="<div class='itemText odd'>#{lbl.ViewItemFull_lblNoEntry}</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0 && ViewItemFull.creatorOrganizationsIterator.rowCount == 0}" escape="false"/>
+	<h:outputText value="<div class='itemText odd'>#{lbl.ViewItemFull_lblNoEntry}</div>" rendered="#{ViewItemFull.creatorPersonsIterator.rowCount == 0 and ViewItemFull.creatorOrganizationsIterator.rowCount == 0}" escape="false"/>
 
 
 

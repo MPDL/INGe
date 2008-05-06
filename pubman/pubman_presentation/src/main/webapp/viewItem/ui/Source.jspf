@@ -105,8 +105,18 @@
 					<h:outputText value="#{sourceCreatorPerson}"/>
 				<h:outputText value="</div>" escape="false"/>
 			</tr:iterator>
+			
+			<tr:iterator var="sourceCreatorOrganization" value="#{source.sourceCreatorOrganizationsArray}" binding="#{ViewItemFull.sourceCreatorOrganizationsIterator}" varStatus="index">
+				<h:outputText value="<div class='itemTitle'>" escape="false" rendered="#{ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex > 0 || ViewItemFull.sourceCreatorPersonsIterator.rowCount > 0}"/>
+					<h:outputText value="&#160;" rendered="#{ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex > 0 || ViewItemFull.sourceCreatorPersonsIterator.rowCount > 0}" escape="false"/>
+				<h:outputText value="</div>" escape="false" rendered="#{ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex > 0 || ViewItemFull.sourceCreatorPersonsIterator.rowCount > 0}"/>
+				<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex%2)*2==ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex}"/>
+				<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex%2)*2 != ViewItemFull.sourceCreatorOrganizationsIterator.rowIndex}"/>
+					<h:outputText value="#{sourceCreatorOrganization.organizationName}"/>
+				<h:outputText value="</div>" escape="false"/>
+			</tr:iterator>
 
-			<h:outputText value="<div class='itemText'>#{lbl.ViewItemFull_lblNoEntry}</div>" rendered = "#{ViewItemFull.sourceCreatorPersonsIterator.rowCount == 0}" escape="false"/>
+			<h:outputText value="<div class='itemText'>#{lbl.ViewItemFull_lblNoEntry}</div>" rendered = "#{ViewItemFull.sourceCreatorPersonsIterator.rowCount == 0 and ViewItemFull.sourceCreatorOrganizationsIterator.rowCount == 0}" escape="false"/>
 						
 			
 </div>
