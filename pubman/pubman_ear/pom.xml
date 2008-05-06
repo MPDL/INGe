@@ -26,6 +26,7 @@
 					<displayName>pubman</displayName>
 					<description>Pubman</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>5</version>
 					<modules>
 						<webModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
