@@ -264,7 +264,7 @@
 	<!-- At least one file with visibility "public" has been uploaded for the item. -->
 	<iso:pattern name="public_file_required" id="public_file_required">
 		<iso:rule context="escidocComponents:components">
-			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '' and escidocComponents:component/escidocComponents:properties/escidocComponents:visibility = 'public']">NoPublicFileProvided</iso:assert>
+			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '' and escidocComponents:properties/escidocComponents:visibility = 'public']">NoPublicFileProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
