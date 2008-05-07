@@ -32,7 +32,7 @@
 	<!-- concrete mapping for ContextVO -->
 	<!-- Type: ContextVO... -->
 	<mapping abstract="true" ns="http://www.escidoc.de/schemas/context/0.3" class="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false"
-		flexible="true" allow-repeats="true">
+		allow-repeats="true">
 
 		<!-- Node: context.@objid -->
 		<!-- Field: ContextVO.reference [ContextRO] -->
@@ -82,71 +82,13 @@
 
 		</structure>
 
-		<!-- Node: context.admin-descriptor -->
-		<structure name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" ordered="false" flexible="true" usage="optional">
+		<collection name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
+			
+				<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO" usage="optional" />
 
-			<!-- Node: context.admin-descriptor.properties -->
-			<!-- IGNORED -->
-			<structure name="properties" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
-
-			<!-- Node: context.admin-descriptor.allowed-content-types(*) -->
-			<structure name="allowed-content-types" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
-
-				<!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type -->
-				<!-- ASSUMPTION: There is exactly ONE allowed-content-type delivered, cf. -->
-				<!-- http://zim01.gwdg.de:8080/browse/AS-221 -->
-				<structure name="allowed-content-type" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
-
-                    <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-md-schema -->
-                    <!-- IGNORED -->
-                    <structure name="allowed-md-schema" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
-
-                    <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-genres -->
-                    <!-- Field: PubCollectionVO.allowedGenres [List<MdsPublicationVO.Genre>] -->
-                    <structure name="allowed-genres" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
-                    
-                        <collection field="allowedGenres" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.genreListFactory" usage="optional">
-
-                            <!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-genres.allowed-genre -->
-                            <value style="element" name="allowed-genre" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" type="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO$Genre"
-                                deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum" serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-                                usage="optional" />
-
-                        </collection>
-					</structure>
-
-				</structure>
-			</structure>
-
-			<!-- Node: context.admin-descriptor.submission-methods -->
-			<!-- Field: ContextVO.allowedSubmissionMethods [List<ContextVO.SubmissionMethod>] -->
-			<collection name="submission-methods" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="allowedSubmissionMethods"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.submissionMethodListFactory" usage="optional">
-
-				<!-- Node: context.admin-descriptor.submission-methods.method -->
-				<value style="element" name="method" ns="http://www.escidoc.de/schemas/admindescriptor/0.3"
-					type="de.mpg.escidoc.services.common.valueobjects.ContextVO$SubmissionMethod"
-					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeSubmissionMethodEnum"
-					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
-
-			</collection>
-
-			<!-- Node: context.admin-descriptor.component-visibility -->
-			<!-- Field: ContextVO.defaultFileVisibility [PubFileVO.Visibility] -->
-			<value style="element" name="component-visibility" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="defaultFileVisibility"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeFileVisibilityEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
-
-			<!-- Node: context.admin-descriptor.visibility-of-references -->
-			<!-- IGNORED -->
-			<structure name="visibility-of-references" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
-
-			<!-- Node: context.admin-descriptor.visibility-of-annotations -->
-			<!-- IGNORED -->
-			<structure name="visibility-of-annotations" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" />
-
-		</structure>
-
+				<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.FacesAdminDescriptorVO" usage="optional" />
+				
+		</collection>
 	</mapping>
 
 </binding>

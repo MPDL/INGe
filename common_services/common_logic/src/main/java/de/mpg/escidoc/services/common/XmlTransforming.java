@@ -37,6 +37,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -45,7 +47,6 @@ import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
@@ -166,17 +167,17 @@ public interface XmlTransforming
      * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/item/0.3" (item.xsd)
      * @throws TechnicalException
      */
-    public String transformToItem(PubItemVO pubItem) throws TechnicalException;
+    public String transformToItem(ItemVO pubItem) throws TechnicalException;
 
     /**
      * Transforms a given <code>List&lt;ItemVO></code> to corresponding XML that is valid according to "http://www.
      * escidoc.de/schemas/itemlist/0.2" (item-list.xsd).
      * 
-     * @param pubItemVOList A <code>List&lt;ItemVO></code>
+     * @param itemVOList A <code>List&lt;ItemVO></code>
      * @return Corresponding XML that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2" (item-list.xsd)
      * @throws TechnicalException
      */
-    public String transformToItemList(java.util.List<PubItemVO> pubItemVOList) throws TechnicalException;
+    public String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException;
 
     /**
      * Not implemented yet.
@@ -229,7 +230,7 @@ public interface XmlTransforming
      * @return The corresponding <code>ItemVO</code>
      * @throws TechnicalException
      */
-    public PubItemVO transformToPubItem(String item) throws TechnicalException;
+    public ItemVO transformToItem(String item) throws TechnicalException;
 
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/itemlist/0.2" (item-list.xsd)
@@ -240,7 +241,7 @@ public interface XmlTransforming
      * @return The corresponding <code>List&lt;ItemVO></code>
      * @throws TechnicalException
      */
-    public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException;
+    public List<? extends ItemVO> transformToItemList(String itemList) throws TechnicalException;
 
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/searchresult/0.3"
@@ -310,4 +311,8 @@ public interface XmlTransforming
      * @throws UnmarshallingException
      */
     public List<RelationVO> transformToRelationVOList(String relationList) throws UnmarshallingException;
+    
+    public PubItemVO transformToPubItem(String itemXml) throws TechnicalException;
+    
+    public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException;
 }

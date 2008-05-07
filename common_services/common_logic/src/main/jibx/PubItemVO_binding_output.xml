@@ -86,7 +86,7 @@
 				<!-- Node: item.properties.version.version-status -->
 				<!-- Field: PubItemVO.state [PubItemVO.State] -->
 				<value style="element" name="version-status" ns="http://www.escidoc.de/schemas/item/0.3" field="state"
-					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubItemStateEnum"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
 					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 					usage="optional" />
 
@@ -142,7 +142,7 @@
 		<!-- Node: item.relations -->
 		<!-- Field: relations [List<PubItemRelationVO>] -->
 		<collection name="relations" ns="http://www.escidoc.de/schemas/relations/0.3" field="relations"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubItemRelationVOListFactory"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
 			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
 			usage="optional">
 			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />

@@ -27,54 +27,57 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class WesternFormat2 extends AuthorFormat
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+
+/**
+ * Implementation of an admin descriptor for PubMan publications.
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class PublicationAdminDescriptorVO extends AdminDescriptorVO
 {
-
-    @Override
-    public String getPattern()
-    {
-        return "^(" + INITIALS + "[ -]*)+ ?" + NAME
-            + "( *(,| and | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
-    }
-
-    @Override
-    public List<Author> getAuthors(String authorsString)
-    {
-
-        String[] authors = authorsString.split(" *(,| and | und | et ) *");
-
-        return getAuthorListWithInitials(authors);
-    }
-
-    @Override
-    public int getSignificance()
-    {
-        return 10;
-    }
-
-    @Override
-    public String getDescription()
-    {
-        return "I. Nachname[, I. I. Nachname]";
-    }
-
-    @Override
-    public String getName()
-    {
-        return "Westliches Normalformat mit Initialen, komma-getrennt";
-    }
-
-    @Override
-    public String getWarning()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+    private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
     
+    private ItemRO templateItem;
+    
+    private String validationSchema;
+
+    public List<MdsPublicationVO.Genre> getAllowedGenres()
+    {
+        return allowedGenres;
+    }
+
+    public void setAllowedGenres(List<MdsPublicationVO.Genre> allowedGenres)
+    {
+        this.allowedGenres = allowedGenres;
+    }
+
+    public ItemRO getTemplateItem()
+    {
+        return templateItem;
+    }
+
+    public void setTemplateItem(ItemRO templateItem)
+    {
+        this.templateItem = templateItem;
+    }
+
+    public String getValidationSchema()
+    {
+        return validationSchema;
+    }
+
+    public void setValidationSchema(String validationSchema)
+    {
+        this.validationSchema = validationSchema;
+    }
     
 }

@@ -16,7 +16,7 @@ public class PubItemVO extends ItemVO {
      * 
      * @param itemVO The item to be copied.
      */
-    public PubItemVO(PubItemVO itemVO)
+    public PubItemVO(ItemVO itemVO)
     {
         super(itemVO);
     }

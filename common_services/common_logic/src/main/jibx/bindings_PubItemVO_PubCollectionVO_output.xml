@@ -53,6 +53,9 @@
 	<!--  -->
 	<include path="MdsPublicationVO_binding_output.xml" />
 	<include path="ContextVO_binding.xml" />
+	<include path="AdminDescriptorVO_binding.xml" />
+	<include path="PublicationAdminDescriptorVO_binding.xml" />
+	<include path="FacesAdminDescriptorVO_binding.xml" />
 	<include path="PubCollectionVO_binding.xml" />
 	<include path="PubCollectionVOListWrapper_binding.xml" />
 	<include path="PubFileVO_binding_output.xml" />

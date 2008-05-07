@@ -28,16 +28,11 @@
 -->
 
 <binding>
-	<!-- concrete mapping for PubItemVOListWrapper -->
-	<mapping name="item-list" ns="http://www.escidoc.de/schemas/itemlist/0.3"
-		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper">
 
-		<!-- Node: item-list.item(*) -->
-		<!-- Field: PubItemVOListWrapper.pubItemVOList [List<PubItemVO>] -->
-		<collection field="itemVOList"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.itemVOListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO" />
-		</collection>
-
+	<!-- concrete mapping for AccountUserVO -->
+	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO" ordered="false">
+		
+		
+		
 	</mapping>
 </binding>

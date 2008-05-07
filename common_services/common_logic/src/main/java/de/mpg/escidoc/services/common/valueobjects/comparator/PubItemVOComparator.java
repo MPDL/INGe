@@ -33,8 +33,10 @@ package de.mpg.escidoc.services.common.valueobjects.comparator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.ReviewMethod;
@@ -56,7 +58,8 @@ public class PubItemVOComparator implements Comparator<PubItemVO>
 {
     public enum Criteria
     {
-        TITLE, EVENT_TITLE, SOURCE_TITLE, GENRE, DATE, CREATOR, SOURCE_CREATOR, PUBLISHING_INFO, REVIEW_METHOD
+        TITLE, EVENT_TITLE, SOURCE_TITLE, GENRE, DATE, CREATOR, SOURCE_CREATOR, PUBLISHING_INFO, REVIEW_METHOD,
+        MODIFICATION_DATE, CONTEXT, STATE, OWNER
     }
 
     private static final int LESS = -1;
@@ -124,10 +127,130 @@ public class PubItemVOComparator implements Comparator<PubItemVO>
             case REVIEW_METHOD:
                 rc = compareReviewMethod(pubItem1, pubItem2);
                 break;
+            case MODIFICATION_DATE:
+                rc = compareModificationDate(pubItem1, pubItem2);
+                break;
+            case CONTEXT:
+                rc = compareContextName(pubItem1, pubItem2);
+                break;
+            case STATE:
+                rc = compareState(pubItem1, pubItem2);
+                break;
+            case OWNER:
+                rc = compareOwnerName(pubItem1, pubItem2);
+                break;
             default:
                 assert false : "illegal criteria";
         }
         return rc;
+    }
+
+    private int compareOwnerName(PubItemVO pubItem1, PubItemVO pubItem2)
+    {
+        String owner1 = getOwnerName(pubItem1);
+        String owner2 = getOwnerName(pubItem2);
+        if (owner1 == null)
+        {
+            if (owner2 == null)
+            {
+                return EQUAL;
+            }
+            else
+            {
+                return GREATER;
+            }
+        }
+        else if (owner2 == null)
+        {
+            return LESS;
+        }
+        else
+        {
+            return owner1.compareToIgnoreCase(owner2);
+        }
+    }
+
+    private String getOwnerName(PubItemVO pubItem)
+    {
+        return pubItem.getOwner().getObjectId();
+    }
+
+    private int compareState(PubItemVO pubItem1, PubItemVO pubItem2)
+    {
+        ItemVO.State state1 = pubItem1.getVersion().getState();
+        ItemVO.State state2 = pubItem2.getVersion().getState();
+        
+        if (state1 == null)
+        {
+            if (state2 == null)
+            {
+                return EQUAL;
+            }
+            else
+            {
+                return GREATER;
+            }
+        }
+        else if (state2 == null)
+        {
+            return LESS;
+        }
+        else
+        {
+            return state1.compareTo(state2);
+        }
+    }
+
+    private int compareContextName(PubItemVO pubItem1, PubItemVO pubItem2)
+    {
+        String contextName1 = pubItem1.getContext().getObjectId();
+        String contextName2 = pubItem2.getContext().getObjectId();
+        
+        if (contextName1 == null)
+        {
+            if (contextName2 == null)
+            {
+                return EQUAL;
+            }
+            else
+            {
+                return GREATER;
+            }
+        }
+        else if (contextName2 == null)
+        {
+            return LESS;
+        }
+        else
+        {
+            return contextName1.compareToIgnoreCase(contextName2);
+        }
+    }
+
+    private int compareModificationDate(PubItemVO pubItem1, PubItemVO pubItem2)
+    {
+        Date modificationDate1 = pubItem1.getModificationDate();
+        Date modificationDate2 = pubItem2.getModificationDate();
+        if (modificationDate1 == null)
+        {
+            if (modificationDate2 == null)
+            {
+                return EQUAL;
+            }
+            else
+            {
+                return GREATER;
+            }
+            
+        }
+        else if (modificationDate2 == null)
+        {
+            return LESS;
+        }
+        else
+        {
+            return modificationDate1.compareTo(modificationDate2);
+        }
     }
 
     /**

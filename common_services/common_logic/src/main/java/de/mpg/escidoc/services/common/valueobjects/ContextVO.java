@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
@@ -54,17 +57,6 @@ public class ContextVO extends ValueObject
      * @author Johannes Mueller
      */
 
-
-    /**
-     * The possible submission methods of a collection.
-     * 
-     * @updated 05-Sep-2007 11:14:08
-     */
-    public enum SubmissionMethod
-    {
-        INGESTION, SINGLE_SUBMISSION, MULTIPLE_SUBMISSION
-    }
-
     /**
      * The possible states of a collection.
      * 
@@ -76,7 +68,7 @@ public class ContextVO extends ValueObject
     }
 
     /**
-     * The refence object identifying this pubCollection.
+     * The reference object identifying this pubCollection.
      */
     private ContextRO reference;
     /**
@@ -92,17 +84,9 @@ public class ContextVO extends ValueObject
      */
     private String description;
     /**
-     * The default visibility for files of items of the collection.
-     */
-    private FileVO.Visibility defaultFileVisibility;
-    /**
      * The default metadata.
      */
     private MetadataSetVO defaultMetadata;
-    /**
-     * The possible submission method values for items of the collection.
-     */
-    private java.util.List<SubmissionMethod> allowedSubmissionMethods = new java.util.ArrayList<SubmissionMethod>();
     /**
      * The creator of the collection.
      */
@@ -116,6 +100,7 @@ public class ContextVO extends ValueObject
      */
     private java.util.List<AffiliationRO> responsibleAffiliations = new java.util.ArrayList<AffiliationRO>();
 
+    private List<AdminDescriptorVO> adminDescriptors = new ArrayList<AdminDescriptorVO>();
     /**
      * Default constructor.
      */
@@ -131,9 +116,7 @@ public class ContextVO extends ValueObject
      */
     public ContextVO(ContextVO context)
     {
-        this.allowedSubmissionMethods = context.allowedSubmissionMethods;
         this.creator = context.creator;
-        this.defaultFileVisibility = context.defaultFileVisibility;
         this.defaultMetadata = context.defaultMetadata;
         this.description = context.description;
         this.name = context.name;
@@ -150,27 +133,6 @@ public class ContextVO extends ValueObject
     public boolean alreadyExistsInFramework()
     {
         return (this.reference != null);
-    }
-
-    /**
-     * Delivers the default file visibility for files of items of the collection.
-     * 
-     * @see FileVO.Visibility
-     */
-    public FileVO.Visibility getDefaultFileVisibility()
-    {
-        return defaultFileVisibility;
-    }
-
-    /**
-     * Sets the default file visibility for files of items of the collection.
-     * 
-     * @see FileVO.Visibility
-     * @param newVal
-     */
-    public void setDefaultFileVisibility(FileVO.Visibility newVal)
-    {
-        defaultFileVisibility = newVal;
     }
 
     /**
@@ -258,15 +220,6 @@ public class ContextVO extends ValueObject
     }
 
     /**
-     * Delivers the list of allowed submission methods for the collection, e. g. ingestion, single submission, multiple
-     * submission.
-     */
-    public java.util.List<SubmissionMethod> getAllowedSubmissionMethods()
-    {
-        return allowedSubmissionMethods;
-    }
-
-    /**
      * Sets the default metadata for items of the collection.
      * 
      * @param newVal
@@ -309,18 +262,10 @@ public class ContextVO extends ValueObject
     {
         return responsibleAffiliations;
     }
-    
-    /**
-     * The possible genre values for items of the collection.
-     */
-    private java.util.List<MdsPublicationVO.Genre> allowedGenres = new java.util.ArrayList<MdsPublicationVO.Genre>();
 
-    /**
-     * Delivers the list of allowed genres in the collection, i. e. the allowed genres for items of the collection.
-     */
-    public java.util.List<MdsPublicationVO.Genre> getAllowedGenres()
+    public List<AdminDescriptorVO> getAdminDescriptors()
     {
-        return allowedGenres;
+        return adminDescriptors;
     }
 
 }

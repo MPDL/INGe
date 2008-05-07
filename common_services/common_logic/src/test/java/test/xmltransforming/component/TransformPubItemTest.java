@@ -47,6 +47,7 @@ import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -77,7 +78,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
     private static String ITEM_LIST1_FILE = TEST_FILE_ROOT + "item_list1.xml";
 
     /**
-     * Test method for {@link de.mpg.escidoc.services.common.XmlTransforming#transformToPubItem(java.lang.String)}.
+     * Test method for {@link de.mpg.escidoc.services.common.XmlTransforming#transformToItem(java.lang.String)}.
      * 
      * @throws Exception
      */
@@ -177,7 +178,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
 
     /**
      * Test method for
-     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(PubItemVO)}; checks
+     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(ItemVO)}; checks
      * whether the metadata part meets the requirements.
      * 
      * @throws Exception
@@ -211,7 +212,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
 
     /**
      * Test method for
-     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToPubItem(java.lang.String)}.
+     * {@link de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean#transformToItem(java.lang.String)}.
      * 
      * @throws Exception
      */

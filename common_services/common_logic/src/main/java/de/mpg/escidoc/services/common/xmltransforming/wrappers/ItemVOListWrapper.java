@@ -31,6 +31,7 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 
 /**
@@ -41,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
  * @version $Revision: 635 $ $LastChangedDate: 2007-11-21 17:12:27 +0100 (Wed, 21 Nov 2007) $ by $Author: jmueller $
  * @revised by MuJ: 13.08.2007
  */
-public class PubItemVOListWrapper implements Serializable
+public class ItemVOListWrapper implements Serializable
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
@@ -56,25 +57,25 @@ public class PubItemVOListWrapper implements Serializable
     /**
      * The wrapped list of PubItemVOs.
      */
-    private List<PubItemVO> pubItemVOList;
+    private List<? extends ItemVO> itemVOList;
 
     /**
      * Unwraps the list of PubItemVOs.
      * 
      * @return The list of PubItemVOs
      */
-    public List<PubItemVO> getPubItemVOList()
+    public List<? extends ItemVO> getItemVOList()
     {
-        return pubItemVOList;
+        return itemVOList;
     }
 
     /**
      * Wraps a list of PubItemVOs.
      * 
-     * @param pubItemVOList The list of PubItemVOs to wrap
+     * @param itemVOList The list of PubItemVOs to wrap
      */
-    public void setPubItemVOList(List<PubItemVO> pubItemVOList)
+    public void setItemVOList(List<? extends ItemVO> itemVOList)
     {
-        this.pubItemVOList = pubItemVOList;
+        this.itemVOList = itemVOList;
     }
 }

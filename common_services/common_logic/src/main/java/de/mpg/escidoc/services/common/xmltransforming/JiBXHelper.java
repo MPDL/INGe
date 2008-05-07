@@ -42,11 +42,11 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -58,7 +58,7 @@ import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO.SubmissionMethod;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
@@ -86,12 +86,21 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumExcept
  */
 public class JiBXHelper
 {
+    
+    /**
+     * Hide default constructor.
+     */
+    private JiBXHelper()
+    {
+        
+    }
+    
     /**
      * Logger for this class.
      */
     // private static final Logger logger = Logger.getLogger(JiBXHelper.class);
-    final static String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
-    final static String IDTYPES_NAMESPACE_PREFIX = "eidt:";
+    public static final String DCTERMS_NAMESPACE_PREFIX = "dcterms:";
+    public static final String IDTYPES_NAMESPACE_PREFIX = "eidt:";
     /**
      * XML escaped characters mapping ("<" and "&" get escaped/unescaped automatically by JiBX) Note: Only the
      * characters "<" and "&" are strictly illegal in XML. Apostrophes, quotation marks and greater than signs are
@@ -254,6 +263,17 @@ public class JiBXHelper
     {
         return new ArrayList<FileVO>();
     }
+
+    /**
+     * Factory method to create a {@link ArrayList} as the implementation of a
+     * {@link List}.
+     * 
+     * @return A new {@link ArrayList}.
+     */
+    public static List adminDescriptorVOListFactory()
+    {
+        return new ArrayList();
+    }
     
     /**
      * Factory method to create a <code>java.util.ArrayList&lt;VersionHistoryEntryVO></code> as the implementation of a
@@ -272,7 +292,7 @@ public class JiBXHelper
      * 
      * @return A new <code>java.util.ArrayList&lt;ItemVO></code>
      */
-    public static List<ItemVO> pubItemVOListFactory()
+    public static List<ItemVO> itemVOListFactory()
     {
         return new ArrayList<ItemVO>();
     }
@@ -283,7 +303,7 @@ public class JiBXHelper
      * 
      * @return A new <code>java.util.ArrayList&lt;MetadataSetVO></code>
      */
-    public static List<MetadataSetVO> pubItemMetadataSetVOListFactory()
+    public static List<MetadataSetVO> metadataSetVOListFactory()
     {
         return new ArrayList<MetadataSetVO>();
     }
@@ -294,7 +314,7 @@ public class JiBXHelper
      * 
      * @return A new <code>java.util.ArrayList&lt;ItemRelationVO></code>
      */
-    public static List<ItemRelationVO> pubItemRelationVOListFactory()
+    public static List<ItemRelationVO> relationVOListFactory()
     {
         return new ArrayList<ItemRelationVO>();
     }
@@ -330,17 +350,6 @@ public class JiBXHelper
     public static List<String> stringListFactory()
     {
         return new ArrayList<String>();
-    }
-
-    /**
-     * Factory method to create a <code>java.util.ArrayList&lt;ContextVO.SubmissionMethod></code> as the
-     * implementation of a <code>java.util.List</code>.
-     * 
-     * @return A new <code>java.util.ArrayList&lt;ContextVO.SubmissionMethod></code>
-     */
-    public static List<SubmissionMethod> submissionMethodListFactory()
-    {
-        return new ArrayList<SubmissionMethod>();
     }
 
     /**
@@ -1063,7 +1072,7 @@ public class JiBXHelper
      * @return ItemVO.State The corresponding <code>ItemVO.State</code> Enum
      * @throws WrongEnumException
      */
-    public static ItemVO.State deserializePubItemStateEnum(String enumValue) throws WrongEnumException
+    public static ItemVO.State deserializeItemStateEnum(String enumValue) throws WrongEnumException
     {
         ItemVO.State state = null;
         if (enumValue == null)
@@ -1113,36 +1122,6 @@ public class JiBXHelper
             }
         }
         return type;
-    }
-
-    /**
-     * Deserializes a String containing a submission method like not yet defined in any XSD to the corresponding
-     * <code>ContextVO.SubmissionMethod</code> Enum.
-     * 
-     * @param enumValue The String to deserialize
-     * @return SubmissionMethod The corresponding <code>ContextVO.SubmissionMethod</code> Enum
-     * @throws WrongEnumException
-     */
-    public static SubmissionMethod deserializeSubmissionMethodEnum(String enumValue) throws WrongEnumException
-    {
-        ContextVO.SubmissionMethod submissionMethod = null;
-        if (enumValue == null)
-        {
-            throw new WrongEnumException("submission-method is null.");
-        }
-        else
-        {
-            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
-            try
-            {
-                submissionMethod = ContextVO.SubmissionMethod.valueOf(upperCaseText);
-            }
-            catch (IllegalArgumentException e)
-            {
-                throw new WrongEnumException("submission-method value is '" + enumValue + "'.", e);
-            }
-        }
-        return submissionMethod;
     }
 
     /**

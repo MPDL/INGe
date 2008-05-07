@@ -67,6 +67,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -88,7 +89,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrappe
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubContextVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.PubItemVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -421,7 +422,7 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public String transformToItem(PubItemVO itemVO) throws TechnicalException
+    public String transformToItem(ItemVO itemVO) throws TechnicalException
     {
         logger.debug("transformToItem(PubItemVO)");
         if (itemVO == null)
@@ -526,7 +527,7 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public PubItemVO transformToPubItem(String item) throws TechnicalException
+    public ItemVO transformToItem(String item) throws TechnicalException
     {
         logger.debug("transformToPubItem(String) - String item=" + item);
         if (item == null)
@@ -557,37 +558,37 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException
+    public List<? extends ItemVO> transformToItemList(String itemListXml) throws TechnicalException
     {
-        logger.debug("transformToPubItemList(String) - String itemList=\n" + itemList);
-        if (itemList == null)
+        logger.debug("transformToPubItemList(String) - String itemList=\n" + itemListXml);
+        if (itemListXml == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemList:itemList is null");
         }
-        PubItemVOListWrapper pubItemVOListWrapper = null;
+        ItemVOListWrapper itemVOListWrapper = null;
         try
         {
-            // unmarshal PubItemVOListWrapper from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubItemVOListWrapper.class);
+            // unmarshal ItemVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemVOListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-            StringReader sr = new StringReader(itemList);
+            StringReader sr = new StringReader(itemListXml);
             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-            pubItemVOListWrapper = (PubItemVOListWrapper)unmarshalledObject;
+            itemVOListWrapper = (ItemVOListWrapper)unmarshalledObject;
         }
         catch (JiBXException e)
         {
             // throw a new UnmarshallingException, log the root cause of the JiBXException first
             logger.error(e.getRootCause());
-            throw new UnmarshallingException(itemList, e);
+            throw new UnmarshallingException(itemListXml, e);
         }
         catch (ClassCastException e)
         {
             throw new TechnicalException(e);
         }
         // unwrap the List<ItemVO>
-        List<PubItemVO> pubItemList = pubItemVOListWrapper.getPubItemVOList();
+        List<? extends ItemVO> itemList = itemVOListWrapper.getItemVOList();
 
-        return pubItemList;
+        return itemList;
     }
 
     /**
@@ -625,21 +626,21 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public String transformToItemList(List<PubItemVO> pubItemVOList) throws TechnicalException
+    public String transformToItemList(List<? extends ItemVO> itemVOList) throws TechnicalException
     {
         logger.debug("transformToItemList(List<ItemVO>)");
-        if (pubItemVOList == null)
+        if (itemVOList == null)
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItemList:pubItemVOList is null");
         }
         // wrap the item list into the according wrapper class
-        PubItemVOListWrapper listWrapper = new PubItemVOListWrapper();
-        listWrapper.setPubItemVOList(pubItemVOList);
+        ItemVOListWrapper listWrapper = new ItemVOListWrapper();
+        listWrapper.setItemVOList(itemVOList);
         // transform the wrapper class into XML
         String utf8itemList = null;
         try
         {
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output", PubItemVOListWrapper.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output", ItemVOListWrapper.class);
             // marshal object (with nice indentation, as UTF-8)
             IMarshallingContext mctx = bfact.createMarshallingContext();
             mctx.setIndent(2);
@@ -650,7 +651,7 @@ public class XmlTransformingBean implements XmlTransforming
         }
         catch (JiBXException e)
         {
-            throw new MarshallingException(pubItemVOList.getClass().getSimpleName(), e);
+            throw new MarshallingException(itemVOList.getClass().getSimpleName(), e);
         }
         catch (ClassCastException e)
         {
@@ -980,4 +981,31 @@ public class XmlTransformingBean implements XmlTransforming
         }
         return result;
     }
+    
+    public PubItemVO transformToPubItem(String itemXml) throws TechnicalException
+    {
+        ItemVO itemVO = transformToItem(itemXml);
+        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO)
+        {
+            return new PubItemVO(itemVO);
+        }
+        else
+        {
+            logger.warn("Cannot transform item xml to PubItemVO");
+            return null;
+        }
+    }
+
+    public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException
+    {
+        List<? extends ItemVO> list = transformToItemList(itemList);
+        List<PubItemVO> newList = new ArrayList<PubItemVO>();
+        for (ItemVO itemVO : list)
+        {
+            PubItemVO pubItemVO = new PubItemVO(itemVO);
+            newList.add(pubItemVO);
+        }
+        return newList;
+    }
+    
 }

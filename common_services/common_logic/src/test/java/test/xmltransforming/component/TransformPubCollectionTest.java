@@ -46,12 +46,11 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO.SubmissionMethod;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
@@ -64,10 +63,14 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  */
 public class TransformPubCollectionTest extends TestBase
 {
-    private static String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformPubCollectionTest/";
-    private static String CONTEXT_PUBCOLLECTION_SAMPLE_FILE = TEST_FILE_ROOT + "context_pubcollection_sample.xml";
-    private static String CONTEXT_PUBCOLLECTION_FULL_SAMPLE_FILE = TEST_FILE_ROOT + "context_pubcollection_full_sample.xml";
-    private static String CONTEXT_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "context-list_sample.xml";
+    private static final String TEST_FILE_ROOT
+        = "src/test/resources/xmltransforming/component/transformPubCollectionTest/";
+    private static final String CONTEXT_PUBCOLLECTION_SAMPLE_FILE
+        = TEST_FILE_ROOT + "context_pubcollection_sample.xml";
+    private static final String CONTEXT_PUBCOLLECTION_FULL_SAMPLE_FILE
+        = TEST_FILE_ROOT + "context_pubcollection_full_sample.xml";
+    private static final String CONTEXT_LIST_SAMPLE_FILE
+        = TEST_FILE_ROOT + "context-list_sample.xml";
 
     private Logger logger = Logger.getLogger(getClass());
     
@@ -80,7 +83,7 @@ public class TransformPubCollectionTest extends TestBase
      * Test for {@link XmlTransforming#transformToPubCollection(String)}. Reads pubCollection (=context) [XML] from
      * file, transforms the pubCollection to PubContextVO and checks the results.
      * 
-     * @throws Exception
+     * @throws Exception Any exception.
      */
     @Test
     public void testTransformToPubCollection() throws Exception
@@ -92,7 +95,7 @@ public class TransformPubCollectionTest extends TestBase
         String context = readFile(CONTEXT_PUBCOLLECTION_SAMPLE_FILE);
         assertNotNull(context);
 
-        logger.debug("Context sample: " + context);
+        logger.info("Context sample: " + context);
         
         // transform the pubCollection to PubContextVO
         PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
@@ -111,7 +114,7 @@ public class TransformPubCollectionTest extends TestBase
      * Test for {@link XmlTransforming#transformToPubCollection(String)}. Reads pubCollection (=context) [XML] from
      * file, transforms the pubCollection to PubContextVO and checks the results.
      * 
-     * @throws Exception
+     * @throws Exception Any exception.
      */
     @Test
     public void testTransformToPubCollectionFull() throws Exception
@@ -127,7 +130,6 @@ public class TransformPubCollectionTest extends TestBase
         // check results
         PubContextVO expectedPubCollection = getExpectedPubCollection();
         // add all additional expected values from full sample
-        expectedPubCollection.setDefaultFileVisibility(Visibility.PRIVATE);
         assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
         ObjectComparator oc = new ObjectComparator(expectedPubCollection, pubCollection);
         assertTrue(oc.toString(), oc.isEqual());
@@ -135,9 +137,9 @@ public class TransformPubCollectionTest extends TestBase
 
     /**
      * Test for {@link XmlTransforming#transformToPubCollectionList(String)}. Reads list of pubCollections [XML] from
-     * file, transforms the list to a List<PubContextVO> and checks the results.
+     * file, transforms the list to a {@link List&lt;PubContextVO>} and checks the results.
      * 
-     * @throws Exception
+     * @throws Exception Any exception.
      */
     @Test
     public void testTransformToPubCollectionList() throws Exception
@@ -155,7 +157,6 @@ public class TransformPubCollectionTest extends TestBase
         // check results
         assertEquals(2, pubCollectionList.size());
         PubContextVO expectedPubCollection = getExpectedPubCollection();
-        expectedPubCollection.setDefaultFileVisibility(Visibility.PRIVATE);
         for (PubContextVO pubCollection : pubCollectionList)
         {
             assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
@@ -183,11 +184,11 @@ public class TransformPubCollectionTest extends TestBase
         expected.setState(PubContextVO.State.OPENED);
         expected.setReference(new ContextRO("escidoc:persistent3"));
         expected.setCreator(new AccountUserRO("escidoc:user42"));
-        expected.setDefaultFileVisibility(FileVO.Visibility.PUBLIC);
+        PublicationAdminDescriptorVO adminDescriptor = new PublicationAdminDescriptorVO();
+        expected.getAdminDescriptors().add(adminDescriptor);
         expected.setDefaultMetadata(null);
         expected.getResponsibleAffiliations().add(new AffiliationRO("escidoc:persistent13"));
-        expected.getAllowedSubmissionMethods().add(SubmissionMethod.SINGLE_SUBMISSION);
-        List<MdsPublicationVO.Genre> allowedGenres = expected.getAllowedGenres();
+        List<MdsPublicationVO.Genre> allowedGenres = adminDescriptor.getAllowedGenres();
         // MdsPublicationVO.Genre.MANUSCRIPT must not be added!
         allowedGenres.add(MdsPublicationVO.Genre.ARTICLE);
         allowedGenres.add(MdsPublicationVO.Genre.BOOK);
@@ -205,6 +206,9 @@ public class TransformPubCollectionTest extends TestBase
         allowedGenres.add(MdsPublicationVO.Genre.ISSUE);
         allowedGenres.add(MdsPublicationVO.Genre.SERIES);
         allowedGenres.add(MdsPublicationVO.Genre.OTHER);
+        
+        adminDescriptor.setTemplateItem(new ItemRO("dsddsadad"));
+        adminDescriptor.setValidationSchema("dsadda");
         return expected;
     }
 

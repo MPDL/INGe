@@ -1,4 +1,5 @@
 /*
+*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -25,56 +26,19 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package de.mpg.escidoc.services.common.util.creators;
+package de.mpg.escidoc.services.common.valueobjects;
 
-import java.util.List;
-
-public class WesternFormat2 extends AuthorFormat
+/**
+ * Metadata content of a Faces' face.
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
+public class MdsFaceVO extends MetadataSetVO
 {
-
-    @Override
-    public String getPattern()
-    {
-        return "^(" + INITIALS + "[ -]*)+ ?" + NAME
-            + "( *(,| and | und | et ) *(" + INITIALS + "[ -]?)+ ?" + NAME + ")*\\s*$";
-    }
-
-    @Override
-    public List<Author> getAuthors(String authorsString)
-    {
-
-        String[] authors = authorsString.split(" *(,| and | und | et ) *");
-
-        return getAuthorListWithInitials(authors);
-    }
-
-    @Override
-    public int getSignificance()
-    {
-        return 10;
-    }
-
-    @Override
-    public String getDescription()
-    {
-        return "I. Nachname[, I. I. Nachname]";
-    }
-
-    @Override
-    public String getName()
-    {
-        return "Westliches Normalformat mit Initialen, komma-getrennt";
-    }
-
-    @Override
-    public String getWarning()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    
     
 }

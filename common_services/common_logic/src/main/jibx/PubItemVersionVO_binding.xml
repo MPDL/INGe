@@ -60,7 +60,7 @@
 		<!-- Node: version.version-status -->
 		<!-- Field: PubItemVersionVO.state -->
 		<value style="element" name="version-status" ns="http://www.escidoc.de/schemas/versionhistory/0.3" field="state"
-			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubItemStateEnum"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
 			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 		<structure name="valid-status" ns="http://www.escidoc.de/schemas/versionhistory/0.3" usage="optional" />

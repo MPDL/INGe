@@ -48,11 +48,11 @@ public class MetadataHandlerTest {
         logger.info("testFetchOAIRecord");
         
         String[] identifiers = new String[]{
-                "math-ph/0404037",
-                "0804.1597",
-                "0804.1593",
-                "0804.1221",
-                "0803.0264v1"
+//                "math-ph/0404037",
+//                "0804.1597",
+//                "0804.1593",
+//                "0804.1221",
+//                "0803.0264v1"
         };
         String source = "http://export.arxiv.org/oai2?verb=GetRecord&identifier=oai:arXiv.org:";
         String format = "arXiv";

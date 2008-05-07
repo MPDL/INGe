@@ -1,5 +1,4 @@
 /*
- *
  * CDDL HEADER START
  *
  * The contents of this file are subject to the terms of the
@@ -36,7 +35,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 /**
- * Publication object which consists of descriptive metadata and may have one or more files associated.
+ * Item object which consists of descriptive metadata and may have one or more files associated.
  * 
  * @revised by MuJ: 28.08.2007
  * @version $Revision: 641 $ $LastChangedDate: 2007-11-22 14:49:16 +0100 (Thu, 22 Nov 2007) $ by $Author: jmueller $
@@ -132,36 +131,37 @@ public class ItemVO extends ValueObject implements Cloneable
         this.setCreationDate(other.getCreationDate());
         for (FileVO file : other.getFiles())
         {
-            this.getFiles().add((FileVO)file.clone());
+            this.getFiles().add((FileVO) file.clone());
         }
         this.setLockStatus(other.getLockStatus());
-        for (MetadataSetVO mds : other.getMetadataSets()) {
+        for (MetadataSetVO mds : other.getMetadataSets())
+        {
             this.getMetadataSets().add(mds.clone());
         }
         if (other.getOwner() != null)
         {
-            this.setOwner((AccountUserRO)other.getOwner().clone());
+            this.setOwner((AccountUserRO) other.getOwner().clone());
         }
         this.setPid(other.getPid());
         if (other.getContext() != null)
         {
-            this.setContext((ContextRO)other.getContext().clone());
+            this.setContext((ContextRO) other.getContext().clone());
         }
         if (other.getVersion() != null)
         {
-            this.setVersion((ItemRO)other.getVersion().clone());
+            this.setVersion((ItemRO) other.getVersion().clone());
         }
         if (other.getLatestVersion() != null)
         {
-            this.setLatestVersion((ItemRO)other.getLatestVersion().clone());
+            this.setLatestVersion((ItemRO) other.getLatestVersion().clone());
         }
         if (other.getLatestRelease() != null)
         {
-            this.setLatestRelease((ItemRO)other.getLatestRelease().clone());
+            this.setLatestRelease((ItemRO) other.getLatestRelease().clone());
         }
         for (ItemRelationVO relation : other.getRelations())
         {
-            this.getRelations().add((ItemRelationVO)relation.clone());
+            this.getRelations().add((ItemRelationVO) relation.clone());
         }
     }
 
@@ -179,6 +179,8 @@ public class ItemVO extends ValueObject implements Cloneable
     /**
      * Helper method for JiBX transformations. This method helps JiBX to determine if this is a 'create' or an 'update'
      * transformation.
+     * 
+     * @return true, if this item already has a version object.
      */
     boolean alreadyExistsInFramework()
     {
@@ -188,6 +190,8 @@ public class ItemVO extends ValueObject implements Cloneable
     /**
      * Helper method for JiBX transformations. This method helps JiBX to determine if a "components" XML structure has
      * to be created during marshalling.
+     * 
+     * @return true, if the item contains one or more files.
      */
     boolean hasFiles()
     {
@@ -373,19 +377,23 @@ public class ItemVO extends ValueObject implements Cloneable
         }
     }
     
-    public ItemRO getLatestVersion() {
+    public ItemRO getLatestVersion()
+    {
         return latestVersion;
     }
 
-    public void setLatestVersion(ItemRO latestVersion) {
+    public void setLatestVersion(ItemRO latestVersion)
+    {
         this.latestVersion = latestVersion;
     }
 
-    public ItemRO getLatestRelease() {
+    public ItemRO getLatestRelease()
+    {
         return latestRelease;
     }
 
-    public void setLatestRelease(ItemRO latestRelease) {
+    public void setLatestRelease(ItemRO latestRelease)
+    {
         this.latestRelease = latestRelease;
     }
     
