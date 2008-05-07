@@ -75,10 +75,12 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -1112,7 +1114,7 @@ public class EditItem extends FacesBean
      */
     protected AffiliationSessionBean getAffiliationSessionBean()
     {
-        return (AffiliationSessionBean) getBean(AffiliationSessionBean.class);
+        return (AffiliationSessionBean) getSessionBean(AffiliationSessionBean.class);
     }
 
     /**
@@ -1122,8 +1124,16 @@ public class EditItem extends FacesBean
     public SelectItem[] getGenres()
     {
         List<MdsPublicationVO.Genre> allowedGenres = null;
-        allowedGenres = this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres();
-        return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+        List<AdminDescriptorVO> adminDescriptors = this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptors();
+        for (AdminDescriptorVO adminDescriptorVO : adminDescriptors)
+        {
+            if (adminDescriptorVO instanceof PublicationAdminDescriptorVO)
+            {
+                allowedGenres = ((PublicationAdminDescriptorVO)adminDescriptorVO).getAllowedGenres();
+                return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+            }
+        }
+        return null;
     }
 
     /**

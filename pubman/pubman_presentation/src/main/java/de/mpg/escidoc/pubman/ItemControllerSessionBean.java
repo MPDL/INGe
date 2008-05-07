@@ -513,6 +513,7 @@ public class ItemControllerSessionBean extends FacesBean
         if (this.getContextListSessionBean().getContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
+            error(getMessage("ViewItemFull_user_has_no_context"));
             return null;
         }
         
@@ -1892,7 +1893,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not accept item." + "\n" + e.toString());
+            logger.error("Could not accept item." + "\n" + e.toString(), e);
             ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;

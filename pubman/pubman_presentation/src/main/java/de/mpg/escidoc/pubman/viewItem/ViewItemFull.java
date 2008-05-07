@@ -460,9 +460,10 @@ public class ViewItemFull extends FacesBean
         if (this.getCollectionListSessionBean().getContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
+            error(getMessage("ViewItemFull_user_has_no_context"));
             return null;
         }
-        if (this.getCollectionListSessionBean().getContextList().size() == 1)
+        else if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {            
             PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
@@ -473,7 +474,7 @@ public class ViewItemFull extends FacesBean
             
             return this.getItemControllerSessionBean().createNewRevision(EditItem.LOAD_EDITITEM, context.getReference(), this.pubItem, null);
         }
-        else if (this.getCollectionListSessionBean().getContextList().size() > 1)
+        else
         {            
             PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
 
@@ -488,12 +489,7 @@ public class ViewItemFull extends FacesBean
             
             return this.getItemControllerSessionBean().createNewRevision(CreateItem.LOAD_CREATEITEM, context.getReference(), this.pubItem, null);
         }
-        else
-        {
-            logger.error("User has no privileges for any context.");
-            error("ViewItemFull_user_has_no_context");
-            return null;
-        }
+
     }
     
     /**

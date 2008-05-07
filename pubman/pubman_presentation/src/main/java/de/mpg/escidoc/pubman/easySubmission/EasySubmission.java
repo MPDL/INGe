@@ -54,7 +54,6 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
@@ -73,9 +72,11 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -1078,8 +1079,16 @@ public class EasySubmission extends FacesBean
     public SelectItem[] getGenres()
     {
         List<MdsPublicationVO.Genre> allowedGenres = null;
-        allowedGenres = this.getItemControllerSessionBean().getCurrentContext().getAllowedGenres();
-        return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+        List<AdminDescriptorVO> adminDescriptors = this.getItemControllerSessionBean().getCurrentContext().getAdminDescriptors();
+        for (AdminDescriptorVO adminDescriptorVO : adminDescriptors)
+        {
+            if (adminDescriptorVO instanceof PublicationAdminDescriptorVO)
+            {
+                allowedGenres = ((PublicationAdminDescriptorVO)adminDescriptorVO).getAllowedGenres();
+                return this.i18nHelper.getSelectItemsForEnum(true, allowedGenres.toArray(new MdsPublicationVO.Genre[]{}));
+            }
+        }
+        return null;
     }
 
     public SelectItem[] getSUBMISSION_METHOD_OPTIONS() {
