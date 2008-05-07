@@ -96,7 +96,8 @@ public class AccountUserVO extends ValueObject
         for (GrantVO grant : this.grants)
         {
             // every system administrator is a depositor, too
-            if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) || grant.getRole().equals("escidoc:role-system-administrator"))
+            //if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()) || grant.getRole().equals("escidoc:role-system-administrator"))
+            if (grant.getRole().equals(PredefinedRoles.DEPOSITOR.frameworkValue()))
             {
                 depositor = true;
             }
@@ -120,10 +121,12 @@ public class AccountUserVO extends ValueObject
         for (GrantVO grant : this.grants)
         {
             // every system administrator is a moderator, too
+           /*
             if (grant.getRole().equals("escidoc:role-system-administrator"))
             {
                 moderator = true;
             }
+            */
             if (grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()))                    
             {
                 if (grant.getObjectRef().equals(refObj.getObjectId()))
