@@ -101,7 +101,7 @@ public class ProcessScriptlet {
     };
 
     public final static String scriptletBodyHeader =
-        "package de.mpg.escidoc.services.citationmanager;\n" +
+        "package de.mpg.escidoc.services.citationmanager.scriptlets;\n" +
         "import net.sf.jasperreports.engine.JRDefaultScriptlet;\n" +
         "import net.sf.jasperreports.engine.JRScriptletException;\n" +
         "import net.sf.jasperreports.engine.JRAbstractScriptlet;\n" +
@@ -154,8 +154,8 @@ public class ProcessScriptlet {
 
 
 
-    public ProcessScriptlet() {
-        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName());
+    public ProcessScriptlet(String cs) {
+        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs));
 
 //      add  functions from scriptletFunctionsTable
         for (String[] s : ProcessScriptlet.scriptletFunctionsTable)
@@ -537,6 +537,7 @@ public class ProcessScriptlet {
         // TODO: Now we are ignoring path to save scriptlet, 
         String root = ResourceUtil.getPathToClasses();
         
+       
         File f = new File(
         		getPathToScriptletJava()
         		+ getScriptletClassName() 
@@ -753,9 +754,10 @@ public class ProcessScriptlet {
     /**
      * Generate and set uniq class name for scriptlet
      * @return generated scriptlet class name
-     */
-	public String generateScriptletClassName() {
-        this.scriptletClassName =  SCRIPTLET_CLASSNAME_PREFIX + "_" + System.currentTimeMillis();
+     */ 
+	public String generateScriptletClassName(String cs) 
+	{
+        this.scriptletClassName =  SCRIPTLET_CLASSNAME_PREFIX + "_" + cs ;
         return this.scriptletClassName;
 	}
     
@@ -775,8 +777,7 @@ public class ProcessScriptlet {
      */
     public static String getPackageName()
     {
-    	String QName = new ProcessScriptlet().getClass().getPackage().getName(); 
-    	return QName;
+    	return ProcessScriptlet.class.getPackage().getName() + ".scriptlets";
     }
     
     /**

@@ -724,7 +724,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         // walkaround through all csLayoutDefinitions
         String expr = "";
 
-        ps = new ProcessScriptlet();
+        ps = new ProcessScriptlet(cs.getName());
         
         
         for (LayoutElement csld : cs.getCsLayoutDefinitions()) {
@@ -1037,7 +1037,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
 //		assign correct scriptlet name               
         String sc = jasperDesign.getScriptletClass();
-        String pn = getClass().getPackage().getName();
+        String pn = ProcessScriptlet.getPackageName();
         if ( sc != null && !sc.startsWith(pn))
         	jasperDesign.setScriptletClass( pn + "." + sc );
         
