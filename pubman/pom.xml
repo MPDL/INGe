@@ -493,7 +493,7 @@
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8889</jboss.deploy.port>
 				<!-- the ears are deployed to this server using jboss:harddeploy -->
-				<jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+				<jboss.install.dir>/mnt/jboss/escidoc2</jboss.install.dir>
 				<jboss.property.1>pubman.properties.file=./pubman.properties</jboss.property.1>
 				<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
 
