@@ -83,6 +83,12 @@
 
 	<dependencies>
 		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>framework_access</artifactId>
+			<version>1.0.1</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
 			<version>1.6</version>
