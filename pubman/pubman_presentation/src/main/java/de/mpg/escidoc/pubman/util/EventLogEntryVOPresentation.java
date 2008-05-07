@@ -48,7 +48,7 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
 {
     private VersionHistoryEntryVO versionHistoryVO;
     private InternationalizationHelper i18nHelper;
-    private ResourceBundle labelBundle;
+  
 
     public EventLogEntryVOPresentation(EventLogEntryVO eventLogVO, VersionHistoryEntryVO versionHistoryVO)
     {
@@ -58,11 +58,12 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
         this.versionHistoryVO = versionHistoryVO;
         i18nHelper = (InternationalizationHelper)FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
                 .get(InternationalizationHelper.BEAN_NAME);
-        labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
+        
     }
 
     public String getCurrentTypeLabel()
     {
+        ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
         switch (getType())
         {
             case CREATE:
