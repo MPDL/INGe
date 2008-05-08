@@ -30,7 +30,7 @@
 package de.mpg.escidoc.services.validation;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
 /**

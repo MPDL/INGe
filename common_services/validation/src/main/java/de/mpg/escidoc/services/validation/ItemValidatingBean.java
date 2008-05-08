@@ -50,7 +50,7 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
