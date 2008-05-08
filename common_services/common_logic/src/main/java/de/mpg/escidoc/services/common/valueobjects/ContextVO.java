@@ -36,6 +36,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management workflow). A set of

@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for PubItemVO -->
 	<mapping name="item" ns="http://www.escidoc.de/schemas/item/0.3"
-		class="de.mpg.escidoc.services.common.valueobjects.PubItemVO"
+		class="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.ItemVO" ordered="false" allow-repeats="true">
 		<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO"/>
 	</mapping>

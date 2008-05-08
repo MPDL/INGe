@@ -160,7 +160,7 @@
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
 				
-					<structure ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/" map-as="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO" />
+					<structure ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/" map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" />
 				
 			</collection>
 		</structure>

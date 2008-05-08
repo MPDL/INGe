@@ -33,41 +33,41 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
- * This class is used by the XML transforming classes to wrap a list of PubContextVOs.
+ * This class is used by the XML transforming classes to wrap a list of ContextVOs.
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
  * @author Johannes Mueller (initial creation)
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  * @revised by MuJ: 03.09.2007
  */
-public class PubContextVOListWrapper implements Serializable
+public class ContextVOListWrapper implements Serializable
 {
     /**
-     * The wrapped list of PubContextVOs.
+     * The wrapped list of ContextVOs.
      */
-    private List<PubContextVO> pubContextVOList;
+    private List<ContextVO> contextVOList;
 
     /**
-     * Unwraps the list of PubContextVOs.
+     * Unwraps the list of ContextVOs.
      * 
-     * @return The list of PubContextVOs
+     * @return The list of ContextVOs
      */
-    public List<PubContextVO> getPubContextVOList()
+    public List<ContextVO> getContextVOList()
     {
-        return pubContextVOList;
+        return contextVOList;
     }
 
     /**
-     * Wraps a list of PubContextVOs.
+     * Wraps a list of ContextVOs.
      * 
-     * @param pubContextVOList The list of PubContextVOs to wrap
+     * @param contextVOList The list of ContextVOs to wrap
      */
-    public void setPubContextVOList(List<PubContextVO> pubContextVOList)
+    public void setContextVOList(List<ContextVO> contextVOList)
     {
-        this.pubContextVOList = pubContextVOList;
+        this.contextVOList = contextVOList;
     }
 
 }

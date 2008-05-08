@@ -37,18 +37,18 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
@@ -209,7 +209,7 @@ public interface XmlTransforming
      * @return The corresponding <code>ContextVO</code>
      * @throws TechnicalException
      */
-    public PubContextVO transformToPubContext(String context) throws TechnicalException;
+    public ContextVO transformToContext(String context) throws TechnicalException;
 
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/contextlist/0.2"
@@ -220,7 +220,7 @@ public interface XmlTransforming
      * @return The corresponding <code>List&lt;ContextVO></code>
      * @throws TechnicalException
      */
-    public List<PubContextVO> transformToPubContextList(String contextList) throws TechnicalException;
+    public List<ContextVO> transformToContextList(String contextList) throws TechnicalException;
 
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/item/0.2" (item. xsd) to the

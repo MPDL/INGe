@@ -33,7 +33,7 @@
 	<!-- Type: PubItemResultVO... -->
 	<mapping name="search-result-record" ns="http://www.escidoc.de/schemas/searchresult/0.3"
 		class="de.mpg.escidoc.services.common.valueobjects.PubItemResultVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.PubItemVO">
+		extends="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO">
 
 		<!-- Node: search-result-record.highlight -->
 		<structure name="highlight" ns="http://www.escidoc.de/schemas/searchresult/0.3" usage="optional">
@@ -111,7 +111,7 @@
 
 		<!-- Node: search-result-record.item -->
 		<!-- embed the concrete mapping for the super class [PubItemVO] -->
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.PubItemVO" />
+		<structure map-as="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO" />
 
 
 	</mapping>

@@ -28,9 +28,9 @@
 -->
 
 <binding>
-   <mapping name="context-list" ns="http://www.escidoc.de/schemas/contextlist/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.PubContextVOListWrapper">
-      <collection field="pubContextVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubCollectionVOListFactory">
-         <structure type="de.mpg.escidoc.services.common.valueobjects.PubContextVO" usage="optional" />
+   <mapping name="context-list" ns="http://www.escidoc.de/schemas/contextlist/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper">
+      <collection get-method="getContextVOList" set-method="setContextVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.contextVOListFactory">
+         <structure type="de.mpg.escidoc.services.common.valueobjects.ContextVO" usage="optional" />
       </collection>
    </mapping>
 </binding>

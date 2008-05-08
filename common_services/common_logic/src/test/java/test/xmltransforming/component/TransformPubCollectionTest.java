@@ -48,9 +48,9 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
@@ -81,7 +81,7 @@ public class TransformPubCollectionTest extends TestBase
 
     /**
      * Test for {@link XmlTransforming#transformToPubCollection(String)}. Reads pubCollection (=context) [XML] from
-     * file, transforms the pubCollection to PubContextVO and checks the results.
+     * file, transforms the pubCollection to ContextVO and checks the results.
      * 
      * @throws Exception Any exception.
      */
@@ -97,8 +97,8 @@ public class TransformPubCollectionTest extends TestBase
 
         logger.info("Context sample: " + context);
         
-        // transform the pubCollection to PubContextVO
-        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
+        // transform the pubCollection to ContextVO
+        ContextVO pubCollection = xmlTransforming.transformToContext(context);
         
         
         
@@ -112,7 +112,7 @@ public class TransformPubCollectionTest extends TestBase
 
     /**
      * Test for {@link XmlTransforming#transformToPubCollection(String)}. Reads pubCollection (=context) [XML] from
-     * file, transforms the pubCollection to PubContextVO and checks the results.
+     * file, transforms the pubCollection to ContextVO and checks the results.
      * 
      * @throws Exception Any exception.
      */
@@ -123,12 +123,12 @@ public class TransformPubCollectionTest extends TestBase
         String context = readFile(CONTEXT_PUBCOLLECTION_FULL_SAMPLE_FILE);
         assertNotNull(context);
 
-        // transform the pubCollection to PubContextVO
-        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
+        // transform the pubCollection to ContextVO
+        ContextVO pubCollection = xmlTransforming.transformToContext(context);
         assertNotNull(pubCollection);
         
         // check results
-        PubContextVO expectedPubCollection = getExpectedPubCollection();
+        ContextVO expectedPubCollection = getExpectedPubCollection();
         // add all additional expected values from full sample
         assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
         ObjectComparator oc = new ObjectComparator(expectedPubCollection, pubCollection);
@@ -137,7 +137,7 @@ public class TransformPubCollectionTest extends TestBase
 
     /**
      * Test for {@link XmlTransforming#transformToPubCollectionList(String)}. Reads list of pubCollections [XML] from
-     * file, transforms the list to a {@link List&lt;PubContextVO>} and checks the results.
+     * file, transforms the list to a {@link List&lt;ContextVO>} and checks the results.
      * 
      * @throws Exception Any exception.
      */
@@ -150,21 +150,21 @@ public class TransformPubCollectionTest extends TestBase
 
         logger.info("contextList:"  + contextList);
         
-        // transform the list to a List<PubContextVO>
-        List<PubContextVO> pubCollectionList = xmlTransforming.transformToPubContextList(contextList);
+        // transform the list to a List<ContextVO>
+        List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
         assertNotNull(pubCollectionList);
         
         // check results
         assertEquals(2, pubCollectionList.size());
-        PubContextVO expectedPubCollection = getExpectedPubCollection();
-        for (PubContextVO pubCollection : pubCollectionList)
+        ContextVO expectedPubCollection = getExpectedPubCollection();
+        for (ContextVO pubCollection : pubCollectionList)
         {
             assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
 
             ObjectComparator oc = new ObjectComparator(expectedPubCollection, pubCollection);
             assertTrue(oc.toString(), oc.isEqual());
         }
-        List<PubContextVO> expectedPubCollectionList = new ArrayList<PubContextVO>();
+        List<ContextVO> expectedPubCollectionList = new ArrayList<ContextVO>();
         expectedPubCollectionList.add(expectedPubCollection);
         expectedPubCollectionList.add(expectedPubCollection);
         ObjectComparator oc = new ObjectComparator(expectedPubCollectionList, pubCollectionList);
@@ -176,12 +176,12 @@ public class TransformPubCollectionTest extends TestBase
      * 
      * @return The well-defined pubCollection.
      */
-    private PubContextVO getExpectedPubCollection()
+    private ContextVO getExpectedPubCollection()
     {
-        PubContextVO expected = new PubContextVO();
+        ContextVO expected = new ContextVO();
         expected.setName(PUBMAN_TEST_COLLECTION_NAME);
         expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
-        expected.setState(PubContextVO.State.OPENED);
+        expected.setState(ContextVO.State.OPENED);
         expected.setReference(new ContextRO("escidoc:persistent3"));
         expected.setCreator(new AccountUserRO("escidoc:user42"));
         PublicationAdminDescriptorVO adminDescriptor = new PublicationAdminDescriptorVO();

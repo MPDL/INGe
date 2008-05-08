@@ -27,12 +27,13 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.common.valueobjects;
+package de.mpg.escidoc.services.common.valueobjects.publication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 
 /**
  * Implementation of an admin descriptor for PubMan publications.

@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for ContextVO -->
 	<!-- Type: ContextVO... -->
-	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.FacesAdminDescriptorVO" ordered="false" flexible="true"
+	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" ordered="false" flexible="true"
 		allow-repeats="true">
 
 	</mapping>

@@ -1,4 +1,6 @@
-package de.mpg.escidoc.services.common.valueobjects;
+package de.mpg.escidoc.services.common.valueobjects.publication;
+
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 
 
 public class PubItemVO extends ItemVO {

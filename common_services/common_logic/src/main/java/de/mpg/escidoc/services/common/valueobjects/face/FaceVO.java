@@ -1,5 +1,4 @@
 /*
-*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -28,7 +27,9 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.common.valueobjects;
+package de.mpg.escidoc.services.common.valueobjects.face;
+
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 
 /**
  * 

@@ -42,9 +42,9 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
 * This class provides the ejb implementation of the {@link ItemSorting} interface.

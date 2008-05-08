@@ -29,14 +29,19 @@
 
 <binding>
 
-    <!-- concrete mapping for PubCollectionVO -->
-    <!-- Type: PubCollectionVO... -->
-    <mapping name="context" ns="http://www.escidoc.de/schemas/context/0.3"
-    	class="de.mpg.escidoc.services.common.valueobjects.PubContextVO"
-    	extends="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false" allow-repeats="true">
+	<!--  Namespaces -->
+	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
+	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" default="none" />
+	<namespace prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/" default="none" />
+	<namespace prefix="metadata" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" default="none" />
 
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.ContextVO"/>
+	<!-- concrete mapping for MdsFaceVO -->
+	<mapping name="face" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+		class="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO"
+		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+		ordered="false"
+		allow-repeats="true">
 
-    </mapping>
+	</mapping>
 
 </binding>

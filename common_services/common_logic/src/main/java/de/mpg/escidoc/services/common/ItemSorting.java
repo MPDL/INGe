@@ -33,9 +33,9 @@ package de.mpg.escidoc.services.common;
 
 
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Interface for sorting of items that applies the PubItemVOComparator.

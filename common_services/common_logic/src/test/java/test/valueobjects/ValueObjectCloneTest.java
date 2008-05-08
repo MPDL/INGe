@@ -35,7 +35,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import test.TestBase;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Test cases for the clone methods of value objects.

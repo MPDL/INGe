@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for ContextVO -->
 	<!-- Type: ContextVO... -->
-	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO" ordered="false" flexible="true"
+	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" ordered="false" flexible="true"
 		allow-repeats="true">
 
 
@@ -43,7 +43,7 @@
 
 				<!-- Node: context.admin-descriptor.allowed-content-types.allowed-genres.allowed-genre -->
 				<value style="element" name="allowed-genre"
-					type="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO$Genre"
+					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO$Genre"
 					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum"
 					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 

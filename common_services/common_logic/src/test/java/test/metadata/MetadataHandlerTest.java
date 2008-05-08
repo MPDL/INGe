@@ -18,7 +18,7 @@ import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.metadata.MetadataHandlerBean;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 public class MetadataHandlerTest {

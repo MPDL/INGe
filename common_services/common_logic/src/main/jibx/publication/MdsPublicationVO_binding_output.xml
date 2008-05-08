@@ -46,17 +46,17 @@
 	<!--  -->
 	<include path="CreatorVO_binding.xml" />
 	<include path="IdentifierVO_binding.xml" />
-	<include path="MetadataSetVO_binding.xml" />
+	<include path="../MetadataSetVO_binding.xml" />
 	<include path="OrganizationVO_binding.xml" />
 	<include path="PersonVO_binding.xml" />
 	<include path="PublishingInfoVO_binding.xml" />
-	<include path="ReferenceObject_binding.xml" />
+	<include path="../ReferenceObject_binding.xml" />
 	<include path="SourceVO_binding.xml" />
 	<include path="SourceVO_binding_abstract.xml" />	
 	<include path="TextVO_binding.xml" />
 
 	<mapping name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-		class="de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO"
+		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" value-style="attribute" ordered="false"
 		allow-repeats="true">
 

@@ -30,6 +30,8 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+
 /**
  * Representation of an PubItem search result record.
  * 

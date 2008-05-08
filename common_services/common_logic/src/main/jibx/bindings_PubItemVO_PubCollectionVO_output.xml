@@ -51,12 +51,12 @@
 	<!--  -->
 	<!-- The bindings -->
 	<!--  -->
-	<include path="MdsPublicationVO_binding_output.xml" />
+	<include path="publication/MdsPublicationVO_binding_output.xml" />
+	<include path="face/MdsFaceVO_binding.xml" />
 	<include path="ContextVO_binding.xml" />
 	<include path="AdminDescriptorVO_binding.xml" />
-	<include path="PublicationAdminDescriptorVO_binding.xml" />
-	<include path="FacesAdminDescriptorVO_binding.xml" />
-	<include path="PubCollectionVO_binding.xml" />
+	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />
+	<include path="face/FacesAdminDescriptorVO_binding.xml" />
 	<include path="PubCollectionVOListWrapper_binding.xml" />
 	<include path="PubFileVO_binding_output.xml" />
     <include path="PubItemRelationVO_binding.xml" />

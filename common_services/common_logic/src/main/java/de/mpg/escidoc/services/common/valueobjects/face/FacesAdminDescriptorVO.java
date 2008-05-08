@@ -28,17 +28,19 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.common.valueobjects;
+package de.mpg.escidoc.services.common.valueobjects.face;
+
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 
 /**
- * Metadata content of a Faces' face.
+ * 
+ * TODO Description
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class MdsFaceVO extends MetadataSetVO
+public class FacesAdminDescriptorVO extends AdminDescriptorVO
 {
-    
 }
