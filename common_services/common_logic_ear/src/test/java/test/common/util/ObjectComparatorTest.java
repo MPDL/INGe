@@ -40,7 +40,7 @@ import org.junit.Test;
 
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 
 /**

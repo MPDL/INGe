@@ -37,7 +37,7 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 
 /**

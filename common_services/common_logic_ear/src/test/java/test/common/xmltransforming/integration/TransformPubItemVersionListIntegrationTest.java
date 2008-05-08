@@ -70,7 +70,7 @@ import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.VersionHistoryEntryVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;

@@ -36,7 +36,7 @@ import java.util.Collections;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 

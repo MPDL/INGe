@@ -40,7 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import test.common.TestBase;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;

@@ -49,9 +49,9 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO.SubmissionMethod;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -125,7 +125,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         logger.info("Retrieved pubman collection '" + PUBMAN_TEST_COLLECTION_ID + "':\n" + toString(getDocument(context, false), false));        
         assertNotNull(context);
 
-        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
+        ContextVO pubCollection = xmlTransforming.transformToContext(context);
         assertNotNull(pubCollection);
         assertEquals(getExpectedPubCollection().getDefaultMetadata(), pubCollection.getDefaultMetadata());
 
@@ -138,23 +138,25 @@ public class TransformPubCollectionIntegrationTest extends TestBase
      * 
      * @return the expected pubCollectionVO
      */
-    private PubContextVO getExpectedPubCollection()
+    private ContextVO getExpectedPubCollection()
     {
-        PubContextVO expected = new PubContextVO();
+        ContextVO expected = new ContextVO();
         expected.setName(PUBMAN_TEST_COLLECTION_NAME);
         expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
-        expected.setState(PubContextVO.State.OPENED);
+        expected.setState(ContextVO.State.OPENED);
         expected.setReference(new ContextRO("escidoc:persistent3"));
         expected.setCreator(new AccountUserRO("escidoc:user42"));
-        expected.setDefaultFileVisibility(null);
         expected.setDefaultMetadata(null);
         expected.getResponsibleAffiliations().add(new AffiliationRO("escidoc:persistent13"));
-        expected.getAllowedSubmissionMethods().add(SubmissionMethod.SINGLE_SUBMISSION);
+        
+        PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
+        expected.getAdminDescriptors().add(adminDescriptorVO);
+        
         MdsPublicationVO.Genre[] allowed =
             new MdsPublicationVO.Genre[]{MdsPublicationVO.Genre.ARTICLE, MdsPublicationVO.Genre.BOOK, MdsPublicationVO.Genre.BOOK_ITEM, MdsPublicationVO.Genre.PROCEEDINGS, MdsPublicationVO.Genre.CONFERENCE_PAPER, MdsPublicationVO.Genre.TALK_AT_EVENT, MdsPublicationVO.Genre.CONFERENCE_REPORT, MdsPublicationVO.Genre.POSTER, MdsPublicationVO.Genre.COURSEWARE_LECTURE, MdsPublicationVO.Genre.THESIS, MdsPublicationVO.Genre.PAPER, MdsPublicationVO.Genre.REPORT, MdsPublicationVO.Genre.JOURNAL, MdsPublicationVO.Genre.ISSUE, MdsPublicationVO.Genre.SERIES, MdsPublicationVO.Genre.OTHER};
         for (int i = 0; i < allowed.length; i++)
         {
-            expected.getAllowedGenres().add(allowed[i]);
+            adminDescriptorVO.getAllowedGenres().add(allowed[i]);
         }
         
         return expected;
