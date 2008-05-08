@@ -43,7 +43,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.lang.String;
 
 import javax.ejb.EJB;
 import javax.ejb.Remote;
@@ -65,7 +64,7 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.logging.MessageCreator;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
@@ -77,12 +76,12 @@ import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.EventCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.GenreCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.IdentifierCriterionVO;
+import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.OrganizationCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.PersonCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.SourceCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.TitleCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.TopicCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
 
 /**

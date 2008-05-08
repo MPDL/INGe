@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.pubman.depositing;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 
 /**

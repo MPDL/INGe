@@ -65,18 +65,18 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
@@ -160,11 +160,11 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
 
         // retrieve PubCollection for default metadata
-        PubContextVO collection = null;
+        ContextVO collection = null;
         try
         {
             String context = de.mpg.escidoc.services.framework.ServiceLocator.getContextHandler(user.getHandle()).retrieve(pubCollectionRef.getObjectId());
-            collection = xmlTransforming.transformToPubContext(context);
+            collection = xmlTransforming.transformToContext(context);
         }
         catch (ContextNotFoundException e)
         {
@@ -240,7 +240,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public List<PubContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws SecurityException, TechnicalException
+    public List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user) throws SecurityException, TechnicalException
     {
         if (user == null)
         {
@@ -261,7 +261,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             FrameworkContextTypeFilter typeFilter = filterParam.new FrameworkContextTypeFilter("PubMan");
             filterParam.getFilterList().add(typeFilter);
             // Peter Broszeit: PubCollectionStatusFilter added.
-            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(PubContextVO.State.OPENED);
+            PubCollectionStatusFilter statusFilter = filterParam.new PubCollectionStatusFilter(ContextVO.State.OPENED);
             filterParam.getFilterList().add(statusFilter);
 
             // ... and transform filter to xml
@@ -270,7 +270,7 @@ public class PubItemDepositingBean implements PubItemDepositing
             // Get context list
             String contextList = ServiceLocator.getContextHandler(user.getHandle()).retrieveContexts(filterString);
             // ... and transform to PubCollections.
-            return xmlTransforming.transformToPubContextList(contextList);
+            return xmlTransforming.transformToContextList(contextList);
 
         }
         catch (Exception e)
@@ -554,7 +554,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     }
 
     /* (non-Javadoc)
-     * @see de.mpg.escidoc.services.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services.common.valueobjects.PubItemVO, java.lang.String, de.mpg.escidoc.services.common.valueobjects.PubContextVO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)
+     * @see de.mpg.escidoc.services.pubman.PubItemDepositing#createRevisionOfItem(de.mpg.escidoc.services.common.valueobjects.PubItemVO, java.lang.String, de.mpg.escidoc.services.common.valueobjects.ContextVO, de.mpg.escidoc.services.common.valueobjects.AccountUserVO)
      */
     public PubItemVO createRevisionOfItem(PubItemVO originalPubItem, String relationComment, ContextRO pubCollection, AccountUserVO owner) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException
     {

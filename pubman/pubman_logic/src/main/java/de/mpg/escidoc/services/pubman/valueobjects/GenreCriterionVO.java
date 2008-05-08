@@ -31,7 +31,7 @@
 package de.mpg.escidoc.services.pubman.valueobjects;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 
 /**
@@ -48,7 +48,7 @@ public class GenreCriterionVO extends CriterionVO
 	private static final long serialVersionUID = 1L;
 	
     //the genre for the search criterion
-    private List<Genre> genreList;
+    private List<MdsPublicationVO.Genre> genreList;
 
 	/**
 	 * constructor.
@@ -58,17 +58,17 @@ public class GenreCriterionVO extends CriterionVO
         super();
 	}
 
-    public List<Genre> getGenre()
+    public List<MdsPublicationVO.Genre> getGenre()
     {
         return genreList;
     }
 
-    public void setGenre(List<Genre> genre)
+    public void setGenre(List<MdsPublicationVO.Genre> genre)
     {
         this.genreList = genre;
     }
     
-    private String getSearchIdentifierByGenre( Genre g )
+    private String getSearchIdentifierByGenre( MdsPublicationVO.Genre g )
     {
         switch( g ) 
         {

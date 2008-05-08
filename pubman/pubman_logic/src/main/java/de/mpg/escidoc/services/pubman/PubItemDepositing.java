@@ -35,8 +35,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.depositing.DepositingException;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
 import de.mpg.escidoc.services.pubman.depositing.PubItemMandatoryAttributesMissingException;
@@ -111,7 +111,7 @@ public interface PubItemDepositing
 	 * @exception TechnicalException,
 	 * @exception SecurityException
 	 */
-    public java.util.List<PubContextVO> getPubCollectionListForDepositing(AccountUserVO user)
+    public java.util.List<ContextVO> getPubCollectionListForDepositing(AccountUserVO user)
 	  throws TechnicalException, SecurityException;
 
     /**

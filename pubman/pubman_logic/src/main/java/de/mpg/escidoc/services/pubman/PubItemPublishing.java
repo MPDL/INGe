@@ -34,7 +34,7 @@ import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.depositing.PubItemLockedException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
