@@ -61,9 +61,9 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -109,7 +109,7 @@ public class ItemControllerSessionBean extends FacesBean
     private DataGathering dataGathering = null;
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
-    private PubContextVO currentContext = null;
+    private ContextVO currentContext = null;
 
     /**
      * Public constructor, initializing used Beans.
@@ -527,7 +527,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (this.getContextListSessionBean().getContextList().size() == 1)
         {            
-            PubContextVO context = this.getContextListSessionBean().getContextList().get(0);
+            ContextVO context = this.getContextListSessionBean().getContextList().get(0);
             
             newItem.setContext(context.getReference());
             
@@ -1817,19 +1817,19 @@ public class ItemControllerSessionBean extends FacesBean
      * @param contextID the ID of the context that should be retrieved
      * @return the context with the given ID
      */
-    public PubContextVO retrieveContext(final String contextID)
+    public ContextVO retrieveContext(final String contextID)
     {
         if (logger.isDebugEnabled())
         {
             logger.debug("Retrieving context for ID: " + contextID);
         }
-        PubContextVO context = null;
+        ContextVO context = null;
 
         String xmlContext = "";
         try
         {
             xmlContext = ServiceLocator.getContextHandler().retrieve(contextID);
-            context = this.xmlTransforming.transformToPubContext(xmlContext);
+            context = this.xmlTransforming.transformToContext(xmlContext);
         }
         catch (Exception e)
         {
@@ -1847,9 +1847,9 @@ public class ItemControllerSessionBean extends FacesBean
      * @return the list of contexts
      * @throws Exception if framework access fails
      */
-    public List<PubContextVO> retrieveCollections() throws Exception
+    public List<ContextVO> retrieveCollections() throws Exception
     {
-        List<PubContextVO> allCollections = new ArrayList<PubContextVO>();
+        List<ContextVO> allCollections = new ArrayList<ContextVO>();
 
         try
         {
@@ -2095,7 +2095,7 @@ public class ItemControllerSessionBean extends FacesBean
         this.currentItemValidationReport = currentItemValidationReport;
     }
 
-    public PubContextVO getCurrentContext()
+    public ContextVO getCurrentContext()
     {
         // retrieve current context newly if the current item has changed or if the context has not been retrieved so far
         if (this.getCurrentPubItem() != null)
@@ -2103,7 +2103,7 @@ public class ItemControllerSessionBean extends FacesBean
             if (this.currentContext == null 
                     || !(this.currentContext.getReference().getObjectId().equals(this.getCurrentPubItem().getContext().getObjectId())))
             {
-                PubContextVO context = this.retrieveContext(this.getCurrentPubItem().getContext().getObjectId());
+                ContextVO context = this.retrieveContext(this.getCurrentPubItem().getContext().getObjectId());
                 this.setCurrentCollection(context);
             }
         }
@@ -2111,7 +2111,7 @@ public class ItemControllerSessionBean extends FacesBean
         return currentContext;
     }
 
-    public void setCurrentCollection(PubContextVO currentCollection)
+    public void setCurrentCollection(ContextVO currentCollection)
     {
         this.currentContext = currentCollection;
     }

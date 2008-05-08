@@ -52,7 +52,6 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
@@ -76,18 +75,12 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -235,7 +228,7 @@ public class EditItem extends FacesBean
     	{
 	        try
 	        {
-	            PubContextVO context = this.getItemControllerSessionBean().retrieveContext(
+	            ContextVO context = this.getItemControllerSessionBean().retrieveContext(
 	                     this.getPubItem().getContext().getObjectId());
 	            return context.getName();
 	        }
@@ -978,7 +971,7 @@ public class EditItem extends FacesBean
         
         try
         {
-            PubContextVO context = this.getItemControllerSessionBean().getCurrentContext();
+            ContextVO context = this.getItemControllerSessionBean().getCurrentContext();
             contextDescription = context.getDescription();
         }
         catch (Exception e)
@@ -1003,7 +996,7 @@ public class EditItem extends FacesBean
         
         try
         {
-            PubContextVO context = this.getItemControllerSessionBean().getCurrentContext();
+            ContextVO context = this.getItemControllerSessionBean().getCurrentContext();
             contextDescription = context.getDescription();
         }
         catch (Exception e)

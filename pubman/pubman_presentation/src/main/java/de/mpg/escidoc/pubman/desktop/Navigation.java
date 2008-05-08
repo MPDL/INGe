@@ -57,7 +57,7 @@ import de.mpg.escidoc.pubman.search.AdvancedSearchEdit;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
  * Navigation.java Backing Bean for the Navigation side bar of pubman. Additionally there is some internationalization
@@ -255,7 +255,7 @@ public class Navigation extends FacesBean
         }
         if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {
-            PubContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: "

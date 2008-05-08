@@ -6,7 +6,7 @@ import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.TitleIF;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 

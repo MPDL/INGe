@@ -41,8 +41,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
  * Fragment class for CreateItem.
@@ -107,7 +106,7 @@ public class CreateItem extends FacesBean
         }
         if (this.getContextListSessionBean().getContextList().size() == 1)
         {
-            PubContextVO contextVO = this.getContextListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getContextListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: "

@@ -33,7 +33,7 @@ package de.mpg.escidoc.pubman.viewItem.ui;
 import javax.faces.component.html.HtmlOutputText;
 
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 
 /**

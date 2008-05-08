@@ -31,10 +31,10 @@
 package de.mpg.escidoc.pubman.contextList;
 
 import de.mpg.escidoc.pubman.util.ValueObjectWrapper;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
- * Wrapper for PubContextVOs that provides additional attributes for the presentation layer. 
+ * Wrapper for ContextVOs that provides additional attributes for the presentation layer. 
  * 
  * @author: Thomas Diebäcker, created 29.08.2007
  * @version: $Revision: 1587 $ $LastChangedDate: 2007-11-20 10:54:36 +0100 (Di, 20 Nov 2007) $
@@ -51,17 +51,17 @@ public class PubContextVOWrapper extends ValueObjectWrapper
         super();
     }
     
-    public PubContextVOWrapper(PubContextVO contextVO)
+    public PubContextVOWrapper(ContextVO contextVO)
     {
         super(contextVO);
     }
 
-    public PubContextVO getValueObject()
+    public ContextVO getValueObject()
     {
-        return (PubContextVO)this.valueObject;
+        return (ContextVO)this.valueObject;
     }
 
-    public void setValueObject(PubContextVO pubItemVO)
+    public void setValueObject(ContextVO pubItemVO)
     {
         this.valueObject = pubItemVO;
     }

@@ -1,6 +1,6 @@
 package de.mpg.escidoc.pubman.util;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 
 public class RelationVOPresentation extends RelationVO

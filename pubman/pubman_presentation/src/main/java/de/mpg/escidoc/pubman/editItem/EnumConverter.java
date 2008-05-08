@@ -36,7 +36,7 @@ import javax.faces.convert.Converter;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 
 /**

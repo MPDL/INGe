@@ -39,7 +39,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
  * Fragment class for CreateRevision.
@@ -106,7 +106,7 @@ public class CreateRevision extends FacesBean
             logger.debug("confirmCollectionChoose()");
         }
         
-        PubContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedContext();
+        ContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedContext();
         
         if (selectedCollection != null)
         {            

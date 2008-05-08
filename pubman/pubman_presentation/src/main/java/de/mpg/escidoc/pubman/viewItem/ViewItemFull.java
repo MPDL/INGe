@@ -81,8 +81,8 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -153,7 +153,7 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator locatorIterator = new UIXIterator();
     
-    private PubContextVO context = null;
+    private ContextVO context = null;
     
     /**
      * The list of formatted organzations in an ArrayList.
@@ -465,7 +465,7 @@ public class ViewItemFull extends FacesBean
         }
         else if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {            
-            PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one collection (ID: " 
@@ -476,7 +476,7 @@ public class ViewItemFull extends FacesBean
         }
         else
         {            
-            PubContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
 
             // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())

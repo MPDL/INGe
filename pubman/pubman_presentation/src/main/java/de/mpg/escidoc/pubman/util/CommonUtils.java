@@ -56,8 +56,8 @@ import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
@@ -449,15 +449,15 @@ public class CommonUtils extends InternationalizedImpl
     /**
      * Converts a list of PubCollectionVOPresentations to a list of PubCollections.
      * @param list the list of PubCollectionVOPresentations
-     * @return the list of PubContextVOs
+     * @return the list of ContextVOs
      */
-    public static ArrayList<PubContextVO> convertToPubContextVOList(List<PubContextVOPresentation> list)
+    public static ArrayList<ContextVO> convertToContextVOList(List<PubContextVOPresentation> list)
     {
-        ArrayList<PubContextVO> contextList = new ArrayList<PubContextVO>();
+        ArrayList<ContextVO> contextList = new ArrayList<ContextVO>();
 
         for (int i = 0; i < list.size(); i++)
         {
-            contextList.add(new PubContextVO(list.get(i)));
+            contextList.add(new ContextVO(list.get(i)));
         }
 
         return contextList;
@@ -533,10 +533,10 @@ public class CommonUtils extends InternationalizedImpl
 
     /**
      * Converts a list of PubCollections to a list of PubCollectionVOPresentations.
-     * @param list the list of PubContextVOs
+     * @param list the list of ContextVOs
      * @return the list of PubCollectionVOPresentations
      */
-    public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<PubContextVO> list)
+    public static List<PubContextVOPresentation> convertToPubCollectionVOPresentationList(List<ContextVO> list)
     {
         List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
@@ -570,7 +570,7 @@ public class CommonUtils extends InternationalizedImpl
      * @param valueObjectList the list of valueObjects
      * @return the list of ValueObjectWrappers
      */
-    public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(List<PubContextVO> valueObjectList)
+    public static List<PubContextVOWrapper> convertToPubCollectionVOWrapperList(List<ContextVO> valueObjectList)
     {
         List wrapperList = new ArrayList<PubContextVOWrapper>();
 

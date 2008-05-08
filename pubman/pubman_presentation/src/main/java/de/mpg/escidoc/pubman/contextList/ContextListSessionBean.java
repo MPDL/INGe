@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -64,7 +64,7 @@ public class ContextListSessionBean extends FacesBean
 
     /**
      * Retrieves all contexts for the current user.
-     * @return the list of PubContextVOs
+     * @return the list of ContextVOs
      */
     private List<PubContextVOPresentation> retrieveContexts()
     {
@@ -100,7 +100,7 @@ public class ContextListSessionBean extends FacesBean
     
     private PubContextVOPresentation createDummyContext(int number)
     {
-        PubContextVOPresentation vo = new PubContextVOPresentation(new PubContextVO());
+        PubContextVOPresentation vo = new PubContextVOPresentation(new ContextVO());
         vo.setName("TestCollection " + number + ". DO NOT TRY TO CREATE ITEMS WITH THIS!");
         vo.setDescription("This is the description of the context No. " + number + ".");
         ContextRO ro = new ContextRO();

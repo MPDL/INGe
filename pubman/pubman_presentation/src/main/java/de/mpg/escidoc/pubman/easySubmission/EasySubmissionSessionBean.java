@@ -37,8 +37,8 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**
@@ -83,7 +83,7 @@ public class EasySubmissionSessionBean extends FacesBean
     
     private OrganizationVO currentlySelecting = null;
     
-    private PubContextVO context;
+    private ContextVO context;
     
     //private PubItemVO currentItem;
     
@@ -124,12 +124,12 @@ public class EasySubmissionSessionBean extends FacesBean
 	}
 
 
-	public PubContextVO getContext() {
+	public ContextVO getContext() {
 		return context;
 	}
 
 
-	public void setContext(PubContextVO context) {
+	public void setContext(ContextVO context) {
 		this.context = context;
 	}
 

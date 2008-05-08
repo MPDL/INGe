@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.pubman.util;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Wrapper for PubItemVOs that provides additional attributes for the presentation layer. 

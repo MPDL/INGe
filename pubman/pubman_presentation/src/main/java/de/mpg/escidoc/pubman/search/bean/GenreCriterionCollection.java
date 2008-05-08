@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.pubman.valueobjects.GenreCriterionVO;
 
 /**
@@ -69,7 +69,7 @@ public class GenreCriterionCollection
 		public GenreCriterionBean createNewObject()
 		{
 			GenreCriterionVO newVO = new GenreCriterionVO();
-			newVO.setGenre(new ArrayList<Genre>());
+			newVO.setGenre(new ArrayList<MdsPublicationVO.Genre>());
 			// create a new wrapper pojo
 			GenreCriterionBean genreCriterionBean = new GenreCriterionBean(newVO);
 			// we do not have direct access to the original list

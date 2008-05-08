@@ -2,8 +2,7 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.GenreCriterionVO;
 
@@ -50,10 +49,10 @@ public class GenreCriterionBean extends CriterionBean
 		this.genreCriterionVO = genreCriterionVO;
 		if (genreCriterionVO.getGenre() == null)
 		{
-			genreCriterionVO.setGenre(new ArrayList<Genre>());
+			genreCriterionVO.setGenre(new ArrayList<MdsPublicationVO.Genre>());
 		}
 			
-		for (Genre genre : genreCriterionVO.getGenre())
+		for (MdsPublicationVO.Genre genre : genreCriterionVO.getGenre())
 		{
 			if (MdsPublicationVO.Genre.ARTICLE.equals(genre))
 				searchArticle = true;

@@ -82,8 +82,8 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
@@ -254,7 +254,7 @@ public class ViewItem extends FacesBean
     /**
      * The related PubCollection.
      */
-    private PubContextVO context;
+    private ContextVO context;
     /**
      * The list of creators in one string.
      */
@@ -2436,7 +2436,7 @@ public class ViewItem extends FacesBean
         }
         if (this.getCollectionListSessionBean().getContextList().size() == 1)
         {            
-            PubContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: " 
@@ -3078,12 +3078,12 @@ public class ViewItem extends FacesBean
         this.panSources = panSources;
     }
 
-    public PubContextVO getPubCollection()
+    public ContextVO getPubCollection()
     {
         return context;
     }
 
-    public void setPubCollection(PubContextVO context)
+    public void setPubCollection(ContextVO context)
     {
         this.context = context;
     }
