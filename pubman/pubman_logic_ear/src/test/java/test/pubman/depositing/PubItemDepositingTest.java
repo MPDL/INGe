@@ -54,12 +54,12 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubContextVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -152,7 +152,7 @@ public class PubItemDepositingTest extends TestBase
         assertEquals(PUBMAN_TEST_COLLECTION_ID, pubItem.getContext().getObjectId());
 
         String context = ServiceLocator.getContextHandler(user.getHandle()).retrieve(pmCollectionRef.getObjectId());
-        PubContextVO pubCollection = xmlTransforming.transformToPubContext(context);
+        ContextVO pubCollection = xmlTransforming.transformToContext(context);
         assertNotNull(pubItem.getMetadata());
         if (pubCollection.getDefaultMetadata() != null)
         {
@@ -680,10 +680,10 @@ public class PubItemDepositingTest extends TestBase
     @Test
     public void testGetPubCollectionListForDepositing() throws Exception
     {
-        List<PubContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
+        List<ContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
         assertNotNull(pubCollectionList);
         assertEquals(2, pubCollectionList.size());
-        PubContextVO pubCollection = pubCollectionList.get(0);
+        ContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
         assertEquals(PUBMAN_TEST_COLLECTION_DESCRIPTION, pubCollection.getDescription());

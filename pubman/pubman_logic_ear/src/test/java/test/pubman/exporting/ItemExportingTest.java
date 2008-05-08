@@ -45,7 +45,7 @@ import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 //import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import javax.naming.NamingException;

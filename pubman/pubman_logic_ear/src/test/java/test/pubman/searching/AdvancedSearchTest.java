@@ -42,8 +42,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -387,6 +387,7 @@ public class AdvancedSearchTest extends TestBase
         myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.AUTHOR));
         SourceVO sourceVO = new SourceVO();
         sourceVO.setTitle(new TextVO("TitelSourceVO"));
+        sourceVO.setGenre(SourceVO.Genre.BOOK);
         myItem.getMetadata().getSources().add(sourceVO);
 
         String itemXML = xmlTransforming.transformToItem(myItem);
