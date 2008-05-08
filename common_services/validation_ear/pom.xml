@@ -304,14 +304,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.3-SNAPSHOT</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
 		</dependency>

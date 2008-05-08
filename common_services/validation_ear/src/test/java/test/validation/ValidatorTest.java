@@ -40,7 +40,7 @@ import org.junit.Test;
 
 import test.TestHelper;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.valueobjects.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;

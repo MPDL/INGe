@@ -72,4 +72,7 @@ Although common usage refers to 'suffering from an Oedipus complex', psychoanaly
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
+	<escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+	
+	</escidocComponents:components>
 </escidocItem:item>

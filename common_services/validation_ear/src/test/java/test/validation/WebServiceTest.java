@@ -157,7 +157,7 @@ public class WebServiceTest
         report = TestHelper.callSoapWebservice(new Object[]{itemXml, "submit_item"});
         TestHelper.logTime("End SOAP call 2", 750, 1000);
 
-        logger.debug("Report: " + report);
+        logger.info("Report: " + report);
 
         // Validation point submit_item should not validate
         assertTrue(report.contains("<failure"));
