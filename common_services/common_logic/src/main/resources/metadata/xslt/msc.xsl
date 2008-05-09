@@ -344,7 +344,7 @@
 			<xsl:when test="$code = '06D15'">MSC 06D15: Pseudocomplemented lattices</xsl:when>
 			<xsl:when test="$code = '06D20'">MSC 06D20: Heyting algebras [See also 03G25]</xsl:when>
 			<xsl:when test="$code = '06D22'">MSC 06D22: Frames, locales {For topological questions see 54–XX} 06D25 Post algebras [See also 03G20]</xsl:when>
-			<xsl:when test="$code = '06D30'">MSC 06D30: De Morgan algebras, Łukasiewicz algebras [See also 03G20]</xsl:when>
+			<xsl:when test="$code = '06D30'">MSC 06D30: De Morgan algebras, Lukasiewicz algebras [See also 03G20]</xsl:when>
 			<xsl:when test="$code = '06D35'">MSC 06D35: MV-algebras</xsl:when>
 			<xsl:when test="$code = '06D50'">MSC 06D50: Lattices and duality</xsl:when>
 			<xsl:when test="$code = '06D72'">MSC 06D72: Fuzzy lattices (soft algebras) and related topics</xsl:when>

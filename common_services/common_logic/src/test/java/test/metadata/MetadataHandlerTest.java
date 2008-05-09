@@ -50,7 +50,7 @@ public class MetadataHandlerTest {
         String[] identifiers = new String[]{
 //                "math-ph/0404037",
 //                "0804.1597",
-//                "0804.1593",
+                "0804.1593"
 //                "0804.1221",
 //                "0803.0264v1"
         };
