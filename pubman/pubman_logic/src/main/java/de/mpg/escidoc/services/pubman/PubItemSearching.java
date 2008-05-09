@@ -109,4 +109,16 @@ public interface PubItemSearching
 	 */
 	public List<PubItemVO> searchPubItemsByAffiliation(AffiliationVO affilation) throws TechnicalException, AffiliationNotFoundException;
 
+	
+	/**
+	 * Searches for publication items that matches the given context object id.
+     * 
+	 * @param searchString The search query.
+	 * @param searchInFiles If true, search is also executed in files. 
+	 * @return The list of PubItemResultVOs that matched the query.
+	 * @throws ParseException 
+	 * @throws TechnicalException 
+	 */
+	public List<PubItemResultVO> searchByContextObjectId(String contextobjId ) throws ParseException, TechnicalException;
+
 }

@@ -794,5 +794,39 @@ public class PubItemSearchingBean implements PubItemSearching
     {
         return cqlQuery;
     }
+    
+    public List<PubItemResultVO> searchByContextObjectId(String contextobjId ) 
+    	throws ParseException, TechnicalException {
+    	
+    	if (contextobjId == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":search:searchString is null");
+        }
+        if (contextobjId.length() > 0)
+        {
+        	StringBuffer query = new StringBuffer();
+        	
+        	query.append("( ");
+            
+        	query.append(createCqlQuery( contextobjId, QueryType.CONTEXT_OBJECTID ));
+        	    
+            query.append(" )");
+            
+         // execute search for publication items
+            if (query.length() > 0)
+            {
+                return cqlSearchForPubItems(query.toString(), null);
+            }
+            else
+            {
+                return new ArrayList<PubItemResultVO>();
+            }
+        }
+        else 
+        {
+        	return new ArrayList<PubItemResultVO>();
+        }
+    }
 
 }
