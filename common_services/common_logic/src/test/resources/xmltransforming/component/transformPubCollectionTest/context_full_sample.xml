@@ -1,0 +1,73 @@
+<context:context xmlns:context="http://www.escidoc.de/schemas/context/0.3" objid="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
+	<context:properties>
+		<context:creation-date>2007-01-16T11:23:24.359Z</context:creation-date>
+		<context:created-by objid="escidoc:user42" />
+		<context:public-status>opened</context:public-status>
+		<context:name>PubMan Test Collection</context:name>
+		<context:description>This is the sample collection description of the PubMan Test
+collection. Any content can be stored in this collection, which is of relevance
+for the users of the system. You can submit relevant bibliographic information
+for your publication (metadata) and all relevant files. The MPS is the
+responsible affiliation for this collection. Please contact
+u.tschida@zim.mpg.de for any questions.</context:description>
+		<context:type>PubMan</context:type>
+		<context:organizational-units>
+			<context:organizational-unit objid="escidoc:persistent13" />
+		</context:organizational-units>
+		<context:last-modification-date>2007-03-26T11:11:58.853Z</context:last-modification-date>
+	</context:properties>
+	<admin-descriptor:admin-descriptor xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<admin-descriptor:allowed-content-types>
+			<admin-descriptor:allowed-content-type>
+				<admin-descriptor:allowed-md-schema></admin-descriptor:allowed-md-schema>
+				<admin-descriptor:allowed-genres>
+				    <admin-descriptor:allowed-genre>article</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>book</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>book-item</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>proceedings</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>conference-paper</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>talk-at-event</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>conference-report</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>poster</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>courseware-lecture</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>thesis</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>paper</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>report</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>journal</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>issue</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>series</admin-descriptor:allowed-genre>
+				    <admin-descriptor:allowed-genre>other</admin-descriptor:allowed-genre>
+				</admin-descriptor:allowed-genres>
+			</admin-descriptor:allowed-content-type>
+		</admin-descriptor:allowed-content-types>
+		<admin-descriptor:webservices>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws1-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws1-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws1-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws2-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws2-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws2-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+		</admin-descriptor:webservices>
+		<admin-descriptor:authority-files>
+			<admin-descriptor:authority-file></admin-descriptor:authority-file>
+			<admin-descriptor:authority-file></admin-descriptor:authority-file>
+		</admin-descriptor:authority-files>
+		<admin-descriptor:submission-methods>
+			<admin-descriptor:method>single-submission</admin-descriptor:method>
+		</admin-descriptor:submission-methods>
+		<admin-descriptor:relation-types>
+			<admin-descriptor:relation-type></admin-descriptor:relation-type>
+			<admin-descriptor:relation-type></admin-descriptor:relation-type>
+			<admin-descriptor:relation-type></admin-descriptor:relation-type>
+		</admin-descriptor:relation-types>
+		<admin-descriptor:component-visibility></admin-descriptor:component-visibility>
+		<admin-descriptor:visibility-of-references></admin-descriptor:visibility-of-references>
+		<admin-descriptor:visibility-of-annotations></admin-descriptor:visibility-of-annotations>
+        </admin-descriptor:admin-descriptor>
+</context:context>

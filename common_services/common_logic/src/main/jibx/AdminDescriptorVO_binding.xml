@@ -31,8 +31,6 @@
 
 	<!-- concrete mapping for AccountUserVO -->
 	<mapping abstract="true" class="de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO" ordered="false">
-		
-		
-		
+
 	</mapping>
 </binding>

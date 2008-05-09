@@ -37,6 +37,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 
 /**
  * Special type of container of data with specific workflow (i.e. the publication management workflow). A set of
@@ -269,4 +270,27 @@ public class ContextVO extends ValueObject
         return adminDescriptors;
     }
 
+    public PublicationAdminDescriptorVO getAdminDescriptor()
+    {
+        if (getAdminDescriptors().size() > 0 && getAdminDescriptors().get(0) instanceof PublicationAdminDescriptorVO)
+        {
+            return (PublicationAdminDescriptorVO)getAdminDescriptors().get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
+    public void setAdminDescriptor(PublicationAdminDescriptorVO adminDescriptorVO)
+    {
+        if (getAdminDescriptors().size() > 0)
+        {
+            getAdminDescriptors().set(0, adminDescriptorVO);
+        }
+        else
+        {
+            getAdminDescriptors().add(adminDescriptorVO);
+        }
+    }
 }

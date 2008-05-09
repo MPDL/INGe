@@ -82,13 +82,64 @@
 
 		</structure>
 
-		<collection name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
+		<!-- TODO: Remove this with new FW. -->
+		<structure name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional" get-method="getAdminDescriptor" set-method="setAdminDescriptor">
+		
+			
+			<structure name="allowed-content-types" ns="http://www.escidoc.de/schemas/admindescriptor/0.3">
+	
+				<structure name="allowed-content-type" ns="http://www.escidoc.de/schemas/admindescriptor/0.3">
+			
+					<structure name="allowed-md-schema" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+					<!-- Node: context.admin-descriptor.allowed-content-types.allowed-content-type.allowed-genres -->
+					<!-- Field: PubCollectionVO.allowedGenres [List<MdsPublicationVO.Genre>] -->
+					<structure name="allowed-genres" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional">
+			
+						<collection field="allowedGenres" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.genreListFactory" usage="optional">
+			
+							<!-- Node: context.admin-descriptor.allowed-content-types.allowed-genres.allowed-genre -->
+							<value style="element" name="allowed-genre" ns="http://www.escidoc.de/schemas/admindescriptor/0.3"
+								type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO$Genre"
+								deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenreEnum"
+								serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+			
+						</collection>
+						
+					</structure>
+			
+					<value style="element" name="template-item" field="templateItem" usage="optional" />
+					
+					<value style="element" name="validation-schema" field="validationSchema" usage="optional" />
+	
+				</structure>
+	
+			</structure>
+			
+			<structure name="webservices" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="authority-files" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="submission-methods" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="relation-types" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="component-visibility" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="visibility-of-references" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			
+			<structure name="visibility-of-annotations" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+
+		</structure>
+
+		<!-- TODO: Comment in with new FW. -->
+		<!-- <collection name="admin-descriptor" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
 			
 				<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
 
 				<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
 				
-		</collection>
+		</collection> -->
 	</mapping>
 
 </binding>

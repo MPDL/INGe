@@ -39,7 +39,7 @@ import test.xmltransforming.component.TransformExportFormatTest;
 import test.xmltransforming.component.TransformInvalidPubItemTest;
 import test.xmltransforming.component.TransformLockTest;
 import test.xmltransforming.component.TransformParamTest;
-import test.xmltransforming.component.TransformPubCollectionTest;
+import test.xmltransforming.component.TransformContextTest;
 import test.xmltransforming.component.TransformPubItemTest;
 import test.xmltransforming.component.TransformPubItemVersionListTest;
 import test.xmltransforming.component.TransformRelationTest;
@@ -58,7 +58,7 @@ import test.xmltransforming.component.TransformRelationTest;
                      TransformInvalidPubItemTest.class,
                      TransformLockTest.class,
                      TransformParamTest.class,
-                     TransformPubCollectionTest.class,
+                     TransformContextTest.class,
                      TransformPubItemTest.class,
                      TransformRelationTest.class,
                      TransformPubItemVersionListTest.class

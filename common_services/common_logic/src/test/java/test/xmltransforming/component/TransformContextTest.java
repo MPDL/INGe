@@ -61,14 +61,14 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
  * @version $Revision: 663 $ $LastChangedDate: 2007-12-12 14:18:51 +0100 (Wed, 12 Dec 2007) $
  * @revised by MuJ: 20.09.2007
  */
-public class TransformPubCollectionTest extends TestBase
+public class TransformContextTest extends TestBase
 {
     private static final String TEST_FILE_ROOT
         = "src/test/resources/xmltransforming/component/transformPubCollectionTest/";
-    private static final String CONTEXT_PUBCOLLECTION_SAMPLE_FILE
-        = TEST_FILE_ROOT + "context_pubcollection_sample.xml";
-    private static final String CONTEXT_PUBCOLLECTION_FULL_SAMPLE_FILE
-        = TEST_FILE_ROOT + "context_pubcollection_full_sample.xml";
+    private static final String CONTEXT_SAMPLE_FILE
+        = TEST_FILE_ROOT + "context_sample.xml";
+    private static final String CONTEXT_FULL_SAMPLE_FILE
+        = TEST_FILE_ROOT + "context_full_sample.xml";
     private static final String CONTEXT_LIST_SAMPLE_FILE
         = TEST_FILE_ROOT + "context-list_sample.xml";
 
@@ -86,27 +86,27 @@ public class TransformPubCollectionTest extends TestBase
      * @throws Exception Any exception.
      */
     @Test
-    public void testTransformToPubCollection() throws Exception
+    public void testTransformToContext() throws Exception
     {
         
         System.out.println((new File(".")).getAbsolutePath());
         
         // read pubCollection (=context) [XML] from file
-        String context = readFile(CONTEXT_PUBCOLLECTION_SAMPLE_FILE);
+        String context = readFile(CONTEXT_SAMPLE_FILE);
         assertNotNull(context);
 
         logger.info("Context sample: " + context);
         
         // transform the pubCollection to ContextVO
-        ContextVO pubCollection = xmlTransforming.transformToContext(context);
+        ContextVO contextVO = xmlTransforming.transformToContext(context);
         
         
         
-        assertNotNull(pubCollection);
-        assertEquals(getExpectedPubCollection().getDefaultMetadata(), pubCollection.getDefaultMetadata());
+        assertNotNull(contextVO);
+        assertEquals(getExpectedContext().getDefaultMetadata(), contextVO.getDefaultMetadata());
 
         // check results
-        ObjectComparator oc = new ObjectComparator(getExpectedPubCollection(), pubCollection);
+        ObjectComparator oc = new ObjectComparator(getExpectedContext(), contextVO);
         assertTrue(oc.toString(), oc.isEqual());
     }
 
@@ -117,21 +117,21 @@ public class TransformPubCollectionTest extends TestBase
      * @throws Exception Any exception.
      */
     @Test
-    public void testTransformToPubCollectionFull() throws Exception
+    public void testTransformToContextFull() throws Exception
     {
         // read pubCollection (=context) [XML] from file
-        String context = readFile(CONTEXT_PUBCOLLECTION_FULL_SAMPLE_FILE);
+        String context = readFile(CONTEXT_FULL_SAMPLE_FILE);
         assertNotNull(context);
 
         // transform the pubCollection to ContextVO
-        ContextVO pubCollection = xmlTransforming.transformToContext(context);
-        assertNotNull(pubCollection);
+        ContextVO contextVO = xmlTransforming.transformToContext(context);
+        assertNotNull(contextVO);
         
         // check results
-        ContextVO expectedPubCollection = getExpectedPubCollection();
+        ContextVO expectedContext = getExpectedContext();
         // add all additional expected values from full sample
-        assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
-        ObjectComparator oc = new ObjectComparator(expectedPubCollection, pubCollection);
+        assertEquals(expectedContext.getDefaultMetadata(), contextVO.getDefaultMetadata());
+        ObjectComparator oc = new ObjectComparator(expectedContext, contextVO);
         assertTrue(oc.toString(), oc.isEqual());
     }
 
@@ -142,7 +142,7 @@ public class TransformPubCollectionTest extends TestBase
      * @throws Exception Any exception.
      */
     @Test
-    public void testTransformToPubCollectionList() throws Exception
+    public void testTransformToContextList() throws Exception
     {
         // read pubCollection list [XML] from file
         String contextList = readFile(CONTEXT_LIST_SAMPLE_FILE);
@@ -151,13 +151,13 @@ public class TransformPubCollectionTest extends TestBase
         logger.info("contextList:"  + contextList);
         
         // transform the list to a List<ContextVO>
-        List<ContextVO> pubCollectionList = xmlTransforming.transformToContextList(contextList);
-        assertNotNull(pubCollectionList);
+        List<ContextVO> contextVOList = xmlTransforming.transformToContextList(contextList);
+        assertNotNull(contextVOList);
         
         // check results
-        assertEquals(2, pubCollectionList.size());
-        ContextVO expectedPubCollection = getExpectedPubCollection();
-        for (ContextVO pubCollection : pubCollectionList)
+        assertEquals(2, contextVOList.size());
+        ContextVO expectedPubCollection = getExpectedContext();
+        for (ContextVO pubCollection : contextVOList)
         {
             assertEquals(expectedPubCollection.getDefaultMetadata(), pubCollection.getDefaultMetadata());
 
@@ -167,7 +167,7 @@ public class TransformPubCollectionTest extends TestBase
         List<ContextVO> expectedPubCollectionList = new ArrayList<ContextVO>();
         expectedPubCollectionList.add(expectedPubCollection);
         expectedPubCollectionList.add(expectedPubCollection);
-        ObjectComparator oc = new ObjectComparator(expectedPubCollectionList, pubCollectionList);
+        ObjectComparator oc = new ObjectComparator(expectedPubCollectionList, contextVOList);
         assertTrue(oc.toString(), oc.isEqual());
     }
 
@@ -176,7 +176,7 @@ public class TransformPubCollectionTest extends TestBase
      * 
      * @return The well-defined pubCollection.
      */
-    private ContextVO getExpectedPubCollection()
+    private ContextVO getExpectedContext()
     {
         ContextVO expected = new ContextVO();
         expected.setName(PUBMAN_TEST_COLLECTION_NAME);
@@ -207,8 +207,9 @@ public class TransformPubCollectionTest extends TestBase
         allowedGenres.add(MdsPublicationVO.Genre.SERIES);
         allowedGenres.add(MdsPublicationVO.Genre.OTHER);
         
-        adminDescriptor.setTemplateItem(new ItemRO("dsddsadad"));
-        adminDescriptor.setValidationSchema("dsadda");
+        // TODO: Comment in with new FW
+//        adminDescriptor.setTemplateItem(new ItemRO("dsddsadad"));
+//        adminDescriptor.setValidationSchema("dsadda");
         return expected;
     }
 

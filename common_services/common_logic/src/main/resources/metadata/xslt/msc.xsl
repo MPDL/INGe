@@ -1167,7 +1167,7 @@
 			<xsl:when test="$code = '16W25'">MSC 16W25: Derivations, actions of Lie algebras</xsl:when>
 			<xsl:when test="$code = '16W30'">MSC 16W30: Coalgebras, bialgebras, Hopf algebras [See also 16S40, 57T05]; rings, modules, etc. on which these act</xsl:when>
 			<xsl:when test="$code = '16W35'">MSC 16W35: Ring-theoretic aspects of quantum groups [See also 17B37, 20G42, 81R50]</xsl:when>
-			<xsl:when test="$code = '16W50'">MSC 16W50: Graded rings and modules</xsl:when>
+			<xsl:when test="$code = '16W50'">MSC 16W50: Graded rings and modules</xsl:when> 
 			<xsl:when test="$code = '16W55'">MSC 16W55: “Super” (or “skew”) structure [See also 17A70, 17Bxx, 17C70] {For exterior algebras, see 15A75; for Clifford algebras, see 11E88, 15A66} 16W60 Valuations, completions, formal power series and related constructions [See also 13Jxx]</xsl:when>
 			<xsl:when test="$code = '16W70'">MSC 16W70: Filtered rings; filtrational and graded techniques</xsl:when>
 			<xsl:when test="$code = '16W80'">MSC 16W80: Topological and ordered rings and modules [See also 06F25, 13Jxx]</xsl:when>
