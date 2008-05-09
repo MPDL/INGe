@@ -76,7 +76,7 @@ public class ContextListSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.error("Could not create context list." + "\n" + e.toString());
+            logger.error("Could not create context list.", e);
 
             allCollections.addAll(this.getDummyCollections(3));            
             
