@@ -79,7 +79,7 @@
 						<div class="objectButtons floatbox">							
 							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size > 1}"/>
 							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
-							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{anyFieldCriterionBean.clearCriterion}" />
+							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
 						</div>
 					
 				

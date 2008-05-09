@@ -134,7 +134,7 @@
 				<div class="objectButtons floatbox">					
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size > 1}"/>
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{personCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
 				</div>
 			</div>	
 				

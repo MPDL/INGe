@@ -157,7 +157,7 @@
 				<div class="objectButtons floatbox">
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.addObject}" />
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.genreCriterionCollection.genreCriterionManager.size > 1}"/>
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{genreCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{genreCriterionBean.clearCriterion}" />
 				</div>
 			</div>
 		</h:panelGroup>

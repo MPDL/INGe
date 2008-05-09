@@ -64,7 +64,7 @@
 				<div class="objectButtons">					
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.size > 1}"/>
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.organizationCriterionCollection.organizationCriterionManager.addObject}" />					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{organizationCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{organizationCriterionBean.clearCriterion}" />
 				</div>			
 			
 		</h:panelGroup>

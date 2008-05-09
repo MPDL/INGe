@@ -114,7 +114,7 @@
 				<div class="objectButtons floatbox">					
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size > 1}"/>
 					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />				
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" immediate="true" action="#{dateCriterionBean.clearCriterion}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
 				</div>
 			</div>
 				
