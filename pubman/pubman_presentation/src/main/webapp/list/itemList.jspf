@@ -96,7 +96,7 @@ All rights reserved. Use is subject to license terms.
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
 						</div>
-						<h:panelGroup rendered="#{ItemListSessionBean.isRevisionView}">
+						<h:panelGroup rendered="#{ItemListSessionBean.isRevisionView and item.latestRelease.modificationDate != null and item.latestRelease.modificationDate != ''}">
 							<div class="listItemHeaderViews">
 								<h:outputText value="#{lbl.ViewItemRevisions_lblReleaseDate} #{item.formattedLatestReleaseModificationDate}"/>
 							</div>

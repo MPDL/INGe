@@ -468,4 +468,19 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.TestPage</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>QAWS</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.qaws.QAWS</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>QAWSPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.QAWSPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>QAWSSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.qaws.QAWSSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
 </faces-config>

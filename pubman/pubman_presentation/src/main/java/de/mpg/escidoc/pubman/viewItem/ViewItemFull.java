@@ -290,6 +290,7 @@ public class ViewItemFull extends FacesBean
             //DiT: multiple new conditions for link-activation added
             isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
             isDepositor = loginHelper.getAccountUser().isDepositor();
+            
             isOwner = true;
             if (this.pubItem.getOwner() != null)
             {
@@ -500,6 +501,7 @@ public class ViewItemFull extends FacesBean
     public String showRevisions()
     {
         this.getRelationListSessionBean().setPubItemVO(this.getItemControllerSessionBean().getCurrentPubItem());
+        /*
         try
         {
         	this.getRelationListSessionBean().setRelationList(this.getItemControllerSessionBean().retrieveRevisions(this.getItemControllerSessionBean().getCurrentPubItem()));
@@ -507,6 +509,7 @@ public class ViewItemFull extends FacesBean
         catch (Exception e) {
 			logger.error("Error setting revision list", e);
 		}
+		*/
         return ViewItemRevisionsPage.LOAD_VIEWREVISIONS;
     }
     

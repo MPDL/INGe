@@ -1971,7 +1971,7 @@ public class ItemControllerSessionBean extends FacesBean
     /**
      * @author Tobias Schraut
      * @param pubItemVO the pubitem for which the revisions should be fetched
-     * @return a list of wrapped ReleationVOs
+     * @return a list of wrapped released ReleationVOs
      */
     public List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO) throws Exception
     {
@@ -1989,10 +1989,14 @@ public class ItemControllerSessionBean extends FacesBean
             revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
         }
             
+        
+        
         List<ItemRO> sourceItemRefs = new ArrayList<ItemRO>();
         for (RelationVOPresentation relationVOPresentation : revisionVOList) {
-			sourceItemRefs.add(relationVOPresentation.getSourceItemRef());
+			
+            sourceItemRefs.add(relationVOPresentation.getSourceItemRef());
 		}
+        
         List<PubItemVO> sourceItemList = retrieveItems(sourceItemRefs);
 
         for (RelationVOPresentation revision : revisionVOList) {

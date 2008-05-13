@@ -43,6 +43,11 @@ function changeItemState()
 	document.getElementById("form1:content:btnChangeItemState").click();
 }
 
+function changeCollection() 
+{
+	document.getElementById("form1:content:btnChangeContext").click();
+}
+
 function changeSortCriteria() 
 {
 	document.getElementById("form1:content:btnSortItemList").click();

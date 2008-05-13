@@ -36,6 +36,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -49,7 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * @author: Tobias Schraut, created 18.10.2007
  * @version: $Revision: 1687 $ $LastChangedDate: 2007-12-17 15:29:08 +0100 (Mo, 17 Dez 2007) $ 
  */
-public class RevisionList extends FacesBean
+public class RevisionList extends ItemList
 {
     public static final String BEAN_NAME = "ReleaseHistory";
     @SuppressWarnings("unused")
@@ -85,7 +86,11 @@ public class RevisionList extends FacesBean
         for (RelationVOPresentation relationVO : relationVOList)
         {
             PubItemVO sourceItem = relationVO.getSourceItem();
-            if (sourceItem!=null) pubItemVOList.add(sourceItem);
+            
+            if (sourceItem!=null && sourceItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString())) 
+            {
+                pubItemVOList.add(sourceItem);
+            }
 
         }
         
@@ -98,7 +103,10 @@ public class RevisionList extends FacesBean
         for (RelationVOPresentation relationVO : relationVOList2)
         {
             PubItemVO targetItem = relationVO.getTargetItem();
-            if (targetItem!=null) pubItemVOList.add(targetItem);
+            if (targetItem!=null && targetItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString())) 
+            {
+                pubItemVOList.add(targetItem);
+            }
 
         }
         
@@ -183,5 +191,12 @@ public class RevisionList extends FacesBean
     public boolean getShowRevisions()
     {
         return revisionList.size() > 0;
+    }
+
+    @Override
+    protected void createDynamicItemList2()
+    {
+        // TODO Auto-generated method stub
+        
     }
 }

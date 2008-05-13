@@ -332,7 +332,14 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     
     public String getFormattedLatestReleaseModificationDate()
     {
-        return CommonUtils.format(getLatestRelease().getModificationDate());
+        if (getLatestRelease().getModificationDate() != null)
+        {
+            return CommonUtils.format(getLatestRelease().getModificationDate());
+        }
+        else
+        {
+            return "-";
+        }
     }
     
     /**
