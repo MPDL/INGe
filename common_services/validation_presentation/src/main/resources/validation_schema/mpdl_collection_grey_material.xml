@@ -84,6 +84,7 @@
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="public_file_required"/>
+		<iso:active pattern="date_modified_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
