@@ -56,18 +56,23 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="public_file_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="public_file_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
@@ -76,6 +81,8 @@
 	<iso:phase id="easy_submission_step_5">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="public_file_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
@@ -94,6 +101,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
@@ -114,6 +122,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_modified_required"/>
@@ -185,6 +194,17 @@
 		
 	</iso:pattern>
 	
+	<iso:pattern name="component_content_required" id="component_content_required">
+	
+		<iso:rule context="escidocComponents:component">
+			
+			<!-- File: If a filename, a content category, a mime-type or a description is given, there has to be a content. -->
+			<iso:assert test="(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or not(escidocComponents:properties/escidocComponents:file-name != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:description != '')">ComponentContentNotProvided</iso:assert>
+
+		</iso:rule>
+		
+	</iso:pattern>
+	
 	<iso:pattern name="component_required" id="component_required">
 	
 		<iso:rule context="escidocComponents:components">
@@ -210,10 +230,12 @@
 	<iso:pattern name="genre_required" id="genre_required">
 		<iso:rule context="escidocMetadataProfile:publication">
 			<iso:assert test="@type != ''">GenreNotProvided</iso:assert>
-		</iso:rule>
+		</iso:rule>		<iso:active pattern="component_data_required"/>
+
 	</iso:pattern>
 	
-	<!-- if "Publisher place" or "Publisher edition" is filled, "Publisher name" has to be filled also -->
+	<!-- if "Publisher place" or "		<iso:active pattern="component_data_required"/>
+Publisher edition" is filled, "Publisher name" has to be filled also -->
 	<iso:pattern name="publisher_name_required" id="publisher_name_required">
 		<iso:rule context="escidoc:publishing-info">
 			<iso:assert test="dc:publisher != '' or not(* != '')">PublisherNameNotProvided</iso:assert>

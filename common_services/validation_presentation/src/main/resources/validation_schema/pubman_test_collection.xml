@@ -55,6 +55,8 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
 
@@ -62,14 +64,16 @@
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
-		<!-- iso:active pattern="public_file_required"/ -->
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
-		<!-- iso:active pattern="public_file_required"/ -->
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 	</iso:phase>
@@ -78,7 +82,8 @@
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
-		<!-- iso:active pattern="public_file_required"/ -->
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
@@ -99,6 +104,8 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_required"/>
@@ -117,6 +124,8 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
 		<iso:active pattern="date_required"/>
@@ -172,7 +181,7 @@
 			<!-- If a file is given, the filename is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
 		
-			<!-- If a file is given, the content type is mandatory. -->
+			<!-- If a file is given, the content category is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
 
 			<!-- If a file is given, the mime type is mandatory. -->
@@ -181,6 +190,17 @@
 			<!-- If a file is given, the visibility is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
 			
+		</iso:rule>
+		
+	</iso:pattern>
+	
+	<iso:pattern name="component_content_required" id="component_content_required">
+	
+		<iso:rule context="escidocComponents:component">
+			
+			<!-- File: If a filename, a content category, a mime-type or a description is given, there has to be a content. -->
+			<iso:assert test="(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or not(escidocComponents:properties/escidocComponents:file-name != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:description != '')">ComponentContentNotProvided</iso:assert>
+
 		</iso:rule>
 		
 	</iso:pattern>
