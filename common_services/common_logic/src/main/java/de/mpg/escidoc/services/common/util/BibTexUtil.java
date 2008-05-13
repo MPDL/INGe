@@ -495,6 +495,7 @@ public class BibTexUtil
         encodingTable.put("{\\v{a}}", "\u01ce");
         encodingTable.put("\\v{a}", "\u01ce");
         encodingTable.put("{\\v a}", "\u01ce");
+        encodingTable.put("\\-", "");
 
     }
 
