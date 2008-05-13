@@ -795,7 +795,7 @@ public class PubItemSearchingBean implements PubItemSearching
         return cqlQuery;
     }
     
-    public List<PubItemResultVO> searchByContextObjectId(String contextobjId ) 
+    public List<PubItemResultVO> searchByContextObjectIdAndDate(String contextobjId, Date greaterDate ) 
     	throws ParseException, TechnicalException {
     	
     	if (contextobjId == null)
@@ -812,6 +812,19 @@ public class PubItemSearchingBean implements PubItemSearching
         	query.append(createCqlQuery( contextobjId, QueryType.CONTEXT_OBJECTID ));
         	    
             query.append(" )");
+            
+            query.append(" and ");
+            
+            query.append("( ");
+            
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+            
+            query.append(createCqlQuery(df.format( greaterDate ), QueryType.DATE_TO ));
+            
+        	    
+            query.append(" )");
+            
+            
             
          // execute search for publication items
             if (query.length() > 0)

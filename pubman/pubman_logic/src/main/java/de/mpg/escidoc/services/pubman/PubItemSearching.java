@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.pubman;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
@@ -111,14 +112,16 @@ public interface PubItemSearching
 
 	
 	/**
-	 * Searches for publication items that matches the given context object id.
+	 * Searches for publication items that matches the given context object id and the given date. All items 
+	 * which are greater than the given date matches. 
      * 
 	 * @param searchString The search query.
-	 * @param searchInFiles If true, search is also executed in files. 
+	 * @param searchInFiles If true, search is also executed in files.
+	 * @param greaterDate items which are greater than this date matches 
 	 * @return The list of PubItemResultVOs that matched the query.
 	 * @throws ParseException 
 	 * @throws TechnicalException 
 	 */
-	public List<PubItemResultVO> searchByContextObjectId(String contextobjId ) throws ParseException, TechnicalException;
+	public List<PubItemResultVO> searchByContextObjectIdAndDate(String contextobjId, Date greaterDate ) throws ParseException, TechnicalException;
 
 }
