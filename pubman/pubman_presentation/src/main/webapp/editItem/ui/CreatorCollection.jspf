@@ -98,11 +98,16 @@
 						<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>					
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace">						
+					<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace">
 						<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
 					</h:panelGroup>					
 				</h:panelGroup>				
 			</h:panelGroup>			
+			<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace">
+				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.creatorCollection.creatorManager.addObject}" />
+				<h:commandButton styleClass="editDynamicButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{EditItem.creatorCollection.creatorManager.size > 1}"/>
+				<h:outputText value=" " rendered="#{EditItem.creatorCollection.creatorManager.size < 2}"/>
+			</h:panelGroup>
 		</h:column>		
 	</h:dataTable>
 </h:panelGroup>

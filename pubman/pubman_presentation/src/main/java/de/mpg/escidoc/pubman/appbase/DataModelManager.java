@@ -105,9 +105,10 @@ public abstract class DataModelManager<T>
 	public String addObject()
 	{
 		T elem = createNewObject();
+		int i = objectDM.getRowIndex();
 		if(elem != null)
 		{
-			objectList.add(elem);
+			objectList.add(i + 1, elem);
 		}
 		return null;
 	}
