@@ -55,6 +55,7 @@
 			<h:outputText id="Notification" value="#{msg.searchResultList_Notification}"/>
 		</h2>
 		
+		<%-- 
 		<p>
 			<h:outputText id="PleaseTryOptions" value="#{msg.searchResultList_PleaseTryOptions}"/>
 		</p><br/>
@@ -82,5 +83,6 @@
 		<p>
 			<h:outputText id="Option4" value="#{msg.searchResultList_Option4}"/>
 		</p><br/>
+		--%>
 	</f:subview>
 </div>
