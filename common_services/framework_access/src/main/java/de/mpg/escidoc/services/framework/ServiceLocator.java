@@ -68,8 +68,8 @@ import de.escidoc.www.services.sm.ScopeHandler;
 import de.escidoc.www.services.sm.ScopeHandlerServiceLocator;
 import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
-import de.escidoc.www.services.ssh.SemanticStoreHandler;
-import de.escidoc.www.services.ssh.SemanticStoreHandlerServiceLocator;
+import de.escidoc.www.services.om.SemanticStoreHandler;
+import de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>

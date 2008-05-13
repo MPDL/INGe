@@ -66,6 +66,7 @@ public class FrameworkEncodingTest
      * @throws HttpException
      * @throws IOException
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
     @Test
     public void testHttpGetEncoding() throws HttpException, IOException, ServiceException, URISyntaxException

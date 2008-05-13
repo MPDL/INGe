@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocItem:item
 	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
-	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.4"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6"
 	xmlns:version="http://escidoc.de/core/01/properties/version/"
 	xmlns:release="http://escidoc.de/core/01/properties/release/"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.4"
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:new1"
-	last-modification-date="2007-11-15T08:36:58.765Z">
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" >
 	<escidocItem:properties>
 		<srel:created-by objid="escidoc:user2" />
 		<prop:public-status>pending</prop:public-status>

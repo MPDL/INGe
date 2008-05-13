@@ -7,8 +7,7 @@
 	xmlns:container="http://www.escidoc.de/schemas/container/0.6"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
-	xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:new1"
-	last-modification-date="2007-11-15T08:36:58.765Z">
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:new1">
 	<container:properties>
 		<srel:created-by objid="escidoc:user2" />
 		<prop:public-status>pending</prop:public-status>
@@ -24,11 +23,11 @@
 		<escidocMetadataRecords:md-record name="escidoc">
 			<dc-md>
 				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
-					NEW container
+					UPDATED container
 				</dc:title>
 				<dc:description
 					xmlns:dc="http://purl.org/dc/elements/1.1/">
-					The NEW container.
+					The UPDATED container.
 				</dc:description>
 			</dc-md>
 		</escidocMetadataRecords:md-record>

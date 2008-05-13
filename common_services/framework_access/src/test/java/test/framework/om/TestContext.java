@@ -123,6 +123,7 @@ public class TestContext extends TestBase
         logger.info("retrieveContexts(" + filter + ")->" + zeit + "ms");
         logger.debug("Contexts()=" + contexts);        
         assertNotNull(contexts);
+        System.out.println(contexts);
     }
 
     /**

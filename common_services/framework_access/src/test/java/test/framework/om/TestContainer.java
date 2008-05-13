@@ -232,6 +232,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void retrieveContainerHistory() throws Exception
     {
+        userHandle = loginLibrarian();
         String container = ServiceLocator.getContainerHandler(userHandle).create(readFile(CONTAINER_FILE));
         String id = getId(container);
         container = ServiceLocator.getContainerHandler(userHandle).update(id, container);

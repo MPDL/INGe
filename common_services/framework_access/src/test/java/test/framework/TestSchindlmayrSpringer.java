@@ -35,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -143,20 +144,24 @@ public class TestSchindlmayrSpringer extends TestItemBase
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         Header contentTypeHeader = method.getResponseHeader("Content-Type");
         assertEquals(MIME_TYPE, contentTypeHeader.getValue());
-        InputStream input = method.getResponseBodyAsStream();
+        //InputStream input = method.getResponseBodyAsStream();
+        String input = method.getResponseBodyAsString();
         File tempFile = File.createTempFile("download", ".pdf");
         logger.debug("Write content to " + tempFile.getName());
-        FileOutputStream output = new FileOutputStream(tempFile);
-        byte buffer[] = new byte[1];
+        //FileOutputStream output = new FileOutputStream(tempFile);
+        FileWriter output = new FileWriter(tempFile);
+        output.write(input);
+/*        byte buffer[] = new byte[1];
         int count = 0;
         while (input.read(buffer) > 0)
         {
             output.write(buffer);
             ++count;
         }
-        output.close();
-        logger.debug("File length=" + count);
-        return count;
+*/        output.close();
+        logger.debug("File length=" + input.length());
+        //return count;
+        return input.length();
     }
 
     private String create() throws ServiceException, HttpException, IOException, ParserConfigurationException,
@@ -200,8 +205,7 @@ public class TestSchindlmayrSpringer extends TestItemBase
         return;
     }
 
-    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException, 
-    AuthorizationException, SystemException, RemoteException, ServiceException, URISyntaxException
+    private String assignPid(String item) throws OptimisticLockingException, LockingException, MissingMethodParameterException, InvalidStatusException, ItemNotFoundException, AuthenticationException, AuthorizationException, SystemException, RemoteException, ServiceException, URISyntaxException
     {
         String id = getVersion(item);
         String md = getModificationDate(item);

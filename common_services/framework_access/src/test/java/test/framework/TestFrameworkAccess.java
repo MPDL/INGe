@@ -47,12 +47,12 @@ import test.framework.st.TestStagingService;
  * @revised by BrP: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TestUserManagement.class
-                    ,TestOrganizationalUnitManager.class
-                   ,TestContentTypeModeller.class
-			    ,TestObjectManager.class
-			    ,TestStagingService.class
-                   ,TestSearch.class
+@Suite.SuiteClasses({test.framework.aa.TestUserManagement.class
+                    ,test.framework.oum.TestOrganizationalUnitManager.class
+                   ,test.framework.cmm.TestContentTypeModeller.class
+			    ,test.framework.om.TestObjectManager.class
+			    ,test.framework.st.TestStagingService.class
+                   ,test.framework.sb.TestSearch.class
                     })
 public class TestFrameworkAccess
 {
