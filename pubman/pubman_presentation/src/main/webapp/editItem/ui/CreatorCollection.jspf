@@ -52,14 +52,14 @@
 			</h:panelGroup>
 			
 			<%/* Creator's Person */%>
-			<h:panelGroup layout="block" styleClass="" rendered="#{creatorBean.personType}">
+			<h:panelGroup layout="block" styleClass="" rendered="#{creatorBean.personType}">				
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">
-					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPersonGivenName}"/>
-					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.givenName}"/>
-				</h:panelGroup>
-				<h:panelGroup layout="block" styleClass="editItemRightCol">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPersonFamilyName}"/>
 					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.familyName}"/>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="editItemRightCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPersonGivenName}"/>
+					<h:inputText styleClass="editItemTextFieldShort" value="#{creatorBean.creator.person.givenName}"/>
 				</h:panelGroup>
 			</h:panelGroup>
 			</h:panelGroup>
