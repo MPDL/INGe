@@ -274,25 +274,44 @@ public class SourceBean extends FacesBean
      * @return String the formatted Publishing Info
      */
     private String getPublishingInfo(SourceVO source)
-    {
+    { 
+        
+        
         StringBuffer publishingInfo = new StringBuffer();
+        publishingInfo.append("");
         if(source.getPublishingInfo() != null)
         {
+           
+            // Place
+            if(source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().equals(""))
+            {
+                publishingInfo.append(source.getPublishingInfo().getPlace().trim());
+            }
             
-            if(source.getPublishingInfo().getEdition() != null && source.getPublishingInfo().getPlace() != null)
+            // colon
+            if(source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals("") && source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals(""))
             {
-                publishingInfo.append(source.getPublishingInfo().getPlace());
+                    publishingInfo.append(" : ");
             }
-            if(source.getPublishingInfo().getPublisher() != null)
+            
+            // Publisher
+            if(source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().equals(""))
             {
-                publishingInfo.append(" : ");
-                publishingInfo.append(source.getPublishingInfo().getPublisher());
+                publishingInfo.append(source.getPublishingInfo().getPublisher().trim());
             }
+            
+            // Comma
+            if((source.getPublishingInfo().getEdition() != null && !source.getPublishingInfo().getEdition().trim().equals("")) && ((source.getPublishingInfo().getPlace() != null && !source.getPublishingInfo().getPlace().trim().equals("")) || (source.getPublishingInfo().getPublisher() != null && !source.getPublishingInfo().getPublisher().trim().equals(""))))
+            {
+                    publishingInfo.append(", ");
+            }
+            
+            // Edition
             if(source.getPublishingInfo().getEdition() != null)
             {
-                publishingInfo.append(", ");
                 publishingInfo.append(source.getPublishingInfo().getEdition());
             }
+            
         }
         return publishingInfo.toString();
     }

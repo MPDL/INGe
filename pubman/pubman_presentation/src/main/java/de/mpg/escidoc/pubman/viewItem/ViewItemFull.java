@@ -797,7 +797,7 @@ public class ViewItemFull extends FacesBean
         {
            
             // Place
-            if(this.pubItem.getMetadata().getPublishingInfo().getPlace() != null)
+            if(this.pubItem.getMetadata().getPublishingInfo().getPlace() != null && !this.pubItem.getMetadata().getPublishingInfo().getPlace().equals(""))
             {
                 publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getPlace().trim());
             }
@@ -809,7 +809,7 @@ public class ViewItemFull extends FacesBean
             }
             
             // Publisher
-            if(this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null)
+            if(this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null && !this.pubItem.getMetadata().getPublishingInfo().getPublisher().equals(""))
             {
                 publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim());
             }
