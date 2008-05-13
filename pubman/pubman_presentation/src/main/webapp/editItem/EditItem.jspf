@@ -74,20 +74,9 @@
 				<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
 			</h:panelGroup>
 		</h2>
-		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">				
+						
 			<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
-		</h:panelGroup>
-<!--		<h:panelGroup layout="block" styleClass="editItemAddLink">-->
-<!--			<h:panelGroup layout="block" styleClass="editItemLeftCol">-->
-<!--				<h:panelGroup layout="block" styleClass="icon addIcon"/>-->
-<!--				<h:commandLink value="#{lbl.EditItem_lblAddCreator}" action="#{EditItem.creatorCollection.creatorManager.addObject}" />-->
-<!--			</h:panelGroup>-->
-<!--			<h:panelGroup layout="block" styleClass="editItemRightCol">-->
-<!--				<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{EditItem.creatorCollection.creatorManager.size > 1}"/>-->
-<!--				<h:commandLink value="#{lbl.EditItem_lblDeleteCreator}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" rendered="#{EditItem.creatorCollection.creatorManager.size > 1}"/>-->
-<!--				<h:outputText value=" " rendered="#{EditItem.creatorCollection.creatorManager.size < 2}"/>-->
-<!--			</h:panelGroup>-->
-<!--		</h:panelGroup>-->
+		
 	</h:panelGroup>
 	
 	
