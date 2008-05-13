@@ -795,18 +795,7 @@ public class ViewItemFull extends FacesBean
         publishingInfo.append("");
         if(this.pubItem.getMetadata().getPublishingInfo() != null)
         {
-            // Edition
-            if(this.pubItem.getMetadata().getPublishingInfo().getEdition() != null)
-            {
-                publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getEdition());
-            }
-            
-            // Comma
-            if((this.pubItem.getMetadata().getPublishingInfo().getEdition() != null && !this.pubItem.getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((this.pubItem.getMetadata().getPublishingInfo().getPlace() != null && !this.pubItem.getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null && !this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
-            {
-                    publishingInfo.append(". ");
-            }
-            
+           
             // Place
             if(this.pubItem.getMetadata().getPublishingInfo().getPlace() != null)
             {
@@ -824,6 +813,19 @@ public class ViewItemFull extends FacesBean
             {
                 publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim());
             }
+            
+            // Comma
+            if((this.pubItem.getMetadata().getPublishingInfo().getEdition() != null && !this.pubItem.getMetadata().getPublishingInfo().getEdition().trim().equals("")) && ((this.pubItem.getMetadata().getPublishingInfo().getPlace() != null && !this.pubItem.getMetadata().getPublishingInfo().getPlace().trim().equals("")) || (this.pubItem.getMetadata().getPublishingInfo().getPublisher() != null && !this.pubItem.getMetadata().getPublishingInfo().getPublisher().trim().equals(""))))
+            {
+                    publishingInfo.append(", ");
+            }
+            
+            // Edition
+            if(this.pubItem.getMetadata().getPublishingInfo().getEdition() != null)
+            {
+                publishingInfo.append(this.pubItem.getMetadata().getPublishingInfo().getEdition());
+            }
+            
         }
         return publishingInfo.toString();
     }

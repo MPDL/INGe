@@ -77,7 +77,6 @@
 		
 		<h:outputText value="<div class='itemText'>" escape="false"/>
 			<h:outputText value="#{ViewItemFull.publishingInfo}"/>
-			<h:outputText value=", #{ViewItemFull.pubItem.metadata.publishingInfo.edition}" rendered="#{ViewItemFull.pubItem.metadata.publishingInfo != null || ViewItemFull.pubItem.metadata.publishingInfo.edition == ''}"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.publishingInfo == null || ViewItemFull.publishingInfo == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>		

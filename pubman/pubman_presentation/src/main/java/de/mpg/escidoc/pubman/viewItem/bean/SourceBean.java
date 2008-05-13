@@ -285,7 +285,7 @@ public class SourceBean extends FacesBean
             }
             if(source.getPublishingInfo().getPublisher() != null)
             {
-                publishingInfo.append(": ");
+                publishingInfo.append(" : ");
                 publishingInfo.append(source.getPublishingInfo().getPublisher());
             }
             if(source.getPublishingInfo().getEdition() != null)
