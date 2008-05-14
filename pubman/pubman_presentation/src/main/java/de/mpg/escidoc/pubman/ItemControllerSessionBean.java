@@ -493,6 +493,7 @@ public class ItemControllerSessionBean extends FacesBean
      */
     private PubItemVO createNewRevision(ContextRO pubContextRO, PubItemVO pubItem, String revisionDescription) throws Exception
     {
+        this.getItemListSessionBean().setListDirty(true);
         // create the new item
         PubItemVO newRevision = this.pubItemDepositing.createRevisionOfItem(pubItem, revisionDescription, pubContextRO, loginHelper.getAccountUser());
                     
@@ -568,6 +569,8 @@ public class ItemControllerSessionBean extends FacesBean
         {
            logger.debug("Creating a new PubItem for Collection with ID: " + pubContextRO.getObjectId());
         }
+        
+        this.getItemListSessionBean().setListDirty(true);
         
         // create the new item
         PubItemVO newPubItem = this.pubItemDepositing.createPubItem(pubContextRO, loginHelper.getAccountUser());
@@ -754,6 +757,7 @@ public class ItemControllerSessionBean extends FacesBean
         if (report.isValid() && !report.hasItems())
         {
         
+            this.getItemListSessionBean().setListDirty(true);
             // Item is totally valid, save immediately.
             
             // clean up the item from unused sub-VOs
@@ -772,6 +776,7 @@ public class ItemControllerSessionBean extends FacesBean
         else if (report.isValid())
         {
             // Item is valid, but has informative messages.
+            this.getItemListSessionBean().setListDirty(true);
             
             if (ignoreInformativeMessages) {
                 // clean up the item from unused sub-VOs
@@ -827,6 +832,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (report.isValid() && !report.hasItems()) {
        
+            this.getItemListSessionBean().setListDirty(true);
             // clean up the item from unused sub-VOs
             this.cleanUpItem(pubItem);
             
@@ -843,7 +849,7 @@ public class ItemControllerSessionBean extends FacesBean
         else if (report.isValid())
         {
             // Item is valid, but has informative messages.
-            
+            this.getItemListSessionBean().setListDirty(true);
             if (ignoreInformativeMessages) {
                 // clean up the item from unused sub-VOs
                 this.cleanUpItem(pubItem);
@@ -897,6 +903,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (report.isValid() && !report.hasItems()) {
        
+            this.getItemListSessionBean().setListDirty(true);
             // clean up the item from unused sub-VOs
             this.cleanUpItem(pubItem);
             
@@ -912,6 +919,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         else if (report.isValid())
         {
+            this.getItemListSessionBean().setListDirty(true);
             // Item is valid, but has informative messages.
             
             if (ignoreInformativeMessages) {
@@ -963,6 +971,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Withdrawing item...");
         }
 
+        this.getItemListSessionBean().setListDirty(true);
         Date lastModificationDate = pubItem.getModificationDate();
         //withdrawalComment = pubItem.getWithdrawalComment();
 
@@ -1004,6 +1013,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Deleting item...");
         }
         
+        this.getItemListSessionBean().setListDirty(true);
         // delete the item
         this.pubItemDepositing.deletePubItem(pubItem, loginHelper.getAccountUser());
     }
@@ -1927,6 +1937,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         if (report.isValid() && !report.hasItems()) 
         {       
+            this.getItemListSessionBean().setListDirty(true);
             // clean up the item from unused sub-VOs
             this.cleanUpItem(pubItem);
             
@@ -1942,6 +1953,7 @@ public class ItemControllerSessionBean extends FacesBean
         }
         else if (report.isValid())
         {
+            this.getItemListSessionBean().setListDirty(true);
             // Item is valid, but has informative messages.            
             if (ignoreInformativeMessages) 
             {
@@ -2118,5 +2130,14 @@ public class ItemControllerSessionBean extends FacesBean
     public void setCurrentCollection(ContextVO currentCollection)
     {
         this.currentContext = currentCollection;
+    }
+    
+    /**
+     * Returns the ItemListSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected ItemListSessionBean getItemListSessionBean()
+    {
+        return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 }
