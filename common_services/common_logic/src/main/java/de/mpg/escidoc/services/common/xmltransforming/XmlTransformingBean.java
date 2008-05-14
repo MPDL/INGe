@@ -79,6 +79,7 @@ import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
+import de.mpg.escidoc.services.common.valueobjects.face.FaceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
@@ -1004,6 +1005,32 @@ public class XmlTransformingBean implements XmlTransforming
         {
             PubItemVO pubItemVO = new PubItemVO(itemVO);
             newList.add(pubItemVO);
+        }
+        return newList;
+    }
+    
+    public FaceVO transformToFaceItem(String itemXml) throws TechnicalException
+    {
+        ItemVO itemVO = transformToItem(itemXml);
+        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO)
+        {
+            return new FaceVO(itemVO);
+        }
+        else
+        {
+            logger.warn("Cannot transform item xml to PubItemVO");
+            return null;
+        }
+    }
+
+    public List<FaceVO> transformToFaceItemList(String itemList) throws TechnicalException
+    {
+        List<? extends ItemVO> list = transformToItemList(itemList);
+        List<FaceVO> newList = new ArrayList<FaceVO>();
+        for (ItemVO itemVO : list)
+        {
+            FaceVO faceVO = new FaceVO(itemVO);
+            newList.add(faceVO);
         }
         return newList;
     }

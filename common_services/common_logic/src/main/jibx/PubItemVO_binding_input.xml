@@ -85,7 +85,7 @@
 
 				<!-- Node: item.properties.content-model.@objid -->
 				<!-- mandatory in XML during update and during create, useless in VO -->
-				<value style="attribute" name="objid" constant="escidoc:persistent4" />
+				<value style="attribute" name="objid" field="contentModel" usage="optional"/>
 
 			</structure>
 

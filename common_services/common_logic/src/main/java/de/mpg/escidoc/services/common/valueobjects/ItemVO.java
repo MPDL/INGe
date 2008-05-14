@@ -84,6 +84,8 @@ public class ItemVO extends ValueObject implements Cloneable
     private String pid;
     private ContextRO contextRO;
     
+    private String contentModel;
+    
     /**
      * Version information of this item version.
      */
@@ -395,6 +397,16 @@ public class ItemVO extends ValueObject implements Cloneable
     public void setLatestRelease(ItemRO latestRelease)
     {
         this.latestRelease = latestRelease;
+    }
+
+    public String getContentModel()
+    {
+        return contentModel;
+    }
+
+    public void setContentModel(String contentModel)
+    {
+        this.contentModel = contentModel;
     }
     
 }

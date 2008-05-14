@@ -56,7 +56,7 @@ public class FaceVO extends ItemVO
      * 
      * @param itemVO The item to be copied.
      */
-    public FaceVO(FaceVO itemVO)
+    public FaceVO(ItemVO itemVO)
     {
         super(itemVO);
     }
