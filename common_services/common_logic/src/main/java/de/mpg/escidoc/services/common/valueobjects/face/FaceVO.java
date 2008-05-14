@@ -29,7 +29,10 @@
 
 package de.mpg.escidoc.services.common.valueobjects.face;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -43,6 +46,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class FaceVO extends ItemVO
 {
+    
+    private static Logger logger = Logger.getLogger(FaceVO.class);
     
     /**
      * Default constructor.
