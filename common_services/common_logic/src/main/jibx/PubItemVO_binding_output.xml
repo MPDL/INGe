@@ -136,6 +136,7 @@
 		<!-- Node: item.md-records -->
 		<structure field="metadataSets" name="md-records" ns="http://www.escidoc.de/schemas/metadatarecords/0.3"
 			marshaller="de.mpg.escidoc.services.common.xmltransforming.MetadataSetMarshaller">
+			
 		
 		</structure>
 

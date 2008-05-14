@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding>
+<binding direction="input">
 
 	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
 	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->
@@ -55,7 +55,7 @@
 	<include path="SourceVO_binding_abstract.xml" />		
 	<include path="TextVO_binding.xml" />
 
-	<mapping name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	<mapping abstract="true" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
 		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" ordered="false" allow-repeats="true">
 

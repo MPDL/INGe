@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding>
+<binding direction="output">
 
 	<!--  Namespaces -->
 	<namespace prefix="eidt" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" default="none" />
@@ -37,7 +37,7 @@
 	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
 	
 	<!-- concrete mapping for MdsFaceVO -->
-	<mapping abstract="true" ns="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	<mapping name="md-record" ns="http://www.escidoc.de/schemas/metadatarecords/0.3"
 		class="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
 		ordered="false"

@@ -35,8 +35,12 @@ import java.net.URL;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
 
 /**
  * Compares two objects and creates a list of differences.
@@ -48,6 +52,9 @@ import java.util.List;
  */
 public class ObjectComparator
 {
+    
+    private static Logger logger = Logger.getLogger(ObjectComparator.class);
+    
     private static final MessageFormat DIFFERENT_LIST_SIZE = new MessageFormat("Difference in field {1} ({0}): List size [{2}] [{3}]");
     private static final MessageFormat DIFFERENT_FIELD_VALUE = new MessageFormat("Difference in field {1} ({0}): [{2}] [{3}]");
     private static final MessageFormat DIFFERENT_FIELD_VALUE_IN_LIST = new MessageFormat("Difference in list element of field {1} ({0}) at position {4}: [{2}] [{3}]");
@@ -56,6 +63,8 @@ public class ObjectComparator
 
     private List<String> diffs = new ArrayList<String>();
     private List<String> fieldnames = new ArrayList<String>();
+    
+    private Set<Object> compared = new HashSet<Object>();
 
     /**
      * Creates a new ObjectComparator instance that compares the two given objects. Note: Compare also works with null
@@ -167,6 +176,19 @@ public class ObjectComparator
 
     private void compareObjects(Object fieldValue1, Object fieldValue2, String fieldname, String enclosingClass) throws IllegalAccessException
     {
+        
+        logger.debug("Comparing: " + fieldValue1 + " and " + fieldValue2 + " (Field: " + fieldname + ")");
+        
+        if (fieldValue1 == fieldValue2)
+        {
+            return;
+        }
+        else if (compared.contains(fieldValue1))
+        {
+            return;
+        }
+        //compared.add(fieldValue1);
+        
         fieldnames.add(fieldname);
         try
         {

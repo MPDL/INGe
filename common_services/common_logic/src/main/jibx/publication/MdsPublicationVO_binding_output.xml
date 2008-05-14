@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding>
+<binding direction="output">
 
 	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
 	<!-- Some methods in JiBXHelper rely on the "dcterms" and "eidt" prefixes (=> DO NOT CHANGE!) -->

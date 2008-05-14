@@ -1,16 +1,28 @@
 package de.mpg.escidoc.services.common.valueobjects.publication;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 
-public class PubItemVO extends ItemVO {
+public class PubItemVO extends ItemVO
+{
+    
+    private static Logger logger = Logger.getLogger(PubItemVO.class);
     
     /**
      * Default constructor.
      */
     public PubItemVO()
     {
-        
+        try
+        {
+            this.setContentModel(PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication"));
+        }
+        catch (Exception e) {
+            logger.error("Unable to set publication content model", e);
+        }
     }
     
     /**
