@@ -61,6 +61,7 @@ import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
@@ -422,7 +423,11 @@ public class ViewItemFull extends FacesBean
      */
     public String editItem()
     {
-        return EditItem.LOAD_EDITITEM;
+        // clear the list of  locators and files when start editing an item
+    	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
+        editItemSessionBean.getFiles().clear();
+        editItemSessionBean.getLocators().clear();
+    	return EditItem.LOAD_EDITITEM;
     }
 
     /**
@@ -1242,6 +1247,16 @@ public class ViewItemFull extends FacesBean
     protected WithdrawItemSessionBean getWithdrawItemSessionBean()
     {
         return (WithdrawItemSessionBean)getSessionBean(WithdrawItemSessionBean.class);
+    }
+    
+    /**
+     * Returns a reference to the scoped data bean (the EditItemSessionBean).
+     * 
+     * @return a reference to the scoped data bean
+     */
+    protected EditItemSessionBean getEditItemSessionBean()
+    {
+        return (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
     }
     
     /**
