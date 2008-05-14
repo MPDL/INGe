@@ -157,7 +157,11 @@ public class ResourceUtil
             String[] fileNames = dirFile.list();
             for (int i = 0; i < fileNames.length; i++)
             {
-                fileArray.add(new File(dirFile.getAbsolutePath() + "/" + fileNames[i]));
+                File file = new File(dirFile.getAbsolutePath() + "/" + fileNames[i]);
+                if (file.isFile())
+                {
+                    fileArray.add(file);
+                }
             }
             return fileArray.toArray(new File[]{});
         }
