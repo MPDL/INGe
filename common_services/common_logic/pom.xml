@@ -36,12 +36,12 @@
 	<artifactId>common_logic</artifactId>
 	<packaging>ejb</packaging>
 	<name>common_logic</name>
-	<version>1.0.3-SNAPSHOT</version>
+	<version>1.0.3</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_logic-1.0.3</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_logic-1.0.3</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/tags/common_logic-1.0.3</url>
 	</scm>
 
 	<build>
