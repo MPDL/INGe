@@ -56,7 +56,7 @@
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 				usage="optional" />
 				
-			<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="pictureGroup"
+			<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="identifier"
 				usage="optional" />
 				
 			<value style="element" name="age" field="age" usage="optional" />
@@ -71,7 +71,7 @@
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 				usage="optional" />
 			
-			<value style="element" name="rights" field="accessLevel"
+			<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/" field="accessLevel"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeAccessLevelEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
 				usage="optional" />

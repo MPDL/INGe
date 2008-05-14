@@ -1230,7 +1230,7 @@ public class JiBXHelper
         {
             try
             {
-                accessLevel = MdsFaceVO.AccessLevel.valueOf(enumValue);
+                accessLevel = MdsFaceVO.AccessLevel.valueOf(enumValue.toUpperCase());
             }
             catch (IllegalArgumentException e)
             {

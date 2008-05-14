@@ -149,6 +149,10 @@ public class ItemVO extends ValueObject implements Cloneable
         {
             this.setContext((ContextRO) other.getContext().clone());
         }
+        if (other.getContentModel() != null)
+        {
+            this.setContentModel(other.getContentModel());
+        }
         if (other.getVersion() != null)
         {
             this.setVersion((ItemRO) other.getVersion().clone());

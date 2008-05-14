@@ -73,7 +73,7 @@ public class MdsFaceVO extends MetadataSetVO
     
     public enum AccessLevel
     {
-        _public, _private
+        PUBLIC, PRIVATE
     }
 
     public Emotion getEmotion()
