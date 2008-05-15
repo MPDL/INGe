@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -509,7 +510,12 @@ public class ItemControllerSessionBean extends FacesBean
      */
     public String createItemFromTemplate()
     {
-        // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
+        // clear the list of  locators and files when start creating  a new revision
+    	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
+        editItemSessionBean.getFiles().clear();
+        editItemSessionBean.getLocators().clear();
+        
+    	// Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
         // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
         if (this.getContextListSessionBean().getContextList().size() == 0)
         {
@@ -558,6 +564,16 @@ public class ItemControllerSessionBean extends FacesBean
     private ContextListSessionBean getContextListSessionBean() {
 		return (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
 	}
+    
+    /**
+     * Returns a reference to the scoped data bean (the EditItemSessionBean).
+     * 
+     * @return a reference to the scoped data bean
+     */
+    protected EditItemSessionBean getEditItemSessionBean()
+    {
+        return (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
+    }
 
 	/**
      * Creates a new PubItem.

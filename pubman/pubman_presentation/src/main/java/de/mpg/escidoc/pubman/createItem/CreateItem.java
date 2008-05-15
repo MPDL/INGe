@@ -97,6 +97,9 @@ public class CreateItem extends FacesBean
         // first clear the EditItemSessionBean
         this.getEditItemSessionBean().clean();
         
+        // the clean the ItemControllerSessionBean (if there is already an item)
+        this.getItemControllerSessionBean().setCurrentPubItem(null);
+        
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
         if (this.getContextListSessionBean().getContextList().size() == 0)

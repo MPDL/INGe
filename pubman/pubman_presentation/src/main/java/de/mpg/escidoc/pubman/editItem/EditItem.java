@@ -69,6 +69,7 @@ import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
+import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -268,20 +269,23 @@ public class EditItem extends FacesBean
         {
             logger.warn("Current PubItem is NULL!");
         }
+        EditItemSessionBean eisb = this.getEditItemSessionBean();
     }
 
     private void bindFiles()
     {
     	List<PubFileVOPresentation> files = new ArrayList<PubFileVOPresentation>();
     	List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
-    	
+    	int fileCount = 0;
+    	int locatorCount = 0;
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
 			if(this.item.getFiles().get(i).getLocator() == null || this.item.getFiles().get(i).getLocator().trim().equals(""))
 			{
-				PubFileVOPresentation filepres = new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), this.item.getFiles().get(i),false);
+				PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),false);
 				files.add(filepres);
+				fileCount ++;
 			}
 		}
     	this.getEditItemSessionBean().setFiles(files);
@@ -291,8 +295,9 @@ public class EditItem extends FacesBean
     	{
 			if(this.item.getFiles().get(i).getLocator() != null && ! this.item.getFiles().get(i).getLocator().trim().equals(""))
 			{
-				PubFileVOPresentation locatorpres = new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size()-1, this.item.getFiles().get(i), true);
+				PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
 				locators.add(locatorpres);
+				locatorCount ++;
 			}
 		}
     	this.getEditItemSessionBean().setLocators(locators);
@@ -300,7 +305,7 @@ public class EditItem extends FacesBean
     	// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getEditItemSessionBean().getFiles().size() < 1)
     	{
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), new FileVO(), false));
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, new FileVO(), false));
     	}
     	if(this.getEditItemSessionBean().getLocators().size() < 1)
     	{
@@ -747,9 +752,18 @@ public class EditItem extends FacesBean
      */
     public String cancel()
     {
-    	cleanSessionBean();
-    
-    	return ViewItemFull.LOAD_VIEWITEM;
+    	//cleanSessionBean();
+    	// examine if the user came from the view Item Page or if he started a new submission
+    	String navString = "";
+    	if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
+        {
+            navString = ViewItemFull.LOAD_VIEWITEM;
+        }
+        else
+        {
+        	navString = Home.LOAD_HOME;
+        }
+    	return navString;
     }
     
     
