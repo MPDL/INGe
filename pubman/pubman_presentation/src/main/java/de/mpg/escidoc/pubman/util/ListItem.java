@@ -38,7 +38,13 @@ public class ListItem
 	
 	public void valueChanged(ValueChangeEvent event)
 	{
-		stringList.set(index, event.getNewValue().toString());
+		
+		String newVal = "";
+		if(event != null && event.getNewValue() != null)
+		{
+			newVal = event.getNewValue().toString();
+		}
+		stringList.set(index, newVal);
 	}
 	
     public String addItem()

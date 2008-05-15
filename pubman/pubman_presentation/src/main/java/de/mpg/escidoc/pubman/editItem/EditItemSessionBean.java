@@ -94,6 +94,34 @@ public class EditItemSessionBean extends FacesBean
     		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
 	}
+	
+	/**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeFileIndexes()
+    {
+    	if(this.files != null)
+    	{
+    		for(int i = 0; i < this.files.size(); i++)
+        	{
+        		this.files.get(i).setIndex(i);
+        	}
+    	}
+    }
+    
+    /**
+     * This method reorganizes the index property in PubFileVOPresentation after removing one element of the list.
+     */
+    public void reorganizeLocatorIndexes()
+    {
+    	if(this.locators != null)
+    	{
+    		for(int i = 0; i < this.locators.size(); i++)
+        	{
+        		this.locators.get(i).setIndex(i);
+        	}
+    	}
+    }
 
 	public List<PubFileVOPresentation> getFiles() 
 	{

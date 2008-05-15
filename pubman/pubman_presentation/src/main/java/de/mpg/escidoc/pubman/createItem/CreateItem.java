@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -96,9 +98,6 @@ public class CreateItem extends FacesBean
         
         // first clear the EditItemSessionBean
         this.getEditItemSessionBean().clean();
-        
-        // the clean the ItemControllerSessionBean (if there is already an item)
-        this.getItemControllerSessionBean().setCurrentPubItem(null);
         
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly

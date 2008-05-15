@@ -159,8 +159,8 @@ public class PubFileVOPresentation extends FacesBean {
 	        }
 			//return "loadEditItemIntermediate";
 		}
-		editItem.reorganizeFileIndexes();
-		editItem.init();
+		editItemSessionBean.reorganizeFileIndexes();
+		//editItem.init();
 		return "loadEditItem";
 		
 	}
@@ -172,8 +172,8 @@ public class PubFileVOPresentation extends FacesBean {
  		
 		editItemSessionBean.getLocators().remove(this.index);
 		
-		editItem.reorganizeLocatorIndexes();
-		editItem.init();
+		editItemSessionBean.reorganizeLocatorIndexes();
+		//editItem.init();
 		return "loadEditItem";		
 	}
 	

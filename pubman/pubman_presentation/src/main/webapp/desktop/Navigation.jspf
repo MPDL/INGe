@@ -45,7 +45,7 @@
 		</h:outputLink></li>
 			
 		<li><h:commandLink id="lnkNewSubmission"
-			action="#{CreateItem.newSubmission}">
+			action="#{CreateItem.newSubmission}" immediate="true">
 			<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission}" />
 		</h:commandLink></li>
 		

@@ -763,7 +763,25 @@ public class EditItem extends FacesBean
         {
         	navString = Home.LOAD_HOME;
         }
+    	cleanEditItem();
     	return navString;
+    }
+    
+    /**
+     * This method cleans up all the helping constructs like collections etc.
+     */
+    private void cleanEditItem()
+    {
+    	item = null;
+    	titleCollection = null;
+        eventTitleCollection = null;
+        contentAbstractCollection = null;
+        creatorCollection = null;
+        identifierCollection = null;
+        sourceCollection = null;
+        languages = null;
+        uploadedFile = null;
+        fileTable = null;
     }
     
     
@@ -1427,6 +1445,14 @@ public class EditItem extends FacesBean
 	public EditItemPage getEditItemPage()
 	{
 	    return (EditItemPage)getBean(EditItemPage.class);
+	}
+
+	public PubItemVO getItem() {
+		return item;
+	}
+
+	public void setItem(PubItemVO item) {
+		this.item = item;
 	}
 
 }
