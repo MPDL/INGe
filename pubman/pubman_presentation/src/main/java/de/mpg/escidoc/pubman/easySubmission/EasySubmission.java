@@ -79,6 +79,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -194,7 +195,7 @@ public class EasySubmission extends FacesBean
     		{
     			// add a locator
     			FileVO newLocator = new FileVO();
-        		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
@@ -213,7 +214,7 @@ public class EasySubmission extends FacesBean
     		{
     			//add a locator
     			FileVO newLocator = new FileVO();
-        		newLocator.setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
@@ -320,7 +321,7 @@ public class EasySubmission extends FacesBean
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
-    		newLocator.getFile().setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+    		newLocator.getFile().setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
     		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
@@ -834,7 +835,7 @@ public class EasySubmission extends FacesBean
     		{
     			PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
         		// set fixed content type
-        		newLocator.getFile().setContentType(FileVO.ContentType.SUPPLEMENTARY_MATERIAL);
+        		newLocator.getFile().setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
         		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     		}
@@ -1323,12 +1324,12 @@ public class EasySubmission extends FacesBean
     }
     
     /**
-     * Returns all options for contentType.
-     * @return all options for contentType
+     * Returns all options for content category.
+     * @return all options for content category.
      */
-    public SelectItem[] getContentTypes()
+    public SelectItem[] getContentCategories()
     {
-        return this.i18nHelper.getSelectItemsContentType(true);
+        return this.i18nHelper.getSelectItemsContentCategory(true);
     }
     
     /**

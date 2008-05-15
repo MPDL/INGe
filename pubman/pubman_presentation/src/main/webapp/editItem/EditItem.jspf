@@ -113,9 +113,9 @@
 	           				<tr:inputText value="#{component.file.name}" rendered="#{component.file.size > 0}" />
 	           			</h:panelGroup>	           			
 	           			<h:panelGroup layout="block" styleClass="floatLeft leftSpace10">
-	           				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{component.file.size > 0}"/>
-	           				<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
-	            				<f:selectItems value="#{EditItem.contentTypes}" />
+	           				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentCategory}" rendered="#{component.file.size > 0}"/>
+	           				<h:selectOneMenu id="cboContentType" value="#{component.file.contentCategory}" styleClass="editItemComboBoxShort" rendered="#{component.file.size > 0}">
+	            				<f:selectItems value="#{EditItem.contentCategories}" />
 	           				</h:selectOneMenu>
 	           			</h:panelGroup>
 	           			<h:panelGroup layout="block" styleClass="floatLeft leftSpace10">         			
@@ -183,9 +183,9 @@
            				<tr:inputText value="#{locator.file.name}" rendered="#{locator.file.locator != null && locator.file.locator != ''}" />
            			</h:panelGroup>
            			<h:panelGroup layout="block" styleClass="editItemRightCol">
-           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentType}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
-           				<h:selectOneMenu id="cboContentType" value="#{locator.file.contentType}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
-            				<f:selectItems value="#{EditItem.contentTypes}" />
+           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentCategory}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
+           				<h:selectOneMenu id="cboContentType" value="#{locator.file.contentCategory}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+            				<f:selectItems value="#{EditItem.contentCategories}" />
            				</h:selectOneMenu>
            			</h:panelGroup>           			
            		</h:panelGroup>

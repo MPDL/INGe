@@ -129,7 +129,7 @@ public class FileUI
 			this.valFileSize.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileSize);
 			this.valFileContentType.setId(CommonUtils.createUniqueId(this.valFileContentType));
-			this.valFileContentType.setValue(file.getContentType().name());
+			this.valFileContentType.setValue(file.getContentCategory());
 			this.valFileContentType.setStyle("height: 20px; width: 360px");
 			this.valFileContentType.setStyleClass("valueMetadata");
 			this.panGrid.getChildren().add(this.valFileContentType);

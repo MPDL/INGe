@@ -81,8 +81,8 @@
           					</h:panelGroup>
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
           						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}" rendered="#{component.file.size == 0}"/>
-          						<h:selectOneMenu id="cboContentType" value="#{component.file.contentType}" rendered="#{component.file.size == 0}">
-           							<f:selectItems value="#{EasySubmission.contentTypes}" />
+          						<h:selectOneMenu id="cboContentType" value="#{component.file.contentCategory}" rendered="#{component.file.size == 0}">
+           							<f:selectItems value="#{EasySubmission.contentCategories}" />
           						</h:selectOneMenu>
           					</h:panelGroup>
           				

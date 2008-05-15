@@ -336,23 +336,23 @@ public class InternationalizationHelper
     }
     
     /**
-     * Returns an array of SelectItems for the enum ContentType.
-     * @return array of SelectItems for ContentType
+     * Returns an array of SelectItems for the enum ContentCategory.
+     * @return array of SelectItems for ContentCategory
      */
-    public SelectItem[] getSelectItemsContentType()
+    public SelectItem[] getSelectItemsContentCategory()
     {
-        return this.getSelectItemsContentType(false);
+        return this.getSelectItemsContentCategory(false);
     }
 
 
     /**
-     * Returns an array of SelectItems for the enum ContentType.
+     * Returns an array of SelectItems for the enum ContentCategory.
      * @param includeNoItemSelectedEntry if true an entry for NoItemSelected is added
      * @return array of SelectItems for ReviewMethod
      */
-    public SelectItem[] getSelectItemsContentType(final boolean includeNoItemSelectedEntry)
+    public SelectItem[] getSelectItemsContentCategory(final boolean includeNoItemSelectedEntry)
     {
-        FileVO.ContentType[] values = FileVO.ContentType.values();
+        PubFileVOPresentation.ContentCategory[] values = PubFileVOPresentation.ContentCategory.values();
 
         return getSelectItemsForEnum(includeNoItemSelectedEntry, values);
     }

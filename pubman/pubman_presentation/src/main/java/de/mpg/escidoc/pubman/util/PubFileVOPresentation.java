@@ -27,7 +27,16 @@ public class PubFileVOPresentation extends FacesBean {
 	private boolean isLocator = false;
 	private String fileType;
 
-	
+
+    /**
+     * The possible content types of a file.
+     * @updated 21-Nov-2007 12:05:47
+     */
+    public enum ContentCategory
+    {
+        ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS, SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT
+    }
+
 	public PubFileVOPresentation()
 	{
 		this.file = new FileVO();
@@ -95,9 +104,16 @@ public class PubFileVOPresentation extends FacesBean {
     {
     	String contentCategory = "";
     	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	if(this.file.getContentType() != null)
+    	if(this.file.getContentCategory() != null)
     	{
-    		contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getContentType()));
+    		contentCategory = internationalized
+    		    .getLabel(
+    		            this
+    		                .i18nHelper
+    		                .convertEnumToString(
+    		                        PubFileVOPresentation.ContentCategory.valueOf(
+    		                                CommonUtils.convertToEnumString(
+    		                                        this.file.getContentCategory()))));
     	}
     	return contentCategory;
     }

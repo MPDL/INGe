@@ -186,7 +186,7 @@ public class ViewItemFileUI extends HtmlPanelGroup
                 // value
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText odd"));
                 
-                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getContentTypeString()));
+                this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getContentCategoryString()));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 

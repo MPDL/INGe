@@ -359,6 +359,11 @@ public class CommonUtils extends InternationalizedImpl
         return uiSelectItems;
     }
 
+    public static String convertToEnumString(String value)
+    {
+        return value.toUpperCase().replace("-", "_");
+    }
+    
     /**
      * generates an HTML OutputText element. The method also tests if the string that
      * should be placed into the element is empty.

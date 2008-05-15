@@ -1148,12 +1148,12 @@ public class EditItem extends FacesBean
     }
     
     /**
-     * Returns all options for contentType.
-     * @return all options for contentType
+     * Returns all options for content categories.
+     * @return all options for content c ategories.
      */
-    public SelectItem[] getContentTypes()
+    public SelectItem[] getContentCategories()
     {
-        return this.i18nHelper.getSelectItemsContentType(true);
+        return this.i18nHelper.getSelectItemsContentCategory(true);
     }
     
     /**

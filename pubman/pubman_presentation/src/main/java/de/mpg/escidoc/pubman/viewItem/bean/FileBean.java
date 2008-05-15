@@ -54,7 +54,9 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -316,9 +318,16 @@ public class FileBean extends FacesBean implements ActionListener
     {
     	String contentCategory = "";
     	InternationalizedImpl internationalized = new InternationalizedImpl();
-    	if(this.file.getContentType() != null)
+    	if(this.file.getContentCategory() != null)
     	{
-    		contentCategory = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getContentType()));
+    	    contentCategory = internationalized
+            .getLabel(
+                    this
+                        .i18nHelper
+                        .convertEnumToString(
+                                PubFileVOPresentation.ContentCategory.valueOf(
+                                        CommonUtils.convertToEnumString(
+                                                this.file.getContentCategory()))));
     	}
     	return contentCategory;
     }
