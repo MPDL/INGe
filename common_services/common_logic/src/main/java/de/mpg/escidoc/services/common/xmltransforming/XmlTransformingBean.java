@@ -80,6 +80,7 @@ import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
+import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
@@ -1012,7 +1013,7 @@ public class XmlTransformingBean implements XmlTransforming
     public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException
     {
         ItemVO itemVO = transformToItem(itemXml);
-        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsPublicationVO)
+        if (itemVO.getMetadataSets().size() > 0 && itemVO.getMetadataSets().get(0) instanceof MdsFaceVO)
         {
             return new FaceItemVO(itemVO);
         }
