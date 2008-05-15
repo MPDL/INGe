@@ -76,14 +76,15 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     	}
     	
         BreadcrumbItem lastItem = null;
-        int index = breadcrumbs.size() - 1;
-        if (index >= 0)
+        boolean keepold = false;
+        if (breadcrumbs.size() >= 1)
         {
             boolean remove = false;
+            
             int position = 0;
             for (int i = 0; i < breadcrumbs.size(); i++)
             {
-                lastItem = (BreadcrumbItem) breadcrumbs.get(i);
+               lastItem = (BreadcrumbItem) breadcrumbs.get(i);
                 
                 lastItem.setIsLast(false);
                 
@@ -92,22 +93,39 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
                     // replaces the actual item
                     remove = true;
                     position = i;
+                    
+                    //in particular for ViewItemFullPage, when an ID is added to the URL
+                    keepold = lastItem.getPage().startsWith(newItem.getPage());
+                    
                     break;
                 }
             }
+            
             if (remove)
             {
                 for (int i = breadcrumbs.size() - 1; i >= position; i--)
                 {
                     breadcrumbs.remove(i);
                 }
+               
             }
+            
         }
+       
+        if (!keepold)
+        {
+            breadcrumbs.add(newItem);
+            logger.debug("Pushing breadcrumb item: " + newItem);
+        }
+        else
+        {
+            breadcrumbs.add(lastItem);
+            logger.debug("Pushing breadcrumb item: " + lastItem);
+        }
+        
 
-        logger.debug("Pushing breadcrumb item: " + newItem);
-
-        breadcrumbs.add(newItem);
-        newItem.setIsLast(true);
+        
+        breadcrumbs.get(breadcrumbs.size()-1).setIsLast(true);
     }
 
     /**

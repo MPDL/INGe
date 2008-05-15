@@ -2,7 +2,10 @@ package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
@@ -44,6 +47,29 @@ public abstract class BreadcrumbPage extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         String page = fc.getViewRoot().getViewId().substring(1);
         String pageName = page.substring(0, page.lastIndexOf("."));
+        
+        //-----
+        Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
+        
+        String itemId = parameterMap.get("itemId");
+        if (itemId!=null) 
+        {
+            page += "?itemId="+itemId;
+        }
+        
+        /*
+        String parameters="?";
+        for (Iterator<Map.Entry<String, String>> iter = parameterMap.entrySet().iterator(); iter.hasNext();)
+        {
+            Map.Entry<String, String> parameter = iter.next();
+            parameters+=parameter.getKey()+"="+parameter.getValue()+"&";
+        }
+        
+        page+=parameters;
+        //----
+         
+         */
+        
         Method defaultAction = null;
         try
         {

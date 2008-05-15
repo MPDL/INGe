@@ -73,7 +73,11 @@
 										<li><h:commandLink id="lnkSave" binding ="#{EditItem.lnkSave}"  value="#{lbl.EditItem_lnkSave}" action="#{EditItem.save}"/></li>
 										<li><h:commandLink id="lnkSaveAndSubmit" binding ="#{EditItem.lnkSaveAndSubmit}"  value="#{lbl.EditItem_lnkSaveAndSubmit}" action="#{EditItem.saveAndSubmit}"/></li>
 										<li><h:commandLink id="lnkDelete" binding ="#{EditItem.lnkDelete}" immediate="true"  value="#{lbl.EditItem_lnkDelete}" onmousedown="if(!confirmDelete('form1:EditItem'))return false;" action="#{EditItem.delete}"/></li>
-										<li><h:commandLink id="lnkCancel" immediate="true"  value="#{lbl.EditItem_lnkCancel}" action="#{EditItem.cancel}"/></li>
+										<li>
+										<h:outputLink id="lnkCancel" value="#{ApplicationBean.appContext}#{EditItemPage.previousPageURI}">
+											<h:outputText value="#{lbl.EditItem_lnkCancel}"/>
+										</h:outputLink>
+										</li>
 										<li><h:commandLink id="lnkAccept" binding ="#{EditItem.lnkAccept}"  value="#{lbl.EditItem_lnkAccept}" action="#{EditItem.saveAndAccept}"/></li>
 											</ul>
 										</div>

@@ -128,7 +128,7 @@ public class BreadcrumbItem extends FacesBean
             return false;
         }
 
-        return (page.equals(((BreadcrumbItem) other).getPage()));
+        return (displayValue.equals(((BreadcrumbItem) other).getDisplayValue()));
     }
 
 	public boolean getIsLast() {

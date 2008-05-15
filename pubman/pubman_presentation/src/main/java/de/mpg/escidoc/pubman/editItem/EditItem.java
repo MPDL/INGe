@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.pubman.editItem;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -44,6 +45,7 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -52,6 +54,7 @@ import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
+import de.mpg.escidoc.pubman.EditItemPage;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
@@ -534,10 +537,18 @@ public class EditItem extends FacesBean
                 this.showValidationMessages(
                         this.getItemControllerSessionBean().getCurrentItemValidationReport());
             }
-            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            else if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
             {
-                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-                cleanSessionBean();
+             // redirect to the view item page afterwards (if no error occured)
+                try 
+                {
+                    FacesContext fc = FacesContext.getCurrentInstance();
+                    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+                    fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+                } 
+                catch (IOException e) {
+                    logger.error("Could not redirect to View Item Page", e);
+                }
             }
             return retVal;
         }
@@ -553,11 +564,20 @@ public class EditItem extends FacesBean
                 this.showValidationMessages(
                         this.getItemControllerSessionBean().getCurrentItemValidationReport());
             }
-            else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+            else if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
             {
-                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-                cleanSessionBean();
+             // redirect to the view item page afterwards (if no error occured)
+                try 
+                {
+                    FacesContext fc = FacesContext.getCurrentInstance();
+                    HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+                    fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+                } 
+                catch (IOException e) {
+                    logger.error("Could not redirect to View Item Page", e);
+                }
             }
+
             return retVal;
         }
         else
@@ -728,8 +748,11 @@ public class EditItem extends FacesBean
     public String cancel()
     {
     	cleanSessionBean();
+    
     	return ViewItemFull.LOAD_VIEWITEM;
     }
+    
+    
 
     /**
      * Saves and accepts an item.
@@ -1385,6 +1408,11 @@ public class EditItem extends FacesBean
 			locatorNumber = this.getEditItemSessionBean().getLocators().size();
 		}
 		return locatorNumber;
+	}
+	
+	public EditItemPage getEditItemPage()
+	{
+	    return (EditItemPage)getBean(EditItemPage.class);
 	}
 
 }

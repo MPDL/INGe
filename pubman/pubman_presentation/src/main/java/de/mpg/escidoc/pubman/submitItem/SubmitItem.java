@@ -155,7 +155,7 @@ public class SubmitItem extends FacesBean
         retVal = this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
         
         // redirect to the view item page afterwards (if no error occured)
-        if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
         	try 
             {
