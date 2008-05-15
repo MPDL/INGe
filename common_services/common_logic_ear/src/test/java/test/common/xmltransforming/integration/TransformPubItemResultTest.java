@@ -37,11 +37,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.UnsupportedEncodingException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -60,21 +57,20 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 
 /**
  * Test class for {@link XmlTransforming#transformToPubItemResultVO(String)}
@@ -185,7 +181,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         assertEquals(3, pubItemResult.getFiles().size());
         FileVO file1 = pubItemResult.getFiles().get(0);
         assertEquals("/ir/item/escidoc:22/components/component/escidoc:23/content", file1.getContent());
-        assertEquals(FileVO.ContentType.ABSTRACT, file1.getContentType());
+        assertEquals("abstract", file1.getContentCategory());
         dateString = "2007-10-05T11:24:42.546Z";
         xmlGregorianCalendar = DatatypeFactory.newInstance().newXMLGregorianCalendar(dateString);
         date = xmlGregorianCalendar.toGregorianCalendar().getTime();
@@ -337,7 +333,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         FileVO file = new FileVO();
         file.setReference(new FileRO("escidoc:442"));
         file.setContent("/ir/item/escidoc:441/components/component/escidoc:442/content");
-        file.setContentType(ContentType.ABSTRACT);
+        file.setContentCategory("abstract");
         file.setVisibility(Visibility.PUBLIC);
         file.setName("farbtest.gif");
         file.setDescription("Ein Farbtest.");

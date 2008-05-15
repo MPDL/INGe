@@ -54,17 +54,16 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -265,7 +264,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
 
         logger.info("Content: " + fileVO.getContent());
 
-        fileVO.setContentType(ContentType.POST_PRINT);
+        fileVO.setContentCategory("post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -305,7 +304,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO1.setContentType(ContentType.POST_PRINT);
+        fileVO1.setContentCategory("post-print");
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
@@ -317,7 +316,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO2.setContent(uploadFile(PDF_RUNAWAY_FILE, "application/pdf", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO2.setContentType(ContentType.COPYRIGHT_TRANSFER_AGREEMENT);
+        fileVO2.setContentCategory("copyright-transfer-agreement");
         fileVO2.setName("RunawayMassiveBinariesAndClusterEjectionScenarios.pdf");
         fileVO2.setDescription("The production of runaway massive binaries offers key insights into the evolution of close "
                 + "binary stars and open clusters. The stars HD 14633 and HD 15137 are rare examples of such "
@@ -367,7 +366,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
+        fileVO.setContentCategory("supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -442,7 +441,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
+        fileVO.setContentCategory("supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -472,14 +471,14 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         List<FileVO> files = pubItemVOPostCreate.getFiles();
         assertEquals("Item does not contain exactly one file as expected.", 1, files.size());
         FileVO file = files.get(0);
-        ContentType currentContentType = file.getContentType();
-        if (currentContentType == ContentType.ABSTRACT)
+        String currentContentType = file.getContentCategory();
+        if ("abstract".equals(currentContentType))
         {
-            file.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
+            file.setContentCategory("supplementary-material");
         }
         else
         {
-            file.setContentType(ContentType.ABSTRACT);
+            file.setContentCategory("abstract");
         }
         // transform the PubItemVO into an item again
         String pubItemXMLPreUpdate = xmlTransforming.transformToItem(pubItemVOPostCreate);
@@ -531,7 +530,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO1.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO1.setContentType(ContentType.POST_PRINT);
+        fileVO1.setContentCategory("post-print");
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
@@ -543,7 +542,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO2.setContent(uploadFile(PDF_RUNAWAY_FILE, "application/pdf", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO2.setContentType(ContentType.COPYRIGHT_TRANSFER_AGREEMENT);
+        fileVO2.setContentCategory("copyright-transfer-agreement");
         fileVO2.setName("RunawayMassiveBinariesAndClusterEjectionScenarios.pdf");
         fileVO2.setDescription("The production of runaway massive binaries offers key insights into the evolution of close "
                 + "binary stars and open clusters. The stars HD 14633 and HD 15137 are rare examples of such "
@@ -826,7 +825,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(JPG_FARBTEST_FILE, "image/jpeg", userHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.POST_PRINT);
+        fileVO.setContentCategory("post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein <a href=\"http://www.escidoc.de/farbtest_wasserfarben.jpg\"> Farbtest mit Wasserfarben.</a>");
         fileVO.setVisibility(Visibility.PUBLIC);

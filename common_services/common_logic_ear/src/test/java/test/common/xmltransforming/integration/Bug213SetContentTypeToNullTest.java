@@ -47,9 +47,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -122,7 +121,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.POST_PRINT);
+        fileVO.setContentCategory("post-print");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
@@ -132,7 +131,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
 
         // transform the PubItemVO into an item (for create)
         String pubItemXMLPreCreate = xmlTransforming.transformToItem(pubItemVOPreCreate);
-        logger.info("PubItemVO with one file transformed to item(XML) for create." + "Content type of file: " + pubItemVOPreCreate.getFiles().get(0).getContentType());
+        logger.info("PubItemVO with one file transformed to item(XML) for create." + "Content type of file: " + pubItemVOPreCreate.getFiles().get(0).getContentCategory());
 
         // create the item in the framework
         String pubItemXMLPostCreate = ServiceLocator.getItemHandler(scientistUserHandle).create(pubItemXMLPreCreate);
@@ -154,7 +153,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent(uploadFile(testFileName, "image/jpeg", scientistUserHandle).toString());
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
+        fileVO.setContentCategory("supplementary-material");
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);

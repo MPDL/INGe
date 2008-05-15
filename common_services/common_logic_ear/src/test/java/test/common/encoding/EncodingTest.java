@@ -143,9 +143,9 @@ public class EncodingTest extends TestBase
     {
         PubItemVO itemVO = getPubItem2();
 
-        String encodingCharacters = "\uc3a4\uc3b6\uc3bc\uc39f"+" éèç";
+        String encodingCharacters = "Achtung: \uc3a4\uc3b6\uc3bc\uc39f"+" éèç";
 
-        Assert.assertTrue(encodingCharacters.length() == 8);
+        Assert.assertTrue(encodingCharacters.length() == 17);
 
         itemVO.getMetadata().setTitle(new TextVO(encodingCharacters));
         String itemXml = xmlTransforming.transformToItem(itemVO);

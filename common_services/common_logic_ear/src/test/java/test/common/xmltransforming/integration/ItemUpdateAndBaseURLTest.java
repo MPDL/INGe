@@ -47,9 +47,8 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -132,7 +131,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         fileVO.setContent(stagingURL);
         logger.info("File uploaded to staging area. Retrieved URL stored in FileVO.content[String]: " + stagingURL);
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.SUPPLEMENTARY_MATERIAL);
+        fileVO.setContentCategory("supplementary-material");
         fileVO.setName("galaxy.gif");
         fileVO.setDescription("The Universe within 50000 Light Years");
         fileVO.setVisibility(Visibility.PRIVATE);

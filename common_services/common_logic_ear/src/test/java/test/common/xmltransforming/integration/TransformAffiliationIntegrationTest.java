@@ -142,6 +142,10 @@ public class TransformAffiliationIntegrationTest extends TestBase
         List<String> difflist = oc.getDiffs();
         if (logger.isDebugEnabled())
         {
+            
+            logger.debug("affiliationVOPreCreate.creationDate: " + affiliationVOPreCreate.getCreationDate());
+            logger.debug("affiliationVOPostCreate.creationDate: " + affiliationVOPostCreate.getCreationDate());
+            
             StringBuffer sb = new StringBuffer();
             sb.append("List of differences between affiliationVOPreCreate and affiliationVOPostCreate: \n");
             for (String diff : difflist)
