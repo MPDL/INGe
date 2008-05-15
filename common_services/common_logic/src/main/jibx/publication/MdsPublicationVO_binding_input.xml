@@ -57,7 +57,7 @@
 
 	<mapping abstract="true" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
 		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" ordered="false" allow-repeats="true">
+		ordered="false" allow-repeats="true">
 
 		<structure ordered="false" allow-repeats="true" usage="optional">
 

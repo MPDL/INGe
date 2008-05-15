@@ -1086,7 +1086,7 @@ public class JiBXHelper
         {
             try
             {
-                emotion = MdsFaceVO.Emotion.valueOf(enumValue);
+                emotion = MdsFaceVO.Emotion.valueOf(enumValue.trim());
             }
             catch (IllegalArgumentException e)
             {

@@ -1019,7 +1019,7 @@ public class XmlTransformingBean implements XmlTransforming
         }
         else
         {
-            logger.warn("Cannot transform item xml to PubItemVO");
+            logger.warn("Cannot transform item xml to FaceItemVO");
             return null;
         }
     }

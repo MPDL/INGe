@@ -52,7 +52,7 @@
 	<!-- The bindings -->
 	<!--  -->
 	<include path="publication/MdsPublicationVO_binding_input.xml" />
-	<include path="face/MdsFaceVO_binding.xml" />
+	<include path="face/MdsFaceVO_binding_input.xml" />
 	<include path="ContextVO_binding.xml" />
 	<include path="AdminDescriptorVO_binding.xml" />
 	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />

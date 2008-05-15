@@ -39,7 +39,6 @@
 	<!-- concrete mapping for MdsFaceVO -->
 	<mapping abstract="true" ns="http://www.escidoc.de/schemas/metadatarecords/0.3"
 		class="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
 		ordered="false"
 		allow-repeats="true">
 

@@ -156,10 +156,10 @@
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
 
-				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
 				<structure name="md-record" ns="http://www.escidoc.de/schemas/metadatarecords/0.3"
 					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
+				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
 
 			</collection>
 

@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.common.valueobjects.face;
 
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
  * Metadata content of a Faces' face.
@@ -74,6 +75,39 @@ public class MdsFaceVO extends MetadataSetVO
     public enum AccessLevel
     {
         PUBLIC, PRIVATE
+    }
+
+    /**
+     * Creates a new instance.
+     */
+    public MdsFaceVO()
+    {
+        super();
+    }
+
+    /**
+     * Copy constructor.
+     * 
+     * @param other The instance to copy.
+     */
+    public MdsFaceVO(MdsFaceVO mdsFaceVO)
+    {
+        this.accessLevel = mdsFaceVO.accessLevel;
+        this.age = mdsFaceVO.age;
+        this.ageGroup = mdsFaceVO.ageGroup;
+        this.emotion = mdsFaceVO.emotion;
+        this.gender = mdsFaceVO.gender;
+        this.identifier = mdsFaceVO.identifier;
+        this.pictureGroup = mdsFaceVO.pictureGroup;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MdsFaceVO clone()
+    {
+        return new MdsFaceVO(this);
     }
 
     public Emotion getEmotion()
