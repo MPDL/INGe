@@ -48,7 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.face.FaceVO;
+import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
@@ -317,7 +317,7 @@ public interface XmlTransforming
     
     public List<PubItemVO> transformToPubItemList(String itemList) throws TechnicalException;
     
-    public FaceVO transformToFaceItem(String itemXml) throws TechnicalException;
+    public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException;
     
-    public List<FaceVO> transformToFaceItemList(String itemList) throws TechnicalException;
+    public List<FaceItemVO> transformToFaceItemList(String itemList) throws TechnicalException;
 }

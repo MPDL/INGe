@@ -48,7 +48,6 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -99,7 +98,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // first upload the file to the framework
         fileVO.setContent("<blink>organisation</blink>");
         // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentType(ContentType.POST_PRINT);
+        fileVO.setContentCategory("post-print");
         fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);

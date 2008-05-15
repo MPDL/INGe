@@ -42,7 +42,6 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -58,7 +57,6 @@ import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
@@ -516,33 +514,6 @@ public class JiBXHelper
     public static String serializeBoolean(boolean bool)
     {
         return (bool == true ? "true" : "false");
-    }
-
-    /**
-     * Deserializes a String containing a content-type like defined in components.xsd to the corresponding
-     * FileVO.ContentType Enum.
-     * 
-     * @param enumValue The String to deserialize
-     * @return The corresponding FileVO.ContentType Enum
-     * @throws WrongEnumException
-     */
-    public static ContentType deserializeContentTypeEnum(String enumValue) throws WrongEnumException
-    {
-        ContentType contentType;
-        if (enumValue == null || "".equals(enumValue))
-        {
-            return null;
-        }
-        String upperCaseText = enumValue.trim().replace(' ', '_').replace('-', '_').toUpperCase();
-        try
-        {
-            contentType = ContentType.valueOf(upperCaseText);
-        }
-        catch (IllegalArgumentException e)
-        {
-            throw new WrongEnumException("ContentTypeEnum value is '" + enumValue + "'.");
-        }
-        return contentType;
     }
 
     /**
@@ -1070,8 +1041,9 @@ public class JiBXHelper
      * <code>ItemVO.State</code> Enum.
      * 
      * @param enumValue The String to deserialize
-     * @return ItemVO.State The corresponding <code>ItemVO.State</code> Enum
-     * @throws WrongEnumException
+     * @return ItemVO.State The corresponding <code>ItemVO.State</code> Enum.
+     * 
+     * @throws WrongEnumException Thrown if string value does not match any value of the enum.
      */
     public static ItemVO.State deserializeItemStateEnum(String enumValue) throws WrongEnumException
     {

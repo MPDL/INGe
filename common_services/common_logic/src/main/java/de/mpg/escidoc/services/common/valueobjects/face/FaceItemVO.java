@@ -44,15 +44,15 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class FaceVO extends ItemVO
+public class FaceItemVO extends ItemVO
 {
     
-    private static Logger logger = Logger.getLogger(FaceVO.class);
+    private static Logger logger = Logger.getLogger(FaceItemVO.class);
     
     /**
      * Default constructor.
      */
-    public FaceVO()
+    public FaceItemVO()
     {
         try
         {
@@ -68,7 +68,7 @@ public class FaceVO extends ItemVO
      * 
      * @param itemVO The item to be copied.
      */
-    public FaceVO(ItemVO itemVO)
+    public FaceItemVO(ItemVO itemVO)
     {
         super(itemVO);
     }
@@ -81,7 +81,7 @@ public class FaceVO extends ItemVO
     @Override
     public Object clone()
     {
-        return new FaceVO(this);
+        return new FaceItemVO(this);
     }
     
     /**

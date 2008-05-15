@@ -51,17 +51,7 @@ public class FileVO extends ValueObject implements Cloneable
      * @author Johannes Mueller
      */
 
-
-        /**
-     * The possible content types of a file.
-     * @updated 21-Nov-2007 12:05:47
-     */
-    public enum ContentType
-    {
-        ANY_FULLTEXT, PRE_PRINT, POST_PRINT, PUBLISHER_VERSION, ABSTRACT, TABLE_OF_CONTENTS, SUPPLEMENTARY_MATERIAL, CORRESPONDENCE, COPYRIGHT_TRANSFER_AGREEMENT
-    }
-
-        /**
+    /**
      * The possible visibility of a file.
      * @updated 21-Nov-2007 12:05:47
      */
@@ -102,7 +92,7 @@ public class FileVO extends ValueObject implements Cloneable
     /**
      * The content type of the file.
      */
-    private FileVO.ContentType contentType;
+    private String contentCategory;
     /**
      * The size of the file in Bytes.
      * Has to be zero if no content is given.
@@ -136,8 +126,8 @@ public class FileVO extends ValueObject implements Cloneable
     public FileVO(FileVO other)
     {
         this.setContent(other.getContent());
-        this.setContentType(other.getContentType());                
-        this.setContentTypeString(other.getContentTypeString());
+        this.setContentCategory(other.getContentCategory());                
+        this.setContentCategoryString(other.getContentCategoryString());
         this.setCreationDate(other.getCreationDate());
         this.setDescription(other.getDescription());
         this.setLastModificationDate(other.getLastModificationDate());
@@ -305,9 +295,9 @@ public class FileVO extends ValueObject implements Cloneable
     /**
      * Delivers the content type of the file.
      */
-    public FileVO.ContentType getContentType()
+    public String getContentCategory()
     {
-        return contentType;
+        return contentCategory;
     }
 
     /**
@@ -315,9 +305,9 @@ public class FileVO extends ValueObject implements Cloneable
      * 
      * @param newVal
      */
-    public void setContentType(FileVO.ContentType newVal)
+    public void setContentCategory(String newVal)
     {
-        contentType = newVal;
+        contentCategory = newVal;
     }
 
     /**
@@ -395,33 +385,25 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-     * Delivers the value of the contentType Enum as a String. If the Enum is not set, an empty String is returned.
+     * Delivers the value of the contentCategory Enum as a String. If the Enum is not set, an empty String is returned.
      */
-    public String getContentTypeString()
+    public String getContentCategoryString()
     {
-        if (contentType == null || contentType.toString() == null)
+        if (contentCategory == null || contentCategory.toString() == null)
         {
             return "";
         }
-        return contentType.toString();
+        return contentCategory.toString();
     }
 
     /**
-     * Sets the value of the contentType Enum by a String.
+     * Sets the value of the contentCategory Enum by a String.
      * 
      * @param newValString
      */
-    public void setContentTypeString(String newValString)
+    public void setContentCategoryString(String newValString)
     {
-        if (newValString == null || newValString.length() == 0)
-        {
-            contentType = null;
-        }
-        else
-        {
-            FileVO.ContentType newVal = FileVO.ContentType.valueOf(newValString);
-            contentType = newVal;
-        }
+        contentCategory = newValString;
     }
 
     /**
