@@ -728,7 +728,7 @@ public class EditItem extends FacesBean
     public String cancel()
     {
     	cleanSessionBean();
-    	return DepositorWS.LOAD_DEPOSITORWS;
+    	return ViewItemFull.LOAD_VIEWITEM;
     }
 
     /**
