@@ -450,7 +450,11 @@ public class ViewItemFull extends FacesBean
      */
     public String modifyItem()
     {
-        return EditItem.LOAD_EDITITEM;
+        // clear the list of  locators and files when start modifying an item
+    	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
+        editItemSessionBean.getFiles().clear();
+        editItemSessionBean.getLocators().clear();
+    	return EditItem.LOAD_EDITITEM;
     }
 
     /**
@@ -461,7 +465,12 @@ public class ViewItemFull extends FacesBean
      */
     public String createNewRevision()
     {
-        // Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
+        // clear the list of  locators and files when start creating  a new revision
+    	EditItemSessionBean editItemSessionBean = this.getEditItemSessionBean();
+        editItemSessionBean.getFiles().clear();
+        editItemSessionBean.getLocators().clear();
+        
+    	// Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
         // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
         if (this.getCollectionListSessionBean().getContextList().size() == 0)
         {
