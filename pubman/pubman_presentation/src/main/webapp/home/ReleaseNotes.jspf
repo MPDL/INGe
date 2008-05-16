@@ -56,14 +56,8 @@ Highlights of current release (v3.0.)
 			</li>
 		</ul>
 		<br/>
-	<li><b>Search and Output</b> interface for feeding local webpages 
+	<li><b>Search and Output</b> interface (REST) for feeding local webpages 
 	</li>
-		<ul>
-			<li>Check description and a "user-friendly" form under
-[<a href='http://escidoc4.escidoc.mpg.de:8888/pubman/search/SearchAndOutput_info.jsp'>eSciDoc SearchAndOutput Service REST Interface</a>]
-This feature includes support for basic OpenSearch.
-			</li>
-		</ul>
 	<br/>
 	<li>Overall <b>GUI improvements</b> 
 	</li>
