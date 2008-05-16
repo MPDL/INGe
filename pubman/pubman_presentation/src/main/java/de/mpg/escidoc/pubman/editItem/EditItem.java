@@ -754,6 +754,22 @@ public class EditItem extends FacesBean
         	navString = Home.LOAD_HOME;
         }
     	cleanEditItem();
+    	
+    	if (navString.equals(ViewItemFull.LOAD_VIEWITEM))
+    	{
+    	    try 
+            {
+    	        EditItemPage editItemPage = (EditItemPage) getRequestBean(EditItemPage.class); 
+                FacesContext fc = FacesContext.getCurrentInstance();
+                HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+                fc.getExternalContext().redirect(request.getContextPath() + "/faces/" + editItemPage.getPreviousPageURI());
+            } 
+            catch (IOException e) {
+                logger.error("Could not redirect to View Item Page", e);
+            }
+    	    
+    	}
+    	
     	return navString;
     }
     
