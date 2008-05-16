@@ -79,10 +79,10 @@ public class FontStyle implements Cloneable{
         isItalic = false;
         isUnderline = false;
         isStrikeThrough = false;
-        pdfFontName = "Helvetica";
+        pdfFontName = "ARIAL.TTF";
         foreColor = "black";
         backColor = "white";
-        pdfEncoding = "Cp1250"; 
+        pdfEncoding = "Identity-H"; 
         isPdfEmbedded = false;
     }
      
