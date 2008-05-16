@@ -43,7 +43,6 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
@@ -131,7 +130,7 @@ public class SearchTest extends TestBase
         FileVO file = new FileVO();
         String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
         file.setContent(uploadFile(testfile, "application/pdf", user.getHandle()).toString());
-        file.setContentType(ContentType.PUBLISHER_VERSION);
+        file.setContentCategory("publisher_version");
         file.setVisibility(Visibility.PUBLIC);
         file.setName("Der_kleine_Prinz_Auszug.pdf");
         file.setMimeType("application/pdf");

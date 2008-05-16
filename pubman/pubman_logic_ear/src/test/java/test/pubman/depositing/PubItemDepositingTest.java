@@ -57,7 +57,6 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -133,7 +132,7 @@ public class PubItemDepositingTest extends TestBase
     {
         pmDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
         xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
-        user = getUserTestDepScientistWithHandle();
+        user = getUserTestDepLibWithHandle();
     }
 
     /**
@@ -225,7 +224,7 @@ public class PubItemDepositingTest extends TestBase
         String testfile = "src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif";
         initPubFile.setDescription("Sehen Sie B6?");
         initPubFile.setVisibility(Visibility.PUBLIC);
-        initPubFile.setContentType(ContentType.ABSTRACT);
+        initPubFile.setContentCategoryString("abstract");
         initPubFile.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         initPubFile.setName("farbtest_B6.gif");
         initPubFile.setMimeType("image/gif");
@@ -246,7 +245,7 @@ public class PubItemDepositingTest extends TestBase
         assertNotNull(pubFile.getContent());
         assertNotNull(pubFile.getReference());
         assertEquals(initPubFile.getName(), pubFile.getName());
-        assertEquals(initPubFile.getContentType(), pubFile.getContentType());
+        assertEquals(initPubFile.getContentCategory(), pubFile.getContentCategory());
         assertEquals(initPubFile.getDescription(), pubFile.getDescription());
         assertEquals(initPubFile.getMimeType(), pubFile.getMimeType());
         assertEquals(initPubFile.getVisibility(), pubFile.getVisibility());
@@ -352,8 +351,8 @@ public class PubItemDepositingTest extends TestBase
         savedItem.getMetadata().getAlternativeTitles().add(new TextVO("A new alternative title for this beautiful item", "en"));
 
         // save changed item with other user
-        AccountUserVO depLib = getUserTestDepLibWithHandle();
-        savePubItem(savedItem, depLib);
+        AccountUserVO depSci = getUserTestDepScientistWithHandle();
+        savePubItem(savedItem, depSci);
     }
 
     /**
@@ -544,8 +543,8 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO item = savePubItem(getNewPubItemWithoutFiles(), user);
 
-        AccountUserVO depLib = getUserTestDepLibWithHandle();
-        pmDepositing.submitPubItem(item, "Test Submit", depLib);
+        AccountUserVO depSci = getUserTestDepScientistWithHandle();
+        pmDepositing.submitPubItem(item, "Test Submit", depSci);
     }
 
     /**
@@ -682,7 +681,7 @@ public class PubItemDepositingTest extends TestBase
     {
         List<ContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
         assertNotNull(pubCollectionList);
-        assertEquals(2, pubCollectionList.size());
+        assertEquals(1, pubCollectionList.size());
         ContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());

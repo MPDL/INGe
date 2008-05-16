@@ -441,6 +441,7 @@ public class TestBase
         // Source
         SourceVO source = new SourceVO();
         // Source.Title
+        source.setGenre(SourceVO.Genre.BOOK);
         source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
         // Source.AlternativeTitle
         source.getAlternativeTitles().add(new TextVO("This is the root of all ???.", "en"));

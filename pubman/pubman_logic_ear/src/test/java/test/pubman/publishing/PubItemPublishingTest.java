@@ -46,7 +46,6 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO.ContentType;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
@@ -121,7 +120,7 @@ public class PubItemPublishingTest extends TestBase
         String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
-        file.setContentType(ContentType.PUBLISHER_VERSION);
+        file.setContentCategory("publisher_version");
         file.setMimeType("application/gif");
         file.setVisibility(Visibility.PUBLIC);
         file.setName("farbtest.gif");
