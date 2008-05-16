@@ -51,6 +51,8 @@
        <action dev="mfranke" type="fix">
         bugfixes
       </action>
-      <release version="1.0.4-SNAPSHOT" date="2008-05-14" description="Current development"/>
+       <release version="1.0.4" date="2008-05-16" description="Release of all modules">
+    </release>
+      <release version="1.0.5-SNAPSHOT" date="2008-05-16" description="Current development"/>
   </body>
 </document>

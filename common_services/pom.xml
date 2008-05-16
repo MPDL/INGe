@@ -180,7 +180,7 @@
 	</ciManagement>
 
 	<modules>
-		<module>framework_access</module>
+<!-- 		<module>framework_access</module>  -->
 		<module>common_logic</module>
 		<module>citationmanager</module>
 		<module>citationmanager_ear</module>
@@ -192,6 +192,8 @@
 		<module>validation_presentation</module>
 		<module>structuredexportmanager</module>
 		<module>structuredexportmanager_ear</module>
+		<module>exportmanager</module>
+		<module>exportmanager_ear</module>
 	</modules>
 
 	<scm>
@@ -334,6 +336,7 @@
 					</toAddresses>
 					<jiraUser>${changes.jira.user}</jiraUser>
 					<jiraPassword>${changes.jira.password}</jiraPassword>
+					<onlyCurrentVersion>true</onlyCurrentVersion>
 				</configuration>
 				<reportSets>
 					<reportSet>
@@ -401,7 +404,7 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername>mailhost.rzg.mpg.de</escidoc.pubman_presentation.email.mailservername>
+				<escidoc.pubman_presentation.email.mailservername>mail.mpisoc.mpg.de</escidoc.pubman_presentation.email.mailservername>
 				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
 				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
 				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>

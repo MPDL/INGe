@@ -41,6 +41,7 @@
         Initial import to svn.
       </action>
     </release>
-    <release version="1.0.1-SNAPSHOT" date="2008-04-28" description="Current development"/>
+     <release version="1.0.1" date="2008-05-16" description=""/>
+    <release version="1.0.2-SNAPSHOT" date="2008-05-16" description="Current development"/>
   </body>
 </document>
