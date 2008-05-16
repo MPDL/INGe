@@ -132,48 +132,37 @@ public class PubFileVOPresentation extends FacesBean {
 	public void setFileType(String fileType) {
 		this.fileType = fileType;
 	}
-
+	
+	
 	public String removeFile ()
 	{
- 		EditItem editItem = (EditItem)getSessionBean(EditItem.class);
- 		EditItemSessionBean editItemSessionBean = (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
-		if(index < editItem.getFiles().size())
-		{
-			editItem.getPubItem().getFiles().remove(index);
-			editItemSessionBean.getFiles().remove(index);
-			
-			// ensure that at least one upload component is visible
-			if(editItem.getPubItem().getFiles().size() == 0)
-			{
-				editItem.getPubItem().getFiles().add(new FileVO());
-			}
-			if(editItem.getFiles().size() == 0)
-			{
-				editItem.getFiles().add(new PubFileVOPresentation());
-			}
-			// clear the view root
-			UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("EditItem:fileUploads");
-			if (component != null)
-	        {
-	        	component.getParent().getChildren().remove(component);
-	        }
-			//return "loadEditItemIntermediate";
-		}
-		editItemSessionBean.reorganizeFileIndexes();
-		//editItem.init();
-		return "loadEditItem";
+		EditItemSessionBean editItemSessionBean = (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
+ 		
+		editItemSessionBean.getFiles().remove(this.index);
 		
+		// ensure that at least one file component is visible
+		if(editItemSessionBean.getFiles().size() == 0)
+		{
+			editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, false));
+		}
+		
+		editItemSessionBean.reorganizeFileIndexes();
+		return "loadEditItem";		
 	}
 	
 	public String removeLocatorEditItem ()
 	{
-		EditItem editItem = (EditItem)getSessionBean(EditItem.class);
 		EditItemSessionBean editItemSessionBean = (EditItemSessionBean)getSessionBean(EditItemSessionBean.class);
  		
 		editItemSessionBean.getLocators().remove(this.index);
 		
+		// ensure that at least one locator component is visible
+		if(editItemSessionBean.getLocators().size() == 0)
+		{
+			editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, true));
+		}
+		
 		editItemSessionBean.reorganizeLocatorIndexes();
-		//editItem.init();
 		return "loadEditItem";		
 	}
 	
