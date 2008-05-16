@@ -356,6 +356,7 @@
 					</toAddresses>
 					<jiraUser>${changes.jira.user}</jiraUser>
 					<jiraPassword>${changes.jira.password}</jiraPassword>
+					<onlyCurrentVersion>true</onlyCurrentVersion>
 				</configuration>
 				<reportSets>
 					<reportSet>
