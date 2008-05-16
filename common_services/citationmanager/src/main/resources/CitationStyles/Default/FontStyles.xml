@@ -9,7 +9,7 @@
     back-color="white"
     is-bold="false"
     is-italic="false"
-    pdf-font-name="Helvetica"
+    pdf-font-name="ARIAL.TTF"
     is-underline="false"
     is-strike-through="false"/>
 
@@ -20,7 +20,7 @@
     back-color="white"
     is-bold="false"
     is-italic="false"
-    pdf-font-name="Helvetica"
+    pdf-font-name="ARIAL.TTF"
     is-underline="false"
     is-strike-through="false"/>
 
@@ -29,7 +29,7 @@
     back-color="white"
     is-bold="true"
     is-italic="false"
-    pdf-font-name="Helvetica-Bold"
+    pdf-font-name="ARIALBD.TTF"
     is-underline="false"
     is-strike-through="false"/>
 
@@ -38,7 +38,7 @@
     back-color="white"
     is-bold="false"
     is-italic="true"
-    pdf-font-name="Helvetica-Oblique"
+    pdf-font-name="ARIALBI.TTF"
     is-underline="false"
     is-strike-through="false"/>
 
@@ -47,7 +47,7 @@
     back-color="white"
     is-bold="false"
     is-italic="true"
-    pdf-font-name="Helvetica-Oblique"
+    pdf-font-name="ARIAL.TTF"
     is-underline="true"
     is-strike-through="false"/>
 
@@ -56,7 +56,7 @@
     back-color="white"
     is-bold="true"
     is-italic="true"
-    pdf-font-name="Helvetica-Bold"
+    pdf-font-name="ARIALBI.TTF"
     is-underline="true"
     is-strike-through="false"/>
 
