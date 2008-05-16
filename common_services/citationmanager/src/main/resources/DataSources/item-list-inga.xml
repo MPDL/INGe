@@ -4,7 +4,8 @@
 	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" 
 	xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
 	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
-	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" 
+	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3"
 	xmlns:dcterms="http://purl.org/dc/terms/" 
 	xmlns:dc="http://purl.org/dc/elements/1.1/"	
 	xmlns:xlink="http://www.w3.org/1999/xlink" 
@@ -1221,5 +1222,70 @@ References
 				</profile:publication>
 			</md-records:md-record>
 		</md-records:md-records>
+		<escidocComponents:components>
+			<escidocComponents:component objid="escidoc:1297">
+				<escidocComponents:properties>
+					<escidocComponents:creation-date>
+						2008-04-28T14:13:43.046Z
+					</escidocComponents:creation-date>
+					<escidocComponents:valid-status>
+						valid
+					</escidocComponents:valid-status>
+					<escidocComponents:visibility>
+						public
+					</escidocComponents:visibility>
+					<escidocComponents:pid>
+						hdl:someHandle/test/escidoc:1297
+					</escidocComponents:pid>
+					<escidocComponents:content-category>
+						pre-print
+					</escidocComponents:content-category>
+					<escidocComponents:file-name>
+						Maven
+					</escidocComponents:file-name>
+					<escidocComponents:mime-type>
+						application/x-gzip
+					</escidocComponents:mime-type>
+					<escidocComponents:file-size>
+						19757
+					</escidocComponents:file-size>
+				</escidocComponents:properties>
+				<escidocComponents:content
+					xlink:href="/ir/item/escidoc:1296/components/component/escidoc:1297/content" />
+			</escidocComponents:component>
+			<escidocComponents:component objid="escidoc:1298">
+				<escidocComponents:properties>
+					<escidocComponents:creation-date>
+						2008-04-28T14:13:43.280Z
+					</escidocComponents:creation-date>
+					<escidocComponents:valid-status>
+						valid
+					</escidocComponents:valid-status>
+					<escidocComponents:visibility>
+						public
+					</escidocComponents:visibility>
+					<escidocComponents:pid>
+						hdl:someHandle/test/escidoc:1298
+					</escidocComponents:pid>
+					<escidocComponents:content-category>
+						supplementary-material
+					</escidocComponents:content-category>
+					<escidocComponents:file-name>
+						Kuehlung
+					</escidocComponents:file-name>
+					<escidocComponents:mime-type>
+						image/jpg
+					</escidocComponents:mime-type>
+					<escidocComponents:file-size>
+						123
+					</escidocComponents:file-size>
+					<escidocComponents:locator-url>
+						http://bmw.bazzi.biz/anleit/kuehlung_entlueften.pdf
+					</escidocComponents:locator-url>
+				</escidocComponents:properties>
+				<escidocComponents:content
+					xlink:href="/ir/item/escidoc:1296/components/component/escidoc:1298/content" />
+			</escidocComponents:component>
+		</escidocComponents:components>		
 	</item:item>
 </item-list> 
