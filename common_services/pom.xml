@@ -151,7 +151,7 @@
 	</ciManagement>
 
 	<modules>
-<!-- 		<module>framework_access</module>  -->
+ 		<module>framework_access</module>  
 		<module>common_logic</module>
 		<module>citationmanager</module>
 		<module>citationmanager_ear</module>
@@ -165,6 +165,9 @@
 		<module>structuredexportmanager_ear</module>
 		<module>exportmanager</module>
 		<module>exportmanager_ear</module>
+		<module>search</module>
+		<module>search_presentation</module>
+		<module>search_ear</module>
 	</modules>
 
 	<scm>
