@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE jasperReport PUBLIC "-//JasperReports//DTD JasperReport//EN" "http://jasperreports.sourceforge.net/dtds/jasperreport.dtd">
 
-<jasperReport name="APA" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.ScriptletForRepeatableElements_1209489073797">
+<jasperReport name="APA" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.scriptlets.ScriptletForRepeatableElements_APA">
 	<property name="ireport.scriptlethandling" value="2"/>
 	<property name="ireport.encoding" value="UTF-8"/>
 	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
-	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<queryString>
 		<![CDATA[descendant-or-self::publication]]>
 	</queryString>
@@ -117,7 +117,7 @@
 		<variableExpression><![CDATA["In" + (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_1_P_default_E_5()) + "(Eds.), "]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1_P_default_E_6" class="java.lang.String">
-		<variableExpression><![CDATA[$F{source/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title})) : "") + "</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{source/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title})) : "") + "</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1_P_default_E_7_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{source/start-page}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/start-page}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/start-page})) : "") : ""]]></variableExpression>
@@ -147,7 +147,7 @@
 		<variableExpression><![CDATA[$V{date}!=null ? (!($V{date}).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year($V{date})) + ")." : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_4" class="java.lang.String">
-		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_5_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publishing-info/place}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publishing-info/place}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publishing-info/place})) : "") : ""]]></variableExpression>
@@ -168,10 +168,10 @@
 		<variableExpression><![CDATA[$F{title}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + ". " : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_4_P_default_E_1" class="java.lang.String">
-		<variableExpression><![CDATA[$F{source/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title})) : "") + "</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{source/title}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/title})) : "") + "</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_4_P_default_E_2" class="java.lang.String">
-		<variableExpression><![CDATA[$F{source/volume}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"Helvetica-Oblique\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Cp1250\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/volume}))).trim().equals("") ? ", " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/volume})) : "") + "</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{source/volume}!=null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/volume}))).trim().equals("") ? ", " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/volume})) : "") + "</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_4_P_default_E_3" class="java.lang.String">
 		<variableExpression><![CDATA[$F{source/issue}!=null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{source/issue}))).trim().equals("") ? "(" + ($P{REPORT_SCRIPTLET}.xmlEncode($F{source/issue})) + ")" : "") : ""]]></variableExpression>
@@ -206,7 +206,7 @@
 				<reportElement key="staticText" positionType="Float" stretchType="RelativeToBandHeight" mode="Transparent" x="1" y="13" width="533" height="32" forecolor="#000000" backcolor="#FFFFFF"/>
 				<box topBorder="None" topBorderColor="#000000" leftBorder="None" leftBorderColor="#000000" bottomBorder="None" bottomBorderColor="#000000" rightBorder="None" rightBorderColor="#000000"/>
 				<textElement textAlignment="Center" verticalAlignment="Top" rotation="None" lineSpacing="Single">
-					<font fontName="Arial Black" size="18" isBold="true" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="Helvetica-Bold" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					<font fontName="Arial" size="18" isBold="true" isItalic="false" isUnderline="false" pdfFontName="ARIALBD.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<text><![CDATA[Citation Style: APA]]></text>
 			</staticText>
