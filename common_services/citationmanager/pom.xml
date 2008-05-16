@@ -72,10 +72,18 @@
 				<directory>src/main/resources</directory>
 				<filtering>false</filtering>
 			</resource>
+			<resource>
+				<directory>src/main/resources/Fonts</directory>
+				<filtering>false</filtering>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
+				<filtering>false</filtering>
+			</testResource>
+			<testResource>
+				<directory>src/main/resources/Fonts</directory>
 				<filtering>false</filtering>
 			</testResource>
 		</testResources>
