@@ -427,13 +427,6 @@ public class EditItem extends FacesBean
     	return null;
     }
     
-    private void cleanSessionBean()
-    {
-    	// finally clean the session bean
-		this.getEditItemSessionBean().getFiles().clear();
-		this.getEditItemSessionBean().getLocators().clear();
-    }
-    
     public boolean getRenderRemoveLanguage()
     {
     	return (getPubItem().getMetadata().getLanguages().size() > 1);
@@ -690,7 +683,6 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-                cleanSessionBean();
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -709,7 +701,6 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-                cleanSessionBean();
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -752,7 +743,6 @@ public class EditItem extends FacesBean
      */
     public String cancel()
     {
-    	//cleanSessionBean();
     	// examine if the user came from the view Item Page or if he started a new submission
     	String navString = "";
     	if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
@@ -764,24 +754,6 @@ public class EditItem extends FacesBean
         	navString = Home.LOAD_HOME;
         }
     	cleanEditItem();
-    	
-    	
-    	if (navString.equals(ViewItemFull.LOAD_VIEWITEM))
-    	{
-    	    try 
-            {
-    	        EditItemPage editItemPage = (EditItemPage) getRequestBean(EditItemPage.class); 
-                FacesContext fc = FacesContext.getCurrentInstance();
-                HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-                fc.getExternalContext().redirect(request.getContextPath() + "/faces/" + editItemPage.getPreviousPageURI());
-            } 
-            catch (IOException e) {
-                logger.error("Could not redirect to View Item Page", e);
-            }
-    	    
-    	}
-    	
-    	
     	return navString;
     }
     
@@ -886,7 +858,6 @@ public class EditItem extends FacesBean
             {
                 getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
-                cleanSessionBean();
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
             
