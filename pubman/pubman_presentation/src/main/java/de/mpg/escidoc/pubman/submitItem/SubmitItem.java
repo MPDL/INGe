@@ -144,12 +144,15 @@ public class SubmitItem extends FacesBean
     	FacesContext fc = FacesContext.getCurrentInstance();
     	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     	String retVal;
-        String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    	/*
+    	String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        
         if(navigateTo == null)
         {
         	navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-
+    	 */
         logger.debug("Now submitting, then go to " + navigateTo);
         
         retVal = this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
