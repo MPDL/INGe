@@ -29,19 +29,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.2</version>
+		<version>1.0.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>exportmanager_ear</artifactId>
 	<name>exportmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.2</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.2/exportmanager_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/common_services-1.0.2/exportmanager_ear</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/tags/common_services-1.0.2/exportmanager_ear</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/exportmanager_ear</developerConnection>
+		<url>http://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -294,7 +294,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>exportmanager</artifactId>
-			<version>1.0.2</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
