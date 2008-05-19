@@ -57,7 +57,7 @@ public class CreatorBean extends FacesBean
         {
             creator.setType(CreatorVO.CreatorType.PERSON);
         }
-        if (CreatorVO.CreatorType.PERSON.equals(creator.getType()) && creator.getPerson() == null)
+        if (CreatorVO.CreatorType.PERSON.equals(creator.getType()) && (creator.getPerson() == null || creator.getPerson().getOrganizations().size() == 0))
         {
             if (creator.getPerson() == null)
             {
