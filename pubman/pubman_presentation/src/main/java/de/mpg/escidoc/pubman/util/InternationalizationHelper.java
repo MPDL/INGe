@@ -29,6 +29,7 @@
 package de.mpg.escidoc.pubman.util;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -77,10 +78,28 @@ public class InternationalizationHelper
         SELECT_ITEMS, SELECT_ALL, DESELECT_ALL, SELECT_VISIBLE
     }
     
-    Locale userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+    Locale userLocale;
 
     public InternationalizationHelper()
     {
+        userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+        Iterator<Locale> supportedLocales = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
+        
+        boolean found = false;
+        while (supportedLocales.hasNext())
+        {
+            Locale supportedLocale = supportedLocales.next();
+            if (supportedLocale.getLanguage().equals(userLocale.getLanguage()))
+            {
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            userLocale = new Locale("en");
+        }
+        
         if (userLocale.getLanguage().equals("de"))
         {
             selectedHelpPage = HELP_PAGE_DE;
