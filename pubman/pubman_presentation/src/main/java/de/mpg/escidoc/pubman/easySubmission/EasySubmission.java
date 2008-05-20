@@ -423,20 +423,16 @@ public class EasySubmission extends FacesBean
     	
     	this.setFromEasySubmission(true);
     	
-    	if (getItem() instanceof PubItemVOPresentation)
-    	{
-    	    ((PubItemVOPresentation)getItem()).setFromEasySubmission(true);
-    	}
-    	else
-    	{
-    	    logger.warn("Cannot cast PubItemVO to PubItemVOPresentation");
-    	}
+    	
     	
     	if (validateStep5("validate") == null)
     	{
     		return null;
     	}
-    	return ((EditItem)getRequestBean(EditItem.class)).save();
+    	EditItem editItem = (EditItem)getRequestBean(EditItem.class);
+    	editItem.setFromEasySubmission(true);
+    	
+    	return (editItem.save());
     	
 //    	/*
 //         * FrM: Validation with validation point "default"

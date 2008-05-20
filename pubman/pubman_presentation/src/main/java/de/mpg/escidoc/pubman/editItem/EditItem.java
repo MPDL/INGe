@@ -148,6 +148,8 @@ public class EditItem extends FacesBean
     
     PubItemVO item = null;
     
+    private boolean fromEasySubmission = false;
+    
     /**
      * Public constructor.
      */
@@ -542,7 +544,14 @@ public class EditItem extends FacesBean
                 {
                     FacesContext fc = FacesContext.getCurrentInstance();
                     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-                    fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+                    if (isFromEasySubmission())
+                    {
+                        fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()+"&fromEasySub=true");
+                    }
+                    else
+                    {
+                        fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()); 
+                    }
                 } 
                 catch (IOException e) {
                     logger.error("Could not redirect to View Item Page", e);
@@ -569,7 +578,14 @@ public class EditItem extends FacesBean
                 {
                     FacesContext fc = FacesContext.getCurrentInstance();
                     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-                    fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+                    if (isFromEasySubmission())
+                    {
+                        fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()+"&fromEasySub=true");
+                    }
+                    else
+                    {
+                        fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId()); 
+                    }
                 } 
                 catch (IOException e) {
                     logger.error("Could not redirect to View Item Page", e);
@@ -1459,5 +1475,15 @@ public class EditItem extends FacesBean
 	public void setItem(PubItemVO item) {
 		this.item = item;
 	}
+
+    public boolean isFromEasySubmission()
+    {
+        return fromEasySubmission;
+    }
+
+    public void setFromEasySubmission(boolean fromEasySubmission)
+    {
+        this.fromEasySubmission = fromEasySubmission;
+    }
 
 }

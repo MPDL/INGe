@@ -34,9 +34,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -1764,18 +1766,18 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsFromEasySubmission()
     {
-        
-        
-        
-        if(getPubItem() instanceof PubItemVOPresentation)
-        {
-            return ((PubItemVOPresentation)getPubItem()).getIsFromEasySubmission();
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+
+        if (request.getParameter("fromEasySub")!=null) {
+            String fromEasySubmission = request.getParameter("fromEasySub");
+            if (fromEasySubmission.equals("true"))
+            {
+                return true;
+            }
         }
-        else 
-        {
-            return false;
-        }
         
+        return false;
     }
 
     public UIXIterator getSourceCreatorOrganizationsIterator()
