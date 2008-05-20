@@ -402,7 +402,7 @@ public class ItemListSessionBean extends FacesBean
         	int size = currentPubItemList.size();
         	for (int i = 0; i < itemsPerPage; i++)
         	{
-        		if (currentPubItemListPointer + i <= size)
+        		if (currentPubItemListPointer + i < size)
         		{
         			currentPubItemList.get(currentPubItemListPointer + i).setSelected(true);
         		}
