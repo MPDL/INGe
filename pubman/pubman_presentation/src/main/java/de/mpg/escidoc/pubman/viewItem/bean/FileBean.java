@@ -49,6 +49,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
@@ -78,6 +79,8 @@ public class FileBean extends FacesBean implements ActionListener
 	private State itemState;
 	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
+	
+	
 
     /**
      * Public constructor
@@ -386,6 +389,8 @@ public class FileBean extends FacesBean implements ActionListener
 	public void setSearchHits(List<SearchHitBean> searchHits) {
 		this.searchHits = searchHits;
 	}
+
+    
 	
     
 }

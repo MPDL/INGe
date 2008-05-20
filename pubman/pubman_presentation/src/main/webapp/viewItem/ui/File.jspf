@@ -112,7 +112,8 @@
 				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/>
 				<h:outputText value="</div>" escape="false"/>
-				<tr:iterator var="hit" value="#{file.searchHits}">
+				<tr:iterator var="hit" value="#{file.searchHits}" binding="#{ViewItemFull.fileSearchHitIterator}" varStatus="index">
+					<h:outputText value="<div class='itemTitle odd'>&#160;</div>" escape="false" rendered="#{ViewItemFull.fileSearchHitIterator.rowIndex!=0}"/>
 					<h:outputText value="<div class='itemText odd'>" escape="false"/>
 						<h:outputText value="<span class='item'>" escape="false"/>
 							<h:outputText value="<p>" escape="false"/>

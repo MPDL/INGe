@@ -154,6 +154,8 @@ public class ViewItemFull extends FacesBean
     
     private UIXIterator locatorIterator = new UIXIterator();
     
+    private UIXIterator fileSearchHitIterator = new UIXIterator();
+    
     private ContextVO context = null;
     
     /**
@@ -1762,6 +1764,9 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsFromEasySubmission()
     {
+        
+        
+        
         if(getPubItem() instanceof PubItemVOPresentation)
         {
             return ((PubItemVOPresentation)getPubItem()).getIsFromEasySubmission();
@@ -1770,6 +1775,7 @@ public class ViewItemFull extends FacesBean
         {
             return false;
         }
+        
     }
 
     public UIXIterator getSourceCreatorOrganizationsIterator()
@@ -1780,5 +1786,15 @@ public class ViewItemFull extends FacesBean
     public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
     {
         this.sourceCreatorOrganizationsIterator = sourceCreatorOrganizationsIterator;
+    }
+
+    public UIXIterator getFileSearchHitIterator()
+    {
+        return fileSearchHitIterator;
+    }
+
+    public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
+    {
+        this.fileSearchHitIterator = fileSearchHitIterator;
     }
 }
