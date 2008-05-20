@@ -95,7 +95,7 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
                     position = i;
                     
                     //in particular for ViewItemFullPage, when an ID is added to the URL
-                    keepold = lastItem.getPage().startsWith(newItem.getPage())&&!newItem.getPage().contains("itemId=");
+                    keepold = lastItem.getPage().startsWith(newItem.getPage()) && !newItem.getPage().contains("itemId=");
                     
                     break;
                 }

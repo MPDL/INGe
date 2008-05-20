@@ -609,8 +609,14 @@ public class ViewItemFull extends FacesBean
      */
     public String deleteItem()
     {
+        if (getViewItemSessionBean().getNavigationStringToGoBack()==null)
+        {
+            getViewItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
+        }
+        
         String retVal = this.getItemControllerSessionBean().deleteCurrentPubItem(
                 this.getViewItemSessionBean().getNavigationStringToGoBack());
+        
         // show message
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
