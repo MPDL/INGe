@@ -206,8 +206,9 @@
 					</execution>
 				</executions>
 				<configuration>
-					<format>{0,date,yyyy-MM-dd HH:mm:ss}</format>
+					<format>Build:{0}, Builddate:{1,date,yyyy-MM-dd HH:mm:ss}</format>
 					<items>
+						<item>buildNumber</item>
 						<item>timestamp</item>
 					</items>
 				</configuration>
