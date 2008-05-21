@@ -43,7 +43,7 @@ function changeItemState()
 	document.getElementById("form1:content:btnChangeItemState").click();
 }
 
-function changeCollection() 
+function changeQAWS() 
 {
 	document.getElementById("form1:content:btnChangeContext").click();
 }
