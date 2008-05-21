@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.pubman.util;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
@@ -57,6 +58,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class AdminHelper
 {
     private static String adminUserHandle = null;
+    private static Date loginTime = null;
 
     /**
      * Logger for this class.
@@ -122,10 +124,12 @@ public class AdminHelper
      */
     public static String getAdminUserHandle()
     {
-        if (adminUserHandle == null)
+        Date now = new Date();
+        if (adminUserHandle == null || loginTime == null || loginTime.getTime() < now.getTime() - 12 * 60 * 60 * 1000)
         {
             try
             {
+                loginTime = new Date();
                 adminUserHandle = loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
             }
             catch (Exception e)
