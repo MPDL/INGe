@@ -136,6 +136,7 @@ public class ItemListSessionBean extends FacesBean
         
         // clear the selectedList
         this.getSelectedPubItems().clear();
+        this.setCurrentPubItemListPointer(0);
     }
 
     /**
@@ -213,6 +214,7 @@ public class ItemListSessionBean extends FacesBean
     public void setListDirty(boolean isListDirty)
     {
         this.isListDirty = isListDirty;
+        
         
     }
     
