@@ -47,6 +47,8 @@ public class ViewItemMedium extends FacesBean
     
     private UIXIterator creatorAffiliationsIterator = new UIXIterator();	
     
+    private UIXIterator fileSearchHitIterator = new UIXIterator();
+    
     /**
      * Public constructor.
      */
@@ -71,6 +73,16 @@ public class ViewItemMedium extends FacesBean
 			UIXIterator creatorAffiliationsIterator) {
 		this.creatorAffiliationsIterator = creatorAffiliationsIterator;
 	}
+
+    public UIXIterator getFileSearchHitIterator()
+    {
+        return fileSearchHitIterator;
+    }
+
+    public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
+    {
+        this.fileSearchHitIterator = fileSearchHitIterator;
+    }
 
     
     

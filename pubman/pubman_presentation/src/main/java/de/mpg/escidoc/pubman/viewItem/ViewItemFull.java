@@ -1771,10 +1771,9 @@ public class ViewItemFull extends FacesBean
 
         if (request.getParameter("fromEasySub")!=null) {
             String fromEasySubmission = request.getParameter("fromEasySub");
-            if (fromEasySubmission.equals("true"))
-            {
-                return true;
-            }
+            
+            return fromEasySubmission.equals("true");
+
         }
         
         return false;
