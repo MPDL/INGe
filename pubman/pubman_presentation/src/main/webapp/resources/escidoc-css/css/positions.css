@@ -287,7 +287,7 @@ width: 76% !important;
 .paginator{
 	text-align: center;
 	margin: 1em 1em 1em 0em;
-	width: 750px;
+	width: 780px;
 	vertical-align: baseline;
 }
 
@@ -297,7 +297,7 @@ width: 76% !important;
 }
 
 .paginator input, .paginator button {
-	margin: 0px 4px 0px 0px;
+	margin: 0px 3px 0px 0px;
 	padding: 1px 2px 1px 2px;
 	background-color: white;
 	border: 1px solid #999 !important;
