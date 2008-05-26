@@ -530,7 +530,7 @@ margin-left: -10px;
 	clear:both;
 	/*margin: 0px 5px 0px 10px;*/
 	padding: 0px;
-	width: 750px;
+	width: 780px;
 	height: 35px;
 	text-align: right;
 }
@@ -552,10 +552,10 @@ margin-left: -10px;
 .objectButtons .inlineButton{
 	margin-right:0px;	
 	float:right;
-	
 }
 
 .checkItem label{
+	white-space: nowrap;
 	margin-left:3px;
 	overflow:hidden;
 	display:block;
@@ -603,9 +603,9 @@ margin-left: -10px;
 
 
 .formGroupCheckboxMatrix{
-	/*width: 750px;*/
+	width: 727px;
 	border: 1px #dfdee2 solid;
-	margin: 0.2em 0.5em 0.5em 0em;
+	margin: 0.2em 0.2em 0.5em 0em;
 	padding: 10px;
 	padding-right:0px;
 	padding-left:15px;
@@ -617,11 +617,12 @@ margin-left: -10px;
 	
 }
 
-.formGroupCheckboxMatrix .checkItem label{
-	position:relative;
+.formGroupCheckboxMatrix .checkItem label, .formGroupCheckboxMatrix .checkItem input{
+	/*position:relative;
 	top:-17px;
-	left:15px;
-	
+	left:15px;*/
+	display: inline;
+	float: left;
 }
 
 .short{
@@ -637,23 +638,39 @@ margin-left: -10px;
 }
 .dateCol{
 	width:120px;
+	display: inline;
 	float:left;
 	margin-right:3px;
 }
+
+.dateCol label {
+	width: 97px;
+}
+
 .advancedSearch .editItemComboBoxLanguage{
 	margin-left:10px;
 }
 
 .dateColShort{
 	width:100px;
+	display: inline;
 	float:left;
 	margin-right:3px;
 }
 
-.wider{
+.dateColShort label {
+	width: 77px;
+}
+
+.wider {
 	width:160px;
 	margin-left:5px;
 }
+
+.wider label{
+	width:160px;
+}
+
 .searchTerm input.dateField{
 	width:150px;
 }
@@ -666,17 +683,21 @@ margin-left: -10px;
 .rightHalf{
 	width:380px;
 	float:right;
-	position:relative;
-	top:0px;
 }
 
-.rightHalfInnerPanel{
-	width:350px;
-	margin-right:10px;
-	
+.rightHalfInnerPanel {
+	width:360px !important;
+	padding: 0px;
 }
+
+.rightHalfInnerPanel .inlineButton {
+	display: inline;
+	float: right;
+}
+
 .leftHalf{
 	width:350px;
+	display: inline;
 	float:left;
 }
 
@@ -685,6 +706,9 @@ margin-left: -10px;
 	background-color:#fafafa;
 	padding:5px;
 	border:1px solid #e2e2e2;
+	width: 740px;
+	display: block;
+	overflow: hidden;
 }
 
 .checkItem{

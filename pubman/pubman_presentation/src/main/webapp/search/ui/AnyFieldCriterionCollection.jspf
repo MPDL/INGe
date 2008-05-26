@@ -62,7 +62,7 @@
 				
 
 				
-					<div class="formGroupTitle floatbox">
+					<div class="formGroupTitle advSearchRadioButtonGroup floatbox">
 						<h:selectOneRadio layout="pageDirection" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}" onchange="submit()">
 							<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
 						</h:selectOneRadio>

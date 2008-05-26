@@ -80,32 +80,32 @@
 					<div class="formGroupCheckboxMatrix floatbox rightHalfInnerPanel">
 						<h:panelGroup layout="block" styleClass="checkboxCol dateColShort">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedPrint}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
 							</h:panelGroup>	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchSubmitted}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
 							</h:panelGroup>
 						</h:panelGroup>							
 						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchPublishedOnline}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchModified}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
 							</h:panelGroup>
 						</h:panelGroup>							
 						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchAccepted}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{dateCriterionBean.searchCreated}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" />
+								<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
+								<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
 							</h:panelGroup>							
 						</h:panelGroup>
 					</div>	

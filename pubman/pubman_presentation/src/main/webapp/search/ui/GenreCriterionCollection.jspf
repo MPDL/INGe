@@ -68,82 +68,82 @@
 					<div class="formGroupCheckboxMatrix floatbox">
 						<h:panelGroup layout="block" styleClass="checkboxCol long">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchArticle}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchArticle" value="#{genreCriterionBean.searchArticle}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_ARTICLE}" for="genreCriterionBean_searchArticle" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchIssue}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_ISSUE}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchIssue" value="#{genreCriterionBean.searchIssue}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_ISSUE}" for="genreCriterionBean_searchIssue" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchReport}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_REPORT}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchReport" value="#{genreCriterionBean.searchReport}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_REPORT}" for="genreCriterionBean_searchReport" />
 							</h:panelGroup>
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="checkboxCol short">	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBook}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchBook" value="#{genreCriterionBean.searchBook}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK}" for="genreCriterionBean_searchBook" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchJournal}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_JOURNAL}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchJournal" value="#{genreCriterionBean.searchJournal}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_JOURNAL}" for="genreCriterionBean_searchJournal" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchSeries}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_SERIES}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchSeries" value="#{genreCriterionBean.searchSeries}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_SERIES}" for="genreCriterionBean_searchSeries" />
 							</h:panelGroup>
 						</h:panelGroup>	
 						<h:panelGroup layout="block" styleClass="checkboxCol short">							
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchBookItem}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK_ITEM}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchBookItem" value="#{genreCriterionBean.searchBookItem}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_BOOK_ITEM}" for="genreCriterionBean_searchBookItem" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchManuscript}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_MANUSCRIPT}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchManuscript" value="#{genreCriterionBean.searchManuscript}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_MANUSCRIPT}" for="genreCriterionBean_searchManuscript" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchTalkAtEvent}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_TALK_AT_EVENT}" />
-							</h:panelGroup>
-						</h:panelGroup>	
-						<h:panelGroup layout="block" styleClass="checkboxCol long">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchCoursewareLecture}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_COURSEWARE_LECTURE}" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPaper}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_PAPER}" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchThesis}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_THESIS}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchTalkAtEvent" value="#{genreCriterionBean.searchTalkAtEvent}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_TALK_AT_EVENT}" for="genreCriterionBean_searchTalkAtEvent" />
 							</h:panelGroup>
 						</h:panelGroup>	
 						<h:panelGroup layout="block" styleClass="checkboxCol long">
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchConferencePaper}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_PAPER}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchCoursewareLecture" value="#{genreCriterionBean.searchCoursewareLecture}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_COURSEWARE_LECTURE}" for="genreCriterionBean_searchCoursewareLecture" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchPoster}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_POSTER}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchPaper" value="#{genreCriterionBean.searchPaper}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_PAPER}" for="genreCriterionBean_searchPaper" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchOther}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_OTHER}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchThesis" value="#{genreCriterionBean.searchThesis}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_THESIS}" for="genreCriterionBean_searchThesis" />
+							</h:panelGroup>
+						</h:panelGroup>	
+						<h:panelGroup layout="block" styleClass="checkboxCol long">
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchConferencePaper" value="#{genreCriterionBean.searchConferencePaper}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_PAPER}" for="genreCriterionBean_searchConferencePaper" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchPoster" value="#{genreCriterionBean.searchPoster}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_POSTER}" for="genreCriterionBean_searchPoster" />
+							</h:panelGroup>
+							<h:panelGroup layout="block" styleClass="checkItem floatbox">
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchOther" value="#{genreCriterionBean.searchOther}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_OTHER}" for="genreCriterionBean_searchOther" />
 							</h:panelGroup>
 						</h:panelGroup>	
 						<h:panelGroup layout="block" styleClass="checkboxCol long">	
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchConferenceReport}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_REPORT}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchConferenceReport" value="#{genreCriterionBean.searchConferenceReport}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_CONFERENCE_REPORT}" for="genreCriterionBean_searchConferenceReport" />
 							</h:panelGroup>								
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox value="#{genreCriterionBean.searchProceedings}" />
-								<h:outputLabel value="#{lbl.ENUM_GENRE_PROCEEDINGS}" />
+								<h:selectBooleanCheckbox id="genreCriterionBean_searchProceedings" value="#{genreCriterionBean.searchProceedings}" />
+								<h:outputLabel value="#{lbl.ENUM_GENRE_PROCEEDINGS}" for="genreCriterionBean_searchProceedings" />
 							</h:panelGroup>
 							<h:panelGroup layout="block" styleClass="checkItem floatbox">
 								<h:outputLabel value=" " />		

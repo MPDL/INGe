@@ -342,3 +342,16 @@ font-size: 1em;
 	margin-bottom:20px;
 }
 
+
+/*ADVANCED SEARCH*/
+
+.advSearchRadioButtonGroup td, .advSearchRadioButtonGroup input, .advSearchRadioButtonGroup label {
+	display: inline;
+	height: 17px;
+	margin: 0px;
+	float: left;
+}
+
+.advSearchRadioButtonGroup label {
+	margin-top: 17px;
+}
