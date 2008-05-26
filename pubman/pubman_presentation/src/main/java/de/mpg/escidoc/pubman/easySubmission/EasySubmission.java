@@ -33,7 +33,9 @@ package de.mpg.escidoc.pubman.easySubmission;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -69,6 +71,7 @@ import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.metadata.ArxivNotAvailableException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
@@ -718,14 +721,28 @@ public class EasySubmission extends FacesBean
 		    			itemVO = xmlTransforming.transformToPubItem(result);
 		    			getItem().setMetadata(itemVO.getMetadata());
 	    			}
-	    			catch (IdentifierNotRecognisedException inre)
-	    			{
-	    				logger.error("Error fetching from arxiv", inre);
-						
-	    				error(getMessage("easy_submission_arxiv_identifier_error") + "\n" + inre.getMessage());
-	    				
-	    				return null;
-	    			}
+                    catch (IdentifierNotRecognisedException inre)
+                    {
+                        logger.error("Error fetching from arxiv", inre);
+                        
+                        error(getMessage("easy_submission_arxiv_identifier_error") + "\n" + inre.getMessage());
+                        
+                        return null;
+                    }
+                    catch (ArxivNotAvailableException anae)
+                    {
+                        logger.error("arxiv currently not available", anae);
+                        
+                        long millis = anae.getRetryAfter().getTime() - (new Date()).getTime();
+                        if (millis < 1)
+                        {
+                            millis = 1;
+                        }
+                        
+                        error(getMessage("easy_submission_arxiv_not_available_error").replace("$1", Math.ceil(millis / 1000) + ""));
+                        
+                        return null;
+                    }
 	    			catch (Exception e) {
 	    				logger.error("Error fetching from arxiv", e);
 						
