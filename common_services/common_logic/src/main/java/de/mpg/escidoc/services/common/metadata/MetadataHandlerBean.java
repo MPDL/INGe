@@ -32,8 +32,11 @@ package de.mpg.escidoc.services.common.metadata;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -58,6 +61,8 @@ import bibtex.dom.BibtexToplevelComment;
 import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.util.ArxivHelper;
 import de.mpg.escidoc.services.common.util.BibTexUtil;
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -102,7 +107,12 @@ public class MetadataHandlerBean implements MetadataHandler
      */
     public String fetchOAIRecord(String identifier, String source, String format) throws Exception
     {
-
+        if (ArxivHelper.retryAfter != null && ArxivHelper.retryAfter.getTime() > (new Date()).getTime())
+        {
+            logger.warn("Retry after " + ArxivHelper.retryAfter);
+            throw new ArxivNotAvailableException(ArxivHelper.retryAfter);
+        }
+        
         identifier = identifier.trim();
 
         if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
@@ -116,9 +126,53 @@ public class MetadataHandlerBean implements MetadataHandler
 
         URL sourceUrl = new URL(source + identifier + "&metadataPrefix=" + format);
 
+        return fetchOAIRecord(sourceUrl);
+    }
+    
+    public String fetchOAIRecord(URL sourceUrl) throws Exception
+    {
+
         logger.debug("arXiv URL: " + sourceUrl);
 
         URLConnection conn = sourceUrl.openConnection();
+        
+        if (conn instanceof HttpURLConnection)
+        {
+            HttpURLConnection httpConn = (HttpURLConnection) conn;
+            int responseCode = httpConn.getResponseCode();
+            if (responseCode == 503)
+            {
+                String responseMessage = httpConn.getResponseMessage();
+                String retryAfterHeader = conn.getHeaderField("Retry-After");
+                
+                if (retryAfterHeader != null)
+                {
+                    //RFC 1123 [8]
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+                    
+                    Date retryAfter = dateFormat.parse(retryAfterHeader);
+                    
+                    ArxivHelper.retryAfter = retryAfter;
+                    logger.warn("Retry after " + ArxivHelper.retryAfter);
+                    throw new ArxivNotAvailableException(ArxivHelper.retryAfter);
+                }
+                else
+                {
+                    throw new TechnicalException("Arxiv returned 503 without 'Retry-After' header.");
+                }
+            }
+            else if (responseCode == 302)
+            {
+                String alternativeLocation = conn.getHeaderField("Location");
+                
+                return fetchOAIRecord(new URL(alternativeLocation));
+            }
+            else if (responseCode != 200)
+            {
+                throw new TechnicalException("An error occurred during arXiv request: " + responseCode + ": " + httpConn.getResponseMessage());
+            }
+        }
+        
         String contentTypeHeader = conn.getHeaderField("Content-Type");
         String contentType = contentTypeHeader;
         String charset = "UTF-8";
