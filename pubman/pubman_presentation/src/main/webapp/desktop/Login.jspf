@@ -58,8 +58,8 @@
 					        <h:commandLink 	id="lnkchangeLanguageDE" 
 					        				actionListener="#{InternationalizationHelper.toggleLocale}"
 											action="#{Navigation.changeLanguage}"
-										   	styleClass="germany">
-								<h:graphicImage value="/images/germania2.jpg" height="15px" width="30px"/>
+										   	styleClass="">
+							 	<h:graphicImage value="/images/germania2.jpg" height="15px" width="30px"/>
 								<f:param name="language" value="de"/>
 								<f:param name="country" value="DE"/>
 							</h:commandLink>
@@ -67,7 +67,7 @@
 							<h:commandLink 	id="lnkchangeLanguageEN" 
 											actionListener="#{InternationalizationHelper.toggleLocale}"
 											action="#{Navigation.changeLanguage}"
-										   	styleClass="uk">
+										   	styleClass="">
 								<h:graphicImage value="/images/UK2.jpg" height="15px" width="30px" />
 								<f:param name="language" value="en"/>
 								<f:param name="country" value="EN"/>

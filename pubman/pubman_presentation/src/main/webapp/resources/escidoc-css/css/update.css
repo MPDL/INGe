@@ -124,23 +124,25 @@
 }
 
 .exportFileTypeRadios, exportFormatRadios {
-	width: 151px;
+	width: 110px;
 	overflow: hidden;
 }
 
 .exportFileTypeRadios *, .exportFormatRadios * {
+	display: inline;
 	float: left;
 	overflow: hidden;
 }
 
 .exportFileTypeRadios label, .exportFormatRadios label {
-	display: block;
+	display: inline;
+	float: left;
 	margin-left: 3px;
 	margin-bottom: 2px;
 }
 
 .exportFormatRadios label {
-	width: 110px;
+	width: 95px;
 }
 
 .exportFileTypeRadios label {
@@ -148,13 +150,12 @@
 }
 
 .exportFileTypeRadios input, .exportFormatRadios input {
-	display: block;
 	height: 17px;
 	border: 0px;
 }
 
 .exportDownloadButton, .exportSendMailButton {
-	display: block;
+	display: inline;
 	overflow: hidden;
 	float: left;
 	margin: 0px;

@@ -285,6 +285,7 @@ width: 76% !important;
 }
 
 .paginator{
+	padding-bottom: 5px;
 	text-align: center;
 	margin: 1em 1em 1em 0em;
 	width: 780px;
