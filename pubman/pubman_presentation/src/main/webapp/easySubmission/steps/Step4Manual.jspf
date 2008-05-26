@@ -34,7 +34,6 @@
 <f:subview id="easySubmissionStep4Manual">
 	
 	<h1>
-		<div class="basicIcon"></div>
 		<div class="orientationHeader"><h:outputText value="#{lbl.EasySubmission}"/></div>
 	</h1>
 	

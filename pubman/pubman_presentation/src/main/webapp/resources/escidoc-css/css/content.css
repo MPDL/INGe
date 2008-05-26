@@ -64,7 +64,9 @@ a:active {color: #b7bbb7; text-decoration: none;}
 /* IMPUT GENERAL*/
 
 input, select, submit, textarea, button{
-	border: 1px #999999 solid;
+	/*border: 1px #999999 solid;*/
+	border-color: #999999;
+	border-width: 1px;
 	color: black;
 }
 

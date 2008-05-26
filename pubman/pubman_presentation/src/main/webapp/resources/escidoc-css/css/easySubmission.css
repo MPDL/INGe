@@ -146,7 +146,7 @@
   
   .easySubmissionBoxBodyContent h3 {
   	width: 510px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	margin-top: 7px;
   	margin-left: 0px;
@@ -157,7 +157,7 @@
   .easySubmissionBoxBodyLine {
   	width: 510px;
   	margin-top: 7px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
@@ -178,12 +178,13 @@
   	margin-left: 17px;
   	margin-top: 7px;
   	width: 470px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
   
   .easySubmissionBoxBodySubLine > * {
+  	display: inline;
 	float: left;
   }
   
@@ -196,7 +197,7 @@
   }
   
   .trinidadRadiobuttonTable * {
-  	display: block;
+  	display: inline;
   	overflow: hidden;
 	float: left;
   }
@@ -214,7 +215,7 @@
   	width: 510px;
   	margin-top: 7px;
   	padding-bottom: 7px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
 	border:1px solid #DDDDDD;
 	float: left;
@@ -223,7 +224,7 @@
   
   .easySubmissionSubBox h3 {
   	/*width: 50px;*/
-  	display: block;
+  	display: inline;
   	/*background-color: silver;*/
   	/*overflow: hidden;*/
   	padding-top: 6px;
@@ -245,7 +246,7 @@
   	margin-left: 17px;
   	width: 475px;
   	padding-bottom: 7px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
 	border:1px solid #AFAFAF;
 	float: left;
@@ -259,25 +260,26 @@
   
   .bibTeXImportIDItem {
   	width: 200px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	margin-left: 20px;
   	float: left;
   }
   
   .bibTeXImportIDItem > * {
+  	display: inline;
 	float: left;
   }
   
   .bibTeXImportIDItem input, .bibTeXImportIDItem select, .bibTeXImportIDItem label {
   	width: 190px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   }
 
   .easySubmissionBasicInfItem {
   	width: 250px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
@@ -287,18 +289,20 @@
   }
 
   .easySubmissionBasicInfItem > * {
+  	display: inline;
   	float: left;
   }
 
   .easySubmissionFileListBox {
   	margin: 10px;
   	width: 380px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
   
   .easySubmissionFileListBox > * {
+  	display: inline;
   	float: left;
   }
 
@@ -306,14 +310,17 @@
   	margin-top: 10px;
   	width: 90px;
   	overflow: hidden;
+  	display: inline;
   	float: left;
   }
 
   .easySubmissionVisibilityLine {
+  	display: inline;
   	float: right;
   }
   
   .easySubmissionVisibilityLine * {
+  	display: inline;
   	float: left;
   }
   
@@ -323,11 +330,13 @@
   }
   
   .easySubmissionCreatorLine {
+  	display: inline;
   	float: left;
   	margin-top: 1.25em;
   }
   
   .easySubmissionCreatorLine * {
+  	display: inline;
   	float: left;
   }
   
@@ -337,17 +346,19 @@
   }
   
   .easySubmissionAddOrgButtonLine {
+  	disply: inline;
   	float: left;
   	margin-top: 0.5em;
   }
   
   .easySubmissionAddOrgButtonLine * {
+  	display: inline;
   	float: left;
   }
   
   .easySubmissionBasicSubItem {
   	width: 230px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
@@ -357,6 +368,7 @@
   }
 
   .easySubmissionBasicSubItem > * {
+  	display: inline;
   	float: left;
   }
   
@@ -370,7 +382,7 @@
 
   .easySubmissionDateItem {
   	width: 160px;
-  	display: block;
+  	display: inline;;
   	overflow: hidden;
   	float: left;
   }
@@ -382,7 +394,7 @@
 
   .easySubmissionLangItem {
   	width: 180px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
@@ -393,7 +405,7 @@
 
   .easySubmissionLastItem {
   	width: 485px;
-  	display: block;
+  	display: inline;
   	overflow: hidden;
   	float: left;
   }
