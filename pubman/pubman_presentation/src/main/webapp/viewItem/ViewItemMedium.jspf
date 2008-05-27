@@ -251,7 +251,8 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}" rendered="#{ItemListSessionBean.isSearchResultList}"/>
 	<h:outputText value="</div>" escape="false" rendered="#{ItemListSessionBean.isSearchResultList}"/>
 	
-	<tr:iterator var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}">
+	<tr:iterator var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
+	<h:outputText value="<div class='itemTitle'>&#160;</div>" escape="false" rendered="#{ViewItemMedium.fileSearchHitIterator.rowIndex!=0}"/>
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
 			<h:outputText value="<span class='item'>" escape="false"/>
 				<h:outputText value="<p>" escape="false"/>
