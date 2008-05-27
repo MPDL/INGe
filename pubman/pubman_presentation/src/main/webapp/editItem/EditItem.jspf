@@ -170,7 +170,7 @@
        
       		 <h:panelGroup layout="block" styleClass="editItemSingleCol">
        			<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
-       			<h:selectOneMenu id="cboVisibility" value="#{locator.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+       			<h:selectOneMenu id="cboVisibilityLocator" value="#{locator.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
         			<f:selectItems value="#{EditItem.visibilities}" />
        			</h:selectOneMenu>
         	</h:panelGroup>
@@ -183,7 +183,7 @@
        			</h:panelGroup>
        			<h:panelGroup layout="block" styleClass="editItemRightCol">
        				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentCategory}" rendered="#{locator.file.locator != null && locator.file.locator != ''}"/>
-       				<h:selectOneMenu id="cboContentType" value="#{locator.file.contentCategory}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
+       				<h:selectOneMenu id="cboContentTypeLocator" value="#{locator.file.contentCategory}" styleClass="editItemComboBoxShort" rendered="#{locator.file.locator != null && locator.file.locator != ''}">
         				<f:selectItems value="#{EditItem.contentCategories}" />
        				</h:selectOneMenu>
        			</h:panelGroup>           			
