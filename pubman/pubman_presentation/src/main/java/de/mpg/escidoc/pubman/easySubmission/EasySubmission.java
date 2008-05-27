@@ -198,7 +198,7 @@ public class EasySubmission extends FacesBean
     		{
     			// add a locator
     			FileVO newLocator = new FileVO();
-        		newLocator.setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
+        		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
@@ -217,7 +217,7 @@ public class EasySubmission extends FacesBean
     		{
     			//add a locator
     			FileVO newLocator = new FileVO();
-        		newLocator.setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
+        		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
@@ -324,7 +324,7 @@ public class EasySubmission extends FacesBean
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
-    		newLocator.getFile().setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
+    		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
     		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
@@ -848,7 +848,7 @@ public class EasySubmission extends FacesBean
     		{
     			PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
         		// set fixed content type
-        		newLocator.getFile().setContentCategory(JiBXHelper.serializeRegularEnumToString(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL));
+        		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     		}
