@@ -57,7 +57,14 @@
 					<escidocMetadataProfile:publication xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/"
 						xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 						xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-						xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" type="article">
+						xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+						>
+						<xsl:attribute name="type">
+							<xsl:choose>
+								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">article</xsl:when>
+								<xsl:otherwise>paper</xsl:otherwise>
+							</xsl:choose>
+						</xsl:attribute>
 						<xsl:for-each select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:authors/arxiv:author">
 							<publication:creator role="author">
 								<escidoc:person>
@@ -106,7 +113,7 @@
 							<xsl:choose>
 								<!-- Journal-Ref -->
 								<xsl:when test="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref != ''">
-									<xsl:attribute name="type">JOURNAL</xsl:attribute>
+									<xsl:attribute name="type">journal</xsl:attribute>
 									<dc:title>
 										<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/arxiv:journal-ref" />
 									</dc:title>
