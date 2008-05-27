@@ -64,7 +64,7 @@ public class MdsFaceVO extends MetadataSetVO
     
     public enum AgeGroup
     {
-        young , middle, old
+        young , middle_age, old
     }
     
     public enum Gender

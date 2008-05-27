@@ -1144,7 +1144,7 @@ public class JiBXHelper
         {
             try
             {
-                ageGroup = MdsFaceVO.AgeGroup.valueOf(enumValue);
+                ageGroup = MdsFaceVO.AgeGroup.valueOf(enumValue.replace("-", "_"));
             }
             catch (IllegalArgumentException e)
             {
