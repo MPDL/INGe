@@ -242,7 +242,7 @@ public class COinSUI
                 
                 if(pubitemVO.getMetadata().getTitle() != null)
                 {
-                    rft_atitle = RFT_ATIITLE_PREFIX + pubitemVO.getMetadata().getTitle().getValue();
+                    rft_atitle = RFT_ATIITLE_PREFIX + CommonUtils.htmlEscape(pubitemVO.getMetadata().getTitle().getValue());
                     rft_atitle = rft_atitle != null ? rft_atitle.replace(" ", "+") : "";
                 }
                 
@@ -253,7 +253,7 @@ public class COinSUI
                     {
                         if(pubitemVO.getMetadata().getSources().get(0).getTitle() != null)
                         {
-                        	rft_title = RFT_TITLE_PREFIX + pubitemVO.getMetadata().getSources().get(0).getTitle().getValue();
+                        	rft_title = RFT_TITLE_PREFIX + CommonUtils.htmlEscape(pubitemVO.getMetadata().getSources().get(0).getTitle().getValue());
                         	rft_title = rft_title != null ? rft_title.replace(" ", "+") : "";
                         }
                     }
@@ -262,52 +262,52 @@ public class COinSUI
                 // if not the prefix should be also omitted 
                 if(!getLastName(pubitemVO).equals(""))
                 {
-                    rft_aulast = RFT_AULAST_PREFIX + getLastName(pubitemVO);
+                    rft_aulast = RFT_AULAST_PREFIX + CommonUtils.htmlEscape(getLastName(pubitemVO));
                 }
                 
                 if(!getFirstName(pubitemVO).equals(""))
                 {
-                    rft_aufirst = RFT_AUFIRST_PREFIX + getFirstName(pubitemVO);
+                    rft_aufirst = RFT_AUFIRST_PREFIX + CommonUtils.htmlEscape(getFirstName(pubitemVO));
                 }
                 
                 if(!getCompleteNames(pubitemVO).equals(""))
                 {
-                    rft_au = RFT_AU_PREFIX + getCompleteNames(pubitemVO);
+                    rft_au = RFT_AU_PREFIX + CommonUtils.htmlEscape(getCompleteNames(pubitemVO));
                 }
                 
                 if(!getISSN(pubitemVO).equals(""))
                 {
-                    rft_issn = RFT_ISSN_PREFIX + getISSN(pubitemVO);
+                    rft_issn = RFT_ISSN_PREFIX + CommonUtils.htmlEscape(getISSN(pubitemVO));
                 }
                 
                 if(!getISBN(pubitemVO).equals(""))
                 {
-                    rft_isbn = RFT_ISBN_PREFIX + getISBN(pubitemVO);
+                    rft_isbn = RFT_ISBN_PREFIX + CommonUtils.htmlEscape(getISBN(pubitemVO));
                 }
                 
                 if(!getSourceIdentifier(pubitemVO).equals(""))
                 {
-                    rft_id = RFT_ID_PREFIX + getSourceIdentifier(pubitemVO);
+                    rft_id = RFT_ID_PREFIX + CommonUtils.htmlEscape(getSourceIdentifier(pubitemVO));
                 }
                 
                 if(!getSourceVolume(pubitemVO).equals(""))
                 {
-                    rft_volume = RFT_VOLUME_PREFIX + getSourceVolume(pubitemVO);
+                    rft_volume = RFT_VOLUME_PREFIX + CommonUtils.htmlEscape(getSourceVolume(pubitemVO));
                 }
                 
                 if(!getSourceIssue(pubitemVO).equals(""))
                 {
-                    rft_issue = RFT_ISSUE_PREFIX + getSourceIssue(pubitemVO);
+                    rft_issue = RFT_ISSUE_PREFIX + CommonUtils.htmlEscape(getSourceIssue(pubitemVO));
                 }
                 
                 if(!getSourcePages(pubitemVO).equals(""))
                 {
-                    rft_pages = RFT_PAGES_PREFIX + getSourcePages(pubitemVO);
+                    rft_pages = RFT_PAGES_PREFIX + CommonUtils.htmlEscape(getSourcePages(pubitemVO));
                 }
                 
                 if(!getDate(pubitemVO).equals(""))
                 {
-                    rft_date = RFT_DATE_PREFIX + getDate(pubitemVO);
+                    rft_date = RFT_DATE_PREFIX + CommonUtils.htmlEscape(getDate(pubitemVO));
                 }
                 
                 // Then put all fields together
