@@ -16,7 +16,7 @@
             file and include the License file at license/ESCIDOC.LICENSE.
             If applicable, add the following below this CDDL HEADER, with the
             fields enclosed by brackets "[]" replaced with your own identifying
-            information: Portions Copyright [yyyy] [name of copyright owner]
+            information: Portions Copyright [yyyy] [name of copyright owner] 
 
             CDDL HEADER END
 
@@ -63,7 +63,7 @@
 
 				
 					<div class="formGroupTitle advSearchRadioButtonGroup floatbox">
-						<h:selectOneRadio layout="pageDirection" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}" onchange="submit()">
+						<h:selectOneRadio layout="pageDirection" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}" onclick="submit();">
 							<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
 						</h:selectOneRadio>
 						<h:panelGroup styleClass="check checkItem">
