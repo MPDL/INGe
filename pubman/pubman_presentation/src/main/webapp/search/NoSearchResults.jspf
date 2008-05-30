@@ -36,6 +36,7 @@
 		</h1>
 
 		<p>
+			<h:outputText value="#{msg.searchResultList_QueryString}" rendered="#{SearchResultList.queryIsRendered}"/>
 			<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
 		</p><br/>
 

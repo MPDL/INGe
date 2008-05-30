@@ -71,6 +71,9 @@ public abstract class ItemList extends FacesBean
     private boolean showMessage = false;
     private HtmlSelectOneMenu cboSortBy = new HtmlSelectOneMenu();
     private HtmlSelectOneRadio rbgSortOrder = new HtmlSelectOneRadio();
+    
+    /* holds the message tag to allow switching of the language */
+    private String messageLabel = null;
 
     // constants for comboBoxes
     //public SelectItem[] SORTBY_OPTIONS = null;
@@ -266,7 +269,7 @@ public abstract class ItemList extends FacesBean
      */
     public void showMessage(String message)
     {
-        message = getMessage(message);
+        this.messageLabel = message;
         this.getItemListSessionBean().setMessage(message);
 
         // instantly make this message visible as the page is likely not reloaded and so
@@ -437,7 +440,12 @@ public abstract class ItemList extends FacesBean
     }
 
 	public String getValMessage() {
-		return valMessage;
+		// if the message hasn't been set, don't do anything
+		if( this.valMessage != null ) {
+			// fetch a new message, e.g. when the language has changed
+			this.valMessage = getMessage( this.messageLabel );
+		}
+		return this.valMessage;
 	}
 
 	public void setValMessage(String valMessage) {

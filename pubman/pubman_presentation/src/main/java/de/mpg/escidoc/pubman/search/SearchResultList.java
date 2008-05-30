@@ -111,6 +111,12 @@ public class SearchResultList extends ItemList
     //StG: String used for displaying of export items 
     private String displayExportData = null;
     
+    enum TypeOfList {
+    	SIMPLE_SEARCH,
+    	ADVANCED_SEARCH,
+    	AFFILIATION_SEARCH
+    }
+    
     /**
      * Public constructor.
      */
@@ -133,21 +139,6 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
-
-        // create the itemList
-        //this.createDynamicItemList();
-        
-        // update the language specific data container
-        try 
-        {
-        	InitialContext initialContext = new InitialContext();
-        	PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-        	valQuery.setValue(getMessage("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
-        }
-        catch (NamingException e)
-        {
-            logger.error("PubItemSearchingBean Initialization Failure: \n" + e);
-        }
     }
 
     /**
@@ -170,34 +161,6 @@ public class SearchResultList extends ItemList
         return this.viewItem(SearchResultList.LOAD_SEARCHRESULTLIST);
     }
 
-    /**
-     * Used by displaying the selected items for export.
-     * It is called when the user selects one or more items and then clicks on the Display-Link 
-     * in the Export-Items Panel. 
-     *  
-     * @author: StG
-     * @return the export data
-     * @throws IOException
-     * @throws Exception
-     */
-    /* public String getDisplayExportData() throws IOException, Exception{
-         logger.debug(" getDisplayExportData ");
-
-         FacesContext fc = FacesContext.getCurrentInstance();
-         HttpServletRequest request = (HttpServletRequest)fc.getExternalContext().getRequest();
-         String appURL = "http://" + request.getLocalName() + ":" + request.getLocalPort() + request.getContextPath()
-         + "/faces/DisplayExportItemsPage.jsp";
-         logger.debug("URL to display export page: "+appURL );               
-           
-         String ret = "window.open('" +
-          appURL
-          + "','Title mynine','width=1024,height=768,top=0,left=0,resizable=yes,status=yes')"; 
-
-         return ret;
-   }*/
- 
-    
-    
     /**
      * Returns the navigation string for loading the DisplayExportItemsPage.jsp .
      * @author:  StG
@@ -612,7 +575,7 @@ public class SearchResultList extends ItemList
         {
             InitialContext initialContext = new InitialContext();
             PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-            valQuery.setValue(getMessage("searchResultList_QueryString") + pubItemSearching.getCqlQuery());
+            valQuery.setValue( pubItemSearching.getCqlQuery());
             if (result > 0)
             {
             	getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
@@ -791,6 +754,23 @@ public class SearchResultList extends ItemList
         method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
     }
     
+    private void setLinksAndMessages( TypeOfList typeList) {
+    	switch( typeList ) {
+    	case SIMPLE_SEARCH:
+    		 lnkAdvancedSearch.setRendered(false);
+    	     lnkBrowse.setRendered(false);
+    	     valQuery.setRendered(false);
+    	     this.showBackInNoResultPage( false );
+    	     // reset some error message from last request
+    	     this.deleteMessage();
+    		break;
+    	case ADVANCED_SEARCH:
+    		break;
+    	case AFFILIATION_SEARCH:
+    		break;
+    	}
+    }
+    
     /**
      * Show the back link in the NoResultPage or not.
      * @param show true means show link, false don't show
@@ -920,5 +900,9 @@ public class SearchResultList extends ItemList
 
 	public boolean isShowBackLink() {
 		return showBackLink;
+	}
+	
+	public boolean getQueryIsRendered() {
+		return valQuery.isRendered();
 	}
 }

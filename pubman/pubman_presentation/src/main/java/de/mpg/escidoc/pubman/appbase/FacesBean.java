@@ -63,12 +63,6 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     private static Logger logger = Logger.getLogger(FacesBean.class);
     public static String BEAN_NAME = FacesBean.class.getName();
 
-    //For handling the resource bundles (i18n)
-    protected Application application = FacesContext.getCurrentInstance().getApplication();
-    //get the selected language...
-    protected InternationalizationHelper i18nHelper
-            = (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
-    
     public FacesBean()
     {
     	super();
@@ -77,7 +71,7 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     /**
      * Dummy method to please derived classes.
      */
-    protected void init()
+    protected void init() 
     {
         testLogin();
     }
