@@ -1668,6 +1668,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Transforming affiliations...");
         }
         ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        
 
         return itemList;
     }
@@ -1799,6 +1800,8 @@ public class ItemControllerSessionBean extends FacesBean
         
         for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
         	affiliationVOPresentation.setParent(parentAffiliation);
+        	affiliationVOPresentation.setNamePath(parentAffiliation.getNamePath()+" / "+affiliationVOPresentation.getName());
+        	affiliationVOPresentation.setIdPath(parentAffiliation.getIdPath()+"  "+affiliationVOPresentation.getReference().getObjectId());
 		}
         return wrappedAffiliationList;
     }

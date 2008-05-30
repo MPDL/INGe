@@ -93,7 +93,7 @@ public class AffiliationBean extends FacesBean {
 		{
 			if (cache != null && cache instanceof OrganizationVO)
 			{
-				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getName()));
+				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
 				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}
@@ -103,7 +103,7 @@ public class AffiliationBean extends FacesBean {
 		{
 			if (cache != null && cache instanceof OrganizationVO)
 			{
-				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getName()));
+				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
 				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}

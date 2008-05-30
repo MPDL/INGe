@@ -15,10 +15,15 @@ public class AffiliationVOPresentation extends AffiliationVO
 
 	List<AffiliationVOPresentation> children = null;
 	AffiliationVOPresentation parent = null;
+    private String namePath;
+    private String idPath;
 	
 	public AffiliationVOPresentation(AffiliationVO affiliation)
 	{
 		super(affiliation);
+		this.namePath = getName();
+		this.idPath = getReference().getObjectId();
+		
 	}
 
 	public List<AffiliationVOPresentation> getChildren() throws Exception
@@ -153,5 +158,28 @@ public class AffiliationVOPresentation extends AffiliationVO
             return result;
         }
     }
+    
+    /**Returns the complete path to this affiliation as a string with the name of the affiliations*/
+    public String getNamePath()
+    { 
+        return namePath;
+    }
+
+    public void setNamePath(String path)
+    {
+        this.namePath = path;
+    }
+
+    /**Returns the complete path to this affiliation as a string with the ids of the affiliations*/
+    public String getIdPath()
+    {
+        return idPath;
+    }
+
+    public void setIdPath(String idPath)
+    {
+        this.idPath = idPath;
+    }
+   
     
 }
