@@ -223,11 +223,11 @@ public class ExportItems extends FacesBean
             sb.setExportFormatType(FormatType.LAYOUT.toString());
             sb.setExportFormatName("APA");
             //set default fileFormat of APA to PDF 
-            String fileFormat = this.getSessionBean().getFileFormat();  
+            String fileFormat = sb.getFileFormat();  
             if ( fileFormat != null || fileFormat.trim().equals("") || 
             		fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
             	)
-            	this.getSessionBean().setFileFormat(FileFormatVO.PDF_NAME); 
+            	sb.setFileFormat(FileFormatVO.PDF_NAME); 
          }
         
     }
@@ -251,10 +251,28 @@ public class ExportItems extends FacesBean
      */
     public String backToList()
     {
-       return (this.getSessionBean().getNavigationStringToGoBack() != null ? 
-                this.getSessionBean().getNavigationStringToGoBack() : SearchResultList.LOAD_SEARCHRESULTLIST);
+    	ExportItemsSessionBean sb = this.getSessionBean();
+    	cleanUpEmailFields();	
+    	return sb.getNavigationStringToGoBack() != null ? 
+    		sb.getNavigationStringToGoBack() : 
+    		SearchResultList.LOAD_SEARCHRESULTLIST;
     }
-    public HtmlMessages getValMessage()
+    
+    /**
+     * Clean up some fields on the Email interface
+     */
+    private void cleanUpEmailFields() 
+    {
+    	ExportItemsSessionBean sb = this.getSessionBean();
+    	//To
+        sb.setEmailRecipients(null);
+        //CC
+        sb.setEmailCCRecipients(null);
+        //ReplyTo
+        sb.setExportEmailReplyToAddr(null);
+	}
+
+	public HtmlMessages getValMessage()
     {
         return valMessage;
     }
@@ -320,6 +338,7 @@ public class ExportItems extends FacesBean
                 		 null,
                 		 replyToAddresses, 
                 		 subject, text, attachments);
+                 cleanUpEmailFields();
             }
             catch (TechnicalException e)
             {
