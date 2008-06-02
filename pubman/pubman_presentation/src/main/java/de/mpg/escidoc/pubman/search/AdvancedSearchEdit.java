@@ -59,15 +59,15 @@ public class AdvancedSearchEdit extends SearchResultList
     private String languageString;
 
     // delegated internal collections
-	private AnyFieldCriterionCollection anyFieldCriterionCollection;
-    private PersonCriterionCollection personCriterionCollection;
-    private OrganizationCriterionCollection organizationCriterionCollection;
-    private GenreCriterionCollection genreCriterionCollection;
-    private DateCriterionCollection dateCriterionCollection;
-    private SourceCriterionCollection sourceCriterionCollection;
-    private EventCriterionCollection eventCriterionCollection;
-    private IdentifierCriterionCollection identifierCriterionCollection;
-    private LanguageCriterionCollection languageCriterionCollection;
+	private AnyFieldCriterionCollection anyFieldCriterionCollection = null;
+    private PersonCriterionCollection personCriterionCollection = null ;
+    private OrganizationCriterionCollection organizationCriterionCollection = null;
+    private GenreCriterionCollection genreCriterionCollection = null;
+    private DateCriterionCollection dateCriterionCollection = null;
+    private SourceCriterionCollection sourceCriterionCollection = null;
+    private EventCriterionCollection eventCriterionCollection = null;
+    private IdentifierCriterionCollection identifierCriterionCollection = null;
+    private LanguageCriterionCollection languageCriterionCollection = null;
     
    /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -97,6 +97,18 @@ public class AdvancedSearchEdit extends SearchResultList
     public void init()
     {
     	super.init();
+    }
+    
+    public void clearAndInitializeAllForms() {
+    	anyFieldCriterionCollection = new AnyFieldCriterionCollection();
+        personCriterionCollection = new PersonCriterionCollection();
+        organizationCriterionCollection = new OrganizationCriterionCollection();
+        genreCriterionCollection = new GenreCriterionCollection();
+        dateCriterionCollection = new DateCriterionCollection();
+        sourceCriterionCollection = new SourceCriterionCollection();
+        eventCriterionCollection = new EventCriterionCollection();
+        identifierCriterionCollection = new IdentifierCriterionCollection();
+        languageCriterionCollection = new LanguageCriterionCollection();
     }
 
     /**
