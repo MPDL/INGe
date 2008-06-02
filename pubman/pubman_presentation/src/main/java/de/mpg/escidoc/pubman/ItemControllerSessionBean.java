@@ -1800,8 +1800,8 @@ public class ItemControllerSessionBean extends FacesBean
         
         for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
         	affiliationVOPresentation.setParent(parentAffiliation);
-        	affiliationVOPresentation.setNamePath(parentAffiliation.getNamePath()+" / "+affiliationVOPresentation.getName());
-        	affiliationVOPresentation.setIdPath(parentAffiliation.getIdPath()+"  "+affiliationVOPresentation.getReference().getObjectId());
+        	affiliationVOPresentation.setNamePath(affiliationVOPresentation.getName()+", "+parentAffiliation.getNamePath());
+        	affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() +" "+parentAffiliation.getIdPath());
 		}
         return wrappedAffiliationList;
     }
