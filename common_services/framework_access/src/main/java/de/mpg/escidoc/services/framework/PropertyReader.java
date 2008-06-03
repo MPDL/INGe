@@ -36,6 +36,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
+import java.util.Map.Entry;
 
 import org.apache.log4j.Logger;
 
@@ -110,6 +111,8 @@ public class PropertyReader
     {
         // Try to get location of properties file from system property
         String propertiesFile = System.getProperty(PROPERTY_FILE_KEY);
+        Properties solProperties = new Properties();
+        
         if (propertiesFile == null)
         {
             try
@@ -124,9 +127,8 @@ public class PropertyReader
             {
                 // Logger.getLogger(PropertyReader.class).info("Solution URI is "+solution.toString());
                 InputStream in = getInputStream(solution.getPath());
-                properties = new Properties();
-                properties.load(in);
-                String appname = properties.getProperty("appname");
+                solProperties.load(in);
+                String appname = solProperties.getProperty("appname");
                 propertiesFile = appname+".properties";
             }
             else
@@ -140,6 +142,8 @@ public class PropertyReader
         InputStream instream = getInputStream(propertiesFile);
         properties = new Properties();
         properties.load(instream);
+        properties.putAll(solProperties);
+            
         Logger.getLogger(PropertyReader.class).info("Properties loaded from " + propertiesFile);
         //Logger.getLogger(PropertyReader.class).info(properties.toString());
     }

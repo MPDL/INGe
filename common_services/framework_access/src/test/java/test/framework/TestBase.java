@@ -93,6 +93,7 @@ import org.apache.xml.serialize.XMLSerializer;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -616,7 +617,7 @@ public class TestBase
      */
     protected String loginSystemAdministrator() throws Exception
     {
-        return loginUser("roland", "Shibboleth-Handle-1");
+        return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
 
     /**

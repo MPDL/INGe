@@ -70,7 +70,6 @@
             <url>${escidoc.framework_access.framework.url}/axis/services/ContainerHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/TocHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/SemanticStoreHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/FedoraDescribeDeviationHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/ScopeHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/AggregationDefinitionHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/StatisticDataHandlerService?wsdl</url>
@@ -78,7 +77,6 @@
             <url>${escidoc.framework_access.framework.url}/axis/services/ReportHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/srw/search?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/JhoveHandlerService?wsdl</url>
-            <url>${escidoc.framework_access.framework.url}/axis/services/StagingFileHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowDefinitionHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowInstanceHandlerService?wsdl</url>
             <url>${escidoc.framework_access.framework.url}/axis/services/WorkflowTemplateHandlerService?wsdl</url>
@@ -134,10 +132,6 @@
               <targetPackage>de.escidoc.www.services.om</targetPackage>
             </mapping>
             <mapping>
-              <namespace>http://www.escidoc.de/services/FedoraDescribeDeviationHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.om</targetPackage>
-            </mapping>
-            <mapping>
               <namespace>http://www.escidoc.de/services/ScopeHandlerService/0.1</namespace>
               <targetPackage>de.escidoc.www.services.sm</targetPackage>
             </mapping>
@@ -160,10 +154,6 @@
             <mapping>
               <namespace>http://www.escidoc.de/services/JhoveHandlerService/0.1</namespace>
               <targetPackage>de.escidoc.www.services.tme</targetPackage>
-            </mapping>
-            <mapping>
-              <namespace>http://www.escidoc.de/services/StagingFileHandlerService/0.1</namespace>
-              <targetPackage>de.escidoc.www.services.st</targetPackage>
             </mapping>
             <mapping>
               <namespace>http://www.escidoc.de/services/WorkflowDefinitionHandlerService/0.1</namespace>
