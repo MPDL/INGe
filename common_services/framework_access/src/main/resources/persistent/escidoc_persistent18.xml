@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:persistent18" PID="escidoc:persistent18"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="metadataIMDIItem"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-05-10T14:39:01.109Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-05-16T12:42:03.156Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent18/datastream" ID="datastream" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion ID="datastream.0" LABEL="datastream" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <cm:content-model xlink:href="/cmm/content-model/escidoc:persistent18" xlink:title="metadataIMDIItem"
+          xlink:type="simple" xmlns:cm="http://www.escidoc.de/schema/contenttype/0.1" xmlns:xlink="http://www.w3.org/1999/xlink">
+          <cm:name>metadataIMDIItem</cm:name>
+        </cm:content-model>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent18/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion ID="RELS-EXT.0" LABEL="RELS-EXT"
+      MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+          <rdf:Description rdf:about="info:fedora/escidoc:persistent18">
+            <escidocRelations:title>metadataIMDIItem</escidocRelations:title>
+            <escidocRelations:objectType>content-model</escidocRelations:objectType>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent18/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>metadataIMDIItem</dc:title>
+          <dc:identifier>escidoc:persistent18</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

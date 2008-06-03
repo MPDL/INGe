@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" PID="escidoc:persistent35"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Research Group Solid State NMR"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-03-22T08:23:35.562Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-03-22T08:23:35.625Z"/>
+     
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-03-22T08:23:35.562Z" ID="RELS-EXT.0" LABEL="" MIMETYPE="text/xml" SIZE="931">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+         xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:persistent35">
+            <rdf:type rdf:resource="http://escidoc.de/core/01/resources/OrganizationalUnit"/>
+            <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:created-by-title>roland</prop:created-by-title>
+            <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:modified-by-title>roland</prop:modified-by-title>
+            <prop:public-status>opened</prop:public-status>
+            <prop:modified-by-title>roland</prop:modified-by-title>
+            <srel:parent rdf:resource="info:fedora/escidoc:persistent28"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="escidoc" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion ALT_IDS="metadata unknown unknown" CREATED="2008-02-11T16:24:39.998Z" ID="escidoc.0"
+      LABEL="" MIMETYPE="text/xml" SIZE="1225">
+      <foxml:contentDigest DIGEST="none" TYPE="DISABLED"/>
+      <foxml:xmlContent>
+        <md-records:md-record name="escidoc" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4">
+          <ou:ou xmlns:ou="http://www.escidoc.de/metadata/organizational-unit">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group Solid State NMR</dc:title>
+            <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+            <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+            <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"/>
+            <ou:organization-type>institute</ou:organization-type>
+            <ou:country>DE</ou:country>
+            <ou:city>Göttingen</ou:city>
+            <ou:start-date/>
+            <ou:end-date/>
+            <georss:point xmlns:georss="http://www.georss.org/" />
+          </ou:ou>
+        </md-records:md-record>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-03-22T08:23:35.562Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="243">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>Research Group Solid State NMR</dc:title>
+          <dc:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+          <dc:identifier>escidoc:persistent35</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

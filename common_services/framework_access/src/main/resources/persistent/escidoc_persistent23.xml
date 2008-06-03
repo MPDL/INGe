@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:persistent23" PID="escidoc:persistent23"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="MPDL Collection Grey Material"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T11:23:24.359Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-01-16T11:26:14.125Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent23/AUDIT" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:23:24.359Z"
+      FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Fedora Object Audit Trail" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>RELS-EXT</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T11:26:14.125Z</audit:date>
+            <audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent23/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:26:14.125Z" ID="RELS-EXT.0" LABEL="Enter a label here."
+      MIMETYPE="text/xml" SIZE="1071">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+          xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:persistent23">
+            <prop:last-modification-date>2006-02-16T12:20:46.275+01:00</prop:last-modification-date>
+            <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:type>PubMan</prop:type>
+            <srel:organizational-unit rdf:resource="info:fedora/escidoc:persistent25"/>
+            <prop:creation-date>2006-02-16T12:20:46.275+01:00</prop:creation-date>
+            <prop:description>This collection allows the deposit of any grey literature created
+by members of the Max Planck Digital Library (MPDL). Grey literature includes
+papers, reports, specifications, or technical notes which have been reviewed
+internally, but not submitted for formal publication by an external body.
+Please submit your document with the required metadata, an English abstract and
+at least one publicly accessible file. Feel free to contact Kristina Büchner
+(mailto:buechner@mpdl.mpg.de) in case of any question.</prop:description>
+            <prop:public-status>opened</prop:public-status>
+            <prop:name>MPDL Collection Grey Material</prop:name>
+            <escidocRelations:title>MPDL Collection Grey Material</escidocRelations:title>
+            <escidocRelations:objectType>context</escidocRelations:objectType>
+            <escidocRelations:hasAdminDescriptor rdf:resource="info:fedora/escidoc:persistent7"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent23/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:23:24.359Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="249">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>MPDL Collection Grey Material</dc:title>
+          <dc:identifier>escidoc:persistent23</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

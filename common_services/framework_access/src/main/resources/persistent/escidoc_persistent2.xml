@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:persistent2" PID="escidoc:persistent2"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="SWB Collection Descriptor"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T11:16:57.421Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-01-16T13:11:47.125Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent2/AUDIT" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:16:57.421Z"
+      FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Fedora Object Audit Trail" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>datastream</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T11:19:02.593Z</audit:date>
+            <audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC2">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>RELS-EXT</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T11:20:24.718Z</audit:date>
+            <audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+          </audit:record>
+          <audit:record ID="AUDREC3">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>datastream</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T13:06:57.312Z</audit:date>
+            <audit:justification/>
+          </audit:record>
+          <audit:record ID="AUDREC4">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>modifyDatastreamByValue</audit:action>
+            <audit:componentID>datastream</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T13:11:47.125Z</audit:date>
+            <audit:justification/>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent2/datastream" ID="datastream" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:19:02.593Z" ID="datastream.0" LABEL="datastream" MIMETYPE="text/xml" SIZE="2947">
+      <foxml:xmlContent>
+      <admin-descriptor:admin-descriptor xlink:type="simple" xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<admin-descriptor:webservices>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws1-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws1-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws1-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws2-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws2-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws2-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+		</admin-descriptor:webservices>
+		<admin-descriptor:authority-files>
+			<admin-descriptor:authority-file/>
+			<admin-descriptor:authority-file/>
+		</admin-descriptor:authority-files>
+		<admin-descriptor:submission-methods>
+			<admin-descriptor:method>single item</admin-descriptor:method>
+			<admin-descriptor:method>ingestion</admin-descriptor:method>
+		</admin-descriptor:submission-methods>
+		<admin-descriptor:relation-types>
+			<admin-descriptor:relation-type/>
+			<admin-descriptor:relation-type/>
+			<admin-descriptor:relation-type/>
+		</admin-descriptor:relation-types>
+		<admin-descriptor:item-visibility/>
+		<admin-descriptor:component-visibility/>
+		<admin-descriptor:visibility-of-references/>
+		<admin-descriptor:visibility-of-annotations/>
+	</admin-descriptor:admin-descriptor>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+    <foxml:datastreamVersion CREATED="2007-01-16T13:11:47.125Z" ID="datastream.2" LABEL="datastream" MIMETYPE="text/xml" SIZE="2882">
+      <foxml:xmlContent>
+        <admin-descriptor:admin-descriptor xlink:type="simple" xmlns:admin-descriptor="http://www.escidoc.de/schemas/context/0.4/" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<admin-descriptor:allowed-content-types>
+			<admin-descriptor:allowed-content-type>
+				<admin-descriptor:allowed-md-schema/>
+			</admin-descriptor:allowed-content-type>
+		</admin-descriptor:allowed-content-types>
+		<admin-descriptor:webservices>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws1-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws1-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws1-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+			<admin-descriptor:webservice xlink:title="title for webservice" xlink:type="simple">
+				<admin-descriptor:description>ws2-desc</admin-descriptor:description>
+				<admin-descriptor:service>ws2-service</admin-descriptor:service>
+				<admin-descriptor:parameters>ws2-param</admin-descriptor:parameters>
+			</admin-descriptor:webservice>
+		</admin-descriptor:webservices>
+		<admin-descriptor:authority-files>
+			<admin-descriptor:authority-file/>
+			<admin-descriptor:authority-file/>
+		</admin-descriptor:authority-files>
+		<admin-descriptor:submission-methods>
+			<admin-descriptor:method>ingestion</admin-descriptor:method>
+			<admin-descriptor:method>single-submission</admin-descriptor:method>
+			<admin-descriptor:method>multiple-submission</admin-descriptor:method>
+		</admin-descriptor:submission-methods>
+		<admin-descriptor:relation-types>
+			<admin-descriptor:relation-type/>
+			<admin-descriptor:relation-type/>
+			<admin-descriptor:relation-type/>
+		</admin-descriptor:relation-types>
+		<admin-descriptor:component-visibility>public</admin-descriptor:component-visibility>
+		<admin-descriptor:visibility-of-references/>
+		<admin-descriptor:visibility-of-annotations/>
+        </admin-descriptor:admin-descriptor>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent2/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:20:24.718Z" ID="RELS-EXT.0" LABEL="Enter a label here."
+      MIMETYPE="text/xml" SIZE="518">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:persistent2">
+            <escidocRelations:objectType>admin-descriptor</escidocRelations:objectType>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent2/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:16:57.421Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="337">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>SWB Collection Descriptor</dc:title>
+          <dc:identifier>escidoc:persistent2</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>

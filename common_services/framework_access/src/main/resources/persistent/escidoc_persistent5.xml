@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:persistent5" PID="escidoc:persistent5"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="SWB Test Instance"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-17T11:23:24.359Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-01-17T11:26:14.125Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent5/AUDIT" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2007-01-17T11:23:24.359Z"
+      FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Fedora Object Audit Trail" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>RELS-EXT</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-17T11:26:14.125Z</audit:date>
+            <audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent5/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-17T11:26:14.125Z" ID="RELS-EXT.0" LABEL="Enter a label here."
+      MIMETYPE="text/xml" SIZE="1071">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+          xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:persistent5">
+            <prop:creation-date>2007-01-17T11:23:24.359ZZ</prop:creation-date>
+            <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:created-by-title>roland</prop:created-by-title>
+            <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:modified-by-title>roland</prop:modified-by-title>
+            <prop:public-status>opened</prop:public-status>
+            <prop:type>SWB</prop:type>
+            <srel:organizational-unit rdf:resource="info:fedora/escidoc:persistent1"/> 
+            <prop:last-modification-date>2007-02-18T12:20:46.275+01:00</prop:last-modification-date>
+            <escidocRelations:objectType>context</escidocRelations:objectType>
+            <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent5/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-17T11:23:24.359Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="249">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>SWB Test Instance</dc:title>
+          <dc:identifier>escidoc:persistent5</dc:identifier>
+          <dc:description>SWB Instance</dc:description>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>
