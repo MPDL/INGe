@@ -392,7 +392,7 @@
 				<!-- URL of the FIZ framework instance used by all services -->
 				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
-				<escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url>
+				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
@@ -467,7 +467,7 @@
 				<!-- URL of the FIZ framework instance used by all services -->
 				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
-				<escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url>
+				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
