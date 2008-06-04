@@ -245,7 +245,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         List<GrantVO> grants = xmlTransforming.transformToGrantVOList(grantsXML);
 
         // check results
-        assertEquals(5, grants.size());
+        assertEquals(7, grants.size());
         List<GrantVO> accountUserGrants = accountUser.getGrants();
         // check whether test_dep_scientist is 'Depositor' and 'Moderator of PubCollection escidoc:persistent3' and 'System Administrator'
         int allExpectedGrantsPresent = 0;
