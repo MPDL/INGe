@@ -389,6 +389,15 @@ public class FileBean extends FacesBean implements ActionListener
 	public void setSearchHits(List<SearchHitBean> searchHits) {
 		this.searchHits = searchHits;
 	}
+	
+	public boolean getLocatorIsLink()
+	{
+	    return(
+	            getFile().getLocator().startsWith("http://") || 
+	            getFile().getLocator().startsWith("https://") ||
+	            getFile().getLocator().startsWith("ftp://")
+	           );
+	}
 
     
 	
