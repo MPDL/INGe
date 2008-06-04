@@ -80,7 +80,7 @@ public class TestLoginLogout
     		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
     	}
     	String host = hostPort.nextToken();
-    	int port = Integer.parseInt( hostPort.nextToken() )
+    	int port = Integer.parseInt( hostPort.nextToken() );
     	
         HttpClient client = new HttpClient();
         client.getHostConfiguration().setHost( host, port, "http");
