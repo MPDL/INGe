@@ -46,7 +46,7 @@
 		<developerConnection>
 			scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/search_presentation
 		</developerConnection>
-		<url>http://zim02.gwdg.de/repos/common/</url>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	
 	<build>

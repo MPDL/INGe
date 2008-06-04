@@ -12,7 +12,7 @@
   <scm>
     <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</connection>
     <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/framework_access</developerConnection>
-    <url>http://zim02.gwdg.de/repos/common/</url>
+    <url>https://zim02.gwdg.de/repos/common/</url>
   </scm>
   <build>
     <plugins>
