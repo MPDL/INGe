@@ -464,6 +464,22 @@
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
 			</properties>
+			
+				<distributionManagement>
+				<repository>
+					<id>deployment.webdav</id>
+					<name>Archiva deployment</name>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+				</repository>
+				<snapshotRepository>
+					<id>snapshots.webdav</id>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+				</snapshotRepository>
+				<site>
+					<id>website</id>
+					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
+				</site>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
@@ -542,6 +558,21 @@
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
 			</properties>
+				<distributionManagement>
+				<repository>
+					<id>deployment.webdav</id>
+					<name>Archiva deployment</name>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+				</repository>
+				<snapshotRepository>
+					<id>snapshots.webdav</id>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+				</snapshotRepository>
+				<site>
+					<id>website</id>
+					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/common_services</url>
+				</site>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
