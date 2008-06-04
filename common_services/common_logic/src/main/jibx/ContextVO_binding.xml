@@ -126,7 +126,9 @@
 			
 			<structure name="component-visibility" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
 			
-			<structure name="visibility-of-references" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
+			<!-- <structure name="visibility-of-references" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>-->
+			
+			<value style="element" name="visibility-of-references" field="visibilityOfReferences"  ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
 			
 			<structure name="visibility-of-annotations" ns="http://www.escidoc.de/schemas/admindescriptor/0.3" usage="optional"/>
 

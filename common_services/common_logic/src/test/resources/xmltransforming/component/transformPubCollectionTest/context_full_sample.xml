@@ -67,7 +67,7 @@ u.tschida@zim.mpg.de for any questions.</context:description>
 			<admin-descriptor:relation-type></admin-descriptor:relation-type>
 		</admin-descriptor:relation-types>
 		<admin-descriptor:component-visibility></admin-descriptor:component-visibility>
-		<admin-descriptor:visibility-of-references></admin-descriptor:visibility-of-references>
+		<admin-descriptor:visibility-of-references>standard</admin-descriptor:visibility-of-references>
 		<admin-descriptor:visibility-of-annotations></admin-descriptor:visibility-of-annotations>
         </admin-descriptor:admin-descriptor>
 </context:context>

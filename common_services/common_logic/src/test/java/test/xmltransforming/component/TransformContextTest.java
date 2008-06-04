@@ -242,6 +242,7 @@ public class TransformContextTest extends TestBase
         allowedGenres.add(MdsPublicationVO.Genre.ISSUE);
         allowedGenres.add(MdsPublicationVO.Genre.SERIES);
         allowedGenres.add(MdsPublicationVO.Genre.OTHER);
+        adminDescriptor.setVisibilityOfReferences("standard");
         
         // TODO: Comment in with new FW
 //        adminDescriptor.setTemplateItem(new ItemRO("dsddsadad"));

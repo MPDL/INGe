@@ -126,6 +126,7 @@ public class ContextVO extends ValueObject
         this.responsibleAffiliations = context.responsibleAffiliations;
         this.state = context.state;
         this.validationPoints = context.validationPoints;
+        this.adminDescriptors = context.adminDescriptors;
     }
     
     /**

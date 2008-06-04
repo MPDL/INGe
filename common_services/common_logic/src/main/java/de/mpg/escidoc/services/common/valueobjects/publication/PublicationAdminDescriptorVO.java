@@ -50,6 +50,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO
     private ItemRO templateItem;
     
     private String validationSchema;
+    
+    private String visibilityOfReferences;
 
     public List<MdsPublicationVO.Genre> getAllowedGenres()
     {
@@ -80,5 +82,17 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO
     {
         this.validationSchema = validationSchema;
     }
+
+    public String getVisibilityOfReferences()
+    {
+        return visibilityOfReferences;
+    }
+
+    public void setVisibilityOfReferences(String visibilityOfReferences)
+    {
+        this.visibilityOfReferences = visibilityOfReferences;
+    }
+    
+    
     
 }
