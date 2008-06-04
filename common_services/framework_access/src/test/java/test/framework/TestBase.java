@@ -44,6 +44,7 @@ import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.net.URISyntaxException;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
@@ -141,6 +142,8 @@ public class TestBase
      * The handle of the logged in user or null if not logged in.
      */
     protected String userHandle;
+    
+    private static final int NUMBER_OF_URL_TOKENS = 2;
 
     /**
      * Logs in the given user with the given password.
@@ -155,11 +158,25 @@ public class TestBase
      */
     protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
+    	String frameworkUrl = ServiceLocator.getFrameworkUrl();
+    	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
+    	if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
+    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+    	}
+    	tokens.nextToken();
+    	StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+    	
+    	if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
+    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+    	}
+    	String host = hostPort.nextToken();
+    	int port = Integer.parseInt( hostPort.nextToken() );
+    	
         HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost("localhost", 8080, "http");
+        client.getHostConfiguration().setHost( host, port, "http");
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         
-        PostMethod login = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/j_spring_security_check");
+        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
         login.addParameter("j_username", userid);
         login.addParameter("j_password", password);
         
@@ -169,7 +186,7 @@ public class TestBase
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
         Cookie[] logoncookies = cookiespec.match(
-                "localhost", 8080, "/", false, 
+        		host, port, "/", false, 
                 client.getState().getCookies());
         
         System.out.println("Logon cookies:");
@@ -186,7 +203,7 @@ public class TestBase
         }
         
         PostMethod postMethod = new PostMethod("/aa/login");
-        postMethod.addParameter("target", "http://localhost:8080");
+        postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
         System.out.println("Login second post: " + postMethod.getStatusLine().toString());
