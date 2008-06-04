@@ -150,6 +150,7 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         expected.getResponsibleAffiliations().add(new AffiliationRO("escidoc:persistent13"));
         
         PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
+        adminDescriptorVO.setVisibilityOfReferences("standard");
         expected.getAdminDescriptors().add(adminDescriptorVO);
         
         MdsPublicationVO.Genre[] allowed =
