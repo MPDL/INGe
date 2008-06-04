@@ -39,6 +39,7 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -320,4 +321,6 @@ public interface XmlTransforming
     public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException;
     
     public List<FaceItemVO> transformToFaceItemList(String itemList) throws TechnicalException;
+    
+    public MemberListVO transformToMemberList(String memberListXml) throws TechnicalException;
 }

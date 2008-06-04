@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<member-list:member-list xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.3">
+	<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:363" last-modification-date="2008-05-21T19:22:38.446Z">
+		<escidocItem:properties>
+			<escidocItem:creation-date>2007-11-09T12:43:43.552Z</escidocItem:creation-date>
+			<escidocItem:created-by objid="escidoc:user2" />
+			<escidocItem:public-status>released</escidocItem:public-status>
+			<escidocItem:context objid="escidoc:persistent3" />
+			<escidocItem:content-model objid="escidoc:persistent4" />
+			<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+			<escidocItem:version objid="escidoc:363:10">
+				<escidocItem:number>10</escidocItem:number>
+				<escidocItem:date>2008-05-21T19:22:38.446Z</escidocItem:date>
+				<escidocItem:version-status>pending</escidocItem:version-status>
+				<escidocItem:valid-status>valid</escidocItem:valid-status>
+				<escidocItem:modified-by objid="escidoc:user2" />
+				<escidocItem:comment>ItemHandler.update()</escidocItem:comment>
+				<escidocItem:pid>hdl:someHandle/test/escidoc:363:9</escidocItem:pid>
+			</escidocItem:version>
+			<escidocItem:latest-version objid="escidoc:363:10">
+				<escidocItem:number>10</escidocItem:number>
+				<escidocItem:date>2008-05-21T19:22:38.446Z</escidocItem:date>
+			</escidocItem:latest-version>
+			<escidocItem:latest-release objid="escidoc:363:9">
+				<escidocItem:number>9</escidocItem:number>
+				<escidocItem:date>2007-11-19T20:23:02.401Z</escidocItem:date>
+				<escidocItem:pid>hdl:someHandle/test/escidoc:363:9</escidocItem:pid>
+			</escidocItem:latest-release>
+			<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+			<escidocMetadataRecords:md-record name="escidoc">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
+					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							<escidoc:complete-name></escidoc:complete-name>
+							<escidoc:family-name>Gruss</escidoc:family-name>
+							<escidoc:given-name>Peter</escidoc:given-name>
+							<escidoc:organization>
+								<escidoc:organization-name xml:lang="" xmlns:xml="http://www.w3.org/XML/1998/namespace">Max Planck Society</escidoc:organization-name>
+								<escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
+								<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+							</escidoc:organization>
+							<escidoc:organization>
+								<escidoc:organization-name>MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
+								<escidoc:address>Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
+								<escidoc:identifier>escidoc:persistent28</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							<escidoc:complete-name></escidoc:complete-name>
+							<escidoc:family-name>Jaeckle</escidoc:family-name>
+							<escidoc:given-name>H.</escidoc:given-name>
+							<escidoc:organization>
+								<escidoc:organization-name>MPI for biophysical chemistry, Max Planck Society</escidoc:organization-name>
+								<escidoc:address>Am Fassberg 11, 37077, GÃ¶ttingen, DE</escidoc:address>
+								<escidoc:identifier>escidoc:persistent28</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Die Wechselbeziehung von Wissenschaft und Technologie.</dc:title>
+					<publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+						<dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Verlag Kommunikation und Wirtschaft GmbH</dc:publisher>
+						<escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Oldenburg</escidoc:place>
+						<escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:edition>
+					</publication:publishing-info>
+					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+					<dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+					<dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+					<dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+					<publication:published-online xmlns:dcterms="http://purl.org/dc/terms/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></publication:published-online>
+					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2000</dcterms:issued>
+					<publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no-review</publication:review-method>
+					<publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:total-number-of-pages>
+					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
+					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
+					<publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">no local signature</publication:location>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+
+		</escidocMetadataRecords:md-records>
+
+
+	</escidocItem:item>
+	<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1003" last-modification-date="2007-11-19T08:52:38.448Z">
+		<escidocItem:properties>
+			<escidocItem:creation-date>2007-11-19T08:52:25.448Z</escidocItem:creation-date>
+			<escidocItem:created-by objid="escidoc:994" />
+			<escidocItem:public-status>released</escidocItem:public-status>
+			<escidocItem:context objid="escidoc:persistent3" />
+			<escidocItem:content-model objid="escidoc:persistent4" />
+			<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+			<escidocItem:version objid="escidoc:1003:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
+				<escidocItem:version-status>released</escidocItem:version-status>
+				<escidocItem:valid-status>valid</escidocItem:valid-status>
+				<escidocItem:modified-by objid="escidoc:994" />
+				<escidocItem:comment>test submission</escidocItem:comment>
+			</escidocItem:version>
+			<escidocItem:latest-version objid="escidoc:1003:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
+			</escidocItem:latest-version>
+			<escidocItem:latest-release objid="escidoc:1003:1">
+				<escidocItem:number>1</escidocItem:number>
+				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
+			</escidocItem:latest-release>
+			<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+			<escidocMetadataRecords:md-record name="escidoc">
+				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
+					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
+						<escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+							<escidoc:complete-name></escidoc:complete-name>
+							<escidoc:family-name>Bulatovic</escidoc:family-name>
+							<escidoc:given-name>Natasa</escidoc:given-name>
+							<escidoc:organization>
+								<escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+								<escidoc:address>Hofgartenstr. 8, 80539, Munich, DE</escidoc:address>
+								<escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test article for submission</dc:title>
+					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-01-01</dcterms:created>
+					<publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+						<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">my source</dc:title>
+					</publication:source>
+					<dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang=""></dc:subject>
+					<dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang=""></dcterms:tableOfContents>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+
+		</escidocMetadataRecords:md-records>
+
+
+	</escidocItem:item>
+</member-list:member-list>

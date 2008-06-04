@@ -49,7 +49,9 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
@@ -71,6 +73,8 @@ public class TransformContextTest extends TestBase
         = TEST_FILE_ROOT + "context_full_sample.xml";
     private static final String CONTEXT_LIST_SAMPLE_FILE
         = TEST_FILE_ROOT + "context-list_sample.xml";
+    private static final String MEMBER_LIST_SAMPLE_FILE
+        = TEST_FILE_ROOT + "member-list_sample.xml";
 
     private Logger logger = Logger.getLogger(getClass());
     
@@ -171,6 +175,38 @@ public class TransformContextTest extends TestBase
         assertTrue(oc.toString(), oc.isEqual());
     }
 
+    
+    /**
+     * Test for {@link XmlTransforming#transformToMemberList(String)}. Reads member list [XML] from
+     * file, transforms the list to a {@link List&lt;MemberListVO>} and checks the results.
+     * 
+     * @throws Exception Any exception.
+     */
+    @Test
+    public void testTransformToMemberList() throws Exception
+    {
+        // read pubCollection list [XML] from file
+        String memberList = readFile(MEMBER_LIST_SAMPLE_FILE);
+        assertNotNull(memberList);
+
+        logger.info("memberList:"  + memberList);
+        
+        // transform the list to a MemberListVO
+        MemberListVO memberListVO = xmlTransforming.transformToMemberList(memberList);
+        assertNotNull(memberListVO);
+        
+        // check results
+        List<PubItemVO> pubItemList = memberListVO.getPubItemVOList();
+        List<Object> containerList = memberListVO.getContainerVOList();
+        
+        assertNotNull(pubItemList);
+        assertEquals(2, pubItemList.size());
+        
+        
+        
+    }
+    
+    
     /**
      * Delivers a well-defined pubCollection.
      * 

@@ -295,6 +295,16 @@ public class JiBXHelper
     {
         return new ArrayList<ItemVO>();
     }
+    
+    /**
+     * Temporary factory method to create a <code>java.util.ArrayList&ltObject</code> for Container objects until ContainerVOs are implemented
+     * 
+     * @return A new <code>java.util.ArrayList&lt;Object></code>
+     */
+    public static List<Object> containerVOListFactory()
+    {
+        return new ArrayList<Object>();
+    }
 
     /**
      * Factory method to create a <code>java.util.ArrayList&lt;MetadataSetVO></code> as the implementation of a

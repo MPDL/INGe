@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.xmltransforming;
 
+import java.awt.event.ItemListener;
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -67,6 +68,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -92,6 +94,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOLis
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListVOWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -592,6 +595,8 @@ public class XmlTransformingBean implements XmlTransforming
 
         return itemList;
     }
+    
+   
 
     /**
      * {@inheritDoc}
@@ -1034,6 +1039,55 @@ public class XmlTransformingBean implements XmlTransforming
             newList.add(faceItemVO);
         }
         return newList;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public MemberListVO transformToMemberList(String memberListXml) throws TechnicalException
+    {
+        logger.debug("transformToMemberList(String) - String memberList=\n" + memberListXml);
+        if (memberListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemList:itemList is null");
+        }
+        MemberListVOWrapper memberListWrapper = null;
+        try
+        {
+            // unmarshal ItemVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", MemberListVOWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(memberListXml);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            memberListWrapper = (MemberListVOWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(memberListXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<ItemVO>
+        List<? extends ItemVO> itemList = memberListWrapper.getItemVOList();
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        if (itemList!=null)
+        {
+            for (ItemVO itemVO : itemList)
+            {
+                pubItemList.add(new PubItemVO(itemVO));
+            }
+        }
+       
+        
+        MemberListVO memberListVO = new MemberListVO();
+        memberListVO.setPubItemVOList(pubItemList);
+        memberListVO.setContainerVOList(memberListWrapper.getContainerVOList());
+        
+        return memberListVO;
     }
     
 }

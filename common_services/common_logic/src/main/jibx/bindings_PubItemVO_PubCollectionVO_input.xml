@@ -44,6 +44,9 @@
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="premis" uri="http://www.loc.gov/standards/premis/v1" default="none" />
+	<namespace prefix="member-list" uri="http://www.escidoc.de/schemas/memberlist/0.3" default="none" />
+	<namespace prefix="container" uri="http://www.escidoc.de/schemas/container/0.3" default="none" />
+	
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
@@ -67,6 +70,7 @@
 	<include path="PubItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />
 	<include path="PubItemVOListWrapper_binding_input.xml" />
+	<include path="MemberListVO_binding.xml" />
 
 </binding>
 

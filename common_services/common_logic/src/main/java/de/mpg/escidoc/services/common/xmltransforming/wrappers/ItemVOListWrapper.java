@@ -57,7 +57,7 @@ public class ItemVOListWrapper implements Serializable
     /**
      * The wrapped list of PubItemVOs.
      */
-    private List<? extends ItemVO> itemVOList;
+    protected List<? extends ItemVO> itemVOList;
 
     /**
      * Unwraps the list of PubItemVOs.

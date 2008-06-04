@@ -104,6 +104,24 @@ public class AccountUserVO extends ValueObject
         }
         return depositor;
     }
+    
+    /**
+     * Delivers true if the granted role is of type 'moderator' for any object.
+     */
+    public boolean isModerator()
+    {
+        boolean moderator = false;
+        for (GrantVO grant : this.grants)
+        {
+            
+            if (grant.getRole().equals(PredefinedRoles.MODERATOR.frameworkValue()))
+            {
+                moderator = true;
+                break;
+            }
+        }
+        return moderator;
+    }
 
     /**
      * Delivers true if the granted role is of type 'moderator' for the given object (normally a PubCollection).
