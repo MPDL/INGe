@@ -204,7 +204,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{source.startEndPage == null || source.startEndPage == ''}" escape="false"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>			
-			
+		<h:outputText value="<br class='boxSpacing' />" rendered="#{ViewItemFull.sourceIterator.rowCount>1}" escape="false"/>	
 		</h:panelGroup>
 	</tr:iterator>
 	
