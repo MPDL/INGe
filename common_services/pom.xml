@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
@@ -151,7 +152,7 @@
 	</ciManagement>
 
 	<modules>
- 		<module>framework_access</module>  
+		<module>framework_access</module>
 		<module>common_logic</module>
 		<module>citationmanager</module>
 		<module>citationmanager_ear</module>
@@ -175,22 +176,6 @@
 		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
-
-	<distributionManagement>
-		<repository>
-			<id>deployment.webdav</id>
-			<name>Archiva deployment</name>
-			<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
-		</repository>
-		<snapshotRepository>
-			<id>snapshots.webdav</id>
-			<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
-		</snapshotRepository>
-		<site>
-			<id>website</id>
-			<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
-		</site>
-	</distributionManagement>
 
 	<repositories>
 		<repository>
@@ -249,9 +234,11 @@
 				<artifactId>wagon-webdav</artifactId>
 				<version>1.0-beta-2</version>
 			</extension>
-			<groupId>org.apache.maven.wagon</groupId>
-			<artifactId>wagon-ssh</artifactId>
-			<version>1.0-beta-2</version>
+			<extension>
+				<groupId>org.apache.maven.wagon</groupId>
+				<artifactId>wagon-ssh</artifactId>
+				<version>1.0-beta-2</version>
+			</extension>
 		</extensions>
 		<!-- if no tests are present don't fail the complete package process -->
 		<pluginManagement>
@@ -354,9 +341,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
-				<cargo.jvmargs>
-					-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties
-				</cargo.jvmargs>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
@@ -413,8 +398,23 @@
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-				
 			</properties>
+
+			<distributionManagement>
+				<repository>
+					<id>deployment.webdav</id>
+					<name>Archiva deployment</name>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+				</repository>
+				<snapshotRepository>
+					<id>snapshots.webdav</id>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+				</snapshotRepository>
+				<site>
+					<id>website</id>
+					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/common_services</url>
+				</site>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<id>env-testing-continuum</id>
@@ -429,9 +429,7 @@
 				<cargo.port>8080</cargo.port>
 				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
-				<cargo.jvmargs>
-					-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties
-				</cargo.jvmargs>
+				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
@@ -458,7 +456,7 @@
 				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
 				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
 				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
-			
+
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
@@ -489,8 +487,23 @@
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-				
 			</properties>
+
+			<distributionManagement>
+				<repository>
+					<id>deployment.webdav</id>
+					<name>Archiva deployment</name>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/internal/</url>
+				</repository>
+				<snapshotRepository>
+					<id>snapshots.webdav</id>
+					<url>dav:http://escidoc1.escidoc.mpg.de:8888/archiva/repository/snapshots/</url>
+				</snapshotRepository>
+				<site>
+					<id>website</id>
+					<url>scp://escidoc1.escidoc.mpg.de:/srv/www/00_default/projects/snapshots/common_services</url>
+				</site>
+			</distributionManagement>
 		</profile>
 		<profile>
 			<id>env-production-escidoc2</id>
