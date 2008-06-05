@@ -65,9 +65,6 @@ public class TransformAffiliationTest extends TestBase
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     private Logger logger = Logger.getLogger(getClass());
-    private static final String ORGANIZATIONAL_UNIT_SCHEMA_FILE = "src/main/resources/xsd/soap/organizational-unit/0.3/organizational-unit.xsd";
-    private static final String ORGANIZATIONAL_UNIT_LIST_SCHEMA_FILE = "src/main/resources/xsd/soap/organizational-unit/0.3/organizational-unit-list.xsd";
-    private static final String ORGANIZATIONAL_UNIT_PATH_LIST_SCHEMA_FILE = "src/main/resources/xsd/soap/organizational-unit/0.3/organizational-unit-path-list.xsd";
 
     /**
      * Test of {@link XmlTransforming#transformToAffiliationList(String)}
@@ -79,9 +76,9 @@ public class TransformAffiliationTest extends TestBase
     {
         logger.info("### testTransformToAffiliationList ###");
 
-        String organizationalUnitListXml = readFile("src/test/resources/xmltransforming/component/transformAffiliationTest/organizational-unit-list_sample1.xml");
-        assertXMLValid(organizationalUnitListXml, ORGANIZATIONAL_UNIT_LIST_SCHEMA_FILE);
-        logger.info("The organizational unit list XML is valid to the schema in " + ORGANIZATIONAL_UNIT_LIST_SCHEMA_FILE);
+        String organizationalUnitListXml = readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit-list_sample1.xml");
+        assertXMLValid(organizationalUnitListXml);
+        logger.info("The organizational unit list XML is valid");
         List<AffiliationVO> affList = xmlTransforming.transformToAffiliationList(organizationalUnitListXml);
         assertNotNull(affList);
         assertFalse(affList.isEmpty());
@@ -102,8 +99,8 @@ public class TransformAffiliationTest extends TestBase
     @Test
     public void testTransformToAffiliationPathList() throws Exception
     {
-        String organizationalUnitPathListXml = readFile("src/test/resources/xmltransforming/component/transformAffiliationTest/organizational-unit-path-list_sample1.xml");
-        assertXMLValid(organizationalUnitPathListXml, ORGANIZATIONAL_UNIT_PATH_LIST_SCHEMA_FILE);
+        String organizationalUnitPathListXml = readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit-path-list_sample1.xml");
+        assertXMLValid(organizationalUnitPathListXml);
         List<AffiliationPathVO> affPathList = xmlTransforming.transformToAffiliationPathList(organizationalUnitPathListXml);
         assertNotNull("Transforming delivered null.", affPathList);
         assertFalse("Transforming result list is empty.", affPathList.isEmpty());
@@ -129,13 +126,13 @@ public class TransformAffiliationTest extends TestBase
     {
         logger.info("### testTransformToAffiliation ###");
 
-        String organizationalUnitXml = readFile("src/test/resources/xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
-        assertXMLValid(organizationalUnitXml, ORGANIZATIONAL_UNIT_SCHEMA_FILE);
+        String organizationalUnitXml = readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
+        assertXMLValid(organizationalUnitXml);
         if (logger.isDebugEnabled())
         {
             logger.debug("testTransformToAffiliation() - String organizationalUnitXml=\n" + organizationalUnitXml);
         }
-        logger.info("The organizational unit XML is valid to the schema in " + ORGANIZATIONAL_UNIT_SCHEMA_FILE);
+        logger.info("The organizational unit XML is valid");
 
         AffiliationVO affiliation = xmlTransforming.transformToAffiliation(organizationalUnitXml);
         assertNotNull(affiliation);
@@ -154,8 +151,8 @@ public class TransformAffiliationTest extends TestBase
         logger.info("### testTransformToOrganizationalUnit ###");
 
         // get a AffiliationVO by transforming the XML file into a AffiliationVO
-        String organizationalUnitXml = readFile("src/test/resources/xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
-        assertXMLValid(organizationalUnitXml, ORGANIZATIONAL_UNIT_SCHEMA_FILE);
+        String organizationalUnitXml = readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/organizational-unit_sample1.xml");
+        assertXMLValid(organizationalUnitXml);
         AffiliationVO affiliation = xmlTransforming.transformToAffiliation(organizationalUnitXml);
         assertNotNull(affiliation);
         assertEqualsMPIWG(affiliation);

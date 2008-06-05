@@ -1,6 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:common="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/commontypes/0.3">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	xmlns:common="http://www.escidoc.de/schemas/commontypes/0.3"
+	targetNamespace="http://www.escidoc.de/schemas/commontypes/0.3">
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../rest/common/0.3/xml.xsd" />
 	
 	<xs:complexType name="linkRequired">
 		<xs:attribute ref="xlink:type" fixed="simple">
@@ -30,7 +37,7 @@
     </xs:complexType>
 	
 	<xs:complexType name="link">
-		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes"/>
+		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes" />
 	</xs:complexType>
 	<xs:complexType name="linkForCreate">
 		<xs:attribute ref="xlink:type" fixed="simple">
@@ -59,14 +66,16 @@
         </xs:attribute>
 	</xs:complexType>
 	<xs:complexType name="readOnlyLink">
-		<xs:attributeGroup ref="common:readOnlyESciDocResourceLinkAttributes"/>
+		<xs:attributeGroup
+			ref="common:readOnlyESciDocResourceLinkAttributes" />
 	</xs:complexType>
 
 	<xs:complexType name="laxLinkContainer">
-		<xs:attributeGroup ref="common:laxESciDocResourceLinkAttributesContainer"/>
+		<xs:attributeGroup
+			ref="common:laxESciDocResourceLinkAttributesContainer" />
 	</xs:complexType>
 	<xs:complexType name="linkWithoutObjid">
-		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes"/>
+		<xs:attributeGroup ref="common:eSciDocResourceLinkAttributes" />
 	</xs:complexType>
 
 	<!-- 
@@ -129,7 +138,8 @@
 			</xs:annotation>
 		</xs:attribute>
 	</xs:attributeGroup>
-	<xs:attributeGroup name="laxESciDocResourceLinkAttributesContainer">
+	<xs:attributeGroup
+		name="laxESciDocResourceLinkAttributesContainer">
 		<xs:attribute ref="xlink:type">
 			<xs:annotation>
 				<xs:documentation>
@@ -243,11 +253,12 @@
 			</xs:documentation>
 		</xs:annotation>
 		<xs:restriction base="xs:token">
-			<xs:maxLength value="255"/>
+			<xs:maxLength value="255" />
 		</xs:restriction>
 	</xs:simpleType>
 
-	<xs:attributeGroup name="laxESciDocResourceLocationAttributesContainer">
+	<xs:attributeGroup
+		name="laxESciDocResourceLocationAttributesContainer">
 		<xs:attribute ref="xlink:type">
 			<xs:annotation>
 				<xs:documentation>
@@ -344,7 +355,8 @@
 				</xs:documentation>
 			</xs:annotation>
 		</xs:attribute>
-		<xs:attribute name="last-modification-date" type="xs:dateTime">
+		<xs:attribute name="last-modification-date"
+			type="xs:dateTime">
 			<xs:annotation>
 				<xs:documentation>
 					<create>discarded</create>

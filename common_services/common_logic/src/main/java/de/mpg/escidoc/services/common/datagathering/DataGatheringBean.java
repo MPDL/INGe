@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.datagathering;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,15 +47,10 @@ import javax.xml.rpc.ServiceException;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidTripleStoreOutputFormatException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidTripleStoreQueryException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingElementValueException;
-import de.fiz.escidoc.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote;
+import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.DataGathering;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
@@ -160,7 +156,7 @@ public class DataGatheringBean implements DataGathering
      * {@inheritDoc}
      */
     public List<OrganizationVO> createOrganizationListFromAffiliation(final String userHandle,
-            final AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException
+            final AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException, URISyntaxException
     {
         logger.debug("createOrganizationListFromAffiliation(AffiliationVO)");
         if (affiliation == null)
@@ -175,7 +171,7 @@ public class DataGatheringBean implements DataGathering
         try
         {
             // Get the affiliation paths for the given affiliation from the framework
-            OrganizationalUnitHandlerRemote ouHandler = de.mpg.escidoc.services.framework.ServiceLocator
+            OrganizationalUnitHandler ouHandler = de.mpg.escidoc.services.framework.ServiceLocator
                     .getOrganizationalUnitHandler(userHandle);
             String affObjId = affiliationRef.getObjectId();
             logger

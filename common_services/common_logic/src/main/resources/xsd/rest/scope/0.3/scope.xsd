@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:scope="http://www.escidoc.de/schemas/scope/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/scope/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/scope/0.3"
+	xmlns:scope="http://www.escidoc.de/schemas/scope/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+	schemaLocation="../../../rest/common/0.3/common-types.xsd" />
 	<xs:element name="scope">
 		<xs:annotation>
 			<xs:documentation>

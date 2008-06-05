@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START
+	
+	The contents of this file are subject to the terms of the
+	Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance
+	with the License.
+	
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE
+	or http://www.escidoc.de/license.
+	See the License for the specific language governing permissions
+	and limitations under the License.
+	
+	When distributing Covered Code, include this CDDL HEADER in each
+	file and include the License file at license/ESCIDOC.LICENSE.
+	If applicable, add the following below this CDDL HEADER, with the
+	fields enclosed by brackets "[]" replaced with your own identifying
+	information: Portions Copyright [yyyy] [name of copyright owner]
+	
+	CDDL HEADER END
+	
+	
+	Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+	für wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V.
+	All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for ContextVO -->
+	<!-- Type: ContextVO... -->
+	<mapping name="context" ns="${xsd.soap.context.context}" class="de.mpg.escidoc.services.common.valueobjects.ContextVO" ordered="false"
+		allow-repeats="true">
+
+		<!-- Node: context.@objid -->
+		<!-- Field: ContextVO.reference [ContextRO] -->
+		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+
+		<!-- Node: context.properties -->
+		<structure name="properties" ns="${xsd.soap.context.context}" ordered="false" flexible="true" usage="optional">
+
+			<!-- Node: context.properties.created-by.@objid -->
+			<!-- Field: ContextVO.creator [AccountUserRO] -->
+			<structure name="created-by" ns="${xsd.soap.context.context}" field="creator"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
+
+			<!-- Node: context.properties.public-status -->
+			<!-- Field: ContextVO.state [ContextVO.State] -->
+			<value style="element" name="public-status" ns="${xsd.soap.context.context}" field="state"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubCollectionStateEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+			<!-- Node: context.properties.name -->
+			<!-- Field: ContextVO.name [String] -->
+			<value style="element" name="name" ns="${xsd.soap.context.context}" field="name" usage="optional" />
+
+			<!-- Node: context.properties.description -->
+			<!-- Field: ContextVO.description [String] -->
+			<value style="element" name="description" ns="${xsd.soap.context.context}" field="description" usage="optional" />
+
+			<!-- Node: context.properties.organizational-units -->
+			<!-- Field: ContextVO.responsibleAffiliations [List<AffiliationRO>] -->
+			<collection name="organizational-units" ns="${xsd.soap.context.context}" field="responsibleAffiliations"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">
+
+				<!-- Node: context.properties.organizational-unit -->
+				<!-- Field: ContextVO.responsibleAffiliations[X] [AffiliationRO] -->
+				<structure name="organizational-unit" ns="${xsd.soap.context.context}"
+					type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
+
+					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+
+				</structure>
+
+			</collection>
+
+		</structure>
+
+		<!-- TODO: Comment in with new FW. -->
+		<collection name="admin-descriptor" ns="${xsd.soap.context.context}" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
+			
+				<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
+
+				<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
+				
+		</collection>
+	</mapping>
+
+</binding>

@@ -1,15 +1,14 @@
 <organizational-unit-list:organizational-unit-list
-  xmlns:organizational-unit-list="http://www.escidoc.de/schemas/organizationalunitlist/0.3"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-  xsi:schemaLocation="http://www.escidoc.de/schemas/organizationalunitlist/0.3 ../../../../misc/xsd/soap/organizational-unit/0.3/organizational-unit-list.xsd">
-	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+  xmlns:organizational-unit-list="${xsd.soap.ou.oulist}"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<organizational-unit:creation-date>2007-03-15T08:07:11.015Z</organizational-unit:creation-date>
 			<organizational-unit:created-by objid="escidoc:user42" />
 			<organizational-unit:public-status>opened</organizational-unit:public-status>
 			<organizational-unit:has-children>true</organizational-unit:has-children>
 		</organizational-unit:properties>
-		<organizational-unit:organization-details xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3">
+		<organizational-unit:organization-details xmlns:organizational-unit="${xsd.soap.ou.ou}">
 			<organizational-unit:abbreviation>MPIWG</organizational-unit:abbreviation>
 			<organizational-unit:name>MPI for the History of Science</organizational-unit:name>
 			<organizational-unit:uri>http://www.mpgwg-berlin.mpg.de</organizational-unit:uri>
@@ -24,14 +23,14 @@
 			<organizational-unit:email>info@mpgwg-berlin.mpg.de</organizational-unit:email>
 		</organizational-unit:organization-details>
 	</organizational-unit:organizational-unit>
-	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<organizational-unit:creation-date>2007-03-15T08:07:11.015Z</organizational-unit:creation-date>
 			<organizational-unit:created-by objid="escidoc:user42" />
 			<organizational-unit:public-status>opened</organizational-unit:public-status>
 			<organizational-unit:has-children>true</organizational-unit:has-children>
 		</organizational-unit:properties>
-		<organizational-unit:organization-details xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3">
+		<organizational-unit:organization-details xmlns:organizational-unit="${xsd.soap.ou.ou}">
 			<organizational-unit:abbreviation>MPIWG</organizational-unit:abbreviation>
 			<organizational-unit:name>MPI for the History of Science</organizational-unit:name>
 			<organizational-unit:uri>http://www.mpgwg-berlin.mpg.de</organizational-unit:uri>

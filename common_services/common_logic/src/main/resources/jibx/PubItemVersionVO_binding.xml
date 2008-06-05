@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for PubItemVersionVO -->
+	<!-- Type: PubItemVersionVO... -->
+	<mapping name="version" ns="${xsd.soap.common.versionhistory}" class="de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO"
+		>
+
+		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
+		<structure field="reference">
+
+			<!-- Node: @objid -->
+			<!-- Field: PubItemVersionVO.reference.objectId [String] -->
+			<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+
+			<!-- Node: pid ignored -->
+			<structure name="pid" ns="${xsd.soap.common.versionhistory}" usage="optional"/>
+
+			<!-- Node: pid ignored -->
+			<structure name="pid" ns="${xsd.soap.common.versionhistory}" usage="optional"/>
+
+			<!-- Node: version-number -->
+			<!-- Field: PubItemVersionVO.reference.versionNumber [int] -->
+			<value style="element" name="version-number" ns="${xsd.soap.common.versionhistory}" set-method="setVersionNumber" usage="optional" />
+
+		</structure>
+
+		<!-- Node: version.timestamp -->
+		<!-- Field: PubItemVersionVO.modificationDate [java.util.Date] -->
+		<value style="element" name="timestamp" ns="${xsd.soap.common.versionhistory}" field="modificationDate" usage="optional" />
+
+		<!-- Node: version.version-status -->
+		<!-- Field: PubItemVersionVO.state -->
+		<value style="element" name="version-status" ns="${xsd.soap.common.versionhistory}" field="state"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+		<structure name="valid-status" ns="${xsd.soap.common.versionhistory}" usage="optional" />
+
+		<!-- Field: PubItemVersionVO.reference [PubItemRO] -->
+		<structure field="reference">
+			<!-- Node: comment -->
+			<!-- Field: PubItemVersionVO.reference.lastMessage [String] -->
+			<value style="element" name="comment" ns="${xsd.soap.common.versionhistory}" set-method="setLastMessage" usage="optional" />
+		</structure>
+		
+		<collection name="events" ns="${xsd.soap.common.versionhistory}" field="events"
+			factory="org.jibx.runtime.Utility.arrayListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO" />
+		</collection>
+	</mapping>
+
+</binding>

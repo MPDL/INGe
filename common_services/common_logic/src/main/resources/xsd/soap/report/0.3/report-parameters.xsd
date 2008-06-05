@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:report="http://www.escidoc.de/schemas/reportparameters/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/reportparameters/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/reportparameters/0.3"
+	xmlns:report="http://www.escidoc.de/schemas/reportparameters/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+	schemaLocation="../../../soap/common/0.3/common-types.xsd" />
 	<xs:element name="report-parameters">
 		<xs:annotation>
 			<xs:documentation>
@@ -12,7 +17,8 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-        		<xs:element name="report-definition" type="common-types:linkRequired">
+        		<xs:element name="report-definition"
+                    type="common-types:linkRequired">
           			<xs:annotation>
             			<xs:documentation>
 							<create>
@@ -25,7 +31,8 @@
 						</xs:documentation>
           			</xs:annotation>
         		</xs:element>
-				<xs:element name="parameter" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="parameter" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -40,7 +47,8 @@
 					<xs:complexType>
 						<xs:sequence>
 							<xs:choice maxOccurs="1">
-								<xs:element name="datevalue" type="xs:dateTime">
+								<xs:element name="datevalue"
+									type="xs:dateTime">
 									<xs:annotation>
 										<xs:documentation>
 											<comment>
@@ -50,7 +58,8 @@
 										</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="stringvalue" type="xs:string">
+								<xs:element name="stringvalue"
+									type="xs:string">
 									<xs:annotation>
 										<xs:documentation>
 											<comment>
@@ -60,7 +69,8 @@
 										</xs:documentation>
 									</xs:annotation>
 								</xs:element>
-								<xs:element name="decimalvalue" type="xs:decimal">
+								<xs:element name="decimalvalue"
+									type="xs:decimal">
 									<xs:annotation>
 										<xs:documentation>
 											<comment>
@@ -72,7 +82,8 @@
 								</xs:element>
 							</xs:choice>
 						</xs:sequence>
-						<xs:attribute name="name" type="xs:string" use="required">
+						<xs:attribute name="name" type="xs:string"
+							use="required">
 							<xs:annotation>
 								<xs:documentation>
 									<comment>

@@ -1,4 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- ZiNG SRU/SRW WSDL Specification                   --><!-- Version 1.1                                       --><!-- 14 Feb 2004                                       --><xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/zing/cql/xcql/" targetNamespace="http://www.loc.gov/zing/cql/xcql/" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ZiNG SRU/SRW WSDL Specification                   -->
+<!-- Version 1.1                                       -->
+<!-- 14 Feb 2004                                       -->
+
+<xsd:schema 
+	targetNamespace="http://www.loc.gov/zing/cql/xcql/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	xmlns="http://www.loc.gov/zing/cql/xcql/" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
   <xsd:complexType name="operandType">
     <xsd:sequence>
       <xsd:element ref="prefixes" minOccurs="0"/>

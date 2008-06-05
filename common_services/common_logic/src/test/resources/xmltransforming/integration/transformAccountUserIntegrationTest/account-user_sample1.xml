@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<ns1:user-account xlink:type="simple" xlink:title="String" xlink:href="http://www.altova.com" objid="escidoc:3" xml:base="http://www.altova.com" last-modification-date="2001-12-17T09:30:47.0Z" xsi:schemaLocation="http://www.escidoc.de/schemas/useraccount/0.3 user-account.xsd" xmlns:ns1="http://www.escidoc.de/schemas/useraccount/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<ns1:user-account xlink:type="simple" xlink:title="String" xlink:href="http://www.altova.com" objid="escidoc:3" xml:base="http://www.altova.com" last-modification-date="2001-12-17T09:30:47.0Z" xsi:schemaLocation="http://www.escidoc.de/schemas/useraccount/0.3 user-account.xsd" xmlns:ns1="${xsd.soap.useraccount.useraccount}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <ns1:email>foo@bar.com</ns1:email>
     <ns1:name>Test Depositor Scientist</ns1:name>
 	<ns1:login-name>test_dep_scientist</ns1:login-name>	

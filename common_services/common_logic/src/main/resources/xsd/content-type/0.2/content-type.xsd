@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:content-type="http://www.escidoc.de/schema/contenttype/0.2" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.escidoc.de/schema/contenttype/0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/2001/XMLSchema"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/common/0.2/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.2"/>
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:content-type="http://www.escidoc.de/schema/contenttype/0.2" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.2" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.escidoc.de/schema/contenttype/0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="../../rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.w3.org/2001/XMLSchema" schemaLocation="../../rest/common/0.3/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.2" schemaLocation="../../common/0.2/common-types.xsd"/>
 	<xs:element name="content-type">
 		<xs:complexType>
 			<xs:sequence>

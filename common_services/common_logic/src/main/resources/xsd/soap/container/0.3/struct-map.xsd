@@ -1,5 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.escidoc.de/schemas/structmap/0.3">
-  <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/member-ref-list.xsd" namespace="http://www.escidoc.de/schemas/memberreflist/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+           targetNamespace="http://www.escidoc.de/schemas/structmap/0.3"
+           xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
+           xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3">
+  <xs:import namespace="http://www.escidoc.de/schemas/memberreflist/0.3"
+             schemaLocation="../../../soap/common/0.3/member-ref-list.xsd"></xs:import>
 
   <xs:element name="struct-map">
     <xs:annotation>
@@ -24,7 +31,7 @@
 
     <xs:complexType>
       <xs:sequence>
-        <xs:element ref="member-ref-list:member-ref-list"/>
+        <xs:element ref="member-ref-list:member-ref-list"></xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>

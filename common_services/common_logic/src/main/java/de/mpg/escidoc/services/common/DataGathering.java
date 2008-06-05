@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
@@ -67,7 +68,7 @@ public interface DataGathering
     public java.util.List<OrganizationVO> createOrganizationListFromAffiliation(
             java.lang.String userHandle,
             AffiliationVO affiliation)
-       throws TechnicalException, AffiliationNotFoundException;
+       throws TechnicalException, AffiliationNotFoundException, URISyntaxException;
 
     /**
      * Searches for the revisions of an item usind the semantic store service and the

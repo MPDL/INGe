@@ -1,7 +1,22 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- ZiNG SRU/SRW WSDL Specification                   --><!-- Version 1.1                                       --><!-- 20 July 2004                                       --><xsd:schema xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/" xmlns:xcql="http://www.loc.gov/zing/cql/xcql/" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3" xmlns="http://www.loc.gov/zing/srw/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.loc.gov/zing/srw/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xsd:import schemaLocation="http://www.escidoc.de/schemas/soap/search-result/0.3/xcql.xsd" namespace="http://www.loc.gov/zing/cql/xcql/"/>
-	<xsd:import schemaLocation="http://www.escidoc.de/schemas/soap/search-result/0.3/diagnostics.xsd" namespace="http://www.loc.gov/zing/srw/diagnostic/"/>
-	<xsd:import schemaLocation="http://www.escidoc.de/schemas/soap/search-result/0.3/search-result.xsd" namespace="http://www.escidoc.de/schemas/searchresult/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ZiNG SRU/SRW WSDL Specification                   -->
+<!-- Version 1.1                                       -->
+<!-- 20 July 2004                                       -->
+<xsd:schema 
+	xmlns:diag="http://www.loc.gov/zing/srw/diagnostic/" 
+	xmlns:xcql="http://www.loc.gov/zing/cql/xcql/" 
+	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3" 
+	xmlns="http://www.loc.gov/zing/srw/" 
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.loc.gov/zing/srw/" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xsd:import namespace="http://www.loc.gov/zing/cql/xcql/" 
+		schemaLocation="../../../soap/search-result/0.3/xcql.xsd"/>
+	<xsd:import namespace="http://www.loc.gov/zing/srw/diagnostic/" 
+		schemaLocation="../../../soap/search-result/0.3/diagnostics.xsd"/>
+	<xsd:import namespace="http://www.escidoc.de/schemas/searchresult/0.3" 
+		schemaLocation="../../../soap/search-result/0.3/search-result.xsd"/>
 	<xsd:complexType name="requestType">
 		<xsd:sequence>
 			<xsd:element ref="version"/>

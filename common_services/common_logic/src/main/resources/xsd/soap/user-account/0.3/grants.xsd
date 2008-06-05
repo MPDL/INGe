@@ -1,6 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:grants="http://www.escidoc.de/schemas/grants/0.3" targetNamespace="http://www.escidoc.de/schemas/grants/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+    xmlns:grants="http://www.escidoc.de/schemas/grants/0.3"
+    targetNamespace="http://www.escidoc.de/schemas/grants/0.3"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="../../../soap/common/0.3/xml.xsd"/>
+    <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+        schemaLocation="../../../soap/common/0.3/common-types.xsd"/>
     <xs:element name="current-grants">
         <xs:annotation>
             <xs:documentation>
@@ -31,7 +38,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="grants:grant" minOccurs="0" maxOccurs="unbounded">
+                <xs:element ref="grants:grant" minOccurs="0"
+                    maxOccurs="unbounded">
                 </xs:element>
             </xs:sequence>
             <xs:attribute name="last-modification-date"/>
@@ -57,7 +65,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="creation-date" type="xs:dateTime" minOccurs="0">
+                            <xs:element name="creation-date"
+                                type="xs:dateTime" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -66,7 +75,9 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="created-by" type="common-types:readOnlyLink" minOccurs="0">
+                            <xs:element name="created-by"
+                                type="common-types:readOnlyLink"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -75,7 +86,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="revocation-date" type="xs:dateTime" minOccurs="0">
+                            <xs:element name="revocation-date"
+                                type="xs:dateTime" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -84,7 +96,9 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="revoked-by" type="common-types:readOnlyLink" minOccurs="0">
+                            <xs:element name="revoked-by"
+                                type="common-types:readOnlyLink"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -102,7 +116,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="revocation-remark" minOccurs="0">
+                            <xs:element name="revocation-remark"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>optional</create>
@@ -111,7 +126,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="role" type="common-types:linkRequired">
+                            <xs:element name="role"
+                                type="common-types:linkRequired">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>required</create>
@@ -120,7 +136,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="object" type="common-types:linkRequired" minOccurs="0">
+                            <xs:element name="object"
+                                type="common-types:linkRequired" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>optional (see note

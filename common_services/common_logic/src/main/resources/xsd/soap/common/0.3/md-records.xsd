@@ -1,6 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.escidoc.de/schemas/metadatarecords/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="../../../soap/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 	<xs:element name="md-records">
 		<xs:annotation>
 			<xs:documentation>
@@ -33,7 +41,7 @@
             </xs:documentation></xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:any processContents="skip"/>
+				<xs:any processContents="skip" />
 			</xs:sequence>
 
 			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
@@ -42,7 +50,8 @@
             <xs:documentation><create>optional</create><update>optional</update></xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="name" type="md-records:nameType" use="required">
+			<xs:attribute name="name" type="md-records:nameType"
+				use="required">
 				<xs:annotation>
             <xs:documentation><create>required</create><update>required</update></xs:documentation>
 				</xs:annotation>
@@ -56,7 +65,7 @@
 	</xs:element>
 	<xs:simpleType name="nameType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="escidoc"/>
+			<xs:pattern value="escidoc" />
 		</xs:restriction>
 	</xs:simpleType>
 </xs:schema>

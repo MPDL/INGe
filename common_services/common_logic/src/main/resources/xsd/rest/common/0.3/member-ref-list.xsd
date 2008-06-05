@@ -1,7 +1,16 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.escidoc.de/schemas/memberreflist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink"
+	targetNamespace="http://www.escidoc.de/schemas/memberreflist/0.3"
+	xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="../../../rest/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../rest/common/0.3/xml.xsd" />
 		
 	<xs:element name="member-ref-list">
 		<xs:annotation>
@@ -33,7 +42,8 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="member" minOccurs="0" maxOccurs="unbounded">
+				<xs:element name="member" minOccurs="0"
+					maxOccurs="unbounded">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -48,8 +58,10 @@
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:choice minOccurs="0" maxOccurs="unbounded">
-								<xs:element name="item-ref" type="common-types:link" minOccurs="0">
+							<xs:choice minOccurs="0"
+								maxOccurs="unbounded">
+								<xs:element name="item-ref" type="common-types:link" 
+								minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>
 											<create>
@@ -165,7 +177,8 @@
 									</xs:complexType>
 										 -->
 								</xs:element>
-								<xs:element name="container-ref" type="common-types:link" minOccurs="0">
+								<xs:element name="container-ref" type="common-types:link"
+								 minOccurs="0">
 									<xs:annotation>
 										<xs:documentation>
 											<create>

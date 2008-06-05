@@ -88,11 +88,11 @@ public class XmlTransformingTestBase extends TestBase
      */
     protected static void init() throws ParserConfigurationException
     {
-        m_docBuilderFactory = DocumentBuilderFactory.newInstance();
-        m_docBuilderFactory.setNamespaceAware(true);
-        m_xPathFactory = XPathFactory.newInstance();
-        m_xPath = m_xPathFactory.newXPath();
-        m_xPath.setNamespaceContext(new XPathNamespaceContext());
+//        m_docBuilderFactory = DocumentBuilderFactory.newInstance();
+//        m_docBuilderFactory.setNamespaceAware(true);
+//        m_xPathFactory = XPathFactory.newInstance();
+//        m_xPath = m_xPathFactory.newXPath();
+//        m_xPath.setNamespaceContext(new XPathNamespaceContext());
         setInitialized(true);
     }
 
@@ -106,53 +106,7 @@ public class XmlTransformingTestBase extends TestBase
      */
     protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception
     {
-        if (!isInitialized())
-        {
-            init();
-        }
-
-        String result = new String();
-        if (xml instanceof AttrImpl)
-        {
-            result = xml.getTextContent();
-        }
-        else if (xml instanceof Document)
-        {
-            StringWriter stringOut = new StringWriter();
-            // format
-            OutputFormat format = new OutputFormat((Document)xml);
-            format.setIndenting(true);
-            format.setPreserveSpace(false);
-            format.setOmitXMLDeclaration(omitXMLDeclaration);
-            format.setEncoding(XML_CHARSET_ENCODING);
-            // serialize
-            XMLSerializer serial = new XMLSerializer(stringOut, format);
-            serial.asDOMSerializer();
-
-            serial.serialize((Document)xml);
-            result = stringOut.toString();
-        }
-        else
-        {
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
-            LSOutput lsOutput = impl.createLSOutput();
-            lsOutput.setEncoding(XML_CHARSET_ENCODING);
-
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            lsOutput.setByteStream(os);
-            LSSerializer writer = impl.createLSSerializer();
-            // result = writer.writeToString(xml);
-            writer.write(xml, lsOutput);
-            result = ((ByteArrayOutputStream)lsOutput.getByteStream()).toString();
-            if ((omitXMLDeclaration) && (result.indexOf("?>") != -1))
-            {
-                result = result.substring(result.indexOf("?>") + 2);
-            }
-            // result = toString(getDocument(writer.writeToString(xml)),
-            // true);
-        }
-        return result;
+        return xml.toString();
     }
 
     /**

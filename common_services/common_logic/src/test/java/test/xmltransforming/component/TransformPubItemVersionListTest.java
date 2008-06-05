@@ -60,7 +60,7 @@ public class TransformPubItemVersionListTest extends XmlTransformingTestBase
      */
     private Logger logger = Logger.getLogger(getClass());
 
-    private static final String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformPubItemVersionListTest/";
+    private static final String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemVersionListTest/";
     private static final String VERSION_LIST_SAMPLE_FILE = TEST_FILE_ROOT + "version-list-sample.xml";
     private static final String VERSION_LIST_SAMPLE_FILE2 = TEST_FILE_ROOT + "version-list-sample2.xml";
     

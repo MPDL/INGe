@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START
+	
+	The contents of this file are subject to the terms of the
+	Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance
+	with the License.
+	
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE
+	or http://www.escidoc.de/license.
+	See the License for the specific language governing permissions
+	and limitations under the License.
+	
+	When distributing Covered Code, include this CDDL HEADER in each
+	file and include the License file at license/ESCIDOC.LICENSE.
+	If applicable, add the following below this CDDL HEADER, with the
+	fields enclosed by brackets "[]" replaced with your own identifying
+	information: Portions Copyright [yyyy] [name of copyright owner]
+	
+	CDDL HEADER END
+	
+	
+	Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+	für wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V.
+	All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for ItemVO -->
+	<mapping ns="${xsd.soap.item.item}" class="de.mpg.escidoc.services.common.valueobjects.ItemVO" abstract="true" ordered="false"
+		allow-repeats="true">
+
+		<!-- Node: item.@objid -->
+		<!-- Field: PubItemVO.version [PubItemRO] -->
+		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+		<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
+		<structure field="latestVersion" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework"
+			usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+		<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
+		<structure field="latestRelease" type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" test-method="alreadyExistsInFramework"
+			usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+
+		<structure name="properties" ns="${xsd.soap.item.item}" ordered="false" flexible="true" allow-repeats="true">
+
+			<!-- Node: item.properties.creation-date -->
+			<!-- Field: PubItemVO.creationDate [java.util.Date] -->
+			<value style="element" name="creation-date" ns="${xsd.soap.item.item}" test-method="alreadyExistsInFramework" field="creationDate"
+				usage="optional" />
+
+			<!-- Node: item.properties.created-by.@objid -->
+			<!-- Field: PubItemVO.owner [AccountUserRO] -->
+			<structure name="created-by" ns="${xsd.soap.item.item}" field="owner"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
+				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+			</structure>
+
+			<!-- Node: item.properties.context -->
+			<structure name="context" ns="${xsd.soap.item.item}" field="contextRO"
+				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+
+				<!-- Node: item.properties.context.@objid -->
+				<!-- Field: PubItemVO.pubCollection [PubCollectionRO] -->
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+
+			</structure>
+
+			<!-- Node: item.properties.content-model -->
+			<!-- Field: none, but mandatory in the schema instances -->
+			<structure name="content-model" ns="${xsd.soap.item.item}">
+
+				<!-- Node: item.properties.content-model.@objid -->
+				<!-- mandatory in XML during update and during create, useless in VO -->
+				<value style="attribute" name="objid" field="contentModel" usage="optional" />
+
+			</structure>
+
+			<!-- Node: item.properties.lock-status -->
+			<!-- Field: PubItemVO.lockStatus [PubItemVO.LockStatus] -->
+			<value style="element" name="lock-status" ns="${xsd.soap.item.item}" field="lockStatus"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeLockStatusEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+			<!-- Node: item.version -->
+			<!-- Field: PubItemVO.version [ItemRO] -->
+			<structure field="version" ns="${xsd.soap.item.item}" usage="optional" name="version">
+				<value style="element" name="number" ns="${xsd.soap.item.item}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.item.item}" field="modificationDate" usage="optional" />
+
+				<!-- Node: item.properties.version.version-status -->
+				<!-- Field: PubItemVO.state [PubItemVO.State] -->
+				<value style="element" name="version-status" ns="${xsd.soap.item.item}" field="state"
+					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+
+				<structure name="valid-status" ns="${xsd.soap.item.item}" usage="optional" />
+				<structure name="modified-by" ns="${xsd.soap.item.item}" usage="optional" />
+
+				<value style="element" name="comment" ns="${xsd.soap.item.item}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.item.item}" field="pid" usage="optional" />
+			</structure>
+
+			<!-- Node: item.latest-version -->
+			<!-- Field: PubItemVO.latestVersion [PubItemRO] -->
+			<structure field="latestVersion" ns="${xsd.soap.item.item}" usage="optional" name="latest-version">
+				<value style="element" name="number" ns="${xsd.soap.item.item}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.item.item}" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="${xsd.soap.item.item}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.item.item}" field="pid" usage="optional" />
+			</structure>
+
+			<!-- Node: item.latest-release -->
+			<!-- Field: PubItemVO.latestRelease [PubItemRO] -->
+			<structure field="latestRelease" ns="${xsd.soap.item.item}" usage="optional" name="latest-release">
+				<value style="element" name="number" ns="${xsd.soap.item.item}" field="versionNumber" usage="optional" />
+				<value style="element" name="date" ns="${xsd.soap.item.item}" field="modificationDate" usage="optional" />
+				<value style="element" name="comment" ns="${xsd.soap.item.item}" field="lastMessage" usage="optional" />
+				<value style="element" name="pid" ns="${xsd.soap.item.item}" field="pid" usage="optional" />
+			</structure>
+
+			<!-- Node: item.properties.content-model-specific -->
+			<!-- Field: none, but mandatory in the schema instances -->
+			<structure name="content-model-specific" ns="${xsd.soap.item.item}" ordered="false" flexible="true">
+				<!-- structure name="anything" /-->
+			</structure>
+
+		</structure>
+
+		<!-- Node: item.md-records -->
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}">
+
+			<!-- Node: item.md-records.md-record -->
+			<!-- Field: metadataSets [List<MetadataSetVO>] -->
+			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
+
+				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
+					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
+				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
+
+			</collection>
+
+		</structure>
+
+		<!-- Node: item.components -->
+		<!-- Field: PubItemVO.files -->
+		<collection name="components" ns="${xsd.soap.item.components}" field="files"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.pubFileVOListFactory" item-type="de.mpg.escidoc.services.common.valueobjects.FileVO"
+			test-method="hasFiles" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.FileVO" />
+		</collection>
+
+		<!-- Node: item.relations -->
+		<!-- Field: relations [List<PubItemRelationVO>] -->
+		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+		</collection>
+
+	</mapping>
+
+</binding>

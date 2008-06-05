@@ -35,6 +35,7 @@ import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -756,7 +757,7 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public URL transformUploadResponseToFileURL(String uploadResponse) throws TechnicalException, UnmarshallingException
+    public URL transformUploadResponseToFileURL(String uploadResponse) throws TechnicalException, UnmarshallingException, URISyntaxException
     {
         logger.debug("transformUploadResponseToFileURL(String) - String uploadResponse=" + uploadResponse);
         if (uploadResponse == null)

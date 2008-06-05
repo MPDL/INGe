@@ -44,9 +44,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.naming.InitialContext;
@@ -80,18 +83,21 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 
 import com.sun.org.apache.xerces.internal.dom.AttrImpl;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
@@ -124,7 +130,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public abstract class TestBase
 {
-    private static final String TEST_FILE_ROOT = "src/test/resources/";
+    protected static final String TEST_FILE_ROOT = "target/test-classes/";
     protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
@@ -167,7 +173,7 @@ public abstract class TestBase
      * @throws IOException
      * @throws ServiceException
      */
-    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
+    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
@@ -209,7 +215,7 @@ public abstract class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginScientist() throws ServiceException, HttpException, IOException
+    protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_scientist", "escidoc");
     }
@@ -222,7 +228,7 @@ public abstract class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginLibrarian() throws ServiceException, HttpException, IOException
+    protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_lib", "pubman");
     }
@@ -249,7 +255,7 @@ public abstract class TestBase
      * @throws ServiceException
      */
     protected static void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException,
-            AuthenticationException, RemoteException, ServiceException
+            AuthenticationException, RemoteException, ServiceException, URISyntaxException
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
     }
@@ -848,22 +854,7 @@ public abstract class TestBase
      */
     protected static String readFile(String fileName) throws IOException
     {
-        if (fileName == null)
-        {
-            throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":readFile:fileName is null");
-        }
-        StringBuffer fileBuffer;
-        String fileString = null;
-        String line;
-        File file = new File(fileName);
-        BufferedReader dis = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-        fileBuffer = new StringBuffer();
-        while ((line = dis.readLine()) != null)
-        {
-            fileBuffer.append(line + "\n");
-        }
-        fileString = fileBuffer.toString();
-        return fileString;
+        return ResourceUtil.getResourceAsString(fileName);
     }
 
     /**
@@ -945,30 +936,63 @@ public abstract class TestBase
      * @param schemaFileName
      * @throws Exception
      */
-    public static void assertXMLValid(final String xmlData, final String schemaFileName) throws Exception
+    public static void assertXMLValid(final String xmlData) throws Exception
     {
         if (xmlData == null)
         {
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
         }
-        if (schemaFileName == null)
-        {
-            throw new IllegalArgumentException(TestBase.class.getSimpleName()
-                    + ":assertXMLValid:schemaFileName is null");
-        }
-        Schema schema = getSchema(schemaFileName);
+
+        String JAXP_SCHEMA_LANGUAGE =
+            "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
+
+        String W3C_XML_SCHEMA =
+            "http://www.w3.org/2001/XMLSchema"; 
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        factory.setValidating(true);
+        factory.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
+
+        File[] schemas = ResourceUtil.getFilenamesInDirectory("xsd/");
+
+        logger.info("Used schemas: " + Arrays.asList(schemas));
+        
+        String JAXP_SCHEMA_SOURCE = 
+            "http://java.sun.com/xml/jaxp/properties/schemaSource";
+        
+        factory.setAttribute(JAXP_SCHEMA_SOURCE, schemas);
+        
+        DocumentBuilder builder = factory.newDocumentBuilder();
+
         try
         {
-            Validator validator = schema.newValidator();
-            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
-            validator.validate(new SAXSource(new InputSource(in)));
+            ErrorHandler errorHandler = new SchemaErrorHandler();
+            builder.setErrorHandler(errorHandler);
+            builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
         }
-        catch (SAXParseException e)
+        catch (Exception e)
         {
             StringBuffer sb = new StringBuffer();
-            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
-            sb.append("SAXParseException message: " + e.getMessage() + "\n");
-            sb.append("Affected XML: \n" + xmlData);
+            if (e instanceof SAXException && e.getCause() instanceof SAXParseException)
+            {
+                sb.append("XML invalid at line:" + ((SAXParseException)e.getCause()).getLineNumber() + ", column:" + ((SAXParseException)e.getCause()).getColumnNumber() + "\n");
+                sb.append("SAXParseException message: " + ((SAXParseException)e.getCause()).getMessage() + "\n");
+                sb.append("\nAffected XML: \n");
+                sb.append(xmlData);
+            }
+            else
+            {
+                sb.append("XML error: ");
+                sb.append(e.getMessage());
+                sb.append(" / ");
+                if (e.getCause() != null)
+                {
+                    e.getCause().getMessage();
+                }
+                sb.append("\nAffected XML: \n");
+                sb.append(xmlData);
+            }
             fail(sb.toString());
         }
     }
@@ -1009,7 +1033,8 @@ public abstract class TestBase
         {
             return xPath.evaluate(xpathExpression, document);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             throw new RuntimeException(e);
         }
     }
@@ -1279,4 +1304,25 @@ public abstract class TestBase
 
         return item;
     }
+    
+    class SchemaErrorHandler implements ErrorHandler
+    {
+
+        public void error(SAXParseException exception) throws SAXException
+        {
+            throw new SAXException(exception);
+        }
+
+        public void fatalError(SAXParseException exception) throws SAXException
+        {
+            throw new SAXException(exception);
+        }
+
+        public void warning(SAXParseException exception) throws SAXException
+        {
+            logger.warn("Warning", exception);
+        }
+        
+    }
+    
 }

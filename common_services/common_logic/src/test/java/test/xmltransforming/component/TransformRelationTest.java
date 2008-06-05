@@ -54,7 +54,7 @@ public class TransformRelationTest extends TestBase
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
 
     private Logger logger = Logger.getLogger(getClass());
-    private static String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformRelationTest/";
+    private static String TEST_FILE_ROOT = "xmltransforming/component/transformRelationTest/";
     private static String RELATIONS_SAMPLE_FILE1 = TEST_FILE_ROOT + "relations_sample1.xml";
     private static String RELATIONS_SAMPLE_FILE2 = TEST_FILE_ROOT + "relations_sample2.xml";
 

@@ -1,7 +1,7 @@
 <escidocItem:item
 	objid="escidoc:375"
 	last-modification-date="2007-04-24T16:20:26.823Z"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"	
+	xmlns:escidocItem="${xsd.soap.item.item}"	
 	xmlns:xlink="http://www.w3.org/1999/xlink"	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
@@ -27,9 +27,9 @@
 			<escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
 			<escidocItem:pid>hdl:someHandle/test/escidoc:375</escidocItem:pid>
 		</escidocItem:latest-release>
-		<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+		<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 	</escidocItem:properties>
-	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<escidocMetadataProfile:publication
 				xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
@@ -44,10 +44,10 @@
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-	<escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+	<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
 		<escidocComponents:component objid="escidoc:376">
 			<escidocComponents:properties 
-				xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+				xmlns:escidocComponents="${xsd.soap.item.components}">
 				<escidocComponents:creation-date>2007-04-24T16:20:19.308Z</escidocComponents:creation-date>
 				<escidocComponents:created-by objid="escidoc:user1" />
 				<escidocComponents:description>Ein Farbtest.</escidocComponents:description>				

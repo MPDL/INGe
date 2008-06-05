@@ -1,5 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	targetNamespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3" 
+	xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.3" 
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+	schemaLocation="../../../soap/common/0.3/common-types.xsd" />
 	<xs:element name="aggregation-definition">
 		<xs:annotation>
 			<xs:documentation>
@@ -37,7 +43,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-        		<xs:element name="scope" type="common-types:linkRequired">
+        		<xs:element name="scope"
+                    type="common-types:linkRequired">
           			<xs:annotation>
             			<xs:documentation>
 							<create>

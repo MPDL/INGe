@@ -1,6 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Harald Kappus (DV Consulting) --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:user-account="http://www.escidoc.de/schemas/useraccount/0.3" targetNamespace="http://www.escidoc.de/schemas/useraccount/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Harald Kappus (DV Consulting) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+    xmlns:user-account="http://www.escidoc.de/schemas/useraccount/0.3"
+    targetNamespace="http://www.escidoc.de/schemas/useraccount/0.3"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="../../../soap/common/0.3/xml.xsd"/>
+    <xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+        schemaLocation="../../../soap/common/0.3/common-types.xsd"/>
     <xs:element name="user-account">
         <xs:annotation>
             <xs:documentation>
@@ -39,7 +47,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="creation-date" type="xs:dateTime" minOccurs="0">
+                            <xs:element name="creation-date"
+                                type="xs:dateTime" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -47,7 +56,9 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="created-by" type="common-types:readOnlyLink" minOccurs="0">
+                            <xs:element name="created-by"
+                                type="common-types:readOnlyLink"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -55,7 +66,9 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="modified-by" type="common-types:readOnlyLink" minOccurs="0">
+                            <xs:element name="modified-by"
+                                type="common-types:readOnlyLink"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded</create>
@@ -97,12 +110,14 @@
                                     </xs:documentation>
                                 </xs:annotation>
                                 <xs:simpleType>
-                                    <xs:restriction base="xs:normalizedString">
+                                    <xs:restriction
+                                        base="xs:normalizedString">
                                         <xs:maxLength value="255"/>
                                     </xs:restriction>
                                 </xs:simpleType>
                             </xs:element>
-                            <xs:element name="active" type="xs:boolean" minOccurs="0">
+                            <xs:element name="active" type="xs:boolean"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded (see note
@@ -119,7 +134,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="person" type="common-types:linkRequired" minOccurs="0">
+                            <xs:element name="person"
+                                type="common-types:linkRequired" minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>discarded (see note 1.)</create>
@@ -132,7 +148,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="organizational-units" minOccurs="0">
+                            <xs:element name="organizational-units"
+                                minOccurs="0">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>optional</create>
@@ -147,7 +164,9 @@
                                 </xs:annotation>
                                 <xs:complexType>
                                     <xs:sequence>
-                                        <xs:element name="organizational-unit" maxOccurs="unbounded">
+                                        <xs:element
+                                            name="organizational-unit"
+                                            maxOccurs="unbounded">
                                             <xs:annotation>
                                                 <xs:documentation>
                                                     <create>
@@ -179,8 +198,13 @@
                                             </xs:annotation>
                                             <xs:complexType>
                                                 <xs:complexContent>
-                                                    <xs:extension base="common-types:linkRequired">
-                                                        <xs:attribute name="primary" type="xs:boolean" use="optional" default="false"/>
+                                                    <xs:extension
+                                                        base="common-types:linkRequired">
+                                                        <xs:attribute
+                                                            name="primary"
+                                                            type="xs:boolean"
+                                                            use="optional"
+                                                            default="false"/>
                                                     </xs:extension>
                                                 </xs:complexContent>
                                             </xs:complexType>
@@ -200,7 +224,8 @@
                     </xs:documentation>
                 </xs:annotation>
             </xs:attribute>
-            <xs:attribute name="last-modification-date" type="xs:dateTime">
+            <xs:attribute name="last-modification-date"
+                type="xs:dateTime">
                 <xs:annotation>
                     <xs:documentation>
                         <create>discarded</create>

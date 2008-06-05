@@ -70,7 +70,7 @@ public class TransformExportFormatTest extends TestBase
         logger.info("### testTransformToExportFormatVOList ###");
 
         String exportFormatList =
-            readFile("src/test/resources/xmltransforming/component/transformExportFormatTest/export-format-list_sample1.xml");
+            readFile("xmltransforming/component/transformExportFormatTest/export-format-list_sample1.xml");
         List<ExportFormatVO> formatList = xmlTransforming.transformToExportFormatVOList(exportFormatList);
         assertNotNull(formatList);
         assertFalse(formatList.isEmpty());

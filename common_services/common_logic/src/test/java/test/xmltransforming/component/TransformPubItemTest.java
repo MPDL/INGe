@@ -66,10 +66,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
 {
     private Logger logger = Logger.getLogger(getClass());
     private static XmlTransforming xmlTransforming = new XmlTransformingBean();
-    private static final String ITEM_SCHEMA_FILE = "src/main/resources/xsd/soap/item/0.3/item.xsd";
-    private static final String ITEM_LIST_SCHEMA_FILE = "src/main/resources/xsd/soap/item/0.3/item-list.xsd";
-    private static final String MPDL_METADATA_SCHEMA_FILE = "src/main/resources/xsd/metadata/0.1/escidocprofile.xsd";
-    private static String TEST_FILE_ROOT = "src/test/resources/xmltransforming/component/transformPubItemTest/";
+    private static String TEST_FILE_ROOT = "xmltransforming/component/transformPubItemTest/";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String RELEASED_ITEM_FILE = TEST_FILE_ROOT + "released_item_with_one_component.xml";
     private static String SAVED_ITEM_FILE = TEST_FILE_ROOT + "saved_item1.xml";
@@ -114,7 +111,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         logger.info("PubItemVO with file transformed to item(XML).");
         logger.debug("item(XML) =" + pubItemXML);
         // is item list[XML] valid according to item.xsd?
-        assertXMLValid(pubItemXML, ITEM_SCHEMA_FILE);
+        assertXMLValid(pubItemXML);
 
         // transform the item(XML) back to a PubItemVO
         PubItemVO roundtrippedPubItemVO = xmlTransforming.transformToPubItem(pubItemXML);
@@ -167,7 +164,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // check the results
         assertNotNull(pubItemListXML);
         // is item list[XML] valid according to item-list.xsd?
-        assertXMLValid(pubItemListXML, ITEM_LIST_SCHEMA_FILE);
+        assertXMLValid(pubItemListXML);
         // does item list[XML] contain five item nodes?
         final String xPath = "//item-list/item";
         Document doc = getDocument(pubItemListXML, false);
@@ -206,7 +203,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         String metadataXML = toString(publicationMetadataList.item(0), false);
         logger.debug("md-record of type 'publication':\n" + metadataXML);
         // Is the metadata part valid according to the metadata schema?
-        assertXMLValid(metadataXML, MPDL_METADATA_SCHEMA_FILE);
+        assertXMLValid(metadataXML);
     }
 
     /**
@@ -259,12 +256,12 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         logger.debug("Transformed item(XML):\n" + itemXml);
         Node itemDoc = getDocument(itemXml, false);
         // check validity of item
-        assertXMLValid(toString(itemDoc, false), ITEM_SCHEMA_FILE);
+        assertXMLValid(toString(itemDoc, false));
         logger.info("Transformed item is valid.");
         // check validity of metadata
         Node metadataXml = selectSingleNode(itemDoc, "//item/md-records/md-record/publication");
         logger.debug("Metadata:\n" + toString(metadataXml, false));
-        assertXMLValid(toString(metadataXml, false), MPDL_METADATA_SCHEMA_FILE);
+        assertXMLValid(toString(metadataXml, false));
         logger.info("Transformed item metadata is valid.");
 
         PubItemVO roundtrippedPubItem = xmlTransforming.transformToPubItem(itemXml);

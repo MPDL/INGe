@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocVersions:version-history xml:base="http://192.129.1.85:8080" last-modification-date="2008-04-22T07:39:31.337Z"
-	xmlns:escidocVersions="http://www.escidoc.de/schemas/versionhistory/0.3">
+	xmlns:escidocVersions="${xsd.soap.common.versionhistory}">
 	<escidocVersions:version xmlns:xlink="http://www.w3.org/1999/xlink" objid="escidoc:1641:8" timestamp="2008-04-22T07:39:19.056Z"
 		xlink:href="/ir/item/escidoc:1641:8" xlink:title="Version 8" xlink:type="simple">
 		<escidocVersions:pid timestamp="2008-04-22T07:39:33.634Z" user="escidoc:user42">hdl:someHandle/test/escidoc:1641:8</escidocVersions:pid>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for AffiliationVO -->
+	<!-- Type: AffiliationVO... -->
+	<mapping name="organizational-unit" ns="${xsd.soap.ou.ou}"
+		class="de.mpg.escidoc.services.common.valueobjects.AffiliationVO" ordered="false" flexible="true"
+		allow-repeats="true">
+
+		<!-- Node: organizational-unit.@objid -->
+		<!-- Field: AffiliationVO.reference [AffiliationRO] -->
+		<structure field="reference" type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"
+			usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+
+		<!-- Node: organizational-unit.@last-modification-date -->
+		<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
+		<value style="attribute" name="last-modification-date" field="lastModificationDate" usage="optional" />
+
+		<!-- Node: organizational-unit.properties -->
+		<structure name="properties" ns="${xsd.soap.ou.ou}" ordered="false"
+			flexible="true">
+
+			<!-- Node: organizational-unit.properties.@last-modification-date -->
+			<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
+			<value style="attribute" name="last-modification-date"
+				ns="${xsd.soap.ou.ou}" field="lastModificationDate" usage="optional" />
+
+			<!-- Node: organizational-unit.properties.creation-date -->
+			<!-- Field: AffiliationVO.creationDate [java.util.Date] -->
+			<value style="element" name="creation-date" ns="${xsd.soap.ou.ou}"
+				field="creationDate" usage="optional" />
+
+			<!-- Node: organizational-unit.properties.created-by -->
+			<!-- Type: AccountUserRO... -->
+			<structure name="created-by" ns="${xsd.soap.ou.ou}" field="creator"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				usage="optional">
+
+				<!-- Node: organizational-unit.properties.created-by.@objid -->
+				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+
+			</structure>
+
+			<!-- Node: organizational-unit.properties.public-status -->
+			<!-- Field: AffiliationVO.publicStatus [String] -->
+			<value style="element" name="public-status" ns="${xsd.soap.ou.ou}"
+				field="publicStatus" usage="optional" />
+
+			<!-- Node: organizational-unit.properties.has-children -->
+			<!-- Field: AffiliationVO.hasChildren [boolean] -->
+			<value style="element" name="has-children" ns="${xsd.soap.ou.ou}" get-method="getHasChildren" usage="optional" />
+
+		</structure>
+
+
+		<!-- Node: organizational-unit.organization-details -->
+		<structure name="organization-details" ns="${xsd.soap.ou.ou}" ordered="false"
+			flexible="true">
+
+			<!-- Node: organizational-unit.organization-details.abbreviation -->
+			<!-- Field: AffiliationVO.abbreviation [String] -->
+			<value style="element" name="abbreviation" ns="${xsd.soap.ou.ou}"
+				field="abbreviation" />
+
+			<!-- Node: organizational-unit.organization-details.name -->
+			<!-- Field: AffiliationVO.name [String] -->
+			<value style="element" name="name" ns="${xsd.soap.ou.ou}" field="name" />
+
+			<!-- Node: organizational-unit.organization-details.uri -->
+			<!-- Field: AffiliationVO.homepageUrl [java.net.URL] -->
+			<value style="element" name="uri" ns="${xsd.soap.ou.ou}"
+				field="homepageUrl" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.description -->
+			<!-- Field: AffiliationVO.description [String] -->
+			<value style="element" name="description" ns="${xsd.soap.ou.ou}"
+				field="description" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.external-id -->
+			<!-- Field: AffiliationVO.externalId [String] -->
+			<value style="element" name="external-id" ns="${xsd.soap.ou.ou}"
+				field="externalId" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.postcode -->
+			<!-- Field: AffiliationVO.postcode [String] -->
+			<value style="element" name="postcode" ns="${xsd.soap.ou.ou}"
+				field="postcode" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.country -->
+			<!-- Field: AffiliationVO.countryCode [String] -->
+			<value style="element" name="country" ns="${xsd.soap.ou.ou}"
+				field="countryCode" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.region -->
+			<!-- Field: AffiliationVO.region [String] -->
+			<value style="element" name="region" ns="${xsd.soap.ou.ou}"
+				field="region" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.address -->
+			<!-- Field: AffiliationVO.address [String] -->
+			<value style="element" name="address" ns="${xsd.soap.ou.ou}"
+				field="address" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.city -->
+			<!-- Field: AffiliationVO.city [String] -->
+			<value style="element" name="city" ns="${xsd.soap.ou.ou}" field="city"
+				usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.telephone -->
+			<!-- Field: AffiliationVO.telephone [String] -->
+			<value style="element" name="telephone" ns="${xsd.soap.ou.ou}"
+				field="telephone" usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.fax -->
+			<!-- Field: AffiliationVO.fax [String] -->
+			<value style="element" name="fax" ns="${xsd.soap.ou.ou}" field="fax"
+				usage="optional" />
+
+			<!-- Node: organizational-unit.organization-details.email -->
+			<!-- Field: AffiliationVO.email [String] -->
+			<value style="element" name="email" ns="${xsd.soap.ou.ou}" field="email"
+				usage="optional" />
+
+		</structure>
+
+		<!-- Node: organizational-unit.parent-ous -->
+		<!-- Field: AffiliationVO.parentAffiliations [List<AffiliationRO>] -->
+		<collection name="parent-ous" ns="${xsd.soap.ou.ou}"
+			field="parentAffiliations"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory"
+			test-method="hasParentAffiliations" usage="optional">
+
+			<!-- Node: organizational-unit.parent-ous.parent-ou -->
+			<structure name="parent-ou" ns="${xsd.soap.ou.ou}"
+				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
+
+				<!-- Node: organizational-unit.parent-ous.parent-ou.@objid -->
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+
+			</structure>
+
+		</collection>
+
+	</mapping>
+
+</binding>
+

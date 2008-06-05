@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <il:item-list
-	xmlns:il="http://www.escidoc.de/schemas/itemlist/0.3">
+	xmlns:il="${xsd.soap.item.itemlist}">
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:385"  last-modification-date="2007-11-29T17:21:05.961Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:385"  last-modification-date="2007-11-29T17:21:05.961Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-11-29T17:20:13.477Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:385:2">
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-11-29T17:21:05.961Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >ItemHandler.update()</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:385:2">
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-11-29T17:21:05.961Z</escidocItem:date>    </escidocItem:latest-version>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="poster">
   <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="painter">
@@ -40,18 +40,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:471"  last-modification-date="2007-11-30T12:39:12.611Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:471"  last-modification-date="2007-11-30T12:39:12.611Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-11-30T12:39:12.361Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:471:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-11-30T12:39:12.611Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:471 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:471:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-11-30T12:39:12.611Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -147,18 +147,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:579"  last-modification-date="2007-12-04T15:25:35.751Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:579"  last-modification-date="2007-12-04T15:25:35.751Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-04T15:25:35.485Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:579:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-04T15:25:35.751Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:579 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:579:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-04T15:25:35.751Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -254,18 +254,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:716"  last-modification-date="2007-12-06T08:38:48.157Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:716"  last-modification-date="2007-12-06T08:38:48.157Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-06T08:38:47.845Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:716:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T08:38:48.157Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:716 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:716:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T08:38:48.157Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -361,16 +361,16 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:818"  last-modification-date="2007-12-06T15:08:23.704Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:818"  last-modification-date="2007-12-06T15:08:23.704Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-06T15:08:23.391Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:818:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T15:08:23.704Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:818 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:818:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T15:08:23.704Z</escidocItem:date>    </escidocItem:latest-version>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -410,16 +410,16 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:822"  last-modification-date="2007-12-06T15:38:57.610Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:822"  last-modification-date="2007-12-06T15:38:57.610Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-06T15:38:57.329Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:822:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T15:38:57.610Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:822 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:822:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T15:38:57.610Z</escidocItem:date>    </escidocItem:latest-version>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -459,16 +459,16 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:831"  last-modification-date="2007-12-06T16:00:21.657Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:831"  last-modification-date="2007-12-06T16:00:21.657Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-06T16:00:21.360Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:831:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T16:00:21.657Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:831 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:831:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T16:00:21.657Z</escidocItem:date>    </escidocItem:latest-version>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -508,16 +508,16 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:836"  last-modification-date="2007-12-06T17:08:18.688Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:836"  last-modification-date="2007-12-06T17:08:18.688Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-06T17:08:18.391Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:836:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T17:08:18.688Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:836 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:836:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-06T17:08:18.688Z</escidocItem:date>    </escidocItem:latest-version>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -557,18 +557,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1219"  last-modification-date="2007-12-12T10:45:03.218Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1219"  last-modification-date="2007-12-12T10:45:03.218Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-12T10:45:02.936Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1219:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-12T10:45:03.218Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:1219 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:1219:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-12T10:45:03.218Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -664,18 +664,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1306"  last-modification-date="2007-12-12T10:52:01.202Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1306"  last-modification-date="2007-12-12T10:52:01.202Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-12T10:52:00.921Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1306:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-12T10:52:01.202Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:1306 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:1306:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-12T10:52:01.202Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -771,7 +771,7 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1388"  last-modification-date="2007-12-12T11:05:35.952Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1388"  last-modification-date="2007-12-12T11:05:35.952Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-12T11:05:25.280Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>released</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1388:2">
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-12-12T11:05:35.952Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >ItemHandler.update()</escidocItem:comment>    	    </escidocItem:version>
@@ -779,10 +779,10 @@
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-12-12T11:05:35.952Z</escidocItem:date>    </escidocItem:latest-version>
     	    <escidocItem:latest-release   objid="escidoc:1388:1">
     		<escidocItem:number >1</escidocItem:number>	    	<escidocItem:date >2007-12-12T11:05:29.718Z</escidocItem:date>	    		    </escidocItem:latest-release>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
   <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -818,18 +818,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1519"  last-modification-date="2007-12-19T10:33:46.004Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1519"  last-modification-date="2007-12-19T10:33:46.004Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-19T10:33:45.691Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1519:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T10:33:46.004Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:1519 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:1519:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T10:33:46.004Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -925,18 +925,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1644"  last-modification-date="2007-12-19T12:46:43.816Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1644"  last-modification-date="2007-12-19T12:46:43.816Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-19T12:46:43.504Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1644:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T12:46:43.816Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:1644 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:1644:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T12:46:43.816Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -1032,18 +1032,18 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1770"  last-modification-date="2007-12-19T13:13:30.566Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:1770"  last-modification-date="2007-12-19T13:13:30.566Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-19T13:13:30.223Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>pending</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:1770:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T13:13:30.566Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >Object escidoc:1770 created.</escidocItem:comment>    	    </escidocItem:version>
     <escidocItem:latest-version   objid="escidoc:1770:1">
     	<escidocItem:number >1</escidocItem:number>    	<escidocItem:date >2007-12-19T13:13:30.566Z</escidocItem:date>    </escidocItem:latest-version>
-    	<item:content-model-specific xmlns:item="http://www.escidoc.de/schemas/item/0.3">
+    	<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
             <anything></anything>
         </item:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <md-profile-escidoc:publication xmlns:md-profile-escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">
@@ -1139,7 +1139,7 @@
  	</escidocItem:item>
 
 			<escidocItem:item
-	 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:2057"  last-modification-date="2007-12-19T17:09:06.051Z" >
+	 xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  objid="escidoc:2057"  last-modification-date="2007-12-19T17:09:06.051Z" >
  	<escidocItem:properties   >
 	<escidocItem:creation-date>2007-12-19T17:08:57.426Z</escidocItem:creation-date>    <escidocItem:created-by   objid="escidoc:user2" />    <escidocItem:public-status>released</escidocItem:public-status>    <escidocItem:context   objid="escidoc:persistent3" />    <escidocItem:content-model   objid="escidoc:persistent4" />    <escidocItem:lock-status >unlocked</escidocItem:lock-status>            <escidocItem:version   objid="escidoc:2057:2">
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-12-19T17:09:06.051Z</escidocItem:date>    	<escidocItem:version-status >pending</escidocItem:version-status>    	<escidocItem:valid-status >valid</escidocItem:valid-status>    	<escidocItem:modified-by   objid="escidoc:user2" />    	<escidocItem:comment >ItemHandler.update()</escidocItem:comment>    	    </escidocItem:version>
@@ -1147,10 +1147,10 @@
     	<escidocItem:number >2</escidocItem:number>    	<escidocItem:date >2007-12-19T17:09:06.051Z</escidocItem:date>    </escidocItem:latest-version>
     	    <escidocItem:latest-release   objid="escidoc:2057:1">
     		<escidocItem:number >1</escidocItem:number>	    	<escidocItem:date >2007-12-19T17:09:00.394Z</escidocItem:date>	    		    		<escidocItem:pid >hdl:someHandle/test/escidoc:2057:1</escidocItem:pid>	    		    </escidocItem:latest-release>
-    	<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+    	<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 </escidocItem:properties>
 	 	<escidocMetadataRecords:md-records 
-		xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"			  	 >
+		xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"			  	 >
 	<escidocMetadataRecords:md-record name="escidoc"    	  >
   <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
   <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">

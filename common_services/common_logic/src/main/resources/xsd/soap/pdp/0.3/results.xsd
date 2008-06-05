@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xacml-context="urn:oasis:names:tc:xacml:1.0:context" xmlns:results="http://www.escidoc.de/schemas/pdp/0.3/results" targetNamespace="http://www.escidoc.de/schemas/pdp/0.3/results" elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/cs-xacml-schema-context-01.xsd" namespace="urn:oasis:names:tc:xacml:1.0:context"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:xacml-context="urn:oasis:names:tc:xacml:1.0:context"
+    xmlns:results="http://www.escidoc.de/schemas/pdp/0.3/results"
+    targetNamespace="http://www.escidoc.de/schemas/pdp/0.3/results"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="urn:oasis:names:tc:xacml:1.0:context"
+        schemaLocation="../../../soap/common/0.3/cs-xacml-schema-context-01.xsd"/>
     <xs:element name="results">
         <xs:complexType>
             <xs:sequence>

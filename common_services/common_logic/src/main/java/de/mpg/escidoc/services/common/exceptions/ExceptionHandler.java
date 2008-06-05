@@ -37,16 +37,15 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.invalid.XmlSchemaValidationException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingContentException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ComponentNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContentTypeNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyAttributeViolationException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyElementViolationException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.invalid.XmlSchemaValidationException;
+import de.escidoc.core.common.exceptions.application.missing.MissingContentException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.missing.MissingParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ComponentNotFoundException;
+import de.escidoc.core.common.exceptions.application.violated.ReadonlyAttributeViolationException;
+import de.escidoc.core.common.exceptions.application.violated.ReadonlyElementViolationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.logging.CommonLogicMessages;
 import de.mpg.escidoc.services.common.logging.MessageCreator;
 
@@ -69,7 +68,7 @@ public class ExceptionHandler
     public static void handleException(Exception e, String methodname) throws TechnicalException
     {
         if (e instanceof SecurityException || e instanceof SystemException || e instanceof MissingContentException
-                || e instanceof ContentTypeNotFoundException || e instanceof ComponentNotFoundException
+                || e instanceof ComponentNotFoundException
                 || e instanceof ReadonlyAttributeViolationException || e instanceof XmlSchemaValidationException || e instanceof InvalidXmlException
                 || e instanceof MissingParameterException || e instanceof MissingMethodParameterException || e instanceof MalformedURLException
                 || e instanceof ReadonlyElementViolationException || e instanceof RemoteException || e instanceof ServiceException)

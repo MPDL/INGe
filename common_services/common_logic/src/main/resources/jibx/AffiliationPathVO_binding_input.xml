@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- concrete mapping for AffiliationPathVO -->
+	<!-- Type: AffiliationPathVO... -->
+	<mapping name="organizational-unit-path" ns="${xsd.soap.ou.oupathlist}"
+		class="de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO" ordered="false" allow-repeats="true">
+
+		<!-- Node: organizational-unit-path -->
+		<!-- Field: AffiliationPathVO.affiliationList [java.util.ArrayList<AffiliationRO>]-->
+		<collection field="affiliationList"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory">
+
+			<!-- Node: organizational-unit-path.organizational-unit-ref -->
+			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.oupathlist}"
+				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
+
+				<!-- Node: organizational-unit-path.organizational-unit-ref.@objid -->
+				<!-- Field: AffiliationPathVO.affiliationList[X] [AffiliationRO] -->
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId"
+					usage="optional" />
+
+			</structure>
+		</collection>
+
+	</mapping>
+
+</binding>
+

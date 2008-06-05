@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.2" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.escidoc.de/schemas/memberreflist/0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/common/0.2/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.2"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.2" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.2" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.escidoc.de/schemas/memberreflist/0.2" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink" schemaLocation="../../rest/common/0.3/xlink.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.2" schemaLocation="../../common/0.2/common-types.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../rest/common/0.3/xml.xsd"/>
 	<xs:element name="member-ref-list">
 		<xs:annotation>
 			<xs:documentation>

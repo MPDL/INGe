@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common;
 
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
@@ -71,10 +72,10 @@ public interface XmlTransforming
     public static final String SERVICE_NAME = "ejb/de/mpg/escidoc/services/pubman/XmlTransforming";
 
     /**
-     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/useraccount/0.3"
+     * Transforms an XML String that is valid according to "${xsd.soap.useraccount.useraccount}"
      * (user-account.xsd) to the corresponding <code>AccountUserVO</code>.
      * 
-     * @param user XML String that is valid according to "http://www.escidoc.de/schemas/useraccount/0.3"
+     * @param user XML String that is valid according to "${xsd.soap.useraccount.useraccount}"
      *            (user-account.xsd)
      * @return The corresponding <code>AccountUserVO</code>
      * @throws TechnicalException
@@ -83,11 +84,11 @@ public interface XmlTransforming
     public AccountUserVO transformToAccountUser(String user) throws TechnicalException, UnmarshallingException;
 
     /**
-     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/organizationalunit/0.3"
+     * Transforms an XML String that is valid according to "${xsd.soap.ou.ou}"
      * (organizational-unit.xsd) to the corresponding <code>AffiliationVO</code>.
      * 
      * @param organizationalUnit XML String that is valid according to
-     *            "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit)
+     *            "${xsd.soap.ou.ou}" (organizational-unit)
      * @return The corresponding <code>AffiliationVO</code>
      * @throws TechnicalException
      * @throws UnmarshallingException
@@ -112,7 +113,7 @@ public interface XmlTransforming
      * <code>List&lt;AffiliationPath></code>.
      * 
      * @param pathList XML String that is valid according to
-     *            "http://www.escidoc.de/schemas/organizationalunitpathlist/0.3" (organizational-unit-path-list.xsd)
+     *            "${xsd.soap.ou.oupathlist}" (organizational-unit-path-list.xsd)
      * @return The corresponding <code>List&lt;AffiliationPath></code>
      * @throws TechnicalException
      * @throws UnmarshallingException
@@ -193,21 +194,21 @@ public interface XmlTransforming
 
     /**
      * Transforms a given <code>AffiliationVO</code> to corresponding XML that is valid according to
-     * "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd).
+     * "${xsd.soap.ou.ou}" (organizational-unit.xsd).
      * 
      * @param affiliation A <code>AffiliationVO</code>
      * @return Corresponding XML that is valid according to
-     * "http://www.escidoc.de/schemas/organizationalunit/0.3" (organizational-unit.xsd)
+     * "${xsd.soap.ou.ou}" (organizational-unit.xsd)
      * @throws TechnicalException
      * @throws MarshallingException
      */
     public String transformToOrganizationalUnit(AffiliationVO affiliation) throws TechnicalException, MarshallingException;
 
     /**
-     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/context/0.3" (context.xsd) to
+     * Transforms an XML String that is valid according to "${xsd.soap.context.context}" (context.xsd) to
      * the corresponding <code>ContextVO</code>.
      * 
-     * @param context XML String that is valid according to "http://www.escidoc.de/schemas/context/0.3" (context.xsd)
+     * @param context XML String that is valid according to "${xsd.soap.context.context}" (context.xsd)
      * @return The corresponding <code>ContextVO</code>
      * @throws TechnicalException
      */
@@ -246,10 +247,10 @@ public interface XmlTransforming
     public List<? extends ItemVO> transformToItemList(String itemList) throws TechnicalException;
 
     /**
-     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/searchresult/0.3"
+     * Transforms an XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
      * (search-result.xsd) to the corresponding <code>PubItemResultVO</code>.
      * 
-     * @param searchResultItem XML String that is valid according to "http://www.escidoc.de/schemas/searchresult/0.3"
+     * @param searchResultItem XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
      *            (search-result.xsd)
      * @return The corresponding <code>PubItemResultVO</code>
      * @throws TechnicalException
@@ -290,7 +291,7 @@ public interface XmlTransforming
      * @throws TechnicalException
      * @throws UnmarshallingException
      */
-    public URL transformUploadResponseToFileURL(String uploadResponse) throws TechnicalException, UnmarshallingException;
+    public URL transformUploadResponseToFileURL(String uploadResponse) throws TechnicalException, UnmarshallingException, URISyntaxException;
     
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.

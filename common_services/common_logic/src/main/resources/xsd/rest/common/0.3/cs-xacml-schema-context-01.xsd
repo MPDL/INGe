@@ -1,5 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xacml="urn:oasis:names:tc:xacml:1.0:policy" xmlns:xacml-context="urn:oasis:names:tc:xacml:1.0:context" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oasis:names:tc:xacml:1.0:context" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="urn:oasis:names:tc:xacml:1.0:policy/cs-xacml-schema-policy-01.xsd" namespace="urn:oasis:names:tc:xacml:1.0:policy"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xacml="urn:oasis:names:tc:xacml:1.0:policy" xmlns:xacml-context="urn:oasis:names:tc:xacml:1.0:context" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:oasis:names:tc:xacml:1.0:context" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy" schemaLocation="cs-xacml-schema-policy-01.xsd"/>
 	<!-- 	-->
 	<xs:element name="Request" type="xacml-context:RequestType"/>
 	<xs:complexType name="RequestType">

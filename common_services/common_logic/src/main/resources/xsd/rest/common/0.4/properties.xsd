@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://escidoc.de/core/01/properties/"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:common="http://www.escidoc.de/schemas/commontypes/0.4">
+
+	<xs:annotation>
+		<xs:documentation>
+			The term "raw source of a resource" refers to the object or
+			simply the data behind a resource. What is usually meant
+			with the physical representation of a resource where every
+			representation is derived from.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:import namespace="http://escidoc.de/core/01/properties/version/"
+		schemaLocation="../../../rest/common/0.4/version.xsd" />
+	<xs:import namespace="http://escidoc.de/core/01/properties/release/"
+		schemaLocation="../../../rest/common/0.4/release.xsd" />
+	<xs:import
+		namespace="http://escidoc.de/core/01/structural-relations/"
+		schemaLocation="../../../rest/common/0.4/structural-relations.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+
+	<xs:element name="locator-url" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Needed? Should be described.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				A name of the resource. Equivalent to
+				{http://purl.org/dc/elements/1.1/}title.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="description" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				An account of the resource. Description may include but
+				is not limited to: an abstract, a table of contents, a
+				graphical representation, or a free-text account of the
+				resource. Equivalent to
+				{http://purl.org/dc/elements/1.1/}description.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="login-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="email" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The email address of a person.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="creation-date" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>
+				The creation date of the raw source of a resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="public-status">
+		<xs:annotation>
+			<xs:documentation>
+				The status of the resource that expresses the usability
+				and visibility of the resource.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="pending" />
+				<xs:enumeration value="submitted" />
+				<xs:enumeration value="in-revision" />
+				<xs:enumeration value="released" />
+				<xs:enumeration value="withdrawn" />
+				<xs:enumeration value="created" />
+				<xs:enumeration value="opened" />
+				<xs:enumeration value="closed" />
+				<!-- extend to ALL status values -->
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="active" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="visibility">
+		<xs:annotation>
+			<xs:documentation>
+				The name of a scope in which the resource is visible.
+				This kind of visibility overrides access rights.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="valid-status">
+		<xs:annotation>
+			<xs:documentation>Component valid-status.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="type" type="xs:token">
+		<xs:annotation>
+			<xs:documentation>Type of Context.</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="has-children" type="xs:boolean">
+		<xs:annotation>
+			<xs:documentation>
+				Indicates if a resource has children. A resource has
+				children if there exists a parent-to-child or
+				child-to-parent relation with another resource where the
+				resource is in the parent role. Usually the resource
+				refers to its children by an appropriate predicate.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="lock-date" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>
+				The date when a resource is locked. If a resource is
+				locked only
+				http://www.escidoc.de/ontologies/properties/lock-owner
+				should be able to modify the resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="lock-status">
+		<xs:annotation>
+			<xs:documentation>
+				Indicates if a resource is locked.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:simpleType>
+			<xs:restriction base="xs:token">
+				<xs:enumeration value="locked" />
+				<xs:enumeration value="unlocked" />
+			</xs:restriction>
+		</xs:simpleType>
+	</xs:element>
+	<xs:element name="content-category" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				A notion of the type of content the resource represents.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="file-name" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The name under which the file associated with the
+				resource should be delivered.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="mime-type" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The mime-type of the file associated with the resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="file-size" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The size of the file associated with the resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- PID -->
+	<xs:element name="pid" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				A globally unique and persistent Identifier of the
+				resource.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<!-- content model specific properties; may be defined by solution -->
+	<xs:element name="content-model-specific">
+		<xs:annotation>
+			<xs:documentation>
+				Container for properties defined in a content model
+				description.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:any maxOccurs="unbounded" minOccurs="0"
+					processContents="skip" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<!-- versions -->
+	<xs:element name="version">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to an abstract resource that describe a resources
+				version.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="version:number" minOccurs="1" />
+				<xs:element ref="version:date" minOccurs="1" />
+				<xs:element ref="version:status" minOccurs="1" />
+				<!--<xs:element ref="version:valid-status" minOccurs="0" />-->
+				<xs:element ref="srel:modified-by" minOccurs="1" />
+				<xs:element ref="version:comment" minOccurs="1" />
+				<xs:element ref="version:pid" minOccurs="0" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common:readOnlyESciDocResourceLinkAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="latest-version">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to an abstract resource that describes the latest
+				version of a resource.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="version:number" minOccurs="1" />
+				<xs:element ref="version:date" minOccurs="1" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common:readOnlyESciDocResourceLinkAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="latest-release">
+		<xs:annotation>
+			<xs:documentation>
+				Refers to an abstract resource that describe a resources
+				latest release.
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="release:number" minOccurs="1" />
+				<xs:element ref="release:date" minOccurs="1" />
+				<xs:element ref="release:pid" minOccurs="0" />
+			</xs:sequence>
+			<xs:attributeGroup
+				ref="common:readOnlyESciDocResourceLinkAttributes" />
+		</xs:complexType>
+	</xs:element>
+	<!-- external names -->
+	<xs:element name="context-title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				The title of another resource. Internal use only. Only
+				specializations should be used.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="content-model-title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Specialisation of
+				&lt;http://www.escidoc.de/ontologies/properties/external-title&gt;.
+				Internal use only.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="created-by-title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Specialisation of
+				&lt;http://www.escidoc.de/ontologies/properties/external-title&gt;.
+				Internal use only.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="modified-by-title" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				Specialisation of
+				&lt;http://www.escidoc.de/ontologies/properties/external-title&gt;.
+				Internal use only.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="grant-remark" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				A remark for granting a role to a user.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="revocation-remark" type="xs:string">
+		<xs:annotation>
+			<xs:documentation>
+				A remark for revoking a role from a user.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="revocation-date" type="xs:dateTime">
+		<xs:annotation>
+			<xs:documentation>
+				The revocation date of a grant.
+			</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="external-ids">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="external-id" minOccurs="0" maxOccurs="unbounded"  type="xs:string">
+					<xs:annotation>
+						<xs:documentation>
+							<create>discarded</create>
+							<update>discarded</update>
+							<comment>An external Identifier of the resource.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="organizational-units">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded"
+					ref="srel:organizational-unit">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+							<comment>
+								At least one organizational-unit element
+								must exist if the parent element
+								organizational-units exist. To remove
+								all organizational unit during update,
+								the parent element organizational-units
+								has to be removed.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="affiliations">
+		<xs:annotation>
+			<xs:documentation>
+				List of affiliations of a user account.
+				<create>optional</create>
+				<update>optional (see note 2.)</update>
+				<comment>
+					2. If this element is not provided during update,
+					all affiliations are removed from the user account.
+				</comment>
+			</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element maxOccurs="unbounded"
+					ref="srel:affiliation">
+					<xs:annotation>
+						<xs:documentation>
+							<create>required</create>
+							<update>required</update>
+							<comment>
+								At least one affiliation element must
+								exist if the parent element affiliations
+								exist. To remove all affiliations during
+								update, the parent element affiliations
+								has to be removed. One affiliation must
+								be marked as the primary affiliation of
+								the user.
+							</comment>
+						</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

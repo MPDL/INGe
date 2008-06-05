@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<member-list:member-list xmlns:member-list="http://www.escidoc.de/schemas/memberlist/0.3">
-	<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:363" last-modification-date="2008-05-21T19:22:38.446Z">
+<member-list:member-list xmlns:member-list="${xsd.soap.common.memberlist}">
+	<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:363" last-modification-date="2008-05-21T19:22:38.446Z">
 		<escidocItem:properties>
 			<escidocItem:creation-date>2007-11-09T12:43:43.552Z</escidocItem:creation-date>
 			<escidocItem:created-by objid="escidoc:user2" />
@@ -26,9 +26,9 @@
 				<escidocItem:date>2007-11-19T20:23:02.401Z</escidocItem:date>
 				<escidocItem:pid>hdl:someHandle/test/escidoc:363:9</escidocItem:pid>
 			</escidocItem:latest-release>
-			<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+			<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 		</escidocItem:properties>
-		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
 				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
 					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
@@ -84,7 +84,7 @@
 
 
 	</escidocItem:item>
-	<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1003" last-modification-date="2007-11-19T08:52:38.448Z">
+	<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1003" last-modification-date="2007-11-19T08:52:38.448Z">
 		<escidocItem:properties>
 			<escidocItem:creation-date>2007-11-19T08:52:25.448Z</escidocItem:creation-date>
 			<escidocItem:created-by objid="escidoc:994" />
@@ -108,9 +108,9 @@
 				<escidocItem:number>1</escidocItem:number>
 				<escidocItem:date>2007-11-19T08:52:38.448Z</escidocItem:date>
 			</escidocItem:latest-release>
-			<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+			<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
 		</escidocItem:properties>
-		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
 				<escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
 					<publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="artist">

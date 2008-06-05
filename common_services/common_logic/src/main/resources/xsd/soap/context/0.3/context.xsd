@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:context="http://www.escidoc.de/schemas/context/0.3" xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/context/0.3" attributeFormDefault="unqualified" elementFormDefault="qualified">
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/context/0.3"
+	xmlns:context="http://www.escidoc.de/schemas/context/0.3"
+	xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	attributeFormDefault="unqualified" elementFormDefault="qualified">
 
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/admin-descriptor.xsd" namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="../../../soap/common/0.3/common-types.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"
+		schemaLocation="../../../soap/common/0.3/admin-descriptor.xsd" />
 	<!-- This xsd is used in the API of Context; SOAP interface -->
 	<xs:element name="context">
 		<xs:annotation>
@@ -49,7 +59,7 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="context:properties"/>
+				<xs:element ref="context:properties" />
 				<xs:element ref="admin-descriptor:admin-descriptor">
 					<xs:annotation>
 						<xs:documentation>
@@ -59,15 +69,17 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
-			<xs:attributeGroup ref="common-types:eSciDocRootElementAttributes"/>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIndentityAttributes" />
+			<xs:attributeGroup
+				ref="common-types:eSciDocRootElementAttributes" />
 		</xs:complexType>
 	</xs:element>
 	<xs:simpleType name="statusTypes">
 		<xs:restriction base="xs:token">
-			<xs:enumeration value="created"/>
-			<xs:enumeration value="opened"/>
-			<xs:enumeration value="closed"/>
+			<xs:enumeration value="created" />
+			<xs:enumeration value="opened" />
+			<xs:enumeration value="closed" />
 		</xs:restriction>
 	</xs:simpleType>
 	<xs:element name="properties">
@@ -79,7 +91,8 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="creation-date" type="xs:dateTime" minOccurs="0">
+				<xs:element name="creation-date" type="xs:dateTime"
+					minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -87,7 +100,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="created-by" type="common-types:readOnlyLink" minOccurs="0">
+				<xs:element name="created-by"
+					type="common-types:readOnlyLink" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -95,7 +109,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="modified-by" type="common-types:readOnlyLink" minOccurs="0">
+				<xs:element name="modified-by"
+					type="common-types:readOnlyLink" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -103,7 +118,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="public-status" type="context:statusTypes" minOccurs="0">
+				<xs:element name="public-status"
+					type="context:statusTypes" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -119,7 +135,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="description" type="xs:string" minOccurs="0">
+				<xs:element name="description" type="xs:string"
+					minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>required</create>
@@ -170,7 +187,8 @@
 						
 					</xs:complexType>
 				</xs:element>
-				<xs:element name="last-modification-date" type="xs:dateTime" minOccurs="0">
+				<xs:element name="last-modification-date"
+					type="xs:dateTime" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -179,7 +197,8 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attribute name="last-modification-date" type="xs:dateTime">
+			<xs:attribute name="last-modification-date"
+		type="xs:dateTime">
 				<xs:annotation>
 					<xs:documentation>
 						<create>discarded</create>

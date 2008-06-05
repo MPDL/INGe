@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.3" xmlns:aggregation-definition-list="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3" targetNamespace="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/aggregation-definition/0.3/aggregation-definition.xsd" namespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3"
+	xmlns:aggregation-definition="http://www.escidoc.de/schemas/aggregationdefinition/0.3"
+	xmlns:aggregation-definition-list="http://www.escidoc.de/schemas/aggregationdefinitionlist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/aggregationdefinition/0.3"
+		schemaLocation="../../../rest/aggregation-definition/0.3/aggregation-definition.xsd" />
 	<xs:element name="aggregation-definition-list">
 		<xs:annotation>
 			<xs:documentation>

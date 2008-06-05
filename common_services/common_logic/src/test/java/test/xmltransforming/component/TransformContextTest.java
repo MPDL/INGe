@@ -66,7 +66,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 public class TransformContextTest extends TestBase
 {
     private static final String TEST_FILE_ROOT
-        = "src/test/resources/xmltransforming/component/transformPubCollectionTest/";
+        = "xmltransforming/component/transformPubCollectionTest/";
     private static final String CONTEXT_SAMPLE_FILE
         = TEST_FILE_ROOT + "context_sample.xml";
     private static final String CONTEXT_FULL_SAMPLE_FILE

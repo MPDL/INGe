@@ -26,14 +26,13 @@
 	Gesellschaft zur Förderung der Wissenschaft e.V.
 	All rights reserved. Use is subject to license terms.
 -->
-<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:escidocAdminDescriptor="http://www.escidoc.de/schemas/admindescriptor/0.3"
-	xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.3" xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.3"
-	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3" xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"
-	xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.3" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-	xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.3" xmlns:escidocResources="http://www.escidoc.de/schemas/resources/0.2"
-	xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.3" xmlns:xlink="http://www.w3.org/1999/xlink"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:arxiv="http://arxiv.org/OAI/arXiv/"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 soap/item/0.3/item.xsd">
+<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+	xmlns:escidocContext="${xsd.soap.context.context}" xmlns:escidocContextList="${xsd.soap.context.contextlist}"
+	xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocItem="${xsd.soap.item.item}"
+	xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
+	xmlns:escidocRelations="${xsd.soap.common.relations}"
+	xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:arxiv="http://arxiv.org/OAI/arXiv/">
 
 	<xsl:output method="xml" indent="yes" />
 

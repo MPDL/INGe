@@ -4,7 +4,7 @@
 	last-modification-date="2007-08-21T12:00:32.658Z"
 	xmlns:dc="http://purl.org/dc/elements/1.1/" 
     xmlns:dcterms="http://purl.org/dc/terms/"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"
+	xmlns:escidocItem="${xsd.soap.item.item}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"	 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
@@ -27,10 +27,10 @@
             <escidocItem:number>1</escidocItem:number>
             <escidocItem:date>2007-08-21T12:00:32.658Z</escidocItem:date>
         </escidocItem:latest-version>
-        <escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" />
+        <escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
     </escidocItem:properties>
-    <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
+    <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
             <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="book">
                 <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
                     <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
