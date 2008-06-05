@@ -55,7 +55,7 @@
     </release>
       <release version="1.0.5" date="2008-06-05" description="Single release">
        <action dev="tendres" type="fix">
-        Last bugfixes for the framework release build 159.
+        Final bugfixes for the framework release build 159.
       </action>
       </release>
   </body>
