@@ -83,6 +83,7 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.EntityResolver;
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -962,22 +963,73 @@ public abstract class TestBase
             "http://java.sun.com/xml/jaxp/properties/schemaSource";
         
         factory.setAttribute(JAXP_SCHEMA_SOURCE, schemas);
-        
+
         DocumentBuilder builder = factory.newDocumentBuilder();
+        EntityResolver entityResolver = new EntityResolver()
+        {
+            String xsdPath = ResourceUtil.getResourceAsFile("xsd/").getAbsolutePath();
+            String replacePath = null;
+            
+            public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
+            {
+                if (replacePath == null)
+                {
+                    int slash = systemId.length();
+                    while ((slash = systemId.lastIndexOf("/", slash - 1)) >= 0)
+                    {
+                        String suffix = systemId.substring(slash);
+                        try
+                        {
+                            File xsdFile = new File(xsdPath + suffix);
+                            if (xsdFile.exists())
+                            {
+                                replacePath = systemId.substring(0, slash);
+                                break;
+                            }
+                        }
+                        catch (Exception e) {
+                            // This was not the right path!
+                        }
+                    }
+                }
+                return new InputSource(ResourceUtil.getResourceAsStream(xsdPath + systemId.substring(replacePath.length())));
+            }
+            
+        };
+        builder.setEntityResolver(entityResolver);
 
         try
         {
-            ErrorHandler errorHandler = new SchemaErrorHandler();
+            ErrorHandler errorHandler = new ErrorHandler()
+            {
+
+                public void error(SAXParseException exception) throws SAXException
+                {
+                    throw exception;
+                }
+
+                public void fatalError(SAXParseException exception) throws SAXException
+                {
+                    throw exception;
+                }
+
+                public void warning(SAXParseException exception) throws SAXException
+                {
+                    logger.warn("Warning", exception);
+                }
+                
+            };
+            
             builder.setErrorHandler(errorHandler);
             builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
         }
         catch (Exception e)
         {
             StringBuffer sb = new StringBuffer();
-            if (e instanceof SAXException && e.getCause() instanceof SAXParseException)
+            if (e instanceof SAXParseException)
             {
-                sb.append("XML invalid at line:" + ((SAXParseException)e.getCause()).getLineNumber() + ", column:" + ((SAXParseException)e.getCause()).getColumnNumber() + "\n");
-                sb.append("SAXParseException message: " + ((SAXParseException)e.getCause()).getMessage() + "\n");
+                sb.append("XML invalid at line:" + ((SAXParseException)e).getLineNumber() + ", column:" + ((SAXParseException)e).getColumnNumber() + "\n");
+                sb.append("SAXParseException message: " + ((SAXParseException)e).getMessage() + "\n");
                 sb.append("\nAffected XML: \n");
                 sb.append(xmlData);
             }
@@ -1304,25 +1356,5 @@ public abstract class TestBase
 
         return item;
     }
-    
-    class SchemaErrorHandler implements ErrorHandler
-    {
 
-        public void error(SAXParseException exception) throws SAXException
-        {
-            throw new SAXException(exception);
-        }
-
-        public void fatalError(SAXParseException exception) throws SAXException
-        {
-            throw new SAXException(exception);
-        }
-
-        public void warning(SAXParseException exception) throws SAXException
-        {
-            logger.warn("Warning", exception);
-        }
-        
-    }
-    
 }
