@@ -219,11 +219,5 @@
 			<version>2.7.0</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>framework_access</artifactId>
-			<version>1.0.1</version>
-			<scope>compile</scope>
-		</dependency>
 	</dependencies>
 </project>
