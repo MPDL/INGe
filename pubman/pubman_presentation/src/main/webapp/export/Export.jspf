@@ -79,7 +79,7 @@
 					<h:commandButton id="btnExportDownload"
 									 value="#{lbl.export_btDownload}"
 									 actionListener="#{SearchResultList.downloadExportFile}"
-									 disabled="#{!(ExportItemsSessionBean.enableLayout && ExportItemsSessionBean.enableExport)}"
+									 disabled="#{!ExportItemsSessionBean.enableExport}"
 									 styleClass="inlineButton exportDownloadButton" />
 				
 					<h:commandButton id="btnExportEMail"
