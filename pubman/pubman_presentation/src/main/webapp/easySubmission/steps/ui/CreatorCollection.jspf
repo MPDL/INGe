@@ -74,7 +74,7 @@
 			<h:dataTable var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
 				<h:column>
 					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">	
-						<div class="easySubmissionBasicSubItem">
+						<div class="easySubmissionOrgItem">
 							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
 							<h:inputText value="#{persOrga.name.value}"/>
 							<h:inputTextarea value="#{persOrga.address}" styleClass="margin5Top"/>
@@ -96,7 +96,7 @@
 			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{creatorBean.organisationType}">
 				<h:panelGroup layout="block" rendered="#{creatorBean.organisationType}">
 					<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
-						<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
+						<h:panelGroup layout="block" styleClass="easySubmissionOrgItem">
 							<h:outputLabel value="#{lbl.easy_submission_lblOrganization}" />
 							<h:inputText value="#{creatorBean.creator.organization.name.value}"/>
 							<h:inputTextarea value="#{creatorBean.creator.organization.address}" styleClass="margin5Top"/>

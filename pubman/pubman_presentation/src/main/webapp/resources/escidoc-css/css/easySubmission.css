@@ -379,6 +379,19 @@
   .easySubmissionSubSubItem input, .easySubmissionSubSubItem select, .easySubmissionSubSubItem label, .easySubmissionSubSubItem textarea {
   	width: 450px;
   }
+  
+  .easySubmissionOrgItem {
+  	width: 370px;
+  	display: inline;
+  	overflow: hidden;
+  	float: left;
+  }
+  
+  .easySubmissionOrgItem input, .easySubmissionOrgItem textarea {
+  	width: 360px;
+  	display: inline;
+  	float: left;
+  }
 
   .easySubmissionDateItem {
   	width: 160px;

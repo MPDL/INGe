@@ -74,11 +74,11 @@
 												
 						<h:panelGroup layout="block" styleClass="editItemSingleCol">	
 							<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
-							<h:inputText styleClass="editItemTextFieldMedium" value="#{persOrga.name.value}"/>
+							<h:inputText styleClass="editItemTextFieldLarge" value="#{persOrga.name.value}"/>
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
 						</h:panelGroup>
 						<h:panelGroup layout="block" styleClass="editItemSingleCol">								
-							<h:inputTextarea styleClass="editItemTextFieldMedium editItemTextArea" value="#{persOrga.address}"/>		
+							<h:inputTextarea styleClass="editItemTextArea editItemTextFieldLarge" value="#{persOrga.address}"/>		
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{creatorBean.personOrganisationManager.addObject}" />
 							<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{creatorBean.personOrganisationManager.removeObject}" rendered="#{creatorBean.personOrganisationManager.size > 1}" />				
 							<h:outputText value=" " rendered="#{creatorBean.personOrganisationManager.size < 2}"/>
@@ -96,11 +96,11 @@
 					</h:panelGroup>--%>
 					<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
-						<h:inputText styleClass="editItemTextFieldMedium" value="#{creatorBean.creator.organization.name.value}"/>					
+						<h:inputText styleClass="editItemTextFieldLarge" value="#{creatorBean.creator.organization.name.value}"/>					
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemSingleCol topSpace">
-						<h:inputText styleClass="editItemTextFieldMedium editItemTextArea" value="#{creatorBean.creator.organization.address}"/>
+						<h:inputText styleClass="editItemTextArea editItemTextFieldLarge" value="#{creatorBean.creator.organization.address}"/>
 					</h:panelGroup>					
 				</h:panelGroup>				
 			</h:panelGroup>		

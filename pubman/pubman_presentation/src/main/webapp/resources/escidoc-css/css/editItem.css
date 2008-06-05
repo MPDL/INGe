@@ -308,6 +308,10 @@ label{
   width: 300px;
 }
 
+.editItemTextFieldLarge {
+	width: 450px;
+}
+
 .editItemComboBoxLanguage {  
   width: 45px;
   margin-right: 5px;
