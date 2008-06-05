@@ -43,12 +43,8 @@
 			eSciDoc SearchAndOutput Service REST Interface
 		</h1>
 		<div class="topSpace">
-		<div class="editItemSingleCol">
-			Link: <a href="SearchAndOutput">Search and generate Output</a>
-		</div>
 		<div class="editItemSingleCol topSpace"> 
 			<span>This service expects a GET request containing following parameters:</span><br/>
-		
 		<ul>
 			<li>
 				<strong>cqlQuery</strong> defines CQL search request (required).  
