@@ -9,7 +9,7 @@
 	<artifactId>common_logic_ear</artifactId>
 	<name>common_logic_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.4-SNAPSHOT</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic_ear</connection>
