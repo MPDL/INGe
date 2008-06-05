@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.services.test.search;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

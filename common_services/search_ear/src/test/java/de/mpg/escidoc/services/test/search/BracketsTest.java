@@ -28,15 +28,12 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.services.test.search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import org.junit.Test;
-
-import de.mpg.escidoc.services.pubman.searching.ParseException;
-import de.mpg.escidoc.services.pubman.searching.QueryParser;
 
 /**
  * JUnit test class for several search querys with brackets.
@@ -45,107 +42,107 @@ import de.mpg.escidoc.services.pubman.searching.QueryParser;
  */
 public class BracketsTest
 {
-    /**
-     * test search query with brackets. 
-     * e. g. "(hello)"
-     * @throws ParseException
-     */
-    @Test
-    public void bracketsOk() throws ParseException
-    {
-        QueryParser parser = new QueryParser("(hello)");
-        parser.addCQLIndex("escidoc.metadata");
-        String query = parser.parse();
-        assertEquals("(escidoc.metadata=hello)",query);
-    }
-
-    /**
-     * test search query with empty brackets.
-     * e. g. "()"
-     */
-    @Test
-    public void emptyBrackets()
-    {
-        QueryParser parser = new QueryParser("()");
-        parser.addCQLIndex("escidoc.metadata");
-        try
-        {
-            parser.parse();
-            fail("Exception expected.");
-        }
-        catch(ParseException e)
-        {
-        }
-    }
-
-    /**
-     * test search query with double empty brackets.
-     * e. g. "(())"
-     */
-    @Test
-    public void doubleEmptyBrackets()
-    {
-        QueryParser parser = new QueryParser("(())");
-        parser.addCQLIndex("escidoc.metadata");
-        try
-        {
-            parser.parse();
-            fail("Exception expected.");
-        }
-        catch(ParseException e)
-        {
-        }
-    }
-
-    /**
-     * test search query with a missing leading bracket.
-     * e. g. "hello)"
-     */
-    @Test
-    public void leadingBracketMissing()
-    {
-        QueryParser parser = new QueryParser("hello)");
-        parser.addCQLIndex("escidoc.metadata");
-        try
-        {
-            parser.parse();
-            fail("Exception expected.");
-        }
-        catch(ParseException e)
-        {
-        }
-    }
-
-    /**
-     * test search query with a missing trailing bracket.
-     * e. g. "(hello"
-     */
-    @Test
-    public void trailingBracketMissing()
-    {
-        QueryParser parser = new QueryParser("(hello");
-        parser.addCQLIndex("escidoc.metadata");
-        try
-        {
-            parser.parse();
-            fail("Exception expected.");
-        }
-        catch(ParseException e)
-        {
-        }
-    }
-
-    /**
-     * test search query with several brackets.
-     * e. g. "((hello)(world))"
-     * @throws Exception
-     */
-    @Test
-    public void severalBrackets() throws Exception
-    {
-        QueryParser parser = new QueryParser("((hello)(world))");
-        parser.addCQLIndex("escidoc.metadata");
-        String query = parser.parse();
-        assertEquals("((escidoc.metadata=hello) and (escidoc.metadata=world))",query);
-    }
+//    /**
+//     * test search query with brackets. 
+//     * e. g. "(hello)"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void bracketsOk() throws ParseException
+//    {
+//        QueryParser parser = new QueryParser("(hello)");
+//        parser.addCQLIndex("escidoc.metadata");
+//        String query = parser.parse();
+//        assertEquals("(escidoc.metadata=hello)",query);
+//    }
+//
+//    /**
+//     * test search query with empty brackets.
+//     * e. g. "()"
+//     */
+//    @Test
+//    public void emptyBrackets()
+//    {
+//        QueryParser parser = new QueryParser("()");
+//        parser.addCQLIndex("escidoc.metadata");
+//        try
+//        {
+//            parser.parse();
+//            fail("Exception expected.");
+//        }
+//        catch(ParseException e)
+//        {
+//        }
+//    }
+//
+//    /**
+//     * test search query with double empty brackets.
+//     * e. g. "(())"
+//     */
+//    @Test
+//    public void doubleEmptyBrackets()
+//    {
+//        QueryParser parser = new QueryParser("(())");
+//        parser.addCQLIndex("escidoc.metadata");
+//        try
+//        {
+//            parser.parse();
+//            fail("Exception expected.");
+//        }
+//        catch(ParseException e)
+//        {
+//        }
+//    }
+//
+//    /**
+//     * test search query with a missing leading bracket.
+//     * e. g. "hello)"
+//     */
+//    @Test
+//    public void leadingBracketMissing()
+//    {
+//        QueryParser parser = new QueryParser("hello)");
+//        parser.addCQLIndex("escidoc.metadata");
+//        try
+//        {
+//            parser.parse();
+//            fail("Exception expected.");
+//        }
+//        catch(ParseException e)
+//        {
+//        }
+//    }
+//
+//    /**
+//     * test search query with a missing trailing bracket.
+//     * e. g. "(hello"
+//     */
+//    @Test
+//    public void trailingBracketMissing()
+//    {
+//        QueryParser parser = new QueryParser("(hello");
+//        parser.addCQLIndex("escidoc.metadata");
+//        try
+//        {
+//            parser.parse();
+//            fail("Exception expected.");
+//        }
+//        catch(ParseException e)
+//        {
+//        }
+//    }
+//
+//    /**
+//     * test search query with several brackets.
+//     * e. g. "((hello)(world))"
+//     * @throws Exception
+//     */
+//    @Test
+//    public void severalBrackets() throws Exception
+//    {
+//        QueryParser parser = new QueryParser("((hello)(world))");
+//        parser.addCQLIndex("escidoc.metadata");
+//        String query = parser.parse();
+//        assertEquals("((escidoc.metadata=hello) and (escidoc.metadata=world))",query);
+//    }
 }

@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.services.test.search;
 
 import static org.junit.Assert.assertEquals;
 
@@ -36,8 +36,6 @@ import java.io.StringReader;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.pubman.searching.ParseException;
-import de.mpg.escidoc.services.pubman.searching.QueryParser;
 
 /**
  * JUnit test class for several search querys with constant expressions.
@@ -46,158 +44,158 @@ import de.mpg.escidoc.services.pubman.searching.QueryParser;
  */
 public class ConstantsTest
 {
-    /**
-     * test search query with "normal" letters.
-     * e. g. "hello"
-     * @throws ParseException
-     */
-    @Test
-    public void constantOk() throws ParseException
-    {
-        StringReader reader = new StringReader("hello");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        String query = parser.parse();
-        assertEquals("escidoc.metadata=hello",query);
-    }
-
-    /**
-     * test search query with a expression with operator.
-     * e. g. "he(llo"
-     * @throws ParseException
-     */
-    @Test(expected = ParseException.class)
-    public void constantWithOperator() throws ParseException
-    {
-        StringReader reader = new StringReader("he(llo");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with an asterik at start.
-     * e. g. "*hello"
-     * @throws ParseException
-     */
-    @Test(expected = ParseException.class)
-    public void constantWithAsteriskAtStart() throws ParseException
-    {
-        StringReader reader = new StringReader("*hello");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with an asterik in the middle.
-     * e. g. "he*o"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithAsteriskAtMiddle() throws ParseException
-    {
-        StringReader reader = new StringReader("he*o");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with an asterik at the end.
-     * e. g. "hello*"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithAsteriskAtEnd() throws ParseException
-    {
-        StringReader reader = new StringReader("hello*");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a questionmark at start.
-     * e. g. "?hello"
-     * @throws ParseException
-     */
-    @Test(expected = ParseException.class)
-    public void constantWithQuestionmarkAtStart() throws ParseException
-    {
-        StringReader reader = new StringReader("?hello");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a questionmark in the middle.
-     * e. g. "he?lo"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithQuestionmarkAtMiddle() throws ParseException
-    {
-        StringReader reader = new StringReader("he?lo");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a questionmark at the end.
-     * e. g. "hello?"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithQuestionmarkAtEnd() throws ParseException
-    {
-        StringReader reader = new StringReader("hello?");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a circumflex at start.
-     * e. g. "^hello"
-     * @throws ParseException
-     */
-    @Test(expected = ParseException.class)
-    public void constantWithCircumflecAccentAtStart() throws ParseException
-    {
-        StringReader reader = new StringReader("^hello");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a circumflex in the middle.
-     * e. g. "hel^lo"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithCircumflecAccentAtMiddle() throws ParseException
-    {
-        StringReader reader = new StringReader("hel^lo");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
-
-    /**
-     * test search query with a experssion with a circumflex at the end.
-     * e. g. "hello^"
-     * @throws ParseException
-     */
-    @Test
-    public void constantWithCircumflecAccentAtEnd() throws ParseException
-    {
-        StringReader reader = new StringReader("hello^");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        parser.parse();
-    }
+//    /**
+//     * test search query with "normal" letters.
+//     * e. g. "hello"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantOk() throws ParseException
+//    {
+//        StringReader reader = new StringReader("hello");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        String query = parser.parse();
+//        assertEquals("escidoc.metadata=hello",query);
+//    }
+//
+//    /**
+//     * test search query with a expression with operator.
+//     * e. g. "he(llo"
+//     * @throws ParseException
+//     */
+//    @Test(expected = ParseException.class)
+//    public void constantWithOperator() throws ParseException
+//    {
+//        StringReader reader = new StringReader("he(llo");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with an asterik at start.
+//     * e. g. "*hello"
+//     * @throws ParseException
+//     */
+//    @Test(expected = ParseException.class)
+//    public void constantWithAsteriskAtStart() throws ParseException
+//    {
+//        StringReader reader = new StringReader("*hello");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with an asterik in the middle.
+//     * e. g. "he*o"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithAsteriskAtMiddle() throws ParseException
+//    {
+//        StringReader reader = new StringReader("he*o");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with an asterik at the end.
+//     * e. g. "hello*"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithAsteriskAtEnd() throws ParseException
+//    {
+//        StringReader reader = new StringReader("hello*");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a questionmark at start.
+//     * e. g. "?hello"
+//     * @throws ParseException
+//     */
+//    @Test(expected = ParseException.class)
+//    public void constantWithQuestionmarkAtStart() throws ParseException
+//    {
+//        StringReader reader = new StringReader("?hello");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a questionmark in the middle.
+//     * e. g. "he?lo"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithQuestionmarkAtMiddle() throws ParseException
+//    {
+//        StringReader reader = new StringReader("he?lo");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a questionmark at the end.
+//     * e. g. "hello?"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithQuestionmarkAtEnd() throws ParseException
+//    {
+//        StringReader reader = new StringReader("hello?");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a circumflex at start.
+//     * e. g. "^hello"
+//     * @throws ParseException
+//     */
+//    @Test(expected = ParseException.class)
+//    public void constantWithCircumflecAccentAtStart() throws ParseException
+//    {
+//        StringReader reader = new StringReader("^hello");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a circumflex in the middle.
+//     * e. g. "hel^lo"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithCircumflecAccentAtMiddle() throws ParseException
+//    {
+//        StringReader reader = new StringReader("hel^lo");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
+//
+//    /**
+//     * test search query with a experssion with a circumflex at the end.
+//     * e. g. "hello^"
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void constantWithCircumflecAccentAtEnd() throws ParseException
+//    {
+//        StringReader reader = new StringReader("hello^");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        parser.parse();
+//    }
 }

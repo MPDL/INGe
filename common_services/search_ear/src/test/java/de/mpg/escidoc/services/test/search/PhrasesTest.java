@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.services.test.search;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -37,8 +37,6 @@ import java.io.StringReader;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.pubman.searching.ParseException;
-import de.mpg.escidoc.services.pubman.searching.QueryParser;
 
 /**
  * JUnit test class for search querys with phrases.
@@ -47,38 +45,38 @@ import de.mpg.escidoc.services.pubman.searching.QueryParser;
  */
 public class PhrasesTest
 {
-    /**
-     * test search query with an correct phrase. 
-     * e. g. "\"hello world\""
-     * @throws ParseException
-     */
-    @Test
-    public void phraseOk() throws ParseException
-    {
-        StringReader reader = new StringReader("\"hello world\"");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        String query = parser.parse();
-        assertEquals("escidoc.metadata=\"hello world\"",query);
-    }
-
-    /**
-     * test search query with an phrase without an trailing quote. 
-     * e. g. "hello \"hello world"
-     */
-    @Test
-    public void phraseWithoutTrailingQuote()
-    {
-        StringReader reader = new StringReader("hello \"hello world");
-        QueryParser parser = new QueryParser(reader);
-        parser.addCQLIndex("escidoc.metadata");
-        try
-        {
-            parser.parse();
-            fail("Exception expected.");
-        }
-        catch(ParseException e)
-        {
-        }
-    }
+//    /**
+//     * test search query with an correct phrase. 
+//     * e. g. "\"hello world\""
+//     * @throws ParseException
+//     */
+//    @Test
+//    public void phraseOk() throws ParseException
+//    {
+//        StringReader reader = new StringReader("\"hello world\"");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        String query = parser.parse();
+//        assertEquals("escidoc.metadata=\"hello world\"",query);
+//    }
+//
+//    /**
+//     * test search query with an phrase without an trailing quote. 
+//     * e. g. "hello \"hello world"
+//     */
+//    @Test
+//    public void phraseWithoutTrailingQuote()
+//    {
+//        StringReader reader = new StringReader("hello \"hello world");
+//        QueryParser parser = new QueryParser(reader);
+//        parser.addCQLIndex("escidoc.metadata");
+//        try
+//        {
+//            parser.parse();
+//            fail("Exception expected.");
+//        }
+//        catch(ParseException e)
+//        {
+//        }
+//    }
 }

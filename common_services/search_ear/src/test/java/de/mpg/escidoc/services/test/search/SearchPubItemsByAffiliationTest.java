@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.services.test.search;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -41,7 +41,6 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -51,8 +50,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
 
 /**
  * Test class for {@link PubItemSearching#searchPubItemsByAffiliation(AffiliationRO)}
@@ -64,86 +61,86 @@ import de.mpg.escidoc.services.pubman.PubItemSearching;
  */
 public class SearchPubItemsByAffiliationTest extends TestBase
 {
-    /**
-     * Logger for this class
-     */
-    private static final Logger logger = Logger.getLogger(SearchPubItemsByAffiliationTest.class);
-
-    private PubItemSearching pubSearching;
-    private PubItemDepositing pubItemDepositing;
-
-    /**
-     * @throws Exception
-     */
-    @Before
-    public void setUp() throws Exception
-    {
-        pubSearching = (PubItemSearching)getService(PubItemSearching.SERVICE_NAME);
-        pubItemDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
-    }
-
-    /**
-     * Test method for
-     * {@link de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean#searchPubItemsByAffiliation(de.mpg.escidoc.services.common.referenceobjects.AffiliationRO)}.
-     * 
-     * @throws Exception
-     */
-    @Test
-    @Ignore("The searchhandler is unable to retrieve more than 100 items")
-    public void testSearchPubItemsByAffiliation() throws Exception
-    {
-        AccountUserVO user = getUserTestDepScientistWithHandle();
-
-        // create PubItem and submit (automatically releases the pubItem)
-        PubItemVO myItem = getNewPubItemWithoutFiles();
-        OrganizationVO creatorOrg = new OrganizationVO();
-        TextVO textVO = new TextVO( "Max Planck Society" );
-        creatorOrg.setAddress("Max-Planck-Str. 1");
-        creatorOrg.setName(textVO);
-        creatorOrg.setIdentifier("escidoc:persistent26");
-        myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.COMMENTATOR));
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
-        logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
-
-        // wait a little bit for indexing...
-        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
-        Thread.sleep(15000);
-
-        AffiliationRO affiliationRO = new AffiliationRO("escidoc:persistent1");
-        AffiliationVO affiliationVO = new AffiliationVO();
-        affiliationVO.setReference(affiliationRO);
-        
-        // search the item on the same organizational level where the item was created
-        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
-        assertNotNull(searchResultList);
-        assertTrue("No items could be found!", searchResultList.size() != 0 );
-        boolean itemFound = false;
-        logger.info( "Found " + searchResultList.size() + " Items.");
-        logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
-        for (PubItemVO item:searchResultList)            
-        {
-            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
-            if (item.getVersion().equals(myItemRef))
-            {
-                itemFound = true;
-            }
-        }
-        assertTrue("Could not find the created item!", itemFound);
-     
-        // search the item on one organizational level above where the item was created
-        searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
-        assertNotNull(searchResultList);
-        assertTrue("No items could be found!", searchResultList.size() != 0 );
-        itemFound = false;
-        logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
-        for (PubItemVO item:searchResultList)            
-        {
-            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
-            if (item.getVersion().equals(myItemRef))
-            {
-                itemFound = true;
-            }
-        }
-        assertTrue("Could not find the created item!", itemFound);
-    }
+//    /**
+//     * Logger for this class
+//     */
+//    private static final Logger logger = Logger.getLogger(SearchPubItemsByAffiliationTest.class);
+//
+//    private PubItemSearching pubSearching;
+//    private PubItemDepositing pubItemDepositing;
+//
+//    /**
+//     * @throws Exception
+//     */
+//    @Before
+//    public void setUp() throws Exception
+//    {
+//        pubSearching = (PubItemSearching)getService(PubItemSearching.SERVICE_NAME);
+//        pubItemDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
+//    }
+//
+//    /**
+//     * Test method for
+//     * {@link de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean#searchPubItemsByAffiliation(de.mpg.escidoc.services.common.referenceobjects.AffiliationRO)}.
+//     * 
+//     * @throws Exception
+//     */
+//    @Test
+//    @Ignore("The searchhandler is unable to retrieve more than 100 items")
+//    public void testSearchPubItemsByAffiliation() throws Exception
+//    {
+//        AccountUserVO user = getUserTestDepScientistWithHandle();
+//
+//        // create PubItem and submit (automatically releases the pubItem)
+//        PubItemVO myItem = getNewPubItemWithoutFiles();
+//        OrganizationVO creatorOrg = new OrganizationVO();
+//        TextVO textVO = new TextVO( "Max Planck Society" );
+//        creatorOrg.setAddress("Max-Planck-Str. 1");
+//        creatorOrg.setName(textVO);
+//        creatorOrg.setIdentifier("escidoc:persistent26");
+//        myItem.getMetadata().getCreators().add(new CreatorVO(creatorOrg, CreatorRole.COMMENTATOR));
+//        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+//        logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
+//
+//        // wait a little bit for indexing...
+//        logger.debug("Waiting 15 seconds to let the framework indexing happen...");
+//        Thread.sleep(15000);
+//
+//        AffiliationRO affiliationRO = new AffiliationRO("escidoc:persistent1");
+//        AffiliationVO affiliationVO = new AffiliationVO();
+//        affiliationVO.setReference(affiliationRO);
+//        
+//        // search the item on the same organizational level where the item was created
+//        List<PubItemVO> searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
+//        assertNotNull(searchResultList);
+//        assertTrue("No items could be found!", searchResultList.size() != 0 );
+//        boolean itemFound = false;
+//        logger.info( "Found " + searchResultList.size() + " Items.");
+//        logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
+//        for (PubItemVO item:searchResultList)            
+//        {
+//            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+//            if (item.getVersion().equals(myItemRef))
+//            {
+//                itemFound = true;
+//            }
+//        }
+//        assertTrue("Could not find the created item!", itemFound);
+//     
+//        // search the item on one organizational level above where the item was created
+//        searchResultList = pubSearching.searchPubItemsByAffiliation(affiliationVO);   
+//        assertNotNull(searchResultList);
+//        assertTrue("No items could be found!", searchResultList.size() != 0 );
+//        itemFound = false;
+//        logger.info("Searching for object id '"+myItemRef.getObjectId()+"'.");
+//        for (PubItemVO item:searchResultList)            
+//        {
+//            logger.info("Found item '"+item.getVersion().getObjectId()+"'.");
+//            if (item.getVersion().equals(myItemRef))
+//            {
+//                itemFound = true;
+//            }
+//        }
+//        assertTrue("Could not find the created item!", itemFound);
+//    }
 }
