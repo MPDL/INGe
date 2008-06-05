@@ -221,6 +221,10 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
+			<resource>
+				<directory>src/main/jibx</directory>
+				<filtering>true</filtering>
+			</resource>
 		</resources>
 		<testResources>
 			<testResource>
@@ -339,7 +343,7 @@
 
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8080</cargo.port>
-				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.rmi.port>11099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
@@ -375,7 +379,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
@@ -398,6 +402,26 @@
 				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+				
+				<!-- Current XSD Schema versions -->
+				<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.6</xsd.soap.item.item>
+				<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.5</xsd.soap.context.context>
+				<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.6</xsd.soap.item.components>
+				<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.5</xsd.soap.context.contextlist>
+				<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.6</xsd.soap.item.itemlist>
+				<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.mdrecords>
+				<xsd.soap.common.relations>http://www.escidoc.de/schemas/relations/0.3</xsd.soap.common.relations>
+				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.5</xsd.soap.searchresult.searchresult>
+				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.5</xsd.soap.useraccount.useraccount>
+				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
+				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.5</xsd.soap.ou.ou>
+				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.5</xsd.soap.ou.oulist>
+				<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
+				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
+				<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.4</xsd.soap.useraccount.grants>
+				<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.4</xsd.soap.common.versionhistory>
+				<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.6</xsd.soap.common.memberlist>
+				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.6</xsd.soap.container.container>
 			</properties>
 
 			<distributionManagement>
@@ -427,7 +451,7 @@
 
 				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
 				<cargo.port>8080</cargo.port>
-				<cargo.rmi.port>1099</cargo.rmi.port>
+				<cargo.rmi.port>11099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
@@ -463,7 +487,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
