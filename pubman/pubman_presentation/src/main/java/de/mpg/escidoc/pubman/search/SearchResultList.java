@@ -326,7 +326,7 @@ public class SearchResultList extends ItemList
      * in the Export-Items Panel. 
      * @author:  StG
       */
-        public String downloadExportFile()
+        public void downloadExportFile(ActionEvent event)
     {
             if (logger.isDebugEnabled())
             {
@@ -335,22 +335,19 @@ public class SearchResultList extends ItemList
  
           // set the currently selected items in the FacesBean
          //this.setSelectedItemsAndCurrentItem();
-         ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
+         ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
          
          if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
          {
             // export format and file format.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();  
-            byte[] exportFileData; 
+            byte[] exportFileData = null; 
             try
             {
                 exportFileData = this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems()));
             } catch (TechnicalException e)
             {
                 logger.error("Errors retrieving export data.", e);
-                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
-            
-                return ErrorPage.LOAD_ERRORPAGE;
             }
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
@@ -381,10 +378,7 @@ public class SearchResultList extends ItemList
             }
             catch (IOException e1)
             {
-                logger.debug("IO Error by writing the export data: " + e1.toString());
-                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e1);
-                
-                return ErrorPage.LOAD_ERRORPAGE;
+                logger.error("IO Error by writing the export data: ", e1);
             }
         } 
          else
@@ -392,7 +386,6 @@ public class SearchResultList extends ItemList
             logger.warn("No item selected.");
             this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
         }
-         return "OK";
     }
 
      
