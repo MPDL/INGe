@@ -30,7 +30,8 @@
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
 	<f:subview id="SubmitItem">
 		<h1>
-			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.SubmitItemPage}: "/>
+			<h:outputText id="valOrientationTextSubmit" styleClass="orientationHeader" value="#{lbl.SubmitItemPage_Submit}: " rendered="#{SubmitItem.isStandardWorkflow}"/>
+			<h:outputText id="valOrientationTextRelease" styleClass="orientationHeader" value="#{lbl.SubmitItemPage_Release}: " rendered="#{SubmitItem.isSimpleWorkflow}"/>
 			<h:outputText styleClass="orientationHeader" value="#{SubmitItem.itemControllerSessionBean.currentPubItem.metadata.title.value}"/>
 		</h1>
 		<h:panelGrid columns="2" styleClass="withdrawOverview" cellspacing="5" cellpadding="0">
@@ -47,7 +48,8 @@
 
 		<h:panelGrid id="panContent" styleClass="withdrawCommentPanel" cellspacing="5" cellpadding="0">
 
-			<h:outputLabel for="txtaComment" id="lblComment" value="#{lbl.SubmitItem_lblComment}"/>
+			<h:outputLabel for="txtaComment" id="lblCommentSubmit" value="#{lbl.SubmitItem_lblSubmitComment}" rendered="#{SubmitItem.isStandardWorkflow}"/>
+			<h:outputLabel for="txtaComment" id="lblCommentRelease" value="#{lbl.SubmitItem_lblReleaseComment}" rendered="#{SubmitItem.isSimpleWorkflow}"/>
 			<h:inputTextarea id="txtaComment" styleClass="withdrawCommentTextarea" value="#{SubmitItem.submissionComment}"/>
 
 		</h:panelGrid>

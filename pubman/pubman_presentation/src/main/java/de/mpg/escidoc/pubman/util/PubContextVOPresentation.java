@@ -67,11 +67,11 @@ public class PubContextVOPresentation extends ContextVO {
     public String selectForEasySubmission()
     {
     	// deselect all other contexts
-    	if(this.getContextListSessionBean().getContextList() != null)
+    	if(this.getContextListSessionBean().getDepositorContextList() != null)
     	{
-    		for(int i = 0; i < this.getContextListSessionBean().getContextList().size(); i++)
+    		for(int i = 0; i < this.getContextListSessionBean().getDepositorContextList().size(); i++)
         	{
-        		this.getContextListSessionBean().getContextList().get(i).setSelected(false);
+        		this.getContextListSessionBean().getDepositorContextList().get(i).setSelected(false);
         	}
     	}
     	selected = true;

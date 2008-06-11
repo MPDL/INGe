@@ -139,6 +139,7 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
+        
     }
 
     /**

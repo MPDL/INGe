@@ -53,6 +53,15 @@
 			action="#{EasySubmission.newEasySubmission}">
 			<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission}"/>
 		</h:commandLink></li>
+		
+		<h1><h:outputText id="lblQAWorkspace"
+			value="#{lbl.mainMenu_lblQA}" rendered="#{QAWSPage.isModerator}"/>
+		</h1>
+		
+		<li><h:outputLink
+			value="#{ApplicationBean.appContext}QAWSPage.jsp">
+			<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator}" />
+		</h:outputLink></li>
 	</ul>
 	<h:outputText id="pageDummy" value="#{Navigation.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 </f:subview></div>

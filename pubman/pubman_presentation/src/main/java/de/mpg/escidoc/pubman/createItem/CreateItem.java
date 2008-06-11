@@ -101,14 +101,14 @@ public class CreateItem extends FacesBean
         
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
-        if (this.getContextListSessionBean().getContextList().size() == 0)
+        if (this.getContextListSessionBean().getDepositorContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getContextListSessionBean().getContextList().size() == 1)
+        if (this.getContextListSessionBean().getDepositorContextList().size() == 1)
         {
-            ContextVO contextVO = this.getContextListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getContextListSessionBean().getDepositorContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: "
@@ -123,10 +123,10 @@ public class CreateItem extends FacesBean
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has privileges for "
-                        + this.getContextListSessionBean().getContextList().size() + " different contexts.");
+                        + this.getContextListSessionBean().getDepositorContextList().size() + " different contexts.");
             }
             return this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
-            		this.getContextListSessionBean().getContextList().get(0).getReference());
+            		this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
         }
     }
 
@@ -178,7 +178,7 @@ public class CreateItem extends FacesBean
     }
 
 	public List<PubContextVOPresentation> getCurrentCollectionList() {
-		return getSessionBean().getContextList();
+		return getSessionBean().getDepositorContextList();
 	}
 
 }

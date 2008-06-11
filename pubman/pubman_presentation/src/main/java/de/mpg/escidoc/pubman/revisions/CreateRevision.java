@@ -106,7 +106,7 @@ public class CreateRevision extends FacesBean
             logger.debug("confirmCollectionChoose()");
         }
         
-        ContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedContext();
+        ContextVO selectedCollection = this.getCollectionListSessionBean().getSelectedDepositorContext();
         
         if (selectedCollection != null)
         {            

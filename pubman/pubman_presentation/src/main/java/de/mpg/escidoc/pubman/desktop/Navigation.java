@@ -248,14 +248,14 @@ public class Navigation extends FacesBean
 
         // if there is only one context for this user we can skip the
         // CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getContextList().size() == 0)
+        if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getContextList().size() == 1)
+        if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1)
         {
-            ContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: "
@@ -271,7 +271,7 @@ public class Navigation extends FacesBean
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has privileges for "
-                        + this.getCollectionListSessionBean().getContextList().size()
+                        + this.getCollectionListSessionBean().getDepositorContextList().size()
                         + " different contexts.");
             }
 

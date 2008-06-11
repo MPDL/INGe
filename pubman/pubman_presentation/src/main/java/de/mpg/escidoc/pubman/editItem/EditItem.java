@@ -85,6 +85,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -125,6 +126,7 @@ public class EditItem extends FacesBean
     private HtmlCommandLink lnkSaveAndSubmit = new HtmlCommandLink();
     private HtmlCommandLink lnkDelete = new HtmlCommandLink();
     private HtmlCommandLink lnkAccept = new HtmlCommandLink();
+    private HtmlCommandLink lnkRelease = new HtmlCommandLink();
 
     // panels for dynamic components
     private HtmlPanelGrid panDynamicFile = new HtmlPanelGrid();
@@ -149,6 +151,7 @@ public class EditItem extends FacesBean
     PubItemVO item = null;
     
     private boolean fromEasySubmission = false;
+    private PubItemDepositing pubItemDepositing;
     
     /**
      * Public constructor.
@@ -159,6 +162,7 @@ public class EditItem extends FacesBean
         {
             InitialContext initialContext = new InitialContext();
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
+            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
         }
         catch (NamingException ne)
         {
@@ -211,6 +215,8 @@ public class EditItem extends FacesBean
 
         // fetch the name of the pub context
         this.contextName = this.getContextName();
+        
+        
     }
 
     /**
@@ -638,7 +644,7 @@ public class EditItem extends FacesBean
     {
         logger.error("This is a call to \"EditItem.submit\" which should not happen.");
         
-        String retVal = this.getItemControllerSessionBean().submitCurrentPubItem("", DepositorWS.LOAD_DEPOSITORWS); 
+        String retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem("", DepositorWS.LOAD_DEPOSITORWS); 
 
         if (retVal == null)
         {
@@ -1154,13 +1160,44 @@ public class EditItem extends FacesBean
     private void enableLinks()
     {
         LoginHelper loginHelper = (LoginHelper)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-
+     // Try to get the validation service
+       
+       
         boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
-
+        boolean isWorkflowStandard = false;
+        boolean isWorkflowSimple = true;
+        boolean isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
+        boolean isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
+        boolean isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+        boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+        boolean isOwner = true;
+        if (this.getPubItem().getOwner() != null)
+        {
+            isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.getPubItem().getOwner().getObjectId()) : false);
+        }
+        
+        try
+        {
+            isWorkflowStandard = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_STANDARD);
+            isWorkflowSimple = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_SIMPLE);
+        }
+        catch (Exception e)
+        {
+            
+        }
+        
+        this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
+        this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner && !isModerator);
+        this.lnkDelete.setRendered((isStateSubmitted || isStateReleased) && itemHasID);
+        this.lnkSaveAndSubmit.setRendered((isStatePending) &&  isWorkflowStandard && isOwner);
+        this.lnkSave.setRendered((isStatePending && isOwner) || (isStateSubmitted && isModerator));
+        
+        /*
         this.lnkAccept.setRendered(this.isInModifyMode() && loginHelper.getAccountUser().isModerator(this.getPubItem().getContext()));
         this.lnkDelete.setRendered(!this.isInModifyMode() && itemHasID);
         this.lnkSaveAndSubmit.setRendered(!this.isInModifyMode());
         this.lnkSave.setRendered(!this.isInModifyMode());
+        */
     }
 
     /**
@@ -1484,6 +1521,16 @@ public class EditItem extends FacesBean
     public void setFromEasySubmission(boolean fromEasySubmission)
     {
         this.fromEasySubmission = fromEasySubmission;
+    }
+
+    public HtmlCommandLink getLnkRelease()
+    {
+        return lnkRelease;
+    }
+
+    public void setLnkRelease(HtmlCommandLink lnkRelease)
+    {
+        this.lnkRelease = lnkRelease;
     }
 
 }
