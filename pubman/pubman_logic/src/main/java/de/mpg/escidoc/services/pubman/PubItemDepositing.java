@@ -56,6 +56,11 @@ import de.mpg.escidoc.services.validation.ItemInvalidException;
  */
 public interface PubItemDepositing
 {
+    
+    public static final String WORKFLOW_SIMPLE = "simple";
+    
+    public static final String WORKFLOW_STANDARD = "standard";
+    
     /**
      * The service name.
      */
@@ -154,7 +159,7 @@ public interface PubItemDepositing
 
 	/**
 	 * Creates a new PubItem as a revision of the given one.
-	 * Also a coontent relation of type isRevisionOf is created.
+	 * Also a content relation of type isRevisionOf is created.
 	 * 
 	 * @param pubItem
 	 * @param relationComment
@@ -170,4 +175,23 @@ public interface PubItemDepositing
 	 * @throws SecurityException 
 	 */
 	public PubItemVO createRevisionOfItem(PubItemVO pubItem, String relationComment, ContextRO pubCollection, AccountUserVO user) throws SecurityException, PubItemMandatoryAttributesMissingException, PubItemLockedException, PubCollectionNotFoundException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, TechnicalException;
+	
+	
+	/**
+     * Submits and releases the given pubItem. As on submit, a new version must be created (which
+     * is not done by the framework), a save operation is done before the submit
+     * operation: If the pubItem already exists an update is executed, otherwise the
+     * item is created. Afterwards it is submitted and released.
+     * 
+     * @param item
+     * @param submissionComment
+     * @param user
+     * @exception TechnicalException,
+     * @exception SecurityException,
+     * @exception DepositingException,
+     * @exception PubItemNotFoundException,
+     * @exception PubManException
+     * @throws ItemInvalidException 
+     */
+	 public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException;
 }
