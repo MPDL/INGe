@@ -139,7 +139,6 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
-        
     }
 
     /**
@@ -198,8 +197,13 @@ public class SearchResultList extends ItemList
             
             if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.STRUCTURED)
             {
-            	// replace the carriage returns by html breaks so that h:outputText can correctly display it
-            	this.displayExportData = this.displayExportData.replace("\n","<br>");
+                this.displayExportData = HTMLEntityEncode(this.displayExportData);
+                this.displayExportData = "<html><head><title>Export Data</title></head><body scroll=no bgcolor=#FFFFFC><br/><p style=font-family:verdana,arial;font-size:12px><pre>"
+                + "<table><tr>"
+                + this.displayExportData
+                + "</tr></table>"
+                + "</pre></p><p style=font-family:verdana,arial;font-size:12px>"
+                + "</p></body></html>";
             }
             logger.debug("prepareDisplayExportData set FULL data to session bean ");
              
@@ -326,7 +330,7 @@ public class SearchResultList extends ItemList
      * in the Export-Items Panel. 
      * @author:  StG
       */
-        public String downloadExportFile()
+        public String downloadExportFile(ActionEvent event)
     {
             if (logger.isDebugEnabled())
             {
@@ -386,8 +390,7 @@ public class SearchResultList extends ItemList
                 
                 return ErrorPage.LOAD_ERRORPAGE;
             }
-        } 
-         else
+        } else
         {            
             logger.warn("No item selected.");
             this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);

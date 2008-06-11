@@ -91,7 +91,7 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -127,7 +127,7 @@ public class PubItemPublishingTest extends TestBase
         file.setDescription("Ein Farbtest.");
         item.getFiles().add(file);
 
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -219,7 +219,7 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);
@@ -247,7 +247,7 @@ public class PubItemPublishingTest extends TestBase
     {
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
-        ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
+        ItemRO pubItemRef = pmDepositing.submitPubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);
 
         Thread.sleep(3000);

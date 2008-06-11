@@ -115,10 +115,6 @@ public class PubItemDepositingBean implements PubItemDepositing
      */
     private static final Logger logger = Logger.getLogger(PubItemDepositingBean.class);
 
-    
-   
-    
-    
     /**
      * A XmlTransforming instance.
      */
@@ -470,8 +466,15 @@ public class PubItemDepositingBean implements PubItemDepositing
             itemHandler.submit(savedPubItem.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(taskParam));
             ApplicationLog.info(PMLogicMessages.PUBITEM_SUBMITTED, new Object[] { savedPubItem.getVersion().getObjectId(), user.getUserid() });
 
-            // Retrieve item once again.
+            // Because no workflow system is used at this time
+            // automatic release is triggered here
+            // item has to be retrieved again to get actual modification date
             String item = itemHandler.retrieve(savedPubItem.getVersion().getObjectId());
+            pubItemActual = xmlTransforming.transformToPubItem(item);
+            pmPublishing.releasePubItem(pubItemActual.getVersion(), pubItemActual.getModificationDate(), submissionComment, user);
+
+            // Retrieve item once again.
+            item = itemHandler.retrieve(pubItemActual.getVersion().getObjectId());
             pubItemActual = xmlTransforming.transformToPubItem(item);
         }
         catch (InvalidStatusException e)
@@ -599,52 +602,5 @@ public class PubItemDepositingBean implements PubItemDepositing
         copiedPubItem.getRelations().add(relation);
         // return the new created revision of the given pubItem.
         return copiedPubItem;
-    }
-    
-    
-    
-    /**
-     * {@inheritDoc}
-     */
-    public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException
-    {
-       
-        ItemHandlerRemote itemHandler;
-        
-        try
-        {
-            itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-        }
-        catch (Exception e)
-        {
-            throw new TechnicalException(e);
-        }
-        
-        PubItemVO pubItemActual = null;
-       
-        // then release the item
-        try
-        {
-            pubItemActual = submitPubItem(pubItem, submissionComment, user);
-            
-            pmPublishing.releasePubItem(pubItemActual.getVersion(), pubItemActual.getModificationDate(), submissionComment, user);
-
-            // Retrieve item once again.
-            String item = itemHandler.retrieve(pubItemActual.getVersion().getObjectId());
-            pubItemActual = xmlTransforming.transformToPubItem(item);
-        }
-        catch (InvalidStatusException e)
-        {
-            throw new PubItemStatusInvalidException(pubItemActual.getVersion(), e);
-        }
-        catch (ItemNotFoundException e)
-        {
-            throw new PubItemNotFoundException(pubItemActual.getVersion(), e);
-        }
-        catch (Exception e)
-        {
-            ExceptionHandler.handleException(e, "PubItemDepositing.submitPubItem");
-        }
-        return pubItemActual;
     }
 }

@@ -45,7 +45,6 @@ import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
 
 /**
  * Fragment class for editing PubItems. This class provides all functionality for editing, saving and submitting a
@@ -156,7 +155,7 @@ public class SubmitItem extends FacesBean
     	 */
         logger.debug("Now submitting, then go to " + navigateTo);
         
-        retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem(submissionComment, navigateTo);
+        retVal = this.getItemControllerSessionBean().submitCurrentPubItem(submissionComment, navigateTo);
         
         // redirect to the view item page afterwards (if no error occured)
         if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
@@ -274,16 +273,6 @@ public class SubmitItem extends FacesBean
     public void setCreators(String creators)
     {
         this.creators = creators;
-    }
-    
-    public boolean getIsStandardWorkflow()
-    {
-        return getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD);
-    }
-    
-    public boolean getIsSimpleWorkflow()
-    {
-        return getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE);
     }
 
 }

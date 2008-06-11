@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
+<%--
 
  CDDL HEADER START
 
@@ -26,48 +25,17 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
+--%>
+<%@page import="de.mpg.escidoc.pubman.export.ExportItemsSessionBean"%>
+<%@page contentType="text/html; charset=UTF-8" %> 
+<%@page session="true"%>
 
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
+<%
+String data = ExportItemsSessionBean.getExportDisplayData();
 
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" />
-	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="msg" basename="Messages"/>
-		<html xmlns="http://www.w3.org/1999/xhtml">
-			<head>
-				<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-				<meta http-equiv="pragma" content="no-cache"/>
-				<meta http-equiv="cache-control" content="no-cache"/>
-				<meta http-equiv="expires" content="0"/>
-				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-			</head>
-			<body><h:form id="form1">
-				<h:outputText value="#{DisplayExportItemsPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
-				<div id="page_margins">
-					<div id="page">
-						
-							<div id="header">
-								<jsp:directive.include file="desktop/Header.jspf" />
-								<div class="header">
-									<jsp:directive.include file="desktop/Login.jspf" />
-									<jsp:directive.include file="desktop/Search.jspf" />
-								</div>
-							</div>
-							<h:outputLink value="#{ApplicationBean.appContext}#{DisplayExportItemsPage.previousPageURI}">
-								<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
-							<br/>
-							<br/>
-							</h:outputLink>
-							<h:outputFormat value="#{ExportItemsSessionBean.exportDisplayData}" escape="false"/>
-					</div>
-				</div>
-				</h:form>
-			</body>
-		</html>
-	</f:view>
-</jsp:root>
+String lnkStr = "<a href='javascript:window.back()' style='font-weight: bold; height: 20px; font-size: 16px;' >Back</a>";
+
+data = data.replaceFirst("<table", "<p>"+ lnkStr+"</p>"+"<table");
+   
+out.print(data);
+%>

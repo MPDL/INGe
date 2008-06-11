@@ -319,7 +319,7 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO item = getNewPubItemWithoutFiles();
         // submit the item
-        PubItemVO savedItem = pmDepositing.submitAndReleasePubItem(item, "testSaveExistingReleasedPubItem", user);
+        PubItemVO savedItem = pmDepositing.submitPubItem(item, "testSaveExistingReleasedPubItem", user);
         assertEquals(PubItemVO.State.RELEASED, savedItem.getVersion().getState());
 
         assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
@@ -434,7 +434,7 @@ public class PubItemDepositingTest extends TestBase
 
         // submit and release the item
         // in R2, the PubItemDepositing.submit method automatically releases the item, too!
-        PubItemVO releasedItem = pmDepositing.submitAndReleasePubItem(item, "Test Submit", libUser);
+        PubItemVO releasedItem = pmDepositing.submitPubItem(item, "Test Submit", libUser);
         assertNotNull(releasedItem);
         assertEquals(PubItemVO.State.RELEASED, releasedItem.getVersion().getState());
         logger.info("Item was submitted and released. ObjId: " + releasedItem.getVersion().getObjectId());
@@ -506,7 +506,7 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getVersion(), user);
 
         // as long as no workflow is used, item is released after submission!!!!!
-        assertEquals(PubItemVO.State.SUBMITTED, retrievedSubmittedPubItem.getVersion().getState());
+        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getVersion().getState());
     }
 
     /**
@@ -528,7 +528,7 @@ public class PubItemDepositingTest extends TestBase
         PubItemVO retrievedSubmittedPubItem = getPubItemFromFramework(submittedPubItem.getVersion(), user);
 
         // as long as no workflow is used, item is released after submission!!!!!
-        assertEquals(PubItemVO.State.SUBMITTED, retrievedSubmittedPubItem.getVersion().getState());
+        assertEquals(PubItemVO.State.RELEASED, retrievedSubmittedPubItem.getVersion().getState());
     }
 
     /**
@@ -596,7 +596,7 @@ public class PubItemDepositingTest extends TestBase
         // create pubItem to get Reference
         PubItemVO pubItem = getNewPubItemWithoutFiles();
         // submit the item
-        pubItem = pmDepositing.submitAndReleasePubItem(pubItem, "testAcceptExistingReleasedPubItem", user);
+        pubItem = pmDepositing.submitPubItem(pubItem, "testAcceptExistingReleasedPubItem", user);
         assertEquals(PubItemVO.State.RELEASED, pubItem.getVersion().getState());
 
         assertTrue(user.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));

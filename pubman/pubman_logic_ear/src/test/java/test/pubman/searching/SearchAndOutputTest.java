@@ -89,7 +89,7 @@ public class SearchAndOutputTest extends TestBase
            
         
         // create PubItem and submit (automatically releases the pubItem)
-        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
         assertNotNull(myItemRef);
         
         // wait a little bit for indexing...

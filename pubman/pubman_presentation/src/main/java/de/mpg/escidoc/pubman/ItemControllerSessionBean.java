@@ -57,7 +57,6 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -235,7 +234,7 @@ public class ItemControllerSessionBean extends FacesBean
      * should be returned when the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String submitOrReleaseCurrentPubItem(final String submissionComment, final String navigationRuleWhenSuccessfull)
+    public String submitCurrentPubItem(final String submissionComment, final String navigationRuleWhenSuccessfull)
     {
         try
         {
@@ -246,7 +245,7 @@ public class ItemControllerSessionBean extends FacesBean
             }
 
             // submitting the current item
-            ItemRO pubItemRO = this.submitOrReleasePubItem(this.currentPubItem, submissionComment, true);
+            ItemRO pubItemRO = this.submitPubItem(this.currentPubItem, submissionComment, true);
             
             if (pubItemRO == this.currentPubItem.getVersion())
             {
@@ -271,7 +270,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String saveAndSubmitOrReleaseCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
+    public String saveAndSubmitCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
     {
         try
         {
@@ -282,7 +281,7 @@ public class ItemControllerSessionBean extends FacesBean
             }
 
             // submitting the current item
-            ItemRO pubItemRO = this.saveAndSubmitOrReleasePubItem(this.currentPubItem, submissionComment, true);
+            ItemRO pubItemRO = this.saveAndSubmitPubItem(this.currentPubItem, submissionComment, true);
             
             if (pubItemRO == this.currentPubItem.getVersion())
             {
@@ -337,7 +336,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     // //TODO NBU: remove this method
-    public String submitOrReleasePubItemList(ArrayList<PubItemVO> pubItemList, String submissionComment, String navigationRuleWhenSuccessfull)
+    public String submitPubItemList(ArrayList<PubItemVO> pubItemList, String submissionComment, String navigationRuleWhenSuccessfull)
     {
         boolean allSubmitted = true;
         if (pubItemList.size() > 0)
@@ -347,7 +346,7 @@ public class ItemControllerSessionBean extends FacesBean
                 try
                 {
                     // submitting the item
-                    ItemRO pubItemRO = this.submitOrReleasePubItem(pubItemList.get(i), submissionComment, true);
+                    ItemRO pubItemRO = this.submitPubItem(pubItemList.get(i), submissionComment, true);
                     if (pubItemRO == pubItemList.get(i).getVersion()) {
                         allSubmitted = false;
                     }
@@ -518,7 +517,7 @@ public class ItemControllerSessionBean extends FacesBean
         
     	// Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
         // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
-        if (this.getContextListSessionBean().getDepositorContextList().size() == 0)
+        if (this.getContextListSessionBean().getContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
             error(getMessage("ViewItemFull_user_has_no_context"));
@@ -533,9 +532,9 @@ public class ItemControllerSessionBean extends FacesBean
         
         this.setCurrentPubItem(newItem);
         
-        if (this.getContextListSessionBean().getDepositorContextList().size() == 1)
+        if (this.getContextListSessionBean().getContextList().size() == 1)
         {            
-            ContextVO context = this.getContextListSessionBean().getDepositorContextList().get(0);
+            ContextVO context = this.getContextListSessionBean().getContextList().get(0);
             
             newItem.setContext(context.getReference());
             
@@ -552,7 +551,7 @@ public class ItemControllerSessionBean extends FacesBean
             // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has privileges for " + this.getContextListSessionBean().getDepositorContextList().size() 
+                logger.debug("The user has privileges for " + this.getContextListSessionBean().getContextList().size() 
                         + " different contexts.");
             }
 
@@ -825,7 +824,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param pubItem the PubItem to submit
      * @return a reference to the PubItem returned by the framework
      */
-    private ItemRO submitOrReleasePubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
+    private ItemRO submitPubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -859,7 +858,7 @@ public class ItemControllerSessionBean extends FacesBean
             }
     
             // submit the item
-            ItemRO submittedPubItem = submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser()).getVersion();
+            ItemRO submittedPubItem = this.pubItemDepositing.submitPubItem(pubItem, submissionComment, loginHelper.getAccountUser()).getVersion();
     
             return submittedPubItem;
         }
@@ -877,7 +876,7 @@ public class ItemControllerSessionBean extends FacesBean
                 }
         
                 // submit the item
-                ItemRO submittedPubItem = submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser()).getVersion();
+                ItemRO submittedPubItem = this.pubItemDepositing.submitPubItem(pubItem, submissionComment, loginHelper.getAccountUser()).getVersion();
         
                 return submittedPubItem;
             }
@@ -896,7 +895,7 @@ public class ItemControllerSessionBean extends FacesBean
      * @param pubItem the PubItem to submit
      * @return a reference to the PubItem returned by the framework
      */
-    private ItemRO saveAndSubmitOrReleasePubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
+    private ItemRO saveAndSubmitPubItem(PubItemVO pubItem, String submissionComment, boolean ignoreInformativeMessages) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -930,8 +929,7 @@ public class ItemControllerSessionBean extends FacesBean
             }
     
             // submit the item
-           
-            PubItemVO submittedPubItem = submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser());
+            PubItemVO submittedPubItem = this.pubItemDepositing.submitPubItem(pubItem, submissionComment, loginHelper.getAccountUser());
     
             return submittedPubItem.getVersion();
         }
@@ -950,7 +948,7 @@ public class ItemControllerSessionBean extends FacesBean
                 }
         
                 // submit the item
-                PubItemVO submittedPubItem = submitOrSubmitAndReleasePubItem(pubItem, submissionComment, loginHelper.getAccountUser());
+                PubItemVO submittedPubItem = this.pubItemDepositing.submitPubItem(pubItem, submissionComment, loginHelper.getAccountUser());
         
                 return submittedPubItem.getVersion();
             }
@@ -2160,37 +2158,5 @@ public class ItemControllerSessionBean extends FacesBean
     protected ItemListSessionBean getItemListSessionBean()
     {
         return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
-    }
-    
-    private PubItemVO submitOrSubmitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws Exception
-    {
-        
-        if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
-        {
-             return this.pubItemDepositing.submitAndReleasePubItem(pubItem, submissionComment, user);
-        }
-        else if (getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD))
-        {
-            return this.pubItemDepositing.submitPubItem(pubItem, submissionComment, user);
-        }
-        
-        return null;
-                
-    }
-    
-    public String getCurrentWorkflow()
-    {
-        String workflow = getCurrentContext().getAdminDescriptor().getVisibilityOfReferences();
-        if (workflow == null || workflow.equals(PubItemDepositing.WORKFLOW_SIMPLE))
-        {
-            return PubItemDepositing.WORKFLOW_SIMPLE;
-        }
-        else if (workflow.equals(PubItemDepositing.WORKFLOW_STANDARD))
-        {
-            return PubItemDepositing.WORKFLOW_STANDARD;
-        
-        }
-        
-        return PubItemDepositing.WORKFLOW_SIMPLE;
     }
 }

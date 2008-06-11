@@ -240,10 +240,10 @@ public class EasySubmission extends FacesBean
     	
     	// select the default context if only one exists
     	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-    	if(contextListSessionBean.getDepositorContextList() != null && contextListSessionBean.getDepositorContextList().size() == 1)
+    	if(contextListSessionBean.getContextList() != null && contextListSessionBean.getContextList().size() == 1)
     	{
-    		contextListSessionBean.getDepositorContextList().get(0).setSelected(false);
-    		contextListSessionBean.getDepositorContextList().get(0).selectForEasySubmission();
+    		contextListSessionBean.getContextList().get(0).setSelected(false);
+    		contextListSessionBean.getContextList().get(0).selectForEasySubmission();
     	}
     	
     	// set the current submission step to step2
@@ -271,11 +271,11 @@ public class EasySubmission extends FacesBean
     	
     	// deselect the  selected context
     	ContextListSessionBean contextListSessionBean = (ContextListSessionBean) getSessionBean(ContextListSessionBean.class);
-    	if(contextListSessionBean.getDepositorContextList() != null)
+    	if(contextListSessionBean.getContextList() != null)
     	{
-    		for(int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++)
+    		for(int i = 0; i < contextListSessionBean.getContextList().size(); i++)
         	{
-        		contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
+        		contextListSessionBean.getContextList().get(i).setSelected(false);
         	}
     	}
     	
@@ -1394,11 +1394,11 @@ public class EasySubmission extends FacesBean
     	boolean disableButton = true;
     	int countSelectedContexts = 0;
     	// examine if a context for creating the item has been selected
-    	if(this.getContextListSessionBean().getDepositorContextList() != null)
+    	if(this.getContextListSessionBean().getContextList() != null)
     	{
-    		for(int i = 0; i < this.getContextListSessionBean().getDepositorContextList().size(); i++)
+    		for(int i = 0; i < this.getContextListSessionBean().getContextList().size(); i++)
         	{
-        		if(this.getContextListSessionBean().getDepositorContextList().get(i).getSelected() == true)
+        		if(this.getContextListSessionBean().getContextList().get(i).getSelected() == true)
         		{
         			countSelectedContexts ++;
         		}

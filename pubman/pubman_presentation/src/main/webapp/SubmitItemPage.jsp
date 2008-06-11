@@ -71,8 +71,7 @@
 											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
 											<ul>
 												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SubmissionComment');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
-												<li><h:commandLink id="lnkSubmit"  value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow}"/></li>
-												<li><h:commandLink id="lnkRelease"  value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow}"/></li>
+												<li><h:commandLink id="lnkSubmit"  value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}"/></li>
 												<li><h:commandLink id="lnkCancel" immediate="true"  value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}"/></li>
 											</ul>
 										</div>

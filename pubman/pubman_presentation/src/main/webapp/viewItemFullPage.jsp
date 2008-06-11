@@ -71,21 +71,13 @@
 											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
 											<ul>
 												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ViewItem');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
-									
 												
 												<li><h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}"
-													 value="#{lbl.actionMenu_lnkEdit}" 
-													 rendered="#{(ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner) || (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator)}"/></li>
+													 value="#{lbl.actionMenu_lnkEdit}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 												
 												<li><h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" 
-													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowStandard}"/></li>
-													 
-												 <li><h:commandLink id="lnkRelease" action="#{ViewItemFull.submitItem}" 
-												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and !ViewItemFull.isModerator and ViewItemFull.isWorkflowSimple) }"/></li>
+													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 
-												<li><h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" 
-												 value="#{lbl.actionMenu_lnkAccept}" rendered="#{(ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled) }"/></li>
-												 
 												<li><h:commandLink id="lnkDelete" onclick="if(!confirmDelete('form1:viewItemFull'))return false;"
 													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 													 
@@ -93,13 +85,10 @@
 													 value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 													 
 												<li><h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}"
-													 value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/></li>
+													 value="#{lbl.actionMenu_lnkModify}" rendered="#{(ViewItemFull.isStateReleased || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/></li>
 													 
 												<li><h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}"
 													 value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/></li>
-												
-												
-												
 													 
 												<h:panelGroup rendered="#{ViewItemFull.isDepositor and !ViewItemFull.isStateWithdrawn}">
 													<li><h:commandLink binding="#{ViewItemSessionBean.lnkCreateItemFromTemplate}" id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}"

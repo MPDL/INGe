@@ -77,7 +77,7 @@ public class ExportItemsSessionBean extends FacesBean
     private String emailAuthUserProp = "";
     private String emailAuthPwdProp = "";
    
-    public String exportDisplayData = "No export data available";
+    public static String exportDisplayData = "No export data available";
                 
     private static Logger logger = Logger.getLogger(ExportItemsSessionBean.class);
     private final String PROPERTY_PREFIX_FOR_EMAILSERVICE_SERVERNAME = "escidoc.pubman_presentation.email.mailservername";
@@ -342,7 +342,7 @@ public class ExportItemsSessionBean extends FacesBean
        exportDisplayData = data;
     
     }
-    public String getExportDisplayData(){
+    public static String getExportDisplayData(){
         //logger.debug("getExportDisplayData ");
         return exportDisplayData;
     }

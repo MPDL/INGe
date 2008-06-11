@@ -33,20 +33,14 @@ package de.mpg.escidoc.pubman.contextList;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
-import de.mpg.escidoc.services.pubman.QualityAssurance;
 
 /**
  * Keeps all attributes that are used for the whole session by the CollectionList.
@@ -58,47 +52,21 @@ public class ContextListSessionBean extends FacesBean
     public static final String BEAN_NAME = "ContextListSessionBean";
     private static Logger logger = Logger.getLogger(ContextListSessionBean.class);
 
-    private List<PubContextVOPresentation> depositorContextList = new ArrayList<PubContextVOPresentation>();
-    private List<PubContextVOPresentation> moderatorContextList = new ArrayList<PubContextVOPresentation>();
-    private QualityAssurance qualityAssurance;
-    private LoginHelper loginHelper;
+    private List<PubContextVOPresentation> contextList = new ArrayList<PubContextVOPresentation>();
 
     /**
      * Public constructor.
      */
     public ContextListSessionBean()
     {
-        
-        this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
-        this.depositorContextList = this.retrieveDepositorContexts();
-        this.moderatorContextList = this.retrieveModeratorContexts();
-        
-    }
-
-    private List<PubContextVOPresentation> retrieveModeratorContexts()
-    {
-        List<PubContextVOPresentation> moderatorContexts = new ArrayList<PubContextVOPresentation>();
-        try
-        {
-            
-            InitialContext initialContext = new InitialContext();
-            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
-        }
-        catch (Exception e)
-        {
-            logger.error("Could not create context list.", e);
-            moderatorContexts.addAll(this.getDummyCollections(3));
-            logger.warn("Continuing with Dummy-Collections.");
-        }
-        return moderatorContexts;
+        this.contextList = this.retrieveContexts();
     }
 
     /**
      * Retrieves all contexts for the current user.
      * @return the list of ContextVOs
      */
-    private List<PubContextVOPresentation> retrieveDepositorContexts()
+    private List<PubContextVOPresentation> retrieveContexts()
     {
         List<PubContextVOPresentation> allCollections = new ArrayList<PubContextVOPresentation>();
         
@@ -151,34 +119,24 @@ public class ContextListSessionBean extends FacesBean
         return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 
-    public List<PubContextVOPresentation> getDepositorContextList()
+    public List<PubContextVOPresentation> getContextList()
     {
-        return depositorContextList;
+        return contextList;
     }
 
-    public void setDepositorContextList(List<PubContextVOPresentation> contextList)
+    public void setContextList(List<PubContextVOPresentation> contextList)
     {
-        this.depositorContextList = contextList;
+        this.contextList = contextList;
     }
 
-    public PubContextVOPresentation getSelectedDepositorContext()
+    public PubContextVOPresentation getSelectedContext()
     {
-    	for (PubContextVOPresentation coll : depositorContextList) {
+    	for (PubContextVOPresentation coll : contextList) {
 			if (coll.getSelected())
 			{
 				return coll;
 			}
 		}
     	return null;
-    }
-
-    public List<PubContextVOPresentation> getModeratorContextList()
-    {
-        return moderatorContextList;
-    }
-
-    public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList)
-    {
-        this.moderatorContextList = moderatorContextList;
     }
 }
