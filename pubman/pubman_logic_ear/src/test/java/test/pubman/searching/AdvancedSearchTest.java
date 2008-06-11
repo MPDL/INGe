@@ -124,7 +124,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testPersonSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -178,7 +178,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testIdentifierSearch():");
         logger.debug(itemXML);
    
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
@@ -233,7 +233,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testTopicSearch():");
         logger.debug(itemXML);
    
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
    
         // wait a little bit for indexing...
@@ -285,7 +285,7 @@ public class AdvancedSearchTest extends TestBase
          logger.debug("itemXML for testTitleSearch():");
          logger.debug(itemXML);
     
-         ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+         ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
          logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
     
          // wait a little bit for indexing...
@@ -339,7 +339,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testEventSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -394,7 +394,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testSourceSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -445,7 +445,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testOrganizationSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -497,7 +497,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testGenreSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
@@ -551,7 +551,7 @@ public class AdvancedSearchTest extends TestBase
         logger.debug("itemXML for testDateSearch():");
         logger.debug(itemXML);
 
-        ItemRO myItemRef = pubItemDepositing.submitPubItem(myItem, "Test Submit", user).getVersion();
+        ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();
         logger.info("Item '" + myItemRef.getObjectId() + "' submitted.");
 
         // wait a little bit for indexing...
