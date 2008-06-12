@@ -1,13 +1,13 @@
 
-<escidocItem:item
+<escidocItem:item xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}"
 		xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:82" last-modification-date="2007-11-26T13:50:43.601Z">
 	<escidocItem:properties>
-		<escidocItem:creation-date>2007-11-26T13:50:00.303Z</escidocItem:creation-date>
-		<escidocItem:created-by objid="escidoc:user2" />
-		<escidocItem:public-status>withdrawn</escidocItem:public-status>
-		<escidocItem:context objid="escidoc:persistent3" />
-		<escidocItem:content-model objid="escidoc:persistent4" />
-		<escidocItem:lock-status>unlocked</escidocItem:lock-status>
+		<prop:creation-date>2007-11-26T13:50:00.303Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user2" />
+		<prop:public-status>withdrawn</prop:public-status>
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>
 		<escidocItem:version objid="escidoc:82:1">
 			<escidocItem:number>1</escidocItem:number>
 			<escidocItem:date>2007-11-26T13:50:43.601Z</escidocItem:date>
@@ -24,7 +24,7 @@
 			<escidocItem:number>1</escidocItem:number>
 			<escidocItem:date>2007-11-26T13:50:14.941Z</escidocItem:date>
 		</escidocItem:latest-release>
-		<escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></escidocItem:content-model-specific>
+		<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records
 			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">

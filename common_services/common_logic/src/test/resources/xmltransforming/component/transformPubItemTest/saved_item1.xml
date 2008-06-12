@@ -7,14 +7,16 @@
 	xmlns:escidocItem="${xsd.soap.item.item}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"	 
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}"
     xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
     <escidocItem:properties>
-        <escidocItem:creation-date>2007-08-21T12:00:32.658Z</escidocItem:creation-date>
-        <escidocItem:created-by objid="escidoc:user1" />
-        <escidocItem:public-status>pending</escidocItem:public-status>
-        <escidocItem:context objid="escidoc:persistent3" />
-        <escidocItem:content-model objid="escidoc:persistent4" />        
-        <escidocItem:lock-status>unlocked</escidocItem:lock-status>
+        <prop:creation-date>2007-08-21T12:00:32.658Z</prop:creation-date>
+        <srel:created-by objid="escidoc:user1" />
+        <prop:public-status>pending</prop:public-status>
+        <srel:context objid="escidoc:persistent3" />
+        <srel:content-model objid="escidoc:persistent4" />        
+        <prop:lock-status>unlocked</prop:lock-status>
         <escidocItem:version objid="escidoc:3851:1">
             <escidocItem:number>1</escidocItem:number>
             <escidocItem:date>2007-08-21T12:00:32.658Z</escidocItem:date>
@@ -27,7 +29,7 @@
             <escidocItem:number>1</escidocItem:number>
             <escidocItem:date>2007-08-21T12:00:32.658Z</escidocItem:date>
         </escidocItem:latest-version>
-        <escidocItem:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
+        <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
     </escidocItem:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink">
         <escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">

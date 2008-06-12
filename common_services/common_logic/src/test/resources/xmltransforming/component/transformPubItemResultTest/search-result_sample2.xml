@@ -2,6 +2,8 @@
 <search-result:search-result-record xml:base="http://www.escidoc.de/" xmlns:search-result="${xsd.soap.searchresult.searchresult}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}"
     xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
 	<search-result:highlight>
 		<search-result:search-hit type="fulltext" objid="escidoc:442">
@@ -69,13 +71,13 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441"
 		xmlns:escidocItem="${xsd.soap.item.item}">
 		<escidocItem:properties>
-			<escidocItem:creation-date>2007-03-21T00:00:00.0Z</escidocItem:creation-date>
-			<escidocItem:created-by objid="escidoc:user1"/>
-			<escidocItem:public-status>released</escidocItem:public-status>
-			<escidocItem:context objid="escidoc:persistent3"/>
-			<escidocItem:content-model objid="escidoc:persistent4"/>
-			<escidocItem:lock-status>unlocked</escidocItem:lock-status>
-			<escidocItem:content-model-specific />
+			<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user1"/>
+			<prop:public-status>released</prop:public-status>
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:content-model-specific />
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records
 			xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -96,8 +98,8 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 			xmlns:escidocComponents="${xsd.soap.item.components}">
 			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:00:00.0Z">
 				<escidocComponents:properties>
-					<escidocComponents:creation-date>2007-03-21T00:00:00.0Z</escidocComponents:creation-date>
-					<escidocComponents:created-by objid="escidoc:user1"/>
+					<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>
+					<srel:created-by objid="escidoc:user1"/>
 					<escidocComponents:description>Ein Farbtest.</escidocComponents:description>					
 					<escidocComponents:valid-status>valid</escidocComponents:valid-status>
 					<escidocComponents:visibility>public</escidocComponents:visibility>

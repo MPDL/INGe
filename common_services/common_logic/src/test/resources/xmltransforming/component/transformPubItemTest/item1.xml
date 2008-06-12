@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <escidocItem:item xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocContext="${xsd.soap.context.context}" xmlns:escidocContextList="${xsd.soap.context.contextlist}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocRelations="${xsd.soap.common.relations}" xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
 	<escidocItem:properties>
-		<escidocItem:context objid="escidoc:persistent3"/>
-		<escidocItem:content-model objid="escidoc:persistent4"/>
+		<srel:context objid="escidoc:persistent3"/>
+		<srel:content-model objid="escidoc:persistent4"/>
 		<escidocItem:version/>
-		<escidocItem:content-model-specific/>
+		<prop:content-model-specific/>
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">

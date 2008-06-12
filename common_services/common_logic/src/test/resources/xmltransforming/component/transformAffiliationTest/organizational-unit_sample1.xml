@@ -1,12 +1,14 @@
 <organizational-unit:organizational-unit
   xmlns:organizational-unit="${xsd.soap.ou.ou}"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:prop="${xsd.soap.common.prop}"
+  xmlns:srel="${xsd.soap.common.srel}"
   objid="escidoc:persistent1"
   last-modification-date="2007-03-19T12:16:19.322Z">
     <organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
-        <organizational-unit:creation-date>2007-03-15T08:07:11.015Z</organizational-unit:creation-date>
-        <organizational-unit:created-by objid="escidoc:user42" />
-        <organizational-unit:public-status>opened</organizational-unit:public-status>
+        <prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
+        <srel:created-by objid="escidoc:user42" />
+        <prop:public-status>opened</prop:public-status>
         <organizational-unit:has-children>true</organizational-unit:has-children>
     </organizational-unit:properties>
     <organizational-unit:organization-details xmlns:organizational-unit="${xsd.soap.ou.ou}">

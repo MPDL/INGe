@@ -1,16 +1,16 @@
-
-<context:context xmlns:context="${xsd.soap.context.context}" objid="escidoc:persistent3" last-modification-date="2007-03-26T11:11:58.853Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
+<context:context xmlns:context="${xsd.soap.context.context}" xmlns:srel="${xsd.soap.common.srel}" objid="escidoc:persistent3"
+	xmlns:prop="${xsd.soap.common.prop}" last-modification-date="2007-03-26T11:11:58.853Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
 	<context:properties>
-		<context:creation-date>2007-01-16T11:23:24.359Z</context:creation-date>
-		<context:created-by objid="escidoc:user42" />
+		<prop:creation-date>2007-01-16T11:23:24.359Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user42" />
 		<context:public-status>opened</context:public-status>
 		<context:name>PubMan Test Collection</context:name>
-		<context:description>This is the sample collection description of the PubMan Test
-collection. Any content can be stored in this collection, which is of relevance
-for the users of the system. You can submit relevant bibliographic information
-for your publication (metadata) and all relevant files. The MPS is the
-responsible affiliation for this collection. Please contact
-u.tschida@zim.mpg.de for any questions.</context:description>
+		<context:description>
+			This is the sample collection description of the PubMan Test collection. Any content can be stored in this collection, which is of relevance for the
+			users of the system. You can submit relevant bibliographic information for your publication (metadata) and all relevant files. The MPS is the
+			responsible affiliation for this collection. Please contact u.tschida@zim.mpg.de for any questions.
+		</context:description>
 		<context:type>PubMan</context:type>
 		<context:organizational-units>
 			<context:organizational-unit objid="escidoc:persistent13" />
@@ -41,7 +41,7 @@ u.tschida@zim.mpg.de for any questions.</context:description>
 				<template-item>dsddsadad</template-item>
 				<validation-schema>dsadda</validation-schema>
 			</pubman-admin-descriptor>
-			
+
 		</context:admin-descriptor>
 	</context:admin-descriptors>
 </context:context>
