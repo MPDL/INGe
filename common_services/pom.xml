@@ -408,18 +408,19 @@
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
 				<xsd.soap.common.version>http://escidoc.de/core/01/properties/version/</xsd.soap.common.version>
 				<xsd.soap.common.release>http://escidoc.de/core/01/properties/release/</xsd.soap.common.release>
-				<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.6</xsd.soap.item.item>
-				<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.5</xsd.soap.context.context>
-				<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.6</xsd.soap.item.components>
-				<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.5</xsd.soap.context.contextlist>
-				<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.6</xsd.soap.item.itemlist>
+				<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.7</xsd.soap.item.item>
+				<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.6</xsd.soap.context.context>
+				<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.7</xsd.soap.item.components>
+				<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.6</xsd.soap.context.contextlist>
+				<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.7</xsd.soap.item.itemlist>
 				<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.mdrecords>
 				<xsd.soap.common.relations>http://www.escidoc.de/schemas/relations/0.3</xsd.soap.common.relations>
-				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.5</xsd.soap.searchresult.searchresult>
+				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.6</xsd.soap.searchresult.searchresult>
 				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.5</xsd.soap.useraccount.useraccount>
 				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
-				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.5</xsd.soap.ou.ou>
-				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.5</xsd.soap.ou.oulist>
+				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.6</xsd.soap.ou.ou>
+				<xsd.soap.ou.oulist>http://www.escidoc.de/schemas/organizationalunitlist/0.6</xsd.soap.ou.oulist>
+				<xsd.soap.ou.ouref>http://www.escidoc.de/schemas/organizationalunitref/0.4</xsd.soap.ou.ouref>
 				<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
 				<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.4</xsd.soap.useraccount.grants>
