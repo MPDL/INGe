@@ -529,6 +529,12 @@ public class ItemControllerSessionBean extends FacesBean
         newItem.getVersion().setVersionNumber(0);
         newItem.getVersion().setState(ItemVO.State.PENDING);
         newItem.getFiles().clear();
+        //clear the relation list according to PUBMAN-357
+        if(newItem.getRelations() != null)
+        {
+        	newItem.getRelations().clear();
+        }
+        
         
         this.setCurrentPubItem(newItem);
         
