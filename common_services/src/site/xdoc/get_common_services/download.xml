@@ -73,6 +73,27 @@
 						</td>
 					</tr>
 					<tr>
+						<td>structuredexportmanager</td>
+						<td>Structured exportmanager</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/structuredexportmanager">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>structuredexportmanager_ear</td>
+						<td>Integration tests of structured exportmanager</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/structuredexportmanager_ear">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
+						<td>validation</td>
+						<td>Provides validation of items</td>
+						<td>
+							<a href="http://escidoc1.escidoc.mpg.de:8888/archiva/browse/de.mpg.escidoc.services/validation">archiva dir</a>
+						</td>
+					</tr>
+					<tr>
 						<td>validation</td>
 						<td>Provides validation of items</td>
 						<td>
