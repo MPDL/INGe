@@ -575,19 +575,26 @@ public class EasySubmission extends FacesBean
       String contentURL;
       if (file != null)
       {
-        contentURL = uploadFile(file);
-    	if(contentURL != null && !contentURL.trim().equals(""))
-    	{
-    		this.getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
-    		// set the file name automatically if it is not filled by the user
-    		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
-    		{
-    			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
-    		}
-            this.getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
-            this.getFiles().get(indexUpload).getFile().setContent(contentURL);
-    	}
-    	this.init();
+        if(this.getFiles().get(this.getFiles().size()-1).getContentCategory() != null && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("") && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("-"))
+        {
+        	contentURL = uploadFile(file);
+	    	if(contentURL != null && !contentURL.trim().equals(""))
+	    	{
+	    		this.getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
+	    		// set the file name automatically if it is not filled by the user
+	    		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+	    		{
+	    			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
+	    		}
+	            this.getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
+	            this.getFiles().get(indexUpload).getFile().setContent(contentURL);
+	    	}
+	    	this.init();
+        }
+        else
+        {
+        	error(getMessage("ComponentContentCategoryNotProvided"));
+        }
       }
       return "loadNewEasySubmission";
     }
