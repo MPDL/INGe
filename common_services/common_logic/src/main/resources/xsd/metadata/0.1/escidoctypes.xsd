@@ -7,11 +7,11 @@
 
     </xs:documentation>
 	</xs:annotation>
-	<xs:include schemaLocation="escidocenumtypes.xsd"/>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+	<xs:include schemaLocation="../../metadata/0.1/escidocenumtypes.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="../../metadata/0.1/escidocidtypes.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="../../metadata/0.1/dcterms.xsd"/>
 	<!--*******************************
     CreatorGroup
     ********************************-->

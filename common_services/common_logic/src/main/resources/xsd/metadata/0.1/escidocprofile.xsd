@@ -24,14 +24,14 @@
     </xs:documentation>
 	</xs:annotation>
 	
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/collection" schemaLocation="escidoc_collection_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/image" schemaLocation="escidoc_image_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/film" schemaLocation="escidoc_film_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" schemaLocation="escidoc_publication_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/transcription" schemaLocation="escidoc_transcription_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/translation" schemaLocation="escidoc_translation_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/language" schemaLocation="escidoc_language_profile.xsd"/>
-	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/languagefeature" schemaLocation="escidoc_languagefeature_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/collection" schemaLocation="../../metadata/0.1/escidoc_collection_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/image" schemaLocation="../../metadata/0.1/escidoc_image_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/film" schemaLocation="../../metadata/0.1/escidoc_film_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" schemaLocation="../../metadata/0.1/escidoc_publication_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/transcription" schemaLocation="../../metadata/0.1/escidoc_transcription_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/translation" schemaLocation="../../metadata/0.1/escidoc_translation_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/language" schemaLocation="../../metadata/0.1/escidoc_language_profile.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/languagefeature" schemaLocation="../../metadata/0.1/escidoc_languagefeature_profile.xsd"/>
 	
 	<xs:element name="collection" type="collection:CollectionType"/>
 	<xs:element name="image" type="image:ImageType"/>

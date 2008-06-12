@@ -41,16 +41,21 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -58,6 +63,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.rpc.ServiceException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
@@ -88,6 +96,8 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
+import org.xml.sax.Attributes;
 
 import com.sun.org.apache.xerces.internal.dom.AttrImpl;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
@@ -143,6 +153,8 @@ public abstract class TestBase
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
             + "responsible affiliation for this collection. Please contact\n"
             + "u.tschida@zim.mpg.de for any questions.";
+    
+    private static Map<String, Schema> schemas = null;
 
     /**
      * Logger for this class.
@@ -939,113 +951,148 @@ public abstract class TestBase
      */
     public static void assertXMLValid(final String xmlData) throws Exception
     {
+        
         if (xmlData == null)
         {
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
         }
 
-        String JAXP_SCHEMA_LANGUAGE =
-            "http://java.sun.com/xml/jaxp/properties/schemaLanguage";
-
-        String W3C_XML_SCHEMA =
-            "http://www.w3.org/2001/XMLSchema"; 
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-        factory.setNamespaceAware(true);
-        factory.setValidating(true);
-        factory.setAttribute(JAXP_SCHEMA_LANGUAGE, W3C_XML_SCHEMA);
-
-        File[] schemas = ResourceUtil.getFilenamesInDirectory("xsd/");
-
-        logger.info("Used schemas: " + Arrays.asList(schemas));
-        
-        String JAXP_SCHEMA_SOURCE = 
-            "http://java.sun.com/xml/jaxp/properties/schemaSource";
-        
-        factory.setAttribute(JAXP_SCHEMA_SOURCE, schemas);
-
-        DocumentBuilder builder = factory.newDocumentBuilder();
-        EntityResolver entityResolver = new EntityResolver()
+        if (schemas == null)
         {
-            String xsdPath = ResourceUtil.getResourceAsFile("xsd/").getAbsolutePath();
-            String replacePath = null;
-            
-            public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
-            {
-                if (replacePath == null)
-                {
-                    int slash = systemId.length();
-                    while ((slash = systemId.lastIndexOf("/", slash - 1)) >= 0)
-                    {
-                        String suffix = systemId.substring(slash);
-                        try
-                        {
-                            File xsdFile = new File(xsdPath + suffix);
-                            if (xsdFile.exists())
-                            {
-                                replacePath = systemId.substring(0, slash);
-                                break;
-                            }
-                        }
-                        catch (Exception e) {
-                            // This was not the right path!
-                        }
-                    }
-                }
-                return new InputSource(ResourceUtil.getResourceAsStream(xsdPath + systemId.substring(replacePath.length())));
-            }
-            
-        };
-        builder.setEntityResolver(entityResolver);
-
+            initializeSchemas();
+        }
+        
+        String nameSpace = getNameSpaceFromXml(xmlData);
+        
+        logger.debug("Looking up namespace '" + nameSpace + "'");
+        
+        Schema schema = schemas.get(nameSpace);
+        
         try
         {
-            ErrorHandler errorHandler = new ErrorHandler()
-            {
-
-                public void error(SAXParseException exception) throws SAXException
-                {
-                    throw exception;
-                }
-
-                public void fatalError(SAXParseException exception) throws SAXException
-                {
-                    throw exception;
-                }
-
-                public void warning(SAXParseException exception) throws SAXException
-                {
-                    logger.warn("Warning", exception);
-                }
-                
-            };
-            
-            builder.setErrorHandler(errorHandler);
-            builder.parse(new ByteArrayInputStream(xmlData.getBytes()));
+            Validator validator = schema.newValidator();
+            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
+            validator.validate(new SAXSource(new InputSource(in)));
         }
-        catch (Exception e)
+        catch (SAXParseException e)
         {
             StringBuffer sb = new StringBuffer();
-            if (e instanceof SAXParseException)
-            {
-                sb.append("XML invalid at line:" + ((SAXParseException)e).getLineNumber() + ", column:" + ((SAXParseException)e).getColumnNumber() + "\n");
-                sb.append("SAXParseException message: " + ((SAXParseException)e).getMessage() + "\n");
-                sb.append("\nAffected XML: \n");
-                sb.append(xmlData);
-            }
-            else
-            {
-                sb.append("XML error: ");
-                sb.append(e.getMessage());
-                sb.append(" / ");
-                if (e.getCause() != null)
-                {
-                    e.getCause().getMessage();
-                }
-                sb.append("\nAffected XML: \n");
-                sb.append(xmlData);
-            }
+            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
+            sb.append("SAXParseException message: " + e.getMessage() + "\n");
+            sb.append("Affected XML: \n" + xmlData);
             fail(sb.toString());
+        }
+        
+    }
+
+    /**
+     * @param xmlData
+     * @return
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws UnsupportedEncodingException
+     */
+    private static String getNameSpaceFromXml(final String xmlData) throws ParserConfigurationException, SAXException,
+            IOException, UnsupportedEncodingException
+    {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        DefaultHandler handler = new DefaultHandler()
+        {
+            private String nameSpace = null;
+            private boolean first = true;
+            
+            public void startElement(String uri, String localName, String qName, Attributes attributes)
+            {
+                if (first)
+                {
+                    if (qName.contains(":"))
+                    {
+                        String prefix = qName.substring(0, qName.indexOf(":"));
+                        String attributeName = "xmlns:" + prefix;
+                        nameSpace = attributes.getValue(attributeName);
+                    }
+                    else
+                    {
+                        nameSpace = attributes.getValue("xmlns");
+                    }
+                    first = false;
+                }
+            }
+            
+            public String toString()
+            {
+                return nameSpace;
+            }
+        };
+        parser.parse(new ByteArrayInputStream(xmlData.getBytes("UTF-8")), handler);
+        String nameSpace = handler.toString();
+        return nameSpace;
+    }
+
+    /**
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
+    {
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        schemas = new HashMap<String, Schema>();
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        for (File file : schemaFiles)
+        {
+            try
+            {
+                Schema schema = sf.newSchema(file);
+                SAXParserFactory factory = SAXParserFactory.newInstance();
+                SAXParser parser = factory.newSAXParser();
+                DefaultHandler handler = new DefaultHandler()
+                {
+                    private String nameSpace = null;
+                    private boolean found = false;
+                    
+                    public void startElement(String uri, String localName, String qName, Attributes attributes)
+                    {
+                        if (!found)
+                        {
+                            String tagName = null;
+                            int ix = qName.indexOf(":");
+                            if (ix >= 0)
+                            {
+                                tagName = qName.substring(ix + 1);
+                            }
+                            else
+                            {
+                                tagName = qName;
+                            }
+                            if ("schema".equals(tagName))
+                            {
+                                nameSpace = attributes.getValue("targetNamespace");
+                                found = true;
+                            }
+                        }
+                    }
+                    
+                    public String toString()
+                    {
+                        return nameSpace;
+                    }
+                };
+                parser.parse(file, handler);
+                if (handler.toString() != null)
+                {
+                    schemas.put(handler.toString(), schema);
+                }
+                else
+                {
+                    logger.warn("Error reading xml schema: " + file);
+                }
+            } catch (Exception e) {
+                logger.warn("Invalid xml schema", e);
+            }
+
         }
     }
 
