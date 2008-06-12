@@ -1,28 +1,34 @@
-<organizational-unit:organizational-unit
-  xmlns:organizational-unit="${xsd.soap.ou.ou}"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:prop="${xsd.soap.common.prop}"
-  xmlns:srel="${xsd.soap.common.srel}"
-  objid="escidoc:persistent1"
-  last-modification-date="2007-03-19T12:16:19.322Z">
-    <organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
-        <prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
-        <srel:created-by objid="escidoc:user42" />
-        <prop:public-status>opened</prop:public-status>
-        <organizational-unit:has-children>true</organizational-unit:has-children>
-    </organizational-unit:properties>
-    <organizational-unit:organization-details xmlns:organizational-unit="${xsd.soap.ou.ou}">
-        <organizational-unit:abbreviation>MPIWG</organizational-unit:abbreviation>
-        <organizational-unit:name>MPI for the History of Science</organizational-unit:name>
-        <organizational-unit:uri>http://www.mpgwg-berlin.mpg.de</organizational-unit:uri>
-        <organizational-unit:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</organizational-unit:description>
-        <organizational-unit:postcode>14195</organizational-unit:postcode>
-        <organizational-unit:country>DE</organizational-unit:country>
-        <organizational-unit:region>somewhere</organizational-unit:region>
-        <organizational-unit:address>Boltzmannstr. 22</organizational-unit:address>
-        <organizational-unit:city>Berlin</organizational-unit:city>
-        <organizational-unit:telephone>(+49 30) 22667 - 0</organizational-unit:telephone>
-        <organizational-unit:fax>(+49 30) 22667 - 10</organizational-unit:fax>
-        <organizational-unit:email>info@mpgwg-berlin.mpg.de</organizational-unit:email>
-    </organizational-unit:organization-details>
+
+<organizational-unit:organizational-unit 
+	xmlns:organizational-unit="${xsd.soap.ou.ou}" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:md-records="${xsd.soap.common.mdrecords}" 
+	objid="escidoc:persistent1" 
+	last-modification-date="2007-03-19T12:16:19.322Z">
+	<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
+		<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user42" />
+		<prop:public-status>opened</prop:public-status>
+		<prop:has-children>true</prop:has-children>
+	</organizational-unit:properties>
+	<md-records:md-records>
+		<md-records:md-record name="escidoc">
+			<organization-details>
+				<abbreviation>MPIWG</abbreviation>
+				<name>MPI for the History of Science</name>
+				<uri>http://www.mpgwg-berlin.mpg.de</uri>
+				<description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</description>
+				<postcode>14195</postcode>
+				<country>DE</country>
+				<region>somewhere</region>
+				<address>Boltzmannstr. 22</address>
+				<city>Berlin</city>
+				<telephone>(+49 30) 22667 - 0</telephone>
+				<fax>(+49 30) 22667 - 10</fax>
+				<email>info@mpgwg-berlin.mpg.de</email>
+			</organization-details>
+		</md-records:md-record>
+	</md-records:md-records>
 </organizational-unit:organizational-unit>

@@ -91,15 +91,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         pubItemVO.getMetadata().setTitle(new TextVO("<blink>organisation</blink>"));
 
         // add file to PubItemVO
-        FileVO fileVO = new FileVO();
-        // first upload the file to the framework
-        fileVO.setContent("<blink>organisation</blink>");
-        // set some properties of the FileVO (mandatory fields first of all)
-        fileVO.setContentCategory("post-print");
-        fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
-        fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
-        fileVO.setVisibility(Visibility.PUBLIC);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        FileVO fileVO = getFile();
+        
         // and add it to the PubItemVO's files list
         pubItemVO.getFiles().add(fileVO);
 
@@ -132,6 +125,23 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         logger.info("FileVO.description, vorher (escaped):" + JiBXHelper.xmlEscape(pubItemVO.getFiles().get(0).getDescription()));
         logger.info("FileVO.description, nachher:" + roundtrippedPubItemVO.getFiles().get(0).getDescription());
         assertEquals(pubItemVO.getFiles().get(0).getDescription(), roundtrippedPubItemVO.getFiles().get(0).getDescription());
+    }
+
+    /**
+     * @return
+     */
+    private FileVO getFile()
+    {
+        FileVO fileVO = new FileVO();
+        // first upload the file to the framework
+        fileVO.setContent("<blink>organisation</blink>");
+        // set some properties of the FileVO (mandatory fields first of all)
+        fileVO.setContentCategory("post-print");
+        fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
+        fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
+        fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        return fileVO;
     }
 
     /**

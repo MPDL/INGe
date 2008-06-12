@@ -48,58 +48,58 @@
 
 			<!-- Node: component.properties.creation-date -->
 			<!-- Field: PubFileVO.creationDate[java.util.Date] -->
-			<value style="element" name="creation-date" ns="${xsd.soap.item.components}"
+			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}"
 				field="creationDate" usage="optional" />
 
 			<!-- Node: component.properties.created-by -->
 			<!-- Field: none, but empty structure mandatory in XML during update -->
-			<structure name="created-by" ns="${xsd.soap.item.components}" usage="optional"></structure>
+			<structure name="created-by" ns="${xsd.soap.common.srel}" usage="optional"></structure>
 
 			<!-- Node: component.properties.description -->
 			<!-- Field: PubFileVO.description[String] -->
-			<value style="element" name="description" ns="${xsd.soap.item.components}"
+			<value style="element" name="description" ns="${xsd.soap.common.prop}"
 				field="description" usage="optional" />
 
 			<!-- Node: component.properties.status -->
 			<!-- mandatory in XML, useless in VO -->
-			<value style="element" name="valid-status" ns="${xsd.soap.item.components}"
+			<value style="element" name="valid-status" ns="${xsd.soap.common.prop}"
 				constant="valid" />
 
 			<!-- Node: component.properties.visibility -->
 			<!-- Field: PubFileVO.visibility[PubFileVO.Visibility] -->
-			<value style="element" name="visibility" ns="${xsd.soap.item.components}"
+			<value style="element" name="visibility" ns="${xsd.soap.common.prop}"
 				field="visibility"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeVisibilityEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
 
 			<!-- Node: component.properties.pid -->
 			<!-- Field: PubFileVO.pid[String] -->
-			<value style="element" name="pid" ns="${xsd.soap.item.components}" field="pid"
+			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid"
 				usage="optional" />
 
 			<!-- Node: component.properties.content-category -->
 			<!-- Field: PubFileVO.contentType[PubFileVO.ContentType] -->
-			<value style="element" name="content-category" ns="${xsd.soap.item.components}"
+			<value style="element" name="content-category" ns="${xsd.soap.common.prop}"
 				field="contentCategory"
 				usage="optional"/>
 
 			<!-- Node: component.properties.file-name -->
 			<!-- Field: PubFileVO.name[String] -->
-			<value style="element" name="file-name" ns="${xsd.soap.item.components}" field="name"
+			<value style="element" name="file-name" ns="${xsd.soap.common.prop}" field="name"
 				usage="optional" />
 
 			<!-- Node: component.properties.mime-type -->
 			<!-- Field: PubFileVO.mimeType[String] -->
-			<value style="element" name="mime-type" ns="${xsd.soap.item.components}" field="mimeType"
+			<value style="element" name="mime-type" ns="${xsd.soap.common.prop}" field="mimeType"
 				usage="optional" />
 
-			<!-- Node: component.properties.file-size -->
+			<!-- Node: component.properties.file-size (discarded) -->
 			<!-- Field: PubFileVO.size[int] -->
-			<value style="element" name="file-size" ns="${xsd.soap.item.components}" field="size" />
+<!--			<value style="element" name="file-size" ns="${xsd.soap.common.prop}" field="size" />-->
 
 			<!-- Node: component.properties.locator-url -->
 			<!-- Field: PubFileVO.locator[String] -->
-			<value style="element" name="locator-url" ns="${xsd.soap.item.components}" field="locator"
+			<value style="element" name="locator-url" ns="${xsd.soap.common.prop}" field="locator"
 				usage="optional" />
 
 		</structure>

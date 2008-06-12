@@ -256,5 +256,11 @@
 			<version>20040801</version>
 			<scope>compile</scope>
 		</dependency>
+	    <dependency>
+	      <groupId>saxon</groupId>
+	      <artifactId>saxon-dom</artifactId>
+	      <version>8.7</version>
+	      <scope>test</scope>
+	    </dependency>
 	</dependencies>
 </project>

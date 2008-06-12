@@ -30,26 +30,21 @@
 
 package test.xmltransforming;
 
-import java.io.ByteArrayOutputStream;
 import java.io.StringWriter;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
 
 import test.TestBase;
-
-import com.sun.org.apache.xerces.internal.dom.AttrImpl;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * This class enriches the TestBase class with XML-specific methods.
@@ -106,7 +101,16 @@ public class XmlTransformingTestBase extends TestBase
      */
     protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception
     {
-        return xml.toString();
+        Transformer transformer = TransformerFactory.newInstance().newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+        //initialize StreamResult with File object to save to file
+        StreamResult result = new StreamResult(new StringWriter());
+        DOMSource source = new DOMSource(xml);
+        transformer.transform(source, result);
+
+        String xmlString = result.getWriter().toString();
+        return xmlString;
     }
 
     /**

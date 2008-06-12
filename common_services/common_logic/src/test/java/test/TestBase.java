@@ -53,6 +53,7 @@ import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,10 +109,12 @@ import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -311,9 +314,25 @@ public abstract class TestBase
         item.setMetadata(mds);
 
         // PubCollectionRef
-        ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setContext(collectionRef);
+        ContextRO contextRef = new ContextRO();
+        contextRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
+        item.setContext(contextRef);
+        try
+        {
+            String contentModel = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
+            item.setContentModel(contentModel);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Error getting content-model", e);
+        }
+        ItemRO version = new ItemRO("escidoc:123");
+        version.setVersionNumber(1);
+        version.setState(State.PENDING);
+        version.setModificationDate(new Date());
+        
+        item.setVersion(version);
+        
+        
         return item;
     }
 
