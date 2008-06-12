@@ -34,20 +34,26 @@
 	
 	-added an optional attribute 'storage' to the element components.component.content
 	
-	
 	- April, 2008
 	- version changed to 06
+	
+	- component optional
+	
+	- Mai, 2008
+	- version changed to 07
+		extended a range of the component/content/@storage with a value 
+		'external-managed'
 	
 -->
 
 <xs:schema attributeFormDefault="unqualified"
 	elementFormDefault="qualified"
-	targetNamespace="http://www.escidoc.de/schemas/components/0.6"
+	targetNamespace="http://www.escidoc.de/schemas/components/0.7"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
 	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
-	xmlns:components="http://www.escidoc.de/schemas/components/0.6"
+	xmlns:components="http://www.escidoc.de/schemas/components/0.7"
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
@@ -203,6 +209,8 @@
 												value="internal-managed" />
 											<xs:enumeration
 												value="external-url" />
+											<xs:enumeration
+												value="external-managed" />
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:attribute>

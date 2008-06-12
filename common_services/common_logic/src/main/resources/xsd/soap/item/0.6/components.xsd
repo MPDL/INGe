@@ -205,9 +205,6 @@
 												value="internal-managed" />
 											<xs:enumeration
 												value="external-url" />
-											<xs:enumeration
-												value="external-managed" />
-										</xs:restriction>
 									</xs:simpleType>
 								</xs:attribute>
 

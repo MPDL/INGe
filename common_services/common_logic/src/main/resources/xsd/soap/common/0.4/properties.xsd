@@ -94,6 +94,11 @@
 			</xs:restriction>
 		</xs:simpleType>
 	</xs:element>
+	<xs:element name="public-status-comment" type="xs:token">
+		<xs:annotation>
+			<xs:documentation />
+		</xs:annotation>
+	</xs:element>
 	<xs:element name="active" type="xs:boolean">
 		<xs:annotation>
 			<xs:documentation />

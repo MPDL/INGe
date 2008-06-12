@@ -12,7 +12,7 @@
            xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
            xmlns:item="http://www.escidoc.de/schemas/item/0.3"
            xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
-           xmlns:context="${xsd.soap.context.context}"
+           xmlns:context="http://www.escidoc.de/schemas/context/0.3"
            xmlns:container="http://www.escidoc.de/schemas/container/0.3"
            xmlns:components="http://www.escidoc.de/schemas/components/0.3"
            xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"

@@ -19,6 +19,7 @@
 	- March, 2008
 	- version changed to 05.
 	
+	
 	-deleted elements:
 	components/component/properties/file-size
 	components/component/properties/locator-url
@@ -38,35 +39,40 @@
 	- April, 2008
 	- version changed to 06
 	
+	- component optional
+	
+	- Mai, 2008
+	- version changed to 07
+		extended a range of the component/content/@storage with a value 
+		'external-managed'
 -->
-
 <xs:schema attributeFormDefault="unqualified"
 	elementFormDefault="qualified"
-	targetNamespace="http://www.escidoc.de/schemas/components/0.6"
+	targetNamespace="http://www.escidoc.de/schemas/components/0.7"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
 	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
-	xmlns:components="http://www.escidoc.de/schemas/components/0.6"
+	xmlns:components="http://www.escidoc.de/schemas/components/0.7"
 	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/">
 
 	<xs:import namespace="http://escidoc.de/core/01/properties/"
-		schemaLocation="../../../rest/common/0.4/properties.xsd" />
+		schemaLocation="../../../soap/common/0.4/properties.xsd" />
 	<xs:import
 		namespace="http://escidoc.de/core/01/structural-relations/"
-		schemaLocation="../../../rest/common/0.4/structural-relations.xsd" />
+		schemaLocation="../../../soap/common/0.4/structural-relations.xsd" />
 	<xs:import namespace="http://www.w3.org/1999/xlink"
-		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+		schemaLocation="../../../soap/common/0.3/xlink.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/metadatarecords/0.4"
-		schemaLocation="../../../rest/common/0.4/md-records.xsd" />
+		schemaLocation="../../../soap/common/0.4/md-records.xsd" />
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../rest/common/0.3/xml.xsd" />
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
-		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
 
 	<xs:element name="components">
 		<xs:annotation>
@@ -203,17 +209,32 @@
 												value="internal-managed" />
 											<xs:enumeration
 												value="external-url" />
+											<xs:enumeration
+												value="external-managed" />
 										</xs:restriction>
 									</xs:simpleType>
 								</xs:attribute>
+
 							</xs:extension>
 						</xs:simpleContent>
 					</xs:complexType>
 				</xs:element>
-				<xs:element ref="md-records:md-records" minOccurs="0"/>
+
+				<xs:element minOccurs="0" ref="md-records:md-records" />
 			</xs:sequence>
-			<xs:attributeGroup
-				ref="common-types:eSciDocResourceIdentityAttributes" />
+
+			<xs:attribute name="objid" type="common-types:objid">
+				<xs:annotation>
+					<xs:documentation>
+						<create>discarded</create>
+						<update>
+							required, if empty or missing the component
+							is treated as new
+						</update>
+					</xs:documentation>
+				</xs:annotation>
+			</xs:attribute>
+
 			<xs:attributeGroup
 				ref="common-types:eSciDocRootElementAttributes">
 			</xs:attributeGroup>
