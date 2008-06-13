@@ -70,7 +70,7 @@
         <resources>
           <resource>
             <targetPath>resources</targetPath>
-            <filtering>false</filtering>
+            <filtering>true</filtering>
             <directory>${basedir}/src/main/resources</directory>
           </resource>
         </resources>          
