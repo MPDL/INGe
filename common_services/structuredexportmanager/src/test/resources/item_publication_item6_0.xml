@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item 
+	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" 
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" 
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6" 
+	xmlns:version="http://escidoc.de/core/01/properties/version/" 
+	xmlns:release="http://escidoc.de/core/01/properties/release/" 
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6" 
+	xmlns:prop="http://escidoc.de/core/01/properties/" 
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+	xml:base="http://localhost:18080" 
+	xlink:type="simple" 
+	xlink:title="eSciDoc Banner" 
+	xlink:href="/ir/item/escidoc:ex5" 
+	last-modification-date="2007-11-15T08:36:58.765Z"
+>
+	<escidocItem:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:ex5/properties">
+		<prop:creation-date>2007-11-15T08:36:49.625Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+		<prop:public-status>released</prop:public-status>
+		<srel:context xlink:type="simple" xlink:title="A simple Context" xlink:href="/ir/context/escidoc:ex1" />
+		<srel:content-model xlink:type="simple" xlink:title="Generic Content Model" xlink:href="/cmm/content-model/escidoc:ex4" />
+		
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:version xlink:type="simple" xlink:title="This Version" xlink:href="/ir/item/escidoc:ex5:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-15T08:36:58.765Z</version:date>
+			<version:status>released</version:status>
+			<srel:modified-by xlink:type="simple" xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+			<version:comment>Status changed to released for Item escidoc:ex5.</version:comment>
+		
+		</prop:version>
+		
+		<prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/escidoc:ex5:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-15T08:36:58.765Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/escidoc:ex5:1">
+			<release:number>1</release:number>
+			
+			<release:date>2007-11-15T08:36:58.765Z</release:date>
+		</prop:latest-release>
+		<prop:content-model-specific 
+			xmlns:prop="http://escidoc.de/core/01/properties/"
+		></prop:content-model-specific>
+	
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records xlink:type="simple" 
+		xlink:title="Metadata Records of Item escidoc:ex5" xlink:href="/ir/item/escidoc:ex5/md-records">
+		<escidocMetadataRecords:md-record name="escidoc" md-type="DC" schema="http://example.com/generic/" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:ex5/md-records/md-record/escidoc">
+				<profile:publication 
+					xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" 
+					xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
+					xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
+					xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" 
+					xmlns:dcterms="http://purl.org/dc/terms/" 
+					xmlns:dc="http://purl.org/dc/elements/1.1/"
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+					type="article">
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Brandt</e:family-name>
+							<e:given-name>Ernst Helmut</e:given-name>
+							<e:organization>
+								<e:organization-name>MPI für Metallforschung/Ehem. Abt. Gao</e:organization-name>
+								<e:address/>
+							</e:organization>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Mikitik</e:family-name>
+							<e:given-name>Grigorii P.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name>Markus T. Grauer</e:complete-name>
+							<e:family-name>Grauer</e:family-name>
+							<e:given-name>Markus T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:organization>
+							<e:organization-name>ASDEX Update</e:organization-name>
+							<e:address/>
+						</e:organization>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Overkamp</e:family-name>
+							<e:given-name>Inga</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Smittor</e:family-name>
+							<e:given-name>Thomas T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Krause</e:family-name>
+							<e:given-name>Michael T.</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Thanner</e:family-name>
+							<e:given-name>Mike</e:given-name>
+						</e:person>
+					</creator>
+					<creator role="author">
+						<e:person>
+							<e:complete-name/>
+							<e:family-name>Tatzel</e:family-name>
+							<e:given-name>Robert I.</e:given-name>
+						</e:person>
+					</creator>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en-GB">This is the article title! Please note that the organization Asdex Update should be displayed est DiT 08 ? &amp;; , $, §, \", @ % /, the !, -, the _, the ~, the @ and the # € mläüte ßind schön. à bientôt!</dc:title>
+					<dc:identifier xsi:type="eidt:DOI">10.1088/0953-2048/20/9/S01</dc:identifier>
+					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-20</dcterms:dateSubmitted>
+					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-23</dcterms:issued>
+					<review-method>peer</review-method>
+					<source>
+						<dc:title xml:lang="en-GB">Blood</dc:title>
+						<e:volume>12</e:volume>
+						<e:issue>5-6</e:issue>
+						<e:start-page>211</e:start-page>
+						<e:end-page>220</e:end-page>
+						<dc:identifier xsi:type="eidt:ISSN">0953-2048</dc:identifier>
+					</source>
+					<dcterms:abstract xml:lang="en-US">
+          </dcterms:abstract>
+				</profile:publication>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
+	<escidocComponents:components xlink:type="simple" 
+		xlink:title="Components of Item escidoc:ex5" 
+		xlink:href="/ir/item/escidoc:ex5/components"
+	>
+		<escidocComponents:component 
+			xlink:type="simple" 
+			xlink:title="component" 
+			xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6"
+		>
+			<escidocComponents:properties 
+				xlink:type="simple" 
+				xlink:title="Properties" 
+				xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6/properties"
+			>
+				<prop:creation-date>2008-06-03T07:46:36.171Z</prop:creation-date>
+				<srel:created-by xlink:type="simple" 
+					xlink:title="roland" 
+					xlink:href="/aa/user-account/escidoc:user42" />
+				<prop:valid-status>valid</prop:valid-status>
+				
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>image</prop:content-category>
+				<prop:file-name>component</prop:file-name>
+				<prop:mime-type>image/jpeg</prop:mime-type>
+			
+			</escidocComponents:properties>
+			<escidocComponents:content 
+				xlink:type="simple" 
+				xlink:title="component" 
+				xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6/content" 
+				storage="internal-managed"/>
+		
+		</escidocComponents:component>
+	
+	</escidocComponents:components>
+	
+	<relations:relations 
+		xlink:type="simple" 
+		xlink:title="Relations of container" 
+		xlink:href="/ir/item/escidoc:ex5/relations"
+	></relations:relations>
+	<escidocItem:resources 
+		xlink:type="simple" 
+		xlink:title="Resources" 
+		xlink:href="/ir/item/escidoc:ex5/resources"
+	>
+		<escidocItem:version-history 
+			xlink:type="simple" 
+			xlink:title="Version History"
+			xlink:href="/ir/item/escidoc:ex5/resources/version-history" />
+	</escidocItem:resources>
+</escidocItem:item>
+<!-- escidocItem:item 
+	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" 
+	xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" 
+	xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6" 
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6" 
+	xmlns:version="http://escidoc.de/core/01/properties/version/" 
+	xmlns:release="http://escidoc.de/core/01/properties/release/" 
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6" 
+	xmlns:prop="http://escidoc.de/core/01/properties/" 
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+	xml:base="http://localhost:18080" 
+	xlink:type="simple" 
+	xlink:title="eSciDoc Banner" 
+	xlink:href="/ir/item/escidoc:ex5" 
+	last-modification-date="2007-11-15T08:36:58.765Z"
+>
+	<escidocItem:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:ex5/properties">
+		<prop:creation-date>2007-11-15T08:36:49.625Z</prop:creation-date>
+		<srel:created-by xlink:type="simple" xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+		<prop:public-status>released</prop:public-status>
+		<srel:context xlink:type="simple" xlink:title="A simple Context" xlink:href="/ir/context/escidoc:ex1" />
+		<srel:content-model xlink:type="simple" xlink:title="Generic Content Model" xlink:href="/cmm/content-model/escidoc:ex4" />
+		
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:version xlink:type="simple" xlink:title="This Version" xlink:href="/ir/item/escidoc:ex5:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-15T08:36:58.765Z</version:date>
+			<version:status>released</version:status>
+			<srel:modified-by xlink:type="simple" xlink:title="roland" xlink:href="/aa/user-account/escidoc:user42" />
+			<version:comment>Status changed to released for Item escidoc:ex5.</version:comment>
+		
+		</prop:version>
+		
+		<prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/escidoc:ex5:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-15T08:36:58.765Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/escidoc:ex5:1">
+			<release:number>1</release:number>
+			
+			<release:date>2007-11-15T08:36:58.765Z</release:date>
+		</prop:latest-release>
+		<prop:content-model-specific 
+			xmlns:prop="http://escidoc.de/core/01/properties/"
+		></prop:content-model-specific>
+	
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Item escidoc:ex5" xlink:href="/ir/item/escidoc:ex5/md-records">
+			<escidocMetadataRecords:md-record name="escidoc" md-type="DC" schema="http://example.com/generic/" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:ex5/md-records/md-record/escidoc">
+				<dc-md>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">eSciDoc Banner</dc:title>
+	
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The eSciDoc banner used for headers.</dc:description>
+					<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">Image</dc:format>
+					<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">image/jpeg</dc:format>
+	
+					<dc:format xmlns:dc="http://purl.org/dc/elements/1.1/">info:pronom/fmt/42</dc:format>
+				</dc-md>
+			</escidocMetadataRecords:md-record>
+	
+		</escidocMetadataRecords:md-records>
+	<escidocComponents:components xlink:type="simple" 
+		xlink:title="Components of Item escidoc:ex5" 
+		xlink:href="/ir/item/escidoc:ex5/components"
+	>
+		<escidocComponents:component 
+			xlink:type="simple" 
+			xlink:title="component" 
+			xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6"
+		>
+			<escidocComponents:properties 
+				xlink:type="simple" 
+				xlink:title="Properties" 
+				xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6/properties"
+			>
+				<prop:creation-date>2008-06-03T07:46:36.171Z</prop:creation-date>
+				<srel:created-by xlink:type="simple" 
+					xlink:title="roland" 
+					xlink:href="/aa/user-account/escidoc:user42" />
+				<prop:valid-status>valid</prop:valid-status>
+				
+				<prop:visibility>public</prop:visibility>
+				<prop:content-category>image</prop:content-category>
+				<prop:file-name>component</prop:file-name>
+				<prop:mime-type>image/jpeg</prop:mime-type>
+			
+			</escidocComponents:properties>
+			<escidocComponents:content 
+				xlink:type="simple" 
+				xlink:title="component" 
+				xlink:href="/ir/item/escidoc:ex5/components/component/escidoc:ex6/content" 
+				storage="internal-managed"/>
+		
+		</escidocComponents:component>
+	
+	</escidocComponents:components>
+	
+	<relations:relations 
+		xlink:type="simple" 
+		xlink:title="Relations of container" 
+		xlink:href="/ir/item/escidoc:ex5/relations"
+	></relations:relations>
+	<escidocItem:resources 
+		xlink:type="simple" 
+		xlink:title="Resources" 
+		xlink:href="/ir/item/escidoc:ex5/resources"
+	>
+		<escidocItem:version-history 
+			xlink:type="simple" 
+			xlink:title="Version History"
+			xlink:href="/ir/item/escidoc:ex5/resources/version-history" />
+	</escidocItem:resources>
+</escidocItem:item-->
