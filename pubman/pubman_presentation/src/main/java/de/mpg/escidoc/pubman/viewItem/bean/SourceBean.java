@@ -335,7 +335,7 @@ public class SourceBean extends FacesBean
             startEndPage.append(source.getEndPage());
         }
         
-        if (startEndPage.equals(" - "))
+        if (startEndPage.toString().equals(" - "))
         {
             return "";
         }
