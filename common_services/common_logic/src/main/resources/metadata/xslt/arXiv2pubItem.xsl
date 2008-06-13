@@ -32,6 +32,10 @@
 	xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
 	xmlns:escidocRelations="${xsd.soap.common.relations}"
 	xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/" xmlns:arxiv="http://arxiv.org/OAI/arXiv/">
 
 	<xsl:output method="xml" indent="yes" />
@@ -48,8 +52,8 @@
 
 		<escidocItem:item>
 			<escidocItem:properties>
-				<escidocItem:content-model objid="escidoc:persistent4" />
-				<escidocItem:content-model-specific />
+				<srel:content-model objid="escidoc:persistent4" />
+				<prop:content-model-specific />
 			</escidocItem:properties>
 			<escidocMetadataRecords:md-records>
 				<escidocMetadataRecords:md-record name="escidoc">
@@ -199,21 +203,19 @@
 			<escidocComponents:components>
 				<escidocComponents:component>
 					<escidocComponents:properties>
-						<escidocComponents:valid-status>valid</escidocComponents:valid-status>
-						<escidocComponents:visibility>public</escidocComponents:visibility>
-						<escidocComponents:content-category></escidocComponents:content-category>
-						<escidocComponents:file-name>0</escidocComponents:file-name>
-						<escidocComponents:file-size>0</escidocComponents:file-size>
+						<prop:valid-status>valid</prop:valid-status>
+						<prop:visibility>public</prop:visibility>
+						<prop:content-category></prop:content-category>
+						<prop:file-name>0</prop:file-name>
 					</escidocComponents:properties>
 					<escidocComponents:content />
 				</escidocComponents:component>
 				<escidocComponents:component>
 					<escidocComponents:properties>
-						<escidocComponents:valid-status>valid</escidocComponents:valid-status>
-						<escidocComponents:visibility>public</escidocComponents:visibility>
-						<escidocComponents:content-category>supplementary-material</escidocComponents:content-category>
-						<escidocComponents:file-name></escidocComponents:file-name>
-						<escidocComponents:file-size>0</escidocComponents:file-size>
+						<prop:valid-status>valid</prop:valid-status>
+						<prop:visibility>public</prop:visibility>
+						<prop:content-category>supplementary-material</prop:content-category>
+						<prop:file-name></prop:file-name>
 					</escidocComponents:properties>
 					<escidocComponents:content />
 				</escidocComponents:component>

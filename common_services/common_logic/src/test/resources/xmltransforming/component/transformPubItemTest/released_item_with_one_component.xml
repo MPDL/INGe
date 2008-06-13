@@ -8,6 +8,8 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:prop="${xsd.soap.common.prop}"
     xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
     xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
     <escidocItem:properties>
         <prop:creation-date>2007-04-24T16:20:19.495Z</prop:creation-date>
@@ -16,24 +18,24 @@
         <srel:context objid="escidoc:persistent3" />
         <srel:content-model objid="escidoc:persistent4" />        
         <prop:lock-status>unlocked</prop:lock-status>
-        <escidocItem:version>
-            <escidocItem:number>1</escidocItem:number>
-            <escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
-            <escidocItem:version-status>released</escidocItem:version-status>
-            <escidocItem:valid-status>valid</escidocItem:valid-status>
-            <escidocItem:modified-by objid="escidoc:user1" />
-            <escidocItem:comment>Current version comment</escidocItem:comment>            
-        	<escidocItem:pid>hdl:someHandle/test/escidoc:4747</escidocItem:pid>
-        </escidocItem:version>
-        <escidocItem:latest-version>
-            <escidocItem:number>1</escidocItem:number>
-            <escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
-        </escidocItem:latest-version>
-        <escidocItem:latest-release>
-            <escidocItem:number>1</escidocItem:number>
-            <escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
-            <escidocItem:pid>hdl:someHandle/test/escidoc:375</escidocItem:pid>            
-        </escidocItem:latest-release>
+        <prop:version>
+            <version:number>1</version:number>
+            <version:date>2007-04-24T16:20:26.823Z</version:date>
+            <version:status>released</version:status>
+            <version:valid-status>valid</version:valid-status>
+            <srel:modified-by objid="escidoc:user1" />
+            <version:comment>Current version comment</version:comment>            
+        	<version:pid>hdl:someHandle/test/escidoc:4747</version:pid>
+        </prop:version>
+        <prop:latest-version>
+            <version:number>1</version:number>
+            <version:date>2007-04-24T16:20:26.823Z</version:date>
+        </prop:latest-version>
+        <prop:latest-release>
+            <release:number>1</release:number>
+            <release:date>2007-04-24T16:20:26.823Z</release:date>
+            <release:pid>hdl:someHandle/test/escidoc:375</release:pid>            
+        </prop:latest-release>
         <prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}" />
     </escidocItem:properties>
     <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -55,13 +57,12 @@
             <escidocComponents:properties xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <prop:creation-date>2007-04-24T16:20:19.308Z</prop:creation-date>
                 <srel:created-by objid="escidoc:user1" />
-                <escidocComponents:description>Ein Farbtest.</escidocComponents:description>                
-                <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                <escidocComponents:visibility>public</escidocComponents:visibility>
-                <escidocComponents:pid>hdl:someHandle/test/escidoc:375</escidocComponents:pid>
-                <escidocComponents:content-category>publisher-version</escidocComponents:content-category>
-                <escidocComponents:file-name>farbtest.gif</escidocComponents:file-name>
-                <escidocComponents:file-size>12345</escidocComponents:file-size>
+                <prop:description>Ein Farbtest.</prop:description>                
+                <prop:valid-status>valid</prop:valid-status>
+                <prop:visibility>public</prop:visibility>
+                <prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
+                <prop:content-category>publisher-version</prop:content-category>
+                <prop:file-name>farbtest.gif</prop:file-name>
             </escidocComponents:properties>
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" />
         </escidocComponents:component>

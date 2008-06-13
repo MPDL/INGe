@@ -9,6 +9,8 @@
 	xmlns:md-records="${xsd.soap.common.mdrecords}"
 	xmlns:prop="${xsd.soap.common.prop}"
 	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
 	xmlns:relations="${xsd.soap.common.relations}"
 	xmlns:xlink="http://www.w3.org/1999/xlink"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
