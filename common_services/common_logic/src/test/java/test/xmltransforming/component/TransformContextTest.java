@@ -46,7 +46,6 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
@@ -66,7 +65,7 @@ import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 public class TransformContextTest extends TestBase
 {
     private static final String TEST_FILE_ROOT
-        = "xmltransforming/component/transformPubCollectionTest/";
+        = "xmltransforming/component/transformContextTest/";
     private static final String CONTEXT_SAMPLE_FILE
         = TEST_FILE_ROOT + "context_sample.xml";
     private static final String CONTEXT_FULL_SAMPLE_FILE

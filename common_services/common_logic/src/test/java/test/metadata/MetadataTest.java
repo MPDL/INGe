@@ -33,8 +33,6 @@ package test.metadata;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import de.mpg.escidoc.services.common.util.BibTexUtil;
-
 /**
  * Component test suite for common_logic.
  *

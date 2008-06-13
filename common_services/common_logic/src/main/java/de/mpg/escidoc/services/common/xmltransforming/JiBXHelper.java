@@ -42,6 +42,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
@@ -583,6 +584,18 @@ public class JiBXHelper
             }
         }
         return date;
+    }
+
+    /**
+     * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding <code>java.util.Date</code>.
+     * 
+     * @param dateString The String to deserialize
+     * @return The corresponding <code>java.util.Date</code>
+     * @throws WrongDateException
+     */
+    public static Coordinates deserializeCoordinates(String coordString) throws Exception
+    {
+        return new Coordinates(coordString);
     }
 
     /**

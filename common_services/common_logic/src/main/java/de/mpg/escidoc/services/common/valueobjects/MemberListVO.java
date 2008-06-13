@@ -34,7 +34,6 @@ package de.mpg.escidoc.services.common.valueobjects;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 
 /**
  * Represents a member list according to http://www.escidoc.de/schemas/memberlist/0.3

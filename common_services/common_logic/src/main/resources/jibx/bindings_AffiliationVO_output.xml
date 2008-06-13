@@ -31,11 +31,18 @@
 
 	<namespace prefix="escidocOrganizationalUnit" uri="${xsd.soap.ou.ou}" default="none" />
 	<namespace prefix="escidocOrganizationalUnitList" uri="${xsd.soap.ou.oulist}" default="none" />
+	<namespace prefix="escidocOrganizationalUnitRef" uri="${xsd.soap.ou.ouref}" default="none" />
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
+	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+	<namespace prefix="dcterms" uri="http://purl.org/dc/terms/" default="none" />
+	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
+	<namespace prefix="ou-details" uri="${xsd.metadata.organization}" default="none" />
+	<namespace prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}" default="none" />
+	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
+	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
 	
-
     <format type="java.util.Date"
       deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
       serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />

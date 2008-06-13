@@ -2,8 +2,6 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-
 public class MemberListVOWrapper extends ItemVOListWrapper
 {
     

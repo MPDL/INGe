@@ -40,7 +40,7 @@
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory">
 
 			<!-- Node: organizational-unit-path.organizational-unit-ref -->
-			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.oupathlist}"
+			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.ouref}"
 				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
 
 				<!-- Node: organizational-unit-path.organizational-unit-ref.@objid -->

@@ -1,9 +1,14 @@
-<organizational-unit-list:organizational-unit-list
-  xmlns:organizational-unit-list="${xsd.soap.ou.oulist}"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns:prop="${xsd.soap.common.prop}"
-  xmlns:srel="${xsd.soap.common.srel}"
-  xmlns:md-records="${xsd.soap.common.mdrecords}" >
+
+<organizational-unit-list:organizational-unit-list 
+	xmlns:organizational-unit-list="${xsd.soap.ou.oulist}" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:ou-details="${xsd.metadata.organization}" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/" 
+	xmlns:kml="http://www.opengis.net/kml/2.2" 
+	xmlns:md-records="${xsd.soap.common.mdrecords}">
 	<organizational-unit:organizational-unit xmlns:organizational-unit="${xsd.soap.ou.ou}" objid="escidoc:persistent1" last-modification-date="2007-03-19T12:16:19.322Z">
 		<organizational-unit:properties last-modification-date="2007-03-19T12:16:19.322Z">
 			<prop:creation-date>2007-03-15T08:07:11.015Z</prop:creation-date>
@@ -13,20 +18,16 @@
 		</organizational-unit:properties>
 		<md-records:md-records>
 			<md-records:md-record name="escidoc">
-				<organization-details>
-					<abbreviation>MPIWG</abbreviation>
-					<name>MPI for the History of Science</name>
-					<uri>http://www.mpgwg-berlin.mpg.de</uri>
-					<description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</description>
-					<postcode>14195</postcode>
-					<country>DE</country>
-					<region>somewhere</region>
-					<address>Boltzmannstr. 22</address>
-					<city>Berlin</city>
-					<telephone>(+49 30) 22667 - 0</telephone>
-					<fax>(+49 30) 22667 - 10</fax>
-					<email>info@mpgwg-berlin.mpg.de</email>
-				</organization-details>
+				<ou-details:organization-details>
+					<dc:title>MPI for the History of Science</dc:title>
+					<dcterms:alternative>MPIWG</dcterms:alternative>
+					<dc:identifier>http://www.mpgwg-berlin.mpg.de</dc:identifier>
+					<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
+					<ou-details:city>Berlin</ou-details:city>
+					<ou-details:country>Germany</ou-details:country>
+					<kml:coordinates>-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou-details:start-date>2007-03-15T08:07:11.015Z</ou-details:start-date>
+				</ou-details:organization-details>
 			</md-records:md-record>
 		</md-records:md-records>
 	</organizational-unit:organizational-unit>
@@ -39,21 +40,18 @@
 		</organizational-unit:properties>
 		<md-records:md-records>
 			<md-records:md-record name="escidoc">
-				<organization-details>
-					<abbreviation>MPIWG</abbreviation>
-					<name>MPI for the History of Science</name>
-					<uri>http://www.mpgwg-berlin.mpg.de</uri>
-					<description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</description>
-					<postcode>14195</postcode>
-					<country>DE</country>
-					<region>somewhere</region>
-					<address>Boltzmannstr. 22</address>
-					<city>Berlin</city>
-					<telephone>(+49 30) 22667 - 0</telephone>
-					<fax>(+49 30) 22667 - 10</fax>
-					<email>info@mpgwg-berlin.mpg.de</email>
-				</organization-details>
+				<ou-details:organization-details>
+					<dc:title>MPI for the History of Science</dc:title>
+					<dcterms:alternative>MPIWG</dcterms:alternative>
+					<dc:identifier>http://www.mpgwg-berlin.mpg.de</dc:identifier>
+					<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
+					<ou-details:city>Berlin</ou-details:city>
+					<ou-details:country>Germany</ou-details:country>
+					<kml:coordinates>-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou-details:start-date>2007-03-15T08:07:11.015Z</ou-details:start-date>
+				</ou-details:organization-details>
 			</md-records:md-record>
 		</md-records:md-records>
+
 	</organizational-unit:organizational-unit>
 </organizational-unit-list:organizational-unit-list>

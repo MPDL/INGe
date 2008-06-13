@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:kml="http://www.opengis.net/kml/2.2" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+
+		eSciDoc metadata profile, organization unit
+
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
+	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
+	<xs:import namespace="http://www.opengis.net/kml/2.2" schemaLocation="http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd"/>
+	<xs:element name="organization-details" type="OrganizationDetailsType"/>
+	<!--*******************************
+    Organization Unit
+    ********************************-->
+	<xs:complexType name="OrganizationDetailsType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dcterms:alternative" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dc:identifier" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element ref="dc:description" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="city" type="dc:SimpleLiteral"/>
+			<xs:element name="country" type="dc:SimpleLiteral"/>
+			<xs:element ref="kml:coordinates" minOccurs="0"/>
+			<xs:element name="start-date" type="dcterms:W3CDTF"/>
+			<xs:element name="end-date" type="dcterms:W3CDTF" minOccurs="0"/>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>

@@ -49,16 +49,16 @@
 			<!-- Node: organizational-unit.properties.@last-modification-date -->
 			<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
 			<value style="attribute" name="last-modification-date"
-				ns="${xsd.soap.ou.ou}" field="lastModificationDate" usage="optional" />
+				ns="${xsd.soap.common.prop}" field="lastModificationDate" usage="optional" />
 
 			<!-- Node: organizational-unit.properties.creation-date -->
 			<!-- Field: AffiliationVO.creationDate [java.util.Date] -->
-			<value style="element" name="creation-date" ns="${xsd.soap.ou.ou}"
+			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}"
 				field="creationDate" usage="optional" />
 
 			<!-- Node: organizational-unit.properties.created-by -->
 			<!-- Type: AccountUserRO... -->
-			<structure name="created-by" ns="${xsd.soap.ou.ou}" field="creator"
+			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
 				usage="optional">
 
@@ -70,84 +70,79 @@
 
 			<!-- Node: organizational-unit.properties.public-status -->
 			<!-- Field: AffiliationVO.status [String] -->
-			<value style="element" name="public-status" ns="${xsd.soap.ou.ou}"
+			<value style="element" name="public-status" ns="${xsd.soap.common.prop}"
 				field="publicStatus" usage="optional" />
 
 			<!-- Node: organizational-unit.properties.has-children -->
 			<!-- Field: AffiliationVO.hasChildren [boolean] -->
-			<value style="element" name="has-children" ns="${xsd.soap.ou.ou}"
+			<value style="element" name="has-children" ns="${xsd.soap.common.prop}"
 				set-method="setHasChildren" usage="optional" />
 
 		</structure>
 
-		<!-- Node: organizational-unit.organization-details -->
-		<structure name="organization-details" ns="${xsd.soap.ou.ou}" ordered="false"
-			flexible="true">
-
-			<!-- Node: organizational-unit.organization-details.abbreviation -->
-			<!-- Field: AffiliationVO.abbreviation [String] -->
-			<value style="element" name="abbreviation" ns="${xsd.soap.ou.ou}"
-				field="abbreviation" />
-
-			<!-- Node: organizational-unit.organization-details.name -->
-			<!-- Field: AffiliationVO.name [String] -->
-			<value style="element" name="name" ns="${xsd.soap.ou.ou}" field="name" />
-
-			<!-- Node: organizational-unit.organization-details.uri -->
-			<!-- Field: AffiliationVO.homepageUrl [java.net.URL] -->
-			<value style="element" name="uri" ns="${xsd.soap.ou.ou}"
-				field="homepageUrl" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.description -->
-			<!-- Field: AffiliationVO.description [String] -->
-			<value style="element" name="description" ns="${xsd.soap.ou.ou}"
-				field="description" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.external-id -->
-			<!-- Field: AffiliationVO.externalId [String] -->
-			<value style="element" name="external-id" ns="${xsd.soap.ou.ou}"
-				field="externalId" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.postcode -->
-			<!-- Field: AffiliationVO.postcode [String] -->
-			<value style="element" name="postcode" ns="${xsd.soap.ou.ou}"
-				field="postcode" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.country -->
-			<!-- Field: AffiliationVO.countryCode [String] -->
-			<value style="element" name="country" ns="${xsd.soap.ou.ou}"
-				field="countryCode" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.region -->
-			<!-- Field: AffiliationVO.region [String] -->
-			<value style="element" name="region" ns="${xsd.soap.ou.ou}"
-				field="region" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.address -->
-			<!-- Field: AffiliationVO.address [String] -->
-			<value style="element" name="address" ns="${xsd.soap.ou.ou}"
-				field="address" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.city -->
-			<!-- Field: AffiliationVO.city [String] -->
-			<value style="element" name="city" ns="${xsd.soap.ou.ou}" field="city"
-				usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.telephone -->
-			<!-- Field: AffiliationVO.telephone [String] -->
-			<value style="element" name="telephone" ns="${xsd.soap.ou.ou}"
-				field="telephone" usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.fax -->
-			<!-- Field: AffiliationVO.fax [String] -->
-			<value style="element" name="fax" ns="${xsd.soap.ou.ou}" field="fax"
-				usage="optional" />
-
-			<!-- Node: organizational-unit.organization-details.email -->
-			<!-- Field: AffiliationVO.email [String] -->
-			<value style="element" name="email" ns="${xsd.soap.ou.ou}" field="email"
-				usage="optional" />
-
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}">
+			
+			<structure name="md-record" ns="${xsd.soap.common.mdrecords}" usage="optional">
+			
+				<!-- Node: organizational-unit.organization-details -->
+				<structure name="organization-details" ns="${xsd.metadata.organization}" ordered="false"
+					flexible="true">
+		
+					<!-- Node: organizational-unit.organization-details.title -->
+					<!-- Field: AffiliationVO.name [String] -->
+					<value style="element" name="title" ns="http://purl.org/dc/elements/1.1/"
+						field="name" />
+						
+					<!-- Node: organizational-unit.organization-details.alternative -->
+					<!-- Field: AffiliationVO.alternativeNames [List<String>] -->
+					<collection name="alternative" ns="http://purl.org/dc/terms/" field="alternativeNames"
+						factory="org.jibx.runtime.Utility.arrayListFactory"
+						item-type="java.lang.String" usage="optional">
+					</collection>
+		
+					<!-- Node: organizational-unit.organization-details.identifier -->
+					<!-- Field: AffiliationVO.identifiers [List<String>] -->
+					<collection name="identifier" ns="http://purl.org/dc/terms/" field="identifiers"
+						factory="org.jibx.runtime.Utility.arrayListFactory"
+						item-type="java.lang.String" usage="optional">
+					</collection>
+		
+					<!-- Node: organizational-unit.organization-details.description -->
+					<!-- Field: AffiliationVO.descriptions [List<String>] -->
+					<collection name="description" ns="http://purl.org/dc/terms/" field="descriptions"
+						factory="org.jibx.runtime.Utility.arrayListFactory"
+						item-type="java.lang.String" usage="optional">
+					</collection>
+		
+					<!-- Node: organizational-unit.organization-details.city -->
+					<!-- Field: AffiliationVO.city [String] -->
+					<value style="element" name="city" ns="${xsd.metadata.organization}" field="city"
+						usage="optional" />
+		
+					<!-- Node: organizational-unit.organization-details.country -->
+					<!-- Field: AffiliationVO.countryCode [String] -->
+					<value style="element" name="country" ns="${xsd.metadata.organization}"
+						field="countryCode"/>
+						
+					<!-- Node: organizational-unit.organization-details.coordinates -->
+					<!-- Field: AffiliationVO.coordinates [Coordinates] -->
+					<value style="element" name="coordinates" ns="http://www.opengis.net/kml/2.2"
+						get-method="getCoordinates" set-method="setCoordinates" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeCoordinates" usage="optional" />
+		
+					<!-- Node: organizational-unit.organization-details.start-date -->
+					<!-- Field: AffiliationVO.startDate [Date] -->
+					<value style="element" name="start-date" ns="${xsd.metadata.organization}"
+						field="startDate" usage="optional" />
+		
+					<!-- Node: organizational-unit.organization-details.end-date -->
+					<!-- Field: AffiliationVO.endDate [Date] -->
+					<value style="element" name="end-date" ns="${xsd.metadata.organization}"
+						field="endDate" usage="optional" />
+		
+				</structure>
+				
+			</structure>
+			
 		</structure>
 
 		<!-- Node: organizational-unit.parent-ous -->

@@ -30,8 +30,12 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.Date;
+import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.types.Coordinates;
 
 /**
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external affiliations. (Dependent
@@ -57,40 +61,47 @@ public class AffiliationVO extends ValueObject
     /**
      * Additional name or name used in the community.
      */
-    private String abbreviation;
-    private String address;
+//    private String abbreviation;
+//    private String address;
     private java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<AffiliationRO>();
     private String city;
+    
+    private Coordinates coordinates;
+    
     /**
      * These codes are the upper-case, two-letter codes as defined by ISO-3166. You can find a full list of these codes
      * at a number of sites, such as: http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-
      * en1.html
      */
     private String countryCode;
-    private String description;
-    private String email;
+    private List<String> descriptions;
+//    private String email;
     /**
      * Identifier of an external resource.
      */
-    private String externalId;
-    private String fax;
-    private java.net.URL homepageUrl;
+    private List<String> identifiers;
+//    private String fax;
+//    private java.net.URL homepageUrl;
     /**
      * The unique name of the affiliation in the organizational structure.
      */
     private String name;
+    private List<String> alternativeNames;
     private java.util.List<AffiliationRO> parentAffiliations = new java.util.ArrayList<AffiliationRO>();
-    private String pid;
-    private String postcode;
+//    private String pid;
+//    private String postcode;
     private AffiliationRO reference;
-    private String region;
-    private String telephone;
+//    private String region;
+//    private String telephone;
     private java.util.Date creationDate;
     private java.util.Date lastModificationDate;
     private AccountUserRO creator;
     private boolean hasChildren;
     private String publicStatus;
-
+    
+    private Date startDate;
+    private Date endDate;
+    
     /**
      * Default constructor.
      */
@@ -104,28 +115,24 @@ public class AffiliationVO extends ValueObject
      */
     public AffiliationVO(AffiliationVO affiliation)
     {
-        this.abbreviation = affiliation.abbreviation;
-        this.address = affiliation.address;
+
         this.childAffiliations = affiliation.childAffiliations;
         this.city = affiliation.city;
         this.countryCode = affiliation.countryCode;
-        this.description = affiliation.description;
-        this.email = affiliation.email;
-        this.externalId = affiliation.externalId;
-        this.fax = affiliation.fax;
-        this.homepageUrl = affiliation.homepageUrl;
+        this.descriptions = affiliation.descriptions;
         this.name = affiliation.name;
         this.parentAffiliations = affiliation.parentAffiliations;
-        this.pid = affiliation.pid;
-        this.postcode = affiliation.postcode;
         this.reference = affiliation.reference;
-        this.region = affiliation.region;
-        this.telephone = affiliation.telephone;
         this.creationDate = affiliation.creationDate;
         this.lastModificationDate = affiliation.lastModificationDate;
         this.creator = affiliation.creator;
         this.hasChildren = affiliation.hasChildren;
         this.publicStatus = affiliation.publicStatus;
+        this.alternativeNames = affiliation.alternativeNames;
+        this.identifiers = affiliation.identifiers;
+        this.coordinates = affiliation.coordinates;
+        this.endDate = affiliation.endDate;
+        this.startDate = affiliation.startDate;
     }
     
     @Override
@@ -151,22 +158,6 @@ public class AffiliationVO extends ValueObject
         return (this.parentAffiliations.size() >= 1);
     }
 
-    /**
-     * Delivers the abbreviation of the affiliation, i. e. an additional name or a name used in the community.
-     */
-    public String getAbbreviation()
-    {
-        return abbreviation;
-    }
-
-    /**
-     * Delivers the address of the affiliation, i. e. street and house number.
-     */
-    public String getAddress()
-    {
-        return address;
-    }
-    
     /**
      * Delivers the list of the affiliations' child affiliations.
      */
@@ -211,46 +202,6 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Delivers the (short) description of the affiliation.
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-
-    /**
-     * Delivers the email address of the affiliation.
-     */
-    public String getEmail()
-    {
-        return email;
-    }
-
-    /**
-     * Delivers the external id of the affiliation, i. e. the identifier of an external resource.
-     */
-    public String getExternalId()
-    {
-        return externalId;
-    }
-
-    /**
-     * Delivers the fax number of the affiliation.
-     */
-    public String getFax()
-    {
-        return fax;
-    }
-
-    /**
-     * Delivers the homepage URL of the affiliation.
-     */
-    public java.net.URL getHomepageUrl()
-    {
-        return homepageUrl;
-    }
-
-    /**
      * Delivers the date if the last modification of the affiliation in the system.
      */
     public java.util.Date getLastModificationDate()
@@ -275,22 +226,6 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Delivers the persistent identifier of the affiliation.
-     */
-    public String getPid()
-    {
-        return pid;
-    }
-
-    /**
-     * Delivers the post code of the affiliation.
-     */
-    public String getPostcode()
-    {
-        return postcode;
-    }
-
-    /**
      * Delivers the affiliations' reference.
      * 
      * @see de.mpg.escidoc.services.common.referenceobjects.ReferenceObject
@@ -298,42 +233,6 @@ public class AffiliationVO extends ValueObject
     public AffiliationRO getReference()
     {
         return reference;
-    }
-
-    /**
-     * Delivers the region of the affiliation.
-     */
-    public String getRegion()
-    {
-        return region;
-    }
-
-    /**
-     * Delivers the telephone number of the affiliation.
-     */
-    public String getTelephone()
-    {
-        return telephone;
-    }
-
-    /**
-     * Sets the abbreviation of the affiliation, i. e. an additional name or a name used in the community.
-     * 
-     * @param newVal newVal
-     */
-    public void setAbbreviation(String newVal)
-    {
-        this.abbreviation = newVal;
-    }
-
-    /**
-     * Sets the address of the affiliation, i. e. street and house number.
-     * 
-     * @param newVal newVal
-     */
-    public void setAddress(String newVal)
-    {
-        this.address = newVal;
     }
 
     /**
@@ -380,56 +279,6 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Sets the (short) description of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setDescription(String newVal)
-    {
-        this.description = newVal;
-    }
-
-    /**
-     * Sets the email address of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setEmail(String newVal)
-    {
-        this.email = newVal;
-    }
-
-    /**
-     * Sets the external id of the affiliation, i. e. the identifier of an external resource.
-     * 
-     * @param newVal newVal
-     */
-    public void setExternalId(String newVal)
-    {
-        this.externalId = newVal;
-    }
-
-    /**
-     * Sets the fax number of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setFax(String newVal)
-    {
-        this.fax = newVal;
-    }
-
-    /**
-     * Sets the homepage URL of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setHomepageUrl(java.net.URL newVal)
-    {
-        this.homepageUrl = newVal;
-    }
-
-    /**
      * Sets the date if the last modification of the affiliation in the system.
      * 
      * @param newVal
@@ -450,26 +299,6 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Sets the persistent identifier of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setPid(String newVal)
-    {
-        this.pid = newVal;
-    }
-
-    /**
-     * Sets the post code of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setPostcode(String newVal)
-    {
-        this.postcode = newVal;
-    }
-
-    /**
      * Sets the affiliations' reference.
      * 
      * @see de.mpg.escidoc.services.common.referenceobjects.ReferenceObject
@@ -478,26 +307,6 @@ public class AffiliationVO extends ValueObject
     public void setReference(AffiliationRO newVal)
     {
         this.reference = newVal;
-    }
-
-    /**
-     * Sets the region of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setRegion(String newVal)
-    {
-        this.region = newVal;
-    }
-
-    /**
-     * Sets the telephone number of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setTelephone(String newVal)
-    {
-        this.telephone = newVal;
     }
 
     /**
@@ -546,6 +355,71 @@ public class AffiliationVO extends ValueObject
     public boolean getHasChildren()
     {
         return hasChildren;
+    }
+
+    public List<String> getDescriptions()
+    {
+        return descriptions;
+    }
+
+    public void setDescriptions(List<String> descriptions)
+    {
+        this.descriptions = descriptions;
+    }
+
+    public List<String> getIdentifiers()
+    {
+        return identifiers;
+    }
+
+    public void setIdentifiers(List<String> identifiers)
+    {
+        this.identifiers = identifiers;
+    }
+
+    public List<String> getAlternativeNames()
+    {
+        return alternativeNames;
+    }
+
+    public void setAlternativeNames(List<String> alternativeNames)
+    {
+        this.alternativeNames = alternativeNames;
+    }
+
+    public Coordinates getCoordinates()
+    {
+        return coordinates;
+    }
+
+    public void setCoordinates(Coordinates coordinates)
+    {
+        this.coordinates = coordinates;
+    }
+
+    public void setCoordinates(String coordinates) throws Exception
+    {
+        this.coordinates = new Coordinates(coordinates);
+    }
+
+    public Date getStartDate()
+    {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate)
+    {
+        this.startDate = startDate;
+    }
+
+    public Date getEndDate()
+    {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate)
+    {
+        this.endDate = endDate;
     }
     
 }

@@ -58,8 +58,6 @@ import javax.mail.internet.MimeMultipart;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import sun.security.krb5.internal.rcache.ReplayCache;
-
 import de.mpg.escidoc.services.common.EmailHandling;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 

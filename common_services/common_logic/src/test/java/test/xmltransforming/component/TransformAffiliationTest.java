@@ -178,20 +178,17 @@ public class TransformAffiliationTest extends TestBase
     private void assertEqualsMPIWG(AffiliationVO affiliation)
     {
         assertEquals("escidoc:persistent1", affiliation.getReference().getObjectId());
-        assertEquals("opened", affiliation.getPublicStatus());        
-        assertEquals("MPIWG", affiliation.getAbbreviation());
+        assertEquals("opened", affiliation.getPublicStatus());
+        assertEquals(1, affiliation.getAlternativeNames().size());
+        assertEquals("MPIWG", affiliation.getAlternativeNames().get(0));
         assertEquals("MPI for the History of Science", affiliation.getName());
+        assertEquals(1, affiliation.getDescriptions().size());
         assertEquals(
                 "The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.",
-                affiliation.getDescription());
-        assertEquals("14195", affiliation.getPostcode());
+                affiliation.getDescriptions().get(0));
         assertEquals("DE", affiliation.getCountryCode());
-        assertEquals("somewhere", affiliation.getRegion());
-        assertEquals("Boltzmannstr. 22", affiliation.getAddress());
         assertEquals("Berlin", affiliation.getCity());
-        assertEquals("(+49 30) 22667 - 0", affiliation.getTelephone());
-        assertEquals("(+49 30) 22667 - 10", affiliation.getFax());
-        assertEquals("info@mpgwg-berlin.mpg.de", affiliation.getEmail());
-        assertEquals("http://www.mpgwg-berlin.mpg.de", affiliation.getHomepageUrl().toString());
+        assertEquals(2, affiliation.getIdentifiers().size());
+        assertEquals("http://www.mpgwg-berlin.mpg.de", affiliation.getIdentifiers().get(0));
     }
 }

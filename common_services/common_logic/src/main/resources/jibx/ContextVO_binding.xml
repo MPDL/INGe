@@ -82,14 +82,19 @@
 
 		</structure>
 
-		<!-- TODO: Comment in with new FW. -->
-		<collection name="admin-descriptor" ns="${xsd.soap.context.context}" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
-			
-				<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
+		<structure name="admin-descriptors" ns="${xsd.soap.context.context}" usage="optional">
 
-				<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
+			<!-- TODO: Comment in with new FW. -->
+			<collection name="admin-descriptor" ns="${xsd.soap.context.context}" field="adminDescriptors" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.adminDescriptorVOListFactory" usage="optional">
 				
-		</collection>
+					<structure name="pubman-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO" usage="optional" />
+	
+					<structure name="faces-admin-descriptor" map-as="de.mpg.escidoc.services.common.valueobjects.face.FacesAdminDescriptorVO" usage="optional" />
+	
+			</collection>
+			
+		</structure>
+		
 	</mapping>
 
 </binding>

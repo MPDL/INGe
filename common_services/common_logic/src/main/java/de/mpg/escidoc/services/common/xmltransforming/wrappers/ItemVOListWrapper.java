@@ -32,7 +32,6 @@ import java.io.Serializable;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * This class is used by the XML transforming classes to wrap a list of PubItemVOs. The reason for this is that JiBX
