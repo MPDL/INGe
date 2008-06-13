@@ -36,12 +36,12 @@
     <artifactId>structuredexportmanager</artifactId>
     <name>structuredexportmanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 
 	<scm>
-      <connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager</connection>
-      <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+      <connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/structuredexportmanager-1.0.2</connection>
+      <developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/structuredexportmanager-1.0.2</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/structuredexportmanager-1.0.2</url>
 	</scm>
 
 	<build>
