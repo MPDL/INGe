@@ -61,5 +61,10 @@
         Bugfixes
       </action>
     </release>
+     <release version="3.0.4" date="2008-06-13" description="Release of all modules">
+      <action dev="tendres" type="update">
+        Bugfixes
+      </action>
+    </release>
   </body>
 </document>
