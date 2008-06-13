@@ -51,13 +51,6 @@
 				<div id="page_margins">
 					<div id="page">
 						
-							<div id="header">
-								<jsp:directive.include file="desktop/Header.jspf" />
-								<div class="header">
-									<jsp:directive.include file="desktop/Login.jspf" />
-									<jsp:directive.include file="desktop/Search.jspf" />
-								</div>
-							</div>
 							<h:outputLink value="#{ApplicationBean.appContext}#{DisplayExportItemsPage.previousPageURI}">
 								<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 							<br/>
