@@ -302,6 +302,7 @@
 					<jiraUser>${changes.jira.user}</jiraUser>
 					<jiraPassword>${changes.jira.password}</jiraPassword>
 					<onlyCurrentVersion>true</onlyCurrentVersion>
+					<priorityIds>Blocker,Critical,Major,Minor,Trivial</priorityIds>
 				</configuration>
 				<reportSets>
 					<reportSet>
