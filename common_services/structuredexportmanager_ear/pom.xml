@@ -36,12 +36,12 @@
 	<artifactId>structuredexportmanager_ear</artifactId>
 	<name>structuredexportmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.2-SNAPSHOT</version>
+	<version>1.0.2</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/structuredexportmanager_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/structuredexportmanager_ear-1.0.2</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/structuredexportmanager_ear-1.0.2</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/structuredexportmanager_ear-1.0.2</url>
 	</scm>
 
 	<build>
@@ -295,7 +295,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.2</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
