@@ -36,7 +36,7 @@
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>validation_presentation</artifactId>
   <name>validation_presentation</name>
-  <version>1.0.5-SNAPSHOT</version>
+  <version>1.0.6-SNAPSHOT</version>
  	<packaging>war</packaging>
 
 	<scm>
