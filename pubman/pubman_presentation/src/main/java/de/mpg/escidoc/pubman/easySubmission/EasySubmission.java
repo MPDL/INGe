@@ -569,23 +569,29 @@ public class EasySubmission extends FacesBean
     public String upload()
     {
        
+    	StringBuffer errorMessage = new StringBuffer();
     	int indexUpload = this.getFiles().size()-1;
     	
     	UploadedFile file = this.uploadedFile;
       String contentURL;
       if (file != null)
       {
-        if(this.getFiles().get(this.getFiles().size()-1).getContentCategory() != null && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("") && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("-"))
+        //set the file name automatically if it is not filled by the user
+  		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+		{
+			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
+		}
+    	if(this.getFiles().get(this.getFiles().size()-1).getContentCategory() != null && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("") && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("-"))
         {
         	contentURL = uploadFile(file);
 	    	if(contentURL != null && !contentURL.trim().equals(""))
 	    	{
 	    		this.getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
 	    		// set the file name automatically if it is not filled by the user
-	    		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+	    		/*if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
 	    		{
 	    			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
-	    		}
+	    		}*/
 	            this.getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
 	            this.getFiles().get(indexUpload).getFile().setContent(contentURL);
 	    	}
@@ -593,11 +599,27 @@ public class EasySubmission extends FacesBean
         }
         else
         {
-        	error(getMessage("ComponentContentCategoryNotProvided"));
+        	errorMessage.append(getMessage("ComponentContentCategoryNotProvided"));
         }
       }
-      return "loadNewEasySubmission";
-    }
+      else
+      {
+    	  if(this.getFiles().get(indexUpload).getFile().getName() != null && !this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+    	  {
+    		  errorMessage.append(getMessage("ComponentContentNotProvided"));
+    		  if(this.getFiles().get(indexUpload).getContentCategory() != null && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-"))
+    	        {
+    			  errorMessage.append(getMessage("ComponentContentCategoryNotProvided"));
+    	        }
+    	  }
+      }
+      if(errorMessage.length() > 0)
+      {
+    	  error(errorMessage.toString());
+      }
+      
+	  return "loadNewEasySubmission";
+	}
     
     /**
      * Uploads a file to the FIZ Framework and recieves and returns the location of the file in the FW
@@ -876,6 +898,7 @@ public class EasySubmission extends FacesBean
     			for (ValidationReportItemVO item : report.getItems()) {
 					if (item.isRestrictive())
 					{
+						error("");
 						error(getMessage(item.getContent()));
 					}
 					else
