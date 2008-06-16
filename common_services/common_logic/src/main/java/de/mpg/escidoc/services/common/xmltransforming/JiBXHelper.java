@@ -42,9 +42,11 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -54,6 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.MemberVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
@@ -264,6 +267,17 @@ public class JiBXHelper
     {
         return new ArrayList<FileVO>();
     }
+    
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;Object></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;FileVO></code>
+     */
+    public static List<ReferenceObject> memberVOListFactory()
+    {
+        return new ArrayList<ReferenceObject>();
+    }
 
     /**
      * Factory method to create a {@link ArrayList} as the implementation of a
@@ -303,9 +317,9 @@ public class JiBXHelper
      * 
      * @return A new <code>java.util.ArrayList&lt;Object></code>
      */
-    public static List<Object> containerVOListFactory()
+    public static List<ContainerVO> containerVOListFactory()
     {
-        return new ArrayList<Object>();
+        return new ArrayList<ContainerVO>();
     }
 
     /**
@@ -890,6 +904,36 @@ public class JiBXHelper
         }
         return lockStatus;
     }
+    
+    /**
+     * Deserializes a String containing a lock-status-type like defined in container.xsd to the corresponding
+     * <code>ContainerVO.LockStatus</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return ValidityStatus The corresponding <code>ContainerVO.LockStatus</code> Enum
+     * @throws WrongEnumException
+     */
+    public static de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus deserializeContainerLockStatusEnum(String enumValue) throws WrongEnumException
+    {
+        de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus lockStatus = null;
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("lock-status is null.");
+        }
+        else
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                lockStatus = de.mpg.escidoc.services.common.valueobjects.ContainerVO.LockStatus.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("LockStatusEnum value is '" + enumValue + "'.", e);
+            }
+        }
+        return lockStatus;
+    }
 
     /**
      * Serializes a Java Enum of arbitrary type to the corresponding String representation according to the following
@@ -1365,5 +1409,36 @@ public class JiBXHelper
     public static String addOrganizationalUnitLinkPrefix(String unprefixedString)
     {
         return new String("/oum/organizational-unit/" + removeLinkPrefix(unprefixedString));
+    }
+
+    /**
+     * Deserializes a String containing a status-type like defined in container.xsd to the corresponding
+     * <code>ContainerVO.State</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return ContainerVO.State The corresponding <code>ContainerVO.State</code> Enum.
+     * 
+     * @throws WrongEnumException Thrown if string value does not match any value of the enum.
+     */
+    public static ContainerVO.State deserializeContainerStateEnum(String enumValue) throws WrongEnumException
+    {
+        ContainerVO.State state = null;
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("container status is null.");
+        }
+        else
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                state = ContainerVO.State.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("container status value is '" + enumValue + "'.", e);
+            }
+        }
+        return state;
     }
 }

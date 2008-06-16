@@ -38,6 +38,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -324,4 +325,12 @@ public interface XmlTransforming
     public List<FaceItemVO> transformToFaceItemList(String itemList) throws TechnicalException;
     
     public MemberListVO transformToMemberList(String memberListXml) throws TechnicalException;
+    
+    public ContainerVO transformToContainer(String containerXml) throws TechnicalException;
+    
+    public List<? extends ContainerVO> transformToContainerList(String containerList) throws TechnicalException;
+    
+    public String transformToContainer(ContainerVO containerVO) throws TechnicalException;
+    
+    public String transformToContainerList(List<? extends ContainerVO> containerVOList) throws TechnicalException;
 }

@@ -35,6 +35,7 @@ import org.junit.runners.Suite;
 
 import test.TestBase;
 import test.xmltransforming.component.TransformAffiliationTest;
+import test.xmltransforming.component.TransformContainerTest;
 import test.xmltransforming.component.TransformContextTest;
 import test.xmltransforming.component.TransformExportFormatTest;
 import test.xmltransforming.component.TransformInvalidPubItemTest;
@@ -54,6 +55,7 @@ import test.xmltransforming.component.TransformRelationTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({TransformAffiliationTest.class,
+                     TransformContainerTest.class,
                      TransformExportFormatTest.class,
                      TransformInvalidPubItemTest.class,
                      TransformLockTest.class,

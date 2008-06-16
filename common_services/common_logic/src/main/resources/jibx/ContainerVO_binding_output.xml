@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+	CDDL HEADER START
+	
+	The contents of this file are subject to the terms of the
+	Common Development and Distribution License, Version 1.0 only
+	(the "License"). You may not use this file except in compliance
+	with the License.
+	
+	You can obtain a copy of the license at license/ESCIDOC.LICENSE
+	or http://www.escidoc.de/license.
+	See the License for the specific language governing permissions
+	and limitations under the License.
+	
+	When distributing Covered Code, include this CDDL HEADER in each
+	file and include the License file at license/ESCIDOC.LICENSE.
+	If applicable, add the following below this CDDL HEADER, with the
+	fields enclosed by brackets "[]" replaced with your own identifying
+	information: Portions Copyright [yyyy] [name of copyright owner]
+	
+	CDDL HEADER END
+	
+	
+	Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+	für wissenschaftlich-technische Information mbH and Max-Planck-
+	Gesellschaft zur Förderung der Wissenschaft e.V.
+	All rights reserved. Use is subject to license terms.
+-->
+
+<binding>
+
+	<!-- abstract mapping for ContainerVO -->
+	<mapping type-name="ContainerVOOutputAbstract" class="de.mpg.escidoc.services.common.valueobjects.ContainerVO"
+		ordered="false" flexible="true" allow-repeats="true" abstract="true">
+
+		<!-- Node: container.@objid -->
+		<!-- Field: ContainerVO.version [ContainerRO] -->
+		<structure field="version" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" test-method="alreadyExistsInFramework" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+
+		<!-- Node: container.@last-modification-date -->
+		<!-- Field: ContainerVO.modificationDate [java.util.Date] -->
+		<value style="attribute" name="last-modification-date" get-method="getModificationDate" usage="optional" />
+
+		<structure name="properties" ns="${xsd.soap.container.container}" ordered="false" flexible="true"
+			allow-repeats="true">
+
+			<!-- Node: properties.context -->
+			<structure name="context" ns="${xsd.soap.common.srel}" field="contextRO"
+				type="de.mpg.escidoc.services.common.referenceobjects.ContextRO" usage="optional">
+
+				<!-- Node: properties.context.@objid -->
+				<!-- Field: ContainerVO.pubCollection [PubCollectionRO] -->
+				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
+			</structure>
+
+			<!-- Node: properties.content-model -->
+			<!-- Field: none, but mandatory in the schema instances -->
+			<structure name="content-model" ns="${xsd.soap.common.srel}">
+
+				<!-- Node: properties.content-model.@objid -->
+				<!-- mandatory in XML during update and during create, useless in VO -->
+				<value style="attribute" name="objid" field="contentModel" usage="optional"/>
+			</structure>
+
+			<!-- Node: properties.pid -->
+			<!-- Field: ContainerVO.pid -->
+			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid" usage="optional"
+				test-method="hasPID" />
+				
+			<!-- NOTE: version, latest-version and latest-release are discarded in the output. -->
+
+			<!-- Node: properties.version -->
+			<!-- Field: ContainerVO.version [ContainerRO] -->
+
+<!-- 			<structure field="version" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!--				test-method="alreadyExistsInFramework" usage="optional" name="version"> -->
+<!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" /> -->
+<!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" /> -->
+
+				<!-- Node: item.properties.version.version-status -->
+				<!-- Field: ContainerVO.state [ContainerVO.State] -->
+
+<!--				<value style="element" name="status" ns="${xsd.soap.common.version}" field="state" -->
+<!--					deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeContainerStateEnum" -->
+<!--					serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" -->
+<!--					usage="optional" /> -->
+
+<!--				<structure name="valid-status" ns="${xsd.soap.common.version}" usage="optional" /> -->
+<!--				<structure name="modified-by" ns="${xsd.soap.common.srel}" usage="optional" /> -->
+<!--				<value style="element" name="pid" ns="${xsd.soap.common.version}" field="pid" usage="optional" /> -->				
+<!--				<value style="element" name="comment" ns="${xsd.soap.common.version}" field="lastMessage" usage="optional" /> -->
+<!--			</structure> -->
+
+	
+			<!-- Node: properties.latest-version -->
+			<!-- Field: ContainerVO.latestVersion [ContainerRO] -->
+
+<!-- 			<structure field="latestVersion" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-version"> -->
+<!--				<value style="element" name="number" ns="${xsd.soap.common.version}" field="versionNumber" usage="optional" /> -->
+<!--				<value style="element" name="date" ns="${xsd.soap.common.version}" field="modificationDate" usage="optional" /> -->
+<!--			</structure> -->
+
+			<!-- Node: properties.latest-release -->
+			<!-- Field: ContainerVO.latestRelease [ContainerRO] -->
+
+<!--			<structure field="latestRelease" ns="${xsd.soap.common.prop}" type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" -->
+<!--				test-method="alreadyExistsInFramework" usage="optional" name="latest-release"> -->
+<!--				<value style="element" name="number" ns="${xsd.soap.common.release}" field="versionNumber" usage="optional" /> -->
+<!--				<value style="element" name="date" ns="${xsd.soap.common.release}" field="modificationDate" usage="optional" /> -->
+<!--				<value style="element" name="pid" ns="${xsd.soap.common.release}" field="pid" usage="optional" /> -->
+<!--			</structure> -->
+
+			<!-- Node: properties.content-model-specific -->
+			<!-- Field: none, but mandatory in the schema instances -->
+			<structure name="content-model-specific" ns="${xsd.soap.common.prop}" ordered="false"
+				flexible="true">
+				<!-- structure name="anything" /-->
+			</structure>
+
+		</structure>
+
+		<!-- Node: md-records -->
+		<structure field="metadataSets" name="md-records" ns="${xsd.soap.common.mdrecords}"
+			marshaller="de.mpg.escidoc.services.common.xmltransforming.MetadataSetMarshaller">
+		</structure>
+
+		<!-- Node: struct-map -->
+		<!-- Field: ContainerVO.members -->
+		<collection name="struct-map" ns="${xsd.soap.container.structmap}" field="members"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberVOListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.MemberVO" test-method="hasMembers" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MemberVO" usage="optional"/>
+		</collection>
+
+		<!-- Node: relations -->
+		<!-- Field: relations [List<PubItemRelationVO>] -->
+		<collection name="relations" ns="${xsd.soap.common.relations}" field="relations"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.relationVOListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" test-method="hasRelations"
+			usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemRelationVO" />
+		</collection>
+
+	</mapping>
+
+	<!-- concrete mapping for ContainerVO -->
+	<mapping name="container" ns="${xsd.soap.container.container}"
+		class="de.mpg.escidoc.services.common.valueobjects.ContainerVO">
+
+		<!-- embed the abstract mapping -->
+		<structure map-as="ContainerVOOutputAbstract" />
+
+	</mapping>
+
+</binding>

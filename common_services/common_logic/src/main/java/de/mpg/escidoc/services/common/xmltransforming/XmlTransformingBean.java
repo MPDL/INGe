@@ -68,6 +68,9 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
+import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
+import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -89,6 +92,7 @@ import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingExce
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
@@ -1084,10 +1088,157 @@ public class XmlTransformingBean implements XmlTransforming
        
         
         MemberListVO memberListVO = new MemberListVO();
-        memberListVO.setPubItemVOList(pubItemList);
+        memberListVO.setItemVOList(pubItemList);
         memberListVO.setContainerVOList(memberListWrapper.getContainerVOList());
         
         return memberListVO;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String transformToContainer(ContainerVO containerVO) throws TechnicalException
+    {
+        logger.debug("transformToContainer(ContainerVO)");
+        if (containerVO == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainer:containerVO is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_output", ContainerVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(containerVO, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(containerVO.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToContainer(ContainerVO) - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ContainerVO transformToContainer(String container) throws TechnicalException
+    {
+        logger.debug("transformToContainer(String) - String container=" + container);
+        if (container == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainer:container is null");
+        }
+        ContainerVO containerVO = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_input", ContainerVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(container);
+            containerVO = (ContainerVO)uctx.unmarshalDocument(sr, null);
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(container, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        return containerVO;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String transformToContainerList(List<? extends ContainerVO> containerVOList) throws TechnicalException
+    {
+        logger.debug("transformToContainerList(List<ContainerVO>)");
+        if (containerVOList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerList:containerVOList is null");
+        }
+        // wrap the item list into the according wrapper class
+        ContainerVOListWrapper listWrapper = new ContainerVOListWrapper();
+        listWrapper.setContainerVOList(containerVOList);
+        // transform the wrapper class into XML
+        String utf8containerList = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_output", ContainerVOListWrapper.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(listWrapper, "UTF-8", null, sw);
+            utf8containerList = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(containerVOList.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToContainerList(List<ContainerVO>) - result: String utf8containerList=\n" + utf8containerList);
+        }
+        return utf8containerList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<? extends ContainerVO> transformToContainerList(String containerList) throws TechnicalException
+    {
+        logger.debug("transformToContainerList(String) - String containerList=\n" + containerList);
+        if (containerList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerList:containerList is null");
+        }
+        ContainerVOListWrapper containerVOListWrapper = null;
+        try
+        {
+            // unmarshal ContainerVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_input", ContainerVOListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(containerList);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            containerVOListWrapper = (ContainerVOListWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(containerList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<ContainerVO>
+        List<? extends ContainerVO> contList = containerVOListWrapper.getContainerVOList();
+
+        return contList;
     }
     
 }
