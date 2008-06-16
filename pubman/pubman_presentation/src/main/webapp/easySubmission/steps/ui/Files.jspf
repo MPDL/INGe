@@ -58,7 +58,7 @@
      				<h3><h:outputText value="#{lbl.EditItem_lblFile}"/></h3>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
      					<h:panelGroup layout="block" styleClass="margin5Right">
-     						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath}" rendered="#{component.file.size == 0}"/>
+     						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath} *" rendered="#{component.file.size == 0}"/>
      					</h:panelGroup>
      					<tr:inputFile value="#{EasySubmission.uploadedFile}" rendered="#{component.file.size == 0}"/>
      				</h:panelGroup>
@@ -76,11 +76,11 @@
           				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{component.file.size == 0}">
           			
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
-          						<tr:outputLabel value="#{lbl.easy_submission_lblFileName}" rendered="#{component.file.size == 0}"/>
+          						<tr:outputLabel value="#{lbl.easy_submission_lblFileName} *" rendered="#{component.file.size == 0}"/>
           						<tr:inputText value="#{component.file.name}" rendered="#{component.file.size == 0}" />
           					</h:panelGroup>
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
-          						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}" rendered="#{component.file.size == 0}"/>
+          						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory} *" rendered="#{component.file.size == 0}"/>
           						<h:selectOneMenu id="fileContentCategory" value="#{component.file.contentCategory}" rendered="#{component.file.size == 0}">
            							<f:selectItems value="#{EasySubmission.contentCategories}" />
           						</h:selectOneMenu>
