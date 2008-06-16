@@ -63,8 +63,8 @@ public class DeleteObjectsTest extends TestBase
     public void deleteItems() throws Exception
     {
         String filter = "<param></param>";
-        final String xPath = "//item-ref-list/item-ref";
-        String items = ServiceLocator.getItemHandler(userHandle).retrieveItemRefs(filter);
+        final String xPath = "//item-list/item";
+        String items = ServiceLocator.getItemHandler(userHandle).retrieveItems(filter);
         logger.debug("items=" + items);
         Document doc = getDocument(items, false);
         NodeList list = selectNodeList(doc, xPath);

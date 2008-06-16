@@ -4,7 +4,7 @@
 	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6"
 	xmlns:version="http://escidoc.de/core/01/properties/version/"
 	xmlns:release="http://escidoc.de/core/01/properties/release/"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.6"
+	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"
 	xmlns:prop="http://escidoc.de/core/01/properties/"
 	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
 	xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:new1"
