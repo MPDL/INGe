@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -74,19 +75,19 @@ public class AffiliationVO extends ValueObject
      * en1.html
      */
     private String countryCode;
-    private List<String> descriptions;
+    private List<String> descriptions = new ArrayList<String>();
 //    private String email;
     /**
      * Identifier of an external resource.
      */
-    private List<String> identifiers;
+    private List<String> identifiers = new ArrayList<String>();
 //    private String fax;
 //    private java.net.URL homepageUrl;
     /**
      * The unique name of the affiliation in the organizational structure.
      */
     private String name;
-    private List<String> alternativeNames;
+    private List<String> alternativeNames = new ArrayList<String>();
     private java.util.List<AffiliationRO> parentAffiliations = new java.util.ArrayList<AffiliationRO>();
 //    private String pid;
 //    private String postcode;

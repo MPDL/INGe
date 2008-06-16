@@ -77,7 +77,10 @@ public class XpathPrefixResolver implements PrefixResolver
         nsMap.put("xlink", "http://www.w3.org/1999/xlink");
         nsMap.put("xsi", "http://www.w3.org/2001/XMLSchema-instance");
         nsMap.put("xml", "http://www.w3.org/XML/1998/namespace");
-
+        nsMap.put("prop", "${xsd.soap.common.prop}");
+        nsMap.put("srel", "${xsd.soap.common.srel}");
+        nsMap.put("ou-details", "${xsd.metadata.organization}");
+        nsMap.put("kml", "http://www.opengis.net/kml/2.2");
         this.namespaces = nsMap;
     }
 

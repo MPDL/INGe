@@ -88,33 +88,33 @@
 			<structure name="md-record" ns="${xsd.soap.common.mdrecords}" usage="optional">
 			
 				<!-- Node: organizational-unit.organization-details -->
-				<structure name="organization-details" ns="${xsd.metadata.organization}" ordered="false"
-					flexible="true">
+				<structure name="organization-details" ns="${xsd.metadata.organization}" ordered="false">
 		
 					<!-- Node: organizational-unit.organization-details.title -->
 					<!-- Field: AffiliationVO.name [String] -->
 					<value style="element" name="title" ns="http://purl.org/dc/elements/1.1/"
 						field="name" />
 						
+						
 					<!-- Node: organizational-unit.organization-details.alternative -->
 					<!-- Field: AffiliationVO.alternativeNames [List<String>] -->
-					<collection name="alternative" ns="http://purl.org/dc/terms/" field="alternativeNames"
-						factory="org.jibx.runtime.Utility.arrayListFactory"
-						item-type="java.lang.String">
+					<collection field="alternativeNames"
+						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
+						<value name="alternative" ns="http://purl.org/dc/terms/" type="java.lang.String"/>
 					</collection>
 		
 					<!-- Node: organizational-unit.organization-details.identifier -->
 					<!-- Field: AffiliationVO.identifiers [List<String>] -->
-					<collection name="identifier" ns="http://purl.org/dc/terms/" field="identifiers"
-						factory="org.jibx.runtime.Utility.arrayListFactory"
-						item-type="java.lang.String">
+					<collection field="identifiers"
+						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
+						<value name="identifier" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
 					</collection>
 		
 					<!-- Node: organizational-unit.organization-details.description -->
 					<!-- Field: AffiliationVO.descriptions [List<String>] -->
-					<collection name="description" ns="http://purl.org/dc/terms/" field="descriptions"
-						factory="org.jibx.runtime.Utility.arrayListFactory"
-						item-type="java.lang.String">
+					<collection field="descriptions"
+						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
+						<value name="description" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
 					</collection>
 		
 					<!-- Node: organizational-unit.organization-details.city -->

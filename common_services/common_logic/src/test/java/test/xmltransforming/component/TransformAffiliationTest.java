@@ -36,6 +36,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
@@ -162,15 +164,15 @@ public class TransformAffiliationTest extends TestBase
         logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n" + organizationalUnitXml
                 + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n" + roundTripOrganizationalUnitXml);
 
-        // compare round tripped XML with original XML...
-        Document organizationalUnitDoc = getDocument(organizationalUnitXml, true);
-        Document roundTripOrganizationalUnitDoc = getDocument(roundTripOrganizationalUnitXml, true);
         // comapre objectIds
         XObject xObject;
-        xObject = XPathAPI.eval(organizationalUnitDoc, "//escidocOrganizationalUnit:organizational-unit/@objid", new XpathPrefixResolver());
-        String objIdBefore = xObject.toString();
-        xObject = XPathAPI.eval(roundTripOrganizationalUnitDoc, "//escidocOrganizationalUnit:organizational-unit/@objid", new XpathPrefixResolver());
-        String objIdAfter = xObject.toString();
+        Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
+        Matcher matcher1 = pattern.matcher(organizationalUnitXml);
+        matcher1.find();
+        String objIdBefore = matcher1.group(1);
+        Matcher matcher2 = pattern.matcher(roundTripOrganizationalUnitXml);
+        matcher2.find();
+        String objIdAfter = matcher2.group(1);
         assertTrue(objIdBefore.length() > 0);
         assertEquals(objIdBefore, objIdAfter);
     }
@@ -188,7 +190,7 @@ public class TransformAffiliationTest extends TestBase
                 affiliation.getDescriptions().get(0));
         assertEquals("DE", affiliation.getCountryCode());
         assertEquals("Berlin", affiliation.getCity());
-        assertEquals(2, affiliation.getIdentifiers().size());
+        assertEquals(1, affiliation.getIdentifiers().size());
         assertEquals("http://www.mpgwg-berlin.mpg.de", affiliation.getIdentifiers().get(0));
     }
 }
