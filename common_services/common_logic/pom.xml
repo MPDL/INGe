@@ -87,6 +87,10 @@
 										</include>
 										<include name="bindings_PubItemVO_PubCollectionVO_output.xml">
 										</include>
+										<include name="bindings_ContainerVO_input.xml">
+										</include>
+										<include name="bindings_ContainerVO_output.xml">
+										</include>
 										<include name="bindings_TaskParamVO.xml">
 										</include>
 										<include name="bindings_PidTaskParamVO.xml">
