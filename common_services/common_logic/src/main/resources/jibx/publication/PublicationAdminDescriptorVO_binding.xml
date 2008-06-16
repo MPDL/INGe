@@ -54,5 +54,12 @@
 		
 		<value style="element" name="validation-schema" field="validationSchema" usage="optional" />
 
+		<value style="element" name="workflow"
+			type="de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO$Workflow"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeWorkflowEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			field="workflow"
+			usage="optional" />
+
 	</mapping>
 </binding>

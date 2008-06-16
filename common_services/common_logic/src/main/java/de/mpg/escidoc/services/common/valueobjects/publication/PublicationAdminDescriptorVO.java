@@ -45,6 +45,12 @@ import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
  */
 public class PublicationAdminDescriptorVO extends AdminDescriptorVO
 {
+    
+    public enum Workflow
+    {
+        STANDARD, SIMPLE
+    }
+    
     private List<MdsPublicationVO.Genre> allowedGenres = new ArrayList<MdsPublicationVO.Genre>();
     
     private ItemRO templateItem;
@@ -52,6 +58,8 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO
     private String validationSchema;
     
     private String visibilityOfReferences;
+    
+    private Workflow workflow;
 
     public List<MdsPublicationVO.Genre> getAllowedGenres()
     {
@@ -92,7 +100,15 @@ public class PublicationAdminDescriptorVO extends AdminDescriptorVO
     {
         this.visibilityOfReferences = visibilityOfReferences;
     }
-    
-    
+
+    public Workflow getWorkflow()
+    {
+        return workflow;
+    }
+
+    public void setWorkflow(Workflow workflow)
+    {
+        this.workflow = workflow;
+    }
     
 }

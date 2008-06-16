@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<il:item-list xmlns:il="${xsd.soap.item.itemlist}" xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}">
+<il:item-list 
+	xmlns:il="${xsd.soap.item.itemlist}" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}">
 	<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"
 		objid="escidoc:385" last-modification-date="2007-11-29T17:21:05.961Z">
 		<escidocItem:properties>
@@ -9,18 +14,18 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:385:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-11-29T17:21:05.961Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>ItemHandler.update()</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:385:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-11-29T17:21:05.961Z</escidocItem:date>
-			</escidocItem:latest-version>
+			<prop:version objid="escidoc:385:2">
+				<version:number>2</version:number>
+				<version:date>2007-11-29T17:21:05.961Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>ItemHandler.update()</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:385:2">
+				<version:number>2</version:number>
+				<version:date>2007-11-29T17:21:05.961Z</version:date>
+			</prop:latest-version>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -62,21 +67,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:471:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-11-30T12:39:12.611Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:471 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:471:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-11-30T12:39:12.611Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:471:1">
+				<version:number>1</version:number>
+				<version:date>2007-11-30T12:39:12.611Z</version:date>
+				<version:status>pending</version:status>
+				<version:status>valid</version:status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:471 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:471:1">
+				<version:number>1</version:number>
+				<version:date>2007-11-30T12:39:12.611Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -221,21 +226,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:579:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-04T15:25:35.751Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:579 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:579:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-04T15:25:35.751Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:579:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-04T15:25:35.751Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:579 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:579:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-04T15:25:35.751Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -380,21 +385,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:716:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T08:38:48.157Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:716 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:716:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T08:38:48.157Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:716:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T08:38:48.157Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:716 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:716:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T08:38:48.157Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -539,18 +544,18 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:818:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T15:08:23.704Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:818 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:818:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T15:08:23.704Z</escidocItem:date>
-			</escidocItem:latest-version>
+			<prop:version objid="escidoc:818:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T15:08:23.704Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:818 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:818:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T15:08:23.704Z</version:date>
+			</prop:latest-version>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -617,18 +622,18 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:822:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T15:38:57.610Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:822 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:822:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T15:38:57.610Z</escidocItem:date>
-			</escidocItem:latest-version>
+			<prop:version objid="escidoc:822:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T15:38:57.610Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:822 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:822:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T15:38:57.610Z</version:date>
+			</prop:latest-version>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -695,18 +700,18 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:831:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T16:00:21.657Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:831 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:831:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T16:00:21.657Z</escidocItem:date>
-			</escidocItem:latest-version>
+			<prop:version objid="escidoc:831:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T16:00:21.657Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:831 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:831:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T16:00:21.657Z</version:date>
+			</prop:latest-version>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -773,18 +778,18 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:836:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T17:08:18.688Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:836 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:836:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-06T17:08:18.688Z</escidocItem:date>
-			</escidocItem:latest-version>
+			<prop:version objid="escidoc:836:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T17:08:18.688Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:836 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:836:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-06T17:08:18.688Z</version:date>
+			</prop:latest-version>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -851,21 +856,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1219:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-12T10:45:03.218Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:1219 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1219:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-12T10:45:03.218Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:1219:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-12T10:45:03.218Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:1219 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1219:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-12T10:45:03.218Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -1010,21 +1015,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1306:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-12T10:52:01.202Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:1306 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1306:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-12T10:52:01.202Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:1306:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-12T10:52:01.202Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:1306 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1306:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-12T10:52:01.202Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -1169,22 +1174,22 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1388:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-12-12T11:05:35.952Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>ItemHandler.update()</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1388:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-12-12T11:05:35.952Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<escidocItem:latest-release objid="escidoc:1388:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-12T11:05:29.718Z</escidocItem:date>
-			</escidocItem:latest-release>
+			<prop:version objid="escidoc:1388:2">
+				<version:number>2</version:number>
+				<version:date>2007-12-12T11:05:35.952Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>ItemHandler.update()</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1388:2">
+				<version:number>2</version:number>
+				<version:date>2007-12-12T11:05:35.952Z</version:date>
+			</prop:latest-version>
+			<prop:latest-release objid="escidoc:1388:1">
+				<release:number>1</release:number>
+				<release:date>2007-12-12T11:05:29.718Z</release:date>
+			</prop:latest-release>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
@@ -1238,21 +1243,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1519:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T10:33:46.004Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:1519 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1519:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T10:33:46.004Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:1519:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T10:33:46.004Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:1519 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1519:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T10:33:46.004Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -1397,21 +1402,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1644:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T12:46:43.816Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:1644 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1644:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T12:46:43.816Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:1644:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T12:46:43.816Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:1644 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1644:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T12:46:43.816Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -1556,21 +1561,21 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:1770:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T13:13:30.566Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>Object escidoc:1770 created.</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:1770:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T13:13:30.566Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<item:content-model-specific xmlns:item="${xsd.soap.item.item}">
+			<prop:version objid="escidoc:1770:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T13:13:30.566Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>Object escidoc:1770 created.</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:1770:1">
+				<version:number>1</version:number>
+				<version:date>2007-12-19T13:13:30.566Z</version:date>
+			</prop:latest-version>
+			<prop:content-model-specific xmlns:item="${xsd.soap.item.item}">
 				<anything></anything>
-			</item:content-model-specific>
+			</prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 			<escidocMetadataRecords:md-record name="escidoc">
@@ -1715,23 +1720,23 @@
 			<srel:context objid="escidoc:persistent3" />
 			<srel:content-model objid="escidoc:persistent4" />
 			<prop:lock-status>unlocked</prop:lock-status>
-			<escidocItem:version objid="escidoc:2057:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-12-19T17:09:06.051Z</escidocItem:date>
-				<escidocItem:version-status>pending</escidocItem:version-status>
-				<escidocItem:valid-status>valid</escidocItem:valid-status>
-				<escidocItem:modified-by objid="escidoc:user2" />
-				<escidocItem:comment>ItemHandler.update()</escidocItem:comment>
-			</escidocItem:version>
-			<escidocItem:latest-version objid="escidoc:2057:2">
-				<escidocItem:number>2</escidocItem:number>
-				<escidocItem:date>2007-12-19T17:09:06.051Z</escidocItem:date>
-			</escidocItem:latest-version>
-			<escidocItem:latest-release objid="escidoc:2057:1">
-				<escidocItem:number>1</escidocItem:number>
-				<escidocItem:date>2007-12-19T17:09:00.394Z</escidocItem:date>
-				<escidocItem:pid>hdl:someHandle/test/escidoc:2057:1</escidocItem:pid>
-			</escidocItem:latest-release>
+			<prop:version objid="escidoc:2057:2">
+				<version:number>2</version:number>
+				<version:date>2007-12-19T17:09:06.051Z</version:date>
+				<version:status>pending</version:status>
+				<version:valid-status>valid</version:valid-status>
+				<srel:modified-by objid="escidoc:user2" />
+				<version:comment>ItemHandler.update()</version:comment>
+			</prop:version>
+			<prop:latest-version objid="escidoc:2057:2">
+				<version:number>2</version:number>
+				<version:date>2007-12-19T17:09:06.051Z</version:date>
+			</prop:latest-version>
+			<prop:latest-release objid="escidoc:2057:1">
+				<release:number>1</release:number>
+				<release:date>2007-12-19T17:09:00.394Z</release:date>
+				<release:pid>hdl:someHandle/test/escidoc:2057:1</release:pid>
+			</prop:latest-release>
 			<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">

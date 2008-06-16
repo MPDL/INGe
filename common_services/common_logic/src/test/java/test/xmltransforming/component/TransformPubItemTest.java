@@ -373,7 +373,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // check results
         assertNotNull(savedItem);
 
-        assertEquals(savedItem.getVersion().getLastMessage(), "Withdraw withdraw");
+        assertEquals("Withdraw withdraw", savedItem.getVersion().getLastMessage());
     }
 
     /**

@@ -72,6 +72,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRol
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
@@ -992,6 +993,32 @@ public class JiBXHelper
             }
         }
         return genre; // null is a possible return value
+    }
+    
+    /**
+     * Deserializes a String containing a genre type like defined in escidocenumtypes.xsd to the corresponding
+     * <code>SourceVO.Genre</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return Genre The corresponding <code>SourceVO.Genre</code> Enum (if set), null otherwise.
+     * @throws WrongEnumException
+     */
+    public static PublicationAdminDescriptorVO.Workflow deserializeWorkflowEnum(String enumValue) throws WrongEnumException
+    {
+        PublicationAdminDescriptorVO.Workflow workflow = null;
+        if (enumValue != null)
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                workflow = PublicationAdminDescriptorVO.Workflow.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("GenreEnum value is '" + enumValue + "'.");
+            }
+        }
+        return workflow; // null is a possible return value
     }
     
     /**

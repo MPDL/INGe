@@ -46,6 +46,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
@@ -241,11 +242,11 @@ public class TransformContextTest extends TestBase
         allowedGenres.add(MdsPublicationVO.Genre.ISSUE);
         allowedGenres.add(MdsPublicationVO.Genre.SERIES);
         allowedGenres.add(MdsPublicationVO.Genre.OTHER);
-        adminDescriptor.setVisibilityOfReferences("standard");
+        //adminDescriptor.setVisibilityOfReferences("standard");
         
-        // TODO: Comment in with new FW
-//        adminDescriptor.setTemplateItem(new ItemRO("dsddsadad"));
-//        adminDescriptor.setValidationSchema("dsadda");
+        adminDescriptor.setTemplateItem(new ItemRO("escidoc:123"));
+        adminDescriptor.setValidationSchema("publication");
+        adminDescriptor.setWorkflow(PublicationAdminDescriptorVO.Workflow.STANDARD);
         return expected;
     }
 

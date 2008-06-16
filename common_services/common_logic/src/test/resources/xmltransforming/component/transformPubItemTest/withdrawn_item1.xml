@@ -1,6 +1,14 @@
 
-<escidocItem:item xmlns:prop="${xsd.soap.common.prop}" xmlns:srel="${xsd.soap.common.srel}"
-		xmlns:escidocItem="${xsd.soap.item.item}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:82" last-modification-date="2007-11-26T13:50:43.601Z">
+<escidocItem:item 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:escidocItem="${xsd.soap.item.item}" 
+	xmlns:xlink="http://www.w3.org/1999/xlink" 
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" 
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}"
+	objid="escidoc:82" 
+	last-modification-date="2007-11-26T13:50:43.601Z">
 	<escidocItem:properties>
 		<prop:creation-date>2007-11-26T13:50:00.303Z</prop:creation-date>
 		<srel:created-by objid="escidoc:user2" />
@@ -8,22 +16,22 @@
 		<srel:context objid="escidoc:persistent3" />
 		<srel:content-model objid="escidoc:persistent4" />
 		<prop:lock-status>unlocked</prop:lock-status>
-		<escidocItem:version objid="escidoc:82:1">
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-11-26T13:50:43.601Z</escidocItem:date>
-			<escidocItem:version-status>withdrawn</escidocItem:version-status>
-			<escidocItem:valid-status>valid</escidocItem:valid-status>
-			<escidocItem:modified-by objid="escidoc:user2" />
-			<escidocItem:comment>Withdraw withdraw</escidocItem:comment>
-		</escidocItem:version>
-		<escidocItem:latest-version objid="escidoc:82:1">
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-11-26T13:50:43.601Z</escidocItem:date>
-		</escidocItem:latest-version>
-		<escidocItem:latest-release objid="escidoc:82:1">
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-11-26T13:50:14.941Z</escidocItem:date>
-		</escidocItem:latest-release>
+		<prop:version objid="escidoc:82:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-26T13:50:43.601Z</version:date>
+			<version:status>withdrawn</version:status>
+			<version:valid-status>valid</version:valid-status>
+			<srel:modified-by objid="escidoc:user2" />
+			<version:comment>Withdraw withdraw</version:comment>
+		</prop:version>
+		<prop:latest-version objid="escidoc:82:1">
+			<version:number>1</version:number>
+			<version:date>2007-11-26T13:50:43.601Z</version:date>
+		</prop:latest-version>
+		<prop:latest-release objid="escidoc:82:1">
+			<release:number>1</release:number>
+			<release:date>2007-11-26T13:50:14.941Z</release:date>
+		</prop:latest-release>
 		<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 	</escidocItem:properties>
 	<escidocMetadataRecords:md-records

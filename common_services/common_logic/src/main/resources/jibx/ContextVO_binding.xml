@@ -45,33 +45,33 @@
 
 			<!-- Node: context.properties.created-by.@objid -->
 			<!-- Field: ContextVO.creator [AccountUserRO] -->
-			<structure name="created-by" ns="${xsd.soap.context.context}" field="creator"
+			<structure name="created-by" ns="${xsd.soap.common.srel}" field="creator"
 				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework" usage="optional">
 				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 			</structure>
 
 			<!-- Node: context.properties.public-status -->
 			<!-- Field: ContextVO.state [ContextVO.State] -->
-			<value style="element" name="public-status" ns="${xsd.soap.context.context}" field="state"
+			<value style="element" name="public-status" ns="${xsd.soap.common.prop}" field="state"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePubCollectionStateEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 			<!-- Node: context.properties.name -->
 			<!-- Field: ContextVO.name [String] -->
-			<value style="element" name="name" ns="${xsd.soap.context.context}" field="name" usage="optional" />
+			<value style="element" name="name" ns="${xsd.soap.common.prop}" field="name" usage="optional" />
 
 			<!-- Node: context.properties.description -->
 			<!-- Field: ContextVO.description [String] -->
-			<value style="element" name="description" ns="${xsd.soap.context.context}" field="description" usage="optional" />
+			<value style="element" name="description" ns="${xsd.soap.common.prop}" field="description" usage="optional" />
 
 			<!-- Node: context.properties.organizational-units -->
 			<!-- Field: ContextVO.responsibleAffiliations [List<AffiliationRO>] -->
-			<collection name="organizational-units" ns="${xsd.soap.context.context}" field="responsibleAffiliations"
+			<collection name="organizational-units" ns="${xsd.soap.common.prop}" field="responsibleAffiliations"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory" usage="optional">
 
 				<!-- Node: context.properties.organizational-unit -->
 				<!-- Field: ContextVO.responsibleAffiliations[X] [AffiliationRO] -->
-				<structure name="organizational-unit" ns="${xsd.soap.context.context}"
+				<structure name="organizational-unit" ns="${xsd.soap.common.srel}"
 					type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO">
 
 					<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
