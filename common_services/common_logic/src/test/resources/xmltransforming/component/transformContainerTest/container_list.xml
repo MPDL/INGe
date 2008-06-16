@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<container-list xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7" xmlns:container="http://www.escidoc.de/schemas/container/0.7">
+<container-list:container-list xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7" xmlns:container="http://www.escidoc.de/schemas/container/0.7">
 <container:container
 		xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" xmlns:container="http://www.escidoc.de/schemas/container/0.7" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:1787" last-modification-date="2008-03-20T11:25:43.930Z">
 	<container:properties>
@@ -16,9 +16,10 @@
 			<version:number>2</version:number>
 			<version:date>2008-03-20T11:25:43.930Z</version:date>
 			<version:status>released</version:status>
-
+			<version:valid-status>valid</version:valid-status>
 			<srel:modified-by objid="escidoc:1047" />
 			<version:comment>ContainerHandler.release()</version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:1787</version:pid>
 		</prop:version>
 		<prop:latest-version objid="escidoc:1787:2">
 			<version:number>2</version:number>
@@ -34,14 +35,14 @@
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 			<mods-md xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichniß und vollständigen Reg.</dc:title>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichniï¿½ und vollstï¿½ndigen Reg.</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo>
-						<title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichniß und vollständigen Reg.</title>
+						<title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichniï¿½ und vollstï¿½ndigen Reg.</title>
 					</titleInfo>
 					<titleInfo type="uniform">
-						<title>Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</title>
+						<title>Vollstï¿½ndige Sammlung aller Conclusorum, Schreiben und anderer ï¿½brigen Verhandlungen des hochpreiï¿½lischen Corporis evangelicorum</title>
 					</titleInfo>
 					<originInfo>
 						<dateIssued encoding="w3cdtf" keyDate="yes">1752</dateIssued>
@@ -65,40 +66,11 @@
 					</recordInfo>
 					<identifier type="local">69452</identifier>
 					<location>
-						<physicalLocation>MPI für Europäische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
+						<physicalLocation>MPI fï¿½r Europï¿½ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
 					</location>
 				</mods>
 			</mods-md>
 		</escidocMetadataRecords:md-record>
-
-		<escidocMetadataRecords:md-record name="virr_mab">
-			<mab-md>
-				
-					00371nM2.01030024      u
-					001 69452
-					002 19950116000000.0
-					003 20070608000000.0
-					010 69448
-					030 zz5d||rz||||7
-					037 ger
-					050 
-					051 
-					077 c1
-					078 a M000069452
-					b Dt 9 Bg 18 Q [3]
-					c 01
-					d 0
-					e 0
-					f 0
-					089 3
-					331 VollstÃ¤ndige Sammlung aller Conclusorum, Schreiben und anderer Ã¼brigen Verhandlungen des hochpreiÃŸlischen Corporis evangelicorum
-					425 1752
-					544 Dt 9 Bg 18 Q [3]
-				
-			</mab-md>
-		</escidocMetadataRecords:md-record>
-
-
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>
 		<srel:item objid="escidoc:1790"/>
@@ -223,9 +195,10 @@
 			<version:number>2</version:number>
 			<version:date>2008-03-20T14:26:30.639Z</version:date>
 			<version:status>released</version:status>
-
+			<version:valid-status>valid</version:valid-status>
 			<srel:modified-by objid="escidoc:1047" />
 			<version:comment>ContainerHandler.release()</version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:1127</version:pid>
 		</prop:version>
 		<prop:latest-version objid="escidoc:1127:2">
 			<version:number>2</version:number>
@@ -245,7 +218,7 @@
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">n</genre>
 					<titleInfo>
-						<title>Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum</title>
+						<title>Vollstï¿½ndige Sammlung aller Conclusorum, Schreiben und anderer ï¿½brigen Verhandlungen des hochpreiï¿½lischen Corporis evangelicorum</title>
 						<subTitle>Nach Ordnung der Materien zusammen getragen und heraus gegeben von Eberhard Christian Wilhelm von Schauroth</subTitle>
 					</titleInfo>
 					<name type="personal">
@@ -260,7 +233,7 @@
 						</place>
 						<publisher>Neubauer</publisher>
 					</originInfo>
-					<note>Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreißlichen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich</note>
+					<note>Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreiï¿½lichen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich</note>
 					<subject>
 						<topic>Corpus Evangelicorum</topic>
 					</subject>
@@ -271,31 +244,6 @@
 				</mods>
 			</mods-md>
 		</escidocMetadataRecords:md-record>
-
-		<escidocMetadataRecords:md-record name="virr_mab">
-			<mab-md>
-				
-					00720nM2.01030024      h
-					001 69448
-					002 19950116000000.0
-					003 20070608000000.0
-					030 zz5d||rz||||7
-					050 
-					051 n
-					077 c0
-					100b Schauroth, Eberhard Christian Wilhelm von
-					331 VollstÃ¤ndige Sammlung aller Conclusorum, Schreiben und anderer Ã¼brigen Verhandlungen des hochpreiÃŸlischen Corporis evangelicorum
-					359 Nach Ordnung der Materien zusammen getragen und heraus gegeben von Eberhard Christian Wilhelm von Schauroth
-					410a Regenspurg
-					412a Neubauer
-					501 Erschienen: 1 (1751) - 3 (1752). -Forts. bildet: Sammlung aller Conclusorum, Schreiben und anderer Verhandlungen des hochpreiÃŸlischen Corporis evangelicorum vom Jahre 1753 bis 1786 / Nikolaus August Herrich
-					710 Corpus Evangelicorum
-					902  Corpus Evangelicorum
-				
-			</mab-md>
-		</escidocMetadataRecords:md-record>
-
-
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>
 		<srel:container objid="escidoc:1787"/>
@@ -307,7 +255,7 @@
 		<prop:creation-date>2008-03-18T09:28:39.332Z</prop:creation-date>
 		<srel:created-by objid="escidoc:1047" />
 		<prop:public-status>released</prop:public-status>
-		<prop:name>Vollständiges corpus gravaminum evangelicorum</prop:name>
+		<prop:name>Vollstï¿½ndiges corpus gravaminum evangelicorum</prop:name>
 		<prop:description></prop:description>
 		<srel:context objid="escidoc:1036" />
 		<srel:content-model objid="escidoc:virrcm2" />
@@ -317,9 +265,10 @@
 			<version:number>2</version:number>
 			<version:date>2008-03-20T11:24:07.410Z</version:date>
 			<version:status>released</version:status>
-
+			<version:valid-status>valid</version:valid-status>
 			<srel:modified-by objid="escidoc:1047" />
 			<version:comment>ContainerHandler.release()</version:comment>
+			<version:pid>hdl:someHandle/test/escidoc:1131</version:pid>
 		</prop:version>
 		<prop:latest-version objid="escidoc:1131:2">
 			<version:number>2</version:number>
@@ -335,11 +284,11 @@
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
 			<mods-md xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vollständiges corpus gravaminum evangelicorum</dc:title>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vollstï¿½ndiges corpus gravaminum evangelicorum</dc:title>
 				<mods version="3.2">
 					<genre authority="MAB2-051/1-3">u</genre>
 					<titleInfo type="uniform">
-						<title>Vollständiges corpus gravaminum evangelicorum</title>
+						<title>Vollstï¿½ndiges corpus gravaminum evangelicorum</title>
 					</titleInfo>
 					<titleInfo>
 						<subTitle>Nebst einer Einl. ... Johann Christian Maier</subTitle>
@@ -378,43 +327,11 @@
 					</recordInfo>
 					<identifier type="local">66238</identifier>
 					<location>
-						<physicalLocation>MPI für Europäische Rechtsgeschichte, Dt 9 Bg 20 Q [8]</physicalLocation>
+						<physicalLocation>MPI fï¿½r Europï¿½ische Rechtsgeschichte, Dt 9 Bg 20 Q [8]</physicalLocation>
 					</location>
 				</mods>
 			</mods-md>
 		</escidocMetadataRecords:md-record>
-
-		<escidocMetadataRecords:md-record name="virr_mab">
-			<mab-md>
-				
-					00398nM2.01010024      u
-					001 66238
-					002 19941207000000.0
-					003 20070608000000.0
-					010 66230
-					030 zz5d||rz||||7
-					037 ger
-					050 
-					051
-					077 c1
-					078 a M000066238
-					b Dt 9 Bg 20 Q [8]
-					c 01
-					d 0
-					e 0
-					f 0
-					089 [8]
-					100 Oertel, Christian Gottfried
-					104b Majer, Johann Christian
-					331 VollstÃ¤ndiges corpus gravaminum evangelicorum
-					359 Nebst einer Einl. ... Johann Christian Maier
-					425 1775
-					544 Dt 9 Bg 20 Q [8]
-				
-			</mab-md>
-		</escidocMetadataRecords:md-record>
-
-
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>
 		<srel:item objid="escidoc:2715"/>
@@ -470,4 +387,4 @@
 		<srel:item objid="escidoc:3015"/>
 	</struct-map:struct-map>
 </container:container>
-</container-list>
+</container-list:container-list>

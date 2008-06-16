@@ -41,30 +41,31 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * @author Markus Haarlaender (initial creation)
  * @author $Author$ (last modification)
  * @version $Revision$ $LastChangedDate$
+ * @revised by FrW: 10.06.2008
  *
  */
 public class MemberListVO
 {
-    protected List<Object> containerVOList;
+    protected List<? extends ContainerVO> containerVOList;
     
-    protected List<PubItemVO> itemVOList;
+    protected List<? extends ItemVO> itemVOList;
 
-    public List<Object> getContainerVOList()
+    public List<? extends ContainerVO> getContainerVOList()
     {
         return containerVOList;
     }
 
-    public void setContainerVOList(List<Object> containerVOList)
+    public void setContainerVOList(List<? extends ContainerVO> containerVOList)
     {
         this.containerVOList = containerVOList;
     }
 
-    public List<PubItemVO> getPubItemVOList()
+    public List<? extends ItemVO> getItemVOList()
     {
         return itemVOList;
     }
 
-    public void setPubItemVOList(List<PubItemVO> itemVOList)
+    public void setItemVOList(List<? extends ItemVO> itemVOList)
     {
         this.itemVOList = itemVOList;
     }

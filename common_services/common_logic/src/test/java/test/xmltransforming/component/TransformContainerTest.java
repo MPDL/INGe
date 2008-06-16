@@ -125,11 +125,11 @@ public class TransformContainerTest extends XmlTransformingTestBase
      * 
      * @throws Exception
      */
-    @Ignore
+
     @Test
-    public void testTransformToContainerList() throws Exception
+    public void testTransformContainerVOListToContainerListXML() throws Exception
     {
-        logger.info("### testTransformToContainerList ###");
+        logger.info("### testTransformContainerVOListToContainerListXML ###");
 
         // create a List<ContainerVO> from scratch.
         List<ContainerVO> containerList = new ArrayList<ContainerVO>();
@@ -141,6 +141,8 @@ public class TransformContainerTest extends XmlTransformingTestBase
             ctx.setObjectId("escidoc:ex1");
             container.setContext(ctx);
             container.setContentModel("escidoc:ex4");
+            MdsPublicationVO mds = getMdsPublication1();
+            container.setMetadata(mds);
             containerList.add(container);
         }
 
@@ -200,11 +202,11 @@ public class TransformContainerTest extends XmlTransformingTestBase
      * 
      * @throws Exception
      */
-    @Ignore
+
     @Test
-    public void testTransformToContainerVOList() throws Exception
+    public void testTransformContainerListXMLToContainerVOList() throws Exception
     {
-        logger.info("### testTransformToContainerVOList ###");
+        logger.info("### testTransformContainerListXMLToContainerVOList ###");
 
         // read container-list[XML] from file
         String containerListXML = readFile(CONTAINER_LIST_FILE);
