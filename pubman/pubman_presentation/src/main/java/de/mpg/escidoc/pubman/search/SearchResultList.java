@@ -49,6 +49,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.saxon.instruct.SavedNamespaceContext;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -66,6 +68,7 @@ import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -173,17 +176,18 @@ public class SearchResultList extends ItemList
         
         this.displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
         
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getBean(ExportItemsSessionBean.class);
-        //after the specification the file format of the displayed export data has to be html
-        sb.setFileFormat("html");
+        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
  
         // set the currently selected items in the FacesBean
         //this.setSelectedItemsAndCurrentItem();
         if (this.getItemListSessionBean().getSelectedPubItems().size() != 0)
         {
-            // export format and file format.
-            ExportFormatVO curExportFormat = sb.getCurExportFormatVO();                        
-           
+        	// save selected file format on the web interface
+        	String selectedFileFormat = sb.getFileFormat();
+        	//for the display export data the file format should be always HTML
+            sb.setFileFormat(FileFormatVO.HTML_NAME);
+            
+            ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
             try 
             {
             	this.displayExportData = new String(this.getItemControllerSessionBean().retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getSelectedPubItems())));
@@ -191,7 +195,7 @@ public class SearchResultList extends ItemList
             catch(TechnicalException e)
             {
                 logger.error("Could not get export data." + "\n" + e.toString());
-                ((ErrorPage)this.getBean(ErrorPage.class)).setException(e);
+                ((ErrorPage)this.getSessionBean(ErrorPage.class)).setException(e);
             
                 return ErrorPage.LOAD_ERRORPAGE;
             }
@@ -202,8 +206,11 @@ public class SearchResultList extends ItemList
             	this.displayExportData = this.displayExportData.replace("\n","<br>");
             }
             logger.debug("prepareDisplayExportData set FULL data to session bean ");
-             
+            
             sb.setExportDisplayData(this.displayExportData);
+            //restore selected file format on the interface
+        	sb.setFileFormat(selectedFileFormat);
+            
             return "showDisplayExportItemsPage";
         }
         else
@@ -353,18 +360,6 @@ public class SearchResultList extends ItemList
             HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
             String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
             
-            //ToDo MaV: this dependency between file format and content type
-            // should happen automatically using ExportFormatVO and ExportItemsSessionBean. 
-            // This can be realised only when the explainStyles() returns the file formats with 
-            // their corresponding content types in the outpu xml. So  this should be done FIRST!
-            /*if (curExportFormat.getSelectedFileFormat().equals("pdf"))
-                {contentType = "application/pdf";}
-            else if (curExportFormat.getSelectedFileFormat().equals("rtf"))
-                {contentType = "text/rtf";}
-            else if (curExportFormat.getSelectedFileFormat().equals("html"))
-                {contentType = "text/html";}
-            else if (curExportFormat.getSelectedFileFormat().equals("odt"))
-                {contentType = "application/vnd.oasis.opendocument.text";}*/
             response.setContentType(contentType);
             
              try
