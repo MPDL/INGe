@@ -109,10 +109,9 @@ public class TransformAffiliationIntegrationTest extends TestBase
         long uniquer = System.currentTimeMillis();
         affiliationVOPreCreate.setName(affiliationVOPreCreate.getName() + " Nr." + uniquer + "***");
         // fill in some special characters to check their treatment by the framework
-        affiliationVOPreCreate.setAbbreviation("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-        affiliationVOPreCreate.setExternalId("MPI-HD-49°25'N,8°43'O");
-        affiliationVOPreCreate.setDescription("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
-        affiliationVOPreCreate.setAddress("O'Reilly");
+        affiliationVOPreCreate.getAlternativeNames().add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
+        affiliationVOPreCreate.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+        affiliationVOPreCreate.getDescriptions().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
 
         // transform the AffiliationVO into an organizational unit (for create)
         long zeit = -System.currentTimeMillis();
@@ -232,24 +231,12 @@ public class TransformAffiliationIntegrationTest extends TestBase
         // Property name can not be altered!
         // Property abbreviation can not be altered!
         AffiliationVO affiliationVOPreUpdate = affiliationVOPostCreate;
-        affiliationVOPreUpdate.setAddress("Görresstr. 41");
-        affiliationVOPreUpdate.setPostcode("84711");
         affiliationVOPreUpdate.setCity("Freising");
-        affiliationVOPreUpdate.setTelephone("+12 (34) 5678 - 910");
-        affiliationVOPreUpdate.setFax("+12 (34) 5678 - 911");
-        affiliationVOPreUpdate.setEmail("mail@abc.de");
-        try
-        {
-            affiliationVOPreUpdate.setHomepageUrl(new URL("http://www.mpg.de/updated"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationVOPreUpdate.getIdentifiers().add("http://www.mpg.de/updated");
         affiliationVOPreUpdate.setCountryCode("DE");
-        affiliationVOPreUpdate.setDescription("The description has been changed.");
-        affiliationVOPreUpdate.setExternalId("4712");
-        affiliationVOPreUpdate.setRegion("Intergalactic");
+        affiliationVOPreUpdate.getDescriptions().add("The description has been changed.");
+        affiliationVOPreUpdate.getIdentifiers().add("4712");
 
         // transform the AffiliationVO into an organizational unit (for update)
         zeit = -System.currentTimeMillis();
@@ -390,7 +377,10 @@ public class TransformAffiliationIntegrationTest extends TestBase
             StringBuffer sb = new StringBuffer("Abbreviations of MPG child affiliations:\n");
             for (AffiliationVO childAffiliation : mpgChildAffiliationList)
             {
-                sb.append(childAffiliation.getAbbreviation() + "\n");
+                if (childAffiliation.getAlternativeNames().size() > 0)
+                {
+                    sb.append(childAffiliation.getAlternativeNames().get(0) + "\n");
+                }
             }
             logger.debug(sb.toString());
         }
@@ -453,7 +443,10 @@ public class TransformAffiliationIntegrationTest extends TestBase
             StringBuffer sb = new StringBuffer("Abbreviations of retrieved specific affiliations:\n");
             for (AffiliationVO childAffiliation : specificAffiliationList)
             {
-                sb.append(childAffiliation.getAbbreviation() + "\n");
+                if (childAffiliation.getAlternativeNames().size() > 0)
+                {
+                    sb.append(childAffiliation.getAlternativeNames().get(0) + "\n");
+                }
             }
             logger.debug(sb.toString());
         }

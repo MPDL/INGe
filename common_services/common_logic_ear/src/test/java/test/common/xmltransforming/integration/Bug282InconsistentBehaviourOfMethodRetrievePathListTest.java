@@ -174,8 +174,6 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
 
                 // create and set organization ADDRESS (to the address of the given affiliation)
                 StringBuffer address = new StringBuffer();
-                appendAddressPart(affiliation.getAddress(), address);
-                appendAddressPart(affiliation.getPostcode(), address);
                 appendAddressPart(affiliation.getCity(), address);
                 appendAddressPart(affiliation.getCountryCode(), address);
                 if (address.length() > 0)

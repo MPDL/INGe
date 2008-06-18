@@ -33,8 +33,6 @@ package test.common;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -191,7 +189,7 @@ public class AffiliationCreator extends TestBase
         {
             throw new IllegalArgumentException(AffiliationCreator.class.getSimpleName() + ":createTopLevelAffiliation:affiliation is null");
         }
-        String abbrev = affiliation.getAbbreviation();
+        String name = affiliation.getName();
         affiliation.setName(affiliation.getName() + " Nr." + uniquer + "***");
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
@@ -202,7 +200,7 @@ public class AffiliationCreator extends TestBase
         // extract the objid from the returned OU
         String objectId = getObjid(organizationalUnitPostCreate);
         StringBuffer sb = new StringBuffer();
-        sb.append("createTopLevelAffiliation() - " + abbrev + ": organizational unit created in the framework (objectId: " + objectId + ").");
+        sb.append("createTopLevelAffiliation() - " + name + ": organizational unit created in the framework (objectId: " + objectId + ").");
         if (logger.isDebugEnabled())
         {
             sb.append("\n" + toString(getDocument(organizationalUnitPostCreate, false), false));
@@ -224,7 +222,7 @@ public class AffiliationCreator extends TestBase
      */
     public static String createSubAffiliation(final AffiliationVO affiliation, List<String> parentObjectIds, String userHandle, long uniquer) throws Exception
     {
-        String abbrev = affiliation.getAbbreviation();
+        String name = affiliation.getName();
         affiliation.setName(affiliation.getName() + " Nr." + uniquer + "***");
         for (String objId : parentObjectIds)
         {
@@ -233,15 +231,15 @@ public class AffiliationCreator extends TestBase
         }
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
-        logger.debug("createSubAffiliation() - PreCreate - " + abbrev + ": AffiliationVO.externalID = " + affiliation.getExternalId());
-        logger.debug("createSubAffiliation() - PreCreate - " + abbrev + ": organizational unit after transformation from AffiliationVO (unformatted) =\n" + organizationalUnitPreCreate);
+        logger.debug("createSubAffiliation() - PreCreate - " + name + ": AffiliationVO.externalID = " + affiliation.getIdentifiers());
+        logger.debug("createSubAffiliation() - PreCreate - " + name + ": organizational unit after transformation from AffiliationVO (unformatted) =\n" + organizationalUnitPreCreate);
         // create the organizational unit in the framework
         String organizationalUnitPostCreate = ServiceLocator.getOrganizationalUnitHandler(userHandle).create(organizationalUnitPreCreate);
         assertNotNull(organizationalUnitPostCreate);
         // extract the objid from the returned OU
         String objectId = getObjid(organizationalUnitPostCreate);
         StringBuffer sb = new StringBuffer();
-        sb.append("createSubAffiliation() - " + abbrev + ": organizational unit created in the framework (objectId: " + objectId + ") as a sub_OU of ");
+        sb.append("createSubAffiliation() - " + name + ": organizational unit created in the framework (objectId: " + objectId + ") as a sub_OU of ");
         for (String objId : parentObjectIds)
         {
             sb.append(objId + ", ");
@@ -257,8 +255,8 @@ public class AffiliationCreator extends TestBase
         logger.info(sb.toString());
         // check relationship to parent affiliation(s)
         String parents = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveParents(objectId);
-        logger.info("createSubAffiliation() - " + abbrev + ": parent-OUs retrieved.");
-        logger.debug("createSubAffiliation() - " + abbrev + ": list of retrieved parent affiliations =\n" + toString(getDocument(parents, false), false));
+        logger.info("createSubAffiliation() - " + name + ": parent-OUs retrieved.");
+        logger.debug("createSubAffiliation() - " + name + ": list of retrieved parent affiliations =\n" + toString(getDocument(parents, false), false));
         List<AffiliationVO> parentsVOList = xmlTransforming.transformToAffiliationList(parents);
         assertEquals(parentObjectIds.size(), parentsVOList.size());
         return objectId;
@@ -276,26 +274,15 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationMPG = new AffiliationVO();
         affiliationMPG.setName("Max-Planck-Gesellschaft");
-        affiliationMPG.setAbbreviation("MPG");
-        affiliationMPG.setAddress("Hofgartenstr. 8");
-        affiliationMPG.setPostcode("80539");
+        affiliationMPG.getAlternativeNames().add("MPG");
         affiliationMPG.setCity("München");
-        affiliationMPG.setTelephone("+49 (89) 2108 - 0");
-        affiliationMPG.setFax("+49 (89) 2108 - 1111");
-        affiliationMPG.setEmail("post@gv.mpg.de");
-        try
-        {
-            affiliationMPG.setHomepageUrl(new URL("http://www.mpg.de"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+        affiliationMPG.getIdentifiers().add("http://www.mpg.de");
+
         affiliationMPG.setCountryCode("NO");
-        affiliationMPG
-                .setDescription("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-        affiliationMPG.setExternalId("4711");
-        affiliationMPG.setRegion("Worldwide");
+        affiliationMPG.getDescriptions()
+                .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
+        affiliationMPG.getIdentifiers().add("4711");
+
         return affiliationMPG;
     }
 
@@ -311,26 +298,16 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationHelmholtz = new AffiliationVO();
         affiliationHelmholtz.setName("Helmholtz-Gemeinschaft");
-        affiliationHelmholtz.setAbbreviation("HG");
-        affiliationHelmholtz.setAddress("Ahrstraße 45");
-        affiliationHelmholtz.setPostcode("53175");
+        affiliationHelmholtz.getAlternativeNames().add("HG");
+
         affiliationHelmholtz.setCity("Bonn");
-        affiliationHelmholtz.setTelephone("+49 228 30818-0");
-        affiliationHelmholtz.setFax("+49 228 30818-30");
-        affiliationHelmholtz.setEmail("org@helmholtz.de");
-        try
-        {
-            affiliationHelmholtz.setHomepageUrl(new URL("http://www.helmholtz.de"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationHelmholtz.getIdentifiers().add("http://www.helmholtz.de");
         affiliationHelmholtz.setCountryCode("DE");
-        affiliationHelmholtz
-                .setDescription("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-        affiliationHelmholtz.setExternalId("239832-3232");
-        affiliationHelmholtz.setRegion("Worldwide");
+        affiliationHelmholtz.getDescriptions()
+                .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
+        affiliationHelmholtz.getIdentifiers().add("239832-3232");
+
         return affiliationHelmholtz;
     }
 
@@ -346,26 +323,15 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationFraunhofer = new AffiliationVO();
         affiliationFraunhofer.setName("Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.");
-        affiliationFraunhofer.setAbbreviation("FG");
-        affiliationFraunhofer.setAddress("Hansastraße 27c");
-        affiliationFraunhofer.setPostcode("80686 ");
+        affiliationFraunhofer.getAlternativeNames().add("FG");
+
         affiliationFraunhofer.setCity("München");
-        affiliationFraunhofer.setTelephone("+49 (0) 89 / 12 05- 0");
-        affiliationFraunhofer.setFax("+49 (0) 89 / 12 05-75 31");
-        affiliationFraunhofer.setEmail("info@fraunhofer.de");
-        try
-        {
-            affiliationFraunhofer.setHomepageUrl(new URL("http://www.fraunhofer.de"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+        affiliationFraunhofer.getIdentifiers().add("http://www.fraunhofer.de");
+
         affiliationFraunhofer.setCountryCode("NO");
-        affiliationFraunhofer
-                .setDescription("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
-        affiliationFraunhofer.setExternalId("4711");
-        affiliationFraunhofer.setRegion("Worldwide");
+        affiliationFraunhofer.getDescriptions()
+                .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
+        affiliationFraunhofer.getIdentifiers().add("4711");
         return affiliationFraunhofer;
     }
 
@@ -381,26 +347,16 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationMPIFG = new AffiliationVO();
         affiliationMPIFG.setName("Max-Planck-Institut für Gesellschaftsforschung");
-        affiliationMPIFG.setAbbreviation("MPIFG");
-        affiliationMPIFG.setAddress("Paulstraße 3");
-        affiliationMPIFG.setPostcode("50676");
+        affiliationMPIFG.getAlternativeNames().add("MPIFG");
         affiliationMPIFG.setCity("Köln");
-        affiliationMPIFG.setTelephone("+49 221 27 67-0");
-        affiliationMPIFG.setFax("+49 221 2767-555");
-        affiliationMPIFG.setEmail("info@mpifg.de");
-        try
-        {
-            affiliationMPIFG.setHomepageUrl(new URL("http://www.mpifg.de"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationMPIFG.getIdentifiers().add("http://www.mpifg.de");
+
         affiliationMPIFG.setCountryCode("DE");
-        affiliationMPIFG
-                .setDescription("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
-        affiliationMPIFG.setExternalId("4711-4712");
-        affiliationMPIFG.setRegion("Cologne and the rest of the World");
+        affiliationMPIFG.getDescriptions()
+                .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
+        affiliationMPIFG.getIdentifiers().add("4711-4712");
+
         return affiliationMPIFG;
     }
 
@@ -417,31 +373,21 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationMPI_G = new AffiliationVO();
         affiliationMPI_G.setName("Max-Planck-Institut zur Erforschung multireligiöser und multiethnischer Gesellschaften");
-        affiliationMPI_G.setAbbreviation("MPI-G");
-        affiliationMPI_G.setAddress("Hermann-Föge-Weg 11");
-        affiliationMPI_G.setPostcode("37073");
+        affiliationMPI_G.getAlternativeNames().add("MPI-G");
         affiliationMPI_G.setCity("Göttingen");
-        affiliationMPI_G.setTelephone("(+49 551) 49 56 - 0");
-        affiliationMPI_G.setFax("(+49 551) 49 56 - 170");
-        affiliationMPI_G.setEmail("Geschichte@mpi-g.gwdg.de");
-        try
-        {
-            affiliationMPI_G.setHomepageUrl(new URL("http://www.geschichte.mpg.de/"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationMPI_G.getIdentifiers().add("http://www.geschichte.mpg.de/");
+
         affiliationMPI_G.setCountryCode("DE");
-        affiliationMPI_G.setDescription("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
+        affiliationMPI_G.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
                 + "das durch eine aus französischen und deutschen Persönlichkeiten zusammengesetzte wissenschaftliche Kommission beraten wird.\n"
                 + "Die Mission Historique Francaise en Allemagne wurde 1977 durch Robert Mandrou gegründet, der auch ihr erster Direktor war. "
                 + "Heute nimmt sie im wissenschaftlichen Austausch der Historiker in Frankreich und Deutschland einen allgemein anerkannten Platz ein.\n"
                 + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
                 + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
                 + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
-        affiliationMPI_G.setExternalId("r2d2-49");
-        affiliationMPI_G.setRegion("Milky way");
+        affiliationMPI_G.getIdentifiers().add("r2d2-49");
+
         return affiliationMPI_G;
     }
 
@@ -458,23 +404,14 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationFML = new AffiliationVO();
         affiliationFML.setName("Friedrich-Miescher-Laboratorium für biologische Arbeitsgruppen in der Max-Planck-Gesellschaft");
-        affiliationFML.setAbbreviation("FML");
-        affiliationFML.setAddress("Spemannstr. 39");
-        affiliationFML.setPostcode("72076");
+        affiliationFML.getAlternativeNames().add("FML");
+
         affiliationFML.setCity("Tübingen");
-        affiliationFML.setTelephone("+49 (7071) 601 - 800");
-        affiliationFML.setFax("+49 (7071) 601 - 801");
-        affiliationFML.setEmail("info@fml.tuebingen.mpg.de");
-        try
-        {
-            affiliationFML.setHomepageUrl(new URL("http://www.fml.tuebingen.mpg.de"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationFML.getIdentifiers().add("http://www.fml.tuebingen.mpg.de");
+        
         affiliationFML.setCountryCode("DE");
-        affiliationFML.setDescription("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
+        affiliationFML.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
                 + "die Möglichkeit zu bieten, mit unabhängigen Arbeitsgruppen für einen befristeten Zeitraum (fünf Jahre) eigene "
                 + "Forschungsprojekte zu bearbeiten. Die Forschungsschwerpunkte wechseln mit der Berufung neuer Gruppenleiter.\n"
                 + "Administrative und organisatorische Interessen der Arbeitsgruppen des Friedrich-Miescher-Laboratoriums werden "
@@ -499,8 +436,8 @@ public class AffiliationCreator extends TestBase
                 + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
                 + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
                 + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
-        affiliationFML.setExternalId("MPI-27892-UBUNTU");
-        affiliationFML.setRegion("Tout le monde");
+        affiliationFML.getIdentifiers().add("MPI-27892-UBUNTU");
+
         return affiliationFML;
     }
 
@@ -516,23 +453,13 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationMPIMF = new AffiliationVO();
         affiliationMPIMF.setName("Max-Planck-Institut für medizinische Forschung");
-        affiliationMPIMF.setAbbreviation("MPIMF");
-        affiliationMPIMF.setAddress("Jahnstraße 29");
-        affiliationMPIMF.setPostcode("69120");
+        affiliationMPIMF.getAlternativeNames().add("MPIMF");
         affiliationMPIMF.setCity("Heidelberg");
-        affiliationMPIMF.setTelephone("+49 (6221) 486 - 0");
-        affiliationMPIMF.setFax("+49 (6221) 486 - 585");
-        affiliationMPIMF.setEmail("info@mpimf-heidelberg.mpg.de");
-        try
-        {
-            affiliationMPIMF.setHomepageUrl(new URL("http://www.mpimf-heidelberg.mpg.de/"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationMPIMF.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/");
+
         affiliationMPIMF.setCountryCode("DE");
-        affiliationMPIMF.setDescription("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
+        affiliationMPIMF.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
                 + "medizinische Grundlagenforschung einzuführen. Die Abteilungen für Chemie, Physiologie und Biophysik konzentrierten "
                 + "sich auf biophysikalische und chemische Fragestellungen, in der Tradition der Naturstoffchemie des Instituts. Mit "
                 + "einer Abteilung für Molekularbiologie wurde in den 60er Jahren neuen Entwicklungen in der Biologie Rechnung getragen. "
@@ -559,8 +486,7 @@ public class AffiliationCreator extends TestBase
                 + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
                 + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
                 + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
-        affiliationMPIMF.setExternalId("MPI-HD-49°25'N,8°43'O");
-        affiliationMPIMF.setRegion("Heidelberg und Umgebung");
+        affiliationMPIMF.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
         return affiliationMPIMF;
     }
 
@@ -576,27 +502,17 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationZEL = new AffiliationVO();
         affiliationZEL.setName("Zentrale Einrichtung Lichtmikroskopie des MPI für Medizinische Forschung");
-        affiliationZEL.setAbbreviation("ZEL");
-        affiliationZEL.setAddress("Jahnstr. 29");
-        affiliationZEL.setPostcode("69120");
+        affiliationZEL.getAlternativeNames().add("ZEL");
         affiliationZEL.setCity("Heidelberg");
-        affiliationZEL.setTelephone("06221-486-360");
-        affiliationZEL.setFax("06221-486-325");
-        affiliationZEL.setEmail("guenter.giese@mpimf-heidelberg.mpg.de");
-        try
-        {
-            affiliationZEL.setHomepageUrl(new URL("http://lightmicro.mpimf-heidelberg.mpg.de/index.html"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+
+        affiliationZEL.getIdentifiers().add("http://lightmicro.mpimf-heidelberg.mpg.de/index.html");
+
         affiliationZEL.setCountryCode("DE");
-        affiliationZEL.setDescription("Die Zentrale Einrichtung Lichtmikroskopie des MPI fuer Medizinische Forschung soll:\n"
+        affiliationZEL.getDescriptions().add("Die Zentrale Einrichtung Lichtmikroskopie des MPI fuer Medizinische Forschung soll:\n"
                 + "* Wissenschaflern des Institutes und von außerhalb die Nutzung von komplexen, aktuellen Methoden der Lichtmikroskopie " + "und der lichtmikroskopischen Datenanalyse bieten\n"
                 + "* Unterstützung und Training für Probenvorbereitung, Datenaufnahme und Datenanalyse bieten\n" + "* die Kommunikation und den Austausch von experimentellen Erfahrungen fördern");
-        affiliationZEL.setExternalId("LIGHT-123");
-        affiliationZEL.setRegion("Germany");
+        affiliationZEL.getIdentifiers().add("LIGHT-123");
+
         return affiliationZEL;
     }
 
@@ -612,27 +528,16 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationMPH_HD = new AffiliationVO();
         affiliationMPH_HD.setName("Max-Planck-Haus Heidelberg");
-        affiliationMPH_HD.setAbbreviation("MPH-HD");
-        affiliationMPH_HD.setAddress("Humboldtstr. 13");
-        affiliationMPH_HD.setPostcode("69120");
+        affiliationMPH_HD.getAlternativeNames().add("MPH-HD");
         affiliationMPH_HD.setCity("Heidelberg");
-        affiliationMPH_HD.setTelephone("+49 6221 486-428");
-        affiliationMPH_HD.setFax("+49 6221 486-455");
-        affiliationMPH_HD.setEmail("lang@vw.mpimf-heidelberg.mpg.de");
-        try
-        {
-            affiliationMPH_HD.setHomepageUrl(new URL("http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+        affiliationMPH_HD.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html");
+
         affiliationMPH_HD.setCountryCode("DE");
-        affiliationMPH_HD.setDescription("Im Hörsaal des Max-Planck-Hauses können Vortäge und Seminarveranstaltungen stattfinden; folgende technische " + "Ausstattung steht zur Verfügung:\n"
+        affiliationMPH_HD.getDescriptions().add("Im Hörsaal des Max-Planck-Hauses können Vortäge und Seminarveranstaltungen stattfinden; folgende technische " + "Ausstattung steht zur Verfügung:\n"
                 + "* Beamer\n" + "* Tageslichtprojektor\n" + "* Diaprojektor\n" + "* Beamer\n" + "* Breitband-Internetanschluss\n" + "* Leinwand\n" + "* Wandtafel\n"
                 + "* Mikrofonanlage mit drei Funkmikrofonen\n" + "* DVD\n");
-        affiliationMPH_HD.setExternalId("MPH-HD-20982022");
-        affiliationMPH_HD.setRegion("Heidelberg");
+        affiliationMPH_HD.getIdentifiers().add("MPH-HD-20982022");
+
         return affiliationMPH_HD;
     }
 
@@ -648,23 +553,12 @@ public class AffiliationCreator extends TestBase
         initialize();
         AffiliationVO affiliationFU_BERLIN = new AffiliationVO();
         affiliationFU_BERLIN.setName("Freie Universität Berlin");
-        affiliationFU_BERLIN.setAbbreviation("FU-BERLIN");
-        affiliationFU_BERLIN.setAddress("Kaiserswerther Str. 16/18");
-        affiliationFU_BERLIN.setPostcode("14195");
+        affiliationFU_BERLIN.getAlternativeNames().add("FU-BERLIN");
         affiliationFU_BERLIN.setCity("Berlin");
-        affiliationFU_BERLIN.setTelephone("(030) 838-1");
-        affiliationFU_BERLIN.setFax("(030) 838-2");
-        affiliationFU_BERLIN.setEmail("info@fu-berlin.de");
-        try
-        {
-            affiliationFU_BERLIN.setHomepageUrl(new URL("http://www.fu-berlin.de/"));
-        }
-        catch (MalformedURLException e)
-        {
-            e.printStackTrace();
-        }
+        affiliationFU_BERLIN.getIdentifiers().add("http://www.fu-berlin.de/");
+
         affiliationFU_BERLIN.setCountryCode("DE");
-        affiliationFU_BERLIN.setDescription("Die Freie Universität Berlin gehört zu den führenden Universitäten der Welt und zeichnet sich durch ihren "
+        affiliationFU_BERLIN.getDescriptions().add("Die Freie Universität Berlin gehört zu den führenden Universitäten der Welt und zeichnet sich durch ihren "
                 + "modernen und internationalen Charakter aus. Deutschlandweit zählt die Freie Universität mit über hundert Studienfächern "
                 + "und 35.500 Studierenden - davon 15 Prozent aus aller Welt - zu den größten und leistungsstärksten Universitäten. Auch "
                 + "ausländische Gastwissenschaftler, wie die Alexander von Humboldt-Stipendiaten, wählen deutschlandweit bevorzugt die "
@@ -677,8 +571,8 @@ public class AffiliationCreator extends TestBase
                 + "einen beträchtlichen Teil ihrer Einnahmen aus Drittmitteln ein.\n"
                 + "Eine strategische Allianz hat die Freie Universität mit der Ludwig-Maximilians-Universität in München geschlossen. "
                 + "Außerdem arbeitet die Freie Universität mit weltweit aktiven Firmen wie der BMW-Group, Schering, Siemens, Deutsche " + "Telekom oder Pfizer eng zusammen.");
-        affiliationFU_BERLIN.setExternalId("FU-B-2103984");
-        affiliationFU_BERLIN.setRegion("Berlin");
+        affiliationFU_BERLIN.getIdentifiers().add("FU-B-2103984");
+
         return affiliationFU_BERLIN;
     }
 
