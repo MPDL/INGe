@@ -45,6 +45,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringWriter;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
@@ -68,9 +69,12 @@ import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
@@ -89,9 +93,6 @@ import com.sun.org.apache.xerces.internal.dom.AttrImpl;
 import com.sun.org.apache.xml.internal.serialize.OutputFormat;
 import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -158,35 +159,76 @@ public class TestBase
         assertNotNull(serviceInstance);
         return serviceInstance;
     }
-
+    
     /**
-     * Logs in the given user.
+     * Logs in the given user with the given password.
      * 
-     * @param userid
-     * @param password
-     * @return the user handle.
+     * @param userid The id of the user to log in.
+     * @param password The password of the user to log in.
+     * @return The handle for the logged in user.
      * @throws HttpException
      * @throws IOException
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
+    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-    	
-    	logger.debug("Framework URL: " + ServiceLocator.getFrameworkUrl());
-    	
-        // post the login data
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
-        postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", ServiceLocator.getFrameworkUrl());
-        postMethod.addParameter("login", userid);
-        postMethod.addParameter("password", password);
+        
+        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+        String protocol = frameworkUrl.substring(0, frameworkUrl.indexOf(":"));
+        String host = frameworkUrl.substring(frameworkUrl.indexOf("://") + 3);
+        int port = 80;
+        if (host.contains("/"))
+        {
+            host = host.substring(0, host.indexOf("/"));
+        }
+        if (host.contains(":"))
+        {
+            port = Integer.parseInt(host.substring(host.indexOf(":") + 1));
+            host = host.substring(0, host.indexOf(":"));
+        }
+        
         HttpClient client = new HttpClient();
+        client.getHostConfiguration().setHost(host, port, protocol);
+        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        
+        PostMethod login = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/j_spring_security_check");
+        login.addParameter("j_username", userid);
+        login.addParameter("j_password", password);
+        
+        client.executeMethod(login);
+        System.out.println("Login form post: " + login.getStatusLine().toString());
+                
+        login.releaseConnection();
+        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
+        Cookie[] logoncookies = cookiespec.match(
+                host, port, "/", false, 
+                client.getState().getCookies());
+        
+        System.out.println("Logon cookies:");
+        Cookie sessionCookie = logoncookies[0];
+        
+        if (logoncookies.length == 0) {
+            
+            System.out.println("None");
+            
+        } else {
+            for (int i = 0; i < logoncookies.length; i++) {
+                System.out.println("- " + logoncookies[i].toString());
+            }
+        }
+        
+        PostMethod postMethod = new PostMethod(frameworkUrl + "/aa/login");
+        postMethod.addParameter("target", frameworkUrl);
+        client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
+        System.out.println("Login second post: " + postMethod.getStatusLine().toString());
+      
+        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode() && HttpServletResponse.SC_MOVED_TEMPORARILY != postMethod.getStatusCode())
         {
             throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
         }
-        // String response = postMethod.getResponseBodyAsString();
+        
         String userHandle = null;
         Header headers[] = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
@@ -196,9 +238,11 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+                System.out.println("location: "+location);
+                System.out.println("handle: "+userHandle);
             }
-
         }
+        
         if (userHandle == null)
         {
             throw new ServiceException("User not logged in.");
@@ -214,7 +258,7 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginScientist() throws ServiceException, HttpException, IOException
+    protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_scientist", "escidoc");
     }
@@ -227,7 +271,7 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginLibrarian() throws ServiceException, HttpException, IOException
+    protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser("test_dep_lib", "pubman");
     }
@@ -253,8 +297,7 @@ public class TestBase
      * @throws RemoteException
      * @throws ServiceException
      */
-    protected static void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException,
-            AuthenticationException, RemoteException, ServiceException
+    protected static void logout(String userHandle) throws RemoteException, ServiceException, URISyntaxException
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
     }

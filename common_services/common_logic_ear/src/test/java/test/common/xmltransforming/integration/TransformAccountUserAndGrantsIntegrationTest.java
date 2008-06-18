@@ -35,6 +35,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -48,10 +49,8 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.common.TestBase;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
-import de.fiz.escidoc.um.UserAccountHandlerRemote;
+
+import de.escidoc.www.services.aa.UserAccountHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
@@ -94,7 +93,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
      * @throws IOException
      */
     @Before
-    public void setUp() throws HttpException, ServiceException, IOException
+    public void setUp() throws HttpException, ServiceException, IOException, URISyntaxException
     {
         userHandle = loginScientist();
     }
@@ -107,7 +106,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
      * @throws ServiceException
      */
     @After
-    public void tearDown() throws WebserverSystemException, SqlDatabaseSystemException, AuthenticationException, RemoteException, ServiceException
+    public void tearDown() throws RemoteException, ServiceException, URISyntaxException
     {
         logout(userHandle);
     }
@@ -123,7 +122,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     {
         logger.info("### transformTestDepScientist ###");
 
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = TEST_DEP_SCIENTIST_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
@@ -153,7 +152,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         logger.info("Framework-URL: " + ServiceLocator.getFrameworkUrl());
 
         // retrieve account user and transform
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = TEST_DEP_SCIENTIST_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -198,7 +197,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     {
         logger.info("### transformTestDepLibrarian ###");
 
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = TEST_DEP_LIBRARIAN_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -228,7 +227,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         logger.info("### transformTestDepLibrarianGrants ###");
 
         // retrieve account user and transform
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = TEST_DEP_LIBRARIAN_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -283,7 +282,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     {
         logger.info("### transformTestEditor ###");
 
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = "test_editor";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -313,7 +312,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     {
         logger.info("### transformTestDepAuthor ###");
 
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = "test_author";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -344,7 +343,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
     {
         logger.info("### transformSystemAdministrator ###");
 
-        UserAccountHandlerRemote uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
+        UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = "roland";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);

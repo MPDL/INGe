@@ -51,7 +51,7 @@ import test.common.xmltransforming.XmlTransformingIntegrationTest;
 @Suite.SuiteClasses({
                     XmlTransformingIntegrationTest.class
                     ,DataGatheringTest.class
-                    ,ValueObjectTest.class                                        
+                    ,ValueObjectTest.class
                     ,ComparatorTest.class
                     ,EncodingTest.class
                     ,EmailHandlingTest.class

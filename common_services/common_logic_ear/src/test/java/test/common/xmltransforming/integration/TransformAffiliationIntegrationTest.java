@@ -298,28 +298,28 @@ public class TransformAffiliationIntegrationTest extends TestBase
         TransformAffiliationIntegrationTest.abbreviationToObjIdMapping = AffiliationCreator.createAffiliationStructure(systemAdministratorUserHandle);
 
         // check number of childs of MPG (5: MPIFG, MPI-G, FML, MPIMF, FU-BERLIN)
-        String mpgChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdMPG"));
+        String mpgChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdMPG"));
         List<AffiliationVO> childVOList = xmlTransforming.transformToAffiliationList(mpgChilds);
         logger.info("MPG: child affiliations retrieved.");
         logger.debug("MPG: list of retrieved child affiliations =\n" + toString(getDocument(mpgChilds, false), false));
         assertEquals(5, childVOList.size());
 
         // check number of childs of MPIMF (2: ZEL, MPH-HD)
-        String mpimfChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdMPIMF"));
+        String mpimfChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdMPIMF"));
         childVOList = xmlTransforming.transformToAffiliationList(mpimfChilds);
         logger.info("MPIMF: child affiliations retrieved.");
         logger.debug("MPIMF: list of retrieved child affiliations =\n" + toString(getDocument(mpimfChilds, false), false));
         assertEquals(2, childVOList.size());
 
         // check number of childs of MPH-HD (1: ZEL_2)
-        String mphhdChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdMPH_HD"));
+        String mphhdChilds = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdMPH_HD"));
         childVOList = xmlTransforming.transformToAffiliationList(mphhdChilds);
         logger.info("MPH-HD: child affiliations retrieved.");
         logger.debug("MPH-HD: list of retrieved child affiliations =\n" + toString(getDocument(mphhdChilds, false), false));
         assertEquals(1, childVOList.size());
 
         // check number of childs of ZEL_2 (1: FU_BERLIN_2)
-        String zel2Childs = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdZEL2"));
+        String zel2Childs = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdZEL2"));
         childVOList = xmlTransforming.transformToAffiliationList(zel2Childs);
         logger.info("ZEL_2: child affiliations retrieved.");
         logger.debug("ZEL_2: list of retrieved child affiliations =\n" + toString(getDocument(zel2Childs, false), false));
@@ -381,7 +381,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         logger.info("all created top level affiliations found.");
 
         // retrieve children of MPG
-        String mpgChildAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdMPG"));
+        String mpgChildAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdMPG"));
         logger.info("child affiliations of MPG retrieved.");
         logger.debug("child affiliations of MPG:\n" + toString(getDocument(mpgChildAffiliations, false), false));
         List<AffiliationVO> mpgChildAffiliationList = xmlTransforming.transformToAffiliationList(mpgChildAffiliations);
@@ -427,7 +427,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         assertEquals(1, counter);
 
         // get childs of MPIMF
-        String mpimfChildAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildren(abbreviationToObjIdMapping.get("objectIdMPIMF"));
+        String mpimfChildAffiliations = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieveChildObjects(abbreviationToObjIdMapping.get("objectIdMPIMF"));
         logger.info("child affiliations of MPIMF retrieved.");
         List<AffiliationVO> mpimfChildAffiliationList = xmlTransforming.transformToAffiliationList(mpimfChildAffiliations);
         // check number of children

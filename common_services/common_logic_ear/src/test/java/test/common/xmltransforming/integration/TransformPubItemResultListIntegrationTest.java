@@ -38,6 +38,7 @@ import gov.loc.www.zing.srw.SearchRetrieveResponseType;
 import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -53,24 +54,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidContentException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.invalid.XmlSchemaValidationException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingAttributeValueException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingContentException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingElementValueException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContentTypeNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.FileNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ReferencedResourceNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.RelationPredicateNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyAttributeViolationException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyElementViolationException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
@@ -155,15 +139,12 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         return md;
     }
 
-    private PubItemVO createAndReleaseItem(String userHandle, String itemTitle) throws TechnicalException, ServiceException, ReadonlyAttributeViolationException, XmlSchemaValidationException,
-            ReadonlyElementViolationException, MissingContentException, MissingAttributeValueException, ContentTypeNotFoundException, ReferencedResourceNotFoundException, InvalidContentException,
-            ContextNotFoundException, RelationPredicateNotFoundException, FileNotFoundException, MissingMethodParameterException, InvalidXmlException, MissingElementValueException,
-            AuthenticationException, AuthorizationException, SystemException, RemoteException
+    private PubItemVO createAndReleaseItem(String userHandle, String itemTitle) throws TechnicalException, ServiceException, RemoteException, URISyntaxException
     {
         PubItemVO itemVO = getComplexPubItemWithoutFiles();
         itemVO.getMetadata().setTitle(new TextVO(itemTitle));
         String itemXml = xmlTransforming.transformToItem(itemVO);
-        ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+        ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
         String createdItemXml = ihr.create(itemXml);
         PubItemVO createdItemVO = xmlTransforming.transformToPubItem(createdItemXml);
         String createdItemId = createdItemVO.getVersion().getObjectId();
@@ -292,7 +273,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         finally
         {
             // withdraw items (even in case of error)
-            ItemHandlerRemote ihr = ServiceLocator.getItemHandler(adminUserHandle);
+            ItemHandler ihr = ServiceLocator.getItemHandler(adminUserHandle);
             for (String itemRef : itemRefs)
             {
                 String releasedItemXml = ihr.retrieve(itemRef);

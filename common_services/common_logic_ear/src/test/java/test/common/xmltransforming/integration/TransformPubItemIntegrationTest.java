@@ -45,7 +45,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
@@ -624,7 +624,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.info("PubItemVO transformed to item(XML) for create: " + pubItemXMLPreCreate);
         logger.debug("ContentItem() (item after transformation from PubItemVO) =\n" + toString(getDocument(pubItemXMLPreCreate, false), false));
         // create the item in the framework
-        ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+        ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
         logger.debug("ItemHandlerRemote successfully obtained.");
         String pubItemXMLPostCreate = ihr.create(pubItemXMLPreCreate);
         assertNotNull(pubItemXMLPostCreate);
@@ -880,7 +880,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.info("PubItemVO transformed to item(XML) for create: " + pubItemXMLPreCreate);
         logger.debug("ContentItem() (item after transformation from PubItemVO) =\n" + toString(getDocument(pubItemXMLPreCreate, false), false));
         // create the item in the framework
-        ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+        ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
         logger.debug("ItemHandlerRemote successfully obtained.");
         String pubItemXMLPostCreate = ihr.create(pubItemXMLPreCreate);
         assertNotNull(pubItemXMLPostCreate);

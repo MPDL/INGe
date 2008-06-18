@@ -33,6 +33,7 @@ package test.common.xmltransforming.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -48,24 +49,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidContentException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.invalid.XmlSchemaValidationException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingAttributeValueException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingContentException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingElementValueException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContentTypeNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.FileNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ReferencedResourceNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.RelationPredicateNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyAttributeViolationException;
-import de.fiz.escidoc.common.exceptions.application.violated.ReadonlyElementViolationException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.ItemSorting;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -134,18 +118,11 @@ public class TransformPubItemVersionListIntegrationTest extends
 	}
 
 	private PubItemVO createItem(String userHandle) throws TechnicalException,
-			ServiceException, ReadonlyAttributeViolationException,
-			XmlSchemaValidationException, ReadonlyElementViolationException,
-			MissingContentException, MissingAttributeValueException,
-			ContentTypeNotFoundException, ReferencedResourceNotFoundException,
-			InvalidContentException, ContextNotFoundException,
-			RelationPredicateNotFoundException, FileNotFoundException,
-			MissingMethodParameterException, InvalidXmlException,
-			MissingElementValueException, AuthenticationException,
-			AuthorizationException, SystemException, RemoteException {
+			ServiceException, RemoteException, URISyntaxException
+	{
 		PubItemVO itemVO = getComplexPubItemWithoutFiles();
 		String itemXml = xmlTransforming.transformToItem(itemVO);
-		ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+		ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
 		String createdItemXml = ihr.create(itemXml);
 		logger.debug("Item created:\n" + createdItemXml);
 		PubItemVO createdItemVO = xmlTransforming
@@ -156,19 +133,11 @@ public class TransformPubItemVersionListIntegrationTest extends
 	}
 
 	private PubItemVO updateItem(PubItemVO itemVO, String userHandle)
-			throws TechnicalException, ServiceException,
-			ReadonlyAttributeViolationException, XmlSchemaValidationException,
-			ReadonlyElementViolationException, MissingContentException,
-			MissingAttributeValueException, ContentTypeNotFoundException,
-			ReferencedResourceNotFoundException, InvalidContentException,
-			ContextNotFoundException, RelationPredicateNotFoundException,
-			FileNotFoundException, MissingMethodParameterException,
-			InvalidXmlException, MissingElementValueException,
-			AuthenticationException, AuthorizationException, SystemException,
-			RemoteException {
+			throws TechnicalException, ServiceException, RemoteException, URISyntaxException
+	{
 		String itemXml = xmlTransforming.transformToItem(itemVO);
 		String itemId = itemVO.getVersion().getObjectId();
-		ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+		ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
 		logger.debug("Trying to update:\n" + itemXml);
 		String updatedItemXml = ihr.update(itemId, itemXml);
 		PubItemVO updatedItemVO = xmlTransforming
@@ -181,7 +150,7 @@ public class TransformPubItemVersionListIntegrationTest extends
 	/**
 	 * @throws Exception
 	 * 
-	 * Ignore this test untill update bug with special characters is fixed.
+	 * Ignore this test until update bug with special characters is fixed.
 	 */
 	@Test
 	@Ignore
@@ -199,7 +168,7 @@ public class TransformPubItemVersionListIntegrationTest extends
 
 		// retrieve version history of item
 		String itemId = item.getVersion().getObjectId();
-		ItemHandlerRemote ihr = ServiceLocator.getItemHandler(userHandle);
+		ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
 		String itemVersionHistoryXml = ihr.retrieveVersionHistory(itemId);
 		logger.info("Version history of PubItem '" + itemId + "' retrieved.");
 		logger.debug(itemVersionHistoryXml);

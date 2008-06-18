@@ -44,7 +44,7 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote;
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -693,7 +693,7 @@ public class AffiliationCreator extends TestBase
         do
         {
             // retrieve all affiliations in the framework (again)
-            OrganizationalUnitHandlerRemote ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
+            OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
             String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
             // logger.debug(toString(getDocument(affiliationsXML, false), false));
             List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);

@@ -32,6 +32,7 @@ package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertEquals;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,10 +47,8 @@ import org.junit.Test;
 
 import test.common.AffiliationCreator;
 import test.common.xmltransforming.XmlTransformingTestBase;
-import de.fiz.escidoc.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote;
+
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -140,7 +139,7 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
      * @throws AffiliationNotFoundException
      */
     public List<OrganizationVO> createOrganizationListFromAffiliation(final String userHandle, final AffiliationVO affiliation)
-            throws TechnicalException, AffiliationNotFoundException
+            throws TechnicalException, AffiliationNotFoundException, URISyntaxException
     {
         logger.debug("createOrganizationListFromAffiliation(AffiliationVO)");
         if (affiliation == null)
@@ -154,7 +153,7 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
         try
         {
             // Get the affiliation paths for the given affiliation from the framework
-            OrganizationalUnitHandlerRemote ouHandler = de.mpg.escidoc.services.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
+            OrganizationalUnitHandler ouHandler = de.mpg.escidoc.services.framework.ServiceLocator.getOrganizationalUnitHandler(userHandle);
             String affObjId = affiliationRef.getObjectId();
             logger.debug("createOrganizationListFromAffiliation(AffiliationVO) - trying to ouHandler.retrievePathList(affObjId) with affObjId="
                     + affObjId);
@@ -219,21 +218,6 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
                 // add the new OrganizationVO to the result list
                 organizationList.add(newOrg);
             }
-        }
-        catch (OrganizationalUnitNotFoundException e)
-        {
-            logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-            throw new AffiliationNotFoundException(affiliationRef, e);
-        }
-        catch (AuthenticationException e)
-        {
-            logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-            throw new TechnicalException(e);
-        }
-        catch (AuthorizationException e)
-        {
-            logger.error("createOrganizationListFromAffiliation(AffiliationVO)", e);
-            throw new TechnicalException(e);
         }
         catch (RemoteException e)
         {
