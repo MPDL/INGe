@@ -181,7 +181,7 @@ public class TestBase
         login.addParameter("j_password", password);
         
         client.executeMethod(login);
-        System.out.println("Login form post: " + login.getStatusLine().toString());
+        //System.out.println("Login form post: " + login.getStatusLine().toString());
                 
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -189,10 +189,10 @@ public class TestBase
         		host, port, "/", false, 
                 client.getState().getCookies());
         
-        System.out.println("Logon cookies:");
+        //System.out.println("Logon cookies:");
         Cookie sessionCookie = logoncookies[0];
         
-        if (logoncookies.length == 0) {
+/*        if (logoncookies.length == 0) {
             
             System.out.println("None");
             
@@ -200,13 +200,13 @@ public class TestBase
             for (int i = 0; i < logoncookies.length; i++) {
                 System.out.println("- " + logoncookies[i].toString());
             }
-        }
+        }*/
         
         PostMethod postMethod = new PostMethod("/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
-        System.out.println("Login second post: " + postMethod.getStatusLine().toString());
+        //System.out.println("Login second post: " + postMethod.getStatusLine().toString());
       
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
@@ -222,8 +222,8 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                System.out.println("location: "+location);
-                System.out.println("handle: "+userHandle);
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
         
@@ -248,12 +248,12 @@ public class TestBase
         loginPost.setRequestBody(new NameValuePair[] {userid, passwd});
         client.executeMethod(loginPost);
         loginPost.releaseConnection();
-        System.out.println("SC after post: "+loginPost.getStatusCode());
-        Cookie cakes[] = client.getState().getCookies();
+        //System.out.println("SC after post: "+loginPost.getStatusCode());
+/*        Cookie cakes[] = client.getState().getCookies();
         for (Cookie c : cakes)
         {
             System.out.println("Cookie: "+c.getName()+"  value:  "+c.getValue());
-        }
+        }*/
         
         int sc = loginPost.getStatusCode();
         
@@ -264,7 +264,7 @@ public class TestBase
                 Header header = loginPost.getResponseHeader("location");
                 if (header != null) {
                     String newuri = header.getValue();
-                    System.out.println("redirect to: "+newuri);
+                    //System.out.println("redirect to: "+newuri);
 
                     if ((newuri == null) || (newuri.equals(""))) {
                         newuri = "/";
@@ -287,7 +287,7 @@ public class TestBase
 
                     int start = response.indexOf("eSciDocUserHandle");
                     String encodedUserHandle = response.substring(start +18, start +46);
-                    System.out.println("handle: "+encodedUserHandle);
+                    //System.out.println("handle: "+encodedUserHandle);
 
                     if (encodedUserHandle != null) {
                         userHandle = new String(Base64.decode(encodedUserHandle));

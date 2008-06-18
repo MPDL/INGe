@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <item:item
 	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
-	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.6"
+	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"
 	xmlns:version="http://escidoc.de/core/01/properties/version/"
 	xmlns:release="http://escidoc.de/core/01/properties/release/"
 	xmlns:item="http://www.escidoc.de/schemas/item/0.7"

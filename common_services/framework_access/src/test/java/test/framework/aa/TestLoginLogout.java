@@ -91,7 +91,7 @@ public class TestLoginLogout
         login.addParameter("j_password", password);
         
         client.executeMethod(login);
-        System.out.println("Login form post: " + login.getStatusLine().toString());
+        //System.out.println("Login form post: " + login.getStatusLine().toString());
                 
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -99,10 +99,10 @@ public class TestLoginLogout
         		host, port, "/", false, 
                 client.getState().getCookies());
         
-        System.out.println("Logon cookies:");
+        //System.out.println("Logon cookies:");
         Cookie sessionCookie = logoncookies[0];
         
-        if (logoncookies.length == 0) {
+/*        if (logoncookies.length == 0) {
             
             System.out.println("None");
             
@@ -110,13 +110,13 @@ public class TestLoginLogout
             for (int i = 0; i < logoncookies.length; i++) {
                 System.out.println("- " + logoncookies[i].toString());
             }
-        }
+        }*/
         
         PostMethod postMethod = new PostMethod("/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
-        System.out.println("Login second post: " + postMethod.getStatusLine().toString());
+        //System.out.println("Login second post: " + postMethod.getStatusLine().toString());
       
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
@@ -132,8 +132,8 @@ public class TestLoginLogout
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                System.out.println("location: "+location);
-                System.out.println("handle: "+userHandle);
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
         
