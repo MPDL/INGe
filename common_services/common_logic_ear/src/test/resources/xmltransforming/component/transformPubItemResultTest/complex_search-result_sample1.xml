@@ -1,13 +1,15 @@
 <search-result:search-result-record
 	xml:base="http://www.escidoc.de/" 	
-    xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3"
+    xmlns:search-result="${xsd.soap.searchresult.searchresult}"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:prop="${xsd.soap.common.prop}"
+    xmlns:srel="${xsd.soap.common.srel}"
     xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
     <search-result:highlight>
         <search-result:search-hit type="metadata">
             <search-result:text-fragment>
-                <search-result:text-fragment-data><![CDATA[> <escidocItem:context xlink:type="simple" xlink:title="PubMan Test Collection &amp;apos; &amp;gt;]]></search-result:text-fragment-data>
+                <search-result:text-fragment-data><![CDATA[> <srel:context xlink:type="simple" xlink:title="PubMan Test Collection &amp;apos; &amp;gt;]]></search-result:text-fragment-data>
                 <search-result:hit-word>
                     <search-result:start-index>63</search-result:start-index>
                     <search-result:end-index>66</search-result:end-index>
@@ -37,14 +39,14 @@
         </search-result:search-hit>
     </search-result:highlight>
     <escidocItem:item last-modification-date="2007-10-05T12:02:01.546Z" objid="escidoc:22" 
-        xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3">
+        xmlns:escidocItem="${xsd.soap.item.item}">
         <escidocItem:properties>
-            <escidocItem:creation-date>2007-10-05T11:24:45.000Z</escidocItem:creation-date>
-            <escidocItem:created-by objid="escidoc:user2"/>
-            <escidocItem:public-status>released</escidocItem:public-status>
-            <escidocItem:context objid="escidoc:persistent3"/>
-            <escidocItem:content-model objid="escidoc:persistent4"/>
-            <escidocItem:lock-status>unlocked</escidocItem:lock-status>
+            <prop:creation-date>2007-10-05T11:24:45.000Z</prop:creation-date>
+            <srel:created-by objid="escidoc:user2"/>
+            <prop:public-status>released</prop:public-status>
+            <srel:context objid="escidoc:persistent3"/>
+            <srel:content-model objid="escidoc:persistent4"/>
+            <prop:lock-status>unlocked</prop:lock-status>
             <escidocItem:version objid="escidoc:22:5">
                 <escidocItem:number>5</escidocItem:number>
                 <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
@@ -62,9 +64,9 @@
                 <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
                 <escidocItem:pid />
             </escidocItem:latest-release>
-            <escidocItem:content-model-specific />
+            <prop:content-model-specific />
         </escidocItem:properties>
-         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             <escidocMetadataRecords:md-record name="escidoc">
                 <escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/">
                     <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
@@ -225,11 +227,11 @@
                 </escidocMetadataProfile:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
-        <escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+        <escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
             <escidocComponents:component objid="escidoc:23" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
-                    <escidocComponents:creation-date>2007-10-05T11:24:42.546Z</escidocComponents:creation-date>
-                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <prop:creation-date>2007-10-05T11:24:42.546Z</prop:creation-date>
+                    <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top01</escidocComponents:description>                    
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
                     <escidocComponents:visibility>public</escidocComponents:visibility>
@@ -243,8 +245,8 @@
             </escidocComponents:component>
             <escidocComponents:component objid="escidoc:24" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
-                    <escidocComponents:creation-date>2007-10-05T11:30:36.203Z</escidocComponents:creation-date>
-                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <prop:creation-date>2007-10-05T11:30:36.203Z</prop:creation-date>
+                    <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top02a</escidocComponents:description>                    
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
                     <escidocComponents:visibility>public</escidocComponents:visibility>
@@ -257,8 +259,8 @@
             </escidocComponents:component>
             <escidocComponents:component objid="escidoc:25" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
-                    <escidocComponents:creation-date>2007-10-05T11:30:36.765Z</escidocComponents:creation-date>
-                    <escidocComponents:created-by objid="escidoc:user2"/>
+                    <prop:creation-date>2007-10-05T11:30:36.765Z</prop:creation-date>
+                    <srel:created-by objid="escidoc:user2"/>
                     <escidocComponents:description>top05</escidocComponents:description>
                     <escidocComponents:valid-status>valid</escidocComponents:valid-status>
                     <escidocComponents:visibility>public</escidocComponents:visibility>

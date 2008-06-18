@@ -1,0 +1,22 @@
+<pubman-admin-descriptor>
+	<allowed-genres>
+		<allowed-genre>article</allowed-genre>
+		<allowed-genre>book</allowed-genre>
+		<allowed-genre>book-item</allowed-genre>
+		<allowed-genre>proceedings</allowed-genre>
+		<allowed-genre>conference-paper</allowed-genre>
+		<allowed-genre>talk-at-event</allowed-genre>
+		<allowed-genre>conference-report</allowed-genre>
+		<allowed-genre>poster</allowed-genre>
+		<allowed-genre>courseware-lecture</allowed-genre>
+		<allowed-genre>thesis</allowed-genre>
+		<allowed-genre>paper</allowed-genre>
+		<allowed-genre>report</allowed-genre>
+		<allowed-genre>journal</allowed-genre>
+		<allowed-genre>issue</allowed-genre>
+		<allowed-genre>series</allowed-genre>
+		<allowed-genre>other</allowed-genre>
+	</allowed-genres>
+	<template-item>dsddsadad</template-item>
+	<validation-schema>dsadda</validation-schema>
+</pubman-admin-descriptor>

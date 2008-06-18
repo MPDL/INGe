@@ -1,0 +1,49 @@
+<context:context xmlns:context="${xsd.soap.context.context}" xmlns:srel="${xsd.soap.common.srel}" objid="escidoc:persistent3"
+	xmlns:prop="${xsd.soap.common.prop}" last-modification-date="2007-03-26T11:11:58.853Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/schemas/context/0.3 ../../../../misc/xsd/soap/context/0.3/context.xsd">
+	<context:properties>
+		<prop:creation-date>2007-01-16T11:23:24.359Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user42" />
+		<prop:public-status>opened</prop:public-status>
+		<prop:name>PubMan Test Collection</prop:name>
+		<prop:description>This is the sample collection description of the PubMan Test
+collection. Any content can be stored in this collection, which is of relevance
+for the users of the system. You can submit relevant bibliographic information
+for your publication (metadata) and all relevant files. The MPS is the
+responsible affiliation for this collection. Please contact
+u.tschida@zim.mpg.de for any questions.</prop:description>
+		<prop:type>PubMan</prop:type>
+		<prop:organizational-units>
+			<srel:organizational-unit objid="escidoc:persistent13" />
+		</prop:organizational-units>
+		<prop:last-modification-date>2007-03-26T11:11:58.853Z</prop:last-modification-date>
+	</context:properties>
+	<context:admin-descriptors>
+		<context:admin-descriptor>
+			<pubman-admin-descriptor>
+				<allowed-genres>
+					<allowed-genre>article</allowed-genre>
+					<allowed-genre>book</allowed-genre>
+					<allowed-genre>book-item</allowed-genre>
+					<allowed-genre>proceedings</allowed-genre>
+					<allowed-genre>conference-paper</allowed-genre>
+					<allowed-genre>talk-at-event</allowed-genre>
+					<allowed-genre>conference-report</allowed-genre>
+					<allowed-genre>poster</allowed-genre>
+					<allowed-genre>courseware-lecture</allowed-genre>
+					<allowed-genre>thesis</allowed-genre>
+					<allowed-genre>paper</allowed-genre>
+					<allowed-genre>report</allowed-genre>
+					<allowed-genre>journal</allowed-genre>
+					<allowed-genre>issue</allowed-genre>
+					<allowed-genre>series</allowed-genre>
+					<allowed-genre>other</allowed-genre>
+				</allowed-genres>
+				<template-item>escidoc:123</template-item>
+				<validation-schema>publication</validation-schema>
+				<workflow>standard</workflow>
+			</pubman-admin-descriptor>
+
+		</context:admin-descriptor>
+	</context:admin-descriptors>
+</context:context>

@@ -49,6 +49,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -139,6 +140,8 @@ public class TestBase
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
             + "responsible affiliation for this collection. Please contact\n"
             + "u.tschida@zim.mpg.de for any questions.";
+    
+    private static final int NUMBER_OF_URL_TOKENS = 2;
 
     /**
      * Logger for this class.
@@ -173,31 +176,30 @@ public class TestBase
      */
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-        
         String frameworkUrl = ServiceLocator.getFrameworkUrl();
-        String protocol = frameworkUrl.substring(0, frameworkUrl.indexOf(":"));
-        String host = frameworkUrl.substring(frameworkUrl.indexOf("://") + 3);
-        int port = 80;
-        if (host.contains("/"))
-        {
-            host = host.substring(0, host.indexOf("/"));
+        StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
+        if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
         }
-        if (host.contains(":"))
-        {
-            port = Integer.parseInt(host.substring(host.indexOf(":") + 1));
-            host = host.substring(0, host.indexOf(":"));
+        tokens.nextToken();
+        StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+        
+        if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
         }
+        String host = hostPort.nextToken();
+        int port = Integer.parseInt( hostPort.nextToken() );
         
         HttpClient client = new HttpClient();
-        client.getHostConfiguration().setHost(host, port, protocol);
+
+        client.getHostConfiguration().setHost( host, port, "http");
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
         
-        PostMethod login = new PostMethod(ServiceLocator.getFrameworkUrl() + "/aa/j_spring_security_check");
+        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
         login.addParameter("j_username", userid);
         login.addParameter("j_password", password);
         
         client.executeMethod(login);
-        System.out.println("Login form post: " + login.getStatusLine().toString());
                 
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
@@ -205,28 +207,16 @@ public class TestBase
                 host, port, "/", false, 
                 client.getState().getCookies());
         
-        System.out.println("Logon cookies:");
         Cookie sessionCookie = logoncookies[0];
         
-        if (logoncookies.length == 0) {
-            
-            System.out.println("None");
-            
-        } else {
-            for (int i = 0; i < logoncookies.length; i++) {
-                System.out.println("- " + logoncookies[i].toString());
-            }
-        }
-        
-        PostMethod postMethod = new PostMethod(frameworkUrl + "/aa/login");
+        PostMethod postMethod = new PostMethod("/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
-        System.out.println("Login second post: " + postMethod.getStatusLine().toString());
       
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode() && HttpServletResponse.SC_MOVED_TEMPORARILY != postMethod.getStatusCode())
+        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
-            throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
+            throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
         
         String userHandle = null;
@@ -249,7 +239,6 @@ public class TestBase
         }
         return userHandle;
     }
-
     /**
      * Logs the user test_dep_scientist in and returns the corresponding user handle.
      * 

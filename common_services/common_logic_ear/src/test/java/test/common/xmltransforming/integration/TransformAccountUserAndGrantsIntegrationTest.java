@@ -67,7 +67,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
 {
-    private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.3/user-account.xsd";
+    private static final String ACCOUNT_USER_SCHEMA_FILE = "xsd/soap/user-account/0.5/user-account.xsd";
     private static final String PUBMAN_COLLECTION_ID = "escidoc:persistent3";
     private static final String TEST_DEP_SCIENTIST_LOGIN_NAME = "test_dep_scientist";
     private static final String TEST_DEP_SCIENTIST_ID = "escidoc:user1";

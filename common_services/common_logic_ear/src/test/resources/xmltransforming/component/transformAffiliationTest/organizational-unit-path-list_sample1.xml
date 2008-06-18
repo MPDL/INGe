@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <organizational-unit-path-list:organizational-unit-path-list
-  xmlns:organizational-unit-path-list="http://www.escidoc.de/schemas/organizationalunitpathlist/0.3"
+  xmlns:organizational-unit-path-list="${xsd.soap.ou.oupathlist}"
+  xmlns:organizational-unit-reference="${xsd.soap.ou.ouref}"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
   xsi:schemaLocation="http://www.escidoc.de/schemas/organizationalunitpathlist/0.3 ../../../../misc/xsd/soap/organizational-unit/0.3/organizational-unit-path-list.xsd">
 	<organizational-unit-path-list:organizational-unit-path>
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:1234" />
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:5678" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:1234" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:5678" />
 	</organizational-unit-path-list:organizational-unit-path>
 	<organizational-unit-path-list:organizational-unit-path>
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:9101" />
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:1121" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:9101" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:1121" />
 	</organizational-unit-path-list:organizational-unit-path>
 	<organizational-unit-path-list:organizational-unit-path>
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:3141" />
-		<organizational-unit-path-list:organizational-unit-ref objid="escidoc:5161" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:3141" />
+		<organizational-unit-reference:organizational-unit-ref objid="escidoc:5161" />
 	</organizational-unit-path-list:organizational-unit-path>
 </organizational-unit-path-list:organizational-unit-path-list>

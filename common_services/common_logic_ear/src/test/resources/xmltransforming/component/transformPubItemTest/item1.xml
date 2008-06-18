@@ -1,62 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<escidocItem:item
-    xmlns:escidocAdminDescriptor="http://www.escidoc.de/schemas/admindescriptor/0.3"
-    xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3"
-    xmlns:escidocContext="http://www.escidoc.de/schemas/context/0.3"
-    xmlns:escidocContextList="http://www.escidoc.de/schemas/contextlist/0.3"
-    xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"
-    xmlns:escidocItemList="http://www.escidoc.de/schemas/itemlist/0.3"
-    xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-    xmlns:escidocRelations="http://www.escidoc.de/schemas/relations/0.2"
-    xmlns:escidocResources="http://www.escidoc.de/schemas/resources/0.2"
-    xmlns:escidocSearchResult="http://www.escidoc.de/schemas/searchresult/0.3"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
-    <escidocItem:properties>
-        <escidocItem:context objid="escidoc:persistent3"/>
-        <escidocItem:content-model objid="escidoc:persistent4"/>
-        <escidocItem:version/>
-        <escidocItem:content-model-specific/>
-    </escidocItem:properties>
-    <escidocMetadataRecords:md-records>
-        <escidocMetadataRecords:md-record name="escidoc">
-            <escidocMetadataProfile:publication type="book"
-                xmlns:dc="http://purl.org/dc/elements/1.1/"
-                xmlns:dcterms="http://purl.org/dc/terms/"
-                xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
-                xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-                xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-                xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-                <publication:creator role="author">
-                    <escidoc:person>
-                        <escidoc:complete-name>Hans Meier</escidoc:complete-name>
-                        <escidoc:family-name>Meier</escidoc:family-name>
-                        <escidoc:given-name>Hans</escidoc:given-name>
-                        <escidoc:organization>
-                            <escidoc:organization-name xml:lang="en">Test Organization</escidoc:organization-name>
-                            <escidoc:address>Max-Planck-Str. 1</escidoc:address>
-                        </escidoc:organization>
-                    </escidoc:person>
-                </publication:creator>
-                <publication:creator role="author">
-                    <escidoc:person>
-                        <escidoc:complete-name>Hans Meier</escidoc:complete-name>
-                        <escidoc:family-name>Meier</escidoc:family-name>
-                        <escidoc:given-name>Hans</escidoc:given-name>
-                        <escidoc:organization>
-                            <escidoc:organization-name xml:lang="en">Test Organization</escidoc:organization-name>
-                            <escidoc:address>Max-Planck-Str. 1</escidoc:address>
-                        </escidoc:organization>
-                    </escidoc:person>
-                </publication:creator>
-                <dc:title xml:lang="en">PubMan: The first of all.</dc:title>
-                <dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
-                <publication:published-online xsi:type="dcterms:W3CDTF">2007-03-04</publication:published-online>
-                <dcterms:issued xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>                
-                <dc:subject xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dc:subject>
-                <dcterms:tableOfContents xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
-            </escidocMetadataProfile:publication>
-        </escidocMetadataRecords:md-record>
-    </escidocMetadataRecords:md-records>
+<escidocItem:item xmlns:escidocComponents="${xsd.soap.item.components}" xmlns:escidocContext="${xsd.soap.context.context}" xmlns:escidocContextList="${xsd.soap.context.contextlist}" xmlns:escidocItem="${xsd.soap.item.item}" xmlns:escidocItemList="${xsd.soap.item.itemlist}" xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}" xmlns:escidocRelations="${xsd.soap.common.relations}" xmlns:escidocSearchResult="${xsd.soap.searchresult.searchresult}" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	<escidocItem:properties>
+		<srel:context objid="escidoc:persistent3"/>
+		<srel:content-model objid="escidoc:persistent4"/>
+		<escidocItem:version/>
+		<prop:content-model-specific/>
+	</escidocItem:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record name="escidoc">
+			<escidocMetadataProfile:publication type="book" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<publication:creator role="author">
+					<escidoc:person>
+						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+						<escidoc:family-name>Meier</escidoc:family-name>
+						<escidoc:given-name>Hans</escidoc:given-name>
+						<escidoc:organization>
+							<escidoc:organization-name xml:lang="en">Test Organization</escidoc:organization-name>
+							<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+						</escidoc:organization>
+					</escidoc:person>
+				</publication:creator>
+				<publication:creator role="author">
+					<escidoc:person>
+						<escidoc:complete-name>Hans Meier</escidoc:complete-name>
+						<escidoc:family-name>Meier</escidoc:family-name>
+						<escidoc:given-name>Hans</escidoc:given-name>
+						<escidoc:organization>
+							<escidoc:organization-name xml:lang="en">Test Organization</escidoc:organization-name>
+							<escidoc:address>Max-Planck-Str. 1</escidoc:address>
+						</escidoc:organization>
+					</escidoc:person>
+				</publication:creator>
+				<dc:title xml:lang="en">PubMan: The first of all.</dc:title>
+				<dcterms:created xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+				<publication:published-online xsi:type="dcterms:W3CDTF">2007-03-04</publication:published-online>
+				<dcterms:issued xsi:type="dcterms:W3CDTF">2007-01-02</dcterms:issued>
+				<dc:subject xml:lang="de">This is the subject. Betreffs fußen auf Gerüchten für Äonen.</dc:subject>
+				<dcterms:tableOfContents xml:lang="it">I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.</dcterms:tableOfContents>
+			</escidocMetadataProfile:publication>
+		</escidocMetadataRecords:md-record>
+	</escidocMetadataRecords:md-records>
 </escidocItem:item>
