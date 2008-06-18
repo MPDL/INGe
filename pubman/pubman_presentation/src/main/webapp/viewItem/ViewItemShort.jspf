@@ -97,4 +97,15 @@
 			<h:outputText value="#{item.version.lastMessage}"/>
 		<h:outputText value="</div>" escape="false"/>
 	</h:panelGroup>
+	
+	<!-- Comments for item list if items in state in revision are displayed -->
+	<h:panelGroup rendered="#{ItemListSessionBean.isInRevisionView}">
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+			<h:outputText value="#{lbl.ReviseItem_lblReviseComment}"/>
+		<h:outputText value="</div>" escape="false"/>
+		
+		<h:outputText value="<div class='itemText'>" escape="false"/>
+			<h:outputText value="#{item.version.lastMessage}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</h:panelGroup>
 </f:subview>

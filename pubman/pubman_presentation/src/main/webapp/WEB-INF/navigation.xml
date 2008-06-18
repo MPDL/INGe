@@ -294,4 +294,13 @@
 			/QAWSPage.jsp</to-view-id>
 		</navigation-case>
 	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>
+		*</from-view-id>
+		<navigation-case>
+			<from-outcome>loadReviseItem</from-outcome>
+			<to-view-id>
+			/ReviseItemPage.jsp</to-view-id>
+		</navigation-case>
+	</navigation-rule>
 </faces-config>

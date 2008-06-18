@@ -49,6 +49,7 @@ import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
+import de.mpg.escidoc.pubman.qaws.QAWS;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
@@ -58,6 +59,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.NavigationRule;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.pubman.QualityAssurance;
 
 /**
  * Navigation.java Backing Bean for the Navigation side bar of pubman. Additionally there is some internationalization
@@ -172,6 +174,7 @@ public class Navigation extends FacesBean
         CreateRevision createRevision;
         ReleaseHistory releaseHistory;
         ViewItemLog viewItemLog;
+        QAWS qaws;
 
         // special re-initializaion for pages with dynamic page elements which
         // must be re-inited
@@ -224,6 +227,12 @@ public class Navigation extends FacesBean
             viewItemLog = (ViewItemLog) getRequestBean(ViewItemLog.class);
             viewItemLog.init();
         }
+        else if (navigationString.equals(QAWS.LOAD_QAWS))
+        {
+            qaws = (QAWS) getRequestBean(QAWS.class);
+            this.getItemListSessionBean().setListDirty(true);
+            qaws.init();
+        }
         else
         {
             navigationString = null;
@@ -248,14 +257,14 @@ public class Navigation extends FacesBean
 
         // if there is only one context for this user we can skip the
         // CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getContextList().size() == 0)
+        if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
             return null;
         }
-        if (this.getCollectionListSessionBean().getContextList().size() == 1)
+        if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1)
         {
-            ContextVO contextVO = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO contextVO = this.getCollectionListSessionBean().getDepositorContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one context (ID: "
@@ -271,7 +280,7 @@ public class Navigation extends FacesBean
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has privileges for "
-                        + this.getCollectionListSessionBean().getContextList().size()
+                        + this.getCollectionListSessionBean().getDepositorContextList().size()
                         + " different contexts.");
             }
 

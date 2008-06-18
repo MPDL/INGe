@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.pubman.acceptItem;
+package de.mpg.escidoc.pubman.reviseItem;
 
 import java.io.IOException;
 
@@ -42,28 +42,29 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.qaws.QAWS;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.pubman.PubItemDepositing;
+
 
 /**
- * Fragment class for editing PubItems. This class provides all functionality for accepting a
- * PubItem including methods for depending dynamic UI components.
+ * Backing bean for ReviseItem.jspf
  *
- * @author: Michael Franke, 2007-10-31
- * @author: $Author: mfranke $
- * @version: $Revision: 858 $ $LastChangedDate: 2007-08-09 16:51:42 +0200 (Do, 09 Aug 2007) $
- * Revised by FrM: 09.08.2007
- *  * Checkstyled, commented, cleaned.
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-public class AcceptItem extends FacesBean
+public class ReviseItem extends FacesBean
 {
-    private static Logger logger = Logger.getLogger(AcceptItem.class);
+    private static Logger logger = Logger.getLogger(ReviseItem.class);
     // Faces navigation string
-    public static final String LOAD_ACCEPTITEM = "loadAcceptItem";
-    public static final String JSP_NAME = "AcceptItemPage.jsp"; //DiT: to avoid JSF-Navigation
-
-    private String acceptanceComment = null;
+    public static final String LOAD_REVISEITEM = "loadReviseItem";
+    public static final String JSP_NAME = "ReviseItemPage.jsp"; 
+    
+    private String reviseComment;
 
     private String valMessage = null;
     private String creators;
@@ -73,7 +74,7 @@ public class AcceptItem extends FacesBean
     /**
      * Public constructor.
      */
-    public AcceptItem()
+    public ReviseItem()
     {
         this.init();
     }
@@ -105,12 +106,9 @@ public class AcceptItem extends FacesBean
                     creators.append(creator.getPerson().getGivenName());
                 }
             }
-            else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION)
+            else if (creator.getType() == CreatorVO.CreatorType.ORGANIZATION && creator.getOrganization().getName() != null)
             {
-                if(creator.getOrganization().getName()!= null)
-                {
-                    creators.append(creator.getOrganization().getName().getValue());
-                }
+                creators.append(creator.getOrganization().getName().getValue());
             }
         }
         this.creators = creators.toString();
@@ -119,7 +117,7 @@ public class AcceptItem extends FacesBean
         {
             if (this.getPubItem() != null && this.getPubItem().getVersion() != null)
             {
-                logger.debug("Item that is being accepted: " + this.getPubItem().getVersion().getObjectId());
+                logger.debug("Item that is being revised: " + this.getPubItem().getVersion().getObjectId());
             }
             else
             {
@@ -139,26 +137,28 @@ public class AcceptItem extends FacesBean
     }
 
     /**
-     * Accepts the item.
+     * Submits the item.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public final String accept()
+    public final String revise()
     {
     	FacesContext fc = FacesContext.getCurrentInstance();
     	HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
     	String retVal;
-        String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        String navigateTo = ViewItemFull.LOAD_VIEWITEM;
+    	/*
+    	String navigateTo = getSessionBean().getNavigationStringToGoBack();
+        
         if(navigateTo == null)
         {
         	navigateTo = ViewItemFull.LOAD_VIEWITEM;
         }
-
-        logger.debug("Now acceptting, then go to " + navigateTo);
+    	 */
+        logger.debug("Now revising, then go to " + navigateTo);
         
-        retVal = this.getItemControllerSessionBean().acceptCurrentPubItem(acceptanceComment, navigateTo);
+        retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
         
-        // redirect to the view item page afterwards (if no error occured)
-        if(retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
         	try 
             {
@@ -169,10 +169,9 @@ public class AcceptItem extends FacesBean
     		}
         }
         
-        
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED);
+            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
         }
 
         return retVal;
@@ -184,16 +183,10 @@ public class AcceptItem extends FacesBean
      */
     public final String cancel()
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-        try 
-        {
-            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-        } 
-        catch (IOException e) {
-            logger.error("Could not redirect to View Item Page", e);
-        }
-        return DepositorWS.LOAD_DEPOSITORWS;
+        
+        
+        
+        return QAWS.LOAD_QAWS;
     }
 
     /**
@@ -207,20 +200,7 @@ public class AcceptItem extends FacesBean
         this.getItemListSessionBean().setMessage(localMessage);
     }
     
-    /**
-     * Adds and removes messages on this page, if any.
-     * @author Michael Franke
-     */
-    public void handleMessage() 
-    {
-
-        String message = this.getSessionBean().getMessage();
-        
-        this.valMessage = message;
-        
-        // keep the message just once
-        this.getSessionBean().setMessage(null);
-    }
+   
     
     /**
      * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
@@ -240,22 +220,6 @@ public class AcceptItem extends FacesBean
         return (ItemListSessionBean)getSessionBean(ItemListSessionBean.class);
     }
 
-    /**
-     * Returns the AcceptItemSessionBean.
-     * @return a reference to the scoped data bean (AcceptItemSessionBean)
-     */
-    protected final AcceptItemSessionBean getSessionBean()
-    {
-        return (AcceptItemSessionBean)getSessionBean(AcceptItemSessionBean.class);
-    }
-
-    public String getAcceptanceComment() {
-		return acceptanceComment;
-	}
-
-	public void setAcceptanceComment(String acceptanceComment) {
-		this.acceptanceComment = acceptanceComment;
-	}
 
 	public String getValMessage() {
 		return valMessage;
@@ -283,6 +247,26 @@ public class AcceptItem extends FacesBean
     public void setCreators(String creators)
     {
         this.creators = creators;
+    }
+    
+    public boolean getIsStandardWorkflow()
+    {
+        return getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_STANDARD);
+    }
+    
+    public boolean getIsSimpleWorkflow()
+    {
+        return getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE);
+    }
+
+    public String getReviseComment()
+    {
+        return reviseComment;
+    }
+
+    public void setReviseComment(String reviseComment)
+    {
+        this.reviseComment = reviseComment;
     }
 
 }

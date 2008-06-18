@@ -80,6 +80,11 @@ public class ItemListSessionBean extends FacesBean
     private boolean isRevisionView;
 
     /**
+     * True if the list shows only items that are in state "in revision"
+     */
+    private boolean isInRevisionView;
+
+    /**
      * Default constructor.
      */
 //    public ItemListSessionBean()
@@ -99,6 +104,7 @@ public class ItemListSessionBean extends FacesBean
         
         this.isListDirty = true;
         this.isRevisionView = false;
+        this.isInRevisionView = false;
         
     }
 
@@ -145,6 +151,7 @@ public class ItemListSessionBean extends FacesBean
     private void resetPresentationFlags()
     {
         setIsRevisionView(false);
+        setIsInRevisionView(false);
         
     }
 
@@ -520,4 +527,15 @@ public class ItemListSessionBean extends FacesBean
 	    {
 	        this.isRevisionView = isRevisionView;
 	    }
+
+        public void setIsInRevisionView(boolean b)
+        {
+            isInRevisionView = b;
+            
+        }
+
+        public boolean getIsInRevisionView()
+        {
+            return isInRevisionView;
+        }
 }

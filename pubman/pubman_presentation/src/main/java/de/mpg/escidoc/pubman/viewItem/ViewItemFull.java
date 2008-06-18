@@ -56,6 +56,8 @@ import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.ViewItemRevisionsPage;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
+import de.mpg.escidoc.pubman.acceptItem.AcceptItem;
+import de.mpg.escidoc.pubman.acceptItem.AcceptItemSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -65,8 +67,10 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
+import de.mpg.escidoc.pubman.qaws.QAWS;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
+import de.mpg.escidoc.pubman.reviseItem.ReviseItem;
 import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
@@ -91,6 +95,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -207,6 +212,10 @@ public class ViewItemFull extends FacesBean
     private boolean isModifyDisabled;
     private boolean isCreateNewRevisionDisabled;
     private boolean isFromEasySubmission;
+    private PubItemDepositing pubItemDepositing;
+    private boolean isWorkflowStandard;
+    private boolean isWorkflowSimple;
+    private boolean isStateInRevision;
    
     /**
      * Public constructor.
@@ -234,12 +243,15 @@ public class ViewItemFull extends FacesBean
         try
         {
             InitialContext initialContext = new InitialContext();
+            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.itemValidating = (ItemValidating)initialContext.lookup(ItemValidating.SERVICE_NAME);
         }
         catch (NamingException ne)
         {
             throw new RuntimeException("Validation service not initialized", ne);
         }
+       
+        
         
         // Try to get a pubitem either via the controller session bean or an URL Parameter
         itemID = request.getParameter(ViewItemFull.PARAMETERNAME_ITEM_ID);
@@ -313,7 +325,18 @@ public class ViewItemFull extends FacesBean
             isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
             isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
             isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+            isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
             
+            try
+            {
+                isWorkflowStandard = getContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_STANDARD);
+                isWorkflowSimple = getContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_SIMPLE);
+            }
+            catch (Exception e)
+            {
+                isWorkflowSimple = true;
+                isWorkflowStandard = false;
+            }
             
             // set up some pre-requisites
             // the list of numbered affiliated organizations 
@@ -476,15 +499,15 @@ public class ViewItemFull extends FacesBean
         
     	// Changed by DiT, 29.11.2007: only show contexts when user has privileges for more than one context
         // if there is only one context for this user we can skip the CreateItem-Dialog and create the new item directly
-        if (this.getCollectionListSessionBean().getContextList().size() == 0)
+        if (this.getCollectionListSessionBean().getDepositorContextList().size() == 0)
         {
             logger.warn("The user does not have privileges for any context.");
             error(getMessage("ViewItemFull_user_has_no_context"));
             return null;
         }
-        else if (this.getCollectionListSessionBean().getContextList().size() == 1)
+        else if (this.getCollectionListSessionBean().getDepositorContextList().size() == 1)
         {            
-            ContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
             if (logger.isDebugEnabled())
             {
                 logger.debug("The user has only privileges for one collection (ID: " 
@@ -495,12 +518,12 @@ public class ViewItemFull extends FacesBean
         }
         else
         {            
-            ContextVO context = this.getCollectionListSessionBean().getContextList().get(0);
+            ContextVO context = this.getCollectionListSessionBean().getDepositorContextList().get(0);
 
             // more than one context exists for this user; let him choose the right one
             if (logger.isDebugEnabled())
             {
-                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getContextList().size() 
+                logger.debug("The user has privileges for " + this.getCollectionListSessionBean().getDepositorContextList().size() 
                         + " different contexts.");
             }
 
@@ -600,9 +623,55 @@ public class ViewItemFull extends FacesBean
         }        
     }
     
-    public String submitItem2()
+    public String acceptItem()
     {
-        return submitItem();
+        /*
+         * FrM: Validation with validation point "submit_item"
+         */
+        
+        ValidationReportVO report = null;
+        try
+        {
+            report = this.itemValidating.validateItemObject(this.getItemControllerSessionBean().getCurrentPubItem(), "accept_item");
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException("Validation error", e);
+        }
+        logger.debug("Validation Report: " + report);
+        
+        if (report.isValid() && !report.hasItems()) {
+       
+            if (logger.isDebugEnabled())
+            {
+                logger.debug("Accepting item...");
+            }
+            getAcceptItemSessionBean().setNavigationStringToGoBack(getViewItemSessionBean().getNavigationStringToGoBack());
+            return AcceptItem.LOAD_ACCEPTITEM;
+        }
+        else if (report.isValid())
+        {
+            // TODO FrM: Informative messages
+            getAcceptItemSessionBean().setNavigationStringToGoBack(getViewItemSessionBean().getNavigationStringToGoBack());
+            return AcceptItem.LOAD_ACCEPTITEM;
+        }
+        else
+        {           
+            // Item is invalid, do not submit anything.
+            this.showValidationMessages(report);
+            return null;
+        }        
+    }
+    
+   
+
+    /**
+     * Returns a reference to the scoped data bean (the AcceptItemSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected AcceptItemSessionBean getAcceptItemSessionBean()
+    {
+        return (AcceptItemSessionBean)getBean(AcceptItemSessionBean.class);
     }
 
     /**
@@ -1103,6 +1172,22 @@ public class ViewItemFull extends FacesBean
             contextName = this.context.getName();
         }
         return contextName;
+    }
+    
+    /**
+     * Returns the Context the item belongs to
+     * 
+     */
+    
+    public ContextVO getContext()
+    {
+        
+        if (this.context == null)
+        {
+            context = getItemControllerSessionBean().getCurrentContext();
+        }
+        
+        return context;
     }
     
     /**
@@ -1797,5 +1882,41 @@ public class ViewItemFull extends FacesBean
     public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
     {
         this.fileSearchHitIterator = fileSearchHitIterator;
+    }
+
+    public boolean getIsWorkflowStandard()
+    {
+        return isWorkflowStandard;
+    }
+
+    public void setWorkflowStandard(boolean isWorkflowStandard)
+    {
+        this.isWorkflowStandard = isWorkflowStandard;
+    }
+
+    public boolean getIsWorkflowSimple()
+    {
+        return isWorkflowSimple;
+    }
+
+    public void setWorkflowSimple(boolean isWorkflowSimple)
+    {
+        this.isWorkflowSimple = isWorkflowSimple;
+    }
+    
+    public String reviseItem()
+    {
+       return ReviseItem.LOAD_REVISEITEM; 
+       
+    }
+
+    public boolean getIsStateInRevision()
+    {
+        return isStateInRevision;
+    }
+
+    public void setStateInRevision(boolean isStateInRevision)
+    {
+        this.isStateInRevision = isStateInRevision;
     }
 }

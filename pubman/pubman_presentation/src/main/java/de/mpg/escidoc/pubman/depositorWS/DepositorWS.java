@@ -420,6 +420,10 @@ public class DepositorWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("DepositorWS");
+        if (newItemState.equals(PubItemVO.State.IN_REVISION.name()))
+        {
+            getItemListSessionBean().setIsInRevisionView(true);
+        }
         getViewItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
         return DepositorWS.LOAD_DEPOSITORWS;
     }
@@ -517,16 +521,16 @@ public class DepositorWS extends ItemList
     public SelectItem[] getITEMSTATE_OPTIONS()
     {
     	SelectItem[] allItemStates = this.i18nHelper.getSelectItemsItemState();
-    	SelectItem[] cleanedItemStates = new SelectItem[allItemStates.length-1];
+    	SelectItem[] cleanedItemStates = new SelectItem[allItemStates.length];
     	// remove state 'in revision' if it is in the list
     	if(allItemStates != null)
     	{
     		for(int i = 0; i < allItemStates.length; i++)
     		{
-    			if(!allItemStates[i].getValue().equals(PubItemVO.State.IN_REVISION.name()))
-    			{
+    			//if(!allItemStates[i].getValue().equals(PubItemVO.State.IN_REVISION.name()))
+    			//{
     				cleanedItemStates[i] = allItemStates[i];
-    			}
+    			//}
     		}
     	}
     	return cleanedItemStates;

@@ -33,7 +33,7 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 <div>
 	<f:subview id="list">
-		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.contextList}" rowClasses="odd, even">
+		<h:dataTable id="listtable" var="context" value="#{ContextListSessionBean.depositorContextList}" rowClasses="odd, even">
 			<h:column>
 				<h:panelGroup styleClass="easySubmissionSubBox">
 					<h:panelGroup layout="block" id="link" styleClass="easySubmissionBoxBodyLine easySubmissionSubBoxHeader">

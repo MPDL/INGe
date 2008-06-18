@@ -51,6 +51,10 @@
 			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}"/>
 	</h:panelGroup>	
 	
+	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isStateInRevision}">
+			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}"/>
+	</h:panelGroup>	
+	
 	<!-- COinS -->
 	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
 	

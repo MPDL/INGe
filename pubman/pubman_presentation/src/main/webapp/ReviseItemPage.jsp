@@ -48,7 +48,7 @@
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				</head>
 				<body>
-					<h:outputText id="pageDummy" value="#{SubmitItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+					<h:outputText id="pageDummy" value="#{ReviseItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 					<div id="page_margins">
 						<div id="page">
 							<h:form id="form1">
@@ -71,15 +71,15 @@
 											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
 											<ul>
 												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SubmissionComment');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
-												<li><h:commandLink id="lnkSubmit"  value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow}"/></li>
-												<li><h:commandLink id="lnkRelease"  value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow}"/></li>
-												<li><h:commandLink id="lnkCancel" immediate="true"  value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}"/></li>
+												<li><h:commandLink id="lnkRevise"  value="#{lbl.ReviseItem_lnkRevise}" action="#{ReviseItem.revise}"/></li>
+												
+												<li><h:commandLink id="lnkCancel" immediate="true"  value="#{lbl.ReviseItem_lnkCancel}" action="#{ReviseItem.cancel}"/></li>
 											</ul>
 										</div>
 									</div>
 									<div id="col3">
 										<div class="content">
-											<jsp:directive.include file="submitItem/SubmitItem.jspf"/>
+											<jsp:directive.include file="reviseItem/ReviseItem.jspf"/>
 										</div>
 									</div>
 								</div>
