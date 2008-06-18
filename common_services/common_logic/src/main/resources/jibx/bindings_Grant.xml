@@ -32,6 +32,8 @@
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none"/>
 	<namespace prefix="common-types" uri="${xsd.soap.common.commontypes}" default="none" />
 	<namespace prefix="grants" uri="${xsd.soap.useraccount.grants}" default="none" />
+	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
+	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
 
 	<!--  -->
 	<!-- The binding for GrantVO -->

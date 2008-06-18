@@ -30,6 +30,7 @@
 <binding>
 
 	<namespace prefix="escidocAccountUser" uri="${xsd.soap.useraccount.useraccount}" default="none" />
+	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
 
 	<!--  -->
 	<!-- The binding for user-account.xsd -->

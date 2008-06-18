@@ -39,12 +39,12 @@
 
 		<structure name="properties" ns="${xsd.soap.useraccount.useraccount}" flexible="true" ordered="false">
 
-			<value style="element" name="email" ns="${xsd.soap.useraccount.useraccount}" field="email"
+			<value style="element" name="email" ns="${xsd.soap.common.prop}" field="email"
 				usage="optional" />
-			<value style="element" name="name" ns="${xsd.soap.useraccount.useraccount}" field="name"
+			<value style="element" name="name" ns="${xsd.soap.common.prop}" field="name"
 				usage="optional" />
-			<value style="element" name="login-name" ns="${xsd.soap.useraccount.useraccount}" field="userid" />
-			<value style="element" name="active" ns="${xsd.soap.useraccount.useraccount}" field="active"
+			<value style="element" name="login-name" ns="${xsd.soap.common.prop}" field="userid" />
+			<value style="element" name="active" ns="${xsd.soap.common.prop}" field="active"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeBoolean"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeBoolean" usage="optional" />
 			<!-- structure name="person-ref" ns="${xsd.soap.useraccount.useraccount}" />usage="optional" 
