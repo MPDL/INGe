@@ -64,6 +64,7 @@ import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.logging.MessageCreator;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -840,6 +841,54 @@ public class PubItemSearchingBean implements PubItemSearching
         {
         	return new ArrayList<PubItemResultVO>();
         }
+    }
+    
+    public List<PubItemResultVO> searchForQAWorkspace(String contextobjId, String affiliationId, State state)
+    throws ParseException, TechnicalException
+    {
+        if (contextobjId == null || affiliationId == null || state == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName()
+                    + ":search:searchString is null");
+        }
+        
+        if (contextobjId.length() > 0)
+        {
+            StringBuffer query = new StringBuffer();
+            
+            query.append("( ");
+            
+            query.append(createCqlQuery( contextobjId, QueryType.CONTEXT_OBJECTID ));
+                
+            query.append(" )");
+            
+            query.append(" and ");
+            
+            query.append("( ");
+            
+            
+            query.append(createCqlQuery(affiliationId, QueryType.ORGANIZATION ));
+            
+                
+            query.append(" )");
+            
+            
+            
+         // execute search for publication items
+            if (query.length() > 0)
+            {
+                return cqlSearchForPubItems(query.toString(), null);
+            }
+            else
+            {
+                return new ArrayList<PubItemResultVO>();
+            }
+        }
+        else 
+        {
+            return new ArrayList<PubItemResultVO>();
+        }
+        
     }
 
 }

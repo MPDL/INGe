@@ -50,6 +50,7 @@ public enum PMLogicMessages implements Messages
     PUBITEM_SUBMITTED("The PubItem with ID {0} has been submitted by user {1}."),
     PUBITEM_RELEASED("The PubItem with ID {0} has been released."),
     PUBITEM_WITHDRAWN("The PubItem with ID {0} has been withdrawn by user {1}."),
+    PUBITEM_REVISED("The PubItem with ID {0} has been revised by user {1}."),
 
     //ERROR AND WARN MESSAGES  
     SEARCH_TOO_MANY_RESULT_MESSAGES("The search result for query {0} delivered a record with more than one message.");
