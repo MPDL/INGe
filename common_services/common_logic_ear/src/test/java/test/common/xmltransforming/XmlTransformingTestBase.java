@@ -30,26 +30,12 @@
 
 package test.common.xmltransforming;
 
-import java.io.ByteArrayOutputStream;
-import java.io.StringWriter;
-
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathFactory;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSOutput;
-import org.w3c.dom.ls.LSSerializer;
-
 import test.common.TestBase;
-
-import com.sun.org.apache.xerces.internal.dom.AttrImpl;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 
 /**
  * This class enriches the TestBase class with XML-specific methods.
@@ -92,67 +78,7 @@ public class XmlTransformingTestBase extends TestBase
         m_docBuilderFactory.setNamespaceAware(true);
         m_xPathFactory = XPathFactory.newInstance();
         m_xPath = m_xPathFactory.newXPath();
-        m_xPath.setNamespaceContext(new XPathNamespaceContext());
         setInitialized(true);
-    }
-
-    /**
-     * Serialize the given Dom Object to a String.
-     * 
-     * @param xml The Xml Node to serialize.
-     * @param omitXMLDeclaration Indicates if XML declaration will be omitted.
-     * @return The String representation of the Xml Node.
-     * @throws Exception If anything fails.
-     */
-    protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception
-    {
-        if (!isInitialized())
-        {
-            init();
-        }
-
-        String result = new String();
-        if (xml instanceof AttrImpl)
-        {
-            result = xml.getTextContent();
-        }
-        else if (xml instanceof Document)
-        {
-            StringWriter stringOut = new StringWriter();
-            // format
-            OutputFormat format = new OutputFormat((Document)xml);
-            format.setIndenting(true);
-            format.setPreserveSpace(false);
-            format.setOmitXMLDeclaration(omitXMLDeclaration);
-            format.setEncoding(XML_CHARSET_ENCODING);
-            // serialize
-            XMLSerializer serial = new XMLSerializer(stringOut, format);
-            serial.asDOMSerializer();
-
-            serial.serialize((Document)xml);
-            result = stringOut.toString();
-        }
-        else
-        {
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
-            LSOutput lsOutput = impl.createLSOutput();
-            lsOutput.setEncoding(XML_CHARSET_ENCODING);
-
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            lsOutput.setByteStream(os);
-            LSSerializer writer = impl.createLSSerializer();
-            // result = writer.writeToString(xml);
-            writer.write(xml, lsOutput);
-            result = ((ByteArrayOutputStream)lsOutput.getByteStream()).toString();
-            if ((omitXMLDeclaration) && (result.indexOf("?>") != -1))
-            {
-                result = result.substring(result.indexOf("?>") + 2);
-            }
-            // result = toString(getDocument(writer.writeToString(xml)),
-            // true);
-        }
-        return result;
     }
 
     /**

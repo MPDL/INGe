@@ -31,7 +31,7 @@
 package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertEquals;
-
+import static org.junit.Assert.fail;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -55,6 +55,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -121,14 +122,33 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
         assertEquals(1, organizationListMPIFG.size());
         String mpifgAffiliationPath = organizationListMPIFG.get(0).getName().getValue();
         logger.info("MPIFG affiliation path: " + mpifgAffiliationPath);
-        assertEquals(mpifgAffiliationPath, affiliationVOMPIFG.getName() + ORGANIZATION_NAME_SEPARATOR + affiliationVOMPG.getName());
+        if (affiliationVOMPIFG.getMetadataSets().size() > 0 && affiliationVOMPIFG.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO
+                && affiliationVOMPG.getMetadataSets().size() > 0 && affiliationVOMPG.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO detailsVOMPIFG = (MdsOrganizationalUnitDetailsVO) affiliationVOMPIFG.getMetadataSets().get(0);
+            MdsOrganizationalUnitDetailsVO detailsVOMPG = (MdsOrganizationalUnitDetailsVO) affiliationVOMPG.getMetadataSets().get(0);
+            assertEquals(mpifgAffiliationPath, detailsVOMPIFG.getName() + ORGANIZATION_NAME_SEPARATOR + detailsVOMPG.getName());
+        }
+        else
+        {
+            fail("Urganizaional unit details not found");
+        }
 
         // createOrganizationListFromAffiliation for MPG
         List<OrganizationVO> organizationListMPG = createOrganizationListFromAffiliation(librarianUserHandle, affiliationVOMPG);
         assertEquals(1, organizationListMPG.size());
         String mpgAffiliationPath = organizationListMPG.get(0).getName().getValue();
         logger.info("MPG affiliation path: " + mpgAffiliationPath);
-        assertEquals(mpgAffiliationPath, affiliationVOMPG.getName());
+        if (affiliationVOMPG.getMetadataSets().size() > 0 && affiliationVOMPG.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO detailsVOMPG = (MdsOrganizationalUnitDetailsVO) affiliationVOMPG.getMetadataSets().get(0);
+            assertEquals(mpgAffiliationPath, detailsVOMPG.getName());
+        }
+        else
+        {
+            fail("Urganizaional unit details not found");
+        }
+        
     }
 
     /**
@@ -174,8 +194,12 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
 
                 // create and set organization ADDRESS (to the address of the given affiliation)
                 StringBuffer address = new StringBuffer();
-                appendAddressPart(affiliation.getCity(), address);
-                appendAddressPart(affiliation.getCountryCode(), address);
+                if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+                {
+                    MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
+                    appendAddressPart(detailsVO.getCity(), address);
+                    appendAddressPart(detailsVO.getCountryCode(), address);
+                }
                 if (address.length() > 0)
                 {
                     newOrg.setAddress(address.toString());
@@ -207,7 +231,11 @@ public class Bug282InconsistentBehaviourOfMethodRetrievePathListTest extends Xml
                     {
                         orgName.append(ORGANIZATION_NAME_SEPARATOR);
                     }
-                    orgName.append(newAff.getName());
+                    if (newAff.getMetadataSets().size() > 0 && newAff.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+                    {
+                        MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) newAff.getMetadataSets().get(0);
+                        orgName.append(detailsVO.getName());
+                    }
                 }
                 TextVO name = new TextVO();
                 name.setValue(orgName.toString());

@@ -44,7 +44,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.StringWriter;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
@@ -80,6 +79,7 @@ import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -90,20 +90,14 @@ import org.w3c.dom.ls.LSSerializer;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXParseException;
 
-import com.sun.org.apache.xerces.internal.dom.AttrImpl;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -115,6 +109,11 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -1216,46 +1215,21 @@ public class TestBase
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
         }
         String result = null;
-        if (xml instanceof AttrImpl)
-        {
-            result = xml.getTextContent();
-        }
-        else if (xml instanceof Document)
-        {
-            StringWriter stringOut = new StringWriter();
-            // format
-            OutputFormat format = new OutputFormat((Document) xml);
-            format.setIndenting(true);
-            format.setPreserveSpace(false);
-            format.setOmitXMLDeclaration(omitXMLDeclaration);
-            format.setEncoding("UTF-8");
-            // serialize
-            XMLSerializer serial = new XMLSerializer(stringOut, format);
-            serial.asDOMSerializer();
 
-            serial.serialize((Document) xml);
-            result = stringOut.toString();
-        }
-        else
-        {
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS) registry.getDOMImplementation("LS");
-            LSOutput lsOutput = impl.createLSOutput();
-            lsOutput.setEncoding("UTF-8");
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
 
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            lsOutput.setByteStream(os);
-            LSSerializer writer = impl.createLSSerializer();
-            // result = writer.writeToString(xml);
-            writer.write(xml, lsOutput);
-            result = ((ByteArrayOutputStream) lsOutput.getByteStream()).toString();
-            if ((omitXMLDeclaration) && (result.indexOf("?>") != -1))
-            {
-                result = result.substring(result.indexOf("?>") + 2);
-            }
-            // result = toString(getDocument(writer.writeToString(xml)),
-            // true);
-        }
+        // serialize
+        DOMImplementation implementation= DOMImplementationRegistry.newInstance()
+            .getDOMImplementation("XML 3.0");
+        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS",
+        "3.0");
+        LSSerializer serial = feature.createLSSerializer();
+        LSOutput output = feature.createLSOutput();
+        output.setByteStream(outputStream);
+        serial.write(xml, output);
+
+        result = output.toString();
+
         return result;
     }
 

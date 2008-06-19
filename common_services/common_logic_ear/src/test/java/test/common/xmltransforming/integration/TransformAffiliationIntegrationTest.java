@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -107,12 +108,18 @@ public class TransformAffiliationIntegrationTest extends TestBase
         // create new AffiliationVO
         AffiliationVO affiliationVOPreCreate = AffiliationCreator.getTopLevelAffiliationMPG();
         long uniquer = System.currentTimeMillis();
-        affiliationVOPreCreate.setName(affiliationVOPreCreate.getName() + " Nr." + uniquer + "***");
-        // fill in some special characters to check their treatment by the framework
-        affiliationVOPreCreate.getAlternativeNames().add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-        affiliationVOPreCreate.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
-        affiliationVOPreCreate.getDescriptions().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+        
+        if (affiliationVOPreCreate.getMetadataSets().size() > 0 && affiliationVOPreCreate.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) affiliationVOPreCreate.getMetadataSets().get(0);
 
+            detailsVO.setName(detailsVO.getName() + " Nr." + uniquer + "***");
+            // fill in some special characters to check their treatment by the framework
+            detailsVO.getAlternativeNames().add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
+            detailsVO.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+            detailsVO.getDescriptions().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
+        }
+        
         // transform the AffiliationVO into an organizational unit (for create)
         long zeit = -System.currentTimeMillis();
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliationVOPreCreate);
@@ -185,8 +192,12 @@ public class TransformAffiliationIntegrationTest extends TestBase
         // create new AffiliationVO
         AffiliationVO affiliationVOPreCreate = AffiliationCreator.getTopLevelAffiliationMPG();
         long uniquer = System.currentTimeMillis();
-        affiliationVOPreCreate.setName(affiliationVOPreCreate.getName() + " Nr." + uniquer + "***");
-
+        if (affiliationVOPreCreate.getMetadataSets().size() > 0 && affiliationVOPreCreate.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) affiliationVOPreCreate.getMetadataSets().get(0);
+            detailsVO.setName(detailsVO.getName() + " Nr." + uniquer + "***");
+        }
+        
         // transform the AffiliationVO into an organizational unit (for create)
         long zeit = -System.currentTimeMillis();
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliationVOPreCreate);
@@ -231,13 +242,17 @@ public class TransformAffiliationIntegrationTest extends TestBase
         // Property name can not be altered!
         // Property abbreviation can not be altered!
         AffiliationVO affiliationVOPreUpdate = affiliationVOPostCreate;
-        affiliationVOPreUpdate.setCity("Freising");
-
-        affiliationVOPreUpdate.getIdentifiers().add("http://www.mpg.de/updated");
-        affiliationVOPreUpdate.setCountryCode("DE");
-        affiliationVOPreUpdate.getDescriptions().add("The description has been changed.");
-        affiliationVOPreUpdate.getIdentifiers().add("4712");
-
+        if (affiliationVOPreUpdate.getMetadataSets().size() > 0 && affiliationVOPreUpdate.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) affiliationVOPreUpdate.getMetadataSets().get(0);
+            detailsVO.setCity("Freising");
+    
+            detailsVO.getIdentifiers().add("http://www.mpg.de/updated");
+            detailsVO.setCountryCode("DE");
+            detailsVO.getDescriptions().add("The description has been changed.");
+            detailsVO.getIdentifiers().add("4712");
+        }
+        
         // transform the AffiliationVO into an organizational unit (for update)
         zeit = -System.currentTimeMillis();
         String organizationalUnitPreUpdate = xmlTransforming.transformToOrganizationalUnit(affiliationVOPreUpdate);
@@ -377,9 +392,13 @@ public class TransformAffiliationIntegrationTest extends TestBase
             StringBuffer sb = new StringBuffer("Abbreviations of MPG child affiliations:\n");
             for (AffiliationVO childAffiliation : mpgChildAffiliationList)
             {
-                if (childAffiliation.getAlternativeNames().size() > 0)
+                if (childAffiliation.getMetadataSets().size() > 0 && childAffiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
                 {
-                    sb.append(childAffiliation.getAlternativeNames().get(0) + "\n");
+                    MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) childAffiliation.getMetadataSets().get(0);
+                    if (detailsVO.getAlternativeNames().size() > 0)
+                    {
+                        sb.append(detailsVO.getAlternativeNames().get(0) + "\n");
+                    }
                 }
             }
             logger.debug(sb.toString());
@@ -443,9 +462,13 @@ public class TransformAffiliationIntegrationTest extends TestBase
             StringBuffer sb = new StringBuffer("Abbreviations of retrieved specific affiliations:\n");
             for (AffiliationVO childAffiliation : specificAffiliationList)
             {
-                if (childAffiliation.getAlternativeNames().size() > 0)
+                if (childAffiliation.getMetadataSets().size() > 0 && childAffiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
                 {
-                    sb.append(childAffiliation.getAlternativeNames().get(0) + "\n");
+                    MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) childAffiliation.getMetadataSets().get(0);
+                    if (detailsVO.getAlternativeNames().size() > 0)
+                    {
+                        sb.append(detailsVO.getAlternativeNames().get(0) + "\n");
+                    }
                 }
             }
             logger.debug(sb.toString());
