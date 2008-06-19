@@ -246,6 +246,9 @@ public class TestItem extends TestItemBase
         md = getModificationDate(item);
         String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignObjectPid(id, param);
+        item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+        md = getModificationDate(item);
+        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignVersionPid(id+":1", param);
         long zeit = -System.currentTimeMillis();
         ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
@@ -289,6 +292,9 @@ public class TestItem extends TestItemBase
         md = getModificationDate(item);
         String param = "<param last-modification-date=\"" + md + "\">" + "    <url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignObjectPid(id, param);
+        item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+        md = getModificationDate(item);
+        param = "<param last-modification-date=\"" + md + "\">" + "    <url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignVersionPid(id+":1", param);
         ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
         item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
@@ -316,6 +322,9 @@ public class TestItem extends TestItemBase
         md = getModificationDate(item);
         String param = "<param last-modification-date=\"" + md + "\">" + "    <url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignObjectPid(id, param);
+        item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+        md = getModificationDate(item);
+        param = "<param last-modification-date=\"" + md + "\">" + "    <url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignVersionPid(id+":1", param);
         ServiceLocator.getItemHandler(userHandle).release(id, createModificationDate(md));
         item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
@@ -374,6 +383,9 @@ public class TestItem extends TestItemBase
         String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         logger.info(param);
         ServiceLocator.getItemHandler(userHandle).assignObjectPid(id, param);
+        item = ServiceLocator.getItemHandler(userHandle).retrieve(id);
+        md = getModificationDate(item);
+        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         ServiceLocator.getItemHandler(userHandle).assignVersionPid(id+":1", param);
         md = createModificationDate(md);
         ServiceLocator.getItemHandler(userHandle).release(id, md);
