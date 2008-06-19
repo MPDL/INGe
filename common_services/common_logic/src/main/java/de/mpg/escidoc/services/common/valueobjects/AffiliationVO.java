@@ -70,6 +70,7 @@ public class AffiliationVO extends ValueObject
     private java.util.Date creationDate;
     private java.util.Date lastModificationDate;
     private AccountUserRO creator;
+    private AccountUserRO modifiedBy;
     private boolean hasChildren;
     private String publicStatus;
     
@@ -94,6 +95,7 @@ public class AffiliationVO extends ValueObject
         this.creationDate = affiliation.creationDate;
         this.lastModificationDate = affiliation.lastModificationDate;
         this.creator = affiliation.creator;
+        this.modifiedBy = affiliation.modifiedBy;
         this.hasChildren = affiliation.hasChildren;
         this.publicStatus = affiliation.publicStatus;
         this.metadataSets = affiliation.metadataSets;
@@ -266,6 +268,16 @@ public class AffiliationVO extends ValueObject
     public List<MetadataSetVO> getMetadataSets()
     {
         return metadataSets;
+    }
+
+    public AccountUserRO getModifiedBy()
+    {
+        return modifiedBy;
+    }
+
+    public void setModifiedBy(AccountUserRO modifiedBy)
+    {
+        this.modifiedBy = modifiedBy;
     }
     
 }

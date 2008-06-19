@@ -64,13 +64,12 @@ import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
-import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
-import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
@@ -91,6 +90,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContainerVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ContextVOListWrapper;
@@ -183,6 +183,40 @@ public class XmlTransformingBean implements XmlTransforming
         }
         // unwrap the List<AffiliationVO>
         List<AffiliationVO> affiliationList = affiliationVOListWrapper.getAffiliationVOList();
+        return affiliationList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public List<AffiliationRO> transformToParentAffiliationList(String parentOrganizationalUnitList) throws TechnicalException, UnmarshallingException
+    {
+        logger.debug("transformToParentAffiliationList(String) - String parentOrganizationalUnitList=" + parentOrganizationalUnitList);
+        if (parentOrganizationalUnitList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToAffiliationList:organizationalUnitList is null");
+        }
+        AffiliationROListWrapper affiliationROListWrapper;
+        try
+        {
+            // unmarshal AffiliationVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("AffiliationVO_input", AffiliationROListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(parentOrganizationalUnitList);
+            affiliationROListWrapper = (AffiliationROListWrapper)uctx.unmarshalDocument(sr, null);
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(parentOrganizationalUnitList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<AffiliationVO>
+        List<AffiliationRO> affiliationList = affiliationROListWrapper.getAffiliationROList();
         return affiliationList;
     }
 

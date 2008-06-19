@@ -33,42 +33,42 @@ package de.mpg.escidoc.services.common.xmltransforming.wrappers;
 import java.io.Serializable;
 import java.util.List;
 
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 
 /**
- * This class is used by the XML transforming classes to wrap a list of AffiliationVOs.
+ * This class is used by the XML transforming classes to wrap a list of AffiliationROs.
  * The reason for this is that JiBX cannot bind directly to ArrayLists.
  *
- * @author Johannes Mueller (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 03.09.2007
+ * @author Michael Franke (initial creation)
+ * @version $Revision: 611 $ $LastChangedDate: $ by $Author: $
  */
-public class AffiliationVOListWrapper implements Serializable
+public class AffiliationROListWrapper implements Serializable
 {    
+    
     public static final long serialVersionUID = 1L;
     
     /**
-     * The wrapped list of AffiliationVOs.
+     * The wrapped list of AffiliationROs.
      */
-    private List<AffiliationVO> affiliationVOList;
+    private List<AffiliationRO> affiliationROList;
 
     /**
-     * Unwraps the list of AffiliationVOs.
+     * Unwraps the list of AffiliationROs.
      * 
-     * @return The list of AffiliationVOs
+     * @return The list of AffiliationROs
      */
-    public List<AffiliationVO> getAffiliationVOList()
+    public List<AffiliationRO> getAffiliationROList()
     {
-        return affiliationVOList;
+        return affiliationROList;
     }
 
     /**
-     * Wraps a list of AffiliationVOs.
+     * Wraps a list of AffiliationROs.
      * 
-     * @param affiliationVOList The list of AffiliationVOs to wrap
+     * @param AffiliationROList The list of AffiliationROs to wrap
      */
-    public void setAffiliationVOList(List<AffiliationVO> affiliationVOList)
+    public void setAffiliationROList(List<AffiliationRO> AffiliationROList)
     {
-        this.affiliationVOList = affiliationVOList;
+        this.affiliationROList = AffiliationROList;
     }
 }

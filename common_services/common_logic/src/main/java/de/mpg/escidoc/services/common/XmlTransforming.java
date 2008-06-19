@@ -35,6 +35,7 @@ import java.net.URL;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
@@ -97,16 +98,28 @@ public interface XmlTransforming
     public AffiliationVO transformToAffiliation(String organizationalUnit) throws TechnicalException, UnmarshallingException;
 
     /**
-     * Transforms an XML String that is valid according to "http://www.escidoc. de/schemas/organizationalunitlist/0.2"
+     * Transforms an XML String that is valid according to "http://www.escidoc. de/schemas/organizationalunitlist/0.6"
      * (organizational-unit-list.xsd) to the corresponding <code>List&lt;AffiliationVO></code>.
      * 
-     * @param oranizationalUnitList XML String that is valid according to "http://www.escidoc.
+     * @param organizationalUnitList XML String that is valid according to "http://www.escidoc.
      *            de/schemas/organizationalunitlist/0.2" (organizational-unit-list.xsd)
      * @return The corresponding <code>List&lt;AffiliationVO></code>
      * @throws TechnicalException
      * @throws UnmarshallingException
      */
-    public List<AffiliationVO> transformToAffiliationList(String oranizationalUnitList) throws TechnicalException, UnmarshallingException;
+    public List<AffiliationVO> transformToAffiliationList(String organizationalUnitList) throws TechnicalException, UnmarshallingException;
+
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc. de/schemas/organizationalunitlist/0.6"
+     * (organizational-unit.xsd) to the corresponding <code>List&lt;AffiliationRO></code>.
+     * 
+     * @param parentOrganizationalUnitList XML String that is valid according to "http://www.escidoc.
+     *            de/schemas/organizationalunitlist/0.6" (organizational-unit.xsd)
+     * @return The corresponding <code>List&lt;AffiliationRO></code>
+     * @throws TechnicalException
+     * @throws UnmarshallingException
+     */
+    public List<AffiliationRO> transformToParentAffiliationList(String parentOrganizationalUnitList) throws TechnicalException, UnmarshallingException;
 
     /**
      * Transforms an XML String that is valid according to "http://www.escidoc.

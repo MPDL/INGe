@@ -60,5 +60,7 @@
 	<include path="AffiliationVO_binding_input.xml" />
 	<include path="AffiliationVOListWrapper_binding.xml" />
 	<include path="organizationalunit/MdsOrganizationalUnitDetailsVO_binding_input.xml" />
-
+	<include path="ParentAffiliationROListWrapper_binding.xml"/>
+	<include path="AffiliationRO_binding.xml"/>
+	
 </binding>

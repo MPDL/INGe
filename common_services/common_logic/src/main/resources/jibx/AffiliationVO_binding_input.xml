@@ -67,10 +67,34 @@
 
 			</structure>
 
+			<!-- Node: organizational-unit.properties.modified-by -->
+			<!-- Type: AccountUserRO... -->
+			<structure name="modified-by" ns="${xsd.soap.common.srel}" field="modifiedBy"
+				type="de.mpg.escidoc.services.common.referenceobjects.AccountUserRO" test-method="alreadyExistsInFramework"
+				usage="optional">
+
+				<!-- Node: organizational-unit.properties.created-by.@objid -->
+				<!-- Field: AffiliationVO.creator[AccountUserRO].objectId[String] -->
+				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
+
+			</structure>
+
 			<!-- Node: organizational-unit.properties.public-status -->
 			<!-- Field: AffiliationVO.status [String] -->
 			<value style="element" name="public-status" ns="${xsd.soap.common.prop}"
 				field="publicStatus" usage="optional" />
+
+			<!-- Node: organizational-unit.properties.name -->
+			<!-- ignored -->
+			<structure name="name" ns="${xsd.soap.common.prop}" usage="optional"/>
+
+			<!-- Node: organizational-unit.properties.description -->
+			<!-- ignored -->
+			<structure name="description" ns="${xsd.soap.common.prop}" usage="optional"/>
+
+			<!-- Node: organizational-unit.properties.external-ids -->
+			<!-- ignored -->
+			<structure name="external-ids" ns="${xsd.soap.common.prop}" usage="optional"/>
 
 			<!-- Node: organizational-unit.properties.has-children -->
 			<!-- Field: AffiliationVO.hasChildren [boolean] -->

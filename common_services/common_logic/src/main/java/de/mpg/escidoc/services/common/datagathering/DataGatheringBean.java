@@ -233,7 +233,7 @@ public class DataGatheringBean implements DataGathering
                     if (newAff == null)
                     {
                         // if not, retrieve the affiliation from the framework and put it in the cache
-                        String newAffXML = ServiceLocator.getOrganizationalUnitHandler().retrieve(newAffObjId);
+                        String newAffXML = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieve(newAffObjId);
                         newAff = xmlTransforming.transformToAffiliation(newAffXML);
                         affiliationCache.put(newAffObjId, newAff);
                     }

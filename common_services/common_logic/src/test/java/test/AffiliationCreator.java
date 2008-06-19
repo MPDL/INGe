@@ -277,8 +277,8 @@ public class AffiliationCreator extends TestBase
         String parents = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveParents(objectId);
         logger.info("createSubAffiliation() - " + name + ": parents retrieved.");
         logger.debug("createSubAffiliation() - " + name + ": list of retrieved parent affiliations =\n" + toString(getDocument(parents, false), false));
-        List<AffiliationVO> parentsVOList = xmlTransforming.transformToAffiliationList(parents);
-        assertEquals(parentObjectIds.size(), parentsVOList.size());
+        List<AffiliationRO> parentsROList = xmlTransforming.transformToParentAffiliationList(parents);
+        assertEquals(parentObjectIds.size(), parentsROList.size());
         return objectId;
     }
 

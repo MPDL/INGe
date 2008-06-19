@@ -208,7 +208,7 @@
 						<prop:content-category></prop:content-category>
 						<prop:file-name>0</prop:file-name>
 					</escidocComponents:properties>
-					<escidocComponents:content />
+					<escidocComponents:content storage="internal-managed"/>
 				</escidocComponents:component>
 				<escidocComponents:component>
 					<escidocComponents:properties>
@@ -217,7 +217,7 @@
 						<prop:content-category>supplementary-material</prop:content-category>
 						<prop:file-name></prop:file-name>
 					</escidocComponents:properties>
-					<escidocComponents:content />
+					<escidocComponents:content storage="external-url"/>
 				</escidocComponents:component>
 			</escidocComponents:components>
 		</escidocItem:item>

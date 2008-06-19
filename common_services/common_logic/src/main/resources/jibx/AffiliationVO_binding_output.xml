@@ -71,7 +71,7 @@
 				<value style="attribute" name="objid" get-method="getObjectId" usage="optional" />
 
 			</structure>
-
+			
 			<!-- Node: organizational-unit.properties.public-status -->
 			<!-- Field: AffiliationVO.publicStatus [String] -->
 			<value style="element" name="public-status" ns="${xsd.soap.common.prop}"

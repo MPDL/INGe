@@ -119,6 +119,25 @@ public class TransformAffiliationTest extends TestBase
     }
 
     /**
+     * Test of {@link XmlTransforming#transformToAffiliationPathList(String)}
+     * 
+     * @throws Exception 
+     */
+    @Test
+    public void testTransformToParentAffiliationList() throws Exception
+    {
+        String parentOrganizationalUnitListXml = readFile(TEST_FILE_ROOT + "xmltransforming/component/transformAffiliationTest/parent-organizational-unit-list_sample1.xml");
+        assertXMLValid(parentOrganizationalUnitListXml);
+        List<AffiliationRO> affROList = xmlTransforming.transformToParentAffiliationList(parentOrganizationalUnitListXml);
+        assertNotNull("Transforming delivered null.", affROList);
+        assertFalse("Transforming result list is empty.", affROList.isEmpty());
+
+        assertEquals(affROList.get(0).getObjectId(), "escidoc:19523");
+        assertEquals(affROList.get(1).getObjectId(), "escidoc:19528");
+
+    }
+
+    /**
      * Test of {@link XmlTransforming#transformToAffiliation(String)}
      * 
      * @throws Exception 

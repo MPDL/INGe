@@ -28,22 +28,11 @@
 -->
 
 <binding>
-
-	<!-- concrete mapping for AffiliationPathVO -->
-	<!-- Type: AffiliationPathVO... -->
-	<mapping name="organizational-unit-path" ns="${xsd.soap.ou.oupathlist}"
-		class="de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO" ordered="false" allow-repeats="true">
-
-		<!-- Node: organizational-unit-path -->
-		<!-- Field: AffiliationPathVO.affiliationList [java.util.ArrayList<AffiliationRO>]-->
-		<collection field="affiliationList"
+	<mapping name="parents" ns="${xsd.soap.ou.ou}"
+		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper">
+		<collection field="affiliationROList"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory">
-
-			<structure name="organizational-unit-ref" ns="${xsd.soap.ou.ouref}" map-as="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO"/>
-
+			<structure name="parent" ns="${xsd.soap.common.srel}" map-as="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional" />
 		</collection>
-
 	</mapping>
-
 </binding>
-
