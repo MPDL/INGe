@@ -45,6 +45,10 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkCo
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ObjectTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
@@ -135,39 +139,43 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
                 if (filter instanceof FrameworkItemTypeFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "content-type");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/content-model");
                 }
                 else if (filter instanceof FrameworkContextTypeFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "context-type");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type"); //context-type
                 }
                 else if (filter instanceof OwnerFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "created-by");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/created-by"); //created-by
                 }
                 else if (filter instanceof ItemRefFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "items");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //items
                 }
                 else if (filter instanceof AffiliationRefFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "organizational-units");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //organizational-units
                 }
                 else if (filter instanceof RoleFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role"); //TODO http://escidoc.de/core/01/structural-relations/role, see Chapter 1.4.2 in ItemHandler ????
                 }
                 else if (filter instanceof PubCollectionStatusFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "public-status");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
                 }
                 else if (filter instanceof ItemStatusFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "latest-version-status");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/version/status"); //latest-version-status (according to FIZ, only latest versions are filtered)
                 }
                 else if (filter instanceof TopLevelAffiliationFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units");
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); //see OrgUnitHandler - Method retrieveOrganizationalUnits()
+                }
+                else if (filter instanceof ObjectTypeFilter)
+                {
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); //object-type
                 }
                 ctx.closeStartContent();
 
@@ -229,6 +237,11 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     FrameworkContextTypeFilter frameworkContextTypeFilter = (FrameworkContextTypeFilter)filter;
                     ctx.content(frameworkContextTypeFilter.getType());
                 }
+                else if (filter instanceof ObjectTypeFilter)
+                {
+                    ObjectTypeFilter objectTypeFilter = (ObjectTypeFilter)filter;
+                    ctx.content(objectTypeFilter.getObjectType());
+                }
 
                 // finish filter element
                 //
@@ -250,8 +263,39 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     // finish filter element
                     ctx.endTag(m_index, FILTER_ELEMENT_NAME);
                 }
+                
+                if (filter instanceof OffsetFilter)
+                {
+                    OffsetFilter offsetFilter = (OffsetFilter) filter;
+                    ctx.startTag(m_index, "offset");
+                    ctx.content(offsetFilter.getOffset());
+                    ctx.endTag(m_index, "offset");
+                }
+                
+                else if (filter instanceof LimitFilter)
+                {
+                    LimitFilter limitFilter = (LimitFilter) filter;
+                    ctx.startTag(m_index, "limit");
+                    ctx.content(limitFilter.getLimit());
+                    ctx.endTag(m_index, "limit");
+                }
+                
+                else if (filter instanceof OrderFilter)
+                {
+                    OrderFilter orderFilter = (OrderFilter) filter;
+                    ctx.startTag(m_index, "order-by");
+                    //attribute sorting only in case sort order is descending
+                    if (orderFilter.getSortOrder().equals(OrderFilter.ORDER_DESCENDING))
+                    {
+                        ctx.attribute(m_index, "sorting", orderFilter.getSortOrder());
+                    }
+                    ctx.content(orderFilter.getProperty());
+                    ctx.endTag(m_index, "order-by");
+                }
 
             }
+            
+            
 
             // finish with end tag for container element
             ctx.endTag(m_index, m_name);

@@ -395,4 +395,157 @@ public class FilterTaskParamVO extends ValueObject
         }
         // This type of filter does not need further information
     }
+    
+    /**
+     * 
+     * Class to filter by object type (e.g. item or container)
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class ObjectTypeFilter implements Filter
+    {
+        
+        public final static String OBJECT_TYPE_ITEM = "http://escidoc.de/core/01/resources/Item";
+        public final static String OBJECT_TYPE_CONTAINER = "http://escidoc.de/core/01/resources/Container";
+        public final static String OBJECT_TYPE_ORGANIZATIONAL_UNIT = "http://escidoc.de/core/01/resources/OrganizationalUnit";
+        
+        
+        private String objectType;
+        
+        public ObjectTypeFilter(String objectType)
+        {
+            this.objectType = objectType;
+        }
+
+        public String getObjectType()
+        {
+            return objectType;
+        }
+
+        public void setObjectType(String objectType)
+        {
+            this.objectType = objectType;
+        }
+    }
+    
+    /**
+     * 
+     * Class to specify an offset for handlers that return lsits. If the OffsetFilter is specified, only the results from the offset are returned.
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class OffsetFilter implements Filter
+    {
+        private String offset;
+
+        public OffsetFilter(String offset)
+        {
+            super();
+            this.offset = offset;
+        }
+
+        public String getOffset()
+        {
+            return offset;
+        }
+
+        public void setOffset(String offset)
+        {
+            this.offset = offset;
+        }
+        
+        
+    }
+    
+    /**
+     * 
+     * Class to specify a list limit for handlers that return lists. Only the number of list entries is returned that is specified with the limit value.
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class LimitFilter implements Filter
+    {
+        private String limit;
+
+        public LimitFilter(String limit)
+        {
+            super();
+            this.limit = limit;
+        }
+
+        public String getLimit()
+        {
+            return limit;
+        }
+
+        public void setLimit(String limit)
+        {
+            this.limit = limit;
+        }
+
+        
+        
+        
+    }
+    
+    /**
+     * 
+     * This filter orders a returned list by the given property and sorting order;
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class OrderFilter implements Filter
+    {
+        public final static String ORDER_ASCENDING = "ascending";
+        public final static String ORDER_DESCENDING = "descending";
+        private String property;
+        private String sortOrder;
+        
+        public OrderFilter(String property, String sortOrder)
+        {
+            super();
+            this.property = property;
+        }
+
+        public String getProperty()
+        {
+            return property;
+        }
+
+        public void setProperty(String property)
+        {
+            this.property = property;
+        }
+
+        public String getSortOrder()
+        {
+            return sortOrder;
+        }
+
+        public void setSortOrder(String sortOrder)
+        {
+            this.sortOrder = sortOrder;
+        }
+        
+        
+
+        
+        
+        
+        
+    }
+    
+    
 }
