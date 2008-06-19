@@ -29,7 +29,7 @@
 <!-- Validation Schema for publication items
 	$Author: mfranke $
 	$Revision: 139 $ -->
-<?identification context-name="Publications of the MPI for Human Cognitive and Brain Sciences" content-model="escidoc:persistent4" context="escidoc:dummypersistent3" metadata-version="1.0" version="0.1"?>
+<?identification context-name="Publications of the MPI for Human Cognitive and Brain Sciences" content-model="escidoc:persistent4" context="escidoc:dummypersistent4711" metadata-version="1.0" version="0.1"?>
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
