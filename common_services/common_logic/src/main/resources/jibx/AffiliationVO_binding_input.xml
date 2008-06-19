@@ -79,82 +79,34 @@
 
 		</structure>
 
+		<!-- Node: item.md-records -->
 		<structure name="md-records" ns="${xsd.soap.common.mdrecords}">
-			
-			<structure name="md-record" ns="${xsd.soap.common.mdrecords}" usage="optional">
-			
-				<!-- Node: organizational-unit.organization-details -->
-				<structure name="organization-details" ns="${xsd.metadata.organization}" ordered="false">
-		
-					<!-- Node: organizational-unit.organization-details.title -->
-					<!-- Field: AffiliationVO.name [String] -->
-					<value style="element" name="title" ns="http://purl.org/dc/elements/1.1/"
-						field="name" />
-						
-					<!-- Node: organizational-unit.organization-details.alternative -->
-					<!-- Field: AffiliationVO.alternativeNames [List<String>] -->
-					<collection field="alternativeNames"
-						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-						<value name="alternative" ns="http://purl.org/dc/terms/" type="java.lang.String"/>
-					</collection>
-		
-					<!-- Node: organizational-unit.organization-details.identifier -->
-					<!-- Field: AffiliationVO.identifiers [List<String>] -->
-					<collection field="identifiers"
-						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-						<value name="identifier" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
-					</collection>
-		
-					<!-- Node: organizational-unit.organization-details.description -->
-					<!-- Field: AffiliationVO.descriptions [List<String>] -->
-					<collection field="descriptions"
-						factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-						<value name="description" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
-					</collection>
-		
-					<!-- Node: organizational-unit.organization-details.city -->
-					<!-- Field: AffiliationVO.city [String] -->
-					<value style="element" name="city" ns="${xsd.metadata.organization}" field="city"
-						usage="optional" />
-		
-					<!-- Node: organizational-unit.organization-details.country -->
-					<!-- Field: AffiliationVO.countryCode [String] -->
-					<value style="element" name="country" ns="${xsd.metadata.organization}"
-						field="countryCode"/>
-						
-					<!-- Node: organizational-unit.organization-details.coordinates -->
-					<!-- Field: AffiliationVO.coordinates [Coordinates] -->
-					<value style="element" name="coordinates" ns="http://www.opengis.net/kml/2.2"
-						get-method="getCoordinates" set-method="setCoordinates" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeCoordinates" usage="optional" />
-		
-					<!-- Node: organizational-unit.organization-details.start-date -->
-					<!-- Field: AffiliationVO.startDate [Date] -->
-					<value style="element" name="start-date" ns="${xsd.metadata.organization}"
-						field="startDate" usage="optional" />
-		
-					<!-- Node: organizational-unit.organization-details.end-date -->
-					<!-- Field: AffiliationVO.endDate [Date] -->
-					<value style="element" name="end-date" ns="${xsd.metadata.organization}"
-						field="endDate" usage="optional" />
-		
-				</structure>
+
+			<!-- Node: item.md-records.md-record -->
+			<!-- Field: metadataSets [List<MetadataSetVO>] -->
+			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
+
+				<structure name="organization-details" ns="${xsd.metadata.organization}"
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO" usage="optional" />
 				
-			</structure>
+			</collection>
 			
 		</structure>
 
-		<!-- Node: organizational-unit.parent-ous -->
+		<!-- Node: organizational-unit.parents -->
 		<!-- Field: AffiliationVO.parentAffiliations [List<AffiliationRO>] -->
-		<collection name="parent-ous" ns="${xsd.soap.ou.ou}"
+		<collection name="parents" ns="${xsd.soap.ou.ou}"
 			field="parentAffiliations"
 			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.affiliationROListFactory"
 			test-method="hasParentAffiliations" usage="optional">
 
-			<!-- Node: organizational-unit.parent-ous.parent-ou -->
-			<structure name="parent-ou" ns="${xsd.soap.ou.ou}"
+			<!-- Node: organizational-unit.parents.parent -->
+			<structure name="parent" ns="${xsd.soap.common.srel}"
 				type="de.mpg.escidoc.services.common.referenceobjects.AffiliationRO" usage="optional">
 
-				<!-- Node: organizational-unit.parent-ous.parent-ou.@objid -->
+				<!-- Node: organizational-unit.parents.parent.@objid -->
 				<value style="attribute" name="objid" set-method="setObjectId" usage="optional" />
 
 			</structure>

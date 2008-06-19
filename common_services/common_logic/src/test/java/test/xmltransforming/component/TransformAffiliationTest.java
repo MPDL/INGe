@@ -41,18 +41,16 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.w3c.dom.Document;
 
 import test.TestBase;
-import test.XpathPrefixResolver;
 
-import com.sun.org.apache.xpath.internal.XPathAPI;
 import com.sun.org.apache.xpath.internal.objects.XObject;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
 /**
@@ -179,18 +177,24 @@ public class TransformAffiliationTest extends TestBase
 
     private void assertEqualsMPIWG(AffiliationVO affiliation)
     {
+        MdsOrganizationalUnitDetailsVO details = null;
+        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            details = (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
+        }
+        
         assertEquals("escidoc:persistent1", affiliation.getReference().getObjectId());
         assertEquals("opened", affiliation.getPublicStatus());
-        assertEquals(1, affiliation.getAlternativeNames().size());
-        assertEquals("MPIWG", affiliation.getAlternativeNames().get(0));
-        assertEquals("MPI for the History of Science", affiliation.getName());
-        assertEquals(1, affiliation.getDescriptions().size());
+        assertEquals(1, details.getAlternativeNames().size());
+        assertEquals("MPIWG", details.getAlternativeNames().get(0));
+        assertEquals("MPI for the History of Science", details.getName());
+        assertEquals(1, details.getDescriptions().size());
         assertEquals(
                 "The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.",
-                affiliation.getDescriptions().get(0));
-        assertEquals("DE", affiliation.getCountryCode());
-        assertEquals("Berlin", affiliation.getCity());
-        assertEquals(1, affiliation.getIdentifiers().size());
-        assertEquals("http://www.mpgwg-berlin.mpg.de", affiliation.getIdentifiers().get(0));
+                details.getDescriptions().get(0));
+        assertEquals("DE", details.getCountryCode());
+        assertEquals("Berlin", details.getCity());
+        assertEquals(1, details.getIdentifiers().size());
+        assertEquals("http://www.mpgwg-berlin.mpg.de", details.getIdentifiers().get(0));
     }
 }

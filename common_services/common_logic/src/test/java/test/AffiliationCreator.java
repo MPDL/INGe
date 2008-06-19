@@ -46,6 +46,7 @@ import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -145,7 +146,10 @@ public class AffiliationCreator extends TestBase
         // create ZEL_2 as a sub-affiliation of MPH-HD
         affiliationVO = getAffiliationZEL();
         // The name of an affiliation mus be unique, therefore "_2" is appended.
-        affiliationVO.setName(affiliationVO.getName() + "_2");
+        if (affiliationVO.getMetadataSets().size() > 0 && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            ((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).setName(((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).getName() + "_2");
+        }
         parentObjIds.clear();
         parentObjIds.add(objectIdMPH_HD);
         String objectIdZEL2 = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
@@ -153,7 +157,10 @@ public class AffiliationCreator extends TestBase
         // create FU_BERLIN_2 as a sub-affiliation of ZEL_2
         affiliationVO = getAffiliationFU_BERLIN();
         // The name of an affiliation mus be unique, therefore "_2" is appended.
-        affiliationVO.setName(affiliationVO.getName() + "_2");
+        if (affiliationVO.getMetadataSets().size() > 0 && affiliationVO.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            ((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).setName(((MdsOrganizationalUnitDetailsVO)affiliationVO.getMetadataSets().get(0)).getName() + "_2");
+        }
         parentObjIds.clear();
         parentObjIds.add(objectIdZEL2);
         String objectIdFuBerlin_2 = createSubAffiliation(affiliationVO, parentObjIds, systemAdministratorUserHandle, uniquer);
@@ -189,8 +196,13 @@ public class AffiliationCreator extends TestBase
         {
             throw new IllegalArgumentException(AffiliationCreator.class.getSimpleName() + ":createTopLevelAffiliation:affiliation is null");
         }
-        String name = affiliation.getName();
-        affiliation.setName(affiliation.getName() + " Nr." + uniquer + "***");
+        String name = null;
+        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            name = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).getName() + " Nr." + uniquer + "***";
+            ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).setName(name);
+        }
+
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
         logger.debug("createTopLevelAffiliation() - PreCreate (without PID): This top level affiliation is sent to the framework:\n" + organizationalUnitPreCreate);
@@ -222,8 +234,12 @@ public class AffiliationCreator extends TestBase
      */
     public static String createSubAffiliation(final AffiliationVO affiliation, List<String> parentObjectIds, String userHandle, long uniquer) throws Exception
     {
-        String name = affiliation.getName();
-        affiliation.setName(affiliation.getName() + " Nr." + uniquer + "***");
+        String name = null;
+        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            name = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).getName() + " Nr." + uniquer + "***";
+            ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0)).setName(name);
+        }
         for (String objId : parentObjectIds)
         {
             AffiliationRO affRO = new AffiliationRO(objId);
@@ -231,7 +247,11 @@ public class AffiliationCreator extends TestBase
         }
         // transform the AffiliationVO into an organizational unit (for create)
         String organizationalUnitPreCreate = xmlTransforming.transformToOrganizationalUnit(affiliation);
-        logger.debug("createSubAffiliation() - PreCreate - " + name + ": AffiliationVO.externalID = " + affiliation.getIdentifiers());
+        if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            MdsOrganizationalUnitDetailsVO details = ((MdsOrganizationalUnitDetailsVO)affiliation.getMetadataSets().get(0));
+            logger.debug("createSubAffiliation() - PreCreate - " + name + ": AffiliationVO.externalID = " + details.getIdentifiers());
+        }
         logger.debug("createSubAffiliation() - PreCreate - " + name + ": organizational unit after transformation from AffiliationVO (unformatted) =\n" + organizationalUnitPreCreate);
         // create the organizational unit in the framework
         String organizationalUnitPostCreate = ServiceLocator.getOrganizationalUnitHandler(userHandle).create(organizationalUnitPreCreate);
@@ -255,7 +275,7 @@ public class AffiliationCreator extends TestBase
         logger.info(sb.toString());
         // check relationship to parent affiliation(s)
         String parents = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveParents(objectId);
-        logger.info("createSubAffiliation() - " + name + ": parent-OUs retrieved.");
+        logger.info("createSubAffiliation() - " + name + ": parents retrieved.");
         logger.debug("createSubAffiliation() - " + name + ": list of retrieved parent affiliations =\n" + toString(getDocument(parents, false), false));
         List<AffiliationVO> parentsVOList = xmlTransforming.transformToAffiliationList(parents);
         assertEquals(parentObjectIds.size(), parentsVOList.size());
@@ -273,16 +293,19 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationMPG = new AffiliationVO();
-        affiliationMPG.setName("Max-Planck-Gesellschaft");
-        affiliationMPG.getAlternativeNames().add("MPG");
-        affiliationMPG.setCity("München");
-        affiliationMPG.getIdentifiers().add("http://www.mpg.de");
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        details.setName("Max-Planck-Gesellschaft");
+        details.getAlternativeNames().add("MPG");
+        details.setCity("München");
+        details.getIdentifiers().add("http://www.mpg.de");
 
-        affiliationMPG.setCountryCode("NO");
-        affiliationMPG.getDescriptions()
+        details.setCountryCode("NO");
+        details.getDescriptions()
                 .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-        affiliationMPG.getIdentifiers().add("4711");
+        details.getIdentifiers().add("4711");
 
+        affiliationMPG.getMetadataSets().add(details);
+        
         return affiliationMPG;
     }
 
@@ -297,17 +320,22 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationHelmholtz = new AffiliationVO();
-        affiliationHelmholtz.setName("Helmholtz-Gemeinschaft");
-        affiliationHelmholtz.getAlternativeNames().add("HG");
 
-        affiliationHelmholtz.setCity("Bonn");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
 
-        affiliationHelmholtz.getIdentifiers().add("http://www.helmholtz.de");
-        affiliationHelmholtz.setCountryCode("DE");
-        affiliationHelmholtz.getDescriptions()
-                .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-        affiliationHelmholtz.getIdentifiers().add("239832-3232");
-
+            details.setName("Helmholtz-Gemeinschaft");
+            details.getAlternativeNames().add("HG");
+    
+            details.setCity("Bonn");
+    
+            details.getIdentifiers().add("http://www.helmholtz.de");
+            details.setCountryCode("DE");
+            details.getDescriptions()
+                    .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
+            details.getIdentifiers().add("239832-3232");
+            affiliationHelmholtz.getMetadataSets().add(details);
+        
+        
         return affiliationHelmholtz;
     }
 
@@ -322,16 +350,23 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationFraunhofer = new AffiliationVO();
-        affiliationFraunhofer.setName("Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.");
-        affiliationFraunhofer.getAlternativeNames().add("FG");
 
-        affiliationFraunhofer.setCity("München");
-        affiliationFraunhofer.getIdentifiers().add("http://www.fraunhofer.de");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+            
+            details.setName("Fraunhofer-Gesellschaft zur Förderung der angewandten Forschung e.V.");
 
-        affiliationFraunhofer.setCountryCode("NO");
-        affiliationFraunhofer.getDescriptions()
-                .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
-        affiliationFraunhofer.getIdentifiers().add("4711");
+            details.getAlternativeNames().add("FG");
+    
+            details.setCity("München");
+            details.getIdentifiers().add("http://www.fraunhofer.de");
+    
+            details.setCountryCode("NO");
+            details.getDescriptions()
+                    .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
+            details.getIdentifiers().add("4711");
+            
+            affiliationFraunhofer.getMetadataSets().add(details);
+        
         return affiliationFraunhofer;
     }
 
@@ -346,16 +381,22 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationMPIFG = new AffiliationVO();
-        affiliationMPIFG.setName("Max-Planck-Institut für Gesellschaftsforschung");
-        affiliationMPIFG.getAlternativeNames().add("MPIFG");
-        affiliationMPIFG.setCity("Köln");
 
-        affiliationMPIFG.getIdentifiers().add("http://www.mpifg.de");
-
-        affiliationMPIFG.setCountryCode("DE");
-        affiliationMPIFG.getDescriptions()
-                .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
-        affiliationMPIFG.getIdentifiers().add("4711-4712");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+            
+            details.setName("Max-Planck-Institut für Gesellschaftsforschung");
+            details.getAlternativeNames().add("MPIFG");
+            details.setCity("Köln");
+    
+            details.getIdentifiers().add("http://www.mpifg.de");
+    
+            details.setCountryCode("DE");
+            details.getDescriptions()
+                    .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
+            details.getIdentifiers().add("4711-4712");
+            
+            affiliationMPIFG.getMetadataSets().add(details);
+        
 
         return affiliationMPIFG;
     }
@@ -372,21 +413,25 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationMPI_G = new AffiliationVO();
-        affiliationMPI_G.setName("Max-Planck-Institut zur Erforschung multireligiöser und multiethnischer Gesellschaften");
-        affiliationMPI_G.getAlternativeNames().add("MPI-G");
-        affiliationMPI_G.setCity("Göttingen");
 
-        affiliationMPI_G.getIdentifiers().add("http://www.geschichte.mpg.de/");
-
-        affiliationMPI_G.setCountryCode("DE");
-        affiliationMPI_G.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
-                + "das durch eine aus französischen und deutschen Persönlichkeiten zusammengesetzte wissenschaftliche Kommission beraten wird.\n"
-                + "Die Mission Historique Francaise en Allemagne wurde 1977 durch Robert Mandrou gegründet, der auch ihr erster Direktor war. "
-                + "Heute nimmt sie im wissenschaftlichen Austausch der Historiker in Frankreich und Deutschland einen allgemein anerkannten Platz ein.\n"
-                + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
-                + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
-                + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
-        affiliationMPI_G.getIdentifiers().add("r2d2-49");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+            
+            details.setName("Max-Planck-Institut zur Erforschung multireligiöser und multiethnischer Gesellschaften");
+            details.getAlternativeNames().add("MPI-G");
+            details.setCity("Göttingen");
+    
+            details.getIdentifiers().add("http://www.geschichte.mpg.de/");
+    
+            details.setCountryCode("DE");
+            details.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
+                    + "das durch eine aus französischen und deutschen Persönlichkeiten zusammengesetzte wissenschaftliche Kommission beraten wird.\n"
+                    + "Die Mission Historique Francaise en Allemagne wurde 1977 durch Robert Mandrou gegründet, der auch ihr erster Direktor war. "
+                    + "Heute nimmt sie im wissenschaftlichen Austausch der Historiker in Frankreich und Deutschland einen allgemein anerkannten Platz ein.\n"
+                    + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
+                    + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
+                    + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
+            details.getIdentifiers().add("r2d2-49");
+            affiliationMPI_G.getMetadataSets().add(details);
 
         return affiliationMPI_G;
     }
@@ -403,40 +448,44 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationFML = new AffiliationVO();
-        affiliationFML.setName("Friedrich-Miescher-Laboratorium für biologische Arbeitsgruppen in der Max-Planck-Gesellschaft");
-        affiliationFML.getAlternativeNames().add("FML");
 
-        affiliationFML.setCity("Tübingen");
-
-        affiliationFML.getIdentifiers().add("http://www.fml.tuebingen.mpg.de");
-        
-        affiliationFML.setCountryCode("DE");
-        affiliationFML.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
-                + "die Möglichkeit zu bieten, mit unabhängigen Arbeitsgruppen für einen befristeten Zeitraum (fünf Jahre) eigene "
-                + "Forschungsprojekte zu bearbeiten. Die Forschungsschwerpunkte wechseln mit der Berufung neuer Gruppenleiter.\n"
-                + "Administrative und organisatorische Interessen der Arbeitsgruppen des Friedrich-Miescher-Laboratoriums werden "
-                + "alternierend durch einen der Arbeitsgruppenleiter vertreten. Die räumliche und thematische Einbettung des "
-                + "Laboratoriums auf dem Campus der Max-Planck-Institute in Tübingen ermöglicht intensive wissenschaftliche und "
-                + "methodische Kontakte zu den Abteilungen der benachbarten Institute.\n"
-                + "Die seit Januar 2005 bestehende und von Gunnar Rätsch geleitete Gruppe ist an der Beantwortung biologischer "
-                + "Fragestellungen mithilfe moderner Methoden des maschinellen Lernens interessiert. Maschinelles Lernen beschäftigt "
-                + "sich mit der computergestützen Analyse komplexer Phänomene und hat sich als sehr nützlich bei der Untersuchung "
-                + "biologischer Systeme erwiesen. Die Gruppe hat sich zum Ziel gesetzt, effiziente und präzise Lernmethoden zu entwickeln, "
-                + "die in der Lage sind, mit großen genomischen Datenmengen umzugehen. Es wird angestrebt, durch für den Menschen "
-                + "nachvollziehbare Vorhersagen ein besseres Verständnis der betrachteten biologischen Zusammenhänge zu erlangen. "
-                + "Die Arbeitsgruppe ist besonders an der Anwendung und Entwicklung neuer Sequenzanalysealgorithmen zur Vorhersage "
-                + "neuer Gene auf der genomischen DNA interessiert. Sie strebt außerdem ein besseres Verständnis der zellulären "
-                + "Spleißmechanismen mithilfe dieser Methoden an. Die genaue Vorhersage von alternativen Spleißprodukten und die "
-                + "Untersuchung von Regulationsmechanismen stehen im Moment im Mittelpunkt ihrer Forschung.\n"
-                + "Die Gruppe von Silke Hauf beschäftigt sich mit der Regulation der Chromosomensegregation während der Zellteilung "
-                + "von Eukaryonten. Insbesondere wird untersucht, wie Kinetochore die Chromosomensegregation beeinflussen und für "
-                + "einen fehlerfreien Ablauf sorgen. Korrekte Chromosomensegregation ist essentiell für die Weitergabe der "
-                + "Erbinformation an die Tochterzellen, und damit essentiell für den Bestand von Organismen. Die grundlegenden "
-                + "Komponenten und Prinzipien haben sich daher über viele Jahrmillionen nur wenig verändert, und ähneln sich in "
-                + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
-                + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
-                + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
-        affiliationFML.getIdentifiers().add("MPI-27892-UBUNTU");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+            
+            details.setName("Friedrich-Miescher-Laboratorium für biologische Arbeitsgruppen in der Max-Planck-Gesellschaft");
+            details.getAlternativeNames().add("FML");
+    
+            details.setCity("Tübingen");
+    
+            details.getIdentifiers().add("http://www.fml.tuebingen.mpg.de");
+            
+            details.setCountryCode("DE");
+            details.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
+                    + "die Möglichkeit zu bieten, mit unabhängigen Arbeitsgruppen für einen befristeten Zeitraum (fünf Jahre) eigene "
+                    + "Forschungsprojekte zu bearbeiten. Die Forschungsschwerpunkte wechseln mit der Berufung neuer Gruppenleiter.\n"
+                    + "Administrative und organisatorische Interessen der Arbeitsgruppen des Friedrich-Miescher-Laboratoriums werden "
+                    + "alternierend durch einen der Arbeitsgruppenleiter vertreten. Die räumliche und thematische Einbettung des "
+                    + "Laboratoriums auf dem Campus der Max-Planck-Institute in Tübingen ermöglicht intensive wissenschaftliche und "
+                    + "methodische Kontakte zu den Abteilungen der benachbarten Institute.\n"
+                    + "Die seit Januar 2005 bestehende und von Gunnar Rätsch geleitete Gruppe ist an der Beantwortung biologischer "
+                    + "Fragestellungen mithilfe moderner Methoden des maschinellen Lernens interessiert. Maschinelles Lernen beschäftigt "
+                    + "sich mit der computergestützen Analyse komplexer Phänomene und hat sich als sehr nützlich bei der Untersuchung "
+                    + "biologischer Systeme erwiesen. Die Gruppe hat sich zum Ziel gesetzt, effiziente und präzise Lernmethoden zu entwickeln, "
+                    + "die in der Lage sind, mit großen genomischen Datenmengen umzugehen. Es wird angestrebt, durch für den Menschen "
+                    + "nachvollziehbare Vorhersagen ein besseres Verständnis der betrachteten biologischen Zusammenhänge zu erlangen. "
+                    + "Die Arbeitsgruppe ist besonders an der Anwendung und Entwicklung neuer Sequenzanalysealgorithmen zur Vorhersage "
+                    + "neuer Gene auf der genomischen DNA interessiert. Sie strebt außerdem ein besseres Verständnis der zellulären "
+                    + "Spleißmechanismen mithilfe dieser Methoden an. Die genaue Vorhersage von alternativen Spleißprodukten und die "
+                    + "Untersuchung von Regulationsmechanismen stehen im Moment im Mittelpunkt ihrer Forschung.\n"
+                    + "Die Gruppe von Silke Hauf beschäftigt sich mit der Regulation der Chromosomensegregation während der Zellteilung "
+                    + "von Eukaryonten. Insbesondere wird untersucht, wie Kinetochore die Chromosomensegregation beeinflussen und für "
+                    + "einen fehlerfreien Ablauf sorgen. Korrekte Chromosomensegregation ist essentiell für die Weitergabe der "
+                    + "Erbinformation an die Tochterzellen, und damit essentiell für den Bestand von Organismen. Die grundlegenden "
+                    + "Komponenten und Prinzipien haben sich daher über viele Jahrmillionen nur wenig verändert, und ähneln sich in "
+                    + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
+                    + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
+                    + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
+            details.getIdentifiers().add("MPI-27892-UBUNTU");
+            affiliationFML.getMetadataSets().add(details);
 
         return affiliationFML;
     }
@@ -452,41 +501,46 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationMPIMF = new AffiliationVO();
-        affiliationMPIMF.setName("Max-Planck-Institut für medizinische Forschung");
-        affiliationMPIMF.getAlternativeNames().add("MPIMF");
-        affiliationMPIMF.setCity("Heidelberg");
 
-        affiliationMPIMF.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/");
-
-        affiliationMPIMF.setCountryCode("DE");
-        affiliationMPIMF.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
-                + "medizinische Grundlagenforschung einzuführen. Die Abteilungen für Chemie, Physiologie und Biophysik konzentrierten "
-                + "sich auf biophysikalische und chemische Fragestellungen, in der Tradition der Naturstoffchemie des Instituts. Mit "
-                + "einer Abteilung für Molekularbiologie wurde in den 60er Jahren neuen Entwicklungen in der Biologie Rechnung getragen. "
-                + "Ende der 80er Jahre und während der 90er Jahre kamen Untersuchungen zu spezifischen Funktionen von Muskel- und "
-                + "Nervenzellen hinzu. Neue Abteilungen für Zellphysiologie (1989), Molekulare Zellforschung (1992-1999), Molekulare "
-                + "Neurobiologie (1995), Biomedizinische Optik (1999) und Biomolekulare Mechanismen (2002) wurden ebenso wie die "
-                + "Nachwuchsgruppen Ionenkanalstruktur (1997-2003) und für Entwicklungsgenetik (1999-2005) gegründet. Am Institut "
-                + "arbeiteten seit seiner Gründung fünf Nobelpreisträger: Meyerhof (Physiologie), Kuhn (Chemie), Bothe (Physik), " + "Mößbauer (Physik) und Sakmann (Physiologie).\n"
-                + "Gegenwärtig hat das Institut vier Abteilungen. Die Abteilung Zellphysiologie bearbeitet die Entstehung von "
-                + "elektrischen Signalen und der Weiterleitung zwischen und innerhalb von Nervenzellen sowie deren Veränderbarkeit durch "
-                + "Übung und Gebrauch. Die Abteilung Molekulare Neurobiologie hat als Schwerpunkt die Analyse und Veränderung in der Maus "
-                + "von Genen, deren Produkte für die schnelle Signalübermittlung im Gehirn verantwortlich sind und geht der Frage nach, "
-                + "welche Hirnleistungen vererbt oder welche erworben werden. Die Abteilung Biomedizinische Optik bestimmt unter Anwendung "
-                + "und Weiterentwicklung der Multiquantenmikroskopie die Aktivität von Gruppen von Nervenzellen, in Gewebepräparaten und "
-                + "in intakten Tieren. Ziel der Arbeiten der Abteilung Biomolekulare Mechanismen ist es, die molekularen Grundlagen von "
-                + "Modellreaktionen anhand biophysikalischer und strukturbiologischer Untersuchungen aufzuklären.\n"
-                + "Schwerpunkt der Emeritusgruppe Biophysik ist die Struktur des Myosin-Aktin Komplexes mit atomarer Auflösung.\n"
-                + "Künftig sollen unter anderem am Institut Nervenzellen und ihre vielfältigen Verschaltungen in der Großhirnrinde, die "
-                + "für Empfang und Verarbeitung von Meldungen der Sinnesorgane, wie dem Geruchs-, Seh- und Tastsinn, verantwortlich sind, "
-                + "mit Hilfe von molekulargenetischen, physiologischen und bildgebenden Verfahren untersucht werden. Insbesondere "
-                + "interessiert uns, wie Information in den Kontaktpunkten (Synapsen) der Verdrahtungen zwischen Nervenzellen gespeichert "
-                + "und abgerufen wird und wie neue Kontaktpunkte gebildet sowie nicht mehr benötigte entfernt werden. Für diese künftigen "
-                + "Arbeiten sollen neu zu entwickelnde Genschalter zum Einsatz kommen, mit denen die Aktivität von Schlüsselmolekülen "
-                + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
-                + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
-                + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
-        affiliationMPIMF.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+            MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+            
+            details.setName("Max-Planck-Institut für medizinische Forschung");
+            details.getAlternativeNames().add("MPIMF");
+            details.setCity("Heidelberg");
+    
+            details.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/");
+    
+            details.setCountryCode("DE");
+            details.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
+                    + "medizinische Grundlagenforschung einzuführen. Die Abteilungen für Chemie, Physiologie und Biophysik konzentrierten "
+                    + "sich auf biophysikalische und chemische Fragestellungen, in der Tradition der Naturstoffchemie des Instituts. Mit "
+                    + "einer Abteilung für Molekularbiologie wurde in den 60er Jahren neuen Entwicklungen in der Biologie Rechnung getragen. "
+                    + "Ende der 80er Jahre und während der 90er Jahre kamen Untersuchungen zu spezifischen Funktionen von Muskel- und "
+                    + "Nervenzellen hinzu. Neue Abteilungen für Zellphysiologie (1989), Molekulare Zellforschung (1992-1999), Molekulare "
+                    + "Neurobiologie (1995), Biomedizinische Optik (1999) und Biomolekulare Mechanismen (2002) wurden ebenso wie die "
+                    + "Nachwuchsgruppen Ionenkanalstruktur (1997-2003) und für Entwicklungsgenetik (1999-2005) gegründet. Am Institut "
+                    + "arbeiteten seit seiner Gründung fünf Nobelpreisträger: Meyerhof (Physiologie), Kuhn (Chemie), Bothe (Physik), " + "Mößbauer (Physik) und Sakmann (Physiologie).\n"
+                    + "Gegenwärtig hat das Institut vier Abteilungen. Die Abteilung Zellphysiologie bearbeitet die Entstehung von "
+                    + "elektrischen Signalen und der Weiterleitung zwischen und innerhalb von Nervenzellen sowie deren Veränderbarkeit durch "
+                    + "Übung und Gebrauch. Die Abteilung Molekulare Neurobiologie hat als Schwerpunkt die Analyse und Veränderung in der Maus "
+                    + "von Genen, deren Produkte für die schnelle Signalübermittlung im Gehirn verantwortlich sind und geht der Frage nach, "
+                    + "welche Hirnleistungen vererbt oder welche erworben werden. Die Abteilung Biomedizinische Optik bestimmt unter Anwendung "
+                    + "und Weiterentwicklung der Multiquantenmikroskopie die Aktivität von Gruppen von Nervenzellen, in Gewebepräparaten und "
+                    + "in intakten Tieren. Ziel der Arbeiten der Abteilung Biomolekulare Mechanismen ist es, die molekularen Grundlagen von "
+                    + "Modellreaktionen anhand biophysikalischer und strukturbiologischer Untersuchungen aufzuklären.\n"
+                    + "Schwerpunkt der Emeritusgruppe Biophysik ist die Struktur des Myosin-Aktin Komplexes mit atomarer Auflösung.\n"
+                    + "Künftig sollen unter anderem am Institut Nervenzellen und ihre vielfältigen Verschaltungen in der Großhirnrinde, die "
+                    + "für Empfang und Verarbeitung von Meldungen der Sinnesorgane, wie dem Geruchs-, Seh- und Tastsinn, verantwortlich sind, "
+                    + "mit Hilfe von molekulargenetischen, physiologischen und bildgebenden Verfahren untersucht werden. Insbesondere "
+                    + "interessiert uns, wie Information in den Kontaktpunkten (Synapsen) der Verdrahtungen zwischen Nervenzellen gespeichert "
+                    + "und abgerufen wird und wie neue Kontaktpunkte gebildet sowie nicht mehr benötigte entfernt werden. Für diese künftigen "
+                    + "Arbeiten sollen neu zu entwickelnde Genschalter zum Einsatz kommen, mit denen die Aktivität von Schlüsselmolekülen "
+                    + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
+                    + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
+                    + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
+            details.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+            affiliationMPIMF.getMetadataSets().add(details);
+        
         return affiliationMPIMF;
     }
 
@@ -501,17 +555,20 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationZEL = new AffiliationVO();
-        affiliationZEL.setName("Zentrale Einrichtung Lichtmikroskopie des MPI für Medizinische Forschung");
-        affiliationZEL.getAlternativeNames().add("ZEL");
-        affiliationZEL.setCity("Heidelberg");
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        
+        details.setName("Zentrale Einrichtung Lichtmikroskopie des MPI für Medizinische Forschung");
+        details.getAlternativeNames().add("ZEL");
+        details.setCity("Heidelberg");
 
-        affiliationZEL.getIdentifiers().add("http://lightmicro.mpimf-heidelberg.mpg.de/index.html");
+        details.getIdentifiers().add("http://lightmicro.mpimf-heidelberg.mpg.de/index.html");
 
-        affiliationZEL.setCountryCode("DE");
-        affiliationZEL.getDescriptions().add("Die Zentrale Einrichtung Lichtmikroskopie des MPI fuer Medizinische Forschung soll:\n"
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Die Zentrale Einrichtung Lichtmikroskopie des MPI fuer Medizinische Forschung soll:\n"
                 + "* Wissenschaflern des Institutes und von außerhalb die Nutzung von komplexen, aktuellen Methoden der Lichtmikroskopie " + "und der lichtmikroskopischen Datenanalyse bieten\n"
                 + "* Unterstützung und Training für Probenvorbereitung, Datenaufnahme und Datenanalyse bieten\n" + "* die Kommunikation und den Austausch von experimentellen Erfahrungen fördern");
-        affiliationZEL.getIdentifiers().add("LIGHT-123");
+        details.getIdentifiers().add("LIGHT-123");
+        affiliationZEL.getMetadataSets().add(details);
 
         return affiliationZEL;
     }
@@ -527,17 +584,18 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationMPH_HD = new AffiliationVO();
-        affiliationMPH_HD.setName("Max-Planck-Haus Heidelberg");
-        affiliationMPH_HD.getAlternativeNames().add("MPH-HD");
-        affiliationMPH_HD.setCity("Heidelberg");
-        affiliationMPH_HD.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html");
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        details.setName("Max-Planck-Haus Heidelberg");
+        details.getAlternativeNames().add("MPH-HD");
+        details.setCity("Heidelberg");
+        details.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html");
 
-        affiliationMPH_HD.setCountryCode("DE");
-        affiliationMPH_HD.getDescriptions().add("Im Hörsaal des Max-Planck-Hauses können Vortäge und Seminarveranstaltungen stattfinden; folgende technische " + "Ausstattung steht zur Verfügung:\n"
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Im Hörsaal des Max-Planck-Hauses können Vortäge und Seminarveranstaltungen stattfinden; folgende technische " + "Ausstattung steht zur Verfügung:\n"
                 + "* Beamer\n" + "* Tageslichtprojektor\n" + "* Diaprojektor\n" + "* Beamer\n" + "* Breitband-Internetanschluss\n" + "* Leinwand\n" + "* Wandtafel\n"
                 + "* Mikrofonanlage mit drei Funkmikrofonen\n" + "* DVD\n");
-        affiliationMPH_HD.getIdentifiers().add("MPH-HD-20982022");
-
+        details.getIdentifiers().add("MPH-HD-20982022");
+        affiliationMPH_HD.getMetadataSets().add(details);
         return affiliationMPH_HD;
     }
 
@@ -552,13 +610,14 @@ public class AffiliationCreator extends TestBase
         // make sure the XmlTransforming instance is properly initialized
         initialize();
         AffiliationVO affiliationFU_BERLIN = new AffiliationVO();
-        affiliationFU_BERLIN.setName("Freie Universität Berlin");
-        affiliationFU_BERLIN.getAlternativeNames().add("FU-BERLIN");
-        affiliationFU_BERLIN.setCity("Berlin");
-        affiliationFU_BERLIN.getIdentifiers().add("http://www.fu-berlin.de/");
+        MdsOrganizationalUnitDetailsVO details = new MdsOrganizationalUnitDetailsVO();
+        details.setName("Freie Universität Berlin");
+        details.getAlternativeNames().add("FU-BERLIN");
+        details.setCity("Berlin");
+        details.getIdentifiers().add("http://www.fu-berlin.de/");
 
-        affiliationFU_BERLIN.setCountryCode("DE");
-        affiliationFU_BERLIN.getDescriptions().add("Die Freie Universität Berlin gehört zu den führenden Universitäten der Welt und zeichnet sich durch ihren "
+        details.setCountryCode("DE");
+        details.getDescriptions().add("Die Freie Universität Berlin gehört zu den führenden Universitäten der Welt und zeichnet sich durch ihren "
                 + "modernen und internationalen Charakter aus. Deutschlandweit zählt die Freie Universität mit über hundert Studienfächern "
                 + "und 35.500 Studierenden - davon 15 Prozent aus aller Welt - zu den größten und leistungsstärksten Universitäten. Auch "
                 + "ausländische Gastwissenschaftler, wie die Alexander von Humboldt-Stipendiaten, wählen deutschlandweit bevorzugt die "
@@ -571,8 +630,10 @@ public class AffiliationCreator extends TestBase
                 + "einen beträchtlichen Teil ihrer Einnahmen aus Drittmitteln ein.\n"
                 + "Eine strategische Allianz hat die Freie Universität mit der Ludwig-Maximilians-Universität in München geschlossen. "
                 + "Außerdem arbeitet die Freie Universität mit weltweit aktiven Firmen wie der BMW-Group, Schering, Siemens, Deutsche " + "Telekom oder Pfizer eng zusammen.");
-        affiliationFU_BERLIN.getIdentifiers().add("FU-B-2103984");
+        details.getIdentifiers().add("FU-B-2103984");
 
+        affiliationFU_BERLIN.getMetadataSets().add(details);
+        
         return affiliationFU_BERLIN;
     }
 
@@ -596,18 +657,21 @@ public class AffiliationCreator extends TestBase
             for (AffiliationVO affiliation : affiliations)
             {
                 // As affiliations with child affiliations cannot be removed, skip them in this loop run
-                String affiliationName = affiliation.getName();
-                logger.debug("Examining '" + affiliationName + "'");
-                if (affiliationName.contains("***"))
+                if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
                 {
-                    if (affiliation.getHasChildren() == false)
+                    String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+                    logger.debug("Examining '" + affiliationName + "'");
+                    if (affiliationName.contains("***"))
                     {
-                        ouh.delete(affiliation.getReference().getObjectId());
-                        logger.debug("-> " + affiliationName + "...DELETED");
-                    }
-                    else
-                    {
-                        nextLoopAffiliationCount++;
+                        if (affiliation.getHasChildren() == false)
+                        {
+                            ouh.delete(affiliation.getReference().getObjectId());
+                            logger.debug("-> " + affiliationName + "...DELETED");
+                        }
+                        else
+                        {
+                            nextLoopAffiliationCount++;
+                        }
                     }
                 }
             }

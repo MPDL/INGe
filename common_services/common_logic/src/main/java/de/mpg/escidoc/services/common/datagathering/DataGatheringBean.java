@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -201,8 +202,14 @@ public class DataGatheringBean implements DataGathering
                 
 //                appendAddressPart(affiliation.getAddress(), address);
 //                appendAddressPart(affiliation.getPostcode(), address);
-                appendAddressPart(affiliation.getCity(), address);
-                appendAddressPart(affiliation.getCountryCode(), address);
+                
+                if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+                {
+                    MdsOrganizationalUnitDetailsVO details = (MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0);
+                    appendAddressPart(details.getCity(), address);
+                    appendAddressPart(details.getCountryCode(), address);
+                }
+                
                 if (address.length() > 0)
                 {
                     newOrg.setAddress(address.toString());
@@ -234,7 +241,11 @@ public class DataGatheringBean implements DataGathering
                     {
                         orgName.append(ORGANIZATION_NAME_SEPARATOR);
                     }
-                    orgName.append(newAff.getName());
+                    if (newAff.getMetadataSets().size() > 0 && newAff.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+                    {
+                        MdsOrganizationalUnitDetailsVO details = (MdsOrganizationalUnitDetailsVO) newAff.getMetadataSets().get(0);
+                        orgName.append(details.getName());
+                    }
                 }
                 TextVO name = new TextVO();
                 name.setValue(orgName.toString());

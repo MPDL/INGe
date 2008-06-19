@@ -33,6 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.types.Validatable;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 
 /**
@@ -43,7 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class PublicationAdminDescriptorVO extends AdminDescriptorVO
+public class PublicationAdminDescriptorVO extends AdminDescriptorVO implements Validatable
 {
     
     public enum Workflow

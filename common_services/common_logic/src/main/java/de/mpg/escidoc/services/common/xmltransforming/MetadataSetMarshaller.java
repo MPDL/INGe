@@ -59,14 +59,20 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
     }
     
     public void marshal(Object obj, IMarshallingContext ictx)
-        throws JiBXException {
+        throws JiBXException
+        {
         
         // make sure the parameters are as expected
-        if (!(obj instanceof List)) {
+        if (!(obj instanceof List))
+        {
             throw new JiBXException("Invalid object type for marshaller");
-        } else if (!(ictx instanceof MarshallingContext)) {
+        }
+        else if (!(ictx instanceof MarshallingContext))
+        {
             throw new JiBXException("Invalid object type for marshaller");
-        } else {
+        }
+        else
+        {
             
             // start by generating start tag for container
             MarshallingContext ctx = (MarshallingContext)ictx;

@@ -58,50 +58,20 @@ public class AffiliationVO extends ValueObject
      * 
      * @author Johannes Mueller
      */
-    
-    /**
-     * Additional name or name used in the community.
-     */
-//    private String abbreviation;
-//    private String address;
+
     private java.util.List<AffiliationRO> childAffiliations = new java.util.ArrayList<AffiliationRO>();
-    private String city;
     
-    private Coordinates coordinates;
-    
-    /**
-     * These codes are the upper-case, two-letter codes as defined by ISO-3166. You can find a full list of these codes
-     * at a number of sites, such as: http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-
-     * en1.html
-     */
-    private String countryCode;
-    private List<String> descriptions = new ArrayList<String>();
-//    private String email;
-    /**
-     * Identifier of an external resource.
-     */
-    private List<String> identifiers = new ArrayList<String>();
-//    private String fax;
-//    private java.net.URL homepageUrl;
-    /**
-     * The unique name of the affiliation in the organizational structure.
-     */
-    private String name;
-    private List<String> alternativeNames = new ArrayList<String>();
+    private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
+
     private java.util.List<AffiliationRO> parentAffiliations = new java.util.ArrayList<AffiliationRO>();
-//    private String pid;
-//    private String postcode;
+
     private AffiliationRO reference;
-//    private String region;
-//    private String telephone;
+
     private java.util.Date creationDate;
     private java.util.Date lastModificationDate;
     private AccountUserRO creator;
     private boolean hasChildren;
     private String publicStatus;
-    
-    private Date startDate;
-    private Date endDate;
     
     /**
      * Default constructor.
@@ -118,10 +88,7 @@ public class AffiliationVO extends ValueObject
     {
 
         this.childAffiliations = affiliation.childAffiliations;
-        this.city = affiliation.city;
-        this.countryCode = affiliation.countryCode;
-        this.descriptions = affiliation.descriptions;
-        this.name = affiliation.name;
+
         this.parentAffiliations = affiliation.parentAffiliations;
         this.reference = affiliation.reference;
         this.creationDate = affiliation.creationDate;
@@ -129,11 +96,7 @@ public class AffiliationVO extends ValueObject
         this.creator = affiliation.creator;
         this.hasChildren = affiliation.hasChildren;
         this.publicStatus = affiliation.publicStatus;
-        this.alternativeNames = affiliation.alternativeNames;
-        this.identifiers = affiliation.identifiers;
-        this.coordinates = affiliation.coordinates;
-        this.endDate = affiliation.endDate;
-        this.startDate = affiliation.startDate;
+        this.metadataSets = affiliation.metadataSets;
     }
     
     @Override
@@ -151,7 +114,7 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Helper method for JiBX transformations. This method helps JiBX to determine if a "parent-ous" XML structure has
+     * Helper method for JiBX transformations. This method helps JiBX to determine if a "parents" XML structure has
      * to be created during marshalling.
      */
     boolean hasParentAffiliations()
@@ -165,24 +128,6 @@ public class AffiliationVO extends ValueObject
     public java.util.List<AffiliationRO> getChildAffiliations()
     {
         return childAffiliations;
-    }
-
-    /**
-     * Delivers the city of the affiliation.
-     */
-    public String getCity()
-    {
-        return city;
-    }
-
-    /**
-     * Delivers the country code of the affiliation. These codes are the upper-case, two-letter codes as defined by
-     * ISO-3166. You can find a full list of these codes at a number of sites, such as:
-     * http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
-     */
-    public String getCountryCode()
-    {
-        return countryCode;
     }
 
     /**
@@ -211,14 +156,6 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * The unique name of the affiliation in the organizational structure.
-     */
-    public String getName()
-    {
-        return name;
-    }
-
-    /**
      * Delivers the list of the affiliations' parent affiliations.
      */
     public java.util.List<AffiliationRO> getParentAffiliations()
@@ -234,28 +171,6 @@ public class AffiliationVO extends ValueObject
     public AffiliationRO getReference()
     {
         return reference;
-    }
-
-    /**
-     * Sets the city of the affiliation.
-     * 
-     * @param newVal newVal
-     */
-    public void setCity(String newVal)
-    {
-        this.city = newVal;
-    }
-
-    /**
-     * Sets the country code of the affiliation. These codes are the upper-case, two-letter codes as defined by
-     * ISO-3166. You can find a full list of these codes at a number of sites, such as:
-     * http://www.iso.ch/iso/en/prods-services/iso3166ma/02iso-3166-code-lists/list-en1.html
-     * 
-     * @param newVal newVal
-     */
-    public void setCountryCode(String newVal)
-    {
-        this.countryCode = newVal;
     }
 
     /**
@@ -287,16 +202,6 @@ public class AffiliationVO extends ValueObject
     public void setLastModificationDate(java.util.Date newVal)
     {
         this.lastModificationDate = newVal;
-    }
-
-    /**
-     * The unique name of the affiliation in the organizational structure.
-     * 
-     * @param newVal newVal
-     */
-    public void setName(String newVal)
-    {
-        this.name = newVal;
     }
 
     /**
@@ -339,7 +244,7 @@ public class AffiliationVO extends ValueObject
     }
 
     /**
-     * Helper method for JiBX transformations. This method helps JiBX to determine if a "parent-ous" XML structure has
+     * Helper method for JiBX transformations. This method helps JiBX to determine if a "parents" XML structure has
      * to be created during marshalling.
      */
     boolean hasParents()
@@ -358,69 +263,9 @@ public class AffiliationVO extends ValueObject
         return hasChildren;
     }
 
-    public List<String> getDescriptions()
+    public List<MetadataSetVO> getMetadataSets()
     {
-        return descriptions;
-    }
-
-    public void setDescriptions(List<String> descriptions)
-    {
-        this.descriptions = descriptions;
-    }
-
-    public List<String> getIdentifiers()
-    {
-        return identifiers;
-    }
-
-    public void setIdentifiers(List<String> identifiers)
-    {
-        this.identifiers = identifiers;
-    }
-
-    public List<String> getAlternativeNames()
-    {
-        return alternativeNames;
-    }
-
-    public void setAlternativeNames(List<String> alternativeNames)
-    {
-        this.alternativeNames = alternativeNames;
-    }
-
-    public Coordinates getCoordinates()
-    {
-        return coordinates;
-    }
-
-    public void setCoordinates(Coordinates coordinates)
-    {
-        this.coordinates = coordinates;
-    }
-
-    public void setCoordinates(String coordinates) throws Exception
-    {
-        this.coordinates = new Coordinates(coordinates);
-    }
-
-    public Date getStartDate()
-    {
-        return startDate;
-    }
-
-    public void setStartDate(Date startDate)
-    {
-        this.startDate = startDate;
-    }
-
-    public Date getEndDate()
-    {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate)
-    {
-        this.endDate = endDate;
+        return metadataSets;
     }
     
 }
