@@ -1030,6 +1030,7 @@ public abstract class TestBase
                     }
                     first = false;
                 }
+
             }
             
             public String toString()
@@ -1100,6 +1101,7 @@ public abstract class TestBase
                 {
                     logger.warn("Error reading xml schema: " + file);
                 }
+
             } catch (Exception e) {
                 logger.warn("Invalid xml schema", e);
             }

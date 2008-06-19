@@ -109,6 +109,12 @@
 			<!-- Node: component.content.href -->
 			<!-- Field: PubFileVO.content[String] -->
 			<value style="attribute" name="href" ns="http://www.w3.org/1999/xlink" field="content" usage="optional" />
+			<!-- Node: component.content.storage -->
+			<!-- Field: PubFileVO.storage[PubFileVO.Storage] -->
+			<value style="attribute" name="storage"
+				field="storage"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeStorageEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
 
 		</structure>
 

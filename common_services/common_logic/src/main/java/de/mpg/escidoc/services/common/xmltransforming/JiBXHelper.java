@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
@@ -1364,6 +1365,36 @@ public class JiBXHelper
             }
         }
         return visibility;
+    }
+    
+    /**
+     * Deserializes a String containing a storage-attribute like defined in components.xsd to the corresponding
+     * <code>FileVO.Storage</code> Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return Storage The corresponding <code>FileVO.Storage</code> Enum
+     * @throws WrongEnumException
+     */
+    public static Storage deserializeStorageEnum(String enumValue) throws WrongEnumException
+    {
+        Storage storage = null;
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("storage is null.");
+        }
+        else
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                storage = Storage.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("Storage value  is '" + enumValue + "'.", e);
+            }
+        }
+        return storage;
     }
 
     /**

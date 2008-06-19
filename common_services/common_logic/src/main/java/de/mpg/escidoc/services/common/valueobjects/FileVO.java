@@ -59,6 +59,15 @@ public class FileVO extends ValueObject implements Cloneable
     {
         PUBLIC, PRIVATE
     }
+    
+    /**
+     * The possible storage of a file.
+     */
+    public enum Storage
+    {
+        INTERNAL_MANAGED, EXTERNAL_URL, EXTERNAL_MANAGED
+    }
+
 
     private FileRO reference;
     /**
@@ -89,6 +98,10 @@ public class FileVO extends ValueObject implements Cloneable
      * A reference to the content of the file.
      */
     private String content;
+    /**
+     * A reference to the storage attribute of the file.
+     */
+    private FileVO.Storage storage;
     /**
      * The content type of the file.
      */
@@ -139,6 +152,8 @@ public class FileVO extends ValueObject implements Cloneable
         this.setSize(other.getSize());
         this.setVisibility(other.getVisibility());
         this.setVisibilityString(other.getVisibilityString());
+        this.setStorage(other.getStorage());
+        this.setStorageString(other.getStorageString());
     }
     
     /**
@@ -433,6 +448,38 @@ public class FileVO extends ValueObject implements Cloneable
         {
             FileVO.Visibility newVal = FileVO.Visibility.valueOf(newValString);
             visibility = newVal;
+        }
+    }
+
+    public FileVO.Storage getStorage()
+    {
+        return storage;
+    }
+
+    public void setStorage(FileVO.Storage storage)
+    {
+        this.storage = storage;
+    }
+    
+    public String getStorageString()
+    {
+        if (storage == null || storage.toString() == null)
+        {
+            return "";
+        }
+        return storage.toString();
+    }
+    
+    public void setStorageString(String newValString)
+    {
+        if (newValString == null || newValString.length() == 0)
+        {
+            storage = null;
+        }
+        else
+        {
+            FileVO.Storage newVal = FileVO.Storage.valueOf(newValString);
+            storage = newVal;
         }
     }
 }

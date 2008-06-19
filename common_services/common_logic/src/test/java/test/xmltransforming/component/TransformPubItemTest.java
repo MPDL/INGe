@@ -49,6 +49,7 @@ import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
@@ -140,6 +141,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         fileVO.setName("Ein Kaufmannsund (&), ein Größer (>), ein Kleiner (<), Anführungsstriche (\") und ein Apostroph (').");
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setStorage(Storage.INTERNAL_MANAGED);
         fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         return fileVO;
     }

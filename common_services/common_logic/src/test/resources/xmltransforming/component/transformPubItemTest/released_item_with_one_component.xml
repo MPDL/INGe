@@ -64,7 +64,7 @@
                 <prop:content-category>publisher-version</prop:content-category>
                 <prop:file-name>farbtest.gif</prop:file-name>
             </escidocComponents:properties>
-            <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" />
+            <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
         </escidocComponents:component>
     </escidocComponents:components>
 </escidocItem:item>
