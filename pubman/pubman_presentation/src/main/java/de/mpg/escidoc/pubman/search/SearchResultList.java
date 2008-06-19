@@ -494,6 +494,7 @@ public class SearchResultList extends ItemList
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("SearchResultList");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
+            this.getSessionBean().setType(SearchResultListSessionBean.SearchType.NORMAL_SEARCH);
         }
         catch (Exception e)
         {
@@ -542,6 +543,9 @@ public class SearchResultList extends ItemList
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AdvancedSearchResultList");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
+            this.getSessionBean().setType(SearchResultListSessionBean.SearchType.ADVANCED_SEARCH);
+            this.getSessionBean().setCriterionVOList(criterionVOList);
+            this.getSessionBean().setLanguage(language);
             getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
@@ -605,6 +609,8 @@ public class SearchResultList extends ItemList
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AffiliationSearchResultList");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
+            this.getSessionBean().setType(SearchResultListSessionBean.SearchType.AFFILIATION_SEARCH);
+            this.getSessionBean().setAffiliation(affiliation);
             this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
