@@ -1,11 +1,12 @@
 <search-result:search-result-record
-	xml:base="http://www.escidoc.de/" 	
-    xmlns:search-result="${xsd.soap.searchresult.searchresult}"
+	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.6"
     xmlns:xlink="http://www.w3.org/1999/xlink"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace" 
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:prop="${xsd.soap.common.prop}"
-    xmlns:srel="${xsd.soap.common.srel}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
+    xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/">
     <search-result:highlight>
         <search-result:search-hit type="metadata">
             <search-result:text-fragment>
@@ -39,7 +40,7 @@
         </search-result:search-hit>
     </search-result:highlight>
     <escidocItem:item last-modification-date="2007-10-05T12:02:01.546Z" objid="escidoc:22" 
-        xmlns:escidocItem="${xsd.soap.item.item}">
+        xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7">
         <escidocItem:properties>
             <prop:creation-date>2007-10-05T11:24:45.000Z</prop:creation-date>
             <srel:created-by objid="escidoc:user2"/>
@@ -47,26 +48,26 @@
             <srel:context objid="escidoc:persistent3"/>
             <srel:content-model objid="escidoc:persistent4"/>
             <prop:lock-status>unlocked</prop:lock-status>
-            <escidocItem:version objid="escidoc:22:5">
-                <escidocItem:number>5</escidocItem:number>
-                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
-                <escidocItem:version-status>released</escidocItem:version-status>
-                <escidocItem:valid-status>valid</escidocItem:valid-status>
-                <escidocItem:modified-by objid="escidoc:user2"/>
-                <escidocItem:comment>submit test</escidocItem:comment>
-            </escidocItem:version>
-            <escidocItem:latest-version objid="escidoc:22:5">
-                <escidocItem:number>5</escidocItem:number>
-                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
-            </escidocItem:latest-version>
-            <escidocItem:latest-release objid="escidoc:22:5">
-                <escidocItem:number>5</escidocItem:number>
-                <escidocItem:date>2007-10-05T12:02:01.546Z</escidocItem:date>
-                <escidocItem:pid />
-            </escidocItem:latest-release>
+            <prop:version objid="escidoc:22:5">
+                <version:number>5</version:number>
+                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:version-status>released</version:version-status>
+                <version:valid-status>valid</version:valid-status>
+                <srel:modified-by objid="escidoc:user2"/>
+                <version:comment>submit test</version:comment>
+            </prop:version>
+            <prop:latest-version objid="escidoc:22:5">
+                <version:number>5</version:number>
+                <version:date>2007-10-05T12:02:01.546Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:22:5">
+                <release:number>5</release:number>
+                <release:date>2007-10-05T12:02:01.546Z</release:date>
+                <release:pid />
+            </prop:latest-release>
             <prop:content-model-specific />
         </escidocItem:properties>
-         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+         <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4">
             <escidocMetadataRecords:md-record name="escidoc">
                 <escidocMetadataProfile:publication type="book" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/">
                     <publication:creator role="author" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
@@ -227,19 +228,18 @@
                 </escidocMetadataProfile:publication>
             </escidocMetadataRecords:md-record>
         </escidocMetadataRecords:md-records>
-        <escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
+        <escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7">
             <escidocComponents:component objid="escidoc:23" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
                     <prop:creation-date>2007-10-05T11:24:42.546Z</prop:creation-date>
                     <srel:created-by objid="escidoc:user2"/>
-                    <escidocComponents:description>top01</escidocComponents:description>                    
-                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>public</escidocComponents:visibility>
-                    <escidocComponents:pid>PID0815</escidocComponents:pid>
-                    <escidocComponents:content-category>abstract</escidocComponents:content-category>
-                    <escidocComponents:file-name>top01.pdf</escidocComponents:file-name>
-                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
-                    <escidocComponents:file-size>234840</escidocComponents:file-size>
+                    <prop:description>top01</prop:description>                    
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:pid>PID0815</prop:pid>
+                    <prop:content-category>abstract</prop:content-category>
+                    <prop:file-name>top01.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
                 <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:23/content" xlink:title="top01.pdf" xlink:type="simple" />
             </escidocComponents:component>
@@ -247,13 +247,12 @@
                 <escidocComponents:properties>
                     <prop:creation-date>2007-10-05T11:30:36.203Z</prop:creation-date>
                     <srel:created-by objid="escidoc:user2"/>
-                    <escidocComponents:description>top02a</escidocComponents:description>                    
-                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>public</escidocComponents:visibility>
-                    <escidocComponents:content-category>pre-print</escidocComponents:content-category>
-                    <escidocComponents:file-name>top02a.pdf</escidocComponents:file-name>
-                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
-                    <escidocComponents:file-size>50220</escidocComponents:file-size>
+                    <prop:description>top02a</prop:description>                    
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>pre-print</prop:content-category>
+                    <prop:file-name>top02a.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
                 <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:24/content" xlink:title="top02a.pdf" xlink:type="simple" />
             </escidocComponents:component>
@@ -261,13 +260,12 @@
                 <escidocComponents:properties>
                     <prop:creation-date>2007-10-05T11:30:36.765Z</prop:creation-date>
                     <srel:created-by objid="escidoc:user2"/>
-                    <escidocComponents:description>top05</escidocComponents:description>
-                    <escidocComponents:valid-status>valid</escidocComponents:valid-status>
-                    <escidocComponents:visibility>public</escidocComponents:visibility>
-                    <escidocComponents:content-category>post-print</escidocComponents:content-category>
-                    <escidocComponents:file-name>top05.pdf</escidocComponents:file-name>
-                    <escidocComponents:mime-type>application/pdf</escidocComponents:mime-type>
-                    <escidocComponents:file-size>76445</escidocComponents:file-size>
+                    <prop:description>top05</prop:description>
+                    <prop:valid-status>valid</prop:valid-status>
+                    <prop:visibility>public</prop:visibility>
+                    <prop:content-category>post-print</prop:content-category>
+                    <prop:file-name>top05.pdf</prop:file-name>
+                    <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
                 <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:25/content" xlink:title="top05.pdf" xlink:type="simple" />
             </escidocComponents:component>

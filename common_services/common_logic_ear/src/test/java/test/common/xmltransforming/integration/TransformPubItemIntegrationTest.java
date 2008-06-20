@@ -38,6 +38,7 @@ import static org.junit.Assert.fail;
 import java.io.File;
 import java.util.List;
 
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
@@ -910,14 +911,30 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         String pubItemXMLPostSubmission = ihr.retrieve(pubItemVOPostCreate.getVersion().getObjectId());
         PubItemVO pubItemVOPostSubmission = xmlTransforming.transformToPubItem(pubItemXMLPostSubmission);
         
-        // TaskParam for release
-        TaskParamVO releaseParam = new TaskParamVO(pubItemVOPostSubmission.getVersion().getModificationDate(), "Release comment");
-        
         // Param for assignement of Object PID
-        String objectPidParam = "<param last-modification-date=\"" + pubItemVOPostSubmission.getVersion().getModificationDate().toString() + "\">" + "<url>http://localhost</url>" + "</param>";
+        String md = getLastModificationDate(pubItemXMLPostSubmission);
+        String objectPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         
         // Assign object pid
         ihr.assignObjectPid(pubItemVOPostSubmission.getVersion().getObjectId(), objectPidParam);
+        
+        // Retrieve the item again
+        String pubItemXMLPostOPidAssignement = ihr.retrieve(pubItemVOPostCreate.getVersion().getObjectId());
+        PubItemVO pubItemVOPostOPidAssignement = xmlTransforming.transformToPubItem(pubItemXMLPostOPidAssignement);
+        
+        // Param for assignement of Version PID
+        md = getLastModificationDate(pubItemXMLPostOPidAssignement);
+        String versionPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        
+        // Assign version pid
+        ihr.assignVersionPid(pubItemVOPostSubmission.getVersion().getObjectId() + ":1", versionPidParam);
+        
+        // Retrieve the item again
+        String pubItemXMLPostVPidAssignement = ihr.retrieve(pubItemVOPostCreate.getVersion().getObjectId());
+        PubItemVO pubItemVOPostVPidAssignement = xmlTransforming.transformToPubItem(pubItemXMLPostVPidAssignement);
+        
+        // TaskParam for release
+        TaskParamVO releaseParam = new TaskParamVO(pubItemVOPostVPidAssignement.getVersion().getModificationDate(), "Release comment");
         
         // Release the item
         ihr.release(pubItemVOPostSubmission.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(releaseParam));

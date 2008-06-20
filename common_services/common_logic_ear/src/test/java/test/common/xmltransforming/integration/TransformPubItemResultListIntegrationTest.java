@@ -79,7 +79,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
     private static XmlTransforming xmlTransforming;
     private String userHandle;
     private String adminUserHandle;
-    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.3/item-list.xsd";
+    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.7/item-list.xsd";
 
     /**
      * Get an {@link XmlTransforming} instance once.
@@ -155,6 +155,12 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         md = getModificationDate(createdItemXml);
         String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
         ihr.assignObjectPid(createdItemId, param);
+        createdItemXml = ihr.retrieve(createdItemId);
+        md = getModificationDate(createdItemXml);
+        param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        ihr.assignVersionPid(createdItemId + ":1", param);
+        createdItemXml = ihr.retrieve(createdItemId);
+        md = getModificationDate(createdItemXml);
         ihr.release(createdItemId, "<param last-modification-date=\"" + md + "\"/>");
         logger.info("PubItem '" + createdItemId + "' released.");
         return createdItemVO;
