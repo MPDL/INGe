@@ -64,7 +64,7 @@ public class TransformFileUrlTest extends TestBase
     @Test
     public void transformUploadResponseToFileURL() throws Exception
     {
-        String uploadResponseXML = readFile("src/test/resources/xmltransforming/component/transformFileUrlTest/staging-file_sample1.xml");
+        String uploadResponseXML = readFile("xmltransforming/component/transformFileUrlTest/staging-file_sample1.xml");
 
         URL expectedURL = new URL(ServiceLocator.getFrameworkUrl()
                 + "/st/staging-file/escidoctoken:2a1082d0-d6c8-11db-8655-af79371c28f2");

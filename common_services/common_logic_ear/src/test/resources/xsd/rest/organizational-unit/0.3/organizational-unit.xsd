@@ -1,6 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2007 sp2 (http://www.altova.com) by Harald Kappus (DV Consulting) --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" targetNamespace="http://www.escidoc.de/schemas/organizationalunit/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-    <xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.3"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    targetNamespace="http://www.escidoc.de/schemas/organizationalunit/0.3"
+    elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace"
+        schemaLocation="../../../rest/common/0.3/xml.xsd"/>
+    <xs:import namespace="http://www.w3.org/1999/xlink"
+        schemaLocation="../../../rest/common/0.3/xlink.xsd"/>
     
     
     <!-- This xsd is used in the API of Organizational Units; REST interface -->
@@ -33,7 +40,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element ref="organizational-unit:properties" minOccurs="0">
+                <xs:element ref="organizational-unit:properties"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>discarded</create>
@@ -41,7 +49,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element ref="organizational-unit:resources" minOccurs="0">
+                <xs:element ref="organizational-unit:resources"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>discarded</create>
@@ -49,7 +58,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element ref="organizational-unit:organization-details">
+                <xs:element
+                    ref="organizational-unit:organization-details">
                     <xs:annotation>
                         <xs:documentation>
                             <create>required</create>
@@ -57,7 +67,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element ref="organizational-unit:parent-ous" minOccurs="0">
+                <xs:element ref="organizational-unit:parent-ous"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -128,7 +139,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="creation-date" type="xs:dateTime" minOccurs="0">
+                <xs:element name="creation-date" type="xs:dateTime"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>discarded</create>
@@ -204,7 +216,9 @@
                         </xs:attribute>
                     </xs:complexType>
                 </xs:element>
-                <xs:element name="public-status" type="organizational-unit:status-types" minOccurs="0">
+                <xs:element name="public-status"
+                    type="organizational-unit:status-types"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>discarded</create>
@@ -212,7 +226,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="has-children" type="xs:boolean" minOccurs="0">
+                <xs:element name="has-children" type="xs:boolean"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>discarded</create>
@@ -440,7 +455,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="abbreviation" type="xs:normalizedString">
+                <xs:element name="abbreviation"
+                    type="xs:normalizedString">
                     <xs:annotation>
                         <xs:documentation>
                             <create>required</create>
@@ -464,7 +480,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="organization-type" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="organization-type"
+                    type="xs:normalizedString" minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -472,7 +489,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="description" type="xs:string" minOccurs="0">
+                <xs:element name="description" type="xs:string"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -480,7 +498,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="external-id" type="xs:token" minOccurs="0">
+                <xs:element name="external-id" type="xs:token"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -488,7 +507,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="postcode" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="postcode" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -496,7 +516,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="country" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="country" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -504,7 +525,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="region" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="region" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -520,7 +542,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="city" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="city" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -528,7 +551,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="telephone" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="telephone" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -536,7 +560,8 @@
                         </xs:documentation>
                     </xs:annotation>
                 </xs:element>
-                <xs:element name="fax" type="xs:normalizedString" minOccurs="0">
+                <xs:element name="fax" type="xs:normalizedString"
+                    minOccurs="0">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>
@@ -561,7 +586,8 @@
                     </xs:annotation>
                     <xs:complexType>
                         <xs:sequence>
-                            <xs:element name="location-longitude" type="xs:token">
+                            <xs:element name="location-longitude"
+                                type="xs:token">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>optional</create>
@@ -569,7 +595,8 @@
                                     </xs:documentation>
                                 </xs:annotation>
                             </xs:element>
-                            <xs:element name="location-latitude" type="xs:token">
+                            <xs:element name="location-latitude"
+                                type="xs:token">
                                 <xs:annotation>
                                     <xs:documentation>
                                         <create>optional</create>
@@ -639,7 +666,8 @@
         </xs:annotation>
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="parent-ou" minOccurs="0" maxOccurs="unbounded">
+                <xs:element name="parent-ou" minOccurs="0"
+                    maxOccurs="unbounded">
                     <xs:annotation>
                         <xs:documentation>
                             <create>optional</create>

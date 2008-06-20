@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcmitype="http://purl.org/dc/dcmitype/" xmlns="http://purl.org/dc/terms/" targetNamespace="http://purl.org/dc/terms/" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml200103.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/dcmitype/" schemaLocation="dcmitype.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml200103.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/dcmitype/" schemaLocation="../../metadata/0.1/dcmitype.xsd"/>
 	<xs:element name="alternative" substitutionGroup="dc:title"/>
 	<xs:element name="tableOfContents" substitutionGroup="dc:description"/>
 	<xs:element name="abstract" substitutionGroup="dc:description"/>

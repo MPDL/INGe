@@ -1,17 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) --><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:container="http://www.escidoc.de/schemas/container/0.3" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/memberlist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/item/0.3/item.xsd" namespace="http://www.escidoc.de/schemas/item/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/container/0.3/container.xsd" namespace="http://www.escidoc.de/schemas/container/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/md-records.xsd" namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"/>
-		<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 sp1 U (http://www.xmlspy.com) by JKR (FIZ Karlsruhe) -->
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.3"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	targetNamespace="http://www.escidoc.de/schemas/memberlist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.3"
+		schemaLocation="../../../soap/item/0.3/item.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/container/0.3"
+		schemaLocation="../../../soap/container/0.3/container.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
+		schemaLocation="../../../soap/common/0.3/md-records.xsd" />
+		<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3" 
+		schemaLocation="../../../soap/common/0.3/common-types.xsd"/>
 	<xs:element name="member-list">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:choice minOccurs="0" maxOccurs="unbounded">
-					<xs:element ref="item:item"/>
-					<xs:element ref="container:container"/>
+					<xs:element ref="item:item" />
+					<xs:element ref="container:container" />
 				</xs:choice>
 			</xs:sequence>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
+
+
+

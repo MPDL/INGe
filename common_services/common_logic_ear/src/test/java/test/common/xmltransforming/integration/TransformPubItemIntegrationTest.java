@@ -747,7 +747,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // validate and create the "source" item
         String sourceItemPreCreateXml = xmlTransforming.transformToItem(sourceItemPreCreate);
         logger.debug("The source item (with relations):" + sourceItemPreCreateXml);
-        assertXMLValid(sourceItemPreCreateXml, ITEM_SCHEMA_FILE);
+        assertXMLValid(sourceItemPreCreateXml);
         String sourceItemPostCreateXml = ServiceLocator.getItemHandler(userHandle).create(sourceItemPreCreateXml);
 
         // transform back to PubItemVO
@@ -811,7 +811,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.debug("Used filter to retrieve the items: \n" + filterXML);
         String pubItemListXML = ServiceLocator.getItemHandler(userHandle).retrieveItems(filterXML);
         logger.debug(pubItemListXML);
-        assertXMLValid(pubItemListXML, ITEM_LIST_SCHEMA_FILE);
+        assertXMLValid(pubItemListXML);
         List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(pubItemListXML);
         assertNotNull(pubItemList);
     }
@@ -914,6 +914,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // Param for assignement of Object PID
         String md = getLastModificationDate(pubItemXMLPostSubmission);
         String objectPidParam = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        
+        logger.debug("objectPidParam: " + objectPidParam);
         
         // Assign object pid
         ihr.assignObjectPid(pubItemVOPostSubmission.getVersion().getObjectId(), objectPidParam);

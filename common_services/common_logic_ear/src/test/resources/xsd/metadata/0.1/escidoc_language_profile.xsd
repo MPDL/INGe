@@ -5,8 +5,8 @@
       eSciDoc metadata profile,  language 
     </xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
-	<xs:import namespace="http://earth.google.com/kml/2.1" schemaLocation="kml21.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://earth.google.com/kml/2.1" schemaLocation="../../metadata/0.1/kml21.xsd"/>
 	<xs:element name="language" type="LanguageType"/>
 	<!--*******************************
        Language Type

@@ -1,6 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3" xmlns:workflow-configuration="http://www.escidoc.de/schemas/workflowconfiguration/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowdefinition/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/workflow-definition/0.3/workflow-configuration.xsd" namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowdefinition/0.3"
+	xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3"
+	xmlns:workflow-configuration="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/workflowconfiguration/0.3"
+		schemaLocation="../../../soap/workflow-definition/0.3/workflow-configuration.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../soap/common/0.4/common-types.xsd" />
 	<xs:element name="workflow-definition">
 		<xs:annotation>
 			<xs:documentation>
@@ -9,7 +18,7 @@
 					for a workflow-template (=JBPM-Processdefinition).
 					-Wich workflow-template to use -Additional
 					configuration-parameters -Who may start the workflow
-					-Admin-group the workflow-definition belongs to
+					-context the workflow-definition belongs to
 				</para>
 			</xs:documentation>
 		</xs:annotation>
@@ -49,7 +58,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="workflow-template" type="common-types:linkRequired">
+				<xs:element name="workflow-template"
+					type="common-types:linkRequired">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -66,7 +76,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="workflow-type" type="common-types:linkRequired">
+				<xs:element name="workflow-type"
+					type="common-types:linkRequired">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -83,7 +94,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="admin-group" type="common-types:linkRequired" minOccurs="0">
+				<xs:element name="context"
+					type="common-types:linkRequired" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -94,11 +106,12 @@
 								<input>required</input>
 								<output>kept</output>
 							</update>
-							<comment>objid of the admin-group.</comment>
+							<comment>objid of the context.</comment>
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element ref="workflow-configuration:workflow-configuration" minOccurs="0">
+				<xs:element
+					ref="workflow-configuration:workflow-configuration" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<para>
@@ -109,7 +122,8 @@
 						</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element name="start-actor-list" type="workflow-definition:StartActorType" minOccurs="0">
+				<xs:element name="start-actor-list"
+					type="workflow-definition:StartActorType">
 					<xs:annotation>
 						<xs:documentation>
 							<create>
@@ -129,7 +143,8 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-			<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+			<xs:attributeGroup
+				ref="common-types:eSciDocResourceIdentityAttributes" />
 		</xs:complexType>
 	</xs:element>
 
@@ -141,7 +156,8 @@
 			<xs:element name="start-actor" maxOccurs="unbounded">
 				<xs:complexType>
 					<xs:sequence>
-						<xs:element name="user" type="common-types:linkRequired" minOccurs="0">
+						<xs:element name="user"
+							type="common-types:linkRequired" minOccurs="0">
 							<xs:annotation>
 								<xs:documentation>
 									<create>
@@ -158,7 +174,8 @@
 								</xs:documentation>
 							</xs:annotation>
 						</xs:element>
-						<xs:element name="role" type="common-types:linkRequired" minOccurs="0">
+						<xs:element name="role"
+							type="common-types:linkRequired">
 							<xs:annotation>
 								<xs:documentation>
 									<create>
@@ -176,7 +193,8 @@
 							</xs:annotation>
 						</xs:element>
 					</xs:sequence>
-					<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+					<xs:attributeGroup
+						ref="common-types:eSciDocResourceIdentityAttributes" />
 				</xs:complexType>
 			</xs:element>
 		</xs:sequence>

@@ -1,12 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by XMLSPY 2005 Professional Ed. Release 3, Installed for 12 users (FIZ Karlsruhe) --><xs:schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:toc="http://www.escidoc.de/schemas/toc/0.2" xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3" xmlns:relations="http://www.escidoc.de/schemas/relations/0.3" xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty" xmlns:context="http://www.escidoc.de/schemas/context/0.3" xmlns:container="http://www.escidoc.de/schemas/container/0.3" xmlns:components="http://www.escidoc.de/schemas/components/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.escidoc.de/schemas/container/0.3">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2005 rel. 3 U (http://www.altova.com) by XMLSPY 2005 Professional Ed. Release 3, Installed for 12 users (FIZ Karlsruhe) -->
+<xs:schema attributeFormDefault="unqualified"
+	elementFormDefault="qualified"
+	targetNamespace="http://www.escidoc.de/schemas/container/0.3"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:toc="http://www.escidoc.de/schemas/toc/0.2"
+	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.3"
+	xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"
+	xmlns:member-ref-list="http://www.escidoc.de/schemas/memberreflist/0.3"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+	xmlns:hfp="http://www.w3.org/2001/XMLSchema-hasFacetAndProperty"
+	xmlns:context="http://www.escidoc.de/schemas/context/0.3"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.3"
+	xmlns:components="http://www.escidoc.de/schemas/components/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3">
 
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/md-records.xsd" namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/relations.xsd" namespace="http://www.escidoc.de/schemas/relations/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/container/0.3/struct-map.xsd" namespace="http://www.escidoc.de/schemas/structmap/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/container/0.2/toc.xsd" namespace="http://www.escidoc.de/schemas/toc/0.2"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/admin-descriptor.xsd" namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/metadatarecords/0.3"
+		schemaLocation="../../../soap/common/0.3/md-records.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/relations/0.3"
+		schemaLocation="../../../soap/common/0.3/relations.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="../../../soap/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/structmap/0.3"
+		schemaLocation="../../../soap/container/0.3/struct-map.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/toc/0.2"
+		schemaLocation="../../../container/0.2/toc.xsd" />
+	<xs:import
+		namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"
+		schemaLocation="../../../soap/common/0.3/admin-descriptor.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../soap/common/0.3/xml.xsd" />
 
 	 <xs:element name="container">
 		<xs:annotation>
@@ -55,17 +82,18 @@
 
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="container:properties"/>
+				<xs:element ref="container:properties"></xs:element>
 
-				<xs:element ref="md-records:md-records"/>
+				<xs:element ref="md-records:md-records"></xs:element>
 
-				<xs:element minOccurs="0" ref="relations:relations"/>
+				<xs:element minOccurs="0" ref="relations:relations"></xs:element>
 
-				<xs:element minOccurs="0" ref="struct-map:struct-map"/>
+				<xs:element minOccurs="0" ref="struct-map:struct-map"></xs:element>
 
-				<xs:element minOccurs="0" ref="toc:toc"/>
+				<xs:element minOccurs="0" ref="toc:toc"></xs:element>
 
-				<xs:element minOccurs="0" ref="admin-descriptor:admin-descriptor">
+				<xs:element minOccurs="0"
+		ref="admin-descriptor:admin-descriptor">
 		</xs:element>
 			</xs:sequence>
 
@@ -79,7 +107,8 @@
 			</xs:attribute>
 
 
-			<xs:attribute name="last-modification-date" type="xs:dateTime">
+			<xs:attribute name="last-modification-date"
+		type="xs:dateTime">
 				<xs:annotation>
 					<xs:documentation>
 						<create>discarded</create>
@@ -92,25 +121,25 @@
 
 	<xs:simpleType name="status-types">
 		<xs:restriction base="xs:token">
-			<xs:enumeration value="pending"/>
+			<xs:enumeration value="pending"></xs:enumeration>
 
-			<xs:enumeration value="submitted"/>
+			<xs:enumeration value="submitted"></xs:enumeration>
 
-			<xs:enumeration value="in-revision"/>
+			<xs:enumeration value="in-revision"></xs:enumeration>
 
-			<xs:enumeration value="released"/>
+			<xs:enumeration value="released"></xs:enumeration>
 
-			<xs:enumeration value="withdrawn"/>
+			<xs:enumeration value="withdrawn"></xs:enumeration>
 
-			<xs:enumeration value="deleted"/>
+			<xs:enumeration value="deleted"></xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 
 	<xs:simpleType name="lock-status-types">
 		<xs:restriction base="xs:token">
-			<xs:enumeration value="locked"/>
+			<xs:enumeration value="locked"></xs:enumeration>
 
-			<xs:enumeration value="unlocked"/>
+			<xs:enumeration value="unlocked"></xs:enumeration>
 		</xs:restriction>
 	</xs:simpleType>
 
@@ -124,7 +153,8 @@
 
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element minOccurs="0" name="creation-date" type="xs:dateTime">
+				<xs:element minOccurs="0" name="creation-date"
+		type="xs:dateTime">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -133,7 +163,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element minOccurs="0" name="created-by" type="common-types:readOnlyLink">
+				<xs:element minOccurs="0" name="created-by"
+		type="common-types:readOnlyLink">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -142,7 +173,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element minOccurs="0" name="public-status" type="container:status-types">
+				<xs:element minOccurs="0" name="public-status"
+		type="container:status-types">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -154,22 +186,27 @@
 				<xs:element name="name">
 					<xs:annotation>
 						<xs:documentation>
-							<create>optional</create>
-							<update>optional</update>
+							<create>discarded (can be set via "escidoc"
+							md-record element)</create>
+							<update>discarded (can be updated via update of "escidoc"
+							md-record element</update>
 		</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element name="description">
+				<xs:element name="description" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
-							<create>optional</create>
-							<update>optional</update>
+							<create>discarded (can be set via "escidoc"
+							md-record element)</create>
+							<update>discarded (can be updated via update of "escidoc"
+							md-record element</update>
 		</xs:documentation>
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element name="context" type="common-types:linkForCreate" minOccurs="0">
+				<xs:element name="context"
+		type="common-types:linkForCreate" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>required</create>
@@ -178,7 +215,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element name="content-model" type="common-types:linkForCreate" minOccurs="0">
+				<xs:element name="content-model"
+		type="common-types:linkForCreate" minOccurs="0">
 					<xs:annotation>
 						<xs:documentation>
 							<create>required</create>
@@ -188,7 +226,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element minOccurs="0" name="lock-status" type="container:lock-status-types">
+				<xs:element minOccurs="0" name="lock-status"
+		type="container:lock-status-types">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -197,7 +236,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element minOccurs="0" name="lock-date" type="xs:dateTime">
+				<xs:element minOccurs="0" name="lock-date"
+		type="xs:dateTime">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -206,7 +246,8 @@
 					</xs:annotation>
 				</xs:element>
 
-				<xs:element minOccurs="0" name="lock-owner" type="common-types:readOnlyLink">
+				<xs:element minOccurs="0" name="lock-owner"
+		type="common-types:readOnlyLink">
 					<xs:annotation>
 						<xs:documentation>
 							<create>discarded</create>
@@ -243,7 +284,8 @@
 								</xs:annotation>
 							</xs:element>
 
-							<xs:element name="date" type="xs:dateTime" minOccurs="0">
+							<xs:element name="date" type="xs:dateTime"
+		minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -252,7 +294,8 @@
 								</xs:annotation>
 							</xs:element>
 
-							<xs:element name="version-status" type="container:status-types" minOccurs="0">
+							<xs:element name="version-status"
+		type="container:status-types" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -261,7 +304,8 @@
 								</xs:annotation>
 							</xs:element>
 
-							<xs:element name="valid-status" minOccurs="0">
+							<xs:element name="valid-status"
+		minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -270,7 +314,8 @@
 								</xs:annotation>
 							</xs:element>
 
-							<xs:element name="modified-by" type="common-types:readOnlyLink" minOccurs="0">
+							<xs:element name="modified-by"
+		type="common-types:readOnlyLink" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -288,7 +333,8 @@
 								</xs:annotation>
 							</xs:element>
 		
-		<xs:element minOccurs="0" name="pid" type="xs:string">
+		<xs:element minOccurs="0" name="pid"
+		type="xs:string">
 		<xs:annotation>
 		<xs:documentation>
 		<create>discarded</create>
@@ -297,7 +343,8 @@
 		</xs:annotation>
 		</xs:element>
 						</xs:sequence>
-		<xs:attribute name="objid" type="common-types:objid">
+		<xs:attribute name="objid"
+		type="common-types:objid">
 		<xs:annotation>
 		<xs:documentation>
 		<create>
@@ -342,7 +389,8 @@
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
-		<xs:attribute name="objid" type="common-types:objid">
+		<xs:attribute name="objid"
+		type="common-types:objid">
 		<xs:annotation>
 		<xs:documentation>
 		<create>
@@ -396,7 +444,8 @@
 								</xs:annotation>
 							</xs:element>
 						</xs:sequence>
-		<xs:attribute name="objid" type="common-types:objid">
+		<xs:attribute name="objid"
+		type="common-types:objid">
 		<xs:annotation>
 		<xs:documentation>
 		<create>
@@ -423,7 +472,8 @@
 
 					<xs:complexType>
 						<xs:sequence>
-							<xs:any maxOccurs="unbounded" minOccurs="0" processContents="skip">
+							<xs:any maxOccurs="unbounded" minOccurs="0"
+		processContents="skip">
 		</xs:any>
 						</xs:sequence>
 					</xs:complexType>

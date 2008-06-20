@@ -1,7 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3" xmlns:item="http://www.escidoc.de/schemas/item/0.3" xmlns:container="http://www.escidoc.de/schemas/container/0.3" targetNamespace="http://www.escidoc.de/schemas/searchresult/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/item/0.3/item.xsd" namespace="http://www.escidoc.de/schemas/item/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/container/0.3/container.xsd" namespace="http://www.escidoc.de/schemas/container/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.3" 
+	xmlns:item="http://www.escidoc.de/schemas/item/0.3" 
+	xmlns:container="http://www.escidoc.de/schemas/container/0.3" 
+	targetNamespace="http://www.escidoc.de/schemas/searchresult/0.3" 
+	elementFormDefault="qualified" 
+	attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" 
+		schemaLocation="../../../soap/common/0.3/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.3" 
+		schemaLocation="../../../soap/item/0.3/item.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/container/0.3" 
+		schemaLocation="../../../soap/container/0.3/container.xsd"/>
 	<xs:element name="search-result-record">
 		<xs:complexType>
 			<xs:sequence>

@@ -1,7 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:context="http://www.escidoc.de/schemas/context/0.3" xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/context/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/admin-descriptor.xsd" namespace="http://www.escidoc.de/schemas/admindescriptor/0.3"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:context="http://www.escidoc.de/schemas/context/0.3" xmlns:admin-descriptor="http://www.escidoc.de/schemas/admindescriptor/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/context/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../../rest/common/0.3/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3" schemaLocation="../../../rest/common/0.3/common-types.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/admindescriptor/0.3" schemaLocation="../../../rest/common/0.3/admin-descriptor.xsd"/>
 	<!-- This xsd is used in the API of Context; REST interface -->
 	<xs:element name="context">
 		<xs:annotation>

@@ -1,8 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy" xmlns:role="http://www.escidoc.de/schemas/role/0.3" targetNamespace="http://www.escidoc.de/schemas/role/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xlink.xsd" namespace="http://www.w3.org/1999/xlink"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/cs-xacml-schema-policy-01.xsd" namespace="urn:oasis:names:tc:xacml:1.0:policy"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/xml.xsd" namespace="http://www.w3.org/XML/1998/namespace"/>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3"
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	xmlns:xacml-policy="urn:oasis:names:tc:xacml:1.0:policy"
+	xmlns:role="http://www.escidoc.de/schemas/role/0.3"
+	targetNamespace="http://www.escidoc.de/schemas/role/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/1999/xlink"
+		schemaLocation="../../../rest/common/0.3/xlink.xsd" />
+	<xs:import namespace="urn:oasis:names:tc:xacml:1.0:policy"
+		schemaLocation="../../../rest/common/0.3/cs-xacml-schema-policy-01.xsd" />
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.3"
+		schemaLocation="../../../rest/common/0.3/common-types.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="../../../rest/common/0.3/xml.xsd" />
 	<xs:element name="role">
 		<xs:annotation>
 			<xs:documentation>
@@ -57,7 +67,8 @@
 					</xs:annotation>
 					<xs:complexType>
 						<xs:sequence>
-							<xs:element name="creation-date" type="xs:dateTime" minOccurs="0">
+							<xs:element name="creation-date"
+								type="xs:dateTime" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -65,7 +76,8 @@
 									</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="created-by" type="common-types:readOnlyLink" minOccurs="0">
+							<xs:element name="created-by"
+								type="common-types:readOnlyLink" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -73,7 +85,8 @@
 									</xs:documentation>
 								</xs:annotation>
 							</xs:element>
-							<xs:element name="modified-by" type="common-types:readOnlyLink" minOccurs="0">
+							<xs:element name="modified-by"
+								type="common-types:readOnlyLink" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>discarded</create>
@@ -89,12 +102,14 @@
 									</xs:documentation>
 								</xs:annotation>
 								<xs:simpleType>
-									<xs:restriction base="xs:normalizedString">
-										<xs:maxLength value="255"/>
+									<xs:restriction
+										base="xs:normalizedString">
+										<xs:maxLength value="255" />
 									</xs:restriction>
 								</xs:simpleType>
 							</xs:element>
-							<xs:element name="description" type="xs:string" minOccurs="0">
+							<xs:element name="description"
+								type="xs:string" minOccurs="0">
 								<xs:annotation>
 									<xs:documentation>
 										<create>optional</create>
@@ -105,8 +120,8 @@
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
-				<xs:element ref="role:resources" minOccurs="0"/>
-				<xs:element ref="role:scope"/>
+				<xs:element ref="role:resources" minOccurs="0" />
+				<xs:element ref="role:scope" />
 				<xs:choice>
 					<xs:annotation>
 						<xs:documentation>
@@ -114,8 +129,8 @@
 							<update>required</update>
 						</xs:documentation>
 					</xs:annotation>
-					<xs:element ref="xacml-policy:PolicySet"/>
-					<xs:element ref="xacml-policy:Policy"/>
+					<xs:element ref="xacml-policy:PolicySet" />
+					<xs:element ref="xacml-policy:Policy" />
 				</xs:choice>
 			</xs:sequence>
 			<xs:attribute ref="xlink:type">
@@ -150,7 +165,8 @@
 					</xs:documentation>
 				</xs:annotation>
 			</xs:attribute>
-			<xs:attribute name="last-modification-date" type="xs:dateTime">
+			<xs:attribute name="last-modification-date"
+				type="xs:dateTime">
 				<xs:annotation>
 					<xs:documentation>
 						<create>discarded</create>
@@ -170,9 +186,11 @@
 		</xs:annotation>
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="role:scope-def" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element ref="role:scope-def" minOccurs="0"
+					maxOccurs="unbounded" />
 			</xs:sequence>
-			<xs:attribute name="unlimited" default="false" use="optional" type="xs:boolean">
+			<xs:attribute name="unlimited" default="false"
+				use="optional" type="xs:boolean">
 				<xs:annotation>
 					<xs:documentation>
 						<create>discarded</create>

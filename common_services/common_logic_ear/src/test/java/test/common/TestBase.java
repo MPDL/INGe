@@ -44,10 +44,15 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.rmi.RemoteException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.StringTokenizer;
 
 import javax.naming.InitialContext;
@@ -56,11 +61,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.rpc.ServiceException;
-import javax.xml.transform.Source;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.stream.StreamSource;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
@@ -87,14 +93,18 @@ import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSOutput;
 import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+import org.xml.sax.helpers.DefaultHandler;
 
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
@@ -127,9 +137,9 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestBase
 {
-    private static final String TEST_FILE_ROOT = "src/test/resources/";
-    protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr-springer.xml";
-    protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr-springer.pdf";
+    private static final String TEST_FILE_ROOT = "target/test-classes/";
+    protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.xml";
+    protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
@@ -142,6 +152,8 @@ public class TestBase
     
     private static final int NUMBER_OF_URL_TOKENS = 2;
 
+    private static Map<String, Schema> schemas = null;
+    
     /**
      * Logger for this class.
      */
@@ -977,6 +989,7 @@ public class TestBase
         assertTrue(message, nodes.getLength() > 0);
     }
 
+
     /**
      * Assert that the XML is valid to the schema.
      * 
@@ -984,18 +997,25 @@ public class TestBase
      * @param schemaFileName
      * @throws Exception
      */
-    public static void assertXMLValid(final String xmlData, final String schemaFileName) throws Exception
+    public static void assertXMLValid(final String xmlData) throws Exception
     {
+        
         if (xmlData == null)
         {
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
         }
-        if (schemaFileName == null)
+
+        if (schemas == null)
         {
-            throw new IllegalArgumentException(TestBase.class.getSimpleName()
-                    + ":assertXMLValid:schemaFileName is null");
+            initializeSchemas();
         }
-        Schema schema = getSchema(schemaFileName);
+        
+        String nameSpace = getNameSpaceFromXml(xmlData);
+        
+        logger.debug("Looking up namespace '" + nameSpace + "'");
+        
+        Schema schema = schemas.get(nameSpace);
+        
         try
         {
             Validator validator = schema.newValidator();
@@ -1009,6 +1029,120 @@ public class TestBase
             sb.append("SAXParseException message: " + e.getMessage() + "\n");
             sb.append("Affected XML: \n" + xmlData);
             fail(sb.toString());
+        }
+        
+    }
+
+    /**
+     * @param xmlData
+     * @return
+     * @throws ParserConfigurationException
+     * @throws SAXException
+     * @throws IOException
+     * @throws UnsupportedEncodingException
+     */
+    private static String getNameSpaceFromXml(final String xmlData) throws ParserConfigurationException, SAXException,
+            IOException, UnsupportedEncodingException
+    {
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
+        DefaultHandler handler = new DefaultHandler()
+        {
+            private String nameSpace = null;
+            private boolean first = true;
+            
+            public void startElement(String uri, String localName, String qName, Attributes attributes)
+            {
+                if (first)
+                {
+                    if (qName.contains(":"))
+                    {
+                        String prefix = qName.substring(0, qName.indexOf(":"));
+                        String attributeName = "xmlns:" + prefix;
+                        nameSpace = attributes.getValue(attributeName);
+                    }
+                    else
+                    {
+                        nameSpace = attributes.getValue("xmlns");
+                    }
+                    first = false;
+                }
+
+            }
+            
+            public String toString()
+            {
+                return nameSpace;
+            }
+        };
+        parser.parse(new ByteArrayInputStream(xmlData.getBytes("UTF-8")), handler);
+        String nameSpace = handler.toString();
+        return nameSpace;
+    }
+
+    /**
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    private static void initializeSchemas() throws IOException, SAXException, ParserConfigurationException
+    {
+        File[] schemaFiles = ResourceUtil.getFilenamesInDirectory("xsd/");
+        schemas = new HashMap<String, Schema>();
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        for (File file : schemaFiles)
+        {
+            try
+            {
+                Schema schema = sf.newSchema(file);
+                SAXParserFactory factory = SAXParserFactory.newInstance();
+                SAXParser parser = factory.newSAXParser();
+                DefaultHandler handler = new DefaultHandler()
+                {
+                    private String nameSpace = null;
+                    private boolean found = false;
+                    
+                    public void startElement(String uri, String localName, String qName, Attributes attributes)
+                    {
+                        if (!found)
+                        {
+                            String tagName = null;
+                            int ix = qName.indexOf(":");
+                            if (ix >= 0)
+                            {
+                                tagName = qName.substring(ix + 1);
+                            }
+                            else
+                            {
+                                tagName = qName;
+                            }
+                            if ("schema".equals(tagName))
+                            {
+                                nameSpace = attributes.getValue("targetNamespace");
+                                found = true;
+                            }
+                        }
+                    }
+                    
+                    public String toString()
+                    {
+                        return nameSpace;
+                    }
+                };
+                parser.parse(file, handler);
+                if (handler.toString() != null)
+                {
+                    schemas.put(handler.toString(), schema);
+                }
+                else
+                {
+                    logger.warn("Error reading xml schema: " + file);
+                }
+
+            } catch (Exception e) {
+                logger.warn("Invalid xml schema", e);
+            }
+
         }
     }
 
@@ -1027,20 +1161,9 @@ public class TestBase
         }
         File schemaFile = new File(schemaFileName);
 
-        if (schemaFile.exists())
-        {
-            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema theSchema = sf.newSchema(schemaFile);
-            return theSchema;
-        }
-        else
-        {
-        	URL schemaUrl = TestBase.class.getClassLoader().getResource(schemaFileName);
-        	Source schemaSource = new StreamSource(schemaUrl.getFile());
-        	SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-            Schema theSchema = sf.newSchema(schemaSource);
-            return theSchema;
-        }
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema theSchema = sf.newSchema(schemaFile);
+        return theSchema;
     }
 
     /**
@@ -1242,18 +1365,16 @@ public class TestBase
      * @return The URL of the uploaded file.
      * @throws Exception If anything goes wrong...
      */
-    protected URL uploadFile(String filename, String mimetype, final String userHandle) throws Exception
+    protected URL uploadFile(String fileName, String mimetype, final String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
         String fwUrl = ServiceLocator.getFrameworkUrl();
-        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
+        PutMethod method = new PutMethod(fwUrl + "st/staging-file");
 
-        File file = new File(filename);
-        if (!file.exists())
-        {
-        	URL fileUrl = TestBase.class.getClassLoader().getResource(filename);
-        	file = new File(fileUrl.getFile());
-        }
+        logger.info("Framework: " + fwUrl);
+        
+        File file = ResourceUtil.getResourceAsFile(fileName);
+        
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(file)));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -1277,7 +1398,7 @@ public class TestBase
     protected String createItemWithFile(String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
-        PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
+        PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "st/staging-file");
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
         method.setRequestHeader("Content-Type", MIME_TYPE);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
@@ -1310,4 +1431,16 @@ public class TestBase
 
         return item;
     }
+    
+    /**
+     * Formats a given date to the format used by the framework.
+     * 
+     * @return The formatted date.
+     */
+    public static String formatDate(Date date)
+    {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        return format.format(date);
+    }
+    
 }

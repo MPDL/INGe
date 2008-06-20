@@ -1,4 +1,8 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- Copyright © 2005 OCLC Online Computer Library Center and RLG Research Libraries Group --><!-- PREMIS Preservation Metadata Schema: Event  --><!-- Version 1.1, September 27, 2005 --><!-- Changes applied to this schema (since Version 1.0, May 17, 2005):
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright © 2005 OCLC Online Computer Library Center and RLG Research Libraries Group -->
+<!-- PREMIS Preservation Metadata Schema: Event  -->
+<!-- Version 1.1, September 27, 2005 -->
+<!-- Changes applied to this schema (since Version 1.0, May 17, 2005):
 - September 27, 2005.  Ray Denenberg, Library of Congress.
 - version changed to 1.1.
 - namespace changed (both xmlns and targetNamespace 
@@ -13,7 +17,8 @@ to http://www.loc.gov/standards/premis/v1.
 	<xs:simpleType> 
 	<xs:union memberTypes="xs:date xs:dateTime" /> 
 	</xs:simpleType>	
---><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/standards/premis/v1" targetNamespace="http://www.loc.gov/standards/premis/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://www.loc.gov/standards/premis/v1" targetNamespace="http://www.loc.gov/standards/premis/v1" elementFormDefault="qualified" attributeFormDefault="unqualified">
 	<xs:element name="event">
 		<xs:complexType>
 			<xs:sequence>
@@ -29,7 +34,7 @@ to http://www.loc.gov/standards/premis/v1.
 				<xs:element name="eventType" type="xs:string"/>
 			<xs:element name="eventDateTime" minOccurs="1" maxOccurs="1"> 
 <xs:simpleType> 
-  <xs:union memberTypes="xs:date xs:dateTime"/> 
+  <xs:union memberTypes="xs:date xs:dateTime" /> 
   </xs:simpleType>
 </xs:element>
 				<xs:element name="eventDetail" type="xs:string" minOccurs="0"/>

@@ -1,5 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-type="http://www.escidoc.de/schemas/workflowtype/0.3" xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowtype/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/rest/common/0.3/common-types.xsd" namespace="http://www.escidoc.de/schemas/commontypes/0.3"/>
+<xs:schema 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowtype/0.3"
+	xmlns:workflow-type="http://www.escidoc.de/schemas/workflowtype/0.3"
+	xmlns:common-types="http://www.escidoc.de/schemas/commontypes/0.4"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/commontypes/0.4"
+		schemaLocation="../../../rest/common/0.4/common-types.xsd" />
 	<xs:element name="workflow-type">
 		<xs:annotation>
 			<xs:documentation>
@@ -28,7 +34,7 @@
 					</xs:annotation>
 				</xs:element>
 			</xs:sequence>
-      		<xs:attributeGroup ref="common-types:eSciDocResourceIndentityAttributes"/>
+      		<xs:attributeGroup ref="common-types:eSciDocResourceIdentityAttributes"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

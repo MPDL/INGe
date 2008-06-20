@@ -271,7 +271,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
             String itemListXml = xmlTransforming.transformToItemList(pubItemList);
             assertNotNull(itemListXml);
             logger.info(toString(getDocument(itemListXml, false), false));
-            assertXMLValid(itemListXml, ITEM_LIST_SCHEMA_FILE);
+            assertXMLValid(itemListXml);
         }
         catch (AssertionError e)
         {

@@ -638,7 +638,7 @@ public class AffiliationCreator extends TestBase
             // retrieve all affiliations in the framework (again)
             OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
             String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
-            // logger.debug(toString(getDocument(affiliationsXML, false), false));
+            System.out.println(affiliationsXML);
             List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);
 
             nextLoopAffiliationCount = 0;
@@ -651,10 +651,17 @@ public class AffiliationCreator extends TestBase
                     logger.debug("Examining '" + affiliationName + "'");
                     if (affiliationName.contains("***"))
                     {
-                        if (affiliation.getHasChildren() == false)
+                        logger.info(affiliation.getReference().getObjectId() + " has " + (affiliation.getHasChildren() ? "" : "no ") + "children");
+                        if (!affiliation.getHasChildren())
                         {
-                            ouh.delete(affiliation.getReference().getObjectId());
-                            logger.debug("-> " + affiliationName + "...DELETED");
+                            try
+                            {
+                                ouh.delete(affiliation.getReference().getObjectId());
+                                logger.debug("-> " + affiliationName + "...DELETED");
+                            }
+                            catch (Exception e) {
+                                logger.error("Error deleting " + affiliation.getReference().getObjectId());
+                            }
                         }
                         else
                         {

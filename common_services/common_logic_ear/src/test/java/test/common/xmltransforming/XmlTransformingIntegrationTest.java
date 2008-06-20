@@ -53,7 +53,8 @@ import test.common.xmltransforming.integration.TransformSchindlMayrIntegrationTe
  * @revised by MuJ: 03.09.2007
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({TransformAccountUserAndGrantsIntegrationTest.class,
+@Suite.SuiteClasses({
+                     TransformAccountUserAndGrantsIntegrationTest.class,
                      TransformAffiliationIntegrationTest.class,
                      TransformPubCollectionIntegrationTest.class,
                      TransformPubItemIntegrationTest.class,

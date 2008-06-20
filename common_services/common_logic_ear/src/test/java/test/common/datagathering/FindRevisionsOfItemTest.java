@@ -57,7 +57,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class FindRevisionsOfItemTest extends TestBase
 {
-    private static final String ITEM_WITHOUT_COMPONENTS = "src/test/resources/test/item_without_components.xml";
+    private static final String ITEM_WITHOUT_COMPONENTS = "test/item_without_components.xml";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
 
     private Logger logger = Logger.getLogger(getClass());

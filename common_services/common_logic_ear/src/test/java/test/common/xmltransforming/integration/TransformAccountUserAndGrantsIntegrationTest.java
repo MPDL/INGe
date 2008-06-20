@@ -125,7 +125,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         UserAccountHandler uaHandler = ServiceLocator.getUserAccountHandler(userHandle);
         String userid = TEST_DEP_SCIENTIST_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         logger.debug("UserAccount(" + userid + ")=" + user);
@@ -156,7 +156,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = TEST_DEP_SCIENTIST_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
         assertEquals(TEST_DEP_SCIENTIST_ID, accountUser.getReference().getObjectId());
@@ -201,7 +201,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = TEST_DEP_LIBRARIAN_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
@@ -231,7 +231,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = TEST_DEP_LIBRARIAN_LOGIN_NAME;
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
         assertNotNull(accountUser);
         assertEquals(TEST_DEP_LIBRARIAN_ID, accountUser.getReference().getObjectId());
@@ -286,7 +286,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = "test_editor";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
@@ -316,7 +316,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = "test_author";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);
@@ -328,7 +328,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         assertEquals("Test Author", accountUser.getName());
         // assertEquals("", accountUser.getEmail());
         assertTrue(0 == accountUser.getAffiliations().size());
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML has successfully been transformed into an AffilitationVO.");
     }
 
@@ -347,7 +347,7 @@ public class TransformAccountUserAndGrantsIntegrationTest extends TestBase
         String userid = "roland";
         String user = uaHandler.retrieve(userid);
         logger.debug("UserAccount(" + userid + ")=" + user);
-        assertXMLValid(user, ACCOUNT_USER_SCHEMA_FILE);
+        assertXMLValid(user);
         logger.info("The account user XML retrieved from the framework is valid to the schema in " + ACCOUNT_USER_SCHEMA_FILE);
 
         AccountUserVO accountUser = xmlTransforming.transformToAccountUser(user);

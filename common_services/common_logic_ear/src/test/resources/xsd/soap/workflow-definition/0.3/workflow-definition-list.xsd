@@ -1,6 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?><xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3" xmlns:workflow-definition-list="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3" targetNamespace="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3" elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import schemaLocation="http://www.escidoc.de/schemas/soap/workflow-definition/0.3/workflow-definition.xsd" namespace="http://www.escidoc.de/schemas/workflowdefinition/0.3"/>
-	<xs:element name="workflow-type-list">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3"
+	xmlns:workflow-definition="http://www.escidoc.de/schemas/workflowdefinition/0.3"
+	xmlns:workflow-definition-list="http://www.escidoc.de/schemas/workflowdefinitionlist/0.3"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.escidoc.de/schemas/workflowdefinition/0.3"
+		schemaLocation="../../../soap/workflow-definition/0.3/workflow-definition.xsd" />
+	<xs:element name="workflow-definition-list">
 		<xs:annotation>
 			<xs:documentation>
 				<para>
