@@ -60,6 +60,7 @@ import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
@@ -294,7 +295,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         Date creationDate = sdf.parse("2007-03-21T00:00:00.0+0000");
         
         item.getVersion().setModificationDate(modDate);
-        item.getVersion().setLastMessage("Test Title FrM");
+        item.getVersion().setLastMessage("submit test");
         item.getVersion().setVersionNumber(1);
         item.getVersion().setPid("hdl:someHandle/test/escidoc:21280:1");
         item.setLatestVersion(new ItemRO("escidoc:441"));
@@ -338,6 +339,10 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         file.setName("farbtest.gif");
         file.setDescription("Ein Farbtest.");
         file.setPid("PIDBLA");
+        file.setStorage(Storage.INTERNAL_MANAGED);
+        
+        logger.debug("modDate: " + modDate);
+        
         file.setLastModificationDate(modDate);
         file.setCreationDate(creationDate);
         item.getFiles().add(file);

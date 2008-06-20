@@ -80,20 +80,21 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 			<srel:content-model objid="escidoc:persistent4"/>
 			<prop:lock-status>unlocked</prop:lock-status>
 			<prop:version objid="escidoc:22:5">
-                <version:number>5</version:number>
-                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:number>1</version:number>
+                <version:date>2007-03-21T00:01:00.0Z</version:date>
                 <version:status>released</version:status>
                 <srel:modified-by objid="escidoc:user2"/>
                 <version:comment>submit test</version:comment>
+                <version:pid>hdl:someHandle/test/escidoc:21280:1</version:pid>
             </prop:version>
             <prop:latest-version objid="escidoc:22:5">
-                <version:number>5</version:number>
-                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:number>1</version:number>
+                <version:date>2007-03-21T00:01:00.0Z</version:date>
             </prop:latest-version>
             <prop:latest-release objid="escidoc:22:5">
-                <release:number>5</release:number>
-                <release:date>2007-10-05T12:02:01.546Z</release:date>
-                <release:pid />
+                <release:number>1</release:number>
+                <release:date>2007-03-21T00:01:00.0Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:21280:1</release:pid>
             </prop:latest-release>
 			<prop:content-model-specific />
 		</escidocItem:properties>
@@ -114,7 +115,7 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 		</escidocMetadataRecords:md-records>
 		<escidocComponents:components
 			xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7">
-			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:00:00.0Z">
+			<escidocComponents:component objid="escidoc:442" last-modification-date="2007-03-21T00:01:00.0Z">
 				<escidocComponents:properties>
 					<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>
 					<srel:created-by objid="escidoc:user1"/>
