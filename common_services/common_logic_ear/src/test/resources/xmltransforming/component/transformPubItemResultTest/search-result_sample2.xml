@@ -109,7 +109,7 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 					<prop:content-category>abstract</prop:content-category>
 					<prop:file-name>farbtest.gif</prop:file-name>
 				</escidocComponents:properties>
-				<escidocComponents:content xlink:href="/ir/item/escidoc:441/components/component/escidoc:442/content" xlink:title="farbtest.gif" xlink:type="simple" />
+				<escidocComponents:content storage="internal-managed" xlink:href="/ir/item/escidoc:441/components/component/escidoc:442/content" xlink:title="farbtest.gif" xlink:type="simple" />
 			</escidocComponents:component>
 		</escidocComponents:components>
 	</escidocItem:item>

@@ -46,6 +46,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
@@ -150,8 +151,11 @@ public class TransformPubCollectionIntegrationTest extends TestBase
         expected.getResponsibleAffiliations().add(new AffiliationRO("escidoc:persistent13"));
         
         PublicationAdminDescriptorVO adminDescriptorVO = new PublicationAdminDescriptorVO();
-        adminDescriptorVO.setVisibilityOfReferences("standard");
+        adminDescriptorVO.setWorkflow(PublicationAdminDescriptorVO.Workflow.STANDARD);
+        adminDescriptorVO.setValidationSchema("publication");
+        adminDescriptorVO.setTemplateItem(new ItemRO("escidoc:123"));
         expected.getAdminDescriptors().add(adminDescriptorVO);
+        
         
         MdsPublicationVO.Genre[] allowed =
             new MdsPublicationVO.Genre[]{MdsPublicationVO.Genre.ARTICLE, MdsPublicationVO.Genre.BOOK, MdsPublicationVO.Genre.BOOK_ITEM, MdsPublicationVO.Genre.PROCEEDINGS, MdsPublicationVO.Genre.CONFERENCE_PAPER, MdsPublicationVO.Genre.TALK_AT_EVENT, MdsPublicationVO.Genre.CONFERENCE_REPORT, MdsPublicationVO.Genre.POSTER, MdsPublicationVO.Genre.COURSEWARE_LECTURE, MdsPublicationVO.Genre.THESIS, MdsPublicationVO.Genre.PAPER, MdsPublicationVO.Genre.REPORT, MdsPublicationVO.Genre.JOURNAL, MdsPublicationVO.Genre.ISSUE, MdsPublicationVO.Genre.SERIES, MdsPublicationVO.Genre.OTHER};

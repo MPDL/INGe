@@ -1369,7 +1369,7 @@ public class TestBase
     {
         // Prepare the HttpMethod.
         String fwUrl = ServiceLocator.getFrameworkUrl();
-        PutMethod method = new PutMethod(fwUrl + "st/staging-file");
+        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
 
         logger.info("Framework: " + fwUrl);
         
@@ -1398,7 +1398,7 @@ public class TestBase
     protected String createItemWithFile(String userHandle) throws Exception
     {
         // Prepare the HttpMethod.
-        PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "st/staging-file");
+        PutMethod method = new PutMethod(ServiceLocator.getFrameworkUrl() + "/st/staging-file");
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
         method.setRequestHeader("Content-Type", MIME_TYPE);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
