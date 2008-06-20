@@ -292,7 +292,7 @@ public class EasySubmission extends FacesBean
     public String addFile()
     {
     	// first try to upload the entered file
-    	upload();
+    	upload(true);
     	
     	// then try to save the locator
     	saveLocator();
@@ -313,7 +313,7 @@ public class EasySubmission extends FacesBean
     public String addLocator()
     {
     	//  first try to upload the entered file
-    	upload();
+    	upload(true);
     	
     	// then try to save the locator
     	saveLocator();
@@ -566,7 +566,13 @@ public class EasySubmission extends FacesBean
       }
     }
     
-    public String upload()
+    /**
+     * This method uploads a selected file and gives out error messages if needed
+     * @param needMessages Flag to invoke error messages (set it to false if you invoke the validation service before or after)
+     * @return String navigation string
+     * @author schraut
+     */
+    public String upload(boolean needMessages)
     {
        
     	StringBuffer errorMessage = new StringBuffer();
@@ -599,7 +605,7 @@ public class EasySubmission extends FacesBean
         }
         else
         {
-        	errorMessage.append(getMessage("ComponentContentCategoryNotProvided"));
+        	errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission"));
         }
       }
       else
@@ -609,7 +615,7 @@ public class EasySubmission extends FacesBean
     		  errorMessage.append(getMessage("ComponentContentNotProvided"));
     		  if(this.getFiles().get(indexUpload).getContentCategory() != null && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-"))
     	        {
-    			  errorMessage.append(getMessage("ComponentContentCategoryNotProvided"));
+    			  errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission"));
     	        }
     	  }
       }
@@ -842,7 +848,7 @@ public class EasySubmission extends FacesBean
     public String loadStep4Manual()
     {
     	// first try to upload the entered file
-    	upload();
+    	upload(false);
     	
     	// then try to save the locator
     	saveLocator();
@@ -889,6 +895,7 @@ public class EasySubmission extends FacesBean
     		mapSelectedDate();
     	}
     	
+    	FacesContext fc = FacesContext.getCurrentInstance();
     	// validate
     	try
     	{
@@ -898,7 +905,6 @@ public class EasySubmission extends FacesBean
     			for (ValidationReportItemVO item : report.getItems()) {
 					if (item.isRestrictive())
 					{
-						error("");
 						error(getMessage(item.getContent()));
 					}
 					else
