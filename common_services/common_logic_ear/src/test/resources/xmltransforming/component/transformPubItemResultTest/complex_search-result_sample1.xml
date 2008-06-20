@@ -51,8 +51,7 @@
             <prop:version objid="escidoc:22:5">
                 <version:number>5</version:number>
                 <version:date>2007-10-05T12:02:01.546Z</version:date>
-                <version:version-status>released</version:version-status>
-                <version:valid-status>valid</version:valid-status>
+                <version:status>released</version:status>
                 <srel:modified-by objid="escidoc:user2"/>
                 <version:comment>submit test</version:comment>
             </prop:version>
@@ -241,7 +240,7 @@
                     <prop:file-name>top01.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
-                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:23/content" xlink:title="top01.pdf" xlink:type="simple" />
+                <escidocComponents:content storage="internal-managed" xlink:href="/ir/item/escidoc:22/components/component/escidoc:23/content" xlink:title="top01.pdf" xlink:type="simple" />
             </escidocComponents:component>
             <escidocComponents:component objid="escidoc:24" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
@@ -254,7 +253,7 @@
                     <prop:file-name>top02a.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
-                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:24/content" xlink:title="top02a.pdf" xlink:type="simple" />
+                <escidocComponents:content storage="internal-managed" xlink:href="/ir/item/escidoc:22/components/component/escidoc:24/content" xlink:title="top02a.pdf" xlink:type="simple" />
             </escidocComponents:component>
             <escidocComponents:component objid="escidoc:25" last-modification-date="2007-10-05T12:02:01.546Z">
                 <escidocComponents:properties>
@@ -267,7 +266,7 @@
                     <prop:file-name>top05.pdf</prop:file-name>
                     <prop:mime-type>application/pdf</prop:mime-type>
                 </escidocComponents:properties>
-                <escidocComponents:content xlink:href="/ir/item/escidoc:22/components/component/escidoc:25/content" xlink:title="top05.pdf" xlink:type="simple" />
+                <escidocComponents:content storage="internal-managed" xlink:href="/ir/item/escidoc:22/components/component/escidoc:25/content" xlink:title="top05.pdf" xlink:type="simple" />
             </escidocComponents:component>
         </escidocComponents:components>
     </escidocItem:item>

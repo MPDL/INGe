@@ -79,6 +79,22 @@ Facultad de Ciencias]]></search-result:text-fragment-data>
 			<srel:context objid="escidoc:persistent3"/>
 			<srel:content-model objid="escidoc:persistent4"/>
 			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:version objid="escidoc:22:5">
+                <version:number>5</version:number>
+                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:status>released</version:status>
+                <srel:modified-by objid="escidoc:user2"/>
+                <version:comment>submit test</version:comment>
+            </prop:version>
+            <prop:latest-version objid="escidoc:22:5">
+                <version:number>5</version:number>
+                <version:date>2007-10-05T12:02:01.546Z</version:date>
+            </prop:latest-version>
+            <prop:latest-release objid="escidoc:22:5">
+                <release:number>5</release:number>
+                <release:date>2007-10-05T12:02:01.546Z</release:date>
+                <release:pid />
+            </prop:latest-release>
 			<prop:content-model-specific />
 		</escidocItem:properties>
 		<escidocMetadataRecords:md-records
