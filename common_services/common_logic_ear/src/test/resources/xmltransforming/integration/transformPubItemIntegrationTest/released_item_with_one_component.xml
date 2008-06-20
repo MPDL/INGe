@@ -1,35 +1,38 @@
 <escidocItem:item
 	objid="escidoc:375"
 	last-modification-date="2007-04-24T16:20:26.823Z"
-	xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"	
+	xmlns:escidocItem="${xsd.soap.item.item}"	
 	xmlns:xlink="http://www.w3.org/1999/xlink"	
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 ../../../../misc/xsd/soap/item/0.3/item.xsd">
+	xmlns:prop="${xsd.soap.common.prop}"
+	xmlns:srel="${xsd.soap.common.srel}"
+	xmlns:version="${xsd.soap.common.version}"
+	xmlns:release="${xsd.soap.common.release}">
 	<escidocItem:properties>
-		<escidocItem:creation-date>2007-04-24T16:20:19.495Z</escidocItem:creation-date>
-		<escidocItem:created-by objid="escidoc:user1" />
-		<escidocItem:public-status>released</escidocItem:public-status>
-		<escidocItem:context objid="escidoc:persistent3" />
-		<escidocItem:content-model objid="escidoc:persistent4" />
-		<escidocItem:lock-status>unlocked</escidocItem:lock-status>		
+		<prop:creation-date>2007-04-24T16:20:19.495Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user1" />
+		<prop:public-status>released</prop:public-status>
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>		
 		<escidocItem:version>
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
-			<escidocItem:version-status>released</escidocItem:version-status>
-			<escidocItem:valid-status>valid</escidocItem:valid-status>
+			<version:number>1</version:number>
+			<version:date>2007-04-24T16:20:26.823Z</version:date>
+			<version:version-status>released</version:version-status>
+			<version:valid-status>valid</version:valid-status>
 		</escidocItem:version>
 		<escidocItem:latest-version>
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
+			<version:number>1</version:number>
+			<version:date>2007-04-24T16:20:26.823Z</version:date>
 		</escidocItem:latest-version>
 		<escidocItem:latest-release>
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-04-24T16:20:26.823Z</escidocItem:date>
-			<escidocItem:pid>hdl:someHandle/test/escidoc:375</escidocItem:pid>
+			<release:number>1</release:number>
+			<release:date>2007-04-24T16:20:26.823Z</release:date>
+			<release:pid>hdl:someHandle/test/escidoc:375</release:pid>
 		</escidocItem:latest-release>
-		<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+		<prop:content-model-specific xmlns:escidocItem="${xsd.soap.item.item}"></prop:content-model-specific>
 	</escidocItem:properties>
-	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
 		<escidocMetadataRecords:md-record name="escidoc">
 			<escidocMetadataProfile:publication
 				xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="book">
@@ -44,23 +47,23 @@
 			</escidocMetadataProfile:publication>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
-	<escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+	<escidocComponents:components xmlns:escidocComponents="${xsd.soap.item.components}">
 		<escidocComponents:component objid="escidoc:376">
 			<escidocComponents:properties 
-				xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
-				<escidocComponents:creation-date>2007-04-24T16:20:19.308Z</escidocComponents:creation-date>
-				<escidocComponents:created-by objid="escidoc:user1" />
-				<escidocComponents:description>Ein Farbtest.</escidocComponents:description>				
-				<escidocComponents:last-modification-date>2007-04-24T16:20:19.308Z</escidocComponents:last-modification-date>
-				<escidocComponents:valid-status>valid</escidocComponents:valid-status>
-				<escidocComponents:visibility>public</escidocComponents:visibility>
-				<escidocComponents:pid>hdl:someHandle/test/escidoc:375</escidocComponents:pid>
-				<escidocComponents:content-category>publisher-version</escidocComponents:content-category>
-				<escidocComponents:file-name>farbtest.gif</escidocComponents:file-name>
-				<escidocComponents:file-size>0</escidocComponents:file-size>
+				xmlns:escidocComponents="${xsd.soap.item.components}">
+				<prop:creation-date>2007-04-24T16:20:19.308Z</prop:creation-date>
+				<srel:created-by objid="escidoc:user1" />
+				<prop:description>Ein Farbtest.</prop:description>				
+				<prop:last-modification-date>2007-04-24T16:20:19.308Z</prop:last-modification-date>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>public</prop:visibility>
+				<prop:pid>hdl:someHandle/test/escidoc:375</prop:pid>
+				<prop:content-category>publisher-version</prop:content-category>
+				<prop:file-name>farbtest.gif</prop:file-name>
+				<prop:file-size>0</prop:file-size>
 			</escidocComponents:properties>
 			<escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif"
-				xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" />
+				xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
 		</escidocComponents:component>
 	</escidocComponents:components>
 </escidocItem:item>

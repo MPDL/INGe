@@ -153,6 +153,8 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         ihr.submit(createdItemId, "<param last-modification-date=\"" + md + "\"/>");
         createdItemXml = ihr.retrieve(createdItemId);
         md = getModificationDate(createdItemXml);
+        String param = "<param last-modification-date=\"" + md + "\">" + "<url>http://localhost</url>" + "</param>";
+        ihr.assignObjectPid(createdItemId, param);
         ihr.release(createdItemId, "<param last-modification-date=\"" + md + "\"/>");
         logger.info("PubItem '" + createdItemId + "' released.");
         return createdItemVO;
@@ -170,7 +172,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
         List<String> itemRefs = new ArrayList<String>();
         for (int i = 0; i < itemCount; i++)
         {
-            PubItemVO item = createAndReleaseItem(userHandle, itemTitle);
+            PubItemVO item = createAndReleaseItem(adminUserHandle, itemTitle);
             String itemRef = item.getVersion().getObjectId();
             assertNotNull(itemRef);
             itemRefs.add(itemRef);

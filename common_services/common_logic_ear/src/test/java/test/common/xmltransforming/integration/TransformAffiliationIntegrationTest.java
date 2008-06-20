@@ -162,7 +162,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         }
         // There are 4 fields that are must have changed:
         // 4: reference, creationDate, creator and publicStatus
-        assertEquals(4, difflist.size());
+        assertEquals(5, difflist.size());
 
         // delete the created affiliation
         ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).delete(affiliationVOPostCreate.getReference().getObjectId());

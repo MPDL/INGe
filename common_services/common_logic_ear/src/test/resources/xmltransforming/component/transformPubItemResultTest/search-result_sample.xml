@@ -4,7 +4,7 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
 	xmlns:prop="${xsd.soap.common.prop}"
 	xmlns:srel="${xsd.soap.common.srel}"
-    xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.3 ../../../../misc/xsd/soap/search-result/0.3/search-result.xsd">
+    xsi:schemaLocation="http://www.escidoc.de/schemas/searchresult/0.6 ../../../../xsd/soap/search-result/0.6/search-result.xsd">
 	<escidocItem:item last-modification-date="2007-03-21T00:00:00.0Z" objid="escidoc:441" xmlns:escidocItem="${xsd.soap.item.item}">
 		<escidocItem:properties>
 			<prop:creation-date>2007-03-21T00:00:00.0Z</prop:creation-date>

@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
@@ -86,8 +87,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
     private static String ITEM_WITHOUT_COMPONENTS_FILE = TEST_FILE_ROOT + "item_without_components.xml";
     private static String JPG_FARBTEST_FILE = TEST_FILE_ROOT + "farbtest_wasserfarben.jpg";
     private static String PDF_RUNAWAY_FILE = TEST_FILE_ROOT + "RunawayMassiveBinariesAndClusterEjectionScenarios.pdf";
-    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.3/item.xsd";
-    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.3/item-list.xsd";
+    private static final String ITEM_SCHEMA_FILE = "xsd/soap/item/0.7/item.xsd";
+    private static final String ITEM_LIST_SCHEMA_FILE = "xsd/soap/item/0.7/item-list.xsd";
     private static final String PREDICATE_ISREVISIONOF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isRevisionOf";
     private static final String PREDICATE_FEDORARELATIONSHIP = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#fedoraRelationship";
     private static final String PREDICATE_ISMEMBEROF = "http://www.escidoc.de/ontologies/mpdl-ontologies/content-relations#isMemberOf";
@@ -268,6 +269,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setStorage(Storage.INTERNAL_MANAGED);
         fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
@@ -308,6 +310,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
+        fileVO1.setStorage(Storage.INTERNAL_MANAGED);
         fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
@@ -331,6 +334,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
                 + "interactions suggest that a dynamical origin is possible but unlikely. We recommend further X-"
                 + "ray observations that will conclusively identify whether HD 14633 or HD 15137 contain neutron " + "stars.");
         fileVO2.setVisibility(Visibility.PUBLIC);
+        fileVO2.setStorage(Storage.INTERNAL_MANAGED);
         fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO2);
@@ -370,6 +374,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setStorage(Storage.INTERNAL_MANAGED);
         fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
@@ -445,6 +450,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setStorage(Storage.INTERNAL_MANAGED);
         fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
@@ -534,6 +540,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO1.setName("farbtest_wasserfarben.jpg");
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
+        fileVO1.setStorage(Storage.INTERNAL_MANAGED);
         fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
@@ -557,6 +564,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
                 + "interactions suggest that a dynamical origin is possible but unlikely. We recommend further X-"
                 + "ray observations that will conclusively identify whether HD 14633 or HD 15137 contain neutron " + "stars.");
         fileVO2.setVisibility(Visibility.PUBLIC);
+        fileVO2.setStorage(Storage.INTERNAL_MANAGED);
         fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO2);
@@ -829,6 +837,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein <a href=\"http://www.escidoc.de/farbtest_wasserfarben.jpg\"> Farbtest mit Wasserfarben.</a>");
         fileVO.setVisibility(Visibility.PUBLIC);
+        fileVO.setStorage(Storage.INTERNAL_MANAGED);
         fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
@@ -880,7 +889,8 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         logger.info("PubItemVO transformed to item(XML) for create: " + pubItemXMLPreCreate);
         logger.debug("ContentItem() (item after transformation from PubItemVO) =\n" + toString(getDocument(pubItemXMLPreCreate, false), false));
         // create the item in the framework
-        ItemHandler ihr = ServiceLocator.getItemHandler(userHandle);
+        String usrHandle = loginLibrarian();
+        ItemHandler ihr = ServiceLocator.getItemHandler(usrHandle);
         logger.debug("ItemHandlerRemote successfully obtained.");
         String pubItemXMLPostCreate = ihr.create(pubItemXMLPreCreate);
         assertNotNull(pubItemXMLPostCreate);
@@ -903,7 +913,13 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         // TaskParam for release
         TaskParamVO releaseParam = new TaskParamVO(pubItemVOPostSubmission.getVersion().getModificationDate(), "Release comment");
         
-        // Submit the item
+        // Param for assignement of Object PID
+        String objectPidParam = "<param last-modification-date=\"" + pubItemVOPostSubmission.getVersion().getModificationDate().toString() + "\">" + "<url>http://localhost</url>" + "</param>";
+        
+        // Assign object pid
+        ihr.assignObjectPid(pubItemVOPostSubmission.getVersion().getObjectId(), objectPidParam);
+        
+        // Release the item
         ihr.release(pubItemVOPostSubmission.getVersion().getObjectId(), xmlTransforming.transformToTaskParam(releaseParam));
         
         // Retrieve the item again

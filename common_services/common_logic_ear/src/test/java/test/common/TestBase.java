@@ -227,8 +227,8 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                System.out.println("location: "+location);
-                System.out.println("handle: "+userHandle);
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
         
