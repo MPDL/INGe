@@ -99,7 +99,7 @@
 			<!-- Node: organizational-unit.properties.has-children -->
 			<!-- Field: AffiliationVO.hasChildren [boolean] -->
 			<value style="element" name="has-children" ns="${xsd.soap.common.prop}"
-				set-method="setHasChildren" usage="optional" />
+				set-method="setHasChildren"/>
 
 		</structure>
 
