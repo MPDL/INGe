@@ -275,6 +275,10 @@ width: 76% !important;
 .paginatorControls{
 	float:left;
 }
+
+.paginatorResultLabel {
+	float: right;
+}
 	
 .list{
 	padding: 5px;

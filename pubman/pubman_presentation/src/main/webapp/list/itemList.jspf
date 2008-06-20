@@ -52,7 +52,7 @@ All rights reserved. Use is subject to license terms.
 				</div>
 				
 				<!-- Label -Result x - x of xxxx -->
-				<h:panelGroup rendered = "#{ItemListSessionBean.currentPubItemListSize > 0}">
+				<h:panelGroup styleClass="paginatorResultLabel" rendered = "#{ItemListSessionBean.currentPubItemListSize > 0}">
 					<h:outputText value="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1} - #{ItemListSessionBean.currentPubItemListPointer + ItemListSessionBean.itemsPerPage} #{lbl.ItemList_of} #{ItemListSessionBean.currentPubItemListSize}" rendered="#{!ItemListSessionBean.isLastPage}"/>
 					<h:outputText value="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1} - #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_of} #{ItemListSessionBean.currentPubItemListSize}" rendered="#{ItemListSessionBean.isLastPage}"/>
 				</h:panelGroup>
