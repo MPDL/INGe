@@ -6,12 +6,12 @@
 	<!-- Optional HEAD element, which is copied as is into the XHTML <head> element -->
 	<body>
 		<!-- The body of the document contains a number of sections -->
-		<section name="Download PubMan 2.0.18">
+		<section name="Download PubMan 3.0.4">
 
 			<!-- Within sections, any XHTML can be used -->
 			<p>PubMan is currently delivered in several formats for your convenience.</p>
 			<p>
-				PubMan 2.0.18 is distributed under the
+				PubMan 3.0.4 is distributed under the
 				<a href="../license.html">Common Development And Distribution License (CDDL)</a>
 				.
 			</p>
@@ -28,23 +28,23 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td>PubMan 2.0.18 (tar.bz2)</td>
+						<td>PubMan 3.0.4 (tar.bz2)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.tar.bz2">pubman-2.0.18-bin.tar.bz2
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-3.0.4-bin/pubman-3.0.4-bin.tar.bz2">pubman-3.0.4-bin.tar.bz2
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>PubMan 2.0.18 (tar.gz)</td>
+						<td>PubMan 3.0.4 (tar.gz)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.tar.gz">pubman-2.0.18-bin.tar.gz
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-3.0.4-bin/pubman-3.0.4-bin.tar.gz">pubman-3.0.4-bin.tar.gz
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td>PubMan 2.0.18 (zip)</td>
+						<td>PubMan 3.0.4 (zip)</td>
 						<td>
-							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-2.0.18-bin/pubman-2.0.18-bin.zip">pubman-2.0.18-bin.zip</a>
+							<a href="http://escidoc1.escidoc.mpg.de/resources/pubman-3.0.4-bin/pubman-3.0.4-bin.zip">pubman-3.0.4-bin.zip</a>
 						</td>
 					</tr>
 				</tbody>
