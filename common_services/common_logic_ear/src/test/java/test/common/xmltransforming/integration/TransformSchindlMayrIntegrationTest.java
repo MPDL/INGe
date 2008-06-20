@@ -174,7 +174,8 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
     
             output.close();
             logger.debug("File length=" + count);
-            assertEquals(file.getSize(),count);
+            // FileSize no longer supported
+            //assertEquals(file.getSize(),count);
         }
     }
 }

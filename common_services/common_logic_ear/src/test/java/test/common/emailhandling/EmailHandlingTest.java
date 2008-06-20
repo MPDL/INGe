@@ -107,7 +107,7 @@ public class EmailHandlingTest extends TestBase
     {
         logger.debug("### testSendMail ###" );        
  
-        File file = new File("emailhandling/APA.html");
+        File file = new File(TEST_FILE_ROOT + "emailhandling/APA.html");
         assertNotNull(file);
         file.getAbsolutePath();
         attachments = new String[]{file.getAbsolutePath()};

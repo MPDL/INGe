@@ -137,7 +137,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestBase
 {
-    private static final String TEST_FILE_ROOT = "target/test-classes/";
+    protected static final String TEST_FILE_ROOT = "target/test-classes/";
     protected static final String ITEM_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.xml";
     protected static final String COMPONENT_FILE = TEST_FILE_ROOT + "schindlmayr/schindlmayr-springer.pdf";
     protected static final String MIME_TYPE = "application/pdf";
