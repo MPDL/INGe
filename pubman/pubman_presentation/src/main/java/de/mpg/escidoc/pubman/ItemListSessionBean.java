@@ -84,6 +84,8 @@ public class ItemListSessionBean extends FacesBean
      */
     private boolean isInRevisionView;
 
+    private ArrayList<Page> pages;
+
     /**
      * Default constructor.
      */
@@ -249,12 +251,17 @@ public class ItemListSessionBean extends FacesBean
     
 	public List<Page> getPages()
 	{
-		List<Page> pages = new ArrayList<Page>();
+		pages = new ArrayList<Page>();
 		for (int i = 1; i <= ((currentPubItemList.size() - 1) / itemsPerPage + 1); i++)
 		{
 			pages.add(new Page(i));
 		}
 		return pages;
+	}
+	
+	public int getPageSize()
+	{
+	    return pages.size();
 	}
 	
 	public boolean getIsFirstPage()
@@ -538,4 +545,6 @@ public class ItemListSessionBean extends FacesBean
         {
             return isInRevisionView;
         }
+        
+        
 }

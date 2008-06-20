@@ -35,8 +35,11 @@ All rights reserved. Use is subject to license terms.
 	<f:subview id="list">
 		<div class="paginator">
 			<h:panelGroup layout="block" styleClass="paginatorTop floatbox">
+				
+				<!-- Menu for items per page selection -->
 				<div class="showItemsMenu floatbox">
-					<h:outputText value="#{lbl.ItemList_Total} #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_Show} "/>
+					
+					<h:outputText value="#{lbl.ItemList_Show} "/>
 					<h:selectOneMenu value="#{ItemListSessionBean.itemsPerPage}" immediate="true" onchange="submit();" valueChangeListener="#{ItemListSessionBean.changeItemsPerPage}">
 						<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
 						<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
@@ -45,18 +48,27 @@ All rights reserved. Use is subject to license terms.
 						<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
 					</h:selectOneMenu>
 					<h:outputText value=" #{lbl.ItemList_ObjectsPerPage}"/>
+					
 				</div>
+				
+				<!-- Label -Result x - x of xxxx -->
+				<h:panelGroup rendered = "#{ItemListSessionBean.currentPubItemListSize > 0}">
+					<h:outputText value="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1} - #{ItemListSessionBean.currentPubItemListPointer + ItemListSessionBean.itemsPerPage} #{lbl.ItemList_of} #{ItemListSessionBean.currentPubItemListSize}" rendered="#{!ItemListSessionBean.isLastPage}"/>
+					<h:outputText value="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1} - #{ItemListSessionBean.currentPubItemListSize} #{lbl.ItemList_of} #{ItemListSessionBean.currentPubItemListSize}" rendered="#{ItemListSessionBean.isLastPage}"/>
+				</h:panelGroup>
+				
+				<!-- Paginator page control elements -->
 				<div class="paginatorControls">
-					<h:commandButton value="|<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
-					<h:commandButton value="<" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
+					<h:commandButton value="|<" title="#{lbl.ItemList_Results} 1 - #{ItemListSessionBean.itemsPerPage}" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoFirstPage}"/>
+					<h:commandButton value="<" title="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1-ItemListSessionBean.itemsPerPage} - #{ItemListSessionBean.currentPubItemListPointer}" disabled="#{ItemListSessionBean.isFirstPage}" action="#{ItemListSessionBean.gotoPrecedingPage}"/>
 					<tr:iterator id="paginator" var="page" value="#{ItemListSessionBean.pages}" first="#{((ItemListSessionBean.currentPubItemListPointer - ItemListSessionBean.currentPubItemListPointer % (ItemListSessionBean.itemsPerPage * 10)) / (ItemListSessionBean.itemsPerPage * 10)) * 10}" rows="10">
 				
-						<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
-						<tr:commandButton text="#{page}" disabled="true" styleClass="disabled" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+						<tr:commandButton text="#{page}" shortDesc="#{lbl.ItemList_Results} #{((page.value-1)*ItemListSessionBean.itemsPerPage) + 1} -  #{page.value*ItemListSessionBean.itemsPerPage}" actionListener="#{ItemListSessionBean.changePage}" immediate="true" rendered="#{page.value != (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
+						<tr:commandButton text="#{page}" actionListener="#{ItemListSessionBean.changePage}" disabled="true" styleClass="disabled" rendered="#{page.value == (ItemListSessionBean.currentPubItemListPointer / ItemListSessionBean.itemsPerPage) + 1}"/>
 					
 					</tr:iterator>
-					<h:commandButton value=">" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
-					<h:commandButton value=">|" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
+					<h:commandButton value=">" title="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1+ItemListSessionBean.itemsPerPage} -  #{ItemListSessionBean.currentPubItemListPointer + 2*ItemListSessionBean.itemsPerPage}" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
+					<h:commandButton value=">|" title="#{lbl.ItemList_Results} #{(ItemListSessionBean.pageSize-1)*ItemListSessionBean.itemsPerPage + 1} - #{ItemListSessionBean.pageSize*ItemListSessionBean.itemsPerPage}" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
 				</div>
 			</h:panelGroup>
 			<div class="displayControls"></div>
