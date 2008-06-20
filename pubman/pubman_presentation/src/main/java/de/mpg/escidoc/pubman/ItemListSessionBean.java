@@ -337,6 +337,9 @@ public class ItemListSessionBean extends FacesBean
     	sortBy = event.getNewValue().toString();
     	
     	sortItemList();
+    	//After changing the paginator should be reset to page 1 due to PubMan-365
+    	//Will be changed completly when new FIZ Framework features concerning sorting/paging etc. will be adopted
+    	gotoFirstPage();
     	
     	// Delete list from component tree to let it be refreshed.
         UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:content:list:listtable");
@@ -363,6 +366,9 @@ public class ItemListSessionBean extends FacesBean
     	}
     	
         sortItemList();
+    	//After changing the paginator should be reset to page 1 due to PubMan-365
+    	//Will be changed completly when new FIZ Framework features concerning sorting/paging etc. will be adopted
+    	gotoFirstPage();
         
         // Delete list from component tree to let it be refreshed.
         UIComponent component = FacesContext.getCurrentInstance().getViewRoot().findComponent("form1:content:list:listtable");
