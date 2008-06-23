@@ -1,14 +1,17 @@
 package de.mpg.escidoc.services.common.valueobjects.metadata;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import de.mpg.escidoc.services.common.types.Constants;
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
 {
+    
     private String city;
     private Coordinates coordinates;
     
@@ -31,11 +34,18 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     private String name;
     private List<String> alternativeNames = new ArrayList<String>();
 
+    private Type type;
+    
     private Date startDate;
     private Date endDate;
     
+    public enum Type
+    {
+        INSTITUTE
+    }
+    
     /**
-     * Derfault constructor.
+     * Default constructor.
      */
     public MdsOrganizationalUnitDetailsVO()
     {
@@ -60,6 +70,32 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
         this.endDate = other.endDate;
     }
 
+    public void setStartDateAsString(String date) throws Exception
+    {
+        if (date == null || "".equals(date))
+        {
+            setStartDate(null);
+        }
+        else
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat(Constants.ESCIDOC_DATE_FORMAT);
+            setStartDate(sdf.parse(date));
+        }
+    }
+
+    public void setEndDateAsString(String date) throws Exception
+    {
+        if (date == null || "".equals(date))
+        {
+            setStartDate(null);
+        }
+        else
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat(Constants.ESCIDOC_DATE_FORMAT);
+            setStartDate(sdf.parse(date));
+        }
+    }
+    
     public String getCity()
     {
         return city;
@@ -133,6 +169,16 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     public void setEndDate(Date endDate)
     {
         this.endDate = endDate;
+    }
+
+    public Type getType()
+    {
+        return type;
+    }
+
+    public void setType(Type type)
+    {
+        this.type = type;
     }
     
 }

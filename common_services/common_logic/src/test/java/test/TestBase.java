@@ -70,12 +70,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
-import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.DOMImplementation;
@@ -165,87 +161,6 @@ public abstract class TestBase
         Object serviceInstance = context.lookup(serviceName);
         assertNotNull(serviceInstance);
         return serviceInstance;
-    }
-
-    /**
-     * Logs in the given user.
-     * 
-     * @param userid
-     * @param password
-     * @return the user handle.
-     * @throws HttpException
-     * @throws IOException
-     * @throws ServiceException
-     */
-    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
-    {
-        // post the login data
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
-        postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
-        postMethod.addParameter("login", userid);
-        postMethod.addParameter("password", password);
-        HttpClient client = new HttpClient();
-        client.executeMethod(postMethod);
-        if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
-        {
-            throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
-        }
-        // String response = postMethod.getResponseBodyAsString();
-        String userHandle = null;
-        Header headers[] = postMethod.getResponseHeaders();
-        for (int i = 0; i < headers.length; ++i)
-        {
-            if ("Location".equals(headers[i].getName()))
-            {
-                String location = headers[i].getValue();
-                int index = location.indexOf('=');
-                userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-            }
-
-        }
-        if (userHandle == null)
-        {
-            throw new ServiceException("User not logged in.");
-        }
-        return userHandle;
-    }
-
-    /**
-     * Logs the user test_dep_scientist in and returns the corresponding user handle.
-     * 
-     * @return userHandle
-     * @throws ServiceException
-     * @throws HttpException
-     * @throws IOException
-     */
-    protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
-    {
-        return loginUser("test_dep_scientist", "escidoc");
-    }
-
-    /**
-     * Logs the user test_dep_lib in and returns the corresponding user handle.
-     * 
-     * @return userHandle
-     * @throws ServiceException
-     * @throws HttpException
-     * @throws IOException
-     */
-    protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
-    {
-        return loginUser("test_dep_lib", "pubman");
-    }
-
-    /**
-     * Logs the user roland in who is a system administrator and returns the corresponding user handle.
-     * 
-     * @return userHandle
-     * @throws Exception
-     */
-    protected static String loginSystemAdministrator() throws Exception
-    {
-        return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }
 
     /**

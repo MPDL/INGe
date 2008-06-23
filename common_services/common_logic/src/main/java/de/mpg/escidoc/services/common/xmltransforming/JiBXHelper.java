@@ -69,6 +69,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
@@ -571,6 +572,36 @@ public class JiBXHelper
             }
         }
         return creatorRole;
+    }
+
+    /**
+     * Deserializes a String containing a organization-type to the corresponding
+     * MdsOrganizationalUnitDetailsVO.Type Enum.
+     * 
+     * @param enumValue The String to deserialize
+     * @return The corresponding MdsOrganizationalUnitDetailsVO.Type Enum
+     * @throws WrongEnumException
+     */
+    public static MdsOrganizationalUnitDetailsVO.Type deserializeOrganizationType(String enumValue) throws WrongEnumException
+    {
+        MdsOrganizationalUnitDetailsVO.Type organzationType = null;
+        if (enumValue == null)
+        {
+            throw new WrongEnumException("CreatorRoleEnum is null.");
+        }
+        else
+        {
+            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
+            try
+            {
+                organzationType = MdsOrganizationalUnitDetailsVO.Type.valueOf(upperCaseText);
+            }
+            catch (IllegalArgumentException e)
+            {
+                throw new WrongEnumException("CreatorRoleEnum value is '" + enumValue + "'.", e);
+            }
+        }
+        return organzationType;
     }
 
     /**

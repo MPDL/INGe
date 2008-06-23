@@ -57,7 +57,7 @@ public class AccountUserVOTest extends TestBase
     @Test
     public void testIsModeratorFunction() throws Exception
     {
-        String adminUserHandle = loginSystemAdministrator();
+        String adminUserHandle = null; //loginSystemAdministrator();
         AccountUserVO admin = getAccountUser(adminUserHandle);
         
         assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));

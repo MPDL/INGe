@@ -66,6 +66,12 @@
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
 				<value name="identifier" style="element" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
 			</collection>
+				
+			<!-- Node: organizational-unit.organization-details.organization-type -->
+			<!-- Field: MdsOrganizationalUnitDetailsVO.type [Type] -->
+			<value style="element" name="organization-type" ns="${xsd.metadata.organization}"
+				field="type" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeOrganizationType"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.description -->
 			<!-- Field: AffiliationVO.descriptions [List<String>] -->
@@ -92,12 +98,12 @@
 			<!-- Node: organizational-unit.organization-details.start-date -->
 			<!-- Field: AffiliationVO.startDate [Date] -->
 			<value style="element" name="start-date" ns="${xsd.metadata.organization}"
-				field="startDate" usage="optional" />
+				set-method="setStartDateAsString" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.end-date -->
 			<!-- Field: AffiliationVO.endDate [Date] -->
 			<value style="element" name="end-date" ns="${xsd.metadata.organization}"
-				field="endDate" usage="optional" />
+				set-method="setEndDateAsString" usage="optional" />
 
 		</structure>
 	</mapping>
