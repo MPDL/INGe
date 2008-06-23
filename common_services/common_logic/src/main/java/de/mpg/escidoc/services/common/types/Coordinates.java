@@ -1,5 +1,7 @@
 package de.mpg.escidoc.services.common.types;
 
+import java.io.Serializable;
+
 
 /**
  * Simple implementation of KLM coordinates.
@@ -9,7 +11,7 @@ package de.mpg.escidoc.services.common.types;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class Coordinates
+public class Coordinates implements Serializable
 {
     private double latitude;
     private double longitute;

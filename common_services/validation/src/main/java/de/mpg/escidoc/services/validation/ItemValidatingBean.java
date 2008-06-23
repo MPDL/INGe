@@ -31,7 +31,6 @@ package de.mpg.escidoc.services.validation;
 
 import static de.mpg.escidoc.services.validation.XsltTransforming.transform;
 
-import java.io.IOException;
 import java.io.StringWriter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -127,7 +126,7 @@ public class ItemValidatingBean implements ItemValidating
                 throw new TechnicalException("No content-type in xml");
             }
         }
-        catch (IOException ioe)
+        catch (Exception ioe)
         {
             throw new TechnicalException("Error getting property", ioe);
         }
@@ -150,7 +149,7 @@ public class ItemValidatingBean implements ItemValidating
                 throw new TechnicalException("No context in xml");
             }
         }
-        catch (IOException ioe)
+        catch (Exception ioe)
         {
             throw new TechnicalException("Error getting property", ioe);
         }
@@ -168,12 +167,58 @@ public class ItemValidatingBean implements ItemValidating
             TechnicalException
     {
 
-        Transformer precompiled = ValidationSchemaCache
+        try
+        {
+            String validationSchema = ValidationSchemaCache
                 .getInstance()
-                .getPrecompiledTransformer(context, contentType, validationPoint);
-        StringWriter result = transform(itemXml, precompiled, null);
+                .getValidationSchemaId(context);
+            
+            return validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
+            }
+        catch (Exception e) {
+            throw new TechnicalException("Error getting validation schema", e);
+        }
+    }
 
-        return result.toString();
+    /**
+     * {@inheritDoc}
+     */
+    public String validateItemXmlBySchema(
+            final String itemXml,
+            final String validationPoint,
+            final String validationSchema) throws
+            ValidationSchemaNotFoundException,
+            TechnicalException
+    {
+
+        String contentType = findContentType(itemXml);
+        return validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    private String validateItemXmlBySchema(
+            final String itemXml,
+            final String validationPoint,
+            final String validationSchema,
+            final String contentType) throws
+            ValidationSchemaNotFoundException,
+            TechnicalException
+    {
+
+        try
+        {
+            Transformer precompiled = ValidationSchemaCache
+                    .getInstance()
+                    .getPrecompiledTransformer(validationSchema, contentType, validationPoint);
+            StringWriter result = transform(itemXml, precompiled, null);
+    
+            return result.toString();
+        }
+        catch (Exception e) {
+            throw new TechnicalException("Error getting validation schema", e);
+        }
     }
 
     /**

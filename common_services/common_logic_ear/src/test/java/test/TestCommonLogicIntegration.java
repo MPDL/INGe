@@ -49,12 +49,12 @@ import test.common.xmltransforming.XmlTransformingIntegrationTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-                    XmlTransformingIntegrationTest.class
-                    ,DataGatheringTest.class
-                    ,ValueObjectTest.class
-                    ,ComparatorTest.class
-                    ,EncodingTest.class
-                    ,EmailHandlingTest.class
+//                    XmlTransformingIntegrationTest.class
+                    DataGatheringTest.class
+//                    ,ValueObjectTest.class
+//                    ,ComparatorTest.class
+//                    ,EncodingTest.class
+//                    ,EmailHandlingTest.class
                     })
 public class TestCommonLogicIntegration
 {

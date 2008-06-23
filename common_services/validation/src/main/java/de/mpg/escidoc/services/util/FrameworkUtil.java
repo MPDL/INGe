@@ -30,14 +30,18 @@
 package de.mpg.escidoc.services.util;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
+
 import org.apache.axis.encoding.Base64;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
-import de.fiz.escidoc.om.ContextHandlerRemote;
+
+import de.escidoc.www.services.om.ContextHandler;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -74,7 +78,7 @@ public class FrameworkUtil
         }
         try
         {
-            ContextHandlerRemote cHandler = ServiceLocator.getContextHandler(adminUserHandle);
+            ContextHandler cHandler = ServiceLocator.getContextHandler(adminUserHandle);
             return cHandler.retrieveContexts("<param></param>");
         }
         catch (Exception e)
@@ -110,7 +114,7 @@ public class FrameworkUtil
      * @throws IOException
      * @throws ServiceException
      */
-    private static String loginUser(final String userid, final String password) throws IOException, ServiceException
+    private static String loginUser(final String userid, final String password) throws IOException, ServiceException, URISyntaxException
     {
         // post the login data
         PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");

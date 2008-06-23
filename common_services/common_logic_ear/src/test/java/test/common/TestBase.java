@@ -250,6 +250,7 @@ public class TestBase
         }
         return userHandle;
     }
+    
     /**
      * Logs the user test_dep_scientist in and returns the corresponding user handle.
      * 

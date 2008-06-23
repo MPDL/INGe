@@ -41,6 +41,7 @@ import java.sql.SQLException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
@@ -48,8 +49,15 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamSource;
+
 import org.apache.log4j.Logger;
+
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.types.Validatable;
+import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.util.LocalURIResolver;
 import de.mpg.escidoc.services.util.ResourceUtil;
 
@@ -95,6 +103,16 @@ public final class ValidationSchemaCache
 
     private Date lastRefreshDate = null;
 
+    /**
+     * Cached map of contexts and the according validation schemas.
+     */
+    private final Map<String, String> validationSchemaContextMap = new HashMap<String, String>();
+
+    /**
+     * Common XML transforming functionalities.
+     */
+    XmlTransforming xmlTransforming;
+    
     /**
      * XSLT transformer factory.
      */
@@ -607,6 +625,7 @@ public final class ValidationSchemaCache
 
         // TODO FrM: Commented out until schema repository is implemented.
         //clearCache();
+        validationSchemaContextMap.clear();
         createCache();
     }
 
@@ -708,6 +727,14 @@ public final class ValidationSchemaCache
      */
     private ValidationSchemaCache() throws TechnicalException
     {
+        try
+        {
+            Context ctx = new InitialContext();
+            xmlTransforming = (XmlTransforming) ctx.lookup(XmlTransforming.SERVICE_NAME);
+        }
+        catch (Exception e) {
+            throw new TechnicalException("Error getting xmlTransforming bean.", e);
+        }
         // Use Saxon for XPath2.0 support
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
     }
@@ -786,5 +813,22 @@ public final class ValidationSchemaCache
         {
             return hash;
         }
+    }
+    
+    public String getValidationSchemaId(String context) throws Exception
+    {
+        if (!validationSchemaContextMap.containsKey(context))
+        {
+            String contextXml = ServiceLocator.getContextHandler().retrieve(context);
+            ContextVO contextVO = xmlTransforming.transformToContext(contextXml);
+            AdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptors().get(0);
+            if (adminDescriptorVO instanceof Validatable)
+            {
+                String validateSchemaId = ((Validatable) contextVO).getValidationSchema();
+                return validateSchemaId; 
+            }
+        }
+
+        return validationSchemaContextMap.get(context);
     }
 }

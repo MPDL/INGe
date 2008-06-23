@@ -49,7 +49,7 @@ public interface ItemValidating extends ItemValidatingWebService
     String SERVICE_NAME = "ejb/de/mpg/escidoc/services/validation/ItemValidating";
 
     /**
-     * Validate the given item xml against the matching vsalidation schema using the default validation point.
+     * Validate the given item xml against the matching validation schema using the default validation point.
      *
      * @param itemXml The item as xml according to the xml schema.
      * (like "submit_item", etcetera). If no validation point is given, "default will be used.
@@ -62,7 +62,7 @@ public interface ItemValidating extends ItemValidatingWebService
             TechnicalException;
 
     /**
-     * Validate the given item xml against the matching vsalidation schema.
+     * Validate the given item xml against the matching validation schema.
      *
      * @param itemXml The item as xml according to the xml schema.
      * @param validationPoint A string representing the current validation point
@@ -77,6 +77,24 @@ public interface ItemValidating extends ItemValidatingWebService
             ValidationSchemaNotFoundException,
             TechnicalException;
 
+    /**
+     * Validate the given item xml against the matching validation schema.
+     *
+     * @param itemXml The item as xml according to the xml schema.
+     * @param validationPoint A string representing the current validation point
+     * (like "submit_item", etcetera). If no validation point is given, "default will be used.
+     * @param validationSchema The id of a validation schema used to validate the item.
+     * @return The validation report as xml.
+     * @throws ValidationSchemaNotFoundException Schema not found in database.
+     * @throws TechnicalException Another exception.
+     */
+    public String validateItemXmlBySchema(
+            final String itemXml,
+            final String validationPoint,
+            final String validationSchema) throws
+            ValidationSchemaNotFoundException,
+            TechnicalException;
+    
     /**
      * Validate the given item vo against the matching validation schema using the default validation point.
      *
