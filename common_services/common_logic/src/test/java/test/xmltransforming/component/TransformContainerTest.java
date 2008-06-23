@@ -51,10 +51,13 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
+import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
@@ -87,6 +90,7 @@ public class TransformContainerTest extends XmlTransformingTestBase
         logger.info("### testTransformToContainer ###");
         //create new item to add to container
         PubItemVO item = getPubItemWithoutFiles();
+        ItemRO member = new ItemRO(item.getVersion().getObjectId()); 
 
         // create a new container
         ContainerVO containerVO = new ContainerVO();
@@ -97,7 +101,7 @@ public class TransformContainerTest extends XmlTransformingTestBase
         
         MdsPublicationVO mds = getMdsPublication1();
         containerVO.setMetadata(mds);
-        //containerVO.getMembers().add(item);
+        containerVO.getMembers().add((ReferenceObject)member);
 
         // transform the ContainerVO
         long zeit = -System.currentTimeMillis();
@@ -194,6 +198,7 @@ public class TransformContainerTest extends XmlTransformingTestBase
         assertNotNull("PID is null!", containerVO.getVersion().getPid());
 
         assertEquals("hdl:someHandle/test/escidoc:1787", containerVO.getVersion().getPid());
+        
     }
 
 

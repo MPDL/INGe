@@ -130,9 +130,17 @@
 		<!-- Node: struct-map -->
 		<!-- Field: ContainerVO.members -->
 		<collection name="struct-map" ns="${xsd.soap.container.structmap}" field="members"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberVOListFactory"
-			item-type="de.mpg.escidoc.services.common.valueobjects.MemberVO" test-method="hasMembers" usage="optional">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MemberVO" usage="optional"/>
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberROListFactory"
+			item-type="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" usage="optional">
+			
+			<structure name="item" ns="${xsd.soap.common.srel}"
+				type="de.mpg.escidoc.services.common.referenceobjects.ItemRO" usage="optional">
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
+			<structure name="container" ns="${xsd.soap.common.srel}"
+				type="de.mpg.escidoc.services.common.referenceobjects.ContainerRO" usage="optional">
+				<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+			</structure>
 		</collection>
 
 		<!-- Node: relations -->

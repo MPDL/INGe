@@ -72,6 +72,7 @@ public class ResourceUtil
     public static File getResourceAsFile(final String fileName) throws FileNotFoundException
     {
         URL url = ResourceUtil.class.getClassLoader().getResource(fileName);
+        
         File file = null;
         if (url != null)
         {
@@ -156,9 +157,11 @@ public class ResourceUtil
         {
             ArrayList<File> fileArray = new ArrayList<File>();
             String[] fileNames = dirFile.list();
+            
             for (int i = 0; i < fileNames.length; i++)
             {
                 File file = new File(dirFile.getAbsolutePath() + "/" + fileNames[i]);
+                
                 if (file.isFile())
                 {
                     fileArray.add(file);

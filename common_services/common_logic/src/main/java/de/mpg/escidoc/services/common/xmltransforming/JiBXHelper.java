@@ -60,6 +60,7 @@ import de.mpg.escidoc.services.common.valueobjects.MemberVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -271,14 +272,19 @@ public class JiBXHelper
     }
     
     /**
-     * Factory method to create a <code>java.util.ArrayList&lt;Object></code> as the implementation of a
+     * Factory method to create a <code>java.util.ArrayList&lt;ReferenceObject></code> as the implementation of a
      * <code>java.util.List</code>.
      * 
-     * @return A new <code>java.util.ArrayList&lt;FileVO></code>
+     * @return A new <code>java.util.ArrayList&lt;ReferenceObject></code>
      */
-    public static List<ReferenceObject> memberVOListFactory()
+    public static List<ReferenceObject> memberROListFactory()
     {
         return new ArrayList<ReferenceObject>();
+    }
+    
+    public static List<ValueObject> memberVOListFactory()
+    {
+        return new ArrayList<ValueObject>();
     }
 
     /**

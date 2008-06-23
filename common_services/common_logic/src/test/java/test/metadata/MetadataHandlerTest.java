@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.xml.sax.InputSource;
 
@@ -41,6 +42,7 @@ public class MetadataHandlerTest {
         metadataHandler = new MetadataHandlerBean();
     }
     
+    @Ignore
     @Test
     public void testFetchOAIRecord() throws Exception
     {

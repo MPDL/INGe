@@ -71,7 +71,6 @@
 	<include path="PubItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />
 	<include path="PubItemVOListWrapper_binding_input.xml" />
-	<include path="MemberListVO_binding.xml" />
 
 </binding>
 

@@ -33,6 +33,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
+import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
@@ -59,7 +60,7 @@ public class ContainerVO extends ValueObject implements Cloneable
         LOCKED, UNLOCKED
     }
 
-    private java.util.List<Object> members = new java.util.ArrayList<Object>();
+    private java.util.List<ReferenceObject> members = new java.util.ArrayList<ReferenceObject>();
     private List<MetadataSetVO> metadataSets = new java.util.ArrayList<MetadataSetVO>();
 
     private AccountUserRO owner;
@@ -114,9 +115,9 @@ public class ContainerVO extends ValueObject implements Cloneable
     public ContainerVO(ContainerVO other)
     {
         this.setCreationDate(other.getCreationDate());
-        for (Object member : other.getMembers())
+        for(ReferenceObject member : other.getMembers())
         {
-            this.getMembers().add((Object) member);
+            this.getMembers().add(member);
         }
         this.setLockStatus(other.getLockStatus());
         for (MetadataSetVO mds : other.getMetadataSets())
@@ -205,7 +206,7 @@ public class ContainerVO extends ValueObject implements Cloneable
     /**
      * Delivers the list of members in this container.
      */
-    public java.util.List<Object> getMembers()
+    public java.util.List<ReferenceObject> getMembers()
     {
         return members;
     }

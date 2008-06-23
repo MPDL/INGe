@@ -159,7 +159,7 @@
 		<!-- Node: container.struct-map -->
 		<!-- Field: ContainerVO.members -->
 		<collection name="struct-map" ns="${xsd.soap.container.structmap}" field="members"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberVOListFactory"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberROListFactory"
 			item-type="de.mpg.escidoc.services.common.referenceobjects.ReferenceObject" usage="optional">
 			
 			<structure name="item" ns="${xsd.soap.common.srel}"
