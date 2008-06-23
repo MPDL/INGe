@@ -12,8 +12,8 @@
             <search-result:text-fragment>
                 <search-result:text-fragment-data><![CDATA[> <srel:context xlink:type="simple" xlink:title="PubMan Test Collection &amp;apos; &amp;gt;]]></search-result:text-fragment-data>
                 <search-result:hit-word>
-                    <search-result:start-index>63</search-result:start-index>
-                    <search-result:end-index>66</search-result:end-index>
+                    <search-result:start-index>56</search-result:start-index>
+                    <search-result:end-index>59</search-result:end-index>
                 </search-result:hit-word>
             </search-result:text-fragment>
             <search-result:text-fragment>
@@ -39,7 +39,7 @@
             </search-result:text-fragment>
         </search-result:search-hit>
     </search-result:highlight>
-    <escidocItem:item last-modification-date="2007-10-05T12:02:01.546Z" objid="escidoc:22" 
+    <escidocItem:item last-modification-date="2007-03-21T01:00:00.0Z" objid="escidoc:22" 
         xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7">
         <escidocItem:properties>
             <prop:creation-date>2007-10-05T11:24:45.000Z</prop:creation-date>
@@ -49,20 +49,21 @@
             <srel:content-model objid="escidoc:persistent4"/>
             <prop:lock-status>unlocked</prop:lock-status>
             <prop:version objid="escidoc:22:5">
-                <version:number>5</version:number>
-                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:number>1</version:number>
+                <version:date>2007-03-21T02:01:00.546Z</version:date>
                 <version:status>released</version:status>
                 <srel:modified-by objid="escidoc:user2"/>
-                <version:comment>submit test</version:comment>
+                <version:comment>Test Title FrM</version:comment>
+                <version:pid>hdl:someHandle/test/escidoc:21280:1</version:pid>
             </prop:version>
             <prop:latest-version objid="escidoc:22:5">
-                <version:number>5</version:number>
-                <version:date>2007-10-05T12:02:01.546Z</version:date>
+                <version:number>1</version:number>
+                <version:date>2007-03-21T02:01:00.546Z</version:date>
             </prop:latest-version>
             <prop:latest-release objid="escidoc:22:5">
-                <release:number>5</release:number>
-                <release:date>2007-10-05T12:02:01.546Z</release:date>
-                <release:pid />
+                <release:number>1</release:number>
+                <release:date>2007-03-21T02:01:00.546Z</release:date>
+                <release:pid>hdl:someHandle/test/escidoc:21280:1</release:pid>
             </prop:latest-release>
             <prop:content-model-specific />
         </escidocItem:properties>

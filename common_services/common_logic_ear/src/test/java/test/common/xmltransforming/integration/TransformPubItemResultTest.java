@@ -198,7 +198,8 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         assertEquals("PID0815", file1.getPid());
         assertNotNull(file1.getReference());
         assertEquals("escidoc:23", file1.getReference().getObjectId());
-        assertEquals(234840l, file1.getSize());
+        //file-size property of components doesn't exist anymore
+        //assertEquals(234840l, file1.getSize());
         assertEquals(Visibility.PUBLIC, file1.getVisibility());
 
         // pubItemResult.getLatestRevision();
@@ -219,11 +220,11 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         assertEquals(4, searchHit.getTextFragmentList().size());
         TextFragmentVO textFragment1 = searchHit.getTextFragmentList().get(0);
         assertNotNull(textFragment1);
-        assertEquals("> <escidocItem:context xlink:type=\"simple\" xlink:title=\"PubMan Test Collection &amp;apos; &amp;gt;", textFragment1.getData());
+        assertEquals("> <srel:context xlink:type=\"simple\" xlink:title=\"PubMan Test Collection &amp;apos; &amp;gt;", textFragment1.getData());
         assertEquals(1, textFragment1.getHitwordList().size());
         HitwordVO hitWord = textFragment1.getHitwordList().get(0);
-        assertEquals(63, hitWord.getStartIndex());
-        assertEquals(66, hitWord.getEndIndex());
+        assertEquals(56, hitWord.getStartIndex());
+        assertEquals(59, hitWord.getEndIndex());
         assertEquals("Test", textFragment1.getData().substring(hitWord.getStartIndex(), hitWord.getEndIndex() + 1));
 
         // pubItemResult.getState()
@@ -345,6 +346,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         
         file.setLastModificationDate(modDate);
         file.setCreationDate(creationDate);
+        file.setStorage(Storage.INTERNAL_MANAGED);
         item.getFiles().add(file);
         return item;
     }
