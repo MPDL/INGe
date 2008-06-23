@@ -374,6 +374,8 @@
 				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
 				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
+
+
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
@@ -430,6 +432,12 @@
 				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.7</xsd.soap.container.container>
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
+				
+				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
+				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
+				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
+				
 			</properties>
 
 			<distributionManagement>
