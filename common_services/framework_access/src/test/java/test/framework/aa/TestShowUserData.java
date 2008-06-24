@@ -35,6 +35,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import test.framework.TestBase;
 
 /**
@@ -106,13 +107,12 @@ public class TestShowUserData extends TestBase
         logger.info("Framework-URL: "+ServiceLocator.getFrameworkUrl());
         // REMOVE END
         
-        String loginnames[] = { "roland"
-                              , "inspector"
-                              , "test_dep_scientist"
-                              , "test_dep_lib"
-                              , "test_editor"
-                              , "test_author"
-                              };
+        String loginnames[] = { PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN)
+                , PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN)
+                , PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST)
+                , PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR)
+                };
+        
         for (int i=0; i<loginnames.length; ++i)
         {
             String user = ServiceLocator.getUserAccountHandler(userHandle).retrieve(loginnames[i]);

@@ -118,15 +118,44 @@ public class TestBase
     protected static final String USERID = "escidoc:user1";
     
     /**
-     * The default users name.
+     * The default scientist password property.
      */
-    protected static final String LOGINNAME = "test_dep_scientist";
+    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
     
     /**
-     * The default users password.
+     * The default scientist password property.
      */
-    //protected static final String PASSWORD = "Shibboleth-Handle-1";
-    protected static final String PASSWORD = "escidoc";
+    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
     
     /**
      * The id of the content model Publication Item.
@@ -609,7 +638,7 @@ public class TestBase
      */
     protected String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_scientist", "escidoc");
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
     /**
@@ -623,7 +652,7 @@ public class TestBase
      */
     protected String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_lib", "pubman");
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
     }
 
     /**
@@ -634,7 +663,7 @@ public class TestBase
      */
     protected String loginSystemAdministrator() throws Exception
     {
-        return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
     }
 
     /**
@@ -645,7 +674,7 @@ public class TestBase
      */
     protected String loginAuthor() throws Exception
     {
-        return loginUser("test_author", "escidoc");
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader.getProperty(PROPERTY_PASSWORD_AUTHOR));
     }
 
     /**
@@ -663,6 +692,7 @@ public class TestBase
     {
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
     }
+    
 
     /**
      * Logs in as the default user before each test case.
@@ -672,7 +702,7 @@ public class TestBase
     @Before
     public void setUp() throws Exception
     {
-        userHandle = loginUser(LOGINNAME, PASSWORD);
+    	userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
     /**

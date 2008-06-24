@@ -81,7 +81,7 @@ public class TestRetrieveUserAccount extends TestBase
     @Test
     public void retrieveUserAcountByLoginName() throws Exception
     {
-        String id = LOGINNAME;
+        String id = "test_dep_scientist";
         long zeit = -System.currentTimeMillis();
         String user = ServiceLocator.getUserAccountHandler(userHandle).retrieve(id);
         zeit += System.currentTimeMillis();
