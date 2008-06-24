@@ -374,15 +374,13 @@
 				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
 				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
-
-
 				<!-- URL of this PubMan instance -->
 				<escidoc.pubman.instance.url>http://localhost:8080/pubman</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>/viewItemPage.jsp?itemId=$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://localhost:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
@@ -400,10 +398,6 @@
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
-				<!-- Used for validation initialization -->
-				<framework.admin.username>roland</framework.admin.username>
-				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
-
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
 				<!-- Current XSD Schema versions -->
@@ -412,8 +406,8 @@
 				<xsd.soap.common.version>http://escidoc.de/core/01/properties/version/</xsd.soap.common.version>
 				<xsd.soap.common.release>http://escidoc.de/core/01/properties/release/</xsd.soap.common.release>
 				<xsd.soap.item.item>http://www.escidoc.de/schemas/item/0.7</xsd.soap.item.item>
-				<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.7</xsd.soap.item.components>
 				<xsd.soap.context.context>http://www.escidoc.de/schemas/context/0.6</xsd.soap.context.context>
+				<xsd.soap.item.components>http://www.escidoc.de/schemas/components/0.7</xsd.soap.item.components>
 				<xsd.soap.context.contextlist>http://www.escidoc.de/schemas/contextlist/0.6</xsd.soap.context.contextlist>
 				<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.7</xsd.soap.item.itemlist>
 				<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.mdrecords>
@@ -428,17 +422,10 @@
 				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
 				<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.4</xsd.soap.useraccount.grants>
 				<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.4</xsd.soap.common.versionhistory>
-				<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.7</xsd.soap.common.memberlist>
+				<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.6</xsd.soap.common.memberlist>
 				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.7</xsd.soap.container.container>
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
-				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
-				
-				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
-				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
-				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
-				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
-				
 			</properties>
 
 			<distributionManagement>
@@ -504,7 +491,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://localhost:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
@@ -522,10 +509,6 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
-
-				<!-- Used for validation initialization -->
-				<framework.admin.username>roland</framework.admin.username>
-				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 			</properties>
