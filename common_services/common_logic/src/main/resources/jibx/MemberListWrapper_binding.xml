@@ -29,13 +29,20 @@
 
 <binding>
 	<!--  mapping of member list -->
-	<mapping name="member-list" ns="${xsd.soap.common.memberlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberVOListWrapper">
+	<mapping name="member-list" ns="${xsd.soap.common.memberlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper">
 	
 		<!-- Node: member-list.member(*) -->
-		<!-- Field: MemberVOListWrapper.memberVOList [List<MemberVO>] -->
-		<collection field="memberVOList"
-			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberVOListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MemberVO" />
+		<!-- Field: MemberListWrapper.memberList [List<ValueObject>] -->
+		<collection field="memberList"
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.memberListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.ValueObject" usage="optional">
+			
+			<structure ns="${xsd.soap.item.item}"
+				type="de.mpg.escidoc.services.common.valueobjects.ItemVO" usage="optional">
+			</structure>
+			<structure ns="${xsd.soap.container.container}"
+				type="de.mpg.escidoc.services.common.valueobjects.ContainerVO" usage="optional">
+			</structure>
 		</collection>
 		
 	</mapping>

@@ -76,11 +76,11 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
-import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO.RelationType;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
@@ -98,7 +98,7 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.EventVOListWrappe
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
-import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListVOWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -1082,51 +1082,80 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public MemberListVO transformToMemberList(String memberListXml) throws TechnicalException
+    public List<? extends ValueObject> transformToMemberList(String memberList) throws TechnicalException
     {
-        logger.debug("transformToMemberList(String) - String memberList=\n" + memberListXml);
-        if (memberListXml == null)
+        logger.debug("transformToMemberList(String) - String memberList=\n" + memberList);
+        if (memberList == null)
         {
-            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemList:itemList is null");
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToMemberList:memberList is null");
         }
-        MemberListVOWrapper memberListWrapper = null;
+        MemberListWrapper mListWrapper = null;
         try
         {
-            // unmarshal ItemVOListWrapper from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", MemberListVOWrapper.class);
+            // unmarshal ContainerVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", MemberListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
-            StringReader sr = new StringReader(memberListXml);
+            StringReader sr = new StringReader(memberList);
             Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
-            memberListWrapper = (MemberListVOWrapper)unmarshalledObject;
+            mListWrapper = (MemberListWrapper)unmarshalledObject;
         }
         catch (JiBXException e)
         {
             // throw a new UnmarshallingException, log the root cause of the JiBXException first
             logger.error(e.getRootCause());
-            throw new UnmarshallingException(memberListXml, e);
+            throw new UnmarshallingException(memberList, e);
         }
         catch (ClassCastException e)
         {
             throw new TechnicalException(e);
         }
-        // unwrap the List<ItemVO>
-        List<? extends ItemVO> itemList = memberListWrapper.getItemVOList();
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-        if (itemList!=null)
-        {
-            for (ItemVO itemVO : itemList)
-            {
-                pubItemList.add(new PubItemVO(itemVO));
-            }
-        }
-       
-        
-        MemberListVO memberListVO = new MemberListVO();
-        memberListVO.setItemVOList(pubItemList);
-        memberListVO.setContainerVOList(memberListWrapper.getContainerVOList());
-        
-        return memberListVO;
+        // unwrap the List<ContainerVO>
+        List<? extends ValueObject> memList = mListWrapper.getMemberList();
+
+        return memList;
     }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public String transformToMemberList(List<? extends ValueObject> memberList) throws TechnicalException
+    {
+        logger.debug("transformToMemberList(List<ValueObject>)");
+        if (memberList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToMemberList:VOList is null");
+        }
+        // wrap the item list into the according wrapper class
+        MemberListWrapper mListWrapper = new MemberListWrapper();
+        mListWrapper.setMemberList(memberList);
+        // transform the wrapper class into XML
+        String utf8memberList = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_output",MemberListWrapper.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(mListWrapper, "UTF-8", null, sw);
+            utf8memberList = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(memberList.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToMemberList(List<VO>) - result: String utf8memberList=\n" + utf8memberList);
+        }
+        return utf8memberList;
+    }
+
     
     /**
      * {@inheritDoc}

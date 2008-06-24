@@ -56,7 +56,6 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.HitwordVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemRelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.MemberVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
@@ -282,7 +281,7 @@ public class JiBXHelper
         return new ArrayList<ReferenceObject>();
     }
     
-    public static List<ValueObject> memberVOListFactory()
+    public static List<ValueObject> memberListFactory()
     {
         return new ArrayList<ValueObject>();
     }

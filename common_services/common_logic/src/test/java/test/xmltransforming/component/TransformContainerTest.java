@@ -222,5 +222,36 @@ public class TransformContainerTest extends XmlTransformingTestBase
         List<? extends ContainerVO> containerList = xmlTransforming.transformToContainerList(containerListXML);
         assertNotNull(containerList);
     }
+    
+    @Test
+    public void testTransformMemberListToMemberListXML() throws Exception
+    {
+        PubItemVO item1 = getPubItemWithoutFiles();
+        PubItemVO item2 = getPubItemWithoutFiles();
+        ItemRO member1 = new ItemRO(item1.getVersion().getObjectId());
+        ItemRO member2 = new ItemRO(item2.getVersion().getObjectId());
+        
+        ContainerVO container = new ContainerVO();
+        ContextRO ctx = new ContextRO();
+        ctx.setObjectId("escidoc:ex1");
+        container.setContext(ctx);
+        container.setContentModel("escidoc:ex4");
+        
+        MdsPublicationVO mds = getMdsPublication1();
+        container.setMetadata(mds);
+        container.getMembers().add((ReferenceObject)member1);
+        container.getMembers().add((ReferenceObject)member2);
+        
+        List<ValueObject> mlist = new ArrayList<ValueObject>();
+        mlist.add(item1);
+        mlist.add(item2);
+        mlist.add(container);
+        
+        String mlistXML = xmlTransforming.transformToMemberList(mlist);
+        logger.info("MemberList<VO> transformed to memberlist(XML).");
+        logger.debug("memberlist(XML) =" + mlistXML);
+        assertXMLValid(mlistXML);
+        
+    }
 
 }

@@ -52,7 +52,7 @@ import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -185,7 +185,7 @@ public class TransformContextTest extends TestBase
      * 
      * @throws Exception Any exception.
      */
-    @Ignore
+    
     @Test
     public void testTransformToMemberList() throws Exception
     {
@@ -195,18 +195,11 @@ public class TransformContextTest extends TestBase
 
         logger.info("memberList:"  + memberList);
         
-        // transform the list to a MemberListVO
-        MemberListVO memberListVO = xmlTransforming.transformToMemberList(memberList);
-        assertNotNull(memberListVO);
-        
-        // check results
-        List<? extends ItemVO> pubItemList = memberListVO.getItemVOList();
-        List<? extends ContainerVO> containerList = memberListVO.getContainerVOList();
-        
-        assertNotNull(pubItemList);
-        assertEquals(2, pubItemList.size());
-        
-        
+        // transform the list to a MemberList
+        List<? extends ValueObject> mList = xmlTransforming.transformToMemberList(memberList);
+        assertNotNull(mList);
+
+        assertEquals(2, mList.size());
         
     }
     

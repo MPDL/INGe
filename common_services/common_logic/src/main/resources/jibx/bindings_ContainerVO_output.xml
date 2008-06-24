@@ -43,7 +43,7 @@
 	<namespace prefix="member-list" uri="${xsd.soap.common.memberlist}" default="none" />
 	<namespace prefix="container" uri="${xsd.soap.container.container}" default="none" />
 	<namespace prefix="container-list" uri="${xsd.soap.container.containerlist}" default="none" />
-	<namespace prefix="structmap" uri="${xsd.soap.container.structmap}" default="none" />
+	<namespace prefix="struct-map" uri="${xsd.soap.container.structmap}" default="none" />
 	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
 	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
 	<namespace prefix="version" uri="${xsd.soap.common.version}" default="none" />
@@ -67,8 +67,6 @@
 	<include path="ContainerVO_binding_output.xml" />
 	<include path="ContainerVOListWrapper_binding_output.xml" />
 	<include path="face/MdsFaceVO_binding_output.xml" />
-	<include path="MemberVOListWrapper_binding.xml" />
-	<include path="MemberVO_binding.xml" />
 
 </binding>
 
