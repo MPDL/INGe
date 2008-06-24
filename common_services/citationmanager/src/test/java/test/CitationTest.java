@@ -56,8 +56,7 @@ public class CitationTest {
     	logger.info("Data Source:" + ds);
     			
         itemList = ResourceUtil.getResourceAsString(ds);
-        
-        
+
         assertNotNull("Item list xml is not found:", ds);
     }	
 	

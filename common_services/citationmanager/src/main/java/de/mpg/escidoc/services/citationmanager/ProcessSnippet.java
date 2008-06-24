@@ -221,7 +221,14 @@ public class ProcessSnippet {
 	
 	private void addFrameworkPrefixUrl(Document doc, Element snippetElement, Element item) throws IOException {
 
-		String fw_url = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		String fw_url = null;
+		try
+		{
+		    PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		}
+		catch (Exception e) {
+            throw new IOException("Error reading framework url", e);
+        }
 		
 		NodeList nl = item.getElementsByTagName("escidocComponents:components");
 		if ( nl == null )

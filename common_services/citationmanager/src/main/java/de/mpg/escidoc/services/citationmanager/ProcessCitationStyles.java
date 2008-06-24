@@ -1311,7 +1311,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //		long start;
 //		start = System.currentTimeMillis();
 
-		ByteArrayInputStream bais = new ByteArrayInputStream(itemList.getBytes());
+		ByteArrayInputStream bais = new ByteArrayInputStream(itemList.getBytes("UTF-8"));
 		BufferedInputStream bis = new BufferedInputStream(bais);
 
 		Document document = JRXmlUtils.parse(bis);

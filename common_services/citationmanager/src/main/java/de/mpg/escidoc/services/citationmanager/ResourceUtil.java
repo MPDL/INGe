@@ -36,11 +36,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.URL;
 
 import org.apache.log4j.Logger;
-
-import sun.util.logging.resources.logging;
 
 /**
  * Utility class to deal with resources such as files and directories. Either on the file system or in jar files.
