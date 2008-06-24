@@ -421,11 +421,18 @@
 				<xsd.rest.stagingfile.stagingfile>http://www.escidoc.de/schemas/stagingfile/0.3</xsd.rest.stagingfile.stagingfile>
 				<xsd.soap.common.commontypes>http://www.escidoc.de/schemas/commontypes/0.4</xsd.soap.common.commontypes>
 				<xsd.soap.useraccount.grants>http://www.escidoc.de/schemas/grants/0.4</xsd.soap.useraccount.grants>
-				<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.4</xsd.soap.common.versionhistory>
+				<xsd.soap.common.versionhistory>http://www.escidoc.de/schemas/versionhistory/0.3</xsd.soap.common.versionhistory>
 				<xsd.soap.common.memberlist>http://www.escidoc.de/schemas/memberlist/0.7</xsd.soap.common.memberlist>
 				<xsd.soap.container.container>http://www.escidoc.de/schemas/container/0.7</xsd.soap.container.container>
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
+				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
+				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
+				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
+				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
+				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
+				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
+				
 			</properties>
 
 			<distributionManagement>
