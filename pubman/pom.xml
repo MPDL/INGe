@@ -442,7 +442,6 @@
 				<escidoc.common.framework.url>http://192.129.1.95:8080</escidoc.common.framework.url>
                 <!--escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url-->
                 
-
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
 
@@ -457,10 +456,6 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
-
-				<!-- Used for validation initialization -->
-				<framework.admin.username>roland</framework.admin.username>
-				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
@@ -551,10 +546,6 @@
 				<!-- RE Pattern for retrieving determinators from item xml -->
 				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
-
-				<!-- Used for validation initialization -->
-				<framework.admin.username>roland</framework.admin.username>
-				<framework.admin.password>Shibboleth-Handle-1</framework.admin.password>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
