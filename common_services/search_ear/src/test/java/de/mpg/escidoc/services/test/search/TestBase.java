@@ -1,182 +1,247 @@
 /*
-*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License"). You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ * or http://www.escidoc.de/license.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at license/ESCIDOC.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/ 
-
+ * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * All rights reserved. Use is subject to license terms.
+ */ 
 package de.mpg.escidoc.services.test.search;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.fail;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream; 
 import java.io.InputStreamReader;
-import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.io.StringWriter;
+import java.net.URISyntaxException;
+import java.rmi.RemoteException;
+import java.net.URISyntaxException;
+import java.util.StringTokenizer;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.XMLConstants;
+import javax.xml.namespace.QName;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
+import org.apache.commons.httpclient.HeaderElement;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
+import org.apache.commons.httpclient.HttpMethod;
+import org.apache.commons.httpclient.HttpStatus;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
+import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
+import org.junit.After;
+import org.junit.Before;
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.bootstrap.DOMImplementationRegistry;
+import org.w3c.dom.ls.DOMImplementationLS;
+import org.w3c.dom.ls.LSOutput;
+import org.w3c.dom.ls.LSSerializer;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXParseException;
 
-import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
-import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
-import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
+import org.apache.xerces.dom.AttrImpl;
+import org.apache.xml.serialize.OutputFormat;
+import org.apache.xml.serialize.XMLSerializer;
+
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * Base class for pubman logic tests.
+ * Methods which are used in mostly all test cases.
  * 
- * @author Miriam Doelle (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
- * @revised by MuJ: 19.09.2007
+ * @author Peter Broszeit (initial creation)
+ * @author $Author: wfrank $ (last modification)
+ * @version $Revision:60 $ $LastChangedDate:2007-01-25 13:08:48 +0100 (Do, 25 Jan 2007) $
+ * Revised by FrW: 10.03.2008
  */
 public class TestBase
 {
-    protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
-    protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
-    protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
-            + "collection. Any content can be stored in this collection, which is of relevance\n" + "for the users of the system. You can submit " + "relev" + "ant bibliographic information\n"
-            + "for your publication (metadata) and all relevant files. The MPS is the\n" + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
-    protected static final String MPG_TEST_AFFILIATION = "escidoc:persistent13";
-
-    static
-    {
-        System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
-    }
+    /**
+     * An illegal id ofa framework object.
+     */
+    protected static final String ILLEGAL_ID = "escidoc:persistentX";
 
     /**
-     * Reads contents from text file and returns it as String.
-     * 
-     * @param fileName Name of input file
-     * @return Entire contents of filename as a String
-     * @throws FileNotFoundException
+     * The default users id.
      */
-    public static String readFile(String fileName)
-    {
-        boolean isFileNameNull = (fileName == null);
-        StringBuffer fileBuffer;
-        String fileString = null;
-        String line;
-        if (!isFileNameNull)
-        {
-            try
-            {
-                File file = new File(fileName);
-                FileReader in = new FileReader(file);
-                BufferedReader dis = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
-               fileBuffer = new StringBuffer();
-                while ((line = dis.readLine()) != null)
-                {
-                    fileBuffer.append(line + "\n");
-                }
-                in.close();
-                fileString = fileBuffer.toString();
-            }
-            catch (IOException e)
-            {
-                return null;
-            }
-        }
-        return fileString;
-    }
+    protected static final String USERID = "escidoc:user1";
+    
+    /**
+     * The default scientist password property.
+     */
+    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
+    
+    /**
+     * The default scientist password property.
+     */
+    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+    
+    /**
+     * The id of the content model Publication Item.
+     */
+    protected static final String PUBITEM_TYPE_ID = "escidoc:persistent6";
+    
+    /**
+     * A line for separating output.
+     */
+    protected static final String LINE = "--------------------";
 
     /**
-     * Finds a given file name in the classpath and returns the file.
-     * 
-     * @param fileName The name of the file to lookup in the classpath.
-     * @return The found file.
-     * @throws FileNotFoundException
+     * The handle of the logged in user or null if not logged in.
      */
-    public File findFileInClasspath(String fileName) throws FileNotFoundException
-    {
-        URL url = getClass().getClassLoader().getResource(fileName);
-        if (url == null)
-        {
-            throw new FileNotFoundException(fileName);
-        }
-        return new File(url.getFile());
-    }
+    protected String userHandle;
+    
+    private static final int NUMBER_OF_URL_TOKENS = 2;
 
-    private static String loginUser(String userName, String password) throws HttpException, IOException, ServiceException
+    /**
+     * Logs in the given user with the given password.
+     * 
+     * @param userid The id of the user to log in.
+     * @param password The password of the user to log in.
+     * @return The handle for the logged in user.
+     * @throws HttpException
+     * @throws IOException
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    protected String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-        // build the postMethod from the given credentials
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
-        postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8080");
-        postMethod.addParameter("login", userName);
-        postMethod.addParameter("password", password);
-        
+    	String frameworkUrl = ServiceLocator.getFrameworkUrl();
+    	StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
+    	if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
+    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+    	}
+    	tokens.nextToken();
+    	StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+    	
+    	if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
+    		throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+    	}
+    	String host = hostPort.nextToken();
+    	int port = Integer.parseInt( hostPort.nextToken() );
+    	
         HttpClient client = new HttpClient();
+        client.getHostConfiguration().setHost( host, port, "http");
+        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        
+        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
+        login.addParameter("j_username", userid);
+        login.addParameter("j_password", password);
+        
+        client.executeMethod(login);
+        //System.out.println("Login form post: " + login.getStatusLine().toString());
+                
+        login.releaseConnection();
+        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
+        Cookie[] logoncookies = cookiespec.match(
+        		host, port, "/", false, 
+                client.getState().getCookies());
+        
+        //System.out.println("Logon cookies:");
+        Cookie sessionCookie = logoncookies[0];
+        
+/*        if (logoncookies.length == 0) {
+            
+            System.out.println("None");
+            
+        } else {
+            for (int i = 0; i < logoncookies.length; i++) {
+                System.out.println("- " + logoncookies[i].toString());
+            }
+        }*/
+        
+        PostMethod postMethod = new PostMethod("/aa/login");
+        postMethod.addParameter("target", frameworkUrl);
+        client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
+        //System.out.println("Login second post: " + postMethod.getStatusLine().toString());
+      
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
-            throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
+            throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
-
+        
         String userHandle = null;
         Header headers[] = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
@@ -186,425 +251,120 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
+        
         if (userHandle == null)
         {
             throw new ServiceException("User not logged in.");
         }
         return userHandle;
     }
-
-    /**
-     * Logs the user test_dep_scientist in and returns the corresponding user handle.
-     * 
-     * @return userhandle
-     * @throws ServiceException
-     * @throws HttpException
-     * @throws IOException
-     */
-    protected static String loginScientist() throws ServiceException, HttpException, IOException
-    {
-        return loginUser("test_dep_scientist", "escidoc");
-    }
-
-    /**
-     * Logs the user test_dep_lib in and returns the corresponding user handle.
-     * 
-     * @return userhandle
-     * @throws ServiceException
-     * @throws HttpException
-     * @throws IOException
-     */
-    protected static String loginDepositorLibrary() throws ServiceException, HttpException, IOException
-    {
-        return loginUser("test_dep_lib", "pubman");
-    }
-
-    /**
-     * Logs the user roland in and returns the corresponding user handle.
-     * 
-     * @return userhandle
-     * @throws ServiceException
-     * @throws HttpException
-     * @throws IOException
-     */
-    protected static String loginSystemAdministrator() throws ServiceException, HttpException, IOException
-    {
-        return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
-    }
     
-
-    /**
-     * Logs in the user test_dep_scientist and returns the corresponding AccountUserVO
-     * 
-     * @return The account user test_dep_scientist with handle set.
-     * @throws Exception
-     */
-    protected AccountUserVO getUserTestDepScientistWithHandle() throws Exception
+    protected String login2(String user, String pass) throws Exception
     {
-        return getUserWithHandle(loginScientist());
-    }
-
-    /**
-     * Logs in the user test_dep_lib and returns the corresponding AccountUserVO
-     * 
-     * @return The account user test_dep_lib with handle set.
-     * @throws Exception
-     */
-    protected AccountUserVO getUserTestDepLibWithHandle() throws Exception
-    {
-        return getUserWithHandle(loginDepositorLibrary());
-    }
-    
-    /**
-     * Logs in the user roland and returns the corresponding AccountUserVO
-     * 
-     * @return The account user roland with handle set.
-     * @throws Exception
-     */
-    protected AccountUserVO getUserSystemAdministratorWithHandle() throws Exception
-    {
-        return getUserWithHandle(loginSystemAdministrator());
-    }
-
-    private AccountUserVO getUserWithHandle(String userHandle) throws Exception
-    {
-        String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        XmlTransforming xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
-        AccountUserVO user = xmlTransforming.transformToAccountUser(userXML);
-        String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(user.getReference().getObjectId());
-        List<GrantVO> grants = xmlTransforming.transformToGrantVOList(userGrantXML);
-        List<GrantVO> userGrants = user.getGrants();
-        for (GrantVO grant : grants)
-        {
-            userGrants.add(grant);
-        }
-        user.setHandle(userHandle);
-        return user;
-    }
-    /**
-     * Get a new pub item.
-     * 
-     * @return pub item 
-     */
-    protected PubItemVO getNewPubItemWithoutFiles()
-    {
-        PubItemVO item = new PubItemVO();
-        
-        // Metadata
-        MdsPublicationVO mds = new MdsPublicationVO();
-        TextVO title = new TextVO();
-        title.setLanguage("en");
-        title.setValue("PubMan: The first of all.");
-        mds.setTitle(title);
-        mds.setGenre(Genre.BOOK);
-        // Add a creator[person] that is affiliated to one organization
-        CreatorVO creator = new CreatorVO();
-        creator.setRole(CreatorRole.AUTHOR);
-        PersonVO person = new PersonVO();
-        person.setGivenName("Hans");
-        person.setFamilyName("Meier");
-        person.setCompleteName("Hans Meier");
-        OrganizationVO organizationVO = new OrganizationVO();
-        TextVO name = new TextVO();
-        name.setValue("Max Planck Society");
-        organizationVO.setName(name);
-        organizationVO.setAddress("Max-Planck-Str. 1");
-        organizationVO.setIdentifier("escidoc:persistent26");
-        person.getOrganizations().add(organizationVO);
-        creator.setPerson(person);
-        mds.getCreators().add(creator);
-        // Provide a Date
-        mds.setDateCreated("2007");
-        creator.setPerson(person);
-        mds.getCreators().add(creator);
-        item.setMetadata(mds);
-        // PubCollectionRef
-        ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setContext(collectionRef);
-        return item;
-    }
-
-    protected PubItemVO getComplexPubItemWithoutFiles()
-    {
-        PubItemVO item = new PubItemVO();
-
-        // Metadata
-        MdsPublicationVO mds = getMdsPublication();
-        item.setMetadata(mds);
-        // PubCollectionRef
-        ContextRO collectionRef = new ContextRO();
-        collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
-        item.setContext(collectionRef);
-        return item;
-    }
-
-    protected MdsPublicationVO getMdsPublication()
-    {
-        // Metadata
-        MdsPublicationVO mds = new MdsPublicationVO();
-        CreatorVO creator;
-        OrganizationVO organization;
-        PublishingInfoVO pubInfo;
-
-        // Genre
-        mds.setGenre(Genre.BOOK);
-
-        // Creator
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.AUTHOR);
-        // Creator.Person
-        PersonVO person = new PersonVO();
-        // Creator.Person.CompleteName
-        person.setCompleteName("Hans Meier");
-        // Creator.Person.GivenName
-        person.setGivenName("Hans");
-        // Creator.Person.FamilyName
-        person.setFamilyName("Meier");
-        // Creator.Person.AlternativeName
-        person.getAlternativeNames().add("Werner");
-        person.getAlternativeNames().add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-        person.getAlternativeNames().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
-        // Creator.Person.Title
-        person.getTitles().add("Dr. (?)");
-        // Creator.Person.Pseudonym
-        person.getPseudonyms().add("<b>Shorty</b>");
-        person.getPseudonyms().add("<'Dr. Short'>");
-        // Creator.Person.Organization
-        organization = new OrganizationVO();
-        // Creator.Person.Organization.Name
-        TextVO name = new TextVO();
-        name.setValue("Vinzenzmurr");
-        name.setLanguage("de");
-        organization.setName(name);
-        // Creator.Person.Organization.Address
-        organization.setAddress("<a href=\"www.buxtehude.de\">Irgendwo in Deutschland</a>");
-        // Creator.Person.Organization.Identifier
-        organization.setIdentifier("ED-84378462846");
-        person.getOrganizations().add(organization);
-        // Creator.Person.Identifier
-        person.setIdentifier(new IdentifierVO(IdType.PND, "HH-XY-2222"));
-        creator.setPerson(person);
-        mds.getCreators().add(creator);
-        creator = new CreatorVO();
-        // Creator.Role
-        creator.setRole(CreatorRole.CONTRIBUTOR);
-        // Source.Creator.Organization
-        organization = new OrganizationVO();
-        // Creator.Organization.Name
-        name.setValue("MPDL");
-        name.setLanguage("en");
-        organization.setName(name);
-        // Creator.Organization.Address
-        organization.setAddress("Amalienstraße");
-        // Creator.Organization.Identifier
-        organization.setIdentifier("1a");
-        creator.setOrganization(organization);
-        mds.getCreators().add(creator);
-
-        // Title
-        mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
-
-        // Language
-        mds.getLanguages().add("de");
-        mds.getLanguages().add("en");
-        mds.getLanguages().add("fr");
-
-        // Alternative Title
-        mds.getAlternativeTitles().add(new TextVO("Die Erste von allen.", "de"));
-        mds.getAlternativeTitles().add(new TextVO("Wulewu", "fr"));
-
-        // Identifier
-        mds.getIdentifiers().add(new IdentifierVO(IdType.ISI, "0815"));
-        mds.getIdentifiers().add(new IdentifierVO(IdType.ISSN, "issn"));
-
-        // Publishing Info
-        pubInfo = new PublishingInfoVO();
-        pubInfo.setPublisher("O'Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol");
-        pubInfo.setEdition("One and a half");
-        pubInfo.setPlace("Garching-Itzehoe-Capreton");
-        mds.setPublishingInfo(pubInfo);
-
-        // Date
-        mds.setDateCreated("2005-02");
-        mds.setDateSubmitted("2005-08-31");
-        mds.setDateAccepted("2005");
-        mds.setDatePublishedInPrint("2006-02-01");
-        mds.setDateModified("2007-02-28");
-
-        // Review method
-        mds.setReviewMethod(ReviewMethod.INTERNAL);
-
-        // Source
-        SourceVO source = new SourceVO();
-        // Source.Title
-        source.setTitle(new TextVO("Dies ist die Wurzel allen Übels.", "jp"));
-        // Source.AlternativeTitle
-        source.getAlternativeTitles().add(new TextVO("This is the root of all ???.", "en"));
-        source.getAlternativeTitles().add(new TextVO("< and & are illegal characters in XML and therefore have to be escaped.", "en"));
-        source.getAlternativeTitles().add(new TextVO("> and ' and ? are problematic characters in XML and therefore should be escaped.", "en"));
-        source.getAlternativeTitles().add(new TextVO("What about `, $, §, \", @ and the good old % (not to forget the /, the !, -, the _, the ~, the @ and the #)?", "en"));
-        source.getAlternativeTitles().add(new TextVO("By the way, the Euro sign looks like this: €", "en"));
-        // Source.Creator
-        creator = new CreatorVO();
-        // Source.Creator.Role
-        creator.setRole(CreatorRole.AUTHOR);
-        // Source.Creator.Organization
-        organization = new OrganizationVO();
-        // Source.Creator.Organization.Name
-        name.setValue("murrrmurr");
-        name.setLanguage("de");
-        organization.setName(name);
-        // Source.Creator.Organization.Address
-        organization.setAddress("Ümläüte ßind schön. à bientôt!");
-        // Source.Creator.Organization.Identifier
-        organization.setIdentifier("BLA-BLU-BLÄ");
-        creator.setOrganization(organization);
-        source.getCreators().add(creator);
-        // Source.Volume
-        source.setVolume("8a");
-        // Source.Issue
-        source.setIssue("13b");
-        // Source.StartPage
-        source.setStartPage("-12");
-        // Source.EndPage
-        source.setEndPage("131313");
-        // Source.SequenceNumber
-        source.setSequenceNumber("1-3-6");
-        // Source.PublishingInfo
-        pubInfo = new PublishingInfoVO();
-        // Source.PublishingInfo.Publisher
-        pubInfo.setPublisher("Martas Druckerei");
-        // Source.PublishingInfo.Edition
-        pubInfo.setEdition("III");
-        // Source.PublishingInfo.Place
-        pubInfo.setPlace("Hamburg-München");
-        source.setPublishingInfo(pubInfo);
-        // Source.Identifier
-        source.getIdentifiers().add(new IdentifierVO(IdType.ISBN, "XY-347H-112"));
-        // Source.Source
-        source.getSources().add(new SourceVO(new TextVO("The source of the source.", "en")));
-        CreatorVO sourceSourceCreator = new CreatorVO(new OrganizationVO(), CreatorRole.ARTIST);
-        name.setValue("Creator of the Source of the source");
-        name.setLanguage("en");
-        sourceSourceCreator.getOrganization().setName(name);
-        sourceSourceCreator.getOrganization().setIdentifier("ID-4711-0815");
-        source.getSources().get(0).getCreators().add(sourceSourceCreator);
-        mds.getSources().add(source);
-
-        // Event
-        EventVO event = new EventVO();
-        // Event.Title
-        event.setTitle(new TextVO("Weekly progress meeting", "en"));
-        // Event.AlternativeTitle
-        event.getAlternativeTitles().add(new TextVO("Wöchentliches Fortschrittsmeeting", "de"));
-        // Event.StartDate
-        event.setStartDate("2004-11-11");
-        // Event.EndDate
-        event.setEndDate("2005-02-19");
-        // Event.Place
-        name.setValue("Köln");
-        name.setLanguage("de");
-        event.setPlace(name);
-        // Event.InvitationStatus
-        event.setInvitationStatus(InvitationStatus.INVITED);
-        mds.setEvent(event);
-
-        // Total Numeber of Pages
-        mds.setTotalNumberOfPages("999");
-
-        // Degree
-        mds.setDegree(DegreeType.MASTER);
-
-        // Abstract
-        mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
-        mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
-
-        // Subject
-        name.setValue("wichtig,wissenschaftlich,spannend");
-        name.setLanguage("de");
-        mds.setSubject(name);
-
-        // Table of Contents
-        name.setValue("1.Einleitung 2.Inhalt");
-        name.setLanguage("de");
-        mds.setTableOfContents(name);
-
-        // Location
-        mds.setLocation("IPP, Garching");
-
-        return mds;
-    }
-
-    /**
-     * Helper method to retrieve a EJB service instance. The name to be passed to the method is normally
-     * 'ServiceXY.SERVICE_NAME'.
-     * 
-     * @return instance of the EJB service
-     * @throws NamingException
-     */
-    protected static Object getService(String serviceName) throws NamingException
-    {
-        InitialContext context = new InitialContext();
-        Object serviceInstance = context.lookup(serviceName);
-        assertNotNull(serviceInstance);
-        return serviceInstance;
-    }
-
-    /**
-     * Helper: Retrieves the item from the Framework ItemHandler and transforms it to a PubItemVO.
-     */
-    protected PubItemVO getPubItemFromFramework(ItemRO pubItemRef, AccountUserVO accountUser) throws Exception
-    {
-        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
-        String retrievedItem = ServiceLocator.getItemHandler(accountUser.getHandle()).retrieve(pubItemRef.getObjectId());
-        assertNotNull(retrievedItem);
-        PubItemVO retrievedPubItem = xmlTransforming.transformToPubItem(retrievedItem);
-        assertNotNull(retrievedPubItem);
-
-        return retrievedPubItem;
-    }
-
-    /**
-     * Uploads a file to the staging servlet and returns the corresponding URL.
-     * 
-     * @param filename The file to upload
-     * @param mimetype The mimetype of the file
-     * @param userHandle The userhandle to use for upload
-     * @return The URL of the uploaded file
-     * @throws Exception
-     */
-    protected URL uploadFile(String filename, String mimetype, String userHandle) throws Exception
-    {
-        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
-        // Prepare the HttpMethod.
-        String fwUrl = ServiceLocator.getFrameworkUrl();
-        PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-
-        method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(filename)));
-        method.setRequestHeader("Content-Type", mimetype);
-        method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
-        // Execute the method with HttpClient.
+        String userHandle = null;
         HttpClient client = new HttpClient();
-        client.executeMethod(method);
-        String response = method.getResponseBodyAsString();
-        assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
+        client.getHostConfiguration().setHost("localhost", 8080, "http");
+        GetMethod loginGet = new GetMethod("/aa/login?target=");
+        client.executeMethod(loginGet);
+        loginGet.releaseConnection();
+        PostMethod loginPost = new PostMethod("/aa/j_spring_security_check");
+        NameValuePair userid = new NameValuePair("j_username", user);
+        NameValuePair passwd = new NameValuePair("j_password", pass);
+        loginPost.setRequestBody(new NameValuePair[] {userid, passwd});
+        client.executeMethod(loginPost);
+        loginPost.releaseConnection();
+        //System.out.println("SC after post: "+loginPost.getStatusCode());
+/*        Cookie cakes[] = client.getState().getCookies();
+        for (Cookie c : cakes)
+        {
+            System.out.println("Cookie: "+c.getName()+"  value:  "+c.getValue());
+        }*/
+        
+        int sc = loginPost.getStatusCode();
+        
+        if ((sc == HttpStatus.SC_MOVED_TEMPORARILY)
+                || (sc == HttpStatus.SC_MOVED_PERMANENTLY)
+                || (sc == HttpStatus.SC_SEE_OTHER)
+                || (sc == HttpStatus.SC_TEMPORARY_REDIRECT)) {
+                Header header = loginPost.getResponseHeader("location");
+                if (header != null) {
+                    String newuri = header.getValue();
+                    //System.out.println("redirect to: "+newuri);
 
-        return xmlTransforming.transformUploadResponseToFileURL(response);
+                    if ((newuri == null) || (newuri.equals(""))) {
+                        newuri = "/";
+                    }
 
+                    GetMethod redirect = new GetMethod(newuri);
+
+                    redirect.setFollowRedirects(false);
+                    client.executeMethod(redirect);
+
+                    StringBuffer response = new StringBuffer();
+                    BufferedReader reader = new BufferedReader(
+                        new InputStreamReader(redirect.getResponseBodyAsStream()));
+                    String line = null;
+
+                    while ((line = reader.readLine()) != null) {
+                        response.append(line + "\n");
+                    }
+                    reader.close();
+
+                    int start = response.indexOf("eSciDocUserHandle");
+                    String encodedUserHandle = response.substring(start +18, start +46);
+                    //System.out.println("handle: "+encodedUserHandle);
+
+                    if (encodedUserHandle != null) {
+                        userHandle = new String(Base64.decode(encodedUserHandle));
+                    }
+                    redirect.releaseConnection();
+                }
+            }
+        
+        return userHandle;
     }
 
     /**
-     * Parse the given xml String into a org.w3c.dom.Document.
+     * Reads contents from text file and returns it as String.
      * 
-     * @param xml The xml String
-     * @param namespaceAwareness Enable/disable namespace awareness (default is false)
-     * @return The Document
-     * @throws Exception
+     * @param fileName The name of the input file.
+     * @return The entire contents of the filename as a String.
+     * @throws FileNotFoundException
+     */
+    protected String readFile(String fileName) throws IOException, FileNotFoundException
+    {
+        boolean isFileNameNull = (fileName == null);
+        StringBuffer fileBuffer;
+        String fileString = null;
+        String line;
+        if (!isFileNameNull)
+        {
+           
+                File file = new File(fileName);
+                FileReader in = new FileReader(file);
+                BufferedReader dis = new BufferedReader(in);
+                fileBuffer = new StringBuffer();
+                while ((line = dis.readLine()) != null)
+                {
+                    fileBuffer.append(line + "\n");
+                }
+                in.close();
+                fileString = fileBuffer.toString();
+           
+        }
+        return fileString;
+    }
+
+    /**
+     * Parse the given xml String into a Document.
+     * 
+     * @param xml The xml String.
+     * @return The Document.
+     * @throws Exception If anything fails.
      */
     protected static Document getDocument(final String xml, final boolean namespaceAwareness) throws Exception
     {
@@ -619,13 +379,341 @@ public class TestBase
     }
 
     /**
-     * Returns the current date in a valid format.
+     * Serialize the given Dom Object to a String.
      * 
-     * @return String that contains the actual date
+     * @param xml The Xml Node to serialize.
+     * @param omitXMLDeclaration Indicates if XML declaration will be omitted.
+     * @return The String representation of the Xml Node.
+     * @throws Exception If anything fails.
      */
-    public final String getActualDateString()
+    protected static String toString(final Node xml, final boolean omitXMLDeclaration) throws Exception
     {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return sdf.format(new Date());
+        String result = new String();
+        if (xml instanceof AttrImpl)
+        {
+            result = xml.getTextContent();
+        }
+        else if (xml instanceof Document)
+        {
+            StringWriter stringOut = new StringWriter();
+            // format
+            OutputFormat format = new OutputFormat((Document)xml);
+            format.setIndenting(true);
+            format.setPreserveSpace(false);
+            format.setOmitXMLDeclaration(omitXMLDeclaration);
+            format.setEncoding("UTF-8");
+            // serialize
+            XMLSerializer serial = new XMLSerializer(stringOut, format);
+            serial.asDOMSerializer();
+            serial.serialize((Document)xml);
+            result = stringOut.toString();
+        }
+        else
+        {
+            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
+            DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
+            LSOutput lsOutput = impl.createLSOutput();
+            lsOutput.setEncoding("UTF-8");
+            ByteArrayOutputStream os = new ByteArrayOutputStream();
+            lsOutput.setByteStream(os);
+            LSSerializer writer = impl.createLSSerializer();
+            // result = writer.writeToString(xml);
+            writer.write(xml, lsOutput);
+            result = ((ByteArrayOutputStream)lsOutput.getByteStream()).toString();
+            if ((omitXMLDeclaration) && (result.indexOf("?>") != -1))
+            {
+                result = result.substring(result.indexOf("?>") + 2);
+            }
+            // result = toString(getDocument(writer.writeToString(xml)),
+            // true);
+        }
+        return result;
+    }
+
+    /**
+     * Gets the value of the specified attribute of the root element from the document.
+     * 
+     * @param document The document to retrieve the value from.
+     * @param attributeName The name of the attribute whose value shall be retrieved.
+     * @return The attribute value.
+     * @throws Exception If anything fails.
+     * @throws TransformerException
+     */
+    protected static String getRootElementAttributeValue(final Document document, final String attributeName) throws Exception
+    {
+        String xPath;
+        if (attributeName.startsWith("@"))
+        {
+            xPath = "/*/" + attributeName;
+        }
+        else
+        {
+            xPath = "/*/@" + attributeName;
+        }
+        assertXMLExist("Attribute not found [" + attributeName + "]. ", document, xPath);
+        String value = selectSingleNode(document, xPath).getTextContent();
+        return value;
+    }
+
+    /**
+     * Return the text value of the selected attribute NOT considering namespaces.
+     * 
+     * @param node The node.
+     * @param xPath The xpath to select the node containing the attribute.
+     * @param attributeName The name of the attribute.
+     * @return The text value of the selected attribute.
+     * @throws Exception If anything fails.
+     */
+    protected static String getAttributeValue(final Node node, final String xPath, final String attributeName) throws Exception
+    {
+        String result = null;
+        Node singleNode = selectSingleNode(node, xPath);
+        if (singleNode == null)
+        {
+            throw new Exception("Single node for path '" + xPath + "' not found.");
+        }
+        if (singleNode.hasAttributes())
+        {
+            result = singleNode.getAttributes().getNamedItem(attributeName).getTextContent();
+        }
+        return result;
+    }
+
+    /**
+     * Return the text value of the selected attribute considering namespaces.
+     * 
+     * @param node The node.
+     * @param xPath The xpath to select the node containing the attribute.
+     * @param attributeNamespaceURI The namespace URI of the attribute.
+     * @param attributeLocalName The local name of the attribute.
+     * @return The value for the given attribute.
+     * @throws Exception
+     */
+    protected static String getAttributeValueNS(final Node node, final String xPath, final String attributeNamespaceURI,
+            final String attributeLocalName) throws Exception
+    {
+        String result = null;
+        NodeList nodeList = selectNodeList(node, xPath);
+        assertTrue(nodeList.getLength() == 1);
+        Node hitNode = nodeList.item(0);
+        if (hitNode.hasAttributes())
+        {
+            NamedNodeMap nnm = hitNode.getAttributes();
+            Node attrNode = nnm.getNamedItemNS(attributeNamespaceURI, attributeLocalName);
+            result = attrNode.getTextContent();
+        }
+        return result;
+    }
+
+    /**
+     * Assert that the Element/Attribute selected by the xPath exists.
+     * 
+     * @param message The message printed if assertion fails.
+     * @param node The Node.
+     * @param xPath The xpath to select the node containing the attribute.
+     * @throws Exception If anything fails.
+     */
+    protected static void assertXMLExist(final String message, final Node node, final String xPath) throws Exception
+    {
+        NodeList nodes = selectNodeList(node, xPath);
+        assertTrue(message, nodes.getLength() > 0);
+    }
+
+    /**
+     * Assert that the XML is valid to the schema.
+     * 
+     * @param xmlData The XML as a String.
+     * @param schemaFileName The filename of the schema.
+     * @throws Exception
+     */
+    protected static void assertXMLValid(final String xmlData, final String schemaFileName) throws Exception
+    {
+        Schema schema = getSchema(schemaFileName);
+        try
+        {
+            Validator validator = schema.newValidator();
+            InputStream in = new ByteArrayInputStream(xmlData.getBytes("UTF-8"));
+            validator.validate(new SAXSource(new InputSource(in)));
+        }
+        catch (SAXParseException e)
+        {
+            StringBuffer sb = new StringBuffer();
+            sb.append("XML invalid at line:" + e.getLineNumber() + ", column:" + e.getColumnNumber() + "\n");
+            sb.append("SAXParseException message: " + e.getMessage() + "\n");
+            sb.append("Affected XML: \n"+xmlData);
+            fail(sb.toString());
+        }
+    }
+
+    /**
+     * Gets a value from the document for the given xpath expression.
+     * 
+     * @param document The document.
+     * @param xPath The xpath to select the node containing the attribute.
+     * @return The value for the xpath expression. 
+     * @throws TransformerException
+     */
+    protected String getValue(Document document, String xpathExpression) throws TransformerException
+    {
+    	XPathFactory factory = XPathFactory.newInstance();
+    	XPath xPath = factory.newXPath();
+    	try
+    	{
+    		return xPath.evaluate(xpathExpression, document);
+    	}
+    	catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+
+    /**
+     * Gets the <code>Schema</code> object for the provided <code>File</code>.
+     * 
+     * @param schemaStream The file containing the schema.
+     * @return The <code>Schema</code> object.
+     * @throws Exception If anything fails.
+     */
+    private static Schema getSchema(final String schemaFileName) throws Exception
+    {
+        if (schemaFileName == null)
+        {
+            throw new Exception("No schema input file name provided");
+        }
+        File schemaFile = new File(schemaFileName);
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        Schema theSchema = sf.newSchema(schemaFile);
+        return theSchema;
+    }
+
+    /**
+     * Return the child of the node selected by the xPath.
+     * 
+     * @param node The node.
+     * @param xPath The xPath expression.
+     * @return The child of the node selected by the xPath.
+     * @throws TransformerException If anything fails.
+     */
+    protected static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException
+    {
+    	XPathFactory factory = XPathFactory.newInstance();
+    	XPath xPath = factory.newXPath();
+    	try
+    	{
+    		return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+    	}
+    	catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+
+    /**
+     * Return the list of children of the node selected by the xPath.
+     * 
+     * @param node The node.
+     * @param xPath The xPath expression.
+     * @return The list of children of the node selected by the xPath.
+     * @throws TransformerException If anything fails.
+     */
+    protected static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException
+    {
+    	XPathFactory factory = XPathFactory.newInstance();
+    	XPath xPath = factory.newXPath();
+    	try
+    	{
+    		return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+    	}
+    	catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+    }
+
+    /**
+     * Logs in the user test_dep_scientist and returns the corresponding user handle.
+     * 
+     * @return A handle for the logged in user.
+     * @throws ServiceException
+     * @throws HttpException
+     * @throws IOException
+     * @throws URISyntaxException 
+     */
+    protected String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
+    {
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+    }
+
+    /**
+     * Logs in the user test_dep_lib and returns the corresponding user handle.
+     * 
+     * @return A handle for the logged in user.
+     * @throws ServiceException
+     * @throws HttpException
+     * @throws IOException
+     * @throws URISyntaxException 
+     */
+    protected String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
+    {
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
+    }
+
+    /**
+     * Logs in the user roland who is a system administrator and returns the corresponding user handle.
+     * 
+     * @return A handle for the logged in user.
+     * @throws Exception
+     */
+    protected String loginSystemAdministrator() throws Exception
+    {
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+    }
+
+    /**
+     * Logs in the user test_author who is nothing but an author and returns the corresponding user handle.
+     * 
+     * @return A handle for the logged in user.
+     * @throws Exception
+     */
+    protected String loginAuthor() throws Exception
+    {
+    	return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader.getProperty(PROPERTY_PASSWORD_AUTHOR));
+    }
+
+    /**
+     * Logs out the user with the given userhandle from the system.
+     * 
+     * @return userHandle The handle for the logged in user.
+     * @throws WebserverSystemException
+     * @throws SqlDatabaseSystemException
+     * @throws AuthenticationException
+     * @throws RemoteException
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    protected void logout(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, AuthenticationException, RemoteException, ServiceException, URISyntaxException
+    {
+        ServiceLocator.getUserManagementWrapper(userHandle).logout();
+    }
+    
+
+    /**
+     * Logs in as the default user before each test case.
+     * 
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception
+    {
+    	userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+    }
+
+    /**
+     * Logs the user out after each test case.
+     * 
+     * @throws Exception
+     */
+    @After
+    public void tearDown() throws Exception
+    {
+        logout(userHandle);
+        userHandle = null;
     }
 }
