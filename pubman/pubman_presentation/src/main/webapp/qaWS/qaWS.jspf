@@ -64,18 +64,6 @@
 				<h:commandButton action="#{QAWS.changeContext}" immediate="true" 
 					id="btnChangeContext" value="change" style="visibility:hidden;"/>
 			</div>
-			<%-- 
-			<div>
-				<h:outputLabel styleClass="rightSpace" for="cboOUMenu" id="lblOUMenu" value="#{lbl.qaws_lblOrgUnitSelection}"/>
-				<h:selectOneMenu id="cboOUMenu" binding="#{QAWS.cboOUMenu}" 
-						value="#{QAWSSessionBean.selectedOUId}" onchange="changeQAWS();">
-					<f:selectItems id="selectOU" value="#{QAWS.selectOUList}"/>
-				</h:selectOneMenu>
-				<h:commandButton action="#{QAWS.changeOU}" immediate="true" 
-					id="btnChangeOU" value="" style="visibility:hidden;"/>
-			</div>
-			--%>
-			
 			
 			<jsp:directive.include file="../list/itemList.jspf"/>
 		</div>

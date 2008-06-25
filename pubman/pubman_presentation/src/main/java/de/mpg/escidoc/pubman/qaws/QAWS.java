@@ -81,20 +81,14 @@ public class QAWS extends ItemList
     private HtmlSelectOneMenu cboContextMenu = new HtmlSelectOneMenu();
     
     
-  //Pull-Down Menu with all Organizational Units
-    private HtmlSelectOneMenu cboOUMenu = new HtmlSelectOneMenu();
-    
+    //Pull-Down Menu with item states
     private HtmlSelectOneMenu cboItemStateMenu = new HtmlSelectOneMenu();
     
     
     //List for collection menu
     private SelectItem[] selectContextList;
     
-    //List for organizational units selection menu
-    private SelectItem[] selectOUList;
-    
-    private List<SelectItem> selectOUAffiliationVOList;
-    
+    //List for item state selection menu
     private SelectItem[] selectItemStateList;
     
     private boolean enableNoItemMsg = false;
@@ -197,38 +191,6 @@ public class QAWS extends ItemList
                 getSessionBean().setSelectedContextId(selectedContextId);
                 
             }
-                
-            /*
-            //Organizational Units
-            AffiliationBean affiliationBean = (AffiliationBean) getSessionBean(AffiliationBean.class);
-            List<AffiliationVOPresentation> affiliationVOList = affiliationBean.getAffiliations();
-            selectOUAffiliationVOList = new ArrayList<SelectItem>();
-            selectOUAffiliationVOList.add(new SelectItem("ALL", "ALL"));
-                
-            
-            for (AffiliationVOPresentation affiliationVO : affiliationVOList)
-            {
-
-                addAffiliationWithChildsToMenu(affiliationVO, 0);
-   
-            }
-              
-            selectOUList = selectOUAffiliationVOList.toArray(new SelectItem[selectOUAffiliationVOList.size()]);
-                
-            if (selectOUList.length>0 && getSessionBean().getSelectedOUId() == null)
-            {
-                getSessionBean().setSelectedOUId((String)selectOUList[0].getValue());
-            }
-            */    
-                
-            
-            //Item State List
-//            selectItemStateList = this.i18nHelper.getSelectItemsForEnum(false, new PubItemVO.State[]{PubItemVO.State.SUBMITTED, PubItemVO.State.RELEASED, PubItemVO.State.IN_REVISION});
-//            if (getSessionBean().getSelectedItemState()== null)
-//            {
-//                getSessionBean().setSelectedItemState((String)selectItemStateList[0].getValue());
-//            }
- 
                
         }
         catch (Exception e)
@@ -239,34 +201,7 @@ public class QAWS extends ItemList
         }
     }
     
-    
-    private void addAffiliationWithChildsToMenu(AffiliationVOPresentation affiliationVO, int depth)throws Exception
-    {
-        
-        affiliationMap.put(affiliationVO.getReference().getObjectId(), affiliationVO);
-        String preOrgString="";
-        
-        for (int i=0; i<depth; i++)
-        {
-            preOrgString+="- ";
-            
-        }
-        
-        //if (depth==0) selectOUAffiliationVOList.add(new SelectItem(null,""));
-        
-        selectOUAffiliationVOList.add(new SelectItem(affiliationVO.getReference().getObjectId(), preOrgString + " " + affiliationVO.getName()));
-        
-        List<AffiliationVOPresentation> childAffiliationVOList = affiliationVO.getChildren();
-        
-        for (AffiliationVOPresentation childAffiliationVO : childAffiliationVOList)
-        {
-            addAffiliationWithChildsToMenu(childAffiliationVO, depth+1);
-        }
-            
-        
-        
-        
-    }
+
 
     /**
      * Called when the collection is changed. Creates a new list according to the new state.
@@ -327,11 +262,7 @@ public class QAWS extends ItemList
         getItemListSessionBean().getSelectedPubItems().clear();
         getItemListSessionBean().setCurrentPubItemListPointer(0);
       
-       
-      
-        
         logger.debug("New QAWS state: Context: " + newContextId +" ---- Item State: " + newState.toString());
-        
         
        
         // retrieve the items
@@ -347,63 +278,8 @@ public class QAWS extends ItemList
             {
                 itemList = qualityAssurance.searchForQAWorkspace(newContextId, newState, loginHelper.getAccountUser());
                 
-                logger.debug("--------------LatestVersion states-------------------");
-               
-                for(PubItemVO item : itemList)
-                {
-                    if (item.getLatestVersion() != null && item.getLatestVersion().getState()!=null) {
-                        logger.debug(item.getLatestVersion().getState().toString()+"----"+item.getVersion().getState().toString());
-                    }
-                    else {
-                        logger.debug("null----"+item.getVersion().getState().toString());
-                    }
-                    
-                }
-                logger.debug("-----------------------------------------------------");
-                
-                
             }
-            
-            /*
-            if (newAffiliationId.equals("ALL"))
-            {
-                newItemList = itemList;
-            }
-            else //search for items that are affiliated to the new selected affiliation
-            {
-                for (PubItemVO pubItem : itemList)
-                {
-                    List<CreatorVO> creatorList = pubItem.getMetadata().getCreators();
-                    
-                    for (CreatorVO creator : creatorList)
-                    {
-                        
-                        List<OrganizationVO> organizationList = new ArrayList<OrganizationVO>();
-                        if (creator.getPerson()!=null)
-                        {
-                            organizationList = creator.getPerson().getOrganizations();
-                        }
-                        else if (creator.getOrganization()!=null)
-                        {
-                            organizationList.add(creator.getOrganization());
-                        }
-                        
-                        for (OrganizationVO organization : organizationList)
-                        {
-                            if (isOrganizationOrChild(organization.getIdentifier(), newAffiliationId)) 
-                            {
-                                newItemList.add(pubItem);
-                            }
-                        }
-                        
-                    }
-                    
-                    
-                }
-              }
-              */
-           
-            
+
         }
         catch (Exception e)
         {
@@ -427,36 +303,7 @@ public class QAWS extends ItemList
         return QAWS.LOAD_QAWS;
     }
 
-    private boolean isOrganizationOrChild(String identifier, String newAffiliationId)
-    {
-        
-        try
-        {
-            AffiliationVOPresentation affiliationVO = affiliationMap.get(newAffiliationId);
-            boolean flag = false;
-            
-            if (affiliationVO.getReference().getObjectId().equals(identifier)){
-                return true;
-            }
-            
-            else 
-            {
-              List<AffiliationVOPresentation> children = affiliationVO.getChildren();
-              for (AffiliationVOPresentation childAffiliation : children)
-              {
-                  flag = flag || isOrganizationOrChild(identifier, childAffiliation.getReference().getObjectId());
-              }
-            }
-            return flag;
-        }
-        
-        catch (Exception e)
-        {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-            return false;
-        }
-    }
+    
 
     /**
      * Creates the panel newly according to the values in the FacesBean.
@@ -544,25 +391,6 @@ public class QAWS extends ItemList
 		this.enableNoItemMsg = enableNoItemMsg;
 	}
 
-    public SelectItem[] getSelectOUList()
-    {
-        return selectOUList;
-    }
-
-    public void setSelectOUList(SelectItem[] selectOUList)
-    {
-        this.selectOUList = selectOUList;
-    }
-
-    public HtmlSelectOneMenu getCboOUMenu()
-    {
-        return cboOUMenu;
-    }
-
-    public void setCboOUMenu(HtmlSelectOneMenu cboOUMenu)
-    {
-        this.cboOUMenu = cboOUMenu;
-    }
 
     public HtmlSelectOneMenu getCboItemStateMenu()
     {
