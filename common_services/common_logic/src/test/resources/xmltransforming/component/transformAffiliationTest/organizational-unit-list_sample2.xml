@@ -1,0 +1,536 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<organizational-unit-list:organizational-unit-list xmlns:organizational-unit-list="http://www.escidoc.de/schemas/organizationalunitlist/0.6" xmlns:xml="http://www.w3.org/XML/1998/namespace">
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent31" last-modification-date="2008-06-23T10:29:24.322Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Projekt X</prop:name>
+			<prop:description>The Projekt X was established in 2006 in order to create the first research centre concerning the questions &quot;What is Projekt X?&quot; and &quot;How should an affiliation with more than one parent be handled?&quot;. Researchers of Projekt X use the wide experiences of MPIWG and IPP to provide versatile answers.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Projekt X</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">PX</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Projekt X was established in 2006 in order to create the first research centre concerning the questions &quot;What is Projekt X?&quot; and &quot;How should an affiliation with more than one parent be handled?&quot;. Researchers of Projekt X use the wide experiences of MPIWG and IPP to provide versatile answers.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Hintertupfingen</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent11" />
+			<srel:parent objid="escidoc:persistent27" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent37" last-modification-date="2008-06-23T10:29:24.582Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Work group for tropical ecology</prop:name>
+			<prop:description>The working group concentrates its research on the ecology of floodplains,  with special emphasis on the floodplains of the Amazon River (Várzea) and the Negro River (Igapó) near Manaus.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Work group for tropical ecology</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The working group concentrates its research on the ecology of floodplains,  with special emphasis on the floodplains of the Amazon River (Várzea) and the Negro River (Igapó) near Manaus.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Plön</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent29" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent35" last-modification-date="2008-06-23T10:29:24.478Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Research Group Solid State NMR</prop:name>
+			<prop:description>We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Research Group Solid State NMR</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">We develop and apply NMR techniques specifically designed for the study of solid-phase systems that allow for the determination of complete structural arrangements in membrane proteins, protein fibrils and other (bio)molecules.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Göttingen</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent28" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent29" last-modification-date="2008-06-23T10:29:24.217Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>MPI for limnology</prop:name>
+			<prop:description>The Max Planck Institute for Limnology performs ecological research on inland waters. It has presently two departments and two independent research groups, which encompass the fields of evolutionary ecology, physiological ecology, stream ecology, and tropical ecology at the land-water interface of large rivers in Brazil.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">MPI for limnology</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Institute for Limnology performs ecological research on inland waters. It has presently two departments and two independent research groups, which encompass the fields of evolutionary ecology, physiological ecology, stream ecology, and tropical ecology at the land-water interface of large rivers in Brazil.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Plön</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent13" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent11" last-modification-date="2008-06-23T10:29:23.855Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>MPI for the History of Science</prop:name>
+			<prop:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 
+            in order to create an international research center for the history of science in 
+            Germany. Researchers at the Institute investigate how new categories of thought, 
+            proof, and experience have emerged in the centuries-long interaction between 
+            the sciences and their ambient cultures.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">MPI for the History of Science</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">MPIWG</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Institute for the History of Science in Berlin was established in 1994 
+            in order to create an international research center for the history of science in 
+            Germany. Researchers at the Institute investigate how new categories of thought, 
+            proof, and experience have emerged in the centuries-long interaction between 
+            the sciences and their ambient cultures.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Berlin</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent13" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent27" last-modification-date="2008-06-23T10:29:24.108Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>MPI für Plasmaphysik</prop:name>
+			<prop:description>The research conducted at Max-Planck-Institut für Plasmaphysik (IPP) in Garching and Greifswald is concerned with investigating the physical basis of a fusion power plant. Like the sun, such a plant is to generate energy from fusion of atomic nuclei. With its workforce of approx. 1.000 IPP is one of the largest fusion research centres in Europe.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">MPI für Plasmaphysik</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">IPP</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The research conducted at Max-Planck-Institut für Plasmaphysik (IPP) in Garching and Greifswald is concerned with investigating the physical basis of a fusion power plant. Like the sun, such a plant is to generate energy from fusion of atomic nuclei. With its workforce of approx. 1.000 IPP is one of the largest fusion research centres in Europe.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Garching</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent13" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent33" last-modification-date="2008-06-23T10:29:24.374Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Department 1 - Structural Changes in Systems of Knowledge</prop:name>
+			<prop:description>The work of the research group is dedicated to understanding the historical processes of structural changes in systems of knowledge. This goal comprises the reconstruction of central cognitive structures of scientific thinking, the study of the dependence of these structures on their experiential basis and on their cultural conditions, and the study of the interaction between individual thinking and institutionalized systems of knowledge. This theoretical program of an historical epistemology is the common core of the different investigations and research projects pursued and planned by the research group.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department 1 - Structural Changes in Systems of Knowledge</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The work of the research group is dedicated to understanding the historical processes of structural changes in systems of knowledge. This goal comprises the reconstruction of central cognitive structures of scientific thinking, the study of the dependence of these structures on their experiential basis and on their cultural conditions, and the study of the interaction between individual thinking and institutionalized systems of knowledge. This theoretical program of an historical epistemology is the common core of the different investigations and research projects pursued and planned by the research group.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country></ou:country>
+					<ou:city></ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent11" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent1" last-modification-date="2008-06-23T10:29:23.785Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Department Research and Development</prop:name>
+			<prop:description>The department for Research and Development will research and develop.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Research and Development</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">RnD</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The department for Research and Development will research and develop.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Munich</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent25" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent30" last-modification-date="2008-06-23T10:29:24.270Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>ASDEX Upgrade</prop:name>
+			<prop:description>The ASDEX Upgrade tokamak (Axially Symmetric Divertor EXperiment) went into operation at Garching in 1990. This fusion device, Germany&apos;s largest at present, is for investigating crucial problems in fusion research under reactor-like conditions.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">ASDEX Upgrade</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The ASDEX Upgrade tokamak (Axially Symmetric Divertor EXperiment) went into operation at Garching in 1990. This fusion device, Germany&apos;s largest at present, is for investigating crucial problems in fusion research under reactor-like conditions.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Garching</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent27" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent22" last-modification-date="2008-06-23T10:29:23.962Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>External Organizations</prop:name>
+			<prop:description>top level for external OUs</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">External Organizations</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">Ext</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">top level for external OUs</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country></ou:country>
+					<ou:city></ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents></organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent28" last-modification-date="2008-06-23T10:29:24.166Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>MPI for biophysical chemistry</prop:name>
+			<prop:description>The Max Planck Institute for Biophysical Chemistry (Karl Friedrich Bonhoeffer Institute) was created in 1971 through the merger of two Max Planck Institutes in Göttingen, the Institute for Physical Chemistry and the Institute for Spectroscopy. It has since undergone a continuous evolution manifested by an expanding range of core subjects and work areas.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">MPI for biophysical chemistry</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">MPI BPC</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Institute for Biophysical Chemistry (Karl Friedrich Bonhoeffer Institute) was created in 1971 through the merger of two Max Planck Institutes in Göttingen, the Institute for Physical Chemistry and the Institute for Spectroscopy. It has since undergone a continuous evolution manifested by an expanding range of core subjects and work areas.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Göttingen</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent13" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent34" last-modification-date="2008-06-23T10:29:24.426Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Department Genes and behavior</prop:name>
+			<prop:description>The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Department Genes and behavior</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Department Genes and Behavior investigates in the mouse the dynamic interplay between gene expression, development and behavior.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Göttingen</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent28" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent13" last-modification-date="2008-06-23T10:29:23.909Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Max Planck Society</prop:name>
+			<prop:description>The Max Planck Society for the Advancement of Science is an independent, non-profit research organization that primarily promotes and supports research at its own institutes.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Max Planck Society</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">MPS</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Society for the Advancement of Science is an independent, non-profit research organization that primarily promotes and supports research at its own institutes.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Munich</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents></organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent36" last-modification-date="2008-06-23T10:29:24.531Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Department of evolutionary ecology</prop:name>
+			<prop:description>Coevolution in host-parasite systems; sexual selection; evolution of mate choice: fitness consequences of mate choice for immunocompetence and virulence; life-history strategies; population genetics of host-parasite systems; evolution of complex parasite life cycles; strategies in the hermaphrodite´s dilemma; predator-prey interactions; evolutionary ecology of competition; cooperation in the prisoner?s dilemma.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Coevolution in host-parasite systems; sexual selection; evolution of mate choice: fitness consequences of mate choice for immunocompetence and virulence; life-history strategies; population genetics of host-parasite systems; evolution of complex parasite life cycles; strategies in the hermaphrodite´s dilemma; predator-prey interactions; evolutionary ecology of competition; cooperation in the prisoner?s dilemma.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Plön</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent29" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent25" last-modification-date="2008-06-23T10:29:24.014Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Max Planck Digital Library</prop:name>
+			<prop:description>The Max Planck Digital Library (MPDL) is currently in the foundation process and will be a new central scientific service unit within the Max Planck Society (MPS) responsible for the strategic planning, development and operation of the digital infrastructures necessary for providing the institutes with scientific information and for supporting web-based scholarly communication.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>true</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Max Planck Digital Library</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">MPDL</dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Digital Library (MPDL) is currently in the foundation process and will be a new central scientific service unit within the Max Planck Society (MPS) responsible for the strategic planning, development and operation of the digital infrastructures necessary for providing the institutes with scientific information and for supporting web-based scholarly communication.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Munich</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent13" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+	<organizational-unit:organizational-unit xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xml="http://www.w3.org/XML/1998/namespace" objid="escidoc:persistent26" last-modification-date="2008-06-23T09:17:34.301Z">
+		<organizational-unit:properties>
+			<prop:creation-date>2007-03-22T08:23:35.562Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user42" />
+			<srel:modified-by objid="escidoc:user42" />
+			<prop:public-status>opened</prop:public-status>
+			<prop:name>Digital Editions</prop:name>
+			<prop:description>Independent research group on digital editions.</prop:description>
+			<prop:external-ids></prop:external-ids>
+			<prop:has-children>false</prop:has-children>
+		</organizational-unit:properties>
+		<escidocMetadataRecords:md-records>
+			<escidocMetadataRecords:md-record name="escidoc">
+				<ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Digital Editions</dc:title>
+					<dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
+					<dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">Independent research group on digital editions.</dc:description>
+					<dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:identifier>
+					<ou:organization-type>institute</ou:organization-type>
+					<ou:country>DE</ou:country>
+					<ou:city>Munich</ou:city>
+					<kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">-122.0822035425683,37.42228990140251,0</kml:coordinates>
+					<ou:start-date/>
+					<ou:end-date/>
+				</ou:organization-details>
+			</escidocMetadataRecords:md-record>
+
+
+		</escidocMetadataRecords:md-records>
+		<organizational-unit:parents>
+			<srel:parent objid="escidoc:persistent1" />
+		</organizational-unit:parents>
+	</organizational-unit:organizational-unit>
+</organizational-unit-list:organizational-unit-list>
