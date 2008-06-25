@@ -46,6 +46,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -59,8 +60,15 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestLoginLogout
 {    
     private static final String LOGIN_URL ="/aa/j_spring_security_check";
-    private static final String USER_NAME = "test_dep_scientist";
-    private static final String USER_PASSWORD = "escidoc";
+    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
+    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
+    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
+    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
+    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
+    
     private static final int NUMBER_OF_URL_TOKENS = 2;
 
     private static Logger logger = Logger.getLogger(TestLoginLogout.class);
@@ -151,7 +159,7 @@ public class TestLoginLogout
     public void login() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        loginUser(USER_NAME, USER_PASSWORD);
+        loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         zeit += System.currentTimeMillis(); 
         logger.info("login->" + zeit + "ms");
     }
@@ -162,9 +170,9 @@ public class TestLoginLogout
     @Test
     public void loginTwice() throws Exception
     {
-        String handle1 = loginUser(USER_NAME, USER_PASSWORD);
+        String handle1 = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         String user = ServiceLocator.getUserAccountHandler(handle1).retrieve("escidoc:user1"); 
-        String handle2 = loginUser(USER_NAME, USER_PASSWORD);
+        String handle2 = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         
         user = ServiceLocator.getUserAccountHandler(handle2).retrieve("escidoc:user1"); 
         // handle1 must still be valid
@@ -181,7 +189,7 @@ public class TestLoginLogout
     @Test
     public void logout() throws Exception
     {
-        String userHandle = loginUser(USER_NAME, USER_PASSWORD);
+        String userHandle = loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
         long zeit = -System.currentTimeMillis();
         ServiceLocator.getUserManagementWrapper(userHandle).logout();
         zeit += System.currentTimeMillis(); 
