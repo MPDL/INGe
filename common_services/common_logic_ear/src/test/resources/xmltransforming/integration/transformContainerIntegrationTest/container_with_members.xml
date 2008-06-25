@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<container:container xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:container="http://www.escidoc.de/schemas/container/0.7"
+	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace"
+	objid="escidoc:1125" last-modification-date="2008-03-20T14:19:38.672Z">
+	<container:properties>
+		<srel:context objid="escidoc:42108" />
+		<srel:content-model objid="escidoc:ex4" />
+		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+	</container:properties>
+	<escidocMetadataRecords:md-records>
+		<escidocMetadataRecords:md-record name="escidoc">
+			<mods-md xmlns="http://www.loc.gov/mods/v3">
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vollst�ndiges corpus gravaminum evangelicorum</dc:title>
+				<mods version="3.2">
+					<genre authority="MAB2-051/1-3">n</genre>
+					<titleInfo>
+						<title>Vollst�ndiges corpus gravaminum evangelicorum</title>
+						<subTitle>An das Licht gestellet von Christian Gottfried Oertel</subTitle>
+					</titleInfo>
+					<name type="personal">
+						<displayForm>Oertel, Christian Gottfried</displayForm>
+						<role>
+							<roleTerm authority="marcrelator" type="code">aut</roleTerm>
+						</role>
+					</name>
+					<originInfo>
+						<place>
+							<placeTerm type="text">Regensburg</placeTerm>
+						</place>
+						<publisher>Neubauer</publisher>
+					</originInfo>
+					<note>Erschienen: 1 (1771) - [8] (1775). -Bd. [8] im Verl. Montag, Regensburg, erschienen</note>
+					<subject>
+						<topic>Corpus Evangelicorum / Gravamen</topic>
+					</subject>
+					<recordInfo>
+						<recordIdentifier source="MPIER catalog">66230</recordIdentifier>
+					</recordInfo>
+					<identifier type="local">66230</identifier>
+				</mods>
+			</mods-md>
+		</escidocMetadataRecords:md-record>
+
+	</escidocMetadataRecords:md-records>
+	<struct-map:struct-map>
+		<srel:container objid="escidoc:24594"/>
+		<srel:container objid="escidoc:24595"/>
+	</struct-map:struct-map>
+</container:container>

@@ -36,6 +36,7 @@ import org.junit.runners.Suite;
 import test.common.TestBase;
 import test.common.xmltransforming.integration.TransformAccountUserAndGrantsIntegrationTest;
 import test.common.xmltransforming.integration.TransformAffiliationIntegrationTest;
+import test.common.xmltransforming.integration.TransformContainerIntegrationTest;
 import test.common.xmltransforming.integration.TransformFileUrlTest;
 import test.common.xmltransforming.integration.TransformPubCollectionIntegrationTest;
 import test.common.xmltransforming.integration.TransformPubItemIntegrationTest;
@@ -62,7 +63,8 @@ import test.common.xmltransforming.integration.TransformSchindlMayrIntegrationTe
                      TransformPubItemResultTest.class,
                      TransformPubItemVersionListIntegrationTest.class,
                      TransformSchindlMayrIntegrationTest.class,
-                     TransformFileUrlTest.class
+                     TransformFileUrlTest.class,
+                     TransformContainerIntegrationTest.class
                     })
 public class XmlTransformingIntegrationTest extends TestBase
 {

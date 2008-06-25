@@ -151,6 +151,46 @@ public class TestBase
             + "u.tschida@zim.mpg.de for any questions.";
     
     private static final int NUMBER_OF_URL_TOKENS = 2;
+    
+    /**
+     * The default scientist password property.
+     */
+    protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
+    
+    /**
+     * The default scientist password property.
+     */
+    protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
+    
+    /**
+     * The default librarian password property.
+     */
+    protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
+    
+    /**
+     * The default admin password property.
+     */
+    protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
+    
+    /**
+     * The default admin  password property.
+     */
+    protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
 
     private static Map<String, Schema> schemas = null;
     
@@ -261,7 +301,7 @@ public class TestBase
      */
     protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_scientist", "escidoc");
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
     }
 
     /**
@@ -274,7 +314,7 @@ public class TestBase
      */
     protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_lib", "pubman");
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
     }
 
     /**
@@ -285,7 +325,7 @@ public class TestBase
      */
     protected static String loginSystemAdministrator() throws Exception
     {
-        return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
     }
 
     /**
