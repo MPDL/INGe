@@ -380,7 +380,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
@@ -498,7 +498,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance used by all services -->
-				<escidoc.common.framework.url>http://localhost:18080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
