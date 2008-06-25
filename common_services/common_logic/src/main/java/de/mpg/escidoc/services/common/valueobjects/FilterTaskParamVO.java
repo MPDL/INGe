@@ -433,7 +433,7 @@ public class FilterTaskParamVO extends ValueObject
     
     /**
      * 
-     * Class to specify an offset for handlers that return lsits. If the OffsetFilter is specified, only the results from the offset are returned.
+     * Class to specify an offset for handlers that return lists. If the OffsetFilter is specified, only the results from the offset are returned.
      *
      * @author Markus Haarlaender (initial creation)
      * @author $Author$ (last modification)
@@ -543,6 +543,39 @@ public class FilterTaskParamVO extends ValueObject
 
         
         
+        
+        
+    }
+    
+    /**
+     * 
+     * This filter filters by context id
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class ContextFilter implements Filter
+    {
+        
+        private String contextId;
+
+        public ContextFilter(String contextId)
+        {
+            super();
+            this.contextId = contextId;
+        }
+
+        public String getContextId()
+        {
+            return contextId;
+        }
+
+        public void setContextId(String contextId)
+        {
+            this.contextId = contextId;
+        }
         
         
     }

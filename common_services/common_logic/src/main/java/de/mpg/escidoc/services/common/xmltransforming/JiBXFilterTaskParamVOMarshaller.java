@@ -40,6 +40,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ContextFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
@@ -159,7 +160,7 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 }
                 else if (filter instanceof RoleFilter)
                 {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role"); //TODO http://escidoc.de/core/01/structural-relations/role, see Chapter 1.4.2 in ItemHandler ????
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role"); 
                 }
                 else if (filter instanceof PubCollectionStatusFilter)
                 {
@@ -176,6 +177,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 else if (filter instanceof ObjectTypeFilter)
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); //object-type
+                }
+                else if (filter instanceof ContextFilter)
+                {
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context"); 
                 }
                 ctx.closeStartContent();
 
@@ -241,6 +246,11 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ObjectTypeFilter objectTypeFilter = (ObjectTypeFilter)filter;
                     ctx.content(objectTypeFilter.getObjectType());
+                }
+                else if (filter instanceof ContextFilter)
+                {
+                    ContextFilter contextFilter = (ContextFilter)filter;
+                    ctx.content(contextFilter.getContextId());
                 }
 
                 // finish filter element
