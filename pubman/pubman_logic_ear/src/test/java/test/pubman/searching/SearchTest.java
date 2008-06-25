@@ -80,7 +80,7 @@ public class SearchTest extends TestBase
     @Test
     public void testSearch() throws Exception
     {   
-        AccountUserVO user = getUserTestDepScientistWithHandle();
+        AccountUserVO user = getUserTestDepLibWithHandle();
         
         // new item
         PubItemVO myItem = getNewPubItemWithoutFiles();
@@ -120,7 +120,7 @@ public class SearchTest extends TestBase
     @Test
     public void testSearchWithFile() throws Exception
     {   
-        AccountUserVO user = getUserTestDepScientistWithHandle();
+        AccountUserVO user = getUserTestDepLibWithHandle();
         
         // new item
         PubItemVO myItem = getNewPubItemWithoutFiles();
@@ -130,6 +130,7 @@ public class SearchTest extends TestBase
         FileVO file = new FileVO();
         String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
         file.setContent(uploadFile(testfile, "application/pdf", user.getHandle()).toString());
+        file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         file.setContentCategory("publisher_version");
         file.setVisibility(Visibility.PUBLIC);
         file.setName("Der_kleine_Prinz_Auszug.pdf");

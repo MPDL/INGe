@@ -615,6 +615,9 @@ public class TestBase
     {
         XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
         String retrievedItem = ServiceLocator.getItemHandler(accountUser.getHandle()).retrieve(pubItemRef.getObjectId());
+        
+        logger.debug("retrieved item: " + retrievedItem);
+        
         assertNotNull(retrievedItem);
         PubItemVO retrievedPubItem = xmlTransforming.transformToPubItem(retrievedItem);
         assertNotNull(retrievedPubItem);

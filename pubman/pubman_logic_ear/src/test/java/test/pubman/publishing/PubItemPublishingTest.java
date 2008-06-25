@@ -76,8 +76,8 @@ public class PubItemPublishingTest extends TestBase
     {
         pmPublishing = (PubItemPublishing)getService(PubItemPublishing.SERVICE_NAME);
         pmDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
-        user = getUserTestDepScientistWithHandle();
-        otherUser = getUserTestDepLibWithHandle();
+        otherUser = getUserTestDepScientistWithHandle();
+        user = getUserTestDepLibWithHandle();
     }
 
     /**
@@ -108,7 +108,6 @@ public class PubItemPublishingTest extends TestBase
      * 
      * @throws Exception
      */
-    @Ignore
     @Test
     public void testReleasePubItemWithFile() throws Exception
     {
@@ -121,10 +120,11 @@ public class PubItemPublishingTest extends TestBase
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
         file.setContentCategory("publisher_version");
-        file.setMimeType("application/gif");
+        file.setMimeType("image/gif");
         file.setVisibility(Visibility.PUBLIC);
         file.setName("farbtest.gif");
         file.setDescription("Ein Farbtest.");
+        file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         item.getFiles().add(file);
 
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
@@ -135,11 +135,11 @@ public class PubItemPublishingTest extends TestBase
         // retrieve item to verify state
         PubItemVO releasedPubItem = getPubItemFromFramework(pubItemRef, user);
         assertEquals(PubItemVO.State.RELEASED, releasedPubItem.getVersion().getState());
-        assertNotNull("PID is null (is okay, because PID concept not yet implemented by FIZ, see FIZ bugs 270,271)", releasedPubItem.getVersion().getPid());
+        assertNotNull(releasedPubItem.getPid());
 
         assertEquals(1, releasedPubItem.getFiles().size());
         FileVO pubFile = releasedPubItem.getFiles().get(0);
-        assertNotNull("PID of file is null (is okay, because PID concept not yet implemented by FIZ, see FIZ bugs 270,271)", pubFile.getPid());
+        assertNotNull(pubFile.getPid());
 
     }
 
@@ -148,7 +148,6 @@ public class PubItemPublishingTest extends TestBase
      * 
      * @throws Exception
      */
-    @Ignore
     @Test
     public void testReleasePendingPubItem() throws Exception
     {
@@ -215,7 +214,6 @@ public class PubItemPublishingTest extends TestBase
      *
      * @throws Exception Any exception.
      */
-    @Ignore
     @Test
     public final void testWithdrawReleasedPubItem() throws Exception
     {
@@ -244,7 +242,6 @@ public class PubItemPublishingTest extends TestBase
      *
      * @throws Exception Any exception exept a security exception.
      */
-    @Ignore
     @Test
     public final void testWithdrawReleasedPubItemWithAdminUser() throws Exception
     {
@@ -301,7 +298,6 @@ public class PubItemPublishingTest extends TestBase
      * 
      * @throws Exception
      */
-    @Ignore
     @Test(expected = PubItemStatusInvalidException.class)
     public void testWithdrawPendingPubItem() throws Exception
     {

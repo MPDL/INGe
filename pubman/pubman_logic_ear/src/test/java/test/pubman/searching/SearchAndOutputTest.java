@@ -80,7 +80,7 @@ public class SearchAndOutputTest extends TestBase
     @Test
     public void testSearchAndOutput() throws Exception
     {   
-        AccountUserVO user = getUserTestDepScientistWithHandle();
+        AccountUserVO user = getUserTestDepLibWithHandle();
         
         // new item
         PubItemVO myItem = getNewPubItemWithoutFiles();

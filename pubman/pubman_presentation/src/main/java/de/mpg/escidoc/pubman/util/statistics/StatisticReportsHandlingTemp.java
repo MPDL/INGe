@@ -29,6 +29,7 @@ import de.mpg.escidoc.pubman.util.statistics.ReportParameterVO.ParamType;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 /**
  * Temporary Service class for retrieving statistic reports from the framework. Uses an retrieve request on the REST report system.
@@ -57,7 +58,7 @@ public class StatisticReportsHandlingTemp {
 	    
         PostMethod pm = new PostMethod(ServiceLocator.getFrameworkUrl() + "/statistic/report");
         pm.setRequestHeader(new Header("Content-Type","text/xml"));
-        pm.setRequestHeader("Cookie", "escidocCookie=" + loginUser("roland", "Shibboleth-Handle-1"));
+        pm.setRequestHeader("Cookie", "escidocCookie=" + AdminHelper.getAdminUserHandle());
         pm.setRequestEntity(new StringRequestEntity(xml));
         HttpClient client = new HttpClient();
         client.executeMethod(pm);
@@ -75,7 +76,7 @@ public class StatisticReportsHandlingTemp {
 	public static ReportDefinitionVO createReportDefinition(ReportDefinitionVO repDef) throws Exception{
         PutMethod pm = new PutMethod(ServiceLocator.getFrameworkUrl()+"/statistic/report-definition");
         pm.setRequestHeader(new Header("Content-Type","text/xml"));
-        pm.setRequestHeader("Cookie", "escidocCookie=" + loginUser("roland", "Shibboleth-Handle-1"));
+        pm.setRequestHeader("Cookie", "escidocCookie=" + AdminHelper.getAdminUserHandle());
         
         String xml = transformToReportDefinition(repDef);
         

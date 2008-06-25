@@ -92,7 +92,7 @@ public class SearchPubItemsByAffiliationTest extends TestBase
     @Ignore("The searchhandler is unable to retrieve more than 100 items")
     public void testSearchPubItemsByAffiliation() throws Exception
     {
-        AccountUserVO user = getUserTestDepScientistWithHandle();
+        AccountUserVO user = getUserTestDepLibWithHandle();
 
         // create PubItem and submit (automatically releases the pubItem)
         PubItemVO myItem = getNewPubItemWithoutFiles();
