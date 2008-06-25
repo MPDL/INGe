@@ -38,6 +38,7 @@ import org.w3c.dom.NodeList;
 
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Shows all stored users.
