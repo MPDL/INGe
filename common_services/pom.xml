@@ -384,7 +384,7 @@
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
-				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
+				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 
 				<!--  Due to a historical defect, QName was released with multiple 
 					serialVersionUID values even though its serialization was the
@@ -503,7 +503,7 @@
 				<escidoc.framework_access.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
-				<escidoc.framework_access.content-type.id.publication>escidoc:persistent4</escidoc.framework_access.content-type.id.publication>
+				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 
 				<!--  Due to a historical defect, QName was released with multiple 
 					serialVersionUID values even though its serialization was the
