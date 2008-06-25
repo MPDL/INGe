@@ -31,14 +31,18 @@ package de.mpg.escidoc.services.util;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.StringTokenizer;
 
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.escidoc.www.services.om.ContextHandler;
@@ -57,6 +61,8 @@ public class FrameworkUtil
 {
     // Admin user handle
     private static String adminUserHandle = null;
+    
+    private static final int NUMBER_OF_URL_TOKENS = 2;
 
     /**
      * Hidden constructor.
@@ -105,32 +111,63 @@ public class FrameworkUtil
     }
 
     /**
-     * Logs in the given user.
-     *
-     * @param userid
-     * @param password
-     * @return the user handle.
+     * Logs in the given user with the given password.
+     * 
+     * @param userid The id of the user to log in.
+     * @param password The password of the user to log in.
+     * @return The handle for the logged in user.
      * @throws HttpException
      * @throws IOException
      * @throws ServiceException
+     * @throws URISyntaxException 
      */
-    private static String loginUser(final String userid, final String password) throws IOException, ServiceException, URISyntaxException
+    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-        // post the login data
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
-        postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8888");
-        postMethod.addParameter("login", userid);
-        postMethod.addParameter("password", password);
+        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+        StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
+        if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        }
+        tokens.nextToken();
+        StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+        
+        if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        }
+        String host = hostPort.nextToken();
+        int port = Integer.parseInt( hostPort.nextToken() );
+        
         HttpClient client = new HttpClient();
+
+        client.getHostConfiguration().setHost( host, port, "http");
+        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        
+        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
+        login.addParameter("j_username", userid);
+        login.addParameter("j_password", password);
+        
+        client.executeMethod(login);
+                
+        login.releaseConnection();
+        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
+        Cookie[] logoncookies = cookiespec.match(
+                host, port, "/", false, 
+                client.getState().getCookies());
+        
+        Cookie sessionCookie = logoncookies[0];
+        
+        PostMethod postMethod = new PostMethod("/aa/login");
+        postMethod.addParameter("target", frameworkUrl);
+        client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
+      
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
-            throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
+            throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
-        // String response = postMethod.getResponseBodyAsString();
+        
         String userHandle = null;
-        Header[] headers = postMethod.getResponseHeaders();
+        Header headers[] = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
         {
             if ("Location".equals(headers[i].getName()))
@@ -138,12 +175,16 @@ public class FrameworkUtil
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
+        
         if (userHandle == null)
         {
             throw new ServiceException("User not logged in.");
         }
         return userHandle;
     }
+
 }

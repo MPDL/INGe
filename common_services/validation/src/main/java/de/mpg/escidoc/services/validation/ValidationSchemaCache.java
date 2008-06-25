@@ -824,7 +824,7 @@ public final class ValidationSchemaCache
             AdminDescriptorVO adminDescriptorVO = contextVO.getAdminDescriptors().get(0);
             if (adminDescriptorVO instanceof Validatable)
             {
-                String validateSchemaId = ((Validatable) contextVO).getValidationSchema();
+                String validateSchemaId = ((Validatable) adminDescriptorVO).getValidationSchema();
                 return validateSchemaId; 
             }
         }
