@@ -35,11 +35,12 @@ import gov.loc.www.zing.srw.ExplainResponseType;
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
 import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+
 import org.apache.axis.message.MessageElement;
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**

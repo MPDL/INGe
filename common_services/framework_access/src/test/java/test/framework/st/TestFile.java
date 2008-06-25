@@ -30,15 +30,16 @@ package test.framework.st;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.InputStream;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
@@ -47,6 +48,7 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
+
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 

@@ -31,13 +31,6 @@ package test.framework;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
-import test.framework.aa.TestUserManagement;
-import test.framework.cmm.TestContentTypeModeller;
-import test.framework.om.TestObjectManager;
-import test.framework.oum.TestOrganizationalUnitManager;
-import test.framework.sb.TestSearch;
-import test.framework.st.TestStagingService;
-
 /**
  * Test of the eSciDoc-Framework services.
  * 
@@ -53,6 +46,7 @@ import test.framework.st.TestStagingService;
                     ,test.framework.om.TestObjectManager.class
                     ,test.framework.st.TestStagingService.class
                     ,test.framework.sb.TestSearch.class
+                    ,DeleteObjectsTest.class
                     })
 public class TestFrameworkAccess
 {

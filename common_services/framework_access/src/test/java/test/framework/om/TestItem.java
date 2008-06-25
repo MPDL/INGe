@@ -28,12 +28,14 @@
  */ 
 package test.framework.om;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertFalse;
+
 import org.apache.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
+
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.services.framework.ServiceLocator;

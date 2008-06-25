@@ -33,7 +33,6 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
-import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
 import de.escidoc.core.common.exceptions.application.notfound.ContentRelationNotFoundException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;

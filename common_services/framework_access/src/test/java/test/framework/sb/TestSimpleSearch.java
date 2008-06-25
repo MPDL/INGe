@@ -30,23 +30,20 @@ package test.framework.sb;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
-import gov.loc.www.zing.srw.RecordType;
-import gov.loc.www.zing.srw.SearchRetrieveRequestType;
-import gov.loc.www.zing.srw.SearchRetrieveResponseType;
-import gov.loc.www.zing.srw.StringOrXmlFragment;
-import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
+
 import java.io.FileInputStream;
+
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import org.apache.axis.message.MessageElement;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
+
 import test.framework.om.TestItemBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 

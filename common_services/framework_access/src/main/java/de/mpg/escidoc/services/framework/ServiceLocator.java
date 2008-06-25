@@ -56,6 +56,8 @@ import de.escidoc.www.services.om.ContextHandler;
 import de.escidoc.www.services.om.ContextHandlerServiceLocator;
 import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.om.ItemHandlerServiceLocator;
+import de.escidoc.www.services.om.SemanticStoreHandler;
+import de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandlerServiceLocator;
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
@@ -68,8 +70,6 @@ import de.escidoc.www.services.sm.ScopeHandler;
 import de.escidoc.www.services.sm.ScopeHandlerServiceLocator;
 import de.escidoc.www.services.sm.StatisticDataHandler;
 import de.escidoc.www.services.sm.StatisticDataHandlerServiceLocator;
-import de.escidoc.www.services.om.SemanticStoreHandler;
-import de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator;
 
 /**
  * This service locator has to be used for getting the handler of the framework services.<BR>

@@ -30,11 +30,13 @@ package test.framework;
 
 import java.io.File;
 import java.io.PrintWriter;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
+
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**

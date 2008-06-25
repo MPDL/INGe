@@ -2,10 +2,9 @@ package test.framework.sm;
 
 import static org.junit.Assert.assertNotNull;
 
-import java.net.URISyntaxException;
-
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.framework.TestBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 

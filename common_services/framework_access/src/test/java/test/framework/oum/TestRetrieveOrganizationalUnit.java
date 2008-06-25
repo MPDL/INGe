@@ -30,8 +30,10 @@ package test.framework.oum;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;

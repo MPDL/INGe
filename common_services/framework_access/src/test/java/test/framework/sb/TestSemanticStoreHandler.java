@@ -29,8 +29,10 @@
 package test.framework.sb;
 
 import static org.junit.Assert.assertNotNull;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.framework.om.TestItemBase;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 

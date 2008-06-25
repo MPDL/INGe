@@ -29,8 +29,10 @@
 package test.framework.cmm;
 
 import static org.junit.Assert.assertNotNull;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
+
 import test.framework.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.ContentModelNotFoundException;
 import de.mpg.escidoc.services.framework.ServiceLocator;

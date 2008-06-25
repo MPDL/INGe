@@ -29,14 +29,15 @@
 package test.framework.aa;
 
 import static org.junit.Assert.assertNotNull;
+
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.framework.PropertyReader;
+
 import test.framework.TestBase;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Shows all stored users.
