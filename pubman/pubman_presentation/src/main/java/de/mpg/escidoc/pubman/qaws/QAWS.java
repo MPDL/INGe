@@ -132,7 +132,7 @@ public class QAWS extends ItemList
             logger.error(e.getMessage(), e);
         }
         
-        this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);;
+        this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
 
         //create drop-down menus
         this.initContextMenu();

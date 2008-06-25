@@ -124,7 +124,7 @@ public class QualityAssuranceBean implements QualityAssurance
         
         try
         {
-            Filter f3 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication"));
+            Filter f3 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f3);
         }
         catch (IOException e)

@@ -482,7 +482,7 @@ public class PubItemSearchingBean implements PubItemSearching
     }
     
 
-    /**escidoc.framework_access.content-type.id.publication
+    /**escidoc.framework_access.content-model.id.publication
      * {@inheritDoc}
      */
     public List<PubItemVO> searchPubItemsByAffiliation(AffiliationVO affiliation) throws TechnicalException, AffiliationNotFoundException
@@ -582,7 +582,7 @@ public class PubItemSearchingBean implements PubItemSearching
         String contentTypeIdPublication = null;
         try
         {
-            contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication");
+            contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication");
         }
         catch (Exception e)
         {
