@@ -2,10 +2,8 @@ package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;

@@ -32,8 +32,6 @@ package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;

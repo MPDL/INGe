@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;

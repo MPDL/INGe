@@ -38,7 +38,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 
 /**

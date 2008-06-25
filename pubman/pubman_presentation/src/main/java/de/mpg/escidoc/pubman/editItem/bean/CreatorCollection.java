@@ -10,7 +10,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Bean to handle the CreatorCollection on a single jsp.

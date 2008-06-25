@@ -2,10 +2,8 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import javax.faces.model.SelectItem;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
 

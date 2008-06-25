@@ -37,10 +37,10 @@ import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.GenreCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.IdentifierCriterionCollection;
+import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
-import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 
 /**

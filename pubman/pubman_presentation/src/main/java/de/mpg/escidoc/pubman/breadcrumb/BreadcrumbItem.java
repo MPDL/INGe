@@ -35,7 +35,6 @@ import java.lang.reflect.Method;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 
 /**
  * Class for single breadcrumbs. Each breadcrumb is represented with this class.

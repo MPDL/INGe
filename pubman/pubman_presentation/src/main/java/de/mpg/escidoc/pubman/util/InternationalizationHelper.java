@@ -33,20 +33,20 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
-import javax.faces.model.SelectItem;
-import java.util.ResourceBundle;
 
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Class for Internationalization settings.

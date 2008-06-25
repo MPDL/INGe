@@ -3,10 +3,11 @@
  */
 package de.mpg.escidoc.pubman.search.bean;
 
+import javax.faces.model.SelectItem;
+
+import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
-import de.mpg.escidoc.pubman.util.CommonUtils;
-import javax.faces.model.SelectItem;
 
 /**
  * @author endres

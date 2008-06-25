@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.net.URISyntaxException;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -45,7 +46,6 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
@@ -138,6 +138,10 @@ public class FacesBean extends InternationalizedImpl implements Serializable
                     logger.error(e.toString(), e);
                 }
                 catch (ServiceException e)
+                {
+                    logger.error(e.toString(), e);
+                }
+                catch (URISyntaxException e)
                 {
                     logger.error(e.toString(), e);
                 }

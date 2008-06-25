@@ -8,7 +8,6 @@ import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -17,7 +16,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * POJO bean to deal with one creator. This can either be a person or a organisation.

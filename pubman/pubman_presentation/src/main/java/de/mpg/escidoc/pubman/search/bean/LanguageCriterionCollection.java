@@ -5,6 +5,7 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
 

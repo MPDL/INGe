@@ -6,7 +6,6 @@ import javax.faces.event.ValueChangeEvent;
 import javax.faces.event.ValueChangeListener;
 import javax.faces.model.SelectItem;
 
-import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**

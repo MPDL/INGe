@@ -49,11 +49,11 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -63,7 +63,6 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
 
 /**
  * Bean for storing the information of files attached to items.

@@ -34,11 +34,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -67,16 +65,15 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
-import de.mpg.escidoc.pubman.qaws.QAWS;
 import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.reviseItem.ReviseItem;
-import de.mpg.escidoc.pubman.revisions.CreateRevision;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
@@ -87,13 +84,13 @@ import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -266,7 +263,13 @@ public class ViewItemFull extends FacesBean
             {
                 logger.error("Could not retrieve release with id " + itemID, e);
                 Login login = (Login)getSessionBean(Login.class);
-                login.forceLogout();
+                try
+                {
+                    login.forceLogout();
+                }
+                catch (Exception e2) {
+                    logger.error("Error logging out user", e2);
+                }
                 // TODO: Error handling
             }
         }
@@ -296,7 +299,7 @@ public class ViewItemFull extends FacesBean
                 citationURL = pubmanUrl + itemPattern;
                 
             }
-            catch (IOException e)
+            catch (Exception e)
             {
                 e.printStackTrace();
                 citationURL = "";
@@ -329,8 +332,8 @@ public class ViewItemFull extends FacesBean
             
             try
             {
-                isWorkflowStandard = getContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_STANDARD);
-                isWorkflowSimple = getContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_SIMPLE);
+                isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+                isWorkflowSimple = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
             }
             catch (Exception e)
             {
@@ -1199,7 +1202,7 @@ public class ViewItemFull extends FacesBean
     {
         StringBuffer affiliations = new StringBuffer();
         List<AffiliationRO> affiliationRefList = new ArrayList<AffiliationRO>();
-        List<AffiliationVO> affiliationList = new ArrayList<AffiliationVO>();
+        List<AffiliationVOPresentation> affiliationList = new ArrayList<AffiliationVOPresentation>();
         ItemControllerSessionBean itemControllerSessionBean = getItemControllerSessionBean();
 
         if (this.context == null)
@@ -1227,7 +1230,7 @@ public class ViewItemFull extends FacesBean
                 try
                 {
                     affiliationList.add(
-                            itemControllerSessionBean.retrieveAffiliation(affiliationRefList.get(i).getObjectId()));
+                            new AffiliationVOPresentation(itemControllerSessionBean.retrieveAffiliation(affiliationRefList.get(i).getObjectId())));
                 }
                 catch (Exception e)
                 {
@@ -1239,7 +1242,7 @@ public class ViewItemFull extends FacesBean
         // then extract the names and add to StringBuffer
         for (int i = 0; i < affiliationList.size(); i++)
         {
-            affiliations.append(affiliationList.get(i).getName());
+            affiliations.append(affiliationList.get(i).getDetails().getName());
             if (i < affiliationList.size() - 1)
             {
                 affiliations.append(", ");

@@ -55,11 +55,11 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.contextList.PubContextVOWrapper;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Provides different utilities for all kinds of stuff.

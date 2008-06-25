@@ -123,7 +123,13 @@ public class ViewItemSessionBean extends FacesBean
         {
             logger.error("Could not retrieve release with id " + itemID, e);
             Login login = (Login)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "Login");
-            login.forceLogout();
+            try
+            {
+                login.forceLogout();
+            }
+            catch (Exception e2) {
+                logger.error("Error logging out user", e2);
+            }
             return "";
         }
         

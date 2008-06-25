@@ -1,8 +1,5 @@
 package de.mpg.escidoc.pubman.util;
 
-import org.jibx.runtime.IUnmarshallingContext;
-import org.jibx.runtime.JiBXException;
-
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 
 public class VersionHistoryVOPresentation extends VersionHistoryEntryVO

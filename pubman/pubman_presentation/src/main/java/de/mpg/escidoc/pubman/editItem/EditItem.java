@@ -1159,7 +1159,7 @@ public class EditItem extends FacesBean
      */
     private void enableLinks()
     {
-        LoginHelper loginHelper = (LoginHelper)this.application.getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
      // Try to get the validation service
        
        
@@ -1180,8 +1180,8 @@ public class EditItem extends FacesBean
         
         try
         {
-            isWorkflowStandard = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_STANDARD);
-            isWorkflowSimple = getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getVisibilityOfReferences().equals(pubItemDepositing.WORKFLOW_SIMPLE);
+            isWorkflowStandard = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+            isWorkflowSimple = (getItemControllerSessionBean().getCurrentContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
         }
         catch (Exception e)
         {

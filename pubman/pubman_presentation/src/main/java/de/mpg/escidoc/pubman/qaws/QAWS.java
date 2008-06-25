@@ -28,7 +28,6 @@
  */
 package de.mpg.escidoc.pubman.qaws;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,20 +44,14 @@ import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
-import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
-import de.mpg.escidoc.services.pubman.ServiceLocator;
 
 /**
  * Fragment class for the Quality Assurance Workspace. This class provides all functionality for choosing one or more items out
@@ -180,8 +173,8 @@ public class QAWS extends ItemList
             for(int i=0; i<contextVOList.size(); i++)
             {
                 String workflow = "null";
-                if (contextVOList.get(i).getAdminDescriptor().getVisibilityOfReferences()!= null)
-                    workflow = contextVOList.get(i).getAdminDescriptor().getVisibilityOfReferences();
+                if (contextVOList.get(i).getAdminDescriptor().getWorkflow()!= null)
+                    workflow = contextVOList.get(i).getAdminDescriptor().getWorkflow().toString();
                 selectContextList[i] = new SelectItem(contextVOList.get(i).getReference().getObjectId(), contextVOList.get(i).getName()+" -- "+workflow);
   
             }

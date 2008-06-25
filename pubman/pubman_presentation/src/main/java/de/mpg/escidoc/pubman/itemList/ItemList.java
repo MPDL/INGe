@@ -36,9 +36,9 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
 /**
  * Fragment class for lists of items. 

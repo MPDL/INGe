@@ -8,7 +8,6 @@ import java.util.Collection;
 import java.util.Properties;
 
 import de.mpg.escidoc.pubman.util.statistics.ReportParameterVO.ParamType;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 
 

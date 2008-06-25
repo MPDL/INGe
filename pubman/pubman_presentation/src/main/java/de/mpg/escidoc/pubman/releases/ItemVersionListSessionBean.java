@@ -34,15 +34,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.EventLogEntryVOPresentation;
 import de.mpg.escidoc.pubman.util.VersionHistoryVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.EventLogEntryVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Keeps all attributes that are used for the whole session by the ReleaseHistory, the Item Log and the Revision History.

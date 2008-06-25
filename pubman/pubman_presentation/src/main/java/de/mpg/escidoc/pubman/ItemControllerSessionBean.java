@@ -39,7 +39,7 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
@@ -59,13 +59,12 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -76,6 +75,8 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.PersonVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
@@ -1342,6 +1343,10 @@ public class ItemControllerSessionBean extends FacesBean
             filter.getFilterList().add(f2);
         }
 
+        Filter f3 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication"));
+        
+        filter.getFilterList().add(f3);
+        
         // transform the filter criteria
         if (logger.isDebugEnabled())
         {
@@ -1784,13 +1789,15 @@ public class ItemControllerSessionBean extends FacesBean
     {
         if (logger.isDebugEnabled())
         {
-            logger.debug("Retrieving child affiliations for affiliation: " + parentAffiliation.getName());
+            logger.debug("Retrieving child affiliations for affiliation: " + parentAffiliation.getDetails().getName());
         }
 
         String xmlChildAffiliationList = "";        
         try
         {
-            xmlChildAffiliationList = ServiceLocator.getOrganizationalUnitHandler().retrieveChildren(parentAffiliation.getReference().getObjectId());
+            // TODO FrM: Remove userHandle when Bug: http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597 is fixed
+            String userHandle = AdminHelper.getAdminUserHandle();
+            xmlChildAffiliationList = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveChildObjects(parentAffiliation.getReference().getObjectId());
         }
         catch (AuthenticationException e)
         {
@@ -1811,7 +1818,7 @@ public class ItemControllerSessionBean extends FacesBean
         
         for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
         	affiliationVOPresentation.setParent(parentAffiliation);
-        	affiliationVOPresentation.setNamePath(affiliationVOPresentation.getName()+", "+parentAffiliation.getNamePath());
+        	affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()+", "+parentAffiliation.getNamePath());
         	affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() +" "+parentAffiliation.getIdPath());
 		}
         return wrappedAffiliationList;
@@ -1875,7 +1882,13 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug(e.toString());
             Login login = (Login) getSessionBean(Login.class);
-            login.forceLogout();
+            try
+            {
+                login.forceLogout();
+            }
+            catch (Exception e2) {
+                logger.error("Error logging out user", e2);
+            }
             throw new RuntimeException("Error retrieving context", e);
         }
 
@@ -1895,7 +1908,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             allCollections = this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
         }
-        catch (AuthenticationException e)
+        catch (Exception e)
         {
             logger.debug(e.toString());
             Login login = (Login) getSessionBean(Login.class);
@@ -2189,12 +2202,12 @@ public class ItemControllerSessionBean extends FacesBean
     
     public String getCurrentWorkflow()
     {
-        String workflow = getCurrentContext().getAdminDescriptor().getVisibilityOfReferences();
-        if (workflow == null || workflow.equals(PubItemDepositing.WORKFLOW_SIMPLE))
+        PublicationAdminDescriptorVO.Workflow workflow = getCurrentContext().getAdminDescriptor().getWorkflow();
+        if (workflow == null || workflow == PublicationAdminDescriptorVO.Workflow.SIMPLE)
         {
             return PubItemDepositing.WORKFLOW_SIMPLE;
         }
-        else if (workflow.equals(PubItemDepositing.WORKFLOW_STANDARD))
+        else if (workflow == PublicationAdminDescriptorVO.Workflow.STANDARD)
         {
             return PubItemDepositing.WORKFLOW_STANDARD;
         

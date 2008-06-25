@@ -1,6 +1,5 @@
 package de.mpg.escidoc.pubman.util;
 
-import javax.faces.component.UIComponent;
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 
@@ -11,7 +10,6 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
-import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.statistics.PubItemSimpleStatistics;
 import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;

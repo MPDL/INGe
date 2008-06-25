@@ -34,7 +34,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.naming.InitialContext;
-import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
@@ -45,7 +44,6 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 
 /**

@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.desktop;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
@@ -41,7 +42,7 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -54,7 +55,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class Login extends FacesBean
 {
-    public static String LOGIN_URL = "/um/loginResults";
+    public static String LOGIN_URL = "/aa/login";
     final public static String BEAN_NAME = "Login";
     private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";
@@ -97,7 +98,7 @@ public class Login extends FacesBean
      * 
      * @return String empty navigation string for reloading the page
      */
-    public String loginLogout() throws ServletException, IOException, ServiceException
+    public String loginLogout() throws ServletException, IOException, ServiceException, URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
@@ -147,7 +148,7 @@ public class Login extends FacesBean
      *
      * @return String navigation string for loading the login error page
      */
-    public String forceLogout()
+    public String forceLogout() throws URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();

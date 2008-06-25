@@ -11,8 +11,6 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 
-import javax.faces.model.SelectItem;
-
 /**
  * 
  * Implementation of the Internationalized interface. For convenience use.

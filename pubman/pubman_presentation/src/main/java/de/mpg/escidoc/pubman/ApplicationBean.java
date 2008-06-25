@@ -34,19 +34,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.faces.context.FacesContext;
-import javax.faces.model.SelectItem;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.exceptions.PubManVersionNotAvailableException;
 import de.mpg.escidoc.services.common.util.CommonUtils;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 
 /**
  * ApplicationBean which stores all application wide values.

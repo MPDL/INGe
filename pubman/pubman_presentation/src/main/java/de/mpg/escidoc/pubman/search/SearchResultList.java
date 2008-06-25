@@ -49,8 +49,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sf.saxon.instruct.SavedNamespaceContext;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpMethod;
 import org.apache.commons.httpclient.methods.GetMethod;

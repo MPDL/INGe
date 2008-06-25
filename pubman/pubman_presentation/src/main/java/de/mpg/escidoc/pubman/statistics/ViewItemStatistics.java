@@ -37,7 +37,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
-import de.fiz.escidoc.om.ItemHandlerRemote;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.ViewItemStatisticsPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -47,7 +46,6 @@ import de.mpg.escidoc.pubman.util.statistics.PubItemSimpleStatistics;
 import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Backing Bean for viewItemStatistics.jspf

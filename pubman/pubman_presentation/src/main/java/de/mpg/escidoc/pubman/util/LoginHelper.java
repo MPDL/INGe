@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.util;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -44,9 +45,9 @@ import javax.xml.rpc.ServiceException;
 import org.apache.axis.encoding.Base64;
 import org.apache.log4j.Logger;
 
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.system.SqlDatabaseSystemException;
-import de.fiz.escidoc.common.exceptions.system.WebserverSystemException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
+import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
@@ -96,7 +97,7 @@ public class LoginHelper extends FacesBean
      * @throws ServiceException ServiceException
      * @throws TechnicalException TechnicalException
      */
-    public String checkLogin() throws IOException, ServletException, ServiceException, TechnicalException
+    public String checkLogin() throws IOException, ServletException, ServiceException, TechnicalException, URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
@@ -159,7 +160,7 @@ public class LoginHelper extends FacesBean
      * @throws ServiceException ServiceException
      * @throws TechnicalException TechnicalException
      */
-    public String insertLogin() throws IOException, ServiceException, TechnicalException
+    public String insertLogin() throws IOException, ServiceException, TechnicalException, URISyntaxException
     {
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
@@ -197,7 +198,7 @@ public class LoginHelper extends FacesBean
      * @param userHandle user handle that is given back from FIZ framework (is needed here to call framework methods)
      * @throws ServletException, ServiceException, TechnicalException
      */
-    private void fetchAccountUser(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException, TechnicalException
+    private void fetchAccountUser(String userHandle) throws WebserverSystemException, SqlDatabaseSystemException, RemoteException, MalformedURLException, ServiceException, TechnicalException, URISyntaxException
     {
         // Call FrameWork method
         XmlTransformingBean transforming = new XmlTransformingBean();

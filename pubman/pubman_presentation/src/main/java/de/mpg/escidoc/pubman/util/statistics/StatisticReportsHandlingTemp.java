@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.util.statistics;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -108,7 +109,7 @@ public class StatisticReportsHandlingTemp {
     }
 	
 	/**Helper method that logs in a user in order to retrieve statistic reports */
-    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException
+    private static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
         // post the login data
     	

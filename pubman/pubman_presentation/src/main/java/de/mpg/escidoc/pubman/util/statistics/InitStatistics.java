@@ -1,40 +1,18 @@
 package de.mpg.escidoc.pubman.util.statistics;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.StringReader;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.xml.rpc.ServiceException;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLOutputFactory;
-import javax.xml.stream.XMLStreamReader;
-import javax.xml.stream.XMLStreamWriter;
-
-import org.apache.axis.encoding.Base64;
-import org.apache.commons.httpclient.Header;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
-
-import de.mpg.escidoc.pubman.ErrorPage;
-import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
  * Initializes the statistic system in order to retrieve simple statistic records from the framework.
@@ -110,7 +88,7 @@ public class InitStatistics
         
         catch (Exception e)
         {
-            logger.warn("Statistic report definitions could not be initialized! Statistic system may not work properly. " + e.getMessage());
+            logger.error("Statistic report definitions could not be initialized! Statistic system may not work properly. ", e);
         }
  
     }

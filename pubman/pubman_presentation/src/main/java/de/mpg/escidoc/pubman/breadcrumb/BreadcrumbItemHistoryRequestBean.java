@@ -2,8 +2,6 @@ package de.mpg.escidoc.pubman.breadcrumb;
 
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;

@@ -18,7 +18,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
-import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 
@@ -94,7 +94,6 @@ public class AffiliationBean extends FacesBean {
 			if (cache != null && cache instanceof OrganizationVO)
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}
 			return "loadEditItem";
@@ -104,7 +103,6 @@ public class AffiliationBean extends FacesBean {
 			if (cache != null && cache instanceof OrganizationVO)
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
-				((OrganizationVO)cache).setAddress(selectedAffiliation.getAddress());
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
 			}
 			return "loadNewEasySubmission";
@@ -124,7 +122,13 @@ public class AffiliationBean extends FacesBean {
 	
 	private AffiliationVOPresentation findAffiliationByName(String name, AffiliationVOPresentation affiliation) throws Exception
 	{
-		if (name.equals(affiliation.getName()))
+	    String affName = null;
+	    if (affiliation != null && affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+	    {
+	        affName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+	    }
+	    
+		if (name.equals(affName))
 		{
 			return affiliation;
 		}

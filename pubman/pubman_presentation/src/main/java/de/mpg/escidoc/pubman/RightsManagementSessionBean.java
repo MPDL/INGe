@@ -73,7 +73,7 @@ public class RightsManagementSessionBean extends FacesBean
         }
         catch (Exception e)
         {
-            logger.warn("Propertyfile not readable for property '" + function + "'");
+            logger.error("Propertyfile not readable for property '" + function + "'", e);
         }
         
         if (propertyValue == null)

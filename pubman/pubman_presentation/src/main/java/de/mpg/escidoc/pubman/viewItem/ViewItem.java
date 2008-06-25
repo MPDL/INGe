@@ -72,6 +72,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
+import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
@@ -80,13 +81,12 @@ import de.mpg.escidoc.pubman.viewItem.ui.SourceUI;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -2035,11 +2035,11 @@ public class ViewItem extends FacesBean
     private String getAffiliation(String affiliationID) throws Exception
     {
         String affiliationName = "";
-        AffiliationVO affiliation;
+        AffiliationVOPresentation affiliation;
         // get the requested affiliation
-        affiliation = this.getItemControllerSessionBean().retrieveAffiliation(affiliationID);
+        affiliation = new AffiliationVOPresentation(this.getItemControllerSessionBean().retrieveAffiliation(affiliationID));
         // extract the name of it
-        affiliationName = affiliation.getName();
+        affiliationName = affiliation.getDetails().getName();
         return affiliationName;
     }
 

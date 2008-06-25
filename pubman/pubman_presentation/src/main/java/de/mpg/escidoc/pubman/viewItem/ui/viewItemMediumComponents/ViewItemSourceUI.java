@@ -43,8 +43,8 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.ObjectFormatter;
 import de.mpg.escidoc.pubman.viewItem.ViewItemCreatorOrganization;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * UI for creating the source section of a pubitem to be used in the ViewItemMediumUI.

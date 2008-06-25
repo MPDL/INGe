@@ -34,7 +34,6 @@ import javax.faces.component.html.HtmlPanelGroup;
 
 import de.mpg.escidoc.pubman.search.ui.AffiliationDetailUI;
 import de.mpg.escidoc.pubman.ui.HTMLElementUI;
-import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 /**

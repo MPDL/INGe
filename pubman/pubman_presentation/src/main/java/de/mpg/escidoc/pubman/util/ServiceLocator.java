@@ -30,17 +30,6 @@
 
 package de.mpg.escidoc.pubman.util;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
-
-import org.apache.log4j.Logger;
-
-import de.fiz.escidoc.om.ContextHandlerRemote;
-import de.fiz.escidoc.om.ContextHandlerRemoteServiceLocator;
-import de.fiz.escidoc.om.ItemHandlerRemote;
-import de.fiz.escidoc.om.ItemHandlerRemoteServiceLocator;
-import de.mpg.escidoc.services.common.XmlTransforming;
 
 /**
  * Class for locationg and fetching several services.
@@ -50,76 +39,76 @@ import de.mpg.escidoc.services.common.XmlTransforming;
  */
 public class ServiceLocator
 {
-    /**
-     * Logging instance for technical logging.
-     */
-    @SuppressWarnings("unused")
-    private Logger logger = Logger.getLogger(getClass());
-
-    /**
-     * gets the pubman tranforing service
-     * 
-     * @return XmlTransforming an instance of the transforing servive
-     * @throws ServiceNotAvailableException
-     */
-    public XmlTransforming getPubManTransforming() throws ServiceNotAvailableException
-    {
-        return (XmlTransforming)lookupService(XmlTransforming.SERVICE_NAME);
-    }
-
-    /**
-     * Gets the context handler service
-     * 
-     * @return ContextHandlerRemote an instance of the context handler service
-     */
-    public ContextHandlerRemote getContextHandler()
-    {
-        try
-        {
-            ContextHandlerRemoteServiceLocator contextlocator = new ContextHandlerRemoteServiceLocator();
-            return contextlocator.getContextHandlerService();
-        }
-        catch (ServiceException e)
-        {
-            throw new ServiceNotAvailableException(ContextHandlerRemote.class.getName(), e);
-        }
-    }
-
-    /**
-     * Gets the item handler service
-     * 
-     * @return ItemHandlerRemote an instance of the item handler service
-     */
-    public ItemHandlerRemote getItemHandler()
-    {
-        try
-        {
-            ItemHandlerRemoteServiceLocator itemlocator = new ItemHandlerRemoteServiceLocator();
-            return itemlocator.getItemHandlerService();
-        }
-        catch (ServiceException e)
-        {
-            throw new ServiceNotAvailableException(ItemHandlerRemote.class.getName(), e);
-        }
-    }
-
-    /**
-     * Looks up a service with the given name.
-     * 
-     * @param servicename the name of the service
-     * @return The service instance.
-     * @throws ServiceNotAvailableException
-     */
-    private Object lookupService(String servicename) throws ServiceNotAvailableException
-    {
-        try
-        {
-            InitialContext context = new InitialContext();
-            return context.lookup(servicename);
-        }
-        catch (NamingException e)
-        {
-            throw new ServiceNotAvailableException(servicename, e);
-        }
-    }
+//    /**
+//     * Logging instance for technical logging.
+//     */
+//    @SuppressWarnings("unused")
+//    private Logger logger = Logger.getLogger(getClass());
+//
+//    /**
+//     * gets the pubman tranforing service
+//     * 
+//     * @return XmlTransforming an instance of the transforing servive
+//     * @throws ServiceNotAvailableException
+//     */
+//    public XmlTransforming getPubManTransforming() throws ServiceNotAvailableException
+//    {
+//        return (XmlTransforming)lookupService(XmlTransforming.SERVICE_NAME);
+//    }
+//
+//    /**
+//     * Gets the context handler service
+//     * 
+//     * @return ContextHandlerRemote an instance of the context handler service
+//     */
+//    public ContextHandler getContextHandler()
+//    {
+//        try
+//        {
+//            ContextHandlerRemoteServiceLocator contextlocator = new ContextHandlerRemoteServiceLocator();
+//            return contextlocator.getContextHandlerService();
+//        }
+//        catch (ServiceException e)
+//        {
+//            throw new ServiceNotAvailableException(ContextHandlerRemote.class.getName(), e);
+//        }
+//    }
+//
+//    /**
+//     * Gets the item handler service
+//     * 
+//     * @return ItemHandlerRemote an instance of the item handler service
+//     */
+//    public ItemHandlerRemote getItemHandler()
+//    {
+//        try
+//        {
+//            ItemHandlerRemoteServiceLocator itemlocator = new ItemHandlerRemoteServiceLocator();
+//            return itemlocator.getItemHandlerService();
+//        }
+//        catch (ServiceException e)
+//        {
+//            throw new ServiceNotAvailableException(ItemHandlerRemote.class.getName(), e);
+//        }
+//    }
+//
+//    /**
+//     * Looks up a service with the given name.
+//     * 
+//     * @param servicename the name of the service
+//     * @return The service instance.
+//     * @throws ServiceNotAvailableException
+//     */
+//    private Object lookupService(String servicename) throws ServiceNotAvailableException
+//    {
+//        try
+//        {
+//            InitialContext context = new InitialContext();
+//            return context.lookup(servicename);
+//        }
+//        catch (NamingException e)
+//        {
+//            throw new ServiceNotAvailableException(servicename, e);
+//        }
+//    }
 }
