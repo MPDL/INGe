@@ -48,14 +48,14 @@ import test.pubman.exporting.ItemExportingTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({//Depositing + Publishing:
-                    PubItemDepositingTest.class
-                    ,PubItemPublishingTest.class
-                     //Logging:
-                    ,ApplicationLogTest.class
-                    //Searching:
-                    ,PubManSearchingTest.class
-                    //Exporting
-                    ,ItemExportingTest.class
+//                    PubItemDepositingTest.class
+                    PubItemPublishingTest.class
+//                     //Logging:
+//                    ,ApplicationLogTest.class
+//                    //Searching:
+//                    ,PubManSearchingTest.class
+//                    //Exporting
+//                    ,ItemExportingTest.class
                      })
 public class TestPubManLogic
 {

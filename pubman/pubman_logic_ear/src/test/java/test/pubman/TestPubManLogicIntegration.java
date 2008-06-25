@@ -44,7 +44,7 @@ import test.pubman.depositing.integration.RetrievePubCollectionTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({//Depositing + Publishing:
-                     RetrievePubCollectionTest.class
+                     //RetrievePubCollectionTest.class
                      })
 public class TestPubManLogicIntegration
 {

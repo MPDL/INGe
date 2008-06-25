@@ -41,10 +41,12 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -54,12 +56,16 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
 
 import org.apache.axis.encoding.Base64;
+import org.apache.commons.httpclient.Cookie;
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
+import org.apache.commons.httpclient.cookie.CookiePolicy;
+import org.apache.commons.httpclient.cookie.CookieSpec;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.PutMethod;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -96,6 +102,8 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  */
 public class TestBase
 {
+    private static final Logger logger = Logger.getLogger(TestBase.class);
+    
     protected static final String PUBMAN_TEST_COLLECTION_ID = "escidoc:persistent3";
     protected static final String PUBMAN_TEST_COLLECTION_NAME = "PubMan Test Collection";
     protected static final String PUBMAN_TEST_COLLECTION_DESCRIPTION = "This is the sample collection description of the PubMan Test\n"
@@ -103,6 +111,8 @@ public class TestBase
             + "for your publication (metadata) and all relevant files. The MPS is the\n" + "responsible affiliation for this collection. Please contact\n" + "u.tschida@zim.mpg.de for any questions.";
     protected static final String MPG_TEST_AFFILIATION = "escidoc:persistent13";
 
+    private static final int NUMBER_OF_URL_TOKENS = 2;
+    
     static
     {
         System.setProperty("com.sun.xml.namespace.QName.useCompatibleSerialVersionUID", "1.0");
@@ -161,22 +171,62 @@ public class TestBase
         return new File(url.getFile());
     }
 
-    private static String loginUser(String userName, String password) throws HttpException, IOException, ServiceException
+    /**
+     * Logs in the given user with the given password.
+     * 
+     * @param userid The id of the user to log in.
+     * @param password The password of the user to log in.
+     * @return The handle for the logged in user.
+     * @throws HttpException
+     * @throws IOException
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
     {
-        // build the postMethod from the given credentials
-        PostMethod postMethod = new PostMethod(ServiceLocator.getFrameworkUrl() + "/um/loginResults");
-        postMethod.addParameter("survey", "LoginResults");
-        postMethod.addParameter("target", "http://localhost:8080");
-        postMethod.addParameter("login", userName);
-        postMethod.addParameter("password", password);
+        String frameworkUrl = ServiceLocator.getFrameworkUrl();
+        StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
+        if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        }
+        tokens.nextToken();
+        StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
+        
+        if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
+            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        }
+        String host = hostPort.nextToken();
+        int port = Integer.parseInt( hostPort.nextToken() );
         
         HttpClient client = new HttpClient();
+
+        client.getHostConfiguration().setHost( host, port, "http");
+        client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
+        
+        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
+        login.addParameter("j_username", userid);
+        login.addParameter("j_password", password);
+        
+        client.executeMethod(login);
+                
+        login.releaseConnection();
+        CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
+        Cookie[] logoncookies = cookiespec.match(
+                host, port, "/", false, 
+                client.getState().getCookies());
+        
+        Cookie sessionCookie = logoncookies[0];
+        
+        PostMethod postMethod = new PostMethod("/aa/login");
+        postMethod.addParameter("target", frameworkUrl);
+        client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
+      
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
-            throw new HttpException("Wrong status code: " + postMethod.getStatusCode());
+            throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
-
+        
         String userHandle = null;
         Header headers[] = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
@@ -186,8 +236,11 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
+                //System.out.println("location: "+location);
+                //System.out.println("handle: "+userHandle);
             }
         }
+        
         if (userHandle == null)
         {
             throw new ServiceException("User not logged in.");
@@ -203,9 +256,9 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginScientist() throws ServiceException, HttpException, IOException
+    protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_scientist", "escidoc");
+        return loginUser(PropertyReader.getProperty("framework.scientist.username"), PropertyReader.getProperty("framework.scientist.password"));
     }
 
     /**
@@ -216,9 +269,9 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginDepositorLibrary() throws ServiceException, HttpException, IOException
+    protected static String loginDepositorLibrary() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser("test_dep_lib", "pubman");
+        return loginUser(PropertyReader.getProperty("framework.librarian.username"), PropertyReader.getProperty("framework.librarian.password"));
     }
 
     /**
@@ -229,7 +282,7 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      */
-    protected static String loginSystemAdministrator() throws ServiceException, HttpException, IOException
+    protected static String loginSystemAdministrator() throws ServiceException, HttpException, IOException, URISyntaxException
     {
         return loginUser(PropertyReader.getProperty("framework.admin.username"), PropertyReader.getProperty("framework.admin.password"));
     }

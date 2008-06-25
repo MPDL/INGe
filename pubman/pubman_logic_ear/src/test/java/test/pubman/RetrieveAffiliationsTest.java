@@ -37,7 +37,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import test.pubman.depositing.PubItemDepositingTest;
-import de.fiz.escidoc.oum.OrganizationalUnitHandlerRemote;
+import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
@@ -76,7 +76,7 @@ public class RetrieveAffiliationsTest
         filterList.add(filter.new TopLevelAffiliationFilter());
         String filterXml = xmlTransforming.transformToFilterTaskParam(filter);
 
-        OrganizationalUnitHandlerRemote ouh = ServiceLocator.getOrganizationalUnitHandler();
+        OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler();
         String ousXml = ouh.retrieveOrganizationalUnits(filterXml);
         logger.info(ousXml);
 
@@ -84,7 +84,7 @@ public class RetrieveAffiliationsTest
         logger.info("There are " + affiliations.size() + " top-level affiliations on " + ServiceLocator.getFrameworkUrl() + ": ");
         for (AffiliationVO affiliation:affiliations)
         {
-            logger.info(affiliation.getName());
+            logger.info("MD: " + affiliation.getMetadataSets());
         }
     }
 
