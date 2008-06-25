@@ -30,19 +30,20 @@
 	$Author: mfranke $
 	$Revision: 123 $
  -->
-<?identification context-name="MPDL Collection Grey Material" content-model="escidoc:persistent4" context="escidoc:dummypersistent23" metadata-version="1.0" version="0.1"?>
+<?identification context-name="MPDL Collection Grey Material" content-model="escidoc:persistent4" context="greymaterial" metadata-version="1.0" version="0.1"?>
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
-	<iso:ns prefix="item" uri="http://www.escidoc.de/schemas/item/0.3"/>
-	<iso:ns prefix="escidocMetadataRecords" uri="http://www.escidoc.de/schemas/metadatarecords/0.3"/>
+	<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
+	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
-	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
-	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
-	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.3"/>
-	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}"/>
+	<iso:ns prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}"/>
+	<iso:ns prefix="escidocComponents" uri="${xsd.soap.item.components}"/>
+	<iso:ns prefix="publication" uri="${xsd.metadata.publication}"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+	<iso:ns prefix="prop" uri="${xsd.soap.common.prop}"/>
 	
 	<!-- Validation points -->
 	<iso:phase id="default">
@@ -180,16 +181,16 @@
 		<iso:rule context="escidocComponents:component">
 			
 			<!-- If a file is given, the filename is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:file-name != ''">ComponentFileNameNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:file-name != ''">ComponentFileNameNotProvided</iso:assert>
 		
-			<!-- If a file is given, the content type is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
+			<!-- If a file is given, the content category is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
 
 			<!-- If a file is given, the mime type is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/escidocComponents:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
 	
 			<!-- If a file is given, the visibility is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or escidocComponents:properties/escidocComponents:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
 			
 		</iso:rule>
 		
@@ -200,7 +201,7 @@
 		<iso:rule context="escidocComponents:component">
 			
 			<!-- File: If a filename, a content category, a mime-type or a description is given, there has to be a content. -->
-			<iso:assert test="(escidocComponents:content/@xlink:href != '' or escidocComponents:properties/escidocComponents:locator-url != '') or not(escidocComponents:properties/escidocComponents:file-name != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:mime-type != '' or escidocComponents:properties/escidocComponents:description != '')">ComponentContentNotProvided</iso:assert>
+			<iso:assert test="(escidocComponents:content/@xlink:href != '') or not(escidocComponents:properties/prop:file-name != '' or escidocComponents:properties/prop:mime-type != '' or escidocComponents:properties/prop:mime-type != '' or escidocComponents:properties/prop:description != '')">ComponentContentNotProvided</iso:assert>
 
 		</iso:rule>
 		
@@ -211,12 +212,11 @@
 		<iso:rule context="escidocComponents:components">
 			
 			<!-- A file or a locator has to be given. -->
-			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != ''] or escidocComponents:component[escidocComponents:properties/escidocComponents:locator-url != '']">ComponentRequired</iso:assert>
+			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '']">ComponentRequired</iso:assert>
 			
 		</iso:rule>
 		
 	</iso:pattern>
-
 
 	<!-- Validation point specific -->	
 	
