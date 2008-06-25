@@ -29,6 +29,7 @@
 */ 
 package de.mpg.escidoc.services.pubman.qualityAssurance;
 
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -64,12 +65,15 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ObjectTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
@@ -113,40 +117,31 @@ public class QualityAssuranceBean implements QualityAssurance
         ContextHandler contextHandler = ServiceLocator.getContextHandler(user.getHandle());
         ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
         
-        /*  
+          
         FilterTaskParamVO filter = new FilterTaskParamVO();
-        Filter f1 = filter.new PubCollectionStatusFilter();
+        Filter f1 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(state));
         filter.getFilterList().add(f1);
         
-        Filter f2 = filter.new ObjectTypeFilter("item");
-        filter.getFilterList().add(f2);
-        String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
-       */
-        String xmlFilter = "<param><filter name=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\">item</filter><filter name=\"http://escidoc.de/core/01/properties/public-status\">"+state.toLowerCase()+"</filter></param>";
-//        String xmlFilter = "<param><filter name=\"latest-version-status\">"+state.toLowerCase()+"</filter><filter name=\"context\">"+contextobjId+"</filter></param>";
-        
-        logger.debug("Filter: " + xmlFilter);
-        
-        String memberList = contextHandler.retrieveMembers(contextobjId, xmlFilter);
-        MemberListVO memberListVO = xmlTransforming.transformToMemberList(memberList);
-        List<? extends ItemVO> list = memberListVO.getItemVOList();
-        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-        for (ItemVO itemVO : list)
+        try
         {
-            if (itemVO instanceof PubItemVO)
-            {
-                pubItemList.add((PubItemVO) itemVO);
-            }
-            else
-            {
-                throw new TechnicalException("Item in list is not of type publication");
-            }
+            Filter f3 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication"));
+            filter.getFilterList().add(f3);
         }
-        return pubItemList;
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         
-//        String xmlItemList = itemHandler.retrieveItems(xmlFilter);
-//        List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
-//        return pubItemList;
+        Filter f4 = filter.new ContextFilter(contextobjId);
+        filter.getFilterList().add(f4);
+       
+        String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
+       
+        logger.debug("Filter: " + xmlFilter);
+
+        String xmlItemList = itemHandler.retrieveItems(xmlFilter);
+        List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
+        return pubItemList;
            
 
     }
