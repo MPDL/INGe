@@ -34,10 +34,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.rpc.ServiceException;
 
-import de.fiz.escidoc.om.ContextHandlerRemote;
-import de.fiz.escidoc.om.ContextHandlerRemoteServiceLocator;
-import de.fiz.escidoc.om.ItemHandlerRemote;
-import de.fiz.escidoc.om.ItemHandlerRemoteServiceLocator;
+import de.escidoc.www.services.om.ContextHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 
 /**
@@ -50,70 +47,70 @@ import de.mpg.escidoc.services.common.XmlTransforming;
  */
 public class ServiceLocator
 {
-    /**
-     * Delivers an {@link XmlTransforming} instance.
-     * 
-     * @return The {@link XmlTransforming} instance.
-     * @throws ServiceNotAvailableException
-     */
-    public XmlTransforming getXmlTransforming() throws ServiceNotAvailableException
-    {
-        return (XmlTransforming)lookupService(XmlTransforming.SERVICE_NAME);
-    }
-
-    /**
-     * Delivers an {@link ContextHandlerRemote} instance.
-     * 
-     * @return The {@link ContextHandlerRemote} instance.
-     */
-    public ContextHandlerRemote getContextHandler()
-    {
-        try
-        {
-            ContextHandlerRemoteServiceLocator contextlocator = new ContextHandlerRemoteServiceLocator();
-            return contextlocator.getContextHandlerService();
-        }
-        catch (ServiceException e)
-        {
-            throw new ServiceNotAvailableException(ContextHandlerRemote.class.getName(), e);
-        }
-    }
-
-    /**
-     * Delivers an {@link ItemHandlerRemote} instance.
-     * 
-     * @return The {@link ItemHandlerRemote} instance.
-     */
-    public ItemHandlerRemote getItemHandler()
-    {
-        try
-        {
-            ItemHandlerRemoteServiceLocator itemlocator = new ItemHandlerRemoteServiceLocator();
-            return itemlocator.getItemHandlerService();
-        }
-        catch (ServiceException e)
-        {
-            throw new ServiceNotAvailableException(ItemHandlerRemote.class.getName(), e);
-        }
-    }
-
-    /**
-     * Looks up a service with the given name.
-     * 
-     * @param servicename the name of the service
-     * @return The service instance.
-     * @throws ServiceNotAvailableException
-     */
-    private Object lookupService(String servicename) throws ServiceNotAvailableException
-    {
-        try
-        {
-            InitialContext context = new InitialContext();
-            return context.lookup(servicename);
-        }
-        catch (NamingException e)
-        {
-            throw new ServiceNotAvailableException(servicename, e);
-        }
-    }
+//    /**
+//     * Delivers an {@link XmlTransforming} instance.
+//     * 
+//     * @return The {@link XmlTransforming} instance.
+//     * @throws ServiceNotAvailableException
+//     */
+//    public XmlTransforming getXmlTransforming() throws ServiceNotAvailableException
+//    {
+//        return (XmlTransforming)lookupService(XmlTransforming.SERVICE_NAME);
+//    }
+//
+//    /**
+//     * Delivers an {@link ContextHandlerRemote} instance.
+//     * 
+//     * @return The {@link ContextHandlerRemote} instance.
+//     */
+//    public ContextHandler getContextHandler()
+//    {
+//        try
+//        {
+//            ContextHandlerRemoteServiceLocator contextlocator = new ContextHandlerRemoteServiceLocator();
+//            return contextlocator.getContextHandlerService();
+//        }
+//        catch (ServiceException e)
+//        {
+//            throw new ServiceNotAvailableException(ContextHandlerRemote.class.getName(), e);
+//        }
+//    }
+//
+//    /**
+//     * Delivers an {@link ItemHandlerRemote} instance.
+//     * 
+//     * @return The {@link ItemHandlerRemote} instance.
+//     */
+//    public ItemHandlerRemote getItemHandler()
+//    {
+//        try
+//        {
+//            ItemHandlerRemoteServiceLocator itemlocator = new ItemHandlerRemoteServiceLocator();
+//            return itemlocator.getItemHandlerService();
+//        }
+//        catch (ServiceException e)
+//        {
+//            throw new ServiceNotAvailableException(ItemHandlerRemote.class.getName(), e);
+//        }
+//    }
+//
+//    /**
+//     * Looks up a service with the given name.
+//     * 
+//     * @param servicename the name of the service
+//     * @return The service instance.
+//     * @throws ServiceNotAvailableException
+//     */
+//    private Object lookupService(String servicename) throws ServiceNotAvailableException
+//    {
+//        try
+//        {
+//            InitialContext context = new InitialContext();
+//            return context.lookup(servicename);
+//        }
+//        catch (NamingException e)
+//        {
+//            throw new ServiceNotAvailableException(servicename, e);
+//        }
+//    }
 }

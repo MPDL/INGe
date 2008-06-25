@@ -30,7 +30,6 @@
 
 package de.mpg.escidoc.services.pubman;
 
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;

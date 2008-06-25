@@ -29,28 +29,22 @@
 */ 
 package de.mpg.escidoc.services.pubman;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
-import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.xml.rpc.ServiceException;
 
-
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.mpg.escidoc.services.common.XmlTransforming;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
@@ -85,7 +79,7 @@ public interface QualityAssurance
      * @throws ParseException 
      * @throws TechnicalException 
      */
-    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException;
+    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException;
     
     
     /**

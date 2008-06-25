@@ -37,6 +37,7 @@ import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -536,11 +537,11 @@ public class PubItemSearchingBean implements PubItemSearching
                     + ":searchPubItemsForAffiliationAndChildren:affiliation is null");
         }
         ArrayList<PubItemVO> searchResult = new ArrayList<PubItemVO>();
-        if (affiliation.getPid() != null)
-        {
-            // affiliation is not open or not correct.
-            return searchResult;
-        }
+//        if (affiliation.getPid() != null)
+//        {
+//            // affiliation is not open or not correct.
+//            return searchResult;
+//        }
 
         // create cql query
         QueryParser parser = new QueryParser(affiliation.getReference().getObjectId());       
@@ -583,7 +584,7 @@ public class PubItemSearchingBean implements PubItemSearching
         {
             contentTypeIdPublication = PropertyReader.getProperty("escidoc.framework_access.content-type.id.publication");
         }
-        catch (IOException e)
+        catch (Exception e)
         {
             throw new TechnicalException(e);
         }

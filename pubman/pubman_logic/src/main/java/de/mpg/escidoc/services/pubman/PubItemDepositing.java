@@ -30,7 +30,9 @@
 
 package de.mpg.escidoc.services.pubman;
 
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
+import java.net.URISyntaxException;
+
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -136,7 +138,7 @@ public interface PubItemDepositing
      * @throws PubItemAlreadyReleasedException 
 	 */
     public PubItemVO savePubItem(PubItemVO item, AccountUserVO user)
-	  throws TechnicalException, SecurityException, PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException;
+	  throws TechnicalException, SecurityException, PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException, PubItemAlreadyReleasedException, URISyntaxException, AuthorizationException;
 
     /**
 	 * Submits the given pubItem. As on submit, a new version must be created (which
@@ -155,7 +157,7 @@ public interface PubItemDepositing
      * @throws ItemInvalidException 
 	 */
     public PubItemVO submitPubItem(PubItemVO item, String submissionComment, AccountUserVO user)
-	  throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException, PubManException, ItemInvalidException;
+	  throws TechnicalException, SecurityException, DepositingException, PubItemNotFoundException, PubManException, ItemInvalidException, URISyntaxException, AuthorizationException;
 
 	/**
 	 * Creates a new PubItem as a revision of the given one.

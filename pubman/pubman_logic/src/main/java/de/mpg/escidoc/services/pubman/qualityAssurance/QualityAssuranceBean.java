@@ -29,10 +29,9 @@
 */ 
 package de.mpg.escidoc.services.pubman.qualityAssurance;
 
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -43,19 +42,19 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.xml.rpc.ServiceException;
 
+import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidXmlException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingMethodParameterException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthenticationException;
-import de.fiz.escidoc.common.exceptions.application.security.AuthorizationException;
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
-import de.fiz.escidoc.common.exceptions.system.SystemException;
-import de.fiz.escidoc.om.ContextHandlerRemote;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidXmlException;
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.www.services.om.ContextHandler;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
@@ -66,17 +65,12 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MemberListVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.exceptions.ExceptionHandler;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
@@ -84,7 +78,6 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
 import de.mpg.escidoc.services.pubman.searching.ParseException;
-import de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean;
 
 /**
  * EJB implementation of the QualityAssurance interface
@@ -103,6 +96,8 @@ import de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean;
 public class QualityAssuranceBean implements QualityAssurance
 {
     
+    private static final Logger logger = Logger.getLogger(QualityAssuranceBean.class);
+    
     /**
      * A XmlTransforming instance.
      */
@@ -111,12 +106,12 @@ public class QualityAssuranceBean implements QualityAssurance
     
    
 
-    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException
+    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException
     {
         
         
-        ContextHandlerRemote contextHandler = ServiceLocator.getContextHandler(user.getHandle());
-        ItemHandlerRemote itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+        ContextHandler contextHandler = ServiceLocator.getContextHandler(user.getHandle());
+        ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
         
         /*  
         FilterTaskParamVO filter = new FilterTaskParamVO();
@@ -127,12 +122,27 @@ public class QualityAssuranceBean implements QualityAssurance
         filter.getFilterList().add(f2);
         String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
        */
-        String xmlFilter = "<param><filter name=\"object-type\">item</filter><filter name=\"public-status\">"+state.toLowerCase()+"</filter></param>";
+        String xmlFilter = "<param><filter name=\"http://www.w3.org/1999/02/22-rdf-syntax-ns#type\">item</filter><filter name=\"http://escidoc.de/core/01/properties/public-status\">"+state.toLowerCase()+"</filter></param>";
 //        String xmlFilter = "<param><filter name=\"latest-version-status\">"+state.toLowerCase()+"</filter><filter name=\"context\">"+contextobjId+"</filter></param>";
+        
+        logger.debug("Filter: " + xmlFilter);
         
         String memberList = contextHandler.retrieveMembers(contextobjId, xmlFilter);
         MemberListVO memberListVO = xmlTransforming.transformToMemberList(memberList);
-        return memberListVO.getPubItemVOList();
+        List<? extends ItemVO> list = memberListVO.getItemVOList();
+        List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+        for (ItemVO itemVO : list)
+        {
+            if (itemVO instanceof PubItemVO)
+            {
+                pubItemList.add((PubItemVO) itemVO);
+            }
+            else
+            {
+                throw new TechnicalException("Item in list is not of type publication");
+            }
+        }
+        return pubItemList;
         
 //        String xmlItemList = itemHandler.retrieveItems(xmlFilter);
 //        List<PubItemVO> pubItemList = xmlTransforming.transformToPubItemList(xmlItemList);
@@ -198,7 +208,7 @@ public class QualityAssuranceBean implements QualityAssurance
             throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
         }
         
-        ItemHandlerRemote itemHandler;
+        ItemHandler itemHandler;
         PubItemVO pubItemActual = null;
         try
         {

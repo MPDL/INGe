@@ -42,13 +42,12 @@ import javax.interceptor.Interceptors;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
-import de.fiz.escidoc.common.exceptions.application.violated.AlreadyWithdrawnException;
-import de.fiz.escidoc.common.exceptions.application.violated.LockingException;
-import de.fiz.escidoc.common.exceptions.application.violated.NotPublishedException;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.violated.AlreadyWithdrawnException;
+import de.escidoc.core.common.exceptions.application.violated.LockingException;
+import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
@@ -128,8 +127,8 @@ public class PubItemPublishingBean implements PubItemPublishing
         }
         try
         {
-            ItemHandlerRemote itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-            ItemHandlerRemote adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
+            ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+            ItemHandler adminHandler = ServiceLocator.getItemHandler(AdminHelper.getAdminUserHandle());
             String actualItem;
             PubItemVO actualItemVO;
             String url;
@@ -137,32 +136,28 @@ public class PubItemPublishingBean implements PubItemPublishing
             String result;
             String paramXml;
 
-            // Release the item
-            TaskParamVO param = new TaskParamVO(lastModificationDate, releaseComment);
-            paramXml = xmlTransforming.transformToTaskParam(param);
-            itemHandler.release(pubItemRef.getObjectId(), paramXml);
+            // Floating PID assignment.
 
-// Floating PID assignment, not used yet.
-//            // Retrieve the item to get last modification date
-//            actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
-//            actualItemVO = xmlTransforming.transformToPubItem(actualItem);
-//
-//            // Build PidParam
-//            url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-//            PropertyReader.getProperty("escidoc.pubman.item.pattern")
-//                .replaceAll("\\$1", pubItemRef.getObjectId());
-//
-//            LOGGER.debug("URL given to PID resolver: " + url);
-//
-//            PidTaskParamVO pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-//            paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
-//
-//            // Assign floating PID
-//            itemHandler = ServiceLocator.getItemHandler(user.getHandle());
-//            result = itemHandler.assignObjectPid(actualItemVO.getReference().getObjectId(), paramXml);
-//
-//            LOGGER.debug("Floating PID assigned: " + result);
+            // Build PidParam
+            url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
+            PropertyReader.getProperty("escidoc.pubman.item.pattern")
+                .replaceAll("\\$1", pubItemRef.getObjectId());
 
+            LOGGER.debug("URL given to PID resolver: " + url);
+
+            pidParam = new PidTaskParamVO(lastModificationDate, url);
+            paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+
+            try
+            {
+                // Assign floating PID
+                result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
+    
+                LOGGER.debug("Floating PID assigned: " + result);
+            }
+            catch (Exception e) {
+                LOGGER.warn("Object PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
+            }
             // Retrieve the item to get last modification date
             actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
 
@@ -180,12 +175,18 @@ public class PubItemPublishingBean implements PubItemPublishing
             pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
             paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
-            // Assign version PID
-            result = adminHandler.assignVersionPid(
-                    actualItemVO.getVersion().getObjectId() + ":"
-                    + actualItemVO.getVersion().getVersionNumber(), paramXml);
+            try
+            {
+                // Assign version PID
+                result = adminHandler.assignVersionPid(
+                        actualItemVO.getVersion().getObjectId() + ":"
+                        + actualItemVO.getVersion().getVersionNumber(), paramXml);
 
-            LOGGER.debug("Object PID assigned: " + result);
+                LOGGER.debug("Version PID assigned: " + result);
+            }
+            catch (Exception e) {
+                LOGGER.warn("Version PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.", e);
+            }
 
             // Loop over files
             for (FileVO file : actualItemVO.getFiles())
@@ -202,13 +203,28 @@ public class PubItemPublishingBean implements PubItemPublishing
                 pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
                 paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
 
-                // Assign floating PID
-                result = adminHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
-                        file.getReference().getObjectId(), paramXml);
-
-                LOGGER.debug("PID assigned: " + result);
+                try
+                {
+                    // Assign floating PID
+                    result = adminHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
+                            file.getReference().getObjectId(), paramXml);
+    
+                    LOGGER.debug("PID assigned: " + result);
+                }
+                catch (Exception e) {
+                    LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
+                }
 
             }
+
+            // Retrieve the item to get last modification date
+            actualItem = itemHandler.retrieve(pubItemRef.getObjectId());
+            actualItemVO = xmlTransforming.transformToPubItem(actualItem);
+            
+            // Release the item
+            TaskParamVO param = new TaskParamVO(actualItemVO.getModificationDate(), releaseComment);
+            paramXml = xmlTransforming.transformToTaskParam(param);
+            itemHandler.release(pubItemRef.getObjectId(), paramXml);
 
             if (LOGGER.isDebugEnabled())
             {

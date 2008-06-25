@@ -33,6 +33,7 @@ package de.mpg.escidoc.services.pubman.depositing;
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_CREATED;
 import static de.mpg.escidoc.services.pubman.logging.PMLogicMessages.PUBITEM_UPDATED;
 
+import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.ejb.EJB;
@@ -46,18 +47,18 @@ import javax.xml.rpc.ServiceException;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidContextException;
-import de.fiz.escidoc.common.exceptions.application.invalid.InvalidStatusException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingAttributeValueException;
-import de.fiz.escidoc.common.exceptions.application.missing.MissingElementValueException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ContextNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.FileNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.notfound.ItemNotFoundException;
-import de.fiz.escidoc.common.exceptions.application.security.SecurityException;
-import de.fiz.escidoc.common.exceptions.application.violated.AlreadyPublishedException;
-import de.fiz.escidoc.common.exceptions.application.violated.LockingException;
-import de.fiz.escidoc.common.exceptions.application.violated.NotPublishedException;
-import de.fiz.escidoc.om.ItemHandlerRemote;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidContextException;
+import de.escidoc.core.common.exceptions.application.invalid.InvalidStatusException;
+import de.escidoc.core.common.exceptions.application.missing.MissingAttributeValueException;
+import de.escidoc.core.common.exceptions.application.missing.MissingElementValueException;
+import de.escidoc.core.common.exceptions.application.notfound.ContextNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.FileNotFoundException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.application.violated.AlreadyPublishedException;
+import de.escidoc.core.common.exceptions.application.violated.LockingException;
+import de.escidoc.core.common.exceptions.application.violated.NotPublishedException;
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
@@ -199,7 +200,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws TechnicalException, PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException, de.fiz.escidoc.common.exceptions.application.security.SecurityException
+    public void deletePubItem(ItemRO pubItemRef, AccountUserVO user) throws TechnicalException, PubItemNotFoundException, PubItemLockedException, PubItemStatusInvalidException
     {
         if (pubItemRef == null)
         {
@@ -289,7 +290,7 @@ public class PubItemDepositingBean implements PubItemDepositing
      * {@inheritDoc}
      * Changed by Peter Broszeit, 17.10.2007: Method prepared to save also released items and restructed. 
      */
-    public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user) throws TechnicalException, PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException, SecurityException, PubItemAlreadyReleasedException
+    public PubItemVO savePubItem(PubItemVO pubItem, AccountUserVO user) throws TechnicalException, PubItemMandatoryAttributesMissingException, PubCollectionNotFoundException, PubItemLockedException, PubItemNotFoundException, PubItemStatusInvalidException, SecurityException, PubItemAlreadyReleasedException, URISyntaxException, AuthorizationException
     {
         // Check parameters and prepare
         if (pubItem == null)
@@ -304,7 +305,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         String fwUrl = "";
         try 
         {
-            fwUrl = de.mpg.escidoc.services.framework.ServiceLocator.getFrameworkUrl();
+            fwUrl = ServiceLocator.getFrameworkUrl();
         } 
         catch (ServiceException e) 
         {
@@ -342,7 +343,7 @@ public class PubItemDepositingBean implements PubItemDepositing
                 throw new ItemInvalidException(report);
             }
             // Get item handler
-            ItemHandlerRemote itemHandler = ServiceLocator.getItemHandler(user.getHandle());
+            ItemHandler itemHandler = ServiceLocator.getItemHandler(user.getHandle());
             PMLogicMessages message;
             String itemStored;
             PubItemVO pubItemStored;
@@ -418,6 +419,10 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             throw new TechnicalException(e);
         }
+        catch (AuthorizationException e)
+        {
+            throw e;
+        }
         catch (Exception e)
         {
             ExceptionHandler.handleException(e, getClass().getSimpleName() + ".savePubItem");
@@ -428,7 +433,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     /**
      * {@inheritDoc}
      */
-    public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException
+    public PubItemVO submitPubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException, URISyntaxException, AuthorizationException
     {
         if (pubItem == null)
         {
@@ -438,7 +443,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             throw new IllegalArgumentException(getClass() + ".submitPubItem: user is null.");
         }
-        ItemHandlerRemote itemHandler;
+        ItemHandler itemHandler;
         try
         {
             itemHandler = ServiceLocator.getItemHandler(user.getHandle());
@@ -504,7 +509,7 @@ public class PubItemDepositingBean implements PubItemDepositing
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ".acceptPubItem: user is null.");
         }
-        ItemHandlerRemote itemHandler;
+        ItemHandler itemHandler;
         try
         {
             itemHandler = ServiceLocator.getItemHandler(user.getHandle());
@@ -609,7 +614,7 @@ public class PubItemDepositingBean implements PubItemDepositing
     public PubItemVO submitAndReleasePubItem(PubItemVO pubItem, String submissionComment, AccountUserVO user) throws DepositingException, TechnicalException, PubItemNotFoundException, SecurityException, PubManException, ItemInvalidException
     {
        
-        ItemHandlerRemote itemHandler;
+        ItemHandler itemHandler;
         
         try
         {
