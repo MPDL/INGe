@@ -442,7 +442,7 @@
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
-				<escidoc.common.framework.url>http://framework:8080</escidoc.common.framework.url>
+				<escidoc.common.framework.url>http://srv05.mpdl.mpg.de:8080</escidoc.common.framework.url>
                 <!--escidoc.framework_access.framework.url>http://192.129.1.111:8080</escidoc.framework_access.framework.url-->
                 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
