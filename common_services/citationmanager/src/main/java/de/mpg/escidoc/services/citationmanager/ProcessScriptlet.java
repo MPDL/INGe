@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.citationmanager;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -38,7 +39,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
+
 import org.apache.log4j.Logger;
 
 
@@ -63,42 +67,14 @@ public class ProcessScriptlet {
 //    private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
 	
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
+    public final static String SCRIPTLET_XPATH_ROOT = "md-record/publication";
     public final static String SCRIPTLETS_JAVA_DIRECTORY = "src/main/java/";
     private String scriptletClassName = null;
+    
+    
 
 //  table of special functions which can be applied in layout-elements (@func="funcname")
-//	TODO: move to properties    
-    public static final String[][] scriptletFunctionsTable = {
-
-        {"get_initials",
-            "public String get_initials(String str) {\n" +
-            "   StringTokenizer st = new StringTokenizer(str);\n" +
-            "   String res = \"\";\n" +
-            "   while (st.hasMoreElements( ))\n" +
-            "       res += st.nextElement().toString().charAt(0) + \". \";\n" +
-            "   return res.trim( );\n" +
-            "}\n"
-        } ,
-        {"get_year",
-            "public String get_year(String str) {\n" +
-            "   return str != null ? str.split(\"-\")[0] : null;\n" +
-            "}\n"
-        },
-
-        {"get_month",
-            "public String get_month(String str) {\n" +
-            "   String[] sa = str.split(\"-\");\n" +
-            "   return sa.length >= 2 ? sa[1] : null;\n" +
-            "}\n"
-        },
-
-        {"get_day",
-            "public String get_day(String str) {\n" +
-            "   String[] sa = str.split(\"-\");\n" +
-            "   return sa.length >= 3 ? sa[2] : null;\n" +
-            "}\n"
-        }
-    };
+    public static Properties scriptletFunctions = null;
 
     public final static String scriptletBodyHeader =
         "package de.mpg.escidoc.services.citationmanager.scriptlets;\n" +
@@ -132,7 +108,7 @@ public class ProcessScriptlet {
         "   return str;\n" +
         "}\n" +
 
-//  Remove dublications of blanks, spaces and punctuations
+//  Remove dublications of blanks, spaces and punctuation
 //	TODO: check it!        
         "public String cleanCit(String str) {\n" +
         "   if (str!=null && str.length()>0) {\n" +
@@ -141,7 +117,7 @@ public class ProcessScriptlet {
         "       str = str.replaceAll(\"[.]+\\\\s*[.]+\",\".\");\n" +
         "       str = str.replaceAll(\"([.]+\\\\<[/]?style[.]*?\\\\>)[.]+\",\"$1\");\n" +
         "       str = str.replaceAll(\"(([,.;:?!])[ \\t\\r]+)+\", \"$2 \");\n" +
-//      "       str = str.replace(\"null\", \"\");\n" +
+        "       str = str.replace(\"null\", \"\");\n" +
 //        "System.out.println(\"after:\" + str);\n" +
         "   }\n" +
         "   return str;\n" +
@@ -150,16 +126,15 @@ public class ProcessScriptlet {
 
 //  scriptletBody for repeatable elements
     private String scriptletBody;
+    
 
-
-
-
-    public ProcessScriptlet(String cs) {
+    public ProcessScriptlet(String cs) throws FileNotFoundException, IOException {
+    	
         scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs));
-
-//      add  functions from scriptletFunctionsTable
-        for (String[] s : ProcessScriptlet.scriptletFunctionsTable)
-            scriptletBody += s[1];
+    	scriptletFunctions = ResourceUtil.getProperties("CitationStyles", "functions.properties");
+    	Iterator iter = scriptletFunctions.keySet().iterator(); 
+    	while (iter.hasNext()) 
+    		scriptletBody += scriptletFunctions.getProperty((String)iter.next());
 
     }
 
@@ -170,12 +145,10 @@ public class ProcessScriptlet {
      * @throws CitationStyleManagerException
      */
     public static boolean isInScriptletFunctionsTable(String func) throws CitationStyleManagerException {
-        if ( func==null || func.trim().equals("") )
+        if ( func==null || func.trim().equals("") || scriptletFunctions==null )
             return false;
-        for ( String[] ts : scriptletFunctionsTable ) {
-            if ( ts[0].equals(func) )
-                return true;
-        }
+        if (scriptletFunctions.containsKey(func)) 
+        	return true;
         throw new CitationStyleManagerException("Unknown function:<" + func +">");
     }
 
@@ -575,7 +548,7 @@ public class ProcessScriptlet {
 //        "sds.next();\n" +
 //        "System.out.println(\"root = \" + (String) sds.getFieldValue(field));\n" +
 //  debug --->
-        "JRXmlDataSource subDs = ds.subDataSource(\"publication/" + xPath + "\");\n";
+        "JRXmlDataSource subDs = ds.subDataSource(\"" + SCRIPTLET_XPATH_ROOT + "/" + xPath + "\");\n";
         return h;
     }
 
@@ -699,7 +672,7 @@ public class ProcessScriptlet {
      * @throws JRException 
      * @throws JRException 
      */
-    public static void cleanUpScriptlets(File root, String csName) throws IllegalArgumentException, IOException, JRException {
+    public static void cleanUpScriptlets(File root, String csName, boolean keepOldScriptlets) throws IllegalArgumentException, IOException, JRException {
 
     	// get name of the last created scriptlet to be cleaned up
     	String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle.jasper"; 
@@ -725,7 +698,7 @@ public class ProcessScriptlet {
         }
         
 //      go away if we want to keep OLD SCRIPTLET for debugging
-        if (ProcessCitationStyles.KEEP_OLD_SCRIPTLETS)
+        if (keepOldScriptlets)  
             return;
 
 //      remove old sriptlet .java file
