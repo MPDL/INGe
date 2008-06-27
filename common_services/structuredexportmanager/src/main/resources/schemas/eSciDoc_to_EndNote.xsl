@@ -88,7 +88,7 @@
 								<!-- at least one editor! -->
 								<xsl:with-param name="value">
 									<xsl:choose>
-										<xsl:when test="count(../*:creator and @role='editor')>0">Edited Book</xsl:when>
+										<xsl:when test="count(../*:creator[@role='editor'])>0">Edited Book</xsl:when>
 										<xsl:otherwise>Book</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
