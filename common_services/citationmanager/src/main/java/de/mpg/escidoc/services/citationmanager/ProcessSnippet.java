@@ -89,7 +89,7 @@ public class ProcessSnippet {
 	 * @throws IOException
 	 * @throws CitationStyleManagerException
 	 */
-	public void export(Document doc, Map params, final InputStream is, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
+	public void export(Document doc, String reportXmlRootXPpath, Map params, final InputStream is, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
 		
 		if ( doc == null ) 
 			throw new CitationStyleManagerException("org.w3c.dom.Document doc is null");
@@ -160,7 +160,7 @@ public class ProcessSnippet {
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
 					jasperReport,
 					params,
-					new JRXmlDataSource(doc, ProcessCitationStyles.REPORT_XML_ROOT_XPATH)
+					new JRXmlDataSource(doc, reportXmlRootXPpath)
 			);
 
 			// hack to get parent element with prefix  
@@ -227,7 +227,7 @@ public class ProcessSnippet {
 		    PropertyReader.getProperty("escidoc.framework_access.framework.url");
 		}
 		catch (Exception e) {
-            throw new IOException("Error reading framework url", e);
+            throw new IOException("Error reading framework url:" + e.getMessage());
         }
 		
 		NodeList nl = item.getElementsByTagName("escidocComponents:components");
