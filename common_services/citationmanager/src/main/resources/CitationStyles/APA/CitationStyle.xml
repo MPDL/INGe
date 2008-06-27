@@ -28,6 +28,17 @@
 -->
 <citation-styles-collection name="Default" xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd">
 	<citation-style name="APA" element-specific="no" read-only="no">
+    <!-- Print warning message for non-publication items -->
+    <cs-layout-definition name="isNotPublication">
+    	<parameters>
+    		<valid-if><![CDATA[$F{hasPublication}.equals("false")]]></valid-if>
+    		<starts-with value="## There is no citaion style layout for metadata record: " />
+    		<ends-with value=".\n\n" />
+    	</parameters>
+    	<elements>
+    		<layout-element ref="objid"/>
+    	</elements>
+    </cs-layout-definition>	
 		<!-- BOOK CHAPTER -->
 		<!-- Question: Should courseware, other, conference-paper and conference-report handled identically? -->
 		<!-- Note: We need to differentiate between conference-papers published in a book and those published in a journal issue -->
