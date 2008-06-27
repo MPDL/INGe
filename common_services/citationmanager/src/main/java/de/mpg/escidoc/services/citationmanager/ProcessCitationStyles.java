@@ -36,6 +36,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FilenameFilter;
 import java.io.IOException;
@@ -47,6 +48,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map; 
+import java.util.Properties;
 
 import javax.xml.transform.TransformerException;
 
@@ -116,24 +118,39 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     private static final Logger logger = Logger.getLogger(ProcessCitationStyles.class);
 
-    public final static String RESULT_CITATION_VARIABLE = "citation";
-    public final static String DEFAULT_STYLENAME = "Default";
+    // Result of citation is used in jasper report 
+    public String RESULT_CITATION_VARIABLE;
     
-    public final static String DEFAULT_REPORTNAME = "Report";
+    // Default style name for, used as a starter for new style creation  
+    public String DEFAULT_STYLENAME;
     
-    public final static String CITATION_XML_FILENAME = "/CitationStyle.xml";
+    // Default name for serialised output of the component: jrprint file
+    public String DEFAULT_REPORTNAME;
     
+    // Commonly used file name for citation style definition xml
+    public String CITATION_XML_FILENAME;
     
-    // ResourceContext
-    public static enum ResourcesContext { jboss, local };
-    private ResourcesContext resourcesContext; 
+    // if true the old scriptlets will not be deleted  
+    // before the compilations of the new scriptlets, if false - otherwise 
+    public boolean KEEP_OLD_SCRIPTLETS;
     
+    // if true the jasper report compiler will not delete the 
+    // old java execution plan file of the report, if false - otherwise  
+    public boolean KEEP_COMPILER_KEEP_JAVA_FILE;
     
-    public static boolean KEEP_OLD_SCRIPTLETS = false; 
-    public static boolean KEEP_COMPILER_KEEP_JAVA_FILE = false;
-    public static boolean CREATE_JRXML = true;
+    // if true the jrxml file of the report will be created,
+    // if false - otherwise
+    public boolean CREATE_JRXML;
+    
+    // The root element of the XML Data Source to be processed 
+    // by report filling
+    public String REPORT_XML_ROOT_XPATH;
+    
+    // component properties
+    public Properties props;
 
     
+    // tasks for test
     private static final String TASK_FILL = "fill";
     private static final String TASK_FILL_SORT_TITLE = "sort-title";
     private static final String TASK_COMPILE = "compile";
@@ -152,113 +169,51 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     public static enum OutFormats { rtf, pdf, html, odt, snippet }; 
     
 
-//    public final static String REPORT_XML_ROOT_XPATH = "/item-list/item/md-records/md-record/publication";
-//    public final static String REPORT_XML_ROOT_XPATH = "/item-list/search-result-record/item/md-records/md-record/publication";
-//    public final static String REPORT_XML_ROOT_XPATH = "descendant-or-self::publication[position()<4]";
-    public final static String REPORT_XML_ROOT_XPATH = "descendant-or-self::publication";
-    
-    //	TODO: move to properties     
-    private static final String[][] defaultFields = {
-//    	{"genre", "@type"},
-//		{"title","title"},
-//		{"sequencenr","source/sequence-number"},
-//		{"nameofevent","event/title"},
-//		{"placeofevent","event/place"},
-//		{"dateofevent","event/start-date"},
-//		{"enddateofevent","event/end-date"},
-//		{"issue","source/issue"},
-//		{"physicaldescription","total-number-of-pages"},
-//		{"volume","source/volume"}, 
-//		{"sourcetitle","source/title"},
-		{"@type", "@type"},
-		{"title","title"},
-		{"source/sequence-number","source/sequence-number"},
-		{"event/title","event/title"},
-		{"event/place","event/place"},
-		{"event/start-date","event/start-date"},
-		{"event/end-date","event/end-date"},
-		{"source/issue","source/issue"},
-		{"total-number-of-pages","total-number-of-pages"},
-		{"source/volume","source/volume"}, 
-		{"source/title","source/title"},
-		{"source/start-page","source/start-page"},
-		{"source/end-page","source/end-page"},
 
-// See https://zim01.gwdg.de/trac/wiki/CitManMapping#Problematicnon-repeatableelements		
-//	dates 		
-		{"published-online","published-online"},
-		{"issued","issued"},
-		{"dateAccepted","dateAccepted"},
-		{"dateSubmitted","dateSubmitted"},
-		{"modified","modified"},
-		{"created","created"},
-// see variable date
-		
-// titleofseries
-		{"//source[@type='series']/title",
-//			"self::node()[@type!='book-item' and @type!='conference-paper']/source[@type='series' and position()=1]/title"},   
-			"self::node()//source[@type='series' and position()=1]/title"},   
-//		{"titleofseries2",
-//			"self::node()[@type='book-item' or @type='conference-paper']/source[@type='series' and position()=1]/title"}, 
-		
-// sourcecreatorfullname		
-		{"sourcecreatorfullname1",
-			"self::node()[@type='book' or @type='proceedings']/source/creator/person/family-name"}, 	
-		{"sourcecreatorfullname2",
-			"self::node()[@type='in-book' or @type='conference-paper']/source/source/creator/person/family-name"},
-
-// ??			
-//		{"publishername","source/publishing-info/publisher"}, // ???
-//		{"publisheraddress","source/publishing-info/place"},  // ??? 
-		{"publishing-info/publisher","publishing-info/publisher"}, // ???
-		{"publishing-info/place","publishing-info/place"},  // ??? 
-		{"source/publishing-info/publisher","source/publishing-info/publisher"}, // ???
-		{"source/publishing-info/place","source/publishing-info/place"},  // ??? 
-		{"//publishing-info/publisher","self::node()//publishing-info/publisher"}, // ???
-		{"//publishing-info/place","self::node()//publishing-info/place"},  // ??? 
-    
-    };
-    
-//	TODO: move to properties 
-    private static final String[][] defaultVariables = {
-		{"date",
-			"$F{published-online} != null ? $F{published-online} : $F{issued} != null ? $F{issued} : $F{dateAccepted} != null ? $F{dateAccepted} : $F{dateSubmitted} != null ? $F{dateSubmitted} : $F{modified} != null ? $F{modified} : $F{created} != null ? $F{created} : null"},
-			
-//		{"source[@type='series']/title",
-////			"$F{titleofseries1} != null ? $F{titleofseries1} : $F{titleofseries2} != null ? $F{titleofseries2} : null"},   
-//    "$F{titleofseries1} != null ? $F{titleofseries1} : $F{titleofseries2} != null ? $F{titleofseries2} : null"},   
-			
-		{"source/creator/person/family-name",
-			"$F{sourcecreatorfullname1} != null ? $F{sourcecreatorfullname1} : $F{sourcecreatorfullname2} != null ? $F{sourcecreatorfullname2} : null"}      	
-    };
-
-
-
-
-//  FontStylesCollection
+    // FontStylesCollection
     private static FontStylesCollection fsc = null;
 
-//  LayoutElementCollection
+    // LayoutElementCollection
     private LayoutElementsCollection lec = null;
 
-//  CitationStyleDefinition
+    // CitationStyleDefinition
     private CitationStylesCollection csc = null;
 
 
-//  default JasperDesign which will be updated with new this procedure.
+    // default JasperDesign which will be updated with new this procedure.
     private JasperDesign jasperDesign = null;
 
-//  Dataset in JasperDesign which will be updated
+    // Dataset in JasperDesign which will be updated
     private JRDesignDataset dataSet = null;
     
-//	ProcessScriptlet class instance
+    // ProcessScriptlet class instance
     private ProcessScriptlet ps = null;
     
-//  list of LayoutElements which has already method in the Scriptlet
-//    private static ArrayList<String> lesWithScriptletMethod = new ArrayList<String>();
-    
-  
-    
+	
+	public ProcessCitationStyles() {
+
+			// get main component properties
+			try {
+				props = ResourceUtil.getProperties("citman.properties");
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+	     	// populate constatns 
+	        RESULT_CITATION_VARIABLE = props.getProperty("result.citation.variable");
+	        DEFAULT_STYLENAME = props.getProperty("default.stylename");
+	        DEFAULT_REPORTNAME = props.getProperty("default.reportname");
+	        CITATION_XML_FILENAME = props.getProperty("citation.xml.filename");
+	        KEEP_OLD_SCRIPTLETS = Boolean.parseBoolean(props.getProperty("keep.old.scriptlets")); 
+	        KEEP_COMPILER_KEEP_JAVA_FILE = Boolean.parseBoolean(props.getProperty("keep.compiler.keep.java.file"));
+	        CREATE_JRXML = Boolean.parseBoolean(props.getProperty("create.jrxml"));
+	        REPORT_XML_ROOT_XPATH = props.getProperty("report.xml.root.xpath");
+
+	}
 	/**
      * Loads FontStyleCollection from XML
      * @param path A path to the directory of CitationStyle
@@ -319,6 +274,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //            		path +
             		ResourceUtil.getPathToCitationStyles()
             		+ name 
+            		+ "/"
             		+ CITATION_XML_FILENAME
             );
         } catch (Exception e) {
@@ -354,7 +310,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     private void writeCitationStyleToXml(File path, String name) throws IOException, SAXException, CitationStyleManagerException {
         try {
-            csc.writeToXml(path + "/" + name + CITATION_XML_FILENAME);
+            csc.writeToXml(path + "/" + name + "/" + CITATION_XML_FILENAME);
         } catch (IOException e) {
             throw new IOException("Cannot write to XML:" + e);
         } catch (SAXException e) {
@@ -385,9 +341,18 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         return variablesMap.containsKey(name);
     }
 
+    /**
+     * Add JasperReport field
+     * @param name is name of field
+     * @param description is XPath to the field in DataSource 
+     * @throws JRException
+     */
     private void addJRField(String name, String description) throws JRException{
         if (findInFieldsMap(name))
+        {
+        	logger.info("Field " + name + " is already in the hash of fields");
             return;
+        }
         JRDesignField field = new JRDesignField();
         field.setName(name);
         field.setDescription(description);
@@ -395,9 +360,16 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         dataSet.addField(field);
     }
 
+    /**
+     * Add JasperReport variable
+     * @param name is name of field
+     * @param description is XPath to the variable in DataSource 
+     * @throws JRException
+     */
     private void addJRVariable(String name, String expr) throws JRException {
         // add Variable to JasperDesign
         if (findInVariablesMap(name)) {
+        	logger.info("Variable " + name + " is already in the hash of varaibles");
             return;
         }
         JRDesignVariable variable = new JRDesignVariable();
@@ -414,27 +386,36 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      /**
       * Fills JRFields[] of jasper report with
       * elements are taken according to CitationElements.xsd
+     * @throws IOException 
+     * @throws FileNotFoundException 
       */
-     private void addDefaultJRFields() throws JRException {
-         // Note: Hardcoded for the moment,
-         // should be taken from CitationElements.xsd directly
-         // next release ???
-
-         //     Here go not repeatable parameters
-    	 for (String[] s : defaultFields) 
-             addJRField(s[0], s[1]);
+     private void addDefaultJRFields() throws JRException, FileNotFoundException, IOException {
+    	 
+    	Properties props = ResourceUtil.getProperties(ResourceUtil.CITATIONSTYLES_DIRECTORY, "fields.properties");
+    	Iterator iter = props.keySet().iterator(); 
+    	while (iter.hasNext())
+    	{
+    		String str = (String)iter.next(); 
+    		addJRField(str, props.getProperty(str));
+    	}
      }
-
 
      
      /**
       * Add default variables of report  
      * @throws JRException
+     * @throws IOException 
+     * @throws FileNotFoundException 
      */
-    private void addDefaultJRVariables() throws JRException {
-    	for (String[] s : defaultVariables) 
-    		addJRVariable(s[0], s[1]);    	
-        addJRVariable(RESULT_CITATION_VARIABLE, "");
+    private void addDefaultJRVariables() throws JRException, FileNotFoundException, IOException {
+    	
+    	Properties props = ResourceUtil.getProperties(ResourceUtil.CITATIONSTYLES_DIRECTORY, "variables.properties");
+    	Iterator iter = props.keySet().iterator(); 
+    	while (iter.hasNext())
+    	{
+    		String str = (String)iter.next(); 
+    		addJRVariable(str, props.getProperty(str));
+    	}
       }
 
     /**
@@ -447,7 +428,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	char where = 
     		findInFieldsMap(ref) ? 'F' : 
     			findInVariablesMap(ref) ? 'V' : 'E' ;
-    	if (where=='E')
+    	if (where == 'E')
     		throw new CitationStyleManagerException("reference:<" + ref + "> is neither in Fields nor in Variables.");
     	return where;
     }
@@ -502,11 +483,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             Parameters p = parameters;
             String sw = p.getStartsWith();
             String ew = p.getEndsWith();
-            if (sw!=null && sw.length()>0)
+            if ( sw!=null && sw.length()>0 )
                 str = sw;
-            if (ew!=null && ew.length()>0)
+            if ( ew!=null && ew.length()>0 )
                 str += ew;
-            if (str.length()==0 )
+            if ( str.length()==0 )
                 throw new CitationStyleManagerException("Layout Element has no reference, no elements and it is not static element:<" + le.getName() + ">, id:<" + le.getId() + ">");
             else
                 expr = "\"\"";
@@ -719,13 +700,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
     
     
-    public void parseCitationStyle(CitationStyle cs) throws CitationStyleManagerException, JRException {
+    public void parseCitationStyle(CitationStyle cs) throws CitationStyleManagerException, JRException, FileNotFoundException, IOException {
 
         // walkaround through all csLayoutDefinitions
         String expr = "";
 
         ps = new ProcessScriptlet(cs.getName());
-        
         
         for (LayoutElement csld : cs.getCsLayoutDefinitions()) {
             addLayoutElementToVariablesMap(csld);
@@ -833,8 +813,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * Loads test JasperDesign XML file
      * @param name is name of CitationStyle
      * @throws CitationStyleManagerException 
+     * @throws IOException 
+     * @throws FileNotFoundException 
      */
-    public void loadCitationStyleTestJRXml() throws JRException, CitationStyleManagerException{
+    public void loadCitationStyleTestJRXml() throws JRException, CitationStyleManagerException, FileNotFoundException, IOException{
         try {
             jasperDesign = JRXmlLoader.load(
             		ResourceUtil.CITATIONSTYLES_DIRECTORY 
@@ -938,22 +920,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     }
 
 
-    /**
-     * Copies one bin file to other 
-     * @param in An input file
-     * @param out An output file
-     * @throws IOException
-     */
-    public static void copyFileToFile(File in, File out) throws  IOException {
-        int b;                // the byte read from the file
-        BufferedInputStream is = new BufferedInputStream(new FileInputStream(in));
-        BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(out));
-        while ((b = is.read( )) != -1) {
-            os.write(b);
-        }
-        is.close( );
-        os.close( );
-    }
     
     /**
      * Creates new CitationStyle directory on hand of existende CitationStyle
@@ -962,7 +928,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @param templName A name of template CitationStyle
      * @throws Exception
      * @throws JRException
-     * @throws IOException 
+     * @throws IOException  
      * @throws CitationStyleManagerException 
      * @throws SAXException 
      * @throws CitationStyleManagerException 
@@ -981,7 +947,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                         }
                     );
             for (String fn : files) 
-                copyFileToFile(new File(templPath, fn), new File(newPath, fn));
+                ResourceUtil.copyFileToFile(new File(templPath, fn), new File(newPath, fn));
             
         } else {
             throw new IOException("Cannot create new directory for CitationStyle:" + newPath );
@@ -1216,8 +1182,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
 		File csPath = getCsPath(root);
 		
-		
-        ProcessScriptlet.cleanUpScriptlets(root, csName);
+        ProcessScriptlet.cleanUpScriptlets(root, csName, KEEP_OLD_SCRIPTLETS);
         loadCitationStyleBundle(csPath, csName);
         parseAll(csPath, csName);
         saveCitationStyleBundle(csPath, csName);
@@ -1262,26 +1227,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 params,
                 new JRXmlDataSource(document, REPORT_XML_ROOT_XPATH)
          );
-
-
         
         logger.info("JasperFillManager.fillReportToFile : " + (System.currentTimeMillis() - start));        
-        
-        
-
 	}
 
-//	private void removeNamespacePrefixes(Node node, int level) 
-//	{
-//		System.out.println("node: " + node.getNodeName() + ", text: " + node.getTextContent());
-//		System.out.println("--->getNamespaceURI: " + node.getNamespaceURI());
-//		node.setPrefix(null);
-//		NodeList list = node.getChildNodes();
-//        for (int i=0; i<list.getLength(); i++) {
-//            Node childNode = list.item(i);
-//            removeNamespacePrefixes(childNode, level+1);
-//        }		
-//	}
 	
 	/**
 	 * @param csName
@@ -1292,7 +1241,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	public void fillReport(String csName, File dsFile) throws IOException, JRException {
 		
 		fillReport(csName, dsFile, DEFAULT_REPORTNAME );
-		
 	};
 
 	/**
@@ -1332,7 +1280,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		if (OutFormats.snippet == OutFormats.valueOf(outFormat))  
 		{
 			ProcessSnippet psn = new ProcessSnippet();
-			psn.export(document, params, is, os);
+			psn.export(document, REPORT_XML_ROOT_XPATH, params, is, os);
 			return;
 		}
 		
@@ -1596,7 +1544,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             return;
         }
 
-        int k = 0;
+        int k = 0; 
         while ( args.length > k )
         {
             if ( args[k].startsWith("-T") )
@@ -1746,7 +1694,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 try {
                 	xh.validateCitationStyleXML(
                 			ResourceUtil.getPathToCitationStyles()
-                			+ csName + CITATION_XML_FILENAME );
+                			+ csName + "/" + pcs.CITATION_XML_FILENAME );
                 	logger.info("Citation Style XML file for " + csName + " is valid.");
             	}catch (CitationStyleManagerException e){
             		logger.info("Citation Style definition file:" + csName + " is not valid.\n" + e.toString());
@@ -1765,9 +1713,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     }
 
     /**
+     * @throws IOException 
+     * @throws FileNotFoundException 
      *
      */
-    private static void usage()
+    private static void usage() throws FileNotFoundException, IOException
     {
         logger.debug( "ProcessCitationStyles usage:" );
         logger.debug( "\tjava ProcessCitationStyles -Ttask -CScitationstyle -DSdatasource" );
@@ -1794,15 +1744,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         if (!err) {
             logger.debug("Sucessfully processed!");
         }
-
-
     }
-
-
     
-
 }
-
 
 
 
