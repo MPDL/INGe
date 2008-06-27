@@ -29,13 +29,17 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
@@ -64,6 +68,22 @@ public class ResourceUtil
     
     public final static String EXPLAIN_FILE = "explain-styles.xml";
    
+    /**
+     * Copies one bin file to other 
+     * @param in An input file
+     * @param out An output file
+     * @throws IOException
+     */
+    public static void copyFileToFile(File in, File out) throws  IOException {
+        int b;                // the byte read from the file
+        BufferedInputStream is = new BufferedInputStream(new FileInputStream(in));
+        BufferedOutputStream os = new BufferedOutputStream(new FileOutputStream(out));
+        while ((b = is.read( )) != -1) {
+            os.write(b);
+        }
+        is.close( );
+        os.close( );
+    }    
 
     /**
      * Gets a resource as InputStream.
@@ -251,9 +271,41 @@ public class ResourceUtil
 			getPathToClasses().equals(RESOURCES_DIRECTORY_JAR) ?
 					RESOURCES_DIRECTORY_JAR : 
 					RESOURCES_DIRECTORY_LOCAL;
-					
-		
 	}     
 	
+	
+    /**
+     * Load citman properties 
+     * @param path - relative path to the prop file  
+     * @param fileName - name of the prop file 
+     * @return properties
+     * @throws IOException 
+     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    public static Properties getProperties(String path, String fileName) throws FileNotFoundException, IOException  
+    {
+    	InputStream is = ResourceUtil.getResourceAsStream(
+    			ResourceUtil.getPathToResources()
+    			+ (path!=null && !path.trim().equals("") ? path + "/": "")
+    			+ fileName
+    	); 
+    	Properties props = new Properties();
+    	props.load(is);
+		return props;
+    }	
+    /**
+     * Load citman properties 
+     * @param fileName - file name of the properties  
+     * @return properties
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
+    
+    public static Properties getProperties(String fileName) throws FileNotFoundException, IOException 
+    {
+    	return getProperties("", fileName);
+    }	
 
 }
