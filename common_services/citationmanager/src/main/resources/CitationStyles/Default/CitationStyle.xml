@@ -12,9 +12,21 @@
 
   <citationStyle name="Default" element-specific="yes" readOnly="true">
 
-    <!-- Journal or Magazine Article -->
 
-     <csLayoutDefinition name="JournalOrMagazineArticle">
+    <!-- Print warning message for non-publication items -->
+    <csLayoutDefinition name="isNotPublication">
+    	<parameters>
+    		<validIf><![CDATA[$F{publication}.equals("")]]></validIf>
+    		<startsWith value="There are not citaion style layout for item: " />
+    		<endsWith value=".\n\n" />
+    	</parameters>
+    	<elements>
+    		<layoutElement ref="obji"/>
+    	</elements>
+    </csLayoutDefinition>
+
+    <!-- Journal or Magazine Article -->
+    <csLayoutDefinition name="JournalOrMagazineArticle">
         <parameters>
           <validIf><![CDATA[$F{genre}.equals("Article") || $F{genre}.equals("Issue") || $F{genre}.equals("Paper")]]></validIf>
           <endsWith value=".\n\n"/>
