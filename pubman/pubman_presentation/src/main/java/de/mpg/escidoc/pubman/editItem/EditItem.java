@@ -313,11 +313,14 @@ public class EditItem extends FacesBean
     	// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getEditItemSessionBean().getFiles().size() < 1)
     	{
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, new FileVO(), false));
+    	    FileVO newFile = new FileVO();
+    	    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     	}
     	if(this.getEditItemSessionBean().getLocators().size() < 1)
     	{
     		FileVO newLocator = new FileVO();
+    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
     }
@@ -1011,6 +1014,7 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
     		FileVO newLocator = new FileVO();
+    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     	}
     	return "loadEditItem";

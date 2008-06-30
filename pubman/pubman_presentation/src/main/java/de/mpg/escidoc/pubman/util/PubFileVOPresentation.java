@@ -38,6 +38,7 @@ public class PubFileVOPresentation extends FacesBean {
 	public PubFileVOPresentation()
 	{
 		this.file = new FileVO();
+		file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	}
 	
 	public PubFileVOPresentation(int fileIndex, boolean isLocator)
@@ -45,6 +46,14 @@ public class PubFileVOPresentation extends FacesBean {
 		this.file = new FileVO();
 		this.index = fileIndex; 
 		this.isLocator = isLocator;
+		if (isLocator)
+		{
+		    file.setStorage(FileVO.Storage.EXTERNAL_URL);
+		}
+		else
+		{
+		    file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+		}
 	}
 	
 	public PubFileVOPresentation(int fileIndex, FileVO file)

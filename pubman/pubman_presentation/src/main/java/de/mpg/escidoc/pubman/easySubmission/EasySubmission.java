@@ -195,11 +195,13 @@ public class EasySubmission extends FacesBean
     		{
     			// add a locator
     			FileVO newLocator = new FileVO();
+    			newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
     			FileVO newFile = new FileVO();
+    			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
@@ -207,6 +209,7 @@ public class EasySubmission extends FacesBean
     		{
     			// add a file
     			FileVO newFile = new FileVO();
+    			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
@@ -214,6 +217,7 @@ public class EasySubmission extends FacesBean
     		{
     			//add a locator
     			FileVO newLocator = new FileVO();
+    			newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
@@ -297,6 +301,7 @@ public class EasySubmission extends FacesBean
     	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0 && this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     	{
     		FileVO newFile = new FileVO();
+    		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     		this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     	}
@@ -869,6 +874,7 @@ public class EasySubmission extends FacesBean
     		if(this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
     		{
     			FileVO newFile = new FileVO();
+    			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     		}

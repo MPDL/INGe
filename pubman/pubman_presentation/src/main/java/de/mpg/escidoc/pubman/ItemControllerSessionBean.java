@@ -641,10 +641,10 @@ public class ItemControllerSessionBean extends FacesBean
         	newPubItem.getMetadata().setTitle(new TextVO());
         }
         // File
-        if (newPubItem.getFiles().size() == 0)
-        {
-        	newPubItem.getFiles().add(new FileVO());
-        }
+//        if (newPubItem.getFiles().size() == 0)
+//        {
+//        	newPubItem.getFiles().add(new FileVO());
+//        }
         // Creator
         if (newPubItem.getMetadata().getCreators().size() == 0)
         {

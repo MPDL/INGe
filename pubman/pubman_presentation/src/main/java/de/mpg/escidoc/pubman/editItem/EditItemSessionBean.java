@@ -86,11 +86,14 @@ public class EditItemSessionBean extends FacesBean
 		// make sure that at least one locator and one file is stored in the  EditItemSessionBean
     	if(this.getFiles().size() < 1)
     	{
-    		this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), new FileVO(), false));
+    	    FileVO newFile = new FileVO();
+    	    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    		this.getFiles().add(new PubFileVOPresentation(this.getFiles().size(), newFile, false));
     	}
     	if(this.getLocators().size() < 1)
     	{
     		FileVO newLocator = new FileVO();
+    		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
 	}
