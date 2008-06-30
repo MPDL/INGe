@@ -149,7 +149,7 @@
 	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
 	<iso:pattern name="creator_role_required" id="creator_role_required">
 		<iso:rule context="publication:source">
-			<!-- <iso:assert test="escidoc:creator/@role != '' or not(normalize-space(escidoc:creator) != '' or escidoc:creator//*/@* != '')">SourceCreatorRoleNotProvided</iso:assert> -->
+			<iso:assert test="escidoc:creator/@role != '' or not(escidoc:creator/escidoc:person/escidoc:family-name != '' or escidoc:creator/escidoc:person/escidoc:given-name != '' or escidoc:creator//escidoc:organization/escidoc:organization-name != '' or escidoc:creator//escidoc:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
