@@ -187,7 +187,7 @@
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
 
 			<!-- If a file is given, the mime type is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:mime-type != ''">ComponentMimeTypeNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:mime-type != '' or escidocComponents:content/@storage = 'external-url'">ComponentMimeTypeNotProvided</iso:assert>
 	
 			<!-- If a file is given, the visibility is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
