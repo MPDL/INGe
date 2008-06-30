@@ -11,9 +11,9 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="Port" hostName="BindAddress">
-            <attribute name="RmiPort">11098</attribute>
+            <attribute name="RmiPort">1098</attribute>
          </delegate-config>
-         <binding port="11099" host="${jboss.bind.address}"/>
+         <binding port="1099" host="${jboss.bind.address}"/>
       </service-config>
 
 
@@ -29,14 +29,14 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="RMIObjectPort"/>
-         <binding port="14444"/>
+         <binding port="4444"/>
       </service-config>
 
       <service-config name="jboss:service=invoker,type=pooled"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="ServerBindPort"/>
-         <binding port="14445"/>
+         <binding port="4445"/>
       </service-config>
 
 
@@ -45,21 +45,21 @@
       <service-config name="jboss:service=HAJNDI"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate">
          <delegate-config portName="Port" hostName="BindAddress">
-            <attribute name="RmiPort">11101</attribute>
+            <attribute name="RmiPort">1101</attribute>
          </delegate-config>
-         <binding port="11100" host="${jboss.bind.address}"/>
+         <binding port="1100" host="${jboss.bind.address}"/>
       </service-config>
 
       <service-config name="jboss:service=invoker,type=jrmpha"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate">
          <delegate-config portName="RMIObjectPort"/>
-         <binding port="14444"/>
+         <binding port="4444"/>
       </service-config>
 
       <service-config name="jboss:service=invoker,type=pooledha"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate">
          <delegate-config portName="ServerBindPort"/>
-         <binding port="14448"/>
+         <binding port="4448"/>
       </service-config>
 
       <!-- ********************* iiop-service.xml ****************** -->
@@ -68,7 +68,7 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="Port"/>
-         <binding port="13528"/>
+         <binding port="3528"/>
       </service-config>
 
 
@@ -78,7 +78,7 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="RMIObjectPort"/>
-         <binding port="29001"/>
+         <binding port="19001"/>
       </service-config>
 
 
@@ -88,14 +88,14 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="Port"/>
-         <binding port="11162"/>
+         <binding port="1162"/>
       </service-config>
 
       <service-config name="jboss.jmx:name=SnmpAgent,service=snmp,type=adaptor"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="Port"/>
-         <binding port="11161"/>
+         <binding port="1161"/>
       </service-config>
 
 
@@ -106,7 +106,7 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
          >
          <delegate-config portName="ServerBindPort"/>
-         <binding port="18093"/>
+         <binding port="8093"/>
       </service-config>
 
 
@@ -131,11 +131,11 @@
             <attribute name="Properties"><![CDATA[
                 java.naming.factory.initial=org.jnp.interfaces.NamingContextFactory
                 java.naming.factory.url.pkgs=org.jboss.naming:org.jnp.interfaces
-                java.naming.provider.url=${jboss.bind.address:localhost}:11100
+                java.naming.provider.url=${jboss.bind.address:localhost}:1100
                 jnp.disableDiscovery=false
                 jnp.partitionName=${jboss.partition.name:DefaultPartition}
                 jnp.discoveryGroup=${jboss.partition.udpGroup:230.0.0.4}
-                jnp.discoveryPort=11102
+                jnp.discoveryPort=1102
                 jnp.discoveryTTL=16
                 jnp.discoveryTimeout=5000
                 jnp.maxRetries=1
@@ -144,7 +144,7 @@
         </delegate-config>
         <!-- NOTE: YOU MUST ADD THIS ELEMENT, BUT THE VALUE DOESN'T MATTER
              BE SURE THE CORRECT VALUE IS IN java.naming.provider.url ABOVE -->
-        <binding port="11100"/>
+        <binding port="1100"/>
       </service-config>
 
       <!-- **************** http-invoker.sar & httpha-invoker.sar*************** -->
@@ -167,9 +167,9 @@
       <service-config name="jboss.remoting:type=Connector,name=DefaultEjb3Connector,handler=ejb3"
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate">
         <delegate-config>
-           <attribute name="InvokerLocator">socket://${jboss.bind.address}:13873</attribute>
+           <attribute name="InvokerLocator">socket://${jboss.bind.address}:3873</attribute>
         </delegate-config>
-         <binding port="13873"/>
+         <binding port="3873"/>
       </service-config>
 
         <!-- JMXInvoker -->
@@ -261,7 +261,7 @@
           ]]>
           </xslt-config>
           </delegate-config>
-          <binding port="14446" />
+          <binding port="4446" />
        </service-config>
 
 
@@ -304,7 +304,7 @@
          delegateClass="org.jboss.services.binding.AttributeMappingDelegate"
       >
          <delegate-config portName="Port" />
-         <binding port="11701" />
+         <binding port="1701" />
       </service-config>
       -->
 
@@ -371,9 +371,9 @@
       <service-config name="jboss.messaging:service=Connector,transport=socket"
                       delegateClass="org.jboss.services.binding.AttributeMappingDelegate">
          <delegate-config>
-            <attribute name="InvokerLocator">socket://${jboss.bind.address}:14457/?dataType=jms&amp;serializationtype=jms&amp;timeout=0&amp;leasePeriod=20000&amp;socket.check_connection=false&amp;marshaller=org.jboss.jms.server.remoting.JMSWireFormat&amp;unmarshaller=org.jboss.jms.server.remoting.JMSWireFormat</attribute>
+            <attribute name="InvokerLocator">socket://${jboss.bind.address}:4457/?dataType=jms&amp;serializationtype=jms&amp;timeout=0&amp;leasePeriod=20000&amp;socket.check_connection=false&amp;marshaller=org.jboss.jms.server.remoting.JMSWireFormat&amp;unmarshaller=org.jboss.jms.server.remoting.JMSWireFormat</attribute>
          </delegate-config>
-         <binding port="14457"/>
+         <binding port="4457"/>
       </service-config>
 
    </server>
