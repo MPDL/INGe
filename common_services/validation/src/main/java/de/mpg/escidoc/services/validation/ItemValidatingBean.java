@@ -105,12 +105,12 @@ public class ItemValidatingBean implements ItemValidating
     {
 
         String context = findContext(itemXml);
-        String contentType = findContentType(itemXml);
+        String contentType = findContentModel(itemXml);
 
         return validateItemXml(itemXml, validationPoint, context, contentType);
     }
 
-    private String findContentType(final String itemXml) throws TechnicalException
+    private String findContentModel(final String itemXml) throws TechnicalException
     {
         try
         {
@@ -123,7 +123,7 @@ public class ItemValidatingBean implements ItemValidating
             }
             else
             {
-                throw new TechnicalException("No content-type in xml");
+                throw new TechnicalException("No content model in xml");
             }
         }
         catch (Exception ioe)
@@ -191,7 +191,7 @@ public class ItemValidatingBean implements ItemValidating
             TechnicalException
     {
 
-        String contentType = findContentType(itemXml);
+        String contentType = findContentModel(itemXml);
         return validateItemXmlBySchema(itemXml, validationPoint, validationSchema, contentType);
     }
 
