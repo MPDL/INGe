@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<report xmlns="http://www.escidoc.de/schemas/report/0.3">
+    <report-definition objid="86"/>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:5</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>2</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:1</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>141</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>72</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:6</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>10</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:4</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>13</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:7</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>17</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:8</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>13</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:2</stringvalue>
+        </parameter>
+        <parameter name="itemrequests">
+            <decimalvalue>1</decimalvalue>
+        </parameter>
+    </report-record>
+    <report-record>
+        <parameter name="itemid">
+            <stringvalue>escidoc:1641:3</stringvalue>
+        </parameter>
+        <parameter name="lastitemretrieval">
+            <datevalue>2005-05-07</datevalue>
+        </parameter>
+    </report-record>
+</report>

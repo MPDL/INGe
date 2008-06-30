@@ -54,6 +54,9 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 
@@ -348,4 +351,14 @@ public interface XmlTransforming
     public String transformToContainer(ContainerVO containerVO) throws TechnicalException;
     
     public String transformToContainerList(List<? extends ContainerVO> containerVOList) throws TechnicalException;
+    
+    public List<StatisticReportRecordVO> transformToStatisticReportRecordList (String statisticReportXML) throws TechnicalException;
+    
+    public String transformToStatisticReportParameters (StatisticReportParamsVO statisticReportParams) throws TechnicalException;
+    
+    public List<StatisticReportDefinitionVO> transformToStatisticReportDefinitionList(String reportDefinitionList) throws TechnicalException;
+    
+    public String transformToStatisticReportDefinition(StatisticReportDefinitionVO reportDef) throws TechnicalException;
+    
+    public StatisticReportDefinitionVO transformToStatisticReportDefinition(String reportDefXML) throws TechnicalException;
 }

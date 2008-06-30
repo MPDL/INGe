@@ -22,38 +22,38 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
+package de.mpg.escidoc.services.common.valueobjects.statistics;
 
-package test;
+import java.util.List;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
-import test.metadata.MetadataTest;
-import test.referenceobjects.ReferenceObjectTest;
-import test.valueobjects.ValueObjectTest;
-import test.valueobjects.comparator.ComparatorTest;
-import test.xmltransforming.XmlTransformingTest;
-import test.xmltransforming.component.TransformStatisticReportTest;
 
 /**
- * Component test suite for common_logic.
+ * VO class representing a statistic report-record
  *
- * @author Peter Broszeit (initial creation)
- * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
- * @revised by MuJ: 06.09.2007
+ * @author Markus Haarlaender (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ReferenceObjectTest.class
-                    ,ValueObjectTest.class                                        
-                    ,ComparatorTest.class
-                    ,XmlTransformingTest.class
-                    ,MetadataTest.class
-                    })
-public class TestCommonLogic
+public class StatisticReportRecordVO extends ValueObject
 {
+    private List<StatisticReportRecordParamVO> paramList;
+
+    public List<StatisticReportRecordParamVO> getParamList()
+    {
+        return paramList;
+    }
+
+    public void setParamList(List<StatisticReportRecordParamVO> paramList)
+    {
+        this.paramList = paramList;
+    }
+    
 }

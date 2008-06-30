@@ -103,6 +103,8 @@
 										</include>
 										<include name="bindings_Grant.xml">
 										</include>
+										<include name="bindings_StatisticReportVO.xml">
+										</include>
 									</bindingfileset>
 									<classpathset dir="${project.build.outputDirectory}">
 									</classpathset>

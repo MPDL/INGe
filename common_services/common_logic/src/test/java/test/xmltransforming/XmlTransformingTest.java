@@ -44,6 +44,7 @@ import test.xmltransforming.component.TransformParamTest;
 import test.xmltransforming.component.TransformPubItemTest;
 import test.xmltransforming.component.TransformPubItemVersionListTest;
 import test.xmltransforming.component.TransformRelationTest;
+import test.xmltransforming.component.TransformStatisticReportTest;
 
 /**
  * Component test suite for XmlTransforming.
@@ -63,7 +64,8 @@ import test.xmltransforming.component.TransformRelationTest;
                      TransformContextTest.class,
                      TransformPubItemTest.class,
                      TransformRelationTest.class,
-                     TransformPubItemVersionListTest.class
+                     TransformPubItemVersionListTest.class,
+                     TransformStatisticReportTest.class
                     })
 public class XmlTransformingTest extends TestBase
 {

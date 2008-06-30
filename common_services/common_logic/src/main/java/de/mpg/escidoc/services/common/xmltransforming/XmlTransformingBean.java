@@ -43,6 +43,7 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
+import javax.management.j2ee.statistics.Stats;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
@@ -87,6 +88,9 @@ import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
@@ -99,6 +103,8 @@ import de.mpg.escidoc.services.common.xmltransforming.wrappers.ExportFormatVOLis
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.MemberListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportDefinitionVOListWrapper;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.URLWrapper;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -1304,4 +1310,187 @@ public class XmlTransformingBean implements XmlTransforming
         return contList;
     }
     
+    
+    
+    public List<StatisticReportRecordVO> transformToStatisticReportRecordList (String statisticReportXML) throws TechnicalException
+    {
+        
+            logger.debug("transformToStatisticReportRecordList(String) - String containerList=\n" + statisticReportXML);
+            if (statisticReportXML == null)
+            {
+                throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerList:containerList is null");
+            }
+            StatisticReportWrapper statisticReportWrapper = null;
+            try
+            {
+                // unmarshal StatisticReport from String
+                IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportWrapper.class);
+                IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+                StringReader sr = new StringReader(statisticReportXML);
+                Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+                statisticReportWrapper = (StatisticReportWrapper)unmarshalledObject;
+            }
+            catch (JiBXException e)
+            {
+                // throw a new UnmarshallingException, log the root cause of the JiBXException first
+                logger.error(e.getRootCause());
+                throw new UnmarshallingException(statisticReportXML, e);
+            }
+            catch (ClassCastException e)
+            {
+                throw new TechnicalException(e);
+            }
+           
+
+            if (statisticReportWrapper.getStatisticReportRecordVOList() != null)
+            {
+                return statisticReportWrapper.getStatisticReportRecordVOList();
+            }
+            else return new ArrayList<StatisticReportRecordVO>();
+           
+        
+    }
+
+    public String transformToStatisticReportParameters(StatisticReportParamsVO statisticReportParams)throws TechnicalException
+    {
+        logger.debug("transformToStatisticReportParameters()");
+        if (statisticReportParams == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticReportParameters:StatisticReportParamsVO is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportParamsVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(statisticReportParams, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(statisticReportParams.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToStatisticReportParameters() - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
+    }
+
+    public List<StatisticReportDefinitionVO> transformToStatisticReportDefinitionList(String reportDefinitionList)
+            throws TechnicalException
+    {
+
+        logger.debug("transformToStatisticReportDefinitionList(String) - String reportDefinitionList=\n" + reportDefinitionList);
+        if (reportDefinitionList == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticReportDefinitionList: reportDefinitionList is null");
+        }
+        StatisticReportDefinitionVOListWrapper statisticReportDefinitionVOWrapper = null;
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportDefinitionVOListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(reportDefinitionList);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            statisticReportDefinitionVOWrapper = (StatisticReportDefinitionVOListWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(reportDefinitionList, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+       
+        if (statisticReportDefinitionVOWrapper.getRepDefList() != null)
+        {
+            return statisticReportDefinitionVOWrapper.getRepDefList();
+        }
+        else return new ArrayList<StatisticReportDefinitionVO>();
+        
+    }
+
+    public String transformToStatisticReportDefinition(StatisticReportDefinitionVO reportDef) throws TechnicalException
+    {
+        logger.debug("transformToStatisticReportDefinition()");
+        if (reportDef == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticReportDefinition:reportDef is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportDefinitionVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(reportDef, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(reportDef.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToStatisticReportDefinition() - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
+    }
+
+    public StatisticReportDefinitionVO transformToStatisticReportDefinition(String reportDefXML)
+            throws TechnicalException
+    {
+        logger.debug("transformToStatisticReportDefinition(String) - String reportDefinition=\n" + reportDefXML);
+        if (reportDefXML == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToStatisticReportDefinition: reportDefXML is null");
+        }
+        StatisticReportDefinitionVO statisticReportDefinitionVO = null;
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("StatisticReport", StatisticReportDefinitionVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(reportDefXML);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            statisticReportDefinitionVO = (StatisticReportDefinitionVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(reportDefXML, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+       
+
+        return statisticReportDefinitionVO;
+    }
 }

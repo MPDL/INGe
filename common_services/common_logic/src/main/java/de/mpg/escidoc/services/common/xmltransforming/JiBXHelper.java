@@ -80,6 +80,9 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.ReviewMethod;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
+import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongDateException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumException;
 
@@ -405,7 +408,42 @@ public class JiBXHelper
     {
         return new ArrayList<TextVO>();
     }
+    
 
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportRecordVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;StatisticReportRecordVO></code>
+     */
+    public static List<StatisticReportRecordVO> statisticReportRecordVOListFactory()
+    {
+        return new ArrayList<StatisticReportRecordVO>();
+    }
+    
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportRecordParamVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;StatisticReportRecordParamVO></code>
+     */
+    public static List<StatisticReportRecordParamVO> statisticReportRecordParamVOListFactory()
+    {
+        return new ArrayList<StatisticReportRecordParamVO>();
+    }
+    
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;StatisticReportDefinitionVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;StatisticReportDefinitionVO></code>
+     */
+    public static List<StatisticReportDefinitionVO> statisticReportDefinitionVOListFactory()
+    {
+        return new ArrayList<StatisticReportDefinitionVO>();
+    }
+
+    
     /**
      * Factory method to create a <code>java.net.URL</code>
      * 
