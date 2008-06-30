@@ -36,17 +36,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+
 import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
+
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.util.FrameworkUtil;
-import de.mpg.escidoc.services.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.ItemValidating;
 
 /**
