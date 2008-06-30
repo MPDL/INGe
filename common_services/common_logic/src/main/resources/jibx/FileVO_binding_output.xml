@@ -61,8 +61,9 @@
 				field="description" usage="optional" />
 
 			<!-- Node: component.properties.status -->
-			<!-- IGNORED -->
-			<structure name="valid-status" ns="${xsd.soap.common.prop}" usage="optional" />
+			<!-- mandatory in XML, useless in VO -->
+			<value style="element" name="valid-status" ns="${xsd.soap.common.prop}"
+				constant="valid" />
 
 			<!-- Node: component.properties.visibility -->
 			<!-- Field: PubFileVO.visibility[PubFileVO.Visibility] -->
@@ -94,7 +95,7 @@
 
 			<!-- Node: component.properties.file-size (discarded) -->
 			<!-- Field: PubFileVO.size[int] -->
-<!--			<value style="element" name="file-size" ns="${xsd.soap.item.components}" field="size" />-->
+<!--			<value style="element" name="file-size" ns="${xsd.soap.common.prop}" field="size" />-->
 
 			<!-- Node: component.properties.locator-url -->
 			<!-- Field: PubFileVO.locator[String] -->
@@ -117,5 +118,10 @@
 
 		</structure>
 
+		<!-- Node: component.md-records -->
+		<structure field="metadataSets" name="md-records" ns="${xsd.soap.common.mdrecords}"
+			marshaller="de.mpg.escidoc.services.common.xmltransforming.MetadataSetMarshaller" usage="optional">
+		</structure>
+		
 	</mapping>
 </binding>

@@ -61,9 +61,8 @@
 				field="description" usage="optional" />
 
 			<!-- Node: component.properties.status -->
-			<!-- mandatory in XML, useless in VO -->
-			<value style="element" name="valid-status" ns="${xsd.soap.common.prop}"
-				constant="valid" />
+			<!-- IGNORED -->
+			<structure name="valid-status" ns="${xsd.soap.common.prop}" usage="optional" />
 
 			<!-- Node: component.properties.visibility -->
 			<!-- Field: PubFileVO.visibility[PubFileVO.Visibility] -->
@@ -95,7 +94,7 @@
 
 			<!-- Node: component.properties.file-size (discarded) -->
 			<!-- Field: PubFileVO.size[int] -->
-<!--			<value style="element" name="file-size" ns="${xsd.soap.common.prop}" field="size" />-->
+<!--			<value style="element" name="file-size" ns="${xsd.soap.item.components}" field="size" />-->
 
 			<!-- Node: component.properties.locator-url -->
 			<!-- Field: PubFileVO.locator[String] -->
@@ -115,6 +114,24 @@
 				field="storage"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeStorageEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" />
+
+		</structure>
+		
+		<!-- Node: component.md-records -->
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" usage="optional">
+
+			<!-- Node: item.md-records.md-record -->
+			<!-- Field: metadataSets [List<MetadataSetVO>] -->
+			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional">
+
+				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
+					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
+				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
+
+			</collection>
 
 		</structure>
 

@@ -88,6 +88,10 @@
 			<value style="element" name="lock-status" ns="${xsd.soap.common.prop}" field="lockStatus"
 				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeLockStatusEnum"
 				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				
+			<!-- Node: item.properties.pid -->
+			<!-- Field: PubItemVO.pid [String] -->
+			<value style="element" name="pid" ns="${xsd.soap.common.prop}" field="pid" usage="optional" />
 
 			<!-- Node: item.version -->
 			<!-- Field: PubItemVO.version [ItemRO] -->

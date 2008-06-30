@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.escidoc.services.common.referenceobjects.FileRO;
 
 /**
@@ -121,6 +124,8 @@ public class FileVO extends ValueObject implements Cloneable
      */
     private String mimeType;
 
+    private List<MetadataSetVO> metadataSets = new ArrayList<MetadataSetVO>();
+    
     /**
      * Public contructor.
      * 
@@ -482,4 +487,11 @@ public class FileVO extends ValueObject implements Cloneable
             storage = newVal;
         }
     }
+
+    public List<MetadataSetVO> getMetadataSets()
+    {
+        return metadataSets;
+    }
+    
+    
 }

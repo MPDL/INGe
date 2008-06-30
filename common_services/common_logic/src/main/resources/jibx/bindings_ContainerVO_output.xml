@@ -63,7 +63,7 @@
 	<include path="AdminDescriptorVO_binding.xml" />
 	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />
 	<include path="face/FacesAdminDescriptorVO_binding.xml" />
-	<include path="PubItemRelationVO_binding.xml" />
+	<include path="RelationVO_binding.xml" />
 	<include path="ContainerVO_binding_output.xml" />
 	<include path="ContainerVOListWrapper_binding_output.xml" />
 	<include path="face/MdsFaceVO_binding_output.xml" />

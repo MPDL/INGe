@@ -77,33 +77,36 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
             // start by generating start tag for container
             MarshallingContext ctx = (MarshallingContext)ictx;
             List<MetadataSetVO> list = (List<MetadataSetVO>)obj;
-            ctx.startTagAttributes(m_index, m_name).closeStartContent();
-            
-            // loop through all entries in hashmap
-            Iterator<MetadataSetVO> iter = list.iterator();
-            boolean first = true;
-            while (iter.hasNext()) {
-                MetadataSetVO entry = (MetadataSetVO)iter.next();
-                ctx.startTagAttributes(m_index, RECORD_ELEMENT_NAME);
+            if (!list.isEmpty())
+            {
+                ctx.startTagAttributes(m_index, m_name).closeStartContent();
                 
-                logger.debug("m_index: " + m_index);
+                // loop through all entries in hashmap
+                Iterator<MetadataSetVO> iter = list.iterator();
+                boolean first = true;
+                while (iter.hasNext()) {
+                    MetadataSetVO entry = (MetadataSetVO)iter.next();
+                    ctx.startTagAttributes(m_index, RECORD_ELEMENT_NAME);
+                    
+                    logger.debug("m_index: " + m_index);
+                    
+                    if (first) {
+                        ctx.attribute(0, NAME_ATTRIBUTE_NAME,
+                            "escidoc");
+                    }
+                    ctx.closeStartContent();
+                    if (entry instanceof IMarshallable) {
+                        ((IMarshallable)entry).marshal(ctx);
+                        ctx.endTag(m_index, RECORD_ELEMENT_NAME);
+                    } else {
+                        throw new JiBXException("Mapped value is not marshallable (" + entry.getClass().getSimpleName() + ")");
+                    }
+                    first = false;
+                }
                 
-                if (first) {
-                    ctx.attribute(0, NAME_ATTRIBUTE_NAME,
-                        "escidoc");
-                }
-                ctx.closeStartContent();
-                if (entry instanceof IMarshallable) {
-                    ((IMarshallable)entry).marshal(ctx);
-                    ctx.endTag(m_index, RECORD_ELEMENT_NAME);
-                } else {
-                    throw new JiBXException("Mapped value is not marshallable (" + entry.getClass().getSimpleName() + ")");
-                }
-                first = false;
+                // finish with end tag for container element
+                ctx.endTag(m_index, m_name);
             }
-            
-            // finish with end tag for container element
-            ctx.endTag(m_index, m_name);
         }
     }
 

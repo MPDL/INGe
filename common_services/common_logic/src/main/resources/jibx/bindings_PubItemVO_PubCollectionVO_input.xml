@@ -64,16 +64,16 @@
 	<include path="AdminDescriptorVO_binding.xml" />
 	<include path="publication/PublicationAdminDescriptorVO_binding.xml" />
 	<include path="face/FacesAdminDescriptorVO_binding.xml" />
-	<include path="PubCollectionVOListWrapper_binding.xml" />
-	<include path="PubFileVO_binding_input.xml" />
-	<include path="PubItemRelationVO_binding.xml" />
-	<include path="PubItemResultVO_binding_input.xml" />
-	<include path="PubItemVersionVO_binding.xml" />
+	<include path="ContextVOListWrapper_binding.xml" />
+	<include path="FileVO_binding_input.xml" />
+	<include path="RelationVO_binding.xml" />
+	<include path="ItemResultVO_binding_input.xml" />
+	<include path="ItemVersionVO_binding.xml" />
 	<include path="EventLogEntryVO_binding.xml" />
-	<include path="PubItemVersionVOListWrapper_binding.xml" />
-	<include path="PubItemVO_binding_input.xml" />
+	<include path="ItemVersionVOListWrapper_binding.xml" />
+	<include path="ItemVO_binding_input.xml" />
 	<include path="PubItemVO_binding.xml" />
-	<include path="PubItemVOListWrapper_binding_input.xml" />
+	<include path="ItemVOListWrapper_binding_input.xml" />
 	<include path="MemberListWrapper_binding.xml" />
 	<include path="ContainerVO_binding_input.xml" />
 
