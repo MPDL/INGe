@@ -430,6 +430,7 @@
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
 				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
+				<xsd.metadata.file>http://escidoc.mpg.de/metadataprofile/schema/0.1/file</xsd.metadata.file>
 				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
@@ -549,6 +550,7 @@
 				<xsd.soap.container.structmap>http://www.escidoc.de/schemas/structmap/0.4</xsd.soap.container.structmap>
 				<xsd.soap.container.containerlist>http://www.escidoc.de/schemas/containerlist/0.7</xsd.soap.container.containerlist>
 				<xsd.metadata.organization>http://escidoc.mpg.de/metadataprofile/schema/0.1/organization</xsd.metadata.organization>
+				<xsd.metadata.file>http://escidoc.mpg.de/metadataprofile/schema/0.1/file</xsd.metadata.file>
 				<xsd.metadata.publication>http://escidoc.mpg.de/metadataprofile/schema/0.1/publication</xsd.metadata.publication>
 				<xsd.metadata.escidocprofile>http://escidoc.mpg.de/metadataprofile/schema/0.1/</xsd.metadata.escidocprofile>
 				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
