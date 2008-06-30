@@ -347,7 +347,7 @@
 
 				<!-- used by the cargo plugin to run a jboss server for integration-testing /goal: cargo:start-->
 				<cargo.port>8080</cargo.port>
-				<cargo.rmi.port>11099</cargo.rmi.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
@@ -465,7 +465,7 @@
 
 				<!-- used by the cargo plugin to run a jboss server for integration-testing -->
 				<cargo.port>8080</cargo.port>
-				<cargo.rmi.port>11099</cargo.rmi.port>
+				<cargo.rmi.port>1099</cargo.rmi.port>
 				<cargo.log>low</cargo.log>
 				<cargo.jvmargs>-Dcom.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0 -Dpubman.properties.file=./pubman.properties</cargo.jvmargs>
 				<!-- this path is used as root for all jboss installations -->
