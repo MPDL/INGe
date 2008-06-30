@@ -49,6 +49,7 @@
 	<namespace prefix="container-list" uri="${xsd.soap.container.containerlist}" default="none" />
 	<namespace prefix="struct-map" uri="${xsd.soap.container.structmap}" default="none" />
 	<namespace prefix="mods-md" uri="http://www.loc.gov/mods/v3" default="none" />
+	<namespace prefix="file" uri="${xsd.metadata.file}" default="none" />
 
 	<format type="java.util.Date"
 		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
@@ -64,6 +65,7 @@
 	<include path="face/FacesAdminDescriptorVO_binding.xml" />
 	<include path="ContextVOListWrapper_binding.xml" />
 	<include path="FileVO_binding_output.xml" />
+	<include path="file/MdsFileVO_binding_output.xml" />
     <include path="RelationVO_binding.xml" />
     <include path="ItemResultVO_binding_output.xml" />
 	<include path="ItemVO_binding_output.xml" />

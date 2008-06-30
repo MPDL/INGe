@@ -292,14 +292,31 @@ public class MetadataHandlerBean implements MetadataHandler
                     publishingInfoVO.setEdition(BibTexUtil.bibtexDecode(fields.get("edition").toString()));
                 }
 
-                // journal
-                if (fields.get("journal") != null)
+                // fjournal, journal
+                if (fields.get("fjournal") != null)
+                {
+                    if (bibGenre == BibTexUtil.Genre.article
+                            || bibGenre == BibTexUtil.Genre.misc
+                            || bibGenre == BibTexUtil.Genre.unpublished)
+                    {
+                        sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("fjournal").toString())));
+                        sourceVO.setGenre(SourceVO.Genre.JOURNAL);
+                        
+                        if (fields.get("journal") != null)
+                        {
+                            sourceVO.getAlternativeTitles().add(new TextVO(BibTexUtil.bibtexDecode(fields.get("journal").toString())));
+                        }
+
+                    }
+                }
+                else if (fields.get("journal") != null)
                 {
                     if (bibGenre == BibTexUtil.Genre.article
                             || bibGenre == BibTexUtil.Genre.misc
                             || bibGenre == BibTexUtil.Genre.unpublished)
                     {
                         sourceVO.setTitle(new TextVO(BibTexUtil.bibtexDecode(fields.get("journal").toString())));
+                        sourceVO.setGenre(SourceVO.Genre.JOURNAL);
                     }
                 }
 

@@ -65,6 +65,19 @@
                 <prop:file-name>farbtest.gif</prop:file-name>
             </escidocComponents:properties>
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
+            <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
+            	<escidocMetadataRecords:md-record name="escidoc">
+            		<file xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/file" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+						<dc:title>My File</dc:title>
+						<dc:description>This is my file.</dc:description>
+						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>
+						<dc:identifier>http://myFile.com</dc:identifier>
+						<content-category>full text</content-category>
+						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
+						<!--<dcterms:extent>12</dcterms:extent>-->
+					</file>
+            	</escidocMetadataRecords:md-record>
+            </escidocMetadataRecords:md-records>
         </escidocComponents:component>
     </escidocComponents:components>
 </escidocItem:item>

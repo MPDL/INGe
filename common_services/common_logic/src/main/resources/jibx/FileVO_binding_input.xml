@@ -96,11 +96,6 @@
 			<!-- Field: PubFileVO.size[int] -->
 <!--			<value style="element" name="file-size" ns="${xsd.soap.item.components}" field="size" />-->
 
-			<!-- Node: component.properties.locator-url -->
-			<!-- Field: PubFileVO.locator[String] -->
-			<value style="element" name="locator-url" ns="${xsd.soap.common.prop}" field="locator"
-				usage="optional" />
-
 		</structure>
 
 		<structure name="content" ns="${xsd.soap.item.components}" ordered="false" flexible="true">
@@ -126,10 +121,8 @@
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional">
 
-				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
-				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
+				<structure name="file" ns="${xsd.metadata.file}"
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO" usage="optional" />
 
 			</collection>
 

@@ -84,7 +84,10 @@ public class Author
             String init = "";
             for (String name : names)
             {
-                init += name.substring(0, 1) + ". ";
+                if (!"".equals(name))
+                {
+                    init += name.substring(0, 1) + ". ";
+                }
             }
             this.initial = init.trim();
         }

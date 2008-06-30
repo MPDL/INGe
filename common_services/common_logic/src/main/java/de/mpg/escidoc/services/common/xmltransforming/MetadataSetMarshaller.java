@@ -42,13 +42,15 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
     };
     private static final String XSD_PREFIX_LEAD = "xsd:";
 
-    public MetadataSetMarshaller() {
+    public MetadataSetMarshaller()
+    {
         m_uri = null;
         m_index = 0;
         m_name = "md-records";
     }
     
-    public MetadataSetMarshaller(String uri, int index, String name) {
+    public MetadataSetMarshaller(String uri, int index, String name)
+    {
         m_uri = uri;
         m_index = index;
         m_name = name;
@@ -75,8 +77,8 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
         {
             
             // start by generating start tag for container
-            MarshallingContext ctx = (MarshallingContext)ictx;
-            List<MetadataSetVO> list = (List<MetadataSetVO>)obj;
+            MarshallingContext ctx = (MarshallingContext) ictx;
+            List<MetadataSetVO> list = (List<MetadataSetVO>) obj;
             if (!list.isEmpty())
             {
                 ctx.startTagAttributes(m_index, m_name).closeStartContent();
@@ -84,21 +86,26 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
                 // loop through all entries in hashmap
                 Iterator<MetadataSetVO> iter = list.iterator();
                 boolean first = true;
-                while (iter.hasNext()) {
-                    MetadataSetVO entry = (MetadataSetVO)iter.next();
+                while (iter.hasNext())
+                {
+                    MetadataSetVO entry = (MetadataSetVO) iter.next();
                     ctx.startTagAttributes(m_index, RECORD_ELEMENT_NAME);
                     
                     logger.debug("m_index: " + m_index);
                     
-                    if (first) {
+                    if (first)
+                    {
                         ctx.attribute(0, NAME_ATTRIBUTE_NAME,
                             "escidoc");
                     }
                     ctx.closeStartContent();
-                    if (entry instanceof IMarshallable) {
-                        ((IMarshallable)entry).marshal(ctx);
+                    if (entry instanceof IMarshallable)
+                    {
+                        ((IMarshallable) entry).marshal(ctx);
                         ctx.endTag(m_index, RECORD_ELEMENT_NAME);
-                    } else {
+                    }
+                    else
+                    {
                         throw new JiBXException("Mapped value is not marshallable (" + entry.getClass().getSimpleName() + ")");
                     }
                     first = false;
@@ -111,66 +118,9 @@ public class MetadataSetMarshaller implements IMarshaller, IAliasable //, IUnmar
     }
 
     public boolean isPresent(IUnmarshallingContext ictx)
-            throws JiBXException {
+            throws JiBXException
+    {
         return ictx.isAt(m_uri, m_name);
     }
 
-    /* (non-Javadoc)
-     * @see org.jibx.runtime.IUnmarshaller#unmarshal(java.lang.Object,
-     *  org.jibx.runtime.IUnmarshallingContext)
-     */
-//    public Object unmarshal(Object obj, IUnmarshallingContext ictx)
-//        throws JiBXException {
-//        
-//        // make sure we're at the appropriate start tag
-//        UnmarshallingContext ctx = (UnmarshallingContext)ictx;
-//        if (!ctx.isAt(m_uri, m_name)) {
-//            ctx.throwStartTagNameError(m_uri, m_name);
-//        }
-//        
-//        // lookup the prefixes assigned to required namespaces
-//        int nscnt = ctx.getActiveNamespaceCount();
-//        String xsdlead = null;
-//        for (int i = nscnt-1; i >= 0; i--) {
-//            String uri = ctx.getActiveNamespaceUri(i);
-//            if (XSD_NAMESPACE_URI.equals(uri)) {
-//                String prefix = ctx.getActiveNamespacePrefix(i);
-//                if (!"".equals(prefix)) {
-//                    xsdlead = prefix + ':';
-//                    break;
-//                }
-//            }
-//        }
-//        if (xsdlead == null) {
-//            throw new JiBXException
-//                ("Missing required schema namespace declaration");
-//        }
-//        
-//        // create new hashmap if needed
-//        List<MetadataSetVO> list = (List<MetadataSetVO>) obj;
-//        if (list == null) {
-//            list = new ArrayList<MetadataSetVO>();
-//        }
-//        
-//        // process all entries present in document
-//        ctx.parsePastStartTag(m_uri, m_name);
-//        String tdflt = xsdlead + "string";
-//        while (ctx.isAt(m_uri, RECORD_ELEMENT_NAME))
-//        {
-//            
-//            // unmarshal name from start tag attributes
-//            Object name = ctx.attributeText(m_uri, NAME_ATTRIBUTE_NAME, "escidoc");
-//            
-//            // deserialize content as specified type
-//            String text = ctx.parseElementText(m_uri, RECORD_ELEMENT_NAME);
-//            ctx.
-//            
-//            // add key-value pair to map
-//            list.add(value);
-//        }
-//        
-//        // finish by skipping past wrapper end tag
-//        ctx.parsePastEndTag(m_uri, m_name);
-//        return list;
-//    }
 }

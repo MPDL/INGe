@@ -97,10 +97,6 @@
 			<!-- Field: PubFileVO.size[int] -->
 <!--			<value style="element" name="file-size" ns="${xsd.soap.common.prop}" field="size" />-->
 
-			<!-- Node: component.properties.locator-url -->
-			<!-- Field: PubFileVO.locator[String] -->
-			<value style="element" name="locator-url" ns="${xsd.soap.common.prop}" field="locator"
-				usage="optional" />
 
 		</structure>
 

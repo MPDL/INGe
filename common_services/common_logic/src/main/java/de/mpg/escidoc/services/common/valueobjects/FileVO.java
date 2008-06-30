@@ -114,10 +114,7 @@ public class FileVO extends ValueObject implements Cloneable
      * Has to be zero if no content is given.
      */
     private long size;
-    /**
-     * The location from which the data of the file has to be fetched.
-     */
-    private String locator;
+
     /**
      * The MIME-type of this format.
      * Valid values see http://www.iana.org/assignments/media-types/
@@ -280,7 +277,14 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public String getLocator()
     {
-        return locator;
+        if (this.storage == FileVO.Storage.EXTERNAL_URL)
+        {
+            return content;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -291,7 +295,8 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public void setLocator(String newVal)
     {
-        locator = newVal;
+        this.content = newVal;
+        this.storage = FileVO.Storage.EXTERNAL_URL;
     }
 
     /**
@@ -299,7 +304,14 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public String getContent()
     {
-        return content;
+        if (this.storage == FileVO.Storage.INTERNAL_MANAGED)
+        {
+            return content;
+        }
+        else
+        {
+            return null;
+        }
     }
 
     /**
@@ -309,7 +321,8 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public void setContent(String newVal)
     {
-        content = newVal;
+        this.content = newVal;
+        this.storage = FileVO.Storage.INTERNAL_MANAGED;
     }
 
     /**
