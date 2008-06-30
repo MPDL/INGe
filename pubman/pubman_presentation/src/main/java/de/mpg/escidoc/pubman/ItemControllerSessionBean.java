@@ -83,6 +83,7 @@ import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
+import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
@@ -115,6 +116,7 @@ public class ItemControllerSessionBean extends FacesBean
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
     private ContextVO currentContext = null;
+    private PubItemSimpleStatistics pubItemStatistic =null;
 
     /**
      * Public constructor, initializing used Beans.
@@ -134,7 +136,8 @@ public class ItemControllerSessionBean extends FacesBean
             this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
             this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
             this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
-            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME); 
+            this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
+            this.pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
         }
         catch (NamingException e)
         {
@@ -2250,5 +2253,10 @@ public class ItemControllerSessionBean extends FacesBean
         ((ItemListSessionBean) getSessionBean(ItemListSessionBean.class)).init();
         
         return navigationStringToGoBack;
+    }
+    
+    public String getStatisticValue(String reportDefinitionType) throws Exception
+    {
+        return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), AdminHelper.getAdminUserHandle());
     }
 }

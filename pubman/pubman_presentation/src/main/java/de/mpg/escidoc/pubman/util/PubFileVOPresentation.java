@@ -2,7 +2,10 @@ package de.mpg.escidoc.pubman.util;
 
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 
+import org.apache.log4j.Logger;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
@@ -11,9 +14,9 @@ import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
-import de.mpg.escidoc.pubman.util.statistics.PubItemSimpleStatistics;
-import de.mpg.escidoc.pubman.util.statistics.SimpleStatistics;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 public class PubFileVOPresentation extends FacesBean {
 
@@ -24,6 +27,8 @@ public class PubFileVOPresentation extends FacesBean {
 	private HtmlCommandButton removeButton = new HtmlCommandButton();
 	private boolean isLocator = false;
 	private String fileType;
+    private PubItemSimpleStatistics pubItemStatistics;
+    private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
 
 
     /**
@@ -38,6 +43,15 @@ public class PubFileVOPresentation extends FacesBean {
 	public PubFileVOPresentation()
 	{
 		this.file = new FileVO();
+		try
+        {
+            InitialContext initialContext = new InitialContext();
+            pubItemStatistics = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+        }
+        catch (NamingException e)
+        {
+            logger.debug("Couldn't find PubItemSimpleStatistics Service");
+        }
 		file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	}
 	
@@ -224,16 +238,15 @@ public class PubFileVOPresentation extends FacesBean {
     {
         
         String fileID = file.getReference().getObjectId();
-        PubItemSimpleStatistics stat = new SimpleStatistics();
-        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID);
+        
+        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, AdminHelper.getAdminUserHandle());
         return result;
     }
     
     public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception
     {
         String fileID = file.getReference().getObjectId();
-        PubItemSimpleStatistics stat = new SimpleStatistics();
-        String result = stat.getSimpleStatisticValue(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID);
+        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, AdminHelper.getAdminUserHandle());
         return result;
     }
 }
