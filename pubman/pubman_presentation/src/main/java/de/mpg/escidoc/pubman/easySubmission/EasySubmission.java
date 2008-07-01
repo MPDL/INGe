@@ -298,7 +298,9 @@ public class EasySubmission extends FacesBean
     	// then try to save the locator
     	saveLocator();
     	
-    	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0 && this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
+    	if(this.getEasySubmissionSessionBean().getFiles() != null && 
+    	        this.getEasySubmissionSessionBean().getFiles().size() > 0 && 
+    	        this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getDefaultMetadata().getSize() > 0)
     	{
     		FileVO newFile = new FileVO();
     		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
@@ -382,7 +384,7 @@ public class EasySubmission extends FacesBean
     	// set a dummy file size for rendering purposes
     	if(this.getLocators().get(this.getLocators().size()-1).getFile().getContent() != null && !this.getLocators().get(this.getLocators().size()-1).getFile().getContent().trim().equals(""))
     	{
-    		this.getLocators().get(this.getLocators().size()-1).getFile().setSize(new Long(11));
+    		this.getLocators().get(this.getLocators().size()-1).getFile().getDefaultMetadata().setSize(11);
     	}
     	this.locatorIterator = new UIXIterator();
     	return "loadNewEasySubmission";
@@ -560,7 +562,7 @@ public class EasySubmission extends FacesBean
         contentURL = uploadFile(file);
     	if(contentURL != null && !contentURL.trim().equals(""))
     	{
-    		this.getItem().getFiles().get(indexUpload).setSize(new Long(file.getLength()));
+    		this.getItem().getFiles().get(indexUpload).getDefaultMetadata().setSize((int)file.getLength());
             this.getItem().getFiles().get(indexUpload).setName(file.getFilename());
             this.getItem().getFiles().get(indexUpload).setMimeType(file.getContentType());
             this.getItem().getFiles().get(indexUpload).setContent(contentURL);
@@ -594,7 +596,7 @@ public class EasySubmission extends FacesBean
         	contentURL = uploadFile(file);
 	    	if(contentURL != null && !contentURL.trim().equals(""))
 	    	{
-	    		this.getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
+	    		this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
 	    		// set the file name automatically if it is not filled by the user
 	    		/*if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
 	    		{
@@ -871,7 +873,7 @@ public class EasySubmission extends FacesBean
     	// add an empty file and an empty locator if necessary for display purposes
     	if(this.getEasySubmissionSessionBean().getFiles() != null && this.getEasySubmissionSessionBean().getFiles().size() > 0)
     	{
-    		if(this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getSize() > 0)
+    		if(this.getEasySubmissionSessionBean().getFiles().get(this.getEasySubmissionSessionBean().getFiles().size()-1).getFile().getDefaultMetadata().getSize() > 0)
     		{
     			FileVO newFile = new FileVO();
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
@@ -882,7 +884,7 @@ public class EasySubmission extends FacesBean
     	
     	if(this.getEasySubmissionSessionBean().getLocators() != null && this.getEasySubmissionSessionBean().getLocators().size() > 0)
     	{
-    		if(this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getSize() > 0)
+    		if(this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().getSize() > 0)
     		{
     			PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
         		// set fixed content type
