@@ -94,9 +94,9 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
         {
             StringBuffer sb = new StringBuffer();
             sb.append("Name=" + file.getName()+"\n");
-            sb.append("Size=" + file.getSize()+"\n");
+            //sb.append("Size=" + file.getSize()+"\n");
             sb.append("Content=" + file.getContent()+"\n");
-            sb.append("Locator=" + file.getLocator()+"\n");
+            //sb.append("Locator=" + file.getLocator()+"\n");
             logger.debug(sb.toString());            
         }
         // TODO MuJ: expand test.
@@ -121,9 +121,9 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
         {
             StringBuffer sb = new StringBuffer();
             sb.append("Name=" + file.getName()+"\n");
-            sb.append("Size=" + file.getSize()+"\n");
+            //sb.append("Size=" + file.getSize()+"\n");
             sb.append("Content=" + file.getContent()+"\n");
-            sb.append("Locator=" + file.getLocator()+"\n");
+            //sb.append("Locator=" + file.getLocator()+"\n");
             logger.debug(sb.toString());  
         }
         
@@ -140,9 +140,9 @@ public class TransformSchindlMayrIntegrationTest extends TestBase
         for (FileVO file : files)
         {
             logger.debug("Name=" + file.getName());
-            logger.debug("Size=" + file.getSize());
+            //logger.debug("Size=" + file.getSize());
             logger.debug("Content=" + file.getContent());
-            logger.debug("Locator=" + file.getLocator());
+            //logger.debug("Locator=" + file.getLocator());
 
             String urlSuffix = file.getContent().toString();
             String url = ServiceLocator.getFrameworkUrl() + urlSuffix;

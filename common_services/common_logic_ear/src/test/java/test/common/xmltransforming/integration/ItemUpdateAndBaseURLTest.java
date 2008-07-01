@@ -135,7 +135,7 @@ public class ItemUpdateAndBaseURLTest extends XmlTransformingTestBase
         fileVO.setName("galaxy.gif");
         fileVO.setDescription("The Universe within 50000 Light Years");
         fileVO.setVisibility(Visibility.PRIVATE);
-        fileVO.setSize((int)new File(testFileName).length());
+        //fileVO.setSize((int)new File(testFileName).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
 

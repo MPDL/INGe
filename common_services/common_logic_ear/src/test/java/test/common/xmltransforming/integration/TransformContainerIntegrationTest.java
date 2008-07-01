@@ -306,7 +306,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)

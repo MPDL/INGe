@@ -271,7 +271,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)
@@ -312,7 +312,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
         fileVO1.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
+        //fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
         // add second file to PubItemVO
@@ -336,7 +336,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
                 + "ray observations that will conclusively identify whether HD 14633 or HD 15137 contain neutron " + "stars.");
         fileVO2.setVisibility(Visibility.PUBLIC);
         fileVO2.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
+        //fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO2);
         // transform the PubItemVO into an item (for create)
@@ -376,7 +376,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)
@@ -454,7 +454,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)
@@ -544,7 +544,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO1.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO1.setVisibility(Visibility.PUBLIC);
         fileVO1.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
+        //fileVO1.setSize(new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO1);
         // add second file to PubItemVO
@@ -568,7 +568,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
                 + "ray observations that will conclusively identify whether HD 14633 or HD 15137 contain neutron " + "stars.");
         fileVO2.setVisibility(Visibility.PUBLIC);
         fileVO2.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
+        //fileVO2.setSize(new File(PDF_RUNAWAY_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO2);
         // transform the PubItemVO into an item (for create)
@@ -844,7 +844,7 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein <a href=\"http://www.escidoc.de/farbtest_wasserfarben.jpg\"> Farbtest mit Wasserfarben.</a>");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)

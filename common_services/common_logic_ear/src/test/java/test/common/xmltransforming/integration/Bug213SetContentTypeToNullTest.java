@@ -125,7 +125,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
-        fileVO.setSize((int)new File(testFileName).length());
+        //fileVO.setSize((int)new File(testFileName).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
 
@@ -157,7 +157,7 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
-        fileVO.setSize((int)new File(testFileName).length());
+        //fileVO.setSize((int)new File(testFileName).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreUpdate.getFiles().add(fileVO);
 
