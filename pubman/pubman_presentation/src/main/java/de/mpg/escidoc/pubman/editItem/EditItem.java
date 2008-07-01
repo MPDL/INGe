@@ -289,7 +289,7 @@ public class EditItem extends FacesBean
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			if(this.item.getFiles().get(i).getLocator() == null || this.item.getFiles().get(i).getLocator().trim().equals(""))
+			if(this.item.getFiles().get(i).getContent() == null || this.item.getFiles().get(i).getContent().trim().equals(""))
 			{
 				PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),false);
 				files.add(filepres);
@@ -301,7 +301,7 @@ public class EditItem extends FacesBean
     	// add locators
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			if(this.item.getFiles().get(i).getLocator() != null && ! this.item.getFiles().get(i).getLocator().trim().equals(""))
+			if(this.item.getFiles().get(i).getContent() != null && ! this.item.getFiles().get(i).getContent().trim().equals(""))
 			{
 				PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
 				locators.add(locatorpres);
@@ -1031,7 +1031,7 @@ public class EditItem extends FacesBean
     		// set the name if it is not filled
         	if(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getName() == null || this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getName().trim().equals(""))
         	{
-        		this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getLocator());
+        		this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
         	}
     	}
     	return "loadEditItem";

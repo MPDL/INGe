@@ -103,7 +103,7 @@ public class ViewItemStatistics extends FacesBean
        
         for(FileVO fileVO : files) 
         {
-            if (fileVO.getLocator()== null) realFiles.add(fileVO);
+            if (fileVO.getStorage() == FileVO.Storage.INTERNAL_MANAGED) realFiles.add(fileVO);
         }
         
         fileList = CommonUtils.convertToPubFileVOPresentationList(realFiles);

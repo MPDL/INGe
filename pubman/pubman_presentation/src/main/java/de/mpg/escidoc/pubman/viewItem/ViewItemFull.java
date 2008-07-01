@@ -85,6 +85,7 @@ import de.mpg.escidoc.pubman.withdrawItem.WithdrawItem;
 import de.mpg.escidoc.pubman.withdrawItem.WithdrawItemSessionBean;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -389,7 +390,7 @@ public class ViewItemFull extends FacesBean
                 {
             		//this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), i, this.pubItem.getVersion().getState(), searchHitList));
             		
-            		if(this.pubItem.getFiles().get(i).getLocator() != null && !this.pubItem.getFiles().get(i).getLocator().trim().equals(""))
+            		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
                     {
                         this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
                         countLocators ++;
@@ -404,7 +405,7 @@ public class ViewItemFull extends FacesBean
             	else
             	{
             		// add locators
-            		if(this.pubItem.getFiles().get(i).getLocator() != null && !this.pubItem.getFiles().get(i).getLocator().trim().equals(""))
+            		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
             		{
             			this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
             			countLocators ++;

@@ -798,7 +798,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	{
     		for(int i = 0; i < this.getFiles().size(); i++)
     		{
-    			if(this.getFiles().get(i).getLocator() == null || this.getFiles().get(i).getLocator().trim().equals(""))
+    			if(this.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
     			{
     				fileList.add(this.getFiles().get(i));
     			}
@@ -818,7 +818,7 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	{
     		for(int i = 0; i < this.getFiles().size(); i++)
     		{
-    			if(this.getFiles().get(i).getLocator() != null && !this.getFiles().get(i).getLocator().trim().equals(""))
+    			if(this.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
     			{
     				locatorList.add(this.getFiles().get(i));
     			}

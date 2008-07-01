@@ -321,8 +321,8 @@ public class EasySubmission extends FacesBean
     	saveLocator();
     	
     	if(this.getEasySubmissionSessionBean().getLocators() != null 
-    			&& this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getLocator() != null 
-    			&& !this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getLocator().trim().equals(""))
+    			&& this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getContent() != null 
+    			&& !this.getEasySubmissionSessionBean().getLocators().get(this.getEasySubmissionSessionBean().getLocators().size()-1).getFile().getContent().trim().equals(""))
     	{
     		PubFileVOPresentation newLocator = new PubFileVOPresentation(this.getEasySubmissionSessionBean().getLocators().size(), true);
     		// set fixed content type
@@ -377,10 +377,10 @@ public class EasySubmission extends FacesBean
     	// set the name if it is not filled
     	if(this.getLocators().get(this.getLocators().size()-1).getFile().getName() == null || this.getLocators().get(this.getLocators().size()-1).getFile().getName().trim().equals(""))
     	{
-    		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator());
+    		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getContent());
     	}
     	// set a dummy file size for rendering purposes
-    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getLocator() != null && !this.getLocators().get(this.getLocators().size()-1).getFile().getLocator().trim().equals(""))
+    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getContent() != null && !this.getLocators().get(this.getLocators().size()-1).getFile().getContent().trim().equals(""))
     	{
     		this.getLocators().get(this.getLocators().size()-1).getFile().setSize(new Long(11));
     	}
@@ -902,10 +902,12 @@ public class EasySubmission extends FacesBean
     	// validate
     	try
     	{
-    		ValidationReportVO report = itemValidating.validateItemObject(new PubItemVO(this.getItemControllerSessionBean().getCurrentPubItem()), "easy_submission_step_3");
+    	    PubItemVO itemVO = this.getItemControllerSessionBean().getCurrentPubItem();
+    		ValidationReportVO report = itemValidating.validateItemObject(new PubItemVO(itemVO), "easy_submission_step_3");
     		if (!report.isValid())
     		{
-    			for (ValidationReportItemVO item : report.getItems()) {
+    			for (ValidationReportItemVO item : report.getItems())
+    			{
 					if (item.isRestrictive())
 					{
 						error(getMessage(item.getContent()));

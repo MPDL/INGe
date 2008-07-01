@@ -392,9 +392,10 @@ public class FileBean extends FacesBean implements ActionListener
 	public boolean getLocatorIsLink()
 	{
 	    return(
-	            getFile().getLocator().startsWith("http://") || 
-	            getFile().getLocator().startsWith("https://") ||
-	            getFile().getLocator().startsWith("ftp://")
+	            (getFile().getStorage() == FileVO.Storage.EXTERNAL_URL) && (
+	            getFile().getContent().startsWith("http://") || 
+	            getFile().getContent().startsWith("https://") ||
+	            getFile().getContent().startsWith("ftp://"))
 	           );
 	}
 
