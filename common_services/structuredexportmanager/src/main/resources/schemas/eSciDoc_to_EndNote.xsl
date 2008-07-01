@@ -88,7 +88,7 @@
 								<!-- at least one editor! -->
 								<xsl:with-param name="value">
 									<xsl:choose>
-										<xsl:when test="count(../*:creator[@role='editor'])>0">Edited Book</xsl:when>
+										<xsl:when test="count(*:creator[@role='editor'])>0">Edited Book</xsl:when>
 										<xsl:otherwise>Book</xsl:otherwise>
 									</xsl:choose>
 								</xsl:with-param>
@@ -144,18 +144,18 @@
 								<xsl:with-param name="value" select="'Report'"/>
 							</xsl:call-template>
 						</xsl:when>
-						<!-- ### conference-report, talk-at-event, poster, courseware-lecture, paper, journal, issue,  series, others, etc  ### -->
+						<!-- ### conference-report, talk-at-event, poster, courseware-lecture, paper, journal, issue,  series, others, etc  ### -->						
 						<xsl:otherwise>
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'0'"/>
-								<xsl:with-param name="value" select="Generic"/>
+								<xsl:with-param name="value" select="'Generic'"/>
 							</xsl:call-template>
 						</xsl:otherwise>
 					</xsl:choose>
 					<!-- GENRES END -->
 					
 					<!-- AUTHORS -->
-					<xsl:for-each select="creator">
+					<xsl:for-each select="*:creator">
 						<xsl:variable name="creator-string">
 							<xsl:call-template name="get-creator-str">
 								<xsl:with-param name="creator" select="."/>
@@ -169,11 +169,11 @@
 							</xsl:when>
 							<xsl:otherwise>								
 								<xsl:apply-templates select="e:person">
-									<xsl:with-param name="creator-string" select="@creator-string"/>
+									
 									<xsl:with-param name="gen" select="@gen"/>								
 								</xsl:apply-templates>
 								<xsl:apply-templates select="e:organization">
-									<xsl:with-param name="creator-string" select="@creator-string"/>
+									
 									<xsl:with-param name="gen" select="@gen"/>
 								</xsl:apply-templates>
 							</xsl:otherwise>							
@@ -350,7 +350,7 @@
 					</xsl:if>
 					
 					<!-- AFFILIATIONS -->
-					<xsl:for-each select="*:creator[@role='author']/e:organization/e:organization-name">
+					<xsl:for-each select="*:creator[@role='author']/e:person/e:organization/e:organization-name">
 						<xsl:variable name="aff" select="normalize-space(.)"/>
 						<xsl:if test="$aff!=''">
 							<xsl:call-template name="print-line">
@@ -471,8 +471,8 @@
 					<xsl:variable name="ep" select="normalize-space(*:event/e:place)"/>
 					<xsl:if test="$ep!=''">
 						<xsl:call-template name="print-line">
-							<xsl:with-param name="tag">if($flag) then 'C' else 'Z'</xsl:with-param>
-							<xsl:with-param name="value">if ($flag) then $ep else concat('place of event: ', $ep)</xsl:with-param>
+							<xsl:with-param name="tag" select="if($flag) then 'C' else 'Z'"/>
+							<xsl:with-param name="value" select="if ($flag) then $ep else concat('place of event: ', $ep)"/>
 						</xsl:call-template>
 					</xsl:if>
 					
@@ -533,61 +533,61 @@
 	</xsl:template>
 	<!-- creator type organization -->
 	<xsl:template match="e:organization">
-		<xsl:param name="creator-string"/>
+		
 		<xsl:param name="gen"/>
 		<xsl:choose>
-			<xsl:when test="@role='author'">
+			<xsl:when test="../@role='author'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
 				</xsl:call-template>	
 			</xsl:when>
-			<xsl:when test="@role='editor'">				
+			<xsl:when test="../@role='editor'">				
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="if ($gen='book') then 'A' else 'E'"/>
 					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="@role='translator'">
+			<xsl:when test="../@role='translator'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="@role='artist' or @role='painter' or @role='photographer' or @role='illustrator' or @role='commentator' or @role='transcriber' or @role='advisor' or @role='contributor'">
+			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(e:organization-name,e:address)"/>
+					<xsl:with-param name="value" select="concat(e:organization-name,', ',e:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
 	</xsl:template>
 	<!-- creator type person -->
-	<xsl:template match="e:person">
-		<xsl:param name="creator-string" />
+	<xsl:template match="e:person">		
 		<xsl:param name="gen"/>
-		<xsl:variable name="given-name" select="$creator-string/e:person/given-name"/>
-		<xsl:variable name="family-name" select="$creator-string/e:person/family-name"/>		
+		<xsl:variable name="given-name" select="*:given-name"/>
+		<xsl:variable name="family-name" select="*:family-name"/>	
+			
 		<xsl:choose>
-			<xsl:when test="@role='author'">
+			<xsl:when test="../@role='author'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'A'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>		
 			</xsl:when>
-			<xsl:when test="@role='editor'">					
+			<xsl:when test="../@role='editor'">					
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="if ($gen='book')then 'A' else 'E'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>						
 			</xsl:when>
-			<xsl:when test="@role='translator'">
+			<xsl:when test="../@role='translator'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'?'"/>
 					<xsl:with-param name="value" select="concat($family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
-			<xsl:when test="@role='artist' or @role='painter' or @role='photographer' or @role='illustrator' or @role='commentator' or @role='transcriber' or @role='advisor' or @role='contributor'">
+			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
 					<xsl:with-param name="value" select="concat(@role, ':', $family-name,', ',$given-name)"/>
