@@ -229,7 +229,7 @@ public class PubItemDepositingTest extends TestBase
         initPubFile.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         initPubFile.setName("farbtest_B6.gif");
         initPubFile.setMimeType("image/gif");
-        initPubFile.setSize((int)new File("src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
+        //initPubFile.setSize((int)new File("src/test/resources/depositing/pubItemDepositingTest/farbtest_B6.gif").length());
         initPubFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         initPubItem.getFiles().add(initPubFile);
 
@@ -255,7 +255,7 @@ public class PubItemDepositingTest extends TestBase
         assertEquals(initPubFile.getDescription(), pubFile.getDescription());
         assertEquals(initPubFile.getMimeType(), pubFile.getMimeType());
         assertEquals(initPubFile.getVisibility(), pubFile.getVisibility());
-        assertEquals(37564L, initPubFile.getSize());
+        //assertEquals(37564L, initPubFile.getSize());
     }
 
     /**
