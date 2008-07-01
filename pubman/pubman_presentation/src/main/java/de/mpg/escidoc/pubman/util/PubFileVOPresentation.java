@@ -139,6 +139,16 @@ public class PubFileVOPresentation extends FacesBean {
     	return contentCategory;
     }
 	
+	public int getSize()
+    {
+    	int size = 0;
+    	if(this.file.getDefaultMetadata() != null)
+    	{
+    		size = this.file.getDefaultMetadata().getSize();
+    	}
+    	return size;
+    }
+	
 	public String getVisibility()
     {
     	String visibility = "";
@@ -148,6 +158,21 @@ public class PubFileVOPresentation extends FacesBean {
     		visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
     	}
     	return visibility;
+    }
+	
+	public String getLocator()
+    {
+    	String locator = "";
+    	if(getIsLocator() == true)
+    	{
+    		locator = this.file.getContent();
+    	}
+    	return locator;
+    }
+	
+	public void setLocator(String locator)
+    {
+		this.file.setContent(locator);
     }
 
 	public void setFileType(String fileType) {
