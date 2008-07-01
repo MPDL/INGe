@@ -29,6 +29,8 @@
 */ 
 package de.mpg.escidoc.services.common.valueobjects.statistics;
 
+import de.mpg.escidoc.services.common.valueobjects.ValueObject;
+
 /**
  * VO class representing report-definition
  *
@@ -37,7 +39,7 @@ package de.mpg.escidoc.services.common.valueobjects.statistics;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class StatisticReportDefinitionVO
+public class StatisticReportDefinitionVO extends ValueObject
 {
     
     private String objectId;

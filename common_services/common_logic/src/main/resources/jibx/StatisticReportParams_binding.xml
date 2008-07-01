@@ -30,7 +30,7 @@
 <binding>
 
 	<!-- concrete mapping for statistic report-paramters-->
-	<!-- Type: StatisticReportRecordVO... -->
+	<!-- Type: StatisticReportParamsVO... -->
 	<mapping name="report-parameters" ns="${xsd.soap.statistic.reportparameters}" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO" ordered="false" allow-repeats="true">
 	
 		<structure name="report-definition" ns="${xsd.soap.statistic.reportparameters}" >
