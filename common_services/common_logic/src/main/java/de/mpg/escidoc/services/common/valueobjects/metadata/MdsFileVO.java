@@ -16,12 +16,10 @@ public class MdsFileVO extends MetadataSetVO
      */
     private List<String> identifiers = new ArrayList<String>();
 
-    /**
-     * The unique name of the affiliation in the organizational structure.
-     */
-    private String name;
     private List<String> formats = new ArrayList<String>();
 
+    private int size;
+    
     /**
      * Default constructor.
      */
@@ -37,11 +35,22 @@ public class MdsFileVO extends MetadataSetVO
      */
     public MdsFileVO(MdsFileVO other)
     {
-        this.name = other.name;
+        super(other);
+
         this.identifiers = other.identifiers;
         this.description = other.description;
         this.contentCategory = other.contentCategory;
         this.formats = other.formats;
+    }
+    
+    public int getSize()
+    {
+        return size;
+    }
+
+    public void setSize(int size)
+    {
+        this.size = size;
     }
 
     public String getContentCategory()
@@ -62,16 +71,6 @@ public class MdsFileVO extends MetadataSetVO
     public void setDescription(String description)
     {
         this.description = description;
-    }
-
-    public String getName()
-    {
-        return name;
-    }
-
-    public void setName(String name)
-    {
-        this.name = name;
     }
 
     public List<String> getIdentifiers()

@@ -74,7 +74,7 @@
 						<dc:identifier>http://myFile.com</dc:identifier>
 						<content-category>full text</content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
-						<!--<dcterms:extent>12</dcterms:extent>-->
+						<dcterms:extent>12</dcterms:extent>
 					</file>
             	</escidocMetadataRecords:md-record>
             </escidocMetadataRecords:md-records>

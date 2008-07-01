@@ -46,10 +46,12 @@ import org.w3c.dom.NodeList;
 import test.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.JiBXHelper;
@@ -103,7 +105,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         zeit += System.currentTimeMillis();
         logger.info("transformToItem() (with component)->" + zeit + "ms");
         logger.info("PubItemVO with file transformed to item(XML).");
-        logger.debug("item(XML) =" + pubItemXML);
+        logger.info("item(XML) =" + pubItemXML);
         // is item list[XML] valid according to item.xsd?
         assertXMLValid(pubItemXML);
 
@@ -131,7 +133,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
     /**
      * @return
      */
-    private FileVO getFile()
+    private FileVO getFile() throws Exception
     {
         FileVO fileVO = new FileVO();
         // first upload the file to the framework
@@ -142,7 +144,10 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-//        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        MdsFileVO md = new MdsFileVO();
+        md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        md.setTitle(new TextVO(fileVO.getName()));
+        fileVO.getMetadataSets().add(md);
         return fileVO;
     }
 

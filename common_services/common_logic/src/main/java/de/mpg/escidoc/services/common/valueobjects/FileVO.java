@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.FileRO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 
 /**
  * A file that is contained in an item.
@@ -175,6 +176,18 @@ public class FileVO extends ValueObject implements Cloneable
         return (this.creationDate != null);
     }
 
+    public MdsFileVO getDefaultMetadata()
+    {
+        if (metadataSets.size() > 0 && metadataSets.get(0) instanceof MdsFileVO)
+        {
+            return (MdsFileVO) metadataSets.get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     /**
      * Delivers the files' reference.
      * 

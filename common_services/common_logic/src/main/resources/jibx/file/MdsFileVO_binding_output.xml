@@ -48,14 +48,13 @@
 		<structure ordered="false" allow-repeats="true" usage="optional">
 
 			<!-- Node: file.title -->
-			<!-- Field: MdsFileVO.name [String] -->
-			<value style="element" name="title" ns="http://purl.org/dc/elements/1.1/"
-				field="name" />
+			<!-- Field: MdsFileVO.title [TextVO] (inherited from superclass MetadataSetVO)-->
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" />
 
-			<!-- Node: file.title -->
+			<!-- Node: file.description -->
 			<!-- Field: MdsFileVO.description [String] -->
 			<value style="element" name="description" ns="http://purl.org/dc/elements/1.1/"
-				field="description" />
+				field="description" usage="optional"/>
 
 			<!-- Node: file.identifier -->
 			<!-- Field: MdsFileVO.identifiers [List<String>] -->
@@ -76,6 +75,10 @@
 				<value name="format" style="element" ns="http://purl.org/dc/terms/" type="java.lang.String"/>
 			</collection>
 
+			<!-- Node: file.extent -->
+			<!-- Field: MdsFileVO.size [Long] -->
+			<value style="element" name="extent" ns="http://purl.org/dc/terms/" field="size" usage="optional"/>
+				
 		</structure>
 	</mapping>
 </binding>

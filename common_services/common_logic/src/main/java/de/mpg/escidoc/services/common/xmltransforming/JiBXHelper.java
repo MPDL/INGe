@@ -68,6 +68,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO.LockStatus;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -160,6 +161,17 @@ public class JiBXHelper
     public static List<CreatorVO> creatorVOListFactory()
     {
         return new ArrayList<CreatorVO>();
+    }
+
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;FormatVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;FormatVO></code>
+     */
+    public static List<FormatVO> formatVOListFactory()
+    {
+        return new ArrayList<FormatVO>();
     }
 
     /**

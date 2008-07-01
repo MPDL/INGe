@@ -68,6 +68,7 @@
 	<include path="ContextVOListWrapper_binding.xml" />
 	<include path="FileVO_binding_input.xml" />
 	<include path="file/MdsFileVO_binding_input.xml" />
+	<include path="file/FormatVO_binding.xml" />
 	<include path="RelationVO_binding.xml" />
 	<include path="ItemResultVO_binding_input.xml" />
 	<include path="ItemVersionVO_binding.xml" />
