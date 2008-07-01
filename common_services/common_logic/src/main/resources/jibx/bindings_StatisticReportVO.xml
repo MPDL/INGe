@@ -29,11 +29,13 @@
 
 <binding name="StatisticReport">
 
+
+
 	
-	<namespace prefix="report" uri="http://www.escidoc.de/schemas/report/0.3" default="none" />
-	<namespace prefix="report-parameters" uri="http://www.escidoc.de/schemas/reportparameters/0.3" default="none" />
-	<namespace prefix="report-definition-list" uri="http://www.escidoc.de/schemas/reportdefinitionlist/0.3" default="elements" />
-	<namespace prefix="report-definition" uri="http://www.escidoc.de/schemas/reportdefinition/0.3" default="none" />
+	<namespace prefix="report" uri="${xsd.soap.statistic.report}" default="none" />
+	<namespace prefix="report-parameters" uri="${xsd.soap.statistic.reportparameters}" default="none" />
+	<namespace prefix="report-definition-list" uri="${xsd.soap.statistic.reportdefinitionlist}" default="elements" />
+	<namespace prefix="report-definition" uri="${xsd.soap.statistic.reportdefinition}" default="none" />
 	
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"

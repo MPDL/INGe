@@ -31,7 +31,7 @@
 
 	<!-- concrete mapping for statistic report definition lists-->
 	<!-- Type: StatisticReportDefinitionVOListWrapper... -->
-	<mapping name="report-definition-list" ns="http://www.escidoc.de/schemas/reportdefinitionlist/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportDefinitionVOListWrapper" ordered="false" allow-repeats="true">
+	<mapping name="report-definition-list" ns="${xsd.soap.statistic.reportdefinitionlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportDefinitionVOListWrapper" ordered="false" allow-repeats="true">
 	
 		<collection field="repDefList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportDefinitionVOListFactory" usage="optional">
 	

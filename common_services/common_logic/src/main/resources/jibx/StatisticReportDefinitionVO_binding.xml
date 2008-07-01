@@ -31,14 +31,14 @@
 
 	<!-- concrete mapping for statistic report definition-->
 	<!-- Type: StatisticReportDefinitionVO... -->
-	<mapping name="report-definition" ns="http://www.escidoc.de/schemas/reportdefinition/0.3" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO" ordered="false" allow-repeats="true">
+	<mapping name="report-definition" ns="${xsd.soap.statistic.reportdefinition}" class="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO" ordered="false" allow-repeats="true">
 	
 		<value style="attribute" name="objid" field="objectId" />
-		<value style="element" name="name" field="name" ns="http://www.escidoc.de/schemas/reportdefinition/0.3"/>
-		<structure name="scope" ns="http://www.escidoc.de/schemas/reportdefinition/0.3">
+		<value style="element" name="name" field="name" ns="${xsd.soap.statistic.reportdefinition}"/>
+		<structure name="scope" ns="${xsd.soap.statistic.reportdefinition}">
 			<value style="attribute" name="objid" field="scopeId" />
 		</structure>
-		<value style="element" name="sql" field="sql" ns="http://www.escidoc.de/schemas/reportdefinition/0.3"/>
+		<value style="element" name="sql" field="sql" ns="${xsd.soap.statistic.reportdefinition}"/>
 			
 	</mapping>
  

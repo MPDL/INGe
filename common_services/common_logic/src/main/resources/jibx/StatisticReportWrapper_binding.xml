@@ -31,31 +31,31 @@
 
 	<!-- concrete mapping for statistic reports-->
 	<!-- Type: StatisticReportRecordVO... -->
-	<mapping name="report" ns="http://www.escidoc.de/schemas/report/0.3" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper" ordered="false" allow-repeats="true">
+	<mapping name="report" ns="${xsd.soap.statistic.report}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.StatisticReportWrapper" ordered="false" allow-repeats="true">
 	
-		<structure name="report-definition" ns="http://www.escidoc.de/schemas/report/0.3" >
+		<structure name="report-definition" ns="${xsd.soap.statistic.report}" >
 			<value style="attribute" name="objid" field="reportDefinitionId"/>
 		</structure>
 		
 		<collection field="reportRecordVOList"  factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportRecordVOListFactory" usage="optional">
 			
-			<structure name="report-record" ns="http://www.escidoc.de/schemas/report/0.3" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO" usage="optional">
+			<structure name="report-record" ns="${xsd.soap.statistic.report}" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO" usage="optional">
 			
 			<collection field="paramList"  factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.statisticReportRecordParamVOListFactory" usage="optional">
 				
-				<structure name="parameter" ns="http://www.escidoc.de/schemas/report/0.3" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO" ordered="false">
+				<structure name="parameter" ns="${xsd.soap.statistic.report}" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO" ordered="false">
 				
 					<value style="attribute" name="name" field="name" />
 						
-					<structure name="stringvalue" ns="http://www.escidoc.de/schemas/report/0.3" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO" usage="optional">
+					<structure name="stringvalue" ns="${xsd.soap.statistic.report}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordStringParamValueVO" usage="optional">
 						<value style="text" field="value" usage="optional" />
 					</structure>
 					 
-					<structure name="decimalvalue" ns="http://www.escidoc.de/schemas/report/0.3" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO" usage="optional">
+					<structure name="decimalvalue" ns="${xsd.soap.statistic.report}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO" usage="optional">
 						<value style="text" field="value" usage="optional" />
 					</structure>
 					
-					<structure name="datevalue" ns="http://www.escidoc.de/schemas/report/0.3" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDateParamValueVO" usage="optional">
+					<structure name="datevalue" ns="${xsd.soap.statistic.report}" field="paramValue" type="de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDateParamValueVO" usage="optional">
 						<value style="text" field="value" usage="optional" />
 					</structure>			
 					
