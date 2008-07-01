@@ -28,11 +28,14 @@
 package test;
 
 import static org.junit.Assert.assertNotNull;
+
 import java.util.Date;
 import java.util.Properties;
+
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.xml.namespace.QName;
+
 import org.apache.axis.client.Call;
 import org.apache.axis.client.Service;
 import org.apache.commons.httpclient.HttpClient;
@@ -40,8 +43,9 @@ import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
 
 /**

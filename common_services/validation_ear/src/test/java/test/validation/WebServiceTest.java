@@ -31,11 +31,13 @@ package test.validation;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+
 import test.TestHelper;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 
 /**
  * Test class for the SOAP andc REST interface.

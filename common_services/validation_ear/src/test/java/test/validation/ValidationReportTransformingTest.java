@@ -42,7 +42,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.TestHelper;
-import de.mpg.escidoc.services.util.ResourceUtil;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
