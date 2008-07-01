@@ -113,7 +113,7 @@ public class FileVO extends ValueObject implements Cloneable
      * The size of the file in Bytes.
      * Has to be zero if no content is given.
      */
-    private long size;
+//    private long size;
 
     /**
      * The MIME-type of this format.
@@ -140,22 +140,18 @@ public class FileVO extends ValueObject implements Cloneable
      */
     public FileVO(FileVO other)
     {
-        this.setContent(other.getContent());
-        this.setContentCategory(other.getContentCategory());                
-        this.setContentCategoryString(other.getContentCategoryString());
-        this.setCreationDate(other.getCreationDate());
-        this.setDescription(other.getDescription());
-        this.setLastModificationDate(other.getLastModificationDate());
-        this.setLocator(other.getLocator());
-        this.setMimeType(other.getMimeType());
-        this.setName(other.getName());
-        this.setPid(other.getPid());
-        this.setReference(other.getReference());
-        this.setSize(other.getSize());
-        this.setVisibility(other.getVisibility());
-        this.setVisibilityString(other.getVisibilityString());
-        this.setStorage(other.getStorage());
-        this.setStorageString(other.getStorageString());
+        content = other.content;
+        contentCategory = other.contentCategory;                
+        creationDate = other.creationDate;
+        description = other.description;
+        lastModificationDate = other.lastModificationDate;
+        mimeType = other.mimeType;
+        name = other.name;
+        pid = other.pid;
+        reference = other.reference;
+//        size = other.size;
+        visibility = other.visibility;
+        storage = other.storage;
     }
     
     /**
@@ -255,63 +251,11 @@ public class FileVO extends ValueObject implements Cloneable
     }
 
     /**
-     * Delivers the size of the file in Bytes.
-     */
-    public long getSize()
-    {
-        return size;
-    }
-
-    /**
-     * Sets the size of the file in Bytes.
-     * 
-     * @param newVal
-     */
-    public void setSize(long newVal)
-    {
-        size = newVal;
-    }
-
-    /**
-     * Delivers the locator of the file, i. e. the location from which the data of the file has to be fetched.
-     */
-    public String getLocator()
-    {
-        if (this.storage == FileVO.Storage.EXTERNAL_URL)
-        {
-            return content;
-        }
-        else
-        {
-            return null;
-        }
-    }
-
-    /**
-     * Sets the locator of the file, i. e. the location from which the data of the
-     * file has to be fetched.
-     * 
-     * @param newVal
-     */
-    public void setLocator(String newVal)
-    {
-        this.content = newVal;
-        this.storage = FileVO.Storage.EXTERNAL_URL;
-    }
-
-    /**
      * Delivers a reference to the content of the file, i. e. to the data of the file.
      */
     public String getContent()
     {
-        if (this.storage == FileVO.Storage.INTERNAL_MANAGED)
-        {
-            return content;
-        }
-        else
-        {
-            return null;
-        }
+        return content;
     }
 
     /**
@@ -322,7 +266,6 @@ public class FileVO extends ValueObject implements Cloneable
     public void setContent(String newVal)
     {
         this.content = newVal;
-        this.storage = FileVO.Storage.INTERNAL_MANAGED;
     }
 
     /**

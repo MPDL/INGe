@@ -142,7 +142,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         fileVO.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+//        fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         return fileVO;
     }
 
