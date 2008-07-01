@@ -474,6 +474,27 @@ public class ServiceLocator
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
+    
+    /**
+     * Gets the ReportDefinitionHandler service for an authenticated user.
+     *
+     * @return A ReportDefinitionHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static ReportDefinitionHandler getReportDefinitionHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        if (publicReportDefinitionHandlerServiceLocator == null)
+        {
+            publicReportDefinitionHandlerServiceLocator = new ReportDefinitionHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("ReportDefinitionHandler URL=" + url);
+            publicReportDefinitionHandlerServiceLocator.setReportDefinitionHandlerServiceEndpointAddress(url);
+        }
+        ReportDefinitionHandler handler = publicReportDefinitionHandlerServiceLocator.getReportDefinitionHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
 
     /**
      * Gets the ReportHandler service for an anonymous user.
