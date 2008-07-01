@@ -53,6 +53,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
@@ -63,6 +64,7 @@ import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO.InvitationStatus;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
@@ -239,7 +241,10 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
-        //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
+        MdsFileVO mdsFileVO = new MdsFileVO();
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setTitle(new TextVO(fileVO.getName()));
+        fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
         // transform the PubItemVO into an item (for create)
@@ -306,6 +311,10 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
+        MdsFileVO mdsFileVO = new MdsFileVO();
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
+        mdsFileVO.setTitle(new TextVO(fileVO.getName()));
+        fileVO.getMetadataSets().add(mdsFileVO);
         //fileVO.setSize((int)new File(JPG_FARBTEST_FILE).length());
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);

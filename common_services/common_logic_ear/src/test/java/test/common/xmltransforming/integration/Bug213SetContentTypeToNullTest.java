@@ -44,10 +44,13 @@ import org.w3c.dom.Node;
 
 import test.common.xmltransforming.XmlTransformingTestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -125,7 +128,10 @@ public class Bug213SetContentTypeToNullTest extends XmlTransformingTestBase
         fileVO.setName("farbtest_wasserfarben.jpg");
         fileVO.setDescription("Ein Farbtest mit Wasserfarben.");
         fileVO.setVisibility(Visibility.PUBLIC);
-        //fileVO.setSize((int)new File(testFileName).length());
+        MdsFileVO mdsFileVO = new MdsFileVO();
+        mdsFileVO.setSize((int)ResourceUtil.getResourceAsFile(testFileName).length());
+        mdsFileVO.setTitle(new TextVO(fileVO.getName()));
+        fileVO.getMetadataSets().add(mdsFileVO);
         // and add it to the PubItemVO's files list
         pubItemVOPreCreate.getFiles().add(fileVO);
 
