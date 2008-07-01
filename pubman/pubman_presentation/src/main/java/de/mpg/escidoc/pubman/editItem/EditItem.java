@@ -81,7 +81,10 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -263,6 +266,8 @@ public class EditItem extends FacesBean
 
         // get the item that is currently edited
         PubItemVO pubItem = this.getPubItem();
+        
+        EditItemSessionBean eisb = this.getEditItemSessionBean();
 
         if (pubItem != null)
         {
@@ -277,7 +282,7 @@ public class EditItem extends FacesBean
         {
             logger.warn("Current PubItem is NULL!");
         }
-        EditItemSessionBean eisb = this.getEditItemSessionBean();
+       
     }
 
     private void bindFiles()
@@ -314,12 +319,14 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getFiles().size() < 1)
     	{
     	    FileVO newFile = new FileVO();
+    	    newFile.getMetadataSets().add(new MdsFileVO());
     	    newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     	}
     	if(this.getEditItemSessionBean().getLocators().size() < 1)
     	{
     		FileVO newLocator = new FileVO();
+    		newLocator.getMetadataSets().add(new MdsFileVO());
     		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     	}
@@ -979,8 +986,11 @@ public class EditItem extends FacesBean
         contentURL = uploadFile(file);
     	if(contentURL != null && !contentURL.trim().equals(""))
     	{
-    		this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setSize(new Long(file.getLength()));
+    		EditItemSessionBean eisb = this.getEditItemSessionBean();
+    		FileVO testFile = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+    		this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
             this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setName(file.getFilename());
+            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
             this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
             this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setContent(contentURL);
     	}
@@ -994,13 +1004,13 @@ public class EditItem extends FacesBean
      */
     public String addFile()
     {
-    	//this.item.getFiles().add(new FileVO());
-    	//this.files.add(new PubFileVOPresentation());
     	// avoid to upload more than one item before filling the metadata
     	if(this.getEditItemSessionBean().getFiles() != null)
     	{
-    		//this.item.getFiles().add(new FileVO());
-    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), new FileVO(), false));
+    		FileVO newFile = new FileVO();
+    		newFile.getMetadataSets().add(new MdsFileVO());
+    		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
     	}
     	return "loadEditItem";
     }
@@ -1014,6 +1024,7 @@ public class EditItem extends FacesBean
     	if(this.getEditItemSessionBean().getLocators() != null)
     	{
     		FileVO newLocator = new FileVO();
+    		newLocator.getMetadataSets().add(new MdsFileVO());
     		newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
     		this.getEditItemSessionBean().getLocators().add(new PubFileVOPresentation(this.getEditItemSessionBean().getLocators().size(), newLocator, true));
     	}
@@ -1033,6 +1044,7 @@ public class EditItem extends FacesBean
         	{
         		this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
         	}
+        	this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent()));
     	}
     	return "loadEditItem";
     }

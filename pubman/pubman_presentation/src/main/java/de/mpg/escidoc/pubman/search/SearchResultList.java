@@ -656,11 +656,14 @@ public class SearchResultList extends ItemList
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
         response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        response.setContentLength(new Long(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue());
+        if(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getDefaultMetadata() != null)
+        {
+        	response.setContentLength(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getDefaultMetadata().getSize());
+        }
         response.setContentType(contentType);
 
         byte[] buffer = null;
-        if (filePosition != -1)
+        if (filePosition != -1 && this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getDefaultMetadata() != null)
         {
             try
             {
@@ -679,15 +682,18 @@ public class SearchResultList extends ItemList
                 InputStream input = method.getResponseBodyAsStream();
                 try
                 {
-                    buffer = new byte[new Long(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getSize()).intValue()];
-                    int numRead;
-                    long numWritten = 0;
-                    while ((numRead = input.read(buffer)) != -1) {
-                        out.write(buffer, 0, numRead);
-                        out.flush();
-                        numWritten += numRead;
+                    if(this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getDefaultMetadata() != null)
+                    {
+                    	buffer = new byte[this.getItemListSessionBean().getCurrentPubItemList().get(itemPosition).getFiles().get(filePosition).getDefaultMetadata().getSize()];
+                    	int numRead;
+                        long numWritten = 0;
+                        while ((numRead = input.read(buffer)) != -1) {
+                            out.write(buffer, 0, numRead);
+                            out.flush();
+                            numWritten += numRead;
+                        }
+                        facesContext.responseComplete();
                     }
-                    facesContext.responseComplete();
                 }
                 catch (IOException e1)
                 {

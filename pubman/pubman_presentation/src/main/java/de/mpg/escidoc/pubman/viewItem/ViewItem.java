@@ -1227,10 +1227,14 @@ public class ViewItem extends FacesBean
         FacesContext fc = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse)fc.getExternalContext().getResponse();
         response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        response.setContentLength(new Long(this.fileArray.get(filePosition).getSize()).intValue());
+        if(this.fileArray.get(filePosition).getDefaultMetadata() != null)
+        {
+        	response.setContentLength(this.fileArray.get(filePosition).getDefaultMetadata().getSize());
+        }
+        
         response.setContentType(contentType);
         byte[] buffer = null;
-        if (filePosition != -1)
+        if (filePosition != -1 && this.fileArray.get(filePosition).getDefaultMetadata() != null)
         {
             try
             {
@@ -1248,16 +1252,20 @@ public class ViewItem extends FacesBean
                 InputStream input = method.getResponseBodyAsStream();
                 try
                 {
-                    buffer = new byte[new Long(this.fileArray.get(filePosition).getSize()).intValue()];
-                    int numRead;
-                    long numWritten = 0;
-                    while ((numRead = input.read(buffer)) != -1)
+                    if(this.fileArray.get(filePosition).getDefaultMetadata() != null)
                     {
-                        out.write(buffer, 0, numRead);
-                        out.flush();
-                        numWritten += numRead;
+                    	buffer = new byte[this.fileArray.get(filePosition).getDefaultMetadata().getSize()];
+                    	int numRead;
+                        long numWritten = 0;
+                        while ((numRead = input.read(buffer)) != -1)
+                        {
+                            out.write(buffer, 0, numRead);
+                            out.flush();
+                            numWritten += numRead;
+                        }
+                        fc.responseComplete();
                     }
-                    fc.responseComplete();
+                    
                 }
                 catch (IOException e1)
                 {

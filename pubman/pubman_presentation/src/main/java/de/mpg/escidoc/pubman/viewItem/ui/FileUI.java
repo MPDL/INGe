@@ -123,7 +123,11 @@ public class FileUI
 			this.lnkName.setOnclick("downloadFile(" + position + "); return false");
 			this.panGrid.getChildren().add(this.lnkName);
 			this.valFileSize.setId(CommonUtils.createUniqueId(this.valFileSize));
-			BigDecimal fileSize = new BigDecimal(file.getSize()).divide(new BigDecimal(1024), BigDecimal.ROUND_HALF_UP);
+			BigDecimal fileSize = new BigDecimal(0);
+			if(file.getDefaultMetadata() != null)
+			{
+				fileSize = new BigDecimal(file.getDefaultMetadata().getSize()).divide(new BigDecimal(1024), BigDecimal.ROUND_HALF_UP);
+			}
 			this.valFileSize.setValue(" (" + fileSize.toString() + "KB)");
 			this.valFileSize.setStyle("height: 20px; width: 360px");
 			this.valFileSize.setStyleClass("valueMetadata");

@@ -153,6 +153,9 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionVOList.addAll(identifierCriterionCollection.getFilledCriterionVO());
     	criterionVOList.addAll(languageCriterionCollection.getFilledCriterionVO());
     
+    	//set the old list dirty
+    	this.getItemListSessionBean().setListDirty(true);
+    	
         //start the advanced search in the PubItemSearching interface
         SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
         

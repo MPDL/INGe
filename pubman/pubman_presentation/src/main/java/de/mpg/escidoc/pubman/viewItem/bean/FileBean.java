@@ -219,11 +219,15 @@ public class FileBean extends FacesBean implements ActionListener
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
         response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        response.setContentLength(new Long(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getSize()).intValue());
+        if(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
+        {
+        	response.setContentLength(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata().getSize());
+        }
+        
         response.setContentType(contentType);
 
         byte[] buffer = null;
-        if (filePosition != -1)
+        if (filePosition != -1 && this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
         {
             try
             {
@@ -242,15 +246,18 @@ public class FileBean extends FacesBean implements ActionListener
                 InputStream input = method.getResponseBodyAsStream();
                 try
                 {
-                    buffer = new byte[new Long(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getSize()).intValue()];
-                    int numRead;
-                    long numWritten = 0;
-                    while ((numRead = input.read(buffer)) != -1) {
-                        out.write(buffer, 0, numRead);
-                        out.flush();
-                        numWritten += numRead;
+                    if(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
+                    {
+                    	buffer = new byte[this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata().getSize()];
+                        int numRead;
+                        long numWritten = 0;
+                        while ((numRead = input.read(buffer)) != -1) {
+                            out.write(buffer, 0, numRead);
+                            out.flush();
+                            numWritten += numRead;
+                        }
+                        facesContext.responseComplete();
                     }
-                    facesContext.responseComplete();
                 }
                 catch (IOException e1)
                 {
@@ -372,13 +379,44 @@ public class FileBean extends FacesBean implements ActionListener
     public FileVO getFile() {
 		return file;
 	}
+    
+    public String getFileName() {
+		String fileName = "";
+		if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
+		{
+			fileName = file.getDefaultMetadata().getTitle().getValue();
+		}
+    	return fileName;
+	}
+    
+    public String getFileLink() {
+		return file.getContent();
+	}
+    
+    public String getLocator() {
+    	String locator = "";
+		if(file.getDefaultMetadata() != null && file.getDefaultMetadata().getTitle() != null)
+		{
+			locator = file.getDefaultMetadata().getTitle().getValue();
+		}
+    	return locator;
+	}
+    
+    public String getLocatorLink() {
+		return file.getContent();
+	}
 
 	public void setFile(FileVO file) {
 		this.file = file;
 	}
 
 	public String getFileSize() {
-		return this.getCommonSessionBean().computeFileSize(this.file.getSize());
+		String fileSize = "0";
+		if(this.file.getDefaultMetadata() != null)
+		{
+			fileSize = this.getCommonSessionBean().computeFileSize(this.file.getDefaultMetadata().getSize());
+		}
+		return fileSize;
 	}
 
 	public List<SearchHitBean> getSearchHits() {

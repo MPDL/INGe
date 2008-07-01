@@ -169,7 +169,7 @@ public class ViewItemFileUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemText"));
                 
                 this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(this.pubItem.getFiles().get(i).getMimeType() 
-                                        + " / " + this.pubItem.getFiles().get(i).getSize() 
+                                        + " / " + this.pubItem.getFiles().get(i).getDefaultMetadata().getSize() 
                                         + bundleLabel.getString("ViewItemMedium_lblFileSizeKB")));
                 
                 this.getChildren().add(htmlElement.getEndTag("div"));

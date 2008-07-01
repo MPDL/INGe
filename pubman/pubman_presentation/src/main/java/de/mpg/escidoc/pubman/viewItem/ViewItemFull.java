@@ -405,7 +405,7 @@ public class ViewItemFull extends FacesBean
             	else
             	{
             		// add locators
-            		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.INTERNAL_MANAGED)
+            		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
             		{
             			this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
             			countLocators ++;
