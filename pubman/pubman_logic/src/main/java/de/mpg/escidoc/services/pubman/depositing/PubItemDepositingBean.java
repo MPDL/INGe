@@ -313,16 +313,16 @@ public class PubItemDepositingBean implements PubItemDepositing
         }
         //check if there are any FileVOs that are Locators (without content). If so, add dummy content due to framework bug
         List<FileVO> fileList = pubItem.getFiles();
-        for (FileVO fileVO : fileList) {
-            
-            if(fileVO.getLocator() != null)
-            {
-                fileVO.setContent(fwUrl + "/escidoc-logo.jpg");
-                fileVO.setMimeType("image/jpg");
-                fileVO.setSize(new Long(123));
-            }
-            
-        }
+//        for (FileVO fileVO : fileList) {
+//            
+//            if(fileVO.getLocator() != null)
+//            {
+//                fileVO.setContent(fwUrl + "/escidoc-logo.jpg");
+//                fileVO.setMimeType("image/jpg");
+//                fileVO.setSize(new Long(123));
+//            }
+//            
+//        }
       
         
         // Transform the item to XML
