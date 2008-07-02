@@ -1183,6 +1183,10 @@ public class JiBXHelper
         {
             return EventLogEntryVO.EventType.WITHDRAW;
         }
+        else if ("in-revision".equals(enumValue))
+        {
+            return EventLogEntryVO.EventType.IN_REVISION;
+        }
         
         return type; // null is a possible return value
     }
