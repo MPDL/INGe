@@ -32,6 +32,7 @@ package test.xmltransforming.component;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -117,13 +119,14 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         {
             logger.info(diff);
         }
-
+        //assertTrue(oc.isEqual());
         // compare FileVO before and after roundtripping
         oc = new ObjectComparator(pubItemVO.getFiles().get(0), roundtrippedPubItemVO.getFiles().get(0));
         for (String diff : oc.getDiffs())
         {
             logger.info(diff);
         }
+        //assertTrue(oc.isEqual());
         logger.info("FileVO.description, vorher:" + pubItemVO.getFiles().get(0).getDescription());
         logger.info("FileVO.description, vorher (escaped):" + JiBXHelper.xmlEscape(pubItemVO.getFiles().get(0).getDescription()));
         logger.info("FileVO.description, nachher:" + roundtrippedPubItemVO.getFiles().get(0).getDescription());
@@ -145,6 +148,9 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         fileVO.setVisibility(Visibility.PUBLIC);
         fileVO.setStorage(Storage.INTERNAL_MANAGED);
         MdsFileVO md = new MdsFileVO();
+        md.setContentCategory("post-print");
+        md.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
+        md.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
         md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
         md.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(md);
@@ -237,10 +243,10 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         // read item[XML] from file
         String releasedPubItemXML = readFile(RELEASED_ITEM_FILE);
         logger.info("Item[XML] read from file.");
-        logger.debug("Content: " + releasedPubItemXML);
+        logger.info("Content: " + releasedPubItemXML);
         // transform the item directly into a PubItemVO
         long zeit = -System.currentTimeMillis();
-        PubItemVO pubItemVO = xmlTransforming.transformToPubItem(releasedPubItemXML);
+        ItemVO pubItemVO = xmlTransforming.transformToItem(releasedPubItemXML);
         assertNotNull(pubItemVO.getRelations());
         zeit += System.currentTimeMillis();
         logger.info("transformToPubItem()->" + zeit + "ms");
@@ -252,6 +258,8 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         assertNotNull(pubItemVO);
         assertNotNull("PID is null!", pubItemVO.getVersion().getPid());
 
+        assertEquals(1, pubItemVO.getFiles().get(0).getMetadataSets().size());
+        
         assertEquals("hdl:someHandle/test/escidoc:4747", pubItemVO.getVersion().getPid());
     }
 

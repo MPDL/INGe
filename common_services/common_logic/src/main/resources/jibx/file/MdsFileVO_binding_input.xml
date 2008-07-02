@@ -45,7 +45,7 @@
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO"
 		ordered="false" allow-repeats="true">
 
-		<structure ordered="false" allow-repeats="true" usage="optional">
+<!--		<structure ordered="false" allow-repeats="true" usage="optional">-->
 
 			<!-- Node: file.title -->
 			<!-- Field: MdsFileVO.title [TextVO] (inherited from superclass MetadataSetVO)-->
@@ -57,10 +57,11 @@
 				field="description" usage="optional"/>
 
 			<!-- Node: file.identifier -->
-			<!-- Field: MdsFileVO.identifiers [List<String>] -->
+			<!-- Field: MdsFileVO.identifiers [List<IdentifierVO>] -->
 			<collection field="identifiers"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-				<value name="identifier" style="element" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+				<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
 			<!-- Node: file.content-category -->
@@ -81,6 +82,6 @@
 			<value style="element" name="extent" ns="http://purl.org/dc/terms/"
 				field="size" usage="optional" />
 
-		</structure>
+<!--		</structure>-->
 	</mapping>
 </binding>

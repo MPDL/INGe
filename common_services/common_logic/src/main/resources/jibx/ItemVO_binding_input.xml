@@ -149,7 +149,7 @@
 
 				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
-				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+				<structure name="publication" ns="${xsd.metadata.escidocprofile}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
 
 			</collection>

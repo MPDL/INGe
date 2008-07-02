@@ -14,9 +14,9 @@ public class MdsFileVO extends MetadataSetVO
     /**
      * Identifier of an external resource.
      */
-    private List<String> identifiers = new ArrayList<String>();
+    private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
 
-    private List<String> formats = new ArrayList<String>();
+    private List<FormatVO> formats = new ArrayList<FormatVO>();
 
     private int size;
     
@@ -73,12 +73,12 @@ public class MdsFileVO extends MetadataSetVO
         this.description = description;
     }
 
-    public List<String> getIdentifiers()
+    public List<IdentifierVO> getIdentifiers()
     {
         return identifiers;
     }
 
-    public List<String> getFormats()
+    public List<FormatVO> getFormats()
     {
         return formats;
     }

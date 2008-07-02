@@ -67,15 +67,15 @@
             <escidocComponents:content xlink:type="simple" xlink:title="farbtest.gif" xlink:href="/ir/item/escidoc:375/components/component/escidoc:376/content" storage="internal-managed"/>
             <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}">
             	<escidocMetadataRecords:md-record name="escidoc">
-            		<file xmlns="${xsd.metadata.file}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            		<file:file xmlns:file="${xsd.metadata.file}" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 						<dc:title>My File</dc:title>
 						<dc:description>This is my file.</dc:description>
 						<dc:identifier xsi:type="eidt:ESCIDOC">19484</dc:identifier>
-						<dc:identifier>http://myFile.com</dc:identifier>
-						<content-category>full text</content-category>
+						<dc:identifier xsi:type="dcterms:URI">http://myFile.com</dc:identifier>
+						<file:content-category>full text</file:content-category>
 						<dc:format xsi:type="dcterms:IMT">image/jpeg</dc:format>
 						<dcterms:extent>12</dcterms:extent>
-					</file>
+					</file:file>
             	</escidocMetadataRecords:md-record>
             </escidocMetadataRecords:md-records>
         </escidocComponents:component>

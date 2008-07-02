@@ -61,10 +61,11 @@
 			</collection>
 
 			<!-- Node: organizational-unit.organization-details.identifier -->
-			<!-- Field: AffiliationVO.identifiers [List<String>] -->
+			<!-- Field: AffiliationVO.identifiers [List<IdentifierVO>] -->
 			<collection field="identifiers"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-				<value name="identifier" style="element" ns="http://purl.org/dc/elements/1.1/" type="java.lang.String"/>
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.identifierVOListFactory" usage="optional">
+				<structure name="identifier" ns="http://purl.org/dc/elements/1.1/"
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO" />
 			</collection>
 				
 			<!-- Node: organizational-unit.organization-details.organization-type -->
@@ -88,7 +89,7 @@
 			<!-- Node: organizational-unit.organization-details.country -->
 			<!-- Field: AffiliationVO.countryCode [String] -->
 			<value style="element" name="country" ns="${xsd.metadata.organization}"
-				field="countryCode"/>
+				field="countryCode" usage="optional"/>
 				
 			<!-- Node: organizational-unit.organization-details.coordinates -->
 			<!-- Field: AffiliationVO.coordinates [Coordinates] -->

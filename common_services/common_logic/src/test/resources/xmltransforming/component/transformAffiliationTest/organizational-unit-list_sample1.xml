@@ -21,7 +21,7 @@
 				<ou-details:organization-details>
 					<dc:title>MPI for the History of Science</dc:title>
 					<dcterms:alternative>MPIWG</dcterms:alternative>
-					<dc:identifier>http://www.mpgwg-berlin.mpg.de</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://www.mpgwg-berlin.mpg.de</dc:identifier>
 					<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
 					<ou-details:city>Berlin</ou-details:city>
 					<ou-details:country>DE</ou-details:country>
@@ -43,7 +43,7 @@
 				<ou-details:organization-details>
 					<dc:title>MPI for the History of Science</dc:title>
 					<dcterms:alternative>MPIWG</dcterms:alternative>
-					<dc:identifier>http://www.mpgwg-berlin.mpg.de</dc:identifier>
+					<dc:identifier xsi:type="dcterms:URI">http://www.mpgwg-berlin.mpg.de</dc:identifier>
 					<dc:description>The Max Planck Institute for the History of Science in Berlin was established in 1994 in order to create an international research center for the history of science in Germany. Researchers at the Institute investigate how new categories of thought, proof, and experience have emerged in the centuries-long interaction between the sciences and their ambient cultures.</dc:description>
 					<ou-details:city>Berlin</ou-details:city>
 					<ou-details:country>DE</ou-details:country>

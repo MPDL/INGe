@@ -153,6 +153,7 @@ public class FileVO extends ValueObject implements Cloneable
 //        size = other.size;
         visibility = other.visibility;
         storage = other.storage;
+        metadataSets = other.metadataSets;
     }
     
     /**
@@ -185,6 +186,18 @@ public class FileVO extends ValueObject implements Cloneable
         else
         {
             return null;
+        }
+    }
+    
+    public void setDefaultMetadata(MdsFileVO mdsFileVO)
+    {
+        if (metadataSets.size() == 0)
+        {
+            metadataSets.add(mdsFileVO);
+        }
+        else
+        {
+            metadataSets.set(0, mdsFileVO);
         }
     }
     

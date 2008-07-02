@@ -55,7 +55,7 @@
 	<include path="SourceVO_binding_abstract.xml" />		
 	<include path="TextVO_binding.xml" />
 
-	<mapping abstract="true" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	<mapping abstract="true" ns="${xsd.metadata.escidocprofile}"
 		class="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO"
 		ordered="false" allow-repeats="true">
 

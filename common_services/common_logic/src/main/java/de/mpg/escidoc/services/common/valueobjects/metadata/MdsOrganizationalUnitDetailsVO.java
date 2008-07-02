@@ -26,7 +26,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     /**
      * Identifier of an external resource.
      */
-    private List<String> identifiers = new ArrayList<String>();
+    private List<IdentifierVO> identifiers = new ArrayList<IdentifierVO>();
 
     /**
      * The unique name of the affiliation in the organizational structure.
@@ -87,12 +87,12 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     {
         if (date == null || "".equals(date))
         {
-            setStartDate(null);
+            setEndDate(null);
         }
         else
         {
             SimpleDateFormat sdf = new SimpleDateFormat(Constants.ESCIDOC_DATE_FORMAT);
-            setStartDate(sdf.parse(date));
+            setEndDate(sdf.parse(date));
         }
     }
     
@@ -141,7 +141,7 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
         return descriptions;
     }
 
-    public List<String> getIdentifiers()
+    public List<IdentifierVO> getIdentifiers()
     {
         return identifiers;
     }

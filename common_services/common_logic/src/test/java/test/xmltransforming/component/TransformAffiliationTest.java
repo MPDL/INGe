@@ -50,6 +50,7 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 
@@ -216,6 +217,6 @@ public class TransformAffiliationTest extends TestBase
         assertEquals("DE", details.getCountryCode());
         assertEquals("Berlin", details.getCity());
         assertEquals(1, details.getIdentifiers().size());
-        assertEquals("http://www.mpgwg-berlin.mpg.de", details.getIdentifiers().get(0));
+        assertEquals(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpgwg-berlin.mpg.de"), details.getIdentifiers().get(0));
     }
 }
