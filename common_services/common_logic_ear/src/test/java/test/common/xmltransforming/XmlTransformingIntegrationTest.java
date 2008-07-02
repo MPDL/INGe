@@ -44,6 +44,7 @@ import test.common.xmltransforming.integration.TransformPubItemResultListIntegra
 import test.common.xmltransforming.integration.TransformPubItemResultTest;
 import test.common.xmltransforming.integration.TransformPubItemVersionListIntegrationTest;
 import test.common.xmltransforming.integration.TransformSchindlMayrIntegrationTest;
+import test.common.xmltransforming.integration.TransformStatisticsTest;
 
 /**
  * Integration test suite for XmlTransforming.
@@ -64,7 +65,9 @@ import test.common.xmltransforming.integration.TransformSchindlMayrIntegrationTe
                      TransformPubItemVersionListIntegrationTest.class,
                      TransformSchindlMayrIntegrationTest.class,
                      TransformFileUrlTest.class,
-                     TransformContainerIntegrationTest.class
+                     TransformContainerIntegrationTest.class,
+                     TransformStatisticsTest.class
+                     
                     })
 public class XmlTransformingIntegrationTest extends TestBase
 {
