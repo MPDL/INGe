@@ -74,6 +74,7 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
 
 
@@ -189,7 +190,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         try 
         {
             
-            ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler();
+            ReportDefinitionHandler repDefHandler = ServiceLocator.getReportDefinitionHandler(AdminHelper.getAdminUserHandle());
             //EntityManager em = emf.createEntityManager();
             String repDefFrameworkListXML = repDefHandler.retrieveReportDefinitions();
             List<StatisticReportDefinitionVO> repDefFrameworkList = xmlTransforming.transformToStatisticReportDefinitionList(repDefFrameworkListXML);

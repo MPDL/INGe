@@ -62,37 +62,37 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="4">
         <name>Item retrievals, all users</name>
         <scope objid="2"/>
-        <sql>select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieve' group by object_id;</sql>
+        <sql>select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by object_id;</sql>
     </report-definition>
 
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="5">
         <name>File downloads per Item, all users</name>
         <scope objid="2"/>
-        <sql>select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieveContent' group by parent_object_id;</sql>
+        <sql>select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by parent_object_id;</sql>
     </report-definition>
     
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="6">
         <name>File downloads, all users</name>
         <scope objid="2"/>
-        <sql>select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieveContent' group by object_id;</sql>
+        <sql>select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by object_id;</sql>
     </report-definition>
     
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="7">
         <name>Item retrievals, anonymous users</name>
         <scope objid="2"/>
-        <sql>select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieve' and user_id='' group by object_id;</sql>
+        <sql>select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='' group by object_id;</sql>
     </report-definition>
     
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="8">
         <name>File downloads per Item, anonymous users</name>
         <scope objid="2"/>
-        <sql>select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;</sql>
+        <sql>select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;</sql>
     </report-definition>
     
     <report-definition xmlns="http://www.escidoc.de/schemas/reportdefinition/0.3" objid="9">
         <name>File downloads, anonymous users</name>
         <scope objid="2"/>
-        <sql>select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieveContent' and user_id='' group by object_id;</sql>
+        <sql>select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;</sql>
     </report-definition>
 </report-definition-list>
  *
@@ -113,12 +113,12 @@ public interface PubItemSimpleStatistics
     
     
     
-    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieve' group by object_id;";
-    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieveContent' group by parent_object_id;";
-    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieveContent' group by object_id;";
-    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='ItemHandler' and request='retrieve' and user_id='' group by object_id;";
-    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;";
-    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='ItemHandler' and request='retrieveContent' and user_id='' group by object_id;";
+    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ALL_USERS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' group by object_id;";
+    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ALL_USERS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by parent_object_id;";
+    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' group by object_id;";
+    public static final String REPORTDEFINITION_NUMBER_OF_ITEM_RETRIEVALS_ANONYMOUS = "select object_id as itemId, sum(requests) as itemRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%')  and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieve' and user_id='' group by object_id;";
+    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_ITEM_ANONYMOUS = "select parent_object_id as itemId, sum(requests) as fileRequests from _1_object_statistics where (parent_object_id = {object_id} OR parent_object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by parent_object_id;";
+    public static final String REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS = "select object_id as fileId, sum(requests) as fileRequests from _1_object_statistics where (object_id = {object_id} OR object_id LIKE {object_id} || ':%') and handler='de.escidoc.core.om.service.ItemHandler' and request='retrieveContent' and user_id='' group by object_id;";
 
     
     /**Retrieves a statistic report for an item from the Framework according to the specified report definition type. Sums up the statistic data
