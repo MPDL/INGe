@@ -37,6 +37,7 @@ import java.util.List;
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.types.Coordinates;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 /**
  * A MPG unit or lower level of organizational unit within an MPG unit; includes also external affiliations. (Dependent
@@ -132,6 +133,18 @@ public class AffiliationVO extends ValueObject
         return childAffiliations;
     }
 
+    public MdsOrganizationalUnitDetailsVO getDefaultMetadata()
+    {
+        if (metadataSets.size() > 0 && metadataSets.get(0) instanceof MdsOrganizationalUnitDetailsVO)
+        {
+            return (MdsOrganizationalUnitDetailsVO) metadataSets.get(0);
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     /**
      * Delivers the creation date of the affiliation, i. e. a timestamp from the system when the organizational unit is
      * created.
