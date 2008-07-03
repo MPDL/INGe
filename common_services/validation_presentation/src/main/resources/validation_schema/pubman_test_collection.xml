@@ -43,6 +43,7 @@
 	<iso:ns prefix="publication" uri="${xsd.metadata.publication}"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
 	<iso:ns prefix="prop" uri="${xsd.soap.common.prop}"/>
+	<iso:ns prefix="file" uri="${xsd.metadata.file}"/>
 	
 	<!-- Validation points -->
 	<iso:phase id="default">
@@ -174,7 +175,7 @@
 		<iso:rule context="escidocComponents:component">
 			
 			<!-- If a file is given, the filename is mandatory. -->
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:file-name != ''">ComponentFileNameNotProvided</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[@name='escidoc']/file:file/dc:title != ''">ComponentFileNameNotProvided</iso:assert>
 		
 			<!-- If a file is given, the content category is mandatory. -->
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
@@ -194,7 +195,7 @@
 		<iso:rule context="escidocComponents:component">
 			
 			<!-- File: If a filename, a content category, a mime-type or a description is given, there has to be a content. -->
-			<iso:assert test="(escidocComponents:content/@xlink:href != '') or not(escidocComponents:properties/prop:file-name != '' or escidocComponents:properties/prop:mime-type != '' or escidocComponents:properties/prop:description != '')">ComponentContentNotProvided</iso:assert>
+			<iso:assert test="(escidocComponents:content/@xlink:href != '') or not(escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[@name='escidoc']/file:file/dc:title != '' or escidocComponents:properties/prop:mime-type != '' or escidocComponents:properties/prop:description != '')">ComponentContentNotProvided</iso:assert>
 
 		</iso:rule>
 		

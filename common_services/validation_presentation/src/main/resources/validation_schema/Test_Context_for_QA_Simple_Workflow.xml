@@ -28,9 +28,8 @@
 -->
 <!-- Validation Schema for publication items
 	$Author: mfranke $
-	$Revision: 123 $
- -->
-<?identification context-name="MPDL Collection Grey Material" content-model="escidoc:persistent4" context="greymaterial" metadata-version="1.0" version="0.1"?>
+	$Revision: 139 $ -->
+<?identification context-name="Test Context for QA Simple Workflow" content-model="escidoc:persistent4" context="escidoc:dummy12248" metadata-version="1.0" version="0.1"?>
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
@@ -67,7 +66,6 @@
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
-		<iso:active pattern="public_file_required"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
@@ -75,7 +73,6 @@
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
-		<iso:active pattern="public_file_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 	</iso:phase>
@@ -85,14 +82,15 @@
 		<iso:active pattern="title_required"/>
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
-		<iso:active pattern="public_file_required"/>
-		<iso:active pattern="date_modified_required"/>
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
+		<iso:active pattern="source_title_required"/>
 		<iso:active pattern="source_genre_required"/>
 	</iso:phase>
-	
+
 	<iso:phase id="submit_item">
 		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
@@ -107,11 +105,9 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
-		<iso:active pattern="date_modified_required"/>
-		<!-- <iso:active pattern="abstract_english_required"/> -->
-		<iso:active pattern="public_file_required"/>
-		<!-- <iso:active pattern="event_required"/> -->
-		<!-- <iso:active pattern="review_method_internal_required"/> -->
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
+<!--		<iso:active pattern="review_method_required"/>-->
 	</iso:phase>
 
 	<iso:phase id="accept_item">
@@ -128,13 +124,10 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		
-		<iso:active pattern="date_modified_required"/>
-		<!-- <iso:active pattern="abstract_english_required"/> -->
-		<iso:active pattern="public_file_required"/>
-		<!-- <iso:active pattern="event_required"/> -->
-		<!-- <iso:active pattern="review_method_internal_required"/> -->
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
+		<!--<iso:active pattern="review_method_required"/>-->
 	</iso:phase>
-
 
 	<!-- Validation rules -->
 	
@@ -235,6 +228,28 @@
 		</iso:rule>
 	</iso:pattern>
 	
+	<!-- Genre must not be manuscript. -->
+	<iso:pattern name="genre_constraint" id="genre_constraint">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="@type != 'manuscript'">GenreNotSuitable</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- At least one creator with an organizational unit provided is required -->
+	<iso:pattern name="creator_required" id="creator_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">CreatorNotProvided</iso:assert>
+			<iso:assert test="publication:creator/@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">OrganizationalMetadataNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:organization">
+			<iso:assert test="escidoc:organization-name != ''">CreatorOrganizationNameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
 	<!-- if "Publisher place" or "Publisher edition" is filled, "Publisher name" has to be filled also -->
 	<iso:pattern name="publisher_name_required" id="publisher_name_required">
 		<iso:rule context="escidoc:publishing-info">
@@ -242,65 +257,24 @@
 		</iso:rule>
 	</iso:pattern>
 	 
-	 <!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
+	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
 	<iso:pattern name="organization_name_required" id="organization_name_required">
 		<iso:rule context="escidoc:organization">
 			<iso:assert test="escidoc:organization-name != '' or not(escidoc:address) or escidoc:address = ''">OrganizationNameNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
-	 
-	<!-- Genre must not be one of Proceedings, Conference Paper, Talk at event, Conference Report, Poster, Courseware/Lecture, Thesis, Paper, Report, Other. -->
-	<iso:pattern name="genre_constraint" id="genre_constraint">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="@type = 'Proceedings' or @type = 'Conference Paper' or @type = 'Talk at event' or @type = 'Conference Report' or @type = 'Poster' or @type = 'Courseware/Lecture' or @type = 'Thesis' or @type = 'Paper' or @type = 'Report' or @type = 'Other'">GenreNotSuitable</iso:assert>
-		</iso:rule>
-	</iso:pattern>
 
-	<!-- At least one creator of role "author" is MPDL (organization) or is affiliated to MPDL (person). -->
-	<iso:pattern name="creator_required" id="creator_required">
+	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
+	<iso:pattern name="date_required" id="date_required">
 		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '' or publication:creator/escidoc:organization/escidoc:organization-name">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator">CreatorNotProvided</iso:assert>
-			<iso:assert test="publication:creator/@role = 'author'">AuthorNotProvided</iso:assert>
-			<iso:assert test="publication:creator//escidoc:organization-name[contains(., 'Max Planck Digital Library')]">MpdlCreatorRequired</iso:assert>
-		</iso:rule>
-		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
-			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+			<iso:assert test="(@type = 'series' or @type = 'journal' or @type = 'manuscript' or @type = 'other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
-	<!-- One date of type "modified" has to be provided and it's value is after 2007-01-01. -->
-	<iso:pattern name="date_modified_required" id="date_modified_required">
+	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
+	<iso:pattern name="source_required" id="source_required" flag="restrictive">
 		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="dcterms:modified != '' and substring(concat(dcterms:modified, '-01-01'), 1, 10) castable as xs:date and xs:date(substring(concat(dcterms:modified, '-01-01'), 1, 10)) &gt; xs:date('2007-01-01')">DateModifiedNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-
-	<!-- An abstract of language "English" has to be provided. -->
-	<iso:pattern name="abstract_english_required" id="abstract_english_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="dcterms:abstract[@xml:lang='en']">EnglishAbstractNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-	
-	<!-- At least one file with visibility "public" has been uploaded for the item. -->
-	<iso:pattern name="public_file_required" id="public_file_required">
-		<iso:rule context="escidocComponents:components">
-			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '' and escidocComponents:properties/escidocComponents:visibility = 'public']">NoPublicFileProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-	
-	<!-- If genre is equal to "Proceedings", "Conference Paper", "Talk at event", "Conference Report" or "Courseware/Lecture", an event has to be provided. -->
-	<iso:pattern name="event_required" id="event_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="not(@type = 'proceedings' or @type = 'talk-at-event' or @type = 'conference-paper' or @type = 'conference-report' or @type = 'courseware-lecture') or (publication:event/dc:title != '')">EventNotProvided</iso:assert>
-		</iso:rule>
-	</iso:pattern>
-	
-	<!-- The ReviewMethod has the value "internal".  -->
-	<iso:pattern name="review_method_internal_required" id="review_method_internal_required">
-		<iso:rule context="escidocMetadataProfile:publication">
-			<iso:assert test="publication:review-method = 'internal'">ReviewMethodInternalNotProvided</iso:assert>
+			<iso:assert test="not(@type = 'article' or @type = 'book-item' or @type = 'conference-paper') or (publication:source/dc:title != '')">SourceNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 	
@@ -308,6 +282,13 @@
 	<iso:pattern name="source_genre_required" id="source_genre_required" flag="restrictive">
 		<iso:rule context="escidocMetadataProfile:publication/publication:source">
 			<iso:assert test="not(dc:title != '') or (@type and @type != '')">SourceGenreNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
+	<iso:pattern name="review_method_required" id="review_method_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="not(dcterms:issued != '') or (publication:review-method != '')">ReviewMethodNotProvided</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
