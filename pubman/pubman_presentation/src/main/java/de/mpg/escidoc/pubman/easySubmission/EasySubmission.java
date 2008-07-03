@@ -75,6 +75,7 @@ import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
@@ -198,11 +199,13 @@ public class EasySubmission extends FacesBean
     			newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+        		newLocator.setDefaultMetadata(new MdsFileVO());
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
     			FileVO newFile = new FileVO();
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			newFile.setDefaultMetadata(new MdsFileVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getFiles().size() < 1)
@@ -211,6 +214,7 @@ public class EasySubmission extends FacesBean
     			FileVO newFile = new FileVO();
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			newFile.setDefaultMetadata(new MdsFileVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getLocators().size() < 1)
@@ -220,6 +224,7 @@ public class EasySubmission extends FacesBean
     			newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
+        		newLocator.setDefaultMetadata(new MdsFileVO());
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
     	}
@@ -305,6 +310,7 @@ public class EasySubmission extends FacesBean
     		FileVO newFile = new FileVO();
     		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+			newFile.setDefaultMetadata(new MdsFileVO());
     		this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     	}
     	return "loadNewEasySubmission";
@@ -330,6 +336,7 @@ public class EasySubmission extends FacesBean
     		// set fixed content type
     		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
     		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+    		newLocator.getFile().setDefaultMetadata(new MdsFileVO());
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
     	return "loadNewEasySubmission";
@@ -878,6 +885,7 @@ public class EasySubmission extends FacesBean
     			FileVO newFile = new FileVO();
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
+    			newFile.setDefaultMetadata(new MdsFileVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     		}
     	}
@@ -890,6 +898,7 @@ public class EasySubmission extends FacesBean
         		// set fixed content type
         		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
+        		newLocator.getFile().setDefaultMetadata(new MdsFileVO());
         		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     		}
     	}

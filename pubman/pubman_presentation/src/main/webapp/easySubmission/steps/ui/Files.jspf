@@ -36,61 +36,61 @@
 	<%-- FILES --%>
 	<tr:iterator var="component" id="fileUploads" value="#{EasySubmission.files}" binding="#{EasySubmission.fileIterator}" varStatus="index">
      		<h:panelGroup >
-     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine" rendered="#{component.file.size > 0}">
-     			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.size > 0}">
-     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox" rendered="#{component.file.size > 0}">
-     					<tr:outputLabel value="#{lbl.easy_submission_lblUploaded}" rendered="#{component.file.size > 0}"/>
-     					<tr:outputLabel value="#{component.file.name}, " rendered="#{component.file.size > 0}"/>		
+     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine" rendered="#{component.file.defaultMetadata != null and component.file.defaultMetadata.size > 0}">
+     			<h:panelGroup layout="block" styleClass="easySubmissionSubBox">
+     				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
+     					<tr:outputLabel value="#{lbl.easy_submission_lblUploaded}"/>
+     					<tr:outputLabel value="#{component.file.name}, "/>		
      				
-     					<tr:outputLabel value="#{component.contentCategory}, " rendered="#{component.file.size > 0}"/>	
+     					<tr:outputLabel value="#{component.contentCategory}, "/>	
      				
-     					<tr:outputLabel value="#{lbl.easy_submission_lblFileVisibility}"  rendered="#{component.file.size > 0}"/>	
-     					<tr:outputLabel value="#{component.visibility}, " rendered="#{component.file.size > 0}"/>	
+     					<tr:outputLabel value="#{lbl.easy_submission_lblFileVisibility}"/>	
+     					<tr:outputLabel value="#{component.visibility}, "/>	
      				
-     					<tr:outputLabel value="#{lbl.easy_submission_lblFileFileDescription}" rendered="#{component.file.size > 0}"/>
-     					<tr:outputLabel value="#{component.file.description}" rendered="#{component.file.size > 0}"/>	
+     					<tr:outputLabel value="#{lbl.easy_submission_lblFileFileDescription}"/>
+     					<tr:outputLabel value="#{component.file.description}"/>	
      				</h:panelGroup>
-					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" rendered="#{component.file.size > 0}" action="#{component.removeFileEasySubmission}"/>	
+					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" action="#{component.removeFileEasySubmission}"/>	
 				</h:panelGroup>
      			</h:panelGroup>
      			
-     			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.size == 0}">
+     			<h:panelGroup layout="block" styleClass="easySubmissionSubBox" rendered="#{component.file.defaultMetadata==null || component.file.defaultMetadata.size == 0}">
      				<h3><h:outputText value="#{lbl.EditItem_lblFile}"/></h3>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
      					<h:panelGroup layout="block" styleClass="margin5Right">
-     						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath} *" rendered="#{component.file.size == 0}"/>
+     						<tr:outputLabel value="#{lbl.easy_submission_lbleasy_submission_lblFilePath} *"/>
      					</h:panelGroup>
-     					<tr:inputFile value="#{EasySubmission.uploadedFile}" rendered="#{component.file.size == 0}"/>
+     					<tr:inputFile value="#{EasySubmission.uploadedFile}"/>
      				</h:panelGroup>
      				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-     					<tr:outputLabel value="#{lbl.easy_submission_lblFileProperties}" styleClass="margin5Top" rendered="#{component.file.size == 0}"/>
+     					<tr:outputLabel value="#{lbl.easy_submission_lblFileProperties}" styleClass="margin5Top"/>
         		  		<h:panelGroup layout="block" styleClass="easySubmissionVisibilityLine">
-          					<tr:outputLabel value="#{lbl.easy_submission_lblFileVisibility}"  rendered="#{component.file.size == 0}"/>
-          					<h:selectOneRadio value="#{component.file.visibility}" rendered="#{component.file.size == 0}">
+          					<tr:outputLabel value="#{lbl.easy_submission_lblFileVisibility}"/>
+          					<h:selectOneRadio value="#{component.file.visibility}">
            						<f:selectItems value="#{EasySubmission.visibilities}" />
           					</h:selectOneRadio>
           				</h:panelGroup>
           			</h:panelGroup>
           				
           			<h:panelGroup layout="block" styleClass="easySubmissionSubSubBox">
-          				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{component.file.size == 0}">
+          				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{component.file.defaultMetadata==null || component.file.defaultMetadata.size == 0}">
           			
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
-          						<tr:outputLabel value="#{lbl.easy_submission_lblFileName} *" rendered="#{component.file.size == 0}"/>
-          						<tr:inputText value="#{component.file.name}" rendered="#{component.file.size == 0}" />
+          						<tr:outputLabel value="#{lbl.easy_submission_lblFileName} *"/>
+          						<tr:inputText value="#{component.file.name}"/>
           					</h:panelGroup>
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
-          						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory} *" rendered="#{component.file.size == 0}"/>
-          						<h:selectOneMenu id="fileContentCategory" value="#{component.file.contentCategory}" rendered="#{component.file.size == 0}">
+          						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory} *"/>
+          						<h:selectOneMenu id="fileContentCategory" value="#{component.file.contentCategory}">
            							<f:selectItems value="#{EasySubmission.contentCategories}" />
           						</h:selectOneMenu>
           					</h:panelGroup>
           				
           				</h:panelGroup>
-          				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+          				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{component.file.defaultMetadata==null || component.file.defaultMetadata.size == 0}">
           					<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
-          						<tr:outputLabel value="#{lbl.easy_submission_lblFileDescription}" rendered="#{component.file.size == 0}"/>
-          						<tr:inputText value="#{component.file.description}" rows="4" rendered="#{component.file.size == 0}"/>	
+          						<tr:outputLabel value="#{lbl.easy_submission_lblFileDescription}" />
+          						<tr:inputText value="#{component.file.description}" rows="4"/>	
           					</h:panelGroup>
           				</h:panelGroup>
           			</h:panelGroup>

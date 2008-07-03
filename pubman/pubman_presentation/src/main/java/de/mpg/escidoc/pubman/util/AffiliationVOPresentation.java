@@ -9,6 +9,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.affiliation.AffiliationBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 
 public class AffiliationVOPresentation extends AffiliationVO
@@ -84,10 +85,10 @@ public class AffiliationVOPresentation extends AffiliationVO
 			html.append("</div><br/>");
 		}
 
-		for (String identifier : getDetails().getIdentifiers())
+		for (IdentifierVO identifier : getDetails().getIdentifiers())
         {
 			html.append("<span>, &nbsp;");
-			html.append(identifier);
+			html.append(identifier.getId());
 			html.append("</span>");
 		}
 		html.append("</div></div>");
