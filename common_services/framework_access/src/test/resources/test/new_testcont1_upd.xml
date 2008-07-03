@@ -11,8 +11,8 @@
 	<container:properties>
 		<srel:created-by objid="escidoc:user2" />
 		<prop:public-status>pending</prop:public-status>
-		<srel:context objid="escidoc:persistent3X" />
-		<srel:content-model objid="escidoc:persistent4" />
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent6" />
 		<prop:lock-status>unlocked</prop:lock-status>
 		<prop:content-model-specific
 			xmlns:prop="http://escidoc.de/core/01/properties/">

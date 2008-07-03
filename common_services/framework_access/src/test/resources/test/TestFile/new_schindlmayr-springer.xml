@@ -10,7 +10,7 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	objid="escidoc:testitem1">
 	<item:properties>
-		<srel:context objid="escidoc:persistent3X" />
+		<srel:context objid="escidoc:persistent3" />
 		<srel:content-model objid="escidoc:persistent6" />
 		<prop:content-model-specific></prop:content-model-specific>
 	</item:properties>
