@@ -59,13 +59,13 @@
 			<h:panelGroup rendered="#{locator.locatorIsLink}">
 				<h:outputLink value="#{locator.locatorLink}" rendered="#{locator.itemWithdrawn == false}" target="_blank">
 					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
-					<h:outputText value="#{locator.locator}" rendered="#{locator.itemWithdrawn == false}"/>
+					<h:outputText value="#{locator.file.content}" rendered="#{locator.itemWithdrawn == false}"/>
 				</h:outputLink>
 			</h:panelGroup>
 			
 			<h:panelGroup rendered="#{locator.itemWithdrawn == false && !locator.locatorIsLink}">
 					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
-					<h:outputText value="#{locator.locator}" rendered="#{locator.itemWithdrawn == false}"/>
+					<h:outputText value="#{locator.file.content}" rendered="#{locator.itemWithdrawn == false}"/>
 			</h:panelGroup>
 
 				<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{locator.itemWithdrawn == true}"/>
@@ -79,8 +79,8 @@
 			<h:outputText value="</div>" escape="false"/>
 			
 			<h:outputText value="<div class='itemText'>" escape="false"/>
-				<h:outputText value="#{locator.file.name}"/>
-				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{locator.file.name == null || locator.file.name == ''}"/>
+				<h:outputText value="#{locator.file.defaultMetadata.title.value}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{locator.file.defaultMetadata.title.value == null || locator.file.defaultMetadata.title.value == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 </div>
 			

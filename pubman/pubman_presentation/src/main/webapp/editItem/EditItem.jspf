@@ -110,7 +110,7 @@
 	           			<div>
 	           			<h:panelGroup layout="block" styleClass="floatLeft leftSpace10">
 	           				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{component.size > 0}"/>
-	           				<tr:inputText value="#{component.file.name}" rendered="#{component.size > 0}" />
+	           				<tr:inputText value="#{component.file.defaultMetadata.title.value}" rendered="#{component.size > 0}" />
 	           			</h:panelGroup>	           			
 	           			<h:panelGroup layout="block" styleClass="floatLeft leftSpace10">
 	           				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentCategory}" rendered="#{component.size > 0}"/>
@@ -179,7 +179,7 @@
        			<tr:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{locator.locator != null && locator.locator != ''}"/>
        			<h:panelGroup layout="block" styleClass="editItemLeftCol">
        				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblName}" rendered="#{locator.locator != null && locator.locator != ''}"/>
-       				<tr:inputText value="#{locator.file.name}" rendered="#{locator.locator != null && locator.locator != ''}" />
+       				<tr:inputText value="#{locator.file.defaultMetadata.title.value}" rendered="#{locator.locator != null && locator.locator != ''}" />
        			</h:panelGroup>
        			<h:panelGroup layout="block" styleClass="editItemRightCol">
        				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblContentCategory}" rendered="#{locator.locator != null && locator.locator != ''}"/>

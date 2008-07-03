@@ -200,12 +200,14 @@ public class EasySubmission extends FacesBean
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		newLocator.setDefaultMetadata(new MdsFileVO());
+        		newLocator.getDefaultMetadata().setTitle(new TextVO());
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     			// add a file
     			FileVO newFile = new FileVO();
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			newFile.setDefaultMetadata(new MdsFileVO());
+    			newFile.getDefaultMetadata().setTitle(new TextVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getFiles().size() < 1)
@@ -215,6 +217,7 @@ public class EasySubmission extends FacesBean
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			newFile.setDefaultMetadata(new MdsFileVO());
+    			newFile.getDefaultMetadata().setTitle(new TextVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(0, newFile, false));
     		}
     		if(this.getEasySubmissionSessionBean().getLocators().size() < 1)
@@ -225,6 +228,7 @@ public class EasySubmission extends FacesBean
         		newLocator.setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.setVisibility(FileVO.Visibility.PUBLIC);
         		newLocator.setDefaultMetadata(new MdsFileVO());
+        		newLocator.getDefaultMetadata().setTitle(new TextVO());
         		this.getEasySubmissionSessionBean().getLocators().add(new PubFileVOPresentation(0, newLocator, true));
     		}
     	}
@@ -311,6 +315,7 @@ public class EasySubmission extends FacesBean
     		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 			newFile.setVisibility(FileVO.Visibility.PUBLIC);
 			newFile.setDefaultMetadata(new MdsFileVO());
+			newFile.getDefaultMetadata().setTitle(new TextVO());
     		this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     	}
     	return "loadNewEasySubmission";
@@ -384,9 +389,9 @@ public class EasySubmission extends FacesBean
     {
     	EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
     	// set the name if it is not filled
-    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getName() == null || this.getLocators().get(this.getLocators().size()-1).getFile().getName().trim().equals(""))
+    	if(this.getLocators().get(this.getLocators().size()-1).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(this.getLocators().size()-1).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
     	{
-    		this.getLocators().get(this.getLocators().size()-1).getFile().setName(this.getLocators().get(this.getLocators().size()-1).getFile().getContent());
+    		this.getLocators().get(this.getLocators().size()-1).getFile().getDefaultMetadata().setTitle(new TextVO(this.getLocators().get(this.getLocators().size()-1).getFile().getContent()));
     	}
     	// set a dummy file size for rendering purposes
     	if(this.getLocators().get(this.getLocators().size()-1).getFile().getContent() != null && !this.getLocators().get(this.getLocators().size()-1).getFile().getContent().trim().equals(""))
@@ -899,6 +904,7 @@ public class EasySubmission extends FacesBean
         		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
         		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
         		newLocator.getFile().setDefaultMetadata(new MdsFileVO());
+        		newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
         		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     		}
     	}

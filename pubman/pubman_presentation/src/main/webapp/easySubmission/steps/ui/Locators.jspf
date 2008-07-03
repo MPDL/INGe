@@ -44,7 +44,7 @@
 	     					<tr:outputLabel value="#{locator.file.content}, "/>		
 	     					
 	     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorName}: "/>
-	     					<tr:outputLabel value="#{locator.file.name}, "/>	
+	     					<tr:outputLabel value="#{locator.file.defaultMetadata.title.value}, "/>	
 	     				
 	     					<tr:outputLabel value=" #{locator.contentCategory}, "/>	
 	     				
@@ -79,7 +79,7 @@
            			
            			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}">   
            				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}"  />
-           				<tr:inputText value="#{locator.file.name}"/>
+           				<tr:inputText value="#{locator.file.defaultMetadata.title.value}"/>
            			</h:panelGroup>
            			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}">   
            				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"  />

@@ -40,7 +40,7 @@
      			<h:panelGroup layout="block" styleClass="easySubmissionSubBox">
      				<h:panelGroup layout="block" styleClass="easySubmissionFileListBox">
      					<tr:outputLabel value="#{lbl.easy_submission_lblUploaded}"/>
-     					<tr:outputLabel value="#{component.file.name}, "/>		
+     					<tr:outputLabel value="#{component.file.defaultMetadata.title.value}, "/>		
      				
      					<tr:outputLabel value="#{component.contentCategory}, "/>	
      				
@@ -77,7 +77,7 @@
           			
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
           						<tr:outputLabel value="#{lbl.easy_submission_lblFileName} *"/>
-          						<tr:inputText value="#{component.file.name}"/>
+          						<tr:inputText value="#{component.file.defaultMetadata.title.value}"/>
           					</h:panelGroup>
           					<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem">
           						<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory} *"/>
