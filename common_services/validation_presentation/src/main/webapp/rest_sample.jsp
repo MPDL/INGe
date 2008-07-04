@@ -29,7 +29,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 %>
-<%@page import="de.mpg.escidoc.services.util.ResourceUtil"%>
+<%@page import="de.mpg.escidoc.services.common.util.ResourceUtil"%>
 <html>
 	<head>
 		<title>eSciDoc Validation Service</title>

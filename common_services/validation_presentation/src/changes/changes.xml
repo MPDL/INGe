@@ -43,11 +43,9 @@
 		<release version="1.0.2" date="2008-03-12" description="Single release">
 			<action dev="mfranke" type="update">XML schema changes</action>
 		</release>
-		 <release version="1.0.3" date="2008-04-28" description="Release of all modules">
-    </release>
-    <release version="1.0.4" date="2008-05-16" description="Release of all modules"/>
-     <release version="1.0.5" date="2008-06-13" description="Single module release"/>
-     <release version="1.0.6-SNAPSHOT" date="2008-06-13" description="Current development"/>
-    </release>
+		<release version="1.0.3" date="2008-04-28" description="Release of all modules"></release>
+		<release version="1.0.4" date="2008-05-16" description="Release of all modules"/>
+		<release version="1.0.5" date="2008-06-13" description="Single module release"/>
+		<release version="1.0.6-SNAPSHOT" date="2008-06-13" description="Current development"/>
 	</body>
 </document>
