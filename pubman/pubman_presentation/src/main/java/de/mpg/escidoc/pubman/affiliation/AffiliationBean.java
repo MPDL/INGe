@@ -95,6 +95,21 @@ public class AffiliationBean extends FacesBean {
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+				String address = "";
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null)
+				{
+				    address+=selectedAffiliation.getDefaultMetadata().getCity();
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null && selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+				{
+				    address+=", ";
+				}
+				if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+                {
+                    address+=selectedAffiliation.getDefaultMetadata().getCountryCode();
+                }
+				((OrganizationVO)cache).setAddress(address);
+				
 			}
 			return "loadEditItem";
 		}
@@ -104,6 +119,20 @@ public class AffiliationBean extends FacesBean {
 			{
 				((OrganizationVO)cache).setName(new TextVO(selectedAffiliation.getNamePath()));
 				((OrganizationVO)cache).setIdentifier(selectedAffiliation.getReference().getObjectId());
+				String address = "";
+                if (selectedAffiliation.getDefaultMetadata().getCity() != null)
+                {
+                    address+=selectedAffiliation.getDefaultMetadata().getCity();
+                }
+                if (selectedAffiliation.getDefaultMetadata().getCity() != null && selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+                {
+                    address+=", ";
+                }
+                if (selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+                {
+                    address+=selectedAffiliation.getDefaultMetadata().getCountryCode();
+                }
+                ((OrganizationVO)cache).setAddress(address);
 			}
 			return "loadNewEasySubmission";
 		}
