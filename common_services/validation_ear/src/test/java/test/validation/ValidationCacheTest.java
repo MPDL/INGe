@@ -64,7 +64,7 @@ public class ValidationCacheTest
 {
 
     private String validationPoint = "submit_item";
-    private String context = "escidoc:persistent3";
+    private String context = "pu";
     private String contentType = "escidoc:persistent4";
 
     private ValidationSchemaCache cache;
