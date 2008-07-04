@@ -133,6 +133,12 @@ public class AffiliationVO extends ValueObject
         return childAffiliations;
     }
 
+    /**
+     * Convenience method to retrieve escidoc metadat set.
+     * 
+     * 
+     * @return A {@link MdsOrganizationalUnitDetailsVO}.
+     */
     public MdsOrganizationalUnitDetailsVO getDefaultMetadata()
     {
         if (metadataSets.size() > 0 && metadataSets.get(0) instanceof MdsOrganizationalUnitDetailsVO)
@@ -142,6 +148,23 @@ public class AffiliationVO extends ValueObject
         else
         {
             return null;
+        }
+    }
+    
+    /**
+     * Convenience method to set escidoc metadata set.
+     * 
+     * @param detailsVO A {@link MdsOrganizationalUnitDetailsVO} containing the default metadata.
+     */
+    public void setDefaultMetadata(MdsOrganizationalUnitDetailsVO detailsVO)
+    {
+        if (metadataSets.size() == 0)
+        {
+            metadataSets.add(detailsVO);
+        }
+        else
+        {
+            metadataSets.set(0, detailsVO);
         }
     }
     
