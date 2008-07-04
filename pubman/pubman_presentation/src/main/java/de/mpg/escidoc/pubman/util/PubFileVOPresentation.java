@@ -15,6 +15,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 
@@ -148,6 +149,29 @@ public class PubFileVOPresentation extends FacesBean {
     	}
     	return size;
     }
+	
+	public String getDescription()
+    {
+    	String description = "";
+    	if(this.file.getDefaultMetadata() != null)
+    	{
+    		description = this.file.getDefaultMetadata().getDescription();
+    	}
+    	return description;
+    }
+	
+	public void setDescription(String  description)
+	{
+		if(this.file.getDefaultMetadata() != null)
+		{
+			this.file.getDefaultMetadata().setDescription(description);
+		}
+		else
+		{
+			this.file.getMetadataSets().add(new MdsFileVO());
+			this.file.getDefaultMetadata().setDescription(description);
+		}
+	}
 	
 	public String getVisibility()
     {

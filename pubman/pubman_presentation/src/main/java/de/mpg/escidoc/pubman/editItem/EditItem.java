@@ -294,7 +294,7 @@ public class EditItem extends FacesBean
     	// add files
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			if(this.item.getFiles().get(i).getContent() == null || this.item.getFiles().get(i).getContent().trim().equals(""))
+			if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.INTERNAL_MANAGED))
 			{
 				PubFileVOPresentation filepres = new PubFileVOPresentation(fileCount, this.item.getFiles().get(i),false);
 				files.add(filepres);
@@ -306,7 +306,7 @@ public class EditItem extends FacesBean
     	// add locators
     	for (int i = 0; i < this.item.getFiles().size(); i++)
     	{
-			if(this.item.getFiles().get(i).getContent() != null && ! this.item.getFiles().get(i).getContent().trim().equals(""))
+			if(this.item.getFiles().get(i).getStorage().equals(FileVO.Storage.EXTERNAL_URL))
 			{
 				PubFileVOPresentation locatorpres = new PubFileVOPresentation(locatorCount, this.item.getFiles().get(i), true);
 				locators.add(locatorpres);
