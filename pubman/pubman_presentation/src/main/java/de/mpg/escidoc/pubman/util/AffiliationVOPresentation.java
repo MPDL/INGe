@@ -1,5 +1,6 @@
 package de.mpg.escidoc.pubman.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -189,4 +190,21 @@ public class AffiliationVOPresentation extends AffiliationVO
             return null;
         }
     }
+    
+    public List<String> getUris()
+    {
+        List<IdentifierVO> identifiers = getDefaultMetadata().getIdentifiers();
+        List<String> uriList = new ArrayList<String>();
+        
+        for(IdentifierVO identifier : identifiers)
+        {
+            if (identifier.getType() != null && identifier.getType().equals(IdentifierVO.IdType.URI))
+            {
+                uriList.add(identifier.getId());
+            }
+        }
+        return uriList;
+    }
+    
+    
 }

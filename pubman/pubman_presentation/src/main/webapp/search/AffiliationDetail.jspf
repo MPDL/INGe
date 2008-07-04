@@ -35,9 +35,11 @@
 			<h:panelGroup styleClass="listHeader dark" layout="block">
 				<h3>
 					<h:outputText value="#{AffiliationDetail.affiliationVO.name}"/>
+<%-- 
 					<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.abbreviation != ''}">
 						(<h:outputText value="#{AffiliationDetail.affiliationVO.abbreviation}"/>)
 					</h:panelGroup>
+--%>
 				</h3>
 				<h:panelGroup styleClass="displayControls moveTop" layout="block">
 					<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{AffiliationDetail.toggleDetails}" rendered="#{!AffiliationDetail.renderDetails}"/>
@@ -45,10 +47,28 @@
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup styleClass="formField" layout="block" rendered="#{AffiliationDetail.renderDetails}">
-				<h:outputText value="#{AffiliationDetail.affiliationVO.description}"/>
+				<tr:iterator var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" varStatus="index">
+					<h:outputText value="#{description}"/>
+					<br/>
+				</tr:iterator>
+				
+				
 				<br/><br/>
-				<h:outputText value="#{AffiliationDetail.affiliationVO.address}"/>
+				<h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
 				<br/>
+				<%--URIs as links --%>
+				<tr:iterator var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
+					<h:outputLink value="#{uri}" target="_blank">
+						<h:outputText value="#{uri}"/>
+					</h:outputLink>
+					<br/>
+				</tr:iterator>
+				<%--other identifiers as plain text --%>
+				<tr:iterator var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" varStatus="index">
+						<h:outputText value="#{identifier.id}" rendered="#{identifier.typeString != 'URI'}"/>
+					<br/>
+				</tr:iterator>
+<%-- 
 				<h:outputText value="#{AffiliationDetail.affiliationVO.postcode}"/>
 				<h:outputText value="#{AffiliationDetail.affiliationVO.city}"/>
 				<br/>
@@ -67,6 +87,7 @@
 						<h:outputText value="#{AffiliationDetail.affiliationVO.homepageUrl}"/>
 					</h:outputLink>
 				</h:panelGroup>
+--%>
 
 			</h:panelGroup>
 		</h:panelGroup>
