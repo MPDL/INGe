@@ -126,7 +126,7 @@
 	           		</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	           			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{component.size > 0}"/>
-	           			<tr:inputText value="#{component.file.description}" autoSubmit="true" rows="4" rendered="#{component.size > 0}"/>	
+	           			<tr:inputText value="#{component.description}" autoSubmit="true" rows="4" rendered="#{component.size > 0}"/>	
 	           		</h:panelGroup>
 	           		
 	           		<%--<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -191,7 +191,7 @@
         	
        		<h:panelGroup layout="block" styleClass="editItemSingleCol">
   				<tr:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblDescription}" rendered="#{locator.locator != null && locator.locator != ''}"/>
-  				<tr:inputText value="#{locator.file.description}" autoSubmit="true" rows="4" rendered="#{locator.locator != null && locator.locator != ''}"/>	
+  				<tr:inputText value="#{locator.description}" autoSubmit="true" rows="4" rendered="#{locator.locator != null && locator.locator != ''}"/>	
    			</h:panelGroup>
    		</h:panelGroup>  
    		
