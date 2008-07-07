@@ -118,6 +118,13 @@
 							</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+							<groupId>net.sf.saxon</groupId>
+							<artifactId>saxon-dom</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
 							<groupId>trinidad</groupId>
 							<artifactId>trinidad-api</artifactId>
 							<includeInApplicationXml>
@@ -246,7 +253,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -300,6 +307,12 @@
 		<dependency>
 			<groupId>net.sf.saxon</groupId>
 			<artifactId>saxon</artifactId>
+			<version>8.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.saxon</groupId>
+			<artifactId>saxon-dom</artifactId>
 			<version>8.7</version>
 			<scope>compile</scope>
 		</dependency>
