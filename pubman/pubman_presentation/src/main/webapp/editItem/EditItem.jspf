@@ -95,9 +95,9 @@
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	      				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}" rendered="#{component.size == 0}"/>
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
-	      				<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
+						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak"/>      				
+	      				<tr:commandButton text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak"/> 			
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	           			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.size > 0}"/>

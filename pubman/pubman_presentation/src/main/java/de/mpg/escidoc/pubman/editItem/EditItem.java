@@ -940,7 +940,7 @@ public class EditItem extends FacesBean
     public String uploadFile(UploadedFile file)
     {
     	String contentURL = "";
-    	if (file != null && file.getLength() > 0)
+    	if (file != null)
           {  
               try
               {
@@ -971,6 +971,8 @@ public class EditItem extends FacesBean
                   return ErrorPage.LOAD_ERRORPAGE;
               }
           }
+    	
+    	
       return contentURL;
     }
     
@@ -981,7 +983,7 @@ public class EditItem extends FacesBean
         
         UploadedFile file = (UploadedFile) event.getNewValue();
       String contentURL;
-      if (file != null)
+      if (file != null || file.getLength()==0)
       {
         contentURL = uploadFile(file);
     	if(contentURL != null && !contentURL.trim().equals(""))
@@ -995,6 +997,11 @@ public class EditItem extends FacesBean
             this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setContent(contentURL);
     	}
         //bindFiles();
+      }
+      else 
+      {
+          //show error message
+          error(getMessage("ComponentEmpty"));
       }
     }
     
@@ -1169,6 +1176,9 @@ public class EditItem extends FacesBean
 
         valMessage.setRendered(true);
     }
+    
+    
+    
 
     /**
      * Enables/Disables the action links.
@@ -1550,5 +1560,6 @@ public class EditItem extends FacesBean
     {
         this.lnkRelease = lnkRelease;
     }
+   
 
 }

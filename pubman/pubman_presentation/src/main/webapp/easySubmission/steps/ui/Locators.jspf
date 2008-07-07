@@ -49,7 +49,7 @@
 	     					<tr:outputLabel value=" #{locator.contentCategory}, "/>	
 	     				
 	     					<tr:outputLabel value=" #{lbl.easy_submission_lblLocatorDescription}: "/>
-	     					<tr:outputLabel value="#{locator.file.description}"/>	
+	     					<tr:outputLabel value="#{locator.description}"/>	
 	     				</h:panelGroup>
 						<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" action="#{locator.removeLocatorEasySubmission}"/>	
 					</h:panelGroup>
@@ -64,32 +64,32 @@
     			<h3><h:outputText value="#{lbl.easy_submission_lblLocator}"/></h3>
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
     				<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
-    					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}" rendered="#{locator.file.content == null || locator.file.content == ''}"/>   
-    					<tr:inputText value="#{locator.file.content}" rendered="#{locator.file.content == null || locator.file.content == ''}"/>   
+    					<tr:outputLabel value="#{lbl.easy_submission_lblLocatorUrl}"/>   
+    					<tr:inputText value="#{locator.file.content}" />   
     				</h:panelGroup>
     			</h:panelGroup>
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
-    				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorProperties}" styleClass="margin5Top" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}"/>   
+    				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorProperties}" styleClass="margin5Top" />   
     			</h:panelGroup>
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionSubSubBox">
     			
     			<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
            			
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}">   
+           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" >   
            				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorName}"  />
-           				<tr:inputText value="#{locator.file.defaultMetadata.title.value}"/>
+           				<tr:inputText value="#{locator.file.defaultMetadata.title.value}" />
            			</h:panelGroup>
-           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}">   
+           			<h:panelGroup layout="block" styleClass="easySubmissionBasicSubItem" >   
            				<tr:outputLabel value="#{lbl.easy_submission_lblFileContentCategory}"  />
            				<tr:outputLabel value="#{locator.contentCategory}" styleClass="cursive" />
            			</h:panelGroup>
            		</h:panelGroup>
            		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">  
-           			<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem" rendered="#{locator.file.defaultMetadata == null || locator.file.defaultMetadata.size == 0}"> 
+           			<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem"> 
            				<tr:outputLabel value="#{lbl.easy_submission_lblLocatorDescription}"  />
-           				<tr:inputText value="#{locator.file.description}" rows="4" />	
+           				<tr:inputText value="#{locator.description}" rows="4" />	
            			</h:panelGroup>
            		</h:panelGroup>
            		</h:panelGroup>

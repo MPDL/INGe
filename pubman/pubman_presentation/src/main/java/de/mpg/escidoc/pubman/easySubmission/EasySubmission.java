@@ -342,6 +342,7 @@ public class EasySubmission extends FacesBean
     		newLocator.getFile().setContentCategory(PubFileVOPresentation.ContentCategory.SUPPLEMENTARY_MATERIAL.toString());
     		newLocator.getFile().setVisibility(FileVO.Visibility.PUBLIC);
     		newLocator.getFile().setDefaultMetadata(new MdsFileVO());
+    		newLocator.getFile().getDefaultMetadata().setTitle(new TextVO());
     		this.getEasySubmissionSessionBean().getLocators().add(newLocator);
     	}
     	return "loadNewEasySubmission";
@@ -576,6 +577,7 @@ public class EasySubmission extends FacesBean
     	{
     		this.getItem().getFiles().get(indexUpload).getDefaultMetadata().setSize((int)file.getLength());
             this.getItem().getFiles().get(indexUpload).setName(file.getFilename());
+            this.getItem().getFiles().get(indexUpload).getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
             this.getItem().getFiles().get(indexUpload).setMimeType(file.getContentType());
             this.getItem().getFiles().get(indexUpload).setContent(contentURL);
     	}
@@ -599,9 +601,9 @@ public class EasySubmission extends FacesBean
       if (file != null)
       {
         //set the file name automatically if it is not filled by the user
-  		if(this.getFiles().get(indexUpload).getFile().getName() == null || this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+  		if(this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
 		{
-			this.getFiles().get(indexUpload).getFile().setName(file.getFilename());
+			this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
 		}
     	if(this.getFiles().get(this.getFiles().size()-1).getContentCategory() != null && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("") && !this.getFiles().get(this.getFiles().size()-1).getContentCategory().trim().equals("-"))
         {
@@ -626,7 +628,7 @@ public class EasySubmission extends FacesBean
       }
       else
       {
-    	  if(this.getFiles().get(indexUpload).getFile().getName() != null && !this.getFiles().get(indexUpload).getFile().getName().trim().equals(""))
+    	  if(this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null && !this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
     	  {
     		  errorMessage.append(getMessage("ComponentContentNotProvided"));
     		  if(this.getFiles().get(indexUpload).getContentCategory() != null && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("") && !this.getFiles().get(indexUpload).getContentCategory().trim().equals("-"))
@@ -891,6 +893,7 @@ public class EasySubmission extends FacesBean
     			newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     			newFile.setVisibility(FileVO.Visibility.PUBLIC);
     			newFile.setDefaultMetadata(new MdsFileVO());
+    			newFile.getDefaultMetadata().setTitle(new TextVO());
     			this.getEasySubmissionSessionBean().getFiles().add(new PubFileVOPresentation(this.getEasySubmissionSessionBean().getFiles().size(), newFile, false));
     		}
     	}

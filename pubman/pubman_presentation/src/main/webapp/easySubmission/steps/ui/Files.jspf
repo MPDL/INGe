@@ -48,7 +48,7 @@
      					<tr:outputLabel value="#{component.visibility}, "/>	
      				
      					<tr:outputLabel value="#{lbl.easy_submission_lblFileFileDescription}"/>
-     					<tr:outputLabel value="#{component.file.description}"/>	
+     					<tr:outputLabel value="#{component.description}"/>	
      				</h:panelGroup>
 					<tr:commandButton styleClass="easySubmissionFileListButton inlineButton" text="#{lbl.easy_submission_btnRemoveFile}" action="#{component.removeFileEasySubmission}"/>	
 				</h:panelGroup>
@@ -90,7 +90,7 @@
           				<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine" rendered="#{component.file.defaultMetadata==null || component.file.defaultMetadata.size == 0}">
           					<h:panelGroup layout="block" styleClass="easySubmissionSubSubItem">
           						<tr:outputLabel value="#{lbl.easy_submission_lblFileDescription}" />
-          						<tr:inputText value="#{component.file.description}" rows="4"/>	
+          						<tr:inputText value="#{component.description}" rows="4"/>	
           					</h:panelGroup>
           				</h:panelGroup>
           			</h:panelGroup>
