@@ -30,20 +30,20 @@
 package de.mpg.escidoc.services.citationmanager;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.StringWriter;
-import java.net.URL;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.validation.SchemaFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -54,9 +54,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import com.sun.org.apache.xerces.internal.parsers.DOMParser;
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
@@ -110,17 +107,15 @@ public class XmlHelper {
     	return createDocumentBuilder().newDocument(); 
     }
     
-
-    
-    public static OutputFormat getOutputFormat(Document doc)
-    {
-        OutputFormat format = new OutputFormat(doc);
-        format.setIndenting(true);
-        format.setIndent(2);
-        format.setCDataElements(Parameters.CDATAElements);
-        format.setOmitComments(false);
-        return format;
-    }
+//    public static OutputFormat getOutputFormat(Document doc)
+//    {
+//        OutputFormat format = new OutputFormat(doc);
+//        format.setIndenting(true);
+//        format.setIndent(2);
+//        format.setCDataElements(Parameters.CDATAElements);
+//        format.setOmitComments(false);
+//        return format;
+//    }
     
     /**
      * Writes org.w3c.dom.Document to XML file 
@@ -133,9 +128,22 @@ public class XmlHelper {
     
     	// TODO: to get rid of org.apache.xml.serialize.* 
         FileOutputStream output = new FileOutputStream( xmlFileName );
-        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
-        serializer.serialize(doc);
+//        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
+//        serializer.serialize(doc);
     	
+        DOMSource domSource = new DOMSource(doc);
+        StreamResult streamResult = new StreamResult(output);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        try
+        {
+            Transformer serializer = tf.newTransformer();
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
+            serializer.transform(domSource, streamResult);
+        }
+        catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
     }
     
     /**
@@ -147,10 +155,23 @@ public class XmlHelper {
     	
     	// TODO: to get rid of org.apache.xml.serialize.* 
     	StringWriter output = new StringWriter();
-    	XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
-    	serializer.serialize(doc);
-    	return output.toString();
-
+//        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
+//        serializer.serialize(doc);
+//        return output.toString();
+    	DOMSource domSource = new DOMSource(doc);
+        StreamResult streamResult = new StreamResult(output);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        try
+        {
+            Transformer serializer = tf.newTransformer();
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
+            serializer.transform(domSource, streamResult);
+        }
+        catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
+        return output.toString();
     }
 
     
@@ -164,9 +185,22 @@ public class XmlHelper {
     	
     	// TODO: to get rid of org.apache.xml.serialize.* 
     	OutputStream baos = new ByteArrayOutputStream();
-    	XMLSerializer serializer = new XMLSerializer(baos, getOutputFormat(doc));
-    	serializer.serialize(doc);
-    	
+//    	XMLSerializer serializer = new XMLSerializer(baos, getOutputFormat(doc));
+//    	serializer.serialize(doc);
+        DOMSource domSource = new DOMSource(doc);
+        StreamResult streamResult = new StreamResult(baos);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        try
+        {
+            Transformer serializer = tf.newTransformer();
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
+            serializer.transform(domSource, streamResult);
+        }
+        catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
+
     	return baos;
     }
     
@@ -179,9 +213,22 @@ public class XmlHelper {
     {
     	
     	// TODO: to get rid of org.apache.xml.serialize.* 
-    	XMLSerializer serializer = new XMLSerializer(os, getOutputFormat(doc));
-    	serializer.serialize(doc);
-    	
+//    	XMLSerializer serializer = new XMLSerializer(os, getOutputFormat(doc));
+//    	serializer.serialize(doc);
+        DOMSource domSource = new DOMSource(doc);
+        StreamResult streamResult = new StreamResult(os);
+        TransformerFactory tf = TransformerFactory.newInstance();
+        try
+        {
+            Transformer serializer = tf.newTransformer();
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
+            serializer.transform(domSource, streamResult);
+        }
+        catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
+
     }
     
     /**
