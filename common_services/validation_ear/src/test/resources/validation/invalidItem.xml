@@ -26,37 +26,42 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
-<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:3051" xmlns:xlink="http://www.w3.org/1999/xlink"
-	last-modification-date="2007-07-16T11:12:22.064Z" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 http://www.escidoc.de/schemas/soap/item/0.3/item.xsd">
+<escidocItem:item xmlns:escidocItem="${xsd.soap.item.item}" 
+	objid="escidoc:3051" 
+	xmlns:xlink="http://www.w3.org/1999/xlink"
+	last-modification-date="2007-07-16T11:12:22.064Z" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:srel="${xsd.soap.common.srel}" 
+	xmlns:prop="${xsd.soap.common.prop}" 
+	xmlns:version="${xsd.soap.common.version}" 
+	xmlns:release="${xsd.soap.common.release}">
 	<escidocItem:properties>
-		<escidocItem:creation-date>2007-07-16T11:04:13.736Z</escidocItem:creation-date>
-		<escidocItem:created-by objid="escidoc:user2" />
-		<escidocItem:public-status>pending</escidocItem:public-status>
-		<escidocItem:context objid="escidoc:persistent3" />
-		<escidocItem:content-model objid="escidoc:persistent4" />
-		<escidocItem:lock-status>unlocked</escidocItem:lock-status>
-		<escidocItem:version>
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-07-16T11:12:22.064Z</escidocItem:date>
-			<escidocItem:version-status>pending</escidocItem:version-status>
-			<escidocItem:valid-status>valid</escidocItem:valid-status>
-		</escidocItem:version>
-		<escidocItem:latest-version>
-			<escidocItem:number>1</escidocItem:number>
-			<escidocItem:date>2007-07-16T11:12:22.064Z</escidocItem:date>
-		</escidocItem:latest-version>
+		<prop:creation-date>2007-07-16T11:04:13.736Z</prop:creation-date>
+		<srel:created-by objid="escidoc:user2" />
+		<prop:public-status>pending</prop:public-status>
+		<srel:context objid="escidoc:persistent3" />
+		<srel:content-model objid="escidoc:persistent4" />
+		<prop:lock-status>unlocked</prop:lock-status>
+		<prop:version>
+			<version:number>1</version:number>
+			<version:date>2007-07-16T11:12:22.064Z</version:date>
+			<version:status>pending</version:status>
+			<version:valid-status>valid</version:valid-status>
+		</prop:version>
+		<prop:latest-version>
+			<version:number>1</version:number>
+			<version:date>2007-07-16T11:12:22.064Z</version:date>
+		</prop:latest-version>
 
-		<escidocItem:content-model-specific xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"></escidocItem:content-model-specific>
+		<prop:content-model-specific></prop:content-model-specific>
 	</escidocItem:properties>
-	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+	<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="${xsd.soap.common.mdrecords}"
 		xmlns:xlink="http://www.w3.org/1999/xlink"
 		>
-		<escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3"
-			xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
-			<escidocMetadataProfile:publication xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
-				xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
-				<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="artist">
+		<escidocMetadataRecords:md-record xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
+			<escidocMetadataProfile:publication xmlns:publication="${xsd.metadata.publication}" xmlns:escidoc="${xsd.metadata.escidocprofile.types}"
+				xmlns:escidocMetadataProfile="${xsd.metadata.escidocprofile}" type="article">
+				<publication:creator role="artist">
 					<escidoc:person>
 						<escidoc:complete-name></escidoc:complete-name>
 						<escidoc:family-name>Testartist</escidoc:family-name>

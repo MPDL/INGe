@@ -43,7 +43,8 @@ import test.validation.WebServiceTest;
  * @version $Revision: 113 $ $LastChangedDate: 2007-11-08 18:23:27 +0100 (Thu, 08 Nov 2007) $
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ValidationCacheTest.class,
+@Suite.SuiteClasses({
+                    ValidationCacheTest.class,
                     ValidationReportTransformingTest.class,
                     ValidatorTest.class,
                     WebServiceTest.class

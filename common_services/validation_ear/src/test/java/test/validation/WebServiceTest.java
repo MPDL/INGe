@@ -148,7 +148,7 @@ public class WebServiceTest
     {
         String itemXml = semiValidXml;
 
-        TestHelper.initTimeLog("Start SOAP call");
+        TestHelper.initTimeLog("Start SOAP call 1");
         String report = TestHelper.callSoapWebservice(new Object[]{itemXml, "default"});
         TestHelper.logTime("End SOAP call 1", 750, 1000);
 
