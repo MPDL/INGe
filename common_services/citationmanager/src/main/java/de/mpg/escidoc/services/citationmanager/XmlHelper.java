@@ -57,12 +57,14 @@ import org.xml.sax.helpers.DefaultHandler;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
+import net.sf.saxon.event.SaxonOutputKeys;
+
 /**
 *
 * XML processing helper   
 *
 * @author $Author: vdm $ (last modification)
-* @version $Revision: 151 $ $LastChangedDate: 2007-11-15 18:04:05 +0100 (Thu, 15 Nov 2007) $
+* @version $Revision: 151 $ $LastChangedDate: 2007-11-15 18:04:05 +0100 (Thu, 15 Nov 2007) $ 
 *
 */
 
@@ -106,16 +108,33 @@ public class XmlHelper {
     {
     	return createDocumentBuilder().newDocument(); 
     }
+     
     
-//    public static OutputFormat getOutputFormat(Document doc)
-//    {
-//        OutputFormat format = new OutputFormat(doc);
-//        format.setIndenting(true);
-//        format.setIndent(2);
-//        format.setCDataElements(Parameters.CDATAElements);
-//        format.setOmitComments(false);
-//        return format;
-//    }
+    /**
+     * Base procedure for xml serialization
+     * @param doc - is org.w3c.dom.Document
+     * @param streamResult r
+     * @throws IOException
+     */
+    public static void outputBase(Document doc, StreamResult streamResult) throws IOException
+    {
+        DOMSource domSource = new DOMSource(doc);
+    	TransformerFactory tf = TransformerFactory.newInstance();
+        try
+        {
+            Transformer serializer = tf.newTransformer();
+            //Output properties
+            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
+            serializer.setOutputProperty(OutputKeys.STANDALONE, "yes");
+            // TODO: saxon specific, to get rid of it later
+            serializer.setOutputProperty(SaxonOutputKeys.INDENT_SPACES, "4");
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, Parameters.CDATAElements); 
+            serializer.transform(domSource, streamResult);
+        }
+        catch (Exception e) {
+            throw new IOException(e.getMessage());
+        }
+    }
     
     /**
      * Writes org.w3c.dom.Document to XML file 
@@ -124,26 +143,12 @@ public class XmlHelper {
      * @throws CitationStyleManagerException
      * @throws IOException
      */
-    public static void output(Document doc, String xmlFileName) throws CitationStyleManagerException, IOException {
+    public static void output(Document doc, String xmlFileName) throws CitationStyleManagerException, IOException 
+    {
     
-    	// TODO: to get rid of org.apache.xml.serialize.* 
         FileOutputStream output = new FileOutputStream( xmlFileName );
-//        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
-//        serializer.serialize(doc);
-    	
-        DOMSource domSource = new DOMSource(doc);
         StreamResult streamResult = new StreamResult(output);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        try
-        {
-            Transformer serializer = tf.newTransformer();
-            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
-            serializer.transform(domSource, streamResult);
-        }
-        catch (Exception e) {
-            throw new IOException(e.getMessage());
-        }
+        outputBase(doc, streamResult);
     }
     
     /**
@@ -153,24 +158,9 @@ public class XmlHelper {
      */
     public static String outputString(Document doc) throws IOException {
     	
-    	// TODO: to get rid of org.apache.xml.serialize.* 
     	StringWriter output = new StringWriter();
-//        XMLSerializer serializer = new XMLSerializer(output, getOutputFormat(doc));
-//        serializer.serialize(doc);
-//        return output.toString();
-    	DOMSource domSource = new DOMSource(doc);
         StreamResult streamResult = new StreamResult(output);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        try
-        {
-            Transformer serializer = tf.newTransformer();
-            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
-            serializer.transform(domSource, streamResult);
-        }
-        catch (Exception e) {
-            throw new IOException(e.getMessage());
-        }
+        outputBase(doc, streamResult);
         return output.toString();
     }
 
@@ -182,25 +172,9 @@ public class XmlHelper {
      */
     public static OutputStream output(Document doc) throws IOException 
     {
-    	
-    	// TODO: to get rid of org.apache.xml.serialize.* 
     	OutputStream baos = new ByteArrayOutputStream();
-//    	XMLSerializer serializer = new XMLSerializer(baos, getOutputFormat(doc));
-//    	serializer.serialize(doc);
-        DOMSource domSource = new DOMSource(doc);
         StreamResult streamResult = new StreamResult(baos);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        try
-        {
-            Transformer serializer = tf.newTransformer();
-            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
-            serializer.transform(domSource, streamResult);
-        }
-        catch (Exception e) {
-            throw new IOException(e.getMessage());
-        }
-
+        outputBase(doc, streamResult);
     	return baos;
     }
     
@@ -212,23 +186,8 @@ public class XmlHelper {
     public static void output(Document doc, OutputStream os) throws IOException 
     {
     	
-    	// TODO: to get rid of org.apache.xml.serialize.* 
-//    	XMLSerializer serializer = new XMLSerializer(os, getOutputFormat(doc));
-//    	serializer.serialize(doc);
-        DOMSource domSource = new DOMSource(doc);
         StreamResult streamResult = new StreamResult(os);
-        TransformerFactory tf = TransformerFactory.newInstance();
-        try
-        {
-            Transformer serializer = tf.newTransformer();
-            serializer.setOutputProperty(OutputKeys.INDENT, "yes");
-            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, "yes");
-            serializer.transform(domSource, streamResult);
-        }
-        catch (Exception e) {
-            throw new IOException(e.getMessage());
-        }
-
+        outputBase(doc, streamResult);
     }
     
     /**
