@@ -79,13 +79,13 @@ public class ProcessScriptlet {
     public final static String scriptletBodyHeader =
         "package de.mpg.escidoc.services.citationmanager.scriptlets;\n" +
         "import net.sf.jasperreports.engine.JRDefaultScriptlet;\n" +
-        "import net.sf.jasperreports.engine.JRScriptletException;\n" +
-        "import net.sf.jasperreports.engine.JRAbstractScriptlet;\n" +
+//        "import net.sf.jasperreports.engine.JRScriptletException;\n" +
+//        "import net.sf.jasperreports.engine.JRAbstractScriptlet;\n" +
         "import net.sf.jasperreports.engine.data.JRXmlDataSource;\n" +
         "import net.sf.jasperreports.engine.design.JRDesignField;\n" +
         "import net.sf.jasperreports.engine.util.JRStringUtil;\n" +
-        "import org.w3c.dom.Document;\n" +
-        "import org.w3c.dom.Node;\n" +
+//        "import org.w3c.dom.Document;\n" +
+//        "import org.w3c.dom.Node;\n" +
         "import java.util.StringTokenizer;\n" + // for func get_initials
         "import java.util.ArrayList;\n\n" +
 
