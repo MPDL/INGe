@@ -44,15 +44,7 @@ public class PubFileVOPresentation extends FacesBean {
 	public PubFileVOPresentation()
 	{
 		this.file = new FileVO();
-		try
-        {
-            InitialContext initialContext = new InitialContext();
-            pubItemStatistics = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
-        }
-        catch (NamingException e)
-        {
-            logger.debug("Couldn't find PubItemSimpleStatistics Service");
-        }
+		
 		file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 	}
 	
@@ -84,6 +76,23 @@ public class PubFileVOPresentation extends FacesBean {
 		this.file = file;
 		this.removeButton.setTitle("btnRemove_" + fileIndex);
 		this.isLocator = isLocator;
+	}
+	
+	private void initStatisticService()
+	{
+	    if (pubItemStatistics == null)
+	    {
+	        try
+	        {
+	            InitialContext initialContext = new InitialContext();
+	            pubItemStatistics = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+	        }
+	        catch (NamingException e)
+	        {
+	            logger.debug("Couldn't find PubItemSimpleStatistics Service");
+	        }
+	    }
+	    
 	}
 	
 	public int getIndex() {
@@ -285,7 +294,7 @@ public class PubFileVOPresentation extends FacesBean {
 	
 	public String getNumberOfFileDownloadsPerFileAllUsers() throws Exception
     {
-        
+        initStatisticService();
         String fileID = file.getReference().getObjectId();
         
         String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, AdminHelper.getAdminUserHandle());
@@ -294,6 +303,7 @@ public class PubFileVOPresentation extends FacesBean {
     
     public String getNumberOfFileDownloadsPerFileAnonymousUsers() throws Exception
     {
+        initStatisticService();
         String fileID = file.getReference().getObjectId();
         String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, AdminHelper.getAdminUserHandle());
         return result;
