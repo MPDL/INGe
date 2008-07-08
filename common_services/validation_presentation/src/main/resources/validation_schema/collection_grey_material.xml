@@ -311,5 +311,20 @@
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or matches(escidocComponents:content/@xlink:href, '^((https?|ftp)://((\[?(\d{1,3}\.){3}\d{1,3}\]?)|(([-a-zA-Z0-9]+\.)+[a-zA-Z]{2,4}))(:\d+)?(/[-a-zA-Z0-9._?,+&amp;%$#=~\\]+)*/?)$')">LocatorIsNoUri</iso:assert>
 		</iso:rule>
 	</iso:pattern>
-
+	
+	<!-- At least one creator with an organizational unit provided is required -->
+	<iso:pattern name="creator_required" id="creator_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">CreatorNotProvided</iso:assert>
+			<iso:assert test="publication:creator/@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">OrganizationalMetadataNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:organization">
+			<iso:assert test="escidoc:organization-name != ''">CreatorOrganizationNameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
 </iso:schema>
