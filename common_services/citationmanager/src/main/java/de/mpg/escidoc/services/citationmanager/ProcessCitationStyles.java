@@ -344,18 +344,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     /**
      * Add JasperReport field
      * @param name is name of field
-     * @param description is XPath to the field in DataSource 
+     * @param expr is XPath to the field in DataSource 
      * @throws JRException
      */
-    private void addJRField(String name, String description) throws JRException{
+    private void addJRField(String name, String expr) throws JRException{
         if (findInFieldsMap(name))
         {
         	logger.info("Field " + name + " is already in the hash of fields");
             return;
         }
+        //logger.info(name + ", " + expr);
         JRDesignField field = new JRDesignField();
         field.setName(name);
-        field.setDescription(description);
+        field.setDescription(expr);
         field.setValueClass(String.class);
         dataSet.addField(field);
     }
@@ -372,6 +373,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	logger.info("Variable " + name + " is already in the hash of varaibles");
             return;
         }
+        //logger.info(name + ", " + expr );
         JRDesignVariable variable = new JRDesignVariable();
         variable.setName(name);
         variable.setValueClass(String.class);
@@ -518,6 +520,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         return p1 != 0 ? p1 : p2 != 0 ? p2 : 0;
     }
 
+
     
      /**
       * Create expression string on hand of Parameters:
@@ -543,8 +546,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         Parameters pLE = le.getParametersAtDefault();
         Parameters pREF = null;
         String p;
-        String rep = le.getRepeatable();
-        boolean isNotRep = !(rep!=null && rep.equals("yes")) ;
         String checkLen = "(!(%s).trim().equals(\"\") ? %s : \"\")";
         String oldExpr = expr;
 
@@ -581,7 +582,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         }
         
         // apply zero length checking
-        expr = isNotRep ? String.format(checkLen, expr, chunk) : chunk;	
+        expr = !isRepeatable ? String.format(checkLen, expr, chunk) : chunk;	
 //        expr = chunk;	
         
         // maxLength
@@ -614,9 +615,44 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         }
 
 //        logger.debug("le:" + le.getRepeatable()==null);
-        // avoid "null" parameters for non-repeatable elements
-        if (ref != null && ref.length() > 0 && isNotRep) {
-            expr = "$" + findRefLocation(ref) + "{" + ref + "}!=null ? " + expr + " : \"\"";
+        if (ref != null && ref.length() > 0) 
+        {
+        	if ( isRepeatable )
+        	{
+                // avoid empty output for repeatable elements
+        		// FIRST SCENARIO
+        		// 1) create a special field to check 
+        		// whether the repeatable element is not empty
+        		String chk_field = "tmpField_" + le.getId();
+        		String XPath = "count(" + ref + ")>0";
+        		// 2) add field
+        		try { 
+					addJRField(chk_field, XPath);
+				} catch (JRException e) {
+					// TODO Auto-generated catch block
+					throw new CitationStyleManagerException(e);
+				}
+				// 3) if the field is empty, do not output anything
+				expr = "(($F{" + chk_field + "}).trim().equals(\"true\") ? " + expr + " : \"\")";  
+//        		// SECOND SCENARIO
+//        		// 1) create a temp variable to check 
+//        		// whether the repeatable element is not empty
+//        		String chk_variable = "tmpVar_" + le.getId();
+//        		// 2) add variable
+//        		try {
+//					addJRVariable(chk_variable, oldExpr);
+//				} catch (JRException e) {
+//					// TODO Auto-generated catch block
+//					throw new CitationStyleManagerException(e);
+//				}
+//				// 3) if the variable is empty, do not output anything 
+//                expr = String.format(checkLen, "$V{" + chk_variable + "}", expr);	
+
+        		
+        	}
+        	else
+                // avoid "null" parameters for non-repeatable elements
+        		expr = "$" + findRefLocation(ref) + "{" + ref + "} != null ? " + expr + " : \"\"";
         }
         
 //        expr = String.format(checkLen, oldExpr, chunk);	
