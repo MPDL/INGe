@@ -105,9 +105,12 @@ public class ItemValidatingBean implements ItemValidating
     {
 
         String context = findContext(itemXml);
-        String contentType = findContentModel(itemXml);
+        String contentModel = findContentModel(itemXml);
 
-        return validateItemXml(itemXml, validationPoint, context, contentType);
+        LOGGER.debug("Context found: " + context);
+        LOGGER.debug("ContentModel found: " + contentModel);
+        
+        return validateItemXml(itemXml, validationPoint, context, contentModel);
     }
 
     private String findContentModel(final String itemXml) throws TechnicalException
