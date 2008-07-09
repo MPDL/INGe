@@ -36,12 +36,12 @@
 	<artifactId>citationmanager_ear</artifactId>
 	<name>citationmanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.5</version>
+	<version>1.0.6-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/citationmanager_ear-1.0.5</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/citationmanager_ear-1.0.5</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/citationmanager_ear-1.0.5</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -176,7 +176,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -189,7 +189,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.0</version>
+			<version>1.1.1-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
