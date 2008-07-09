@@ -45,7 +45,10 @@
 			<action dev="wfrank" type="update">added support for solution specific properties file</action>
 			<action dev="wfrank" type="update">Applied changes required for new framework release(version 0.9.1 build 254)</action>
 		</release>
-		<release version="1.0.3-SNAPSHOT" date="2008-04-28" description="Release of all modules">
+		<release version="1.0.3" date="2008-07-09" description="Release of all modules">
+			<action dev="wfrank" type="update">added support for solution specific properties file</action>
+		</release>
+		<release version="1.0.4-SNAPSHOT" date="2008-07-09" description="Release of all modules">
 			<action dev="wfrank" type="update">added support for solution specific properties file</action>
 		</release>
 	</body>
