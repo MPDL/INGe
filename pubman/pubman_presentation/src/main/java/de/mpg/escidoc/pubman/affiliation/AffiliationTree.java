@@ -10,6 +10,7 @@ import de.mpg.escidoc.pubman.util.CommonUtils;
 
 public class AffiliationTree extends FacesBean {
 
+    public static final String BEAN_NAME = "AffiliationTree";
 	List<AffiliationVOPresentation> affiliations;
 	long timestamp;
 	
