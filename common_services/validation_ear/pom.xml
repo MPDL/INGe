@@ -9,11 +9,11 @@
 	<artifactId>validation_ear</artifactId>
 	<packaging>ear</packaging>
 	<name>validation_ear</name>
-	<version>1.0.3</version>
+	<version>1.0.3-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/validation_ear-1.0.3</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/validation_ear-1.0.3</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/validation_ear-1.0.3</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/validation_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	<build>
 		<plugins>
@@ -271,13 +271,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.4</version>
+			<version>1.0.4-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
@@ -291,7 +291,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.0</version>
+			<version>1.1.0-SNAPSHOT</version>
 			<type>ejb</type>
 			<scope>compile</scope>
 		</dependency>
