@@ -45,7 +45,7 @@
     </release>
      <release version="1.0.2" date="2008-05-16" description="Release of all modules">
     </release>
-     <release version="1.0.3-SNAPSHOT" date="2008-05-16" description="Current development">
+     <release version="1.0.3" date="2008-07-09" description="Single module release">
     </release>
   </body>
 </document>
