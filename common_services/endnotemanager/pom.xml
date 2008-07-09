@@ -36,12 +36,12 @@
 	<artifactId>endnotemanager</artifactId>
 	<name>endnotemanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/endnotemanager-1.0.3</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/endnotemanager-1.0.3</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/endnotemanager-1.0.3</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
