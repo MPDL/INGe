@@ -36,12 +36,12 @@
 	<artifactId>endnotemanager_ear</artifactId>
 	<name>endnotemanager_ear</name>
 	<packaging>ear</packaging>
-	<version>1.0.3</version>
+	<version>1.0.3-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/endnotemanager_ear-1.0.3</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/endnotemanager_ear-1.0.3</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/endnotemanager_ear-1.0.3</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/endnotemanager_ear</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -295,7 +295,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>endnotemanager</artifactId>
-			<version>1.0.3</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
