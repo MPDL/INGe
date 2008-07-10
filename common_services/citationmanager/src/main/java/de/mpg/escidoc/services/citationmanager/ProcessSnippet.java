@@ -252,7 +252,8 @@ public class ProcessSnippet {
 
 
 	/**
-	 * Extracts pure citation html from generated html report 
+	 * Extracts pure citation html from generated html report
+	 * see <code>net.sf.jasperreports.engine.export.JRHtmlExporter</code> for details
 	 * @param html - reportPrint html
 	 * @return - pure citation style w/o html headers, tables, etc.
 	 */
@@ -263,7 +264,83 @@ public class ProcessSnippet {
 	    Matcher m = p.matcher(html);
 	    //omit first match, i.e. citation header
 	    m.find();
-	    return (m.find() ? m.group(1) : html).replace("<br/> ", ""); 
+	    String snippet = (m.find() ? m.group(1) : html).replace("<br/> ", "");
+	    return convertStyledTextToCssClass(snippet); 
+	}
+	
+	/**
+	 * Converts the style to the named CSS class  
+	 * @param html - reportPrint html
+	 * @return - Citaion style with CSS class representation
+	 */
+	private String convertStyledTextToCssClass(String html)
+	{
+//		  <td style="text-align: justify;line-height: 1.6107178; "><span style="font-family: Arial; font-size: 12.0px;">Meier, H., &amp; Meier, H. (2007). PubMan: The first of all.</span></td>
+		
+		// replace all the following attrs:
+		String [] toBeRemoved = 
+		{
+				"color:\\s*#.+?;",
+				"background-color:\\s*#.+?;",
+				"font-size:.+?;",
+				"text-align:.+?;"
+		}; 
+		String regexp;
+		Matcher m;
+		for ( String str : toBeRemoved ) 
+		{
+			regexp = "(<span.*?)" + str + "(.*?>)";
+			//logger.info(regexp);
+			m = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html);
+			m.find();
+			html = m.replaceAll("$1$2");
+		}
+		
+		// replace all styles with CSS classes
+		String [][] attrs = 
+		{
+				{ "font-family:\\s*(.+?)", null }, 
+				{ "font-weight:\\s*bold", "Bold" }, 
+				{ "font-style:\\s*italic", "Italic" },
+				{ "text-decoration:\\s*underline", "Underline" },
+				{ "text-decoration:\\s*line-through", "Linethrough" },
+				{ "vertical-align:\\s*super", "Super" },
+				{ "vertical-align:\\s*sub", "Sub" }
+		}; 
+		
+		regexp = "<span.*?style\\s*=\\s*?\"(.+?)\".*?>";
+		//logger.info(regexp);
+		String targetHtml = html;
+		m = Pattern.compile(regexp, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(html);
+		while (m.find())
+		{
+			String style = m.group(1);
+			String CssClass = "";
+			String regexp2;
+			Matcher m2;
+			for ( String[] attr : attrs ) 
+			{
+				regexp2 = attr[0] + "\\s*;";
+				//logger.info(regexp2);
+				m2 = Pattern.compile(regexp2, Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(style);
+				if ( m2.find() )
+				{
+					// font-family should be taken from the matched Group   
+					if ( attr[0].equals(attrs[0][0]) )
+					{
+						CssClass += m2.group(1);
+					}
+					else 
+					{
+						CssClass += attr[1];
+					}	
+				}
+			}
+			
+			targetHtml = targetHtml.replaceFirst(m.group(), "<span class=\"" + CssClass + "\">");
+		}
+		
+		return targetHtml; 
 	}
 
 	/**
@@ -276,6 +353,44 @@ public class ProcessSnippet {
 		Pattern p = Pattern.compile("<([\\w-]+:)?" + element + "[^\\w-]");
 	    Matcher m = p.matcher(xml);
 	    return m.find() ? m.group(1) + element : element; 
+	}
+	
+    public static void main(String[] args) 
+    {
+    	ProcessSnippet psn = new ProcessSnippet();
+    	logger.info(psn.convertStyledTextToCssClass(
+    			"<span style=\"" +
+    				"font-family: Arial; " +
+    				"font-size: 12.0px;" +
+    				"color: #ffffff;" +
+    				"background-color: #ffffff;" +
+    				"text-align: justified;" +
+    				"font-weight: bold;" +
+    				"font-style: italic;" +
+    				"text-decoration: underline;" +
+    				"text-decoration: line-through;" +
+    				"vertical-align: super;" +
+    				"vertical-align: sub;" +
+    			"\">" +
+    			"Meier, H., &amp; Meier, H. (2007). PubMan: The first of all." +
+    			"</span>" 
+    		  + "Here the text further" +
+    			"<span style=\"" +
+	    			"font-family: Tahoma; " +
+	    			"font-size: 12.0px;" +
+	    			"color: #bbbbbb;" +
+	    			"background-color: #aaaaaa;" +
+	    			"text-align: left;" +
+	    			"font-weight: bold;" +
+	    			"font-style: italic;" +
+	    			"text-decoration: underline;" +
+	    			"text-decoration: line-through;" +
+	    			"vertical-align: sub;" +
+	    			"\">" +
+    			"Meier, H., &amp; Meier, H. (2007). PubMan: The first of all." +
+    			"</span>"
+    			
+    	));
 	}
 
 	
