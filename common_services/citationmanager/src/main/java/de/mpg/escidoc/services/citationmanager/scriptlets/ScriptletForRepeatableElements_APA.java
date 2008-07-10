@@ -1,12 +1,8 @@
 package de.mpg.escidoc.services.citationmanager.scriptlets;
 import net.sf.jasperreports.engine.JRDefaultScriptlet;
-import net.sf.jasperreports.engine.JRScriptletException;
-import net.sf.jasperreports.engine.JRAbstractScriptlet;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.util.JRStringUtil;
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
 import java.util.StringTokenizer;
 import java.util.ArrayList;
 
