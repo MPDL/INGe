@@ -106,6 +106,7 @@ public class AdvancedSearchTest extends TestBase
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testPersonSearch() throws Exception
     {   
         AccountUserVO user = getUserTestDepLibWithHandle();
@@ -113,9 +114,9 @@ public class AdvancedSearchTest extends TestBase
         // create PubItem and submit (automatically releases the pubItem)
         PubItemVO myItem = getNewPubItemWithoutFiles();
         PersonVO personVO = new PersonVO();
-        personVO.setFamilyName("Niedermaier");
-        personVO.setGivenName("Hugo");
-        personVO.setCompleteName( "Hugo Niedermaier" );
+        personVO.setFamilyName("Maier");
+        personVO.setGivenName("Hans");
+        personVO.setCompleteName( "Hans Maier" );
         CreatorVO creator = new CreatorVO();
         creator.setRole(CreatorRole.PAINTER);
         creator.setPerson(personVO);
@@ -135,7 +136,7 @@ public class AdvancedSearchTest extends TestBase
         ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
 
         PersonCriterionVO personCriterionVO = new PersonCriterionVO();
-        personCriterionVO.setSearchString("Niedermaier");
+        personCriterionVO.setSearchString("Maier, Hans");
         criterionVOList.add(personCriterionVO);
         List<CreatorRole> role = new ArrayList<CreatorRole>();
         role.add(CreatorRole.PAINTER);
