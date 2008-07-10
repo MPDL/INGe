@@ -301,7 +301,7 @@
 	<!-- Locator has to be a valid URI -->
 	<iso:pattern name="uri_as_locator" id="uri_as_locator">
 		<iso:rule context="escidocComponents:component">
-			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or matches(escidocComponents:content/@xlink:href, '^((https?|ftp)://((\[?(\d{1,3}\.){3}\d{1,3}\]?)|(([-a-zA-Z0-9]+\.)+[a-zA-Z]{2,4}))(:\d+)?(/[-a-zA-Z0-9._?,+&amp;%$#=~\\]+)*/?)$')">LocatorIsNoUri</iso:assert>
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or matches(escidocComponents:content/@xlink:href, '^(https?|ftp)://([0-9a-zA-Z;/?:@&=+$\.\-_!~*'()%]+)?(#[0-9a-zA-Z;/?:@&=+$\.\-_!~*'()%]+)?$')">LocatorIsNoUri</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 

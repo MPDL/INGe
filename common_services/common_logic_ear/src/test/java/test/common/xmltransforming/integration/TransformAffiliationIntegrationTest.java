@@ -48,11 +48,13 @@ import test.common.AffiliationCreator;
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.AffiliationRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -116,7 +118,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
             detailsVO.setName(detailsVO.getName() + " Nr." + uniquer + "***");
             // fill in some special characters to check their treatment by the framework
             detailsVO.getAlternativeNames().add("These tokens are escaped and must stay escaped: \"&amp;\", \"&gt;\", \"&lt;\", \"&quot;\", \"&apos;\"");
-            detailsVO.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+            detailsVO.setCoordinates(new Coordinates(1.45246462436, 2.34673657346));
             detailsVO.getDescriptions().add("These tokens are escaped and must stay escaped, too: &auml; &Auml; &szlig;");
         }
         
@@ -247,10 +249,10 @@ public class TransformAffiliationIntegrationTest extends TestBase
             MdsOrganizationalUnitDetailsVO detailsVO = (MdsOrganizationalUnitDetailsVO) affiliationVOPreUpdate.getMetadataSets().get(0);
             detailsVO.setCity("Freising");
     
-            detailsVO.getIdentifiers().add("http://www.mpg.de/updated");
+            detailsVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpg.de/updated"));
             detailsVO.setCountryCode("DE");
             detailsVO.getDescriptions().add("The description has been changed.");
-            detailsVO.getIdentifiers().add("4712");
+            detailsVO.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4712"));
         }
         
         // transform the AffiliationVO into an organizational unit (for update)

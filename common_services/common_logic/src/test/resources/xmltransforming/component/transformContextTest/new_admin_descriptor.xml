@@ -17,6 +17,7 @@
 		<allowed-genre>series</allowed-genre>
 		<allowed-genre>other</allowed-genre>
 	</allowed-genres>
-	<template-item>dsddsadad</template-item>
-	<validation-schema>dsadda</validation-schema>
+	<template-item>escidoc:123</template-item>
+	<validation-schema>publication</validation-schema>
+	<workflow>standard</workflow>
 </pubman-admin-descriptor>

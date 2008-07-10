@@ -49,7 +49,7 @@ import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 import de.mpg.escidoc.services.validation.xmltransforming.ValidationTransforming;
@@ -227,13 +227,13 @@ public class ItemValidatingBean implements ItemValidating
     /**
      * {@inheritDoc}
      */
-    public final ValidationReportVO validateItemObject(final PubItemVO itemVO) throws
+    public final ValidationReportVO validateItemObject(final ItemVO itemVO) throws
             ValidationSchemaNotFoundException,
             TechnicalException
     {
-    	if (itemVO instanceof PubItemVO)
+    	if (itemVO instanceof ItemVO)
     	{
-    		return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem((PubItemVO)itemVO), "default"));
+    		return transformXmlToValidationReport(validateItemXml(xmlTransforming.transformToItem((ItemVO)itemVO), "default"));
     	}
     	else
     	{
@@ -246,24 +246,42 @@ public class ItemValidatingBean implements ItemValidating
      * {@inheritDoc}
      */
     public final ValidationReportVO validateItemObject(
-            final PubItemVO itemVO,
+            final ItemVO itemVO,
             final String validationPoint) throws
             ValidationSchemaNotFoundException,
             TechnicalException
     {
 
-    	LOGGER.debug("Validating a " + itemVO.getClass().getSimpleName());
-    	
-    	if (itemVO instanceof PubItemVO)
-    	{
-	        return transformXmlToValidationReport(
-	                validateItemXml(xmlTransforming.transformToItem((PubItemVO)itemVO), validationPoint));
-    	}
-    	else
-    	{
-    		// TODO: Implementation for other content models.
-    		return null;
-    	}
+        LOGGER.debug("Validating a " + itemVO.getClass().getSimpleName());
+        
+        if (itemVO instanceof ItemVO)
+        {
+            return transformXmlToValidationReport(
+                    validateItemXml(xmlTransforming.transformToItem((ItemVO)itemVO), validationPoint));
+        }
+        else
+        {
+            // TODO: Implementation for other content models.
+            return null;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public final ValidationReportVO validateItemObjectBySchema(
+            final ItemVO itemVO,
+            final String validationPoint,
+            final String validationSchema) throws
+            ValidationSchemaNotFoundException,
+            TechnicalException
+    {
+
+        LOGGER.debug("Validating a " + itemVO.getClass().getSimpleName());
+        
+        return transformXmlToValidationReport(
+                    validateItemXmlBySchema(xmlTransforming.transformToItem((ItemVO)itemVO), validationPoint, validationSchema));
+
     }
 
     /**

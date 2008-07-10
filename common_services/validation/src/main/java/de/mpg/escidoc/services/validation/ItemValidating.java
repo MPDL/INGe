@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.validation;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -78,6 +79,24 @@ public interface ItemValidating extends ItemValidatingWebService
             TechnicalException;
 
     /**
+     * Validate the given item vo against the matching validation schema.
+     *
+     * @param itemVO The item as {@link ItemVO}.
+     * @param validationPoint A string representing the current validation point
+     * (like "submit_item", etcetera). If no validation point is given, "default will be used.
+     * @param validationSchema The id of a validation schema used to validate the item.
+     * @return The validation report as xml.
+     * @throws ValidationSchemaNotFoundException Schema not found in database.
+     * @throws TechnicalException Another exception.
+     */
+    public ValidationReportVO validateItemObjectBySchema(
+            final ItemVO itemVO,
+            final String validationPoint,
+            final String validationSchema) throws
+            ValidationSchemaNotFoundException,
+            TechnicalException;
+
+    /**
      * Validate the given item xml against the matching validation schema.
      *
      * @param itemXml The item as xml according to the xml schema.
@@ -104,7 +123,7 @@ public interface ItemValidating extends ItemValidatingWebService
      * @throws ValidationSchemaNotFoundException Schema not found in database.
      * @throws TechnicalException Another exception.
      */
-    ValidationReportVO validateItemObject(final PubItemVO itemVO) throws
+    ValidationReportVO validateItemObject(final ItemVO itemVO) throws
             ValidationSchemaNotFoundException,
             TechnicalException;
 
@@ -119,7 +138,7 @@ public interface ItemValidating extends ItemValidatingWebService
      * @throws TechnicalException Another exception.
      */
     ValidationReportVO validateItemObject(
-            final PubItemVO itemVO,
+            final ItemVO itemVO,
             final String validationPoint) throws
             ValidationSchemaNotFoundException,
             TechnicalException;

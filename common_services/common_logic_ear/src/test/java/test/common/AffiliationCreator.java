@@ -47,7 +47,9 @@ import org.apache.log4j.Logger;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
+import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -295,12 +297,12 @@ public class AffiliationCreator extends TestBase
         details.setName("Max-Planck-Gesellschaft");
         details.getAlternativeNames().add("MPG");
         details.setCity("München");
-        details.getIdentifiers().add("http://www.mpg.de");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpg.de"));
 
         details.setCountryCode("NO");
         details.getDescriptions()
                 .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-        details.getIdentifiers().add("4711");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711"));
 
         affiliationMPG.getMetadataSets().add(details);
         
@@ -325,11 +327,11 @@ public class AffiliationCreator extends TestBase
     
             details.setCity("Bonn");
     
-            details.getIdentifiers().add("http://www.helmholtz.de");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI,"http://www.helmholtz.de"));
             details.setCountryCode("DE");
             details.getDescriptions()
                     .add("In der Helmholtz-Gemeinschaft haben sich 15 naturwissenschaftlich-technische und medizinisch-biologische Forschungszentren zusammengeschlossen. Ihre Aufgabe ist es, langfristige Forschungsziele des Staates und der Gesellschaft zu verfolgen. Die Gemeinschaft strebt nach Erkenntnissen, die dazu beitragen, Lebensgrundlagen des Menschen zu erhalten und zu verbessern. Dazu identifiziert und bearbeitet sie große und drängende Fragen von Gesellschaft, Wissenschaft und Wirtschaft durch strategisch-programmatisch ausgerichtete Spitzenforschung in sechs Forschungsbereichen: Energie, Erde und Umwelt, Gesundheit, Schlüsseltechnologien, Struktur der Materie sowie Verkehr und Weltraum.");
-            details.getIdentifiers().add("239832-3232");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.EDOC,"239832-3232"));
             affiliationHelmholtz.getMetadataSets().add(details);
         
         
@@ -354,12 +356,12 @@ public class AffiliationCreator extends TestBase
             details.getAlternativeNames().add("FG");
     
             details.setCity("München");
-            details.getIdentifiers().add("http://www.fraunhofer.de");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fraunhofer.de"));
     
             details.setCountryCode("NO");
             details.getDescriptions()
                     .add("Die Fraunhofer-Gesellschaft ist die führende Organisation für angewandte Forschung in Europa. Sie betreibt anwendungsorientierte Forschung zum direkten Nutzen für Unternehmen und zum Vorteil der Gesellschaft.");
-            details.getIdentifiers().add("4711");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711"));
             
             affiliationFraunhofer.getMetadataSets().add(details);
         
@@ -383,12 +385,12 @@ public class AffiliationCreator extends TestBase
             details.getAlternativeNames().add("MPIFG");
             details.setCity("Köln");
     
-            details.getIdentifiers().add("http://www.mpifg.de");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpifg.de"));
     
             details.setCountryCode("DE");
             details.getDescriptions()
                     .add("Das Max-Planck-Institut für Gesellschaftsforschung ist eine Einrichtung der Spitzenforschung in den Sozialwissenschaften. Es betreibt anwendungsoffene Grundlagenforschung mit dem Ziel einer empirisch fundierten Theorie der sozialen und politischen Grundlagen moderner Wirtschaftsordnungen. Im Mittelpunkt steht die Untersuchung der Zusammenhänge zwischen ökonomischem, sozialem und politischem Handeln. Mit einem vornehmlich institutionellen Ansatz wird erforscht, wie Märkte und Wirtschaftsorganisationen in historisch-institutionelle, politische und kulturelle Zusammenhänge eingebettet sind, wie sie entstehen und wie sich ihre gesellschaftlichen Kontexte verändern. Das Institut schlägt eine Brücke zwischen Theorie und Politik und leistet einen Beitrag zur politischen Diskussion über zentrale Fragen moderner Gesellschaften.");
-            details.getIdentifiers().add("4711-4712");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "4711-4712"));
             
             affiliationMPIFG.getMetadataSets().add(details);
         
@@ -414,7 +416,7 @@ public class AffiliationCreator extends TestBase
             details.getAlternativeNames().add("MPI-G");
             details.setCity("Göttingen");
     
-            details.getIdentifiers().add("http://www.geschichte.mpg.de/");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.geschichte.mpg.de/"));
     
             details.setCountryCode("DE");
             details.getDescriptions().add("Die Mission Historique Francaise en Allemagne untersteht der Zuständigkeit des französischen Außenministeriums, "
@@ -424,7 +426,7 @@ public class AffiliationCreator extends TestBase
                     + "Die MHFA mietet Räumlichkeiten in den Gebäuden des Max-Planck-Instituts für Geschichte. Zu diesem Institut pflegt sie enge "
                     + "Beziehungen, so wie mit vielen weiteren Hochschulen und Forschungseinrichtungen in Frankreich, Deutschland und anderen europäischen "
                     + "Ländern. Sie hat flexible und anpassungsfähige institutionelle Strukturen entwickelt.");
-            details.getIdentifiers().add("r2d2-49");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "r2d2-49"));
             affiliationMPI_G.getMetadataSets().add(details);
 
         return affiliationMPI_G;
@@ -448,7 +450,7 @@ public class AffiliationCreator extends TestBase
     
             details.setCity("Tübingen");
     
-            details.getIdentifiers().add("http://www.fml.tuebingen.mpg.de");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fml.tuebingen.mpg.de"));
             
             details.setCountryCode("DE");
             details.getDescriptions().add("Das Friedrich-Miescher-Laboratorium wurde 1969 gegründet, um besonders qualifizierten jungen Wissenschaftlern "
@@ -476,7 +478,7 @@ public class AffiliationCreator extends TestBase
                     + "verschiedensten Organismen. Spalthefe, ein einzelliger Pilz mit Kinetochoren, die den menschlichen in ihrer "
                     + "Struktur ähneln, wird als Modellorganismus verwendet werden. Bislang unbekannte Regulatoren der Chromosomensegregation "
                     + "sollen durch genetische Screens in Spalthefe identifiziert, und ihre Funktion sowohl in der Hefe als auch in " + "menschlichen Zellen untersucht werden.");
-            details.getIdentifiers().add("MPI-27892-UBUNTU");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "MPI-27892-UBUNTU"));
             affiliationFML.getMetadataSets().add(details);
 
         return affiliationFML;
@@ -499,7 +501,7 @@ public class AffiliationCreator extends TestBase
             details.getAlternativeNames().add("MPIMF");
             details.setCity("Heidelberg");
     
-            details.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/");
+            details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpimf-heidelberg.mpg.de/"));
     
             details.setCountryCode("DE");
             details.getDescriptions().add("Das Institut wurde 1930 als Kaiser-Wilhelm-Institut gegründet, um Methoden der Physik und Chemie in die "
@@ -529,7 +531,7 @@ public class AffiliationCreator extends TestBase
                     + "für die schnelle Signalübertragung an Kontaktpunkten zwischen Nervenzellen gesteuert werden kann. Die bildgebende "
                     + "Multiquantenmikroskopie soll miniaturisiert und in ihrer Eindringtiefe verbessert werden, so dass Aktivitätsmessungen "
                     + "in der Großhirnrinde von sich frei bewegenden Mäusen durchgeführt werden können.");
-            details.getIdentifiers().add("MPI-HD-49°25'N,8°43'O");
+            details.setCoordinates(new Coordinates(1.45246462436, 2.34673657346));
             affiliationMPIMF.getMetadataSets().add(details);
         
         return affiliationMPIMF;
@@ -551,13 +553,13 @@ public class AffiliationCreator extends TestBase
         details.getAlternativeNames().add("ZEL");
         details.setCity("Heidelberg");
 
-        details.getIdentifiers().add("http://lightmicro.mpimf-heidelberg.mpg.de/index.html");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://lightmicro.mpimf-heidelberg.mpg.de/index.html"));
 
         details.setCountryCode("DE");
         details.getDescriptions().add("Die Zentrale Einrichtung Lichtmikroskopie des MPI fuer Medizinische Forschung soll:\n"
                 + "* Wissenschaflern des Institutes und von außerhalb die Nutzung von komplexen, aktuellen Methoden der Lichtmikroskopie " + "und der lichtmikroskopischen Datenanalyse bieten\n"
                 + "* Unterstützung und Training für Probenvorbereitung, Datenaufnahme und Datenanalyse bieten\n" + "* die Kommunikation und den Austausch von experimentellen Erfahrungen fördern");
-        details.getIdentifiers().add("LIGHT-123");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "LIGHT-123"));
         affiliationZEL.getMetadataSets().add(details);
 
         return affiliationZEL;
@@ -577,13 +579,13 @@ public class AffiliationCreator extends TestBase
         details.setName("Max-Planck-Haus Heidelberg");
         details.getAlternativeNames().add("MPH-HD");
         details.setCity("Heidelberg");
-        details.getIdentifiers().add("http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.mpimf-heidelberg.mpg.de/serviceEinrichtungen/maxPlanckHaus/index.html"));
 
         details.setCountryCode("DE");
         details.getDescriptions().add("Im Hörsaal des Max-Planck-Hauses können Vortäge und Seminarveranstaltungen stattfinden; folgende technische " + "Ausstattung steht zur Verfügung:\n"
                 + "* Beamer\n" + "* Tageslichtprojektor\n" + "* Diaprojektor\n" + "* Beamer\n" + "* Breitband-Internetanschluss\n" + "* Leinwand\n" + "* Wandtafel\n"
                 + "* Mikrofonanlage mit drei Funkmikrofonen\n" + "* DVD\n");
-        details.getIdentifiers().add("MPH-HD-20982022");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "MPH-HD-20982022"));
         affiliationMPH_HD.getMetadataSets().add(details);
         return affiliationMPH_HD;
     }
@@ -602,7 +604,7 @@ public class AffiliationCreator extends TestBase
         details.setName("Freie Universität Berlin");
         details.getAlternativeNames().add("FU-BERLIN");
         details.setCity("Berlin");
-        details.getIdentifiers().add("http://www.fu-berlin.de/");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.fu-berlin.de/"));
 
         details.setCountryCode("DE");
         details.getDescriptions().add("Die Freie Universität Berlin gehört zu den führenden Universitäten der Welt und zeichnet sich durch ihren "
@@ -618,7 +620,7 @@ public class AffiliationCreator extends TestBase
                 + "einen beträchtlichen Teil ihrer Einnahmen aus Drittmitteln ein.\n"
                 + "Eine strategische Allianz hat die Freie Universität mit der Ludwig-Maximilians-Universität in München geschlossen. "
                 + "Außerdem arbeitet die Freie Universität mit weltweit aktiven Firmen wie der BMW-Group, Schering, Siemens, Deutsche " + "Telekom oder Pfizer eng zusammen.");
-        details.getIdentifiers().add("FU-B-2103984");
+        details.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.ESCIDOC, "FU-B-2103984"));
 
         affiliationFU_BERLIN.getMetadataSets().add(details);
         
