@@ -77,6 +77,13 @@ public class XmlHelper {
 	public final static String SCHEMATRON_DIRECTORY =  "Schematron/";
     public final static String SCHEMATRON_FILE = SCHEMATRON_DIRECTORY + "layout-element.sch";
     
+    // List of CDATA elemetns
+    public final static String CDATAElements = 
+    	"valid-if max-count max-length " + 					// CitationStyle definition
+    	"{http://purl.org/dc/terms/}bibliographicCitation" 	// Snippet output
+    	;
+
+    
     /**
      * Builds new DocumentBuilder
      * @return DocumentBuilder
@@ -128,7 +135,7 @@ public class XmlHelper {
             serializer.setOutputProperty(OutputKeys.STANDALONE, "yes");
             // TODO: saxon specific, to get rid of it later
             serializer.setOutputProperty(SaxonOutputKeys.INDENT_SPACES, "4");
-            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, Parameters.CDATAElements); 
+            serializer.setOutputProperty(OutputKeys.CDATA_SECTION_ELEMENTS, CDATAElements); 
             serializer.transform(domSource, streamResult);
         }
         catch (Exception e) {

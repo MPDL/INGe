@@ -92,10 +92,6 @@ public class Parameters implements Cloneable {
         { "position", LE_Pr, CS_E_LE_P }, //???
     };
 
-    // List of CDATA elemetns
-    public final static String CDATAElements = "valid-if max-count max-length";
-
-
 
     /**
      * Constructor
