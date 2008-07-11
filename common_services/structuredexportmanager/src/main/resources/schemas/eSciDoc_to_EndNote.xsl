@@ -29,9 +29,9 @@
 <!-- 
 	Transformations from eSciDoc PubItem Schema to EndNote format 6.0
 	Author: Vlad Makarenko (initial creation) 
-	$Author: vdm $ (last changed)
-	$Revision: 64 $ 
-	$LastChangedDate: 2007-11-13 15:40:58 +0100 (Tue, 13 Nov 2007) $
+	$Author$ (last changed)
+	$Revision$ 
+	$LastChangedDate$
 -->
 <xsl:stylesheet version="2.0"
    xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
