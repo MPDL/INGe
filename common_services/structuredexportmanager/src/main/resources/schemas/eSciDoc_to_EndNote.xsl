@@ -27,7 +27,7 @@
  All rights reserved. Use is subject to license terms.
 -->
 <!-- 
-	Transformations from eSciDoc PubItem Schema to EndNote format 6.0
+	Transformations from eSciDoc PubItem Schema to EndNote format 10/11
 	Author: Vlad Makarenko (initial creation) 
 	$Author$ (last changed)
 	$Revision$ 
@@ -62,7 +62,9 @@
 			<xsl:if test="name(mdp:publication)=''">
 				<xsl:value-of select="concat(
 					if ($mdr_pos!=1) then '&#10;' else ''
-					,'%C Cannot export to the EndNote for the metadata record: '
+					,'%0 Generic',
+					'&#10;'
+					,'%Z Cannot export to the EndNote for the metadata record: '
 					,@xlink:href  
 					,'. Element: &lt;'
 					, name(child::*[1]), '&gt;'
