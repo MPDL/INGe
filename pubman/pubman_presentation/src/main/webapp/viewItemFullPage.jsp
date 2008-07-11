@@ -81,7 +81,7 @@
 													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{(ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowStandard}"/></li>
 													 
 												 <li><h:commandLink id="lnkRelease" action="#{ViewItemFull.submitItem}" 
-												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and !ViewItemFull.isModerator and ViewItemFull.isWorkflowSimple) }"/></li>
+												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowSimple) }"/></li>
 
 												<li><h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" 
 												 value="#{lbl.actionMenu_lnkAccept}" rendered="#{(ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled) }"/></li>

@@ -1198,6 +1198,7 @@ public class EditItem extends FacesBean
         boolean isStateInRevision = this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
         
         boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
+        boolean isDepositor = loginHelper.getAccountUser().isDepositor();
         boolean isOwner = true;
         if (this.getPubItem().getOwner() != null)
         {
@@ -1215,8 +1216,8 @@ public class EditItem extends FacesBean
         }
         
         this.lnkAccept.setRendered((isStateSubmitted || isStateReleased) && isModerator);
-        this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner && !isModerator);
-        this.lnkDelete.setRendered((isStateSubmitted || isStateReleased) && itemHasID);
+        this.lnkRelease.setRendered((isStatePending || isStateSubmitted) && isWorkflowSimple && isOwner);
+        this.lnkDelete.setRendered(isStatePending && isOwner && itemHasID);
         this.lnkSaveAndSubmit.setRendered((isStatePending || isStateInRevision) &&  isWorkflowStandard && isOwner);
         this.lnkSave.setRendered(((isStatePending || isStateInRevision)&& isOwner) || (isStateSubmitted && isModerator));
         
