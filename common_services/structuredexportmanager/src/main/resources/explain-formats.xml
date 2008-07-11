@@ -42,6 +42,21 @@
 	                <dc:title>EndNote Export Format</dc:title>
  	                <dc:identifier>ENDNOTE</dc:identifier>
  	                <xslt>eSciDoc_to_EndNote.xsl</xslt>
+ 	                <format>
+ 	                	<dc:title>txt</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/plain</dc:format>
+ 	                </format>
  	                <dc:creator>vmakarenko</dc:creator>
+ 	                <dc:creator>jkurt</dc:creator>
  	        </export-format>
+			<!--export-format>
+	                <dc:title>CSV Export Format</dc:title>
+ 	                <dc:identifier>CSV</dc:identifier>
+ 	                <xslt>eSciDoc_to_CSV.xsl</xslt>
+ 	                <format>
+ 	                	<dc:title>csv</dc:title>
+	 	                <dc:format xsi:type="dcterms:IMT">text/csv</dc:format>
+ 	                </format>
+ 	                <dc:creator>vmakarenko</dc:creator>
+ 	        </export-format!--> 	        
  	</export-formats>
