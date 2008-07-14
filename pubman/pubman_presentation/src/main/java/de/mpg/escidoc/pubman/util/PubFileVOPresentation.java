@@ -222,7 +222,10 @@ public class PubFileVOPresentation extends FacesBean {
 		// ensure that at least one file component is visible
 		if(editItemSessionBean.getFiles().size() == 0)
 		{
-			editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, false));
+		    FileVO newFile = new FileVO();
+            newFile.getMetadataSets().add(new MdsFileVO());
+            newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+			editItemSessionBean.getFiles().add(0, new PubFileVOPresentation(0, newFile, false));
 		}
 		
 		editItemSessionBean.reorganizeFileIndexes();
@@ -238,7 +241,10 @@ public class PubFileVOPresentation extends FacesBean {
 		// ensure that at least one locator component is visible
 		if(editItemSessionBean.getLocators().size() == 0)
 		{
-			editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, true));
+		    FileVO newLocator = new FileVO();
+            newLocator.getMetadataSets().add(new MdsFileVO());
+            newLocator.setStorage(FileVO.Storage.EXTERNAL_URL);
+			editItemSessionBean.getLocators().add(0, new PubFileVOPresentation(0, newLocator, true));
 		}
 		
 		editItemSessionBean.reorganizeLocatorIndexes();
