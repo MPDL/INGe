@@ -9,12 +9,12 @@
 	<artifactId>exportmanager</artifactId>
     <name>exportmanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.3</version>
+	<version>1.0.4-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/exportmanager-1.0.3</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/exportmanager-1.0.3</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/exportmanager-1.0.3</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
