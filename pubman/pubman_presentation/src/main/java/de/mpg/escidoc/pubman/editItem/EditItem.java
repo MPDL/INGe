@@ -486,6 +486,7 @@ public class EditItem extends FacesBean
     {
         try
         {
+            bindUploadedFilesAndLocators();
             PubItemVO item = this.getPubItem();
             this.getItemControllerSessionBean().validate(item, EditItem.VALIDATIONPOINT_SUBMIT);
             if (this.getItemControllerSessionBean().getCurrentItemValidationReport().hasItems())
