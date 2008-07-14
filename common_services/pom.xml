@@ -264,7 +264,7 @@
 				<artifactId>maven-release-plugin</artifactId>
 				<configuration>
 					<!-- send an announcement email on release -->
-					<preparationGoals>changes:announcement-mail</preparationGoals>
+					<!--  <preparationGoals>changes:announcement-mail</preparationGoals> -->
 					<!-- all the submodules inherit the version of the project -->
 					<autoVersionSubmodules>false</autoVersionSubmodules>
 					<!-- snaphots identified by timestamp are allowed -->
