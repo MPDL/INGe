@@ -42,7 +42,7 @@
       </action>
     </release>
       <release version="1.0.1" date="2008-03-31" description="Release of all modules"/>
-      <release version="1.0.2" date="2008-05-16" description="Release of all modules"/>
-      <release version="1.0.3-SNAPSHOT" date="2008-05-16" description="Current development"/>
+      <release version="1.0.2" date="2008-05-16" description="Release of all modules"/>      
+      <release version="1.0.3" date="2008-07-14" description="Current development"/>
   </body>
 </document>
