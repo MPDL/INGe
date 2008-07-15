@@ -1202,10 +1202,19 @@ public class EditItem extends FacesBean
         boolean itemHasID = this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getObjectId() != null;
         boolean isWorkflowStandard = false;
         boolean isWorkflowSimple = true;
-        boolean isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
-        boolean isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
-        boolean isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
-        boolean isStateInRevision = this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
+        
+        boolean isStatePending = true;
+        boolean isStateSubmitted = false;
+        boolean isStateReleased = false;
+        boolean isStateInRevision = false;
+
+        if (this.getPubItem() != null && this.getPubItem().getVersion() != null && this.getPubItem().getVersion().getState() != null)
+        {
+            isStatePending = this.getPubItem().getVersion().getState().equals(PubItemVO.State.PENDING);
+            isStateSubmitted = this.getPubItem().getVersion().getState().equals(PubItemVO.State.SUBMITTED);
+            isStateReleased = this.getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+            isStateInRevision = this.getPubItem().getVersion().getState().equals(PubItemVO.State.IN_REVISION);
+        }
         
         boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
         boolean isDepositor = loginHelper.getAccountUser().isDepositor();
