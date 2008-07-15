@@ -33,20 +33,22 @@
 
 <iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
 	
-	<iso:ns prefix="item" uri="${xsd.soap.item.item}"/>
-	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
+	<iso:ns prefix="item" uri="http://www.escidoc.de/schemas/item/0.7"/>
+	<iso:ns prefix="escidocMetadataRecords" uri="http://www.escidoc.de/schemas/metadatarecords/0.4"/>
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
-	<iso:ns prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}"/>
-	<iso:ns prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}"/>
-	<iso:ns prefix="escidocComponents" uri="${xsd.soap.item.components}"/>
-	<iso:ns prefix="publication" uri="${xsd.metadata.publication}"/>
+	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
+	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.7"/>
+	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
 	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
-	<iso:ns prefix="prop" uri="${xsd.soap.common.prop}"/>
-	<iso:ns prefix="file" uri="${xsd.metadata.file}"/>
+	<iso:ns prefix="prop" uri="http://escidoc.de/core/01/properties/"/>
+	<iso:ns prefix="file" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"/>
+    <iso:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+   
 	
 	<!-- Validation points -->
-	<iso:phase id="default">
+	<iso:phase id="default">	      
 		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
@@ -54,12 +56,13 @@
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="genre_required"/>
 		<iso:active pattern="title_required"/>
-		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_required"/>		
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
-		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_content_required"/>	                
 		<iso:active pattern="source_genre_required"/>
-		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="uri_as_locator"/>		
+		
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
@@ -95,7 +98,7 @@
 		<iso:active pattern="uri_as_locator"/>
 	</iso:phase>
 
-	<iso:phase id="submit_item">
+	<iso:phase id="submit_item">		
 		<iso:active pattern="publisher_name_required"/>
 		<iso:active pattern="organization_name_required"/>
 		<iso:active pattern="event_title_required"/>
@@ -107,6 +110,7 @@
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="component_data_required"/>
 		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_mimeType"/>	
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
 		
@@ -217,6 +221,8 @@
 		</iso:rule>
 		
 	</iso:pattern>
+	
+	
 
 	<!-- Validation point specific -->	
 	
@@ -305,4 +311,15 @@
 		</iso:rule>
 	</iso:pattern>
 
+	<!-- the mime type of a file has to be one of the list given in "mimeTypes" below -->
+	<iso:pattern name="component_mimeType" id="component_mimeType">
+       <iso:let name="mimeTypes">
+           <value>text</value>
+           <value>text/xml</value>
+       </iso:let>
+       <iso:rule context="escidocComponents:component/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file">
+           <iso:assert test="dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
+       </iso:rule>
+   </iso:pattern> 
+	
 </iso:schema>
