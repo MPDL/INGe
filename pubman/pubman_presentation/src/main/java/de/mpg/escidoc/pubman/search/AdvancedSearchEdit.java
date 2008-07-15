@@ -116,7 +116,6 @@ public class AdvancedSearchEdit extends SearchResultList
      */
     public String clearAllForms()
     {        
-    	languageString = Locale.getDefault().getLanguage();
     	
     	// delegate clearAllForms to internal collections
     	anyFieldCriterionCollection.clearAllForms();

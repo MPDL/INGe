@@ -55,7 +55,7 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
 	 */
 	public String clearCriterion()
 	{
-		languageCriterionVO.setSearchString("");
+		languageCriterionVO.setSearchString( null );
 		
 		// navigation refresh
 		return null;
