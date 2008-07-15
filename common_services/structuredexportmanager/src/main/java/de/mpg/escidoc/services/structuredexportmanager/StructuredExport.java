@@ -44,6 +44,7 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 
@@ -128,7 +129,7 @@ public class StructuredExport implements StructuredExportHandler {
 					
 				logger.debug("Transformer:" + trans);
 				 
-//				trans.setOutputProperty(OutputKeys.ENCODING, "ISO-8859-1");
+				trans.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 //				logger.info("ENCODING:" + trans.getOutputProperty(OutputKeys.ENCODING)) ;
 				
 				trans.transform(xmlSource, result);
