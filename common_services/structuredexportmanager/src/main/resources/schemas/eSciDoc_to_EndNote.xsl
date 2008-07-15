@@ -559,7 +559,7 @@
 			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(e:organization-name,', ',e:address)"/>
+					<xsl:with-param name="value" select="concat(../@role, ' : ', e:organization-name,', ',e:address)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
@@ -592,7 +592,7 @@
 			<xsl:when test="../@role='artist' or ../@role='painter' or ../@role='photographer' or ../@role='illustrator' or ../@role='commentator' or ../@role='transcriber' or ../@role='advisor' or ../@role='contributor'">
 				<xsl:call-template name="print-line">
 					<xsl:with-param name="tag" select="'Z'"/>
-					<xsl:with-param name="value" select="concat(@role, ':', $family-name,', ',$given-name)"/>
+					<xsl:with-param name="value" select="concat(../@role, ' : ', $family-name,', ',$given-name)"/>
 				</xsl:call-template>
 			</xsl:when>
 		</xsl:choose>
