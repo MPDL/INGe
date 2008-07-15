@@ -324,7 +324,6 @@
                     <xsl:message>Warning: Variables should not be used with the "xpath" query language binding.</xsl:message>
        </xsl:if>
 		<axsl:variable name="{@name}"><xsl:if test="@value != ''"><axsl:attribute name="select"><xsl:value-of select="@value"/></axsl:attribute></xsl:if><xsl:copy-of select="./*"/></axsl:variable>
-		<axsl:comment>abc</axsl:comment>
 	</xsl:template>
 	
 </xsl:stylesheet>
