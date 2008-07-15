@@ -1403,6 +1403,17 @@ public class ItemControllerSessionBean extends FacesBean
         	return new ArrayList<PubItemVO>();
         }
         
+        
+        
+        //workarround due to filter bug - create filters manually without whitespaces
+        String filter = "<param><filter name=\"http://purl.org/dc/elements/1.1/identifier\">";
+        for(ItemRO itemRO : itemRefs)
+        {
+            filter+="<id>"+itemRO.getObjectId()+"</id>";
+        }
+        filter+="</filter></param>";
+        logger.debug("Filter: \n" + filter);
+        /*
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
         FilterTaskParamVO.ItemRefFilter f1 = filter.new ItemRefFilter(itemRefs);
@@ -1414,7 +1425,7 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Transforming filters...");
         }
         String xmlparam = this.xmlTransforming.transformToFilterTaskParam(filter);
-
+        */
         // retrieve the items applying the filter criteria
         if (logger.isDebugEnabled())
         {
@@ -1425,11 +1436,11 @@ public class ItemControllerSessionBean extends FacesBean
         {
             if(loginHelper.getESciDocUserHandle() != null)
             {
-                xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+                xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(filter);
             }
             else
             {
-                xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+                xmlItemList = ServiceLocator.getItemHandler().retrieveItems(filter);
             }
         }
         catch (AuthenticationException e)
@@ -2044,7 +2055,7 @@ public class ItemControllerSessionBean extends FacesBean
         else
         {
             // TODO ScT: retrieve as super user (workaround for not logged in users until the framework changes this retrieve method for unauthorized users)
-            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(PropertyReader.getProperty("framework.admin.password"), pubItemVO.getVersion()));
+            revisionVOList = CommonUtils.convertToRelationVOPresentationList(this.dataGathering.findRevisionsOfItem(AdminHelper.getAdminUserHandle(), pubItemVO.getVersion()));
         }
             
         
