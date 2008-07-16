@@ -59,11 +59,13 @@ public class AuthorDecoder
 
         if (args == null || args.length == 0)
         {
-            logger.debug("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
+            System.out.println("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
+            System.out.println("Please make sure your classpath points to a valid log4j configuration.");
         }
         else
         {
-            new AuthorDecoder(args[0]);
+            AuthorDecoder authorDecoder = new AuthorDecoder(args[0]);
+            authorDecoder.displayAuthors();
         }
 
     }
@@ -107,49 +109,46 @@ public class AuthorDecoder
 
             }
         }
+    }
 
+    public void displayAuthors()
+    {
         if (bestFormat != null)
         {
-            displayAuthors();
+            logger.info("Best result (" + bestFormat.getName() + "):");
+            for (Author author : authorListList.get(0))
+            {
+                logger.debug(author);
+            }
+    
+            if (authorListList.size() > 1)
+            {
+                List<Author> bestList = authorListList.get(0);
+    
+                boolean alternative = false;
+    
+                for (List<Author> list : authorListList)
+                {
+                    if (list != bestList)
+                    {
+                        if (!alternative)
+                        {
+                            logger.info("There are alternative interpretations:");
+                            alternative = true;
+                        }
+                        for (int i = 0; i < list.size(); i++)
+                        {
+                            logger.info(
+                                    list.get(i)
+                                    + (list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
+                        }
+                    }
+                }
+            }
         }
         else
         {
             logger.debug("Diese Eingabe entspricht keinem bekannten Format.");
-        }
-
-    }
-
-    private void displayAuthors()
-    {
-        logger.debug("Best result (" + bestFormat.getName() + "):");
-        for (Author author : authorListList.get(0))
-        {
-            logger.debug(author);
-        }
-
-        if (authorListList.size() > 1)
-        {
-            List<Author> bestList = authorListList.get(0);
-
-            boolean alternative = false;
-
-            for (List<Author> list : authorListList)
-            {
-                if (list != bestList)
-                {
-                    if (!alternative)
-                    {
-                        logger.debug("There are alternative interpretations:");
-                        alternative = true;
-                    }
-                    for (int i = 0; i < list.size(); i++)
-                    {
-                        logger.debug(
-                                list.get(i)
-                                + (list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
-                    }
-                }
-            }
         }
     }
 
