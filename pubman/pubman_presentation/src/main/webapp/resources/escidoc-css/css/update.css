@@ -355,3 +355,9 @@ font-size: 1em;
 .advSearchRadioButtonGroup label {
 	margin-top: 17px;
 }
+
+/*Release notes page*/
+
+.copyAndPasteReleaseNotes {
+	margin-left: 50px;
+}

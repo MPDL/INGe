@@ -34,35 +34,129 @@
 				<h:outputText id="valOrientationText" value="#{lbl.HomePage}" />					
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
 			</h1>
-				<br/>
-				<br/>
 				
-<!-- BEGIN Copy&paste the ReleaseNotes here -->				
-
-<h2>
-Highlights of current release (v3.0.)
+<!-- BEGIN Copy&paste the ReleaseNotes here -->		
+<div class="copyAndPasteReleaseNotes">
+		
+<h2 class="about">
+About PubMan
 </h2>
-<ol>
-	<li>Easy submission of a new item - various methods
-	</li>
+
+<ol>PubMan - the eSciDoc Solution for Publication Management 	
+
 		<ul>
-			<li><b>short</b> edit mask for manual entry
+			<li>PubMan supports scientists and institutes in the management and the digital curation of their publications. This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, customization and configuration options throughout the solution's features are of major importance.
 			</li>
-			<li><b>fetch Metadata</b> from arXiv by provision of arXiv-Identifier
+		
+		<li>With PubMan, the <a href="http://www.mpdl.mpg.de/">Max Planck Digital Library (MPDL)</a> develops a service-oriented, flexible-to-use institutional repository software. The software is a <a href="http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Solutions_summary">solution</a> within the <a href="http://www.escidoc-project.de/JSPWiki/en/Startpage">eSciDoc project</a>, which is a joint open-source project by the MPDL and the <a href="http://www.fiz-karlsruhe.de/">FIZ Karlsruhe</a>.
 			</li>
-			<li><b>upload BibTex</b> reference file
-			</li>
-			<li>use an existing item as <b>template</b>
-			</li>
-		</ul>
-		<br/>
-	<li><b>Search and Output</b> interface (REST) for feeding local webpages 
-	</li>
-	<br/>
-	<li>Overall <b>GUI improvements</b> 
-	</li>
+
+			
+		<li>To keep track of ideas, specifications, concepts, prototypes, communication with partners etc., we use the MPDL CoLaboratory (CoLab) as main documentation and communication channel. All specifications, concepts and ideas are . <a href="http://colab.mpdl.mpg.de/mediawiki/Category:PubMan">referenced in the Category</a>
+			</li>		
+		</ul>		
+</ol>
+(read more on <a href="http://colab.mpdl.mpg.de">CoLab</a>)
+
+
+<h2 class="current">
+Current functionalities
+</h2>
+
+<ol>Access to content
+	<ul>
+
+		<li>You can run a google-like search (in metadata and full text) by
+	     entering a search term in the top search field.
+		</li>
+		<li>Try an advanced search for combining different search fields.
+		</li>
+		<li>In addition, you can access the data by browsing by organizational
+	     units (Organizations Search).</b> 
+		</li>	
+	</ul>
 </ol>
 
+<ol>Display and export of content
+	<ul>
+		<li>Item lists (i.e. list of references) can be sorted by different
+	     criteria, and can be displayed with different level of details
+	     (Short, medium views).
+		</li>
+
+		<li>References can be exported in various formats (rtf, pdf, html,
+	     odt) and citation styles (currently only APA) or sent by email. In
+	     addition, export to Endnote is possible.
+		</li>
+		<li>An Search and Output Service allows user-/local specific queries
+	     of data for integration into local systems.</b> 
+		</li>
+		<li>The service can be accessed directly under <a href="https://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_info.jsp">REST interface</a>or via a <a href="http://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
+		</li>
+	</ul>
+
+</ol>
+
+<ol>Creation of content </br>Depending on the level of detail, logged-in users have two possibilities to submit data:
+	<ul>
+		<li>Easy Submission: A wizard-based, short entry mask to provide the
+	     minimum bibliographic metadata of a publication. In addition, user
+	     can choose to fetch metadata from arXiv or upload a BibTeX
+	     reference for pre-fill the edit mask.
+		</li>
+		<li>Full Submission: Data entry mask (submission mask), which covers
+	     the complete bibliographic metadata for detailed descriptions of
+	     publications, creators and affiliated organization, publishing
+	     information, related events and subject topics.
+		</li>
+	</ul>
+</ol>
+
+<ol>Quality Assurance of Content
+	<ul>
+
+		<li>automatic validation by the system, based on defined validation
+	     points and validation rules. Constraints for validation can be
+	     configured for each context (i.e.collection).
+		</li>
+		<li>Modification of Metadata after release with appropriate change log
+	     (release history).
+		</li>
+	</ul>
+</ol>
+
+<ol>Versioning
+	<ul>
+		<li>Tracking of working versions (i.e. modifications of metadata).
+		</li>
+		<li>Tracking of revisions by relating intellectually revised fulltext
+	     versions.
+		</li>
+
+	</ul>
+</ol>
+
+<ol>Statistics
+	<ul>
+		<li>Basic statistics for publication data (Metadata and/or attached
+	     fulltexts).
+		</li>
+	</ul>
+</ol>
+
+<ol>Collections, Organizational Units and Users
+	<ul>
+		<li>Basic statistics for publication data (Metadata and/or attached
+	     fulltexts).
+		</li>
+
+		<li>Collections, Organizational Units and Users
+		</li>
+	</ul>
+</ol>
+Contexts (i.e.collections), Organizational Units and Users are managed in an own eSciDoc solution, called the admin solution. This solution is also available for other eSciDoc solutions like <a href="http://colab.mpdl.mpg.de/mediawiki/Faces">FACES</a>or <a href="http://colab.mpdl.mpg.de/mediawiki/ViRR:_Virtueller_Raum_Reichsrecht">ViRR</a>.
+
+</div>
 
 <!-- END Copy&paste the ReleaseNotes here -->
 

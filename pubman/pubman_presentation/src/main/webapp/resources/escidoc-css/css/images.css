@@ -203,3 +203,20 @@
 	background-position: left top;
 	background-image: url(../images/add_file.gif);
 }
+
+.copyAndPasteReleaseNotes h2.about {
+	overflow: visible;
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-image: url(../images/about.gif);
+	margin-left: -50px;
+	padding-left: 50px;
+}
+
+.copyAndPasteReleaseNotes h2.current {
+	background-repeat: no-repeat;
+	background-position: left top;
+	background-image: url(../images/functions.gif);
+	margin-left: -50px;
+	padding-left: 50px;
+}
