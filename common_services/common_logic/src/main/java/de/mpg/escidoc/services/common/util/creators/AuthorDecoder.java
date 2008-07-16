@@ -171,5 +171,18 @@ public class AuthorDecoder
     {
         this.bestFormat = bestFormat;
     }
+    
+    public List<Author> getBestAuthorList() 
+    {
+        for(List<Author> authorList : getAuthorListList())
+        {
+            Author author = authorList.get(0);
+            if (author.getFormat().equals(getBestFormat()))
+            {
+                return authorList;
+            }
+        }
+        return null;
+    }
 
 }
