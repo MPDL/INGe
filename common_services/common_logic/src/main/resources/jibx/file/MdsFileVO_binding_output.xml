@@ -72,8 +72,8 @@
 			<!-- Node: file.format -->
 			<!-- Field: MdsFileVO.formats [List<String>] -->
 			<collection field="formats"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.stringListFactory" usage="optional">
-				<value name="format" style="element" ns="http://purl.org/dc/terms/" type="java.lang.String"/>
+				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.formatVOListFactory" usage="optional">
+				<structure name="format" ns="http://purl.org/dc/elements/1.1/" type="de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO"/>
 			</collection>
 
 			<!-- Node: file.extent -->
