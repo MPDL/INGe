@@ -365,9 +365,13 @@ font-size: 1em;
 .copyAndPasteReleaseNotes ol {
 	font-weight: bold;
 	}
-	
+
+.copyAndPasteReleaseNotes ul {
+	margin-bottom: 1em;
+	}
+
 .copyAndPasteReleaseNotes li {
 	font-weight: normal;
 	list-style-type: disc;
-	margin-bottom: 1em;
+	margin-bottom: 0.5em;
 	}
