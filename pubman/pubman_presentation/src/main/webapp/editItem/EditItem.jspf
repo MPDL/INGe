@@ -120,7 +120,7 @@
 	           			</h:panelGroup>
 	           			<h:panelGroup layout="block" styleClass="floatLeft leftSpace10">         			
 	           				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblMimeType}" />
-	           				<tr:inputText styleClass="editItemTextField100" value="#{component.file.mimeType}" />
+	           				<tr:inputText styleClass="editItemTextField100" value="#{component.mimeType}" />
 	           			</h:panelGroup>
 	           			</div>
 	           		</h:panelGroup>

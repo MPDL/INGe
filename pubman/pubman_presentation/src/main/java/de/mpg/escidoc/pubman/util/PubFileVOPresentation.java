@@ -1,5 +1,7 @@
 package de.mpg.escidoc.pubman.util;
 
+import java.util.List;
+
 import javax.faces.component.html.HtmlCommandButton;
 import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
@@ -15,6 +17,7 @@ import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
@@ -192,7 +195,54 @@ public class PubFileVOPresentation extends FacesBean {
     	}
     	return visibility;
     }
+    
+    public void setMimeType(String mimeType)
+    {
+        if(this.file.getDefaultMetadata() == null)
+        {
+            this.file.getMetadataSets().add(new MdsFileVO());
+        }
+        List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+        boolean found = false;
+        for (FormatVO formatVO : formats)
+        {
+            if ("dcterms:IMT".equals(formatVO.getType()))
+            {
+                formatVO.setType(mimeType);
+                found = true;
+                break;
+            }
+        }
+        if (!found)
+        {
+            FormatVO formatVO = new FormatVO();
+            formatVO.setType("dcterms:IMT");
+            formatVO.setValue(mimeType);
+            formats.add(formatVO);
+        }
+    }
 	
+    public String getMimeType()
+    {
+        if(this.file.getDefaultMetadata() == null)
+        {
+            return null;
+        }
+        else
+        {
+            List<FormatVO> formats = this.file.getDefaultMetadata().getFormats();
+            boolean found = false;
+            for (FormatVO formatVO : formats)
+            {
+                if ("dcterms:IMT".equals(formatVO.getType()))
+                {
+                    return formatVO.getValue();
+                }
+            }
+        }
+        return null;
+    }
+    
 	public String getLocator()
     {
     	String locator = "";

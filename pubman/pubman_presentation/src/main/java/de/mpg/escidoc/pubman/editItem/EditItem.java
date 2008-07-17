@@ -83,6 +83,7 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
@@ -998,12 +999,18 @@ public class EditItem extends FacesBean
     	if(contentURL != null && !contentURL.trim().equals(""))
     	{
     		EditItemSessionBean eisb = this.getEditItemSessionBean();
-    		FileVO testFile = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
-    		this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
-            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setName(file.getFilename());
-            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
-            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setMimeType(file.getContentType());
-            this.getEditItemSessionBean().getFiles().get(indexUpload).getFile().setContent(contentURL);
+    		
+    		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
+    		
+    		fileVO.getDefaultMetadata().setSize((int)file.getLength());
+            fileVO.setName(file.getFilename());
+            fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
+            fileVO.setMimeType(file.getContentType());
+            FormatVO formatVO = new FormatVO();
+            formatVO.setType("dcterms:IMT");
+            formatVO.setValue(file.getContentType());
+            fileVO.getDefaultMetadata().getFormats().add(formatVO);
+            fileVO.setContent(contentURL);
     	}
         //bindFiles();
       }
