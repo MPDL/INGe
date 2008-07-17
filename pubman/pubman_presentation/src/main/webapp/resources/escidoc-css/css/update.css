@@ -359,5 +359,15 @@ font-size: 1em;
 /*Release notes page*/
 
 .copyAndPasteReleaseNotes {
-	margin-left: 50px;
+	margin-left: 40px;
 }
+
+.copyAndPasteReleaseNotes ol {
+	font-weight: bold;
+	}
+	
+.copyAndPasteReleaseNotes li {
+	font-weight: normal;
+	list-style-type: disc;
+	margin-bottom: 1em;
+	}

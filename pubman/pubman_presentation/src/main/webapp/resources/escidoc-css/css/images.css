@@ -209,14 +209,14 @@
 	background-repeat: no-repeat;
 	background-position: left top;
 	background-image: url(../images/about.gif);
-	margin-left: -50px;
-	padding-left: 50px;
+	margin-left: -40px;
+	padding-left: 40px;
 }
 
 .copyAndPasteReleaseNotes h2.current {
 	background-repeat: no-repeat;
 	background-position: left top;
 	background-image: url(../images/functions.gif);
-	margin-left: -50px;
-	padding-left: 50px;
+	margin-left: -40px;
+	padding-left: 40px;
 }
