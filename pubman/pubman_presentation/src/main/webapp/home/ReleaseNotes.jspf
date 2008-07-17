@@ -91,7 +91,7 @@ Current functionalities
 		<li>An Search and Output Service allows user-/local specific queries
 	     of data for integration into local systems.</b> 
 		</li>
-		<li>The service can be accessed directly under <a href="https://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_info.jsp">REST interface</a>or via a <a href="http://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
+		<li>The service can be accessed directly under <a href="https://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_info.jsp">REST interface</a> or via a <a href="http://escidoc3.escidoc.mpg.de/pubman/search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
 		</li>
 	</ul>
 
@@ -154,7 +154,7 @@ Current functionalities
 		</li>
 	</ul>
 </ol>
-Contexts (i.e.collections), Organizational Units and Users are managed in an own eSciDoc solution, called the admin solution. This solution is also available for other eSciDoc solutions like <a href="http://colab.mpdl.mpg.de/mediawiki/Faces">FACES</a>or <a href="http://colab.mpdl.mpg.de/mediawiki/ViRR:_Virtueller_Raum_Reichsrecht">ViRR</a>.
+Contexts (i.e.collections), Organizational Units and Users are managed in an own eSciDoc solution, called the admin solution. This solution is also available for other eSciDoc solutions like <a href="http://colab.mpdl.mpg.de/mediawiki/Faces">FACES</a> or <a href="http://colab.mpdl.mpg.de/mediawiki/ViRR:_Virtueller_Raum_Reichsrecht">ViRR</a>.
 
 </div>
 
