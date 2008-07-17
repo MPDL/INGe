@@ -596,8 +596,8 @@
 
 	<!-- the mime type of a file has to be one of the list given in "mimeTypes" below -->
 	<iso:pattern name="component_mimeType" id="component_mimeType">
-		<iso:rule context="escidocComponents:component/escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file">
-			<iso:assert test="dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
+		<iso:rule context="escidocComponents:component">
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 

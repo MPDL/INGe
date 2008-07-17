@@ -61,6 +61,7 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_3">
@@ -70,6 +71,7 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="public_file_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_4">
@@ -81,6 +83,7 @@
 		<iso:active pattern="creator_required"/>
 		<iso:active pattern="creator_role_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 	</iso:phase>
 
 	<iso:phase id="easy_submission_step_5">
@@ -95,6 +98,7 @@
 		<iso:active pattern="correct_date_format"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 	</iso:phase>
 	
 	<iso:phase id="submit_item">
@@ -111,6 +115,7 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 		
 		<iso:active pattern="date_modified_required"/>
 		<!-- <iso:active pattern="abstract_english_required"/> -->
@@ -133,6 +138,7 @@
 		<iso:active pattern="component_content_required"/>
 		<iso:active pattern="source_genre_required"/>
 		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
 		
 		<iso:active pattern="date_modified_required"/>
 		<!-- <iso:active pattern="abstract_english_required"/> -->
@@ -321,6 +327,13 @@
 	<iso:pattern name="uri_as_locator" id="uri_as_locator">
 		<iso:rule context="escidocComponents:component">
 			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or matches(escidocComponents:content/@xlink:href, '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?$')">LocatorIsNoUri</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- the mime type of a file has to be one of the list given in "mimeTypes" below -->
+	<iso:pattern name="component_mimeType" id="component_mimeType">
+		<iso:rule context="escidocComponents:component">
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
 		</iso:rule>
 	</iso:pattern>
 
