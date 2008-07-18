@@ -37,7 +37,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone_presentation</artifactId>
 	<packaging>war</packaging>
-	<name>cone_presentation Maven Webapp</name>
+	<name>cone_presentation</name>
 	<version>0.0.1-SNAPSHOT</version>
 	<url>http://maven.apache.org</url>
 	<build>

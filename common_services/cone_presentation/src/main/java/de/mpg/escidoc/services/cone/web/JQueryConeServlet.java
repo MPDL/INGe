@@ -100,7 +100,7 @@ public class JQueryConeServlet extends HttpServlet
             String value = map.get(id);
             result.append(value);
             result.append("|");
-            result.append("id");
+            result.append(id);
             result.append("\n");
         }
         
