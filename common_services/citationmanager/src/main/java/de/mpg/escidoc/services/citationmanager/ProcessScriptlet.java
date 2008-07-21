@@ -67,6 +67,7 @@ public class ProcessScriptlet {
 //    private static final Logger logger = Logger.getLogger(ProcessScriptlet.class);
 	
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
+    // TODO: should be moved directly to the CS definition
     public final static String SCRIPTLET_XPATH_ROOT = "md-record/publication";
     public final static String SCRIPTLETS_JAVA_DIRECTORY = "src/main/java/";
     private String scriptletClassName = null;
@@ -544,7 +545,7 @@ public class ProcessScriptlet {
 //        "JRDesignField field = new JRDesignField();\n" +
 //        "field.setDescription(\"family-name\");\n" +
 //        "field.setValueClass(String.class);\n" +
-//        "JRXmlDataSource sds = ds.subDataSource(\"publication/creator/person\");\n" +
+//        "JRXmlDataSource sds = ds.subDataSource(\"md-record/publication/creator/person\");\n" +
 //        "sds.next();\n" +
 //        "System.out.println(\"root = \" + (String) sds.getFieldValue(field));\n" +
 //  debug --->
