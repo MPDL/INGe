@@ -41,12 +41,13 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:dcterms="http://purl.org/dc/terms/"
+   xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
    xmlns:e="${xsd.metadata.escidocprofile.types}"
    xmlns:ec="${xsd.soap.item.components}"
    xmlns:prop="${xsd.soap.common.prop}"
->
+> 
 
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	<!--
@@ -54,7 +55,7 @@
 -->
 	<xsl:template match="/">
 	
-		<xsl:for-each select="//mdr:md-record">
+		<xsl:for-each select="//ei:item/mdr:md-records/mdr:md-record">
 	
 			<xsl:variable name="mdr_pos" select="position()"/>
 	
