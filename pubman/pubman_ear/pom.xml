@@ -33,6 +33,11 @@
 							<artifactId>pubman_presentation</artifactId>
 							<contextRoot>/pubman</contextRoot>
 						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>cone_presentation</artifactId>
+							<contextRoot>/cone</contextRoot>
+						</webModule>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>framework_access</artifactId>
@@ -275,6 +280,13 @@
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
 			<version>1.0.7-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>cone_presentation</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
