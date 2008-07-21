@@ -283,7 +283,8 @@ public class ProcessSnippet {
 				"color:\\s*#.+?;",
 				"background-color:\\s*#.+?;",
 				"font-size:.+?;",
-				"text-align:.+?;"
+				"text-align:.+?;",
+				"font-family:.+?;" 
 		}; 
 		String regexp;
 		Matcher m;
@@ -299,7 +300,7 @@ public class ProcessSnippet {
 		// replace all styles with CSS classes
 		String [][] attrs = 
 		{
-				{ "font-family:\\s*(.+?)", null }, 
+//				{ "font-family:\\s*(.+?)", null }, 
 				{ "font-weight:\\s*bold", "Bold" }, 
 				{ "font-style:\\s*italic", "Italic" },
 				{ "text-decoration:\\s*underline", "Underline" },
@@ -326,16 +327,20 @@ public class ProcessSnippet {
 				if ( m2.find() )
 				{
 					// font-family should be taken from the matched Group   
-					if ( attr[0].equals(attrs[0][0]) )
-					{
-						CssClass += m2.group(1);
-					}
-					else 
-					{
+//					if ( attr[0].equals(attrs[0][0]) )
+//					{
+//						CssClass += m2.group(1);
+//					}
+//					else 
+//					{
 						CssClass += attr[1];
-					}	
+//					}	
 				}
 			}
+
+			// set Default class in case of empty one
+			if ( CssClass.equals("") )
+				CssClass = "Default";
 			
 			targetHtml = targetHtml.replaceFirst(m.group(), "<span class=\"" + CssClass + "\">");
 		}
