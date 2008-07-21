@@ -198,8 +198,8 @@
 						<m num="11">Nov</m>
 						<m num="12">Dec</m>
 					</xsl:variable>
-					<!-- <xsl:variable name="pubdate" select="if((dcterms:issued)!='') then dcterms:issued else if  (*:published-online!='') then *:published-online else if ((dcterms:dateAccepted)!='') then dcterms:dateAccepted else if ((dcterms:dateSubmitted)!='') then dcterms:dateSubmitted else if ((dcterms:modified)!='') then dcterms:modified else if ((dcterms:created)!='') then dcterms:created else ''"/>		-->	
-					<xsl:variable name="pubdate" select="dcterms:issued"/>
+					<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if  (*:published-online!='') then *:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>			
+					<!-- <xsl:variable name="pubdate" select="dcterms:issued"/>-->
 					<xsl:variable name="year" select="substring($pubdate,1,4)"/>
 					<xsl:variable name="month" select="substring($pubdate,6,2)"/>
 					<xsl:variable name="day" select="substring($pubdate,9,2)"/>
@@ -344,7 +344,7 @@
 					<xsl:if test="$sd!=''">
 						<xsl:variable name="ed" select="substring(normalize-space(*:event/e:end-date),1,10)"/>
 						<xsl:variable name="dateString" select="if ($ed='') then '' else concat(' - ', $ed)"/>
-						<xsl:variable name="dates" select="concat($sd, dateString)"/>
+						<xsl:variable name="dates" select="concat($sd, $dateString)"/>
 						<xsl:call-template name="print-line">
 							<xsl:with-param name="tag" select="'Z'"/>
 							<xsl:with-param name="value" select="concat('date of event: ', $dates)"/>
@@ -352,7 +352,7 @@
 					</xsl:if>
 					
 					<!-- AFFILIATIONS -->
-					<xsl:for-each select="*:creator[@role='author']/e:person/e:organization/e:organization-name">
+					<xsl:for-each select="*:creator/e:person/e:organization/e:organization-name">
 						<xsl:variable name="aff" select="normalize-space(.)"/>
 						<xsl:if test="$aff!=''">
 							<xsl:call-template name="print-line">
@@ -395,9 +395,9 @@
 					<!-- Start Page - End Page -->
 					<xsl:for-each select="*:source">
 						<xsl:variable name="sp" select="normalize-space(e:start-page)"/>
-						<xsl:if test="$sp!=''">
+						<xsl:if test="not($sp='')">
 							<xsl:choose> 
-								<xsl:when test="$gen!='book'">
+								<xsl:when test="not($gen='book')">
 									<xsl:variable name="ep" select="normalize-space(e:end-page)"/>
 									<xsl:call-template name="print-line">
 										<xsl:with-param name="tag" select="'P'"/>
@@ -448,7 +448,7 @@
 		
 					<!-- 	Issue -->
 					<xsl:for-each select="*:source">
-						<xsl:if test="@type!='series'">
+						<xsl:if test="not(@type='series')">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'N'"/>
 								<xsl:with-param name="value" select="e:issue"/>
@@ -518,13 +518,11 @@
 		
 					<!-- Volume -->
 					<xsl:for-each select="*:source/e:volume">
-					<xsl:variable name="sgenre" select="../@type"/>
-						<xsl:if test="$sgenre='series'">
+					<xsl:variable name="sgenre" select="../@type"/>						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
 								<xsl:with-param name="value" select="."/>
-							</xsl:call-template>
-						</xsl:if>
+							</xsl:call-template>						
 					</xsl:for-each>			
 		
 				</xsl:for-each>
