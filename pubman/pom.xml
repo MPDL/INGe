@@ -554,7 +554,7 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<cone.querier.class>de.mpg.escidoc.services.cone.MulgaraQuerier</cone.querier.class>
+				<cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</cone.querier.class>
 				
 			</properties>
 				<distributionManagement>
