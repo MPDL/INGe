@@ -102,22 +102,22 @@
 		<fieldDescription><![CDATA[publication/title]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_2_P_default_E_1" class="java.lang.String">
-		<fieldDescription><![CDATA[count(creator[@role='author']/person)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author']/person)>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_2_P_default_E_2" class="java.lang.String">
-		<fieldDescription><![CDATA[count(creator[@role='author']/organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author']/organization)>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_2_P_default_E_5" class="java.lang.String">
-		<fieldDescription><![CDATA[count(source/creator[@role='editor']/person)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/source/creator[@role='editor']/person)>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_3_P_default_E_1" class="java.lang.String">
-		<fieldDescription><![CDATA[count(creator[@role='author']/person)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author']/person)>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_3_P_default_E_2" class="java.lang.String">
-		<fieldDescription><![CDATA[count(creator[@role='author']/organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author']/organization)>0]]></fieldDescription>
 	</field>
 	<field name="tmpField_CS_1_CSLD_4_P_default_E_1" class="java.lang.String">
-		<fieldDescription><![CDATA[count(creator[@role='author']/person|organization)>0]]></fieldDescription>
+		<fieldDescription><![CDATA[count(publication/creator[@role='author']/person|organization)>0]]></fieldDescription>
 	</field>
 	<variable name="date" class="java.lang.String">
 		<variableExpression><![CDATA[$F{published-online} != null ? $F{published-online} : $F{issued} != null ? $F{issued} : $F{dateAccepted} != null ? $F{dateAccepted} : $F{dateSubmitted} != null ? $F{dateSubmitted} : $F{modified} != null ? $F{modified} : $F{created} != null ? $F{created} : null]]></variableExpression>
