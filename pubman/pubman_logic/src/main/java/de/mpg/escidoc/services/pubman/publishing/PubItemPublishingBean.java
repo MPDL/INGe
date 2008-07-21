@@ -151,7 +151,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             try
             {
                 // Assign floating PID
-                result = itemHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
+                result = adminHandler.assignObjectPid(pubItemRef.getObjectId(), paramXml);
     
                 LOGGER.debug("Floating PID assigned: " + result);
             }
