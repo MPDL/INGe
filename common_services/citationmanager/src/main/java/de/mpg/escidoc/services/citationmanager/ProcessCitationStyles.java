@@ -50,6 +50,7 @@ import java.util.Iterator;
 import java.util.Map; 
 import java.util.Properties;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 
 import net.sf.jasperreports.engine.JRException;
@@ -111,6 +112,10 @@ import de.mpg.escidoc.services.citationmanager.XmlHelper;
 *
 */
 
+/**
+ * @author vlad
+ *
+ */
 public class ProcessCitationStyles implements CitationStyleHandler{
 
     /**
@@ -145,6 +150,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     // The root element of the XML Data Source to be processed 
     // by report filling
     public String REPORT_XML_ROOT_XPATH;
+
+    // The root element of the metadata in the Data Source
+    // TODO: should be later defined in the CS xml directly 
+	public String MD_XML_ROOT_XPATH;
+
     
     // component properties
     public Properties props;
@@ -188,6 +198,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     
     // ProcessScriptlet class instance
     private ProcessScriptlet ps = null;
+
     
 	
 	public ProcessCitationStyles() {
@@ -212,6 +223,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	        KEEP_COMPILER_KEEP_JAVA_FILE = Boolean.parseBoolean(props.getProperty("keep.compiler.keep.java.file"));
 	        CREATE_JRXML = Boolean.parseBoolean(props.getProperty("create.jrxml"));
 	        REPORT_XML_ROOT_XPATH = props.getProperty("report.xml.root.xpath");
+	        MD_XML_ROOT_XPATH = props.getProperty("md.root.xpath");
 
 	}
 	/**
@@ -624,7 +636,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		// 1) create a special field to check 
         		// whether the repeatable element is not empty
         		String chk_field = "tmpField_" + le.getId();
-        		String XPath = "count(" + ref + ")>0";
+        		String XPath = "count(" + MD_XML_ROOT_XPATH + "/" + ref + ")>0";
         		// 2) add field
         		try { 
 					addJRField(chk_field, XPath);
@@ -1548,6 +1560,30 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		return baos.toByteArray();
 		
 	}
+	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#isCitationStyle(java.lang.String)
+	 */
+	public boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException 
+	{
+		if ( citationStyle == null || citationStyle.trim().equals("") )
+		{
+			throw new CitationStyleManagerException("Empty name of the citation style");
+		}
+		
+		try {
+			for ( String csn : XmlHelper.getListOfStyles() )
+				if ( csn.equals(citationStyle) )
+					return true;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			throw new CitationStyleManagerException(e);
+		}
+		
+		return false;
+		
+	}
+
 	
 	
 	/*---------------*/
