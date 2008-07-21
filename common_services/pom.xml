@@ -1,5 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>common_services</artifactId>
@@ -169,7 +169,8 @@
 		<module>search</module>
 		<module>search_presentation</module>
 		<module>search_ear</module>
-	</modules>
+    <module>cone_presentation</module>
+  </modules>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</connection>
@@ -403,6 +404,8 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
+				<cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</cone.querier.class>
+				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -527,6 +530,8 @@
 				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
+
+				<cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</cone.querier.class>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -618,7 +623,7 @@
 			</activation>
 			<properties>
 				<!-- linux doesn't need the extra slash like windows does -->
-				<jboss.pathcorrection />
+				<jboss.pathcorrection/>
 			</properties>
 		</profile>
 	</profiles>

@@ -18,10 +18,9 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
-import org.apache.commons.discovery.tools.ResourceUtils;
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 
@@ -35,26 +34,65 @@ public class JQueryConeServlet extends HttpServlet
     {
 
         PrintWriter out = response.getWriter();
-        response.setContentType("text/plain");
         
         String model = request.getPathInfo();
-        String query = request.getParameter("q");
-        
-        Querier querier = QuerierFactory.newQuerier();
-        
-        Map<String, String> result = null;
-        
-        try
+        if (model != null && !"".equals(model))
         {
-            result = querier.query(model, query);
+            model = model.substring(1);
         }
-        catch (Exception e) {
-            logger.error("Error querying database.", e);
+        
+        logger.debug("Querying for '" + model + "'");
+        
+        if ("explain".equals(model))
+        {
+            response.setContentType("text/xml");
+            out.println(ResourceUtil.getResourceAsString("explain/jquery_explain.xml"));
         }
-        logger.info("XML: " + result);
-        
-        out.println(format(result));
-        
+        else
+        {
+            response.setContentType("text/plain");
+            String query = request.getParameter("q");
+            
+            if (query == null)
+            {
+                reportMissingParameter("q", response);
+            }
+            else if ("".equals(query))
+            {
+                reportEmptyParameter("q", response);
+            }
+            else
+            {
+            
+                Querier querier = QuerierFactory.newQuerier();
+                
+                logger.debug("Querier is " + querier);
+                
+                Map<String, String> result = null;
+                
+                try
+                {
+                    result = querier.query(model, query);
+                }
+                catch (Exception e) {
+                    logger.error("Error querying database.", e);
+                }
+                logger.debug("XML: " + result);
+                
+                out.println(format(result));
+            }
+        }
+    }
+
+    private void reportEmptyParameter(String string, HttpServletResponse response)
+    {
+        // do not report empty parameters, just return nothing.
+    }
+
+    private void reportMissingParameter(String param, HttpServletResponse response) throws IOException
+    {
+        response.setStatus(500);
+        response.getWriter().println("Parameter '" + param + "' is missing.");        
     }
 
     /**
