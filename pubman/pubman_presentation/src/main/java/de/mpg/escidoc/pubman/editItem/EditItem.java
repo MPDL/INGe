@@ -383,7 +383,7 @@ public class EditItem extends FacesBean
     		{
     		    
     		    //add name from content if not available
-    		    if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
+    		    if(this.getLocators().get(i).getFile().getDefaultMetadata().getTitle() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue() == null || this.getLocators().get(i).getFile().getDefaultMetadata().getTitle().getValue().trim().equals(""))
                 {
                     this.getLocators().get(i).getFile().getDefaultMetadata().setTitle(new TextVO(this.getEditItemSessionBean().getLocators().get(i).getFile().getContent()));
                     //this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().setName(this.getEditItemSessionBean().getLocators().get(this.getEditItemSessionBean().getLocators().size()-1).getFile().getContent());
