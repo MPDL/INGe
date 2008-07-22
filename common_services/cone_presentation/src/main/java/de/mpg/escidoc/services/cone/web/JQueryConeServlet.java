@@ -13,6 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -20,9 +21,11 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.cone.ServiceList.Service;
 import de.mpg.escidoc.services.cone.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
+import de.mpg.escidoc.services.cone.ServiceList;
 
 public class JQueryConeServlet extends HttpServlet
 {
@@ -35,20 +38,115 @@ public class JQueryConeServlet extends HttpServlet
 
         PrintWriter out = response.getWriter();
         
-        String model = request.getPathInfo();
-        if (model != null && !"".equals(model))
+        // Read the service name and action from the URL
+        String[] path = request.getPathInfo().split("/");
+        
+        String model = null;
+        String action = null;
+        
+        if (path.length >= 2)
         {
-            model = model.substring(1);
+            model = path[1];
         }
         
+        if (path.length >= 3)
+        {
+            action = path[2];
+        }
+
         logger.debug("Querying for '" + model + "'");
         
         if ("explain".equals(model))
         {
             response.setContentType("text/xml");
-            out.println(ResourceUtil.getResourceAsString("explain/jquery_explain.xml"));
+            
+            InputStream source = ResourceUtil.getResourceAsStream("explain/services.xml");
+            InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+            
+            try
+            {
+                Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
+                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                transformer.transform(new StreamSource(source), new StreamResult(out));
+            }
+            catch (Exception e) {
+                logger.error("Error transforming result", e);
+                throw new IOException(e.getMessage());
+            }
+        }
+        else if ("query".equals(action))
+        {
+            queryAction(request, response, out, model);
+        }
+        else if ("details".equals(action))
+        {
+            detailAction(request, response, out, model);
+        }
+    }
+
+    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model) throws IOException
+    {
+        Service service = ServiceList.getInstance().new Service(model);
+
+        if (ServiceList.getInstance().getList().contains(service))
+        {
+            response.setContentType("text/plain");
+            String id = request.getParameter("id");
+            
+            if (id == null)
+            {
+                reportMissingParameter("id", response);
+            }
+            else if ("".equals(id))
+            {
+                reportEmptyParameter("id", response);
+            }
+            else
+            {
+            
+                Querier querier = QuerierFactory.newQuerier();
+                
+                logger.debug("Querier is " + querier);
+                
+                if (querier == null)
+                {
+                    reportMissingQuerier(response);
+                }
+                else
+                {
+                    Map<String, String> result = null;
+                    
+                    try
+                    {
+                        result = querier.details(model, id);
+                    }
+                    catch (Exception e) {
+                        logger.error("Error querying database.", e);
+                    }
+   
+                    out.println(formatDetails(result));
+                }
+            }
         }
         else
+        {
+            reportUnknownModel(model, response);
+        }
+    }
+
+    /**
+     * @param request
+     * @param response
+     * @param out
+     * @param model
+     * @throws IOException
+     */
+    private void queryAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model)
+            throws IOException
+    {
+        Service service = ServiceList.getInstance().new Service(model);
+
+        if (ServiceList.getInstance().getList().contains(service))
         {
             response.setContentType("text/plain");
             String query = request.getParameter("q");
@@ -68,20 +166,42 @@ public class JQueryConeServlet extends HttpServlet
                 
                 logger.debug("Querier is " + querier);
                 
-                Map<String, String> result = null;
-                
-                try
+                if (querier == null)
                 {
-                    result = querier.query(model, query);
+                    reportMissingQuerier(response);
                 }
-                catch (Exception e) {
-                    logger.error("Error querying database.", e);
+                else
+                {
+                    Map<String, String> result = null;
+                    
+                    try
+                    {
+                        result = querier.query(model, query);
+                    }
+                    catch (Exception e) {
+                        logger.error("Error querying database.", e);
+                    }
+   
+                    out.println(formatQuery(result));
                 }
-                logger.debug("XML: " + result);
-                
-                out.println(format(result));
             }
         }
+        else
+        {
+            reportUnknownModel(model, response);
+        }
+    }
+
+    private void reportMissingQuerier(HttpServletResponse response) throws IOException
+    {
+        response.setStatus(500);
+        response.getWriter().println("Error: Querier implementation not set in propertyfile.");
+    }
+
+    private void reportUnknownModel(String model, HttpServletResponse response) throws IOException
+    {
+        response.setStatus(500);
+        response.getWriter().println("Error: Service " + model + " is not known.");
     }
 
     private void reportEmptyParameter(String string, HttpServletResponse response)
@@ -92,7 +212,7 @@ public class JQueryConeServlet extends HttpServlet
     private void reportMissingParameter(String param, HttpServletResponse response) throws IOException
     {
         response.setStatus(500);
-        response.getWriter().println("Parameter '" + param + "' is missing.");        
+        response.getWriter().println("Error: Parameter '" + param + "' is missing.");
     }
 
     /**
@@ -128,7 +248,30 @@ public class JQueryConeServlet extends HttpServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    private String format(Map<String, String> map) throws IOException
+    private String formatQuery(Map<String, String> map) throws IOException
+    {
+        
+        StringWriter result = new StringWriter();
+        
+        for (String id : map.keySet())
+        {
+            String value = map.get(id);
+            result.append(value);
+            result.append("|");
+            result.append(id);
+            result.append("\n");
+        }
+        
+        return result.toString();
+    }
+
+    /**
+     * Formats an Map<String, String> into a JQuery readable list.
+     * 
+     * @param result The RDF.
+     * @return A String formatted  in a JQuery readable format.
+     */
+    private String formatDetails(Map<String, String> map) throws IOException
     {
         
         StringWriter result = new StringWriter();

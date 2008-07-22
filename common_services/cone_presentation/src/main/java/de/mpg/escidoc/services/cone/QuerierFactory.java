@@ -26,11 +26,11 @@ public class QuerierFactory
         String querier;
         try
         {
-            querier = PropertyReader.getProperty("cone.querier.class");
+            querier = PropertyReader.getProperty("escidoc.cone.querier.class");
             
         }
         catch (Exception e) {
-            logger.warn("Property \"cone.querier.class\" not found, taking default querier class: " + DEFAULT_QUERIER);
+            logger.warn("Property \"escidoc.cone.querier.class\" not found, taking default querier class: " + DEFAULT_QUERIER);
             querier = DEFAULT_QUERIER;
         }
         try

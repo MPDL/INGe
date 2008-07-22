@@ -165,5 +165,12 @@ public class MockQuerier implements Querier
         
         return resultMap;
     }
+
+    public Map<String, String> details(String model, String query) throws Exception
+    {
+        Map<String, String> resultMap = new LinkedHashMap<String, String>();
+        resultMap.put("Details", "A lot of information");
+        return null;
+    }
     
 }

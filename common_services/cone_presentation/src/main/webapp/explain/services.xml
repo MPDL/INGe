@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<services>
+	<service>
+		<name>jnar</name>
+		<description>Journal Names</description>
+	</service>
+	<service>
+		<name>lang</name>
+		<description>Languages</description>
+	</service>
+</services>

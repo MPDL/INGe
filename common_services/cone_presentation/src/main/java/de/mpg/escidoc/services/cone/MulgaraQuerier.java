@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
+
 public class MulgaraQuerier implements Querier
 {
 
@@ -17,10 +19,13 @@ public class MulgaraQuerier implements Querier
         
         searchString = formatSearchString(searchString);
         
-        String query = "select $s $o from <rmi://localhost:9099/cone#" + model + "> where " +
+        String mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
+        String mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
+        
+        String query = "select $s $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "> where " +
         		"$s <http://purl.org/dc/elements/1.1/title> $o and " +
         		"$s <http://purl.org/dc/elements/1.1/title> '" + searchString + "' " +
-        		"in <rmi://localhost:9099/cone#" + model + "_title>;";
+        		"in <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_title>;";
         
         logger.debug("query: " + query);
         
@@ -48,6 +53,12 @@ public class MulgaraQuerier implements Querier
         searchString = searchString.trim().replaceAll("\\*", "") + "*";
         
         return searchString;
+    }
+
+    public Map<String, String> details(String model, String query) throws Exception
+    {
+        // TODO Auto-generated method stub
+        return null;
     }
     
 }
