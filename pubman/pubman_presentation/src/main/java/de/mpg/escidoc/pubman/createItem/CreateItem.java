@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.createItem;
 
 import java.util.List;
 
+import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -42,6 +44,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Fragment class for CreateItem.
@@ -89,13 +92,15 @@ public class CreateItem extends FacesBean
      */
     public String newSubmission()
     {
-        if (logger.isDebugEnabled())
+        String navigateTo = "";
+    	if (logger.isDebugEnabled())
         {
             logger.debug("New Submission");
         }
         
         // first clear the EditItemSessionBean
         this.getEditItemSessionBean().clean();
+        
         
         // if there is only one context for this user we can skip the CreateItem-Dialog and
         // create the new item directly
@@ -112,8 +117,15 @@ public class CreateItem extends FacesBean
                 logger.debug("The user has only privileges for one context (ID: "
                         + contextVO.getReference().getObjectId() + ")");
             }
-            return this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
+            navigateTo = this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
                     contextVO.getReference());
+            
+            // re-init the edit item bean to make sure that all data is removed
+            if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
+            {
+            	this.getEditItem().init();
+            }
+            return navigateTo;
         }
         else
         {
@@ -123,8 +135,15 @@ public class CreateItem extends FacesBean
                 logger.debug("The user has privileges for "
                         + this.getContextListSessionBean().getDepositorContextList().size() + " different contexts.");
             }
-            return this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
+            navigateTo = this.getItemControllerSessionBean().createNewPubItem(CreateItem.LOAD_CREATEITEM,
             		this.getContextListSessionBean().getDepositorContextList().get(0).getReference());
+            
+            // re-init the edit item bean to make sure that all data is removed
+            if(this.getItemControllerSessionBean().getCurrentPubItem() != null)
+            {
+            	this.getEditItem().init();
+            }
+            return navigateTo;
         }
     }
 
@@ -164,6 +183,16 @@ public class CreateItem extends FacesBean
     protected EditItemSessionBean getEditItemSessionBean()
     {
         return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    }
+    
+    /**
+     * Returns the EditItem.
+     * @return a reference to the scoped data bean (EditItem)
+     */
+    protected EditItem getEditItem()
+    {
+    	return (EditItem)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(),
+        		EditItem.BEAN_NAME);
     }
 
     /**
