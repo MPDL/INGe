@@ -32,6 +32,9 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * JUnit test class for Structured Export component   
  * @author Author: Vlad Makarenko (initial creation) 
@@ -40,6 +43,7 @@ import static org.junit.Assert.*;
  */
 import org.apache.log4j.Logger;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test; 
 
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
@@ -52,51 +56,54 @@ import test.TestHelper;
 public class StructuredExportTest 
 {
 		private StructuredExportHandler export = new StructuredExport();
-	    private String itemList; 
-		private String badItemList;
 	    private String endNoteTestOutput;
 
 	    private Logger logger = Logger.getLogger(StructuredExportTest.class);
-	    private static final String ENDNOTE_FORMAT = "ENDNOTE";
 	    
-//	    private static final String ITEM_PUBLICATION_FILE = "src/test/resources/item_publication.xml";
-	    private static final String ITEM_PUBLICATION_FILE = "src/test/resources/item_publication_item6_0.xml";
-	    private static final String ITEM_PUBLICATION_BAD_FILE = "src/test/resources/item_publication_bad.xml";
-
+	    private HashMap<String, String> itemLists;
+	    
+	    public static final Map<String, String> ITEM_LISTS_FILE_MAMES =   
+	    	new HashMap<String, String>()   
+	    	{  
+				{  
+		    		put("ENDNOTE", "src/test/resources/item_publication_item6_0.xml");  
+		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
+		    	}  
+	    	};
+	    	
 
 	    /**
 	     * Get test item list from XML 
 	     * @throws Exception
 	     */
 	    @Before
-	    public final void getItemList() throws Exception
+	    public final void getItemLists() throws Exception
 	    {
-	        itemList = TestHelper.readFile(ITEM_PUBLICATION_FILE, "UTF-8");
-	        assertNotNull("Item list xml is not found", itemList);
+//	        itemList = TestHelper.readFile(ITEM_PUBLICATION_FILE, "UTF-8");
+	    	itemLists = new HashMap<String, String>();
+	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
+	    	{
+	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
+	    		assertNotNull("Item list xml is not found", itemList);
+	    		itemLists.put(key, itemList);
+	    	}
+	    	
+	        
 	    }
 
-	    /**
-	     * Get bad test item list from XML 
-	     * @throws Exception
-	     */
-	    @Before
-	    public final void getBadItemList() throws Exception
-	    {
-	        badItemList = TestHelper.readFile(ITEM_PUBLICATION_BAD_FILE, "UTF-8");
-	        assertNotNull("Bad Item list xml is not found", badItemList);
-	    }
-	    
 	    
 	    /**
 	     * Get EndNote output test 
 	     * @throws Exception
 	     */
-	    @Before
-	    public final void getStructuredTestOutput() throws Exception
-	    {
-	    	endNoteTestOutput = new String(TestHelper.readBinFile("src/test/resources/EndNoteTestOutput.txt"));
-	    	assertNotNull("EndNote output is not found", endNoteTestOutput);
-	    }
+//	    @Before
+//	    @Ignore
+//	    public final void getStructuredTestOutput() throws Exception
+//	    {
+//	    	endNoteTestOutput = new String(TestHelper.readBinFile("src/test/resources/EndNoteTestOutput.txt"));
+//	    	assertNotNull("EndNote output is not found", endNoteTestOutput);
+//	    }
 
  
 	    /**
@@ -124,22 +131,29 @@ public class StructuredExportTest
 	    		logger.info("Export format: " + f);
 	    }
 	    
+   
 	    
 	    /**
 	     * Test service with a item list XML.
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    public final void testItemsListEndNoteExport() throws Exception
+	    public final void testItemsListBibTexExport() throws Exception
 	    {
-//	    	String result = new String(export.getOutput(itemList), "UTF-8");
-	    	String result = new String(export.getOutput(itemList, ENDNOTE_FORMAT));
-	        logger.info("Test item list:\n" + itemList);
-	        logger.info("EndNote test output:\n" + endNoteTestOutput);
-	        logger.info("---------------------------------------------------");
-	        logger.info("EndNote export result:\n" + result);
-	        assertNotNull("EndNote output is null", result);
-	       // assertTrue("Export is not equal to test output", result.equals(endNoteTestOutput));
+	    	
+	    	String[] fl = export.getFormatsList();
+	    	for (String f : fl)
+	    	{
+	    		logger.info("Export format: " + f);
+	    		String itemList = itemLists.get(f);
+	    		logger.info("Test item list:\n" + itemList);
+		    	String result = new String(export.getOutput(itemList, f));
+		    	logger.info("---------------------------------------------------");
+		    	logger.info(f + " export result:\n" + result);
+		    	assertTrue(f + " output is empty", !( result == null || result.trim().equals("")) );
+		    	// assertTrue("Export is not equal to test output", result.equals(endNoteTestOutput));
+	    	}
+	    	
 	    }
 
 	    
@@ -149,10 +163,10 @@ public class StructuredExportTest
 	     * @throws Exception 
 	     * @throws Exception Any exception.
 	     */
-	    @Test(expected = StructuredExportManagerException.class) 	    
+	    @Test(expected = StructuredExportManagerException.class)
 	    public final void testBadItemsListEndNoteExport() throws Exception
 	    {
-	    	byte[] result = export.getOutput(badItemList, ENDNOTE_FORMAT);
+	    	byte[] result = export.getOutput(itemLists.get("BAD_ITEM_LIST"), "ENDNOTE");
 	    }
 	    
 
