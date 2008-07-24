@@ -67,13 +67,21 @@ public interface StructuredExportHandler {
     String explainFormats() throws StructuredExportManagerException, IOException;
 
     /**
-	 * This method provides list of structured output formats.
+     * This method returns <code>true</code> if exportFormat is in the list of the 
+     * structured exports, <code>false</code> otherwise.
+     * @throws StructuredExportManagerException 
+     */
+    boolean isStructuredFormat(String exportFormat) throws StructuredExportManagerException;
+     
+    /**
+	 * This method provides list of structured export formats.
      * @throws IOException 
      * @throws SAXException 
      * @throws UnsupportedEncodingException 
      * @throws ParserConfigurationException 
 	 */
     String[] getFormatsList() throws StructuredExportManagerException;
+
     
     
     /**

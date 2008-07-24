@@ -44,9 +44,15 @@ import java.util.Set;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+<<<<<<< .mine
+import javax.xml.transform.Source;
+=======
 import javax.xml.transform.OutputKeys;
+>>>>>>> .r758
 import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
+import javax.xml.transform.URIResolver;
+import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
@@ -71,7 +77,7 @@ public class StructuredExport implements StructuredExportHandler {
 	
 	private final static String PATH_TO_SCHEMAS = "schemas/";
 	private final static String PATH_TO_RESOURCES = "resources/";
-	private final static String EXPLAIN_FILE = "explain-formats.xml";
+	private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
 	
 	public StructuredExport()
 	{
@@ -114,9 +120,29 @@ public class StructuredExport implements StructuredExportHandler {
 			javax.xml.transform.TransformerFactory transFact =
 				javax.xml.transform.TransformerFactory.newInstance(  );
 
+			//set URIResolver for xsl:include or xsl:import
+			transFact.setURIResolver(
+					new URIResolver(){
+						public Source resolve(String href, String base)
+								throws TransformerException {
+							logger.info("href: " + href);
+							logger.info("base: " + base);
+							InputStream is;
+							try {
+								is = getResource(PATH_TO_SCHEMAS + href);
+							} catch (IOException e) {
+								throw new TransformerException(e);
+							} 
+							return new StreamSource(is);
+						}
+					}
+			);
+			
 			String xsltFileName;
 			try 
 			{
+				
+				
 				xsltFileName = PATH_TO_SCHEMAS + fh.get(exportFormat);
 				// xslt source
 				javax.xml.transform.Source xsltSource =
@@ -124,6 +150,7 @@ public class StructuredExport implements StructuredExportHandler {
 							getResource(xsltFileName)
 				);
 					
+				
 				 javax.xml.transform.Transformer trans = 
 					 transFact.newTransformer(xsltSource);
 					
@@ -205,8 +232,23 @@ public class StructuredExport implements StructuredExportHandler {
 		fl = (String[]) s.toArray( fl );
 		return fl;
 	}
+	 
 	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler#isStructuredFormat(java.lang.String)
+	 */
+	public boolean isStructuredFormat(String exportFormat)
+	throws StructuredExportManagerException 
+	{
+		if ( exportFormat == null || exportFormat.trim().equals("") )
+		{
+			throw new StructuredExportManagerException("Empty export format");
+		}
+		return getFormatsHash().containsKey(exportFormat);
+	}	
 
+	
+	
 	/**
 	 * Generates HashMap of export formats where key is export format id
 	 * and value is the name of XSLT file of the export implementation 
@@ -236,7 +278,7 @@ public class StructuredExport implements StructuredExportHandler {
 			//populate key/value pars
 			fh.put(
 					n.getElementsByTagName("dc:identifier").item(0).getTextContent(),
-					n.getElementsByTagName("xslt").item(0).getTextContent()
+					n.getElementsByTagName("dc:description").item(0).getTextContent()
 			);
 		}
 		
@@ -257,5 +299,8 @@ public class StructuredExport implements StructuredExportHandler {
         dbf.setNamespaceAware(false);
 
         return dbf.newDocumentBuilder();
-    }	
+    }
+
+
+
 }	

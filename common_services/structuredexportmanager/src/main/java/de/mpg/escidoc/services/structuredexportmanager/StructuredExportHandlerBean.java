@@ -95,4 +95,12 @@ public class StructuredExportHandlerBean implements StructuredExportHandler
         
         return ret;
 	}
+
+	/** 
+	 * {@inheritDoc}
+	 */
+	public boolean isStructuredFormat(String exportFormat)
+			throws StructuredExportManagerException {
+        return new StructuredExport().isStructuredFormat(exportFormat);
+	}
 }
