@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+
+<!-- 
+	XML Schema for Citation Styles explain, eSciDoc Citation Manager service 
+	Initial creation: bsaquet
+	$Author: vdm $
+	$Revision: 146 $ $LastChangedDate: 2007-11-12 20:58:08 +0100 (Mon, 12 Nov 2007) $
+-->	
+<xs:schema 
+	xmlns="http://escidoc.mpg.de/export/schema/0.1/explain-formats" 
+	xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+	xmlns:dc="http://purl.org/dc/elements/1.1/" 
+	xmlns:dcterms="http://purl.org/dc/terms/"
+	targetNamespace="http://escidoc.mpg.de/export/schema/0.1/explain-formats" 
+	elementFormDefault="qualified" 
+> 
+	<xs:annotation>
+		<xs:documentation xml:lang="en">
+			XML Schema for Structured Export Formats explain, eSciDoc Export Formats Manager service  	    
+		</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
+
+	<xs:element name="export-formats" type="ExportFormatListType"/>
+
+	<xs:complexType name="ExportFormatListType">
+		<xs:sequence>
+			<xs:element name="export-format" type="ExportFormatType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="ExportFormatType">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:identifier"/>
+			<xs:element ref="dc:description" minOccurs="0"/>
+			<xs:element name="output-format" type="OutputFormatType" maxOccurs="unbounded"/>
+			<xs:element ref="dc:creator" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+	</xs:complexType>
+	
+	<xs:complexType name="OutputFormatType">
+		<xs:sequence>
+			<xs:element ref="dc:title"/>
+			<xs:element ref="dc:format" />
+		</xs:sequence>
+	</xs:complexType>
+	
+</xs:schema>
