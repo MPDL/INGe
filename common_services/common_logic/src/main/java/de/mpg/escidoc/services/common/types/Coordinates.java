@@ -50,7 +50,7 @@ public class Coordinates implements Serializable
 
     public Coordinates(String coordinates) throws Exception
     {
-        if (coordinates != null)
+        if (coordinates != null && !"".equals(coordinates))
         {
             String[] coordinatesArray = coordinates.split(",");
             if (coordinatesArray.length == 2)
