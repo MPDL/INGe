@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+
+ All rights reserved. Use is subject to license terms.
+-->
+<item-list   xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"  xmlns:version="http://escidoc.de/core/01/version/" xmlns:release="http://escidoc.de/core/01/release/"  xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<escidocItem:item xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:3051" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" last-modification-date="2007-07-16T11:12:22.064Z" xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<escidocItem:properties>
+			<prop:creation-date>2008-07-21T09:29:47.664Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user2"/>
+			<prop:public-status>released</prop:public-status>
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:pid>hdl:someHandle/test/escidoc:64888</prop:pid>
+−
+	<prop:version objid="escidoc:64888:3">
+				<version:number>3</version:number>
+				<version:date>2008-07-21T09:35:15.937Z</version:date>
+				<version:status>released</version:status>
+				<srel:modified-by objid="escidoc:user2"/>
+				<version:comment>thrth</version:comment>
+			</prop:version>
+−
+	<prop:latest-version objid="escidoc:64888:3">
+				<version:number>3</version:number>
+				<version:date>2008-07-21T09:35:15.937Z</version:date>
+			</prop:latest-version>
+−
+	<prop:latest-release objid="escidoc:64888:3">
+				<release:number>3</release:number>
+				<release:date>2008-07-21T09:35:15.937Z</release:date>
+			</prop:latest-release>
+			<prop:content-model-specific/>
+		</escidocItem:properties>
+		<escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xlink="http://www.w3.org/1999/xlink">
+			<escidocMetadataRecords:md-record xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3" xmlns:xlink="http://www.w3.org/1999/xlink" name="escidoc">
+				<escidocMetadataProfile:publication xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="article">
+					<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="artist">
+						<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Maierhuber</escidoc:family-name>
+							<escidoc:given-name>Heribert</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+						<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Maierhuber</escidoc:family-name>
+							<escidoc:given-name>Heribert</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+						<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Maierhuber</escidoc:family-name>
+							<escidoc:given-name>Heribert</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+					<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+						<escidoc:organization>
+							<escidoc:organization-name>Bologna University, Italy</escidoc:organization-name>
+							<escidoc:address/>
+							<escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+						</escidoc:organization>
+					</publication:creator>
+					<publication:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="editor">
+						<escidoc:organization>
+							<escidoc:organization-name>Bologna University, Italy</escidoc:organization-name>
+							<escidoc:address/>
+							<escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+						</escidoc:organization>
+					</publication:creator>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="">Test ScT 05</dc:title>
+					<dc:language>en</dc:language>
+					<dc:identifier xsi:type="eidt:ISSN">issn</dc:identifier>
+					<dc:identifier xsi:type="eidt:URN">urn</dc:identifier>
+					<dc:identifier xsi:type="eidt:ISBN">isbn</dc:identifier>
+					<dc:identifier xsi:type="eidt:ESCIDOC">escidoc:1111</dc:identifier>
+					<publication:publishing-info>
+						<dc:publisher>Max-Planck-Institut für Ökonomik</dc:publisher>
+						<escidoc:place>Jena</escidoc:place>
+						<escidoc:edition>4</escidoc:edition>
+					</publication:publishing-info>
+					<dcterms:created xmlns:dcterms="http://purl.org/dc/terms/">2006-12-31T23:00:00.000Z</dcterms:created>
+					<dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/">2006-12-31T23:00:00.000Z</dcterms:issued>
+					<dcterms:abstract>We attempt to describe the coevolution of employment growth, sales growth and growth of profits in a panel of French manufacturing firms 1996-2004. Our analysis entails ‘recursive’ panel vector autoregressions, whereby we impose the structure of employment growth leading to contemporaneous sales growth, which in turn is associated with contemporaneous growth of profits. We observe that whilst employment growth has a direct negative association with profit growth, there are indirect effects through which employment growth leads to sales growth which in turn has a large effect on profits growth. The net effect of employment growth is thus positive growth of profits. Counter to some ‘replicator dynamics’ theories of industrial development, profit growth is not followed by much subsequent growth of employment.</dcterms:abstract>
+					<dc:subject>firm growth; panel VAR; recursive VAR; employment growth; industrial dynamics</dc:subject>
+					<dcterms:tableOfContents>toc</dcterms:tableOfContents>
+					<publication:source type="book">
+						<dc:title xml:lang="jp">Dies ist die Wurzel allen Übels.</dc:title>
+						<dcterms:alternative xml:lang="en">This is the root of all ???.</dcterms:alternative>
+−
+	<dcterms:alternative xml:lang="en">
+ and  are illegal characters in XML and therefore have to be escaped.
+</dcterms:alternative>
+−
+	<dcterms:alternative xml:lang="en">
+> and ' and ? are problematic characters in XML and therefore should be escaped.
+</dcterms:alternative>
+−
+	<dcterms:alternative xml:lang="en">
+What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \, -, the _, the
+~, the @ and the #)?
+</dcterms:alternative>
+						<dcterms:alternative xml:lang="en">By the way, the Euro sign looks like this: €</dcterms:alternative>
+−
+	<escidoc:creator role="author">
+−
+	<escidoc:organization>
+								<escidoc:organization-name xml:lang="de">murrrmurr</escidoc:organization-name>
+								<escidoc:address>Ümläüte ßind ßchön. à bientôt!</escidoc:address>
+								<escidoc:identifier>BLA-BLU-BLÄ</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:creator>
+						<escidoc:creator role="author">
+−
+	<escidoc:organization>
+								<escidoc:organization-name xml:lang="de">bgfdzrtrxdzh</escidoc:organization-name>
+								<escidoc:address>Ümläüte hergtertôt!</escidoc:address>
+								<escidoc:identifier>BjtrgzheteLÄ</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:creator>
+						<escidoc:creator role="editor">
+−
+	<escidoc:organization>
+								<escidoc:organization-name xml:lang="de">mktujtzu6t6rtzhrdgfddr</escidoc:organization-name>
+								<escidoc:address>Ümlhsdstrtdsrtsrtdsrtssrtrtdsntôt!</escidoc:address>
+								<escidoc:identifier>BLArtdse3eÄ</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:creator>
+						<escidoc:volume>8a</escidoc:volume>
+						<escidoc:issue>13b</escidoc:issue>
+						<escidoc:start-page>-12</escidoc:start-page>
+						<escidoc:end-page>131313</escidoc:end-page>
+						<escidoc:sequence-number>1-3-6</escidoc:sequence-number>
+−
+	<escidoc:publishing-info>
+							<dc:publisher>Martas Druckerei</dc:publisher>
+							<escidoc:place>Hamburg-München</escidoc:place>
+							<escidoc:edition>III</escidoc:edition>
+						</escidoc:publishing-info>
+						<dc:identifier>XY-347H-112</dc:identifier>
+						<dc:identifier xsi:type="eidt:ESCIDOC">escidoc:568346587</dc:identifier>
+−
+	<escidoc:source>
+							<dc:title xml:lang="en">The source of the source.</dc:title>
+−
+	<escidoc:creator role="artist">
+−
+	<escidoc:organization>
+									<escidoc:organization-name xml:lang="en">Creator of the Source of the source</escidoc:organization-name>
+									
+									<dc:identifier xsi:type="eidt:ESCIDOC">escidoc:123</dc:identifier>
+								</escidoc:organization>
+							</escidoc:creator>
+						</escidoc:source>
+					</publication:source>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<!-- files -->
+		<escidocComponents:components xlink:type="simple" xlink:title="Components of Item escidoc:3051" xlink:href="/ir/item/escidoc:3051/components">
+			<escidocComponents:component xlink:type="simple" xlink:title="Component escidoc:3051" xlink:href="/ir/item/escidoc:3051/components/component/escidoc:3051">
+				<escidocComponents:properties xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:3051/components/component/escidoc:3051/properties">
+					<prop:creation-date>2008-07-03T12:13:49.628Z</prop:creation-date>
+					<srel:created-by xlink:type="simple" xlink:title="Test Depositor Library" xlink:href="/aa/user-account/escidoc:user2"/>
+					<prop:valid-status>valid</prop:valid-status>
+					<prop:visibility>public</prop:visibility>
+					<prop:content-category>SUPPLEMENTARY_MATERIAL</prop:content-category>
+				</escidocComponents:properties>
+				<escidocComponents:content xlink:type="simple" xlink:title="Component escidoc:3051" xlink:href="http://www.möööp.de" storage="external-url"/>
+				<escidocMetadataRecords:md-records xlink:type="simple" xlink:title="Metadata Records of Component escidoc:3051" xlink:href="/ir/item/escidoc:3051/components/component/escidoc:3051/md-records">
+					<escidocMetadataRecords:md-record name="escidoc" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:3051/components/component/escidoc:3051/md-records/md-record/escidoc">
+						<file:file xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+							<dcterms:extent xmlns:dcterms="http://purl.org/dc/terms/">11</dcterms:extent>
+							<dc:format xsi:type="dcterms:IMT">text</dc:format>
+						</file:file>
+					</escidocMetadataRecords:md-record>
+				</escidocMetadataRecords:md-records>
+			</escidocComponents:component>
+		</escidocComponents:components>
+	</escidocItem:item>
+	
+	
+	
+<!--ITEM 2-->	
+	
+	
+	<escidocItem:item last-modification-date="2008-07-21T09:35:15.937Z" objid="escidoc:64888">
+−
+	<escidocItem:properties>
+			<prop:creation-date>2008-07-21T09:29:47.664Z</prop:creation-date>
+			<srel:created-by objid="escidoc:user2"/>
+			<prop:public-status>released</prop:public-status>
+			<srel:context objid="escidoc:persistent3"/>
+			<srel:content-model objid="escidoc:persistent4"/>
+			<prop:lock-status>unlocked</prop:lock-status>
+			<prop:pid>hdl:someHandle/test/escidoc:64888</prop:pid>
+−
+	<prop:version objid="escidoc:64888:3">
+				<version:number>3</version:number>
+				<version:date>2008-07-21T09:35:15.937Z</version:date>
+				<version:status>released</version:status>
+				<srel:modified-by objid="escidoc:user2"/>
+				<version:comment>thrth</version:comment>
+			</prop:version>
+−
+	<prop:latest-version objid="escidoc:64888:3">
+				<version:number>3</version:number>
+				<version:date>2008-07-21T09:35:15.937Z</version:date>
+			</prop:latest-version>
+−
+	<prop:latest-release objid="escidoc:64888:3">
+				<release:number>3</release:number>
+				<release:date>2008-07-21T09:35:15.937Z</release:date>
+			</prop:latest-release>
+			<prop:content-model-specific/>
+		</escidocItem:properties>
+−
+	<escidocMetadataRecords:md-records>
+−
+	<escidocMetadataRecords:md-record name="escidoc">
+−
+	<escidocMetadataProfile:publication type="paper"  xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" >
+−
+	<publication:creator role="author">
+−
+	<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Titovf</escidoc:family-name>
+							<escidoc:given-name>V. S.</escidoc:given-name>
+−
+	<escidoc:organization>
+								<escidoc:organization-name>test</escidoc:organization-name>
+								<escidoc:address/>
+								<escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+							</escidoc:organization>
+						</escidoc:person>
+					</publication:creator>
+−
+	<publication:creator role="author">
+−
+	<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Forbes</escidoc:family-name>
+							<escidoc:given-name>T. G.</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+−
+	<publication:creator role="author">
+−
+	<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Priest</escidoc:family-name>
+							<escidoc:given-name>E. R.</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+−
+	<publication:creator role="author">
+−
+	<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Mikic</escidoc:family-name>
+							<escidoc:given-name>Z.</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+−
+	<publication:creator role="author">
+−
+	<escidoc:person>
+							<escidoc:complete-name/>
+							<escidoc:family-name>Linker</escidoc:family-name>
+							<escidoc:given-name>J. A.</escidoc:given-name>
+						</escidoc:person>
+					</publication:creator>
+−
+	<dc:title>
+ 
+Slip-Squashing Factors as a Measure of Three-Dimensional Magnetic
+  Reconnection
+</dc:title>
+					<dc:identifier>arXiv:0807.2892</dc:identifier>
+					<dc:identifier xsi:type="eidt:ESCIDOC">escidoc:123</dc:identifier>
+					<dcterms:created>2008-04-03</dcterms:created>
+					<dcterms:modified/>
+					<dcterms:dateSubmitted/>
+					<dcterms:dateAccepted/>
+					<publication:published-online/>
+					<dcterms:issued/>
+−
+	<publication:source type="book">
+						<dc:title>"asdf"</dc:title>
+						<escidoc:volume/>
+						<escidoc:issue/>
+						<escidoc:start-page/>
+						<escidoc:end-page/>
+						<escidoc:sequence-number/>
+					</publication:source>
+					<publication:total-number-of-pages>31 pages, 7 figures, subm. to ApJ</publication:total-number-of-pages>
+−
+	<dcterms:abstract>
+  A general method for describing magnetic reconnection in arbitrary
+three-dimensional magnetic configurations is proposed. The method is based on
+the field-line mapping technique previously used only for the analysis of
+magnetic structure at a given time. This technique is extended here so as to
+analyze the evolution of magnetic structure. Such a generalization is made with
+the help of new dimensionless quantities called "slip-squashing factors". Their
+large values define the surfaces that border the reconnected or
+to-be-reconnected magnetic flux tubes for a given period of time during the
+magnetic evolution. The proposed method is universal, since it assumes only
+that the time sequence of evolving magnetic field and the tangential boundary
+flows are known. The application of the method is illustrated for a simple
+example considered previously by Hesse and coworkers in the framework of the
+general magnetic reconnection theory. The example helps to compare these two
+approaches; it reveals also that, just as for magnetic null points, hyperbolic
+and cusp minimum points of a magnetic field serve as favorable sites for
+magnetic reconnection. The new method admits a straightforward numerical
+implementation and provides a powerful tool for the diagnostics of magnetic
+reconnection in numerical models of solar-flare-like phenomena in space and
+laboratory plasmas.
+</dcterms:abstract>
+					<dc:subject>astro-ph</dc:subject>
+					<dcterms:tableOfContents/>
+					<publication:location/>
+				</escidocMetadataProfile:publication>
+			</escidocMetadataRecords:md-record>
+		</escidocMetadataRecords:md-records>
+		<escidocComponents:components>
+		
+						
+				</escidocComponents:components>
+		
+	</escidocItem:item>
+</item-list>
