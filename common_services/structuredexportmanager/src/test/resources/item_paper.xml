@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<escidocItem:item
+	 	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	  	    xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  xml:base="http://srv05.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="Disentangling the firm growth process : evidence from a recursive panel VAR" xlink:href="/ir/item/escidoc:57987" last-modification-date="2008-07-14T16:11:39.438Z" > 
+ 	<escidocItem:properties    xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:57987/properties">
+	<prop:creation-date>2008-07-14T16:11:21.91Z</prop:creation-date>	
+		<srel:created-by xlink:type="simple" xlink:title="Test Depositor Library" xlink:href="/aa/user-account/escidoc:user2" />    
+    <prop:public-status>released</prop:public-status>    <srel:context xlink:type="simple" xlink:title="PubMan Test Collection" xlink:href="/ir/context/escidoc:persistent3" />    <srel:content-model xlink:type="simple" xlink:title="ct" xlink:href="/cmm/content-model/escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:57987</prop:pid>        <prop:version xlink:type="simple" xlink:title="This Version" xlink:href="/ir/item/escidoc:57987:1">
+
+    	<version:number >1</version:number>    	<version:date >2008-07-14T16:11:39.438Z</version:date>    	<version:status >released</version:status>    <srel:modified-by xlink:type="simple" xlink:title="Test Depositor Library" xlink:href="/aa/user-account/escidoc:user2" />   
+    	<version:comment >EndNote Test.</version:comment>    	    </prop:version>
+    <prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/escidoc:57987:1">
+    	<version:number >1</version:number>    	<version:date >2008-07-14T16:11:39.438Z</version:date>    </prop:latest-version>
+
+    	    <prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/escidoc:57987:1">
+    		<release:number >1</release:number>	    	<release:date >2008-07-14T16:11:39.438Z</release:date>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+xlink:type="simple" xlink:title="Metadata Records of Item escidoc:57987" xlink:href="/ir/item/escidoc:57987/md-records">
+	<escidocMetadataRecords:md-record name="escidoc"
+     xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:57987/md-records/md-record/escidoc">
+  
+
+
+
+
+
+			            
+      <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="paper">
+
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+          <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:complete-name></escidoc:complete-name>
+            <escidoc:family-name>Coad</escidoc:family-name>
+            <escidoc:given-name>Alex</escidoc:given-name>
+            <escidoc:organization>
+              <escidoc:organization-name>External Organizations</escidoc:organization-name>
+
+              <escidoc:address></escidoc:address>
+              <escidoc:identifier>escidoc:persistent22</escidoc:identifier>
+            </escidoc:organization>
+          </escidoc:person>
+        </publication:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Disentangling the firm growth process : evidence from a recursive panel VAR</dc:title>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">1430-4716</dc:identifier>
+
+        <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+          <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Max-Planck-Institut für Ökonomik</dc:publisher>
+          <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Jena</escidoc:place>
+          <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:edition>
+        </publication:publishing-info>
+        <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:created>
+        <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:modified>
+        <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
+
+        <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
+        <publication:published-online xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF"></publication:published-online>
+        <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-12-08</dcterms:issued>
+        <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">internal</publication:review-method>
+        <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" type="series">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Papers on Economics &amp; Evolution</dc:title>
+
+          <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">3</escidoc:volume>
+          <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">0715</escidoc:issue>
+          <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">23</escidoc:start-page>
+          <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">56</escidoc:end-page>
+          <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"></escidoc:sequence-number>
+        </publication:source>
+        <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">14</publication:total-number-of-pages>
+        <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/">We attempt to describe the coevolution of employment growth, sales growth and growth of profits in a panel of French manufacturing firms 1996-2004. Our analysis entails ‘recursive’ panel vector autoregressions, whereby we impose the structure of employment growth leading to contemporaneous sales growth, which in turn is associated with contemporaneous growth of profits. We observe that whilst employment growth has a direct negative association with profit growth, there are indirect effects through which employment growth leads to sales growth which in turn has a large effect on profits growth. The net effect of employment growth is thus positive growth of profits. Counter to some ‘replicator dynamics’ theories of industrial development, profit growth is not followed by much subsequent growth of employment.</dcterms:abstract>
+
+        <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/">firm growth; panel VAR; recursive VAR; employment growth; industrial dynamics</dc:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:tableOfContents>
+        <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"></publication:location>
+      </escidocMetadataProfile:publication>
+    
+                                                                                                                                                                                                                        
+</escidocMetadataRecords:md-record>
+
+</escidocMetadataRecords:md-records>
+
+ 	
+ 	<escidocComponents:components 
+ xlink:type="simple" xlink:title="Components of Item escidoc:57987" xlink:href="/ir/item/escidoc:57987/components">  
+
+	
+	</escidocComponents:components>
+
+ 	 	<relations:relations 
+xlink:type="simple" xlink:title="Relations of container" xlink:href="/ir/item/escidoc:57987/relations">
+</relations:relations>
+ 	 	<escidocItem:resources 
+	xlink:type="simple" xlink:title="Resources" xlink:href="/ir/item/escidoc:57987/resources">
+    <escidocItem:version-history xlink:type="simple" xlink:title="Version History" xlink:href="/ir/item/escidoc:57987/resources/version-history" /></escidocItem:resources></escidocItem:item>
+

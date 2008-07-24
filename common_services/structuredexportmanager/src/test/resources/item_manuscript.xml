@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item
+	 	    xmlns:relations="http://www.escidoc.de/schemas/relations/0.3"	  	    xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"	    xmlns:escidocContentStreams="http://www.escidoc.de/schemas/contentstreams/0.6"        xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.7"         xmlns:version="http://escidoc.de/core/01/properties/version/" xmlns:release="http://escidoc.de/core/01/properties/release/" 	     xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.7"  xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  xml:base="http://srv05.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="PubMan: The first of all." xlink:href="/ir/item/escidoc:43726" last-modification-date="2008-06-25T11:30:58.395Z" > 
+ 	<escidocItem:properties    xlink:type="simple" xlink:title="Properties" xlink:href="/ir/item/escidoc:43726/properties">
+	<prop:creation-date>2008-06-25T11:30:57.651Z</prop:creation-date>	
+		<srel:created-by xlink:type="simple" xlink:title="Test Depositor Library" xlink:href="/aa/user-account/escidoc:user2" />    
+    <prop:public-status>released</prop:public-status>    <srel:context xlink:type="simple" xlink:title="PubMan Test Collection" xlink:href="/ir/context/escidoc:persistent3" />    <srel:content-model xlink:type="simple" xlink:title="ct" xlink:href="/cmm/content-model/escidoc:persistent4" />    <prop:lock-status >unlocked</prop:lock-status>            	<prop:pid >hdl:someHandle/test/escidoc:43726</prop:pid>        <prop:version xlink:type="simple" xlink:title="This Version" xlink:href="/ir/item/escidoc:43726:1">
+    	<version:number >1</version:number>    	<version:date >2008-06-25T11:30:58.395Z</version:date>    	<version:status >released</version:status>    <srel:modified-by xlink:type="simple" xlink:title="Test Depositor Library" xlink:href="/aa/user-account/escidoc:user2" />   
+    	<version:comment >Test Submit</version:comment>    	    </prop:version>
+    <prop:latest-version xlink:type="simple" xlink:title="Latest Version" xlink:href="/ir/item/escidoc:43726:1">
+    	<version:number >1</version:number>    	<version:date >2008-06-25T11:30:58.395Z</version:date>    </prop:latest-version>
+    	    <prop:latest-release xlink:type="simple" xlink:title="Latest public version" xlink:href="/ir/item/escidoc:43726:1">
+    		<release:number >1</release:number>	    	<release:date >2008-06-25T11:30:58.395Z</release:date>	    		    </prop:latest-release>
+    	<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
+</escidocItem:properties>
+	 	<escidocMetadataRecords:md-records 
+xlink:type="simple" xlink:title="Metadata Records of Item escidoc:43726" xlink:href="/ir/item/escidoc:43726/md-records">
+	<escidocMetadataRecords:md-record name="escidoc"
+     xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:43726/md-records/md-record/escidoc">
+  
+
+
+			            
+      <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="manuscript">
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+          <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+            <escidoc:family-name>Meier</escidoc:family-name>
+            <escidoc:given-name>Hans</escidoc:given-name>
+            <escidoc:organization>
+              <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+              <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+              <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+            </escidoc:organization>
+          </escidoc:person>
+        </publication:creator>
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+          <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+            <escidoc:family-name>Meier</escidoc:family-name>
+            <escidoc:given-name>Hans</escidoc:given-name>
+            <escidoc:organization>
+              <escidoc:organization-name>Max Planck Society</escidoc:organization-name>
+              <escidoc:address>Max-Planck-Str. 1</escidoc:address>
+              <escidoc:identifier>escidoc:persistent26</escidoc:identifier>
+            </escidoc:organization>
+          </escidoc:person>
+        </publication:creator>
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="author">
+          <escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:organization-name>The creating affiliation</escidoc:organization-name>
+            <escidoc:identifier>escidoc:persistent13</escidoc:identifier>
+          </escidoc:organization>
+        </publication:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">PubMan: The first of all.</dc:title>
+        <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007</dcterms:created>
+      </escidocMetadataProfile:publication>
+    
+                                                                                                                                                                                                                        
+</escidocMetadataRecords:md-record>
+
+</escidocMetadataRecords:md-records>
+
+ 	
+ 	<escidocComponents:components 
+ xlink:type="simple" xlink:title="Components of Item escidoc:43726" xlink:href="/ir/item/escidoc:43726/components">  
+
+	
+	</escidocComponents:components>
+
+ 	 	<relations:relations 
+xlink:type="simple" xlink:title="Relations of container" xlink:href="/ir/item/escidoc:43726/relations">
+</relations:relations>
+ 	 	<escidocItem:resources 
+	xlink:type="simple" xlink:title="Resources" xlink:href="/ir/item/escidoc:43726/resources">
+    <escidocItem:version-history xlink:type="simple" xlink:title="Version History" xlink:href="/ir/item/escidoc:43726/resources/version-history" /></escidocItem:resources></escidocItem:item>
+

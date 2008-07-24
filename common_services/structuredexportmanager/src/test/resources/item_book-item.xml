@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<escidocMetadataRecords:md-record name="escidoc"
+      xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.4"    xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xml="http://www.w3.org/XML/1998/namespace"  xml:base="http://srv05.mpdl.mpg.de:8080" xlink:type="simple" xlink:title="escidoc" xlink:href="/ir/item/escidoc:34973/md-records/md-record/escidoc" last-modification-date="2008-06-23T09:39:55.930Z" >
+  
+
+
+			            
+      <escidocMetadataProfile:publication xmlns:escidocMetadataProfile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" type="report">
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="editor">
+          <escidoc:person xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:complete-name>Hans Meier</escidoc:complete-name>
+            <escidoc:family-name>Meier</escidoc:family-name>
+            <escidoc:given-name>Hans</escidoc:given-name>
+            <escidoc:alternative-name>Werner</escidoc:alternative-name>
+            <escidoc:alternative-name>These tokens are escaped and must stay escaped: &quot;&amp;amp;&quot;, &quot;&amp;gt;&quot;, &quot;&amp;lt;&quot;, &quot;&amp;quot;&quot;, &quot;&amp;apos;&quot;</escidoc:alternative-name>
+            <escidoc:alternative-name>These tokens are escaped and must stay escaped, too: &amp;auml; &amp;Auml; &amp;szlig;</escidoc:alternative-name>
+            <escidoc:person-title>Dr. (?)</escidoc:person-title>
+            <escidoc:pseudonym>&lt;b&gt;Shorty&lt;/b&gt;</escidoc:pseudonym>
+            <escidoc:pseudonym>&lt;&apos;Dr. Short&apos;&gt;</escidoc:pseudonym>
+            <escidoc:organization>
+              <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="en">Vinzenzmurr</escidoc:organization-name>
+              <escidoc:address>&lt;a ref=&quot;www.buxtehude.de&quot;&gt;Irgendwo in Deutschland&lt;/a&gt;</escidoc:address>
+              <escidoc:identifier>ED-84378462846</escidoc:identifier>
+            </escidoc:organization>
+            <escidoc:identifier xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:PND">HH-XY-2222</escidoc:identifier>
+          </escidoc:person>
+        </publication:creator>
+        <publication:creator xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" role="contributor">
+          <escidoc:organization xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="en">MPDL</escidoc:organization-name>
+            <escidoc:address>Amalienstraße</escidoc:address>
+            <escidoc:identifier>1a</escidoc:identifier>
+          </escidoc:organization>
+        </publication:creator>
+        <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">testTransformPubItemResultListToItemList</dc:title>
+        <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:RFC3066">de</dc:language>
+        <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:RFC3066">en</dc:language>
+        <dc:language xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:RFC3066">fr</dc:language>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">Die Erste von allen.</dcterms:alternative>
+        <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="fr">Wulewu</dcterms:alternative>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISI">0815</dc:identifier>
+        <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISSN">issn</dc:identifier>
+        <publication:publishing-info xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+          <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">O&apos;Reilly Media Inc., 1005 Gravenstein Highway North, Sebastopol</dc:publisher>
+          <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">Garching-Itzehoe-Capreton</escidoc:place>
+          <escidoc:edition xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">One and a half</escidoc:edition>
+        </publication:publishing-info>
+        <dcterms:created xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2005-02</dcterms:created>
+        <dcterms:modified xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2007-02-27</dcterms:modified>
+        <dcterms:dateSubmitted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2005-08-31</dcterms:dateSubmitted>
+        <dcterms:dateAccepted xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2005</dcterms:dateAccepted>
+        <dcterms:issued xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="dcterms:W3CDTF">2006-02-01</dcterms:issued>
+        <publication:review-method xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">internal</publication:review-method>
+        <publication:source xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="jp">Dies ist die Wurzel allen Übels.</dc:title>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">This is the root of all ???.</dcterms:alternative>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">&lt; and &amp; are illegal characters in XML and therefore have to be escaped.</dcterms:alternative>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">&gt; and &apos; and ? are problematic characters in XML and therefore should be escaped.</dcterms:alternative>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">What about `, ´, äöüÄÖÜß, áàéèô, and the good old % (not to forget the /, the \, -, the _, the
+~, the @ and the #)?</dcterms:alternative>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">By the way, the Euro sign looks like this: €</dcterms:alternative>
+          <escidoc:creator xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" role="author">
+            <escidoc:organization>
+              <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="de">murrrmurr</escidoc:organization-name>
+              <escidoc:address>Ümläüte ßind ßchön. à bientôt!</escidoc:address>
+              <escidoc:identifier>BLA-BLU-BLÄ</escidoc:identifier>
+            </escidoc:organization>
+          </escidoc:creator>
+          <escidoc:volume xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">8a</escidoc:volume>
+          <escidoc:issue xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">13b</escidoc:issue>
+          <escidoc:start-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">-12</escidoc:start-page>
+          <escidoc:end-page xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">131313</escidoc:end-page>
+          <escidoc:sequence-number xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">1-3-6</escidoc:sequence-number>
+          <escidoc:publishing-info xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <dc:publisher xmlns:dc="http://purl.org/dc/elements/1.1/">Martas Druckerei</dc:publisher>
+            <escidoc:place>Hamburg-München</escidoc:place>
+            <escidoc:edition>III</escidoc:edition>
+          </escidoc:publishing-info>
+          <dc:identifier xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xsi:type="eidt:ISBN">XY-347H-112</dc:identifier>
+          <escidoc:source xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">
+            <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">The source of the source.</dc:title>
+            <escidoc:creator role="artist">
+              <escidoc:organization>
+                <escidoc:organization-name xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:lang="en">Creator of the Source of the source</escidoc:organization-name>
+                <escidoc:identifier>ID-4711-0815</escidoc:identifier>
+              </escidoc:organization>
+            </escidoc:creator>
+          </escidoc:source>
+        </publication:source>
+        <publication:event xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+          <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en">Weekly progress meeting</dc:title>
+          <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">Wöchentliches Fortschrittsmeeting</dcterms:alternative>
+          <escidoc:start-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2004-11-11</escidoc:start-date>
+          <escidoc:end-date xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:dcterms="http://purl.org/dc/terms/" xsi:type="dcterms:W3CDTF">2005-02-19</escidoc:end-date>
+          <escidoc:place xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xml:lang="de">Köln</escidoc:place>
+          <escidoc:invitation-status xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types">invited</escidoc:invitation-status>
+        </publication:event>
+        <publication:total-number-of-pages xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">999</publication:total-number-of-pages>
+        <publication:degree xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">master</publication:degree>
+        <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">Dies ist die Zusammenfassung der Veröffentlichung.</dcterms:abstract>
+        <dcterms:abstract xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="en">This is the summary of the publication.</dcterms:abstract>
+        <dc:subject xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">wichtig,wissenschaftlich,spannend</dc:subject>
+        <dcterms:tableOfContents xmlns:dcterms="http://purl.org/dc/terms/" xml:lang="de">1.Einleitung 2.Inhalt</dcterms:tableOfContents>
+        <publication:location xmlns:publication="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">IPP, Garching</publication:location>
+      </escidocMetadataProfile:publication>
+    
+                                                                                                                                                                                                                        
+</escidocMetadataRecords:md-record>
+
