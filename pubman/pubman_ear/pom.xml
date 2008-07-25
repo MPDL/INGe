@@ -164,6 +164,13 @@
 								true
 							</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>org.mulgara</groupId>
+							<artifactId>itql</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -356,6 +363,12 @@
 			<groupId>javabib</groupId>
 			<artifactId>javabib</artifactId>
 			<version>20040801</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mulgara</groupId>
+			<artifactId>itql</artifactId>
+			<version>2.0-beta</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
