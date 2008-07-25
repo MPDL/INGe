@@ -253,13 +253,16 @@ public class JQueryConeServlet extends HttpServlet
         
         StringWriter result = new StringWriter();
         
-        for (String id : map.keySet())
+        if (map != null)
         {
-            String value = map.get(id);
-            result.append(value);
-            result.append("|");
-            result.append(id);
-            result.append("\n");
+            for (String id : map.keySet())
+            {
+                String value = map.get(id);
+                result.append(value);
+                result.append("|");
+                result.append(id);
+                result.append("\n");
+            }
         }
         
         return result.toString();
@@ -276,15 +279,19 @@ public class JQueryConeServlet extends HttpServlet
         
         StringWriter result = new StringWriter();
         
+        result.append("{\n");
+        
         for (String id : map.keySet())
         {
             String value = map.get(id);
-            result.append(value);
-            result.append("|");
-            result.append(id);
-            result.append("\n");
+            
+            result.append("'");
+            result.append(id.substring(id.lastIndexOf("/")).replace("'", "\\'"));
+            result.append("' : '");
+            result.append(value.replace("'", "\\'"));
+            result.append("'\n");
         }
-        
+        result.append("}");
         return result.toString();
     }
     

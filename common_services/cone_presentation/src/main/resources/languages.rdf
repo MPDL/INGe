@@ -1,0 +1,1644 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+	<rdf:Description rdf:about="urn:iso639:aa">
+		<dc:identifier>aa</dc:identifier>
+		<dc:title>Afar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:aa">
+		<dc:identifier>aa</dc:identifier>
+		<dc:title>afar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ab">
+		<dc:identifier>ab</dc:identifier>
+		<dc:title>Abkhazian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ab">
+		<dc:identifier>ab</dc:identifier>
+		<dc:title>abkhaze</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:af">
+		<dc:identifier>af</dc:identifier>
+		<dc:title>Afrikaans</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:af">
+		<dc:identifier>af</dc:identifier>
+		<dc:title>afrikaans</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ak">
+		<dc:identifier>ak</dc:identifier>
+		<dc:title>Akan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ak">
+		<dc:identifier>ak</dc:identifier>
+		<dc:title>akan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sq">
+		<dc:identifier>sq</dc:identifier>
+		<dc:title>Albanian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sq">
+		<dc:identifier>sq</dc:identifier>
+		<dc:title>albanais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:am">
+		<dc:identifier>am</dc:identifier>
+		<dc:title>Amharic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:am">
+		<dc:identifier>am</dc:identifier>
+		<dc:title>amharique</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ar">
+		<dc:identifier>ar</dc:identifier>
+		<dc:title>Arabic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ar">
+		<dc:identifier>ar</dc:identifier>
+		<dc:title>arabe</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:an">
+		<dc:identifier>an</dc:identifier>
+		<dc:title>Aragonese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:an">
+		<dc:identifier>an</dc:identifier>
+		<dc:title>aragonais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hy">
+		<dc:identifier>hy</dc:identifier>
+		<dc:title>Armenian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hy">
+		<dc:identifier>hy</dc:identifier>
+		<dc:title>arménien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:as">
+		<dc:identifier>as</dc:identifier>
+		<dc:title>Assamese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:as">
+		<dc:identifier>as</dc:identifier>
+		<dc:title>assamais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:av">
+		<dc:identifier>av</dc:identifier>
+		<dc:title>Avaric</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:av">
+		<dc:identifier>av</dc:identifier>
+		<dc:title>avar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ae">
+		<dc:identifier>ae</dc:identifier>
+		<dc:title>Avestan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ae">
+		<dc:identifier>ae</dc:identifier>
+		<dc:title>avestique</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ay">
+		<dc:identifier>ay</dc:identifier>
+		<dc:title>Aymara</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ay">
+		<dc:identifier>ay</dc:identifier>
+		<dc:title>aymara</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:az">
+		<dc:identifier>az</dc:identifier>
+		<dc:title>Azerbaijani</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:az">
+		<dc:identifier>az</dc:identifier>
+		<dc:title>azéri</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ba">
+		<dc:identifier>ba</dc:identifier>
+		<dc:title>Bashkir</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ba">
+		<dc:identifier>ba</dc:identifier>
+		<dc:title>bachkir</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bm">
+		<dc:identifier>bm</dc:identifier>
+		<dc:title>Bambara</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bm">
+		<dc:identifier>bm</dc:identifier>
+		<dc:title>bambara</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eu">
+		<dc:identifier>eu</dc:identifier>
+		<dc:title>Basque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eu">
+		<dc:identifier>eu</dc:identifier>
+		<dc:title>basque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:be">
+		<dc:identifier>be</dc:identifier>
+		<dc:title>Belarusian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:be">
+		<dc:identifier>be</dc:identifier>
+		<dc:title>biélorusse</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bn">
+		<dc:identifier>bn</dc:identifier>
+		<dc:title>Bengali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bn">
+		<dc:identifier>bn</dc:identifier>
+		<dc:title>bengali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bh">
+		<dc:identifier>bh</dc:identifier>
+		<dc:title>Bihari</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bh">
+		<dc:identifier>bh</dc:identifier>
+		<dc:title>bihari</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bi">
+		<dc:identifier>bi</dc:identifier>
+		<dc:title>Bislama</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bi">
+		<dc:identifier>bi</dc:identifier>
+		<dc:title>bichlamar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bo">
+		<dc:identifier>bo</dc:identifier>
+		<dc:title>Tibetan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bo">
+		<dc:identifier>bo</dc:identifier>
+		<dc:title>tibétain</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bs">
+		<dc:identifier>bs</dc:identifier>
+		<dc:title>Bosnian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bs">
+		<dc:identifier>bs</dc:identifier>
+		<dc:title>bosniaque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:br">
+		<dc:identifier>br</dc:identifier>
+		<dc:title>Breton</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:br">
+		<dc:identifier>br</dc:identifier>
+		<dc:title>breton</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bg">
+		<dc:identifier>bg</dc:identifier>
+		<dc:title>Bulgarian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bg">
+		<dc:identifier>bg</dc:identifier>
+		<dc:title>bulgare</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:my">
+		<dc:identifier>my</dc:identifier>
+		<dc:title>Burmese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:my">
+		<dc:identifier>my</dc:identifier>
+		<dc:title>birman</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ca">
+		<dc:identifier>ca</dc:identifier>
+		<dc:title>Catalan; Valencian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ca">
+		<dc:identifier>ca</dc:identifier>
+		<dc:title>catalan; valencien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cs">
+		<dc:identifier>cs</dc:identifier>
+		<dc:title>Czech</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cs">
+		<dc:identifier>cs</dc:identifier>
+		<dc:title>tchèque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ch">
+		<dc:identifier>ch</dc:identifier>
+		<dc:title>Chamorro</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ch">
+		<dc:identifier>ch</dc:identifier>
+		<dc:title>chamorro</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ce">
+		<dc:identifier>ce</dc:identifier>
+		<dc:title>Chechen</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ce">
+		<dc:identifier>ce</dc:identifier>
+		<dc:title>tchétchène</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zh">
+		<dc:identifier>zh</dc:identifier>
+		<dc:title>Chinese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zh">
+		<dc:identifier>zh</dc:identifier>
+		<dc:title>chinois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cu">
+		<dc:identifier>cu</dc:identifier>
+		<dc:title>Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cu">
+		<dc:identifier>cu</dc:identifier>
+		<dc:title>slavon d'église; vieux slave; slavon liturgique; vieux bulgare</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cv">
+		<dc:identifier>cv</dc:identifier>
+		<dc:title>Chuvash</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cv">
+		<dc:identifier>cv</dc:identifier>
+		<dc:title>tchouvache</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kw">
+		<dc:identifier>kw</dc:identifier>
+		<dc:title>Cornish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kw">
+		<dc:identifier>kw</dc:identifier>
+		<dc:title>cornique</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:co">
+		<dc:identifier>co</dc:identifier>
+		<dc:title>Corsican</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:co">
+		<dc:identifier>co</dc:identifier>
+		<dc:title>corse</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cr">
+		<dc:identifier>cr</dc:identifier>
+		<dc:title>Cree</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cr">
+		<dc:identifier>cr</dc:identifier>
+		<dc:title>cree</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cy">
+		<dc:identifier>cy</dc:identifier>
+		<dc:title>Welsh</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cy">
+		<dc:identifier>cy</dc:identifier>
+		<dc:title>gallois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cs">
+		<dc:identifier>cs</dc:identifier>
+		<dc:title>Czech</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cs">
+		<dc:identifier>cs</dc:identifier>
+		<dc:title>tchèque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:da">
+		<dc:identifier>da</dc:identifier>
+		<dc:title>Danish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:da">
+		<dc:identifier>da</dc:identifier>
+		<dc:title>danois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:de">
+		<dc:identifier>de</dc:identifier>
+		<dc:title>German</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:de">
+		<dc:identifier>de</dc:identifier>
+		<dc:title>allemand</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:dv">
+		<dc:identifier>dv</dc:identifier>
+		<dc:title>Divehi; Dhivehi; Maldivian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:dv">
+		<dc:identifier>dv</dc:identifier>
+		<dc:title>maldivien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nl">
+		<dc:identifier>nl</dc:identifier>
+		<dc:title>Dutch; Flemish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nl">
+		<dc:identifier>nl</dc:identifier>
+		<dc:title>néerlandais; flamand</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:dz">
+		<dc:identifier>dz</dc:identifier>
+		<dc:title>Dzongkha</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:dz">
+		<dc:identifier>dz</dc:identifier>
+		<dc:title>dzongkha</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:el">
+		<dc:identifier>el</dc:identifier>
+		<dc:title>Greek, Modern (1453-)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:el">
+		<dc:identifier>el</dc:identifier>
+		<dc:title>grec moderne (après 1453)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:en">
+		<dc:identifier>en</dc:identifier>
+		<dc:title>English</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:en">
+		<dc:identifier>en</dc:identifier>
+		<dc:title>anglais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eo">
+		<dc:identifier>eo</dc:identifier>
+		<dc:title>Esperanto</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eo">
+		<dc:identifier>eo</dc:identifier>
+		<dc:title>espéranto</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:et">
+		<dc:identifier>et</dc:identifier>
+		<dc:title>Estonian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:et">
+		<dc:identifier>et</dc:identifier>
+		<dc:title>estonien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eu">
+		<dc:identifier>eu</dc:identifier>
+		<dc:title>Basque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:eu">
+		<dc:identifier>eu</dc:identifier>
+		<dc:title>basque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ee">
+		<dc:identifier>ee</dc:identifier>
+		<dc:title>Ewe</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ee">
+		<dc:identifier>ee</dc:identifier>
+		<dc:title>éwé</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fo">
+		<dc:identifier>fo</dc:identifier>
+		<dc:title>Faroese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fo">
+		<dc:identifier>fo</dc:identifier>
+		<dc:title>féroïen</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fa">
+		<dc:identifier>fa</dc:identifier>
+		<dc:title>Persian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fa">
+		<dc:identifier>fa</dc:identifier>
+		<dc:title>persan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fj">
+		<dc:identifier>fj</dc:identifier>
+		<dc:title>Fijian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fj">
+		<dc:identifier>fj</dc:identifier>
+		<dc:title>fidjien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fi">
+		<dc:identifier>fi</dc:identifier>
+		<dc:title>Finnish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fi">
+		<dc:identifier>fi</dc:identifier>
+		<dc:title>finnois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fr">
+		<dc:identifier>fr</dc:identifier>
+		<dc:title>French</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fr">
+		<dc:identifier>fr</dc:identifier>
+		<dc:title>français</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fr">
+		<dc:identifier>fr</dc:identifier>
+		<dc:title>French</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fr">
+		<dc:identifier>fr</dc:identifier>
+		<dc:title>français</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fy">
+		<dc:identifier>fy</dc:identifier>
+		<dc:title>Western Frisian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fy">
+		<dc:identifier>fy</dc:identifier>
+		<dc:title>frison occidental</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ff">
+		<dc:identifier>ff</dc:identifier>
+		<dc:title>Fulah</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ff">
+		<dc:identifier>ff</dc:identifier>
+		<dc:title>peul</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ka">
+		<dc:identifier>ka</dc:identifier>
+		<dc:title>Georgian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ka">
+		<dc:identifier>ka</dc:identifier>
+		<dc:title>géorgien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:de">
+		<dc:identifier>de</dc:identifier>
+		<dc:title>German</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:de">
+		<dc:identifier>de</dc:identifier>
+		<dc:title>allemand</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gd">
+		<dc:identifier>gd</dc:identifier>
+		<dc:title>Gaelic; Scottish Gaelic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gd">
+		<dc:identifier>gd</dc:identifier>
+		<dc:title>gaélique; gaélique écossais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ga">
+		<dc:identifier>ga</dc:identifier>
+		<dc:title>Irish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ga">
+		<dc:identifier>ga</dc:identifier>
+		<dc:title>irlandais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gl">
+		<dc:identifier>gl</dc:identifier>
+		<dc:title>Galician</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gl">
+		<dc:identifier>gl</dc:identifier>
+		<dc:title>galicien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gv">
+		<dc:identifier>gv</dc:identifier>
+		<dc:title>Manx</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gv">
+		<dc:identifier>gv</dc:identifier>
+		<dc:title>manx; mannois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:el">
+		<dc:identifier>el</dc:identifier>
+		<dc:title>Greek, Modern (1453-)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:el">
+		<dc:identifier>el</dc:identifier>
+		<dc:title>grec moderne (après 1453)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gn">
+		<dc:identifier>gn</dc:identifier>
+		<dc:title>Guarani</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gn">
+		<dc:identifier>gn</dc:identifier>
+		<dc:title>guarani</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gu">
+		<dc:identifier>gu</dc:identifier>
+		<dc:title>Gujarati</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:gu">
+		<dc:identifier>gu</dc:identifier>
+		<dc:title>goudjrati</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ht">
+		<dc:identifier>ht</dc:identifier>
+		<dc:title>Haitian; Haitian Creole</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ht">
+		<dc:identifier>ht</dc:identifier>
+		<dc:title>haïtien; créole haïtien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ha">
+		<dc:identifier>ha</dc:identifier>
+		<dc:title>Hausa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ha">
+		<dc:identifier>ha</dc:identifier>
+		<dc:title>haoussa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:he">
+		<dc:identifier>he</dc:identifier>
+		<dc:title>Hebrew</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:he">
+		<dc:identifier>he</dc:identifier>
+		<dc:title>hébreu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hz">
+		<dc:identifier>hz</dc:identifier>
+		<dc:title>Herero</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hz">
+		<dc:identifier>hz</dc:identifier>
+		<dc:title>herero</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hi">
+		<dc:identifier>hi</dc:identifier>
+		<dc:title>Hindi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hi">
+		<dc:identifier>hi</dc:identifier>
+		<dc:title>hindi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ho">
+		<dc:identifier>ho</dc:identifier>
+		<dc:title>Hiri Motu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ho">
+		<dc:identifier>ho</dc:identifier>
+		<dc:title>hiri motu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hr">
+		<dc:identifier>hr</dc:identifier>
+		<dc:title>Croatian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hr">
+		<dc:identifier>hr</dc:identifier>
+		<dc:title>croate</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hu">
+		<dc:identifier>hu</dc:identifier>
+		<dc:title>Hungarian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hu">
+		<dc:identifier>hu</dc:identifier>
+		<dc:title>hongrois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hy">
+		<dc:identifier>hy</dc:identifier>
+		<dc:title>Armenian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:hy">
+		<dc:identifier>hy</dc:identifier>
+		<dc:title>arménien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ig">
+		<dc:identifier>ig</dc:identifier>
+		<dc:title>Igbo</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ig">
+		<dc:identifier>ig</dc:identifier>
+		<dc:title>igbo</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:is">
+		<dc:identifier>is</dc:identifier>
+		<dc:title>Icelandic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:is">
+		<dc:identifier>is</dc:identifier>
+		<dc:title>islandais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:io">
+		<dc:identifier>io</dc:identifier>
+		<dc:title>Ido</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:io">
+		<dc:identifier>io</dc:identifier>
+		<dc:title>ido</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ii">
+		<dc:identifier>ii</dc:identifier>
+		<dc:title>Sichuan Yi; Nuosu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ii">
+		<dc:identifier>ii</dc:identifier>
+		<dc:title>yi de Sichuan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:iu">
+		<dc:identifier>iu</dc:identifier>
+		<dc:title>Inuktitut</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:iu">
+		<dc:identifier>iu</dc:identifier>
+		<dc:title>inuktitut</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ie">
+		<dc:identifier>ie</dc:identifier>
+		<dc:title>Interlingue; Occidental</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ie">
+		<dc:identifier>ie</dc:identifier>
+		<dc:title>interlingue</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ia">
+		<dc:identifier>ia</dc:identifier>
+		<dc:title>Interlingua (International Auxiliary Language Association)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ia">
+		<dc:identifier>ia</dc:identifier>
+		<dc:title>interlingua (langue auxiliaire internationale)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:id">
+		<dc:identifier>id</dc:identifier>
+		<dc:title>Indonesian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:id">
+		<dc:identifier>id</dc:identifier>
+		<dc:title>indonésien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ik">
+		<dc:identifier>ik</dc:identifier>
+		<dc:title>Inupiaq</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ik">
+		<dc:identifier>ik</dc:identifier>
+		<dc:title>inupiaq</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:is">
+		<dc:identifier>is</dc:identifier>
+		<dc:title>Icelandic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:is">
+		<dc:identifier>is</dc:identifier>
+		<dc:title>islandais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:it">
+		<dc:identifier>it</dc:identifier>
+		<dc:title>Italian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:it">
+		<dc:identifier>it</dc:identifier>
+		<dc:title>italien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:jv">
+		<dc:identifier>jv</dc:identifier>
+		<dc:title>Javanese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:jv">
+		<dc:identifier>jv</dc:identifier>
+		<dc:title>javanais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ja">
+		<dc:identifier>ja</dc:identifier>
+		<dc:title>Japanese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ja">
+		<dc:identifier>ja</dc:identifier>
+		<dc:title>japonais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kl">
+		<dc:identifier>kl</dc:identifier>
+		<dc:title>Kalaallisut; Greenlandic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kl">
+		<dc:identifier>kl</dc:identifier>
+		<dc:title>groenlandais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kn">
+		<dc:identifier>kn</dc:identifier>
+		<dc:title>Kannada</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kn">
+		<dc:identifier>kn</dc:identifier>
+		<dc:title>kannada</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ks">
+		<dc:identifier>ks</dc:identifier>
+		<dc:title>Kashmiri</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ks">
+		<dc:identifier>ks</dc:identifier>
+		<dc:title>kashmiri</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ka">
+		<dc:identifier>ka</dc:identifier>
+		<dc:title>Georgian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ka">
+		<dc:identifier>ka</dc:identifier>
+		<dc:title>géorgien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kr">
+		<dc:identifier>kr</dc:identifier>
+		<dc:title>Kanuri</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kr">
+		<dc:identifier>kr</dc:identifier>
+		<dc:title>kanouri</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kk">
+		<dc:identifier>kk</dc:identifier>
+		<dc:title>Kazakh</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kk">
+		<dc:identifier>kk</dc:identifier>
+		<dc:title>kazakh</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:km">
+		<dc:identifier>km</dc:identifier>
+		<dc:title>Central Khmer</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:km">
+		<dc:identifier>km</dc:identifier>
+		<dc:title>khmer central</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ki">
+		<dc:identifier>ki</dc:identifier>
+		<dc:title>Kikuyu; Gikuyu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ki">
+		<dc:identifier>ki</dc:identifier>
+		<dc:title>kikuyu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rw">
+		<dc:identifier>rw</dc:identifier>
+		<dc:title>Kinyarwanda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rw">
+		<dc:identifier>rw</dc:identifier>
+		<dc:title>rwanda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ky">
+		<dc:identifier>ky</dc:identifier>
+		<dc:title>Kirghiz; Kyrgyz</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ky">
+		<dc:identifier>ky</dc:identifier>
+		<dc:title>kirghiz</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kv">
+		<dc:identifier>kv</dc:identifier>
+		<dc:title>Komi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kv">
+		<dc:identifier>kv</dc:identifier>
+		<dc:title>kom</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kg">
+		<dc:identifier>kg</dc:identifier>
+		<dc:title>Kongo</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kg">
+		<dc:identifier>kg</dc:identifier>
+		<dc:title>kongo</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ko">
+		<dc:identifier>ko</dc:identifier>
+		<dc:title>Korean</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ko">
+		<dc:identifier>ko</dc:identifier>
+		<dc:title>coréen</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kj">
+		<dc:identifier>kj</dc:identifier>
+		<dc:title>Kuanyama; Kwanyama</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:kj">
+		<dc:identifier>kj</dc:identifier>
+		<dc:title>kuanyama; kwanyama</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ku">
+		<dc:identifier>ku</dc:identifier>
+		<dc:title>Kurdish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ku">
+		<dc:identifier>ku</dc:identifier>
+		<dc:title>kurde</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lo">
+		<dc:identifier>lo</dc:identifier>
+		<dc:title>Lao</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lo">
+		<dc:identifier>lo</dc:identifier>
+		<dc:title>lao</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:la">
+		<dc:identifier>la</dc:identifier>
+		<dc:title>Latin</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:la">
+		<dc:identifier>la</dc:identifier>
+		<dc:title>latin</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lv">
+		<dc:identifier>lv</dc:identifier>
+		<dc:title>Latvian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lv">
+		<dc:identifier>lv</dc:identifier>
+		<dc:title>letton</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:li">
+		<dc:identifier>li</dc:identifier>
+		<dc:title>Limburgan; Limburger; Limburgish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:li">
+		<dc:identifier>li</dc:identifier>
+		<dc:title>limbourgeois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ln">
+		<dc:identifier>ln</dc:identifier>
+		<dc:title>Lingala</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ln">
+		<dc:identifier>ln</dc:identifier>
+		<dc:title>lingala</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lt">
+		<dc:identifier>lt</dc:identifier>
+		<dc:title>Lithuanian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lt">
+		<dc:identifier>lt</dc:identifier>
+		<dc:title>lituanien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lb">
+		<dc:identifier>lb</dc:identifier>
+		<dc:title>Luxembourgish; Letzeburgesch</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lb">
+		<dc:identifier>lb</dc:identifier>
+		<dc:title>luxembourgeois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lu">
+		<dc:identifier>lu</dc:identifier>
+		<dc:title>Luba-Katanga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lu">
+		<dc:identifier>lu</dc:identifier>
+		<dc:title>luba-katanga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lg">
+		<dc:identifier>lg</dc:identifier>
+		<dc:title>Ganda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:lg">
+		<dc:identifier>lg</dc:identifier>
+		<dc:title>ganda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mk">
+		<dc:identifier>mk</dc:identifier>
+		<dc:title>Macedonian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mk">
+		<dc:identifier>mk</dc:identifier>
+		<dc:title>macédonien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mh">
+		<dc:identifier>mh</dc:identifier>
+		<dc:title>Marshallese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mh">
+		<dc:identifier>mh</dc:identifier>
+		<dc:title>marshall</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ml">
+		<dc:identifier>ml</dc:identifier>
+		<dc:title>Malayalam</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ml">
+		<dc:identifier>ml</dc:identifier>
+		<dc:title>malayalam</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mi">
+		<dc:identifier>mi</dc:identifier>
+		<dc:title>Maori</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mi">
+		<dc:identifier>mi</dc:identifier>
+		<dc:title>maori</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mr">
+		<dc:identifier>mr</dc:identifier>
+		<dc:title>Marathi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mr">
+		<dc:identifier>mr</dc:identifier>
+		<dc:title>marathe</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ms">
+		<dc:identifier>ms</dc:identifier>
+		<dc:title>Malay</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ms">
+		<dc:identifier>ms</dc:identifier>
+		<dc:title>malais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mk">
+		<dc:identifier>mk</dc:identifier>
+		<dc:title>Macedonian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mk">
+		<dc:identifier>mk</dc:identifier>
+		<dc:title>macédonien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mg">
+		<dc:identifier>mg</dc:identifier>
+		<dc:title>Malagasy</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mg">
+		<dc:identifier>mg</dc:identifier>
+		<dc:title>malgache</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mt">
+		<dc:identifier>mt</dc:identifier>
+		<dc:title>Maltese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mt">
+		<dc:identifier>mt</dc:identifier>
+		<dc:title>maltais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mo">
+		<dc:identifier>mo</dc:identifier>
+		<dc:title>Moldavian; Moldovan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mo">
+		<dc:identifier>mo</dc:identifier>
+		<dc:title>moldave</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mn">
+		<dc:identifier>mn</dc:identifier>
+		<dc:title>Mongolian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mn">
+		<dc:identifier>mn</dc:identifier>
+		<dc:title>mongol</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mi">
+		<dc:identifier>mi</dc:identifier>
+		<dc:title>Maori</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:mi">
+		<dc:identifier>mi</dc:identifier>
+		<dc:title>maori</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ms">
+		<dc:identifier>ms</dc:identifier>
+		<dc:title>Malay</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ms">
+		<dc:identifier>ms</dc:identifier>
+		<dc:title>malais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:my">
+		<dc:identifier>my</dc:identifier>
+		<dc:title>Burmese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:my">
+		<dc:identifier>my</dc:identifier>
+		<dc:title>birman</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:na">
+		<dc:identifier>na</dc:identifier>
+		<dc:title>Nauru</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:na">
+		<dc:identifier>na</dc:identifier>
+		<dc:title>nauruan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nv">
+		<dc:identifier>nv</dc:identifier>
+		<dc:title>Navajo; Navaho</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nv">
+		<dc:identifier>nv</dc:identifier>
+		<dc:title>navaho</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nr">
+		<dc:identifier>nr</dc:identifier>
+		<dc:title>Ndebele, South; South Ndebele</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nr">
+		<dc:identifier>nr</dc:identifier>
+		<dc:title>ndébélé du Sud</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nd">
+		<dc:identifier>nd</dc:identifier>
+		<dc:title>Ndebele, North; North Ndebele</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nd">
+		<dc:identifier>nd</dc:identifier>
+		<dc:title>ndébélé du Nord</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ng">
+		<dc:identifier>ng</dc:identifier>
+		<dc:title>Ndonga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ng">
+		<dc:identifier>ng</dc:identifier>
+		<dc:title>ndonga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ne">
+		<dc:identifier>ne</dc:identifier>
+		<dc:title>Nepali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ne">
+		<dc:identifier>ne</dc:identifier>
+		<dc:title>népalais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nl">
+		<dc:identifier>nl</dc:identifier>
+		<dc:title>Dutch; Flemish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nl">
+		<dc:identifier>nl</dc:identifier>
+		<dc:title>néerlandais; flamand</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nn">
+		<dc:identifier>nn</dc:identifier>
+		<dc:title>Norwegian Nynorsk; Nynorsk, Norwegian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nn">
+		<dc:identifier>nn</dc:identifier>
+		<dc:title>norvégien nynorsk; nynorsk, norvégien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nb">
+		<dc:identifier>nb</dc:identifier>
+		<dc:title>Bokmål, Norwegian; Norwegian Bokmål</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:nb">
+		<dc:identifier>nb</dc:identifier>
+		<dc:title>norvégien bokmål</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:no">
+		<dc:identifier>no</dc:identifier>
+		<dc:title>Norwegian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:no">
+		<dc:identifier>no</dc:identifier>
+		<dc:title>norvégien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ny">
+		<dc:identifier>ny</dc:identifier>
+		<dc:title>Chichewa; Chewa; Nyanja</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ny">
+		<dc:identifier>ny</dc:identifier>
+		<dc:title>chichewa; chewa; nyanja</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:oc">
+		<dc:identifier>oc</dc:identifier>
+		<dc:title>Occitan (post 1500)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:oc">
+		<dc:identifier>oc</dc:identifier>
+		<dc:title>occitan (après 1500)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:oj">
+		<dc:identifier>oj</dc:identifier>
+		<dc:title>Ojibwa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:oj">
+		<dc:identifier>oj</dc:identifier>
+		<dc:title>ojibwa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:or">
+		<dc:identifier>or</dc:identifier>
+		<dc:title>Oriya</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:or">
+		<dc:identifier>or</dc:identifier>
+		<dc:title>oriya</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:om">
+		<dc:identifier>om</dc:identifier>
+		<dc:title>Oromo</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:om">
+		<dc:identifier>om</dc:identifier>
+		<dc:title>galla</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:os">
+		<dc:identifier>os</dc:identifier>
+		<dc:title>Ossetian; Ossetic</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:os">
+		<dc:identifier>os</dc:identifier>
+		<dc:title>ossète</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pa">
+		<dc:identifier>pa</dc:identifier>
+		<dc:title>Panjabi; Punjabi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pa">
+		<dc:identifier>pa</dc:identifier>
+		<dc:title>pendjabi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fa">
+		<dc:identifier>fa</dc:identifier>
+		<dc:title>Persian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:fa">
+		<dc:identifier>fa</dc:identifier>
+		<dc:title>persan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pi">
+		<dc:identifier>pi</dc:identifier>
+		<dc:title>Pali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pi">
+		<dc:identifier>pi</dc:identifier>
+		<dc:title>pali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pl">
+		<dc:identifier>pl</dc:identifier>
+		<dc:title>Polish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pl">
+		<dc:identifier>pl</dc:identifier>
+		<dc:title>polonais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pt">
+		<dc:identifier>pt</dc:identifier>
+		<dc:title>Portuguese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:pt">
+		<dc:identifier>pt</dc:identifier>
+		<dc:title>portugais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ps">
+		<dc:identifier>ps</dc:identifier>
+		<dc:title>Pushto; Pashto</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ps">
+		<dc:identifier>ps</dc:identifier>
+		<dc:title>pachto</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:qu">
+		<dc:identifier>qu</dc:identifier>
+		<dc:title>Quechua</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:qu">
+		<dc:identifier>qu</dc:identifier>
+		<dc:title>quechua</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rm">
+		<dc:identifier>rm</dc:identifier>
+		<dc:title>Romansh</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rm">
+		<dc:identifier>rm</dc:identifier>
+		<dc:title>romanche</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ro">
+		<dc:identifier>ro</dc:identifier>
+		<dc:title>Romanian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ro">
+		<dc:identifier>ro</dc:identifier>
+		<dc:title>roumain</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ro">
+		<dc:identifier>ro</dc:identifier>
+		<dc:title>Romanian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ro">
+		<dc:identifier>ro</dc:identifier>
+		<dc:title>roumain</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rn">
+		<dc:identifier>rn</dc:identifier>
+		<dc:title>Rundi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:rn">
+		<dc:identifier>rn</dc:identifier>
+		<dc:title>rundi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ru">
+		<dc:identifier>ru</dc:identifier>
+		<dc:title>Russian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ru">
+		<dc:identifier>ru</dc:identifier>
+		<dc:title>russe</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sg">
+		<dc:identifier>sg</dc:identifier>
+		<dc:title>Sango</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sg">
+		<dc:identifier>sg</dc:identifier>
+		<dc:title>sango</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sa">
+		<dc:identifier>sa</dc:identifier>
+		<dc:title>Sanskrit</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sa">
+		<dc:identifier>sa</dc:identifier>
+		<dc:title>sanskrit</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:si">
+		<dc:identifier>si</dc:identifier>
+		<dc:title>Sinhala; Sinhalese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:si">
+		<dc:identifier>si</dc:identifier>
+		<dc:title>singhalais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sk">
+		<dc:identifier>sk</dc:identifier>
+		<dc:title>Slovak</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sk">
+		<dc:identifier>sk</dc:identifier>
+		<dc:title>slovaque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sk">
+		<dc:identifier>sk</dc:identifier>
+		<dc:title>Slovak</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sk">
+		<dc:identifier>sk</dc:identifier>
+		<dc:title>slovaque</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sl">
+		<dc:identifier>sl</dc:identifier>
+		<dc:title>Slovenian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sl">
+		<dc:identifier>sl</dc:identifier>
+		<dc:title>slovène</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:se">
+		<dc:identifier>se</dc:identifier>
+		<dc:title>Northern Sami</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:se">
+		<dc:identifier>se</dc:identifier>
+		<dc:title>sami du Nord</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sm">
+		<dc:identifier>sm</dc:identifier>
+		<dc:title>Samoan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sm">
+		<dc:identifier>sm</dc:identifier>
+		<dc:title>samoan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sn">
+		<dc:identifier>sn</dc:identifier>
+		<dc:title>Shona</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sn">
+		<dc:identifier>sn</dc:identifier>
+		<dc:title>shona</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sd">
+		<dc:identifier>sd</dc:identifier>
+		<dc:title>Sindhi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sd">
+		<dc:identifier>sd</dc:identifier>
+		<dc:title>sindhi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:so">
+		<dc:identifier>so</dc:identifier>
+		<dc:title>Somali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:so">
+		<dc:identifier>so</dc:identifier>
+		<dc:title>somali</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:st">
+		<dc:identifier>st</dc:identifier>
+		<dc:title>Sotho, Southern</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:st">
+		<dc:identifier>st</dc:identifier>
+		<dc:title>sotho du Sud</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:es">
+		<dc:identifier>es</dc:identifier>
+		<dc:title>Spanish; Castilian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:es">
+		<dc:identifier>es</dc:identifier>
+		<dc:title>espagnol; castillan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sq">
+		<dc:identifier>sq</dc:identifier>
+		<dc:title>Albanian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sq">
+		<dc:identifier>sq</dc:identifier>
+		<dc:title>albanais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sc">
+		<dc:identifier>sc</dc:identifier>
+		<dc:title>Sardinian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sc">
+		<dc:identifier>sc</dc:identifier>
+		<dc:title>sarde</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sr">
+		<dc:identifier>sr</dc:identifier>
+		<dc:title>Serbian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sr">
+		<dc:identifier>sr</dc:identifier>
+		<dc:title>serbe</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ss">
+		<dc:identifier>ss</dc:identifier>
+		<dc:title>Swati</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ss">
+		<dc:identifier>ss</dc:identifier>
+		<dc:title>swati</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:su">
+		<dc:identifier>su</dc:identifier>
+		<dc:title>Sundanese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:su">
+		<dc:identifier>su</dc:identifier>
+		<dc:title>soundanais</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sw">
+		<dc:identifier>sw</dc:identifier>
+		<dc:title>Swahili</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sw">
+		<dc:identifier>sw</dc:identifier>
+		<dc:title>swahili</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sv">
+		<dc:identifier>sv</dc:identifier>
+		<dc:title>Swedish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:sv">
+		<dc:identifier>sv</dc:identifier>
+		<dc:title>suédois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ty">
+		<dc:identifier>ty</dc:identifier>
+		<dc:title>Tahitian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ty">
+		<dc:identifier>ty</dc:identifier>
+		<dc:title>tahitien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ta">
+		<dc:identifier>ta</dc:identifier>
+		<dc:title>Tamil</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ta">
+		<dc:identifier>ta</dc:identifier>
+		<dc:title>tamoul</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tt">
+		<dc:identifier>tt</dc:identifier>
+		<dc:title>Tatar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tt">
+		<dc:identifier>tt</dc:identifier>
+		<dc:title>tatar</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:te">
+		<dc:identifier>te</dc:identifier>
+		<dc:title>Telugu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:te">
+		<dc:identifier>te</dc:identifier>
+		<dc:title>télougou</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tg">
+		<dc:identifier>tg</dc:identifier>
+		<dc:title>Tajik</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tg">
+		<dc:identifier>tg</dc:identifier>
+		<dc:title>tadjik</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tl">
+		<dc:identifier>tl</dc:identifier>
+		<dc:title>Tagalog</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tl">
+		<dc:identifier>tl</dc:identifier>
+		<dc:title>tagalog</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:th">
+		<dc:identifier>th</dc:identifier>
+		<dc:title>Thai</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:th">
+		<dc:identifier>th</dc:identifier>
+		<dc:title>thaï</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bo">
+		<dc:identifier>bo</dc:identifier>
+		<dc:title>Tibetan</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:bo">
+		<dc:identifier>bo</dc:identifier>
+		<dc:title>tibétain</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ti">
+		<dc:identifier>ti</dc:identifier>
+		<dc:title>Tigrinya</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ti">
+		<dc:identifier>ti</dc:identifier>
+		<dc:title>tigrigna</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:to">
+		<dc:identifier>to</dc:identifier>
+		<dc:title>Tonga (Tonga Islands)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:to">
+		<dc:identifier>to</dc:identifier>
+		<dc:title>tongan (Îles Tonga)</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tn">
+		<dc:identifier>tn</dc:identifier>
+		<dc:title>Tswana</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tn">
+		<dc:identifier>tn</dc:identifier>
+		<dc:title>tswana</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ts">
+		<dc:identifier>ts</dc:identifier>
+		<dc:title>Tsonga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ts">
+		<dc:identifier>ts</dc:identifier>
+		<dc:title>tsonga</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tk">
+		<dc:identifier>tk</dc:identifier>
+		<dc:title>Turkmen</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tk">
+		<dc:identifier>tk</dc:identifier>
+		<dc:title>turkmène</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tr">
+		<dc:identifier>tr</dc:identifier>
+		<dc:title>Turkish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tr">
+		<dc:identifier>tr</dc:identifier>
+		<dc:title>turc</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tw">
+		<dc:identifier>tw</dc:identifier>
+		<dc:title>Twi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:tw">
+		<dc:identifier>tw</dc:identifier>
+		<dc:title>twi</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ug">
+		<dc:identifier>ug</dc:identifier>
+		<dc:title>Uighur; Uyghur</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ug">
+		<dc:identifier>ug</dc:identifier>
+		<dc:title>ouïgour</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:uk">
+		<dc:identifier>uk</dc:identifier>
+		<dc:title>Ukrainian</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:uk">
+		<dc:identifier>uk</dc:identifier>
+		<dc:title>ukrainien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ur">
+		<dc:identifier>ur</dc:identifier>
+		<dc:title>Urdu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ur">
+		<dc:identifier>ur</dc:identifier>
+		<dc:title>ourdou</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:uz">
+		<dc:identifier>uz</dc:identifier>
+		<dc:title>Uzbek</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:uz">
+		<dc:identifier>uz</dc:identifier>
+		<dc:title>ouszbek</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ve">
+		<dc:identifier>ve</dc:identifier>
+		<dc:title>Venda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:ve">
+		<dc:identifier>ve</dc:identifier>
+		<dc:title>venda</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:vi">
+		<dc:identifier>vi</dc:identifier>
+		<dc:title>Vietnamese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:vi">
+		<dc:identifier>vi</dc:identifier>
+		<dc:title>vietnamien</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:vo">
+		<dc:identifier>vo</dc:identifier>
+		<dc:title>Volapük</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:vo">
+		<dc:identifier>vo</dc:identifier>
+		<dc:title>volapük</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cy">
+		<dc:identifier>cy</dc:identifier>
+		<dc:title>Welsh</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:cy">
+		<dc:identifier>cy</dc:identifier>
+		<dc:title>gallois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:wa">
+		<dc:identifier>wa</dc:identifier>
+		<dc:title>Walloon</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:wa">
+		<dc:identifier>wa</dc:identifier>
+		<dc:title>wallon</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:wo">
+		<dc:identifier>wo</dc:identifier>
+		<dc:title>Wolof</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:wo">
+		<dc:identifier>wo</dc:identifier>
+		<dc:title>wolof</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:xh">
+		<dc:identifier>xh</dc:identifier>
+		<dc:title>Xhosa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:xh">
+		<dc:identifier>xh</dc:identifier>
+		<dc:title>xhosa</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:yi">
+		<dc:identifier>yi</dc:identifier>
+		<dc:title>Yiddish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:yi">
+		<dc:identifier>yi</dc:identifier>
+		<dc:title>yiddish</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:yo">
+		<dc:identifier>yo</dc:identifier>
+		<dc:title>Yoruba</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:yo">
+		<dc:identifier>yo</dc:identifier>
+		<dc:title>yoruba</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:za">
+		<dc:identifier>za</dc:identifier>
+		<dc:title>Zhuang; Chuang</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:za">
+		<dc:identifier>za</dc:identifier>
+		<dc:title>zhuang; chuang</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zh">
+		<dc:identifier>zh</dc:identifier>
+		<dc:title>Chinese</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zh">
+		<dc:identifier>zh</dc:identifier>
+		<dc:title>chinois</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zu">
+		<dc:identifier>zu</dc:identifier>
+		<dc:title>Zulu</dc:title>
+	</rdf:Description>
+	<rdf:Description rdf:about="urn:iso639:zu">
+		<dc:identifier>zu</dc:identifier>
+		<dc:title>zoulou</dc:title>
+	</rdf:Description>
+</rdf:RDF>

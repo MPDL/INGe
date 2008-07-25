@@ -59,7 +59,7 @@
 						</parameters>
 						<samples>
 							<sample>
-								<xsl:value-of select="name"/>?q=bio
+								<xsl:value-of select="name"/>/query?q=bio
 							</sample>
 							<sample>
 								../jquery_sample.jsp

@@ -55,10 +55,41 @@ public class MulgaraQuerier implements Querier
         return searchString;
     }
 
-    public Map<String, String> details(String model, String query) throws Exception
+    public Map<String, String> details(String model, String id) throws Exception
     {
-        // TODO Auto-generated method stub
-        return null;
+        id = formatIdString(id);
+        
+        String mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
+        String mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
+        
+        String query = "select $p $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "> where " +
+                "<" + id + "> $p $o;";
+        
+        logger.debug("query: " + query);
+        
+        ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
+        
+        Answer answer = interpreter.executeQuery(query);
+
+        Map<String, String> resultMap = new LinkedHashMap<String, String>();
+
+        while (answer.next())
+        {
+            String predicate = answer.getObject(0).toString();
+            //subject = subject.substring(1, subject.length() - 1);
+            String object = answer.getObject(1).toString();
+            resultMap.put(predicate, object);
+        }
+        
+        logger.info("Result: " + resultMap);
+
+        return resultMap;
+    }
+
+    // TODO: Implement escaping for RDF ids
+    private String formatIdString(String id)
+    {
+        return id;
     }
     
 }

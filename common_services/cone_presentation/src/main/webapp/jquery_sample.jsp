@@ -17,7 +17,7 @@
 			<input class="journalSuggest" id="test1"/>
 			<input class="journalSuggest" id="test2"/>
 			<script type="text/javascript">
-				$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar",{ onSelect: function() {alert("You selected: " + this)}});
+				$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
 			</script>
 		</form>
 	</body>
