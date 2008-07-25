@@ -252,7 +252,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -265,14 +265,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.7-SNAPSHOT</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.4-SNAPSHOT</version>
+			<version>1.0.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -368,6 +368,12 @@
 		<dependency>
 			<groupId>org.mulgara</groupId>
 			<artifactId>itql</artifactId>
+			<version>2.0-beta</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mulgara</groupId>
+			<artifactId>mulgara</artifactId>
 			<version>2.0-beta</version>
 			<scope>compile</scope>
 		</dependency>
