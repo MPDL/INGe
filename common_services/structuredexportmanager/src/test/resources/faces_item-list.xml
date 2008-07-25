@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<escidocItem:item xmlns:xs="http://www.w3.org/2001/XMLSchema"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
+                 xmlns:fn="http://www.w3.org/2005/xpath-functions"
+                 xmlns:escidocItem="http://www.escidoc.de/schemas/item/0.3"
+                 xmlns:xlink="http://www.w3.org/1999/xlink"
+                 xsi:schemaLocation="http://www.escidoc.de/schemas/item/0.3 http://www.escidoc.de/schemas/soap/item/0.3/item.xsd">
+  <escidocItem:properties>
+     <escidocItem:created-by objid="escidoc:140"/>
+     <escidocItem:context objid="escidoc:8"/>
+     <escidocItem:content-model objid="escidoc:faces40"/>
+     <escidocItem:content-model-specific/>
+  </escidocItem:properties>
+  <escidocMetadataRecords:md-records xmlns:escidocMetadataRecords="http://www.escidoc.de/schemas/metadatarecords/0.3">
+     <escidocMetadataRecords:md-record name="escidoc">
+        <face-item xmlns:dc="http://purl.org/dc/elements/1.1/">
+           <emotion>fear</emotion>
+           <picture-group>b</picture-group>
+           <dc:identifier>066_y_m_f_b</dc:identifier>
+           <age>25</age>
+           <age-group>young</age-group>
+           <gender>male</gender>
+           <dc:rights>private</dc:rights>
+        </face-item>
+     </escidocMetadataRecords:md-record>
+  </escidocMetadataRecords:md-records>
+  <escidocComponents:components xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3">
+     <escidocComponents:component>
+        <escidocComponents:properties>
+           <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+           <escidocComponents:visibility>private</escidocComponents:visibility>
+           <escidocComponents:content-category>Faces</escidocComponents:content-category>
+           <escidocComponents:file-name>066_y_m_f_b.jpg</escidocComponents:file-name>
+           <escidocComponents:mime-type>jpg</escidocComponents:mime-type>
+           <escidocComponents:file-size>270753</escidocComponents:file-size>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="066_y_m_f_b_midsize.jpg"
+                                   xlink:href="XXX_IMAGE_REF_XXX"/>
+     </escidocComponents:component>
+     <escidocComponents:component>
+        <escidocComponents:properties>
+           <escidocComponents:valid-status>valid</escidocComponents:valid-status>
+           <escidocComponents:visibility>private</escidocComponents:visibility>
+           <escidocComponents:content-category>Faces</escidocComponents:content-category>
+           <escidocComponents:file-name>066_y_m_f_b.jpg</escidocComponents:file-name>
+           <escidocComponents:mime-type>thumbnails</escidocComponents:mime-type>
+           <escidocComponents:file-size>5601</escidocComponents:file-size>
+        </escidocComponents:properties>
+        <escidocComponents:content xlink:type="simple" xlink:title="066_y_m_f_b_thumbnails.jpg"
+                                   xlink:href="XXX_THUMBNAILS_REF_XXX"/>
+     </escidocComponents:component>
+  </escidocComponents:components>
+</escidocItem:item>
