@@ -152,24 +152,22 @@
 	</ciManagement>
 
 	<modules>
-		<module>framework_access</module>
-		<module>common_logic</module>
-		<module>citationmanager</module>
-		<module>citationmanager_ear</module>
-		<module>endnotemanager</module>
-		<module>endnotemanager_ear</module>
-		<module>validation</module>
-		<module>validation_ear</module>
-		<module>common_logic_ear</module>
-		<module>validation_presentation</module>
-		<module>structuredexportmanager</module>
-		<module>structuredexportmanager_ear</module>
-		<module>exportmanager</module>
-		<module>exportmanager_ear</module>
-		<module>search</module>
-		<module>search_presentation</module>
-		<module>search_ear</module>
+    <module>framework_access</module>
+    <module>common_logic</module>
+    <module>citationmanager</module>
+    <module>citationmanager_ear</module>
+    <module>validation</module>
+    <module>validation_ear</module>
+    <module>common_logic_ear</module>
+    <module>validation_presentation</module>
+    <module>structuredexportmanager</module>
+    <module>structuredexportmanager_ear</module>
+    <module>search</module>
+    <module>search_presentation</module>
+    <module>search_ear</module>
     <module>cone_presentation</module>
+    <module>endnotemanager</module>
+    <module>endnotemanager_ear</module>
   </modules>
 
 	<scm>
