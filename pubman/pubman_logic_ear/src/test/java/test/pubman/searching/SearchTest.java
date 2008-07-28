@@ -42,6 +42,9 @@ import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
@@ -133,11 +136,20 @@ public class SearchTest extends TestBase
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         file.setContentCategory("publisher_version");
         file.setVisibility(Visibility.PUBLIC);
-        file.setName("Der_kleine_Prinz_Auszug.pdf");
+        //file.setName("Der_kleine_Prinz_Auszug.pdf");
         file.setMimeType("application/pdf");
-        file.setDescription("Auszug aus \"Der kleine Prinz\" von Antoine de Saint-Exupery.");
-        myItem.getFiles().add(file);
+        //file.setDescription("Auszug aus \"Der kleine Prinz\" von Antoine de Saint-Exupery.");
         
+        MdsFileVO mdsFileVO = new MdsFileVO();
+        file.setDefaultMetadata(mdsFileVO);
+        file.getDefaultMetadata().setTitle(new TextVO("Der_kleine_Prinz_Auszug.pdf"));
+        file.getDefaultMetadata().setDescription("Auszug aus \"Der kleine Prinz\" von Antoine de Saint-Exupery.");
+        FormatVO formatVO = new FormatVO();
+        formatVO.setType("dcterms:IMT");
+        formatVO.setValue("application/pdf");
+        file.getDefaultMetadata().getFormats().add(formatVO);
+              
+        myItem.getFiles().add(file);
         
         // create PubItem and submit (automatically releases the pubItem)
         ItemRO myItemRef = pubItemDepositing.submitAndReleasePubItem(myItem, "Test Submit", user).getVersion();

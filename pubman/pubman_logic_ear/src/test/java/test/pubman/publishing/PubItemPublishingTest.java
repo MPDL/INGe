@@ -45,6 +45,9 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
@@ -120,10 +123,21 @@ public class PubItemPublishingTest extends TestBase
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
         file.setContentCategory("publisher_version");
-        file.setMimeType("image/gif");
         file.setVisibility(Visibility.PUBLIC);
-        file.setName("farbtest.gif");
-        file.setDescription("Ein Farbtest.");
+        
+        
+        MdsFileVO mdsFileVO = new MdsFileVO();
+        file.setDefaultMetadata(mdsFileVO);
+        
+        file.getDefaultMetadata().setTitle(new TextVO("farbtest.gif"));
+        file.getDefaultMetadata().setDescription("Ein Farbtest.");
+        FormatVO formatVO = new FormatVO();
+        formatVO.setType("dcterms:IMT");
+        formatVO.setValue("image/gif");
+        file.getDefaultMetadata().getFormats().add(formatVO);
+        
+        //file.setName("farbtest.gif");
+        //file.setDescription("Ein Farbtest.");
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         item.getFiles().add(file);
 
@@ -197,7 +211,7 @@ public class PubItemPublishingTest extends TestBase
             // The following code cannot be reached, because an exception will be thrown before. Reason:
             // Withdrawn items cannot be retrieved (by objectId)
             // TODO FRM: Check whether this behaviour of the framework is okay.
-            assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getVersion().getState());
+            assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getPublicStatus());
             assertEquals("That is why", withdrawnPubItem.getWithdrawalComment());
         }
         catch (ItemNotFoundException e)
@@ -233,7 +247,7 @@ public class PubItemPublishingTest extends TestBase
 
         PubItemVO withdrawnPubItem = getPubItemFromFramework(pubItemRef, user);
         assertNotNull(withdrawnPubItem);
-        assertEquals(withdrawnPubItem.getVersion().getState(), PubItemVO.State.WITHDRAWN);
+        assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getPublicStatus());
     }
 
     /**
@@ -261,7 +275,7 @@ public class PubItemPublishingTest extends TestBase
 
         PubItemVO withdrawnPubItem = getPubItemFromFramework(pubItemRef, user);
         assertNotNull(withdrawnPubItem);
-        assertEquals(withdrawnPubItem.getVersion().getState(), PubItemVO.State.WITHDRAWN);
+        assertEquals(PubItemVO.State.WITHDRAWN, withdrawnPubItem.getPublicStatus());
         //assertEquals(withdrawnPubItem.getCurrentVersion().getComment(), withdrawalComment);
     }
 
