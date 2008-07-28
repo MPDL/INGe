@@ -63,6 +63,10 @@
 			<!-- Node: context.properties.description -->
 			<!-- Field: ContextVO.description [String] -->
 			<value style="element" name="description" ns="${xsd.soap.common.prop}" field="description" usage="optional" />
+			
+			<!-- Node: context.properties.description -->
+			<!-- Field: ContextVO.description [String] -->
+			<value style="element" name="type" ns="${xsd.soap.common.prop}" field="type" usage="optional" />
 
 			<!-- Node: context.properties.organizational-units -->
 			<!-- Field: ContextVO.responsibleAffiliations [List<AffiliationRO>] -->

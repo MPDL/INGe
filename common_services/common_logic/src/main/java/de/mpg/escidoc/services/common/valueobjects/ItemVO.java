@@ -111,6 +111,18 @@ public class ItemVO extends ValueObject implements Cloneable
 
     private java.util.Date creationDate;
     private ItemVO.LockStatus lockStatus;
+    private ItemVO.State publicStatus;
+    private String publicStatusComment;
+
+    public String getPublicStatusComment()
+    {
+        return publicStatusComment;
+    }
+
+    public void setPublicStatusComment(String publicStatusComment)
+    {
+        this.publicStatusComment = publicStatusComment;
+    }
 
     /**
      * Public constructor.
@@ -136,6 +148,8 @@ public class ItemVO extends ValueObject implements Cloneable
             this.getFiles().add((FileVO) file.clone());
         }
         this.setLockStatus(other.getLockStatus());
+        this.setPublicStatus(other.getPublicStatus());
+        this.setPublicStatusComment(other.getPublicStatusComment());
         for (MetadataSetVO mds : other.getMetadataSets())
         {
             this.getMetadataSets().add(mds.clone());
@@ -358,9 +372,9 @@ public class ItemVO extends ValueObject implements Cloneable
      */
     public String getWithdrawalComment()
     {
-        if (getVersion().getState() == ItemVO.State.WITHDRAWN)
+        if (getPublicStatus() == ItemVO.State.WITHDRAWN)
         {
-            return getVersion().getLastMessage();
+            return getPublicStatusComment();
         }
         else
         {
@@ -412,5 +426,16 @@ public class ItemVO extends ValueObject implements Cloneable
     {
         this.contentModel = contentModel;
     }
+
+    public State getPublicStatus()
+    {
+        return publicStatus;
+    }
     
+    public void setPublicStatus(State publicStatus)
+    {
+        this.publicStatus = publicStatus;
+    }
+
+
 }

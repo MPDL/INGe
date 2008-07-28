@@ -82,6 +82,17 @@
 				<value style="attribute" name="objid" field="contentModel" usage="optional" />
 
 			</structure>
+			
+			<!-- Node: item.properties.public-status -->
+			<!-- Field: PubItemVO.publicStatus [PubItemVO.State] -->
+			<value style="element" name="public-status" ns="${xsd.soap.common.prop}" field="publicStatus"
+				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeItemStateEnum"
+				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				
+			<!-- Node: item.properties.public-status-comment -->
+			<!-- Field: PubItemVO.publicStatusComment [String] -->
+			<value style="element" name="public-status-comment" ns="${xsd.soap.common.prop}" field="publicStatusComment" usage="optional" />
+			
 
 			<!-- Node: item.properties.lock-status -->
 			<!-- Field: PubItemVO.lockStatus [PubItemVO.LockStatus] -->

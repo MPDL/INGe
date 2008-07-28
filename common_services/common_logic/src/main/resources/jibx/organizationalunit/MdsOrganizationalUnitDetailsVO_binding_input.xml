@@ -40,6 +40,7 @@
 	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
 	<namespace prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance" default="none" />
 	<namespace prefix="xml" uri="http://www.w3.org/XML/1998/namespace" default="none" />
+	<namespace prefix="kml" uri="http://www.opengis.net/kml/2.2" default="none" />
 
 	<mapping abstract="true" ns="${xsd.metadata.organization}"
 		class="de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO"

@@ -214,6 +214,7 @@ public class TransformContextTest extends TestBase
         ContextVO expected = new ContextVO();
         expected.setName(PUBMAN_TEST_COLLECTION_NAME);
         expected.setDescription(PUBMAN_TEST_COLLECTION_DESCRIPTION);
+        expected.setType("PubMan");
         expected.setState(ContextVO.State.OPENED);
         expected.setReference(new ContextRO("escidoc:persistent3"));
         expected.setCreator(new AccountUserRO("escidoc:user42"));

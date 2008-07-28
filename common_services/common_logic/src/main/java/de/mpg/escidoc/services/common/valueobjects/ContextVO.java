@@ -77,6 +77,8 @@ public class ContextVO extends ValueObject
      * A unique name of the collection within the system.
      */
     private String name;
+    
+    private String type;
     /**
      * The state of the PubCollection.
      */
@@ -293,5 +295,15 @@ public class ContextVO extends ValueObject
         {
             getAdminDescriptors().add(adminDescriptorVO);
         }
+    }
+
+    public String getType()
+    {
+        return type;
+    }
+
+    public void setType(String type)
+    {
+        this.type = type;
     }
 }

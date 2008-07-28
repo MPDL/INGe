@@ -1098,7 +1098,7 @@ public class XmlTransformingBean implements XmlTransforming
         MemberListWrapper mListWrapper = null;
         try
         {
-            // unmarshal ContainerVOListWrapper from String
+            // unmarshal MemberListWrapper from String
             IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", MemberListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(memberList);
@@ -1224,6 +1224,7 @@ public class XmlTransformingBean implements XmlTransforming
         {
             // throw a new UnmarshallingException, log the root cause of the JiBXException first
             logger.error(e.getRootCause());
+            logger.error(e.getMessage());
             throw new UnmarshallingException(container, e);
         }
         catch (ClassCastException e)

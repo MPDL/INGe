@@ -29,8 +29,8 @@
 
 <binding>
    <mapping name="current-grants" ns="${xsd.soap.useraccount.grants}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.GrantVOListWrapper" ordered="false">
-      <collection field="grantVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.grantVOListFactory">
-			<structure map-as="de.mpg.escidoc.services.common.valueobjects.GrantVO" />
+      <collection field="grantVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.grantVOListFactory" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.GrantVO" usage="optional"/>
 		</collection>
    </mapping>
 </binding>
