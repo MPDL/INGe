@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<toc:toc
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4"
+	xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1"
+	xmlns:version="http://escidoc.de/core/01/properties/version/"
+	xmlns:release="http://escidoc.de/core/01/properties/release/"
+	xmlns:toc="http://www.escidoc.de/schemas/toc/0.6"
+	xmlns:prop="http://escidoc.de/core/01/properties/"
+	xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+	xmlns:xml="http://www.w3.org/XML/1998/namespace" >
+	<toc:properties>
+		<srel:context objid="escidoc:42108" />
+		<srel:content-model objid="escidoc:TOC" />
+		<prop:content-model-specific
+			xmlns:prop="http://escidoc.de/core/01/properties/">
+		</prop:content-model-specific>
+	</toc:properties>
+	<md-records:md-records>
+		<md-records:md-record name="escidoc">
+			<dc-md>
+				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">
+					NEW toc
+				</dc:title>
+				<dc:description
+					xmlns:dc="http://purl.org/dc/elements/1.1/">
+					The NEW toc
+				</dc:description>
+			</dc-md>
+		</md-records:md-record>
+	</md-records:md-records>
+	<table-of-content:toc>
+		<table-of-content:div />
+	</table-of-content:toc>
+	
+</toc:toc>

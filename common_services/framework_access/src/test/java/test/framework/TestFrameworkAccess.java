@@ -46,7 +46,7 @@ import org.junit.runners.Suite;
                     ,test.framework.om.TestObjectManager.class
                     ,test.framework.st.TestStagingService.class
                     ,test.framework.sb.TestSearch.class
-                    ,DeleteObjectsTest.class
+                    //,DeleteObjectsTest.class
                     })
 public class TestFrameworkAccess
 {

@@ -58,6 +58,8 @@ import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.om.ItemHandlerServiceLocator;
 import de.escidoc.www.services.om.SemanticStoreHandler;
 import de.escidoc.www.services.om.SemanticStoreHandlerServiceLocator;
+import de.escidoc.www.services.om.TocHandler;
+import de.escidoc.www.services.om.TocHandlerServiceLocator;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandlerServiceLocator;
 import de.escidoc.www.services.sm.AggregationDefinitionHandler;
@@ -106,6 +108,7 @@ public class ServiceLocator
     private static StatisticDataHandlerServiceLocator  publicStatisticDataHandlerServiceLocator;
     private static ReportDefinitionHandlerServiceLocator  publicReportDefinitionHandlerServiceLocator;
     private static ReportHandlerServiceLocator  publicReportHandlerServiceLocator;
+    private static TocHandlerServiceLocator authorizedTocHandlerServiceLocator;
 
     /**
      * Get the configured URL of the running framework instance.
@@ -535,6 +538,28 @@ public class ServiceLocator
             authorizedContainerHandlerServiceLocator.setContainerHandlerServiceEndpointAddress(url);
         }
         ContainerHandler handler = authorizedContainerHandlerServiceLocator.getContainerHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+    
+    /**
+     * Gets the TocHandler service for an authenticated user.
+     *
+     * @param userHandle The handle of the logged in user.
+     * @return A TocHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static TocHandler getTocHandler(String userHandle) throws ServiceException, URISyntaxException
+    {
+        if (authorizedTocHandlerServiceLocator == null)
+        {
+            authorizedTocHandlerServiceLocator = new TocHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + authorizedTocHandlerServiceLocator.getTocHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("authorizedTocHandlerServiceLocator URL=" + url);
+            authorizedTocHandlerServiceLocator.setTocHandlerServiceEndpointAddress(url);
+        }
+        TocHandler handler = authorizedTocHandlerServiceLocator.getTocHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
         return handler;
     }

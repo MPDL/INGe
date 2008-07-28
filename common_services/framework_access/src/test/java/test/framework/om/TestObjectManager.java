@@ -45,6 +45,7 @@ import org.junit.runners.Suite;
                     ,TestRelation.class
                     ,TestItemRetrieve.class
                     ,TestContainer.class
+                    // ,TestToc.class
                     })
 public class TestObjectManager
 {

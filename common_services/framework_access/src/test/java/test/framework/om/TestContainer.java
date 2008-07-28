@@ -37,6 +37,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 import de.escidoc.core.common.exceptions.application.notfound.ContainerNotFoundException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -57,6 +58,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void createContainer() throws Exception
     {
+        userHandle = loginSystemAdministrator();
         String container = readFile(CONTAINER_FILE);
         long zeit = -System.currentTimeMillis();
         container = ServiceLocator.getContainerHandler(userHandle).create(container);
@@ -72,6 +74,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void retrieveContainer() throws Exception
     {
+        userHandle = loginSystemAdministrator();
         String container = readFile(CONTAINER_FILE);
         container = ServiceLocator.getContainerHandler(userHandle).create(container);
         String id = getId(container);
@@ -136,6 +139,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void updateContainer() throws Exception
     {
+        userHandle = loginSystemAdministrator();
         String container = ServiceLocator.getContainerHandler(userHandle).create(readFile(CONTAINER_FILE));
         String id = getId(container);
         long zeit = -System.currentTimeMillis();
@@ -170,6 +174,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void deleteContainer() throws Exception
     {
+        userHandle = loginSystemAdministrator();
         String container = ServiceLocator.getContainerHandler(userHandle).create(readFile(CONTAINER_FILE));
         String id = getId(container);
         long zeit = -System.currentTimeMillis();
@@ -203,7 +208,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void modifyContainer() throws Exception
     {
-        userHandle = loginLibrarian();
+        userHandle = loginSystemAdministrator();
         String container = ServiceLocator.getContainerHandler(userHandle).create(readFile(CONTAINER_FILE));
         String id = getId(container);
         String md = getModificationDate(container);
@@ -215,9 +220,18 @@ public class TestContainer extends TestItemBase
         "    <url>http://localhost</url>" +
         "</param>";
         ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
+        md = getModificationDate(container);
+        //logger.info("md "+md);
+        param = "<param last-modification-date=\"" + md + "\">" +
+        "    <url>http://localhost</url>" +
+        "</param>";
         ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param);
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
+        md = getModificationDate(container);
         ServiceLocator.getContainerHandler(userHandle).release(id, createModificationDate(md));
         long zeit = -System.currentTimeMillis();
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
         container = container.replace("NEW", "UPDATED");
         container = ServiceLocator.getContainerHandler(userHandle).update(id, container);
         container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
@@ -234,7 +248,7 @@ public class TestContainer extends TestItemBase
     @Test
     public void retrieveContainerHistory() throws Exception
     {
-        userHandle = loginLibrarian();
+        userHandle = loginSystemAdministrator();
         String container = ServiceLocator.getContainerHandler(userHandle).create(readFile(CONTAINER_FILE));
         String id = getId(container);
         container = ServiceLocator.getContainerHandler(userHandle).update(id, container);
@@ -250,7 +264,14 @@ public class TestContainer extends TestItemBase
         "</param>";
         logger.info("param(" + param + ")");
         ServiceLocator.getContainerHandler(userHandle).assignVersionPid(id+":1", param);
-        ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param);
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
+        md = getModificationDate(container);
+        String param2 = "<param last-modification-date=\"" + md + "\">" +
+        "    <url>http://localhost</url>" +
+        "</param>";
+        ServiceLocator.getContainerHandler(userHandle).assignObjectPid(id, param2);
+        container = ServiceLocator.getContainerHandler(userHandle).retrieve(id);
+        md = getModificationDate(container);
         md = createModificationDate(md);
         logger.info("release(" + id + "," + md + ")");
         ServiceLocator.getContainerHandler(userHandle).release(id, md);
