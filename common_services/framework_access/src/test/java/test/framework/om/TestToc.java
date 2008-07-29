@@ -192,6 +192,7 @@ public class TestToc extends TestItemBase
         // ServiceLocator.getTocHandler(userHandle).assignVersionPid(id+":1", param);
         // ServiceLocator.getTocHandler(userHandle).assignObjectPid(id, param);
         ServiceLocator.getTocHandler(userHandle).release(id, createModificationDate(md));
+        toc = ServiceLocator.getTocHandler(userHandle).retrieve(id);
         long zeit = -System.currentTimeMillis();
         toc = toc.replace("NEW", "UPDATED");
         toc = ServiceLocator.getTocHandler(userHandle).update(id, toc);
