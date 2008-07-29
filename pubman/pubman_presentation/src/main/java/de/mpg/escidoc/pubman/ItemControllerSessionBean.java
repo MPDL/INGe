@@ -1340,15 +1340,36 @@ public class ItemControllerSessionBean extends FacesBean
         FilterTaskParamVO filter = new FilterTaskParamVO();
         Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
         filter.getFilterList().add(f1);
-        if (!"all".equals(selectedItemState))
-        {
-            Filter f2 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
-            filter.getFilterList().add(f2);
-        }
-
-        Filter f3 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         
-        filter.getFilterList().add(f3);
+
+        Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
+        filter.getFilterList().add(f2);
+        
+        if (selectedItemState.equals("withdrawn"))
+        {
+            Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
+            filter.getFilterList().add(f3);
+        }
+        else
+        {
+            if (!"all".equals(selectedItemState))
+            {
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
+                filter.getFilterList().add(f3);
+            }
+        
+            Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+            filter.getFilterList().add(f4);
+            Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+            filter.getFilterList().add(f5);
+            Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+            filter.getFilterList().add(f6);
+            Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+            filter.getFilterList().add(f7);
+        }
+       
+        
+       
         
         // transform the filter criteria
         if (logger.isDebugEnabled())

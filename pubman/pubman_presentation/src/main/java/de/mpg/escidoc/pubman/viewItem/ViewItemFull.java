@@ -325,7 +325,9 @@ public class ViewItemFull extends FacesBean
             isLoggedIn = loginHelper.isLoggedIn();
             isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
             isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
-            isStateWithdrawn = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            
+            isStateWithdrawn = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            
             isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
             isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
             isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
