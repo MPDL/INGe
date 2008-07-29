@@ -146,7 +146,9 @@ public class WebServiceTest
      * Test SOAP web service with a semi valid item object.
      * @throws Exception Any exception.
      */
+    // FIXME tendres: "This test has to be made runnnable"
     @Test
+    @Ignore( "This test has to be made runnnable" )
     public final void testSemiValidItemSoapValidation() throws Exception
     {
         String itemXml = semiValidXml;
