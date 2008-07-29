@@ -48,24 +48,24 @@
 
 			<!-- Title -->
 <div class="itemElementLine floatbox">	
-			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == true}"/>
+			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
-			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{file.itemWithdrawn == true}"/>
+			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 
-				<h:commandLink action="#{file.downloadFile}" rendered="#{file.itemWithdrawn == false}">
-				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{file.itemWithdrawn == false}"/>
-					<h:outputText value="#{file.fileName}" rendered="#{file.itemWithdrawn == false}"/>
+				<h:commandLink action="#{file.downloadFile}" rendered="#{ViewItemFull.isStateWithdrawn == false}">
+				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 				</h:commandLink>
 			<h:panelGroup styleClass="subLabel">
-				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn} #{lbl.ViewItemFull_lblNoAccess}" rendered="#{file.itemWithdrawn == true}" styleClass="withdrawn"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn} #{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}" styleClass="withdrawn"/>
 				<h:outputText value=" #{lbl.ViewItemMedium_lblFileVisibility}: "/>
 			</h:panelGroup>
-					<h:outputText value="#{file.visibility}" rendered="#{file.itemWithdrawn == false}"/>
-					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{file.itemWithdrawn == true}" styleClass="withdrawn"/>
+					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}" styleClass="withdrawn"/>
 			<h:outputText value="</div>" escape="false"/>		
 </div>
 			
@@ -109,7 +109,7 @@
 			<!-- Fulltext Search Result -->
 <h:panelGroup rendered="#{file.showSearchHits}">			
 	<div class="itemElementLine floatbox">				
-				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{file.itemWithdrawn == false}"/>
+				<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/>
 				<h:outputText value="</div>" escape="false"/>
 				<tr:iterator var="hit" value="#{file.searchHits}" binding="#{ViewItemFull.fileSearchHitIterator}" varStatus="index">

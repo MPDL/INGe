@@ -71,9 +71,8 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 	<h:outputText value="<div class='itemText withdrawn'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-		<h:outputText value="#{ViewItemFull.itemPublicState} (" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-		<h:outputText value="#{ViewItemFull.itemState}"/>
-		<h:outputText value=")" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+		<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+		<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.itemState == null || ViewItemFull.itemState == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>

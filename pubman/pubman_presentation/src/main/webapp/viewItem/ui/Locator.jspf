@@ -48,27 +48,27 @@
 
 			<!-- Locator -->
 <div class="itemElementLine floatbox">	
-			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{locator.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemTitle odd withdrawn'>" escape="false" rendered="#{locator.itemWithdrawn == true}"/>
+			<h:outputText value="<div class='itemTitle odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+			<h:outputText value="<div class='itemTitle odd withdrawn'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/>
 			<h:outputText value="</div>" escape="false"/>
 			
-			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{locator.itemWithdrawn == false}"/>
-			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{locator.itemWithdrawn == true}"/>
+			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 
 			<h:panelGroup rendered="#{locator.locatorIsLink}">
-				<h:outputLink value="#{locator.locatorLink}" rendered="#{locator.itemWithdrawn == false}" target="_blank">
-					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
-					<h:outputText value="#{locator.file.content}" rendered="#{locator.itemWithdrawn == false}"/>
+				<h:outputLink value="#{locator.locatorLink}" rendered="#{ViewItemFull.isStateWithdrawn == false}" target="_blank">
+					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{locator.file.content}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 				</h:outputLink>
 			</h:panelGroup>
 			
-			<h:panelGroup rendered="#{locator.itemWithdrawn == false && !locator.locatorIsLink}">
-					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{locator.itemWithdrawn == false}"/>
-					<h:outputText value="#{locator.file.content}" rendered="#{locator.itemWithdrawn == false}"/>
+			<h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn == false && !locator.locatorIsLink}">
+					<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_locator_16.gif" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{locator.file.content}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 			</h:panelGroup>
 
-				<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{locator.itemWithdrawn == true}"/>
+				<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 			<h:outputText value="</div>" escape="false"/>		
 </div>
 
