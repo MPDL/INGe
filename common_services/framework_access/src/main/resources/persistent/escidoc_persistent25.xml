@@ -32,9 +32,8 @@
     <foxml:datastreamVersion ALT_IDS="metadata unknown unknown" CREATED="2008-02-11T16:24:39.998Z" ID="escidoc.0"
       LABEL="" MIMETYPE="text/xml" SIZE="1225">
       <foxml:contentDigest DIGEST="none" TYPE="DISABLED"/>
-      <foxml:xmlContent>
-        <md-records:md-record name="escidoc" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4">
-          <ou:ou xmlns:ou="http://www.escidoc.de/metadata/organizational-unit">
+      <foxml:xmlContent>        
+          <ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
             <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">Max Planck Digital Library</dc:title>
             <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/">MPDL</dcterms:alternative>
             <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Digital Library (MPDL) is currently in the foundation process and will be a new central scientific service unit within the Max Planck Society (MPS) responsible for the strategic planning, development and operation of the digital infrastructures necessary for providing the institutes with scientific information and for supporting web-based scholarly communication.</dc:description>
@@ -42,11 +41,10 @@
             <ou:organization-type>institute</ou:organization-type>
             <ou:country>DE</ou:country>
             <ou:city>Munich</ou:city>
+            <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
             <ou:start-date/>
             <ou:end-date/>
-            <georss:point xmlns:georss="http://www.georss.org/" />
-          </ou:ou>
-        </md-records:md-record>        
+          </ou:organization-details>       
       </foxml:xmlContent>
     </foxml:datastreamVersion>
   </foxml:datastream>

@@ -42,8 +42,6 @@
             <prop:public-status>opened</prop:public-status>
             <prop:type>SWB</prop:type>
             <srel:organizational-unit rdf:resource="info:fedora/escidoc:persistent1"/> 
-            <prop:last-modification-date>2007-02-18T12:20:46.275+01:00</prop:last-modification-date>
-            <escidocRelations:objectType>context</escidocRelations:objectType>
             <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"/>
           </rdf:Description>
         </rdf:RDF>

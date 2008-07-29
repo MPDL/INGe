@@ -5,7 +5,7 @@
   <foxml:objectProperties>
     <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
-    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="PubMan Test Collection"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="PubMan Test Context"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T11:23:24.359Z"/>
     <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-01-16T11:26:14.125Z"/>
   </foxml:objectProperties>
@@ -42,7 +42,6 @@
             <prop:public-status>opened</prop:public-status>
             <prop:type>PubMan</prop:type>
             <srel:organizational-unit rdf:resource="info:fedora/escidoc:persistent13"/>
-            <prop:last-modification-date>2006-02-16T12:20:46.275+01:00</prop:last-modification-date>
             <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"/>
           </rdf:Description>
         </rdf:RDF>
@@ -67,61 +66,32 @@ u.tschida@zim.mpg.de for any questions.</dc:description>
     </foxml:datastreamVersion>
   </foxml:datastream>
 
-  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent3/datastream" ID="admin-descriptor" STATE="A" VERSIONABLE="true">
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:persistent3/datastream" ID="pubman" STATE="A" VERSIONABLE="true">
     <foxml:datastreamVersion CREATED="2007-01-16T13:11:47.125Z" ID="admin-descriptor.0" ALT_IDS="admin-descriptor" LABEL="admin-descriptor" MIMETYPE="text/xml" SIZE="2882">
       <foxml:xmlContent>
-        <context:admin-descriptor name="admin-descriptor" xlink:type="simple" xmlns:context="http://www.escidoc.de/schemas/context/0.4" xmlns:xlink="http://www.w3.org/1999/xlink">
-		<context:allowed-content-types>
-			<context:allowed-content-type>
-				<context:allowed-md-schema/>
-				<context:allowed-genres>
-				    <context:allowed-genre>article</context:allowed-genre>
-				    <context:allowed-genre>book</context:allowed-genre>
-				    <context:allowed-genre>book-item</context:allowed-genre>
-				    <context:allowed-genre>proceedings</context:allowed-genre>
-				    <context:allowed-genre>conference-paper</context:allowed-genre>
-				    <context:allowed-genre>talk-at-event</context:allowed-genre>
-				    <context:allowed-genre>conference-report</context:allowed-genre>
-				    <context:allowed-genre>poster</context:allowed-genre>
-				    <context:allowed-genre>courseware-lecture</context:allowed-genre>
-				    <context:allowed-genre>thesis</context:allowed-genre>
-				    <context:allowed-genre>paper</context:allowed-genre>
-				    <context:allowed-genre>report</context:allowed-genre>
-				    <context:allowed-genre>journal</context:allowed-genre>
-				    <context:allowed-genre>issue</context:allowed-genre>
-				    <context:allowed-genre>series</context:allowed-genre>
-				    <context:allowed-genre>other</context:allowed-genre>
-				</context:allowed-genres>
-			</context:allowed-content-type>
-		</context:allowed-content-types>
-		<context:webservices>
-			<context:webservice xlink:title="title for webservice" xlink:type="simple">
-				<context:description>ws1-desc</context:description>
-				<context:service>ws1-service</context:service>
-				<context:parameters>ws1-param</context:parameters>
-			</context:webservice>
-			<context:webservice xlink:title="title for webservice" xlink:type="simple">
-				<context:description>ws2-desc</context:description>
-				<context:service>ws2-service</context:service>
-				<context:parameters>ws2-param</context:parameters>
-			</context:webservice>
-		</context:webservices>
-		<context:authority-files>
-			<context:authority-file/>
-			<context:authority-file/>
-		</context:authority-files>
-		<context:submission-methods>
-			<context:method>single-submission</context:method>
-		</context:submission-methods>
-		<context:relation-types>
-			<context:relation-type/>
-			<context:relation-type/>
-			<context:relation-type/>
-		</context:relation-types>
-		<context:component-visibility></context:component-visibility>
-		<context:visibility-of-references/>
-		<context:visibility-of-annotations/>
-        </context:admin-descriptor>
+<pubman-admin-descriptor>
+	<allowed-genres>
+		<allowed-genre>article</allowed-genre>
+		<allowed-genre>book</allowed-genre>
+		<allowed-genre>book-item</allowed-genre>
+		<allowed-genre>proceedings</allowed-genre>
+		<allowed-genre>conference-paper</allowed-genre>
+		<allowed-genre>talk-at-event</allowed-genre>
+		<allowed-genre>conference-report</allowed-genre>
+		<allowed-genre>poster</allowed-genre>
+		<allowed-genre>courseware-lecture</allowed-genre>
+		<allowed-genre>thesis</allowed-genre>
+		<allowed-genre>paper</allowed-genre>
+		<allowed-genre>report</allowed-genre>
+		<allowed-genre>journal</allowed-genre>
+		<allowed-genre>issue</allowed-genre>
+		<allowed-genre>series</allowed-genre>
+		<allowed-genre>other</allowed-genre>
+	</allowed-genres>
+	<template-item>escidoc:123</template-item>
+	<validation-schema>publication</validation-schema>
+	<workflow>standard</workflow>
+</pubman-admin-descriptor>
 
       </foxml:xmlContent>
     </foxml:datastreamVersion>

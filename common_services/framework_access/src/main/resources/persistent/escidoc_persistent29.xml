@@ -35,8 +35,7 @@
       LABEL="" MIMETYPE="text/xml" SIZE="1225">
       <foxml:contentDigest DIGEST="none" TYPE="DISABLED"/>
       <foxml:xmlContent>
-        <md-records:md-record name="escidoc" xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.4">
-          <ou:ou xmlns:ou="http://www.escidoc.de/metadata/organizational-unit">
+          <ou:organization-details xmlns:ou="http://escidoc.mpg.de/metadataprofile/schema/0.1/organization">
             <dc:title xmlns:dc="http://purl.org/dc/elements/1.1/">MPI for limnology</dc:title>
             <dcterms:alternative xmlns:dcterms="http://purl.org/dc/terms/"></dcterms:alternative>
             <dc:description xmlns:dc="http://purl.org/dc/elements/1.1/">The Max Planck Institute for Limnology performs ecological research on inland waters. It has presently two departments and two independent research groups, which encompass the fields of evolutionary ecology, physiological ecology, stream ecology, and tropical ecology at the land-water interface of large rivers in Brazil.</dc:description>
@@ -44,11 +43,10 @@
             <ou:organization-type>institute</ou:organization-type>
             <ou:country>DE</ou:country>
             <ou:city>Plön</ou:city>
+            <kml:coordinates xmlns:kml="http://www.opengis.net/kml/2.2">10,20,0</kml:coordinates>
             <ou:start-date/>
             <ou:end-date/>
-            <georss:point xmlns:georss="http://www.georss.org/" />
-          </ou:ou>
-        </md-records:md-record>
+          </ou:organization-details>
       </foxml:xmlContent>
     </foxml:datastreamVersion>
   </foxml:datastream>

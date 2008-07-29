@@ -27,7 +27,7 @@
           xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
           <rdf:Description rdf:about="info:fedora/escidoc:persistent9">
             <escidocRelations:title>Content Model Language-Feature</escidocRelations:title>
-            <escidocRelations:objectType>content-model</escidocRelations:objectType>
+            <rdf:type rdf:resource="http://escidoc.de/core/01/resources/ContentModel"/>
           </rdf:Description>
         </rdf:RDF>
       </foxml:xmlContent>
