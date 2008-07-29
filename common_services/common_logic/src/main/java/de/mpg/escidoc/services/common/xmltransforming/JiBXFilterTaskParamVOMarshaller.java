@@ -44,6 +44,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ContextFilt
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemRefFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
@@ -182,6 +183,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context"); 
                 }
+                else if (filter instanceof ItemPublicStatusFilter)
+                {
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
+                }
                 ctx.closeStartContent();
 
                 // create filter content (the "top-level-organizational-units" filter needs no content)
@@ -251,6 +256,11 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ContextFilter contextFilter = (ContextFilter)filter;
                     ctx.content(contextFilter.getContextId());
+                }
+                else if (filter instanceof ItemPublicStatusFilter)
+                {
+                    ItemPublicStatusFilter publicStatusFilter= (ItemPublicStatusFilter)filter;
+                    ctx.content(publicStatusFilter.getState().toString().replace('_', '-').toLowerCase());
                 }
 
                 // finish filter element

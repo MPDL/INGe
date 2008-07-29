@@ -219,6 +219,45 @@ public class FilterTaskParamVO extends ValueObject
         }
     }
 
+    
+    /**
+     * Class to filter by item public status.
+     */
+    public class ItemPublicStatusFilter implements Filter
+    {
+        /**
+         * The item state.
+         */
+        private ItemVO.State state;
+
+        /**
+         * Creates a new instance with the given state. As long as no common content item states are defined we use the
+         * ItemVO state.
+         * 
+         * @param state The state to filter for.
+         */
+        public ItemPublicStatusFilter(ItemVO.State state)
+        {
+            this.state = state;
+        }
+
+        /**
+         * @return the state
+         */
+        public ItemVO.State getState()
+        {
+            return state;
+        }
+
+        /**
+         * @param state the state to set
+         */
+        public void setState(ItemVO.State state)
+        {
+            this.state = state;
+        }
+    }
+    
     /**
      * Class to filter by Role.
      */

@@ -34,6 +34,7 @@ import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 
 public class FormatVO extends ValueObject
 {
+    
     private String value;
     private String type;
     
