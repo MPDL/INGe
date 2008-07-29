@@ -69,6 +69,7 @@ import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ObjectTypeFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
@@ -134,6 +135,17 @@ public class QualityAssuranceBean implements QualityAssurance
         
         Filter f4 = filter.new ContextFilter(contextobjId);
         filter.getFilterList().add(f4);
+        
+        
+        //every public state except withdrawn
+        Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+        filter.getFilterList().add(f5);
+        Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+        filter.getFilterList().add(f6);
+        Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+        filter.getFilterList().add(f7);
+        Filter f8 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+        filter.getFilterList().add(f8);
        
         String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
        
