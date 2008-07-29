@@ -35,6 +35,7 @@ import static org.junit.Assert.assertTrue;
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import test.TestHelper;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -125,7 +126,9 @@ public class WebServiceTest
      * Test SOAP web service with a valid item object.
      * @throws Exception Any exception.
      */
+    // FIXME tendres: "This test has to be made runnnable"
     @Test
+    @Ignore( "This test has to be made runnnable" )
     public final void testValidItemSoapValidation() throws Exception
     {
         String itemXml = validXml;
