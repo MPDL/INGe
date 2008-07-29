@@ -1141,7 +1141,7 @@ public class ViewItemFull extends FacesBean
     public String getWithdrawalDate()
     {
     	String date = "";
-    	if(this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+    	if(this.pubItem.getPublicStatus().equals(PubItemVO.State.WITHDRAWN))
         {
     		if(this.pubItem.getModificationDate() != null)
     		{
@@ -1924,5 +1924,15 @@ public class ViewItemFull extends FacesBean
     public void setStateInRevision(boolean isStateInRevision)
     {
         this.isStateInRevision = isStateInRevision;
+    }
+    
+    public String getItemPublicState()
+    {
+        String itemState="";
+        if(this.pubItem.getPublicStatus() != null)
+        {
+            itemState = getLabel(this.i18nHelper.convertEnumToString(this.pubItem.getPublicStatus()));
+        }
+        return itemState;
     }
 }

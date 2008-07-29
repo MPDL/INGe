@@ -88,7 +88,7 @@
 </div>
 	
 	<!--Withdrawal Information -->
-<h:panelGroup rendered="#{ViewItemFull.itemIsWithdrawn}">
+<h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}">
 	<div class="itemElementLine floatbox">	
 		<h:outputText value="<div class='itemTitle odd withdrawn'>" escape="false"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblWithdrawalDate}"/>

@@ -1345,7 +1345,7 @@ public class ItemControllerSessionBean extends FacesBean
         Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
         filter.getFilterList().add(f2);
         
-        if (selectedItemState.equals("withdrawn"))
+        if (selectedItemState.toLowerCase().equals("withdrawn"))
         {
             Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
             filter.getFilterList().add(f3);
