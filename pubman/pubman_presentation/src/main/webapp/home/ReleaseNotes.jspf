@@ -91,7 +91,7 @@ Current functionalities
 		<li>An Search and Output Service allows user-/local specific queries
 	     of data for integration into local systems.</b> 
 		</li>
-		<li>The service can be accessed directly under <a href="http://pubman.mpdl.mpg.de/pubman/search/SearchAndOutput_info.jsp">REST interface</a> or via a <a href="http://pubman.mpdl.mpg.de/pubman/search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
+		<li>The service can be accessed directly under <a href="search/SearchAndOutput_info.jsp">REST interface</a> or via a <a href="search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
 		</li>
 	</ul>
 
