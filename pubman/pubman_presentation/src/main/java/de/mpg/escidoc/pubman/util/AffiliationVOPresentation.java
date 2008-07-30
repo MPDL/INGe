@@ -77,6 +77,7 @@ public class AffiliationVOPresentation extends AffiliationVO
 		ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
 			
 		StringBuffer html = new StringBuffer();
+		html.append("<html><head></head><body>");
 		html.append("<div class=\"affDetails\"><h1>"+labelBundle.getString("AffiliationTree_txtHeadlineDetails")+"</h1>");	
 		html.append("<div class=\"formField\">");
 		if( getDetails().getDescriptions().size() > 0 && !"".equals(getDetails().getDescriptions().get(0)))
@@ -93,6 +94,7 @@ public class AffiliationVOPresentation extends AffiliationVO
 			html.append("</span>");
 		}
 		html.append("</div></div>");
+		html.append("</body></html>");
 		return html.toString();
 	}
 

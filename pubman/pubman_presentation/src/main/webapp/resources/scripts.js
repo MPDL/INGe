@@ -68,8 +68,10 @@ function loadHelp(url, anchor)
 function loadDescription(html)
 {
 	
-	//myWindow=window.open('','myWindow','width=600,height=400');
+	myWindow=window.open('','myWindow','width=600,height=400');
+	//myWindow.document.open();
 	//myWindow.document.write(html);
+	//myWindow.document.close();
 	//myWindow.focus();
 	openCenteredWindowTest(html, 900, 400, "Description" );
 }
@@ -105,6 +107,7 @@ function openCenteredWindowTest(html, width, height, windowName)
 	
 	attributes = "width=" + width + ", height=" + height + ", top=" + topPos + ", left=" + leftPos + ", resizable=yes, scrollbars=yes";
 	newWindow = window.open('', windowName, attributes); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	newWindow.document.open();
 	newWindow.document.write(html);
 	
 	var scriptElem = document.createElement('script');
@@ -130,6 +133,7 @@ function openCenteredWindowTest(html, width, height, windowName)
     cssElement.setAttribute( "type", "text/css" );
     cssElement.setAttribute( "rel", "stylesheet" );
     newWindow.document.body.appendChild( cssElement );
+    newWindow.document.close();
 	newWindow.focus();
 }
 
