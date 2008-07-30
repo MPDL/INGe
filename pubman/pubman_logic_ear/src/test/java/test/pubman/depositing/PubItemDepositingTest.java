@@ -115,6 +115,7 @@ public class PubItemDepositingTest extends TestBase
         oc = new ObjectComparator(savedItem.getVersion(), retrievedPubItem.getVersion());
         assertEquals(0, oc.getDiffs().size());
         //assertNull(retrievedPubItem.getPid());
+        
         // compare the whole object
         oc = new ObjectComparator(retrievedPubItem, savedItem);
         assertTrue(oc.toString(), oc.isEqual());
