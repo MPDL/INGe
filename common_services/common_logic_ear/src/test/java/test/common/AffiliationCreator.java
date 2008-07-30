@@ -34,6 +34,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -44,13 +45,21 @@ import javax.naming.NamingException;
 
 import org.apache.log4j.Logger;
 
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.OrganizationalUnitNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
+import de.escidoc.www.services.om.ItemHandler;
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.types.Coordinates;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsOrganizationalUnitDetailsVO;
+import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -634,47 +643,95 @@ public class AffiliationCreator extends TestBase
     {
         String systemAdministratorUserHandle = loginSystemAdministrator();
 
-        int nextLoopAffiliationCount;
-        do
-        {
-            // retrieve all affiliations in the framework (again)
-            OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
-            String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
-            System.out.println(affiliationsXML);
-            List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);
-
-            nextLoopAffiliationCount = 0;
-            for (AffiliationVO affiliation : affiliations)
-            {
-                // As affiliations with child affiliations cannot be removed, skip them in this loop run
-                if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
-                {
-                    String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
-                    logger.debug("Examining '" + affiliationName + "'");
-                    if (affiliationName.contains("***"))
-                    {
-                        logger.info(affiliation.getReference().getObjectId() + " has " + (affiliation.getHasChildren() ? "" : "no ") + "children");
-                        if (!affiliation.getHasChildren())
-                        {
-                            try
-                            {
-                                ouh.delete(affiliation.getReference().getObjectId());
-                                logger.debug("-> " + affiliationName + "...DELETED");
-                            }
-                            catch (Exception e) {
-                                logger.error("Error deleting " + affiliation.getReference().getObjectId());
-                            }
-                        }
-                        else
-                        {
-                            nextLoopAffiliationCount++;
-                        }
-                    }
-                }
-            }
-            logger.info("Test affiliation removal loop ended. nextLoopAffiliationCount = " + nextLoopAffiliationCount);
-        }
-        while (nextLoopAffiliationCount > 0);
+        
         logout(systemAdministratorUserHandle);
+       // retrieve all affiliations in the framework (again)
+      OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
+      String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
+      System.out.println(affiliationsXML);
+      List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);
+       
+      for (AffiliationVO affiliation : affiliations) {
+    	  String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+    	  if (affiliationName.contains("***") ) {
+    		  deleteAffiliationNode( ouh, affiliation );
+    	  }
+      }
+//        do
+//        {        	
+//            // retrieve all affiliations in the framework (again)
+//            OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
+//            String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);
+//            System.out.println(affiliationsXML);
+//            List<AffiliationVO> affiliations = xmlTransforming.transformToAffiliationList(affiliationsXML);
+//
+//            nextLoopAffiliationCount = 0;
+//            for (AffiliationVO affiliation : affiliations)
+//            {
+//                // As affiliations with child affiliations cannot be removed, skip them in this loop run
+//                if (affiliation.getMetadataSets().size() > 0 && affiliation.getMetadataSets().get(0) instanceof MdsOrganizationalUnitDetailsVO)
+//                {
+//                    String affiliationName = ((MdsOrganizationalUnitDetailsVO) affiliation.getMetadataSets().get(0)).getName();
+//                    logger.debug("Examining '" + affiliationName + "'");
+//                    if (affiliationName.contains("***"))
+//                    {
+//                        logger.info(affiliation.getReference().getObjectId() + " has " + (affiliation.getHasChildren() ? "" : "no ") + "children");
+//                        if (!affiliation.getHasChildren())
+//                        {
+//                            try
+//                            {
+//                                ouh.delete(affiliation.getReference().getObjectId());
+//                                logger.debug("-> " + affiliationName + "...DELETED");
+//                            }
+//                            catch (Exception e) {
+//                                logger.error("Error deleting " + affiliation.getReference().getObjectId());
+//                            }
+//                        }
+//                        else
+//                        {
+//                            nextLoopAffiliationCount++;
+//                        }
+//                    }
+//                }
+//            }
+//            logger.info("Test affiliation removal loop ended. nextLoopAffiliationCount = " + nextLoopAffiliationCount);
+//        }
+//        while (nextLoopAffiliationCount > 0);
+//        logout(systemAdministratorUserHandle);
+    }
+    
+    private static void deleteAffiliationNode( OrganizationalUnitHandler ouh, AffiliationVO affiliation ) {
+    	if( affiliation.getHasChildren() == true ) {
+    		List<AffiliationRO> childList = affiliation.getChildAffiliations();
+    		for( int i = 0; i < childList.size(); i++ ) {
+    			String xmlAffiliation = null;
+    			AffiliationVO childAffiliation = null;
+				try {
+					xmlAffiliation = ouh.retrieve( childList.get( i ).getObjectId() );
+					childAffiliation = xmlTransforming.transformToAffiliation( xmlAffiliation );
+				} 
+				catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				deleteAffiliationNode( ouh, childAffiliation );
+				try {
+	    			ouh.delete(affiliation.getReference().getObjectId());
+	    		}
+	    		catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    	}
+    	else {
+    		try {
+    			ouh.delete(affiliation.getReference().getObjectId());
+    		}
+    		catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 }
