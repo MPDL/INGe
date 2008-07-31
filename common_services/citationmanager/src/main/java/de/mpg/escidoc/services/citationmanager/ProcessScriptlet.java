@@ -42,6 +42,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
@@ -87,8 +88,10 @@ public class ProcessScriptlet {
         "import net.sf.jasperreports.engine.util.JRStringUtil;\n" +
 //        "import org.w3c.dom.Document;\n" +
 //        "import org.w3c.dom.Node;\n" +
-        "import java.util.StringTokenizer;\n" + // for func get_initials
-        "import java.util.ArrayList;\n\n" +
+//        "import java.util.StringTokenizer;\n" + // for func get_initials
+//        "import java.util.ArrayList;\n\n" +
+        "import java.util.*;\n" +
+        "import java.util.regex.*;\n\n" +
 
         "public class %s extends JRDefaultScriptlet {\n" +
         "private ArrayList<String[]> elems = new ArrayList<String[]>();\n" +
@@ -115,10 +118,11 @@ public class ProcessScriptlet {
         "   if (str!=null && str.length()>0) {\n" +
 //        "System.out.println(\"before:\" + str);\n" +
         "       str = str.replaceAll(\"\\\\p{Blank}+\", \" \");\n" +
-        "       str = str.replaceAll(\"[.]+\\\\s*[.]+\",\".\");\n" +
-        "       str = str.replaceAll(\"([.]+\\\\<[/]?style[.]*?\\\\>)[.]+\",\"$1\");\n" +
+        "       str = str.replaceAll(\"([.]+\\\\s*[.]+)+\",\".\");\n" +
+        "       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style[.]*?\\\\>)[.]+\",\"$1\");\n" +
         "       str = str.replaceAll(\"(([,.;:?!])[ \\t\\r]+)+\", \"$2 \");\n" +
         "       str = str.replace(\"null\", \"\");\n" +
+		"		str = Pattern.compile(\"\\\\n+\\\\s*\\\\n+\", Pattern.DOTALL).matcher(str).replaceAll(\"\");\n" +
 //        "System.out.println(\"after:\" + str);\n" +
         "   }\n" +
         "   return str;\n" +
