@@ -68,7 +68,7 @@ function loadHelp(url, anchor)
 function loadDescription(html)
 {
 	
-	myWindow=window.open('','myWindow','width=600,height=400');
+	//myWindow=window.open('','myWindow','width=600,height=400');
 	//myWindow.document.open();
 	//myWindow.document.write(html);
 	//myWindow.document.close();
