@@ -754,15 +754,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         String expr = "";
 
         ps = new ProcessScriptlet(cs.getName());
-        
+        String V = null;
         for (LayoutElement csld : cs.getCsLayoutDefinitions()) {
             addLayoutElementToVariablesMap(csld);
-            expr += "$V{" + csld.getId() + "} + ";
+            V =  "$V{" + csld.getId() + "}";
+            expr += "!" + V + ".trim().equals(\"\") ? " + V + ":";
         }
-
-        
-        expr = expr.substring(0, expr.length() - 3);
-        
+        //expr = expr.substring(0, expr.length() - 1);
+        expr += "\"\""; 
         expr = "($P{REPORT_SCRIPTLET}.cleanCit(" + expr + "))";
 
 
