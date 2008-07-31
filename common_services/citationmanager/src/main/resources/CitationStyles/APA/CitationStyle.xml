@@ -39,6 +39,159 @@
     		<layout-element ref="objid"/>
     	</elements>
     </cs-layout-definition>	
+	    <!-- case: published-online and issued are not filled and dateAccepted is filled -->
+		<cs-layout-definition name="notPublishedAndAccepted">
+			<parameters>
+				<valid-if><![CDATA[$F{published-online} == null && $F{issued} == null && $F{dateAccepted} != null]]></valid-if>
+				<ends-with value=".\n\n" />
+			</parameters>
+			<elements>
+				<layout-element ref="creator[@role='author']/person"
+					repeatable="yes">
+						<!-- Defining the layout of the last creator  -->
+					<parameters position="last">
+						<delimiter value=", &amp; " />
+						<internal-delimiter value=", " />
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+					<parameters>
+						<delimiter value=", " />
+						<internal-delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+				</layout-element>
+				<layout-element ref="creator[@role='author']/organization"
+					repeatable="yes">
+					<parameters>
+						<delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="organization-name" />
+					</elements>
+				</layout-element>
+				<layout-element ref="title">
+					<parameters>
+						<starts-with value=" (in press). "/>
+						<ends-with value=". "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element ref="source/title">
+					<parameters>
+						<font-style ref="ITALIC"/>
+					</parameters>
+					<elements/>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>	
+	    <!-- case: published-online and issued are not filled and dateSubmitted is filled -->
+		<cs-layout-definition name="notPublishedAndSubmitted">
+			<parameters>
+				<valid-if><![CDATA[$F{published-online} == null && $F{issued} == null && $F{dateSubmitted} != null]]></valid-if>
+				<ends-with value="Submitted for publication.\n\n" />
+			</parameters>
+			<elements>
+				<layout-element ref="creator[@role='author']/person"
+					repeatable="yes">
+						<!-- Defining the layout of the last creator  -->
+					<parameters position="last">
+						<delimiter value=", &amp; " />
+						<internal-delimiter value=", " />
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+					<parameters>
+						<delimiter value=", " />
+						<internal-delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+				</layout-element>
+				<layout-element ref="creator[@role='author']/organization"
+					repeatable="yes">
+					<parameters>
+						<delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="organization-name" />
+					</elements>
+				</layout-element>
+				<layout-element ref="dateSubmitted" func="get_year">
+					<parameters>
+						<starts-with value=" ("/>
+						<ends-with value="). "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element ref="title">
+					<parameters>
+						<font-style ref="ITALIC"/>
+						<ends-with value=". "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>	
+	    <!-- case: published-online and issued are not filled and modified or created are filled -->
+		<cs-layout-definition name="notPublishedAndModifiedOrCreated">
+			<parameters>
+				<valid-if><![CDATA[$F{published-online} == null && $F{issued} == null && ( $F{modified} != null || $F{created} != null) ]]></valid-if>
+				<ends-with value=".\n\n" />
+			</parameters>
+			<elements>
+				<layout-element ref="creator[@role='author']/person"
+					repeatable="yes">
+						<!-- Defining the layout of the last creator  -->
+					<parameters position="last">
+						<delimiter value=", &amp; " />
+						<internal-delimiter value=", " />
+					</parameters>
+					<elements position="last">
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+					<parameters>
+						<delimiter value=", " />
+						<internal-delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="family-name" />
+						<layout-element ref="given-name" func="get_initials" />
+					</elements>
+				</layout-element>
+				<layout-element ref="creator[@role='author']/organization"
+					repeatable="yes">
+					<parameters>
+						<delimiter value=", " />
+						<max-count value="6"><![CDATA[et al.]]></max-count>
+					</parameters>
+					<elements>
+						<layout-element ref="organization-name" />
+					</elements>
+				</layout-element>
+				<layout-element ref="title">
+					<parameters>
+						<starts-with value=" (in preparation). "/>
+					</parameters>
+					<elements/>
+				</layout-element>
+			</elements>
+		</cs-layout-definition>	
 		<!-- BOOK CHAPTER -->
 		<!-- Question: Should courseware, other, conference-paper and conference-report handled identically? -->
 		<!-- Note: We need to differentiate between conference-papers published in a book and those published in a journal issue -->
