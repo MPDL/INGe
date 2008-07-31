@@ -35,9 +35,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.io.File;
-
-import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
@@ -45,7 +42,6 @@ import org.junit.Test;
 import test.pubman.TestBase;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
@@ -67,8 +63,6 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
  */
 public class PubItemPublishingTest extends TestBase
 {
-	private static final Logger logger = Logger.getLogger(PubItemPublishingTest.class);
-	
     private static PubItemPublishing pmPublishing;
     private static PubItemDepositing pmDepositing;
 
@@ -121,19 +115,11 @@ public class PubItemPublishingTest extends TestBase
     public void testReleasePubItemWithFile() throws Exception
     {
 
-    	String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
-    	
         // new item
-    	MdsFileVO filevo = new MdsFileVO();
-    	filevo.setTitle(new TextVO("farbtest.gif"));
-    	File test = ResourceUtil.getResourceAsFile(testfile);
-     	filevo.setSize((int)test.length());
-   	
-     	
         PubItemVO item = getNewPubItemWithoutFiles();
         // Add file to item
         FileVO file = new FileVO();
-        
+        String testfile = "src/test/resources/publishing/pubItemPublishingTest/farbtest.gif";
         file.setContent(uploadFile(testfile, "image/gif", user.getHandle()).toString());
         file.setMimeType("image/gif");
         file.setContentCategory("publisher_version");
@@ -153,10 +139,7 @@ public class PubItemPublishingTest extends TestBase
         //file.setName("farbtest.gif");
         //file.setDescription("Ein Farbtest.");
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-        file.setDefaultMetadata(filevo);
         item.getFiles().add(file);
-        
-        logger.info( "TOMSTEST:" + file.getContent() );
 
         ItemRO pubItemRef = pmDepositing.submitAndReleasePubItem(item, "Test Submit", user).getVersion();
         assertNotNull(pubItemRef);

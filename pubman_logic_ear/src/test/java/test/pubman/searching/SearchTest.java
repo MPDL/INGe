@@ -36,13 +36,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
-import java.io.File;
 import test.pubman.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -51,8 +49,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
-import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
-import de.mpg.escidoc.services.common.util.ResourceUtil;
 
 /**
  * Test class for simple search.
@@ -129,21 +125,13 @@ public class SearchTest extends TestBase
     {   
         AccountUserVO user = getUserTestDepLibWithHandle();
         
-        String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
-        
-        
-     // new item
-    	MdsFileVO filevo = new MdsFileVO();
-    	filevo.setTitle(new TextVO("Der_kleine_Prinz_Auszug.pdf"));
-    	File test = ResourceUtil.getResourceAsFile(testfile);
-     	filevo.setSize((int)test.length());
-        
         // new item
         PubItemVO myItem = getNewPubItemWithoutFiles();
         String title = "Der kleine Prinz"+System.nanoTime();
         myItem.getMetadata().getTitle().setValue(title);
         // Add file to item
         FileVO file = new FileVO();
+        String testfile = "src/test/resources/searching/searchTest/Der_kleine_Prinz_Auszug.pdf";
         file.setContent(uploadFile(testfile, "application/pdf", user.getHandle()).toString());
         file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
         file.setContentCategory("publisher_version");
@@ -161,7 +149,6 @@ public class SearchTest extends TestBase
         formatVO.setValue("application/pdf");
         file.getDefaultMetadata().getFormats().add(formatVO);
               
-        file.setDefaultMetadata(filevo);
         myItem.getFiles().add(file);
         
         // create PubItem and submit (automatically releases the pubItem)
