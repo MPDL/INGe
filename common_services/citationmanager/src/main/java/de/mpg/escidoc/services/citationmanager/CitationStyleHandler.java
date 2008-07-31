@@ -62,6 +62,13 @@ public interface CitationStyleHandler {
 	 */
     String explainStyles() throws IllegalArgumentException, IOException, CitationStyleManagerException;
 
+    /**
+     * This method returns <code>true</code> if citationStyle is in the list of the 
+     * citation styles, <code>false</code> otherwise.
+     * @throws StructuredExportManagerException 
+     */
+    boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException;
+    
 	/**
 	 * This method provides the formatted output in the desired citation style.
 	 * 
@@ -72,6 +79,7 @@ public interface CitationStyleHandler {
 	 * Metadata record for each item in the item list should be specified in
 	 * accordance with escidoc_publication_profile.xsd
 	 */
+    
     
 	byte[] getOutput(String citationStyle, String ouputFormat, String itemList)
 		throws IOException, JRException, CitationStyleManagerException;
