@@ -54,7 +54,7 @@ import java.io.IOException;
 @RemoteBinding(jndiBinding = CitationStyleHandler.SERVICE_NAME)
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 public class CitationStyleHandlerBean implements CitationStyleHandler
-{
+{ 
     /**
      * Logger for this class.
      */
@@ -88,4 +88,13 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
         exportData = citStylesMan.getOutput(citationStyle, outputFormat, itemList);
         return exportData;
     }
+
+    /**
+     * {@inheritDoc}
+    * @throws CitationStyleManagerException 
+     */
+	public boolean isCitationStyle(String citationStyle)
+			throws CitationStyleManagerException {
+		return citStylesMan.isCitationStyle(citationStyle);
+	}
 }
