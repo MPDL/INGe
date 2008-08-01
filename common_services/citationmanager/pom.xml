@@ -36,7 +36,7 @@
 	<artifactId>citationmanager</artifactId>
 	<packaging>ejb</packaging>
 	<name>citationmanager</name>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.8-SNAPSHOT</version> 
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</connection>
