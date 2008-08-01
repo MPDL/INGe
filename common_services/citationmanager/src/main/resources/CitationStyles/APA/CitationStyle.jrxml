@@ -171,7 +171,7 @@
 		<variableExpression><![CDATA[(($F{tmpField_CS_1_CSLD_2_P_default_E_2}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_2_P_default_E_2()) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_3" class="java.lang.String">
-		<variableExpression><![CDATA[$V{date} != null ? (!($V{date}).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year($V{date})) + "). " : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{issued} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued}))).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued})))) + "). " : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_2_P_default_E_4" class="java.lang.String">
 		<variableExpression><![CDATA[$F{title} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + ". " : "") : ""]]></variableExpression>
@@ -207,7 +207,7 @@
 		<variableExpression><![CDATA[(($F{tmpField_CS_1_CSLD_3_P_default_E_2}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_3_P_default_E_2()) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_3" class="java.lang.String">
-		<variableExpression><![CDATA[$V{date} != null ? (!($V{date}).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year($V{date})) + ")." : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{issued} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued}))).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued})))) + ")." : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_4" class="java.lang.String">
 		<variableExpression><![CDATA[$F{title} != null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">" + (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + "." : "") + "</style>" : ""]]></variableExpression>
@@ -225,7 +225,7 @@
 		<variableExpression><![CDATA[(($F{tmpField_CS_1_CSLD_4_P_default_E_1}).trim().equals("true") ? (($P{REPORT_SCRIPTLET}).getCS_1_CSLD_4_P_default_E_1()) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_4_P_default_E_2" class="java.lang.String">
-		<variableExpression><![CDATA[$V{date} != null ? (!($V{date}).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year($V{date})) + ")." : "") : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{issued} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued}))).trim().equals("") ? " (" + ($P{REPORT_SCRIPTLET}.get_year(($P{REPORT_SCRIPTLET}.xmlEncode($F{issued})))) + ")." : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_4_P_default_E_3" class="java.lang.String">
 		<variableExpression><![CDATA[$F{title} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{title})) + ". " : "") : ""]]></variableExpression>

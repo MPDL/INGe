@@ -89,8 +89,7 @@
 						<layout-element ref="organization-name" />
 					</elements>
 				</layout-element>
-				<!-- BOOK CHAPTER, element "date" -->
-				<layout-element ref="date" func="get_year">
+				<layout-element ref="issued" func="get_year">
 					<parameters>
 						<starts-with value=" (" />
 						<ends-with value="). " />
@@ -203,8 +202,7 @@
 						<layout-element ref="organization-name" />
 					</elements>
 				</layout-element>
-				<!-- BOOK, element "date" -->
-				<layout-element ref="date" func="get_year">
+				<layout-element ref="issued" func="get_year">
 					<parameters>
 						<starts-with value=" (" />
 						<ends-with value=")." />
@@ -280,8 +278,7 @@
 					al.]]></max-count> </parameters> <elements> <layout-element
 					ref="organization-name" /> </elements> </layout-element>
 				-->
-				<!-- JOURNAL ARTICLE, element "date"  -->
-				<layout-element ref="date" func="get_year">
+				<layout-element ref="issued" func="get_year">
 					<parameters>
 						<starts-with value=" (" />
 						<ends-with value=")." />
