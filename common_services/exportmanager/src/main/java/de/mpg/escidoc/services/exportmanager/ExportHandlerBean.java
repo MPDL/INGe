@@ -60,39 +60,39 @@ public class ExportHandlerBean implements ExportHandler
      */
     private static Logger logger = Logger.getLogger(ExportHandlerBean.class);
     
+    private Export exportService = new Export();
+
+    
     /**
      * {@inheritDoc}
      */
-	public String explainFormats() throws ExportManagerException,
-			UnsupportedEncodingException, IOException {
-		
-        return new Export().explainFormatsXML();
+	public String explainFormatsXML() throws ExportManagerException, IOException 
+	{
+        return exportService.explainFormatsXML();
 	}
 
-  
     /**
      * {@inheritDoc}
      */
 	public byte[] getOutput(String exportFormat,
 			String outputFormat,
 			String archiveFormat,
-			boolean fetchComponents,
 			String itemList)
-			throws ExportManagerException {
-		
-        byte[] ret = null; 
-        Export exportService = new Export();
-        ret  = exportService.getOutput( exportFormat, outputFormat, archiveFormat, fetchComponents, itemList );
-        logger.debug("getOutput result: " + new String(ret) );
-        
-        return ret;
+			throws ExportManagerException 
+	{
+        return exportService.getOutput( exportFormat, outputFormat, archiveFormat, itemList );
+	}
+
+    /**
+     * {@inheritDoc}
+     */
+	public byte[] generateArchive(String exportFormat, String archiveFormat,
+			byte[] exportOut, String itemListFiltered)
+			throws ExportManagerException 
+	{
+		return exportService.generateArchive(exportFormat, archiveFormat, exportOut, itemListFiltered);
 	}
 
 
-	public String explainFormatsXML() throws ExportManagerException,
-			IOException {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

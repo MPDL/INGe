@@ -110,8 +110,8 @@ public class Export implements ExportHandler {
 	
 	public static final short BUFFER_SIZE = 1024;
 	private static final int NUMBER_OF_URL_TOKENS = 2;
-	private static final String USER_ID = "faces_user";
-	private static final String PASSWORD = "escidoc";
+	private static final String USER_ID = "roland";
+	private static final String PASSWORD = "beethoven";
 	
 
 	/* (non-Javadoc)
@@ -339,6 +339,10 @@ public class Export implements ExportHandler {
 		    		  new componentNodeFilter(), 
 		    		  true
 		      );
+		      
+		      //login only once
+		      String userHandle = loginUser(USER_ID, PASSWORD);
+
 		      String fileName;
 		      Node n;
 		      while ((n = ni.nextNode()) != null) 
@@ -369,8 +373,10 @@ public class Export implements ExportHandler {
 		    		  if ((nf = nif.nextNode()) != null) 
 		    		  {
 		    			  fileName = ((Element) nf).getTextContent();
-		    			  // names of files for 
-		    			  fileName = fileName.substring(0, fileName.indexOf(" "));
+		    			  // names of files for
+		    			  Matcher m = Pattern.compile("^([\\w.]+?)(\\s+|$)", Pattern.CASE_INSENSITIVE | Pattern.DOTALL).matcher(fileName);
+		    			  m.find();
+		    			  fileName = m.group(1);
 		    		  }
 		    		  else 
 		    		  {
@@ -390,10 +396,10 @@ public class Export implements ExportHandler {
 		    	  }
 		    		  
 		    	  logger.info("link to the content: " + href);
-		    	  logger.info("storage status : " + storageStatus);
+		    	  logger.info("storage status: " + storageStatus);
+		    	  logger.info("fileName: " + fileName);
 
 		    	  // get file via URI
-		          String userHandle = loginUser(USER_ID, PASSWORD);
 		          String url = ServiceLocator.getFrameworkUrl() + href;
 		          logger.info("url=" + url);
 		          GetMethod method = new GetMethod(url);
@@ -482,28 +488,6 @@ public class Export implements ExportHandler {
 	}
 
 
-	public static void main(String args[]) throws ExportManagerException, IOException
-	{
-		Export exp = new Export();
-//		logger.info(" result: " + exp.explainFormatsXML());
-		FileOutputStream fos = new FileOutputStream("file.zip");
-		fos.write(
-				exp.generateArchive( "CSV", "zip", new String("Tut csv fail").getBytes(), 
-						readFile("src/test/resources/item.xml", "UTF-8")		
-				)
-		);				
-		fos.close();
-//		FileOutputStream fos = new FileOutputStream("file.tar");
-//		fos.write(
-//				exp.generateArchive( "CSV", "tar", true, new String("Tut csv fail").getBytes(), 
-//						readFile("src/test/resources/item.xml", "UTF-8")		
-//				)
-//		);				
-//		fos.close();
-		
-	}
-
-	
     /**
      * Reads contents from text file and returns it as String.
      *
@@ -615,6 +599,30 @@ public class Export implements ExportHandler {
     	}
     	return userHandle;
     }
+    
+    
+	public static void main(String args[]) throws ExportManagerException, IOException
+	{
+		Export exp = new Export();
+//		logger.info(" result: " + exp.explainFormatsXML());
+		FileOutputStream fos = new FileOutputStream("file.zip");
+		fos.write(
+				exp.generateArchive( "CSV", "zip", new String("Tut csv fail").getBytes(), 
+						readFile("src/test/resources/search-results.xml", "UTF-8")		
+				)
+		);				
+		fos.close();
+//		FileOutputStream fos = new FileOutputStream("file.tar");
+//		fos.write(
+//				exp.generateArchive( "CSV", "tar", true, new String("Tut csv fail").getBytes(), 
+//						readFile("src/test/resources/item.xml", "UTF-8")		
+//				)
+//		);				
+//		fos.close();
+		
+	}
+
+    
 
 }
 
@@ -625,7 +633,9 @@ class componentNodeFilter implements NodeFilter {
 
 	public short acceptNode(Node n) {
 		Element e = (Element) n;
-		if (e.getNamespaceURI().equals(COMPONENTS_NS) && e.getLocalName().equals("component")) {
+		//System.out.println(e.getNodeName());
+		if (COMPONENTS_NS.equals(e.getNamespaceURI()) && "component".equals(e.getLocalName())) {
+//			System.out.println("component--->" + e.getNodeName());
 			return FILTER_ACCEPT;
 		}
 		return FILTER_SKIP;
@@ -640,12 +650,12 @@ class fileNameNodeFilter implements NodeFilter {
 	public short acceptNode(Node n) {
 		Element e = (Element) n;
 		Element parent = (Element)e.getParentNode();
-		boolean parentIsFile = parent != null && parent.getNamespaceURI().equals(FILE_NS) && parent.getLocalName().equals("file");
+		boolean parentIsFile = parent != null && FILE_NS.equals(parent.getNamespaceURI()) && "file".equals(parent.getLocalName());
 		if (
 				parentIsFile && 
-				e.getNamespaceURI().equals(DC_NS) && 
+				DC_NS.equals(e.getNamespaceURI()) && 
 				(
-						e.getLocalName().equals("title") 
+						"title".equals(e.getLocalName()) 
 				)
 		)		
 		{
