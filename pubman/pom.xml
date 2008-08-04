@@ -532,7 +532,7 @@
 				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://dev-pubman.mpg.de/pubman/item/</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de:8080/pubman/item/</escidoc.pubman.instance.url>
 				<escidoc.pubman.item.pattern>$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
