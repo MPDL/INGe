@@ -964,8 +964,11 @@ public class TransformPubItemIntegrationTest extends XmlTransformingTestBase
         
         // Retrieve the item again
         String pubItemXMLPostWithdrawal = ihr.retrieve(pubItemVOPostRelease.getVersion().getObjectId());
+        logger.debug("pubItemXMLPostWithdrawal \n"+pubItemXMLPostWithdrawal);
         PubItemVO pubItemVOPostWithdrawal = xmlTransforming.transformToPubItem(pubItemXMLPostWithdrawal);
-                
+        logger.debug("pubItemVOPostWithdrawal public status:\n"+pubItemVOPostWithdrawal.getPublicStatus());
+        logger.debug("pubItemVOPostWithdrawal lock status:\n"+pubItemVOPostWithdrawal.getLockStatus());
+        logger.debug("pubItemVOPostWithdrawal comment:\n"+pubItemVOPostWithdrawal.getWithdrawalComment());
         logger.info("Returned item transformed back to PubItemVO.");
         // check results
         assertEquals(WITHDRAWAL_COMMENT, pubItemVOPostWithdrawal.getWithdrawalComment());

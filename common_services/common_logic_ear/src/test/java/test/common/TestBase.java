@@ -20,14 +20,12 @@
  *
  * CDDL HEADER END
  */
-
 /*
  * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
  * für wissenschaftlich-technische Information mbH and Max-Planck-
  * Gesellschaft zur Förderung der Wissenschaft e.V.
  * All rights reserved. Use is subject to license terms.
  */
-
 package test.common;
 
 import static org.junit.Assert.assertEquals;
@@ -149,51 +147,40 @@ public class TestBase
             + "for your publication (metadata) and all relevant files. The MPS is the\n"
             + "responsible affiliation for this collection. Please contact\n"
             + "u.tschida@zim.mpg.de for any questions.";
-    
     private static final int NUMBER_OF_URL_TOKENS = 2;
-    
     /**
      * The default scientist password property.
      */
     protected static final String PROPERTY_USERNAME_SCIENTIST = "framework.scientist.username";
-    
     /**
      * The default scientist password property.
      */
     protected static final String PROPERTY_PASSWORD_SCIENTIST = "framework.scientist.password";
-    
     /**
      * The default librarian password property.
      */
     protected static final String PROPERTY_USERNAME_LIBRARIAN = "framework.librarian.username";
-    
     /**
      * The default librarian password property.
      */
     protected static final String PROPERTY_PASSWORD_LIBRARIAN = "framework.librarian.password";
-    
     /**
      * The default admin password property.
      */
     protected static final String PROPERTY_USERNAME_AUTHOR = "framework.author.username";
-    
     /**
-     * The default admin  password property.
+     * The default admin password property.
      */
     protected static final String PROPERTY_PASSWORD_AUTHOR = "framework.author.password";
-    
     /**
      * The default admin password property.
      */
     protected static final String PROPERTY_USERNAME_ADMIN = "framework.admin.username";
-    
     /**
-     * The default admin  password property.
+     * The default admin password property.
      */
     protected static final String PROPERTY_PASSWORD_ADMIN = "framework.admin.password";
-
     private static Map<String, Schema> schemas = null;
-    
     /**
      * Logger for this class.
      */
@@ -202,7 +189,7 @@ public class TestBase
     /**
      * Helper method to retrieve a EJB service instance. The name to be passed to the method is normally
      * 'ServiceXY.SERVICE_NAME'.
-     *
+     * 
      * @return instance of the EJB service
      * @throws NamingException
      */
@@ -213,7 +200,7 @@ public class TestBase
         assertNotNull(serviceInstance);
         return serviceInstance;
     }
-    
+
     /**
      * Logs in the given user with the given password.
      * 
@@ -223,53 +210,44 @@ public class TestBase
      * @throws HttpException
      * @throws IOException
      * @throws ServiceException
-     * @throws URISyntaxException 
+     * @throws URISyntaxException
      */
-    protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
+    protected static String loginUser(String userid, String password) throws HttpException, IOException,
+            ServiceException, URISyntaxException
     {
         String frameworkUrl = ServiceLocator.getFrameworkUrl();
-        StringTokenizer tokens = new StringTokenizer( frameworkUrl, "//" );
-        if( tokens.countTokens() != NUMBER_OF_URL_TOKENS ) {
-            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        StringTokenizer tokens = new StringTokenizer(frameworkUrl, "//");
+        if (tokens.countTokens() != NUMBER_OF_URL_TOKENS)
+        {
+            throw new IOException("Url in the config file is in the wrong format, needs to be http://<host>:<port>");
         }
         tokens.nextToken();
         StringTokenizer hostPort = new StringTokenizer(tokens.nextToken(), ":");
-        
-        if( hostPort.countTokens() != NUMBER_OF_URL_TOKENS ) {
-            throw new IOException( "Url in the config file is in the wrong format, needs to be http://<host>:<port>" );
+        if (hostPort.countTokens() != NUMBER_OF_URL_TOKENS)
+        {
+            throw new IOException("Url in the config file is in the wrong format, needs to be http://<host>:<port>");
         }
         String host = hostPort.nextToken();
-        int port = Integer.parseInt( hostPort.nextToken() );
-        
+        int port = Integer.parseInt(hostPort.nextToken());
         HttpClient client = new HttpClient();
-
-        client.getHostConfiguration().setHost( host, port, "http");
+        client.getHostConfiguration().setHost(host, port, "http");
         client.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
-        
-        PostMethod login = new PostMethod( frameworkUrl + "/aa/j_spring_security_check");
+        PostMethod login = new PostMethod(frameworkUrl + "/aa/j_spring_security_check");
         login.addParameter("j_username", userid);
         login.addParameter("j_password", password);
-        
         client.executeMethod(login);
-                
         login.releaseConnection();
         CookieSpec cookiespec = CookiePolicy.getDefaultSpec();
-        Cookie[] logoncookies = cookiespec.match(
-                host, port, "/", false, 
-                client.getState().getCookies());
-        
+        Cookie[] logoncookies = cookiespec.match(host, port, "/", false, client.getState().getCookies());
         Cookie sessionCookie = logoncookies[0];
-        
         PostMethod postMethod = new PostMethod("/aa/login");
         postMethod.addParameter("target", frameworkUrl);
         client.getState().addCookie(sessionCookie);
         client.executeMethod(postMethod);
-      
         if (HttpServletResponse.SC_SEE_OTHER != postMethod.getStatusCode())
         {
             throw new HttpException("Wrong status code: " + login.getStatusCode());
         }
-        
         String userHandle = null;
         Header headers[] = postMethod.getResponseHeaders();
         for (int i = 0; i < headers.length; ++i)
@@ -279,18 +257,17 @@ public class TestBase
                 String location = headers[i].getValue();
                 int index = location.indexOf('=');
                 userHandle = new String(Base64.decode(location.substring(index + 1, location.length())));
-                //System.out.println("location: "+location);
-                //System.out.println("handle: "+userHandle);
+                // System.out.println("location: "+location);
+                // System.out.println("handle: "+userHandle);
             }
         }
-        
         if (userHandle == null)
         {
             throw new ServiceException("User not logged in.");
         }
         return userHandle;
     }
-    
+
     /**
      * Logs the user test_dep_scientist in and returns the corresponding user handle.
      * 
@@ -301,7 +278,22 @@ public class TestBase
      */
     protected static String loginScientist() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader.getProperty(PROPERTY_PASSWORD_SCIENTIST));
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_SCIENTIST), PropertyReader
+                .getProperty(PROPERTY_PASSWORD_SCIENTIST));
+    }
+
+    /**
+     * Logs the user test_author in and returns the corresponding user handle.
+     * 
+     * @return userHandle
+     * @throws ServiceException
+     * @throws HttpException
+     * @throws IOException
+     */
+    protected static String loginAuthor() throws ServiceException, HttpException, IOException, URISyntaxException
+    {
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_AUTHOR), PropertyReader
+                .getProperty(PROPERTY_PASSWORD_AUTHOR));
     }
 
     /**
@@ -314,7 +306,8 @@ public class TestBase
      */
     protected static String loginLibrarian() throws ServiceException, HttpException, IOException, URISyntaxException
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader.getProperty(PROPERTY_PASSWORD_LIBRARIAN));
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_LIBRARIAN), PropertyReader
+                .getProperty(PROPERTY_PASSWORD_LIBRARIAN));
     }
 
     /**
@@ -325,7 +318,8 @@ public class TestBase
      */
     protected static String loginSystemAdministrator() throws Exception
     {
-        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader.getProperty(PROPERTY_PASSWORD_ADMIN));
+        return loginUser(PropertyReader.getProperty(PROPERTY_USERNAME_ADMIN), PropertyReader
+                .getProperty(PROPERTY_PASSWORD_ADMIN));
     }
 
     /**
@@ -352,17 +346,23 @@ public class TestBase
     {
         AccountUserVO accountUser = new AccountUserVO();
         String xmlUser = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
-        accountUser = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
+        accountUser = ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME)).transformToAccountUser(xmlUser);
         // add the user handle to the transformed account user
         accountUser.setHandle(userHandle);
         String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(
                 accountUser.getReference().getObjectId());
-        List<GrantVO> grants = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME))
+        List<GrantVO> grants = ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME))
                 .transformToGrantVOList(userGrantXML);
-        List<GrantVO> userGrants = accountUser.getGrants();
-        for (GrantVO grant : grants)
+        if (grants != null)
         {
-            userGrants.add(grant);
+            List<GrantVO> userGrants = accountUser.getGrants();
+            if (userGrants.size() > 0)
+            {
+                for (GrantVO grant : grants)
+                {
+                    userGrants.add(grant);
+                }
+            }
         }
         return accountUser;
     }
@@ -375,11 +375,9 @@ public class TestBase
     protected PubItemVO getPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
-
         // Metadata
         MdsPublicationVO mds = getMdsPublication1();
         item.setMetadata(mds);
-
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
@@ -395,16 +393,13 @@ public class TestBase
     protected PubItemVO getPubItem2()
     {
         PubItemVO item = new PubItemVO();
-
         // (1) metadata
         MdsPublicationVO mds = getMdsPublication2();
         item.setMetadata(mds);
-
         // (2) pubCollection
         ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId("escidoc:persistent3");
         item.setContext(collectionRef);
-
         return item;
     }
 
@@ -416,13 +411,11 @@ public class TestBase
     protected PubItemVO getPubItemNamedTheFirstOfAll()
     {
         PubItemVO item = new PubItemVO();
-
         // properties of the item
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
         item.setContext(collectionRef);
-
         // item metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         // title
@@ -467,9 +460,7 @@ public class TestBase
         // table of contents
         TextVO toc = new TextVO("I like to test with umlauts. Es grünt ßo grün, wenn Spániäns Blümälain blühn.", "it");
         mds.setTableOfContents(toc);
-
         item.setMetadata(mds);
-
         return item;
     }
 
@@ -481,13 +472,11 @@ public class TestBase
     protected PubItemResultVO getPubItemResultNamedTheFirstOfAll()
     {
         PubItemResultVO itemResult = new PubItemResultVO();
-
         // properties of the item
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
         itemResult.setContext(collectionRef);
-
         // item metadata
         MdsPublicationVO mds = new MdsPublicationVO();
         // title
@@ -524,7 +513,6 @@ public class TestBase
         source.setTitle(new TextVO("The title of the source", "en"));
         source.setGenre(SourceVO.Genre.JOURNAL);
         itemResult.setMetadata(mds);
-
         return itemResult;
     }
 
@@ -536,16 +524,13 @@ public class TestBase
     protected PubItemVO getComplexPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
-
         // Metadata
         MdsPublicationVO mds = getMdsPublication1();
         item.setMetadata(mds);
-
         // PubCollectionRef
         ContextRO collectionRef = new ContextRO();
         collectionRef.setObjectId(PUBMAN_TEST_COLLECTION_ID);
         item.setContext(collectionRef);
-
         return item;
     }
 
@@ -558,10 +543,8 @@ public class TestBase
     {
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
-
         // Genre
         mds.setGenre(Genre.BOOK);
-
         // Creator
         CreatorVO creator;
         creator = new CreatorVO();
@@ -620,23 +603,18 @@ public class TestBase
         organization.setIdentifier("1a");
         creator.setOrganization(organization);
         mds.getCreators().add(creator);
-
         // Title
         mds.setTitle(new TextVO("Über den Wölken. The first of all. Das Maß aller Dinge.", "en"));
-
         // Language
         mds.getLanguages().add("de");
         mds.getLanguages().add("en");
         mds.getLanguages().add("fr");
-
         // Alternative Title
         mds.getAlternativeTitles().add(new TextVO("Die Erste von allen.", "de"));
         mds.getAlternativeTitles().add(new TextVO("Wulewu", "fr"));
-
         // Identifier
         mds.getIdentifiers().add(new IdentifierVO(IdType.ISI, "0815"));
         mds.getIdentifiers().add(new IdentifierVO(IdType.ISSN, "issn"));
-
         // Publishing Info
         PublishingInfoVO pubInfo;
         pubInfo = new PublishingInfoVO();
@@ -644,17 +622,14 @@ public class TestBase
         pubInfo.setEdition("One and a half");
         pubInfo.setPlace("Garching-Itzehoe-Capreton");
         mds.setPublishingInfo(pubInfo);
-
         // Date
         mds.setDateCreated("2005-02");
         mds.setDateSubmitted("2005-08-31");
         mds.setDateAccepted("2005");
         mds.setDatePublishedInPrint("2006-02-01");
         mds.setDateModified("2007-02-27");
-
         // Review method
         mds.setReviewMethod(ReviewMethod.INTERNAL);
-
         // Source
         SourceVO source = new SourceVO();
         // Source.Title
@@ -720,7 +695,6 @@ public class TestBase
         sourceSourceCreator.getOrganization().setIdentifier("ID-4711-0815");
         source.getSources().get(0).getCreators().add(sourceSourceCreator);
         mds.getSources().add(source);
-
         // Event
         EventVO event = new EventVO();
         // Event.Title
@@ -739,32 +713,25 @@ public class TestBase
         // Event.InvitationStatus
         event.setInvitationStatus(InvitationStatus.INVITED);
         mds.setEvent(event);
-
         // Total Numeber of Pages
         mds.setTotalNumberOfPages("999");
-
         // Degree
         mds.setDegree(DegreeType.MASTER);
-
         // Abstracts
         mds.getAbstracts().add(new TextVO("Dies ist die Zusammenfassung der Veröffentlichung.", "de"));
         mds.getAbstracts().add(new TextVO("This is the summary of the publication.", "en"));
-
         // Subject
         TextVO subject = new TextVO();
         subject.setLanguage("de");
         subject.setValue("wichtig,wissenschaftlich,spannend");
         mds.setSubject(subject);
-
         // Table of Contents
         TextVO tableOfContents = new TextVO();
         tableOfContents.setLanguage("de");
         tableOfContents.setValue("1.Einleitung 2.Inhalt");
         mds.setTableOfContents(tableOfContents);
-
         // Location
         mds.setLocation("IPP, Garching");
-
         return mds;
     }
 
@@ -777,16 +744,13 @@ public class TestBase
     {
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
-
         // Title
         TextVO title = new TextVO();
         title.setLanguage("en");
         title.setValue("The title");
         mds.setTitle(title);
-
         // Genre
         mds.setGenre(Genre.BOOK);
-
         // Creators
         CreatorVO creator = new CreatorVO();
         creator.setRole(CreatorRole.AUTHOR);
@@ -796,14 +760,12 @@ public class TestBase
         person.setCompleteName("Hans Meier");
         creator.setPerson(person);
         mds.getCreators().add(creator);
-
         // Dates
         mds.setDateCreated("2005-2");
         mds.setDateSubmitted("2005-8-31");
         mds.setDateAccepted("2005");
         mds.setDatePublishedInPrint("2006-2-1");
         mds.setDateModified("2007-2-29");
-
         // Identifiers
         List<IdentifierVO> identifierList = mds.getIdentifiers();
         IdentifierVO identifierVO = new IdentifierVO();
@@ -813,17 +775,14 @@ public class TestBase
         {
             identifierList.add(identifierVO);
         }
-
         // Publishing info
         PublishingInfoVO publishingInfoVO = new PublishingInfoVO();
         publishingInfoVO.setEdition("Edition 123");
         publishingInfoVO.setPlace("Place 5");
         publishingInfoVO.setPublisher("Publisher XY");
         mds.setPublishingInfo(publishingInfoVO);
-
         // build the List of SourceVOs...
         List<SourceVO> sourcesList = mds.getSources();
-
         // build one SourceVO instance...
         SourceVO sourceVO = new SourceVO();
         sourceVO.setTitle(title);
@@ -848,7 +807,6 @@ public class TestBase
         {
             sourceIdentifierList.add(id);
         }
-
         // build another SourceVO instance...
         SourceVO sourceVO2 = new SourceVO();
         sourceVO2.setTitle(title);
@@ -873,20 +831,17 @@ public class TestBase
         {
             sourceIdentifierList2.add(id);
         }
-
         // add several of the "other" SourceVO instances to the first SourceVO instance
         List<SourceVO> sourceSourcesList = sourceVO.getSources();
         for (int i = 0; i < 2; i++)
         {
             sourceSourcesList.add(sourceVO2);
         }
-
         // add SourceVO several times
         for (int i = 0; i < 2; i++)
         {
             sourcesList.add(sourceVO);
         }
-
         // Event
         EventVO event = new EventVO();
         // Event.Title
@@ -905,7 +860,6 @@ public class TestBase
         // Event.InvitationStatus
         event.setInvitationStatus(InvitationStatus.INVITED);
         mds.setEvent(event);
-
         return mds;
     }
 
@@ -945,8 +899,8 @@ public class TestBase
         File file = new File(fileName);
         if (!file.exists())
         {
-        	URL fileUrl = TestBase.class.getClassLoader().getResource(fileName);
-        	file = new File(fileUrl.getFile());
+            URL fileUrl = TestBase.class.getClassLoader().getResource(fileName);
+            file = new File(fileUrl.getFile());
         }
         BufferedReader dis = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
         fileBuffer = new StringBuffer();
@@ -1030,7 +984,6 @@ public class TestBase
         assertTrue(message, nodes.getLength() > 0);
     }
 
-
     /**
      * Assert that the XML is valid to the schema.
      * 
@@ -1040,23 +993,17 @@ public class TestBase
      */
     public static void assertXMLValid(final String xmlData) throws Exception
     {
-        
         if (xmlData == null)
         {
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":assertXMLValid:xmlData is null");
         }
-
         if (schemas == null)
         {
             initializeSchemas();
         }
-        
         String nameSpace = getNameSpaceFromXml(xmlData);
-        
         logger.debug("Looking up namespace '" + nameSpace + "'");
-        
         Schema schema = schemas.get(nameSpace);
-        
         try
         {
             Validator validator = schema.newValidator();
@@ -1071,7 +1018,6 @@ public class TestBase
             sb.append("Affected XML: \n" + xmlData);
             fail(sb.toString());
         }
-        
     }
 
     /**
@@ -1091,7 +1037,7 @@ public class TestBase
         {
             private String nameSpace = null;
             private boolean first = true;
-            
+
             public void startElement(String uri, String localName, String qName, Attributes attributes)
             {
                 if (first)
@@ -1108,9 +1054,8 @@ public class TestBase
                     }
                     first = false;
                 }
-
             }
-            
+
             public String toString()
             {
                 return nameSpace;
@@ -1142,7 +1087,7 @@ public class TestBase
                 {
                     private String nameSpace = null;
                     private boolean found = false;
-                    
+
                     public void startElement(String uri, String localName, String qName, Attributes attributes)
                     {
                         if (!found)
@@ -1164,7 +1109,7 @@ public class TestBase
                             }
                         }
                     }
-                    
+
                     public String toString()
                     {
                         return nameSpace;
@@ -1179,11 +1124,11 @@ public class TestBase
                 {
                     logger.warn("Error reading xml schema: " + file);
                 }
-
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 logger.warn("Invalid xml schema", e);
             }
-
         }
     }
 
@@ -1201,7 +1146,6 @@ public class TestBase
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":getSchema:schemaFileName is null");
         }
         File schemaFile = new File(schemaFileName);
-
         SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
         Schema theSchema = sf.newSchema(schemaFile);
         return theSchema;
@@ -1215,17 +1159,18 @@ public class TestBase
      * @return The value of the node.
      * @throws TransformerException
      */
-    protected String getValue( Document document, String xpathExpression ) throws TransformerException
+    protected String getValue(Document document, String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return xPath.evaluate(xpathExpression, document);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return xPath.evaluate(xpathExpression, document);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1262,15 +1207,16 @@ public class TestBase
      */
     public static Node selectSingleNode(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (Node)xPath.evaluate(xpathExpression, node, XPathConstants.NODE);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1283,15 +1229,16 @@ public class TestBase
      */
     public static NodeList selectNodeList(final Node node, final String xpathExpression) throws TransformerException
     {
-    	XPathFactory factory = XPathFactory.newInstance();
-    	XPath xPath = factory.newXPath();
-    	try
-    	{
-    		return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
-    	}
-    	catch (Exception e) {
-			throw new RuntimeException(e);
-		}
+        XPathFactory factory = XPathFactory.newInstance();
+        XPath xPath = factory.newXPath();
+        try
+        {
+            return (NodeList)xPath.evaluate(xpathExpression, node, XPathConstants.NODESET);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException(e);
+        }
     }
 
     /**
@@ -1379,21 +1326,15 @@ public class TestBase
             throw new IllegalArgumentException(TestBase.class.getSimpleName() + ":toString:xml is null");
         }
         String result = null;
-
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-
         // serialize
-        DOMImplementation implementation= DOMImplementationRegistry.newInstance()
-            .getDOMImplementation("XML 3.0");
-        DOMImplementationLS feature = (DOMImplementationLS) implementation.getFeature("LS",
-        "3.0");
+        DOMImplementation implementation = DOMImplementationRegistry.newInstance().getDOMImplementation("XML 3.0");
+        DOMImplementationLS feature = (DOMImplementationLS)implementation.getFeature("LS", "3.0");
         LSSerializer serial = feature.createLSSerializer();
         LSOutput output = feature.createLSOutput();
         output.setByteStream(outputStream);
         serial.write(xml, output);
-
         result = output.toString();
-
         return result;
     }
 
@@ -1411,22 +1352,17 @@ public class TestBase
         // Prepare the HttpMethod.
         String fwUrl = ServiceLocator.getFrameworkUrl();
         PutMethod method = new PutMethod(fwUrl + "/st/staging-file");
-
         logger.info("Framework: " + fwUrl);
-        
         File file = ResourceUtil.getResourceAsFile(fileName);
-        
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(file)));
         method.setRequestHeader("Content-Type", mimetype);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
         client.executeMethod(method);
         String response = method.getResponseBodyAsString();
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
-
-        return ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
+        return ((XmlTransforming)getService(XmlTransforming.SERVICE_NAME)).transformUploadResponseToFileURL(response);
     }
 
     /**
@@ -1443,7 +1379,6 @@ public class TestBase
         method.setRequestEntity(new InputStreamRequestEntity(new FileInputStream(COMPONENT_FILE)));
         method.setRequestHeader("Content-Type", MIME_TYPE);
         method.setRequestHeader("Cookie", "escidocCookie=" + userHandle);
-
         // Execute the method with HttpClient.
         HttpClient client = new HttpClient();
         client.executeMethod(method);
@@ -1451,17 +1386,14 @@ public class TestBase
         assertEquals(HttpServletResponse.SC_OK, method.getStatusCode());
         String response = method.getResponseBodyAsString();
         logger.debug("Response=" + response);
-
         // Create a document from the response.
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
         Document document = docBuilder.parse(method.getResponseBodyAsStream());
         document.getDocumentElement().normalize();
-
         // Extract the file information.
         String href = getValue(document, "/staging-file/@href");
         assertNotNull(href);
-
         // Create an item with the href in the component.
         String item = readFile(ITEM_FILE);
         item = item.replaceFirst("XXX_CONTENT_REF_XXX", ServiceLocator.getFrameworkUrl() + href);
@@ -1469,10 +1401,9 @@ public class TestBase
         item = ServiceLocator.getItemHandler(userHandle).create(item);
         assertNotNull(item);
         logger.debug("Item=" + item);
-
         return item;
     }
-    
+
     /**
      * Formats a given date to the format used by the framework.
      * 
@@ -1483,5 +1414,4 @@ public class TestBase
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
         return format.format(date);
     }
-    
 }

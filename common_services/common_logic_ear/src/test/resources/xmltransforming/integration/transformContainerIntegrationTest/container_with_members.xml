@@ -10,7 +10,7 @@
 	objid="escidoc:1125" last-modification-date="2008-03-20T14:19:38.672Z">
 	<container:properties>
 		<srel:context objid="escidoc:42108" />
-		<srel:content-model objid="escidoc:ex4" />
+		<srel:content-model objid="escidoc:persistent4" />
 		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
 	</container:properties>
 	<escidocMetadataRecords:md-records>

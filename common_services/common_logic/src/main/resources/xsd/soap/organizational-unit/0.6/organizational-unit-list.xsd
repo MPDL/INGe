@@ -16,16 +16,19 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
-		schemaLocation="../../../soap/common/0.3/xml.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/common/0.3/xml.xsd" />
 	<xs:import
 		namespace="http://www.escidoc.de/schemas/organizationalunit/0.6"
-		schemaLocation="../../../soap/organizational-unit/0.6/organizational-unit.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/organizational-unit/0.6/organizational-unit.xsd" />
 	<xs:element name="organizational-unit-list">
 		<xs:complexType>
 			<xs:sequence minOccurs="0" maxOccurs="unbounded">
 				<xs:element
 					ref="organizational-unit:organizational-unit" />
 			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

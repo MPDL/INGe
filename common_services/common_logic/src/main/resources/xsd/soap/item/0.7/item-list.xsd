@@ -30,13 +30,16 @@
 		xmlns:item="http://www.escidoc.de/schemas/item/0.7" 
 		targetNamespace="http://www.escidoc.de/schemas/itemlist/0.7" 
 		elementFormDefault="qualified" attributeFormDefault="unqualified">
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../../soap/common/0.4/xml.xsd"/>
-	<xs:import namespace="http://www.escidoc.de/schemas/item/0.7" schemaLocation="../../../soap/item/0.7/item.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.escidoc.de/schemas/soap/common/0.4/xml.xsd"/>
+	<xs:import namespace="http://www.escidoc.de/schemas/item/0.7" schemaLocation="http://www.escidoc.de/schemas/soap/item/0.7/item.xsd"/>
 	<xs:element name="item-list">
 		<xs:complexType>
 			<xs:sequence>
 				<xs:element ref="item:item" minOccurs="0" maxOccurs="unbounded"/>
 			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>

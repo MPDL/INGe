@@ -289,6 +289,7 @@ public class TransformPubItemResultTest extends XmlTransformingTestBase
         PubItemVO item = new PubItemVO();
         item.setVersion(new ItemRO("escidoc:441"));
         item.getVersion().setState(State.RELEASED);
+        item.setPublicStatus(State.RELEASED);
         
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
         

@@ -31,12 +31,18 @@
 package test.common.valueobjects;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import test.common.TestBase;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
+import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 
 /**
  * For testing the methods in {@link AccountUserVO}.
@@ -48,17 +54,28 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
  */
 public class AccountUserVOTest extends TestBase
 {
+    private Logger logger = Logger.getLogger(getClass());
 
     /**
      * @throws Exception 
      */
+    @Ignore
     @Test
     public void testIsModeratorFunction() throws Exception
     {
         String adminUserHandle = loginSystemAdministrator();
         AccountUserVO admin = getAccountUser(adminUserHandle);
-        
         assertTrue(admin.isModerator(new ContextRO(PUBMAN_TEST_COLLECTION_ID)));
+    }
+    
+    @Test
+    public void testZeroGrantsOfAuthor() throws Exception
+    {
+        logger.debug("### testZeroGrantsOfAuthor ###");
+        String authorUserHandle = loginAuthor();
+        AccountUserVO author = getAccountUser(authorUserHandle);
+        List<GrantVO> grants = author.getGrants();
+        assertEquals(0, grants.size());
     }
     
 }

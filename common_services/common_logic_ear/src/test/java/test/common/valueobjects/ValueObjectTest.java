@@ -45,6 +45,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({ValueObjectEqualsTest.class
                     ,ValueObjectCloneTest.class
                     ,FilterTaskParamVOTest.class
+                    ,AccountUserVOTest.class
                     })
 public class ValueObjectTest
 {

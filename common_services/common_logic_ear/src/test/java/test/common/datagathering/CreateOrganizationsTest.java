@@ -114,6 +114,7 @@ public class CreateOrganizationsTest extends TestBase
 
         // retrieve affiliation 'HG' from the framework
         String hg2XML = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).retrieve(abbreviationToObjIdMapping.get("objectIdHG"));
+        //logger.debug("XML "+hg2XML);
         AffiliationVO hg = ((XmlTransforming) getService(XmlTransforming.SERVICE_NAME)).transformToAffiliation(hg2XML);
         // get the organization list for HG:
         orgList = ((DataGathering) getService(DataGathering.SERVICE_NAME)).createOrganizationListFromAffiliation(systemAdministratorUserHandle, hg);

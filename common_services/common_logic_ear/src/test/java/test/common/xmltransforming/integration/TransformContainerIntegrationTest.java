@@ -268,7 +268,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:42108");
         containerVOPreCreate.setContext(ctx);
-        containerVOPreCreate.setContentModel("escidoc:ex4");
+        containerVOPreCreate.setContentModel("escidoc:persistent4");
         
         MdsPublicationVO mds = getMdsPublication1();
         containerVOPreCreate.setMetadata(mds);
@@ -347,7 +347,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:42108");
         containerVOPreCreate.setContext(ctx);
-        containerVOPreCreate.setContentModel("escidoc:ex4");
+        containerVOPreCreate.setContentModel("escidoc:persistent4");
         
         MdsPublicationVO mds = getMdsPublication1();
         containerVOPreCreate.setMetadata(mds);
@@ -425,7 +425,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:42108");
         sourceContainerPreCreate.setContext(ctx);
-        sourceContainerPreCreate.setContentModel("escidoc:ex4");
+        sourceContainerPreCreate.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();
         sourceContainerPreCreate.setMetadata(mds);
         
@@ -482,7 +482,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         ContextRO ctx = new ContextRO();
         ctx.setObjectId("escidoc:42108");
         containerVO.setContext(ctx);
-        containerVO.setContentModel("escidoc:ex4");
+        containerVO.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();
         containerVO.setMetadata(mds);
         String container1 = xmlTransforming.transformToContainer(containerVO);
