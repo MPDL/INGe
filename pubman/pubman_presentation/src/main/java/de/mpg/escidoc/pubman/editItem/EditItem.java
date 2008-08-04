@@ -90,6 +90,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
+import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
@@ -956,7 +957,13 @@ public class EditItem extends FacesBean
               {
                   // upload the file
                   LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
-                  URL url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+                  URL url = null;                  
+                  if (loginHelper.getAccountUser().isDepositor()) {                      
+                	  url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());                  
+                	  }                  //workarround for moderators who can modify released items but do not have the right to upload files                 
+                  else {                     
+                	  url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
+                	  }
                   if(url != null)
                   {
                 	  contentURL = url.toString();
