@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:VIRRcm3" PID="escidoc:VIRRcm3"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="VIRR Content Model for Scanned Page"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2008-03-14T12:39:01.109Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2008-03-14T12:42:03.156Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:VIRRcm3/datastream" ID="datastream" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2008-03-14T12:42:03.156Z" ID="datastream.0" LABEL="datastream" MIMETYPE="text/xml" SIZE="272">
+      <foxml:xmlContent>
+        <content-model:content-model objid="escidoc:VIRRcm3" 
+          xlink:href="/cmm/content-model/escidoc:VIRRcm3" 
+          xlink:title="VIRR ScannedPage"
+          xlink:type="simple" 
+		  xmlns:content-model="http://www.escidoc.de/schema/contenttype/0.2"
+		  xmlns:xlink="http://www.w3.org/1999/xlink">
+			<content-model:properties xlink:title="Properties" xlink:type="simple">
+				<content-model:name>VIRR ScannedPage</content-model:name>
+				<content-model:versioning-info>WOV</content-model:versioning-info>
+				<content-model:category>item</content-model:category>
+				<content-model:metadata-profile xlink:type="simple" xlink:href="http://www.loc.gov/mods/v3" xlink:title="MD Profile for VIRR SP"/>
+				<content-model:type-specific-properties xlink:href="/cmm/content-model/escidoc:VIRRcm3/properties/type-specific-properties" xlink:title="Model Specific Properties VIRR SP" xlink:type="simple">
+					<content-model:type-specific-property maxOccurs="1" minOccurs="1" name="VIRRscannedpage" property-datatype="xs:string" />
+				</content-model:type-specific-properties>
+			</content-model:properties>
+			<content-model:component-types>
+				<content-model:component-type label="imagefile">
+					<formats>
+						<mime-type uri="info:pronom/fmt/42">image/jpeg</mime-type>
+					</formats>
+				</content-model:component-type>
+			</content-model:component-types>
+        </content-model:content-model>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:VIRRcm3/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2008-03-14T12:39:51.484Z" ID="RELS-EXT.0" LABEL="Enter a label here."
+      MIMETYPE="text/xml" SIZE="475">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:VIRRcm3">
+            <rdf:type rdf:resource="http://escidoc.de/core/01/resources/ContentModel"/>
+            <escidocRelations:title>VIRR ScannedPage</escidocRelations:title>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:VIRRcm3/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2008-03-14T12:39:01.109Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="267">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>VIRR ScannedPage</dc:title>
+          <dc:identifier>escidoc:VIRRcm3</dc:identifier>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+</foxml:digitalObject>
