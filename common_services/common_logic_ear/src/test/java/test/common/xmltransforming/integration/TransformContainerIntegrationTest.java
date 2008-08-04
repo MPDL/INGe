@@ -173,7 +173,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         assertEquals(ContainerVO.State.PENDING, container.getVersion().getState());
         assertEquals(null, container.getPid());
         assertNotNull(container.getVersion().getModificationDate());
-        assertEquals("escidoc:42108", container.getContext().getObjectId());
+        assertEquals("escidoc:persistent51", container.getContext().getObjectId());
         assertEquals("escidoc:user42", container.getOwner().getObjectId());
         assertTrue(2 == container.getMembers().size());
         MdsPublicationVO md = container.getMetadata();
@@ -266,7 +266,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         //create new container
         ContainerVO containerVOPreCreate = new ContainerVO();
         ContextRO ctx = new ContextRO();
-        ctx.setObjectId("escidoc:42108");
+        ctx.setObjectId("escidoc:persistent51");
         containerVOPreCreate.setContext(ctx);
         containerVOPreCreate.setContentModel("escidoc:persistent4");
         
@@ -345,7 +345,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         //create new container
         ContainerVO containerVOPreCreate = new ContainerVO();
         ContextRO ctx = new ContextRO();
-        ctx.setObjectId("escidoc:42108");
+        ctx.setObjectId("escidoc:persistent51");
         containerVOPreCreate.setContext(ctx);
         containerVOPreCreate.setContentModel("escidoc:persistent4");
         
@@ -423,7 +423,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         // create a "source" container and add some fancy relations to the "target" item
         ContainerVO sourceContainerPreCreate = new ContainerVO();
         ContextRO ctx = new ContextRO();
-        ctx.setObjectId("escidoc:42108");
+        ctx.setObjectId("escidoc:persistent51");
         sourceContainerPreCreate.setContext(ctx);
         sourceContainerPreCreate.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();
@@ -480,7 +480,7 @@ public class TransformContainerIntegrationTest extends XmlTransformingTestBase
         // first container: create a minimal ContainerVO from scratch and transform it to an container(XML)
         ContainerVO containerVO = new ContainerVO();
         ContextRO ctx = new ContextRO();
-        ctx.setObjectId("escidoc:42108");
+        ctx.setObjectId("escidoc:persistent51");
         containerVO.setContext(ctx);
         containerVO.setContentModel("escidoc:persistent4");
         MdsPublicationVO mds = getMdsPublication1();

@@ -644,7 +644,7 @@ public class AffiliationCreator extends TestBase
         String systemAdministratorUserHandle = loginSystemAdministrator();
 
         
-        logout(systemAdministratorUserHandle);
+        //logout(systemAdministratorUserHandle);
        // retrieve all affiliations in the framework (again)
       OrganizationalUnitHandler ouh = ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle);
       String affiliationsXML = ouh.retrieveOrganizationalUnits(FILTER_ALL);

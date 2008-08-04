@@ -9,7 +9,7 @@
 	xmlns:xml="http://www.w3.org/XML/1998/namespace"
 	objid="escidoc:1125" last-modification-date="2008-03-20T14:19:38.672Z">
 	<container:properties>
-		<srel:context objid="escidoc:42108" />
+		<srel:context objid="escidoc:persistent51" />
 		<srel:content-model objid="escidoc:persistent4" />
 		<prop:content-model-specific xmlns:prop="http://escidoc.de/core/01/properties/"></prop:content-model-specific>
 	</container:properties>
@@ -49,7 +49,7 @@
 
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>
-		<srel:container objid="escidoc:24594"/>
-		<srel:container objid="escidoc:24595"/>
+		<srel:container objid="escidoc:4068"/>
+		<srel:container objid="escidoc:4069"/>
 	</struct-map:struct-map>
 </container:container>

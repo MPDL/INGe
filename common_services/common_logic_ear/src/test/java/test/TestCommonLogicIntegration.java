@@ -49,10 +49,9 @@ import test.common.xmltransforming.XmlTransformingIntegrationTest;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-					// FIXME: tendres: get tests running!
-                    // XmlTransformingIntegrationTest.class
-                     // ,DataGatheringTest.class
-                     ValueObjectTest.class
+					 XmlTransformingIntegrationTest.class
+                     ,DataGatheringTest.class
+                     ,ValueObjectTest.class
                     ,ComparatorTest.class
                     ,EncodingTest.class
                     ,EmailHandlingTest.class
