@@ -9,6 +9,7 @@
 	- Version changed to 0.6
 	
 	- Uses organizational unit schema in version 0.6
+	-
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
 	xmlns:organizational-unit="http://www.escidoc.de/schemas/organizationalunit/0.6"

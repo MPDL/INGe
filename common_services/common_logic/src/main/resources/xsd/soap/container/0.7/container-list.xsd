@@ -30,6 +30,7 @@
 	- May, 2008
 	- changed to version 0.7
 	- changed namespace of related container schema
+	-
 	
 -->
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
