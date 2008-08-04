@@ -441,10 +441,7 @@
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
-				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
-				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
-				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
-				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+				
 				
 				
 			</properties>
@@ -568,7 +565,10 @@
 				<xsd.metadata.escidocprofile.types>http://escidoc.mpg.de/metadataprofile/schema/0.1/types</xsd.metadata.escidocprofile.types>
 				<xsd.core.properties>http://escidoc.de/core/01/properties/</xsd.core.properties>
 				<xsd.soap.common.metadatarecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.metadatarecords>
-				
+				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
+				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
+				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
+				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
 				
 			</properties>
 
