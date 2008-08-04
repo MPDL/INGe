@@ -39,7 +39,7 @@
 	elementFormDefault="qualified" attributeFormDefault="unqualified">
 	
 	<xs:import namespace="http://www.escidoc.de/schemas/container/0.7"
-		schemaLocation="../../../soap/container/0.7/container.xsd" />
+		schemaLocation="http://www.escidoc.de/schemas/soap/container/0.7/container.xsd" />
 
 	<xs:element name="container-list">
 		<xs:complexType>
@@ -47,6 +47,9 @@
 				<xs:element ref="container:container" minOccurs="0"
 					maxOccurs="unbounded" />
 			</xs:sequence>
+			<xs:attribute name="number-of-records" use="optional"/>
+			<xs:attribute name="offset" use="optional"/>
+			<xs:attribute name="limit" use="optional"/>
 		</xs:complexType>
 	</xs:element>
 </xs:schema>
