@@ -441,6 +441,10 @@
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+				<xsd.soap.statistic.report>http://www.escidoc.de/schemas/report/0.3</xsd.soap.statistic.report>
+				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
+				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
+				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
 				
 				
 			</properties>
