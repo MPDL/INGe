@@ -59,6 +59,8 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.TextFragmentVO;
+import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
+import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Storage;
@@ -453,6 +455,29 @@ public class JiBXHelper
     public static List<StatisticReportDefinitionVO> statisticReportDefinitionVOListFactory()
     {
         return new ArrayList<StatisticReportDefinitionVO>();
+    }
+    
+
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;TocDivVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;TocDivVO></code>
+     */
+    public static List<TocDivVO> tocDivVOListFactory()
+    {
+        return new ArrayList<TocDivVO>();
+    }
+    
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;TocPtrVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;TocPtrVO></code>
+     */
+    public static List<TocPtrVO> tocPtrVOListFactory()
+    {
+        return new ArrayList<TocPtrVO>();
     }
 
     

@@ -50,6 +50,8 @@ import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
+import de.mpg.escidoc.services.common.valueobjects.TocVO;
 import de.mpg.escidoc.services.common.valueobjects.ValueObject;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.face.FaceItemVO;
@@ -361,4 +363,10 @@ public interface XmlTransforming
     public String transformToStatisticReportDefinition(StatisticReportDefinitionVO reportDef) throws TechnicalException;
     
     public StatisticReportDefinitionVO transformToStatisticReportDefinition(String reportDefXML) throws TechnicalException;
+    
+    public TocItemVO transformToTocItemVO(String tocXML) throws TechnicalException;
+    
+    public String transformToTocItem(TocItemVO tocItemVO) throws TechnicalException;
+    
+    public TocVO transformToTocVO(String tocXML) throws TechnicalException;
 }

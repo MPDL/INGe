@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+    
+ <table-of-content:toc ID="meins" TYPE="LOGICAL" LABEL="Table of Content" 
+xml:base="http://localhost:8080" 
+xmlns:table-of-content="http://www.escidoc.de/schemas/tableofcontent/0.1" 
+xmlns:dc="http://purl.org/dc/elements/1.1/" 
+xmlns:xlink="http://www.w3.org/1999/xlink"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.escidoc.de/schemas/toc/0.6/toc.xsd">
+	<!-- 
+		ID: 	xsd:ID       optional 
+						an optional XML ID value.
+		TYPE: 	xsd:string   optional  
+						an optional string attribute specifying the type of toc provided. 
+						Typical values will be "PHYSICAL" for a map which describes 
+						the physical composition of the original work (a series with individual 
+						monographs with pages) and "LOGICAL" for one which describes 
+						the intellectual structure of the work (a monograph with TOC, 
+						forward, chapters, index., etc.);
+		LABEL: 	xsd:string   optional  
+						an optional string attribute which may be used to describe the toc
+						to users. This is primarily useful where more than one toc is 
+						provided for a single object (e.g., both logical and physical toc).
+	-->
+	<table-of-content:div ID="rootNode" LABEL="root title" TYPE="monograph">
+		<table-of-content:ptr ID="rootNodePtr" USE="DEFAULT" LOCTYPE="URL" xlink:href="/ir/container/escidoc:10" xlink:type="simple" 
+                xlink:title="[the containers title]"/>
+		<!-- attribute LOCTYPE has fixed value "URL" -->
+		<!-- type of "table-of-content:ptr" refers xlink:simpleLink in http://www.loc.gov/standards/mets/xlink.xsd -->
+		<table-of-content:div ID="container11" ORDER="1" ORDERLABEL="1." LABEL="title1.1" TYPE="chapter">
+			<table-of-content:ptr ID="container11Ptr" USE="DEFAULT" MIMETYPE="text/xml" xlink:href="/ir/container/escidoc:11" 
+                        xlink:title="[the containers title]" xlink:type="[The link type]"/>
+			<table-of-content:div ID="item287" ORDER="1" ORDERLABEL="1.1" LABEL="[the items title]" TYPE="page">
+				<table-of-content:ptr ID="item287Ptr" xlink:href="/ir/item/escidoc:287" xlink:title="[the items title]" xlink:type="[The link type]"/>
+				<my:additional-metadata xmlns:my="http://my.domain.org">
+					<my:description>A photo of the front side.</my:description>
+				</my:additional-metadata>
+			</table-of-content:div>
+			<table-of-content:div ID="item289" ORDER="2" ORDERLABEL="1.2" LABEL="[the items title]" TYPE="page">
+				<my:additional-metadata xmlns:my="http://my.domain.org">
+					<my:description>A textual description.</my:description>
+				</my:additional-metadata>
+				<table-of-content:ptr ID="item289Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:289" 
+                                xlink:title="[the items title]" xlink:type="[The link type]"/>
+			</table-of-content:div>
+		</table-of-content:div>
+		<table-of-content:div ID="container12" ORDER="2" ORDERLABEL="2." LABEL="[the containers title]" TYPE="chapter">
+			<table-of-content:ptr ID="container12Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:12" 
+                        xlink:title="[the containers title]" xlink:type="[The link type]"/>
+			<table-of-content:div ID="container13" ORDER="1" ORDERLABEL="2.1" LABEL="[the containers title]" TYPE="section">
+				<table-of-content:ptr ID="container13Ptr" USE="DEFAULT" xlink:href="/ir/container/escidoc:13" 
+                                xlink:title="[the containers title]" xlink:type="[The link type]"/>
+				<my:additional-metadata xmlns:my="http://my.domain.org">
+					<my:description>The back side.</my:description>
+				</my:additional-metadata>
+				<table-of-content:div ID="item275" ORDER="1" ORDERLABEL="2.1.1" LABEL="[the items title]" TYPE="page">
+					<table-of-content:ptr ID="item275Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:275" 
+                                        xlink:title="[the items title]" xlink:type="[The link type]"/>
+					<my:additional-metadata xmlns:my="http://my.domain.org">
+						<my:description>A photo of the back side.</my:description>
+					</my:additional-metadata>
+				</table-of-content:div>
+				<table-of-content:div ID="item277" ORDER="2" ORDERLABEL="2.1.2" LABEL="[the items title]" TYPE="page">
+					<table-of-content:ptr ID="item277Ptr" USE="DEFAULT" xlink:href="/ir/item/escidoc:277" 
+                                        xlink:title="[the items title]" xlink:type="[The link type]"/>
+					<my:additional-metadata xmlns:my="http://my.domain.org">
+						<my:description>A textual description.</my:description>
+					</my:additional-metadata>
+					<table-of-content:div ID="item277" ORDER="1" ORDERLABEL="2.1.2.1" LABEL="[the items title]" TYPE="page"/>
+				</table-of-content:div>
+			</table-of-content:div>
+		</table-of-content:div>
+	</table-of-content:div>
+</table-of-content:toc>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

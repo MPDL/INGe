@@ -78,6 +78,10 @@
 										</include>
 										<include name="bindings_StatisticReportVO.xml">
 										</include>
+										<include name="bindings_TocItemVO_input.xml">
+										</include>
+										<include name="bindings_TocItemVO_output.xml">
+										</include>
 									</bindingfileset>
 									<classpathset dir="${project.build.outputDirectory}">
 									</classpathset>
