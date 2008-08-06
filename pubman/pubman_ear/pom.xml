@@ -2,9 +2,9 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>3.5.5-SNAPSHOT</version>
+		<version>3.8.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+	<modelVersion>3.8.0-SNAPSHOT</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
@@ -252,62 +252,62 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.7-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation_presentation</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>1.0.0</version>
+			<version>1.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>3.5.5-SNAPSHOT</version>
+			<version>3.8.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>3.5.5-SNAPSHOT</version>
+			<version>3.8.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>

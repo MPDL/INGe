@@ -31,9 +31,9 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>3.5.5-SNAPSHOT</version>
+		<version>3.8.0-SNAPSHOT</version>
 	</parent>
-	<modelVersion>4.0.0</modelVersion>
+	<modelVersion>3.8.0-SNAPSHOT</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_presentation</artifactId>
 	<name>pubman_presentation</name>
@@ -69,7 +69,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>3.5.5-SNAPSHOT</version>
+			<version>3.8.0-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
