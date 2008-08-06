@@ -75,31 +75,31 @@
 												
 												<li><h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}"
 													 value="#{lbl.actionMenu_lnkEdit}" 
-													 rendered="#{((ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner) || (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator)}"/></li>
+													 rendered="#{!ViewItemFull.isStateWithdrawn and ((ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner) || (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator)}"/></li>
 												
 												<li><h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" 
-													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{(ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowStandard}"/></li>
+													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{!ViewItemFull.isStateWithdrawn and  (ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowStandard}"/></li>
 													 
 												 <li><h:commandLink id="lnkRelease" action="#{ViewItemFull.submitItem}" 
-												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowSimple) }"/></li>
+												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{!ViewItemFull.isStateWithdrawn and ((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowSimple) }"/></li>
 
 												<li><h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" 
-												 value="#{lbl.actionMenu_lnkAccept}" rendered="#{(ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled) }"/></li>
+												 value="#{lbl.actionMenu_lnkAccept}" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled) }"/></li>
 												 
 												 <li><h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" 
-												 value="#{lbl.actionMenu_lnkRevise}" rendered="#{(ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled and ViewItemFull.isWorkflowStandard) }"/></li>
+												 value="#{lbl.actionMenu_lnkRevise}" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled and ViewItemFull.isWorkflowStandard) }"/></li>
 												 
 												<li><h:commandLink id="lnkDelete" onclick="if(!confirmDelete('form1:viewItemFull'))return false;"
-													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
+													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 													 
 												<li><h:commandLink id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}"
-													 value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
+													 value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
 													 
 												<li><h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}"
-													 value="#{lbl.actionMenu_lnkModify}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/></li>
+													 value="#{lbl.actionMenu_lnkModify}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/></li>
 													 
 												<li><h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}"
-													 value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/></li>
+													 value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/></li>
 												
 												
 												
