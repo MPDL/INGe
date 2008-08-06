@@ -28,11 +28,11 @@
  All rights reserved. Use is subject to license terms.
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>3.8.0-SNAPSHOT</modelVersion>
+	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.5-SNAPSHOT</version>
+	<version>3.8.0-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
