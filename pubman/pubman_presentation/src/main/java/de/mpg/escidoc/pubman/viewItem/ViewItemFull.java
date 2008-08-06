@@ -383,8 +383,7 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
-            int countFiles = 0;
-            int countLocators = 0;
+          
             
             for(int i = 0; i < this.pubItem.getFiles().size(); i++)
             {
@@ -394,14 +393,14 @@ public class ViewItemFull extends FacesBean
             		
             		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
                     {
-                        this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
-                        countLocators ++;
+                        this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), this.pubItem.getVersion().getState()));
+                        
                     }
                     // add files
                     else
                     {
-                        this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), countFiles, this.pubItem.getVersion().getState(), searchHitList));
-                        countFiles ++;
+                        this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), this.pubItem.getVersion().getState(), searchHitList));
+                        
                     }
                 }
             	else
@@ -409,14 +408,14 @@ public class ViewItemFull extends FacesBean
             		// add locators
             		if(this.pubItem.getFiles().get(i).getStorage() == FileVO.Storage.EXTERNAL_URL)
             		{
-            			this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), countLocators, this.pubItem.getVersion().getState()));
-            			countLocators ++;
+            			this.locatorList.add(new FileBean(this.pubItem.getFiles().get(i), this.pubItem.getVersion().getState()));
+            			
             		}
             		// add files
             		else
             		{
-            			this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), countFiles, this.pubItem.getVersion().getState()));
-            			countFiles ++;
+            			this.fileList.add(new FileBean(this.pubItem.getFiles().get(i), this.pubItem.getVersion().getState()));
+            			
             		}
             	}
             }

@@ -70,11 +70,11 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @author: Tobias Schraut, created 25.03.2008
  * @version: $Revision: 1609 $ $LastChangedDate: 2007-11-26 18:21:32 +0100 (Mo, 26 Nov 2007) $
  */
-public class FileBean extends FacesBean implements ActionListener 
+public class FileBean extends FacesBean
 {
 	private static Logger logger = Logger.getLogger(FileBean.class);
 	private FileVO file;
-	private int position;
+	
 	private State itemState;
 	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
@@ -87,10 +87,9 @@ public class FileBean extends FacesBean implements ActionListener
      * @param position
      * @param itemState
      */
-    public FileBean(FileVO file, int position, State itemState)
+    public FileBean(FileVO file,  State itemState)
 	{
 		this.file = file;
-		this.position = position;
 		this.itemState = itemState;
 	}
     
@@ -101,13 +100,12 @@ public class FileBean extends FacesBean implements ActionListener
      * @param itemState
      * @param resultitem
      */
-    public FileBean(FileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
+    public FileBean(FileVO file, State itemState, List<SearchHitVO> searchHitList)
 	{
 		this.file = file;
-		this.position = position;
 		this.itemState = itemState;
 		this.searchHitList = searchHitList;
-		initialize(file, position, itemState, searchHitList);
+		initialize(file, itemState, searchHitList);
 	}
 
     /**
@@ -117,7 +115,7 @@ public class FileBean extends FacesBean implements ActionListener
      * @param itemState
      * @param resultitem
      */
-    protected void initialize(FileVO file, int position, State itemState, List<SearchHitVO> searchHitList)
+    protected void initialize(FileVO file, State itemState, List<SearchHitVO> searchHitList)
     {
         // set some html elements which cannot be completely constructed in the jsp
     	
@@ -158,119 +156,87 @@ public class FileBean extends FacesBean implements ActionListener
     }
     
     
+	
     
+    /**
+     * Prepares the file the user wants to download
+     * 
+     */
     public String downloadFile()
     {
-    	try 
-    	{
-			downloadFile(this.position);
-		}
-    	catch (IOException e) 
-		{
-    		logger.error("Could not download file! ", e);
-		} 
-    	catch (Exception e) 
-    	{
-    		logger.error("Could not download file! ", e);
-		}
-    	return null;
-    }
-
-	
-	/**
-     * Method to examine which file should be downloaded and to trigger the correct download
-     * @param event the  event that calls the method and triggers the download
-     * @throws AbortProcessingException
-     */
-    public void processAction(ActionEvent event) throws AbortProcessingException
-    {
-        // find the index of the the button the user has clicked
-        HtmlCommandButton button = (HtmlCommandButton)(event.getSource());
         
-        // then find the indexes of the item and the file the clicked button belongs to
-        int indexFile = new Integer(button.getId().substring(13));
         try
         {
-            this.downloadFile(indexFile);
+            LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
+    
+            
+            String fileLocation = ServiceLocator.getFrameworkUrl() + file.getContent();
+            String filename = file.getName(); // Filename suggested in browser Save As dialog
+            filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed by the http-response (filename will be cutted after the first empty space)
+            String contentType = file.getMimeType(); // For dialog, try
+            
+            // application/x-download
+            FacesContext facesContext = FacesContext.getCurrentInstance();
+            HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
+            response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
+            if(file.getDefaultMetadata() != null)
+            {
+            	response.setContentLength(file.getDefaultMetadata().getSize());
+            }
+            
+            response.setContentType(contentType);
+    
+            byte[] buffer = null;
+            if (file.getDefaultMetadata() != null)
+            {
+                try
+                {
+                    GetMethod method = new GetMethod(fileLocation);
+                    method.setFollowRedirects(false);
+                    if (loginHelper.getESciDocUserHandle() != null)
+                    {
+                        // downloading by account user
+                        addHandleToMethod(method, loginHelper.getESciDocUserHandle());
+                    }
+                    
+                    // Execute the method with HttpClient.
+                    HttpClient client = new HttpClient();
+                    client.executeMethod(method);
+                    OutputStream out = response.getOutputStream();
+                    InputStream input = method.getResponseBodyAsStream();
+                    try
+                    {
+                        if(file.getDefaultMetadata() != null)
+                        {
+                        	buffer = new byte[file.getDefaultMetadata().getSize()];
+                            int numRead;
+                            long numWritten = 0;
+                            while ((numRead = input.read(buffer)) != -1) {
+                                out.write(buffer, 0, numRead);
+                                out.flush();
+                                numWritten += numRead;
+                            }
+                            facesContext.responseComplete();
+                        }
+                    }
+                    catch (IOException e1)
+                    {
+                        logger.debug("Download IO Error: " + e1.toString());
+                    }
+                    input.close();
+                    out.close();
+                }
+                catch (FileNotFoundException e)
+                {
+                    logger.debug("File not found: " + e.toString());
+                }
+            }
         }
         catch (Exception e)
         {
             logger.debug("File Download Error: " + e.toString());
         }
-    }
-    
-    /**
-     * Prepares the file the user wants to download
-     * @author Tobias Schraut
-     * @throws IOException
-     * @throws Exception
-     */
-    public void downloadFile(int filePosition) throws IOException, Exception
-    {
-        LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
-
-        // extract the location of the file
-        String fileLocation = ServiceLocator.getFrameworkUrl() + this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getContent();
-        String filename = this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getName(); // Filename suggested in browser Save As dialog
-        filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed by the http-response (filename will be cutted after the first empty space)
-        String contentType = this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getMimeType(); // For dialog, try
-        
-        // application/x-download
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
-        response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-        if(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
-        {
-        	response.setContentLength(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata().getSize());
-        }
-        
-        response.setContentType(contentType);
-
-        byte[] buffer = null;
-        if (filePosition != -1 && this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
-        {
-            try
-            {
-                GetMethod method = new GetMethod(fileLocation);
-                method.setFollowRedirects(false);
-                if (loginHelper.getESciDocUserHandle() != null)
-                {
-                    // downloading by account user
-                    addHandleToMethod(method, loginHelper.getESciDocUserHandle());
-                }
-                
-                // Execute the method with HttpClient.
-                HttpClient client = new HttpClient();
-                client.executeMethod(method);
-                OutputStream out = response.getOutputStream();
-                InputStream input = method.getResponseBodyAsStream();
-                try
-                {
-                    if(this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata() != null)
-                    {
-                    	buffer = new byte[this.getItemControllerSessionBean().getCurrentPubItem().getFiles().get(filePosition).getDefaultMetadata().getSize()];
-                        int numRead;
-                        long numWritten = 0;
-                        while ((numRead = input.read(buffer)) != -1) {
-                            out.write(buffer, 0, numRead);
-                            out.flush();
-                            numWritten += numRead;
-                        }
-                        facesContext.responseComplete();
-                    }
-                }
-                catch (IOException e1)
-                {
-                    logger.debug("Download IO Error: " + e1.toString());
-                }
-                input.close();
-                out.close();
-            }
-            catch (FileNotFoundException e)
-            {
-                logger.debug("File not found: " + e.toString());
-            }
-        }
+        return null;
     }
     
     /**
