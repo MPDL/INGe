@@ -30,6 +30,7 @@
 package de.mpg.escidoc.services.common.util.creators;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -56,7 +57,21 @@ public class AuthorDecoder
      */
     public static void main(String[] args) throws Exception
     {
-
+        System.out.println(new LooseFormatSurnameFirst().getPattern());
+        /*
+        String[] prefixes1 =  "Damien van den Borgne".split(WesternFormat1.PREFIX, 3);
+        String[] prefixes2 =  "Damien von Sudo".split(WesternFormat1.PREFIX, 3);
+        
+       for (String string : prefixes1)
+       {
+        System.out.println(string);
+       } 
+       
+       for (String string : prefixes2)
+    {
+           System.out.println(string);
+    }
+       */
         if (args == null || args.length == 0)
         {
             System.out.println("usage: java de.mpg.escidoc.services.util.AuthorDecoder author_string");
@@ -118,7 +133,7 @@ public class AuthorDecoder
             logger.info("Best result (" + bestFormat.getName() + "):");
             for (Author author : authorListList.get(0))
             {
-                logger.debug(author);
+                logger.info(author);
             }
     
             if (authorListList.size() > 1)
@@ -139,8 +154,13 @@ public class AuthorDecoder
                         for (int i = 0; i < list.size(); i++)
                         {
                             logger.info(
-                                    list.get(i)
-                                    + (list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
+                                    list.get(i));
+                                    
+                                    if (bestList.size()>i)
+                                    {
+                                        logger.info((list.get(i).equals(bestList.get(i)) ? "(identical)" : "(differing)"));
+                                    }
+                                    
                         }
                     }
                 }

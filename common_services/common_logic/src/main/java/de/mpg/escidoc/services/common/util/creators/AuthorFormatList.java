@@ -53,9 +53,15 @@ public final class AuthorFormatList
         new WesternFormat7(),
         new WesternFormat8(),
         new WesternFormat9(),
+        new WesternFormat10(),
+        new WesternFormat11(),
+        new WesternFormat12(),
         new OxfordJournalFormat(),
         new ScienceDirectFormat(),
         new BibTeXSpecialFormat1(),
+        new LooseFormat(),
+        new LooseFormatSurnameFirst(),
+        new LooseFormatWithInfoInBraces(),
         new ResidualFormat()
 
     };

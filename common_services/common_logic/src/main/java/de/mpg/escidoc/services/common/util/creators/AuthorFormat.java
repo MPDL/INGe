@@ -53,14 +53,21 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     private static Logger logger = Logger.getLogger(AuthorFormat.class);
 
     protected static final String SYLLABLE = "([A-ZÄÖÜ][a-zäöüßáâàéêèíîìôç]+)";
+    //protected static final String LOOSE_SYLLABLE = "([\\w\\.'-]+)";
+    protected static final String LOOSE_SYLLABLE = "([\\p{L}\\d\\.'\\-\\*\\(\\)\\[\\]\\{\\}@!\\$§%&/=\\+\\?¤]+)";
     protected static final String WORD = "((O')?" + SYLLABLE + "(" + SYLLABLE + ")*)";
     protected static final String NAME = "(" + WORD + "( *- *" + WORD + ")*)";
     protected static final String INITIAL = "(([A-Z]|Ch|Sch|Th|Chr)\\.?)";
     protected static final String INITIALS = "(" + INITIAL + "( *-? *" + INITIAL + ")*)";
-    protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor)";
-    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den)";
+    protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor|Kardinal|Geheimrat|Bischof|)";
+    protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|de|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
     protected static final String MIDDLEFIX = "(y|dela|de la)";
     protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*)";
+    protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIALS + ")( *(" + NAME + "|" + INITIALS + "))*)";
+    
+    protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|email|written|et al)";
+    protected static final String IGNORE_CHARACTERS = ".*(@).*";
+    
 
     protected Set<String> givenNames = null;
     protected Set<String> surnames = null;
@@ -299,12 +306,48 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
         throws Exception
     {
         List<Author> result = new ArrayList<Author>();
+      
+        
+        int prefixPosition = -1;
         for (String authorString : authors)
         {
-            int lastSpace = authorString.lastIndexOf(" ");
             Author author = new Author();
-
-            String givenName = authorString.substring(0, lastSpace);
+            //check for prefix
+            String[] parts = authorString.split(" ");
+           
+            //check middle parts
+            if (parts.length > 2)
+            {
+                for (int i = 1; i < parts.length-1; i++)
+                {
+                    if (parts[i].matches(" *"+PREFIX+" *"))
+                    {
+                        author.setPrefix(parts[i]);
+                        prefixPosition = i;
+                    }
+                }
+            }
+            
+            String givenName = "";
+            String surname = "";
+            
+            if (prefixPosition==-1)
+            {
+                int lastSpace = authorString.lastIndexOf(" ");
+                givenName = authorString.substring(0, lastSpace);
+                surname = authorString.substring(lastSpace + 1);
+            }
+            else 
+            {
+                surname = parts[parts.length-1];
+                for (int i = 0; i < prefixPosition; i++)
+                {
+                    givenName+=parts[i];
+                }
+                
+            }
+            
+            
             String[] names = givenName.split(" |-");
             for (int i = 0; i < names.length; i++)
             {
@@ -313,7 +356,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                     return null;
                 }
             }
-            String surname = authorString.substring(lastSpace + 1);
+            
 
             author.setGivenName(givenName);
             author.setSurname(surname);
@@ -323,6 +366,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
 
         return result;
     }
+    
+    
+    
 
     /**
      * Parses authors using controlled vocabularies.
@@ -375,5 +421,167 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
         }
 
         return result;
+    }
+    
+    public List<Author> getAuthorListLooseFormat(String[] authors)
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+            Author author = new Author();
+           
+            
+            
+            //parse information in brackets, if available
+            int openBracketIndex = authorString.indexOf("(");
+            int closingBracketIndex = authorString.indexOf(")");
+            
+            if (openBracketIndex!=-1 && closingBracketIndex!=-1)
+            {
+                String additionalInfo = authorString.substring(openBracketIndex+1, closingBracketIndex);
+                authorString = authorString.substring(0,openBracketIndex);
+            }
+            
+            
+         
+               //remove forbidden characters 
+            authorString = authorString.replaceAll(FORBIDDEN_CHARACTERS, "");
+            
+            //split the rest of the string and parse it
+            String[] parts = authorString.split("\\s");
+            
+            if (parts.length>1)
+            {
+                
+                String surname = parts[parts.length-1];
+                String prefix = "";
+                String givenName="";
+                String title = "";
+                for (int i = 0; i<parts.length-1; i++)
+                {
+                    String part = parts[i];
+                    if (part.matches(PREFIX) && !givenName.trim().equals(""))
+                    {
+                        prefix+=part + " ";
+                    }
+                    else if (part.matches(TITLE) && givenName.trim().equals(""))
+                    {
+                        title+=part+" ";
+                    }
+                    else if (part.matches(IGNORE_CHARACTERS))
+                    {
+                        //ignore whole string
+                    }
+                   
+                    else
+                    {
+                        givenName+=part+" ";
+                    }
+                    
+                    
+                }
+                
+                author.setGivenName(givenName);
+                author.setSurname(prefix + surname);
+                author.setTitle(title);
+                author.setFormat(this);
+                result.add(author);
+               
+            }
+            else if(parts.length==1)
+            {
+                author.setSurname(parts[0]);
+                author.setFormat(this);
+                result.add(author);
+            }
+            else
+            {
+                //do nothing
+            }
+           
+
+        
+           
+        }
+
+        return result;
+       
+    }
+    
+    protected List<Author> getAuthorListLooseFormatSurnameFirst(String[] authors)
+    {
+        List<Author> result = new ArrayList<Author>();
+        for (String authorString : authors)
+        {
+            Author author = new Author();
+            String[] parts = authorString.split(",");
+            
+            
+            
+            
+            
+            if (parts.length>1)
+            {
+                
+                String[] surnameParts = parts[0].split("\\s");
+                String[] givenNameParts = parts[1].split("\\s");
+                                              
+                String surname = "";
+                String prefix = "";
+                String givenName="";
+                String title = "";
+                
+                for (int i = 0; i < surnameParts.length; i++)
+                {
+                    if (surnameParts[i].toLowerCase().matches(PREFIX))
+                    {
+                        prefix+=surnameParts[i] + " ";
+                    }
+                    else if (surnameParts[i].matches(TITLE))
+                    {
+                        title+=surnameParts[i]+" ";
+                    }
+                    else if (surnameParts[i].matches(FORBIDDEN_CHARACTERS))
+                    {
+                        //ignore part
+                    }
+                    else
+                    {
+                        surname+=surnameParts[i]+" ";
+                    }
+                    
+                }
+                
+                for (int i = 0; i < givenNameParts.length; i++)
+                {
+                    if (givenNameParts[i].matches(FORBIDDEN_CHARACTERS))
+                    {
+                        //ignore part
+                    }
+                    else
+                    {
+                        givenName+=givenNameParts[i]+" ";
+                    }
+                    
+                }
+                
+                author.setGivenName(givenName);
+                author.setSurname(prefix + surname);
+                author.setTitle(title);
+               
+            }
+            else 
+            {
+                author.setSurname(parts[0]);
+            }
+           
+
+        
+            author.setFormat(this);
+            result.add(author);
+        }
+
+        return result;
+        
     }
 }

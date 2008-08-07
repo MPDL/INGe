@@ -68,34 +68,38 @@ public class Author
     public void setGivenName(String givenName)
     {
         this.givenName = givenName;
-        if (givenName.contains("-"))
+        if (!givenName.equals(""))
         {
-            String[] names = givenName.split("-");
-            String init = "";
-            for (String name : names)
+            if (givenName.contains("-"))
             {
-                init += name.substring(0, 1) + ".-";
-            }
-            this.initial = init.substring(0, init.length() - 1);
-        }
-        else if (givenName.contains(" "))
-        {
-            String[] names = givenName.split(" |\\.");
-            String init = "";
-            for (String name : names)
-            {
-                if (!"".equals(name))
+                String[] names = givenName.split("-");
+                String init = "";
+                for (String name : names)
                 {
-                    init += name.substring(0, 1) + ". ";
+                    init += name.substring(0, 1) + ".-";
                 }
+                this.initial = init.substring(0, init.length() - 1);
             }
-            this.initial = init.trim();
-        }
-        else
-        {
-            this.initial = givenName.substring(0, 1) + ".";
-        }
+            else if (givenName.contains(" "))
+            {
+                String[] names = givenName.split(" |\\.");
+                String init = "";
+                for (String name : names)
+                {
+                    if (!"".equals(name))
+                    {
+                        init += name.substring(0, 1) + ". ";
+                    }
+                }
+                this.initial = init.trim();
+            }
+            else
+            {
+                this.initial = givenName.substring(0, 1) + ".";
+            }
 
+        }
+       
     }
 
     public String getInitial()
@@ -207,7 +211,7 @@ public class Author
 
     public void setPrefix(String prefix)
     {
-        this.prefix = prefix;
+        this.prefix = prefix.trim();
     }
 
     public AuthorFormat getFormat()
