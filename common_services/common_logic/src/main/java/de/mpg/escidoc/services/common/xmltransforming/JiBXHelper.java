@@ -654,35 +654,7 @@ public class JiBXHelper
         return creatorRole;
     }
 
-    /**
-     * Deserializes a String containing a organization-type to the corresponding
-     * MdsOrganizationalUnitDetailsVO.Type Enum.
-     * 
-     * @param enumValue The String to deserialize
-     * @return The corresponding MdsOrganizationalUnitDetailsVO.Type Enum
-     * @throws WrongEnumException
-     */
-    public static MdsOrganizationalUnitDetailsVO.Type deserializeOrganizationType(String enumValue) throws WrongEnumException
-    {
-        MdsOrganizationalUnitDetailsVO.Type organzationType = null;
-        if (enumValue == null)
-        {
-            throw new WrongEnumException("CreatorRoleEnum is null.");
-        }
-        else
-        {
-            String upperCaseText = enumValue.trim().replace('-', '_').toUpperCase();
-            try
-            {
-                organzationType = MdsOrganizationalUnitDetailsVO.Type.valueOf(upperCaseText);
-            }
-            catch (IllegalArgumentException e)
-            {
-                throw new WrongEnumException("CreatorRoleEnum value is '" + enumValue + "'.", e);
-            }
-        }
-        return organzationType;
-    }
+    
 
     /**
      * Deserializes a String containing an <code>xs:dateTime</code> to the corresponding <code>java.util.Date</code>.

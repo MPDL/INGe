@@ -72,8 +72,7 @@
 			<!-- Node: organizational-unit.organization-details.organization-type -->
 			<!-- Field: MdsOrganizationalUnitDetailsVO.type [Type] -->
 			<value style="element" name="organization-type" ns="${xsd.metadata.organization}"
-				field="type" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeOrganizationType"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString" usage="optional" />
+				field="type" usage="optional" />
 
 			<!-- Node: organizational-unit.organization-details.description -->
 			<!-- Field: AffiliationVO.descriptions [List<String>] -->

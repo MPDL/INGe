@@ -34,15 +34,12 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
     private String name;
     private List<String> alternativeNames = new ArrayList<String>();
 
-    private Type type;
+    private String type;
     
     private Date startDate;
     private Date endDate;
     
-    public enum Type
-    {
-        INSTITUTE
-    }
+    
     
     /**
      * Default constructor.
@@ -171,12 +168,12 @@ public class MdsOrganizationalUnitDetailsVO extends MetadataSetVO
         this.endDate = endDate;
     }
 
-    public Type getType()
+    public String getType()
     {
         return type;
     }
 
-    public void setType(Type type)
+    public void setType(String type)
     {
         this.type = type;
     }
