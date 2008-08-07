@@ -969,7 +969,7 @@ public class EditItem extends FacesBean
               {
                   // upload the file
                   LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
-<<<<<<< .mine
+
                   
                   URL url = null;
                   if (loginHelper.getAccountUser().isDepositor())
@@ -981,15 +981,7 @@ public class EditItem extends FacesBean
                   {
                       url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
                   }
-=======
-                  URL url = null;                  
-                  if (loginHelper.getAccountUser().isDepositor()) {                      
-                	  url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());                  
-                	  }                  //workarround for moderators who can modify released items but do not have the right to upload files                 
-                  else {                     
-                	  url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
-                	  }
->>>>>>> .r1089
+
                   if(url != null)
                   {
                 	  contentURL = url.toString();
