@@ -32,6 +32,17 @@
 <f:loadBundle var="lbl" basename="Label"/>
 
 <h:panelGroup layout="block" styleClass="">
+	
+	<h:panelGroup layout="block" styleClass="easySubmissionBox floatbox">
+		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+			<h:inputTextarea id="creatorParseTextArea" value="#{EasySubmission.creatorParseString}" rows="5" styleClass="fullWidth" />
+		</h:panelGroup>
+		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+			<h:commandButton id="addCreatorParseButton" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" styleClass="inlineButton" />
+			<h:commandButton id="overwriteCreatorParseButton" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" action="#{EasySubmission.overwriteAndAddCreatorString}" styleClass="inlineButton" />
+		</h:panelGroup>
+	</h:panelGroup>
+
 	<h:dataTable  var="creatorBean" styleClass="fullWidth" value="#{EasySubmission.creatorCollection.creatorManager.objectDM}" rendered="#{EasySubmission.creatorCollection.creatorManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
 		<h:column>
 			

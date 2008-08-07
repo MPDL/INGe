@@ -142,6 +142,7 @@ public class EasySubmission extends FacesBean
      */
     private String serviceID;
     private HtmlMessages valMessage = new HtmlMessages();
+    private String creatorParseString;
 
     /**
      * Public constructor.
@@ -1597,4 +1598,47 @@ public class EasySubmission extends FacesBean
     {
         this.fromEasySubmission = fromEasySubmission;
     }
+    
+    public void setCreatorParseString(String creatorParseString)
+    {
+        this.creatorParseString = creatorParseString;
+    }
+
+    public String getCreatorParseString()
+    {
+        return creatorParseString;
+    }
+    
+    public String addCreatorString()
+    {
+        try
+        {
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
+
+            return "loadNewEasySubmission";
+        }
+        catch (Exception e)
+        {
+            error(getMessage("ErrorParsingCreatorString"));
+            return "loadNewEasySubmission";
+            
+        }
+    }
+    
+    public String overwriteAndAddCreatorString()
+    {
+        try
+        {
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
+
+            return "loadNewEasySubmission";
+        }
+        catch (Exception e)
+        {
+            error(getMessage("ErrorParsingCreatorString"));
+            return "loadNewEasySubmission";
+            
+        }
+    }
+    
 }

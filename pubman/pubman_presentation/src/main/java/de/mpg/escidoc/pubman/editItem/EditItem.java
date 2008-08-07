@@ -65,10 +65,12 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.editItem.bean.ContentAbstractCollection;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceCollection;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
+import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection.CreatorManager;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
@@ -78,14 +80,19 @@ import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubFileVOPresentation;
 import de.mpg.escidoc.pubman.viewItem.ViewItemFull;
 import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.util.creators.Author;
+import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
+import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -158,6 +165,8 @@ public class EditItem extends FacesBean
     private boolean fromEasySubmission = false;
     private PubItemDepositing pubItemDepositing;
     
+    private String creatorParseString;
+    
     /**
      * Public constructor.
      */
@@ -194,9 +203,12 @@ public class EditItem extends FacesBean
         // enables the commandlinks
         this.enableLinks();
 
+        
         // initializes the (new) item if necessary
         this.initializeItem();
 
+        
+        
 //      FIXME provide access to parts of my VO to specialized POJO's
         titleCollection = new TitleCollection(this.getPubItem().getMetadata());
         eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
@@ -957,6 +969,19 @@ public class EditItem extends FacesBean
               {
                   // upload the file
                   LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
+<<<<<<< .mine
+                  
+                  URL url = null;
+                  if (loginHelper.getAccountUser().isDepositor())
+                  {
+                      url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());
+                  }
+                  //workarround for moderators who can modify released items but do not have the right to upload files
+                  else
+                  {
+                      url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
+                  }
+=======
                   URL url = null;                  
                   if (loginHelper.getAccountUser().isDepositor()) {                      
                 	  url = this.uploadFile(file, file.getContentType(), loginHelper.getESciDocUserHandle());                  
@@ -964,6 +989,7 @@ public class EditItem extends FacesBean
                   else {                     
                 	  url = this.uploadFile(file, file.getContentType(), AdminHelper.getAdminUserHandle());
                 	  }
+>>>>>>> .r1089
                   if(url != null)
                   {
                 	  contentURL = url.toString();
@@ -1593,6 +1619,108 @@ public class EditItem extends FacesBean
     public void setLnkRelease(HtmlCommandLink lnkRelease)
     {
         this.lnkRelease = lnkRelease;
+    }
+    
+    
+    /**Parses a string that includes creators in different formats and adds them to the given creatorCollection
+     * 
+     * @param creatorString The String to be parsed
+     * @param creatorCollection The collection to which the creators should be added
+     * @param overwrite Indicates if the already exisiting creators sshould be overwritten
+     * @throws Exception
+     */
+    public static void parseCreatorString(String creatorString, CreatorCollection creatorCollection, boolean overwrite) throws Exception
+    {
+        AuthorDecoder authDec = new AuthorDecoder(creatorString);
+        List<Author> authorList = authDec.getBestAuthorList();
+        if (authorList==null || authorList.size()==0) {
+            throw new Exception("Couldn't parse given creator string");
+        }
+        
+        if (overwrite)
+        {
+            creatorCollection.getCreatorManager().getObjectList().clear();
+            creatorCollection.getParentVO().clear();
+        }
+        
+        CreatorManager creatorManager = creatorCollection.getCreatorManager();
+
+        //check if last existing author is empty, then remove it
+        if (creatorManager.getObjectList().size()>=1)
+        {
+            CreatorBean lastCreatorBean = creatorManager.getObjectList().get(creatorManager.getObjectList().size()-1);
+            CreatorVO creatorVO  = lastCreatorBean.getCreator();
+            if (creatorVO.getPerson().getFamilyName().equals("") && creatorVO.getPerson().getGivenName().equals("") && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
+            {
+                creatorManager.getObjectList().remove(lastCreatorBean);
+                creatorCollection.getParentVO().remove(lastCreatorBean);
+            }
+        }
+        
+       
+        //add authors to creator collection
+        for (Author author : authorList)
+        {
+            CreatorBean creatorBean = creatorManager.createNewObject();
+            creatorBean.getCreator().getPerson().setFamilyName(author.getSurname());
+          
+                if(author.getGivenName()==null || author.getGivenName().equals(""))
+                {
+                    creatorBean.getCreator().getPerson().setGivenName(author.getPrefix());
+                }
+                else
+                {
+                    creatorBean.getCreator().getPerson().setGivenName(author.getGivenName());
+                }
+            creatorBean.getCreator().setRole(CreatorRole.AUTHOR);
+            creatorBean.getCreator().setType(CreatorType.PERSON);
+            
+            creatorManager.getObjectList().add(creatorBean);
+        }
+           
+    }
+    
+    public String addCreatorString()
+    {
+        try
+        {
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
+            setCreatorParseString("");
+
+            return EditItem.LOAD_EDITITEM;
+        }
+        catch (Exception e)
+        {
+            error(getMessage("ErrorParsingCreatorString"));
+            return EditItem.LOAD_EDITITEM;
+            
+        }
+    }
+    
+    public String overwriteAndAddCreatorString()
+    {
+        try
+        {
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
+            setCreatorParseString("");
+            return EditItem.LOAD_EDITITEM;
+        }
+        catch (Exception e)
+        {
+            error(getMessage("ErrorParsingCreatorString"));
+            return EditItem.LOAD_EDITITEM;
+            
+        }
+    }
+
+    public void setCreatorParseString(String creatorParseString)
+    {
+        this.creatorParseString = creatorParseString;
+    }
+
+    public String getCreatorParseString()
+    {
+        return creatorParseString;
     }
    
 
