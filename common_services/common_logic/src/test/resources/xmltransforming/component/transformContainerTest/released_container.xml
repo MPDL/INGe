@@ -33,42 +33,42 @@
 	</container:properties>
 	<escidocMetadataRecords:md-records>
 		<escidocMetadataRecords:md-record name="escidoc">
-			<mods-md xmlns="http://www.loc.gov/mods/v3">
-				<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="de">Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</dc:title>
-				<mods version="3.2">
-					<genre authority="MAB2-051/1-3">u</genre>
-					<titleInfo>
-						<title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</title>
-					</titleInfo>
-					<titleInfo type="uniform">
-						<title>Vollst�ndige Sammlung aller Conclusorum, Schreiben und anderer �brigen Verhandlungen des hochprei�lischen Corporis evangelicorum</title>
-					</titleInfo>
-					<originInfo>
-						<dateIssued encoding="w3cdtf" keyDate="yes">1752</dateIssued>
-					</originInfo>
-					<recordInfo>
-						<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
-					</recordInfo>
-					<language>
-						<languageTerm type="text">ger</languageTerm>
-					</language>
-					<relatedItem type="host">
-						<identifier type="local">69448</identifier>
-					</relatedItem>
-					<part order="3" type="host">
-						<detail>
-							<number>3</number>
-						</detail>
-					</part>
-					<recordInfo>
-						<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
-					</recordInfo>
-					<identifier type="local">69452</identifier>
-					<location>
-						<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
-					</location>
-				</mods>
-			</mods-md>
+		<virr-book xmlns="http://www.loc.gov/mods/v3">
+			<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+			<mods version="3.2">
+				<genre authority="MAB2-051/1-3">u</genre>
+				<titleInfo>
+					<title>Vom Jahr 1663 bis 1752. Nebst einer [!] chronolog. Verzeichni� und vollst�ndigen Reg.</title>
+				</titleInfo>
+				<titleInfo type="uniform">
+					<title>Vollst�ndige Sammlung aller Conclusorum, Schreiben und anderer �brigen Verhandlungen des hochprei�lischen Corporis evangelicorum</title>
+				</titleInfo>
+				<originInfo>
+					<dateIssued encoding="w3cdtf" keyDate="yes">1752</dateIssued>
+				</originInfo>
+				<recordInfo>
+					<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
+				</recordInfo>
+				<language>
+					<languageTerm type="text">ger</languageTerm>
+				</language>
+				<relatedItem type="host">
+					<identifier type="local">69448</identifier>
+				</relatedItem>
+				<part order="3" type="host">
+					<detail>
+						<number>3</number>
+					</detail>
+				</part>
+				<recordInfo>
+					<recordIdentifier source="MPIER catalog">69452</recordIdentifier>
+				</recordInfo>
+				<identifier type="local">69452</identifier>
+				<location>
+					<physicalLocation>MPI f�r Europ�ische Rechtsgeschichte, Dt 9 Bg 18 Q [3]</physicalLocation>
+				</location>
+			</mods>
+		</virr-book>
 		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>

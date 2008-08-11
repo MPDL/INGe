@@ -152,8 +152,8 @@
 					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
 				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
 					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
-				<structure name="mods" ns="http://www.loc.gov/mods/v3" ordered="false" flexible="true"/>
-				<structure name="title" ns="http://purl.org/dc/elements/1.1/" ordered="false" flexible="true"/>
+				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" ordered="false" flexible="true"/>
+				
 			</collection>
 		</structure>
 
