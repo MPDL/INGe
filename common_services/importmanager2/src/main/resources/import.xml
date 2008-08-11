@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Import-Sources xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource explain-import.xsd">
+
+	<Import-Source name="arXiv">
+		<!--Source description-->
+		<dc:description>ArXiv is an e-print service in the fields of physics, mathematics, non-linear science, computer science, quantitative biology and statistics.</dc:description>
+		<!--Source location-->
+		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
+		<!--Content type-->
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<!--Character encoding-->
+		<dc:format>UTF-8</dc:format>
+		<!--Harvest protocol -->
+		<harvest-protocol>OAI-PMH</harvest-protocol>
+		<!--Request information-->
+		<retry-after>0</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<!--Source status -->
+		<status>published</status>
+		
+		<!--Information about Metadata fetching -->
+		<MD-fetch-setting>
+				<dc:description>http://arxiv.org/help/prep</dc:description>
+				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv</dc:identifier>
+				<!--The format to fetch-->
+				<dc:format>arxiv</dc:format>
+				<label>arXiv</label>
+		</MD-fetch-setting>
+		
+		<!--Information about data fetching-->
+		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:description>The full text to be fetched will be in the pdf format</dc:description>
+				<dc:identifier>http://www.escidoc-project.de/documentation/Soap_api_doc_SB_Search.pdf</dc:identifier>
+				<!--Format of this data-->
+				<dc:format>application/pdf</dc:format>
+				<!--Label of this data-->
+				<label>PDF</label>
+				<!--File ending-->
+				<fileType>.pdf</fileType>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:description>The full text to be fetched will be in the postscript format</dc:description>
+				<dc:identifier>http://www.hcilab.org/documents/MobilePlatformsForPlayfulLearning.pdf</dc:identifier>
+				<!--Format of this data-->
+				<dc:format>application/postscript</dc:format>
+				<!--Label of this data-->
+				<label>Postscript</label>
+				<!--File ending-->
+				<fileType>.ps</fileType>
+			</FT-fetch-setting>
+<!-- This is implicitly done with the 'All available' selection -->			
+<!-- 		<FT-fetch-setting default="false">
+				<dc:description>A zipped file with all available formats will be fetched</dc:description>
+				<dc:identifier>http://www.hcilab.org/documents/MobilePlatformsForPlayfulLearning.pdf</dc:identifier>
+				<dc:format>application/zip</dc:format>
+				<label>All available</label>
+				<fileType>.zip</fileType>
+			</FT-fetch-setting>
+-->
+		</FT-fetch-settings>
+	</Import-Source>
+	
+	<Import-Source name="arXiv_oai_dc">
+		<!--Source description-->
+		<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
+		<!--Source location-->
+		<dc:identifier xsi:type="dcterms:URI">http://export.arxiv.org</dc:identifier>
+		<!--Content type-->
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<!--Character encoding-->
+		<dc:format>UTF-8</dc:format>
+		<!--Harvest protocol -->
+		<harvest-protocol>OAI-PMH</harvest-protocol>
+		<!--Request information-->
+		<retry-after>0</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<!--Source status -->
+		<status>published</status>
+		
+		<!--Information about Metadata fetching -->
+		<MD-fetch-setting>
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
+				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
+				<!--The format to fetch-->
+				<dc:format>oai_dc</dc:format>
+				<label>oai_dc</label>
+		</MD-fetch-setting>
+		
+		<!--Information about data fetching-->
+		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:description>The full text to be fetched will be in the pdf format</dc:description>
+				<dc:identifier>http://arxiv.org/pdf/GETID</dc:identifier>
+				<!--Format of this data-->
+				<dc:format>application/pdf</dc:format>
+				<!--Label of this data-->
+				<label>PDF</label>
+				<!--File ending-->
+				<fileType>.pdf</fileType>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:description>The full text to be fetched will be in the postscript format</dc:description>
+				<dc:identifier>http://arxiv.org/ps/GETID</dc:identifier>
+				<!--Format of this data-->
+				<dc:format>application/postscript</dc:format>
+				<!--Label of this data-->
+				<label>Postscript</label>
+				<!--File ending-->
+				<fileType>.ps</fileType>
+			</FT-fetch-setting>
+			<FT-fetch-setting default="false">
+				<dc:description>A zipped file with all available formats will be fetched</dc:description>
+				<dc:identifier>http://arxiv.org/src</dc:identifier>
+				<!--Format of this data-->
+				<dc:format>application/zip</dc:format>
+				<!--Label of this data-->
+				<label>All available</label>
+				<!--File ending-->
+				<fileType>.zip</fileType>
+			</FT-fetch-setting>
+		</FT-fetch-settings>
+	</Import-Source>
+	
+	<Import-Source name="PubMedCentral">
+		<!--Source description-->
+		<dc:description>PubMed is a service of the U.S. National Library of Medicine that includes over 17 million citations from MEDLINE and other life science journals for biomedical articles back to the 1950s.</dc:description>
+		<!--Source location-->
+		<dc:identifier>http://www.pubmedcentral.nih.gov/</dc:identifier>
+		<!--Content type-->
+		<dc:format>xml</dc:format>
+		<!--Character encoding-->
+		<dc:format>UTF-8</dc:format>
+		<!--Harvest protocol -->
+		<harvest-protocol>OAI-PMH</harvest-protocol>
+		<!--Request information-->
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<!--Source status -->
+		<status>published</status>
+			
+		<!--Information about Metadata fetching -->
+		<MD-fetch-setting>
+				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
+				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
+				<!--The format to fetch-->
+				<dc:format>pubmed</dc:format>
+				<label>PubMed</label>
+		</MD-fetch-setting>
+
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
+	<Import-Source name="PubMedCentral_oai_dc">
+		<!--Source description-->
+		<dc:description>PubMed is a service of the U.S. National Library of Medicine that includes over 17 million citations from MEDLINE and other life science journals for biomedical articles back to the 1950s.</dc:description>
+		<!--Source location-->
+		<dc:identifier>http://www.pubmedcentral.nih.gov/</dc:identifier>
+		<!--Content type-->
+		<dc:format>xml</dc:format>
+		<!--Character encoding-->
+		<dc:format>UTF-8</dc:format>
+		<!--Harvest protocol -->
+		<harvest-protocol>OAI-PMH</harvest-protocol>
+		<!--Request information-->
+		<retry-after>3</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<!--Source status -->
+		<status>published</status>
+			
+		<!--Information about Metadata fetching -->
+		<MD-fetch-setting>
+				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
+				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
+				<!--The format to fetch-->
+				<dc:format>oai_dc</dc:format>
+				<label>oai_dc</label>
+		</MD-fetch-setting>
+
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
+</Import-Sources>
