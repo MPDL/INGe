@@ -165,10 +165,13 @@
     <module>search</module>
     <module>search_presentation</module>
     <module>search_ear</module>
-    <module>cone_presentation</module>
-    <module>endnotemanager</module>
-    <module>endnotemanager_ear</module>
-  </modules>
+	<module>cone_presentation</module>
+	<module>importmanager</module>
+	<module>import_presentation</module>
+	<module>import_ear</module>
+	 <module>endnotemanager</module>
+   	<module>endnotemanager_ear</module>
+	</modules>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services</connection>
@@ -441,9 +444,9 @@
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
+				
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
-				
 				
 				
 			</properties>
