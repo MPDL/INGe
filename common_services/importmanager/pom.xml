@@ -70,17 +70,17 @@
 			<plugin>
 			    <groupId>org.codehaus.mojo</groupId>
 			    <artifactId>xmlbeans-maven-plugin</artifactId>
-			    <version>2.0</version>
-			    <executions>			    
-			       <execution>			       	  
-			          <goals>
-			             <goal>xmlbeans</goal>			             
-			          </goals>
-			       </execution>
+			    <executions>	
+			       <execution>
+						<id>xmlbeans</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>xmlbeans</goal>
+						</goals>
+					</execution>		    
 			    </executions>
 			   <inherited>true</inherited>
 			    <configuration>
-			       <schemaDirectory>src/main/resources/explain-import.xsd</schemaDirectory>
 			       <noPvr>true</noPvr>
 			       <download>true</download>
 			    </configuration>
@@ -205,20 +205,6 @@
 			<artifactId>xbean_xpath</artifactId>
 			<version>2.1.0</version>
 			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>import_sources</groupId>
-			<artifactId>import_sources</artifactId>
-			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>C:/Dokumente und Einstellungen/kleinfe1/Eigene Dateien/Projects/Proj_PubMan/DEV/Import Service/import_sources.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>OAI-PMH</groupId>
-			<artifactId>OAI-PMH</artifactId>
-			<version>1.0.0</version>
-			<scope>system</scope>
-			<systemPath>C:/Dokumente und Einstellungen/kleinfe1/Eigene Dateien/Projects/Proj_PubMan/DEV/Import Service/OAI-PMH.jar</systemPath>
 		</dependency>
 	</dependencies>
 </project>
