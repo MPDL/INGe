@@ -29,6 +29,10 @@
 
 package de.mpg.escidoc.services.common;
 
+import java.io.InputStreamReader;
+
+import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
+
 /**
  * Interface for Metadata Handler EJB.
  * @author franke (initial creation)
@@ -45,18 +49,6 @@ public interface MetadataHandler
     String SERVICE_NAME = "ejb/de/mpg/escidoc/services/metadata/MetadataHandler";
 
     /**
-     * Returns an publication item xml based on a given identifier.
-     * The service tries to identify the type of the identifier,
-     * then tries to retrieve metadata from an external source.
-     *
-     * @param identifier An identifier for a resource.
-     * @returns Item xml if the identifier identified a valid publication resource.
-     * @throws Exception Thrown if the identifier does not match a pattern
-     * recognized by the service.
-     */
-    public String fetchOAIRecord(String identifier, String source, String format) throws Exception;
-
-    /**
      * Returns an publication item xml based on a given bibtex input.
      *
      * @param bibtex THe input in bibtex format.
@@ -65,5 +57,29 @@ public interface MetadataHandler
      * recognized by the service.
      */
     public String bibtex2item(String bibtex) throws Exception;
+    
+    /**
+     * Checks the transformation.xml if the requested transformation is supported and if a xslt uri exists
+     * @param formatFrom
+     * @param formatTo
+     * @return true of transformation is supported, false if not
+     */
+    public boolean checkTransformation(String formatFrom, String formatTo);
+    
+    /**
+     * Gives back all transformations available for a given format
+     * @param format
+     * @return List of supported transformations for a format
+     */
+    public String[] getTransformations(String format);
+    
+	/**
+	 * This method looks up the right xslt uri for the transformation and calls the transformationHandler
+	 * @param formatFrom
+	 * @param formatTo
+	 * @param itemXML
+	 * @return a transformed itemXML
+	 */
+    public String transform(String formatFrom, String formatTo, String itemXML)throws IdentifierNotRecognisedException;
 
 }

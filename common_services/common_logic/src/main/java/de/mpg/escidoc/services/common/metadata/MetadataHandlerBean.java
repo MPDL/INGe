@@ -29,14 +29,15 @@
 
 package de.mpg.escidoc.services.common.metadata;
 
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -45,6 +46,7 @@ import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
@@ -61,8 +63,6 @@ import bibtex.dom.BibtexToplevelComment;
 import bibtex.parser.BibtexParser;
 import de.mpg.escidoc.services.common.MetadataHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
-import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.util.ArxivHelper;
 import de.mpg.escidoc.services.common.util.BibTexUtil;
 import de.mpg.escidoc.services.common.util.LocalURIResolver;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
@@ -101,114 +101,11 @@ public class MetadataHandlerBean implements MetadataHandler
      */
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(MetadataHandlerBean.class);
-
-    /**
-     * {@inheritDoc}
-     */
-    public String fetchOAIRecord(String identifier, String source, String format) throws Exception
-    {
-        if (ArxivHelper.retryAfter != null && ArxivHelper.retryAfter.getTime() > (new Date()).getTime())
-        {
-            logger.warn("Retry after " + ArxivHelper.retryAfter);
-            throw new ArxivNotAvailableException(ArxivHelper.retryAfter);
-        }
-        
-        identifier = identifier.trim();
-
-        if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
-        {
-            identifier = identifier.substring(14);
-        }
-        if (identifier.toLowerCase().startsWith("arxiv:", 0))
-        {
-            identifier = identifier.substring(6);
-        }
-
-        URL sourceUrl = new URL(source + identifier + "&metadataPrefix=" + format);
-
-        return fetchOAIRecord(sourceUrl);
-    }
     
-    public String fetchOAIRecord(URL sourceUrl) throws Exception
-    {
+    private final String METADATA_LOCATION ="metadata";
+    private final String METADATA_XSLT_LOCATION ="metadata/xslt";
 
-        logger.debug("arXiv URL: " + sourceUrl);
-
-        URLConnection conn = sourceUrl.openConnection();
-        
-        if (conn instanceof HttpURLConnection)
-        {
-            HttpURLConnection httpConn = (HttpURLConnection) conn;
-            int responseCode = httpConn.getResponseCode();
-            if (responseCode == 503)
-            {
-                String responseMessage = httpConn.getResponseMessage();
-                String retryAfterHeader = conn.getHeaderField("Retry-After");
-                
-                if (retryAfterHeader != null)
-                {
-                    //RFC 1123 [8]
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-                    
-                    Date retryAfter = dateFormat.parse(retryAfterHeader);
-                    
-                    ArxivHelper.retryAfter = retryAfter;
-                    logger.warn("Retry after " + ArxivHelper.retryAfter);
-                    throw new ArxivNotAvailableException(ArxivHelper.retryAfter);
-                }
-                else
-                {
-                    throw new TechnicalException("Arxiv returned 503 without 'Retry-After' header.");
-                }
-            }
-            else if (responseCode == 302)
-            {
-                String alternativeLocation = conn.getHeaderField("Location");
-                
-                return fetchOAIRecord(new URL(alternativeLocation));
-            }
-            else if (responseCode != 200)
-            {
-                throw new TechnicalException("An error occurred during arXiv request: " + responseCode + ": " + httpConn.getResponseMessage());
-            }
-        }
-        
-        String contentTypeHeader = conn.getHeaderField("Content-Type");
-        String contentType = contentTypeHeader;
-        String charset = "UTF-8";
-        if (contentType.contains(";"))
-        {
-            contentType = contentType.substring(0, contentType.indexOf(";"));
-            if (contentTypeHeader.contains("encoding="))
-            {
-                charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
-                logger.debug("Charset found: " + charset);
-            }
-        }
-        InputStreamReader reader = new InputStreamReader(sourceUrl.openStream(), charset);
-
-        TransformerFactory factory = TransformerFactory.newInstance();
-        factory.setURIResolver(new LocalURIResolver("metadata/xslt"));
-        Transformer transformer = factory.newTransformer(
-                new StreamSource(ResourceUtil.getResourceAsStream("metadata/xslt/arXiv2pubItem.xsl")));
-
-        // set parameter to default organisation id
-        transformer.setParameter(
-                "external_organization_id",
-                PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
-        StringWriter writer = new StringWriter();
-        try
-        {
-            transformer.transform(new StreamSource(reader), new StreamResult(writer));
-        }
-        catch (Exception e)
-        {
-            throw new IdentifierNotRecognisedException(e);
-        }
-
-        return writer.toString();
-    }
-
+ 
     /**
      * {@inheritDoc}
      */
@@ -633,6 +530,101 @@ public class MetadataHandlerBean implements MetadataHandler
         return xmlTransforming.transformToItem(itemVO);
     }
 
+    public boolean checkTransformation(String formatFrom, String formatTo)
+    {
+    	String xsltUri = formatFrom.toLowerCase().trim() + "2" + formatTo.toLowerCase().trim() + ".xsl";
+    	boolean check = false;
+    	
+    	try {
+    		
+    		File transformFile = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION +"/"+xsltUri);
+    		System.out.println("File: " + transformFile);
+    		check = true;
+    		
+    	}
+    	catch (FileNotFoundException e){logger.warn("No transformation file from format: " + formatFrom + " to format: " + formatTo);}
+
+    	return check;
+    }
+    
+    public String[] getTransformations(String format){
+    	System.out.println("in getTransformations 8");
+    	String [] formats = null;
+    	SecurityManager sec = new SecurityManager();
+    	
+    	try {
+    		sec.checkRead("metadata/xslt/");
+    		
+			File [] files = ResourceUtil.getFilenamesInDirectory("metadata/xslt/");
+			
+			formats = new String [files.length];
+			for (int i=0; i< files.length; i++){
+				File file = files[i];
+				formats[i] = file.getName();
+				System.out.println(file.getName());
+			}
+			
+		} catch (IOException e) {e.printStackTrace();}
+    	
+//
+//    	File myDir;
+//		try {
+//			ClassLoader cl = this.getClass().getClassLoader();
+//			cl.getResourceAsStream(this.METADATA_XSLT_LOCATION);
+//			myDir = ResourceUtil.getResourceAsFile(this.METADATA_XSLT_LOCATION);
+//			System.out.println("file: " + myDir);
+//	    	System.out.println("exists: " + myDir.exists());
+//	    	System.out.println("Dir: " + myDir.isDirectory());
+//	    	
+//	    	if( myDir.exists() && myDir.isDirectory()){
+//		    	File[] files = myDir.listFiles();
+//		    	formats = new String [files.length];
+//		    	for(int i=0; i < files.length; i++){
+//		    		System.out.println(files[i].getName());
+//		    		formats[i] = files[i].getName();
+//		    	}
+//	    	}
+//		} 
+//		catch (FileNotFoundException e) {e.printStackTrace();}
+//		catch (SecurityException e) {e.printStackTrace();}
+
+    	
+    	return formats;
+    }
+    
+    
+    public String transform(String formatFrom, String formatTo, String itemXML) throws IdentifierNotRecognisedException
+    {
+    	String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
+        TransformerFactory factory = TransformerFactory.newInstance();
+        factory.setURIResolver(new LocalURIResolver(this.METADATA_XSLT_LOCATION));
+        StringWriter writer = new StringWriter();
+        
+        System.out.println("transform from: " + formatFrom + "  to: " + formatTo);
+        
+        try
+        {
+	        Transformer transformer = factory.newTransformer(
+	                new StreamSource(ResourceUtil.getResourceAsStream(this.METADATA_XSLT_LOCATION +"/"+xsltUri)));
+	
+	        // set parameter to default organisation id
+	        //TODO: More generic (do we need this for every transformation?)
+	        transformer.setParameter(
+	                "external_organization_id",
+	                PropertyReader.getProperty("escidoc.pubman.external.organisation.id"));
+	
+	        StringReader xmlSource = new StringReader(itemXML);
+	        transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
+        }
+        catch (TransformerException e){throw new IdentifierNotRecognisedException();}
+        catch (FileNotFoundException e){e.printStackTrace();}
+        catch (URISyntaxException e){e.printStackTrace();}
+        catch (IOException e){e.printStackTrace();}
+
+    	
+    	return writer.toString();
+    }
+    
     private void addCreator(
             MdsPublicationVO publicationVO,
             BibtexPerson person,
