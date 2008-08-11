@@ -70,6 +70,33 @@
 			</mods>
 		</virr-book>
 		</escidocMetadataRecords:md-record>
+		<escidocMetadataRecords:md-record name="virr_mab" md-type="MAB">
+			<mab-md>
+			<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"></dc:title>
+				<![CDATA[
+					00371nM2.01030024      u
+					001 69452
+					002 19950116000000.0
+					003 20070608000000.0
+					010 69448
+					030 zz5d||rz||||7
+					037 ger
+					050 
+					051 
+					077 c1
+					078 a M000069452
+					b Dt 9 Bg 18 Q [3]
+					c 01
+					d 0
+					e 0
+					f 0
+					089 3
+					331 Vollständige Sammlung aller Conclusorum, Schreiben und anderer übrigen Verhandlungen des hochpreißlischen Corporis evangelicorum
+					425 1752
+					544 Dt 9 Bg 18 Q [3]
+				]]>
+			</mab-md>
+		</escidocMetadataRecords:md-record>
 	</escidocMetadataRecords:md-records>
 	<struct-map:struct-map>
 		<srel:item objid="escidoc:1790"/>

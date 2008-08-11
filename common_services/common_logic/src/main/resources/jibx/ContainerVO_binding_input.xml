@@ -140,19 +140,20 @@
 		</structure>
 
 		<!-- Node: container.md-records -->
-		<structure name="md-records" ns="${xsd.soap.common.mdrecords}">
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" ordered="false" allow-repeats="true">
 
 			<!-- Node: container.md-records.md-record -->
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO">
-
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"  ordered="false" allow-repeats="true">
+				
 				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
+					type="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" ordered="false"/>
 				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />
-				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" ordered="false" flexible="true"/>
+					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" ordered="false"/>
+				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>
+				<structure name="mab-md" usage="optional" ordered="false" flexible="true"/>
 				
 			</collection>
 		</structure>
