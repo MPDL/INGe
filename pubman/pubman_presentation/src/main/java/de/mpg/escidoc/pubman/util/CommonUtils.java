@@ -639,4 +639,10 @@ public class CommonUtils extends InternationalizedImpl
         return limitedString;
     }
 
+    public static String currentDate() {
+      Calendar cal = Calendar.getInstance();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      return sdf.format(cal.getTime());
+
+    }
 }

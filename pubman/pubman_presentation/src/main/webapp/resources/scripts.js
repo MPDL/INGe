@@ -48,15 +48,20 @@ function changeQAWS()
 	document.getElementById("form1:content:btnChangeContext").click();
 }
 
+function changeImportSource() 
+{
+	document.getElementById("easySubmission:easySubmissionStep3Import:btnChangeImportSource").click();
+}
+
 function changeSortCriteria() 
 {
 	document.getElementById("form1:content:btnSortItemList").click();
 }
 
-function loadAbout(url) 
+function loadAbout() 
 {
 	// use the h:output tag to output the bean property
-	openCenteredWindow(url + "", 680, 520, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
+	openCenteredWindow("http://colab.mpdl.mpg.de/mediawiki/Portal:PubMan", 1360, 1040, "About"); // don't use a windowName containing a blank space! -> http://developer.mozilla.org/en/docs/DOM:window.open
 }
 
 function loadHelp(url, anchor)

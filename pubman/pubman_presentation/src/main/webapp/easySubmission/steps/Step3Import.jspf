@@ -64,16 +64,37 @@
 					<div class="easySubmissionBoxBodySubLine">
 							<div class="bibTeXImportIDItem">
 								<h:outputLabel value="#{lbl.easy_submission_lblIDType}"/>
-								<h:selectOneMenu id="cboExtServiceType" value="#{EasySubmissionSessionBean.currentExternalServiceType}" disabled="#{EasySubmission.disableExternalFields}">
-		           					<f:selectItems value="#{EasySubmission.EXTERNAL_SERVICE_OPTIONS}" />
+								<h:selectOneMenu id="cboExtServiceType" value="#{EasySubmissionSessionBean.currentExternalServiceType}" 
+													disabled="#{EasySubmission.disableExternalFields}" onchange="changeImportSource();" binding="#{EasySubmission.sourceSelect}">
+		           					
+		           					<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
 		          				</h:selectOneMenu>
+								<h:commandButton action="#{EasySubmission.changeImportSource}" immediate="true" 
+									id="btnChangeImportSource" value="" style="visibility:hidden;"/>
 							</div>
+
 							<div class="bibTeXImportIDItem">
 								<h:outputLabel value="#{lbl.easy_submission_lblIDValue}"/>
 								<tr:inputText value="#{EasySubmission.serviceID}" disabled="#{EasySubmission.disableExternalFields}"/>
 							</div>
 					</div>
 				</div>
+
+				<div>
+					<div  class="easySubmissionBoxBodyContent">
+					<div class="trinidadRadiobuttonTable">
+						<h:outputLabel value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmission.fulltext}"/>
+						<h:selectOneRadio id="rbgFulltext"  
+									  value="FORMAT"
+									  binding="#{EasySubmissionSessionBean.radioSelectFulltext}"
+									  rendered="#{EasySubmission.fulltext}">										
+							 <f:selectItems value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
+						</h:selectOneRadio>
+					</div>
+					</div>
+				</div>
+
+
 				<div>
 					<div class="easySubmissionBoxBodyLine">
 					<div class="trinidadRadiobuttonTable">
@@ -92,14 +113,13 @@
 						</div>
 						<tr:inputFile value="#{EasySubmission.uploadedBibTexFile}" disabled="#{EasySubmission.disableBibtexFields}"/>
 					</div>
-				</div>
-				
-				
+				</div>			
 			</div>
 		</div>
 	</div>
 	<h:commandButton id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" style="visibility: hidden;"/>
 	<h:commandButton id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" style="visibility: hidden;"/>
+
 	<div class="easySubmissionControls floatbox">
 		<div>
 			<div class="easySubmissionsBackSection">
@@ -109,10 +129,10 @@
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink action="#{EasySubmission.fetchMetadata}">
+			<tr:commandLink action="#{EasySubmission.harvestData}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
 				<h:panelGroup styleClass="easySubmissionNextButton"/>
-			</h:commandLink>
+			</tr:commandLink>
 			</div>
 		</div>
 	</div>

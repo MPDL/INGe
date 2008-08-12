@@ -73,8 +73,7 @@
 			<h:panelGroup layout="block" id="lblPersonsAndOrganizations" styleClass="editItemBlockHeaders">
 				<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
 			</h:panelGroup>
-		</h2>
-						
+		</h2>						
 			<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
 		
 	</h:panelGroup>
@@ -88,7 +87,6 @@
 				<h:outputText value="#{lbl.EditItem_lblFile}" />
 			</h:panelGroup>
 		</h2>		
-		
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
 	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
@@ -100,10 +98,12 @@
 	      				<tr:commandButton text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak"/> 			
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+						<div>
 	           			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.size > 0}"/>
 	           			<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.size > 0}">
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
+						</div>
 	           		</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>

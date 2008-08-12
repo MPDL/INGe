@@ -33,6 +33,10 @@ package de.mpg.escidoc.pubman.easySubmission;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.component.html.HtmlSelectOneRadio;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.model.SelectItem;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -60,9 +64,6 @@ public class EasySubmissionSessionBean extends FacesBean
     
     public static final String DATE_PUBLISHED_IN_PRINT = "DATE_PUBLISHED_IN_PRINT";
     
-    public static final String EXTERNAL_SERVICE_ESCIDOC = "ESCIDOC";
-    public static final String EXTERNAL_SERVICE_ARXIV = "ARXIV";
-    
     public static final String ES_STEP1 = "STEP1";
     public static final String ES_STEP2 = "STEP2";
     public static final String ES_STEP3 = "STEP3";
@@ -75,8 +76,6 @@ public class EasySubmissionSessionBean extends FacesBean
     private String currentSubmissionStep = ES_STEP1;
     
     private String currentDateType = DATE_PUBLISHED_IN_PRINT;
-    
-    private String currentExternalServiceType = EXTERNAL_SERVICE_ARXIV;
     
     private String importMethod = EasySubmissionSessionBean.IMPORT_METHOD_EXTERNAL;
     
@@ -91,42 +90,46 @@ public class EasySubmissionSessionBean extends FacesBean
     private List<PubFileVOPresentation> locators = new ArrayList<PubFileVOPresentation>();
     
     private String selectedDate;
+    
+    //For import service
+    private String currentExternalServiceType = "";
+    private String currentFTLabel = "";
+    private HtmlSelectOneRadio radioSelectFulltext = new HtmlSelectOneRadio();
 
-     
-    /**
+
+	private boolean importSourceRefresh = false;
+    public SelectItem[] FULLTEXT_OPTIONS;
+    public SelectItem[] EXTERNAL_SERVICE_OPTIONS;
+
+	/**
      * Public constructor.
      */
     public EasySubmissionSessionBean()
     {
         this.currentSubmissionStep = ES_STEP1;
+        this.importSourceRefresh = false;
 
     }
-
-
+    
 	public String getCurrentSubmissionMethod() {
 		return currentSubmissionMethod;
 	}
-
 
 	public void setCurrentSubmissionMethod(String currentSubmissionMethod) {
 		this.currentSubmissionMethod = currentSubmissionMethod;
 	}
 
-
 	public String getCurrentSubmissionStep() {
 		return currentSubmissionStep;
 	}
-
 
 	public void setCurrentSubmissionStep(String currentSubmissionStep) {
 		this.currentSubmissionStep = currentSubmissionStep;
 	}
 
-
 	public ContextVO getContext() {
 		return context;
 	}
-
 
 	public void setContext(ContextVO context) {
 		this.context = context;
@@ -142,61 +145,49 @@ public class EasySubmissionSessionBean extends FacesBean
 		this.currentItem = currentItem;
 	}*/
 
-
 	public List<PubFileVOPresentation> getFiles() {
 		return files;
 	}
-
 
 	public void setFiles(List<PubFileVOPresentation> files) {
 		this.files = files;
 	}
 
-
 	public List<PubFileVOPresentation> getLocators() {
 		return locators;
 	}
-
 
 	public void setLocators(List<PubFileVOPresentation> locators) {
 		this.locators = locators;
 	}
 
-
 	public String getCurrentDateType() {
 		return currentDateType;
 	}
-
 
 	public void setCurrentDateType(String currentDateType) {
 		this.currentDateType = currentDateType;
 	}
 
-
 	public String getImportMethod() {
 		return importMethod;
 	}
-
 
 	public void setImportMethod(String importMethod) {
 		this.importMethod = importMethod;
 	}
 
-
 	public String getCurrentExternalServiceType() {
 		return currentExternalServiceType;
 	}
-
 
 	public void setCurrentExternalServiceType(String currentExternalServiceType) {
 		this.currentExternalServiceType = currentExternalServiceType;
 	}
 
-
 	public OrganizationVO getCurrentlySelecting() {
 		return currentlySelecting;
 	}
-
 
 	public void setCurrentlySelecting(OrganizationVO currentlySelecting) {
 		this.currentlySelecting = currentlySelecting;
@@ -207,10 +198,50 @@ public class EasySubmissionSessionBean extends FacesBean
 		return selectedDate;
 	}
 
-
 	public void setSelectedDate(String selectedDate) {
 		this.selectedDate = selectedDate;
 	}
-    
+
+	public String getCurrentFTLabel() {
+		return currentFTLabel;
+	}
+
+	public void setCurrentFTLabel(String currentFTLabel) {
+		this.currentFTLabel = currentFTLabel;
+	}
+
+	public boolean isImportSourceRefresh() {
+		return importSourceRefresh;
+	}
+
+
+	public void setImportSourceRefresh(boolean importSourceRefresh) {
+		this.importSourceRefresh = importSourceRefresh;
+	}
+
+	public SelectItem[] getFULLTEXT_OPTIONS() {
+		return FULLTEXT_OPTIONS;
+	}
+
+	public void setFULLTEXT_OPTIONS(SelectItem[] fulltext_options) {
+		FULLTEXT_OPTIONS = fulltext_options;
+	}
 	
+	public SelectItem[] getEXTERNAL_SERVICE_OPTIONS() {
+		return EXTERNAL_SERVICE_OPTIONS;
+	}
+
+
+	public void setEXTERNAL_SERVICE_OPTIONS(SelectItem[] external_service_options) {
+		EXTERNAL_SERVICE_OPTIONS = external_service_options;
+	}
+	
+	public HtmlSelectOneRadio getRadioSelectFulltext() {
+		return radioSelectFulltext;
+	}
+
+	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
+		this.radioSelectFulltext = radioSelectFulltext;
+	}
+
 }
