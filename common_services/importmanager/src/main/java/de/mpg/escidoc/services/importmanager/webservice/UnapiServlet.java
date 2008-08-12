@@ -183,7 +183,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 		String [] additionalFormats = null;
 		
 		formats += "<formats id ='"+source.getName()+"'>";
-			formats += "<format name ='" +source.getMdLabel()+ "' type ='application/xml docs="+ source.getMdDesc()+"'/>";
+			formats += "<format name ='" +source.getMdLabel()+ "' type ='application/xml' docs='"+ source.getMdDesc()+"'/>";
 			for (int i =0; i< v_ft.size(); i++){
 				ft = v_ft.get(i);
 				formats += "<format name ='" +ft.getFtLabel()+ "' type ='"+ft.getFtFormat()+"'/>";

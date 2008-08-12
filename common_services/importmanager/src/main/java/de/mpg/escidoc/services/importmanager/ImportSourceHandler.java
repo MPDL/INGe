@@ -34,7 +34,6 @@ public class ImportSourceHandler {
 	public Vector<ImportSourceVO> getSources () throws Exception
 	{
 		Vector<ImportSourceVO> sourceVec = new Vector<ImportSourceVO>();
-		System.out.println("getsources");
 		try{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/import.xml"); 	
@@ -119,7 +118,6 @@ public class ImportSourceHandler {
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
         for (ImportSourceType source : sources)
         {      	
-        	System.out.println("source: " + source.getName());
         	if (!source.getName().trim().toLowerCase().equals(name.trim().toLowerCase())){continue;}
         	else{found = true;}
         	

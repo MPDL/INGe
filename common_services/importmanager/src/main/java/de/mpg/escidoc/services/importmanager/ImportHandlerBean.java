@@ -137,7 +137,7 @@ public class ImportHandlerBean implements ImportHandler {
     	try{
 	    	boolean supported = false;
 	    	if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh")){
-					System.out.println("Fetch OAI record from URL: " + importSource.getMdUrl());
+	    			logger.debug("Fetch OAI record from URL: " + importSource.getMdUrl());
 					itemXML = fetchOAIRecord (importSource);
 					supported = true;
 	    	}
