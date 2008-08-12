@@ -31,9 +31,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGroup layout="block" styleClass="">
+<h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
 	
-	<h:panelGroup layout="block" styleClass="easySubmissionBox floatbox">
+	<h:panelGroup layout="block" styleClass="easySubmissionSubBox floatbox">
 		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
 			<h:inputTextarea id="creatorParseTextArea" value="#{EasySubmission.creatorParseString}" rows="5" styleClass="fullWidth" />
 		</h:panelGroup>
