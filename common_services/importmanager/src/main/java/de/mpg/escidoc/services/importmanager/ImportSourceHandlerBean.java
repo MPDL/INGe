@@ -15,14 +15,14 @@ import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourceType;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesDocument;
 import de.mpg.escidoc.metadataprofile.schema.x01.importSource.ImportSourcesType;
 
-public class ImportSourceHandler {
+public class ImportSourceHandlerBean {
 	
     ImportSourcesDocument sourceDoc = null;
     ImportSourcesType sourceType = null;
     
     private final static Logger logger = Logger.getLogger(ImportHandlerBean.class);
 
-	public ImportSourceHandler ()
+	public ImportSourceHandlerBean ()
 	{
 	
 	}

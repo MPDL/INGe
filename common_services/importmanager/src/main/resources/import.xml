@@ -64,7 +64,7 @@
 	
 	<Import-Source name="arXiv_oai_dc">
 		<!--Source description-->
-		<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
+		<dc:description>ArXiv is an e-print service in the fields of physics, mathematics, non-linear science, computer science, quantitative biology and statistics.</dc:description>
 		<!--Source location-->
 		<dc:identifier xsi:type="dcterms:URI">http://export.arxiv.org</dc:identifier>
 		<!--Content type-->

@@ -15,7 +15,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.importmanager.FullTextVO;
 import de.mpg.escidoc.services.importmanager.ImportHandlerBean;
-import de.mpg.escidoc.services.importmanager.ImportSourceHandler;
+import de.mpg.escidoc.services.importmanager.ImportSourceHandlerBean;
 import de.mpg.escidoc.services.importmanager.ImportSourceVO;
 import de.mpg.escidoc.services.importmanager.SourceNotAvailableException;
 
@@ -35,7 +35,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 	
 	
 	private ImportHandlerBean importHandler = new ImportHandlerBean();
-	private ImportSourceHandler sourceHandler = new ImportSourceHandler();
+	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();
 	
 	private String formatIntern = null;
 	private String responseEncoding = null;

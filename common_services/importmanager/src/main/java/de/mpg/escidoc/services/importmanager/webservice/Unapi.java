@@ -8,6 +8,8 @@ import de.mpg.escidoc.services.importmanager.SourceNotAvailableException;
 
 
 public interface Unapi{
+	
+	String SERVICE_NAME = "ejb/de/mpg/escidoc/services/importmanager/webservice/Unapi";
 
 	/**
 	 * This operation gives back a description of all available sources for this unapi interface

@@ -86,7 +86,7 @@ public class ImportHandlerBean implements ImportHandler {
 	private final String DATA_RETURN_FILETYPE = ".zip";
 	private final String DATA_RETURN_MIMETYPE = "application/zip";
 
-	private ImportSourceHandler sourceHandler = new ImportSourceHandler();	
+	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();	
 	private int contentLength =0;
 
 	public ImportHandlerBean(){		
@@ -119,7 +119,7 @@ public class ImportHandlerBean implements ImportHandler {
     	identifier = this.trimIdentifier(sourceName, identifier);
     	ImportSourceVO importSource = new ImportSourceVO();
     	importSource = this.sourceHandler.getSourceByName(sourceName);  
-    	ImportSourceHandler sourcehandler = new ImportSourceHandler();
+    	ImportSourceHandlerBean sourcehandler = new ImportSourceHandlerBean();
     	
     	sourcehandler.printSourceXML(importSource);
     	logger.debug("Import from Source: " + sourceName);
@@ -258,7 +258,6 @@ public class ImportHandlerBean implements ImportHandler {
      */
     public byte[] fetchData(String sourceName, String identifier, String[] listOfFormats) throws FileNotFoundException{
 
-    	ImportSourceHandler importSourceHandler = new ImportSourceHandler();
     	ImportSourceVO importSource = new ImportSourceVO();
     	FullTextVO fulltext = new FullTextVO();
     	Vector<FullTextVO> v_fulltext = new Vector<FullTextVO>();
@@ -270,7 +269,7 @@ public class ImportHandlerBean implements ImportHandler {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	ZipOutputStream zos = new ZipOutputStream(baos);
 		
-    	importSource = importSourceHandler.getSourceByName(sourceName);
+    	importSource = this.sourceHandler.getSourceByName(sourceName);
     	v_fulltext = importSource.getFtFormats();
        	
 		//Call fetch file for every selected format
