@@ -50,6 +50,10 @@
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
 						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>importmanager</artifactId>
+						</ejbModule>
+						<ejbModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
 							<artifactId>pubman_logic</artifactId>
 						</ejbModule>
@@ -165,6 +169,13 @@
 							</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+							<groupId>org.apache.xmlbeans</groupId>
+							<artifactId>xmlbeans</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
 							<groupId>org.mulgara</groupId>
 							<artifactId>itql</artifactId>
 							<includeInApplicationXml>
@@ -271,6 +282,13 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>importmanager</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
 			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
@@ -363,6 +381,24 @@
 			<groupId>javabib</groupId>
 			<artifactId>javabib</artifactId>
 			<version>20040801</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.3.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xbean</artifactId>
+			<version>2.2.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xbean_xpath</artifactId>
+			<version>2.1.0</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
