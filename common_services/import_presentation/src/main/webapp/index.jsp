@@ -35,7 +35,7 @@
 		<title>eSciDoc Import Service</title>
 	</head>
 	<body bgcolor="white">
-		<link rel="unapi-server" type="application/xml" title="unAPI" href="http://pubman.mpdl.mpg.de/import/unapi/unapi"/>
+		<link rel="unapi-server" type="application/xml" title="unAPI" href="http://pubman.mpdl.mpg.de:8080/import/unapi/unapi"/>
 		<h1>
 			eSciDoc Import Service
 		</h1>
@@ -45,13 +45,13 @@
 		<ul>
 			<b>The service provides three operations:</b>
 				<li>
-			  		/unapi Gives back informations about all formats the ImportHandler can fetch.
+			  		/unapi/unapi Gives back informations about all formats the ImportHandler can fetch.
 				</li>
 				<li>
-    				/unapi?id=IDENTIFIER Gives back a list of all formats for this identifier.
+    				/unapi/unapi?id=IDENTIFIER Gives back a list of all formats for this identifier.
 				</li>
 				<li>
-    				/unapi?id=IDENTIFIER&format=FORMAT Fetches the given format for this identifier.
+    				/unapi/unapi?id=IDENTIFIER&format=FORMAT Fetches the given format for this identifier.
 				</li>
 		</ul>
 		<ul>
