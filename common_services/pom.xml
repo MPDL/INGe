@@ -405,7 +405,9 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
-				<cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</cone.querier.class>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
