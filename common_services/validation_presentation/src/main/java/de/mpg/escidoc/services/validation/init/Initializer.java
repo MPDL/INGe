@@ -92,7 +92,7 @@ public class Initializer
         try
         {
             conn = getConnection();
-            executeSqlScript("delete_tables.sql", conn);
+            //executeSqlScript("delete_tables.sql", conn);
             executeSqlScript("create_structure.sql", conn);
             insertValidationData(conn);
             Context ctx = new InitialContext();
