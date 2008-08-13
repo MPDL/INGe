@@ -285,9 +285,8 @@ public class JQueryConeServlet extends HttpServlet
         {
             String value = map.get(id);
             
-            result.append("'");
-            result.append(id.substring(id.lastIndexOf("/")).replace("'", "\\'"));
-            result.append("' : '");
+            result.append(id.substring(id.lastIndexOf("/") + 1).replace("'", "\\'"));
+            result.append(" : '");
             result.append(value.replace("'", "\\'"));
             result.append("'\n");
         }

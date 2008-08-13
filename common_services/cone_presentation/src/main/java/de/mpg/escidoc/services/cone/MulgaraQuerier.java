@@ -40,6 +40,7 @@ public class MulgaraQuerier implements Querier
             String subject = answer.getObject(0).toString();
             //subject = subject.substring(1, subject.length() - 1);
             String object = answer.getObject(1).toString();
+            object = object.substring(1, object.length() - 1);
             resultMap.put(subject, object);
         }
         
