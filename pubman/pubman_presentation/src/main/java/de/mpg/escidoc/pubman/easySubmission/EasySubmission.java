@@ -89,7 +89,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.importmanager.FullTextVO;
 import de.mpg.escidoc.services.importmanager.ImportHandler;
 import de.mpg.escidoc.services.importmanager.ImportHandlerBean;
-import de.mpg.escidoc.services.importmanager.ImportSourceHandler;
+import de.mpg.escidoc.services.importmanager.ImportSourceHandlerBean;
 import de.mpg.escidoc.services.importmanager.ImportSourceVO;
 import de.mpg.escidoc.services.importmanager.SourceNotAvailableException;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -110,7 +110,7 @@ public class EasySubmission extends FacesBean
     private static Logger logger = Logger.getLogger(EasySubmission.class);
     
     //Import Service
-    private ImportSourceHandler importSourceHandler = new ImportSourceHandler();
+    private ImportSourceHandlerBean importSourceHandler = new ImportSourceHandlerBean();
     private Vector<ImportSourceVO> importSources = new Vector<ImportSourceVO>();    
     // Metadata Service
     private MetadataHandler mdHandler = null;
