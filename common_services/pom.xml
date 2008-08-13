@@ -518,7 +518,7 @@
 				<!-- URL of the FIZ framework instance used by all services -->
 				<escidoc.common.framework.url>http://dev-coreservice.mpdl.mpg.de:8080</escidoc.common.framework.url>
 				<!-- URL of the FIZ framework instance used by the framework_access module only -->
-				<escidoc.framework_access.framework.url>http://http://dev-coreservice.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
+				<escidoc.framework_access.framework.url>http://dev-coreservice.mpdl.mpg.de:8080</escidoc.framework_access.framework.url>
 
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
