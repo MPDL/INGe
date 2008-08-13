@@ -52,7 +52,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
  * @version $Revision: 451 $ $LastChangedDate: 2007-11-29 13:58:00 +0100 (Thu, 29 Nov 2007) $
  * Revised by NiH: 22.08.2007
  */
-public class SearchTest extends TestBase
+public class SimpleSearchTest extends TestBase
 {
 	
 	@Test

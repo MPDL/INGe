@@ -49,7 +49,7 @@ import org.junit.runners.Suite;
                      ,PhrasesTest.class
                      ,QueryParserTest.class                    
                      ,SearchPubItemsByAffiliationTest.class
-                     ,SearchTest.class
+                     ,SimpleSearchTest.class
                      ,AdvancedSearchTest.class
                      ,SearchAndOutputTest.class
                     })
