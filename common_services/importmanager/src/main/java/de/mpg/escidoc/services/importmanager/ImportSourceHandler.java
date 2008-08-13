@@ -3,8 +3,6 @@ package de.mpg.escidoc.services.importmanager;
 import java.util.Vector;
 
 public interface ImportSourceHandler {
-
-	String SERVICE_NAME = "ejb/de/mpg/escidoc/services/importmanager/ImportSourceHandler";
 	
 	/**
 	 * This methods reads in the xml description of all available import sources
@@ -18,4 +16,5 @@ public interface ImportSourceHandler {
 	 * @return ImportSource object
 	 */
 	public ImportSourceVO getSourceByName (String name);
+
 }
