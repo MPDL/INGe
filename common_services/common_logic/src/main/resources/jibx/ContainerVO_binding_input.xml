@@ -146,7 +146,7 @@
 			<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"  ordered="false" allow-repeats="true">
+				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"  usage="optional" ordered="false" allow-repeats="true">
 				
 				<structure name="md-record" ns="${xsd.soap.common.mdrecords}"
 					type="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" ordered="false"/>

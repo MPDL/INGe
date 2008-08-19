@@ -152,7 +152,7 @@ public class TransformPubItemTest extends XmlTransformingTestBase
         md.setDescription("This is my <blink>organisation</blink>.' + ' und meine cookies sind ' + document.cookie + '<script>alert(\'I am injected\');</script>");
         md.getIdentifiers().add(new IdentifierVO(IdentifierVO.IdType.URI, "http://www.escidoc.de/12345"));
         md.setSize((int)ResourceUtil.getResourceAsFile(JPG_FARBTEST_FILE).length());
-        md.setTitle(new TextVO(fileVO.getName()));
+        //md.setTitle(new TextVO(fileVO.getName()));
         fileVO.getMetadataSets().add(md);
         return fileVO;
     }
