@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema  xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/Transformations" 
+					xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+					xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" 
+					xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/Transformations" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dcterms.xsd"/>
+	
+	<xs:element name="Transformations" type="transformationsType"/>
+	
+	<xs:complexType name="transformationsType">
+		<xs:sequence>
+			<xs:element name="Transformation" type="transformationType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="transformationType">
+		<xs:sequence>
+			<xs:element ref="dc:format"/>
+			<xs:element name="metadata-formats" type="metadataformatsType"/>
+			<xs:element name="citation-formats" type="citationformatsType"/>
+			<xs:element name="layout-formats" type="layoutformatsType"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="metadataformatsType">
+		<xs:sequence>
+			<xs:element name="metadata-format" type="metadataformatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="metadataformatType">
+		<xs:sequence>
+			<xs:element ref="dc:description" minOccurs="0"/>
+			<xs:element ref="dc:format" />
+			<xs:element ref="dc:format" />
+			<xs:element name="label" type="dc:SimpleLiteral"/>
+		</xs:sequence>	
+	</xs:complexType>
+	
+	<xs:complexType name="citationformatsType">
+		<xs:sequence>
+			<xs:element name="citation-format" type="citationformatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="citationformatType">
+		<xs:sequence>
+			<xs:element ref="dc:format" />
+			<xs:element name="label" type="dc:SimpleLiteral"/>
+			<xs:element ref="dc:format" />
+			<xs:element ref="dc:description" minOccurs="0"/>
+		</xs:sequence>	
+	</xs:complexType>
+	
+	<xs:complexType name="layoutformatsType">
+		<xs:sequence>
+			<xs:element name="layout-format" type="layoutformatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+		
+	<xs:complexType name="layoutformatType">
+		<xs:sequence>
+			<xs:element ref="dc:format" />
+			<xs:element name="label" type="dc:SimpleLiteral"/>
+			<xs:element ref="dc:format" />
+			<xs:element ref="dc:description" minOccurs="0"/>
+		</xs:sequence>	
+	</xs:complexType>
+		
+</xs:schema>

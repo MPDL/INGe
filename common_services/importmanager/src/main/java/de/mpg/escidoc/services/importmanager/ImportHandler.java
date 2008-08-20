@@ -33,6 +33,7 @@ import java.io.FileNotFoundException;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
+import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 
 
 /**
@@ -53,13 +54,20 @@ public interface ImportHandler{
     String explainSources ();
     
     /**
-     * This operation checks the sources properties for the harvesting protocol and forwards the fetching request.
-	 * The parameter format-to is optional. If a format-to is provided the ImportHandler calls the metadataHandler for 
-	 * the transformation file and calls XMLTransforming. 
-	 * @param sourceName, identifier, formatTo, formatFrom
+     * This operation fetches data from the specified source. The format of the requested data will be the default metadata format
+     * defined in import.xml
+	 * @param sourceName, identifier
 	 * @return itemXML
 	 */
-    String fetchMetadata(String sourceName, String identifier,String formatTo)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
+    String fetchMetadata(String sourceName, String identifier)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
+    
+    /**
+     * This operation fetches data from the specified source and returns it in the requested format.
+     * This format can either be the format the external source provides, or a format we can transform from a format the external source provides
+	 * @param sourceName, identifier, format
+	 * @return itemXML
+	 */
+    String fetchMetadata(String sourceName, String identifier,String format)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
     
     /**
      * Fetches the selected format from an external system
@@ -73,5 +81,8 @@ public interface ImportHandler{
      * is specified for import
      */
     String trimIdentifier(String sourceName, String identifier);
+    
+
+//    byte[] TestfetchData(String sourceName, String identifier, String FormatFrom, String FormatTo)throws FileNotFoundException, IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException ;
 
 }

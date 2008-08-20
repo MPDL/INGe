@@ -17,15 +17,22 @@
 			<xs:element ref="dc:identifier"/>
 			<!-- type of metadata fetch, encoding -->
 			<xs:element ref="dc:format" maxOccurs="unbounded"/>
+			<xs:element name="source-identifier" type="dc:SimpleLiteral"/>
+			<xs:element name="source-oai_identifier" type="dc:SimpleLiteral"/>
 			<xs:element name="harvest-protocol" type="dc:SimpleLiteral"/>
 			<xs:element name="retry-after" type="xs:nonNegativeInteger"/>
 			<xs:element name="timeout" type="xs:nonNegativeInteger"/>
 			<xs:element name="number-of-tries" type="xs:nonNegativeInteger"/>
 			<xs:element name="status" type="dc:SimpleLiteral"/>
-			<xs:element name="MD-fetch-setting" type="MDFetchSettingType"/>
+			<xs:element name="MD-fetch-settings" type="MDFetchSettingsType"/>
 			<xs:element name="FT-fetch-settings" type="FTFetchSettingsType"/>
 		</xs:sequence>
 		<xs:attribute name="name" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="MDFetchSettingsType">
+		<xs:sequence>
+			<xs:element name="MD-fetch-setting" type="MDFetchSettingType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
 	</xs:complexType>
 	<xs:complexType name="MDFetchSettingType">
 		<xs:sequence>
@@ -35,9 +42,12 @@
 			<xs:element ref="dc:identifier"/>
 			<!-- available fetching format-->
 			<xs:element ref="dc:format"/>
+			<!-- the MIME Type -->
+			<xs:element ref="dc:format"/>
 			<!-- label for presentation-->
 			<xs:element name="label" type="dc:SimpleLiteral"/>
 		</xs:sequence>
+		<xs:attribute name="default" type="xs:boolean" use="required"/>
 	</xs:complexType>
 	<xs:complexType name="FTFetchSettingsType">
 		<xs:sequence>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/Formats" 
+				   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				   xmlns:xs="http://www.w3.org/2001/XMLSchema" 
+				   xmlns:dc="http://purl.org/dc/elements/1.1/" 
+				   targetNamespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/Formats" elementFormDefault="qualified" attributeFormDefault="unqualified">
+				   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
+				   <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dc.xsd"/>
+	
+	<xs:element name="Formats" type="formatsType">
+		<xs:annotation>
+			<xs:documentation>This element contains a selection of all availbale formats for a specific source via the unapi interface</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	
+	<xs:complexType name="formatsType">
+		<xs:sequence>
+			<xs:element name="Format" type="formatType" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>	
+	
+	<xs:complexType name="formatType">
+		<xs:attribute name="name" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="docs" type="xs:string" use="optional"/>
+	</xs:complexType>	
+	
+</xs:schema>

@@ -28,11 +28,12 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.importmanager;
+package de.mpg.escidoc.services.importmanager.valueobjects;
 
 import java.net.URL;
 import java.util.Date;
 import java.util.Vector;
+
 
 /**
  * The attributes of an import source
@@ -52,15 +53,13 @@ public class ImportSourceVO
 	private int timeout;
 	private int numberOfTries;
 	private String status;
-
-	//Metadata informations________________________________
-	private String mdDesc;
-	private URL mdUrl;
-	private String mdFormat;
-	private String mdLabel;
+	
+	private String identifier;
+	
 
 	//Full text informations_______________________________
 	private Vector <FullTextVO> ftFormats;
+	private Vector <MetadataVO> mdFormats;
 	
 
 	public ImportSourceVO(){
@@ -75,6 +74,13 @@ public class ImportSourceVO
 		this.ftFormats = ftFormats;
 	}
 
+	public Vector <MetadataVO> getMdFormats() {
+		return this.mdFormats;
+	}
+
+	public void setMdFormats(Vector <MetadataVO> mdFormats) {
+		this.mdFormats = mdFormats;
+	}
 	
 	public String getName(){
 		return this.name;
@@ -136,22 +142,6 @@ public class ImportSourceVO
 		this.numberOfTries = numberOfTries;
 	}
 	
-	public URL getMdUrl(){
-		return this.mdUrl;
-	}
-	
-	public void setMdUrl(URL mdUrl){
-		this.mdUrl = mdUrl;
-	}
-	
-	public String getMdFormat(){
-		return this.mdFormat;
-	}
-	
-	public void setMdFormat(String mdFormat){
-		this.mdFormat = mdFormat;
-	}
-	
 	public String getEncoding(){
 		return this.encoding;
 	}
@@ -167,22 +157,6 @@ public class ImportSourceVO
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public String getMdDesc() {
-		return this.mdDesc;
-	}
-
-	public void setMdDesc(String mdDesc) {
-		this.mdDesc = mdDesc;
-	}
-	
-	public String getMdLabel() {
-		return this.mdLabel;
-	}
-
-	public void setMdLabel(String mdLabel) {
-		this.mdLabel = mdLabel;
-	}
 
 	public String getType() {
 		return this.type;
@@ -190,6 +164,14 @@ public class ImportSourceVO
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getIdentifier() {
+		return this.identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
 	}
 
 }

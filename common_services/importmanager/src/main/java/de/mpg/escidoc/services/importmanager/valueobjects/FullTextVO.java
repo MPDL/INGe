@@ -1,4 +1,4 @@
-package de.mpg.escidoc.services.importmanager;
+package de.mpg.escidoc.services.importmanager.valueobjects;
 
 import java.net.URL;
 

@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.importmanager;
+package de.mpg.escidoc.services.importmanager.exceptions;
 
 import java.util.Date;
 
