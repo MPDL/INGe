@@ -27,26 +27,38 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.search;
+package de.mpg.escidoc.services.search.query;
 
-import java.util.List;
+import java.io.Serializable;
 
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 
 /**
- * Interface for the item searc service.
  * @author endres
  *
  */
-public interface ItemSearch {
+public class SearchQuery implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
-	/**
-     * The name to obtain this service.
-     */
-    String SERVICE_NAME = "ejb/de/mpg/escidoc/services/search/ItemSearch";
-    
-    /** 
-     * 
-     */
-    public List<PubItemResultVO> search( String cqlQuery, String databaseLang );
+	/** Selects the lucene query index */
+	private IndexDatabaseSelector indexSelector;
+	
+	/** The default index database to be searched by the query. */
+	private static final IndexDatabaseSelector INDEX_DEFAULT=IndexDatabaseSelector.All;
+	
+	public SearchQuery( IndexDatabaseSelector indexSelector ) {
+		this.indexSelector = indexSelector;
+	}
+	
+	public SearchQuery() {
+		this.indexSelector = INDEX_DEFAULT;
+	}
+	
+	public IndexDatabaseSelector getIndexSelector() {
+		return indexSelector;
+	}
+	public void setIndexSelector(IndexDatabaseSelector indexSelector) {
+		this.indexSelector = indexSelector;
+	}
 }
