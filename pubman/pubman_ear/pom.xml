@@ -42,7 +42,7 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>framework_access</artifactId>
 							<includeInApplicationXml>
-								true
+								true 
 							</includeInApplicationXml>
 						</jarModule>
 						<ejbModule>
