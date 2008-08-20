@@ -27,7 +27,7 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-package de.mpg.escidoc.services.pubman.searching.webservice;
+package de.mpg.escidoc.services.search.presentation;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -45,7 +45,9 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
+import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
+import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 
 /**
  * Servlet for the REST interface.
@@ -58,9 +60,9 @@ public class RestServlet extends HttpServlet
 {
 
     private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
-
+    
     @EJB
-    private PubItemSearching pubItemSearching;
+    private ItemContainerSearch itemContainerSearch;
 
     /**
      * {@inheritDoc}
@@ -93,7 +95,7 @@ public class RestServlet extends HttpServlet
 
     			// Init exporting service
     			InitialContext ctx = new InitialContext();
-    			pubItemSearching = (PubItemSearching) ctx.lookup(PubItemSearching.SERVICE_NAME);
+    			itemContainerSearch = (ItemContainerSearch) ctx.lookup(ItemContainerSearch.SERVICE_NAME);
 
     			cqlQuery = req.getParameter("cqlQuery");
 
@@ -156,8 +158,23 @@ public class RestServlet extends HttpServlet
 						return;
 					}	
 				}
+    			
+    			ItemContainerSearch.IndexDatabaseSelector databaseSelector;
+    			
+    			if( language.contains("all") ) {
+    				databaseSelector = IndexDatabaseSelector.All;
+    			}
+    			else if( language.contains("en") ) {
+    				databaseSelector = IndexDatabaseSelector.English;
+    			}
+    			else if( language.contains("de") ) {
+    				databaseSelector = IndexDatabaseSelector.German;
+    			}
+    			else throw new TechnicalException( "Cannot map language string to database selector." );
+    			
+    			ExportSearchQuery query = new ExportSearchQuery( cqlQuery, databaseSelector, exportFormat, outputFormat );
 
-    			byte[] result = pubItemSearching.searchAndOutput(cqlQuery, language, exportFormat, outputFormat);
+    			byte[] result = itemContainerSearch.searchAndExport( query );
 
     			String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
     			LOGGER.debug("fileName: " + fileName);

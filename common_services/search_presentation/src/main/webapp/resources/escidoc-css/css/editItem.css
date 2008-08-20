@@ -1,0 +1,379 @@
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* f�r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur F�rderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
+.sourceCreator{
+	
+}
+
+/* HEADERS */
+
+.orientationHeader {
+	/*color: #000000;*/
+	font-family: Verdana,Arial,Helvetica; 
+	font-size: 18px; 
+	font-variant: small-caps; 
+	/*font-weight: bold;*/
+	margin-left: 10px;
+	margin-top: 10px; 
+	
+}
+
+#editItemHeader{
+	
+	background-image:none;
+	background-color:transparent;
+	
+	/*width:30px;
+	height:30px;*/
+	/*margin-right: 4px;*/
+	
+}
+
+
+label{
+	font-size: 11px;
+	color:black;
+}
+
+.editItemOuterPanel {
+ 	margin-left: 10px;
+ 	margin-bottom:10px;
+ 	margin-top:10px;
+	width:610px;
+ 	padding-left:10px;
+ 	padding-right:10px;
+ 	padding_bottom:10px;
+ 	float:left;
+ 
+}
+
+
+
+.editItemOuterBlockPanel {	
+	width:580px;
+	margin:0px;
+	margin-top:10px;
+	/*margin-bottom:20px;*/
+	padding: 10px;  	
+	border:1px solid #DDDDDD;
+	background-color:#F3F3F3;
+	float:left;	
+}
+
+.radioLbl tr td *{
+	float:left;
+	margin-right:5px;
+}
+
+.radioLbl tr td label{
+	
+	margin-right:20px;
+}
+
+.editItemAddLink{			
+	float:left;		
+	width:100%;
+	margin-top:5px;
+}
+
+.editItemAddLink .editItemLeftCol{
+	margin-left:-5px;
+}
+
+.editItemLeftCol a, .editItemRightCol a{
+	font-size:11px;
+}
+
+.editItemAddLink input{
+	background-color:white;
+	border:none;
+	color:black;
+	text-decoration:underline;
+	overflow:visible;
+}
+
+.underlined{
+	text-decoration:underline;	
+	font-size: 1em;
+}
+
+.fullWidth{
+	width:100%;
+}
+
+.lightBorder{
+	border:1px solid #DDDDDD;
+	margin-bottom:10px;
+}
+
+.floatLeft{
+	float:left;	
+}
+
+.addButton{
+	margin-top:15px;	
+}
+
+.inlineButton{
+	position:relative;
+	top:5px;		
+	height:20px;
+}
+
+.noLineBreak{
+	position:relative;
+	top:-25px;
+	left:300px;
+
+}
+
+.noBorder, .noBorder:hover{
+	border:none;
+}
+
+
+.checkboxLbl, .formGroupTitle label{
+	position:relative;
+	top:-17px;
+	left:18px;
+}
+
+.editItemEmbeddedAddLink input{
+	background-color:white;
+	border:none;
+	color:black;
+	text-decoration:underline;
+	overflow:visible;
+}
+
+.checkBoxItem label{
+	position:relative;
+	top:16px;
+	left:20px;
+}
+
+.checkBoxItem input{
+	border:none;
+}
+
+.editItemTextArea {  
+  height: 60px; 
+  width: 250px;
+  /*margin-right: 5px;*/  
+}
+
+.editItemSingleCol{	
+	/*clear:right;*/	
+	margin-left:10px;	
+}
+
+.editItemLeftCol{	
+	display: inline;
+	float: left;
+	/*clear:left;*/
+	/*width:40%;*/	
+	margin-left:10px;
+	margin-right:10px;	
+}
+
+.smallerLeftCol{
+	/*width:30%;*/
+}
+.noLblSpace{
+	margin-bottom:-6px;
+	
+}
+
+.editItemRightCol{
+	display: inline;
+	float:left;
+	/*clear: right;*/
+	overflow:hidden;			
+	/*width:40%;*/
+	/*height:40px;*/	
+	margin-left:10px;	
+}
+
+.editItemCol1{	
+	display: inline;
+	float: left;
+	height:40px;
+	width:30%;	
+	margin-left:10px;
+}
+
+.editItemCol3{	
+	display: inline;
+	float:left;
+	/*clear: right;*/
+	overflow:hidden;			
+	width:30%;
+	height:40px;	
+	margin-left:10px;
+}
+
+.editItemLeftCol, .editItemRightCol, .editItemSingleCol, .editItemCol1, .editItemCol3{
+	margin-top:2px;
+	margin-bottom:5px;
+}
+
+
+.topSpace{
+	margin-top:20px;
+}
+
+.topSpace10{
+	margin-top:20px;
+}
+
+.editItemPage 
+
+.colLbl{
+	display:block;
+	float:none;
+}
+
+.editItemFileBox{
+	border:1px solid #DDDDDD;
+	margin:5px;
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-right:5px;
+	width:560px;
+}
+
+.noFloat{
+	float:none !important;
+}
+
+.editItemOuterBlockPanel span{
+	color:black;
+	font-size:100.01%;
+}
+
+.labelPosition{
+	position:relative;
+	top:10px;
+}
+
+.leftSpace10{
+	margin-left:10px;
+}
+
+.editItemTextFieldVeryShort {  
+  width: 75px;
+}
+
+.editItemTextField100, .editItemTextField100 * {  
+  width: 100px;
+  float:left;
+}
+
+.editItemTextFieldShort1 {  
+  width: 110px;
+}
+
+.editItemTextFieldShort {  
+  width: 150px;
+}
+
+.editItemTextFieldMedium {  
+  width: 300px;
+}
+
+.editItemTextFieldLarge {
+	width: 450px;
+}
+
+.editItemComboBoxLanguage {  
+  width: 45px;
+  margin-right: 5px;
+  margin-top: 1px;
+}
+
+. leftSpace10 {  
+  width: 75px;
+}
+
+.editItemComboBoxShort {  
+  width: 150px;
+}
+
+.editItemComboBoxMedium {  
+  width: 320px;
+}
+
+.editItemComboBoxLong {  
+  width: 450px;
+}
+
+.editItemBlockHeaders {
+ 
+  color:black;
+  font-family: Verdana; 
+  font-variant: normal;
+}
+
+.redStar{
+	color:red;
+}
+
+.editItemBlockSubHeaders{
+	font-weight:normal;
+	color:black;
+	background-color:white;
+	position:relative;
+	top:17px;
+	left:30px;
+}
+
+.editItemButtomLinks{	
+	float:left;
+	left:0px;	
+	z-index:10;
+	width:800px;	
+}
+
+.alignRight{
+	float:right;
+	left:0px;
+}
+
+.noBorderNoBgColor{
+	background-color:white;
+	border:none;
+}
+
+/*************************************************************************************************************/
+
+.formGroupTitle input label{
+	
+}
+
