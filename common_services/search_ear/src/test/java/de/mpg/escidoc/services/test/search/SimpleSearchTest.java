@@ -34,15 +34,32 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import java.util.List;
+
+import net.sf.saxon.event.MetaTagAdjuster;
+
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ObjectComparator;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
+import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.PlainCqlQuery;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchQuery;
+
+import javax.ejb.EJB;
 
 /**
  * Test class for simple search.
@@ -54,31 +71,54 @@ import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
  */
 public class SimpleSearchTest extends TestBase
 {
+	@EJB
+    private ItemContainerSearch itemContainerSearch;
 	
-	@Test
-	public void dummyTest() {
-		
-	}
-//    private PubItemSearching pubSearching;
-//    private PubItemDepositing pubItemDepositing;
-//
-//    /**
-//     * @throws Exception
-//     */
-//    @Before
-//    public void setUp() throws Exception
-//    {
-//        pubSearching = (PubItemSearching)getService(PubItemSearching.SERVICE_NAME);
-//        pubItemDepositing = (PubItemDepositing)getService(PubItemDepositing.SERVICE_NAME);
-//    }
-//
+    /**
+     * @throws Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+    	itemContainerSearch = (ItemContainerSearch)getService(ItemContainerSearch.SERVICE_NAME);
+    }
+    
+    @Test 
+    public void testSimpleSearch() throws Exception {
+    	
+    	MetadataSearchQuery queryMeta = new MetadataSearchQuery( "contentType" );
+    	queryMeta.addCriterion( new MetadataSearchCriterion( 
+    				MetadataSearchCriterion.CriterionType.ANY, "test" ) ); 
+    	queryMeta.addCriterion( new MetadataSearchCriterion( 
+				MetadataSearchCriterion.CriterionType.IDENTIFIER, "hans OR franz", 
+				MetadataSearchCriterion.LogicalOperator.OR ) ); 
+    	StandardSearchQuery query = new PlainCqlQuery( "escidoc.metadata=test", IndexDatabaseSelector.All );
+    	List<ItemContainerSearchResultVO> results = null;
+    	try {
+			results = itemContainerSearch.search( queryMeta );
+			System.out.println(" RESULTS: " + results.size());
+			for( int i = 0; i < results.size(); i++ ) {
+				if( results.get( i ) instanceof ItemVO ) {
+					ItemVO testitem = (ItemVO) results.get( i );
+					System.out.println( "PID: " + testitem.getPid() );
+				}
+			}
+		} catch (TechnicalException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    
+    @After
+    public void tearDown() throws Exception {
+    	
+    }
+
 //    /**
 //     * Test method for
 //     * {@link de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean#search(java.lang.String, boolean)}.
 //     * 
 //     * @throws Exception
 //     */
-////    @Ignore("See FIZ Bugzilla #370")
 //    @Test
 //    public void testSearch() throws Exception
 //    {   
