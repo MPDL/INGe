@@ -3,8 +3,12 @@ package de.mpg.escidoc.pubman.editItem.bean;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
+import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
+
+import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
@@ -22,16 +26,26 @@ public class SourceBean
 	private IdentifierCollection identifierCollection;
 	private TitleCollection titleCollection;
 	
+	private boolean autosuggestJournals = false;
+	
+	private CoreCommandButton btn_chooseCollection = new CoreCommandButton();
+	
 
     public SourceBean()
 	{
 		// ensure the parentVO is never null;
 		this(new SourceVO());
+		this.btn_chooseCollection.setId("Source1");
 	}
 
 	public SourceBean(SourceVO source)
 	{
 		setSource(source);
+		this.btn_chooseCollection.setId("Source1");
+		if(source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL))
+		{
+			this.autosuggestJournals = true;
+		}
 	}
 
 	public SourceVO getSource()
@@ -51,8 +65,31 @@ public class SourceBean
 		{
 			source.setPublishingInfo(new PublishingInfoVO());
 		}
+		
+		if(source.getGenre() != null && source.getGenre().equals(SourceVO.Genre.JOURNAL))
+		{
+			this.autosuggestJournals = true;
+		}
 	}
+	
+	public void chooseSourceGenre(ValueChangeEvent event)
+    {
+    	String sourceGenre = event.getNewValue().toString();
+    	System.out.println(sourceGenre);
+    	if(sourceGenre.equals(SourceVO.Genre.JOURNAL.toString()))
+    	{
+    		this.autosuggestJournals = true;
+    	}
+    }
 
+	public String chooseGenre()
+	{
+		if(this.source.getGenre() != null && this.source.getGenre().equals(SourceVO.Genre.JOURNAL))
+		{
+			this.autosuggestJournals = true;
+		}
+		return EditItem.LOAD_EDITITEM;
+	}
 	
 	public CreatorCollection getCreatorCollection()
 	{
@@ -102,6 +139,23 @@ public class SourceBean
 	    return new SelectItem[] { NO_ITEM_SET, GENRE_BOOK, GENRE_ISSUE, GENRE_JOURNAL, GENRE_PROCEEDINGS, GENRE_SERIES };
 	}
 
+	public boolean getAutosuggestJournals() {
+		return autosuggestJournals;
+	}
+
+	public void setAutosuggestJournals(boolean autosuggestJournals) {
+		this.autosuggestJournals = autosuggestJournals;
+	}
+
+	public CoreCommandButton getBtn_chooseCollection() {
+		return btn_chooseCollection;
+	}
+
+	public void setBtn_chooseCollection(CoreCommandButton btn_chooseCollection) {
+		this.btn_chooseCollection = btn_chooseCollection;
+	}
+
+	
 
 
 }

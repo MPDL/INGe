@@ -29,6 +29,7 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 <f:loadBundle var="lbl" basename="Label"/>
 
 
@@ -45,19 +46,26 @@
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">								
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblGenre}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}">
+				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" onchange="$(this).siblings('.genreButton').click();" onblur="$(this).siblings('.genreButton').click();">
 					<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
 				</h:selectOneMenu>
+				
+				<tr:commandButton styleClass="genreButton" text="choose genre" id="btn_chooseGenre" partialSubmit="true" inlineStyle="visibility:hidden"/>
 			</h:panelGroup>
 		
 		<%-- Title --%>
 		<%/* The source embedded titleCollection */%>
 			
-				
+				<tr:panelGroupLayout partialTriggers="btn_chooseGenre">
 					<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
-						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}"/>
+						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{!sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
 					
+						<h:inputTextarea styleClass="journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
+						<script type="text/javascript">
+							$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+						</script>
+						
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
 							action="#{sourceBean.titleCollection.addTitle}" />
@@ -66,15 +74,19 @@
 							action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
 						<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
 					</h:panelGroup>
-				
-				
+				</tr:panelGroupLayout>
 				<%-- ALTERNATIVE TITLE --%>
 				<h:dataTable var="data" styleClass="fullWidth" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 					<h:column>					
 						<h:panelGroup layout="block" styleClass="">
 							<h:panelGroup layout="block" styleClass="editItemSingleCol">
 								<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAlternativeTitel}" />
-								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}"/>
+								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}" rendered="#{!sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
+								
+								<h:inputTextarea styleClass="journalSuggest" value="#{data.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
+								<script type="text/javascript">
+									$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+								</script>
 							
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
