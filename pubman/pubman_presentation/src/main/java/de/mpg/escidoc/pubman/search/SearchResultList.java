@@ -69,9 +69,12 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 
 /**
@@ -485,9 +488,30 @@ public class SearchResultList extends ItemList
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
         
         try
-        {
-            List<PubItemResultVO> itemsFound = this.getItemControllerSessionBean().searchItems(searchString, includeFiles);
-            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+        {   	
+        	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+        	
+        	if( includeFiles == true ) {
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY_INCLUDE, 
+        				searchString ) );
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+        				searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+        	}
+        	else {
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY, 
+            			searchString ) );
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+        				searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+        	}
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTEXT_OBJECTID, 
+    				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID, 
+    				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+        	
+        	// search for the given criteria
+        	List<PubItemVO> itemsFound = this.getItemControllerSessionBean().searchItems( criteria );
+        	
+        	this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("SearchResultList");

@@ -88,10 +88,10 @@ Current functionalities
 	     odt) and citation styles (currently only APA) or sent by email. In
 	     addition, export to Endnote is possible.
 		</li>
-		<li>An Search and Output Service allows user-/local specific queries
+		<li>An SearchandExport Service allows user-/local specific queries
 	     of data for integration into local systems.</b> 
 		</li>
-		<li>The service can be accessed directly under <a href="search/SearchAndOutput_info.jsp">REST interface</a> or via a <a href="search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
+		<li>The service can be accessed directly under <a href="../search/SearchAndExport_info.jsp">REST interface</a> or via a <a href="../search/SearchAndExport_rest_sample.jsp">user-friendly interface </a>.</b> 
 		</li>
 	</ul>
 

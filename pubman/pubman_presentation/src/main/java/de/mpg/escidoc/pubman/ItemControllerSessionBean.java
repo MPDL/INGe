@@ -67,6 +67,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -87,6 +88,9 @@ import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -107,6 +111,7 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
     private QualityAssurance qualityAssurance = null;
+    private ItemContainerSearch itemContainerSearch = null;
     private PubItemSearching pubItemSearching = null;
     private XmlTransforming xmlTransforming = null;
     private ItemValidating itemValidating = null;
@@ -117,6 +122,7 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemVO currentPubItem = null;
     private ContextVO currentContext = null;
     private PubItemSimpleStatistics pubItemStatistic =null;
+
 
     /**
      * Public constructor, initializing used Beans.
@@ -130,6 +136,7 @@ public class ItemControllerSessionBean extends FacesBean
             // initialize used Beans
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
+            this.itemContainerSearch = (ItemContainerSearch) initialContext.lookup(ItemContainerSearch.SERVICE_NAME);
             this.pubItemSearching = (PubItemSearching) initialContext.lookup(PubItemSearching.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
@@ -1653,22 +1660,26 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
      */
-    public ArrayList<PubItemResultVO> searchItems(String searchString, boolean includeFiles) throws Exception
+    public ArrayList<PubItemVO> searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Searching Items " + (includeFiles ? "(including files) " : "") + "for string: " + searchString);
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemResultVO> itemList = (ArrayList<PubItemResultVO>) this.pubItemSearching.search(searchString, includeFiles);
-        
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size() + " items for string: " + searchString);
-        }
-        
-        return itemList;
+    	String contentTypeIdPublication = PropertyReader.getProperty(
+			"escidoc.framework_access.content-model.id.publication");
+    	
+    	MetadataSearchQuery query = new MetadataSearchQuery( contentTypeIdPublication, criteria );
+    	List<ItemContainerSearchResultVO> results = this.itemContainerSearch.search( query );
+    	
+    	ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    	for( int i = 0; i < results.size(); i++ ) {
+    		//check if we have found an item
+    		if( results.get( i ) instanceof ItemVO ) {
+    			// cast to item
+    			ItemVO item = (ItemVO)results.get( i );
+    			PubItemVO pubItem = new PubItemVO( item );
+    			pubItemList.add( pubItem );
+    		}
+    	}
+    	
+		return pubItemList;
     }
 
     /**
