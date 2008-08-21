@@ -440,46 +440,6 @@ public class PubItemSearchingBean implements PubItemSearching
         }
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    public byte[] searchAndOutput(String cqlSearchString, String language, 
-    		String exportFormat, String outputFormat) throws ParseException,
-    		TechnicalException {
-
-    	
-        if ( cqlSearchString == null || cqlSearchString.trim().equals("") )
-        {
-            throw new IllegalArgumentException(getClass().getSimpleName()
-                    + ":search:searchString is empty");
-        }
-
-        
-        
-        if ( exportFormat == null || exportFormat.trim().equals("") )
-        {
-            throw new IllegalArgumentException(getClass().getSimpleName()
-                    + ":search:exportFormat is empty");
-        }
-        
-    	// execute search for publication items
-    	List<PubItemResultVO> pubItemResultVOList = cqlSearchForPubItems( cqlSearchString, language );
-
-    	//List<PubItemResultVO> to List<PubItemVO>
-    	ArrayList<PubItemVO> pubItemVOList = new ArrayList<PubItemVO>();
-    	pubItemVOList.addAll((Arrays.asList(pubItemResultVOList.toArray(new PubItemVO[pubItemResultVOList.size()]))));
-
-    	// cast List<PubItemResultVO> to List<PubItemVO>: element by element 
-//  	for ( PubItemResultVO pubItemResultVO : pubItemResultVOList )
-//  	pubItemVOList.add( (PubItemVO) pubItemResultVO );
-
-    	String itemList = xmlTransforming.transformToItemList(pubItemVOList);
-
-    	logger.debug("itemList=" + itemList);
-
-    	return itemExporting.getOutput( exportFormat, outputFormat, itemList );
-    	
-    }
     
 
     /**escidoc.framework_access.content-model.id.publication
