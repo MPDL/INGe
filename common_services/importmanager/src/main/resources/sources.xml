@@ -46,7 +46,7 @@
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
 				<dc:description>The full text to be fetched will be in the pdf format</dc:description>
-				<dc:identifier>http://www.escidoc-project.de/documentation/Soap_api_doc_SB_Search.pdf</dc:identifier>
+				<dc:identifier>http://export.arxiv.org/pdf/GETID</dc:identifier>
 				<!--Format of this data-->
 				<dc:format>application/pdf</dc:format>
 				<!--Label of this data-->
@@ -56,23 +56,14 @@
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
 				<dc:description>The full text to be fetched will be in the postscript format</dc:description>
-				<dc:identifier>http://www.hcilab.org/documents/MobilePlatformsForPlayfulLearning.pdf</dc:identifier>
+				<dc:identifier>http://export.arxiv.org/ps/GETID</dc:identifier>
 				<!--Format of this data-->
-				<dc:format>application/postscript</dc:format>
+				<dc:format>application/gzip</dc:format>
 				<!--Label of this data-->
 				<label>Postscript</label>
 				<!--File ending-->
-				<fileType>.ps</fileType>
+				<fileType>.ps.gz</fileType>
 			</FT-fetch-setting>
-<!-- This is implicitly done with the 'All available' selection -->			
-<!-- 		<FT-fetch-setting default="false">
-				<dc:description>A zipped file with all available formats will be fetched</dc:description>
-				<dc:identifier>http://www.hcilab.org/documents/MobilePlatformsForPlayfulLearning.pdf</dc:identifier>
-				<dc:format>application/zip</dc:format>
-				<label>All available</label>
-				<fileType>.zip</fileType>
-			</FT-fetch-setting>
--->
 		</FT-fetch-settings>
 	</Import-Source>
 	
@@ -120,6 +111,43 @@
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 
+		<FT-fetch-settings>
+		</FT-fetch-settings>
+	</Import-Source>
+	
+	<Import-Source name="eSciDoc">
+		<!--Source description-->
+		<dc:description>eSciDoc is as a joint project of the Max Planck Society and FIZ Karlsruhe, funded by the Federal Ministry of Education and Research (BMBF), aimed at building an e-research platform for multi-disciplinary research organizations.</dc:description>
+		<!--Source location-->
+		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
+		<!--Content type-->
+		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
+		<!--Character encoding-->
+		<dc:format>UTF-8</dc:format>
+		<source-identifier>escidoc</source-identifier>
+		<!--Harvest protocol -->
+		<harvest-protocol>ejb</harvest-protocol>
+		<!--Request information-->
+		<retry-after>0</retry-after>
+		<timeout>0</timeout>
+		<number-of-tries>5</number-of-tries>
+		<!--Source status -->
+		<status>published</status>
+		
+		<!--Information about Metadata fetching -->
+		<MD-fetch-settings>
+			<MD-fetch-setting default="true">
+				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<!--The format to fetch-->
+				<dc:format>escidoc</dc:format>
+				<!--The MIME Type-->
+				<dc:format>application/xml</dc:format>
+				<label>ESciDoc</label>
+			</MD-fetch-setting>
+		</MD-fetch-settings>
+		
+		<!--Information about data fetching-->
 		<FT-fetch-settings>
 		</FT-fetch-settings>
 	</Import-Source>

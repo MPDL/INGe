@@ -37,8 +37,10 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -54,18 +56,27 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
+import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
+import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
+import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
+import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.MetadataHandler;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.importmanager.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.ImportSourceVO;
@@ -99,6 +110,8 @@ public class ImportHandlerBean implements ImportHandler {
 	private final String REGEX ="GETID";
 
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();	
+	private String contentType;
+	private String fileEnding;
 
 	public ImportHandlerBean(){		
 	}
@@ -151,7 +164,20 @@ public class ImportHandlerBean implements ImportHandler {
 					itemXML = fetchOAIRecord (importSource, md);
 					supported = true;
 	    	}
-	
+	    	if (importSource.getHarvestProtocol().toLowerCase().equals("ejb")){
+				try {
+					itemXML = ServiceLocator.getItemHandler().retrieve("escidoc:"+identifier);
+				} 
+				catch (MissingMethodParameterException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (ItemNotFoundException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (AuthenticationException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (AuthorizationException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (SystemException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (RemoteException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (ServiceException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+				catch (URISyntaxException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);}
+				supported = true;
+	    	}
 	    	if (!supported){
 	    		logger.warn("Harvesting protocol " +importSource.getHarvestProtocol()+" not supported");
 	    		return null;
@@ -299,18 +325,25 @@ public class ImportHandlerBean implements ImportHandler {
 			
 			try {
 				in= this.fetchFile(importSource, fulltext);	
-
-				ZipEntry ze = new ZipEntry( identifier + fulltext.getFileType());
-				ze.setSize(in.length);
-				ze.setTime(this.currentDate());  
-				CRC32 crc321 = new CRC32();
-				crc321.update(in);
-				ze.setCrc(crc321.getValue());
-
-				zos.putNextEntry(ze);				
-				zos.write(in);
-				zos.flush();
-				zos.closeEntry();
+				
+				if (listOfFormats.length == 1){
+					this.setContentType(fulltext.getFtFormat());
+					this.setFileEnding(fulltext.getFileType());
+					return in;
+				}
+				else{
+					ZipEntry ze = new ZipEntry( identifier + fulltext.getFileType());
+					ze.setSize(in.length);
+					ze.setTime(this.currentDate());  
+					CRC32 crc321 = new CRC32();
+					crc321.update(in);
+					ze.setCrc(crc321.getValue());
+	
+					zos.putNextEntry(ze);				
+					zos.write(in);
+					zos.flush();
+					zos.closeEntry();
+				}
 			} 
 			catch (SourceNotAvailableException e) {
 				logger.warn("Import Source not available",e);
@@ -323,6 +356,8 @@ public class ImportHandlerBean implements ImportHandler {
 
 		try {
 			zos.close();
+			this.setContentType("application/zip");
+			this.setFileEnding(".zip");
 		} 
 		catch (IOException e) {e.printStackTrace();}
 
@@ -571,17 +606,25 @@ public class ImportHandlerBean implements ImportHandler {
 //    	type = this.fetchType_FILE;
 //    	return type;
 //    }
-    
-	public String getDATA_RETURN_FILETYPE() {
-		return this.DATA_RETURN_FILETYPE;
-	}
-
-	public String getDATA_RETURN_MIMETYPE() {
-		return this.DATA_RETURN_MIMETYPE;
-	}
 	
     public long currentDate() {
         Date today = new Date();
         return today.getTime(); 
       }
+    
+	public String getContentType() {
+		return this.contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+	
+	public String getFileEnding() {
+		return this.fileEnding;
+	}
+
+	public void setFileEnding(String fileEnding) {
+		this.fileEnding = fileEnding;
+	}
 }

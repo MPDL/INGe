@@ -125,6 +125,7 @@ public class ImportSourceHandlerBean {
 	            sourceVO.setFtFormats(fulltextVec);
 
 	            //Check if a transformation for the default MD format is possible
+	            //TODO: check via transformation.xml
 	            if (this.transformationFormat != null){
 	            	for (int i=0; i< sourceVO.getMdFormats().size(); i++){
 	            		MetadataVO md = sourceVO.getMdFormats().get(i);

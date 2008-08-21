@@ -125,11 +125,12 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 		        		 if (fetchingType.equals(this.FORMAT_TYPE_FT)){
 		        			 try{ 
 			        			 byte[] content = this.fetchFT(identifier, this.formatIntern);
-
+			        			 String filename=identifier.trim()+this.importHandler.getFileEnding();
+			        			 
 				                 response.setContentLength(content.length);
 				                 response.setStatus(200);
-				                 response.setContentType("application/zip");
-				                 response.setHeader("Content-disposition", "attachment; filename=unapi");
+				                 response.setContentType(this.importHandler.getContentType());
+				                 response.setHeader("Content-disposition", "attachment; filename=" + filename);
 				                 outStream.write(content);
 		        			 }
 		        			 catch(FileNotFoundException e){response.sendError(404, "Identifier not recognized");}
