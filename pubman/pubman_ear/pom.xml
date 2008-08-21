@@ -77,6 +77,10 @@
 								validation_presentation
 							</artifactId>
 						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>import_presentation</artifactId>
+						</webModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
@@ -406,6 +410,13 @@
 			<artifactId>itql</artifactId>
 			<version>2.0-beta</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>import_presentation</artifactId>
+			<version>1.0.0-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>war</type>
 		</dependency>
 	</dependencies>
 
