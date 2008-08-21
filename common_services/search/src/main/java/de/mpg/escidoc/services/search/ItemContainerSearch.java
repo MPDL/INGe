@@ -50,7 +50,7 @@ public interface ItemContainerSearch {
     String SERVICE_NAME = "ejb/de/mpg/escidoc/services/search/ItemContainerSearch";
     
     /**
-     * Selects which index database is queried on the eSciDoc coreservice.
+     * Selects which index database which queried at the eSciDoc coreservice.
      *
      */
     public enum IndexDatabaseSelector {

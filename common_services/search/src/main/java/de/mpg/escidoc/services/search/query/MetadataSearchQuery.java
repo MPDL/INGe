@@ -50,15 +50,18 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 	
 	private static final long serialVersionUID = 1L;
 	
-	private static final String INDEX_CONTENT_TYPE = "escidoc.content-model.objid";
-	
 	private ArrayList<MetadataSearchCriterion> searchCriteria = null;
 	
-	private String contentType = null;
+	private MetadataSearchCriterion contentType = null;
 		
-	public MetadataSearchQuery( String contentType ) {
-		this.contentType = contentType;
+	public MetadataSearchQuery( String contentType ) throws TechnicalException {
+		addContentTypeCriterion( contentType );
 		this.searchCriteria = new ArrayList<MetadataSearchCriterion>();
+	}
+	
+	public MetadataSearchQuery( String contentType, ArrayList<MetadataSearchCriterion> criteria ) throws TechnicalException {
+		addContentTypeCriterion( contentType );
+		this.searchCriteria = criteria;
 	}
 	
 	public void addCriterion( MetadataSearchCriterion criterion ) {
@@ -71,9 +74,12 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		if( searchCriteria.size() != 0 ) {
 			node = searchCriteria.get( 0 ).generateCqlTree();
 		}
+		// first add the nodes from the list
 		for( int i = 1; i < searchCriteria.size(); i++ ) {
 			node = generateNodeWithCriterion( node, searchCriteria.get( i ) );
 		}
+		// then add the content type node
+		node = generateNodeWithCriterion( node, contentType );
 		return node;
 	}
 	
@@ -101,5 +107,10 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		}
 		return newRoot;
 	}
-
+	
+	private void addContentTypeCriterion( String contentType ) throws TechnicalException {
+		this.contentType = new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTENT_TYPE,
+				contentType, MetadataSearchCriterion.LogicalOperator.AND );
+	}
+	
 }

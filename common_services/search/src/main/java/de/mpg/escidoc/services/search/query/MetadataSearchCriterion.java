@@ -27,7 +27,7 @@ public class MetadataSearchCriterion implements Serializable {
 	public enum CriterionType {
 	        TITLE, ANY, ANY_INCLUDE, PERSON, ORGANIZATION,
 	        GENRE, DATE_FROM, DATE_TO, TOPIC, SOURCE, EVENT, IDENTIFIER,
-	        CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE
+	        CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE
 	        };
 	        
 	public enum LogicalOperator {
@@ -41,6 +41,7 @@ public class MetadataSearchCriterion implements Serializable {
 	private static final String CQL_OR = "or";
 	private static final String CQL_NOT = "not";
 	 
+	private static final String INDEX_CONTENT_TYPE = "escidoc.content-model.objid";
 	private static final String INDEX_TITLE = "escidoc.any-title";
 	private static final String INDEX_METADATA = "escidoc.metadata";
 	private static final String INDEX_FULLTEXT = "escidoc.fulltext";
@@ -115,6 +116,14 @@ public class MetadataSearchCriterion implements Serializable {
 			break;
 		case LANGUAGE:
 			indexes.add( INDEX_LANGUAGE );
+			break;
+		case CONTENT_TYPE:
+			indexes.add( INDEX_CONTENT_TYPE );
+		case CONTEXT_OBJECTID:
+			indexes.add( INDEX_CONTEXT_OBJECTID );
+			break;
+		case CREATED_BY_OBJECTID:
+			indexes.add( INDEX_CREATED_BY_OBJECTID );
 			break;
 		default:
 			throw new TechnicalException("The index is unknown. Cannot map to string.");
