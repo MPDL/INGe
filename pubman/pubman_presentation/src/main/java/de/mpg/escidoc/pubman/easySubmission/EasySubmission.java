@@ -909,19 +909,19 @@ public class EasySubmission extends FacesBean
 			    		byte []ba = importHandler.fetchData(this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),getServiceID(),formats.toArray(arrFormats));
 			    		LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
 			    		ByteArrayInputStream in = new ByteArrayInputStream(ba);
-			    		URL fileURL = this.uploadFile(in, importHandler.getDATA_RETURN_MIMETYPE(), loginHelper.getESciDocUserHandle());	
+			    		URL fileURL = this.uploadFile(in, importHandler.getContentType(), loginHelper.getESciDocUserHandle());	
 			            if (fileURL != null && !fileURL.toString().trim().equals(""))
 			            {			                
 			            	fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 			            	fileVO.setVisibility(FileVO.Visibility.PRIVATE);
 			            	fileVO.setDefaultMetadata(new MdsFileVO());
-			                fileVO.getDefaultMetadata().setTitle(new TextVO(importHandler.trimIdentifier(service,getServiceID()).trim()+ importHandler.getDATA_RETURN_FILETYPE()));
-			                fileVO.setMimeType(importHandler.getDATA_RETURN_MIMETYPE());
-			                fileVO.setName(importHandler.trimIdentifier(service,getServiceID()).trim()+ importHandler.getDATA_RETURN_FILETYPE());
+			                fileVO.getDefaultMetadata().setTitle(new TextVO(importHandler.trimIdentifier(service,getServiceID()).trim()+ importHandler.getFileEnding()));
+			                fileVO.setMimeType(importHandler.getContentType());
+			                fileVO.setName(importHandler.trimIdentifier(service,getServiceID()).trim()+ importHandler.getFileEnding());
 			                
 			                FormatVO formatVO = new FormatVO();
 			                formatVO.setType("dcterms:IMT");
-			                formatVO.setValue(importHandler.getDATA_RETURN_MIMETYPE());
+			                formatVO.setValue(importHandler.getContentType());
 			                
 			                fileVO.getDefaultMetadata().getFormats().add(formatVO);
 			                fileVO.setContent(fileURL.toString());
@@ -1230,7 +1230,6 @@ public class EasySubmission extends FacesBean
      * Fill import source values dynamically from importsourceHandler
      */
     private void setImportSourcesInfo(){
-    	System.out.println("setImportSources");
 		try {  			
 			this.importSources = this.importSourceHandler.getSources( this.INTERNAL_MD_FORMAT);
 			Vector <SelectItem> v_serviceOptions = new Vector<SelectItem>();	
@@ -1280,7 +1279,7 @@ public class EasySubmission extends FacesBean
     	ImportSourceVO currentSource = null;
     	currentSource = this.importSourceHandler.getSourceByName(this.sourceSelect.getSubmittedValue().toString());	
 		
-    	//Create dummy currentSource, because pubsys isn't in import.xml
+    	//Create dummy currentSource, because we not really fetch from pubsys
 		if (currentSource == null){
 			currentSource = new ImportSourceVO();
 		}
