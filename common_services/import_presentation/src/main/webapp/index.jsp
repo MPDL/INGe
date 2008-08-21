@@ -60,8 +60,8 @@
 					identifier from a supported source (explained in /unapi).
 				</li>
 				<li>
-					In this case the format of the identifier has to be source:identifier (e.g.arXiv:0807.4842 or escidoc:54927). 
-        			The format to fetch is defined in the &format parameter. The response for metadata formats will be a OAI-PMH record, all other formats will return as a zip file. 
+					In this case the format of the sources common identifier (e.g.arXiv:0807.4842 or escidoc:54927). 
+        			The format to fetch is defined in the &format parameter. All data will return in the fetched format
 				</li>
 				<li>
 					identifier = any URL (the eSciDoc Import Service has no information about this source and can only try to call the given URL for the fetching request).
