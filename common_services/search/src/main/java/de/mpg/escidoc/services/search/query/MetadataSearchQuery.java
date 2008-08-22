@@ -51,16 +51,18 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 	private static final long serialVersionUID = 1L;
 	
 	private ArrayList<MetadataSearchCriterion> searchCriteria = null;
-	
-	private MetadataSearchCriterion contentType = null;
+	private ArrayList<MetadataSearchCriterion> contentTypes = null;
+
 		
-	public MetadataSearchQuery( String contentType ) throws TechnicalException {
-		addContentTypeCriterion( contentType );
+	public MetadataSearchQuery( ArrayList<String> contentTypes ) throws TechnicalException {
+		this.contentTypes = new ArrayList<MetadataSearchCriterion>();
+		addContentTypeCriterions( contentTypes );
 		this.searchCriteria = new ArrayList<MetadataSearchCriterion>();
 	}
 	
-	public MetadataSearchQuery( String contentType, ArrayList<MetadataSearchCriterion> criteria ) throws TechnicalException {
-		addContentTypeCriterion( contentType );
+	public MetadataSearchQuery( ArrayList<String> contentTypes, ArrayList<MetadataSearchCriterion> criteria ) throws TechnicalException {
+		this.contentTypes = new ArrayList<MetadataSearchCriterion>();
+		addContentTypeCriterions( contentTypes );
 		this.searchCriteria = criteria;
 	}
 	
@@ -78,8 +80,10 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		for( int i = 1; i < searchCriteria.size(); i++ ) {
 			node = generateNodeWithCriterion( node, searchCriteria.get( i ) );
 		}
-		// then add the content type node
-		node = generateNodeWithCriterion( node, contentType );
+		// then add the content type nodes
+		for( int i = 0; i < contentTypes.size(); i++ ) {
+			node = generateNodeWithCriterion( node, contentTypes.get( i ) );
+		}
 		return node;
 	}
 	
@@ -108,9 +112,11 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		return newRoot;
 	}
 	
-	private void addContentTypeCriterion( String contentType ) throws TechnicalException {
-		this.contentType = new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTENT_TYPE,
-				contentType, MetadataSearchCriterion.LogicalOperator.AND );
+	private void addContentTypeCriterions( ArrayList<String> contentTypes ) throws TechnicalException {
+		for( int i = 0; i < contentTypes.size(); i++ ) {
+		this.contentTypes.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTENT_TYPE,
+				contentTypes.get( i ), MetadataSearchCriterion.LogicalOperator.AND ));
+		}
 	}
 	
 }
