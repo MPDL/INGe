@@ -127,7 +127,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
      * @throws IOException 
      * @throws CQLParseException 
      */
-    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws TechnicalException {
+    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws Exception {
     	
     	try {
     		// call framework Search service
