@@ -122,25 +122,31 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     
     /** 
      * {@inheritDoc}
+     * @throws TechnicalException 
      * @throws ParseException 
      * @throws IOException 
      * @throws CQLParseException 
      */
-    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws Exception {
+    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws TechnicalException {
     	
-    	 // call framework Search service
-        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-        searchRetrieveRequest.setVersion("1.1");
-        searchRetrieveRequest.setQuery( query.getCqlQuery() );
+    	try {
+    		// call framework Search service
+    		SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+        	searchRetrieveRequest.setVersion("1.1");
+        	searchRetrieveRequest.setQuery( query.getCqlQuery() );
 
-        NonNegativeInteger nni = new NonNegativeInteger("10000");
-        searchRetrieveRequest.setMaximumRecords(nni);
-        searchRetrieveRequest.setRecordPacking("xml");
+        	NonNegativeInteger nni = new NonNegativeInteger("10000");
+        	searchRetrieveRequest.setMaximumRecords(nni);
+        	searchRetrieveRequest.setRecordPacking("xml");
         
-        SearchRetrieveResponseType searchResult = performSearch( searchRetrieveRequest, query.getIndexSelector() );
-        List<ItemContainerSearchResultVO> resultList = transformToSearchResultList( searchResult );
-        return resultList;
-        }
+        	SearchRetrieveResponseType searchResult = performSearch( searchRetrieveRequest, query.getIndexSelector() );
+        	List<ItemContainerSearchResultVO> resultList = transformToSearchResultList( searchResult );
+        	return resultList;
+    	}
+    	catch( Exception e ) {
+    		throw new TechnicalException( e );
+    	}
+      }
      
     /** 
      * {@inheritDoc}
