@@ -1662,10 +1662,12 @@ public class ItemControllerSessionBean extends FacesBean
      */
     public ArrayList<PubItemVO> searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
     {
+    	ArrayList<String> contentTypes = new ArrayList<String>();
     	String contentTypeIdPublication = PropertyReader.getProperty(
 			"escidoc.framework_access.content-model.id.publication");
+    	contentTypes.add(contentTypeIdPublication);
     	
-    	MetadataSearchQuery query = new MetadataSearchQuery( contentTypeIdPublication, criteria );
+    	MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
     	List<ItemContainerSearchResultVO> results = this.itemContainerSearch.search( query );
     	
     	ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
