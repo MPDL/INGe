@@ -88,11 +88,15 @@ public class CitationStyleHandlerTest {
     @Before
     public final void getItemList() throws Exception
     {
-    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml"; 
-    	logger.info("Data Source:" + dsName);
-    			
-        itemList = ResourceUtil.getResourceAsString(dsName);
-        assertNotNull("Item list xml is not found:", dsName);
+//    	String dsName = ResourceUtil.getPathToDataSources() + "item-list-inga.xml"; 
+//    	logger.info("Data Source:" + dsName);
+//    			
+//        itemList = ResourceUtil.getResourceAsString(dsName);
+    	
+        itemList = TestHelper.getItemListFromFramework();
+		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+		logger.info("item list from framework:\n" + itemList);
+        
     }
     
 
