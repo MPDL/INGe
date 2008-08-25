@@ -25,20 +25,20 @@
 			<MD-fetch-setting default="true">
 				<dc:description>http://arxiv.org/help/prep</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv</dc:identifier>
-				<!--The format to fetch-->
-				<dc:format>arxiv</dc:format>
 				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>arXiv</label>
+				<!--File ending-->
+				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting>
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<!--The format to fetch-->
-				<dc:format>oai_dc</dc:format>
 				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>oai_dc</label>
+				<!--File ending-->
+				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		
@@ -94,20 +94,20 @@
 			<MD-fetch-setting default="true">
 				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
-				<!--The format to fetch-->
-				<dc:format>pubmed</dc:format>
 				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>PubMed</label>
+				<!--File ending-->
+				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<!--The format to fetch-->
-				<dc:format>oai_dc</dc:format>
 				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>oai_dc</label>
+				<!--File ending-->
+				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 
@@ -139,11 +139,11 @@
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<!--The format to fetch-->
-				<dc:format>escidoc</dc:format>
 				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
+				<!--File ending-->
+				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		

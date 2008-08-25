@@ -1,12 +1,14 @@
 package de.mpg.escidoc.services.importmanager.webservice;
 
-import java.io.FileNotFoundException;
-
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
+import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedException;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 
-
+/**
+ * UNAPI Interface for the DataAquisition Service
+ * @author Friederike Kleinfercher (initial creation) 
+ */
 public interface Unapi{
 
 	/**
@@ -22,14 +24,15 @@ public interface Unapi{
 	 */
 	public byte[] unapi (String identifier);
 	
+
 	/**
-	 * This operation fetches the item (identifier) in the specified format (format)
-	 * @param identifier
-	 * @param format
+	 * This operation fetches the format from the specified identifier
+	 * @param identifier, format
+	 * @return data as byte[]
 	 */
-	
-	public String fetchMD (String identifier, String format)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
-	
-	public byte[] fetchFT (String identifier, String format)throws FileNotFoundException;
+	public byte[] unapi (String identifier, String format)throws IdentifierNotRecognisedException, 
+    															 SourceNotAvailableException, 
+    															 TechnicalException,
+    															 FormatNotRecognizedException;
 	
 }

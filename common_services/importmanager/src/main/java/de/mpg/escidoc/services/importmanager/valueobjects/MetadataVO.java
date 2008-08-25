@@ -9,14 +9,14 @@ public class MetadataVO {
 	private String mdFormat;
 	private String mdLabel;
 	private boolean mdDefault;
-	private String mdMime;
+	private String fileType;
 	
 	
-	public String getMdMime() {
-		return mdMime;
+	public String getFileType() {
+		return this.fileType;
 	}
-	public void setMdMime(String mdMime) {
-		this.mdMime = mdMime;
+	public void setFileType(String fileType) {
+		this.fileType = fileType;
 	}
 	public String getMdDesc() {
 		return this.mdDesc;

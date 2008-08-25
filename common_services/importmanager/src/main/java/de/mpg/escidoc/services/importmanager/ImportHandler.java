@@ -34,13 +34,13 @@ import java.io.FileNotFoundException;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
+import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedException;
 
 
 /**
- * Interface for handling the import of items from external systems
+ * Interface for fetching data from external systems
  * @author Friederike Kleinfercher (initial creation) 
  */
-
 
 public interface ImportHandler{
 
@@ -52,30 +52,7 @@ public interface ImportHandler{
      * @return xml presentation of all available import sources
      */
     String explainSources ();
-    
-    /**
-     * This operation fetches data from the specified source. The format of the requested data will be the default metadata format
-     * defined in import.xml
-	 * @param sourceName, identifier
-	 * @return itemXML
-	 */
-    String fetchMetadata(String sourceName, String identifier)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
-    
-    /**
-     * This operation fetches data from the specified source and returns it in the requested format.
-     * This format can either be the format the external source provides, or a format we can transform from a format the external source provides
-	 * @param sourceName, identifier, format
-	 * @return itemXML
-	 */
-    String fetchMetadata(String sourceName, String identifier,String format)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException;
-    
-    /**
-     * Fetches the selected format from an external system
-     * @param sourceName, identifier, format
-	 * @return a file in the given format
-     */
-    byte[] fetchData(String sourceName, String identifier, String[] listOfFormats)throws FileNotFoundException;
-    
+
     /**
      * This is the only source specific method, which has to be updated when a new source
      * is specified for import
@@ -83,6 +60,39 @@ public interface ImportHandler{
     String trimIdentifier(String sourceName, String identifier);
     
 
-//    byte[] TestfetchData(String sourceName, String identifier, String FormatFrom, String FormatTo)throws FileNotFoundException, IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException ;
+    /**
+     * This operation fetches data from the specified source. The format of the requested data will be the default metadata format
+     * defined in sources.xml
+	 * @param sourceName, identifier
+	 * @return itemXML as byte[]
+	 */
+    byte[] doFetch(String sourceName, String identifier)throws FileNotFoundException, 
+    																 IdentifierNotRecognisedException, 
+    																 SourceNotAvailableException, 
+    																 TechnicalException,
+    																 FormatNotRecognizedException;
+
+    /**
+     * This operation fetches data from the specified source and returns it in the requested format.
+  	 * This format can either be the format the external source provides, or a format we can transform from a format the external source provides
+	 * @param sourceName, identifier, format
+	 * @return fetched data as byte[]
+	 */
+    byte[] doFetch(String sourceName, String identifier, String Format)throws FileNotFoundException, 
+    																				IdentifierNotRecognisedException, 
+    																				SourceNotAvailableException, 
+    																				TechnicalException, 
+    																				FormatNotRecognizedException;
+
+    /**
+     * This operation fetches data from the specified source and returns it in the requested format.
+  	 * The fetched data will return in zip format, currently only file fetching is possible for multiple formats
+	 * @param sourceName, identifier, formats[]
+	 * @return fetched data as byte[]
+	 */
+    byte[] doFetch(String sourceName, String identifier, String[] formats)throws FileNotFoundException, 
+    																				   IdentifierNotRecognisedException, 
+    																				   SourceNotAvailableException, 
+    																				   TechnicalException ;
 
 }

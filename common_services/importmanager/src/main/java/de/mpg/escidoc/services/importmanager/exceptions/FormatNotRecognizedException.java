@@ -29,48 +29,23 @@
 
 package de.mpg.escidoc.services.importmanager.exceptions;
 
-import java.util.Date;
-
-public class SourceNotAvailableException extends Exception
-{
+public class FormatNotRecognizedException extends Exception{
 
 	private static final long serialVersionUID = 1L;
-	private Date retryAfter = null;
-    
-    public SourceNotAvailableException()
-    {
-        
-    }
 
-    public SourceNotAvailableException(String message)
-    {
+	public FormatNotRecognizedException(){}
+
+    public FormatNotRecognizedException(String message){
         super(message);
     }
 
-    public SourceNotAvailableException(Throwable cause)
-    {
+    public FormatNotRecognizedException(Throwable cause){
         super(cause);
     }
 
-    public SourceNotAvailableException(String message, Throwable cause)
-    {
+    public FormatNotRecognizedException(String message, Throwable cause){
         super(message, cause);
     }
 
-    public SourceNotAvailableException(Date retryAfter)
-    {
-        super();
-        this.retryAfter = retryAfter;
-    }
-
-    public Date getRetryAfter()
-    {
-        return this.retryAfter;
-    }
-
-    public void setRetryAfter(Date retryAfter)
-    {
-        this.retryAfter = retryAfter;
-    }
 
 }

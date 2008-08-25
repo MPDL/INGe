@@ -40,7 +40,6 @@ import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.URLConnection;
-import java.rmi.RemoteException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -56,27 +55,21 @@ import javax.ejb.TransactionAttributeType;
 import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
-import de.escidoc.core.common.exceptions.application.missing.MissingMethodParameterException;
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
-import de.escidoc.core.common.exceptions.application.security.AuthorizationException;
-import de.escidoc.core.common.exceptions.system.SystemException;
 import de.mpg.escidoc.services.common.MetadataHandler;
-import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
+import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedException;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.importmanager.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.ImportSourceVO;
@@ -86,7 +79,6 @@ import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 
 /**
  * This class provides the ejb implementation of the {@link ImportHandler} interface.
- *
  * @author Friederike Kleinfercher (initial creation)
  */ 
 
@@ -99,22 +91,93 @@ import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 public class ImportHandlerBean implements ImportHandler {
 	
 	private final static Logger logger = Logger.getLogger(ImportHandlerBean.class);
-	private final String DATA_RETURN_FILETYPE = ".zip";
-	private final String DATA_RETURN_MIMETYPE = "application/zip";
 	
-	private final String fetchType_METADATA = "METADATA";
-	private final String fetchType_FILE = "FILE";
-	private final String fetchType_CITATION = "CITATION";
-	private final String fetchType_LAYOUT = "LAYOUT";
-	
-	private final String REGEX ="GETID";
+	private final String fetchType_METADATA = 	"METADATA";
+	private final String fetchType_FILE 	= 	"FILE";
+	private final String fetchType_CITATION = 	"CITATION";
+	private final String fetchType_LAYOUT 	= 	"LAYOUT";
+	private final String fetchType_UNKNOWN 	= 	"UNKNOWN";
+	private final String REGEX 				=	"GETID";
 
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();	
 	private String contentType;
 	private String fileEnding;
 
-	public ImportHandlerBean(){		
-	}
+	public ImportHandlerBean(){}
+	
+	
+	/**
+	 * {@inheritDoc}
+	 */
+    public byte[] doFetch(String sourceName, String identifier)throws FileNotFoundException, 
+    																 		IdentifierNotRecognisedException, 
+    																 		SourceNotAvailableException, 
+    																 		TechnicalException,
+    																 		FormatNotRecognizedException{
+    	
+    	ImportSourceVO source = this.sourceHandler.getSourceByName(sourceName);
+    	MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
+    	return this.doFetch(sourceName, identifier, md.getMdLabel());
+    }
+
+    
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] doFetch(String sourceName, String identifier, String format)throws FileNotFoundException, 
+    																					   IdentifierNotRecognisedException, 
+    																					   SourceNotAvailableException, 
+    																					   TechnicalException,
+    																					   FormatNotRecognizedException{  	
+    	byte[] fetchedData = null;
+    	
+    	try{
+        	identifier = this.trimIdentifier(sourceName, identifier);
+        	ImportSourceVO importSource = new ImportSourceVO();
+        	importSource = this.sourceHandler.getSourceByName(sourceName);         	
+	    	String fetchType = this.getFetchingType(importSource, format);  
+	    	
+	    	if (fetchType.equals(this.fetchType_METADATA)){
+	    		fetchedData = this.fetchMetadata(importSource, identifier, format).getBytes();
+	    	}
+	    	
+	    	if (fetchType.equals(this.fetchType_FILE)){
+	    		fetchedData = this.fetchData(importSource, identifier, new String [] {format});
+	    	}
+	    	
+	    	if (fetchType.equals(this.fetchType_CITATION)){
+	    		//TODO
+	    	}
+	    	
+	    	if (fetchType.equals(this.fetchType_LAYOUT)){
+	    		//TODO
+	    	}
+	    	if (fetchType.equals(this.fetchType_UNKNOWN)){
+	    		throw new FormatNotRecognizedException();
+	    	}
+    	}
+    	catch(IdentifierNotRecognisedException e){throw new IdentifierNotRecognisedException();}
+    	catch(SourceNotAvailableException e){throw new SourceNotAvailableException();}
+    	catch(TechnicalException e){throw new TechnicalException();}
+    	
+    	return fetchedData;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public byte[] doFetch(String sourceName, String identifier, String[] formats)throws FileNotFoundException, 
+    																						  IdentifierNotRecognisedException, 
+    																						  SourceNotAvailableException, 
+    																						  TechnicalException{
+    	identifier = this.trimIdentifier(sourceName, identifier);
+    	ImportSourceVO importSource = new ImportSourceVO();
+    	importSource = this.sourceHandler.getSourceByName(sourceName); 
+    	return this.fetchData(importSource, identifier, formats);
+    }
+
+	
+	
 	
     /**
      * This method provides XML formated output of the supported import sources
@@ -130,81 +193,67 @@ public class ImportHandlerBean implements ImportHandler {
     	return explainXML;
     }	
 
-    public String fetchMetadata(String sourceName, String identifier)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException{
-    	ImportSourceVO source = this.sourceHandler.getSourceByName(sourceName);
-    	MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
-    	return this.fetchMetadata(sourceName, identifier, md.getMdLabel());
-    }
-
-    public String fetchMetadata(String sourceName, String identifier, String format)throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException{
-    	
-    	String itemXML = null;
-    	identifier = this.trimIdentifier(sourceName, identifier);
-    	ImportSourceVO importSource = new ImportSourceVO();
-    	importSource = this.sourceHandler.getSourceByName(sourceName);  
+    /**
+     * Operation for fetching data of type METADATA
+     * @param importSource
+     * @param identifier
+     * @param format
+     * @return itemXML
+     * @throws IdentifierNotRecognisedException
+     * @throws SourceNotAvailableException
+     * @throws TechnicalException
+     */
+    private String fetchMetadata(ImportSourceVO importSource, String identifier, String format)throws IdentifierNotRecognisedException, 
+    																								 SourceNotAvailableException, 
+    																								 TechnicalException{   	
+    	String itemXML = null; 
+    	boolean supportedProtocol = false;
+    	InitialContext initialContext = null;
+    	MetadataHandler mdHandler;
     	MetadataVO md = this.getMdObjectToFetch(importSource, format);
-    	
-    	logger.debug("Import from Source: " + sourceName);
 
-    	//Construct request url with current parameter
+    	//Replace regex with identifier
     	try {
 	    	String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), importSource.getEncoding()); 
 	    	md.setMdUrl(new URL (decoded));
 	    	md.setMdUrl(new URL (md.getMdUrl().toString().replaceAll(this.REGEX, identifier.trim())));
 	    	importSource = this.sourceHandler.updateMdEntry(importSource, md);
-    	}
-    	catch(MalformedURLException e){e.printStackTrace();}
-    	catch(UnsupportedEncodingException e){ e.printStackTrace();}
 
-    	//Select harvesting method
-    	try{
-	    	boolean supported = false;
+	    	//Select harvesting method	    	
 	    	if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh")){
-	    			logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
-					itemXML = fetchOAIRecord (importSource, md);
-					supported = true;
+	    		logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
+				itemXML = fetchOAIRecord (importSource, md);
+				supportedProtocol = true;
 	    	}
 	    	if (importSource.getHarvestProtocol().toLowerCase().equals("ejb")){
-				try {
-					itemXML = ServiceLocator.getItemHandler().retrieve("escidoc:"+identifier);
-				} 
-				catch (MissingMethodParameterException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (ItemNotFoundException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (AuthenticationException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (AuthorizationException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (SystemException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (RemoteException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (ServiceException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-				catch (URISyntaxException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);}
-				supported = true;
+				logger.debug("Fetch record via EJB: ");
+				itemXML = this.fetchEsciDocRecord(identifier);
+				supportedProtocol = true;							
 	    	}
-	    	if (!supported){
+	    	if (!supportedProtocol){
 	    		logger.warn("Harvesting protocol " +importSource.getHarvestProtocol()+" not supported");
 	    		return null;
 	    	}
     	}
-    	catch(IdentifierNotRecognisedException e){
-    		throw new IdentifierNotRecognisedException(e); 
-    	}
+    	catch(IdentifierNotRecognisedException e){throw new IdentifierNotRecognisedException(e); }
+    	catch(MalformedURLException e){e.printStackTrace();}
+    	catch(UnsupportedEncodingException e){ e.printStackTrace();}
 
 	    //Transform the itemXML if necessary
-	    if (format != null && itemXML!= null && !itemXML.trim().equals("")
+	    if (itemXML!= null && !itemXML.trim().equals("")
 	    		&& !format.trim().toLowerCase().equals(md.getMdLabel().toLowerCase())){
-	    	InitialContext initialContext = null;
-	    	MetadataHandler mdHandler;
 			try {
 		    	initialContext = new InitialContext();
 				mdHandler = (MetadataHandler) initialContext.lookup(MetadataHandler.SERVICE_NAME);
-				itemXML= mdHandler.transform(md.getMdFormat(),format,itemXML);
+				itemXML= mdHandler.transform(md.getMdLabel(),format,itemXML);
 			} 
-			catch (NamingException e) {
-				logger.error("Unable to initialize Metadata Handler", e);
-				return null;
-			}
-		    catch (Exception e){
-		        throw new IdentifierNotRecognisedException(e);
-		    }
+			catch (NamingException e) {logger.error("Unable to initialize Metadata Handler", e);return null;}
+		    catch (Exception e){throw new IdentifierNotRecognisedException(e);}
 	   	}
+	    
+		this.setContentType(md.getMdFormat());
+		this.setFileEnding(md.getFileType());
+	    
     	return itemXML;
     }
     
@@ -280,57 +329,47 @@ public class ImportHandlerBean implements ImportHandler {
 		return baos.toByteArray();
     }
     
-    /**
-     * Fetches the selected format from an external system
-     * @param sourceName, identifier, format
-	 * @return a file in the given format
-     * @throws FileNotFoundException 
-     */
-    public byte[] fetchData(String sourceName, String identifier, String[] listOfFormats) throws FileNotFoundException{
+	/**
+	 * Operation for fetching data of type FILE
+	 * @param importSource
+	 * @param identifier
+	 * @param listOfFormats
+	 * @return byte[] of the fetched file, zip file if more than one record was fetched
+	 */
+    private byte[] fetchData(ImportSourceVO importSource, String identifier, String[] listOfFormats){
 
-    	ImportSourceVO importSource = new ImportSourceVO();
-    	FullTextVO fulltext = new FullTextVO();
-    	Vector<FullTextVO> v_fulltext = new Vector<FullTextVO>();
-    	identifier = this.trimIdentifier(sourceName, identifier);
-    	String format;
-    	byte [] in = null;
-    	
+    	byte [] in = null;   
+    	FullTextVO fulltext = new FullTextVO();   		
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	ZipOutputStream zos = new ZipOutputStream(baos);
-		
-    	importSource = this.sourceHandler.getSourceByName(sourceName);
-    	v_fulltext = importSource.getFtFormats();
+
        	
 		//Call fetch file for every selected format
 		for (int i =0; i < listOfFormats.length; i++){
-			format = listOfFormats[i];
-			for (int x=0; x< v_fulltext.size();x++){
-				if (v_fulltext.get(x).getFtLabel().toLowerCase().equals(format.toLowerCase())){
-					fulltext = v_fulltext.get(x);
+			String format = listOfFormats[i];
+			fulltext=this.getFtObjectToFetch(importSource, format);
 					
-					//Replace regex with identifier
-					try {
-				    	String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding()); 
-				    	fulltext.setFtUrl(new URL (decoded));
-				    	fulltext.setFtUrl(new URL (fulltext.getFtUrl().toString().replaceAll(this.REGEX, identifier.trim())));
-						
-					} 
-					catch (MalformedURLException e) {logger.error("Error when replacing regex in fetching URL"); e.printStackTrace(); }
-					catch(UnsupportedEncodingException e){e.printStackTrace();}
-				}
-			}
+			//Replace regex with identifier
+			try {
+				 String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding()); 
+				 fulltext.setFtUrl(new URL (decoded));
+				 fulltext.setFtUrl(new URL (fulltext.getFtUrl().toString().replaceAll(this.REGEX, identifier.trim())));						
+			} 
+			catch (MalformedURLException e) {logger.error("Error when replacing regex in fetching URL"); e.printStackTrace(); }
+			catch(UnsupportedEncodingException e){e.printStackTrace();}
 			
 			logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
-			System.out.println("Fetch file from URL: " + fulltext.getFtUrl());
 			
 			try {
 				in= this.fetchFile(importSource, fulltext);	
 				
+				//If only one file => return it in fetched format
 				if (listOfFormats.length == 1){
 					this.setContentType(fulltext.getFtFormat());
 					this.setFileEnding(fulltext.getFileType());
 					return in;
 				}
+				//If more than one file => add it to zip
 				else{
 					ZipEntry ze = new ZipEntry( identifier + fulltext.getFileType());
 					ze.setSize(in.length);
@@ -344,34 +383,38 @@ public class ImportHandlerBean implements ImportHandler {
 					zos.flush();
 					zos.closeEntry();
 				}
+				
+				this.setContentType("application/zip");
+				this.setFileEnding(".zip");
 			} 
-			catch (SourceNotAvailableException e) {
-				logger.warn("Import Source not available",e);
-			}
-			catch (TechnicalException e) {
-				logger.warn("Technical problems occurred when communication with import source",e);
-			}
+			catch (SourceNotAvailableException e) {logger.warn("Import Source not available",e);}
+			catch (TechnicalException e) {logger.warn("Technical problems occurred when communication with import source",e);}
 			catch (IOException e){ e.printStackTrace();}
 		}
-
+		
 		try {
 			zos.close();
-			this.setContentType("application/zip");
-			this.setFileEnding(".zip");
 		} 
 		catch (IOException e) {e.printStackTrace();}
-
+		
 		return baos.toByteArray();
     }
 
 
+    /**
+     * Handlers the http request to fetch a file from an external source
+     * @param importSource
+     * @param fulltext
+     * @return byte[] of the fetched file
+     * @throws SourceNotAvailableException
+     * @throws TechnicalException
+     */
 	private byte[] fetchFile(ImportSourceVO importSource, FullTextVO fulltext) throws SourceNotAvailableException, TechnicalException{
     	
     	URLConnection conn = null;
     	Date retryAfter = null;	
     	byte[] input = null;
-    	
-    	//Fetch Data
+
     	try {
 	    	conn = fulltext.getFtUrl().openConnection();
 	    	HttpURLConnection httpConn = (HttpURLConnection) conn;
@@ -512,7 +555,24 @@ public class ImportHandlerBean implements ImportHandler {
     }
     
     /**
-     * This is the only source specific method, which has to be updated when a new source
+     * Fetches a eSciDoc Record from eSciDoc system
+     * @param  identifier of the item
+     * @return itemXML as String
+     * @throws IdentifierNotRecognisedException
+     * @throws SourceNotAvailableException
+     */
+    private String fetchEsciDocRecord (String identifier) throws IdentifierNotRecognisedException, SourceNotAvailableException{
+		try {
+			return ServiceLocator.getItemHandler().retrieve(identifier);
+		} 
+		catch (ItemNotFoundException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+		catch (URISyntaxException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);}
+		catch (Exception e) {e.printStackTrace(); throw new SourceNotAvailableException(e);} 
+    }
+    
+    /**
+     * For a more flexible interface for handling user input
+     * This is the only source specific method, which should be updated when a new source
      * is specified for import
      */
     public String trimIdentifier(String sourceName, String identifier)
@@ -579,33 +639,47 @@ public class ImportHandlerBean implements ImportHandler {
 				}
 			}
 		}		
-		else{
+		if (possibleMds.size() == 1){
 			sourceMd= possibleMds.get(0);
+		}
+		if (possibleMds.size() == 0){
+			sourceMd = null;
 		}
     	return sourceMd;
     }
     
-    
-//    public byte[] TestfetchData(String sourceName, String identifier, String FormatFrom, String FormatTo)throws FileNotFoundException, IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException {
-//    	
-//    	byte[] fetchedData = null;
-//    	String type = this.getFetchingType(FormatFrom);
-//    	
-//    	if (type.equals(this.fetchType_METADATA)){fetchedData = this.fetchMetadata(sourceName, identifier, FormatFrom, FormatTo).getBytes();}
-//    	if (type.equals(this.fetchType_FILE)){fetchedData = this.fetchData(sourceName, identifier, new String[]{FormatTo});}
-//    	if (type.equals(this.fetchType_CITATION)){};
-//    	if (type.equals(this.fetchType_LAYOUT)){};
-//    	
-//    	return fetchedData;
-//    	
-//    }
-//    
-//    private String getFetchingType (String formatFrom){
-//    	String type = "";
-//    	//TODO: get fetching type from sources.xml or transformation.xml
-//    	type = this.fetchType_FILE;
-//    	return type;
-//    }
+    /**
+     * This operation return the Fulltext Object of the format to fetch from the source.
+     * @param source
+     * @param format
+     * @return Fulltext Object of the format to fetch
+     */
+    private FullTextVO getFtObjectToFetch(ImportSourceVO source, String format){
+    	FullTextVO Ft = null;
+    	
+		for (int i=0; i< source.getFtFormats().size(); i++){
+			Ft = source.getFtFormats().get(i);
+    		if (Ft.getFtLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
+    			return Ft;
+        	}
+    		else {Ft = null;}
+		}   	
+    	return Ft;
+    }
+
+    /**
+     * Decide which kind of data has to be fetched
+     * @param source
+     * @param format
+     * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}
+     */
+    private String getFetchingType (ImportSourceVO source, String format){
+    	if (this.getMdObjectToFetch(source, format)!= null){return this.fetchType_METADATA;}
+    	if (this.getFtObjectToFetch(source, format)!= null){return this.fetchType_FILE;}
+    	//TODO: citation and layoutformat
+    	
+    	return this.fetchType_UNKNOWN;
+    }
 	
     public long currentDate() {
         Date today = new Date();

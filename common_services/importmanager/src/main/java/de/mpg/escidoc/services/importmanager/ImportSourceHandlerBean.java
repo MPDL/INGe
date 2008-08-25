@@ -98,10 +98,10 @@ public class ImportSourceHandlerBean {
 	            	mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
 	            	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
 	            	catch (MalformedURLException e) {e.printStackTrace();}
-	            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormatArray(0)));
-	            	mdVO.setMdMime(simpleLiteralTostring(mdf.getFormatArray(1)));
+	            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
 	            	mdVO.setMdDefault(mdf.getDefault());
 	            	mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
+	            	mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
 	            	mdVec.add(mdVO);
 	            }	                 
 	            sourceVO.setMdFormats(mdVec);
@@ -130,7 +130,7 @@ public class ImportSourceHandlerBean {
 	            	for (int i=0; i< sourceVO.getMdFormats().size(); i++){
 	            		MetadataVO md = sourceVO.getMdFormats().get(i);
 	            		if (md.isMdDefault()){
-			            	if (this.mdHandler.checkTransformation(md.getMdFormat(), this.transformationFormat)) {
+			            	if (this.mdHandler.checkTransformation(md.getMdLabel(), this.transformationFormat)) {
 			            		sourceVec.add(sourceVO);
 			            	}
 		            	}
@@ -198,10 +198,10 @@ public class ImportSourceHandlerBean {
             	mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
             	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
             	catch (MalformedURLException e) {e.printStackTrace();}
-            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormatArray(0)));
-            	mdVO.setMdMime(simpleLiteralTostring(mdf.getFormatArray(1)));
+            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
             	mdVO.setMdDefault(mdf.getDefault());
             	mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
+            	mdVO.setFileType(simpleLiteralTostring(mdf.getFileType()));
             	mdVec.add(mdVO);
             }                
             sourceVO.setMdFormats(mdVec); 
@@ -284,7 +284,7 @@ public class ImportSourceHandlerBean {
 
     	for (int i=0; i< source.getMdFormats().size(); i++){
         	md = source.getMdFormats().get(i);
-        	if (md.getMdFormat().trim().toLowerCase().equals(format.trim().toLowerCase())){
+        	if (md.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
         		return md;
             }
     	}
@@ -336,7 +336,7 @@ public class ImportSourceHandlerBean {
     	if (md != null){
 			for (int i=0; i< md_v.size(); i++){
 				MetadataVO mdVO = source.getMdFormats().get(i);
-	    		if (mdVO.getMdFormat().trim().toLowerCase().equals(md.getMdFormat().trim().toLowerCase())){
+	    		if (mdVO.getMdLabel().trim().toLowerCase().equals(md.getMdLabel().trim().toLowerCase())){
 	    			md_v.setElementAt(md,i);
 	        	}
 			}
@@ -410,7 +410,6 @@ public class ImportSourceHandlerBean {
 			logger.info("____________________________________________________________________");
 			logger.info("MD description		: " + md.getMdDesc());
 			logger.info("MD format			: " + md.getMdFormat());
-			logger.info("MD MIME			: " + md.getMdMime());
 			logger.info("MD label			: " + md.getMdLabel());
 			logger.info("MD URL				: " + java.net.URLDecoder.decode(md.getMdUrl().toString()));
 			logger.info("MD default			: " + md.isMdDefault());

@@ -3,6 +3,7 @@ package de.mpg.escidoc.services.importmanager.webservice;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Vector;
 
@@ -25,41 +26,39 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.importmanager.ImportHandlerBean;
 import de.mpg.escidoc.services.importmanager.ImportSourceHandlerBean;
+import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedException;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.importmanager.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.ImportSourceVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 
 /**
- * unapi response codes
- * 300 Multiple Choices for the UNAPI?id=IDENTIFIER function
- * 302 Found for responses to the UNAPI?id=IDENTIFIER&format=FORMAT function which redirect
- * 404 Not Found for requests for an identifier that is not available on the server
- * 406 Not Acceptable for requests for an identifier that is available on the server in a format that is not available for that identifier
-*/
-
+ * This class provides the implementation of the {@link Unapi} interface.
+ * @author Friederike Kleinfercher (initial creation)
+ */ 
 public class UnapiServlet extends HttpServlet implements Unapi {
+
+	private static final long serialVersionUID = 1L;
 	
-	private final String FORMAT_TYPE_MD = "METADATA";
-	private final String FORMAT_TYPE_FT = "FULLTEXT";
-	private final String FORMAT_TYPE_URL = "URL";
-	
+	private final String ID_TYPE_URI  	 = "URI";
+	private final String ID_TYPE_URL  	 = "URL";
+	private final String ID_TYPE_ESCIDOC = "ESCIDOC";
+	private final String ID_TYPE_UNKNOWN = "UNKNOWN";
 	
 	private ImportHandlerBean importHandler = new ImportHandlerBean();
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();
-	
-	private String formatIntern = null;
-	private String responseEncoding = null;
+
+	private String filename = "unapi";
 	
 	private final static Logger logger = Logger.getLogger(UnapiServlet.class);
 
-	public void doGet(HttpServletRequest request, HttpServletResponse response)
-	  	throws ServletException, IOException {
+	public void doGet(HttpServletRequest request, HttpServletResponse response)	throws ServletException, 
+																					   IOException {
 		 this.doPost(request, response);
 	}
 	 
-	 public void doPost(HttpServletRequest request, HttpServletResponse response)
-	  	throws ServletException, IOException {
+	 public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, 
+	 																					 IOException {
 
 		 String identifier = null;
 		 String format = null;
@@ -67,18 +66,16 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 		 
          // Retrieve the command from the location path
          String command = request.getPathInfo();
-         if (command != null && command.length() > 0)
-         {
+         if (command != null && command.length() > 0){
              command = command.substring(1);
          }
 		 
          // Handle Call
-         if ("unapi".equals(command))
-         {
+         if ("unapi".equals(command)){
              identifier = request.getParameter("id");
              format = request.getParameter("format");
              
-             if (identifier == null || identifier.trim().equals(""))
+             if (identifier == null)
              {
             	 //Gives back a description of all available sources
                  response.setStatus(200);
@@ -87,7 +84,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
              }
 	         else 
 	         {	        	 
-	        	 if (format == null || format.trim().equals("")){
+	        	 if (format == null){
 	        		//Gives back a description of all available formats for a source
 	        		byte[] xml = this.unapi(identifier);
 	        		if (xml != null){
@@ -100,57 +97,19 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 	        		}
 	             }  
 	        	 else 
-	        	 {	        	 
-	        		 String fetchingType = this.checkFormatType(identifier, format);
-
-	        		 //fetching type not recognized
-	        		 if (fetchingType == null){
-	        			 //Identifier not recognized
-	        			 response.sendError(406, "Format not recognized");
-	        		 }	
-	        		 else {
-		        		 //Give back itemXML
-		        		 if (fetchingType.equals(this.FORMAT_TYPE_MD)){
-		        			 try {	        				 
-			     				String md = this.fetchMD(identifier, this.formatIntern);		     					
-				                response.setContentType("application/xml");
-				                response.setHeader( "Content-Encoding ", this.responseEncoding );
-				                response.setStatus(200);
-				                outStream.write(md.getBytes());
-		     				} catch (IdentifierNotRecognisedException e) {response.sendError(404, "Identifier not recognized");
-		     				} catch (SourceNotAvailableException e) {e.printStackTrace();
-		     				} catch (TechnicalException e) {e.printStackTrace();}
-		        		 }
-		        		 //Give back dataStream
-		        		 if (fetchingType.equals(this.FORMAT_TYPE_FT)){
-		        			 try{ 
-			        			 byte[] content = this.fetchFT(identifier, this.formatIntern);
-			        			 String filename=identifier.trim()+this.importHandler.getFileEnding();
-			        			 
-				                 response.setContentLength(content.length);
-				                 response.setStatus(200);
-				                 response.setContentType(this.importHandler.getContentType());
-				                 response.setHeader("Content-disposition", "attachment; filename=" + filename);
-				                 outStream.write(content);
-		        			 }
-		        			 catch(FileNotFoundException e){response.sendError(404, "Identifier not recognized");}
-		        		 }
-		        		 //fetch from url
-		        		 if (fetchingType.equals(this.FORMAT_TYPE_URL)){
-		        			 try {						
-			        			 byte[] content = this.importHandler.fetchMetadatafromURL(new URL (identifier));	  
-			        			 
-				                 response.setContentLength(content.length);
-				                 response.setStatus(200);
-				                 response.setContentType("application/zip");
-				                 response.setHeader("Content-disposition", "attachment; filename=unapi");
-				                 outStream.write(content);
-							 } 
-		        			 catch (SourceNotAvailableException e) {e.printStackTrace();} 
-		        			 catch (TechnicalException e) {e.printStackTrace();}
-		        		 }	
-	        		 }
-	        	 }
+	        	 {	 //Fetch data    
+	        		 try{
+			     		byte[] data = this.unapi(identifier, format);	
+				        response.setContentType(this.importHandler.getContentType());
+				        response.setHeader("Content-disposition", "attachment; filename=" + this.filename + this.importHandler.getFileEnding());
+				        response.setStatus(200);
+				        outStream.write(data);
+		     		 } 
+	        		 catch (IdentifierNotRecognisedException e) {response.sendError(404, "Identifier not recognized");} 
+	        		 catch (SourceNotAvailableException e) {response.sendError(404, "Source not available");} 
+	        		 catch (TechnicalException e) {response.sendError(404, "Technical problems occurred");}
+	        		 catch (FormatNotRecognizedException e) {response.sendError(406, "Format not recognized");}
+		        }
 	         }
          }
          else {
@@ -162,6 +121,9 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 	 
 	    
 
+	/**
+	 * {@inheritDoc}
+	 */
 	public byte[] unapi(){
 
 		Vector<ImportSourceVO> sources;
@@ -198,7 +160,9 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 		return null;
 	}
 	
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	public byte[] unapi (String identifier){
 		
 		Vector <FullTextVO> v_ft = new Vector <FullTextVO>();
@@ -221,7 +185,7 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 				FormatType xmlFormat = xmlFormats.addNewFormat();
 				
 				xmlFormat.setName(md.getMdLabel());
-				xmlFormat.setType(md.getMdMime());
+				xmlFormat.setType(md.getMdFormat());
 				xmlFormat.setDocs(md.getMdDesc());			
 			}
 			
@@ -239,69 +203,73 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 		//Get additional formats provided by internal transformations
 	}
 		
-	public String fetchMD (String identifier, String format) throws IdentifierNotRecognisedException, SourceNotAvailableException, TechnicalException{	
+	/**
+	 * {@inheritDoc}
+	 */
+	public byte[] unapi (String identifier, String format) throws IdentifierNotRecognisedException, 
+															      SourceNotAvailableException, 
+															      TechnicalException,
+															      FormatNotRecognizedException{
+		this.filename = identifier;
 		String [] tmp = identifier.split(":");
 		String sourceId = tmp[0];
 		String id = tmp [1];
 		String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
+		String idType = this.checkIdentifier(identifier, format);
 
-		return this.importHandler.fetchMetadata(sourceName, id, format);
+		try {
+
+			if (idType.equals(this.ID_TYPE_URI)){
+				if (sourceName != null){
+					return this.importHandler.doFetch(sourceName, id, format);
+				}
+			}
+			if (idType.equals(this.ID_TYPE_URL)){
+				return this.importHandler.fetchMetadatafromURL(new URL(identifier));
+			}
+			if (idType.equals(this.ID_TYPE_ESCIDOC)){
+				id = this.setEsciDocIdentifier(identifier);
+				sourceName = this.sourceHandler.getSourceNameByIdentifier("escidoc");
+				this.filename = id;
+				return this.importHandler.doFetch(sourceName, id, format);
+			}
+			if (idType.equals(this.ID_TYPE_UNKNOWN) || sourceName == null){
+				throw new IdentifierNotRecognisedException();
+			}
+		} 
+		catch (FileNotFoundException e) {throw new TechnicalException();} 
+		catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException();} 
+		catch (SourceNotAvailableException e) {throw new SourceNotAvailableException();} 
+		catch (TechnicalException e) {throw new TechnicalException();}	
+		catch (MalformedURLException e) {throw new TechnicalException();}
+		catch (FormatNotRecognizedException e) {throw new FormatNotRecognizedException();}
+		
+		return null;
 	}
 	
-	public byte[] fetchFT (String identifier, String format) throws FileNotFoundException{
-		String [] tmp = identifier.split(":");
-		String sourceId = tmp[0];
-		String id = tmp [1];
-		String sourceName = this.sourceHandler.getSourceNameByIdentifier(sourceId);
+	
+	private String checkIdentifier(String identifier, String format){
 		
-		return this.importHandler.fetchData(sourceName, id, new String[]{format});	
+		identifier = identifier.toLowerCase().trim();
+		if (identifier.contains("escidoc:")){
+			return this.ID_TYPE_ESCIDOC;
+		}		
+		if (identifier.startsWith("http")&& format.trim().toLowerCase().equals("url")){
+			return this.ID_TYPE_URL;
+		}		
+		if (identifier.startsWith("http")&& !format.trim().toLowerCase().equals("url")){
+			return this.ID_TYPE_UNKNOWN;
+		}
+		return this.ID_TYPE_URI;
 	}
 	
 	/**
-	 * This operation checks the type of the request. this unapi interface supports three kind of formats:
-	 * 1: FORMAT_TYPE_URL - The identifier is an url, the interface has no informations about the source
-	 * 2: FORMAT_TYPE_MD - The type of format to fetch is Metadata
-	 * 3: FORMAT_TYPE_FT - The type of format to fetch is a file
-	 * @param identifier
-	 * @param format
+	 * EsciDoc Identifier can consist of the citation URL, like http://test-pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3
+	 * This methods extracts the identifier from the URL
 	 */
-	public String checkFormatType(String identifier, String format){
+	private String setEsciDocIdentifier(String Identifier){
+		String [] extracts = Identifier.split("/");
+		return extracts[extracts.length-1];
+	}
 
-		if (identifier.startsWith("http")&& format.trim().toLowerCase().equals("url")){
-			return this.FORMAT_TYPE_URL;
-		}
-		
-		String [] tmp = identifier.split(":");
-		ImportSourceVO source = null;
-		source = this.sourceHandler.getSourceByIdentifier(tmp[0]);
-		
-		if (source != null){
-		
-			this.responseEncoding = source.getEncoding();
-			
-			Vector <MetadataVO> v_md = source.getMdFormats();
-			MetadataVO md = null;
-			
-			for (int i=0; i< v_md.size(); i++){
-				md = v_md.get(i);
-				if (md.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
-					this.formatIntern = md.getMdFormat();
-					return this.FORMAT_TYPE_MD;
-				}
-			}
-
-			Vector <FullTextVO> v_ft = source.getFtFormats();
-			FullTextVO ft = null;
-			
-			for (int i=0; i< v_ft.size(); i++){
-				ft = v_ft.get(i);
-				if (ft.getFtLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
-					this.formatIntern = ft.getFtLabel();
-					return this.FORMAT_TYPE_FT;
-				}
-			}			
-		}
-		
-		return null;
-	}	
 }

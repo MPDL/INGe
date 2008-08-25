@@ -39,12 +39,12 @@
 			<xs:element ref="dc:description"/>
 			<!-- Fetch MD url-->
 			<xs:element ref="dc:identifier"/>
-			<!-- available fetching format-->
-			<xs:element ref="dc:format"/>
 			<!-- the MIME Type -->
 			<xs:element ref="dc:format"/>
 			<!-- label for presentation-->
 			<xs:element name="label" type="dc:SimpleLiteral"/>
+			<!-- file ending-->
+			<xs:element name="fileType" type="dc:SimpleLiteral"/>
 		</xs:sequence>
 		<xs:attribute name="default" type="xs:boolean" use="required"/>
 	</xs:complexType>
