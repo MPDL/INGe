@@ -32,7 +32,7 @@
 	xmlns:prop="${xsd.soap.common.prop}">
 	<xsl:output method="text" encoding="UTF-8" indent="yes" />
 	<xsl:template match="/">
-		<xsl:value-of select="'filename,person ID,age,age group,gender,emotion'" />
+		<xsl:value-of select="'filename,person ID,age,age group,gender,emotion,picture group'" />
 		<xsl:for-each
 			select="//escidocItem:item/escidocComponents:components/escidocComponents:component">
 			<xsl:variable name="md"
