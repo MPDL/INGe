@@ -276,7 +276,7 @@ public class StructuredExport implements StructuredExportHandler {
 			//populate key/value pars
 			fh.put(
 					n.getElementsByTagName("dc:identifier").item(0).getTextContent(),
-					n.getElementsByTagName("dc:description").item(0).getTextContent()
+					n.getAttribute("xslt")
 			);
 		}
 		
