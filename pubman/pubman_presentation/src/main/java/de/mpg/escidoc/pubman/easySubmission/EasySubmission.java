@@ -872,7 +872,8 @@ public class EasySubmission extends FacesBean
 	    		try {
 	    			//Harvest metadata
 		    		logger.debug("HarvestData: " + this.getEasySubmissionSessionBean().getCurrentExternalServiceType() + ": "+getServiceID());
-		    		fetchedItem= importHandler.fetchMetadata(service,getServiceID(),this.INTERNAL_MD_FORMAT);
+		    		byte[] fetchedItemByte= importHandler.doFetch(service,getServiceID(),this.INTERNAL_MD_FORMAT);
+		    		fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
 		    		
 		    		//Harvest full text
 		    		if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE)&& this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null)
@@ -906,7 +907,7 @@ public class EasySubmission extends FacesBean
 						}
 						
 						String[] arrFormats = new String [formats.size()];
-			    		byte []ba = importHandler.fetchData(this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),getServiceID(),formats.toArray(arrFormats));
+			    		byte []ba = importHandler.doFetch(this.getEasySubmissionSessionBean().getCurrentExternalServiceType(),getServiceID(),formats.toArray(arrFormats));
 			    		LoginHelper loginHelper = (LoginHelper)this.getBean(LoginHelper.class);
 			    		ByteArrayInputStream in = new ByteArrayInputStream(ba);
 			    		URL fileURL = this.uploadFile(in, importHandler.getContentType(), loginHelper.getESciDocUserHandle());	
