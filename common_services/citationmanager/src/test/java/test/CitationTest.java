@@ -29,7 +29,8 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
-	private final String dsFileName = "item-list-inga.xml";  
+//	private final String dsFileName = "Kristina.xml";  
+//	private final String dsFileName = "item-list-inga.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
 	
 	private String itemList;
@@ -52,12 +53,15 @@ public class CitationTest {
     @Before
     public final void getItemList() throws Exception
     {
-    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
-    	logger.info("Data Source:" + ds);
-    			
-        itemList = ResourceUtil.getResourceAsString(ds);
+//    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
+//    	logger.info("Data Source:" + ds);
+//      itemList = ResourceUtil.getResourceAsString(ds);
+//    	assertNotNull("Item list xml is not found:", ds);
+    	
+    	itemList = TestHelper.getItemListFromFramework();
+		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+		logger.info("item list from framework:\n" + itemList);
 
-        assertNotNull("Item list xml is not found:", ds);
     }	
 	
     /**
@@ -65,8 +69,10 @@ public class CitationTest {
      * @throws IOException 
      */
     @Test
+    @Ignore
     public final void testDataSourceValidation() throws IOException{
     	
+    	//TODO: always recent schema should be provided
 		long start = 0;
 		String dsName = ResourceUtil.getUriToResources() 
 			+ ResourceUtil.DATASOURCES_DIRECTORY 
@@ -123,42 +129,13 @@ public class CitationTest {
 			String format = ouf.toString();
 	    	start = System.currentTimeMillis();
 	    	result = pcs.getOutput("APA", format, itemList);
-	        logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+	    	assertTrue(format + " output should not be empty", result.length > 0);
+    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
 	        logger.info(format + " length: " + result.length);
-	        assertTrue(format + " output should not be empty", result.length > 0);
 	        logger.info(format + " is OK");
 			
 		}
-    }
-    
-    /**
-     * Test service with a item list XML.
-     * Snippet export
-     * @throws Exception Any exception.
-     */
-    @Test
-    @Ignore
-    public final void testCitManOutputSnippet() throws Exception {
-    	long start;
-    	byte[] result;
-    	start = System.currentTimeMillis();
-    	String format = ProcessCitationStyles.OutFormats.snippet.toString();
-    	result = pcs.getOutput("APA", format, itemList);
-    	
-    	//-------------- Test output generation
-        /*FileWriter fstream = new FileWriter(ResourceUtil.getPathToDataSources() + "item-list-MPI_Psycholinguistics-OUTPUT.xml");
-        BufferedWriter out = new BufferedWriter(fstream);
-        out.write(new String(result));
-        out.close();
-        fstream.close();
-        */
-    	//--------------
-        
-    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-    	logger.info(format + " length: " + result.length);
-    	logger.info("result=" + new String(result));
-    	assertTrue(format + " output should not be empty", result.length > 0);
-    	logger.info(format + " is OK");
     }
     
     /**
@@ -167,11 +144,9 @@ public class CitationTest {
      */
     @Test
     public final void testListOfStyles() throws Exception {
-    	long start;
-    	start = System.currentTimeMillis();
+    	logger.info("List of citation styles: " );
     	for (String s : XmlHelper.getListOfStyles() )
     		logger.info("Citation Style: " + s);
-    	logger.info("List of styles time: " + (System.currentTimeMillis() - start));
     }    
     
 }
