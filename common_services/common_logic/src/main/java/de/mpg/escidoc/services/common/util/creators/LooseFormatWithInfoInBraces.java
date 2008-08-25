@@ -45,7 +45,7 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     public final String BRACES_WITH_ANY_CONTENT = "\\s+\\(\\s*(\\s*\\S+)+\\s*\\)\\s*";
     @Override
     public String getPattern() {
-        return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*$";
+        return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*(,|;)*\\s*$";
     }
 
     @Override
@@ -55,6 +55,8 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
         List<String> parts = new ArrayList<String>();
         String currentString = "";
         String currentStringWithoutBracketContent="";
+        
+        //remove last comma or semicolon
         
         String openedBracketsRegEx = "(\\(|\\{|\\[)";
         String closedBracketsRegEx = "(\\)|\\}|\\])";
@@ -88,8 +90,12 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
             }
             
         }
-        // add last Part
-        parts.add(currentString);
+        // add last Part if not empty
+        if (!currentString.trim().equals(""))
+        {
+            parts.add(currentString);
+        }
+        
         
         
         //split strings by rest of seperators
