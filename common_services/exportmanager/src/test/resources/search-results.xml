@@ -155,8 +155,8 @@
 																				<ns2:name>NisoImageMetadata</ns2:name>
 																				<ns2:values arity="Scalar" type="NISOImageMetadata">
 																					<ns2:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/"
-																						xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20"
+																						xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -396,7 +396,7 @@
                     <ns3:name>NisoImageMetadata</ns3:name>
                     <ns3:values arity="Scalar" type="NISOImageMetadata">
                       <ns3:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -556,7 +556,7 @@
                     <ns4:name>NisoImageMetadata</ns4:name>
                     <ns4:values arity="Scalar" type="NISOImageMetadata">
                       <ns4:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -745,7 +745,7 @@
                     <ns5:name>NisoImageMetadata</ns5:name>
                     <ns5:values arity="Scalar" type="NISOImageMetadata">
                       <ns5:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -905,7 +905,7 @@
                     <ns6:name>NisoImageMetadata</ns6:name>
                     <ns6:values arity="Scalar" type="NISOImageMetadata">
                       <ns6:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -1065,7 +1065,7 @@
                     <ns7:name>NisoImageMetadata</ns7:name>
                     <ns7:values arity="Scalar" type="NISOImageMetadata">
                       <ns7:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -1334,7 +1334,7 @@
                     <ns8:name>NisoImageMetadata</ns8:name>
                     <ns8:values arity="Scalar" type="NISOImageMetadata">
                       <ns8:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -1494,7 +1494,7 @@
                     <ns9:name>NisoImageMetadata</ns9:name>
                     <ns9:values arity="Scalar" type="NISOImageMetadata">
                       <ns9:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -1734,7 +1734,7 @@
                     <ns10:name>NisoImageMetadata</ns10:name>
                     <ns10:values arity="Scalar" type="NISOImageMetadata">
                       <ns10:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -1923,7 +1923,7 @@
                     <ns11:name>NisoImageMetadata</ns11:name>
                     <ns11:values arity="Scalar" type="NISOImageMetadata">
                       <ns11:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -2083,7 +2083,7 @@
                     <ns12:name>NisoImageMetadata</ns12:name>
                     <ns12:values arity="Scalar" type="NISOImageMetadata">
                       <ns12:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -2323,7 +2323,7 @@
                     <ns13:name>NisoImageMetadata</ns13:name>
                     <ns13:values arity="Scalar" type="NISOImageMetadata">
                       <ns13:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -2512,7 +2512,7 @@
                     <ns14:name>NisoImageMetadata</ns14:name>
                     <ns14:values arity="Scalar" type="NISOImageMetadata">
                       <ns14:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -2672,7 +2672,7 @@
                     <ns15:name>NisoImageMetadata</ns15:name>
                     <ns15:values arity="Scalar" type="NISOImageMetadata">
                       <ns15:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -2832,7 +2832,7 @@
                     <ns16:name>NisoImageMetadata</ns16:name>
                     <ns16:values arity="Scalar" type="NISOImageMetadata">
                       <ns16:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -3101,7 +3101,7 @@
                     <ns17:name>NisoImageMetadata</ns17:name>
                     <ns17:values arity="Scalar" type="NISOImageMetadata">
                       <ns17:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -3341,7 +3341,7 @@
                     <ns18:name>NisoImageMetadata</ns18:name>
                     <ns18:values arity="Scalar" type="NISOImageMetadata">
                       <ns18:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -3501,7 +3501,7 @@
                     <ns19:name>NisoImageMetadata</ns19:name>
                     <ns19:values arity="Scalar" type="NISOImageMetadata">
                       <ns19:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -3690,7 +3690,7 @@
                     <ns20:name>NisoImageMetadata</ns20:name>
                     <ns20:values arity="Scalar" type="NISOImageMetadata">
                       <ns20:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -3850,7 +3850,7 @@
                     <ns21:name>NisoImageMetadata</ns21:name>
                     <ns21:values arity="Scalar" type="NISOImageMetadata">
                       <ns21:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -4090,7 +4090,7 @@
                     <ns22:name>NisoImageMetadata</ns22:name>
                     <ns22:values arity="Scalar" type="NISOImageMetadata">
                       <ns22:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -4433,7 +4433,7 @@
                     <ns23:name>NisoImageMetadata</ns23:name>
                     <ns23:values arity="Scalar" type="NISOImageMetadata">
                       <ns23:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -4593,7 +4593,7 @@
                     <ns24:name>NisoImageMetadata</ns24:name>
                     <ns24:values arity="Scalar" type="NISOImageMetadata">
                       <ns24:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -4753,7 +4753,7 @@
                     <ns25:name>NisoImageMetadata</ns25:name>
                     <ns25:values arity="Scalar" type="NISOImageMetadata">
                       <ns25:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -5253,7 +5253,7 @@
                     <ns26:name>NisoImageMetadata</ns26:name>
                     <ns26:values arity="Scalar" type="NISOImageMetadata">
                       <ns26:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -5413,7 +5413,7 @@
                     <ns27:name>NisoImageMetadata</ns27:name>
                     <ns27:values arity="Scalar" type="NISOImageMetadata">
                       <ns27:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -5653,7 +5653,7 @@
                     <ns28:name>NisoImageMetadata</ns28:name>
                     <ns28:values arity="Scalar" type="NISOImageMetadata">
                       <ns28:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -5842,7 +5842,7 @@
                     <ns29:name>NisoImageMetadata</ns29:name>
                     <ns29:values arity="Scalar" type="NISOImageMetadata">
                       <ns29:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -6002,7 +6002,7 @@
                     <ns30:name>NisoImageMetadata</ns30:name>
                     <ns30:values arity="Scalar" type="NISOImageMetadata">
                       <ns30:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -6242,7 +6242,7 @@
                     <ns31:name>NisoImageMetadata</ns31:name>
                     <ns31:values arity="Scalar" type="NISOImageMetadata">
                       <ns31:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -6508,7 +6508,7 @@
                     <ns32:name>NisoImageMetadata</ns32:name>
                     <ns32:values arity="Scalar" type="NISOImageMetadata">
                       <ns32:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -6748,7 +6748,7 @@
                     <ns33:name>NisoImageMetadata</ns33:name>
                     <ns33:values arity="Scalar" type="NISOImageMetadata">
                       <ns33:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
@@ -6908,7 +6908,7 @@
                     <ns34:name>NisoImageMetadata</ns34:name>
                     <ns34:values arity="Scalar" type="NISOImageMetadata">
                       <ns34:value>
-                        <mix:mix xmlns:mix="http://www.loc.gov/mix/" xsi:schemaLocation="http://www.loc.gov/mix/ http://www.loc.gov/mix/mix.xsd">
+                        <mix:mix xmlns:mix="http://www.loc.gov/mix/v20" xsi:schemaLocation="http://www.loc.gov/mix/v20 http://www.loc.gov/mix/mix.xsd">
                           <mix:BasicImageParameters>
                             <mix:Format>
                               <mix:MIMEType>image/jpeg</mix:MIMEType>
