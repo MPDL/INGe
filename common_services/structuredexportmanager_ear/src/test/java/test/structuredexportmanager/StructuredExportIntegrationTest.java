@@ -81,8 +81,13 @@ public class StructuredExportIntegrationTest
 	    @Before
 	    public final void getItemList() throws Exception
 	    {
-	        itemList = TestHelper.readFile("src/test/resources/item_publication.xml", "UTF-8");
-	        assertNotNull("Item list xml is not found", itemList);
+//	        itemList = TestHelper.readFile("src/test/resources/item_publication.xml", "UTF-8");
+//	        assertNotNull("Item list xml is not found", itemList);
+	    	
+	    	itemList = TestHelper.getItemListFromFramework(); 
+			assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+			logger.info("item list from framework:\n" + itemList);
+	    	
 	    }
 
 	    /**
@@ -90,6 +95,7 @@ public class StructuredExportIntegrationTest
 	     * @throws Exception
 	     */
 	    @Before
+	    @Ignore
 	    public final void getBadItemList() throws Exception
 	    {
 	        badItemList = TestHelper.readFile("src/test/resources/item_publication_bad.xml", "UTF-8");
@@ -102,6 +108,7 @@ public class StructuredExportIntegrationTest
 	     * @throws Exception
 	     */
 	    @Before
+	    @Ignore
 	    public final void getStructuredTestOutput() throws Exception
 	    {
 	    	endNoteTestOutput = new String(TestHelper.readBinFile("src/test/resources/EndNoteTestOutput.txt"));
@@ -126,11 +133,12 @@ public class StructuredExportIntegrationTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    @Ignore
-	    public final void testFormatList() throws Exception
+	    public final void testFormatsList() throws Exception
 	    {
 	    	String[] fl = export.getFormatsList();
 	    	assertTrue("The list of export formats is empty", fl.length>0);
+	    	logger.info("--------------------------------");
+	    	logger.info("List of structured export formats: ");
 	    	for (String f : fl)
 	    		logger.info("Export format: " + f);
 	    }
@@ -141,30 +149,36 @@ public class StructuredExportIntegrationTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    public final void testItemsListEndNoteExport() throws Exception
+	    public final void testStructuredExports() throws Exception
 	    {
-//	    	String result = new String(export.getOutput(itemList), "UTF-8");
-	    	String result = new String(export.getOutput(itemList, ENDNOTE_FORMAT));
-	        logger.info("Test item list:\n" + itemList);
-	        logger.info("EndNote test output:\n" + endNoteTestOutput);
-	        logger.info("---------------------------------------------------");
-	        logger.info("EndNote export result:\n" + result);
-	        assertNotNull("EndNote output is null", result);
-	        //assertTrue("Export is not equal to test output", result.equals(endNoteTestOutput));
+	    	long start;
+	    	String[] fl = export.getFormatsList();
+	    	
+	    	for (String f : fl)
+	    	{
+	    		logger.info("Export format: " + f);
+	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+		    	start = System.currentTimeMillis();
+		    	String result = new String(export.getOutput(itemList, f));
+	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
+		    	logger.info("---------------------------------------------------");
+		    	assertFalse(f + " output is empty", result == null || result.trim().equals("") );
+		    	logger.info(f + " export result:\n" + result);
+	    	}
+	    	
 	    }
-
 	    
 	    /**
 	     * Test service with a non-valid item list XML.
 	     * @throws Exception 
 	     * @throws Exception Any exception.
 	     */
-	    @Test(expected = StructuredExportManagerException.class) 	    
+	    @Test(expected = StructuredExportManagerException.class)
+	    @Ignore
 	    public final void testBadItemsListEndNoteExport() throws Exception
 	    {
 	    	byte[] result = export.getOutput(badItemList, ENDNOTE_FORMAT); 
 	    }
-	    
 	    
 
 }
