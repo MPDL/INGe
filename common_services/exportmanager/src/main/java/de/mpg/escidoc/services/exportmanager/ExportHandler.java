@@ -43,7 +43,7 @@ import java.io.IOException;
 
 
 public interface ExportHandler {
-
+ 
     /**
      * The name to obtain this service.
      */
@@ -94,5 +94,9 @@ public interface ExportHandler {
     ) throws 
     	ExportManagerException;
 
+    
+//    String[] getListOfStructuredExportFormats(String contexts);
+//    
+//    String[] getListOfCitationStyles();
 	
 }
