@@ -1,10 +1,10 @@
 <!--
- CDDL HEADER START
+ CDDL HEADER START 
 
  The contents of this file are subject to the terms of the
  Common Development and Distribution License, Version 1.0 only
  (the "License"). You may not use this file except in compliance
- with the License.
+ with the License. 
 
  You can obtain a copy of the license at license/ESCIDOC.LICENSE
  or http://www.escidoc.de/license.
@@ -29,7 +29,7 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
@@ -40,7 +40,7 @@
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/exportmanager_ear</developerConnection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/exportmanager_ear</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
@@ -53,6 +53,7 @@
 					<displayName>exportmanager</displayName>
 					<description>exportmanager_ear integration testing ear</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
+					<version>5</version>
 					<modules>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -88,10 +89,24 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
 						</ejbModule>
-						<ejbModule>
+					 	<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>exportmanager</artifactId>
 						</ejbModule>
+						<jarModule>
+							<groupId>javabib</groupId> 
+							<artifactId>javabib</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>  
+							<groupId>org.apache.ant</groupId>
+							<artifactId>ant</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -103,7 +118,7 @@
 						<phase>test-compile</phase>
 						<goals>
 							<goal>testCompile</goal>
-						</goals>
+						</goals> 
 						<configuration>
 							<source>${jdk.version}</source>
 							<target>${jdk.version}</target>
@@ -125,7 +140,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
-							<test>StructuredExportIntegrationTest</test>
+							<test>ExportIntegrationTest</test>
 						</configuration>
 					</execution>
 				</executions>
@@ -288,7 +303,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.2-SNAPSHOT</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -301,7 +316,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.0.5</version>
+			<version>1.1.3-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
@@ -339,6 +354,17 @@
 			<groupId>saxon</groupId>
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
+		</dependency>
+		<dependency>
+			<groupId>javabib</groupId>
+			<artifactId>javabib</artifactId>
+			<version>20040801</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.ant</groupId>
+			<artifactId>ant</artifactId>
+			<version>1.7.0</version>
 		</dependency>
 	</dependencies>
 </project>
