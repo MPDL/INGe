@@ -28,9 +28,7 @@
 */
 
 package de.mpg.escidoc.services.exportmanager;
-
-import static org.junit.Assert.assertEquals;
-
+ 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
@@ -38,6 +36,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -47,6 +46,7 @@ import java.net.URISyntaxException;
 import java.util.StringTokenizer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.GZIPOutputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
@@ -81,7 +81,7 @@ import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
-
+ 
 /**
  * Structured Export Manager. 
  * Converts PubMan item-list to one of the structured formats.   
@@ -105,6 +105,8 @@ public class Export implements ExportHandler {
 	public static final String MDRECORDS_NS = "http://www.escidoc.de/schemas/metadatarecords/0.4";
 	public static final String XLINK_NS = "http://www.w3.org/1999/xlink";
 	public static final String PROPERTIES_NS = "http://escidoc.de/core/01/properties/";
+	public static final String LICENSE_AGREEMENT_NAME = "Faces_Release_Agreement_Export.pdf";
+	private final static String PATH_TO_RESOURCES = "resources/";
 	
 	
 	
@@ -210,6 +212,7 @@ public class Export implements ExportHandler {
 				 && ( 
 						 ArchiveFormats.valueOf(archiveFormat) == ArchiveFormats.zip
 						 || ArchiveFormats.valueOf(archiveFormat) == ArchiveFormats.tar
+						 || ArchiveFormats.valueOf(archiveFormat) == ArchiveFormats.gzip
 					)	 
 			)
 			{
@@ -259,7 +262,6 @@ public class Export implements ExportHandler {
 			throw new ExportManagerException("Empty archive format");
 		}
 		
-		
 		BufferedInputStream bis = new BufferedInputStream(new ByteArrayInputStream(exportOut));
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		BufferedOutputStream bos = new BufferedOutputStream(baos);
@@ -270,12 +272,18 @@ public class Export implements ExportHandler {
 				try 
 				{
 					ZipOutputStream zos = new ZipOutputStream(bos);
+					//add export result entry
 					ZipEntry ze = new ZipEntry( "eSciDoc_export." + exportFormat.toLowerCase());
 					ze.setSize(exportOut.length);
 					zos.putNextEntry(ze);
 					writeFromStreamToStream(bis, zos);
 					zos.closeEntry();
 					bis.close();
+					
+					//add LICENSE AGREEMENT entry
+					addLicenseAgreement(ArchiveFormats.zip, zos);
+					
+					//add files to the zip
 					fetchComponentsDo(zos, itemList); 
 					zos.close();
 				} 
@@ -288,14 +296,37 @@ public class Export implements ExportHandler {
 				try 
 				{
 					TarOutputStream tos = new TarOutputStream(bos);
+					
+					//add export result entry
 					TarEntry te = new TarEntry( "eSciDoc_export." + exportFormat.toLowerCase());
 					te.setSize(exportOut.length);
 					tos.putNextEntry(te);
 					writeFromStreamToStream(bis, tos);
 					tos.closeEntry();
 					bis.close();
+					 
+					//add LICENSE AGREEMENT entry
+					addLicenseAgreement(ArchiveFormats.tar, tos);
+					
+					//add files to the tar
 					fetchComponentsDo(tos, itemList); 
 					tos.close();
+					
+				} 
+				catch (IOException e) 
+				{
+					throw new ExportManagerException(e);
+				}
+				break;
+			case gzip:
+				try 
+				{
+					byte[] tar = generateArchive(exportFormat, ArchiveFormats.tar.toString(), exportOut, itemList);
+					bis = new BufferedInputStream(new ByteArrayInputStream(tar));
+					GZIPOutputStream gzos = new GZIPOutputStream(bos); 
+					writeFromStreamToStream(bis, gzos);
+					bis.close();
+					gzos.close();
 					
 				} 
 				catch (IOException e) 
@@ -308,6 +339,44 @@ public class Export implements ExportHandler {
 						"Archive format " + archiveFormat + " is not supported");
 		}
 		return baos.toByteArray();
+	}
+
+
+	/**
+	 * Write License Agreement file to the archive OutputStream
+	 * @param af is Archive Format
+	 * @param os - archive OutputStream
+	 * @throws IOException
+	 */
+	private void addLicenseAgreement(ArchiveFormats af, OutputStream os) throws IOException 
+	{
+		BufferedInputStream bis = new BufferedInputStream(getResource(LICENSE_AGREEMENT_NAME));
+		if ( af == ArchiveFormats.tar )
+		{
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			BufferedOutputStream bos = new BufferedOutputStream(baos);
+			writeFromStreamToStream(bis, baos);
+			bis.close();
+			byte[] file = baos.toByteArray();
+			bos.close();
+			     
+			TarEntry te = new TarEntry(LICENSE_AGREEMENT_NAME);
+			te.setSize(file.length);
+			TarOutputStream tos = (TarOutputStream)os;
+			tos.putNextEntry(te);
+			tos.write(file);
+			tos.closeEntry();
+		} 
+		else if ( af == ArchiveFormats.zip )
+		{
+			ZipEntry ze = new ZipEntry(LICENSE_AGREEMENT_NAME);
+			ZipOutputStream zos = (ZipOutputStream)os;
+			zos.putNextEntry(ze);
+			writeFromStreamToStream(bis, zos);
+			bis.close();
+			zos.closeEntry();
+		}
+			
 	}
 
 
@@ -410,23 +479,28 @@ public class Export implements ExportHandler {
 		          // Execute the method with HttpClient.
 		          HttpClient client = new HttpClient();
 		          client.executeMethod(method);
-		          logger.info("Status=" + method.getStatusCode());
-		            
-		          InputStream bis = new BufferedInputStream( method.getResponseBodyAsStream() );
+		          
+		          int status = method.getStatusCode();
+		          logger.info("Status=" + status);
+		          		          
+		          if ( status != 200 )
+		        	  fileName += ".error" + status;
+		          
+		          byte[] responseBody = method.getResponseBody();
+		          InputStream bis = new BufferedInputStream(new ByteArrayInputStream(responseBody));
 		    	  
 		    	  if ( aos instanceof ZipOutputStream )
 		    	  {
 		    		  ZipEntry ze = new ZipEntry( fileName );
 					  ze.setSize(href.length());
 		    		  ((ZipOutputStream)aos).putNextEntry(ze);
-		    		  // here we should take file according to the href
 		    		  writeFromStreamToStream(bis, aos);
 		    		  ((ZipOutputStream)aos).closeEntry();
 		    	  }
 		    	  else if ( aos instanceof TarOutputStream )
 		    	  {
 		    		  TarEntry te = new TarEntry( fileName );
-					  te.setSize(href.length());
+					  te.setSize(responseBody.length);
 		    		  ((TarOutputStream)aos).putNextEntry(te);
 		    		  writeFromStreamToStream(bis, aos);
 		    		  ((TarOutputStream)aos).closeEntry();
@@ -486,42 +560,6 @@ public class Export implements ExportHandler {
 		return null;
 		
 	}
-
-
-    /**
-     * Reads contents from text file and returns it as String.
-     *
-     * @param fileName Name of input file
-     * @return Entire contents of filename as a String
-     */
-    public static String readFile(final String fileName, String enc)
-    {
-        boolean isFileNameNull = (fileName == null);
-        StringBuffer fileBuffer;
-        String fileString = null;
-        String line;
-        if (!isFileNameNull)
-        {
-            try
-            {
-//                InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), "UTF-8");
-                InputStreamReader isr = new InputStreamReader(new FileInputStream(fileName), enc);
-                BufferedReader br = new BufferedReader(isr);
-                fileBuffer = new StringBuffer();
-                while ((line = br.readLine()) != null)
-                {
-                    fileBuffer.append(line + "\n");
-                }
-                isr.close();
-                fileString = fileBuffer.toString();
-            }
-            catch (IOException e)
-            {
-                return null;
-            }
-        }
-        return fileString;
-    }
 
     /**
      * Logs in the given user with the given password.
@@ -600,27 +638,26 @@ public class Export implements ExportHandler {
     	return userHandle;
     }
     
-    
-	public static void main(String args[]) throws ExportManagerException, IOException
+	/**
+	 * Gets resources according to an execution environment
+	 * @param fileName
+	 * @return InputStream of resource
+	 * @throws IOException
+	 */
+	private InputStream getResource(final String fileName) throws IOException
 	{
-		Export exp = new Export();
-//		logger.info(" result: " + exp.explainFormatsXML());
-		FileOutputStream fos = new FileOutputStream("file.zip");
-		fos.write(
-				exp.generateArchive( "CSV", "zip", new String("Tut csv fail").getBytes(), 
-						readFile("src/test/resources/search-results.xml", "UTF-8")		
-				)
-		);				
-		fos.close();
-//		FileOutputStream fos = new FileOutputStream("file.tar");
-//		fos.write(
-//				exp.generateArchive( "CSV", "tar", true, new String("Tut csv fail").getBytes(), 
-//						readFile("src/test/resources/item.xml", "UTF-8")		
-//				)
-//		);				
-//		fos.close();
-		
-	}
+		String path = PATH_TO_RESOURCES + fileName;
+		InputStream fileIn = getClass()
+								.getClassLoader()
+								.getResourceAsStream(path);
+		if (fileIn == null)
+		{
+			fileIn = new FileInputStream(path);
+		}
+		return fileIn;
+	}    
+    
+
 
     
 
