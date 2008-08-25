@@ -70,7 +70,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class TestHelper
 {
 	
-	public static final String ITEMS_LIMIT = "50"; 
+	public static final String ITEMS_LIMIT = "30"; 
 	public static final String CONTENT_MODEL_PUBMAN = "escidoc:persistent4"; 
 	public static final String CONTENT_MODEL_FACES = "escidoc:faces40"; 
 	public static final String USER_NAME = "test_dep_scientist"; 
