@@ -51,7 +51,7 @@ import org.junit.runners.Suite;
                      ,SearchPubItemsByAffiliationTest.class
                      ,SearchTest.class
                      ,AdvancedSearchTest.class
-                     ,SearchAndOutputTest.class
+//                     ,SearchAndOutputTest.class
                     })
 public class PubManSearchingTest
 {

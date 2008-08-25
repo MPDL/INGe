@@ -104,14 +104,16 @@ public class SearchAndOutputTest extends TestBase
         logger.info("search for " + query);
         
         logger.info("exportFormat = APA, outputFormat = pdf");
-        byte[] searchResult = pubSearching.searchAndOutput(query, null, "APA", "pdf"); 
+        //byte[] searchResult = pubSearching.searchAndOutput(query, null, "APA", "pdf"); 
+        byte[] searchResult = null; 
         assertNotNull(searchResult);
         String searchResultString =  new String(searchResult);
         assertTrue("Empty output", ! searchResultString.trim().equals("") );
         logger.debug("output: " + searchResultString);
         
         logger.info("exportFormat = ENDNOTE");
-        searchResult = pubSearching.searchAndOutput(query, null, "ENDNOTE", null); 
+        //searchResult = pubSearching.searchAndOutput(query, null, "ENDNOTE", null);
+        searchResult = null;
         assertNotNull(searchResult);
         searchResultString =  new String(searchResult);
         assertTrue("Empty output", ! searchResultString.trim().equals("") );
