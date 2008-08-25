@@ -43,19 +43,19 @@
 > 
 	<xs:annotation>
 		<xs:documentation xml:lang="en">
-			XML Schema for Structured Export Formats explain, eSciDoc Export Formats Manager service  	    
+			XML Schema for Export Formats explain, eSciDoc Export Formats Manager service  	    
 		</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="dcterms.xsd"/>
-
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2006/01/06/dcterms.xsd"/>
+ 
 	<xs:element name="export-formats" type="ExportFormatListType"/>
 
-	<xs:complexType name="ExportFormatListType">
+	<xs:complexType name="ExportFormatListType"> 
 		<xs:sequence>
 			<xs:element name="export-format" type="ExportFormatType" maxOccurs="unbounded"/>
 		</xs:sequence>
-	</xs:complexType>
+	</xs:complexType> 
 	
 	<xs:complexType name="ExportFormatType">
 		<xs:sequence maxOccurs="unbounded">
@@ -65,7 +65,9 @@
 			<xs:element name="output-format" type="OutputFormatType" maxOccurs="unbounded"/>
 			<xs:element ref="dc:creator" maxOccurs="unbounded"/>
 		</xs:sequence>
-		<xs:attribute name="type" type="xs:string" use="required"/>
+		<xs:attribute name="type" type="ExportTypeEnum" use="required"/>
+		<xs:attribute name="context" type="ListOfSolutions" use="required"/>
+		<xs:attribute name="xslt" type="xs:string" use="optional"/>
 	</xs:complexType>
 	
 	<xs:complexType name="OutputFormatType">
@@ -74,5 +76,23 @@
 			<xs:element ref="dc:format" />
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:simpleType name="SolutionEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PubMan"/>
+			<xs:enumeration value="Faces"/>
+		</xs:restriction>
+	</xs:simpleType>
+		
+	<xs:simpleType name="ExportTypeEnum">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="structured"/>
+			<xs:enumeration value="layout"/>
+		</xs:restriction>
+	</xs:simpleType>	
+
+	<xs:simpleType name='ListOfSolutions'>
+  		<xs:list itemType='SolutionEnum'/>
+	</xs:simpleType>
 	
 </xs:schema>
