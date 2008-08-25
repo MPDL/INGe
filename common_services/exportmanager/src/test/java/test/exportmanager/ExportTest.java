@@ -45,19 +45,21 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import test.TestHelper;
+
 import de.mpg.escidoc.services.exportmanager.Export;
 import de.mpg.escidoc.services.exportmanager.ExportHandler;
 import de.mpg.escidoc.services.exportmanager.ExportManagerException;
 import de.mpg.escidoc.services.exportmanager.Export.ArchiveFormats;
 
 
-import test.TestHelper;
 
 public class ExportTest 
 {
 		private ExportHandler export = new Export();
-	    private String facesItemList; 
-	    private String eSciDocItemList; 
+	    private String pubManItemList;
+	    private String facesItemList;
+	    private long start = 0;
 
 	    private Logger logger = Logger.getLogger(ExportTest.class);
 
@@ -68,11 +70,17 @@ public class ExportTest
 	    @Before
 	    public final void getItemLists() throws Exception
 	    {
-	        facesItemList = TestHelper.readFile("src/test/resources/search-results.xml", "UTF-8");
-	        assertNotNull("facesItemList list xml is not found", facesItemList);
-//	        eSciDocItemList = TestHelper.readFile("src/test/resources/item_publication_item6_0.xml", "UTF-8");
-	        eSciDocItemList = TestHelper.readFile("src/test/resources/item_test_bibtex.xml", "UTF-8");
-	        assertNotNull("eSciDocItemList list xml is not found", eSciDocItemList);
+	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN);
+			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
+			logger.info("PubMan item list from framework:\n" + pubManItemList);
+			
+//			FileOutputStream fos = new FileOutputStream("pubManItemList.xml");
+//			fos.write(pubManItemList.getBytes());				
+//			fos.close();	        
+			
+			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES);
+			assertFalse("Faces item list from framework is empty", facesItemList == null || facesItemList.trim().equals("") );
+			logger.info("Faces item list from framework:\n" + facesItemList);
 	    }
 
 	    
@@ -95,28 +103,35 @@ public class ExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
-	    //@Ignore
 	    public final void testExportToArchives() throws Exception
 	    {
-	        
-	    	byte[] result = export.getOutput("CSV", null, ArchiveFormats.tar.toString(), facesItemList); 
-	    	assertNotNull("tar generation failed", result);
-			FileOutputStream fos = new FileOutputStream("file.tar");
-			fos.write(result);				
-			fos.close();	    
+	        start = -System.currentTimeMillis();
+	    	byte[] result = export.getOutput("CSV", null, ArchiveFormats.tar.toString(), facesItemList);
+	    	start += System.currentTimeMillis();
+	    	assertFalse("tar generation failed", result==null || result.length == 0);
+	    	logger.info("tar generation is OK (" + (start) + "ms)" );
+//			FileOutputStream fos = new FileOutputStream("file.tar");
+//			fos.write(result);				
+//			fos.close();	    
 			
+	        start = -System.currentTimeMillis();
 			result = export.getOutput("CSV", null, ArchiveFormats.gzip.toString(), facesItemList); 
-			assertNotNull("gzip generation failed", result);
-			fos = new FileOutputStream("file.tar.gz");
-			fos.write(result);				
-			fos.close();
+	    	start += System.currentTimeMillis();
+			assertFalse("gzip generation failed", result==null || result.length == 0);
+	    	logger.info("tar.gzip generation is OK (" + (start) + "ms)" );
+//			fos = new FileOutputStream("file.tar.gz");
+//			fos.write(result);				
+//			fos.close();
 			
+	        start = -System.currentTimeMillis();
 			result = export.getOutput("CSV", null, ArchiveFormats.zip.toString(), facesItemList); 
-			assertNotNull("zip generation failed", result);
-			fos = new FileOutputStream("file.zip");
-			fos.write(result);				
-			fos.close();	        
-	    }
+	    	start += System.currentTimeMillis();
+			assertFalse("zip generation failed", result==null || result.length == 0);
+	    	logger.info("zip generation is OK (" + (start) + "ms)" );
+//			fos = new FileOutputStream("file.zip");
+//			fos.write(result);				
+//			fos.close();	        
+	    }	   
 	    
 	    /**
 	     * Test service with a item list XML.
@@ -127,18 +142,23 @@ public class ExportTest
 	    {
 	    	
 	    	byte[] result; 
-//	    	result = export.getOutput("ENDNOTE", null, null, eSciDocItemList); 
-//	    	assertTrue("ENDNOTE export failed", result != null && result.length > 0);
-//	    	logger.info("ENDNOTE export:\n" + new String(result));
+	        start = -System.currentTimeMillis();
+	    	result = export.getOutput("ENDNOTE", null, null, pubManItemList);
+	    	start += System.currentTimeMillis();
+	    	assertFalse("ENDNOTE export failed", result == null || result.length == 0);
+	    	logger.info("ENDNOTE export (" + start + "ms):\n" + new String(result));
 	    	
-	    	result = export.getOutput("BIBTEX", null, null, eSciDocItemList); 
-	    	assertNotNull("BIBTEX export failed", result);
-	    	logger.info("BIBTEX export:\n" + new String(result));
+	        start = -System.currentTimeMillis();
+	    	result = export.getOutput("BIBTEX", null, null, pubManItemList); 
+	    	start += System.currentTimeMillis();
+	    	assertFalse("BIBTEX export failed", result == null || result.length == 0);
+	    	logger.info("BIBTEX export (" + start + "ms):\n" + new String(result));
 	    	
-	    	result = export.getOutput("APA", "snippet", null, eSciDocItemList); 
-	    	assertTrue("APA export failed", result != null && result.length > 0);
-	    	logger.info("APA export:\n" + new String(result));
-	    	
+	        start = -System.currentTimeMillis();
+	    	result = export.getOutput("APA", "snippet", null, pubManItemList); 
+	    	start += System.currentTimeMillis();
+	    	assertFalse("APA export failed", result == null || result.length == 0);
+	    	logger.info("APA export (" + start + "ms):\n" + new String(result));
 	    	
 	    }
 	    
