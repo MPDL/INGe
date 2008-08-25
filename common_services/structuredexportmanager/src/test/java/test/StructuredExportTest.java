@@ -1,5 +1,5 @@
 /*
-* CDDL HEADER START
+roject* CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
 * Common Development and Distribution License, Version 1.0 only
@@ -32,6 +32,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import java.io.FileOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,11 +67,14 @@ public class StructuredExportTest
 	    	new HashMap<String, String>()   
 	    	{  
 				{  
-		    		put("ENDNOTE", "src/test/resources/item_publication_item6_0.xml");  
-		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+//		    		put("ENDNOTE", "src/test/resources/item_publication_item6_0.xml");  
+//		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+//		    		put("CSV", "src/test/resources/faces_item-list.xml");  
 		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
+	    
+	    private String fwItemList;	
 	    	
 
 	    /**
@@ -80,7 +84,6 @@ public class StructuredExportTest
 	    @Before
 	    public final void getItemLists() throws Exception
 	    {
-//	        itemList = TestHelper.readFile(ITEM_PUBLICATION_FILE, "UTF-8");
 	    	itemLists = new HashMap<String, String>();
 	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
 	    	{
@@ -89,7 +92,14 @@ public class StructuredExportTest
 	    		itemLists.put(key, itemList);
 	    	}
 	    	
-	        
+	    	fwItemList = TestHelper.getItemListFromFramework();
+    		assertFalse("item list from framework is empty", fwItemList == null || fwItemList.trim().equals("") );
+    		logger.info("item list from framework:\n" + fwItemList);
+	    	
+//	    	FileOutputStream fos = new FileOutputStream("fwItemList.xml");
+//	    	fos.write(fwItemList.getBytes());
+//	    	fos.close();
+	    	
 	    }
 
 	    
@@ -138,19 +148,26 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test
-	    public final void testItemsListBibTexExport() throws Exception
+	    //@Ignore
+	    public final void testStructuredExports() throws Exception
 	    {
-	    	
+	    	long start;
 	    	String[] fl = export.getFormatsList();
+	    	
+    		String itemList = fwItemList;
+	    	
 	    	for (String f : fl)
 	    	{
 	    		logger.info("Export format: " + f);
-	    		String itemList = itemLists.get(f);
-	    		logger.info("Test item list:\n" + itemList);
+	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+//	    		String itemList = itemLists.get(f);
+//	    		logger.info("Test item list:\n" + itemList);
+		    	start = System.currentTimeMillis();
 		    	String result = new String(export.getOutput(itemList, f));
+	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
 		    	logger.info("---------------------------------------------------");
 		    	logger.info(f + " export result:\n" + result);
-		    	assertTrue(f + " output is empty", !( result == null || result.trim().equals("")) );
+		    	assertFalse(f + " output is empty", result == null || result.trim().equals("") );
 		    	// assertTrue("Export is not equal to test output", result.equals(endNoteTestOutput));
 	    	}
 	    	
@@ -164,6 +181,7 @@ public class StructuredExportTest
 	     * @throws Exception Any exception.
 	     */
 	    @Test(expected = StructuredExportManagerException.class)
+	    @Ignore
 	    public final void testBadItemsListEndNoteExport() throws Exception
 	    {
 	    	byte[] result = export.getOutput(itemLists.get("BAD_ITEM_LIST"), "ENDNOTE");
