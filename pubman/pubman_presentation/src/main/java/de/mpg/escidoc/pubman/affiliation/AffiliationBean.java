@@ -100,7 +100,7 @@ public class AffiliationBean extends FacesBean {
 				{
 				    address+=selectedAffiliation.getDefaultMetadata().getCity();
 				}
-				if (selectedAffiliation.getDefaultMetadata().getCity() != null && selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+				if (selectedAffiliation.getDefaultMetadata().getCity() != null && !selectedAffiliation.getDefaultMetadata().getCity().equals("") && selectedAffiliation.getDefaultMetadata().getCountryCode() != null && !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
 				{
 				    address+=", ";
 				}
@@ -124,7 +124,7 @@ public class AffiliationBean extends FacesBean {
                 {
                     address+=selectedAffiliation.getDefaultMetadata().getCity();
                 }
-                if (selectedAffiliation.getDefaultMetadata().getCity() != null && selectedAffiliation.getDefaultMetadata().getCountryCode() != null)
+                if (selectedAffiliation.getDefaultMetadata().getCity() != null && !selectedAffiliation.getDefaultMetadata().getCity().equals("") && selectedAffiliation.getDefaultMetadata().getCountryCode() != null && !selectedAffiliation.getDefaultMetadata().getCountryCode().equals(""))
                 {
                     address+=", ";
                 }
