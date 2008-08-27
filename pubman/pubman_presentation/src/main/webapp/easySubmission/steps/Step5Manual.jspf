@@ -81,16 +81,21 @@
 					<%-- Genre of Source --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
+					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" onchange="$(this).siblings('.genreButton').click();">
 						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
 					</h:selectOneMenu>
+					<tr:commandButton styleClass="genreButton" action="#{EasySubmission.chooseSourceGenre}" text="choose genre" id="btn_chooseGenre" inlineStyle="visibility:hidden"/>
 					</div>
+					
 				
 					<%-- Title --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
+					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{!EasySubmission.autosuggestJournals}"/>
+					<h:inputTextarea styleClass="journalSuggest" rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{EasySubmission.autosuggestJournals}"/>
 					</div>
+					<script type="text/javascript">$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+					</script>
 				</div>
 				
 				<div class="easySubmissionBoxBodyLine">
