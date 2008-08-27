@@ -596,6 +596,10 @@ public class MetadataHandlerBean implements MetadataHandler
     public String transform(String formatFrom, String formatTo, String itemXML) throws IdentifierNotRecognisedException
     {
     	String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
+    	
+    	// Use Saxon for XPath2.0 support
+        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+    	
         TransformerFactory factory = TransformerFactory.newInstance();
         factory.setURIResolver(new LocalURIResolver(this.METADATA_XSLT_LOCATION));
         StringWriter writer = new StringWriter();
@@ -616,7 +620,7 @@ public class MetadataHandlerBean implements MetadataHandler
 	        StringReader xmlSource = new StringReader(itemXML);
 	        transformer.transform(new StreamSource(xmlSource), new StreamResult(writer));
         }
-        catch (TransformerException e){throw new IdentifierNotRecognisedException();}
+        catch (TransformerException e){throw new IdentifierNotRecognisedException(e);}
         catch (FileNotFoundException e){e.printStackTrace();}
         catch (URISyntaxException e){e.printStackTrace();}
         catch (IOException e){e.printStackTrace();}
