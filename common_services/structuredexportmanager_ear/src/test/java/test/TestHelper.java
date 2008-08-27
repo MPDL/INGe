@@ -183,6 +183,7 @@ public class TestHelper
         	"<param>" +
         		// escidoc content model
         		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + CONTENT_MODEL + " </filter>" +
+        		"<filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter>" +
         		// records limit	
         		"<limit>" + ITEMS_LIMIT + "</limit>" +
         	"</param>";
