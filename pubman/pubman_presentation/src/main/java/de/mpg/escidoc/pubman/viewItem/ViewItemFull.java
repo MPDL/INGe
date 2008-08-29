@@ -428,17 +428,24 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
-            //Unapi Export      
-            try {
-				this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
-			} 
-            catch (Exception e) {e.printStackTrace(); 
-            					 this.unapiURL="http://localhost:8080/import_presentation/unapi/";} 
-			
+            //Unapi Export tmp static
+
+            this.unapiURL="http://localhost:8080/import_presentation/unapi/";
             this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
             this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
             this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
             this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
+//            
+//            try {
+//				this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+//			} 
+//            catch (Exception e) {e.printStackTrace(); 
+//            					 this.unapiURL="http://localhost:8080/import_presentation/unapi/";} 
+//			
+//            this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
+//            this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
+//            this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
+//            this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
             
             
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
