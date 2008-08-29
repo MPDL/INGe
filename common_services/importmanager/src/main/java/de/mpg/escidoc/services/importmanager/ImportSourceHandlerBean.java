@@ -95,7 +95,9 @@ public class ImportSourceHandlerBean {
 	            for (MDFetchSettingType mdf : mdfArray)
 	            {
 	            	MetadataVO mdVO  = new MetadataVO();
+	            	if (mdf.getDescription()!= null){
 	            	mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
+	            	}
 	            	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
 	            	catch (MalformedURLException e) {e.printStackTrace();}
 	            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
@@ -195,7 +197,9 @@ public class ImportSourceHandlerBean {
             for (MDFetchSettingType mdf : mdfArray)
             {
             	MetadataVO mdVO  = new MetadataVO();
-            	mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
+            	if (mdf.getDescription() != null){
+            		mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
+            	}
             	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
             	catch (MalformedURLException e) {e.printStackTrace();}
             	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));

@@ -99,11 +99,14 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 	        	 else 
 	        	 {	 //Fetch data    
 	        		 try{
-			     		byte[] data = this.unapi(identifier, format);	
-				        response.setContentType(this.importHandler.getContentType());
-				        response.setHeader("Content-disposition", "attachment; filename=" + this.filename + this.importHandler.getFileEnding());
-				        response.setStatus(200);
-				        outStream.write(data);
+			     		byte[] data = this.unapi(identifier, format);
+			     		if (data == null){response.sendError(404, "Identifier not recognized");}
+			     		else{
+					        response.setContentType(this.importHandler.getContentType());
+					        response.setHeader("Content-disposition", "attachment; filename=" + this.filename + this.importHandler.getFileEnding());
+					        response.setStatus(200);
+					        outStream.write(data);
+			     		}
 		     		 } 
 	        		 catch (IdentifierNotRecognisedException e) {response.sendError(404, "Identifier not recognized");} 
 	        		 catch (SourceNotAvailableException e) {response.sendError(404, "Source not available");} 
@@ -186,7 +189,9 @@ public class UnapiServlet extends HttpServlet implements Unapi {
 				
 				xmlFormat.setName(md.getMdLabel());
 				xmlFormat.setType(md.getMdFormat());
-				xmlFormat.setDocs(md.getMdDesc());			
+				if (md.getMdDesc() != null){
+					xmlFormat.setDocs(md.getMdDesc());			
+				}
 			}
 			
 			//File formats

@@ -14,8 +14,7 @@ public interface ImportSourceHandler {
 	
 	/**
 	 * This methods reads in the xml description of all import sources which can be transformed to the given format by the Metadatahandler
-	 * @param format: set null to get all import sources, give a format to return all import sources
-	 * 				  where a MD transformation to the given format is provided by MetadataHandler
+	 * @param format: return all import sources where a MD transformation to the given format is provided by MetadataHandler
 	 * @return vector of ImportSource objects
 	 */
 	public Vector<ImportSourceVO> getSources (String format) throws Exception;

@@ -136,6 +136,30 @@
 		
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<!--The MIME Type-->
+				<dc:format>text/plain</dc:format>
+				<label>EndNote</label>
+				<!--File ending-->
+				<fileType>.enl</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<!--The MIME Type-->
+				<dc:format>text/plain</dc:format>
+				<label>BibTex</label>
+				<!--File ending-->
+				<fileType>.bib</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<!--The MIME Type-->
+				<dc:format>application/rtf</dc:format>
+				<label>APA</label>
+				<!--File ending-->
+				<fileType>.rtf</fileType>
+			</MD-fetch-setting>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>

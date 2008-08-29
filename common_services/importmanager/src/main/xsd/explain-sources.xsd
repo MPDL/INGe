@@ -36,7 +36,7 @@
 	<xs:complexType name="MDFetchSettingType">
 		<xs:sequence>
 			<!-- Description of the metadata format-->
-			<xs:element ref="dc:description"/>
+			<xs:element ref="dc:description" minOccurs="0" maxOccurs="1"/>
 			<!-- Fetch MD url-->
 			<xs:element ref="dc:identifier"/>
 			<!-- the MIME Type -->

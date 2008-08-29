@@ -42,7 +42,9 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Vector;
 import java.util.zip.CRC32;
 import java.util.zip.ZipEntry;
@@ -56,24 +58,33 @@ import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import net.sf.jasperreports.engine.JRException;
+
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.escidoc.core.common.exceptions.application.notfound.ItemNotFoundException;
+import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
+import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.common.MetadataHandler;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedException;
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.importmanager.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.ImportSourceVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
 
 
 
@@ -95,14 +106,20 @@ public class ImportHandlerBean implements ImportHandler {
 	private final String fetchType_METADATA = 	"METADATA";
 	private final String fetchType_FILE 	= 	"FILE";
 	private final String fetchType_CITATION = 	"CITATION";
-	private final String fetchType_LAYOUT 	= 	"LAYOUT";
+	private final String fetchType_LAYOUT	= 	"LAYOUT";
 	private final String fetchType_UNKNOWN 	= 	"UNKNOWN";
 	private final String REGEX 				=	"GETID";
+	
+	//This is tmp till clarification of new transformation design
+	private final String fetchType_ENDNOTE 	= 	"ENDNOTE";
+	private final String fetchType_BIBTEX 	= 	"BIBTEX";
+	private final String fetchType_APA 		= 	"APA";
+
 
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();	
 	private String contentType;
 	private String fileEnding;
-
+	
 	public ImportHandlerBean(){}
 	
 	
@@ -143,18 +160,30 @@ public class ImportHandlerBean implements ImportHandler {
 	    	
 	    	if (fetchType.equals(this.fetchType_FILE)){
 	    		fetchedData = this.fetchData(importSource, identifier, new String [] {format});
-	    	}
-	    	
+	    	}	    	
 	    	if (fetchType.equals(this.fetchType_CITATION)){
 	    		//TODO
-	    	}
-	    	
+	    	}	   
 	    	if (fetchType.equals(this.fetchType_LAYOUT)){
 	    		//TODO
+	    	}	
+	    	if (fetchType.equals(this.fetchType_ENDNOTE)){
+	    		//Temp
+	    		fetchedData = this.fetchEndnoteTemp(identifier);
+	    	}
+	    	if (fetchType.equals(this.fetchType_BIBTEX)){
+	    		//Temp
+	    		fetchedData = this.fetchBibtexTemp(identifier);
+	    	}
+	    	if (fetchType.equals(this.fetchType_APA)){
+	    		//Temp
+	    		fetchedData = this.fetchApaTemp(identifier);
 	    	}
 	    	if (fetchType.equals(this.fetchType_UNKNOWN)){
 	    		throw new FormatNotRecognizedException();
 	    	}
+	    	
+	    	System.out.println("Fetched file type: " + fetchType);
     	}
     	catch(IdentifierNotRecognisedException e){throw new IdentifierNotRecognisedException();}
     	catch(SourceNotAvailableException e){throw new SourceNotAvailableException();}
@@ -593,6 +622,90 @@ public class ImportHandlerBean implements ImportHandler {
     }
     
 
+    private byte[] fetchEndnoteTemp (String identifier)throws IdentifierNotRecognisedException{
+    	byte[] cite = null;
+    	String item = null;
+    	
+    	try {
+    		InitialContext initialContext = new InitialContext();
+    		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+    		StructuredExportHandler structExport = (StructuredExportHandler) initialContext.lookup(StructuredExportHandler.SERVICE_NAME);
+    		
+			item = this.fetchEsciDocRecord(identifier);
+			PubItemVO itemVO = xmlTransforming.transformToPubItem(item);			
+			List <PubItemVO>pubitemList = Arrays.asList(itemVO);
+			String itemList = xmlTransforming.transformToItemList(pubitemList);
+			
+			cite = structExport.getOutput(itemList, "ENDNOTE");
+			this.setContentType("text/plain");
+			this.setFileEnding(".enl");
+		} 
+    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
+    	catch (SourceNotAvailableException e) {e.printStackTrace();}
+    	catch (NamingException e) {e.printStackTrace();}
+    	catch (StructuredExportManagerException e) {e.printStackTrace();}
+    	catch (StructuredExportXSLTNotFoundException e) {e.printStackTrace();}
+    	catch (TechnicalException e) {e.printStackTrace();}
+
+    	return cite;
+    }
+    
+    private byte[] fetchBibtexTemp (String identifier)throws IdentifierNotRecognisedException {
+    	byte[] bib = null;
+    	String item = null;
+    	
+    	try {
+    		InitialContext initialContext = new InitialContext();
+    		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+    		StructuredExportHandler structExport = (StructuredExportHandler) initialContext.lookup(StructuredExportHandler.SERVICE_NAME);
+    		
+			item = this.fetchEsciDocRecord(identifier);
+			PubItemVO itemVO = xmlTransforming.transformToPubItem(item);			
+			List <PubItemVO>pubitemList = Arrays.asList(itemVO);
+			String itemList = xmlTransforming.transformToItemList(pubitemList);
+			
+			bib = structExport.getOutput(itemList, "BIBTEX");
+			this.setContentType("text/plain");
+			this.setFileEnding(".bib");
+		} 
+    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
+    	catch (SourceNotAvailableException e) {e.printStackTrace();}
+    	catch (NamingException e) {e.printStackTrace();}
+    	catch (StructuredExportManagerException e) {e.printStackTrace();}
+    	catch (StructuredExportXSLTNotFoundException e) {e.printStackTrace();}
+    	catch (TechnicalException e) {e.printStackTrace();}
+
+    	return bib;
+    }
+    
+    private byte[] fetchApaTemp (String identifier) throws IdentifierNotRecognisedException{
+    	byte[] apa = null;
+    	String item = null;
+    	
+    	try {
+    		InitialContext initialContext = new InitialContext();
+    		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
+    		CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext.lookup(CitationStyleHandler.SERVICE_NAME);
+    		
+			item = this.fetchEsciDocRecord(identifier);
+			PubItemVO itemVO = xmlTransforming.transformToPubItem(item);			
+			List <PubItemVO>pubitemList = Arrays.asList(itemVO);
+			String itemList = xmlTransforming.transformToItemList(pubitemList);
+			
+			apa = citeHandler.getOutput("APA", "rtf", itemList);
+			this.setContentType("application/rtf");
+			this.setFileEnding(".rtf");
+		} 
+    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
+    	catch (SourceNotAvailableException e) {e.printStackTrace();}
+    	catch (NamingException e) {e.printStackTrace();}
+    	catch (CitationStyleManagerException e) {e.printStackTrace();}
+    	catch (JRException e) {e.printStackTrace();}
+    	catch (IOException e) {e.printStackTrace();}
+    	catch (TechnicalException e) {e.printStackTrace();}
+
+    	return apa;
+    }
     
     /**
      * This operation return the Metadata Object of the format to fetch from the source.
@@ -674,9 +787,14 @@ public class ImportHandlerBean implements ImportHandler {
      * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}
      */
     private String getFetchingType (ImportSourceVO source, String format){
+    	
+    	//tmp, till we clearify the new transformation service design
+    	if(format.toLowerCase().equals("endnote")){return this.fetchType_ENDNOTE;}
+    	if(format.toLowerCase().equals("bibtex")){return this.fetchType_BIBTEX;}
+    	if(format.toLowerCase().equals("apa")){return this.fetchType_APA;}
+    	
     	if (this.getMdObjectToFetch(source, format)!= null){return this.fetchType_METADATA;}
     	if (this.getFtObjectToFetch(source, format)!= null){return this.fetchType_FILE;}
-    	//TODO: citation and layoutformat
     	
     	return this.fetchType_UNKNOWN;
     }
