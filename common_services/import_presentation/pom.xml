@@ -35,7 +35,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>import_presentation</artifactId>
-	<name>import</name>
+	<name>import_presentation</name>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>war</packaging>
 
