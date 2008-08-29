@@ -65,9 +65,22 @@
 							<artifactId>javabib</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>jasperreports</groupId>
+							<artifactId>jasperreports</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>structuredexportmanager</artifactId>
+						</ejbModule>
+						<ejbModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>citationmanager</artifactId>
 						</ejbModule>
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -294,6 +307,26 @@
 			<artifactId>import_presentation</artifactId>
 			<version>1.0.0-SNAPSHOT</version>
 			<type>war</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+			<version>1.0.6-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>citationmanager</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
+			<scope>compile</scope>
+			<type>ejb</type>
+		</dependency>
+		<dependency>
+			<groupId>jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>2.0.1-patched</version>
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
