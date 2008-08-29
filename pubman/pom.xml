@@ -466,6 +466,9 @@
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				
+				<!-- unAPI -->
+				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
+				
 			</properties>
 			
 				<distributionManagement>
