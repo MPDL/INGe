@@ -599,6 +599,7 @@ public class MetadataHandlerBean implements MetadataHandler
     	
     	// Use Saxon for XPath2.0 support
         System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
+        System.out.println("Use Saxon Parser");
     	
         TransformerFactory factory = TransformerFactory.newInstance();
         factory.setURIResolver(new LocalURIResolver(this.METADATA_XSLT_LOCATION));
