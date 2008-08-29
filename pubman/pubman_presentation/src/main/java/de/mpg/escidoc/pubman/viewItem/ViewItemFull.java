@@ -430,7 +430,7 @@ public class ViewItemFull extends FacesBean
             
             //Unapi Export tmp static
 
-            this.unapiURL="http://localhost:8080/import_presentation/unapi/";
+            this.unapiURL="http://localhost:8080/import/unapi/";
             this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
             this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
             this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
