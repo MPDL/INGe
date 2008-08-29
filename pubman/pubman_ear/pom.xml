@@ -89,6 +89,7 @@
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>import_presentation</artifactId>
+							<contextRoot>/import</contextRoot>
 						</webModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
