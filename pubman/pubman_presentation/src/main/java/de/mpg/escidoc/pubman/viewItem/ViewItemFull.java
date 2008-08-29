@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.viewItem;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -197,8 +198,15 @@ public class ViewItemFull extends FacesBean
     
     /**The url used for the citation*/
     private String citationURL;
+
+    /**unapi*/
+	private String unapiURL;
+	private String unapiEscidoc;
+	private String unapiEndnote;
+	private String unapiBibtex;
+	private String unapiApa;
     
-    /** Properties for action links rendering conditions*/
+	/** Properties for action links rendering conditions*/
     private boolean isStateWithdrawn;
     private boolean isLoggedIn;
     private boolean isLatestVersion;
@@ -297,13 +305,13 @@ public class ViewItemFull extends FacesBean
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
                 if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length()-1);
                 
-                citationURL = pubmanUrl + itemPattern;
+                this.citationURL = pubmanUrl + itemPattern;
                 
             }
             catch (Exception e)
             {
                 e.printStackTrace();
-                citationURL = "";
+                this.citationURL = "";
             }
             
             loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -419,6 +427,18 @@ public class ViewItemFull extends FacesBean
             		}
             	}
             }
+            
+            //Unapi Export      
+            try {
+				this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+			} 
+            catch (Exception e) {e.printStackTrace(); 
+            					 this.unapiURL="http://localhost:8080/import_presentation/unapi/";} 
+			
+            this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
+            this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
+            this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
+            this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
             
             
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
@@ -1934,4 +1954,45 @@ public class ViewItemFull extends FacesBean
         }
         return itemState;
     }
+    
+    
+    public String getUnapiURL() {
+		return this.unapiURL;
+	}
+
+	public void setUnapiURL(String unapiURL) {
+		this.unapiURL = unapiURL;
+	}
+	
+	public String getUnapiEscidoc() {
+		return this.unapiEscidoc;
+	}
+
+	public void setUnapiEscidoc(String unapiEscidoc) {
+		this.unapiEscidoc = unapiEscidoc;
+	}
+
+	public String getUnapiEndnote() {
+		return this.unapiEndnote;
+	}
+
+	public void setUnapiEndnote(String unapiEndnote) {
+		this.unapiEndnote = unapiEndnote;
+	}
+
+	public String getUnapiBibtex() {
+		return this.unapiBibtex;
+	}
+
+	public void setUnapiBibtex(String unapiBibtex) {
+		this.unapiBibtex = unapiBibtex;
+	}
+
+	public String getUnapiApa() {
+		return this.unapiApa;
+	}
+
+	public void setUnapiApa(String unapiApa) {
+		this.unapiApa = unapiApa;
+	}
 }

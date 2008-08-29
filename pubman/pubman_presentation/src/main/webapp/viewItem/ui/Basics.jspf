@@ -56,7 +56,7 @@
 	</h:panelGroup>	
 	
 	<!-- COinS -->
-	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
+	<!--<h:outputText value="#{ViewItemFull.coins}" escape="false"/>-->
 	
 	<!-- LinkHeader -->
 <div class="itemElementLine floatbox">
@@ -86,6 +86,29 @@
 		
 	<h:outputText value="</div>" escape="false"/>
 </div>
+
+	<!-- unapiHeader -->
+<h:panelGroup rendered="#{ViewItemFull.isStateReleased}">
+	<div class="itemElementLine floatbox" >
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="</div>" escape="false"/>
+		<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
+			<h:outputLink value="#{ViewItemFull.unapiApa}">
+				<h:outputText value="APA"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiBibtex}">
+				<h:outputText value="BibTex"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiEndnote}">
+				<h:outputText value="EndNote"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiEscidoc}">
+				<h:outputText value="eSciDoc"/>
+			</h:outputLink>	
+			<h:outputText value="#{lbl.export_lblSimpleExport}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</div>
+</h:panelGroup>	
 	
 	<!--Withdrawal Information -->
 <h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}">
