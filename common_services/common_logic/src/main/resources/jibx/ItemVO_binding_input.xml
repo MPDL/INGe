@@ -159,8 +159,8 @@
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional" ordered="false" allow-repeats="true">
 
 				<!-- Faces -->
-				<structure name="face-item" ns="${xsd.soap.common.mdrecords}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional" />
+				<structure name="face-item"
+					map-as="de.mpg.escidoc.services.common.valueobjects.face.MdsFaceVO" usage="optional"/>
 				<!-- PubMan -->
 				<structure name="publication" ns="${xsd.metadata.escidocprofile}"
 					map-as="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" />

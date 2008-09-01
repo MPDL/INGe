@@ -55,6 +55,8 @@ public class MetadataSetVO extends ValueObject
      * The title of the item.
      */
     private TextVO title;
+    
+    
 
     /**
      * Creates a new instance.
@@ -97,6 +99,6 @@ public class MetadataSetVO extends ValueObject
     protected MetadataSetVO clone() {
         return new MetadataSetVO(this);
     }
-    
+
     
 }

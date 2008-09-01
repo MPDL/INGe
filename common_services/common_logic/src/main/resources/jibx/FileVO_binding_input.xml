@@ -113,18 +113,20 @@
 		</structure>
 		
 		<!-- Node: component.md-records -->
-		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" usage="optional">
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" ordered="false" allow-repeats="true">
 
-			<!-- Node: item.md-records.md-record -->
-			<!-- Field: metadataSets [List<MetadataSetVO>] -->
+		<!-- Node: item.md-records.md-record -->
+		<!-- Field: metadataSets [List<MetadataSetVO>] -->
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
-				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
-				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO" usage="optional">
-
+			factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
+			item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
+			usage="optional" ordered="false" allow-repeats="true" flexible="true">
 				<structure name="file" ns="${xsd.metadata.file}"
-					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO" usage="optional" />
-
-			</collection>
+					map-as="de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO" usage="optional" ordered="false"/>
+				<!-- Faces -->
+				<!-- <structure name="jhove" ns="http://hul.harvard.edu/ois/xml/ns/jhove" usage="optional" ordered="false" flexible="true"/>-->
+		
+		</collection>
 
 		</structure>
 

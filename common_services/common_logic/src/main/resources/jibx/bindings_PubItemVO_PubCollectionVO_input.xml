@@ -52,6 +52,7 @@
 	<namespace prefix="release" uri="${xsd.soap.common.release}" default="none" />
 	<namespace prefix="mods-md" uri="http://www.loc.gov/mods/v3" default="none" />
 	<namespace prefix="file" uri="${xsd.metadata.file}" default="none" />
+	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" default="none" />
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />

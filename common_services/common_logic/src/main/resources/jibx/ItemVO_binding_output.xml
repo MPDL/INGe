@@ -126,7 +126,6 @@
 		<!-- Node: item.md-records -->
 		<structure field="metadataSets" name="md-records" ns="${xsd.soap.common.mdrecords}"
 			marshaller="de.mpg.escidoc.services.common.xmltransforming.MetadataSetMarshaller">
-			
 		
 		</structure>
 

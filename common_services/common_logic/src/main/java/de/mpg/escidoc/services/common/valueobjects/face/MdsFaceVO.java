@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects.face;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
 
 /**
@@ -50,7 +53,7 @@ public class MdsFaceVO extends MetadataSetVO
     private AgeGroup ageGroup;
     private Gender gender;
     private AccessLevel accessLevel;
-    
+   
     public enum Emotion
     {
         neutrality, sadness, disgust, fear, anger, happiness
@@ -75,7 +78,7 @@ public class MdsFaceVO extends MetadataSetVO
     {
         PUBLIC, PRIVATE
     }
-
+    
     /**
      * Creates a new instance.
      */
@@ -178,5 +181,6 @@ public class MdsFaceVO extends MetadataSetVO
     {
         this.accessLevel = accessLevel;
     }
+
     
 }
