@@ -63,7 +63,7 @@
 					
 						<h:inputTextarea styleClass="journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
 						<script type="text/javascript">
-							$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+							$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query");
 						</script>
 						
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 

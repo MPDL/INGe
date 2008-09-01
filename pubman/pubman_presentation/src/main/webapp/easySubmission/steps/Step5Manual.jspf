@@ -94,7 +94,7 @@
 					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{!EasySubmission.autosuggestJournals}"/>
 					<h:inputTextarea styleClass="journalSuggest" rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{EasySubmission.autosuggestJournals}"/>
 					</div>
-					<script type="text/javascript">$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+					<script type="text/javascript">$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query");
 					</script>
 				</div>
 				
