@@ -42,40 +42,35 @@
 		ordered="false"
 		allow-repeats="true">
 
-			
-		<structure name="face-item">
-			
-			<value style="element" name="emotion" field="emotion"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeEmotionEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
-	
-			<value style="element" name="picture-group" field="pictureGroup"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePictureGroupEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
-				
-			<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="identifier"
-				usage="optional" />
-				
-			<value style="element" name="age" field="age" usage="optional" />
-			
-			<value style="element" name="age-group" field="ageGroup"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeAgeGroupEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
-			
-			<value style="element" name="gender" field="gender"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenderEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
-			
-			<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/" field="accessLevel"
-				deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeAccessLevelEnum"
-				serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
-				usage="optional" />
+		<value style="element" name="emotion" field="emotion"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeEmotionEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			usage="optional" />
 
-		</structure>
+		<value style="element" name="picture-group" field="pictureGroup"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializePictureGroupEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			usage="optional" />
+			
+		<value style="element" name="identifier" ns="http://purl.org/dc/elements/1.1/" field="identifier"
+			usage="optional" />
+			
+		<value style="element" name="age" field="age" usage="optional" />
+		
+		<value style="element" name="age-group" field="ageGroup"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeAgeGroupEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			usage="optional" />
+		
+		<value style="element" name="gender" field="gender"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeGenderEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			usage="optional" />
+		
+		<value style="element" name="rights" ns="http://purl.org/dc/elements/1.1/" field="accessLevel"
+			deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeAccessLevelEnum"
+			serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeRegularEnumToString"
+			usage="optional" />
 
 	</mapping>
 
