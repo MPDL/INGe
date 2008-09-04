@@ -1646,7 +1646,7 @@ public class EditItem extends FacesBean
             if (creatorVO.getPerson().getFamilyName().equals("") && creatorVO.getPerson().getGivenName().equals("") && creatorVO.getPerson().getOrganizations().get(0).getName().getValue().equals(""))
             {
                 creatorManager.getObjectList().remove(lastCreatorBean);
-                creatorCollection.getParentVO().remove(lastCreatorBean);
+                creatorCollection.getParentVO().remove(creatorCollection.getParentVO().size()-1);
             }
         }
         
