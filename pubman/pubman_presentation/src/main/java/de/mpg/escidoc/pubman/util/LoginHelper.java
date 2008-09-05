@@ -213,9 +213,12 @@ public class LoginHelper extends FacesBean
             String userGrantXML = ServiceLocator.getUserAccountHandler(userHandle).retrieveCurrentGrants(this.accountUser.getReference().getObjectId());
             List<GrantVO> grants = transforming.transformToGrantVOList(userGrantXML);
             List<GrantVO> userGrants = this.accountUser.getGrants();
-            for (GrantVO grant : grants)
+            if (grants!=null)
             {
-                userGrants.add(grant);
+                for (GrantVO grant : grants)
+                {
+                    userGrants.add(grant);
+                }
             }
 
         }
