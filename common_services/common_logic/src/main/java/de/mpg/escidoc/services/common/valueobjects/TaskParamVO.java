@@ -54,6 +54,17 @@ public class TaskParamVO extends ValueObject
    
     protected Date lastModificationDate;
     protected String comment;
+    protected String password;
+
+    public String getPassword()
+    {
+        return password;
+    }
+
+    public void setPassword(String password)
+    {
+        this.password = password;
+    }
 
     /**
      * Creates a new instance with the given modification date.
@@ -76,6 +87,7 @@ public class TaskParamVO extends ValueObject
         this.lastModificationDate = lastModificationDate;
         this.comment = comment;
     }
+    
 
     /**
      * Delivers the last modification date.

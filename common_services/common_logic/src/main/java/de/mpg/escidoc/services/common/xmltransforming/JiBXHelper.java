@@ -44,6 +44,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 import de.mpg.escidoc.services.common.types.Coordinates;
+import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
@@ -207,6 +208,18 @@ public class JiBXHelper
     public static List<GrantVO> grantVOListFactory()
     {
         return new ArrayList<GrantVO>();
+    }
+    
+
+    /**
+     * Factory method to create a <code>java.util.ArrayList&lt;AccountUserVO></code> as the implementation of a
+     * <code>java.util.List</code>.
+     * 
+     * @return A new <code>java.util.ArrayList&lt;AccountUserVO></code>
+     */
+    public static List<AccountUserVO> accountUserVOListFactory()
+    {
+        return new ArrayList<AccountUserVO>();
     }
 
     /**

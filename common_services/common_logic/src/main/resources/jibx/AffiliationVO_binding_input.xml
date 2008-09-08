@@ -41,14 +41,14 @@
 			usage="optional">
 			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
 		</structure>
+		
+		<!-- Node: organizational-unit.@last-modification-date -->
+		<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
+		<value style="attribute" name="last-modification-date" field="lastModificationDate" usage="optional" />
 
 		<!-- Node: organizational-unit.properties -->
 		<structure name="properties" ns="${xsd.soap.ou.ou}" ordered="false">
 
-			<!-- Node: organizational-unit.properties.@last-modification-date -->
-			<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
-			<value style="attribute" name="last-modification-date"
-				ns="${xsd.soap.common.prop}" field="lastModificationDate" usage="optional" />
 
 			<!-- Node: organizational-unit.properties.creation-date -->
 			<!-- Field: AffiliationVO.creationDate [java.util.Date] -->

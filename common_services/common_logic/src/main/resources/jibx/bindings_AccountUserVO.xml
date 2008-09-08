@@ -30,11 +30,21 @@
 <binding>
 
 	<namespace prefix="escidocAccountUser" uri="${xsd.soap.useraccount.useraccount}" default="none" />
+	<namespace prefix="escidocAccountUserList" uri="${xsd.soap.useraccount.useraccountlist}" default="none" />
 	<namespace prefix="prop" uri="${xsd.soap.common.prop}" default="none" />
+	<namespace prefix="xlink" uri="http://www.w3.org/1999/xlink" default="none" />
+	<namespace prefix="srel" uri="${xsd.soap.common.srel}" default="none" />
+	
+	
+	
+	<format type="java.util.Date"
+		deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
+		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
 
 	<!--  -->
 	<!-- The binding for user-account.xsd -->
 	<!--  -->
 	<include path="AccountUserVO_binding.xml" />
+	<include path="AccountUserVOListWrapper_binding.xml" />
 	
 </binding>

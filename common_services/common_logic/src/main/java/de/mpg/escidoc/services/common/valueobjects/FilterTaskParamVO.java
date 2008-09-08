@@ -619,5 +619,41 @@ public class FilterTaskParamVO extends ValueObject
         
     }
     
+    /**
+     * 
+     * This filter filters by context id
+     *
+     * @author Markus Haarlaender (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
+    public class UserAccountStateFilter implements Filter
+    {
+       
+        
+        private boolean active;
+
+        public boolean getActive()
+        {
+            return active;
+        }
+
+        public void setActive(boolean active)
+        {
+            this.active = active;
+        }
+
+        public UserAccountStateFilter(boolean active)
+        {
+            this.active = active;
+        }
+
+        
+        
+        
+    }
+    
+    
     
 }

@@ -30,6 +30,13 @@
 <binding>
    <!-- abstract mapping for GrantVO -->
 	<mapping name="grant" ns="${xsd.soap.useraccount.grants}" class="de.mpg.escidoc.services.common.valueobjects.GrantVO" ordered="false" flexible="true">
+		
+		<value style="attribute" name="last-modification-date" set-method="setLastModificationDate" get-method="getLastModificationDate" usage="optional" />
+		
+		<structure field="reference" usage="optional">
+			<value style="attribute" name="objid" get-method="getObjectId" set-method="setObjectId" usage="optional" />
+		</structure>
+		
 		<structure name="properties" ns="${xsd.soap.useraccount.grants}" ordered="false">
 			<structure name="role" ns="${xsd.soap.common.srel}" usage="optional">
 				<value style="attribute" name="objid" field="role" usage="optional" />

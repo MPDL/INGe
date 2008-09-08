@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
  CDDL HEADER START
 
@@ -27,33 +27,10 @@
  All rights reserved. Use is subject to license terms.
 -->
 
-<binding direction="output">
-
-	<!-- abtract mapping for TaskParamVO"  -->
-	<mapping type-name="TaskParamVOAbstract" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO"
-		abstract="true">
-
-		<!-- Node: param.@last-modification-date -->
-		<!-- Field: TaskParamVO.lastModificationDate [java.util.Date] -->
-		<value style="attribute" name="last-modification-date" field="lastModificationDate" /> 
-
-	</mapping>
-
-	<!-- concrete mapping for TaskParamVO" -->
-	<mapping name="param" class="de.mpg.escidoc.services.common.valueobjects.TaskParamVO">
-
-		<!-- embed the abstract mapping -->
-		<structure map-as="TaskParamVOAbstract" /> 
-
-		<!-- Node: param.comment -->
-		<!-- Field: TaskParamVO.comment [String] -->
-		<value style="element" name="comment" field="comment" usage="optional" />
-		
-		<!-- Node: param.password -->
-		<!-- Field: TaskParamVO.comment [String] -->
-		<value style="element" name="password" field="password" usage="optional" />
-		
-		
-	</mapping> 
-
+<binding>
+   <mapping name="user-account-list" ns="${xsd.soap.useraccount.useraccountlist}" class="de.mpg.escidoc.services.common.xmltransforming.wrappers.AccountUserVOListWrapper" ordered="false">
+      <collection field="accountUserVOList" factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.accountUserVOListFactory" usage="optional">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.AccountUserVO" usage="optional"/>
+		</collection>
+   </mapping>
 </binding>

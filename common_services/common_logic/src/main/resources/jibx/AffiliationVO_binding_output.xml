@@ -50,11 +50,6 @@
 		<structure name="properties" ns="${xsd.soap.ou.ou}" ordered="false"
 			flexible="true">
 
-			<!-- Node: organizational-unit.properties.@last-modification-date -->
-			<!-- Field: AffiliationVO.lastModificationDate [java.util.Date] -->
-			<value style="attribute" name="last-modification-date"
-				ns="${xsd.soap.common.prop}" field="lastModificationDate" usage="optional" />
-
 			<!-- Node: organizational-unit.properties.creation-date -->
 			<!-- Field: AffiliationVO.creationDate [java.util.Date] -->
 			<value style="element" name="creation-date" ns="${xsd.soap.common.prop}"

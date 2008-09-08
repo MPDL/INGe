@@ -30,6 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
@@ -62,6 +63,9 @@ public class AccountUserVO extends ValueObject
      */
     private List<AffiliationRO> affiliations = new java.util.ArrayList<AffiliationRO>();
     private String email;
+    private Date lastModificationDate;
+    
+
     /**
      * name + surname
      */
@@ -69,6 +73,8 @@ public class AccountUserVO extends ValueObject
     private String password;
     private AccountUserRO reference;
     private String userid;
+    
+    
     /**
      * The handle for the authenticated user, given by the framework.
      */
@@ -294,5 +300,17 @@ public class AccountUserVO extends ValueObject
     {
         this.userid = newVal;
     }
+    
+    public Date getLastModificationDate()
+    {
+        return lastModificationDate;
+    }
+
+    public void setLastModificationDate(Date lastModificationDate)
+    {
+        this.lastModificationDate = lastModificationDate;
+    }
+    
+    
 
 }

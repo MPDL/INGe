@@ -55,6 +55,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.TopLevelAffiliationFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.UserAccountStateFilter;
 
 /**
  * This class is a helper class for JiBX binding of TaskParamVO (and subclasses) to XML.
@@ -187,6 +188,10 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
                 }
+                else if (filter instanceof UserAccountStateFilter)
+                {
+                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active"); //public-status
+                }
                 ctx.closeStartContent();
 
                 // create filter content (the "top-level-organizational-units" filter needs no content)
@@ -261,6 +266,12 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     ItemPublicStatusFilter publicStatusFilter= (ItemPublicStatusFilter)filter;
                     ctx.content(publicStatusFilter.getState().toString().replace('_', '-').toLowerCase());
+                }
+                else if (filter instanceof UserAccountStateFilter)
+                {
+                    UserAccountStateFilter stateFilter= (UserAccountStateFilter)filter;
+                    ctx.content(String.valueOf(stateFilter.getActive()));
+                   
                 }
 
                 // finish filter element

@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class Coordinates implements Serializable
 {
     private double latitude;
-    private double longitute;
+    private double longitude;
     private double altitude;
     
     private boolean altitudeSet;
@@ -29,7 +29,7 @@ public class Coordinates implements Serializable
     public Coordinates(double latitude, double longitute, double altitude)
     {
         this.latitude = latitude;
-        this.longitute = longitute;
+        this.longitude = longitute;
         this.altitude = altitude;
         this.altitudeSet = true;
     }
@@ -43,7 +43,7 @@ public class Coordinates implements Serializable
     public Coordinates(double latitude, double longitute)
     {
         this.latitude = latitude;
-        this.longitute = longitute;
+        this.longitude = longitute;
         this.altitude = 0;
         this.altitudeSet = false;
     }
@@ -56,13 +56,13 @@ public class Coordinates implements Serializable
             if (coordinatesArray.length == 2)
             {
                 this.latitude = Double.parseDouble(coordinatesArray[0]);
-                this.longitute = Double.parseDouble(coordinatesArray[1]);
+                this.longitude = Double.parseDouble(coordinatesArray[1]);
                 this.altitudeSet = false;
             }
             else if (coordinatesArray.length == 3)
             {
                 this.latitude = Double.parseDouble(coordinatesArray[0]);
-                this.longitute = Double.parseDouble(coordinatesArray[1]);
+                this.longitude = Double.parseDouble(coordinatesArray[1]);
                 this.altitude = Double.parseDouble(coordinatesArray[2]);
                 this.altitudeSet = true;
             }
@@ -77,11 +77,11 @@ public class Coordinates implements Serializable
     {
         if (altitudeSet)
         {
-            return latitude + "," + longitute + "," + altitude;
+            return latitude + "," + longitude + "," + altitude;
         }
         else
         {
-            return latitude + "," + longitute;
+            return latitude + "," + longitude;
         }
     }
     
@@ -95,14 +95,14 @@ public class Coordinates implements Serializable
         this.latitude = latitude;
     }
 
-    public double getLongitute()
+    public double getLongitude()
     {
-        return longitute;
+        return longitude;
     }
 
-    public void setLongitute(double longitute)
+    public void setLongitude(double longitute)
     {
-        this.longitute = longitute;
+        this.longitude = longitute;
     }
 
     public double getAltitude()

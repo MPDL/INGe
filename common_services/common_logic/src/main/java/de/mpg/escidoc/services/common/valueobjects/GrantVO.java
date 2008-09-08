@@ -30,6 +30,9 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
+import java.util.Date;
+
+import de.mpg.escidoc.services.common.referenceobjects.GrantRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
 
 /**
@@ -66,6 +69,15 @@ public class GrantVO extends ValueObject
      * It is: user.isModerator <=> frameworkValue="escidoc:role-md-editor" 
      * (the framework role "role-moderator" is not the same as the PubMan role MODERATOR!) 
      */
+    
+    private GrantRO reference;
+    
+    private Date lastModificationDate;
+    
+    
+
+   
+
     public enum PredefinedRoles
     {
         DEPOSITOR("escidoc:role-depositor"), MODERATOR("escidoc:role-md-editor");
@@ -173,5 +185,25 @@ public class GrantVO extends ValueObject
     public String toString()
     {
         return "[" + objectRef + " : " + role + "]";
+    }
+    
+    public GrantRO getReference()
+    {
+        return reference;
+    }
+
+    public void setReference(GrantRO reference)
+    {
+        this.reference = reference;
+    }
+    
+    public Date getLastModificationDate()
+    {
+        return lastModificationDate;
+    }
+
+    public void setLastModificationDate(Date lastModificationDate)
+    {
+        this.lastModificationDate = lastModificationDate;
     }
 }

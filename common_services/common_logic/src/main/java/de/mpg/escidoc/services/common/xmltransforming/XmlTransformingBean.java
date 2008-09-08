@@ -95,6 +95,7 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportPar
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.MarshallingException;
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.UnmarshallingException;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.AccountUserVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationPathVOListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationROListWrapper;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.AffiliationVOListWrapper;
@@ -142,7 +143,7 @@ public class XmlTransformingBean implements XmlTransforming
         try
         {
             // unmarshal AccountUserVO from String
-            IBindingFactory bfact = BindingDirectory.getFactory(AccountUserVO.class);
+            IBindingFactory bfact = BindingDirectory.getFactory(AccountUserVOListWrapper.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(user);
             userVO = (AccountUserVO)uctx.unmarshalDocument(sr, null);
@@ -158,6 +159,42 @@ public class XmlTransformingBean implements XmlTransforming
             throw new TechnicalException(e);
         }
         return userVO;
+    }
+    
+    public String transformToAccountUser(AccountUserVO accountUserVO) throws TechnicalException
+    {
+        logger.debug("transformToCAccountUser(AccountUserVO)");
+        if (accountUserVO == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToAccountUser:accountUserVO is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory(AccountUserVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(accountUserVO, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(accountUserVO.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToAccountUser(accountUserVO) - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
     }
 
     /**
@@ -1596,5 +1633,109 @@ public class XmlTransformingBean implements XmlTransforming
         
         return tocVO;
     }
+    
+    public String transformToGrant(GrantVO grantVO) throws TechnicalException
+    {
+        logger.debug("transformToGrant()");
+        if (grantVO == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToGrant:grantVO is null");
+        }
+        String utf8container = null;
+        try
+        {
+            IBindingFactory bfact = BindingDirectory.getFactory("GrantVOListWrapper", GrantVO.class);
+            // marshal object (with nice indentation, as UTF-8)
+            IMarshallingContext mctx = bfact.createMarshallingContext();
+            mctx.setIndent(2);
+            StringWriter sw = new StringWriter();
+            mctx.setOutput(sw);
+            mctx.marshalDocument(grantVO, "UTF-8", null, sw);
+            // use the following call to omit the leading "<?xml" tag of the generated XML
+            // mctx.marshalDocument(containerVO);
+            utf8container = sw.toString().trim();
+        }
+        catch (JiBXException e)
+        {
+            throw new MarshallingException(grantVO.getClass().getSimpleName(), e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("transformToGrant() - result: String utf8container=" + utf8container);
+        }
+        return utf8container;
+    }
+    
+    public GrantVO transformToGrantVO(String grantXml) throws TechnicalException
+    {
+        logger.debug("transformToToGrantVO(String) - String grant=\n" + grantXml);
+        if (grantXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToGrantVO: grantXML is null");
+        }
+        GrantVO grantVO = null;
+        try
+        {
+            // unmarshal StatisticReport from String
+            IBindingFactory bfact = BindingDirectory.getFactory("GrantVOListWrapper", GrantVO.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(grantXml);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            grantVO = (GrantVO)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(grantXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        
+        
+        return grantVO;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public final List<AccountUserVO> transformToAccountUserVOList(String accountUserListXml) throws TechnicalException
+    {
+        logger.debug("transformToAccountUserVOList(String) - String formatList=" + accountUserListXml);
+        if (accountUserListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToAccountUserVOList:formatList is null");
+        }
+        AccountUserVOListWrapper accountUserVOListWrapper = null;
+        try
+        {
+            // unmarshall GrantVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory(AccountUserVOListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(accountUserListXml);
+            accountUserVOListWrapper = (AccountUserVOListWrapper)uctx.unmarshalDocument(sr, null);
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause(), e);
+            throw new UnmarshallingException(accountUserListXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+        // unwrap the List<GrantVO>
+        List<AccountUserVO> accountUserVOList = accountUserVOListWrapper.getAccountUserVOList();
+        return accountUserVOList;
+    }
+
+    
     
 }

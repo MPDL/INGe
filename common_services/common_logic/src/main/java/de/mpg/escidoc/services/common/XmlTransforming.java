@@ -89,6 +89,8 @@ public interface XmlTransforming
      * @throws UnmarshallingException
      */
     public AccountUserVO transformToAccountUser(String user) throws TechnicalException, UnmarshallingException;
+    public String transformToAccountUser(AccountUserVO accountUserVO) throws TechnicalException;
+    public List<AccountUserVO> transformToAccountUserVOList(String accountUserListXml) throws TechnicalException;
 
     /**
      * Transforms an XML String that is valid according to "${xsd.soap.ou.ou}"
@@ -180,7 +182,26 @@ public interface XmlTransforming
      * @return The corresponding <code>GrantVO</code>
      */
     public java.util.List<GrantVO> transformToGrantVOList(String xmlGrants) throws TechnicalException;
+    
+    /**
+     * Transforms an <code>GrantVO</code> to
+     * the corresponding xml that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd)
+     * 
+     * @param grantVO The GrantVO object
+     * @return XML String that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd)
+     */
+    public String transformToGrant(GrantVO grantVO) throws TechnicalException;
 
+    
+    /**
+     * Transforms an XML String that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd) to
+     * the corresponding <code>GrantVO</code>.
+     * 
+     * @param xmlGrants XML String that is valid according to "http://www.escidoc.de/schemas/grants/0.2" (grants.xsd)
+     * @return The corresponding <code>GrantVO</code>
+     */
+    public GrantVO transformToGrantVO(String xmlGrant) throws TechnicalException;
+    
     /**
      * Transforms a given <code>PubItemVO</code> to corresponding XML that is valid according to "http://www.escidoc.
      * de/schemas/item/0.3" (item.xsd).
