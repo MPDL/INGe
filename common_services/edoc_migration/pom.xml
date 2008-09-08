@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?><project>
+  <parent>
+    <artifactId>common_services</artifactId>
+    <groupId>de.mpg.escidoc.services</groupId>
+    <version>1.0.5-SNAPSHOT</version>
+  </parent>
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>de.mpg.escidoc.services</groupId>
+  <artifactId>edoc_migration</artifactId>
+  <packaging>jar</packaging>
+  <name>edoc_migration Maven Webapp</name>
+  <version>0.0.1-SNAPSHOT</version>
+  <url>http://maven.apache.org</url>
+  <build>
+    <finalName>edoc_migration</finalName>
+    <plugins>
+    	<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.5</source>
+					<target>1.5</target>
+				</configuration>
+			</plugin>
+    </plugins>
+  </build>
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.8.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+    	<groupId>de.mpg.escidoc.services</groupId>
+    	<artifactId>common_logic</artifactId>
+    	 <version>1.1.3-SNAPSHOT</version>
+      	<scope>compile</scope>
+    </dependency>
+  </dependencies>
+</project>
