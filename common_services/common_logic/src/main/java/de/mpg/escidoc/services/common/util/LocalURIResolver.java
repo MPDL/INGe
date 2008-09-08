@@ -72,8 +72,13 @@ public class LocalURIResolver implements URIResolver
     /**
      * {@inheritDoc}
      */
-    public final Source resolve(final String href, final String altBase) throws TransformerException
+    public final Source resolve(String href, String altBase) throws TransformerException
     {
+        if (altBase == null)
+        {
+            altBase = "";
+        }
+        
         try
         {
             Source source = new StreamSource(ResourceUtil.getResourceAsStream(this.base + altBase + "/" + href));
