@@ -147,11 +147,7 @@
 			<collection name="md-record" ns="${xsd.soap.common.mdrecords}" field="metadataSets"
 				factory="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.metadataSetVOListFactory"
 				item-type="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"  usage="optional" ordered="false" allow-repeats="true">
-				
-				<structure name="facesAlbum" ns="${xsd.soap.common.mdrecords}"
-					type="de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO" usage="optional" ordered="false"/>
-				<structure name="publication" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
-					type="de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO" usage="optional" ordered="false"/>
+
 				<structure name="virr-book" ns="http://www.loc.gov/mods/v3" usage="optional" ordered="false" flexible="true"/>
 				<structure name="mab-md" usage="optional" ordered="false" flexible="true"/>
 				<!-- Faces -->
