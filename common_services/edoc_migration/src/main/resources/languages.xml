@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsl:stylesheet version="2.0"
+   xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
+   xmlns:xs="http://www.w3.org/2001/XMLSchema"
+   xmlns:fn="http://www.w3.org/2005/xpath-functions">
+<xsl:variable name="languages">
+	<language abbrev="aa" name="Afar"/>
+	<language abbrev="ab" name="Abkhazian"/>
+	<language abbrev="af" name="Afrikaans"/>
+	<language abbrev="ak" name="Akan"/>
+	<language abbrev="sq" name="Albanian"/>
+	<language abbrev="am" name="Amharic"/>
+	<language abbrev="ar" name="Arabic"/>
+	<language abbrev="an" name="Aragonese"/>
+	<language abbrev="hy" name="Armenian"/>
+	<language abbrev="as" name="Assamese"/>
+	<language abbrev="av" name="Avaric"/>
+	<language abbrev="ae" name="Avestan"/>
+	<language abbrev="ay" name="Aymara"/>
+	<language abbrev="az" name="Azerbaijani"/>
+	<language abbrev="ba" name="Bashkir"/>
+	<language abbrev="bm" name="Bambara"/>
+	<language abbrev="eu" name="Basque"/>
+	<language abbrev="be" name="Belarusian"/>
+	<language abbrev="bn" name="Bengali"/>
+	<language abbrev="bh" name="Bihari"/>
+	<language abbrev="bi" name="Bislama"/>
+	<language abbrev="bo" name="Tibetan"/>
+	<language abbrev="bs" name="Bosnian"/>
+	<language abbrev="br" name="Breton"/>
+	<language abbrev="bg" name="Bulgarian"/>
+	<language abbrev="my" name="Burmese"/>
+	<language abbrev="ca" name="Catalan"/>
+	<language abbrev="ca" name="Valencian"/>
+	<language abbrev="cs" name="Czech"/>
+	<language abbrev="ch" name="Chamorro"/>
+	<language abbrev="ce" name="Chechen"/>
+	<language abbrev="zh" name="Chinese"/>
+	<language abbrev="cu" name="Church Slavic"/>
+	<language abbrev="cu" name="Old Slavonic"/>
+	<language abbrev="cu" name="Church Slavonic"/>
+	<language abbrev="cu" name="Old Bulgarian"/>
+	<language abbrev="cu" name="Old Church Slavonic"/>
+	<language abbrev="cv" name="Chuvash"/>
+	<language abbrev="kw" name="Cornish"/>
+	<language abbrev="co" name="Corsican"/>
+	<language abbrev="cr" name="Cree"/>
+	<language abbrev="cy" name="Welsh"/>
+	<language abbrev="cs" name="Czech"/>
+	<language abbrev="da" name="Danish"/>
+	<language abbrev="de" name="German"/>
+	<language abbrev="dv" name="Divehi"/>
+	<language abbrev="dv" name="Dhivehi"/>
+	<language abbrev="dv" name="Maldivian"/>
+	<language abbrev="nl" name="Dutch"/>
+	<language abbrev="nl" name="Flemish"/>
+	<language abbrev="dz" name="Dzongkha"/>
+	<language abbrev="el" name="Greek"/>
+	<language abbrev="en" name="English"/>
+	<language abbrev="eo" name="Esperanto"/>
+	<language abbrev="et" name="Estonian"/>
+	<language abbrev="eu" name="Basque"/>
+	<language abbrev="ee" name="Ewe"/>
+	<language abbrev="fo" name="Faroese"/>
+	<language abbrev="fa" name="Persian"/>
+	<language abbrev="fj" name="Fijian"/>
+	<language abbrev="fi" name="Finnish"/>
+	<language abbrev="fr" name="French"/>
+	<language abbrev="fy" name="Western Frisian"/>
+	<language abbrev="ff" name="Fulah"/>
+	<language abbrev="ka" name="Georgian"/>
+	<language abbrev="de" name="German"/>
+	<language abbrev="gd" name="Gaelic"/>
+	<language abbrev="gd" name="Scottish Gaelic"/>
+	<language abbrev="ga" name="Irish"/>
+	<language abbrev="gl" name="Galician"/>
+	<language abbrev="gv" name="Manx"/>
+	<language abbrev="gn" name="Guarani"/>
+	<language abbrev="gu" name="Gujarati"/>
+	<language abbrev="ht" name="Haitian"/>
+	<language abbrev="ht" name="Haitian Creole"/>
+	<language abbrev="ha" name="Hausa"/>
+	<language abbrev="he" name="Hebrew"/>
+	<language abbrev="hz" name="Herero"/>
+	<language abbrev="hi" name="Hindi"/>
+	<language abbrev="ho" name="Hiri Motu"/>
+	<language abbrev="hr" name="Croatian"/>
+	<language abbrev="hu" name="Hungarian"/>
+	<language abbrev="hy" name="Armenian"/>
+	<language abbrev="ig" name="Igbo"/>
+	<language abbrev="is" name="Icelandic"/>
+	<language abbrev="io" name="Ido"/>
+	<language abbrev="ii" name="Sichuan Yi"/>
+	<language abbrev="ii" name="Nuosu"/>
+	<language abbrev="iu" name="Inuktitut"/>
+	<language abbrev="ie" name="Interlingue"/>
+	<language abbrev="ie" name="Occidental"/>
+	<language abbrev="ia" name="Interlingua"/>
+	<language abbrev="id" name="Indonesian"/>
+	<language abbrev="ik" name="Inupiaq"/>
+	<language abbrev="is" name="Icelandic"/>
+	<language abbrev="it" name="Italian"/>
+	<language abbrev="jv" name="Javanese"/>
+	<language abbrev="ja" name="Japanese"/>
+	<language abbrev="kl" name="Kalaallisut"/>
+	<language abbrev="kl" name="Greenlandic"/>
+	<language abbrev="kn" name="Kannada"/>
+	<language abbrev="ks" name="Kashmiri"/>
+	<language abbrev="ka" name="Georgian"/>
+	<language abbrev="kr" name="Kanuri"/>
+	<language abbrev="kk" name="Kazakh"/>
+	<language abbrev="km" name="Central Khmer"/>
+	<language abbrev="ki" name="Kikuyu"/>
+	<language abbrev="ki" name="Gikuyu"/>
+	<language abbrev="rw" name="Kinyarwanda"/>
+	<language abbrev="ky" name="Kirghiz"/>
+	<language abbrev="ky" name="Kyrgyz"/>
+	<language abbrev="kv" name="Komi"/>
+	<language abbrev="kg" name="Kongo"/>
+	<language abbrev="ko" name="Korean"/>
+	<language abbrev="kj" name="Kuanyama"/>
+	<language abbrev="kj" name="Kwanyama"/>
+	<language abbrev="ku" name="Kurdish"/>
+	<language abbrev="lo" name="Lao"/>
+	<language abbrev="la" name="Latin"/>
+	<language abbrev="lv" name="Latvian"/>
+	<language abbrev="li" name="Limburgan"/>
+	<language abbrev="li" name="Limburger"/>
+	<language abbrev="li" name="Limburgish"/>
+	<language abbrev="ln" name="Lingala"/>
+	<language abbrev="lt" name="Lithuanian"/>
+	<language abbrev="lb" name="Luxembourgish"/>
+	<language abbrev="lb" name="Letzeburgesch"/>
+	<language abbrev="lu" name="Luba-Katanga"/>
+	<language abbrev="lg" name="Ganda"/>
+	<language abbrev="mk" name="Macedonian"/>
+	<language abbrev="mh" name="Marshallese"/>
+	<language abbrev="ml" name="Malayalam"/>
+	<language abbrev="mi" name="Maori"/>
+	<language abbrev="mr" name="Marathi"/>
+	<language abbrev="ms" name="Malay"/>
+	<language abbrev="mk" name="Macedonian"/>
+	<language abbrev="mg" name="Malagasy"/>
+	<language abbrev="mt" name="Maltese"/>
+	<language abbrev="mo" name="Moldavian"/>
+	<language abbrev="mo" name="Moldovan"/>
+	<language abbrev="mn" name="Mongolian"/>
+	<language abbrev="mi" name="Maori"/>
+	<language abbrev="ms" name="Malay"/>
+	<language abbrev="my" name="Burmese"/>
+	<language abbrev="na" name="Nauru"/>
+	<language abbrev="nv" name="Navajo"/>
+	<language abbrev="nv" name="Navaho"/>
+	<language abbrev="nr" name="Ndebele, South"/>
+	<language abbrev="nr" name="South Ndebele"/>
+	<language abbrev="nd" name="Ndebele, North"/>
+	<language abbrev="nd" name="North Ndebele"/>
+	<language abbrev="ng" name="Ndonga"/>
+	<language abbrev="ne" name="Nepali"/>
+	<language abbrev="nn" name="Norwegian Nynorsk"/>
+	<language abbrev="nn" name="Nynorsk, Norwegian"/>
+	<language abbrev="nb" name="Bokmål, Norwegian"/>
+	<language abbrev="nb" name="Norwegian Bokmål"/>
+	<language abbrev="no" name="Norwegian"/>
+	<language abbrev="ny" name="Chichewa"/>
+	<language abbrev="ny" name="Chewa"/>
+	<language abbrev="ny" name="Nyanja"/>
+	<language abbrev="oc" name="Occitan (post 1500)"/>
+	<language abbrev="oj" name="Ojibwa"/>
+	<language abbrev="or" name="Oriya"/>
+	<language abbrev="om" name="Oromo"/>
+	<language abbrev="os" name="Ossetian"/>
+	<language abbrev="os" name="Ossetic"/>
+	<language abbrev="pa" name="Panjabi"/>
+	<language abbrev="pa" name="Punjabi"/>
+	<language abbrev="fa" name="Persian"/>
+	<language abbrev="pi" name="Pali"/>
+	<language abbrev="pl" name="Polish"/>
+	<language abbrev="pt" name="Portuguese"/>
+	<language abbrev="ps" name="Pushto"/>
+	<language abbrev="ps" name="Pashto"/>
+	<language abbrev="qu" name="Quechua"/>
+	<language abbrev="rm" name="Romansh"/>
+	<language abbrev="ro" name="Romanian"/>
+	<language abbrev="rn" name="Rundi"/>
+	<language abbrev="ru" name="Russian"/>
+	<language abbrev="sg" name="Sango"/>
+	<language abbrev="sa" name="Sanskrit"/>
+	<language abbrev="si" name="Sinhala"/>
+	<language abbrev="si" name="Sinhalese"/>
+	<language abbrev="sk" name="Slovak"/>
+	<language abbrev="sl" name="Slovenian"/>
+	<language abbrev="se" name="Northern Sami"/>
+	<language abbrev="sm" name="Samoan"/>
+	<language abbrev="sn" name="Shona"/>
+	<language abbrev="sd" name="Sindhi"/>
+	<language abbrev="so" name="Somali"/>
+	<language abbrev="st" name="Sotho, Southern"/>
+	<language abbrev="es" name="Spanish"/>
+	<language abbrev="es" name="Castilian"/>
+	<language abbrev="sq" name="Albanian"/>
+	<language abbrev="sc" name="Sardinian"/>
+	<language abbrev="sr" name="Serbian"/>
+	<language abbrev="ss" name="Swati"/>
+	<language abbrev="su" name="Sundanese"/>
+	<language abbrev="sw" name="Swahili"/>
+	<language abbrev="sv" name="Swedish"/>
+	<language abbrev="ty" name="Tahitian"/>
+	<language abbrev="ta" name="Tamil"/>
+	<language abbrev="tt" name="Tatar"/>
+	<language abbrev="te" name="Telugu"/>
+	<language abbrev="tg" name="Tajik"/>
+	<language abbrev="tl" name="Tagalog"/>
+	<language abbrev="th" name="Thai"/>
+	<language abbrev="bo" name="Tibetan"/>
+	<language abbrev="ti" name="Tigrinya"/>
+	<language abbrev="to" name="Tonga (Tonga Islands)"/>
+	<language abbrev="tn" name="Tswana"/>
+	<language abbrev="ts" name="Tsonga"/>
+	<language abbrev="tk" name="Turkmen"/>
+	<language abbrev="tr" name="Turkish"/>
+	<language abbrev="tw" name="Twi"/>
+	<language abbrev="ug" name="Uighur"/>
+	<language abbrev="ug" name="Uyghur"/>
+	<language abbrev="uk" name="Ukrainian"/>
+	<language abbrev="ur" name="Urdu"/>
+	<language abbrev="uz" name="Uzbek"/>
+	<language abbrev="ve" name="Venda"/>
+	<language abbrev="vi" name="Vietnamese"/>
+	<language abbrev="vo" name="Volapük"/>
+	<language abbrev="cy" name="Welsh"/>
+	<language abbrev="wa" name="Walloon"/>
+	<language abbrev="wo" name="Wolof"/>
+	<language abbrev="xh" name="Xhosa"/>
+	<language abbrev="yi" name="Yiddish"/>
+	<language abbrev="yo" name="Yoruba"/>
+	<language abbrev="za" name="Zhuang"/>
+	<language abbrev="za" name="Chuang"/>
+	<language abbrev="zh" name="Chinese"/>
+	<language abbrev="zu" name="Zulu"/>
+</xsl:variable>
+</xsl:stylesheet>
