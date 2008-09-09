@@ -36,18 +36,28 @@ xmlns:xs="http://www.w3.org/2001/XMLSchema"
 xmlns:fn="http://www.w3.org/2005/xpath-functions"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
- xmlns:func="urn:my-functions">
+ xmlns:func="urn:my-functions"
+ 
+ xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:dcterms="http://purl.org/dc/terms/"  
+   xmlns:ei="${xsd.soap.item.item}"
+   xmlns:mdr="${xsd.soap.common.mdrecords}"
+   xmlns:mdp="${xsd.metadata.escidocprofile}"
+   xmlns:e="${xsd.metadata.escidocprofile.types}"
+   xmlns:ec="${xsd.soap.item.components}"
+   xmlns:prop="${xsd.soap.common.prop}"
+   xmlns:pub="${xsd.metadata.publication}">
 	<xsl:import href="functions.xsl"/>
 	<xsl:output method="text" encoding="UTF-8" indent="yes"/>
 	
 	
 	<xsl:template match="/*">			
 		<!-- create entry for each item -->		
-			<xsl:apply-templates select="*:item//*:md-record/*:publication"/>				
+			<xsl:apply-templates select="ei:item/mdr:md-records/mdr:md-record/mdp:publication"/>				
 	</xsl:template>	
 	
 	<!-- create bibTeX entry -->
-	<xsl:template match="*:item//*:md-record/*:publication">		
+	<xsl:template match="ei:item/mdr:md-records/mdr:md-record/mdp:publication">		
 		<xsl:param name="genre" select="@type"/>
 		
 		<!-- detect bibtex entry type -->		
@@ -84,12 +94,12 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			</xsl:when>
 			<xsl:when test="$genre='thesis'">
 				<xsl:choose>
-					<xsl:when test="*:degree='master'">
+					<xsl:when test="mdp:degree='master'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'masterthesis'"/>
 						</xsl:call-template>						
 					</xsl:when>
-					<xsl:when test="*:degree='phd'">
+					<xsl:when test="mdp:degree='phd'">
 						<xsl:call-template name="createEntry">
 							<xsl:with-param name="entryType" select="'phdthesis'"/>
 						</xsl:call-template>						
@@ -113,55 +123,55 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	<xsl:template name="createEntry">
 		
 		<xsl:param name="entryType"/>
-		<xsl:variable name="escidocid" select="parent::*:md-record/parent::*:md-records/parent::*:item/@objid"/>
+		<xsl:variable name="escidocid" select="parent::mdr:md-record/parent::mdr:md-records/parent::ei:item/@objid"/>
 		<xsl:value-of select="concat('@', $entryType, '{')"/>
 		<xsl:value-of select="func:texString($escidocid,1)"/>
 		<xsl:value-of select="','"/>
 		
 		<xsl:text disable-output-escaping="yes">&#xA;</xsl:text><!-- line break -->
 		<!-- TITLE -->
-		<xsl:apply-templates select="*:title"/>		
+		<xsl:apply-templates select="dc:title"/>		
 		<!-- CREATOR -->
-		<xsl:apply-templates select="*:creator[@role='author']"/>		
+		<xsl:apply-templates select="pub:creator[@role='author']"/>		
 		<!-- EDITOR -->
-		<xsl:apply-templates select="*:creator[@role='editor']"/>		
+		<xsl:apply-templates select="pub:creator[@role='editor']"/>		
 		<!-- LANGUAGE -->
-		<xsl:apply-templates select="*:language"/>
+		<xsl:apply-templates select="dc:language"/>
 		<!-- URI, URN -->
-		<xsl:apply-templates select="*:identifier[contains(@xsi:type, 'URN')]"/>		
+		<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'URN')]"/>		
 		<!-- ISSN -->
 		<xsl:choose>
-			<xsl:when test="*:source/*:identifier[contains(@xsi:type, 'ISSN')]">
-				<xsl:apply-templates select="*:source/*:identifier[contains(@xsi:type, 'ISSN')]"/>					
+			<xsl:when test="pub:source/dc:identifier[contains(@xsi:type, 'ISSN')]">
+				<xsl:apply-templates select="pub:source/dc:identifier[contains(@xsi:type, 'ISSN')]"/>					
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates select="*:identifier[contains(@xsi:type, 'ISSN')]"/>				
+				<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'ISSN')]"/>				
 			</xsl:otherwise>
 		</xsl:choose>			
 		<!-- ISBN -->
-		<xsl:apply-templates select="*:identifier[contains(@xsi:type, 'ISBN')]"/>		
+		<xsl:apply-templates select="dc:identifier[contains(@xsi:type, 'ISBN')]"/>		
 		<!-- PUBLISHER, ADDRESS -->
 		<xsl:choose>
-			<xsl:when test="*:source/*:publishing-info/*:publisher=''">
-				<xsl:apply-templates select="*:publishing-info/*:publisher"/>		
-				<xsl:apply-templates select="*:publishing-info/*:place"/>
+			<xsl:when test="pub:source/pub:publishing-info/dc:publisher=''">
+				<xsl:apply-templates select="pub:publishing-info/dc:publisher"/>		
+				<xsl:apply-templates select="pub:publishing-info/e:place"/>
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates select="*:source/*:publishing-info/*:publisher"/>		
-				<xsl:apply-templates select="*:source/*:publishing-info/*:place"/>	
+				<xsl:apply-templates select="pub:source/pub:publishing-info/dc:publisher"/>		
+				<xsl:apply-templates select="pub:source/pub:publishing-info/e:place"/>	
 			</xsl:otherwise>
 		</xsl:choose>			
 		<!-- EDITION -->
 		<xsl:choose>
-			<xsl:when test="*:source/*:publishing-info/*:edition=''">
-				<xsl:apply-templates select="*:publishing-info/*:edition"/>				
+			<xsl:when test="pub:source/pub:publishing-info/e:edition=''">
+				<xsl:apply-templates select="pub:publishing-info/e:edition"/>				
 			</xsl:when>
 			<xsl:otherwise>
-				<xsl:apply-templates select="*:source/*:publishing-info/*:edition"/>	
+				<xsl:apply-templates select="pub:source/pub:publishing-info/e:edition"/>	
 			</xsl:otherwise>
 		</xsl:choose>		
 		<!-- YEAR -->
-		<xsl:variable name="pubdate" select="if(*:issued!='') then *:issued else if  (*:published-online!='') then *:published-online else if (*:dateAccepted!='') then *:dateAccepted else if (*:dateSubmitted!='') then *:dateSubmitted else if (*:modified!='') then *:modified else if (*:created!='') then *:created else ''"/>	
+		<xsl:variable name="pubdate" select="if(dcterms:issued!='') then dcterms:issued else if  (pub:published-online!='') then pub:published-online else if (dcterms:dateAccepted!='') then dcterms:dateAccepted else if (dcterms:dateSubmitted!='') then dcterms:dateSubmitted else if (dcterms:modified!='') then dcterms:modified else if (dcterms:created!='') then dcterms:created else ''"/>	
 		<xsl:if test="$pubdate!=''">
 			<xsl:variable name="year" select="substring($pubdate,1,4)"/>
 			<xsl:call-template name="createField">
@@ -170,15 +180,15 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			</xsl:call-template>
 		</xsl:if>		
 		<!-- DATE -->
-		<xsl:apply-templates select="*:issued"/>		
+		<xsl:apply-templates select="dcterms:issued"/>		
 		<!-- ABSTRACT -->
-		<xsl:apply-templates select="*:abstract"/>		
+		<xsl:apply-templates select="dcterms:abstract"/>		
 		<!-- SUBJECT -->
-		<xsl:apply-templates select="*:subject"/>		
+		<xsl:apply-templates select="dc:subject"/>		
 		<!-- TABLE OF CONTENTS -->
-		<xsl:apply-templates select="*:tableOfContents"/>		
+		<xsl:apply-templates select="dcterms:tableOfContents"/>		
 		<!-- SOURCE -->
-		<xsl:apply-templates select="*:source"/>			
+		<xsl:apply-templates select="pub:source"/>			
 		<!-- END OF ENTRY -->		
 		<xsl:value-of select="concat('}','')"/>	
 		<xsl:text disable-output-escaping="yes">&#xA; &#xA;</xsl:text>
@@ -186,7 +196,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	<!-- END createEntry -->
 	
 	
-	<xsl:template match="*:title">
+	<xsl:template match="dc:title">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'title'"/>
@@ -195,7 +205,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:language">
+	<xsl:template match="dc:language">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'language'"/>
@@ -204,7 +214,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:identifier[contains(@xsi:type, 'URN')]">
+	<xsl:template match="dc:identifier[contains(@xsi:type, 'URN')]">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'howpublished'"/>
@@ -213,7 +223,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:identifier[contains(@xsi:type, 'ISSN')]">
+	<xsl:template match="dc:identifier[contains(@xsi:type, 'ISSN')]">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'issn'"/>
@@ -222,7 +232,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:identifier[contains(@xsi:type, 'ISBN')]">
+	<xsl:template match="dc:identifier[contains(@xsi:type, 'ISBN')]">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'isbn'"/>
@@ -231,7 +241,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:publishing-info/*:publisher">
+	<xsl:template match="pub:publishing-info/dc:publisher">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'publisher'"/>
@@ -240,7 +250,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:publishing-info/*:place">
+	<xsl:template match="pub:publishing-info/e:place">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'address'"/>
@@ -249,7 +259,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:abstract">
+	<xsl:template match="dcterms:abstract">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'abstract'"/>
@@ -258,14 +268,14 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:subject">
+	<xsl:template match="dc:subject">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'keywords'"/>
 			<xsl:with-param name="xpath" select="."/>
 		</xsl:call-template>
 	</xsl:template>
 	
-	<xsl:template match="*:tableOfContents">
+	<xsl:template match="dcterms:tableOfContents">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'contents'"/>
@@ -285,61 +295,61 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	</xsl:template>
 	
 	<!-- SOURCE -->
-	<xsl:template match="*:source">		
+	<xsl:template match="pub:source">		
 		<!-- TITLE -->
 		<xsl:choose>
 			<xsl:when test="@type='series'">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'series'"/>
-					<xsl:with-param name="xpath" select="*:title"/>
+					<xsl:with-param name="xpath" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="@type='journal'">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'journal'"/>
-					<xsl:with-param name="xpath" select="*:title"/>
+					<xsl:with-param name="xpath" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:when test="@type='book' or @type='proceedings'">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'booktitle'"/>
-					<xsl:with-param name="xpath" select="*:title"/>
+					<xsl:with-param name="xpath" select="dc:title"/>
 				</xsl:call-template>
 			</xsl:when>
 			<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
 		<!-- SOURCE CREATOR -->
-		<xsl:variable name="role" select="*:creator/@role"/>
-		<xsl:if test="exists(*:creator[@role='author' or @role='editor'])">
+		<xsl:variable name="role" select="pub:creator/@role"/>
+		<xsl:if test="exists(pub:creator[@role='author' or @role='editor'])">
 			<xsl:text disable-output-escaping="yes">note = "</xsl:text>	
-				<xsl:apply-templates select="*:creator/*:person[parent::*/parent::*:source]"/>
-				<xsl:apply-templates select="*:creator/*:organization[parent::*/parent::*:source]"/>
+				<xsl:apply-templates select="pub:creator/e:person[parent::*/parent::pub:source]"/>
+				<xsl:apply-templates select="pub:creator/e:organization[parent::*/parent::pub:source]"/>
 			<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>
 		</xsl:if>
 		
 		
 		<!-- SOURCE VOLUME -->
-		<xsl:if test="*:volume!=''">
+		<xsl:if test="e:volume!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'volume'"/>
-			<xsl:with-param name="xpath" select="*:volume"/>
+			<xsl:with-param name="xpath" select="e:volume"/>
 		</xsl:call-template>
 		</xsl:if>
 		
 		<!-- SOURCE ISSUE -->
-		<xsl:if test="*:issue!=''">
+		<xsl:if test="e:issue!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'issue'"/>
-			<xsl:with-param name="xpath" select="*:issue"/>
+			<xsl:with-param name="xpath" select="e:issue"/>
 		</xsl:call-template>
 		</xsl:if>
 		
 		<!-- SOURCE PAGES -->
-		<xsl:if test="normalize-space(*:start-page)!=''">
-			<xsl:if test="*:sequence-number!=''">
+		<xsl:if test="normalize-space(e:start-page)!=''">
+			<xsl:if test="e:sequence-number!=''">
 				<xsl:call-template name="createField">
 					<xsl:with-param name="name" select="'pages'"/>
-					<xsl:with-param name="xpath" select="concat(*:start-page, ' - ', *:end-page)"/>
+					<xsl:with-param name="xpath" select="concat(e:start-page, ' - ', e:end-page)"/>
 				</xsl:call-template>				
 			</xsl:if>
 		</xsl:if>		
@@ -347,7 +357,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	</xsl:template>
 	
 	
-	<xsl:template match="*:publishing-info/*:edition">
+	<xsl:template match="pub:publishing-info/e:edition">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'edition'"/>
@@ -356,7 +366,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="*:issued">
+	<xsl:template match="dcterms:issued">
 		<xsl:if test=".!=''">
 		<xsl:call-template name="createField">
 			<xsl:with-param name="name" select="'date'"/>
@@ -366,9 +376,9 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	</xsl:template>
 	
 	<!-- AUTHOR, EDITOR TEMPLATE -->
-	<xsl:template match="*:creator">					
-		<xsl:apply-templates select="*:person"/>			
-		<xsl:apply-templates select="*:organization"/>		
+	<xsl:template match="pub:creator">					
+		<xsl:apply-templates select="e:person"/>			
+		<xsl:apply-templates select="e:organization"/>		
 	</xsl:template>
 	
 	<xsl:template name="roleLabel">
@@ -377,21 +387,21 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		<xsl:text disable-output-escaping="yes"> = "</xsl:text>
 	</xsl:template>
 	
-	<xsl:template match="*:person">			
+	<xsl:template match="e:person">			
 		<xsl:variable name="role" select="../@role"/>	
 		<xsl:choose>		
-		<xsl:when test="count(../preceding-sibling::*:creator[@role=$role])=0">	
+		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0">	
 			<xsl:call-template name="roleLabel"/>					
 		</xsl:when>
-		<xsl:when test="count(../preceding-sibling::*:creator[@role=$role])=0 and count(../parent::*:source)=1">	
+		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0 and count(../parent::pub:source)=1">	
 			<xsl:value-of select="concat($role, ' : ')"/>				
 		</xsl:when>
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="concat(*:family-name, ', ', *:given-name, '')"/>		
+		<xsl:value-of select="concat(e:family-name, ', ', e:given-name, '')"/>		
 		<!-- AND-connection of persons -->		
 		<xsl:choose>		
-			<xsl:when test="exists(../following-sibling::*:creator[@role=$role])">
+			<xsl:when test="exists(../following-sibling::pub:creator[@role=$role])">
 				<xsl:value-of select="' and '"/>
 			</xsl:when>
 			<xsl:otherwise>				
@@ -400,18 +410,18 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		</xsl:choose>		
 	</xsl:template>
 	
-	<xsl:template match="*:organization">		
+	<xsl:template match="e:organization">		
 		<xsl:variable name="role" select="../@role"/>		
 		<xsl:choose>	
-		<xsl:when test="count(../preceding-sibling::*:creator[@role=$role])=0 and count(../parent::*:source)=1">	
+		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0 and count(../parent::pub:source)=1">	
 			<xsl:value-of select="concat($role, ' : ')"/>				
 		</xsl:when>	
-		<xsl:when test="count(../preceding-sibling::*:creator[@role=$role])=0">	
+		<xsl:when test="count(../preceding-sibling::pub:creator[@role=$role])=0">	
 			<xsl:call-template name="roleLabel"/>					
 		</xsl:when>		
 		<xsl:otherwise></xsl:otherwise>
 		</xsl:choose>
-		<xsl:value-of select="*:organization-name"/>
+		<xsl:value-of select="e:organization-name"/>
 		<!-- AND-connection of orgas -->		
 		<xsl:variable name="role" select="../@role"/>
 		<xsl:choose>		
@@ -420,7 +430,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			</xsl:when>
 			<xsl:otherwise>		
 				<xsl:choose>
-					<xsl:when test="count(../parent::*:source)=0">
+					<xsl:when test="count(../parent::pub:source)=0">
 						<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
@@ -432,7 +442,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	</xsl:template>
 	<!-- IDENTIFIER TEMPLATE -->
 	<!-- TODO id.type= uri -->
-	<xsl:template match="*:identifier">
+	<xsl:template match="dc:identifier">
 		<xsl:if test=".!=''">
 		<xsl:value-of select="func:texString(normalize-space(.),1)"/>
 		</xsl:if>
