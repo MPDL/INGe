@@ -37,7 +37,7 @@
 	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
 	
 	<!-- concrete mapping for MdsFaceVO -->
-	<mapping name="facesAlbum"
+	<mapping name="FacesAlbum"
 		class="de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO"
 		extends="de.mpg.escidoc.services.common.valueobjects.MetadataSetVO"
 		ordered="false"

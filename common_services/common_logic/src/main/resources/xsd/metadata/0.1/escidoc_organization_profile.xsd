@@ -7,11 +7,11 @@
 
 		</xs:documentation>
 	</xs:annotation>
-	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
-	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dc.xsd"/>
-	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/2003/04/02/dcterms.xsd"/>
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="../../metadata/0.1/xml.xsd"/>
+	<xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="../../metadata/0.1/dc.xsd"/>
+	<xs:import namespace="http://purl.org/dc/terms/" schemaLocation="../../metadata/0.1/dcterms.xsd"/>
 	<xs:import namespace="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" schemaLocation="escidocidtypes.xsd"/>
-	<xs:import namespace="http://www.opengis.net/kml/2.2" schemaLocation="http://schemas.opengis.net/kml/2.2.0/ogckml22.xsd"/>
+	<xs:import namespace="http://www.opengis.net/kml/2.2" schemaLocation="../../metadata/0.1/kml22.xsd"/>
 	<xs:element name="organization-details" type="OrganizationDetailsType"/>
 	<!--*******************************
     Organization Unit
