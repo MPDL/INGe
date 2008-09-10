@@ -81,7 +81,7 @@
 					<%-- Genre of Source --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" onchange="$(this).siblings('.genreButton').click();">
+					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}" onchange="$(this).siblings('.genreButton').click();">
 						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
 					</h:selectOneMenu>
 					<tr:commandButton styleClass="genreButton" action="#{EasySubmission.chooseSourceGenre}" text="choose genre" id="btn_chooseGenre" inlineStyle="visibility:hidden"/>
@@ -94,6 +94,7 @@
 					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{!EasySubmission.autosuggestJournals}"/>
 					<h:inputTextarea styleClass="journalSuggest" rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{EasySubmission.autosuggestJournals}"/>
 					</div>
+					
 					<script type="text/javascript">$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query");
 					</script>
 				</div>

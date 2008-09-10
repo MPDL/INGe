@@ -173,6 +173,7 @@ public class EasySubmission extends FacesBean
 
 
 	private HtmlMessages valMessage = new HtmlMessages();
+    private boolean autosuggestJournals = false;
 
     /**
      * Public constructor.
@@ -264,6 +265,11 @@ public class EasySubmission extends FacesBean
     		}
     	}
     	else {this.getEasySubmissionSessionBean().setImportSourceRefresh(false);}
+    	
+    	if(getItem() != null && getItem().getMetadata()!=null && getSource()!=null && getSource().getGenre() != null && getSource().getGenre().equals(SourceVO.Genre.JOURNAL))
+        {
+            this.autosuggestJournals = true;
+        }
     }
 
     public String selectSubmissionMethod()
@@ -1140,6 +1146,9 @@ public class EasySubmission extends FacesBean
         {
             logger.error("Validation error", e);
         }
+        
+        
+        
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
         return "loadNewEasySubmission";
     }
@@ -1916,4 +1925,40 @@ public class EasySubmission extends FacesBean
 	public void setRadioSelectFulltext(HtmlSelectOneRadio radioSelectFulltext) {
 		this.radioSelectFulltext = radioSelectFulltext;
 	}
+	
+	/*
+	public void chooseSourceGenre(ValueChangeEvent event)
+    {
+        String sourceGenre = event.getNewValue().toString();
+        //System.out.println(sourceGenre);
+        if(sourceGenre.equals(SourceVO.Genre.JOURNAL.toString()))
+        {
+            this.setAutosuggestJournals(true);
+        }
+        
+        
+    }
+	*/
+	public String chooseSourceGenre()
+    {
+        if(this.getSource().getGenre() != null && this.getSource().getGenre().equals(SourceVO.Genre.JOURNAL))
+        {
+            this.autosuggestJournals = true;
+        }
+        else 
+        {
+            this.autosuggestJournals = false;
+           }
+        return "";
+    }
+
+    public void setAutosuggestJournals(boolean autosuggestJournals)
+    {
+        this.autosuggestJournals = autosuggestJournals;
+    }
+
+    public boolean isAutosuggestJournals()
+    {
+        return autosuggestJournals;
+    }
 }
