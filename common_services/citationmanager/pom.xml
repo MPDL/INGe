@@ -70,17 +70,18 @@
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>
-				<filtering>false</filtering>
 			</resource>
 			<resource>
 				<directory>src/main/resources/Fonts</directory>
 				<filtering>false</filtering>
+				<excludes>
+				</excludes>
 			</resource>
 		</resources>
 		<testResources>
 			<testResource>
 				<directory>src/test/resources</directory>
-				<filtering>false</filtering>
+				<filtering>true</filtering>
 			</testResource>
 			<testResource>
 				<directory>src/main/resources/Fonts</directory>
@@ -90,12 +91,18 @@
 	</build>
 
 	<dependencies>
+<!--		<dependency>-->
+<!--			<groupId>de.mpg.escidoc.services</groupId>-->
+<!--			<artifactId>framework_access</artifactId>-->
+<!--			<version>1.0.6-SNAPSHOT</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency> -->
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
 			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
-		</dependency>
+		</dependency> 
 		<dependency>
 			<groupId>commons-digester</groupId>
 			<artifactId>commons-digester</artifactId>
