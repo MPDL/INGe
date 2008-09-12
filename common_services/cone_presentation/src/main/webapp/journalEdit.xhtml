@@ -1,0 +1,66 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	template="layout/template.xhtml">
+
+	<ui:define name="body">
+
+		<h:form id="editJournalDetails">
+			<r:panel id="journalEdit">
+				<f:facet name="header">Edit Journal Name</f:facet>
+				<h:panelGrid columns="2" id="details2edit">
+					<h:outputLabel for="issn2edit" styleClass="outLabel" value="ISSN" />
+					<h:inputText id="issn2edit" label="ISSN"
+						value="#{journalEdit.issn2edit}" style="width: 300px;"
+						required="true" />
+					<h:outputLabel for="title2edit" styleClass="outLabel" value="Title" />
+					<h:inputText id="title2edit" label="Title"
+						value="#{journalEdit.title2edit}" style="width: 300px;"
+						required="true" />
+					<h:outputLabel for="altTitleTable" styleClass="outLabel" value="Alternative Title(s)" />
+					<h:dataTable id="altTitleTable" value="#{journalEdit.altTitles2edit}" var="altTitle">
+						<h:column>
+							<h:inputText id="altTitle" value="#{altTitle}" style="width: 300px;" valueChangeListener="#{journalEdit.inputChanged}"/>
+						</h:column>
+					</h:dataTable>
+					<h:outputLabel for="addAltTitle" styleClass="outLabel"
+						value="" />
+					<a:commandLink id="addAltTitle" value="add alternative title" 
+					action="#{journalEdit.addAltTitle}" reRender="altTitleTable"/>
+					<h:outputLabel for="subject2edit" styleClass="outLabel"
+						value="Subject" />
+					<h:inputText id="subject2edit" label="Subject"
+						value="#{journalEdit.subject2edit}" style="width: 300px;"
+						required="true" />
+					<h:outputLabel for="publisher2edit" styleClass="outLabel"
+						value="Publisher" />
+					<h:inputText id="publisher2edit" label="Publisher"
+						value="#{journalEdit.publisher2edit}" style="width: 300px;"
+						required="true" />
+					<h:outputLabel for="rights2edit" styleClass="outLabel"
+						value="Rights" />
+					<h:inputText id="rights2edit" label="Rights"
+						value="#{journalEdit.rights2edit}" style="width: 300px;"
+						required="true" />
+					<r:spacer height="15" />
+					<a:commandButton id="saveChanges" value="Save Changes"
+						action="#{journalEdit.update}" rendered="#{identity.loggedIn}" reRender="altTitleTable"/>
+				</h:panelGrid>
+			</r:panel>
+				<r:toolBar>
+					<r:toolBarGroup>
+						<h:outputText value="GO" />
+						<h:commandLink id="footHome" immediate="true" value="HOME"
+							action="#{navigation.loadJournalNames}" styleClass="" />
+						<h:commandLink id="footBack" immediate="true" value="BACK"
+							action="#{navigation.loadJournalSearch}" styleClass="" />
+					</r:toolBarGroup>
+				</r:toolBar>
+			<r:messages id="cone_messages" layout="list" showSummary="true" showDetail="true"/>
+		</h:form>
+	</ui:define>
+</ui:composition>

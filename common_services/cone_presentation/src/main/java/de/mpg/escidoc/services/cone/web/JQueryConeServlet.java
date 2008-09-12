@@ -8,6 +8,7 @@ import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,7 +23,9 @@ import javax.xml.transform.stream.StreamSource;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.cone.ServiceList.Service;
+import de.mpg.escidoc.services.cone.util.Pair;
 import de.mpg.escidoc.services.cone.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.util.Triple;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ServiceList;
@@ -35,7 +38,8 @@ public class JQueryConeServlet extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-
+        request.setCharacterEncoding("UTF-8");
+        
         PrintWriter out = response.getWriter();
         
         // Read the service name and action from the URL
@@ -114,7 +118,7 @@ public class JQueryConeServlet extends HttpServlet
                 }
                 else
                 {
-                    Map<String, String> result = null;
+                    Set<Triple> result = null;
                     
                     try
                     {
@@ -150,6 +154,7 @@ public class JQueryConeServlet extends HttpServlet
         {
             response.setContentType("text/plain");
             String query = request.getParameter("q");
+            String lang = request.getParameter("lang");
             
             if (query == null)
             {
@@ -172,11 +177,11 @@ public class JQueryConeServlet extends HttpServlet
                 }
                 else
                 {
-                    Map<String, String> result = null;
+                    Set<Pair> result = null;
                     
                     try
                     {
-                        result = querier.query(model, query);
+                        result = querier.query(model, query, lang);
                     }
                     catch (Exception e) {
                         logger.error("Error querying database.", e);
@@ -248,19 +253,20 @@ public class JQueryConeServlet extends HttpServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    private String formatQuery(Map<String, String> map) throws IOException
+    private String formatQuery(Set<Pair> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
         
-        if (map != null)
+        if (pairs != null)
         {
-            for (String id : map.keySet())
+            for (Pair pair : pairs)
             {
-                String value = map.get(id);
+                String key = pair.getKey();
+                String value = pair.getValue();
                 result.append(value);
                 result.append("|");
-                result.append(id);
+                result.append(key);
                 result.append("\n");
             }
         }
@@ -274,21 +280,23 @@ public class JQueryConeServlet extends HttpServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    private String formatDetails(Map<String, String> map) throws IOException
+    private String formatDetails(Set<Triple> triples) throws IOException
     {
         
         StringWriter result = new StringWriter();
         
         result.append("{\n");
         
-        for (String id : map.keySet())
+        for (Triple triple : triples)
         {
-            String value = map.get(id);
+            String object = triple.getObject();
+            String subject = triple.getSubject();
+            String predicate = triple.getPredicate();
             
-            result.append(id.substring(id.lastIndexOf("/") + 1).replace("'", "\\'"));
-            result.append(" : '");
-            result.append(value.replace("'", "\\'"));
-            result.append("'\n");
+            result.append(predicate.substring(predicate.lastIndexOf("/") + 1).replace("'", "\\'"));
+            result.append(" : \"");
+            result.append(object.replace("'", "\\'"));
+            result.append("\"\n");
         }
         result.append("}");
         return result.toString();

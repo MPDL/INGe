@@ -3,9 +3,17 @@
 	<service>
 		<name>jnar</name>
 		<description>Journal Names</description>
+		<sample>
+			<parameter name="q">bio</parameter>
+		</sample>
+		<example_page>../jquery_journals.jsp</example_page>
 	</service>
 	<service>
 		<name>lang</name>
 		<description>Languages</description>
+		<sample>
+			<parameter name="q">mal</parameter>
+		</sample>
+		<example_page>../jquery_languages.jsp</example_page>
 	</service>
 </services>

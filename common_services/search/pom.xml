@@ -36,6 +36,7 @@
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>search</artifactId>
 	<name>search</name>
+	<packaging>ejb</packaging>
 	<version>1.0.2-SNAPSHOT</version>
 
 	<scm>
@@ -46,6 +47,13 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ejb-plugin</artifactId>
+				<configuration>
+					<ejbVersion>3.0</ejbVersion>
+				</configuration>
+			</plugin>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>

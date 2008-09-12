@@ -633,7 +633,7 @@ public class XmlTransformingBean implements XmlTransforming
         catch (JiBXException e)
         {
             // throw a new UnmarshallingException, log the root cause of the JiBXException first
-            logger.error(e.getRootCause());
+            logger.error("Error transforming item", e);
             throw new UnmarshallingException(item, e);
         }
         catch (ClassCastException e)

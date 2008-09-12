@@ -46,6 +46,10 @@
 				{
 					alert('Sorry, this only works with mozilla based browsers.');
 				}
+				else if (navigator.appName.indexOf('Firefox/3') >= 0) >= 0)
+				{
+					alert('Sorry, this does not work with Firefox 3. The native SOAP support has been removed.');
+				}
 				else
 				{
 					var paramArray = new Array();

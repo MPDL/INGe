@@ -1,0 +1,34 @@
+# Show a list of all existing models
+select $model from <rmi://localhost:9099/cone#> where $model <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://mulgara.org/mulgara#Model>;
+
+# Drop a model
+#drop <rmi://localhost:9099/cone#lang>;
+
+# Drop the according fulltext index
+#drop <rmi://localhost:9099/cone#lang_title>;
+
+# (Re-)create a model
+create <rmi://localhost:9099/cone#lang>;
+
+# Insert RDF data from a file
+load local <file:/c:/temp/projects/common_services/cone_presentation/src/main/resources/languages.rdf> into <rmi://localhost:9099/cone#lang> ;
+
+# Retrieve all contents of a model
+# Should look something like this:
+# [ urn:iso639:aa, http://purl.org/dc/elements/1.1/identifier, "aa" ]
+# [ urn:iso639:aa, http://purl.org/dc/elements/1.1/title, "Afar"@en ]
+# [ urn:iso639:aa, http://purl.org/dc/elements/1.1/title, "afar"@fr ]
+# [ urn:iso639:ab, http://purl.org/dc/elements/1.1/identifier, "ab" ]
+# [ urn:iso639:ab, http://purl.org/dc/elements/1.1/title, "Abkhazian"@en ]
+# [ urn:iso639:ab, http://purl.org/dc/elements/1.1/title, "abkhaze"@fr ]
+select $subj $pre $obj from <rmi://localhost:9099/cone#lang> where $subj $pre $obj ;
+
+# Create a lucene index model
+create <rmi://localhost:9099/cone#lang_title> <http://mulgara.org/mulgara#LuceneModel>;
+
+# Fill the lucene index with dc:title data from the original model
+insert select $s <http://purl.org/dc/elements/1.1/title> $o from <rmi://localhost:9099/cone#lang> where $s <http://purl.org/dc/elements/1.1/title> $o into <rmi://localhost:9099/cone#lang_title>;
+
+# Fill the lucene index with dc:identifier data from the original model
+insert select $s <http://purl.org/dc/elements/1.1/identifier> $o from <rmi://localhost:9099/cone#lang> where $s <http://purl.org/dc/elements/1.1/identifier> $o into <rmi://localhost:9099/cone#lang_title>;
+

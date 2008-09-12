@@ -1,12 +1,21 @@
 package de.mpg.escidoc.services.cone;
 
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
+import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.Triple;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class MulgaraQuerier implements Querier
@@ -14,39 +23,67 @@ public class MulgaraQuerier implements Querier
 
     private static final Logger logger = Logger.getLogger(MulgaraQuerier.class);
     
-    public Map<String, String> query(String model, String searchString) throws Exception
+    
+    
+    public Set<Pair> query(String model, String query) throws Exception
+    {
+        return query(model, query, null);
+    }
+
+    public Set<Pair> query(String model, String searchString, String language) throws Exception
     {
         
-        searchString = formatSearchString(searchString);
+        if (language == null)
+        {
+            language = PropertyReader.getProperty("escidoc.cone.language.default");
+        }
+        
+        String searchStringWithWildcards = formatSearchString(searchString);
         
         String mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
         String mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
         
-        String query = "select $s $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "> where " +
-        		"$s <http://purl.org/dc/elements/1.1/title> $o and " +
-        		"$s <http://purl.org/dc/elements/1.1/title> '" + searchString + "' " +
-        		"in <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_title>;";
-        
+        String query = "select $s $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_result> where " +
+                "$s $p $o and (" +
+                "$s $p '" + searchStringWithWildcards + "' " +
+                "in <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_fulltext>);";
+
         logger.debug("query: " + query);
         
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         
+        long now = new Date().getTime();
         Answer answer = interpreter.executeQuery(query);
+        logger.debug("Took " + (new Date().getTime() - now) + " ms.");
+        
+        Set<Pair> resultSet = new LinkedHashSet<Pair>();
 
-        Map<String, String> resultMap = new LinkedHashMap<String, String>();
-
+        String query2 = "";
+        boolean found = false;
+        
         while (answer.next())
         {
             String subject = answer.getObject(0).toString();
-            //subject = subject.substring(1, subject.length() - 1);
-            String object = answer.getObject(1).toString();
-            object = object.substring(1, object.length() - 1);
-            resultMap.put(subject, object);
+            String objectString = answer.getObject(1).toString();
+            
+            Pattern pattern = Pattern.compile("^\"(.*)\"(@([a-z]+))?$");
+            Matcher matcher = pattern.matcher(objectString);
+            String object = null;
+            String lang = null;
+            if (matcher.find())
+            {
+                object = matcher.group(1);
+                lang = matcher.group(3);
+            }
+            if (lang == null || language == null || lang.equals(language))
+            {
+                resultSet.add(new Pair(subject, object));
+            }
         }
-        
-        logger.info("Result: " + resultMap);
 
-        return resultMap;
+        logger.debug("Result: " + resultSet);
+
+        return resultSet;
     }
 
     private String formatSearchString(String searchString)
@@ -56,7 +93,7 @@ public class MulgaraQuerier implements Querier
         return searchString;
     }
 
-    public Map<String, String> details(String model, String id) throws Exception
+    public Set<Triple> details(String model, String id) throws Exception
     {
         id = formatIdString(id);
         
@@ -72,14 +109,25 @@ public class MulgaraQuerier implements Querier
         
         Answer answer = interpreter.executeQuery(query);
 
-        Map<String, String> resultMap = new LinkedHashMap<String, String>();
+        Set<Triple> resultMap = new HashSet<Triple>();
 
         while (answer.next())
         {
             String predicate = answer.getObject(0).toString();
             //subject = subject.substring(1, subject.length() - 1);
-            String object = answer.getObject(1).toString();
-            resultMap.put(predicate, object);
+            String objectString = answer.getObject(2).toString();
+            
+            Pattern pattern = Pattern.compile("^\"(.*)\"(@([a-z]+))?$");
+            Matcher matcher = pattern.matcher(objectString);
+            String object = null;
+            String lang = null;
+            if (matcher.find())
+            {
+                object = matcher.group(1);
+                lang = matcher.group(3);
+            }
+            Triple triple = new Triple(id, predicate, object);
+            resultMap.add(triple);
         }
         
         logger.info("Result: " + resultMap);
@@ -92,5 +140,5 @@ public class MulgaraQuerier implements Querier
     {
         return id;
     }
-    
+
 }

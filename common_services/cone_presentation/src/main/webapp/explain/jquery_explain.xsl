@@ -52,17 +52,23 @@
 						<name><xsl:value-of select="description"/></name>
 						<link><xsl:value-of select="name"/></link>
 						<parameters>
-							<parameter>
+							<parameter required="true">
 								<name>q</name>
 								<value>A string holding the search query.</value>
+							</parameter>
+							<parameter required="false">
+								<name>lang</name>
+								<value>A string holding language a) in which should be searched and b) in which the results should be given back.</value>
 							</parameter>
 						</parameters>
 						<samples>
 							<sample>
-								<xsl:value-of select="name"/>/query?q=bio
+								<xsl:value-of select="name"/>/query?<xsl:for-each select="sample/parameter">
+									<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
+								</xsl:for-each>
 							</sample>
 							<sample>
-								../jquery_sample.jsp
+									<xsl:value-of select="example_page"/>
 							</sample>
 						</samples>
 					</service>

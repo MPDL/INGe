@@ -44,13 +44,14 @@
    xmlns:mdr="http://www.escidoc.de/schemas/metadatarecords/0.4"
    xmlns:mdp="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
    xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
-   xmlns:ei="http://www.escidoc.de/schemas/item/0.3"
+   xmlns:ei="http://www.escidoc.de/schemas/item/0.7"
    xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
    xmlns:srel="http://escidoc.de/core/01/structural-relations/"
    xmlns:prop="http://escidoc.de/core/01/properties/"
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
    xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
-   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file">
+   xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
+   xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
  <!--  xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
@@ -61,6 +62,8 @@
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
+	<xsl:variable name="user" select="'dummy-user'"/>
+	<xsl:variable name="context" select="'escidoc:36441'"/>
 	
 	<!--
   DC XML  Header
@@ -82,26 +85,20 @@
 		</xsl:element>
 	</xsl:result-document>
 	</xsl:template>
-	
-		<xsl:variable name="user" select="'dummy-user'"/>
-		<xsl:variable name="context" select="'context-id'"/>
-	
+
 	<xsl:template match="record/metadata">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<xsl:element name="srel:created-by">
-					<xsl:attribute name="objid" select="$user"/>
-				</xsl:element>
 				<xsl:element name="srel:context">
-					<xsl:attribute name="objid" select="$context"/>
+					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
 				</xsl:element>
-				<xsl:element name="srel:content-model">escidoc:persistent4</xsl:element>
+				<srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
-				<xsl:element name="mdr:md-record">
+				<mdr:md-record name="escidoc">
 					<xsl:apply-templates select="basic"/>	
-				</xsl:element>
+				</mdr:md-record>
 			</xsl:element>	
 			<xsl:element name="ec:components">
 				<xsl:for-each select="basic/fturl">
@@ -113,12 +110,18 @@
 	
 	<xsl:template name="createComponent">		
 		<xsl:element name="ec:component">
+			<ec:properties>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>private</prop:visibility>
+				<prop:content-category>any-fulltext</prop:content-category>
+				<prop:mime-type>application/pdf</prop:mime-type>
+			</ec:properties>
 			<xsl:element name="ec:content">					
 				<xsl:attribute name="xlink:href" select="."/>
 				<xsl:attribute name="storage" select="'internal-managed'"/>
 			</xsl:element>				
 			<xsl:element name="mdr:md-records">
-				<xsl:element name="mdr:md-record">
+				<mdr:md-record name="escidoc">
 					<xsl:element name="file:file">
 						<xsl:element name="dc:title">
 							<xsl:value-of select="@filename"/>
@@ -128,20 +131,27 @@
 							<xsl:value-of select="."/>
 						</xsl:element>
 						<xsl:element name="file:content-category">any-fulltext</xsl:element>
+						<dc:format xsi:type="dcterms:IMT">application/pdf</dc:format>
+						<dcterms:extent><xsl:value-of select="@size"/></dcterms:extent>
 						<xsl:element name="dc:format">
 							<xsl:value-of select="concat('eDoc_access: ', @viewftext)"/>
 						</xsl:element>
 					</xsl:element>
-				</xsl:element>
+				</mdr:md-record>
 			</xsl:element>
 		</xsl:element>	
 		<xsl:element name="ec:component">
+			<ec:properties>
+				<prop:valid-status>valid</prop:valid-status>
+				<prop:visibility>private</prop:visibility>
+				<prop:content-category>any-fulltext</prop:content-category>
+			</ec:properties>
 			<xsl:element name="ec:content">		
 				<xsl:attribute name="xlink:href" select="."/>
 				<xsl:attribute name="storage" select="'external-url'"/>
 			</xsl:element>	
 			<xsl:element name="mdr:md-records">
-				<xsl:element name="mdr:md-record">
+				<mdr:md-record name="escidoc">
 					<xsl:element name="file:file">
 						<xsl:element name="dc:title">
 							<xsl:value-of select="@filename"/>
@@ -154,7 +164,7 @@
 							<xsl:value-of select="concat('eDoc_access: ', @viewftext)"/>
 						</xsl:element>
 					</xsl:element>
-				</xsl:element>
+				</mdr:md-record>
 			</xsl:element>
 		</xsl:element>	
 	</xsl:template>
@@ -241,7 +251,7 @@
 						<xsl:with-param name="gen" select="'paper'"/>
 					</xsl:call-template>
 				</xsl:when>
-				<xsl:when test="genre='PHD-Thesis'">
+				<xsl:when test="genre='PhD-Thesis'">
 					<xsl:variable name="genre" select="'thesis'"/>					
 					<xsl:call-template name="createEntry">
 						<xsl:with-param name="gen" select="'thesis'"/>
@@ -300,7 +310,7 @@
 			<xsl:attribute name="type" select="$gen"/>	
 			<!-- creator -->
 			<xsl:for-each select="../creators/creator">				
-				<xsl:element name="mdp:creator">
+				<xsl:element name="publ:creator">
 					<xsl:call-template name="createCreator"/>					
 				</xsl:element>
 			</xsl:for-each>
@@ -319,7 +329,7 @@
 			<xsl:choose>
 				<xsl:when test="$gen='book-item'">
 					<xsl:if test="not(exists(booktitle))">
-						<xsl:element name="mdp:publishing-info">
+						<xsl:element name="publ:publishing-info">
 							<xsl:apply-templates select="publisher"/>
 							<xsl:apply-templates select="editiondescription"/>
 						</xsl:element>
@@ -333,8 +343,8 @@
 			<xsl:apply-templates select="dateaccepted"/>			
 			<xsl:apply-templates select="datepublished"/>		
 			<!-- DEGREE -->	
-			<xsl:if test="genre='PHD-Thesis'">
-				<xsl:element name="mdp:degree">	
+			<xsl:if test="genre='PhD-Thesis'">
+				<xsl:element name="publ:degree">	
 					<xsl:value-of select="'phd'"/>
 				</xsl:element>
 			</xsl:if>
@@ -346,10 +356,10 @@
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:choose>
 				<xsl:when test="$gen='book-item' and not(exists(booktitle))">
-					<xsl:apply-templates select="phydesc"/>
+					<xsl:apply-templates select="phydescPubl"/>
 				</xsl:when>
 				<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings))">
-					<xsl:apply-templates select="phydesc"/>
+					<xsl:apply-templates select="phydescPubl"/>
 				</xsl:when>				
 			</xsl:choose>			
 			<!-- ABSTRACT -->
@@ -364,38 +374,38 @@
 			<!-- SOURCE -->			
 			<xsl:choose>
 				<xsl:when test="journaltitle">
-					<xsl:element name="mdp:source">
+					<xsl:element name="publ:source">
 						<xsl:call-template name="createJournal"/>
 					</xsl:element>
 					<xsl:if test="issuetitle">
-						<xsl:element name="mdp:source">
+						<xsl:element name="publ:source">
 							<xsl:call-template name="createIssue"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
 				<xsl:when test="issuetitle">
-					<xsl:element name="mdp:source">
+					<xsl:element name="publ:source">
 						<xsl:call-template name="createIssue"/>
 					</xsl:element>
 				</xsl:when>
 				<xsl:when test="booktitle">
-					<xsl:element name="mdp:source">
+					<xsl:element name="publ:source">
 						<xsl:call-template name="createBook"/>
 					</xsl:element>
 					<xsl:if test="titleofseries">
-						<xsl:element name="mdp:source">
+						<xsl:element name="publ:source">
 							<xsl:call-template name="createSeries"/>
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
 				
 				<xsl:when test="titleofproceedings">
-					<xsl:element name="mdp:source">
+					<xsl:element name="publ:source">
 						<xsl:call-template name="createProceedings"/>
 					</xsl:element>
 				</xsl:when>
 				<xsl:when test="titleofseries">
-					<xsl:element name="mdp:source">
+					<xsl:element name="publ:source">
 						<xsl:call-template name="createSeries"/>
 					</xsl:element>
 				</xsl:when>
@@ -404,21 +414,31 @@
 	</xsl:template>
 	
 	<xsl:template match="corporatebody">
-		<xsl:call-template name="createCreatorOrga"/>
+		<xsl:call-template name="createPublCreatorOrga"/>
 	</xsl:template>
 	<xsl:template match="issuecorporatebody">
-		<xsl:call-template name="createCreatorOrga"/>
+		<xsl:call-template name="createSourceCreatorOrga"/>
 	</xsl:template>
 	<xsl:template match="seriescorporatebody">
-		<xsl:call-template name="createCreatorOrga"/>
+		<xsl:call-template name="createSourceCreatorOrga"/>
 	</xsl:template>
 	<xsl:template match="bookcorporatebody">
-		<xsl:call-template name="createCreatorOrga"/>
+		<xsl:call-template name="createSourceCreatorOrga"/>
 	</xsl:template>
 	
+	<xsl:template name="createPublCreatorOrga">
+		<xsl:element name="publ:creator">
+			<xsl:attribute name="role" select="'editor'"/>
+			<xsl:element name="e:organization">
+				<xsl:element name="e:organization-name">
+					<xsl:value-of select="."/>
+				</xsl:element>
+			</xsl:element>
+		</xsl:element>
+	</xsl:template>
 	
-	<xsl:template name="createCreatorOrga">
-		<xsl:element name="mdp:creator">
+	<xsl:template name="createSourceCreatorOrga">
+		<xsl:element name="e:creator">
 			<xsl:attribute name="role" select="'editor'"/>
 			<xsl:element name="e:organization">
 				<xsl:element name="e:organization-name">
@@ -500,7 +520,7 @@
 			<xsl:element name="dc:title">
 				<xsl:value-of select="issuetitle"/>						
 			</xsl:element>			
-		</xsl:if>		
+		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:apply-templates select="issuecontributorfn"/>			
 		<xsl:apply-templates select="issuecorporatebody"/>
@@ -534,7 +554,7 @@
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
 		<!--NUMBER OF PAGES -->
-		<xsl:apply-templates select="phydesc"/>
+		<xsl:apply-templates select="phydescSource"/>
 		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="e:publishing-info">
@@ -545,8 +565,14 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="phydesc">
-		<xsl:element name="mdp:total-number-of-pages">
+	<xsl:template match="phydescPubl">
+		<xsl:element name="publ:total-number-of-pages">
+			<xsl:value-of select="."/>
+		</xsl:element>
+	</xsl:template>	
+	
+	<xsl:template match="phydescSource">
+		<xsl:element name="e:total-number-of-pages">
 			<xsl:value-of select="."/>
 		</xsl:element>
 	</xsl:template>	
@@ -578,20 +604,20 @@
 		<xsl:apply-templates select="volume"/>
 	</xsl:template>
 	
-	<!-- PROCEEDINGS TEMPLATE -->	
+	<!-- PROCEEDINGS TEMPLATE -->
 	<xsl:template name="createProceedings">
 		<!-- TITLE -->				
-		<xsl:if test="titleofproceedings">					
+		<xsl:if test="titleofproceedings">
 			<xsl:attribute name="type" select="'proceedings'"/>
 			<xsl:element name="dc:title">
 				<xsl:value-of select="titleofproceedings"/>						
 			</xsl:element>
 			<xsl:if test="editiondescrition">
-				<xsl:element name="mdp:volume">
+				<xsl:element name="e:volume">
 					<xsl:value-of select="editiondescription"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:apply-templates select="phydesc"/>
+			<xsl:apply-templates select="phydescSource"/>
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:apply-templates select="proceedingscontributorfn"/>
@@ -604,9 +630,9 @@
 	
 	
 	<xsl:template match="volume">
-		<mdp:volume>
+		<e:volume>
 			<xsl:value-of select="."/>
-		</mdp:volume>
+		</e:volume>
 	</xsl:template>
 	
 	
@@ -676,8 +702,20 @@
 								</xsl:element>
 							</xsl:for-each>						
 						</xsl:when>
+						<xsl:when test="@internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">						
+							<xsl:for-each select="../../../docaff/affiliation">
+								<xsl:element name="e:organization">						
+									<xsl:element name="e:organization-name">
+										<xsl:value-of select="mpgunit"/>		
+										<xsl:if test="mpgsunit">
+											<xsl:value-of select="concat(', ', mpgsunit)"/>
+										</xsl:if>							
+									</xsl:element>
+								</xsl:element>
+							</xsl:for-each>						
+						</xsl:when>
 						<xsl:otherwise>
-							<xsl:if test="doc_aff_external">
+							<xsl:if test="docaff_external">
 								<xsl:element name="e:organization">
 									<xsl:element name="e:organization-name">
 										<xsl:value-of select="."/>
@@ -721,7 +759,7 @@
 	</xsl:template>
 	
 	<xsl:template match="nameofevent">
-		<xsl:element name="mdp:event">
+		<xsl:element name="publ:event">
 			<xsl:call-template name="createEvent"/>
 		</xsl:element>
 	</xsl:template>
@@ -811,24 +849,24 @@
 		</xsl:element>
 	</xsl:template>
 	<xsl:template match="artnum">
-		<mdp:sequence-number>
+		<e:sequence-number>
 			<xsl:value-of select="."/>
-		</mdp:sequence-number>
+		</e:sequence-number>
 	</xsl:template>
 	<xsl:template match="spage">
-		<mdp:start-page>
+		<e:start-page>
 			<xsl:value-of select="."/>
-		</mdp:start-page>
+		</e:start-page>
 	</xsl:template>
 	<xsl:template match="epage">
-		<mdp:end-page>
+		<e:end-page>
 			<xsl:value-of select="."/>
-		</mdp:end-page>
+		</e:end-page>
 	</xsl:template>
 	<xsl:template match="issuenr">
-		<mdp:issue>
+		<e:issue>
 			<xsl:value-of select="."/>
-		</mdp:issue>
+		</e:issue>
 	</xsl:template>
 	<xsl:template match="toc">
 		<xsl:element name="dcterms:tableOfContents">

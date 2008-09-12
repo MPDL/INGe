@@ -5,10 +5,20 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
+import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.Triple;
+
 public class MockQuerier implements Querier
 {
 
-    public Map<String, String> query(String model, String query)
+    
+    
+    public Set<Pair> query(String model, String query, String lang) throws Exception
+    {
+        return query(model, query);
+    }
+
+    public Set<Pair> query(String model, String query)
     {
         
         Map<String, String> resultMap = new LinkedHashMap<String, String>();
@@ -163,14 +173,25 @@ public class MockQuerier implements Querier
             }
         }
         
-        return resultMap;
+        Set<Pair> resultSet = new HashSet<Pair>();
+        
+        for (String subject : resultMap.keySet())
+        {
+            Pair pair = new Pair(subject, resultMap.get(subject));
+            resultSet.add(pair);
+        }
+        
+        return resultSet;
     }
 
-    public Map<String, String> details(String model, String query) throws Exception
+    public Set<Triple> details(String model, String query) throws Exception
     {
-        Map<String, String> resultMap = new LinkedHashMap<String, String>();
-        resultMap.put("Details", "A lot of information");
-        return null;
+        Set<Triple> resultSet = new HashSet<Triple>();
+        Triple triple1 = new Triple("urn:id:001", "http://purl.org/dc/elements/1.1/title", "This is the title");
+        Triple triple2 = new Triple("urn:id:001", "http://purl.org/dc/elements/1.1/description", "This is the description. This is the description. This is the description. This is the description. ");
+        resultSet.add(triple1);
+        resultSet.add(triple2);
+        return resultSet;
     }
     
 }

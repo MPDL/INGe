@@ -1,0 +1,5 @@
+<http://purl.org/dc/elements/1.1/title>
+OR{<http://purl.org/dc/elements/1.1/publisher>,<http://purl.org/dc/terms/publisher>}:; 
+<http://purl.org/dc/elements/1.1/publisher>
+AND{<http://purl.org/dc/elements/1.1/publisher>,<http://purl.org/dc/terms/publisher>}:, 
+<http://purl.org/dc/terms/publisher>

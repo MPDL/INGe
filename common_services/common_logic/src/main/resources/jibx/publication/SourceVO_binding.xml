@@ -71,6 +71,9 @@
 		<value style="element" name="sequence-number" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			field="sequenceNumber" usage="optional" />
 
+		<value style="element" name="total-number-of-pages" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+			field="totalNumberOfPages" usage="optional" />
+
 		<structure name="publishing-info" ns="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			field="publishingInfo" usage="optional" />
 

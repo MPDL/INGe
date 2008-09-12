@@ -1,0 +1,11 @@
+<div style="height: 30px; width: 860px" >
+    <f:subview id="Header" xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:rich="http://richfaces.org/rich">
+        <h:outputText id="hdrApplicationtitle"
+            style="background-image: url(./../img/Header_Back3.jpg); left: 140px; top: 0px; position: absolute; width: 860px" styleClass="header" value="Triple Store Explorer"/>
+            
+    </f:subview>
+</div>

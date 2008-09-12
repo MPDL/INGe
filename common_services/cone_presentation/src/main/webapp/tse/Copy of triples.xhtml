@@ -1,0 +1,65 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:s="http://jboss.com/products/seam/taglib"
+	xmlns:a="http://richfaces.org/a4j" xmlns:r="http://richfaces.org/rich"
+	template="layout/template.xhtml">
+	
+	<ui:define name="body">
+
+		<h:form id="tripleSearchForm">
+		<r:panel id="tripleSearchPanel">
+		<f:facet name="header">Query Mulgara Semantic Store</f:facet>
+			<h:panelGrid columns="2">
+				<h:outputLabel for="modelList" styleClass="outLabel"
+									value="Select Model" />
+				<h:selectOneListbox id="modelList" size="1" immediate="true" valueChangeListener="#{triples.changedModel}" onChange="this.form.submit()">
+				<f:selectItems id="modelItems" value="#{triples.modelItems}" />
+				</h:selectOneListbox>
+			</h:panelGrid>
+			<h:panelGrid columns="3">
+				<h:outputLabel for="subjectInput" styleClass="outLabel"
+									value="Subject" />
+				<h:outputLabel for="predicateList" styleClass="outLabel"
+									value="Predicate" />
+				<h:outputLabel for="objectInput" styleClass="outLabel"
+									value="Object" />
+				<h:inputText id="subjectInput" value="#{triples.subject}" />
+				<h:inputText id="predicateInput" value="#{triples.predicate}" />
+				<h:inputText id="objectInput" value="#{triples.object}" />
+			</h:panelGrid>
+			</r:panel>
+				<r:toolBar>
+					<r:toolBarGroup>
+						<h:outputText value="Action:" />
+						<a:commandButton id="queryTriples" immediate="true" value="Query"
+							action="#{triples.queryTriples}" styleClass="" reRender="tripleSearchPanel, tripleResultsPanel"/>
+						<a:commandButton id="insertTriples" immediate="true" value="Insert"
+							action="#{triples.insertTriples}" styleClass="" reRender="tripleSearchPanel"/>
+						<a:commandButton id="deleteTriples" immediate="true" value="Delete"
+							action="#{triples.deleteTriples}" styleClass="" reRender="tripleSearchPanel"/>
+					</r:toolBarGroup>
+				</r:toolBar>			
+			<r:messages id="triples_messages" layout="list" showSummary="true" showDetail="true"/>
+		</h:form>
+		<h:form id="tripleResultsForm">
+		<r:panel id="tripleResultsPanel">
+			<h:panelGrid>
+			<h:dataTable id="tripleSearchResults" value="#{triples.tripleList}" var="triple">
+				<h:column id="subjectNode" width="33%">
+				<h:outputText value="#{triple.subject}" styleClass="outText"/>
+				</h:column>
+				<h:column id="predicateNode" width="33%">
+				<h:outputText value="#{triple.predicate}" styleClass="outText"/>
+				</h:column>
+				<h:column id="objectNode" width="33%">
+				<h:outputText value="#{triple.object}" styleClass="outText"/>
+				</h:column>
+			</h:dataTable>
+			</h:panelGrid>
+		</r:panel>
+		</h:form>
+	</ui:define>
+</ui:composition>

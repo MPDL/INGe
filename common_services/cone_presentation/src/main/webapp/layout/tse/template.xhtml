@@ -1,0 +1,30 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<head>    
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Triple Store Explorer</title>
+    <link href="../stylesheet/tse.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+
+    <ui:include src="Logo.jspf"/>
+    <ui:include src="Header.jspf"/>
+    <ui:include src="menu.xhtml">
+        <ui:param name="projectName" value="Mulgara(1.1.1) Semantic Store Administration"/>
+    </ui:include>
+
+	<div class="body">
+		<ui:insert name="body"/>
+	</div>
+
+	<div class="footer">
+		A Service provided by <a href="http://www.mpdl.mpg.de">MPDL</a>.
+	</div>
+
+</body>
+</html>

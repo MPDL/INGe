@@ -1,0 +1,102 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a="http://richfaces.org/a4j"
+	xmlns:r="http://richfaces.org/rich"
+	template="/layout/tse/template.xhtml">
+	
+	<ui:define name="body">
+
+		<h:form id="modelListForm">
+		<r:panel id="modelListPanel">
+		<f:facet name="header">Explore Mulgara Semantic Store</f:facet>
+			<h:dataTable binding="#{triples.modelTable}" id="modelList" value="#{triples.modelList}" var="model" width="100%" columnClasses="tbl1st, tbl2nd, tbl3rd">
+				<h:column id="modelName" >
+				<a:commandLink id="model" imeediate="true" value="#{model[0]}" action="#{triples.listModelDetails}" styleClass="" reRender="modelDetailsForm, modelGrid"/>
+				</h:column>
+				<h:column id="modelType" >
+				<h:outputText value="#{model[1]}" styleClass="outText"/>
+				</h:column>
+				<h:column id="modelAction" >
+				<h:outputText value="#{model[2]}" styleClass="outText"/>
+				</h:column>
+			</h:dataTable>
+			<r:spacer height="10" />
+			<r:toolBar>
+				<r:toolBarGroup>
+					<h:outputText value="Action(s):" />
+					<a:commandLink id="listModels" immediate="true" value="List Model(s)"
+							action="#{triples.listModels}" styleClass="" reRender="modelListForm" />
+					<a:commandLink id="createModel" immediate="true" value="Create Model"
+							action="#{triples.createModel}" styleClass="" />
+					<a:commandLink id="deleteModel" immediate="true" value="Delete Model"
+							action="#{triples.deleteModel}" styleClass="" />
+					<a:commandLink id="backupModel" immediate="true" value="Backup Model"
+							action="#{triples.backupModel}" styleClass="" />
+					<a:commandLink id="restoreModel" immediate="true" value="Restore Model"
+							action="#{triples.restoreModel}" styleClass="" />
+				</r:toolBarGroup>
+			</r:toolBar>
+			<h:panelGrid id="modelGrid" columns="2" width="100%" columnClasses="gridcol1, gridcol4">
+				<h:outputLabel for="selectedModelName" value="Selected Model" styleClass="outLabel" />
+				<h:inputText id="selectedModelName" value="#{triples.selectedModel}" valueChangeListener="#{triples.selectedModelChanged}" immediate="true" style="width:100%" />
+				<h:outputLabel for="selectedModelType" value="Selected Model Type" styleClass="outLabel" />
+				<h:inputText id="selectedModelType" value="#{triples.selectedModelType}" valueChangeListener="#{triples.selectedModelTypeChanged}" immediate="true" style="width:100%" />
+				<h:outputLabel for="selectedFile" value="Backup/Restore File" styleClass="outLabel" />
+				<h:inputText id="selectedFile" value="#{triples.selectedFile}" valueChangeListener="#{triples.selectedFileChanged}" immediate="true" style="width:100%" />
+			</h:panelGrid>
+			</r:panel>			
+		</h:form>
+		<r:messages id="triples_messages" layout="list" showSummary="true" showDetail="true"/>
+		<h:form id="modelDetailsForm">
+		<r:panel id="modelDeatailsPanel">
+		<f:facet name="header">Explore Selected Model</f:facet>
+		<r:toolBar>
+				<r:toolBarGroup>
+					<h:outputText value="Action(s):" />
+					<a:commandLink id="listTriples" immediate="true" value="Query Triple(s)"
+							action="#{triples.queryTriples}" styleClass="" reRender="modelDetailsForm" rendered='#{triples.allowedActions == "q i d" || triples.allowedActions == "q"}'/>
+					<a:commandLink id="insertTriples" immediate="true" value="Insert Triple"
+							action="#{triples.insertTriples}" styleClass="" reRender="modelDetailsForm" rendered='#{triples.allowedActions == "q i d" || triples.allowedActions == "i"}'/>
+					<a:commandLink id="deleteTriples" immediate="true" value="Delete Triple"
+							action="#{triples.deleteTriples}" styleClass="" reRender="modelDetailsForm" rendered='#{triples.allowedActions == "q i d"}'/>
+				</r:toolBarGroup>
+				<r:toolBarGroup lolcation="right">
+					<h:outputText value="Selected Model:" />
+					<h:outputText id="selectedModel" value="#{triples.selectedModel}" style="font-variant:small-caps; font-size:10pt; color:#72132D"/>
+				</r:toolBarGroup>
+			</r:toolBar>
+		<h:panelGrid id="modelDetailsGrid" columns="3" width="100%" columnClasses="gridcol1, gridcol2, gridcol3">
+			<h:outputLabel for="subjectInput" styleClass="outLabel"
+									value="Subject" />
+			<h:outputLabel for="predicateInput" styleClass="outLabel"
+									value="Predicate" />
+			<h:outputLabel for="objectInput" styleClass="outLabel"
+									value="Object" />
+			<h:inputText id="subjectInput" value="#{triples.subject}" valueChangeListener="#{triples.subjectChanged}" immediate="true" style="background-color:#fafad2; width:99%"/>
+			<h:inputText id="predicateInput" value="#{triples.predicate}" valueChangeListener="#{triples.predicateChanged}" immediate="true" style="background-color:#98fb98; width:99%"/>
+			<h:inputText id="objectInput" value="#{triples.object}" valueChangeListener="#{triples.objectChanged}" immediate="true" style="background-color:#e0ffff; width:99%"/>
+		</h:panelGrid>
+		<h:panelGrid id="tripleSearchGrid" width="100%">
+			<h:dataTable binding="#{triples.triplesTable}" id="tripleSearchResults" value="#{triples.tripleList}" var="triple" width="100%" columnClasses="firstColumn, secondColumn, thirdColumn" >
+				<h:column id="subject">
+				<a:commandLink id="selectedTriple" imeediate="true" value="#{triple.subject}" action="#{triples.listTripleDetails}" styleClass="" reRender="tripleDetailsGrid"/>
+				</h:column>
+				<h:column id="predicate">
+				<h:outputText value="#{triple.predicate}" styleClass="outText"/>
+				</h:column>
+				<h:column id="object">
+				<h:outputText value="#{triple.object}" styleClass="outText"/>
+				</h:column>
+			</h:dataTable>
+		</h:panelGrid>
+		<h:panelGrid id="tripleDetailsGrid">
+		<h:inputTextarea id="tripleDetails" value="#{triples.selectedTriple}" style="width:100%" rows="10" cols="100">
+		</h:inputTextarea>
+		</h:panelGrid>
+		</r:panel>	
+		</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,6 @@
+create <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#lang>;
+create <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#lang_result>;
+create <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#jnar>;
+create <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#jnar_result>;
+load local <file:/${escidoc.cone.rdf.path}languages.rdf> into <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#lang>;
+load local <file:/${escidoc.cone.rdf.path}journals.rdf> into <rmi://${escidoc.cone.mulgara.server.name}:${escidoc.cone.mulgara.server.port}/cone#jnar>;

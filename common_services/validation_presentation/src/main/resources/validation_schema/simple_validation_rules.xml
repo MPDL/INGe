@@ -1,0 +1,597 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
+<!-- Validation Schema for publication items
+	$Author: mfranke $
+	$Revision: 139 $ -->
+<?identification context-name="Simple Validation Rules" content-model="escidoc:persistent4" context="simple" metadata-version="1.0" version="0.1"?>
+
+<iso:schema xmlns:iso="http://purl.oclc.org/dsdl/schematron" queryBinding="xslt2" schemaVersion="ISO19757-3" defaultPhase="default">
+	
+	<iso:ns prefix="item" uri="http://www.escidoc.de/schemas/item/0.7"/>
+	<iso:ns prefix="escidocMetadataRecords" uri="http://www.escidoc.de/schemas/metadatarecords/0.4"/>
+	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
+	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
+	<iso:ns prefix="escidocMetadataProfile" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/"/>
+	<iso:ns prefix="escidoc" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"/>
+	<iso:ns prefix="escidocComponents" uri="http://www.escidoc.de/schemas/components/0.7"/>
+	<iso:ns prefix="publication" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"/>
+	<iso:ns prefix="xlink" uri="http://www.w3.org/1999/xlink"/>
+	<iso:ns prefix="prop" uri="http://escidoc.de/core/01/properties/"/>
+	<iso:ns prefix="file" uri="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"/>
+	<iso:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
+   
+	
+	<!-- Validation points -->
+	<iso:phase id="default">
+		<iso:active pattern="publisher_name_required"/>
+		<iso:active pattern="organization_name_required"/>
+		<iso:active pattern="event_title_required"/>
+		<iso:active pattern="source_title_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="source_genre_required"/>
+		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
+	
+	</iso:phase>
+	
+	<iso:phase id="easy_submission_step_3">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
+	</iso:phase>
+	
+	<iso:phase id="easy_submission_step_4">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
+	</iso:phase>
+	
+	<iso:phase id="easy_submission_step_5">
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="date_required"/>
+		<iso:active pattern="source_required"/>
+		<iso:active pattern="source_title_required"/>
+		<iso:active pattern="source_genre_required"/>
+		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
+	</iso:phase>
+	
+	<iso:phase id="submit_item">
+		<iso:active pattern="publisher_name_required"/>
+		<iso:active pattern="organization_name_required"/>
+		<iso:active pattern="event_title_required"/>
+		<iso:active pattern="source_title_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="component_mimeType"/>
+		<iso:active pattern="source_genre_required"/>
+		<iso:active pattern="uri_as_locator"/>
+	</iso:phase>
+	
+	<iso:phase id="accept_item">
+		<iso:active pattern="publisher_name_required"/>
+		<iso:active pattern="organization_name_required"/>
+		<iso:active pattern="event_title_required"/>
+		<iso:active pattern="source_title_required"/>
+		<iso:active pattern="creator_role_required"/>
+		<iso:active pattern="genre_required"/>
+		<iso:active pattern="title_required"/>
+		<iso:active pattern="creator_required"/>
+		<iso:active pattern="correct_date_format"/>
+		<iso:active pattern="component_data_required"/>
+		<iso:active pattern="component_content_required"/>
+		<iso:active pattern="source_genre_required"/>
+		<iso:active pattern="uri_as_locator"/>
+		<iso:active pattern="component_mimeType"/>
+	</iso:phase>
+
+	<!-- Mime-Types -->
+	<iso:let name="mimeTypes">
+		<value>application/EDI-Consent</value>
+		<value>application/EDI-X12</value>
+		<value>application/EDIFACT</value>
+		<value>application/activemessage</value>
+		<value>application/andrew-inset</value>
+		<value>application/applefile</value>
+		<value>application/atomicmail</value>
+		<value>application/cals-1840</value>
+		<value>application/commonground</value>
+		<value>application/cybercash</value>
+		<value>application/dca-rft</value>
+		<value>application/dec-dx</value>
+		<value>application/eshop</value>
+		<value>application/hyperstudio</value>
+		<value>application/iges</value>
+		<value>application/mac-binhex40</value>
+		<value>application/mac-compactpro</value>
+		<value>application/macwriteii</value>
+		<value>application/marc</value>
+		<value>application/mathematica</value>
+		<value>application/msword</value>
+		<value>application/news-message-id</value>
+		<value>application/news-transmission</value>
+		<value>application/octet-stream</value>
+		<value>application/oda</value>
+		<value>application/pdf</value>
+		<value>application/pgp-encrypted</value>
+		<value>application/pgp-keys</value>
+		<value>application/pgp-signature</value>
+		<value>application/pkcs10</value>
+		<value>application/pkcs7-mime</value>
+		<value>application/pkcs7-signature</value>
+		<value>application/postscript</value>
+		<value>application/prs.alvestrand.titrax-sheet</value>
+		<value>application/prs.cww</value>
+		<value>application/prs.nprend</value>
+		<value>application/remote-printing</value>
+		<value>application/riscos</value>
+		<value>application/rtf</value>
+		<value>application/set-payment</value>
+		<value>application/set-payment-initiation</value>
+		<value>application/set-registration</value>
+		<value>application/set-registration-initiation</value>
+		<value>application/sgml</value>
+		<value>application/sgml-open-catalog</value>
+		<value>application/slate</value>
+		<value>application/smil</value>
+		<value>application/vemmi</value>
+		<value>application/vnd.3M.Post-it-Notes</value>
+		<value>application/vnd.FloGraphIt</value>
+		<value>application/vnd.acucobol</value>
+		<value>application/vnd.anser-web-certificate-issue-initiation</value>
+		<value>application/vnd.anser-web-funds-transfer-initiation</value>
+		<value>application/vnd.audiograph</value>
+		<value>application/vnd.businessobjects</value>
+		<value>application/vnd.claymore</value>
+		<value>application/vnd.comsocaller</value>
+		<value>application/vnd.dna</value>
+		<value>application/vnd.dxr</value>
+		<value>application/vnd.ecdis-update</value>
+		<value>application/vnd.ecowin.chart</value>
+		<value>application/vnd.ecowin.filerequest</value>
+		<value>application/vnd.ecowin.fileupdate</value>
+		<value>application/vnd.ecowin.series</value>
+		<value>application/vnd.ecowin.seriesrequest</value>
+		<value>application/vnd.ecowin.seriesupdate</value>
+		<value>application/vnd.enliven</value>
+		<value>application/vnd.epson.salt</value>
+		<value>application/vnd.fdf</value>
+		<value>application/vnd.ffsns</value>
+		<value>application/vnd.framemaker</value>
+		<value>application/vnd.fujitsu.oasys</value>
+		<value>application/vnd.fujitsu.oasys2</value>
+		<value>application/vnd.fujitsu.oasys3</value>
+		<value>application/vnd.fujitsu.oasysgp</value>
+		<value>application/vnd.fujitsu.oasysprs</value>
+		<value>application/vnd.fujixerox.docuworks</value>
+		<value>application/vnd.hp-HPGL</value>
+		<value>application/vnd.hp-PCL</value>
+		<value>application/vnd.hp-PCLXL</value>
+		<value>application/vnd.hp-hps</value>
+		<value>application/vnd.ibm.MiniPay</value>
+		<value>application/vnd.ibm.modcap</value>
+		<value>application/vnd.intercon.formnet</value>
+		<value>application/vnd.intertrust.digibox</value>
+		<value>application/vnd.intertrust.nncp</value>
+		<value>application/vnd.is-xpr</value>
+		<value>application/vnd.japannet-directory-service</value>
+		<value>application/vnd.japannet-jpnstore-wakeup</value>
+		<value>application/vnd.japannet-payment-wakeup</value>
+		<value>application/vnd.japannet-registration</value>
+		<value>application/vnd.japannet-registration-wakeup</value>
+		<value>application/vnd.japannet-setstore-wakeup</value>
+		<value>application/vnd.japannet-verification</value>
+		<value>application/vnd.japannet-verification-wakeup</value>
+		<value>application/vnd.koan</value>
+		<value>application/vnd.lotus-1-2-3</value>
+		<value>application/vnd.lotus-approach</value>
+		<value>application/vnd.lotus-freelance</value>
+		<value>application/vnd.lotus-organizer</value>
+		<value>application/vnd.lotus-screencam</value>
+		<value>application/vnd.lotus-wordpro</value>
+		<value>application/vnd.meridian-slingshot</value>
+		<value>application/vnd.mif</value>
+		<value>application/vnd.minisoft-hp3000-save</value>
+		<value>application/vnd.mitsubishi.misty-guard.trustweb</value>
+		<value>application/vnd.ms-artgalry</value>
+		<value>application/vnd.ms-asf</value>
+		<value>application/vnd.ms-excel</value>
+		<value>application/vnd.ms-powerpoint</value>
+		<value># application/powerpoint</value>
+		<value>application/vnd.ms-project</value>
+		<value>application/vnd.ms-tnef</value>
+		<value>application/vnd.ms-works</value>
+		<value>application/vnd.music-niff</value>
+		<value>application/vnd.musician</value>
+		<value>application/vnd.netfpx</value>
+		<value>application/vnd.noblenet-directory</value>
+		<value>application/vnd.noblenet-sealer</value>
+		<value>application/vnd.noblenet-web</value>
+		<value>application/vnd.novadigm.EDM</value>
+		<value>application/vnd.novadigm.EDX</value>
+		<value>application/vnd.novadigm.EXT</value>
+		<value>application/vnd.osa.netdeploy</value>
+		<value>application/vnd.powerbuilder6</value>
+		<value>application/vnd.powerbuilder6-s</value>
+		<value>application/vnd.rapid</value>
+		<value>application/vnd.seemail</value>
+		<value>application/vnd.shana.informed.formtemplate</value>
+		<value>application/vnd.shana.informed.interchange</value>
+		<value>application/vnd.shana.informed.package</value>
+		<value>application/vnd.stardivision.calc</value>
+		<value>application/vnd.stardivision.chart</value>
+		<value>application/vnd.stardivision.draw</value>
+		<value>application/vnd.stardivision.impress</value>
+		<value>application/vnd.stardivision.math</value>
+		<value>application/vnd.stardivision.mesage</value>
+		<value>application/vnd.stardivision.writer</value>
+		<value>application/vnd.stardivision.writer</value>
+		<value>application/vnd.street-stream</value>
+		<value>application/vnd.svd</value>
+		<value>application/vnd.swiftview-ics</value>
+		<value>application/vnd.truedoc</value>
+		<value>application/vnd.visio</value>
+		<value>application/vnd.webturbo</value>
+		<value>application/vnd.wrq-hp3000-labelled</value>
+		<value>application/vnd.wt.stf</value>
+		<value>application/vnd.xara</value>
+		<value>application/vnd.yellowriver-custom-menu</value>
+		<value>application/wita</value>
+		<value>application/wordperfect5.1</value>
+		<value>application/x-bcpio</value>
+		<value>application/x-bzip2</value>
+		<value>application/x-cdlink</value>
+		<value>application/x-chess-pgn</value>
+		<value>application/x-compress</value>
+		<value>application/x-cpio</value>
+		<value>application/x-csh</value>
+		<value>application/x-director</value>
+		<value>application/x-dvi</value>
+		<value>application/x-futuresplash</value>
+		<value>application/x-gtar</value>
+		<value>application/x-gzip</value>
+		<value>application/x-hdf</value>
+		<value>application/x-javascript</value>
+		<value>application/x-koan</value>
+		<value>application/x-latex</value>
+		<value>application/x-netcdf</value>
+		<value>application/x-rpm</value>
+		<value>application/x-sh</value>
+		<value>application/x-shar</value>
+		<value>application/x-shockwave-flash</value>
+		<value>application/x-stuffit</value>
+		<value>application/x-sv4cpio</value>
+		<value>application/x-sv4crc</value>
+		<value>application/x-tar</value>
+		<value>application/x-tcl</value>
+		<value>application/x-tex</value>
+		<value>application/x-texinfo</value>
+		<value>application/x-troff</value>
+		<value>application/x-troff-man</value>
+		<value>application/x-troff-me</value>
+		<value>application/x-troff-ms</value>
+		<value>application/x-ustar</value>
+		<value>application/x-wais-source</value>
+		<value>application/x400-bp</value>
+		<value>application/xml</value>
+		<value>application/zip</value>
+		<value>audio/32kadpcm</value>
+		<value>audio/basic</value>
+		<value>audio/midi</value>
+		<value>audio/mpeg</value>
+		<value>audio/vnd.qcelp</value>
+		<value>audio/x-aiff</value>
+		<value>audio/x-pn-realaudio</value>
+		<value>audio/x-realaudio</value>
+		<value>audio/x-wav</value>
+		<value>chemical/x-pdb</value>
+		<value>image/cgm</value>
+		<value>image/g3fax</value>
+		<value>image/gif</value>
+		<value>image/x-icon</value>
+		<value>image/ief</value>
+		<value>image/jpeg</value>
+		<value>image/naplps</value>
+		<value>image/png</value>
+		<value>image/prs.btif</value>
+		<value>image/tiff</value>
+		<value>image/vnd.dwg</value>
+		<value>image/vnd.dxf</value>
+		<value>image/vnd.fpx</value>
+		<value>image/vnd.net-fpx</value>
+		<value>image/vnd.svf</value>
+		<value>image/vnd.xiff</value>
+		<value>image/x-cmu-raster</value>
+		<value>image/x-portable-anymap</value>
+		<value>image/x-portable-bitmap</value>
+		<value>image/x-portable-graymap</value>
+		<value>image/x-portable-pixmap</value>
+		<value>image/x-rgb</value>
+		<value>image/x-xbitmap</value>
+		<value>image/x-xpixmap</value>
+		<value>image/x-xwindowdump</value>
+		<value>message/delivery-status</value>
+		<value>message/disposition-notification</value>
+		<value>message/external-body</value>
+		<value>message/http</value>
+		<value>message/news</value>
+		<value>message/partial</value>
+		<value>message/rfc822</value>
+		<value>model/iges</value>
+		<value>model/mesh</value>
+		<value>model/vnd.dwf</value>
+		<value>model/vrml</value>
+		<value>multipart/alternative</value>
+		<value>multipart/appledouble</value>
+		<value>multipart/byteranges</value>
+		<value>multipart/digest</value>
+		<value>multipart/encrypted</value>
+		<value>multipart/form-data</value>
+		<value>multipart/header-set</value>
+		<value>multipart/mixed</value>
+		<value>multipart/parallel</value>
+		<value>multipart/related</value>
+		<value>multipart/report</value>
+		<value>multipart/signed</value>
+		<value>multipart/voice-message</value>
+		<value>text/css</value>
+		<value>text/directory</value>
+		<value>text/enriched</value>
+		<value>text/plain</value>
+		<value>text/prs.lines.tag</value>
+		<value>text/rfc822-headers</value>
+		<value>text/richtext</value>
+		<value>text/rtf</value>
+		<value>text/sgml</value>
+		<value>text/tab-separated-values</value>
+		<value>text/uri-list</value>
+		<value>text/vnd.abc</value>
+		<value>text/vnd.flatland.3dml</value>
+		<value>text/vnd.fmi.flexstor</value>
+		<value>text/vnd.in3d.3dml</value>
+		<value>text/vnd.in3d.spot</value>
+		<value>text/vnd.latex-z</value>
+		<value>text/x-setext</value>
+		<value>text/xml</value>
+		<value>video/mpeg</value>
+		<value>video/quicktime</value>
+		<value>video/vnd.motorola.video</value>
+		<value>video/vnd.motorola.videop</value>
+		<value>video/vnd.vivo</value>
+		<value>video/x-msvideo</value>
+		<value>video/x-sgi-movie</value>
+		<value>x-conference/x-cooltalk</value>
+		<value>text/html</value>
+	</iso:let>
+	
+	<!-- Validation rules -->
+	
+	<!-- Default rules -->
+	 
+	 <!-- if any fields at "Event" are filled, "Title" of the event has to be filled also. -->
+	<iso:pattern name="event_title_required" id="event_title_required">
+		<iso:rule context="publication:event">
+			<iso:assert test="dc:title != '' or not(* != '' or @xml:lang != '')">EventTitleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	 
+	 <!-- if any fields at "Source" are filled, "Title" of the source has to be filled also. -->
+	<iso:pattern name="source_title_required" id="source_title_required">
+		<iso:rule context="publication:source">
+			<iso:assert test="dc:title != '' or not(normalize-space(.) != '' or .//*/@* != '')">SourceTitleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	 
+	 <!-- if any fields at "P" are filled, "Title" of the source has to be filled also. -->
+	<iso:pattern name="creator_role_required" id="creator_role_required">
+		<iso:rule context="publication:source">
+			<iso:assert test="escidoc:creator/@role != '' or not(escidoc:creator/escidoc:person/escidoc:family-name != '' or escidoc:creator/escidoc:person/escidoc:given-name != '' or escidoc:creator//escidoc:organization/escidoc:organization-name != '' or escidoc:creator//escidoc:organization/escidoc:address != '')">SourceCreatorRoleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- Entered dates have to be in the format YYYY, YYYY-MM or YYYY-MM-DD -->
+	<iso:pattern name="correct_date_format" id="correct_date_format">
+		<!-- Publication dates -->
+		<iso:rule context="dcterms:created|dcterms:modified|dcterms:issued|dcterms:dateAccepted|dcterms:dateSubmitted">
+			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
+		</iso:rule>
+		<!-- Event dates -->
+		<iso:rule context="escidoc:start-date">
+			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidoc:end-date">
+			<iso:assert test=". = '' or (matches(., '^\d\d\d\d(-\d\d){0,2}$') and substring(concat(., '-01-01'), 1, 10) castable as xs:date)">DateFormatIncorrect</iso:assert>
+			<iso:assert test=". = '' or ../escidoc:start-date != ''">EndDateWithoutStartDate</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<iso:pattern name="component_data_required" id="component_data_required">
+		
+		<iso:rule context="escidocComponents:component">
+			
+			<!-- If a file is given, the filename is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[@name='escidoc']/file:file/dc:title != ''">ComponentFileNameNotProvided</iso:assert>
+		
+			<!-- If a file is given, the content category is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:content-category != ''">ComponentContentCategoryNotProvided</iso:assert>
+
+			<!-- If a file is given, the mime type is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:mime-type != '' or escidocComponents:content/@storage = 'external-url'">ComponentMimeTypeNotProvided</iso:assert>
+	
+			<!-- If a file is given, the visibility is mandatory. -->
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or escidocComponents:properties/prop:visibility != ''">ComponentVisibilityNotProvided</iso:assert>
+		
+		</iso:rule>
+	
+	</iso:pattern>
+	
+	<iso:pattern name="component_content_required" id="component_content_required">
+		
+		<iso:rule context="escidocComponents:component">
+			
+			<!-- File: If a filename, a content category, a mime-type or a description is given, there has to be a content. -->
+			<iso:assert test="(escidocComponents:content/@xlink:href != '') or not(escidocMetadataRecords:md-records/escidocMetadataRecords:md-record[@name='escidoc']/file:file/dc:title != '' or escidocComponents:properties/prop:mime-type != '' or escidocComponents:properties/prop:description != '')">ComponentContentNotProvided</iso:assert>
+		
+		</iso:rule>
+	
+	</iso:pattern>
+	
+	<iso:pattern name="component_required" id="component_required">
+		
+		<iso:rule context="escidocComponents:components">
+			
+			<!-- A file or a locator has to be given. -->
+			<iso:assert test="escidocComponents:component[escidocComponents:content/@xlink:href != '']">ComponentRequired</iso:assert>
+		
+		</iso:rule>
+	
+	</iso:pattern>
+	
+	
+
+	<!-- Validation point specific -->	
+	
+	<!-- Title is required -->
+	<iso:pattern name="title_required" id="title_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="dc:title != ''">TitleNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- Genre is required -->
+	<iso:pattern name="genre_required" id="genre_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="@type != ''">GenreNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- Genre must not be manuscript. -->
+	<iso:pattern name="genre_constraint" id="genre_constraint">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="@type != 'manuscript'">GenreNotSuitable</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- At least one creator with an organizational unit provided is required -->
+	<iso:pattern name="creator_required" id="creator_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="publication:creator/escidoc:person/escidoc:family-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">CreatorNotProvided</iso:assert>
+			<iso:assert test="publication:creator/@role != ''">CreatorRoleNotProvided</iso:assert>
+			<iso:assert test="publication:creator/escidoc:person/escidoc:organization/escidoc:organization-name != '' or publication:creator/escidoc:organization/escidoc:organization-name != ''">OrganizationalMetadataNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:person">
+			<iso:assert test="escidoc:family-name != ''">CreatorFamilyNameNotProvided</iso:assert>
+		</iso:rule>
+		<iso:rule context="escidocMetadataProfile:publication/publication:creator/escidoc:organization">
+			<iso:assert test="escidoc:organization-name != ''">CreatorOrganizationNameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- if "Publisher place" or "Publisher edition" is filled, "Publisher name" has to be filled also -->
+	<iso:pattern name="publisher_name_required" id="publisher_name_required">
+		<iso:rule context="escidoc:publishing-info">
+			<iso:assert test="dc:publisher != '' or not(* != '')">PublisherNameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	 
+	<!-- if the field "Address of an Organization" within a creator of type "Person" is filled, "Name of the Organization" has to be filled also. -->
+	<iso:pattern name="organization_name_required" id="organization_name_required">
+		<iso:rule context="escidoc:organization">
+			<iso:assert test="escidoc:organization-name != '' or not(escidoc:address) or escidoc:address = ''">OrganizationNameNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- If genre is not equal to "Series" or "Journal" or "Other" or "Manuscript" at least one date has to be provided -->
+	<iso:pattern name="date_required" id="date_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="(@type = 'series' or @type = 'journal' or @type = 'manuscript' or @type = 'other') or ((dcterms:created != '') or (dcterms:modified != '') or (dcterms:dateSubmitted != '') or (dcterms:dateAccepted != '') or (dcterms:issued != '') or (publication:published-online != '') or (publication:published-online != ''))">DateNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If genre is equal to "Article", "Book Chapter" or "Conference Paper" at least one source has to be provided -->
+	<iso:pattern name="source_required" id="source_required" flag="restrictive">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="not(@type = 'article' or @type = 'book-item' or @type = 'conference-paper') or (publication:source/dc:title != '')">SourceNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If source name is given, the source genre has to be given, too -->
+	<iso:pattern name="source_genre_required" id="source_genre_required" flag="restrictive">
+		<iso:rule context="escidocMetadataProfile:publication/publication:source">
+			<iso:assert test="not(dc:title != '') or (@type and @type != '')">SourceGenreNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- If a date of type "dcterms:dateIssued" is given, the ReviewType has to be provided -->
+	<iso:pattern name="review_method_required" id="review_method_required">
+		<iso:rule context="escidocMetadataProfile:publication">
+			<iso:assert test="not(dcterms:issued != '') or (publication:review-method != '')">ReviewMethodNotProvided</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+	
+	<!-- Locator has to be a valid URI -->
+	<iso:pattern name="uri_as_locator" id="uri_as_locator">
+		<iso:rule context="escidocComponents:component">
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'external-url') or matches(escidocComponents:content/@xlink:href, '^(https?|ftp)://([0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?(#[0-9a-zA-Z;/?:@&amp;=+$\.\-_!~*()%]+)?$')">LocatorIsNoUri</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+	<!-- the mime type of a file has to be one of the list given in "mimeTypes" above -->
+	<iso:pattern name="component_mimeType" id="component_mimeType">
+		<iso:rule context="escidocComponents:component">
+			<iso:assert test="not(escidocComponents:content/@xlink:href != '') or not(escidocComponents:content/@storage = 'internal-managed') or escidocMetadataRecords:md-records/escidocMetadataRecords:md-record/file:file/dc:format[@xsi:type='dcterms:IMT']=$mimeTypes/value">MimeTypeNotValid</iso:assert>
+		</iso:rule>
+	</iso:pattern>
+
+</iso:schema>

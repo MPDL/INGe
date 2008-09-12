@@ -3,8 +3,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.io.StringReader;
 
 import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
@@ -27,13 +29,22 @@ public class XSLTTransform {
 		transform.transform(source, stylesheet, System.out);
 	}
 
-	public void transform(File source, File stylesheet, OutputStream out) throws Exception
+    public void transform(File source, File stylesheet, OutputStream out) throws Exception
+    {
+        transform(new StreamSource(new InputStreamReader(new FileInputStream(source), "UTF-8")), new StreamSource(new FileInputStream(stylesheet)), out);
+    }
+
+    public void transform(String source, File stylesheet, OutputStream out) throws Exception
+    {
+        transform(new StreamSource(new StringReader(source)), new StreamSource(new FileInputStream(stylesheet)), out);
+    }
+	
+	public void transform(Source source, Source stylesheet, OutputStream out) throws Exception
 	{
-		
 		TransformerFactory factory = TransformerFactory.newInstance();
-		Transformer transformer = factory.newTransformer(new StreamSource(new FileInputStream(stylesheet)));
+		Transformer transformer = factory.newTransformer(stylesheet);
 		transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-		transformer.transform(new StreamSource(new InputStreamReader(new FileInputStream(source), "UTF-8")), new StreamResult(out));
+		transformer.transform(source, new StreamResult(out));
 	}
 
 }

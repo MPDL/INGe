@@ -85,6 +85,49 @@
 	      <version>8.7</version>
 	      <scope>provided</scope>
 	    </dependency>
+	    
+	    <dependency>
+	    	<groupId>commons-beanutils</groupId>
+	    	<artifactId>commons-beanutils</artifactId>
+	    	<version>1.7.0</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>commons-digester</groupId>
+	    	<artifactId>commons-digester</artifactId>
+	    	<version>1.6</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-api</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-impl</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-ui</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>jsf-facelets</groupId>
+	    	<artifactId>jsf-facelets</artifactId>
+	    	<version>1.1.13</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>log4j</groupId>
+	    	<artifactId>log4j</artifactId>
+	    	<version>1.2.8</version>
+	    	<scope>provided</scope>
+	    </dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies />

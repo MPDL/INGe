@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:album3" PID="escidoc:album3"
+  fedoraxsi:schemaLocation="info:fedora/fedora-system:def/foxml# http://www.fedora.info/definitions/1/0/foxml1-1.xsd"
+  xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
+  <foxml:objectProperties>
+    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="Album Demo Container Context"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/model#createdDate" VALUE="2007-01-16T11:23:24.359Z"/>
+    <foxml:property NAME="info:fedora/fedora-system:def/view#lastModifiedDate" VALUE="2007-01-16T11:26:14.125Z"/>
+  </foxml:objectProperties>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:album3/AUDIT" ID="AUDIT" STATE="A" VERSIONABLE="false">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:23:24.359Z"
+      FORMAT_URI="info:fedora/fedora-system:format/xml.fedora.audit" ID="AUDIT.0" LABEL="Fedora Object Audit Trail" MIMETYPE="text/xml">
+      <foxml:xmlContent>
+        <audit:auditTrail xmlns:audit="info:fedora/fedora-system:def/audit#">
+          <audit:record ID="AUDREC1">
+            <audit:process type="Fedora API-M"/>
+            <audit:action>addDatastream</audit:action>
+            <audit:componentID>RELS-EXT</audit:componentID>
+            <audit:responsibility>fedoraAdmin</audit:responsibility>
+            <audit:date>2007-01-16T11:26:14.125Z</audit:date>
+            <audit:justification>DatastreamsPane generated this logMessage.</audit:justification>
+          </audit:record>
+        </audit:auditTrail>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:album3/RELS-EXT" ID="RELS-EXT" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:26:14.125Z" ID="RELS-EXT.0" LABEL="Enter a label here."
+      MIMETYPE="text/xml" SIZE="1071">
+      <foxml:xmlContent>
+        <rdf:RDF xmlns:prop="http://escidoc.de/core/01/properties/" xmlns:srel="http://escidoc.de/core/01/structural-relations/"
+          xmlns:escidocRelations="http://www.nsdl.org/ontologies/relationships/"
+          xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xlink="http://www.w3.org/1999/xlink/">
+          <rdf:Description rdf:about="info:fedora/escidoc:album3">
+            <prop:creation-date>2006-02-16T12:20:46.275+01:00</prop:creation-date>
+            <srel:created-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:created-by-title>roland</prop:created-by-title>
+            <srel:modified-by rdf:resource="info:fedora/escidoc:user42"/>
+            <prop:modified-by-title>roland</prop:modified-by-title>
+            <prop:public-status>opened</prop:public-status>
+            <prop:type>Album</prop:type>
+            <srel:organizational-unit rdf:resource="info:fedora/escidoc:persistent13"/>
+            <rdf:type rdf:resource="http://escidoc.de/core/01/resources/Context"/>
+          </rdf:Description>
+        </rdf:RDF>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:album3/DC" ID="DC" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T11:23:24.359Z" ID="DC1.0" LABEL="Dublin Core Metadata"
+      MIMETYPE="text/xml" SIZE="249">
+      <foxml:xmlContent>
+        <oai_dc:dc xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:oai_dc="http://www.openarchives.org/OAI/2.0/oai_dc/">
+          <dc:title>Album Demo Container Context</dc:title>
+          <dc:identifier>escidoc:album3</dc:identifier>
+          <dc:description>This is the photo album demo container context.</dc:description>
+        </oai_dc:dc>
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+
+  <foxml:datastream CONTROL_GROUP="X" FEDORA_URI="info:fedora/escidoc:album3/datastream" ID="album" STATE="A" VERSIONABLE="true">
+    <foxml:datastreamVersion CREATED="2007-01-16T13:11:47.125Z" ID="admin-descriptor.0" ALT_IDS="admin-descriptor" LABEL="admin-descriptor" MIMETYPE="text/xml" SIZE="2882">
+      <foxml:xmlContent>
+		<album-admin-descriptor>
+		
+		</album-admin-descriptor>
+		
+      </foxml:xmlContent>
+    </foxml:datastreamVersion>
+  </foxml:datastream>
+
+</foxml:digitalObject>

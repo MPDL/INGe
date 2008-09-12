@@ -2,7 +2,7 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.3-SNAPSHOT</version>
+		<version>1.0.5-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
@@ -79,6 +79,50 @@
 								true
 							</includeInApplicationXml>
 						</jarModule>
+
+						
+						<jarModule>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>commons-digester</groupId>
+							<artifactId>commons-digester</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>richfaces</groupId>
+							<artifactId>richfaces-api</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>richfaces</groupId>
+							<artifactId>richfaces-impl</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>richfaces</groupId>
+							<artifactId>richfaces-ui</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>jsf-facelets</groupId>
+							<artifactId>jsf-facelets</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -145,7 +189,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>cone_presentation</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>1.0.1-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
@@ -174,7 +218,44 @@
 			<version>2.0-beta</version>
 			<scope>compile</scope>
 		</dependency>
-	</dependencies>
+
+	    <dependency>
+	    	<groupId>commons-beanutils</groupId>
+	    	<artifactId>commons-beanutils</artifactId>
+	    	<version>1.7.0</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>commons-digester</groupId>
+	    	<artifactId>commons-digester</artifactId>
+	    	<version>1.6</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-api</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-impl</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>richfaces</groupId>
+	    	<artifactId>richfaces-ui</artifactId>
+	    	<version>3.1.4</version>
+	    	<scope>provided</scope>
+	    </dependency>
+	    <dependency>
+	    	<groupId>jsf-facelets</groupId>
+	    	<artifactId>jsf-facelets</artifactId>
+	    	<version>1.1.13</version>
+	    	<scope>provided</scope>
+	    </dependency>
+</dependencies>
 
 	<!-- <profiles>
 		<profile>

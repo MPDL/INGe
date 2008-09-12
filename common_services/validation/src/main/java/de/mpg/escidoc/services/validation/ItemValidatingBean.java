@@ -117,7 +117,7 @@ public class ItemValidatingBean implements ItemValidating
     {
         try
         {
-            Pattern pattern = Pattern.compile(PropertyReader.getProperty("escidoc.content.type.pattern"));
+            Pattern pattern = Pattern.compile(PropertyReader.getProperty("escidoc.content.model.pattern"));
             Matcher matcher = pattern.matcher(itemXml);
             if (matcher.find())
             {

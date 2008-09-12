@@ -34,6 +34,7 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -92,8 +93,16 @@ public class Initializer
         try
         {
             conn = getConnection();
-            //executeSqlScript("delete_tables.sql", conn);
-            executeSqlScript("create_structure.sql", conn);
+            executeSqlScript("delete_tables.sql", conn);
+            try
+            {
+                executeSqlScript("create_structure.sql", conn);
+            }
+            catch (SQLException se)
+            {
+                LOGGER.debug("Validation database table structure already exists.");
+            }
+            
             insertValidationData(conn);
             Context ctx = new InitialContext();
             itemValidating = (ItemValidating) ctx.lookup(ItemValidating.SERVICE_NAME);

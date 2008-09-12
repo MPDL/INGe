@@ -57,7 +57,11 @@
 							<ul>
 								<xsl:for-each select="parameters/parameter">
 									<li>
-										<xsl:value-of select="name"/>:
+										<xsl:value-of select="name"/>
+										<xsl:choose>
+											<xsl:when test="@required = 'true'"> (required)</xsl:when>
+											<xsl:otherwise> (optional)</xsl:otherwise>
+										</xsl:choose>:
 										<xsl:value-of select="value"/>
 									</li>
 								</xsl:for-each>

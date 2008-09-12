@@ -66,6 +66,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
     private java.util.List<IdentifierVO> identifiers = new java.util.ArrayList<IdentifierVO>();
     private java.util.List<SourceVO> sources = new java.util.ArrayList<SourceVO>();
     private Genre genre;
+    private String totalNumberOfPages;
     
     /**
      * The possible genres for an source.
@@ -275,6 +276,16 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
         return identifiers;
     }
 
+    public String getTotalNumberOfPages()
+    {
+        return totalNumberOfPages;
+    }
+
+    public void setTotalNumberOfPages(String totalNumberOfPages)
+    {
+        this.totalNumberOfPages = totalNumberOfPages;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -295,6 +306,7 @@ public class SourceVO extends ValueObject implements TitleIF, Cloneable
             vo.setPublishingInfo((PublishingInfoVO)getPublishingInfo().clone());
         }
         vo.setSequenceNumber(getSequenceNumber());
+        vo.setTotalNumberOfPages(getTotalNumberOfPages());
         vo.setStartPage(getStartPage());
         vo.setEndPage(getEndPage());
         for (TextVO title : getAlternativeTitles())

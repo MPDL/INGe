@@ -255,7 +255,7 @@
 					    <!--  if there are no tests, don't bail out -->
 						<failIfNoTests>false</failIfNoTests>
 						<!-- avoid the outofmemory exception thrown in some test scenarios-->
-						<argLine>-Xmx1500M</argLine>
+						<argLine>-Xmx1000M</argLine>
 					</configuration>
 				</plugin>
 			</plugins>
@@ -400,14 +400,16 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
+				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -449,7 +451,6 @@
 				
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
-				
 				
 			</properties>
 
@@ -532,12 +533,16 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</cone.querier.class>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
+				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -578,6 +583,8 @@
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
+				
+				
 				
 			</properties>
 

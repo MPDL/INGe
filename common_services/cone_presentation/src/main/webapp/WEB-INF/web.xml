@@ -1,22 +1,56 @@
-<!DOCTYPE web-app PUBLIC
- "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
- "http://java.sun.com/dtd/web-app_2_3.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE web-app PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN" "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="WebApp_ID">
+	<display-name>COntrolled Named Entities</display-name>
+	
+	<!-- Use Documents Saved as *.xhtml -->
+	<context-param>
+		<param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+		<param-value>.xhtml</param-value>
+	</context-param>
 
-<web-app>
-  <display-name>COntrolled Named Entities</display-name>
-  
-  <servlet>
-  	<servlet-name>JQueryConeServlet</servlet-name>
-  	<servlet-class>de.mpg.escidoc.services.cone.web.JQueryConeServlet</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-  	<servlet-name>JQueryConeServlet</servlet-name>
-  	<url-pattern>/jquery/*</url-pattern>
-  </servlet-mapping>
-  
-  <welcome-file-list>
-  	<welcome-file>index.jsp</welcome-file>
-  </welcome-file-list>
-  
+	<!-- Special Debug Output for Development -->
+	<context-param>
+		<param-name>facelets.DEVELOPMENT</param-name>
+		<param-value>true</param-value>
+	</context-param>
+	
+	<!-- RichFaces -->
+	<filter>
+		<filter-name>richfaces</filter-name>
+		<filter-class>org.ajax4jsf.Filter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>richfaces</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
+	
+	<!-- Faces Servlet -->
+	<servlet>
+		<servlet-name>Faces Servlet</servlet-name>
+		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<!-- CoNE Servlets -->
+	<servlet>
+		<servlet-name>JQueryConeServlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.services.cone.web.JQueryConeServlet</servlet-class>
+	</servlet>
+
+	<!-- Servlet Mappings -->
+	<servlet-mapping>
+		<servlet-name>Faces Servlet</servlet-name>
+		<url-pattern>*.faces</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>JQueryConeServlet</servlet-name>
+		<url-pattern>/jquery/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- Welcome files -->
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

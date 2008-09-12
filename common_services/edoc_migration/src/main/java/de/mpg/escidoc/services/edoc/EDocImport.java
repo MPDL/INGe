@@ -53,25 +53,26 @@ public class EDocImport extends DefaultHandler
 	
 	public EDocImport(String pathXml, String pathXslt) throws Exception
 	{
+	    System.out.print("Started xslt transformation...");
 		XSLTTransform transform = new XSLTTransform();
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
-		File file = new File("./Test.txt");
-		System.out.println(file.getAbsolutePath());
-		
+
 		transform.transform(ResourceUtil.getResourceAsFile(pathXml), ResourceUtil.getResourceAsFile(pathXslt), baos);
 
 		String result = baos.toString("UTF-8");
-		
+		System.out.println("done!");
+		System.out.print("Started SAX parser transformation...");
 		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 		
 		parser.parse(new InputSource(new StringReader(result)), this);
-		
+		System.out.println("done!");
+		System.out.print("Writing item XML file...");
 		OutputStreamWriter fwout = new OutputStreamWriter(new FileOutputStream(new File("edoc_export_out.xml"), false), "UTF-8");
-		String resString = getResult();		
-		System.out.println(resString);
-		fwout.write(resString);
+
+		fwout.write(getResult());
 		fwout.close();
+		System.out.println("done!");
+		System.out.println("Finished!");
 	}
 
 	private String getResult() {
@@ -104,7 +105,7 @@ public class EDocImport extends DefaultHandler
 				List<Author> authors = authorDecoder.getBestAuthorList();
 				for(int i=0; i < authors.size(); i++){
 					authors.get(i);
-					newXml.append("<mdp:creator role=\"editor\">");
+					newXml.append("<e:creator role=\"editor\">");
 					newXml.append("<e:person>");	
 					newXml.append("<e:complete-name>");
 					newXml.append(escape(authors.get(i).getGivenName() + " " + authors.get(i).getSurname()));
@@ -116,7 +117,7 @@ public class EDocImport extends DefaultHandler
 					newXml.append(escape(authors.get(i).getGivenName()));
 					newXml.append("</e:given-name>");
 					newXml.append("</e:person>");
-					newXml.append("</mdp:creator>");
+					newXml.append("</e:creator>");
 				}				
 				
 				
