@@ -457,14 +457,15 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				
 				<!-- unAPI -->
 				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
@@ -554,14 +555,15 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				
 			</properties>
 				<distributionManagement>
