@@ -29,6 +29,8 @@
 
 package de.mpg.escidoc.services.exportmanager;
 
+import java.io.BufferedInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
@@ -51,7 +53,7 @@ import org.jboss.annotation.ejb.RemoteBinding;
 @RemoteBinding(jndiBinding = ExportHandler.SERVICE_NAME)
 
 public class ExportHandlerBean implements ExportHandler
-{
+{ 
 	
 	// private static final long serialVersionUID = 1L;
     
@@ -73,24 +75,56 @@ public class ExportHandlerBean implements ExportHandler
 
     /**
      * {@inheritDoc}
+     * @throws IOException  
      */
-	public byte[] getOutput(String exportFormat,
+	public File getOutputFile(String exportFormat,
 			String outputFormat,
 			String archiveFormat,
 			String itemList)
-			throws ExportManagerException 
+			throws ExportManagerException, IOException  
 	{
-        return exportService.getOutput( exportFormat, outputFormat, archiveFormat, itemList );
+        return exportService.getOutputFile( exportFormat, outputFormat, archiveFormat, itemList );
 	}
 
     /**
-     * {@inheritDoc}
+     * {@inheritDoc}  
+     * @throws IOException 
+     */
+	public File generateArchiveFile(String exportFormat, String archiveFormat,
+			byte[] exportOut, String itemListFiltered)
+			throws ExportManagerException, IOException 
+	{
+		return exportService.generateArchiveFile(exportFormat, archiveFormat, exportOut, itemListFiltered);
+	}
+
+
+    /**
+     * {@inheritDoc}  
+     * @throws IOException 
      */
 	public byte[] generateArchive(String exportFormat, String archiveFormat,
-			byte[] exportOut, String itemListFiltered)
-			throws ExportManagerException 
-	{
-		return exportService.generateArchive(exportFormat, archiveFormat, exportOut, itemListFiltered);
+			byte[] export, String itemListFiltered)
+			throws ExportManagerException, IOException {
+		return exportService.generateArchive(exportFormat, archiveFormat, export, itemListFiltered);
+	}
+
+    /** 
+     * {@inheritDoc}  
+     * @throws IOException 
+     */
+	public byte[] getOutput(String exportFormat, String outputFormat,
+			String archiveFormat, String itemList)
+			throws ExportManagerException, IOException {
+		return exportService.getOutput(exportFormat, outputFormat, archiveFormat, itemList);
+	}
+
+	/**
+	 * {@inheritDoc}  
+	 * @throws IOException 
+	 */
+	public long calculateItemListFileSizes(String itemList)
+			throws ExportManagerException {
+		return exportService.calculateItemListFileSizes(itemList);
 	}
 
 

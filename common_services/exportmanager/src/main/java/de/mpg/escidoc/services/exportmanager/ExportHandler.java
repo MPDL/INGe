@@ -29,6 +29,7 @@
 
 package de.mpg.escidoc.services.exportmanager;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -56,45 +57,116 @@ public interface ExportHandler {
 	 */
     String explainFormatsXML() throws ExportManagerException, IOException;
 
+
 	/**
 	 * Returns data presenting the items in export format.
 	 * 
 	 * @param exportFormat - export format of the items 
 	 * @param outputFormat - file format (e.g. pdf, odt, rtf etc.) to be exported 
-	 * @param archiveFormat - archive format for the export bundle. Can be zip, tar.gz, etc. 
-	 * 		  If null the archive will not be created.
-	 * @param itemList - XML String in the appropriate scheme (PibItemList for the moment) which will be processed by export component
+	 * @param archiveFormat - 	archive format for the export bundle. Can be zip, tar.gz, etc. 
+	 * 		  					If <code>null </code>the archive will not be created.
+	 * @param filteredItemList is used for archive generation. This is the XML String in the appropriate scheme which will be processed by export component. 
+	 * 							 All files will be downloaded according to theirs URIs references  and put into the resulting archive. 
 	 * @return export as byte[]
 	 * @throws ExportManagerException
+	 * @throws IOException 
 	 */
 	byte[] getOutput(
 			String exportFormat,
 			String outputFormat,
 			String archiveFormat,
-			String itemList 
+			String filteredItemList 
 	) throws  
-			ExportManagerException;
-	
+			ExportManagerException, IOException;
+
     /**
-     * Generates an archive on hand of   
+     * Generates archive, put the following issues in it:
      * 
-     * @param exportFormat - 
-     * @param archiveFormat - archive format for the export bundle. Can be zip, tar.gz, etc.
-     * @param export is already processed transformation of the <b>complete</b> itemList (not itemListFiltered!) to the exportFormat
+     * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
+     * 2) Description of the list, content of the <code>description</code>      
+     * 3) License agreement
+     * 
+     * To be used in case of the huge sizes, which can be precalculated with {@link calculateItemListFileSizes(java.lang.String) calculateItemListFileSizes}  
+     * 
+     * P.S. Please delete generated File since processing of it will be finished!  
+     * 
+     * @param exportFormat - is the name of the export format to ba presented in the archive description file   
+     * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+     * @param description contains some info which can describe the content of the archive. E.g. CSV or XMl file with the list of all archive items, some addition info 
      * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
      * 	 	  The components which will not be exported should be removed from the itemList.    
-     * @return archive as byte[] 
+     * @return archive as <code>java.io.File</code> reference
      * @throws ExportManagerException
+     * @throws IOException 
      */
-    byte[] generateArchive(
+	File generateArchiveFile(
+    		String exportFormat,  
+    		String archiveFormat,
+			byte[] description, 
+			String itemListFiltered
+    ) throws 
+    	ExportManagerException, IOException;
+	
+    /**
+     * Generates archive, put the following issues in it:
+     * 
+     * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
+     * 2) Description of the list, content of the <code>description</code>      
+     * 3) License agreement
+     * 
+     * @param exportFormat - is the name of the export format to be presented in the archive description file   
+     * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+     * @param description contains some info which can describe the content of the archive. E.g. CSV or XMl file with the list of all archive items, some addition info 
+     * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
+     * 	 	  The components which will not be exported should be removed from the itemList.    
+     * @return archive as byte[]
+     * @throws ExportManagerException
+     * @throws IOException 
+     */
+
+	byte[] generateArchive(
     		String exportFormat, 
     		String archiveFormat,
-			 byte[] export, 
-			 String itemListFiltered
+    		byte[] description, 
+    		String itemListFiltered
     ) throws 
-    	ExportManagerException;
+    	ExportManagerException, IOException;	
 
-    
+	/**
+	 * Returns data presenting the items in export format.
+	 *  
+	 * Used in the cases of the huge sizes.   
+	 * 
+	 * @param exportFormat - export format of the items 
+	 * @param outputFormat - file format (e.g. pdf, odt, rtf etc.) to be exported 
+	 * @param archiveFormat - 	archive format for the export bundle. Can be zip, tar.gz, etc. 
+	 * 							Archive will be created with the method {@link generateArchiveFile(java.lang.String, java.lang.String, byte[], java.lang.String) generateArchiveFile}.  
+	 * 		  					If <code>null</code>, the archive will not be created.
+	 * @param filteredItemList - XML String in the appropriate scheme (PibItemList for the moment) which will be processed by export component
+	 * @return export as <code>java.io.File</code> 
+	 * @throws ExportManagerException
+	 * @throws IOException 
+	 */
+	File getOutputFile(
+			String exportFormat,
+			String outputFormat,
+			String archiveFormat,
+			String filteredItemList
+	) throws  
+			ExportManagerException, IOException;
+	
+	
+	/**
+	 * Calculates complete sum of the file sizes referenced from the itemList.
+	 * The following elements are taken for the size calculation:
+	 * //{http://www.escidoc.de/schemas/metadatarecords/0.4}md-records/{http://escidoc.mpg.de/metadataprofile/schema/0.1/file}file/{http://purl.org/dc/terms/}extent  
+	 * @param itemList
+	 * @return Sum of the file sizes 
+	 * @throws ExportManagerException
+	 */
+	long calculateItemListFileSizes( String itemList ) 
+		throws ExportManagerException;
+	
 //    String[] getListOfStructuredExportFormats(String contexts);
 //    
 //    String[] getListOfCitationStyles();
