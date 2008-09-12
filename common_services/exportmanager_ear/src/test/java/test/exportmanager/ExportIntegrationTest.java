@@ -32,7 +32,8 @@ package test.exportmanager;
  
 import static org.junit.Assert.*;
 
-import java.io.FileOutputStream;
+import java.io.File;
+
 
 /**
  * JUnit test class for Export Manager component   
@@ -44,6 +45,7 @@ import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test; 
+
 
 import de.mpg.escidoc.services.exportmanager.ExportManagerException;
 import de.mpg.escidoc.services.exportmanager.ExportHandler;
@@ -84,7 +86,7 @@ public class ExportIntegrationTest
 	    @Before
 	    public final void getItemList() throws Exception
 	    {
-	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN);
+	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, TestHelper.ITEMS_LIMIT);
 			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
 			logger.info("PubMan item list from framework:\n" + pubManItemList);
 			
@@ -92,7 +94,7 @@ public class ExportIntegrationTest
 //			fos.write(pubManItemList.getBytes());				
 //			fos.close();	        
 			
-			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES);
+			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "10");
 			assertFalse("Faces item list from framework is empty", facesItemList == null || facesItemList.trim().equals("") );
 			logger.info("Faces item list from framework:\n" + facesItemList);
 	    }
@@ -114,38 +116,52 @@ public class ExportIntegrationTest
 	    
 	    
 	    /**
-	     * Test service with a item list XML.
+	     * Test generate output into archive.
 	     * @throws Exception Any exception.
 	     */
 	    @Test 
-	    public final void testExportToArchives() throws Exception
+	    public final void testExportsToArchives() throws Exception
 	    {
-	        start = -System.currentTimeMillis();
-	    	byte[] result = export.getOutput("CSV", null, ArchiveFormats.tar.toString(), facesItemList);
-	    	start += System.currentTimeMillis();
-	    	assertFalse("tar generation failed", result==null || result.length == 0);
-	    	logger.info("tar generation is OK (" + (start) + "ms)" );
-//			FileOutputStream fos = new FileOutputStream("file.tar");
-//			fos.write(result);				
-//			fos.close();	    
-			
-	        start = -System.currentTimeMillis();
-			result = export.getOutput("CSV", null, ArchiveFormats.gzip.toString(), facesItemList); 
-	    	start += System.currentTimeMillis();
-			assertFalse("gzip generation failed", result==null || result.length == 0);
-	    	logger.info("tar.gzip generation is OK (" + (start) + "ms)" );
-//			fos = new FileOutputStream("file.tar.gz");
-//			fos.write(result);				
-//			fos.close();
-			
-	        start = -System.currentTimeMillis();
-			result = export.getOutput("CSV", null, ArchiveFormats.zip.toString(), facesItemList); 
-	    	start += System.currentTimeMillis();
-			assertFalse("zip generation failed", result==null || result.length == 0);
-	    	logger.info("zip generation is OK (" + (start) + "ms)" );
-//			fos = new FileOutputStream("file.zip");
-//			fos.write(result);				
-//			fos.close();	        
+	    	logger.info("heapMaxSize = " + Runtime.getRuntime().maxMemory());
+
+	    	logger.info("Exports to the archive file:");    
+	    	File f; 
+	    	for (ArchiveFormats af : ArchiveFormats.values())
+	    	{
+	    		String afString = af.toString();
+	    		start = -System.currentTimeMillis();
+	    		f = export.getOutputFile("CSV", null, afString, facesItemList); 
+	    		start += System.currentTimeMillis();
+	    		assertFalse(afString + " generation failed", f == null || f.length() == 0);
+	    		logger.info(afString + " generation is OK (" + (start) + "ms), " +
+	    				"file name:" + f.getCanonicalPath() + 
+	    				", file size:" + f.length() 
+	    		);
+	    		f.delete();
+	    	}
+	    	logger.info("End of the exports to the archive files.");    
+
+	    	logger.info("Exports to the byte[]:");    
+	    	byte [] ba;
+	    	//		FileOutputStream fos;
+	    	for (ArchiveFormats af : ArchiveFormats.values())
+	    	{
+	    		String afString = af.toString();
+	    		start = -System.currentTimeMillis();
+	    		ba = export.getOutput("CSV", null, afString, facesItemList); 
+	    		start += System.currentTimeMillis();
+	    		assertFalse(afString + " generation failed", ba == null || ba.length == 0);
+	    		logger.info(afString + " generation is OK (" + (start) + "ms), " +
+	    				"byte array size:" + ba.length 
+	    		);
+	    		//			afString = afString.equals(ArchiveFormats.gzip.toString()) ? "tar.gz" : afString; 
+	    		//			fos = new FileOutputStream("output." + afString);
+	    		//			fos.write(ba);				
+	    		//			fos.close();	        
+	    	}
+	    	logger.info("End of the exports to the byte[].");    
+
+
 	    }	    
 	    
 	    /**
@@ -157,25 +173,24 @@ public class ExportIntegrationTest
 	    {
 	    	
 	    	byte[] result; 
-	        start = -System.currentTimeMillis();
-	    	result = export.getOutput("ENDNOTE", null, null, pubManItemList);
-	    	start += System.currentTimeMillis();
-	    	assertFalse("ENDNOTE export failed", result == null || result.length == 0);
-	    	logger.info("ENDNOTE export (" + start + "ms):\n" + new String(result));
-	    	
-	        start = -System.currentTimeMillis();
-	    	result = export.getOutput("BIBTEX", null, null, pubManItemList); 
-	    	start += System.currentTimeMillis();
-	    	assertFalse("BIBTEX export failed", result == null || result.length == 0);
-	    	logger.info("BIBTEX export (" + start + "ms):\n" + new String(result));
-	    	
-	        start = -System.currentTimeMillis();
-	    	result = export.getOutput("APA", "snippet", null, pubManItemList); 
-	    	start += System.currentTimeMillis();
-	    	assertFalse("APA export failed", result == null || result.length == 0);
-	    	logger.info("APA export (" + start + "ms):\n" + new String(result));
+	    	for ( String ef : new String[] { "ENDNOTE", "BIBTEX", "APA" })
+	    	{
+		    	logger.info("start " + ef + " export ");
+		        start = -System.currentTimeMillis();
+		    	result = export.getOutput(
+		    			ef,
+		    			ef.equals("APA") ? "snippet" : null,	
+		    			null, 
+		    			pubManItemList
+		    	);
+		    	start += System.currentTimeMillis();
+		    	assertFalse(ef + " export failed", result == null || result.length == 0);
+		    	logger.info(ef + " export (" + start + "ms):\n" + new String(result));
+	    		
+	    	}
 	    	
 	    }
+
 	     
     
 

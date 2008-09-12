@@ -181,23 +181,25 @@ public class TestHelper
      * @throws URISyntaxException 
      * @throws ServiceException 
      */
-    public static String getItemListFromFramework(final String contentModel) throws IOException, ServiceException, URISyntaxException
+    public static String getItemListFromFramework(final String contentModel, String limit) throws IOException, ServiceException, URISyntaxException
     {
     	
-    	String userHandle = loginUser("test_dep_scientist", "verdi"); 
+    	String userHandle = loginUser(USER_NAME, USER_PASSWD); 
         ItemHandler ch = ServiceLocator.getItemHandler(userHandle);
         // see here for filters: https://zim02.gwdg.de/repos/common/trunk/common_services/common_logic/src/main/java/de/mpg/escidoc/services/common/xmltransforming/JiBXFilterTaskParamVOMarshaller.java
+        // example for SRW, faces, released: 
+        // http://srv05.mpdl.mpg.de:8080/srw/search/escidoc_all?operation=search&query=%20escidoc.content-model.objid=escidoc:faces40
         String filter = 
-        	"<param>" +
+        	"<param>" + 
         		// escidoc content model
         		"<filter name=\"http://escidoc.de/core/01/structural-relations/content-model\">" + contentModel + " </filter>" +
+        		"<filter name=\"http://escidoc.de/core/01/properties/public-status\">released</filter>" +
         		// records limit	
-        		"<limit>" + ITEMS_LIMIT + "</limit>" +
+        		"<limit>" + limit + "</limit>" +
         	"</param>";
         return ch.retrieveItems(filter);
     
     }
-    
     
     
     protected static String loginUser(String userid, String password) throws HttpException, IOException, ServiceException, URISyntaxException
