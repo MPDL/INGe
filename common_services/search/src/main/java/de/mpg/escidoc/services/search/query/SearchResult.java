@@ -29,13 +29,20 @@
 
 package de.mpg.escidoc.services.search.query;
 
+import java.io.Serializable;
+
 /**
  * The result of a search query. It contains the cql query in a textual manner.
  * @author endres
  *
  */
-public class SearchResult {
+public class SearchResult implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private String cqlQuery = null;
 	
 	public String getCqlQuery() {

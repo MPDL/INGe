@@ -29,6 +29,7 @@
 
 package de.mpg.escidoc.services.search.query;
 
+import java.io.Serializable;
 import java.util.List;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 
@@ -36,8 +37,12 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
  * @author endres
  *
  */
-public class StandardSearchResult extends SearchResult {
+public class StandardSearchResult extends SearchResult implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<ItemContainerSearchResultVO> resultList = null;
 	
 	/**
