@@ -112,7 +112,7 @@
 			
 			function suggest() {
 			
-				var q = escape($.trim($input.val()));
+				var q = $.trim($input.val());
 
 				if (q.length >= options.minchars) {
 					
@@ -123,18 +123,19 @@
 						displayItems(cached['items']);
 						
 					} else {
-					
-						$.get(options.source, {q: q}, function(txt) {
-
-							$results.hide();
-							
-							var items = parseTxt(txt, q);
-							
-							displayItems(items);
-							addToCache(q, items, txt.length);
-							
-						});
 						
+						$.ajax({
+							processData: false,
+							type: "GET",
+							url: options.source,
+							data: "q="+escape(q),
+							success:function(txt){
+									$results.hide();
+									var items = parseTxt(txt, q);
+									displayItems(items);
+									addToCache(q, items, txt.length);
+								}
+						});	
 					}
 					
 				} else {
