@@ -78,7 +78,8 @@ public class ExportTest
 	    	
 	    	pubManItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_PUBMAN, "5");
 			assertFalse("PubMan item list from framework is empty", pubManItemList == null || pubManItemList.trim().equals("") );
-			//logger.info("PubMan item list from framework:\n" + pubManItemList);
+			logger.info("PubMan item list from framework:\n" + pubManItemList);
+			
 			
 			facesItemList = TestHelper.getItemListFromFramework(TestHelper.CONTENT_MODEL_FACES, "5");
 			assertFalse("Faces item list from framework is empty", facesItemList == null || facesItemList.trim().equals("") );
