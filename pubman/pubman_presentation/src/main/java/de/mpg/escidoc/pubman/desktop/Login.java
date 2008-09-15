@@ -56,6 +56,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class Login extends FacesBean
 {
     public static String LOGIN_URL = "/aa/login";
+    public static String LOGOUT_URL = "/aa/logout";
     final public static String BEAN_NAME = "Login";
     private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";
@@ -112,15 +113,7 @@ public class Login extends FacesBean
             if (userHandle != null)
             {
                 long zeit = -System.currentTimeMillis();
-                try
-                {
-                    ServiceLocator.getUserManagementWrapper(userHandle).logout();
-                }
-                catch (AuthenticationException e)
-                {
-                    forceLogout();
-                    return "loadLoginErrorPage";
-                }
+
                 zeit += System.currentTimeMillis();
                 logger.info("logout->" + zeit + "ms");
 //                loginHelper.setLoggedIn(false);
@@ -129,9 +122,11 @@ public class Login extends FacesBean
 //                depWSSessionBean.setMyWorkspace(false);
 //                depWSSessionBean.setDepositorWS(false);
 //                depWSSessionBean.setNewSubmission(false);
-                fc.getExternalContext().redirect(request.getContextPath());
                 HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
                 session.invalidate();
+             // Logout mechanism
+                fc.getExternalContext().redirect(
+                        ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=http://localhost:8080/pubman/");
             }
         }
         else

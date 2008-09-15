@@ -924,8 +924,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
     	if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
     	{
-    		return PropertyReader
-					.getProperty("escidoc.pubman.instance.url")
+    		return PropertyReader.getProperty("escidoc.pubman.instance.url")
+			+ PropertyReader.getProperty("escidoc.pubman.instance.context.path")
     			+ PropertyReader
     				.getProperty("escidoc.pubman.item.pattern")
     				.replaceAll("\\$1", this.getVersion().getObjectId()

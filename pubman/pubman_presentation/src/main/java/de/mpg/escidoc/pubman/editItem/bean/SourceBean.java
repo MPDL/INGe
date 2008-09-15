@@ -12,6 +12,7 @@ import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * POJO bean to deal with one source.
@@ -25,6 +26,8 @@ public class SourceBean
 	private CreatorCollection creatorCollection;
 	private IdentifierCollection identifierCollection;
 	private TitleCollection titleCollection;
+	
+	private String suggestConeUrl = null;
 	
 	private boolean autosuggestJournals = false;
 	
@@ -154,6 +157,20 @@ public class SourceBean
 	public void setBtn_chooseCollection(CoreCommandButton btn_chooseCollection) {
 		this.btn_chooseCollection = btn_chooseCollection;
 	}
+
+    public String getSuggestConeUrl() throws Exception
+    {
+        if (suggestConeUrl == null)
+        {
+            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+        }
+        return suggestConeUrl;
+    }
+
+    public void setSuggestConeUrl(String suggestConeUrl)
+    {
+        this.suggestConeUrl = suggestConeUrl;
+    }
 
 	
 
