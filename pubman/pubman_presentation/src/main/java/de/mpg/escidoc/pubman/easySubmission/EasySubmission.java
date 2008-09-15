@@ -974,6 +974,7 @@ public class EasySubmission extends FacesBean
 		        		}		                
 		                this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
 		                this.setItem(itemVO);
+		        		System.out.println(this.xmlTransforming.transformToItem(itemVO));
 		        		
 		        	 }
 		        	 catch(TechnicalException e){ e.printStackTrace();}
