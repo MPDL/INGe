@@ -36,7 +36,6 @@ import gov.loc.www.zing.srw.StringOrXmlFragment;
 import gov.loc.www.zing.srw.diagnostic.DiagnosticType;
 
 import java.io.IOException;
-import java.rmi.UnmarshalException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -70,8 +69,9 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.StandardSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
@@ -100,7 +100,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
      * A CitationStyleHandler instance.
      */
     @EJB
-    private CitationStyleHandler citationStyleHandler;
+    private CitationStyleHandler citationStyleHandler; 
 
     /**
      * A EndnodeExportHandler instance.
@@ -112,13 +112,19 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     	this.logger = Logger.getLogger(getClass());
     }
     
-    /** coreservice identifier for the 'all' index database */
+    /** Coreservice identifier for the 'all' lucene index database */
     private static final String INDEXDATABASE_ALL = "all";
-    /** coreservice identifier for the 'german' index database */
+    /** Coreservice identifier for the 'german' lucene index database */
     private static final String INDEXDATABASE_EN = "en";
-    /** coreservice identifier for the 'english' index database */
+    /** Coreservice identifier for the 'english' lucene index database */
     private static final String INDEXDATABASE_DE = "de";
     
+    /** Version of the cql search request */
+    private static final String SEARCHREQUEST_VERSION = "1.1";
+    /** Maximum records to be retrieved */
+    private static final String MAXIMUM_RECORDS = "10000";
+    /** Packing of result */
+    private static final String RECORD_PACKING = "xml";
     
     /** 
      * {@inheritDoc}
@@ -127,21 +133,24 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
      * @throws IOException 
      * @throws CQLParseException 
      */
-    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws Exception {
+    public StandardSearchResult search( StandardSearchQuery query ) throws Exception {
     	
     	try {
     		// call framework Search service
+    		String cqlQuery = query.getCqlQuery();
+    		
     		SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-        	searchRetrieveRequest.setVersion("1.1");
-        	searchRetrieveRequest.setQuery( query.getCqlQuery() );
+        	searchRetrieveRequest.setVersion( SEARCHREQUEST_VERSION );
+        	searchRetrieveRequest.setQuery( cqlQuery );
 
-        	NonNegativeInteger nni = new NonNegativeInteger("10000");
-        	searchRetrieveRequest.setMaximumRecords(nni);
-        	searchRetrieveRequest.setRecordPacking("xml");
+        	NonNegativeInteger count = new NonNegativeInteger( MAXIMUM_RECORDS );
+        	searchRetrieveRequest.setMaximumRecords( count );
+        	searchRetrieveRequest.setRecordPacking( RECORD_PACKING );
         
         	SearchRetrieveResponseType searchResult = performSearch( searchRetrieveRequest, query.getIndexSelector() );
         	List<ItemContainerSearchResultVO> resultList = transformToSearchResultList( searchResult );
-        	return resultList;
+        	StandardSearchResult result = new StandardSearchResult( resultList, cqlQuery );
+        	return result;
     	}
     	catch( Exception e ) {
     		throw new TechnicalException( e );
@@ -151,21 +160,21 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     /** 
      * {@inheritDoc}
      */
-    public byte[] searchAndExport( ExportSearchQuery query ) throws Exception {
+    public ExportSearchResult searchAndExport( ExportSearchQuery query ) throws Exception {
     	
+    	String cqlQuery = query.getCqlQuery();
     	 // call framework Search service
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-        searchRetrieveRequest.setVersion("1.1");
+        searchRetrieveRequest.setVersion( SEARCHREQUEST_VERSION );
         searchRetrieveRequest.setQuery( query.getCqlQuery() );
 
-        NonNegativeInteger nni = new NonNegativeInteger("10000");
+        NonNegativeInteger nni = new NonNegativeInteger( MAXIMUM_RECORDS );
         searchRetrieveRequest.setMaximumRecords(nni);
-        searchRetrieveRequest.setRecordPacking("xml");
+        searchRetrieveRequest.setRecordPacking( RECORD_PACKING );
         
         SearchRetrieveResponseType searchResult = performSearch( searchRetrieveRequest, query.getIndexSelector() );
         String itemList = transformToItemListAsString( searchResult );
     	
-        
     	if ( query.getExportFormat() == null || query.getExportFormat().trim().equals("") )
    	 		throw new TechnicalException("exportFormat is empty");
    	 	
@@ -178,11 +187,11 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
    		 boolean flag = false;
    		 try
    		 {
-       		 FOR: for ( String ef : structuredExportHandler.getFormatsList() )
+       		for ( String ef : structuredExportHandler.getFormatsList() )
           		  if ( query.getExportFormat().equals(ef) )
           		  {
-          			  flag = true;
-          			  break FOR; 
+          			 exportData = getOutput( query.getExportFormat(), FormatType.STRUCTURED, null, itemList);
+      				 return new ExportSearchResult( exportData, cqlQuery );
           		  }
    		 }
    		 catch (Exception e) 
@@ -190,25 +199,13 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
    			 throw new TechnicalException(e);
    		 }
    		 
-   		 if ( flag ){ 
-   			 try{
-//   				 exportData = structuredExportHandler.getOutput(itemList, exportFormat);
-   				 exportData = getOutput( query.getExportFormat(), FormatType.STRUCTURED, null, itemList);
-   				 return exportData;
-   			 }  catch (Exception e) 
-   			 {
-   				 throw new TechnicalException(e);
-   			 }	 
-   		 
-   		 }
-
    		 try
    		 {
-   			 FOR: for ( String ef : XmlHelper.getListOfStyles() )
+   			 for ( String ef : XmlHelper.getListOfStyles() )
    				 if ( query.getExportFormat().equals(ef) )
    				 {
    					 flag = true;
-   					 break FOR; 
+   					 break; 
    				 }
    		 }
    		 catch (Exception e) 
@@ -233,7 +230,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
    			 
    			 try{
    				 exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
-   				 return exportData;
+   				 return new ExportSearchResult( exportData, cqlQuery );
    			 }  
    		 	 catch (Exception e) 
    			 {
@@ -246,13 +243,9 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     	
     }
     
-    private byte[] getOutput(
-      		 String exportFormat, 
-      		 FormatType formatType, 
-      		 String outputFormat,
-      		 String itemList
-      	) throws TechnicalException, StructuredExportXSLTNotFoundException, StructuredExportManagerException, IOException, JRException, CitationStyleManagerException 
-       {
+    private byte[] getOutput( String exportFormat, FormatType formatType, String outputFormat, 
+    		String itemList ) throws TechnicalException, StructuredExportXSLTNotFoundException, 
+    		StructuredExportManagerException, IOException, JRException, CitationStyleManagerException {
       	 
       	 byte[] exportData = null;
       	 

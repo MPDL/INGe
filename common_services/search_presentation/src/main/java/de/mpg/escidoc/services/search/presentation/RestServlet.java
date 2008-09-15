@@ -48,6 +48,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.search.ItemContainerSearch;
 import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
+import de.mpg.escidoc.services.search.query.ExportSearchResult;
 
 /**
  * Servlet for the REST interface.
@@ -174,7 +175,9 @@ public class RestServlet extends HttpServlet
     			
     			ExportSearchQuery query = new ExportSearchQuery( cqlQuery, databaseSelector, exportFormat, outputFormat );
 
-    			byte[] result = itemContainerSearch.searchAndExport( query );
+    			ExportSearchResult queryResult = itemContainerSearch.searchAndExport( query );
+    			
+    			byte[] result = queryResult.getResult();
 
     			String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
     			LOGGER.debug("fileName: " + fileName);

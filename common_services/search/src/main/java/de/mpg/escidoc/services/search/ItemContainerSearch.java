@@ -34,8 +34,9 @@ import java.util.List;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
-import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.StandardSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 
 /**
  * Interface for the item and container search service.
@@ -62,26 +63,22 @@ public interface ItemContainerSearch {
     	German
     }
     
-    /**
-     * The Search interface searches for items and containers.
-     * 
-     * @param query
-     * @return
-     * @throws TechnicalException
-     */
-    public List<ItemContainerSearchResultVO> search( StandardSearchQuery query ) throws Exception;
+   /**
+    * The Search interface searches for items and containers.
+    * 
+    * @param query
+    * @return
+    * @throws Exception
+    */
+    public StandardSearchResult search( StandardSearchQuery query ) throws Exception;
     
-    /**
-     * The SearchAndExport interface is used to search for items and container 
-     * and exports them to various formats. Only items are supported.
-     * 
-     * @param cqlSearchString
-     * @param language
-     * @param exportFormat
-     * @param outputFormat
-     * @return
-     * @throws TechnicalException
-     * @throws Exception 
-     */
-    public byte[] searchAndExport( ExportSearchQuery query ) throws Exception;
+   /**
+    * 
+    * The SearchAndExport interface is used to search for items and container 
+    * and exports them to various formats. Only items are supported.
+    * @param query
+    * @return
+    * @throws Exception
+    */
+    public ExportSearchResult searchAndExport( ExportSearchQuery query ) throws Exception;
 }
