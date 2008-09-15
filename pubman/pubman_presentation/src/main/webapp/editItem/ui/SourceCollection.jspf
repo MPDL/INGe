@@ -61,7 +61,7 @@
 						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
 						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{!sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
 					
-						<h:inputTextarea styleClass="journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
+						<h:inputTextarea styleClass="editItemTextArea journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
 						<script type="text/javascript">
 							$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query");
 						</script>
