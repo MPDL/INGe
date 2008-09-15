@@ -112,7 +112,7 @@
 			
 			function suggest() {
 			
-				var q = $.trim($input.val());
+				var q = escape($.trim($input.val()));
 
 				if (q.length >= options.minchars) {
 					
