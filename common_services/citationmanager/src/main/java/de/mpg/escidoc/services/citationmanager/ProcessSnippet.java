@@ -33,6 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -221,15 +222,19 @@ public class ProcessSnippet {
 	
 	private void addFrameworkPrefixUrl(Document doc, Element snippetElement, Element item) throws IOException {
 
+		
+		
+
+		
 		String fw_url = null;
 		try
 		{
-		    PropertyReader.getProperty("escidoc.framework_access.framework.url");
+			fw_url = PropertyReader.getProperty("escidoc.framework_access.framework.url");
 		}
 		catch (Exception e) {
             throw new IOException("Error reading framework url:" + e.getMessage());
         }
-		
+
 		NodeList nl = item.getElementsByTagName("escidocComponents:components");
 		if ( nl == null )
 			return;
@@ -246,7 +251,10 @@ public class ProcessSnippet {
 		{
 			e = (Element)nl.item( i );
 			e = (Element)e.getElementsByTagName("escidocComponents:content").item( 0 );
-			e.setAttribute( "xlink:href", fw_url + e.getAttribute( "xlink:href" ) );
+			if ( "internal-managed".equals(e.getAttribute( "storage" )) )
+			{
+				e.setAttribute( "xlink:href", fw_url + e.getAttribute( "xlink:href" ) );
+			}
 		}
 	}
 
