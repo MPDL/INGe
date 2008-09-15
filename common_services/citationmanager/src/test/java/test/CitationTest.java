@@ -3,6 +3,7 @@
  */
 package test;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 import org.apache.log4j.Logger;
@@ -32,6 +33,7 @@ public class CitationTest {
 //	private final String dsFileName = "Kristina.xml";  
 //	private final String dsFileName = "item-list-inga.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
+//	private final String dsFileName = "1.xml";  
 	
 	private String itemList;
 	
@@ -55,7 +57,7 @@ public class CitationTest {
     {
 //    	String ds = ResourceUtil.getPathToDataSources() + dsFileName; 
 //    	logger.info("Data Source:" + ds);
-//      itemList = ResourceUtil.getResourceAsString(ds);
+//    	itemList = ResourceUtil.getResourceAsString(ds);
 //    	assertNotNull("Item list xml is not found:", ds);
     	
     	itemList = TestHelper.getItemListFromFramework();
@@ -69,7 +71,6 @@ public class CitationTest {
      * @throws IOException 
      */
     @Test
-    @Ignore
     public final void testDataSourceValidation() throws IOException{
     	
     	//TODO: always recent schema should be provided
@@ -126,9 +127,14 @@ public class CitationTest {
 		long start;
     	byte[] result;
 		for ( OutFormats ouf : OutFormats.values() ) {
+//		for ( String ouf : new String[]{"snippet"} ) {
 			String format = ouf.toString();
 	    	start = System.currentTimeMillis();
 	    	result = pcs.getOutput("APA", format, itemList);
+//    		logger.info("ItemList\n: " + itemList);
+//    		logger.info("Result\n: " + new String(result));
+    		
+
 	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
 	    	assertTrue(format + " output should not be empty", result.length > 0);
     		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
