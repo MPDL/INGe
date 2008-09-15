@@ -97,6 +97,15 @@ public class TestHelper
         		// records limit	
         		"<limit>" + ITEMS_LIMIT + "</limit>" +
         	"</param>";
+        	
+// take one item:        	
+//    	"<param>" +
+//		//items
+//			"<filter name=\"http://purl.org/dc/elements/1.1/identifier\">" +  
+//				"<id>escidoc:20041</id>" +
+//			" </filter>" +
+//		"</param>";
+        
         return ch.retrieveItems(filter);
     
     }
