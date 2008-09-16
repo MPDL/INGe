@@ -113,7 +113,7 @@
 		</structure>
 		
 		<!-- Node: component.md-records -->
-		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" ordered="false" allow-repeats="true">
+		<structure name="md-records" ns="${xsd.soap.common.mdrecords}" ordered="false" allow-repeats="true" usage="optional">
 
 		<!-- Node: item.md-records.md-record -->
 		<!-- Field: metadataSets [List<MetadataSetVO>] -->
