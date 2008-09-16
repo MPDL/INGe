@@ -38,15 +38,19 @@ public class MulgaraQuerier implements Querier
             language = PropertyReader.getProperty("escidoc.cone.language.default");
         }
         
-        String searchStringWithWildcards = formatSearchString(searchString);
+        String[] searchStringsWithWildcards = formatSearchString(searchString);
         
         String mulgaraServer = PropertyReader.getProperty("escidoc.cone.mulgara.server.name");
         String mulgaraPort = PropertyReader.getProperty("escidoc.cone.mulgara.server.port");
         
         String query = "select $s $o from <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_result> where " +
-                "$s $p $o and (" +
-                "$s $p '" + searchStringWithWildcards + "' " +
-                "in <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_fulltext>);";
+                "$s $p $o";
+        for (String string : searchStringsWithWildcards)
+        {
+            query += " and $s $p '" + string + "' " +
+            "in <rmi://" + mulgaraServer + ":" + mulgaraPort + "/cone#" + model + "_fulltext>";
+        }
+        query += " limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
 
         logger.debug("query: " + query);
         
@@ -86,11 +90,15 @@ public class MulgaraQuerier implements Querier
         return resultSet;
     }
 
-    private String formatSearchString(String searchString)
+    private String[] formatSearchString(String searchString)
     {
-        searchString = searchString.trim().replaceAll("\\*", "") + "*";
+        String[] result = searchString.trim().split(" ");
+        for (int i = 0; i < result.length; i++)
+        {
+            result[i] = result[i].replaceAll("\\*", "") + "*";
+        }
         
-        return searchString;
+        return result;
     }
 
     public Set<Triple> details(String model, String id) throws Exception
