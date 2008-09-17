@@ -45,6 +45,7 @@ import org.apache.log4j.Logger;
 import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -126,7 +127,7 @@ public class Login extends FacesBean
                 session.invalidate();
              // Logout mechanism
                 fc.getExternalContext().redirect(
-                        ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=http://localhost:8080/pubman/");
+                        ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path"));
             }
         }
         else
