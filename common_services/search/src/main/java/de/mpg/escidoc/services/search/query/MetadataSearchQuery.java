@@ -52,7 +52,6 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 	
 	private ArrayList<MetadataSearchCriterion> searchCriteria = null;
 	private ArrayList<MetadataSearchCriterion> contentTypes = null;
-
 		
 	public MetadataSearchQuery( ArrayList<String> contentTypes ) throws TechnicalException {
 		this.contentTypes = new ArrayList<MetadataSearchCriterion>();
@@ -87,6 +86,9 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		return node;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getCqlQuery() throws CQLParseException, IOException, ParseException, TechnicalException {
 		return getCqlNode().toCQL();
 	}

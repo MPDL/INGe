@@ -31,9 +31,14 @@ package de.mpg.escidoc.services.search.query;
 
 import java.io.Serializable;
 
+import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 
 /**
+ * This is the base class for search queries.
+ * A search query always consists of a index database selector. The default selector is chosen if 
+ * none is supplied.
  * @author endres
  *
  */
@@ -47,18 +52,27 @@ public class SearchQuery implements Serializable {
 	/** The default index database to be searched by the query. */
 	private static final IndexDatabaseSelector INDEX_DEFAULT=IndexDatabaseSelector.All;
 	
+	/**
+	 * Constructor with index database selector.
+	 * @param indexSelector  index database selector
+	 */
 	public SearchQuery( IndexDatabaseSelector indexSelector ) {
 		this.indexSelector = indexSelector;
 	}
 	
+	/**
+	 * Default constructor with no index database selector. Default is chosen.
+	 */
 	public SearchQuery() {
 		this.indexSelector = INDEX_DEFAULT;
 	}
 	
+	/**
+	 * Get the index database selector.
+	 * 
+	 * @return index database selector
+	 */
 	public IndexDatabaseSelector getIndexSelector() {
 		return indexSelector;
-	}
-	public void setIndexSelector(IndexDatabaseSelector indexSelector) {
-		this.indexSelector = indexSelector;
 	}
 }

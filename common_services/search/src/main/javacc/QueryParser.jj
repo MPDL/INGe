@@ -54,7 +54,9 @@
  *
  */public class QueryParser{  /**
    * Creates a new instance with the given string.
-   */public QueryParser(String query){    this (new StringReader(query));  }  /** 
+   */public QueryParser(String query, String operator){    this (new StringReader(query));
+    this.booleanOperator = operator;  }
+  /** 
    *  Parses a query string, returning a CQL query string.
    *
    *  @param query  the query string to be parsed.
@@ -69,7 +71,12 @@ throw new ParseException("Cannot parse '"+query+"': "+tme.getMessage());    } 
    */public String parse()throws ParseException{    try {      matchQuery();      return getCQLQuery();    }    catch (ParseException tme){      // rethrow to include the original query:
 throw new ParseException("Cannot parse query: "+tme.getMessage());    }    catch (TokenMgrError tme){      throw new ParseException("Cannot parse query: "+tme.getMessage());    }  }  /**
    * The resulting cql query.
-   */private String cqlQuery = "";  /**
+   */private String cqlQuery = "";
+
+/**
+* Boolean operator.
+*/
+private String booleanOperator = "";  /**
    * The list of cql indexes.
    */private List<String>cqlIndexList = new ArrayList<String>();  /**
    * Returns the created cql query.
@@ -103,9 +110,9 @@ throw new ParseException("Cannot parse query: "+tme.getMessage());    }    cat
    * Helper to add cql indexes to a searchToken.
    */private String makeCQLIdexedSearchToken(String searchToken){    
     searchToken = escapeSpecialCharacters( searchToken );  
-    StringBuffer result = new StringBuffer();    switch (cqlIndexList.size()){      case 0:return searchToken;      case 1:return result.append(cqlIndexList.get(0)).append("=").append(searchToken).toString();      default :// enclose in brackets
+    StringBuffer result = new StringBuffer();    switch (cqlIndexList.size()){      case 0:return searchToken;      case 1:return result.append(cqlIndexList.get(0)).append(this.booleanOperator).append(searchToken).toString();      default :// enclose in brackets
 result.append("(");      for (int i = 0;      i<cqlIndexList.size();      i++){        String index = cqlIndexList.get(i);        if (i>0){          // add or operation between indexed searchTokens
-result.append(" or ");        }        result.append(index).append("=").append(searchToken);      }      result.append(")");      return result.toString();    }  }}PARSER_END(QueryParser)SKIP:{  " "  | "\r"  | "\t"}TOKEN:{  <AND:("AND")>  | <OR:("OR")>  | <NOT:("NOT")>  | <QUOTED:"\""(~["\""] | "\\\"")+"\"">
+result.append(" or ");        }        result.append(index).append(booleanOperator).append(searchToken);      }      result.append(")");      return result.toString();    }  }}PARSER_END(QueryParser)SKIP:{  " "  | "\r"  | "\t"}TOKEN:{  <AND:("AND")>  | <OR:("OR")>  | <NOT:("NOT")>  | <QUOTED:"\""(~["\""] | "\\\"")+"\"">
   | <CONSTANT:(~["*", "?", "\n", "\"", " "])(~[ "\n", " " ])*>}void matchQuery():{  String s;}{  s = searchString(){    cqlQuery = s;  }  <EOF>}String searchString():{  String s;  StringBuffer result = new StringBuffer();}{  (s = expression(){    if (result.length()>0){      result.append(" and ").append(s);    }    else {      result.append(s);    }  }  )+{    return result.toString();  }}String expression():{  String e1;  String e2 = "";  StringBuffer result = new StringBuffer();}{  e1 = searchClause()[e2 = booleanClause()]{    result.append(e1);    if (!e2.equals("")){      result.append(" ").append(e2);    }    return result.toString();  }}String searchClause():{  String s;}{  (s = searchToken(){    return s;  }  | ("("s = searchString()")"){    return "("+s+")";  }  )}String searchToken():{  Token t;  String s;}{
   (t = phrase()){
     t.image = makeCQLIdexedSearchToken( t.image );

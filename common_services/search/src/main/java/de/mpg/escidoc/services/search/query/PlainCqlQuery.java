@@ -27,7 +27,6 @@
 * All rights reserved. Use is subject to license terms.
 */
 
-
 package de.mpg.escidoc.services.search.query;
 
 import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
@@ -43,6 +42,9 @@ public class PlainCqlQuery extends SearchQuery implements StandardSearchQuery {
 	
 	private String cqlQuery = null;
 	
+	/**
+	 * {@inheritDoc}
+	 */
 	public String getCqlQuery() {
 		return cqlQuery;
 	}
