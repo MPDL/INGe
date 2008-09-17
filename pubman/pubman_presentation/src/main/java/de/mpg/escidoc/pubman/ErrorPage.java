@@ -39,7 +39,7 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.services.pubman.searching.ParseException;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 /**
  * BackingBean for ErrorPage.jsp.
@@ -52,7 +52,12 @@ import de.mpg.escidoc.services.pubman.searching.ParseException;
  */
 public class ErrorPage extends BreadcrumbPage
 {   
-    private static Logger logger = Logger.getLogger(ErrorPage.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static Logger logger = Logger.getLogger(ErrorPage.class);
     
     // used by calling components to get this Bean
     public final static String BEAN_NAME = "ErrorPage";
@@ -106,7 +111,6 @@ public class ErrorPage extends BreadcrumbPage
         // remove all elements
         this.panPageAlert.getChildren().clear();
         
-        String title = "Error";
         String summary = "";
         String detail = "";
 
@@ -119,7 +123,7 @@ public class ErrorPage extends BreadcrumbPage
             detail = "No Exception was set to display.";            
         }
         // added by NiH
-        else if (exception instanceof ParseException)
+        else if (exception instanceof TechnicalException)
         {
             summary = getMessage("search_ParseError");
             detail = this.exception.getClass().toString();            
