@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO.DateType;
+import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion.DateType;
 
 /**
  * Bean to handle the DateCriterionCollection on a single jsp.
@@ -17,7 +17,7 @@ public class DateCriterionCollection
 {
 	public static final String BEAN_NAME = "DateCriterionCollection";
 	
-	private List<DateCriterionVO> parentVO;
+	private List<DateCriterion> parentVO;
 	private DateCriterionManager dateCriterionManager;
 	
 	/**
@@ -27,8 +27,8 @@ public class DateCriterionCollection
 	public DateCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<DateCriterionVO> ctorList = new ArrayList<DateCriterionVO>();
-		ctorList.add(new DateCriterionVO());
+		List<DateCriterion> ctorList = new ArrayList<DateCriterion>();
+		ctorList.add(new DateCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -36,17 +36,17 @@ public class DateCriterionCollection
 	 * CTOR to refine or fill a predefined ArrayList<DateCriterionVO>
 	 * @param parentVO
 	 */
-	public DateCriterionCollection(List<DateCriterionVO> parentVO)
+	public DateCriterionCollection(List<DateCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<DateCriterionVO> getParentVO()
+	public List<DateCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<DateCriterionVO> parentVO)
+	public void setParentVO(List<DateCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -59,16 +59,16 @@ public class DateCriterionCollection
 	 */
 	public class DateCriterionManager extends DataModelManager<DateCriterionBean>
 	{
-		List<DateCriterionVO> parentVO;
+		List<DateCriterion> parentVO;
 		
-		public DateCriterionManager(List<DateCriterionVO> parentVO)
+		public DateCriterionManager(List<DateCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public DateCriterionBean createNewObject()
 		{
-			DateCriterionVO newVO = new DateCriterionVO();
+			DateCriterion newVO = new DateCriterion();
 			newVO.setDateType(new ArrayList<DateType>());
 			// create a new wrapper pojo
 			DateCriterionBean dateCriterionBean = new DateCriterionBean(newVO);
@@ -91,19 +91,19 @@ public class DateCriterionCollection
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice DateCriterionBean
 			List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
-			for (DateCriterionVO dateCriterionVO : parentVO)
+			for (DateCriterion dateCriterionVO : parentVO)
 			{
 				beanList.add(new DateCriterionBean(dateCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<DateCriterionVO> parentVO)
+		public void setParentVO(List<DateCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice DateCriterionBean
 			List<DateCriterionBean> beanList = new ArrayList<DateCriterionBean>();
-			for (DateCriterionVO dateCriterionVO : parentVO)
+			for (DateCriterion dateCriterionVO : parentVO)
 			{
 				beanList.add(new DateCriterionBean(dateCriterionVO));
 			}
@@ -135,10 +135,10 @@ public class DateCriterionCollection
     	}
     }
 
-    public List<DateCriterionVO> getFilledCriterionVO()
+    public List<DateCriterion> getFilledCriterion()
 	{
-    	List<DateCriterionVO> returnList = new ArrayList<DateCriterionVO>();
-    	for (DateCriterionVO vo : parentVO)
+    	List<DateCriterion> returnList = new ArrayList<DateCriterion>();
+    	for (DateCriterion vo : parentVO)
     	{
     		if (vo.getDateType().size() > 0 || 
     				(vo.getFrom() != null && vo.getFrom().length() > 0) ||

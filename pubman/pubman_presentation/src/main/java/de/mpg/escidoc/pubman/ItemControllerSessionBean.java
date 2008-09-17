@@ -61,10 +61,8 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
@@ -83,14 +81,13 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.search.ItemContainerSearch;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -103,7 +100,10 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class ItemControllerSessionBean extends FacesBean
 {
-    public static final String BEAN_NAME = "ItemControllerSessionBean";
+	
+	private static final long serialVersionUID = 8235607890711998557L;
+	
+	public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
     private LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -112,7 +112,6 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemPublishing pubItemPublishing = null;
     private QualityAssurance qualityAssurance = null;
     private ItemContainerSearch itemContainerSearch = null;
-    private PubItemSearching pubItemSearching = null;
     private XmlTransforming xmlTransforming = null;
     private ItemValidating itemValidating = null;
     private ItemExporting itemExporting = null;
@@ -122,6 +121,9 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemVO currentPubItem = null;
     private ContextVO currentContext = null;
     private PubItemSimpleStatistics pubItemStatistic =null;
+    
+    private static final String PROPERTY_CONTENT_MODEL = 
+    	"escidoc.framework_access.content-model.id.publication";
 
 
     /**
@@ -137,7 +139,6 @@ public class ItemControllerSessionBean extends FacesBean
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
             this.itemContainerSearch = (ItemContainerSearch) initialContext.lookup(ItemContainerSearch.SERVICE_NAME);
-            this.pubItemSearching = (PubItemSearching) initialContext.lookup(PubItemSearching.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
             this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
@@ -1408,7 +1409,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
+        ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
 
         return itemList;
     }
@@ -1484,7 +1485,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
+        ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
 
         return itemList;
     }
@@ -1605,83 +1606,22 @@ public class ItemControllerSessionBean extends FacesBean
     }
 
     /**
-     * Returns all items which contain the searchString.
-     * @author Hugo Niedermaier
-     * @param list List of criterionVOs for the search
-     * @return all items which contain the searchString
-     * @throws Exception if framework access fails
-     */
-    public ArrayList<PubItemVO> advancedSearchItems(ArrayList<CriterionVO> list, String language ) throws Exception
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Advanced Searching");
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList) this.pubItemSearching.advancedSearch(list, language );
-        
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size());
-        }
-        
-        return itemList;
-    }
-
-    /**
-     * Returns all items for the specified affiliation.
-     * @author Hugo Niedermaier
-     * @param affiliationRO the affiliation where the items have to be returned for
-     * @return all items for the specified affiliation
-     * @throws Exception if framework access fails
-     */
-    public ArrayList<PubItemVO> searchItemsByAffiliation(AffiliationVO affiliation) throws Exception
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Advanced Searching");
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size());
-        }
-        
-        return itemList;
-    }
-
-    /**
      * Returns all items which contain the searchString as List.
      * @param searchString the string which should be searched for
      * @param includeFiles determines if the search should include the files of the items
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
      */
-    public ArrayList<PubItemVO> searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
+    public StandardSearchResult searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
     {
     	ArrayList<String> contentTypes = new ArrayList<String>();
-    	String contentTypeIdPublication = PropertyReader.getProperty(
-			"escidoc.framework_access.content-model.id.publication");
-    	contentTypes.add(contentTypeIdPublication);
+    	String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+    	contentTypes.add( contentTypeIdPublication );
     	
     	MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
-    	List<ItemContainerSearchResultVO> results = this.itemContainerSearch.search( query );
-    	
-    	ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-    	for( int i = 0; i < results.size(); i++ ) {
-    		//check if we have found an item
-    		if( results.get( i ) instanceof ItemVO ) {
-    			// cast to item
-    			ItemVO item = (ItemVO)results.get( i );
-    			PubItemVO pubItem = new PubItemVO( item );
-    			pubItemList.add( pubItem );
-    		}
-    	}
-    	
-		return pubItemList;
+    	// we get items and containers from the search service
+    	StandardSearchResult result = this.itemContainerSearch.search( query );
+    	return result;
     }
 
     /**
@@ -1731,7 +1671,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> itemList = (ArrayList<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
         
 
         return itemList;
@@ -1860,7 +1800,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        List<AffiliationVO> affiliationList = (List) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        List<AffiliationVO> affiliationList = (List<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
         List<AffiliationVOPresentation> wrappedAffiliationList = CommonUtils.convertToAffiliationVOPresentationList(affiliationList);
         
@@ -2079,8 +2019,6 @@ public class ItemControllerSessionBean extends FacesBean
     public List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO) throws Exception
     {
         List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-        String xmlItem = "";
         
         if(loginHelper.getESciDocUserHandle() != null)
         {
@@ -2124,8 +2062,6 @@ public class ItemControllerSessionBean extends FacesBean
     public List<RelationVOPresentation> retrieveParentsForRevision(PubItemVO pubItemVO) throws Exception
     {
         List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-        String xmlItem = "";
         
         if(loginHelper.getESciDocUserHandle() != null)
         {

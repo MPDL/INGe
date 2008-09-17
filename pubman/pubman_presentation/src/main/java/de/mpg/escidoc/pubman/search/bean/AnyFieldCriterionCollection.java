@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.AnyFieldCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.AnyFieldCriterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 
 /**
  * Bean to handle the AnyFieldCriterionCollection on a single jsp.
@@ -28,8 +28,8 @@ public class AnyFieldCriterionCollection
 	public AnyFieldCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<CriterionVO> ctorList = new ArrayList<CriterionVO>();
-		ctorList.add(new AnyFieldCriterionVO());
+		List<Criterion> ctorList = new ArrayList<Criterion>();
+		ctorList.add(new AnyFieldCriterion());
 		anyFieldCriterionManager = new AnyFieldCriterionManager();
 		//setParentVO(ctorList);
 	}
@@ -73,12 +73,12 @@ public class AnyFieldCriterionCollection
     	}
     }
 
-    public List<CriterionVO> getFilledCriterionVO()
+    public List<Criterion> getFilledCriterion()
 	{
-    	List<CriterionVO> returnList = new ArrayList<CriterionVO>();
+    	List<Criterion> returnList = new ArrayList<Criterion>();
     	for (AnyFieldCriterionBean bean : anyFieldCriterionManager.getObjectList())
     	{
-    	    CriterionVO vo = bean.getCriterionVO();
+    	    Criterion vo = bean.getCriterionVO();
     		if ((vo != null && vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{
     			returnList.add(vo);
@@ -112,7 +112,7 @@ public class AnyFieldCriterionCollection
         
         public AnyFieldCriterionBean createNewObject()
         {
-            AnyFieldCriterionVO newVO = new AnyFieldCriterionVO();
+            AnyFieldCriterion newVO = new AnyFieldCriterion();
             // create a new wrapper pojo
             AnyFieldCriterionBean anyFieldCriterionBean = new AnyFieldCriterionBean(newVO);
             // we do not have direct access to the original list

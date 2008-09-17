@@ -2,9 +2,9 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO.DateType;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion.DateType;
 
 /**
  * POJO bean to deal with one DateCriterionVO.
@@ -15,7 +15,7 @@ public class DateCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "DateCriterionBean";
 	
-	private DateCriterionVO dateCriterionVO;
+	private DateCriterion dateCriterionVO;
 	
 	// selection fields for the DateCriterionVO.DateType enum
 	// ACCEPTED, CREATED, MODIFIED, PUBLISHED_ONLINE, PUBLISHED_PRINT, SUBMITTED
@@ -25,26 +25,26 @@ public class DateCriterionBean extends CriterionBean
     public DateCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new DateCriterionVO());
+		this(new DateCriterion());
 	}
 
-	public DateCriterionBean(DateCriterionVO dateCriterionVO)
+	public DateCriterionBean(DateCriterion dateCriterionVO)
 	{
 		setDateCriterionVO(dateCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return dateCriterionVO;
 	}
 
-	public DateCriterionVO getDateCriterionVO()
+	public DateCriterion getDateCriterionVO()
 	{
 		return dateCriterionVO;
 	}
 
-	public void setDateCriterionVO(DateCriterionVO dateCriterionVO)
+	public void setDateCriterionVO(DateCriterion dateCriterionVO)
 	{
 		this.dateCriterionVO = dateCriterionVO;
 		if (dateCriterionVO.getDateType() == null)

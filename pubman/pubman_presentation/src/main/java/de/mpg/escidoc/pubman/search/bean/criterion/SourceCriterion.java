@@ -28,43 +28,40 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
 
-import java.util.List;
+import java.util.ArrayList;
 
-import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
- * person criterion vo for the advanced search.
- * @created 15-Mai-2007 15:15:07
+ * Source criterion vo for the advanced search.
+ * @created 15-Mai-2007 15:46:59
  * @author NiH
  * @version 1.0
  * Revised by NiH: 13.09.2007
  */
-public class PersonCriterionVO extends CriterionVO
+public class SourceCriterion extends Criterion
 {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
-    //creator role for the search criterion
-    private List<CreatorRole> creatorRole;
 
-	/**
-	 * constructor.
-	 */
-	public PersonCriterionVO()
+    /**
+     * constructor.
+     */
+    public SourceCriterion()
     {
         super();
 	}
-
-    public List<CreatorRole> getCreatorRole()
-    {
-        return creatorRole;
-    }
-
-    public void setCreatorRole(List<CreatorRole> creatorRole)
-    {
-        this.creatorRole = creatorRole;
-    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.SOURCE, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
+	}	
 }

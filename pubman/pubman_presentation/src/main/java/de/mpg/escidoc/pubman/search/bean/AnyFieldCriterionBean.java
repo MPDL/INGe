@@ -4,11 +4,11 @@ import javax.faces.event.AbortProcessingException;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
-import de.mpg.escidoc.services.pubman.valueobjects.AnyFieldCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.TitleCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.TopicCriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
+import de.mpg.escidoc.pubman.search.bean.criterion.AnyFieldCriterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.TitleCriterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.TopicCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * POJO bean to deal with one AnyFieldCriterionVO, TitleCriterionVO or TopicCriterionVO.
@@ -20,7 +20,7 @@ public class AnyFieldCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "AnyFieldCriterionBean";
 	
-	private CriterionVO criterionVO;
+	private Criterion criterionVO;
 	
 //	private AnyFieldCriterionVO anyFieldCriterionVO;
 //	private TitleCriterionVO titleCriterionVO;
@@ -33,16 +33,16 @@ public class AnyFieldCriterionBean extends CriterionBean
     public AnyFieldCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new AnyFieldCriterionVO());
+		this(new AnyFieldCriterion());
 	}
 
-	public AnyFieldCriterionBean(CriterionVO criterionVO)
+	public AnyFieldCriterionBean(Criterion criterionVO)
 	{
 		setCriterionVO(criterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 	    return criterionVO;
 	    
@@ -60,7 +60,7 @@ public class AnyFieldCriterionBean extends CriterionBean
 //		}
 	}
 	
-	public void setCriterionVO(CriterionVO criterionVO)
+	public void setCriterionVO(Criterion criterionVO)
 	{
 	    
 	    this.criterionVO = criterionVO;
@@ -142,7 +142,7 @@ public class AnyFieldCriterionBean extends CriterionBean
 	{
 		selectedType = "Any";
 		setIncludeFiles(false);
-		criterionVO = new AnyFieldCriterionVO();
+		criterionVO = new AnyFieldCriterion();
 		// navigation refresh
 		return null;
 	}
@@ -176,15 +176,15 @@ public class AnyFieldCriterionBean extends CriterionBean
 	public void setIncludeFiles(boolean includeFiles)
 	{
 		this.includeFiles = includeFiles;
-		if (criterionVO instanceof AnyFieldCriterionVO)
+		if (criterionVO instanceof AnyFieldCriterion)
 		{
-		    ((AnyFieldCriterionVO)criterionVO).setIncludeFiles(includeFiles);
+		    ((AnyFieldCriterion)criterionVO).setIncludeFiles(includeFiles);
 		}
 	}
 
 	public boolean isIncludeFilesDisabled()
 	{
-		return !(criterionVO instanceof AnyFieldCriterionVO);
+		return !(criterionVO instanceof AnyFieldCriterion);
 	}
 
 	/**
@@ -198,31 +198,31 @@ public class AnyFieldCriterionBean extends CriterionBean
 
 		// get current searchString and operator and move it to the new VO
 		String searchString = criterionVO.getSearchString();
-		LogicOperator logicOperator = criterionVO.getLogicOperator();
+		LogicalOperator logicOperator = criterionVO.getLogicalOperator();
 
 		this.selectedType = newVal;
 		
 		if (selectedType != null && selectedType.equals("Title"))
 		{
-			TitleCriterionVO titleCriterionVO = new TitleCriterionVO();
+			TitleCriterion titleCriterionVO = new TitleCriterion();
 			titleCriterionVO.setSearchString(searchString);
-			titleCriterionVO.setLogicOperator(logicOperator);
+			titleCriterionVO.setLogicalOperator(logicOperator);
 			// Reinitialize this POJO, because the selectedType has been changed.
 			criterionVO = titleCriterionVO;
 		}
 		else if (selectedType != null && selectedType.equals("Topic"))
 		{
-			TopicCriterionVO topicCriterionVO = new TopicCriterionVO();
+			TopicCriterion topicCriterionVO = new TopicCriterion();
 			topicCriterionVO.setSearchString(searchString);
-			topicCriterionVO.setLogicOperator(logicOperator);
+			topicCriterionVO.setLogicalOperator(logicOperator);
 			// Reinitialize this POJO, because the selectedType has been changed.
 			criterionVO = topicCriterionVO;
 		}
 		else
 		{
-			AnyFieldCriterionVO anyFieldCriterionVO = new AnyFieldCriterionVO();
+			AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
 			anyFieldCriterionVO.setSearchString(searchString);
-			anyFieldCriterionVO.setLogicOperator(logicOperator);
+			anyFieldCriterionVO.setLogicalOperator(logicOperator);
 			// Reinitialize this POJO, because the selectedType has been changed.
 			criterionVO = anyFieldCriterionVO;
 		}

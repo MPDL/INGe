@@ -28,60 +28,39 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
 
-import java.io.Serializable;
+import java.util.ArrayList;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+
 /**
- * superclass for the advanced search criterion vo's.
- * @created 10-Mai-2007 15:45:31
+ * identifier criterion vo for the advanced search.
+ * @created 15-Mai-2007 15:46:47
  * @author NiH
  * @version 1.0
  * Revised by NiH: 13.09.2007
  */
-public class CriterionVO implements Serializable
+public class IdentifierCriterion extends Criterion 
 {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
     /**
-	 * enum for the logic operation between the search criteria.
-	 */
-	public enum LogicOperator
+     * constructor.
+     */
+    public IdentifierCriterion()
     {
-		AND,
-		OR,
-		NOT
+        super();
 	}
-
-	//logic operator between the search criteria
-    private LogicOperator logicOperator;
-    //the string to search for
-	private String searchString;
-
-	/**
-	 * constructor.
-	 */
-	public CriterionVO()
-    {
-	}
-
-	public LogicOperator getLogicOperator()
-    {
-		return logicOperator;
-	}
-
-	public String getSearchString()
-    {
-		return searchString;
-	}
-
-	public void setLogicOperator(LogicOperator newVal)
-    {
-		logicOperator = newVal;
-	}
-
-	public void setSearchString(String newVal)
-    {
-		searchString = newVal;
-	}
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.IDENTIFIER, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
+	}	
 }

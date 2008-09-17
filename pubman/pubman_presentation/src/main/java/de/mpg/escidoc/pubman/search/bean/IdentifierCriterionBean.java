@@ -1,7 +1,7 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.IdentifierCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.IdentifierCriterion;
 
 /**
  * POJO bean to deal with one IdentifierCriterionVO.
@@ -12,7 +12,7 @@ public class IdentifierCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "IdentifierCriterionBean";
 	
-	private IdentifierCriterionVO identifierCriterionVO;
+	private IdentifierCriterion identifierCriterionVO;
 	
 	// collapsed by default
 	protected boolean collapsed = true;
@@ -21,26 +21,26 @@ public class IdentifierCriterionBean extends CriterionBean
     public IdentifierCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new IdentifierCriterionVO());
+		this(new IdentifierCriterion());
 	}
 
-	public IdentifierCriterionBean(IdentifierCriterionVO identifierCriterionVO)
+	public IdentifierCriterionBean(IdentifierCriterion identifierCriterionVO)
 	{
 		setIdentifierCriterionVO(identifierCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return identifierCriterionVO;
 	}
 
-	public IdentifierCriterionVO getIdentifierCriterionVO()
+	public IdentifierCriterion getIdentifierCriterionVO()
 	{
 		return identifierCriterionVO;
 	}
 
-	public void setIdentifierCriterionVO(IdentifierCriterionVO identifierCriterionVO)
+	public void setIdentifierCriterionVO(IdentifierCriterion identifierCriterionVO)
 	{
 		this.identifierCriterionVO = identifierCriterionVO;
 	}

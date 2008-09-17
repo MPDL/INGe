@@ -28,22 +28,36 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
+
+import java.util.ArrayList;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
  * Language criterion for the advanced search
  * @author tendres
  *
  */
-public class LanguageCriterionVO extends CriterionVO {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
+public class LanguageCriterion extends Criterion {
     /**
      * constructor.
      */
-    public LanguageCriterionVO()
+    public LanguageCriterion()
     {
         super();
+	}
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.LANGUAGE, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
 	}
 }

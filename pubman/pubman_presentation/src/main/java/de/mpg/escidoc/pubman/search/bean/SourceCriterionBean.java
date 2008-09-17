@@ -1,7 +1,7 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.SourceCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.SourceCriterion;
 
 /**
  * POJO bean to deal with one SourceCriterionVO.
@@ -12,7 +12,7 @@ public class SourceCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "SourceCriterionBean";
 	
-	private SourceCriterionVO sourceCriterionVO;
+	private SourceCriterion sourceCriterionVO;
 	
 	// collapsed by default
 	protected boolean collapsed = true;
@@ -20,26 +20,26 @@ public class SourceCriterionBean extends CriterionBean
     public SourceCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new SourceCriterionVO());
+		this(new SourceCriterion());
 	}
 
-	public SourceCriterionBean(SourceCriterionVO sourceCriterionVO)
+	public SourceCriterionBean(SourceCriterion sourceCriterionVO)
 	{
 		setSourceCriterionVO(sourceCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return sourceCriterionVO;
 	}
 
-	public SourceCriterionVO getSourceCriterionVO()
+	public SourceCriterion getSourceCriterionVO()
 	{
 		return sourceCriterionVO;
 	}
 
-	public void setSourceCriterionVO(SourceCriterionVO sourceCriterionVO)
+	public void setSourceCriterionVO(SourceCriterion sourceCriterionVO)
 	{
 		this.sourceCriterionVO = sourceCriterionVO;
 	}

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.SourceCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.SourceCriterion;
 
 /**
  * Bean to handle the SourceCriterionCollection on a single jsp.
@@ -16,7 +16,7 @@ public class SourceCriterionCollection
 {
 	public static final String BEAN_NAME = "SourceCriterionCollection";
 	
-	private List<SourceCriterionVO> parentVO;
+	private List<SourceCriterion> parentVO;
 	private SourceCriterionManager sourceCriterionManager;
 	
 	// collapsed by default
@@ -29,8 +29,8 @@ public class SourceCriterionCollection
 	public SourceCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<SourceCriterionVO> ctorList = new ArrayList<SourceCriterionVO>();
-		ctorList.add(new SourceCriterionVO());
+		List<SourceCriterion> ctorList = new ArrayList<SourceCriterion>();
+		ctorList.add(new SourceCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -38,17 +38,17 @@ public class SourceCriterionCollection
 	 * CTOR to refine or fill a predefined ArrayList<SourceCriterionVO>
 	 * @param parentVO
 	 */
-	public SourceCriterionCollection(List<SourceCriterionVO> parentVO)
+	public SourceCriterionCollection(List<SourceCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<SourceCriterionVO> getParentVO()
+	public List<SourceCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<SourceCriterionVO> parentVO)
+	public void setParentVO(List<SourceCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -61,16 +61,16 @@ public class SourceCriterionCollection
 	 */
 	public class SourceCriterionManager extends DataModelManager<SourceCriterionBean>
 	{
-		List<SourceCriterionVO> parentVO;
+		List<SourceCriterion> parentVO;
 		
-		public SourceCriterionManager(List<SourceCriterionVO> parentVO)
+		public SourceCriterionManager(List<SourceCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public SourceCriterionBean createNewObject()
 		{
-			SourceCriterionVO newVO = new SourceCriterionVO();
+			SourceCriterion newVO = new SourceCriterion();
 			// create a new wrapper pojo
 			SourceCriterionBean sourceCriterionBean = new SourceCriterionBean(newVO);
 			// we do not have direct access to the original list
@@ -92,19 +92,19 @@ public class SourceCriterionCollection
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice SourceCriterionBean
 			List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
-			for (SourceCriterionVO sourceCriterionVO : parentVO)
+			for (SourceCriterion sourceCriterionVO : parentVO)
 			{
 				beanList.add(new SourceCriterionBean(sourceCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<SourceCriterionVO> parentVO)
+		public void setParentVO(List<SourceCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice SourceCriterionBean
 			List<SourceCriterionBean> beanList = new ArrayList<SourceCriterionBean>();
-			for (SourceCriterionVO sourceCriterionVO : parentVO)
+			for (SourceCriterion sourceCriterionVO : parentVO)
 			{
 				beanList.add(new SourceCriterionBean(sourceCriterionVO));
 			}
@@ -136,10 +136,10 @@ public class SourceCriterionCollection
     	}
     }
 
-    public List<SourceCriterionVO> getFilledCriterionVO()
+    public List<SourceCriterion> getFilledCriterion()
 	{
-    	List<SourceCriterionVO> returnList = new ArrayList<SourceCriterionVO>();
-    	for (SourceCriterionVO vo : parentVO)
+    	List<SourceCriterion> returnList = new ArrayList<SourceCriterion>();
+    	for (SourceCriterion vo : parentVO)
     	{
     		if ((vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{

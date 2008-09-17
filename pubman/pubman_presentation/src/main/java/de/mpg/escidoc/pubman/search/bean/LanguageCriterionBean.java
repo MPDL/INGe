@@ -5,9 +5,9 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import javax.faces.model.SelectItem;
 
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.LanguageCriterion;
 import de.mpg.escidoc.pubman.util.CommonUtils;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
 
 /**
  * @author endres
@@ -17,7 +17,7 @@ public class LanguageCriterionBean extends CriterionBean {
 
 public static final String BEAN_NAME = "LanguageCriterionBean";
 	
-	private LanguageCriterionVO languageCriterionVO;
+	private LanguageCriterion languageCriterionVO;
 	
 	// collapsed by default
 	protected boolean collapsed = true;
@@ -25,26 +25,26 @@ public static final String BEAN_NAME = "LanguageCriterionBean";
     public LanguageCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new LanguageCriterionVO());
+		this(new LanguageCriterion());
 	}
 
-	public LanguageCriterionBean(LanguageCriterionVO languageCriterionVO)
+	public LanguageCriterionBean(LanguageCriterion languageCriterionVO)
 	{
 		setLanguageCriterionVO(languageCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return languageCriterionVO;
 	}
 
-	public LanguageCriterionVO getLanguageCriterionVO()
+	public LanguageCriterion getLanguageCriterionVO()
 	{
 		return languageCriterionVO;
 	}
 
-	public void setLanguageCriterionVO( LanguageCriterionVO languageCriterionVO )
+	public void setLanguageCriterionVO( LanguageCriterion languageCriterionVO )
 	{
 		this.languageCriterionVO = languageCriterionVO;
 	}
