@@ -52,7 +52,9 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
  */
 public class SearchResultListPage extends BreadcrumbPage
 {
-    private static Logger logger = Logger.getLogger(SearchResultListPage.class);
+	private static final long serialVersionUID = 1L;
+
+	private static Logger logger = Logger.getLogger(SearchResultListPage.class);
 
     // URL params
     public static final String URL_PARAM_TXT_SEARCH = "txtSearch";
@@ -96,7 +98,7 @@ public class SearchResultListPage extends BreadcrumbPage
             switch (getSessionBean().getType()) 
             {
                 case NORMAL_SEARCH : getSearchResultList().startSearch(); break;
-                case ADVANCED_SEARCH : getSearchResultList().startAdvancedSearch(getSessionBean().getCriterionVOList(), getSessionBean().getLanguage()); break;
+                case ADVANCED_SEARCH : getSearchResultList().startAdvancedSearch(getSessionBean().getSearchCriteria() ); break;
                 case AFFILIATION_SEARCH : getSearchResultList().startSearchForAffiliation(getSessionBean().getAffiliation()); break;
             }
         }

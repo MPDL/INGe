@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 
 /**
  * Keeps all attributes that are used for the whole session by the SearchResultList.
@@ -45,6 +45,8 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
  */
 public class SearchResultListSessionBean extends FacesBean
 {
+	private static final long serialVersionUID = 1L;
+	
     public static final String BEAN_NAME = "SearchResultListSessionBean";
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(SearchResultListSessionBean.class);
@@ -52,11 +54,8 @@ public class SearchResultListSessionBean extends FacesBean
     private String searchString = new String();
     private boolean includeFiles = false;
     
-    //Criterion VOs in case of advanced search
-    private ArrayList<CriterionVO> criterionVOList;
-    
-    //Language in case of advanced search
-    private String language;
+    //Search criteria in case of advanced search
+    private ArrayList<MetadataSearchCriterion> criteria;
     
     //Affiliation in case of affiliation search
     private AffiliationVO affiliation;
@@ -119,24 +118,14 @@ public class SearchResultListSessionBean extends FacesBean
         NORMAL_SEARCH, ADVANCED_SEARCH, AFFILIATION_SEARCH;
     }
 
-    public ArrayList<CriterionVO> getCriterionVOList()
+    public ArrayList<MetadataSearchCriterion> getSearchCriteria()
     {
-        return criterionVOList;
+        return this.criteria;
     }
 
-    public void setCriterionVOList(ArrayList<CriterionVO> criterionVOList)
+    public void setSearchCriteria(ArrayList<MetadataSearchCriterion> criteria )
     {
-        this.criterionVOList = criterionVOList;
-    }
-
-    public String getLanguage()
-    {
-        return language;
-    }
-
-    public void setLanguage(String language)
-    {
-        this.language = language;
+        this.criteria = criteria;
     }
 
     public AffiliationVO getAffiliation()

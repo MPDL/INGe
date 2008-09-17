@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.EventCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.EventCriterion;
 
 /**
  * Bean to handle the EventCriterionCollection on a single jsp.
@@ -16,7 +16,7 @@ public class EventCriterionCollection
 {
 	public static final String BEAN_NAME = "EventCriterionCollection";
 	
-	private List<EventCriterionVO> parentVO;
+	private List<EventCriterion> parentVO;
 	private EventCriterionManager eventCriterionManager;
 	
 	/**
@@ -26,8 +26,8 @@ public class EventCriterionCollection
 	public EventCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<EventCriterionVO> ctorList = new ArrayList<EventCriterionVO>();
-		ctorList.add(new EventCriterionVO());
+		List<EventCriterion> ctorList = new ArrayList<EventCriterion>();
+		ctorList.add(new EventCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -35,17 +35,17 @@ public class EventCriterionCollection
 	 * CTOR to refine or fill a predefined ArrayList<EventCriterionVO>
 	 * @param parentVO
 	 */
-	public EventCriterionCollection(List<EventCriterionVO> parentVO)
+	public EventCriterionCollection(List<EventCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<EventCriterionVO> getParentVO()
+	public List<EventCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<EventCriterionVO> parentVO)
+	public void setParentVO(List<EventCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -58,16 +58,16 @@ public class EventCriterionCollection
 	 */
 	public class EventCriterionManager extends DataModelManager<EventCriterionBean>
 	{
-		List<EventCriterionVO> parentVO;
+		List<EventCriterion> parentVO;
 		
-		public EventCriterionManager(List<EventCriterionVO> parentVO)
+		public EventCriterionManager(List<EventCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public EventCriterionBean createNewObject()
 		{
-			EventCriterionVO newVO = new EventCriterionVO();
+			EventCriterion newVO = new EventCriterion();
 			// create a new wrapper pojo
 			EventCriterionBean eventCriterionBean = new EventCriterionBean(newVO);
 			// we do not have direct access to the original list
@@ -89,19 +89,19 @@ public class EventCriterionCollection
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice EventCriterionBean
 			List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
-			for (EventCriterionVO eventCriterionVO : parentVO)
+			for (EventCriterion eventCriterionVO : parentVO)
 			{
 				beanList.add(new EventCriterionBean(eventCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<EventCriterionVO> parentVO)
+		public void setParentVO(List<EventCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice EventCriterionBean
 			List<EventCriterionBean> beanList = new ArrayList<EventCriterionBean>();
-			for (EventCriterionVO eventCriterionVO : parentVO)
+			for (EventCriterion eventCriterionVO : parentVO)
 			{
 				beanList.add(new EventCriterionBean(eventCriterionVO));
 			}
@@ -133,10 +133,10 @@ public class EventCriterionCollection
     	}
     }
 
-    public List<EventCriterionVO> getFilledCriterionVO()
+    public List<EventCriterion> getFilledCriterion()
 	{
-    	List<EventCriterionVO> returnList = new ArrayList<EventCriterionVO>();
-    	for (EventCriterionVO vo : parentVO)
+    	List<EventCriterion> returnList = new ArrayList<EventCriterion>();
+    	for (EventCriterion vo : parentVO)
     	{
     		if ((vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{

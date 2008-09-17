@@ -45,8 +45,6 @@ import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -62,19 +60,18 @@ import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
-import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.SearchResult;
+import de.mpg.escidoc.services.search.query.StandardSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 
 
 /**
@@ -87,8 +84,10 @@ import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
  */
 public class SearchResultList extends ItemList
 {
-    public static final String BEAN_NAME = "SearchResultList";
-    private static Logger logger = Logger.getLogger(SearchResultList.class);
+	private static final long serialVersionUID = 1L;
+	
+	public static final String BEAN_NAME = "SearchResultList";
+    protected static Logger logger = Logger.getLogger(SearchResultList.class);
     
     // Faces navigation string
     public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
@@ -420,8 +419,6 @@ public class SearchResultList extends ItemList
      */
     protected void createDynamicItemList2()
     {
-
-        List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
         
         if(this.getItemListSessionBean().getCurrentPubItemList() != null)
         {
@@ -429,11 +426,6 @@ public class SearchResultList extends ItemList
             {
                 logger.debug("Creating dynamic item list with " + this.getItemListSessionBean().getCurrentPubItemList().size() + " entries.");
             }
-            
-            // create an ItemListUI for all PubItems
-            List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
-            List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-
         }
 
         // enable or disable the action links according to item state and availability of items
@@ -490,7 +482,7 @@ public class SearchResultList extends ItemList
         try
         {   	
         	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
-        	
+        	        	
         	if( includeFiles == true ) {
         		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY_INCLUDE, 
         				searchString ) );
@@ -509,7 +501,8 @@ public class SearchResultList extends ItemList
     				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
         	
         	// search for the given criteria
-        	List<PubItemVO> itemsFound = this.getItemControllerSessionBean().searchItems( criteria );
+        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+        	List<PubItemVO> itemsFound = extractItemsOfSearchResult( result );
         	
         	this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
             
@@ -543,7 +536,7 @@ public class SearchResultList extends ItemList
      * @author Hugo Niedermaier 
      * @return string, identifying the page that should be navigated to after this methodcall
      */    
-    public String startAdvancedSearch(ArrayList<CriterionVO> criterionVOList, String language)
+    public String startAdvancedSearch( ArrayList<MetadataSearchCriterion> criteria )
     {
         int result;
         if (logger.isDebugEnabled())
@@ -558,16 +551,18 @@ public class SearchResultList extends ItemList
 //      reset some error message from last request
         this.deleteMessage();
 
+        String cqlQuery = null;
         try
         {
-            ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().advancedSearchItems(criterionVOList, language);
+            StandardSearchResult queryResult = this.getItemControllerSessionBean().searchItems( criteria );
+            ArrayList<PubItemVO> itemsFound = extractItemsOfSearchResult( queryResult );
+            cqlQuery = queryResult.getCqlQuery();
             result = itemsFound.size();
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AdvancedSearchResultList");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
             this.getSessionBean().setType(SearchResultListSessionBean.SearchType.ADVANCED_SEARCH);
-            this.getSessionBean().setCriterionVOList(criterionVOList);
-            this.getSessionBean().setLanguage(language);
+            this.getSessionBean().setSearchCriteria( criteria );
             getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
@@ -582,26 +577,18 @@ public class SearchResultList extends ItemList
         this.sortItemList();
         //this.createDynamicItemList2();
         
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-            valQuery.setValue( pubItemSearching.getCqlQuery());
-            if (result > 0)
-            {
-            	getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);
-            }
-            else
-            {
-                return (SearchResultList.LOAD_NO_ITEMS_FOUND);            
-            }
+        if( cqlQuery != null ) {
+        	valQuery.setValue( cqlQuery );
         }
-        catch (NamingException e)
-        {
-            logger.error("PubItemSearchingBean Initialization Failure: \n" + e);
-            return (SearchResultList.LOAD_NO_ITEMS_FOUND);
-        }
+		if (result > 0)
+		{
+			getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
+		    return (SearchResultList.LOAD_SEARCHRESULTLIST);
+		}
+		else
+		{
+		    return (SearchResultList.LOAD_NO_ITEMS_FOUND);            
+		}
     }
     
     /**
@@ -626,7 +613,12 @@ public class SearchResultList extends ItemList
         ArrayList<PubItemVO> itemsFound = null;
         try
         {
-            itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliation);
+        	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
+        				affiliation.getReference().getObjectId() ));
+        	
+        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+            itemsFound = extractItemsOfSearchResult( result );
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AffiliationSearchResultList");
@@ -732,6 +724,23 @@ public class SearchResultList extends ItemList
             }
         }
     }
+    
+    private ArrayList<PubItemVO> extractItemsOfSearchResult( StandardSearchResult result ) { 
+    
+    	List<ItemContainerSearchResultVO> results = result.getResultList();
+    	
+    	ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    	for( int i = 0; i < results.size(); i++ ) {
+    		//check if we have found an item
+    		if( results.get( i ) instanceof ItemVO ) {
+    			// cast to item
+    			ItemVO item = (ItemVO)results.get( i );
+    			PubItemVO pubItem = new PubItemVO( item );
+    			pubItemList.add( pubItem );
+    		}
+    	}
+    	return pubItemList;
+    }
 
     /**
      * Method is called in jsp. Triggers download action
@@ -771,23 +780,6 @@ public class SearchResultList extends ItemList
         // authorization. Therefore, the eSciDoc user handle must be provided.
         // Put the handle in the cookie "escidocCookie"
         method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
-    }
-    
-    private void setLinksAndMessages( TypeOfList typeList) {
-    	switch( typeList ) {
-    	case SIMPLE_SEARCH:
-    		 lnkAdvancedSearch.setRendered(false);
-    	     lnkBrowse.setRendered(false);
-    	     valQuery.setRendered(false);
-    	     this.showBackInNoResultPage( false );
-    	     // reset some error message from last request
-    	     this.deleteMessage();
-    		break;
-    	case ADVANCED_SEARCH:
-    		break;
-    	case AFFILIATION_SEARCH:
-    		break;
-    	}
     }
     
     /**

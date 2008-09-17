@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
+import de.mpg.escidoc.pubman.search.bean.criterion.PersonCriterion;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.pubman.valueobjects.PersonCriterionVO;
 
 /**
  * Bean to handle the PersonCriterionCollection on a single jsp.
@@ -17,7 +17,7 @@ public class PersonCriterionCollection
 {
 	public static final String BEAN_NAME = "PersonCriterionCollection";
 	
-	private List<PersonCriterionVO> parentVO;
+	private List<PersonCriterion> parentVO;
 	private PersonCriterionManager personCriterionManager;
 	
 	/**
@@ -27,8 +27,8 @@ public class PersonCriterionCollection
 	public PersonCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<PersonCriterionVO> ctorList = new ArrayList<PersonCriterionVO>();
-		ctorList.add(new PersonCriterionVO());
+		List<PersonCriterion> ctorList = new ArrayList<PersonCriterion>();
+		ctorList.add(new PersonCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -36,17 +36,17 @@ public class PersonCriterionCollection
 	 * CTOR to refine or fill a predefined ArrayList<PersonCriterionVO>
 	 * @param parentVO
 	 */
-	public PersonCriterionCollection(List<PersonCriterionVO> parentVO)
+	public PersonCriterionCollection(List<PersonCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<PersonCriterionVO> getParentVO()
+	public List<PersonCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<PersonCriterionVO> parentVO)
+	public void setParentVO(List<PersonCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -59,16 +59,16 @@ public class PersonCriterionCollection
 	 */
 	public class PersonCriterionManager extends DataModelManager<PersonCriterionBean>
 	{
-		List<PersonCriterionVO> parentVO;
+		List<PersonCriterion> parentVO;
 		
-		public PersonCriterionManager(List<PersonCriterionVO> parentVO)
+		public PersonCriterionManager(List<PersonCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public PersonCriterionBean createNewObject()
 		{
-			PersonCriterionVO newVO = new PersonCriterionVO();
+			PersonCriterion newVO = new PersonCriterion();
 			newVO.setCreatorRole(new ArrayList<CreatorRole>());
 			// create a new wrapper pojo
 			PersonCriterionBean personCriterionBean = new PersonCriterionBean(newVO);
@@ -91,19 +91,19 @@ public class PersonCriterionCollection
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice PersonCriterionBean
 			List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
-			for (PersonCriterionVO personCriterionVO : parentVO)
+			for (PersonCriterion personCriterionVO : parentVO)
 			{
 				beanList.add(new PersonCriterionBean(personCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<PersonCriterionVO> parentVO)
+		public void setParentVO(List<PersonCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice PersonCriterionBean
 			List<PersonCriterionBean> beanList = new ArrayList<PersonCriterionBean>();
-			for (PersonCriterionVO personCriterionVO : parentVO)
+			for (PersonCriterion personCriterionVO : parentVO)
 			{
 				beanList.add(new PersonCriterionBean(personCriterionVO));
 			}
@@ -135,10 +135,10 @@ public class PersonCriterionCollection
     	}
     }
 
-    public List<PersonCriterionVO> getFilledCriterionVO()
+    public List<PersonCriterion> getFilledCriterion()
 	{
-    	List<PersonCriterionVO> returnList = new ArrayList<PersonCriterionVO>();
-    	for (PersonCriterionVO vo : parentVO)
+    	List<PersonCriterion> returnList = new ArrayList<PersonCriterion>();
+    	for (PersonCriterion vo : parentVO)
     	{
     		if (vo.getCreatorRole().size() > 0 || (vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{
