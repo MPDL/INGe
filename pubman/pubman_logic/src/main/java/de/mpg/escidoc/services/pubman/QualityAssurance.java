@@ -48,8 +48,6 @@ import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
-import de.mpg.escidoc.services.pubman.searching.ParseException;
-
 
 /**
  * Interface for Quality Assurance related functionalities
@@ -79,7 +77,7 @@ public interface QualityAssurance
      * @throws ParseException 
      * @throws TechnicalException 
      */
-    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException;
+    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException;
     
     
     /**

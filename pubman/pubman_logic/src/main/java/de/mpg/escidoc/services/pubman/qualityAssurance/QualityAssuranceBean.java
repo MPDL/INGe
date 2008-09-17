@@ -82,7 +82,6 @@ import de.mpg.escidoc.services.pubman.exceptions.PubItemNotFoundException;
 import de.mpg.escidoc.services.pubman.exceptions.PubItemStatusInvalidException;
 import de.mpg.escidoc.services.pubman.logging.ApplicationLog;
 import de.mpg.escidoc.services.pubman.logging.PMLogicMessages;
-import de.mpg.escidoc.services.pubman.searching.ParseException;
 
 /**
  * EJB implementation of the QualityAssurance interface
@@ -111,7 +110,7 @@ public class QualityAssuranceBean implements QualityAssurance
     
    
 
-    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws ParseException, TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException
+    public List<PubItemVO> searchForQAWorkspace(String contextobjId, String state, AccountUserVO user) throws TechnicalException, ServiceException, MissingMethodParameterException, ContextNotFoundException, InvalidXmlException, AuthenticationException, AuthorizationException, SystemException, RemoteException, URISyntaxException
     {
         
         
