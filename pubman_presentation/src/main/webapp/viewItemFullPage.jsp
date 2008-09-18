@@ -46,6 +46,7 @@
 					<meta http-equiv="expires" content="0"/>
 					<!-- FrM: Moved JS sources to external file -->
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+					<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/> <h:outputText value=" (#{ViewItemFull.genre})"/></title>
 				</head>
 				<body>
 					<h:outputText id="pageDummy" value="#{ViewItemFullPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
