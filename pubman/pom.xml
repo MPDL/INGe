@@ -463,9 +463,9 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
-				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
-				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MulgaraQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.mulgara.server.name>zim02.gwdg.de</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
@@ -565,15 +565,15 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
-				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
-				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MulgaraQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.mulgara.server.name>zim02.gwdg.de</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
-				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de:8080/cone/</escidoc.cone.service.url>
 				
 				<!-- unAPI -->
-				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
+				<escidoc.unapi.server>http://dev-pubman.mpdl.mpg.de:8080/import/unapi/</escidoc.unapi.server>
 				
 			</properties>
 				<distributionManagement>
