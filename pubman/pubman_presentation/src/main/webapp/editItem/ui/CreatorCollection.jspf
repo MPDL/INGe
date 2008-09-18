@@ -34,6 +34,7 @@
 <h:panelGroup layout="block">
 	
 	<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
+		<h:outputText value="#{lbl.submission_lblAuthorCopyPaste}"/>
 		<h:inputTextarea id="creatorParseTextArea" value="#{EditItem.creatorParseString}" rows="5" styleClass="fullWidth" />
 		<h:commandButton id="addCreatorParseButton" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" styleClass="inlineButton"/>
 		<h:commandButton id="overwriteCreatorParseButton" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" action="#{EditItem.overwriteAndAddCreatorString}" styleClass="inlineButton"/>

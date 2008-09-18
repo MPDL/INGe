@@ -34,7 +34,9 @@
 <h:panelGroup layout="block" styleClass="easySubmissionBoxBodyLine">
 	
 	<h:panelGroup layout="block" styleClass="easySubmissionSubBox floatbox">
+		
 		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">
+			<h:outputText value="#{lbl.submission_lblAuthorCopyPaste}"/>
 			<h:inputTextarea id="creatorParseTextArea" value="#{EasySubmission.creatorParseString}" rows="5" styleClass="fullWidth" />
 		</h:panelGroup>
 		<h:panelGroup layout="block" styleClass="easySubmissionBoxBodySubLine">

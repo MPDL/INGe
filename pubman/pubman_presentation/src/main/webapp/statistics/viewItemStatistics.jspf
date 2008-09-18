@@ -98,7 +98,7 @@
 		
 		</h:panelGroup>
 		</table>
-<br/>
+		<br/>
 		<h:outputText value="#{lbl.statistics_lblInfo}"/>
 		
 	</f:subview>
