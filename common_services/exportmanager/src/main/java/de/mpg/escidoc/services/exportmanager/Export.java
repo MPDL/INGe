@@ -31,7 +31,6 @@ package de.mpg.escidoc.services.exportmanager;
  
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,9 +39,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
 import java.net.URISyntaxException;
 import java.util.Random;
 import java.util.StringTokenizer;
@@ -78,7 +75,6 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.traversal.DocumentTraversal;
 import org.w3c.dom.traversal.NodeFilter;
 import org.w3c.dom.traversal.NodeIterator;
-import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
@@ -249,6 +245,21 @@ public class Export implements ExportHandler {
 		{
 			throw new ExportManagerException("Export format is not defined:" + exportFormat);
 		}
+		
+		boolean generateArchive = false;
+		if ( archiveFormat != null && !"".equals(archiveFormat.trim()) )
+		{
+			try 
+			{
+				ArchiveFormats.valueOf(archiveFormat);
+				generateArchive = true;
+			}
+			catch (Exception e) 
+			{
+				throw new ExportManagerException( "Archive format: " + archiveFormat + " is not supported" );
+			}
+			
+		}
 			
 		byte[] ba = null;
 		if ( exportFormatType == ExportFormatTypes.STRUCTURED )
@@ -280,13 +291,11 @@ public class Export implements ExportHandler {
 		}
 
 		// generate archive
-		if ( "CSV".equals(exportFormat)  
-				&& ( 
-						! "".equals(ArchiveFormats.valueOf(archiveFormat))
-				)	 
-		)
+		if ( generateArchive )
 		{
-			generateArchiveBase(exportFormat, archiveFormat, ba, itemList, bos);
+			//only CSV for the moment
+			if ("CSV".equals(exportFormat))
+				generateArchiveBase(exportFormat, archiveFormat, ba, itemList, bos);
 		}
 		else
 		{
