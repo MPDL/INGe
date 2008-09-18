@@ -45,6 +45,7 @@
 				<meta http-equiv="cache-control" content="no-cache"/>
 				<meta http-equiv="expires" content="0"/>
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+				<title>PubMan HomePage</title>
 			</head>
 			<body><h:form id="form1">
 				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
