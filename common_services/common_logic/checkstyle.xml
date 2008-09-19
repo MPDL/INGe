@@ -166,7 +166,7 @@
         <module name="Header">
             <metadata name="com.atlassw.tools.eclipse.checkstyle.comment" value="Include licence"/>
             <metadata name="com.atlassw.tools.eclipse.checkstyle.customMessage" value="Please include CDDL"/>
-            <property name="headerFile" value="${project_loc}/../licence.txt"/>
+            <property name="headerFile" value="C:\temp\projects\common_services\licence.txt"/>
         </module>
         <module name="LineLength">
             <property name="max" value="120"/>

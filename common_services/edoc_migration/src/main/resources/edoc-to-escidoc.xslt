@@ -51,7 +51,8 @@
    xmlns:oaipmh="http://www.openarchives.org/OAI/2.0/"
    xmlns:ec="http://www.escidoc.de/schemas/components/0.7"
    xmlns:file="http://escidoc.mpg.de/metadataprofile/schema/0.1/file"
-   xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication">
+   xmlns:publ="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+   xmlns:escidoc="urn:escidoc:functions">
  <!--  xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
@@ -66,24 +67,26 @@
 	<xsl:variable name="context" select="'escidoc:36441'"/>
 	
 	<!--
-  DC XML  Header
--->
-<xsl:include href="src/main/resources/languages.xml"/>
+		DC XML  Header
+	-->
+	<xsl:include href="src/main/resources/languages.xml"/>
+	<xsl:include href="src/main/resources/organizational-units.xml"/>
 
-	<xsl:template match="/*">		<item-list>
+	<xsl:template match="/*">
+		<item-list>
 			<xsl:apply-templates select="record/metadata"/>		
 		</item-list>
 		<!-- CREATE YEARBOOK 2009 COLLECTION -->
-	<xsl:result-document href="yb-2009-collection.xml" method="xml" encoding="UTF-8" indent="yes">
-		<xsl:element name="yearbook-collection">
-			<xsl:for-each select="record/MPGyearbook[.='2009']">
-				<xsl:element name="item">
-					<xsl:attribute name="edoc-id" select="../@id"/>
-					<xsl:copy-of select="@status"/>
-				</xsl:element>
-			</xsl:for-each>
-		</xsl:element>
-	</xsl:result-document>
+		<xsl:result-document href="yb-2009-collection.xml" method="xml" encoding="UTF-8" indent="yes">
+			<xsl:element name="yearbook-collection">
+				<xsl:for-each select="record/MPGyearbook[.='2009']">
+					<xsl:element name="item">
+						<xsl:attribute name="edoc-id" select="../@id"/>
+						<xsl:copy-of select="@status"/>
+					</xsl:element>
+				</xsl:for-each>
+			</xsl:element>
+		</xsl:result-document>
 	</xsl:template>
 
 	<xsl:template match="record/metadata">
@@ -233,7 +236,7 @@
 						<xsl:with-param name="gen" select="'journal'"/>
 					</xsl:call-template>
 				</xsl:when>
-				<xsl:when test="genre='Lecture/Courseware'">
+				<xsl:when test="genre='Lecture / Courseware'">
 					<xsl:variable name="genre" select="'lecture-courseware'"/>					
 					<xsl:call-template name="createEntry">
 						<xsl:with-param name="gen" select="'lecture-courseware'"/>
@@ -294,10 +297,7 @@
 					</xsl:call-template>					
 				</xsl:when>
 				<xsl:otherwise>
-					<xsl:variable name="genre" select="genre"/>					
-					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="$genre"/>
-					</xsl:call-template>
+					<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:UnknownGenre' ), concat(genre, ' is not mapped to an eSciDoc publication genre'))"/>
 				</xsl:otherwise>
 			</xsl:choose>	
 	</xsl:template>
@@ -433,6 +433,7 @@
 				<xsl:element name="e:organization-name">
 					<xsl:value-of select="."/>
 				</xsl:element>
+				<e:identifier><xsl:value-of select="$organizational-units/ou[@name = .]/@id"/></e:identifier>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
@@ -444,6 +445,7 @@
 				<xsl:element name="e:organization-name">
 					<xsl:value-of select="."/>
 				</xsl:element>
+				<e:identifier><xsl:value-of select="$organizational-units/ou[@name = .]/@id"/></e:identifier>
 			</xsl:element>
 		</xsl:element>
 	</xsl:template>
@@ -664,7 +666,7 @@
 				<xsl:attribute name="role" select="'translator'"/>
 			</xsl:when>			
 			<xsl:otherwise>				
-				<!--<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CreatorRoleNotMapped' ), concat(@role, ' is not mapped to an eSciDoc creator role'))"/>-->
+				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CreatorRoleNotMapped' ), concat(@role, ' is not mapped to an eSciDoc creator role'))"/>
 			</xsl:otherwise>
 		</xsl:choose>
 		<!-- CREATOR -->	
@@ -694,11 +696,12 @@
 							<xsl:for-each select="../../../docaff/affiliation">
 								<xsl:element name="e:organization">						
 									<xsl:element name="e:organization-name">
-										<xsl:value-of select="mpgunit"/>		
+										<xsl:value-of select="escidoc:ou(mpgunit, 'path')"/>
 										<xsl:if test="mpgsunit">
 											<xsl:value-of select="concat(', ', mpgsunit)"/>
 										</xsl:if>							
 									</xsl:element>
+									<e:identifier><xsl:value-of select="escidoc:ou(mpgunit, 'id')"/></e:identifier>
 								</xsl:element>
 							</xsl:for-each>						
 						</xsl:when>

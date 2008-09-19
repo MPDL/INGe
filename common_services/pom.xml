@@ -410,6 +410,11 @@
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
+				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
+				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				
+				<!-- unAPI -->
+				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
@@ -543,6 +548,11 @@
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
 				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
+				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
+				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				
+				<!-- unAPI -->
+				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
 				
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
