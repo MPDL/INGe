@@ -37,8 +37,8 @@ import java.util.Collections;
 
 import org.junit.Test;
 
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.comparator.PubItemVOComparator;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 /**
  * Test cases for PubItemVOComparator with criterion DATE.

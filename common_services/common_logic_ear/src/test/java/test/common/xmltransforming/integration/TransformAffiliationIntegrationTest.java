@@ -33,8 +33,6 @@ package test.common.xmltransforming.integration;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 import java.util.Map;
 
@@ -164,7 +162,7 @@ public class TransformAffiliationIntegrationTest extends TestBase
         }
         // There are 4 fields that are must have changed:
         // 4: reference, creationDate, creator and publicStatus
-        assertEquals(5, difflist.size());
+        assertEquals(6, difflist.size());
 
         // delete the created affiliation
         ServiceLocator.getOrganizationalUnitHandler(systemAdministratorUserHandle).delete(affiliationVOPostCreate.getReference().getObjectId());

@@ -32,6 +32,7 @@ package test.common.xmltransforming.integration;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ import org.junit.Test;
 
 import test.common.AffiliationCreator;
 import test.common.xmltransforming.XmlTransformingTestBase;
-
 import de.escidoc.www.services.oum.OrganizationalUnitHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.AffiliationNotFoundException;

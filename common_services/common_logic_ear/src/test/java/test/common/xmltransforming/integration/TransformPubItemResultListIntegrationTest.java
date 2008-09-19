@@ -57,9 +57,10 @@ import test.common.xmltransforming.XmlTransformingTestBase;
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -229,7 +230,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
             logger.info("Search with CQL query String '" + extendedCqlSearchString + "' done.");
 
             // transform to PubItemResult list
-            List<PubItemResultVO> pubItemResultList = new ArrayList<PubItemResultVO>();
+            List<ItemResultVO> pubItemResultList = new ArrayList<ItemResultVO>();
             if (searchResult.getRecords() != null)
             {
                 for (RecordType record : searchResult.getRecords().getRecord())
@@ -243,7 +244,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
                         {
                             String searchResultItem = messages[0].getAsString();
                             logger.debug("Search result: " + searchResultItem);
-                            PubItemResultVO pubItemResult = xmlTransforming.transformToPubItemResultVO(searchResultItem);
+                            ItemResultVO pubItemResult = xmlTransforming.transformToItemResultVO(searchResultItem);
                             pubItemResultList.add(pubItemResult);
                         }
                         catch (Exception e)
@@ -258,13 +259,13 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
                     }
                 }
             }
-            logger.info("Search result converted to List<PubItemResultVO>.");
+            logger.info("Search result converted to List<ItemResultVO>.");
             assertTrue(pubItemResultList.size() > 0);
 
-            // CORE OF THE TEST: check if transforming works with subclass "PubItemResultVO" of "PubItemVO"
+            // CORE OF THE TEST: check if transforming works with subclass "ItemResultVO" of "PubItemVO"
             logger.info("Trying to transform to item list XML...");
-            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-            for (PubItemVO item : pubItemResultList)
+            List<ItemVO> pubItemList = new ArrayList<ItemVO>();
+            for (ItemVO item : pubItemResultList)
             {
                 pubItemList.add(item);
             }

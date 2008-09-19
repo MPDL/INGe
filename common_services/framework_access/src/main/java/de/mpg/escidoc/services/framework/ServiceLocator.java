@@ -150,7 +150,7 @@ public class ServiceLocator
         }
         UserManagementWrapper handler = authorizedUserManagementWrapperServiceLocator.getUserManagementWrapperService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
-        return handler;
+         return handler;
     }
 
     /**

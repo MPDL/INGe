@@ -40,6 +40,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import test.common.xmltransforming.XmlTransformingTestBase;
 import de.escidoc.www.services.sm.ReportDefinitionHandler;
 import de.escidoc.www.services.sm.ReportHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
@@ -50,8 +51,6 @@ import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRec
 import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import test.common.TestBase;
-import test.common.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test class for statistic xml transformations

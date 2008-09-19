@@ -30,11 +30,8 @@
 
 package test.common.xmltransforming.integration;
 
-import static org.junit.Assert.*;
-
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -42,9 +39,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import test.common.xmltransforming.XmlTransformingTestBase;
 import de.escidoc.www.services.om.TocHandler;
-import de.escidoc.www.services.sm.ReportDefinitionHandler;
-import de.escidoc.www.services.sm.ReportHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.valueobjects.MetadataSetVO;
@@ -52,15 +48,8 @@ import de.mpg.escidoc.services.common.valueobjects.TocDivVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocPtrVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportDefinitionVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportParamsVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordDecimalParamValueVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordParamVO;
-import de.mpg.escidoc.services.common.valueobjects.statistics.StatisticReportRecordVO;
 import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import test.common.TestBase;
-import test.common.xmltransforming.XmlTransformingTestBase;
 
 /**
  * Test class for statistic xml transformations
