@@ -34,7 +34,7 @@
     <!-- concrete mapping for PubItemResultVO -->
     <!-- Type: PubItemResultVO... -->
     <mapping name="item" ns="${xsd.soap.item.item}"
-      class="de.mpg.escidoc.services.common.valueobjects.PubItemResultVO"
+      class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
       extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
 
         <!-- Node: search-result-record.item -->

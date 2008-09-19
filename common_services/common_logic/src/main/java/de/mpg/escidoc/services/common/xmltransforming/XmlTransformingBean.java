@@ -78,7 +78,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
@@ -684,20 +684,20 @@ public class XmlTransformingBean implements XmlTransforming
     /**
      * {@inheritDoc}
      */
-    public PubItemResultVO transformToPubItemResultVO(String searchResultItem) throws TechnicalException
+    public ItemResultVO transformToItemResultVO(String searchResultItem) throws TechnicalException
     {
         if (searchResultItem == null)
         {
-            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemResultVO:searchResultItem is null");
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItemResultVO:searchResultItem is null");
         }
-        PubItemResultVO pubItemResultVO = null;
+        ItemResultVO pubItemResultVO = null;
         try
         {
             // unmarshall PubItemResultVO from String
-            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", PubItemResultVO.class);
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemResultVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(searchResultItem);
-            pubItemResultVO = (PubItemResultVO)uctx.unmarshalDocument(sr, "UTF-8");
+            pubItemResultVO = (ItemResultVO)uctx.unmarshalDocument(sr, "UTF-8");
 
         }
         catch (JiBXException e)

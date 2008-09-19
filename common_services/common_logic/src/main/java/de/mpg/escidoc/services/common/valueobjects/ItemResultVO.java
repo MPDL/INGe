@@ -30,7 +30,7 @@
 
 package de.mpg.escidoc.services.common.valueobjects;
 
-import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 
 /**
  * Representation of an PubItem search result record.
@@ -39,9 +39,9 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $ by $Author: jmueller $
  * @updated 05-Sep-2007 10:30:52
  */
-public class PubItemResultVO extends PubItemVO
+public class ItemResultVO extends ItemVO implements ItemContainerSearchResultVO
 {
-    /**
+	/**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
      * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
      * serialVersionUID = 8587635524303981401, local class serialVersionUID = -2285753348501257286' that occur after

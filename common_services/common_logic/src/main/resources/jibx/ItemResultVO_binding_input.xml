@@ -32,8 +32,8 @@
 	<!-- concrete mapping for PubItemResultVO -->
 	<!-- Type: PubItemResultVO... -->
 	<mapping name="search-result-record" ns="${xsd.soap.searchresult.searchresult}"
-		class="de.mpg.escidoc.services.common.valueobjects.PubItemResultVO"
-		extends="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO">
+		class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
+		extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
 
 		<!-- Node: search-result-record.highlight -->
 		<structure name="highlight" ns="${xsd.soap.searchresult.searchresult}" usage="optional">
@@ -111,8 +111,9 @@
 
 		<!-- Node: search-result-record.item -->
 		<!-- embed the concrete mapping for the super class [PubItemVO] -->
-		<structure map-as="de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO" />
-
+		<structure name="item" ns="${xsd.soap.item.item}">
+			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO" />
+        </structure>
 
 	</mapping>
 

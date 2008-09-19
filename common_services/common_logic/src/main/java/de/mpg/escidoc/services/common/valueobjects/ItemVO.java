@@ -42,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
  * @version $Revision: 641 $ $LastChangedDate: 2007-11-22 14:49:16 +0100 (Thu, 22 Nov 2007) $ by $Author: jmueller $
  * @updated 21-Nov-2007 11:52:58
  */
-public class ItemVO extends ValueObject implements Cloneable, ItemContainerSearchResultVO
+public class ItemVO extends ValueObject implements Cloneable 
 {
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like

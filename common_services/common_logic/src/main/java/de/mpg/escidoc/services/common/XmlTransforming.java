@@ -47,7 +47,7 @@ import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
@@ -288,14 +288,14 @@ public interface XmlTransforming
 
     /**
      * Transforms an XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
-     * (search-result.xsd) to the corresponding <code>PubItemResultVO</code>.
+     * (search-result.xsd) to the corresponding <code>ItemResultVO</code>.
      * 
      * @param searchResultItem XML String that is valid according to "${xsd.soap.searchresult.searchresult}"
      *            (search-result.xsd)
-     * @return The corresponding <code>PubItemResultVO</code>
+     * @return The corresponding <code>ItemResultVO</code>
      * @throws TechnicalException
      */
-    public PubItemResultVO transformToPubItemResultVO(String searchResultItem) throws TechnicalException;
+    public ItemResultVO transformToItemResultVO(String searchResultItem) throws TechnicalException;
 
     /**
      * Transforms a given <code>TaskParamVO</code> to corresponding XML that is valid according to (filter.xsd,

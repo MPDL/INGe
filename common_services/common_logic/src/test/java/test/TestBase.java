@@ -97,7 +97,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
@@ -332,9 +332,9 @@ public abstract class TestBase
      * 
      * @return pubItem
      */
-    protected PubItemResultVO getPubItemResultNamedTheFirstOfAll()
+    protected ItemResultVO getPubItemResultNamedTheFirstOfAll()
     {
-        PubItemResultVO itemResult = new PubItemResultVO();
+        ItemResultVO itemResult = new ItemResultVO();
 
         // properties of the item
         // PubCollectionRef
@@ -377,7 +377,7 @@ public abstract class TestBase
         SourceVO source = new SourceVO();
         source.setTitle(new TextVO("The title of the source", "en"));
         source.setGenre(SourceVO.Genre.JOURNAL);
-        itemResult.setMetadata(mds);
+        itemResult.getMetadataSets().add(mds);
 
         return itemResult;
     }
