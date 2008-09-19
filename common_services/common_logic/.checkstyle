@@ -5,7 +5,10 @@
         <additional-data name="cache-props-file-location" value="eSciDoc Checkstyle_1221741122636_cache.properties"/>
         <additional-data name="cache-file-location" value="eSciDoc Checkstyle_1221741122636_cache.xml"/>
     </local-check-config>
-    <fileset name="Alle" enabled="true" check-config-name="eSciDoc Checkstyle" local="true">
+    <local-check-config name="gfdgfdg" location="C:\temp\projects\common_services\checkstyle.xml" type="external" description="">
+        <additional-data name="protect-config-file" value="false"/>
+    </local-check-config>
+    <fileset name="Alle" enabled="true" check-config-name="gfdgfdg" local="true">
         <file-match-pattern match-pattern="." include-pattern="true"/>
     </fileset>
 </fileset-config>
