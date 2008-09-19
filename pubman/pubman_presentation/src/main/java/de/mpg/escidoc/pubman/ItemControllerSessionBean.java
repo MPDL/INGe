@@ -1672,13 +1672,21 @@ public class ItemControllerSessionBean extends FacesBean
             logger.debug("Transforming affiliations...");
         }
         ArrayList<AffiliationVO> itemList = (ArrayList<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> cleandedItemList = new ArrayList<AffiliationVO>();
+        for (AffiliationVO affiliationVO : itemList)
+        {
+            if (!"created".equals(affiliationVO.getPublicStatus()))
+            {
+                cleandedItemList.add(affiliationVO);
+            }
+        }
         
 
         return itemList;
     }
 
     /**
-     * Method forsending an email with attached file. The sending requires authentication.
+     * Method for sending an email with attached file. The sending requires authentication.
      * 
      * @author:  StG
      * @param smtpHost   the outgoing smpt mail server
