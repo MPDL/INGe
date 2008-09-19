@@ -2,7 +2,7 @@
 <foxml:digitalObject VERSION="1.1" FEDORA_URI="info:fedora/escidoc:TOC" PID="escidoc:TOC"
   xmlns:audit="info:fedora/fedora-system:def/audit#" xmlns:fedoraxsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:foxml="info:fedora/fedora-system:def/foxml#">
   <foxml:objectProperties>
-    <foxml:property NAME="http://www.w3.org/1999/02/22-rdf-syntax-ns#type" VALUE="FedoraObject"/>
+    
     <foxml:property NAME="info:fedora/fedora-system:def/model#state" VALUE="Active"/>
     <foxml:property NAME="info:fedora/fedora-system:def/model#label" VALUE="TOC"/>
   </foxml:objectProperties>
