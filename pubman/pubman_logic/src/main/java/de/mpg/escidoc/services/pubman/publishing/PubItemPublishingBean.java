@@ -166,7 +166,7 @@ public class PubItemPublishingBean implements PubItemPublishing
 
             // Build PidParam
             url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
+            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
                 + PropertyReader
                     .getProperty("escidoc.pubman.item.pattern")
                     .replaceAll("\\$1", pubItemRef.getObjectId() + ":"
@@ -195,7 +195,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             {
                 // Build PidParam
                 url = PropertyReader.getProperty("escidoc.pubman.instance.url") +
-            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") +
+            	PropertyReader.getProperty("escidoc.pubman.instance.context.path") 
                     + PropertyReader
                         .getProperty("escidoc.pubman.component.pattern")
                         .replaceAll("\\$1", file.getReference().getObjectId());
