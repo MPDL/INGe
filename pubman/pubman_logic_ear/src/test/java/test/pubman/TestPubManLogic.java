@@ -36,7 +36,6 @@ import org.junit.runners.Suite;
 import test.pubman.depositing.PubItemDepositingTest;
 import test.pubman.logging.ApplicationLogTest;
 import test.pubman.publishing.PubItemPublishingTest;
-import test.pubman.searching.PubManSearchingTest;
 import test.pubman.exporting.ItemExportingTest;
 
 /**
@@ -52,8 +51,6 @@ import test.pubman.exporting.ItemExportingTest;
                     ,PubItemPublishingTest.class
                      //Logging:
                     ,ApplicationLogTest.class
-                    //Searching:
-                    ,PubManSearchingTest.class
                     //Exporting
                     ,ItemExportingTest.class
                      })
