@@ -622,13 +622,13 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItem:item is null");
         }
-        PubItemVO pubItemVO = null;
+        ItemVO itemVO = null;
         try
         {
             IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(item);
-            pubItemVO = (PubItemVO)uctx.unmarshalDocument(sr, null);
+            itemVO = (ItemVO)uctx.unmarshalDocument(sr, null);
         }
         catch (JiBXException e)
         {
@@ -640,7 +640,7 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        return pubItemVO;
+        return itemVO;
     }
 
     /**
