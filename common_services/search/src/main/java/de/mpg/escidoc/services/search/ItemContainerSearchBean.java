@@ -146,6 +146,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
         	NonNegativeInteger count = new NonNegativeInteger( MAXIMUM_RECORDS );
         	searchRetrieveRequest.setMaximumRecords( count );
         	searchRetrieveRequest.setRecordPacking( RECORD_PACKING );
+        	
         
         	SearchRetrieveResponseType searchResult = performSearch( searchRetrieveRequest, query.getIndexSelector() );
         	List<ItemContainerSearchResultVO> resultList = transformToSearchResultList( searchResult );
@@ -336,12 +337,13 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
 	                    {
 	                    	String searchResultItem = messages[0].getAsString();
 		                    logger.debug("Search result: " + searchResultItem);
-	                    	ItemContainerSearchResultVO itemResult = xmlTransforming.transformToItem( searchResultItem );
+	                    	ItemContainerSearchResultVO itemResult = xmlTransforming.transformToItemResultVO( searchResultItem );
 	                        resultList.add( itemResult );
 	                    }
 	                    catch (Exception e)
 	                    {
 	                        try {
+	                        	e.printStackTrace();
 	                        	String searchResultItem = messages[0].getAsString();
 			                    logger.debug("Search result: " + searchResultItem);
 	                        	ItemContainerSearchResultVO containerResult = xmlTransforming.transformToContainer( searchResultItem );        
