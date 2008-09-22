@@ -69,7 +69,7 @@
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl"><strong>Info:</strong> You can find
-				<a href="http://colab.mpdl.mpg.de/mediawiki/PubMan_Indexing" target="_blank" >here</a> 
+				 <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/srw/search/escidoc_all?operation=explain" target="_blank" >here</a> 
 				all indexes are allowed.</label><br/>
 			</div>
 			<div class="editItemSingleCol">
