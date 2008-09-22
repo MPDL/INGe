@@ -128,7 +128,9 @@ public class GenreCriterion extends Criterion
     	StringBuffer buffer = new StringBuffer();
     	for( int i = 0; i < genreList.size(); i++ ) {
     		buffer.append( getSearchIdentifierByGenre( genreList.get( i ) ) );
-    		buffer.append( " " );
+    		if( i != genreList.size() -1  ) {
+    			buffer.append( " OR " );
+    		}
     	}
     	return buffer.toString();
     }
