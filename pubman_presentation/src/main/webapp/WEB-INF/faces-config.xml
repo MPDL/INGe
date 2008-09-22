@@ -43,6 +43,7 @@
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>
+			<supported-locale>ja</supported-locale>
 		</locale-config>
 
 		<!-- Use the Trinidad RenderKit -->

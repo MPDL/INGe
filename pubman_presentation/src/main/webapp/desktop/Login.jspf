@@ -63,7 +63,7 @@
 								<f:param name="language" value="de"/>
 								<f:param name="country" value="DE"/>
 							</h:commandLink>
-							<h:outputText value="   "/>
+							<h:outputText value="&nbsp;" escape="false"/>
 							<h:commandLink 	id="lnkchangeLanguageEN" 
 											actionListener="#{InternationalizationHelper.toggleLocale}"
 											action="#{Navigation.changeLanguage}"
@@ -71,6 +71,15 @@
 								<h:graphicImage value="/images/UK2.jpg" height="15px" width="30px" />
 								<f:param name="language" value="en"/>
 								<f:param name="country" value="EN"/>
+							</h:commandLink>
+							<h:outputText value="&nbsp;" escape="false"/>
+							<h:commandLink 	id="lnkchangeLanguageJA" 
+											actionListener="#{InternationalizationHelper.toggleLocale}"
+											action="#{Navigation.changeLanguage}"
+										   	styleClass="">
+								<h:graphicImage value="/images/JP.png" height="15px" width="30px" />
+								<f:param name="language" value="ja"/>
+								<f:param name="country" value="JP"/>
 							</h:commandLink>
 						</span>
    					</span>
