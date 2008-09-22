@@ -2246,6 +2246,6 @@ public class ItemControllerSessionBean extends FacesBean
     
     public String getStatisticValue(String reportDefinitionType) throws Exception
     {
-        return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), AdminHelper.getAdminUserHandle());
+        return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), loginHelper.getAccountUser());
     }
 }
