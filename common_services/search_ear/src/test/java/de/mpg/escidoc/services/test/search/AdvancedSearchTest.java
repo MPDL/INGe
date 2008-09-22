@@ -40,7 +40,7 @@ import org.junit.Test;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
