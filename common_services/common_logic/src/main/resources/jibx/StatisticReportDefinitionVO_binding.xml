@@ -39,6 +39,7 @@
 			<value style="attribute" name="objid" field="scopeId" />
 		</structure>
 		<value style="element" name="sql" field="sql" ns="${xsd.soap.statistic.reportdefinition}"/>
+		<structure name="allowed-roles" ns="${xsd.soap.statistic.reportdefinition}" usage="optional" ordered="false" flexible="true"/>
 			
 	</mapping>
  
