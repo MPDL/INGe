@@ -41,8 +41,8 @@
 				<head>
 					<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURL}unapi?id=escidoc"/>
-					<abbr class="unapi-id" title="http://log.netbib.de/?p=78609974"><!-- &nbsp; --></abbr>
+					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURL}unapi"/>
+					
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
