@@ -128,7 +128,7 @@ public interface PubItemSimpleStatistics
      * @return The result of the report. Summed up requests for an item with all its versions or the file.
      * @throws Exception
      */
-    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, String userHandle) throws Exception;
+    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception;
     
     /**
      * Initializes the statistic system in order to retrieve simple statistic records from the framework.

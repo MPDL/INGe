@@ -113,7 +113,7 @@ public class SimpleStatistics implements PubItemSimpleStatistics
     /**
      * {@inheritDoc}
      */
-    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, String userHandle) throws Exception{
+    public String getNumberOfItemOrFileRequests(String reportDefinitionType, String objectId, AccountUserVO accountUser) throws Exception{
         
 
         if (reportDefinitionType == null || objectId == null)
@@ -147,8 +147,12 @@ public class SimpleStatistics implements PubItemSimpleStatistics
         
         String xmlParams = xmlTransforming.transformToStatisticReportParameters(repParams);
         
+        ReportHandler repHandler;
+        if (accountUser == null || accountUser.getHandle()==null)
+            repHandler = ServiceLocator.getReportHandler();
+        else
+            repHandler = ServiceLocator.getReportHandler(accountUser.getHandle());
         
-        ReportHandler repHandler = ServiceLocator.getReportHandler(userHandle);
         String xmlReport = repHandler.retrieve(xmlParams);
         
         List<StatisticReportRecordVO> reportRecordList = xmlTransforming.transformToStatisticReportRecordList(xmlReport);
