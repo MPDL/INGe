@@ -29,7 +29,7 @@
 
 <binding>
 
-	<!-- concrete mapping for PubItemResultVO -->
+	<!-- concrete mapping for ItemResultVO -->
 	<!-- Type: PubItemResultVO... -->
 	<mapping name="search-result-record" ns="${xsd.soap.searchresult.searchresult}"
 		class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
@@ -110,7 +110,7 @@
 		</structure>
 
 		<!-- Node: search-result-record.item -->
-		<!-- embed the concrete mapping for the super class [PubItemVO] -->
+		<!-- embed the concrete mapping for the super class [ItemVO] -->
 		<structure name="item" ns="${xsd.soap.item.item}">
 			<structure map-as="de.mpg.escidoc.services.common.valueobjects.ItemVO" />
         </structure>

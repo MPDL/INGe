@@ -31,14 +31,14 @@
 
     <!-- When marshalling, the highlighting information is discarded -->
 
-    <!-- concrete mapping for PubItemResultVO -->
-    <!-- Type: PubItemResultVO... -->
+    <!-- concrete mapping for ItemResultVO -->
+    <!-- Type: ItemResultVO... -->
     <mapping name="item" ns="${xsd.soap.item.item}"
       class="de.mpg.escidoc.services.common.valueobjects.ItemResultVO"
       extends="de.mpg.escidoc.services.common.valueobjects.ItemVO">
 
         <!-- Node: search-result-record.item -->
-        <!-- embed the concrete mapping for the super class [PubItemVO] -->
+        <!-- embed the concrete mapping for the super class [ItemVO] -->
         <structure map-as="PubItemVOOutputAbstract" />
 
     </mapping>
