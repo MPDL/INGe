@@ -156,6 +156,7 @@
 				<!-- Faces -->
 				<structure name="FacesAlbum" type="de.mpg.escidoc.services.common.valueobjects.face.MdsFacesContainerVO"
 				 usage="optional" ordered="false"/>
+				 <structure name="dc-md" usage="optional" ordered="false" flexible="true"/>
 				
 				
 			</collection>

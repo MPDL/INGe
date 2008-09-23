@@ -34,7 +34,6 @@ import de.mpg.escidoc.services.common.referenceobjects.AccountUserRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ContainerRO;
 import de.mpg.escidoc.services.common.referenceobjects.ReferenceObject;
-import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
@@ -43,7 +42,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
  * @revised by FrW: 10.06.2008
  * @version 1.0
  */
-public class ContainerVO extends ValueObject implements Cloneable, ItemContainerSearchResultVO
+public class ContainerVO extends ValueObject implements Cloneable
 {
     /**
      * The possible states of a container.

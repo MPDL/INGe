@@ -43,7 +43,6 @@ import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ejb.TransactionAttribute;
 import javax.ejb.TransactionAttributeType;
-import javax.management.j2ee.statistics.Stats;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.rpc.ServiceException;
@@ -70,6 +69,7 @@ import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -690,14 +690,14 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToItemResultVO:searchResultItem is null");
         }
-        ItemResultVO pubItemResultVO = null;
+        ItemResultVO itemResultVO = null;
         try
         {
             // unmarshall PubItemResultVO from String
             IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemResultVO.class);
             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
             StringReader sr = new StringReader(searchResultItem);
-            pubItemResultVO = (ItemResultVO)uctx.unmarshalDocument(sr, "UTF-8");
+            itemResultVO = (ItemResultVO)uctx.unmarshalDocument(sr, "UTF-8");
 
         }
         catch (JiBXException e)
@@ -710,7 +710,7 @@ public class XmlTransformingBean implements XmlTransforming
         {
             throw new TechnicalException(e);
         }
-        return pubItemResultVO;
+        return itemResultVO;
     }
 
     /**
@@ -1271,6 +1271,37 @@ public class XmlTransformingBean implements XmlTransforming
             throw new TechnicalException(e);
         }
         return containerVO;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ContainerResultVO transformToContainerResult( String containerResult ) throws TechnicalException {
+    	 logger.debug("transformToContainer(String) - String container=" + containerResult );
+         if (containerResult == null)
+         {
+             throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToContainerResult: containerResult is null");
+         }
+         ContainerResultVO containerResultVO = null;
+         try
+         {
+             IBindingFactory bfact = BindingDirectory.getFactory("ContainerVO_input", ContainerVO.class);
+             IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+             StringReader sr = new StringReader( containerResult );
+             containerResultVO = (ContainerResultVO)uctx.unmarshalDocument(sr, null);
+         }
+         catch (JiBXException e)
+         {
+             // throw a new UnmarshallingException, log the root cause of the JiBXException first
+             logger.error(e.getRootCause());
+             logger.error(e.getMessage());
+             throw new UnmarshallingException( containerResult, e );
+         }
+         catch (ClassCastException e)
+         {
+             throw new TechnicalException(e);
+         }
+         return containerResultVO;
     }
     
     /**

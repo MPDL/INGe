@@ -39,6 +39,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
+import de.mpg.escidoc.services.common.valueobjects.ContainerResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -369,7 +370,21 @@ public interface XmlTransforming
     
     public ContainerVO transformToContainer(String containerXml) throws TechnicalException;
     
+    /**
+     * Transform a xml string to a container list.
+     * @param containerList  xml string of containers
+     * @return  list of containers
+     * @throws TechnicalException  if transforming fails
+     */
     public List<? extends ContainerVO> transformToContainerList(String containerList) throws TechnicalException;
+    
+    /**
+     *  Transform a xml string to a container result.
+     * @param containerResult  xml string of container search result.
+     * @return  container search result
+     * @throws TechnicalException  if transforming fails
+     */
+    public ContainerResultVO transformToContainerResult( String containerResult ) throws TechnicalException;
     
     public String transformToContainer(ContainerVO containerVO) throws TechnicalException;
     
