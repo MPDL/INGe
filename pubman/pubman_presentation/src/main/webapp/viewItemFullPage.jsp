@@ -46,6 +46,7 @@
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
+					<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></title>
 					<!-- FrM: Moved JS sources to external file -->
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				</head>
