@@ -6,19 +6,20 @@ import de.mpg.escidoc.services.importmanager.exceptions.FormatNotRecognizedExcep
 import de.mpg.escidoc.services.importmanager.exceptions.SourceNotAvailableException;
 
 /**
- * UNAPI Interface for the DataAquisition Service
+ * UNAPI Interface for the DataAquisition Service.
  * @author Friederike Kleinfercher (initial creation) 
  */
-public interface Unapi{
+public interface Unapi
+{
 
 	/**
-	 * This operation gives back a description of all available sources for this unapi interface
+	 * This operation gives back a description of all available sources for this unapi interface.
 	 * @return sourcesXML
 	 */
 	public byte[] unapi();
 	
 	/**
-	 * This operation gives back a description of all available formats for an identifier
+	 * This operation gives back a description of all available formats for an identifier.
 	 * @param identifier
 	 * @return formatsXML
 	 */
@@ -26,13 +27,14 @@ public interface Unapi{
 	
 
 	/**
-	 * This operation fetches the format from the specified identifier
-	 * @param identifier, format
+	 * This operation fetches the format from the specified identifier.
+	 * @param identifier
+	 * @param format
 	 * @return data as byte[]
 	 */
-	public byte[] unapi (String identifier, String format)throws IdentifierNotRecognisedException, 
-    															 SourceNotAvailableException, 
-    															 TechnicalException,
-    															 FormatNotRecognizedException;
+	public byte[] unapi (String identifier, String format)throws IdentifierNotRecognisedException,
+																 SourceNotAvailableException,
+																 TechnicalException,
+																 FormatNotRecognizedException;
 	
 }

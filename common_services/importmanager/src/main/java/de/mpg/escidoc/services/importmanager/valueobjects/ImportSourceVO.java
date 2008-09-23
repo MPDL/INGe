@@ -36,9 +36,9 @@ import java.util.Vector;
 
 
 /**
- * The attributes of an import source
+ * The attributes of an import source.
+ * @author kleinfe1
  */
-
 public class ImportSourceVO 
 {
 	//General source_______________________________________
@@ -62,115 +62,141 @@ public class ImportSourceVO
 	private Vector <MetadataVO> mdFormats;
 	
 
-	public ImportSourceVO(){
+	/**
+	 * The value object for import sources descriptions.
+	 */
+	public ImportSourceVO()
+	{
 		
 	}
 	
-	public Vector <FullTextVO> getFtFormats() {
+	public Vector <FullTextVO> getFtFormats()
+	{
 		return this.ftFormats;
 	}
 
-	public void setFtFormats(Vector <FullTextVO> ftFormats) {
+	public void setFtFormats(Vector <FullTextVO> ftFormats)
+	{
 		this.ftFormats = ftFormats;
 	}
 
-	public Vector <MetadataVO> getMdFormats() {
+	public Vector <MetadataVO> getMdFormats() 
+	{
 		return this.mdFormats;
 	}
 
-	public void setMdFormats(Vector <MetadataVO> mdFormats) {
+	public void setMdFormats(Vector <MetadataVO> mdFormats)
+	{
 		this.mdFormats = mdFormats;
 	}
 	
-	public String getName(){
+	public String getName()
+	{
 		return this.name;
 	}
 	
-	public void setName(String name){
+	public void setName(String name)
+	{
 		this.name = name;
 	}
 
-	public String getDescription(){
+	public String getDescription()
+	{
 		return this.description;
 	}
 	
-	public void setDescription(String description){
+	public void setDescription(String description)
+	{
 		this.description = description;
 	}
 	
-	public URL getUrl(){
+	public URL getUrl()
+	{
 		return this.url;
 	}
 	
-	public void setUrl(URL url){
+	public void setUrl(URL url)
+	{
 		this.url = url;
 	}
 	
-	public String getHarvestProtocol(){
+	public String getHarvestProtocol()
+	{
 		return this.harvestProtocol;
 	}
 	
-	public void setHarvestProtocol(String harvestProtocol){
+	public void setHarvestProtocol(String harvestProtocol)
+	{
 		this.harvestProtocol = harvestProtocol;
 	}
 	
-	public Date getRetryAfter(){
+	public Date getRetryAfter()
+	{
 		return this.retryAfter;
 	}
 	
-	public void setRetryAfter(Date retryAfter){
+	public void setRetryAfter(Date retryAfter)
+	{
 		this.retryAfter = retryAfter;
 	}
 	
-	public int getTimeout(){
+	public int getTimeout()
+	{
 		return this.timeout;
 	}
 	
-	public void setTimeout(int timeout){
+	public void setTimeout(int timeout)
+	{
 		this.timeout = timeout;
 	}
 	
-	public void setUrl(int timeout){
-		this.timeout = timeout;
-	}
-	
-	public int getNumberOfTries(){
+	public int getNumberOfTries()
+	{
 		return this.numberOfTries;
 	}
 	
-	public void setNumberOfTries(int numberOfTries){
+	public void setNumberOfTries(int numberOfTries)
+	{
 		this.numberOfTries = numberOfTries;
 	}
 	
-	public String getEncoding(){
+	public String getEncoding()
+	{
 		return this.encoding;
 	}
 	
-	public void setEncoding(String encoding){
+	public void setEncoding(String encoding)
+	{
 		this.encoding = encoding;
 	}
 	
-	public String getStatus() {
+	public String getStatus() 
+	{
 		return this.status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(String status) 
+	{
 		this.status = status;
 	}
 
-	public String getType() {
+	public String getType() 
+	{
 		return this.type;
 	}
 
-	public void setType(String type) {
+	public void setType(String type) 
+	{
 		this.type = type;
 	}
 
-	public String getIdentifier() {
+	public String getIdentifier() 
+	{
 		return this.identifier;
 	}
 
-	public void setIdentifier(String identifier) {
+	public void setIdentifier(String identifier) 
+	{
 		this.identifier = identifier;
 	}
 

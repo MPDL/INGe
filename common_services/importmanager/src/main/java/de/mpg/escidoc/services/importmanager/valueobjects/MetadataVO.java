@@ -1,8 +1,13 @@
 package de.mpg.escidoc.services.importmanager.valueobjects;
 
 import java.net.URL;
-
-public class MetadataVO {
+/**
+ * 
+ * @author kleinfe1
+ *
+ */
+public class MetadataVO 
+{
 
 	private String mdDesc;
 	private URL mdUrl;
@@ -12,44 +17,52 @@ public class MetadataVO {
 	private String fileType;
 	
 	
-	public String getFileType() {
+	public String getFileType() 
+	{
 		return this.fileType;
 	}
-	public void setFileType(String fileType) {
+	public void setFileType(String fileType) 
+	{
 		this.fileType = fileType;
 	}
-	public String getMdDesc() {
+	public String getMdDesc() 
+	{
 		return this.mdDesc;
 	}
-	public void setMdDesc(String mdDesc) {
+	public void setMdDesc(String mdDesc) 
+	{
 		this.mdDesc = mdDesc;
 	}
-	public URL getMdUrl() {
+	public URL getMdUrl() 
+	{
 		return this.mdUrl;
 	}
-	public void setMdUrl(URL mdUrl) {
+	public void setMdUrl(URL mdUrl) 
+	{
 		this.mdUrl = mdUrl;
 	}
-	public String getMdFormat() {
+	public String getMdFormat() 
+	{
 		return this.mdFormat;
 	}
-	public void setMdFormat(String mdFormat) {
+	public void setMdFormat(String mdFormat) 
+	{
 		this.mdFormat = mdFormat;
 	}
-	public String getMdLabel() {
+	public String getMdLabel() 
+	{
 		return this.mdLabel;
 	}
-	public void setMdLabel(String mdLabel) {
+	public void setMdLabel(String mdLabel) 
+	{
 		this.mdLabel = mdLabel;
 	}
-	public boolean isMdDefault() {
+	public boolean isMdDefault() 
+	{
 		return this.mdDefault;
 	}
-	public void setMdDefault(boolean mdDefault) {
+	public void setMdDefault(boolean mdDefault) 
+	{
 		this.mdDefault = mdDefault;
-	}
-	
-	
-
-	
+	}	
 }
