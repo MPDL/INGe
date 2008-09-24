@@ -7,7 +7,7 @@
 				   <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/03/xml.xsd"/>
 				   <xs:import namespace="http://purl.org/dc/elements/1.1/" schemaLocation="http://dublincore.org/schemas/xmls/qdc/dc.xsd"/>
 	
-	<xs:element name="Sources" type="sourcesType">
+	<xs:element name="sources" type="sourcesType">
 		<xs:annotation>
 			<xs:documentation>This element contains a selection of all sources this unapi interface can fetch from</xs:documentation>
 		</xs:annotation>
@@ -15,7 +15,7 @@
 	
 	<xs:complexType name="sourcesType">
 		<xs:sequence>
-			<xs:element name="Source" type="sourceType" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="source" type="sourceType" minOccurs="0" maxOccurs="unbounded"/>
 		</xs:sequence>
 	</xs:complexType>	
 	
