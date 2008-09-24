@@ -55,15 +55,18 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -479,6 +482,11 @@ public class SearchResultList extends ItemList
         String searchString = this.getSessionBean().getSearchString();
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
         
+        // check if the searchString contains useful data
+        if( searchString.trim().equals("") ) {
+        	return (SearchResultList.LOAD_NO_ITEMS_FOUND);
+        }
+        
         try
         {   	
         	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
@@ -502,7 +510,7 @@ public class SearchResultList extends ItemList
         	
         	// search for the given criteria
         	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
-        	List<PubItemVO> itemsFound = extractItemsOfSearchResult( result );
+        	List<PubItemResultVO> itemsFound = extractItemsOfSearchResult( result );
         	
         	this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
             
@@ -514,7 +522,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items.", e);
-            ((ErrorPage) this.getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) InternationalizedImpl.getRequestBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -551,11 +559,16 @@ public class SearchResultList extends ItemList
 //      reset some error message from last request
         this.deleteMessage();
 
+        // check if we have received some criteria to search for
+        if( criteria.size() == 0 ) {
+        	return (SearchResultList.LOAD_NO_ITEMS_FOUND);   
+        }
+        
         String cqlQuery = null;
         try
         {
             StandardSearchResult queryResult = this.getItemControllerSessionBean().searchItems( criteria );
-            ArrayList<PubItemVO> itemsFound = extractItemsOfSearchResult( queryResult );
+            ArrayList<PubItemResultVO> itemsFound = extractItemsOfSearchResult( queryResult );
             cqlQuery = queryResult.getCqlQuery();
             result = itemsFound.size();
             getItemListSessionBean().setListDirty(false);
@@ -610,7 +623,7 @@ public class SearchResultList extends ItemList
         this.deleteMessage();
         
         
-        ArrayList<PubItemVO> itemsFound = null;
+        ArrayList<PubItemResultVO> itemsFound = null;
         try
         {
         	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
@@ -725,17 +738,17 @@ public class SearchResultList extends ItemList
         }
     }
     
-    private ArrayList<PubItemVO> extractItemsOfSearchResult( StandardSearchResult result ) { 
+    private ArrayList<PubItemResultVO> extractItemsOfSearchResult( StandardSearchResult result ) { 
     
     	List<ItemContainerSearchResultVO> results = result.getResultList();
     	
-    	ArrayList<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+    	ArrayList<PubItemResultVO> pubItemList = new ArrayList<PubItemResultVO>();
     	for( int i = 0; i < results.size(); i++ ) {
     		//check if we have found an item
-    		if( results.get( i ) instanceof ItemVO ) {
-    			// cast to item
-    			ItemVO item = (ItemVO)results.get( i );
-    			PubItemVO pubItem = new PubItemVO( item );
+    		if( results.get( i ) instanceof ItemResultVO ) {
+    			// cast to PubItemResultVO
+    			ItemResultVO item = (ItemResultVO)results.get( i );
+    			PubItemResultVO pubItem = new PubItemResultVO( item, item.getSearchHitList() ) ;
     			pubItemList.add( pubItem );
     		}
     	}

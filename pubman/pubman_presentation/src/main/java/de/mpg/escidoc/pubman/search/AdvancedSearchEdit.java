@@ -155,9 +155,14 @@ public class AdvancedSearchEdit extends SearchResultList
     	criterionList.addAll( identifierCriterionCollection.getFilledCriterion() );
     	criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
     	
-    	
+    	 //start the advanced search in the PubItemSearching interface
+        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
     	
     	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
+    	
+    	if( criterionList.size() == 0 ) {
+    		return list.startAdvancedSearch( searchCriteria );
+    	}
     	
     	// transform the criteria to searchCriteria
     	try {
@@ -178,9 +183,6 @@ public class AdvancedSearchEdit extends SearchResultList
     
     	//set the old list dirty
     	this.getItemListSessionBean().setListDirty(true);
-    	
-        //start the advanced search in the PubItemSearching interface
-        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
         
         return list.startAdvancedSearch( searchCriteria );
     }

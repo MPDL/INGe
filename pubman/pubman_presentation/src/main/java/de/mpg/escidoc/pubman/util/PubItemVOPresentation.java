@@ -17,6 +17,8 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -111,14 +113,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	.getApplication().getVariableResolver()
     	.resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
     
-	public PubItemVOPresentation(PubItemVO item)
+	public PubItemVOPresentation( PubItemVO item)
 	{
 		super(item);
-//		if (item instanceof PubItemResultVO)
-//		{
-//			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
-//			this.isSearchResult = true;
-//		}
+
+		if( item instanceof PubItemResultVO ) {
+			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
+			this.isSearchResult = true;
+		}
+		
 		
 		// set up some pre-requisites
 		//the list of numbered affiliated organizations 
