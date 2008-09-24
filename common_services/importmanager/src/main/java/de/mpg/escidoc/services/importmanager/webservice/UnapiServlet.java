@@ -228,7 +228,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 			MetadataVO md = v_md.get(i);
 			FormatType xmlFormat = xmlFormats.addNewFormat();
 
-			xmlFormat.setName(md.getMdLabel());
+			xmlFormat.setName(md.getMdLabel().toLowerCase());
 			xmlFormat.setType(md.getMdFormat());
 			if (md.getMdDesc() != null) {
 				xmlFormat.setDocs(md.getMdDesc());
