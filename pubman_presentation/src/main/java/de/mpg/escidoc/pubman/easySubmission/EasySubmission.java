@@ -169,6 +169,10 @@ public class EasySubmission extends FacesBean
     public void init()
     {
         super.init();
+        SUBMISSION_METHOD_MANUAL = new SelectItem("MANUAL", getLabel("easy_submission_method_manual"));
+        SUBMISSION_METHOD_FETCH_IMPORT = new SelectItem("FETCH_IMPORT", getLabel("easy_submission_method_fetch_import"));
+        SUBMISSION_METHOD_OPTIONS = new SelectItem[] { this.SUBMISSION_METHOD_MANUAL, this.SUBMISSION_METHOD_FETCH_IMPORT };
+        
         this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation

@@ -46,6 +46,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.home.Home;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
@@ -117,6 +118,8 @@ public class Navigation extends FacesBean
                 ReleaseHistory.LOAD_RELEASE_HISTORY));
         this.navRules.add(new NavigationRule("/faces/AdvancedSearchPage.jsp",
                 AdvancedSearchEdit.LOAD_SEARCHPAGE));
+        this.navRules.add(new NavigationRule("/faces/EasySubmissionPage.jsp",
+                EasySubmission.LOAD_EASYSUBMISSION));
     }
 
     /**
@@ -178,11 +181,18 @@ public class Navigation extends FacesBean
         // special re-initializaion for pages with dynamic page elements which
         // must be re-inited
 
-        logger.debug("Resolving current page URI: " + request.getRequestURI());
-
+        //logger.debug("Resolving current page URI: " + request.getRequestURI());
+        String requestURI = request.getRequestURI();
+        
+        if (requestURI.startsWith("/pubman"))
+        {
+            requestURI = requestURI.substring("/pubman".length());
+            
+        }
+        logger.debug("Resolving current page URI: " + requestURI);
         for (int i = 0; i < navRules.size(); i++)
         {
-            if (request.getRequestURI().equals(navRules.get(i).getRequestURL()))
+            if (requestURI.equals(navRules.get(i).getRequestURL()))
             {
                 navigationString = navRules.get(i).getNavigationString();
                 break;
@@ -231,6 +241,12 @@ public class Navigation extends FacesBean
             qaws = (QAWS) getRequestBean(QAWS.class);
             this.getItemListSessionBean().setListDirty(true);
             qaws.init();
+        }
+        else if (navigationString.equals(EasySubmission.LOAD_EASYSUBMISSION))
+        {
+            EasySubmission easy = (EasySubmission) getRequestBean(EasySubmission.class);
+           
+            easy.init();
         }
         else
         {
