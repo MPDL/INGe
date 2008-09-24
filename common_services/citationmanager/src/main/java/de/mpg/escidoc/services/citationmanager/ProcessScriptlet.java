@@ -69,7 +69,7 @@ public class ProcessScriptlet {
 	
     public final static String SCRIPTLET_CLASSNAME_PREFIX = "ScriptletForRepeatableElements";
     // TODO: should be moved directly to the CS definition
-    public final static String SCRIPTLET_XPATH_ROOT = "md-record/publication";
+    public static String SCRIPTLET_XPATH_ROOT = null; 
     public final static String SCRIPTLETS_JAVA_DIRECTORY = "src/main/java/";
     private String scriptletClassName = null;
     
@@ -133,9 +133,13 @@ public class ProcessScriptlet {
     private String scriptletBody;
     
 
-    public ProcessScriptlet(String cs) throws FileNotFoundException, IOException {
+    public ProcessScriptlet(CitationStyle cs) throws FileNotFoundException, IOException {
     	
-        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs));
+        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs.getName()));
+        
+        String[] tokens = cs.getMdXPath().split("/");
+        SCRIPTLET_XPATH_ROOT = tokens[ tokens.length - 1 ];    
+        
     	scriptletFunctions = ResourceUtil.getProperties("CitationStyles", "functions.properties");
     	Iterator iter = scriptletFunctions.keySet().iterator(); 
     	while (iter.hasNext()) 

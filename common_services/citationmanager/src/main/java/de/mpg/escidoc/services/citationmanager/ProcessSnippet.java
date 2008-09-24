@@ -90,13 +90,13 @@ public class ProcessSnippet {
 	 * @throws IOException
 	 * @throws CitationStyleManagerException
 	 */
-	public void export(Document doc, String reportXmlRootXPpath, Map params, final InputStream is, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
+	public void export(Document doc, Map params, final JasperReport jr, OutputStream os) throws JRException, IOException, CitationStyleManagerException {
 		
 		if ( doc == null ) 
 			throw new CitationStyleManagerException("org.w3c.dom.Document doc is null");
 		
-		if ( is == null ) 
-			throw new CitationStyleManagerException("Report InputStream is null");
+		if ( jr == null ) 
+			throw new CitationStyleManagerException("Report is null");
 		
 		if ( os == null ) 
 			throw new CitationStyleManagerException("Snippet OutputStream is null");
@@ -150,7 +150,7 @@ public class ProcessSnippet {
 		StringBuffer[] sb = new StringBuffer[length];
 		String[] pea = new String[length];
 		
-        JasperReport jasperReport = (JasperReport)JRLoader.loadObject(is); 
+        //JasperReport jasperReport = (JasperReport)JRLoader.loadObject(is); 
 		
 		// generate snippets 
 		for ( int i = 0; i < length; i++ )
@@ -159,9 +159,9 @@ public class ProcessSnippet {
 			root.appendChild(itemsArr[i]);
 			
 			JasperPrint jasperPrint = JasperFillManager.fillReport(
-					jasperReport,
+					jr,
 					params,
-					new JRXmlDataSource(doc, reportXmlRootXPpath)
+					new JRXmlDataSource(doc, jr.getQuery().getText())
 			);
 
 			// hack to get parent element with prefix  

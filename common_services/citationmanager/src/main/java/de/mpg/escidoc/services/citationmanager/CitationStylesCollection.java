@@ -29,12 +29,18 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.commons.digester.Digester;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
@@ -48,6 +54,8 @@ import org.xml.sax.SAXException;
  * $Date$ 
  */
 public class CitationStylesCollection implements Cloneable  {
+	
+    private static final Logger logger = Logger.getLogger(CitationStylesCollection.class);
 
     private String name;						// name of CitationStyle
     private List<CitationStyle> citationStyles;	// list of CitationStyles
@@ -179,67 +187,174 @@ public class CitationStylesCollection implements Cloneable  {
 
 
     /**
+     * @TODO !!!!
      * Loads {@link CitationStylesCollection} from xmlfile
-     * @param xmlFileName
+     * @return {@link CitationStylesCollection}
+     * @throws IOException 
+     * @throws SAXException
+     * @throws ParserConfigurationException 
+     * @throws CitationStyleManagerException 
+     */      
+    public static CitationStylesCollection loadFromXml()  throws IOException, SAXException, CitationStyleManagerException, ParserConfigurationException {
+
+    	//get List of CitationStyles
+    	
+    	String[] los = XmlHelper.getListOfStyles();
+    	
+    	CitationStylesCollection csc = new CitationStylesCollection();
+    	
+    	Digester digester = getDigesterRules();
+    	
+    	for (String csName : los)
+    	{
+    		FileInputStream input = new FileInputStream( 
+    				ResourceUtil.getPathToCitationStyles()
+    				+ csName
+    				+ new ProcessCitationStyles().CITATION_XML_FILENAME
+    		);
+    		csc.addCitationStyle((CitationStyle)digester.parse( input ));
+    	}
+
+        csc.fillEmptyNames();
+        csc.generateIDs();
+    	
+        return csc;
+
+    }
+    
+    public static Digester getDigesterRules()
+    {
+		Digester digester = new Digester();
+		digester.setValidating(false);
+    
+    // add root level
+        // add citation-style
+        String cs = "citation-style";
+        digester.addObjectCreate(cs, "de.mpg.escidoc.services.citationmanager.CitationStyle");
+        digester.addSetProperties(cs);
+        //???
+        digester.addSetProperties(cs, "element-specific", "elementSpecific");
+        digester.addSetProperties(cs, "read-only", "readOnly");
+        digester.addSetProperties(cs, "md-xpath", "mdXPath");
+
+	        //add variables
+	        String v = cs + "/variable";
+	        digester.addCallMethod(v, "addVariable", 3);
+	        digester.addCallParam(v, 0, "name");
+	        digester.addCallParam(v, 1, "xpath");
+	        digester.addCallParam(v, 2, "expression");
+        
+            // add cs-layout-definition
+            String csld = cs + "/cs-layout-definition";
+            digester.addObjectCreate(csld, "de.mpg.escidoc.services.citationmanager.LayoutElement");
+            digester.addSetProperties(csld);
+
+
+                // add cs-layout-definition
+                digester = LayoutElement.getDigesterRules(digester, csld);
+                String elems = csld + "/elements/layout-element";
+
+                    // add cs-layout-definition/elements/layout-element
+                    digester = LayoutElement.getDigesterRules(digester, elems);
+                    elems += "/elements/layout-element";
+
+                        
+                        // add cs-layout-definition/elements/layout-element/elements/layout-element
+                        digester = LayoutElement.getDigesterRules(digester, elems);
+                        elems += "/elements/layout-element";
+                        
+                        	// add cs-layout-definition/elements/layout-element/elements/LayoutElement/elements/LayoutElement/parameters
+                            digester = Parameters.getDigesterRules(digester, elems);
+                        
+
+            digester.addSetNext(csld, "addCsLayoutDefinition");
+            
+            return digester;
+    }
+    
+    
+    /**
+     * Loads {@link CitationStylesCollection} from xmlfile
      * @return {@link CitationStylesCollection}
      * @throws IOException 
      * @throws SAXException
      */      
-    public static CitationStylesCollection loadFromXml( String xmlFileName )  throws IOException, SAXException {
-
-
-        Digester digester = new Digester();
-        digester.setValidating(false);
-
-        // add root level
-        String csc = "citation-styles-collection";
-        digester.addObjectCreate(csc, "de.mpg.escidoc.services.citationmanager.CitationStylesCollection");
-        digester.addSetProperties(csc);
-
-            // add citation-style
-            String cs = csc + "/citation-style";
-            digester.addObjectCreate(cs, "de.mpg.escidoc.services.citationmanager.CitationStyle");
-            digester.addSetProperties(cs);
-            digester.addSetProperties(csc, "element-specific", "elementSpecific");
-            digester.addSetProperties(csc, "read-only", "readOnly");
-
-                // add cs-layout-definition
-                String csld = cs + "/cs-layout-definition";
-                digester.addObjectCreate(csld, "de.mpg.escidoc.services.citationmanager.LayoutElement");
-                digester.addSetProperties(csld);
-
- 
-                    // add cs-layout-definition
-                    digester = LayoutElement.getDigesterRules(digester, csld);
-                    String elems = csld + "/elements/layout-element";
-
-
-                        // add cs-layout-definition/elements/layout-element
-                        digester = LayoutElement.getDigesterRules(digester, elems);
-                        elems += "/elements/layout-element";
-
-                            
-                            // add cs-layout-definition/elements/layout-element/elements/layout-element
-                            digester = LayoutElement.getDigesterRules(digester, elems);
-                            elems += "/elements/layout-element";
-                            
-                            	// add cs-layout-definition/elements/layout-element/elements/LayoutElement/elements/LayoutElement/parameters
-                                digester = Parameters.getDigesterRules(digester, elems);
-                            
-
-                digester.addSetNext(csld, "addCsLayoutDefinition");
-
-            digester.addSetNext(cs, "addCitationStyle");
-
-
-        FileInputStream input = new FileInputStream( xmlFileName );
-        CitationStylesCollection cscl = (CitationStylesCollection)digester.parse( input );
-
-        cscl.fillEmptyNames();
-        cscl.generateIDs();
-
-        return cscl;
-
+    public static CitationStylesCollection loadFromXml(String xmlFileName)  throws IOException, SAXException {
+    	
+//    	FileInputStream input = new FileInputStream( xmlFileName );
+//    	DataInputStream dis = new DataInputStream(input);
+//    	BufferedReader br = new BufferedReader (new InputStreamReader(dis)); 
+//    	String strLine;
+//    	while ( (strLine = br.readLine()) != null) {
+//    		System.out.println(strLine);
+//		}    		
+//    	dis.close();
+    	
+    	
+    		Digester digester = new Digester();
+    		digester.setValidating(false);
+    		
+    		// add root level
+//    		String csc = "citation-styles-collection";
+//    		digester.addObjectCreate(csc, "de.mpg.escidoc.services.citationmanager.CitationStylesCollection");
+//    		digester.addSetProperties(csc);
+    		
+    		// add citation-style
+    		String cs = "citation-style";
+    		digester.addObjectCreate(cs, "de.mpg.escidoc.services.citationmanager.CitationStyle");
+//    		digester.addSetProperties(cs);
+    		digester.addSetProperties(cs, "element-specific", "elementSpecific");
+    		digester.addSetProperties(cs, "read-only", "readOnly");
+    		digester.addSetProperties(cs, "md-xpath", "mdXPath");
+    		
+    		//add variables
+    		String v = cs + "/variable";
+    		digester.addCallMethod(v, "addVariable", 3);
+    		digester.addCallParam(v, 0, "name");
+    		digester.addCallParam(v, 1, "xpath");
+    		digester.addCallParam(v, 2, "expression");
+    		
+    		// add cs-layout-definition
+    		String csld = cs + "/cs-layout-definition";
+    		digester.addObjectCreate(csld, "de.mpg.escidoc.services.citationmanager.LayoutElement");
+    		digester.addSetProperties(csld);
+    		
+    		
+    		// add cs-layout-definition
+    		digester = LayoutElement.getDigesterRules(digester, csld);
+    		String elems = csld + "/elements/layout-element";
+    		
+    		
+    		// add cs-layout-definition/elements/layout-element
+    		digester = LayoutElement.getDigesterRules(digester, elems);
+    		elems += "/elements/layout-element";
+    		
+    		
+    		// add cs-layout-definition/elements/layout-element/elements/layout-element
+    		digester = LayoutElement.getDigesterRules(digester, elems);
+    		elems += "/elements/layout-element";
+    		
+    		// add cs-layout-definition/elements/layout-element/elements/LayoutElement/elements/LayoutElement/parameters
+    		digester = Parameters.getDigesterRules(digester, elems);
+    		
+    		
+    		digester.addSetNext(csld, "addCsLayoutDefinition");
+    		
+    		//digester.addSetNext(cs, "addCitationStyle");
+    		
+    		
+    		FileInputStream input = new FileInputStream( xmlFileName );
+//    		CitationStylesCollection cscl = (CitationStylesCollection)digester.parse( input );
+    		CitationStyle cst = (CitationStyle)digester.parse( input );
+    		
+    		CitationStylesCollection cscl = new CitationStylesCollection();
+    		cscl.addCitationStyle(cst);
+    		
+    		cscl.fillEmptyNames();
+    		cscl.generateIDs();
+    		
+    	return cscl;
+    	
     }
 
     /**
@@ -252,12 +367,16 @@ public class CitationStylesCollection implements Cloneable  {
     public void writeToXml( String xmlFileName )  throws IOException, SAXException, CitationStyleManagerException {
 
     	Document d = XmlHelper.createDocument();
+//    	
+//    	Element root = d.createElement("citation-styles-collection");
+//        root.setAttribute ("name", getName());
+//        root = getDomElement(d, root);
+//        d.appendChild(root);
     	
-    	Element root = d.createElement("citation-styles-collection");
-        root.setAttribute ("name", getName());
-        root = getDomElement(d, root);
-        d.appendChild(root);
-        
+//		the root element will taken from the citation style root 
+    	Element root = citationStyles.get(0).getDomElement(d);
+    	d.appendChild(root);
+    	  
         XmlHelper.output(d, xmlFileName);
         
     }
@@ -279,16 +398,12 @@ public class CitationStylesCollection implements Cloneable  {
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
 
-        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles/APA/CitationStyle.xml");
-//        csc.writeToXml("resource/CitationStyles/APA/CitationStyleTestOutput.xml");
+        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/APA_new/CitationStyle.xml");
+        csc.writeToXml("src/main/resources/CitationStyles/APA_new/CitationStyleTestOutput.xml");
 //        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles\\CitationStyle.xml");
 
 
-        System.out.println(csc);
 
-//        CitationStyle cs = csc.getCitationStyleByName("CitationStyle_eDoc");
-//
-//        System.out.println("<<<<Citation Style>>>>:" + cs);
 
 
 //        csc.writeToXml("CitationStyles\\CitationStylesOut.xml");

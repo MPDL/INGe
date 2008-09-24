@@ -30,8 +30,11 @@
 package de.mpg.escidoc.services.citationmanager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -45,16 +48,23 @@ import org.w3c.dom.Element;
  * $Date$ 
  */
 public class CitationStyle implements Cloneable {
+	
+    private static final Logger logger = Logger.getLogger(CitationStyle.class);	
 
     private String name;					// Name of CS
-    private boolean elementSpecific; 		// String value of @ref
+    private String mdXPath;					// Medatata root xpath
+	private boolean elementSpecific; 		// String value of @ref
     private boolean readOnly; 				// CS can be overridden
     private boolean hasName; 				// triger is set to true if document has defined name 
     
     // Ordered list of LayoutElements which definred Citation Styles Layout Defifintions  
     private List<LayoutElement> csLayoutDefinitions;
+    
+    // special variables to be used in CitationStyle
+    private HashMap<String, String[]> variables;
 
-    /**
+
+	/**
      * Constructor 
      */
     public CitationStyle() {
@@ -66,18 +76,30 @@ public class CitationStyle implements Cloneable {
      */
     public void setDefault(){
     	setName(null);
+    	setMdXPath(null);
         setElementSpecific(false); 	
         setReadOnly(false);
         hasName = true;
         setCsLayoutDefinitions(new ArrayList<LayoutElement>());
+        setVariables(new HashMap<String, String[]>());
+        
     }
     
+   
     public void setName ( String newName ) {
         name = newName != null ? newName : name;
     }
     public String getName() {
         return name;
     }
+    
+	public void setMdXPath(String mdXPath) {
+		this.mdXPath = mdXPath !=null ? mdXPath : this.mdXPath;
+	}
+	
+	public String getMdXPath() {
+		return mdXPath;
+	}
 
     public void setElementSpecific ( boolean newElementSpecific ) {
         elementSpecific = newElementSpecific;
@@ -101,6 +123,19 @@ public class CitationStyle implements Cloneable {
         return csLayoutDefinitions;
     }
 
+    public HashMap<String, String[]> getVariables() {
+		return variables;
+	}
+
+	public void setVariables(HashMap<String, String[]> variables) {
+		this.variables = variables;
+	}
+
+    public void addVariable( String name, String xpath, String expression ) {
+        if ( name !=null && !name.trim().equals("") )
+            variables.put(name, new String[] { xpath, expression });
+    }
+	
     /**
      * Adds Citation Style Layout Definition (csld) to the list <code>csLayoutDefinitions</code>
      * in case if there is no csld with the same name 
@@ -175,11 +210,32 @@ public class CitationStyle implements Cloneable {
     	
     	Element cs = d.createElement("citation-style");
     	
-    	if (hasName && !(name==null || name.length()==0))
+    	if (hasName && !(name==null || "".equals(name.trim())))
     		cs.setAttribute("name", name);
     	
     	cs.setAttribute("element-specific", getElementSpecific()? "yes" : "no");
     	cs.setAttribute("read-only", getReadOnly() ? "yes" : "no");
+    	cs.setAttribute("md-xpath", mdXPath);
+
+    	Iterator<String> iter = variables.keySet().iterator();
+    	while(iter.hasNext()) 
+    	{	
+    		String name = iter.next();
+    		Element variable = d.createElement("variable");
+    		variable.setAttribute("name", name);
+    		String value = variables.get(name)[0];
+    		if ( value != null && !value.trim().equals(""))
+    		{
+    			variable.setAttribute("xpath", value);    				
+    		}
+    		value = variables.get(name)[1];
+    		if ( value != null && !value.trim().equals(""))
+    		{
+    			variable.setAttribute("expression", value);    				
+    		}
+
+    		cs.appendChild(variable);
+    	}
     	
     	for ( LayoutElement csld: csLayoutDefinitions ) {
     		cs.appendChild(csld.getDomElement(d, "cs-layout-definition") );
@@ -229,19 +285,39 @@ public class CitationStyle implements Cloneable {
         for ( LayoutElement csld: csLayoutDefinitions ) {
             ((CitationStyle)clone).addCsLayoutDefinition((LayoutElement)csld.clone());
         }
+        
+        ((CitationStyle)clone).setVariables(new HashMap<String, String[]>());
+        Iterator<String> iter = variables.keySet().iterator();
+    	while(iter.hasNext()) 
+    	{	
+    		String name = iter.next();
+    		((CitationStyle)clone).addVariable(name, variables.get(name)[0], variables.get(name)[1]);
+    	}        
 
+        
         return clone;
     }
 
     public String toString() {
-        return "CitationStyle["+ name + "," + elementSpecific + "," + readOnly + "," +
-        csLayoutDefinitions + "]";
+        return "CitationStyle" +
+        	"[" +
+        		"name:" + name + "," + 
+        		"md-xpath:" + mdXPath + "," + 
+        		"element-specific:" + elementSpecific + "," + 
+        		"readOnly:" + readOnly + "," +
+        		csLayoutDefinitions + "," +
+        		variables +
+        	"]";
     }
 
 
     public static void main(String[] args) {
 
         CitationStyle cs = new CitationStyle();
+        cs.setName("APA");
+        cs.setMdXPath("//items/item/md-records/md-record/publication");
+        cs.addVariable("hasPublication", "not(publication)=false()", null);
+        cs.addVariable("hasPublication2", null, "${hasPublication}");
 
         LayoutElement csld1 = new LayoutElement();
 
@@ -258,11 +334,9 @@ public class CitationStyle implements Cloneable {
 
         cs.fillEmptyNames ("Prefix");
 
-        System.out.println("Default CitationStyle:" + cs);
+        logger.info("Default CitationStyle:" + cs);
 
-//        CitationStyle csclone = (CitationStyle);
-
-//        System.out.println("Clone" + (CitationStyle)cs.clone() );
+        logger.info("Clone" + (CitationStyle)cs.clone() );
 
 
     }
