@@ -41,8 +41,6 @@
 	</h2>
 	
 		<!-- Identifier -->
-<!-- has to be outside the div element for identification of unapi id -->
-<h:outputText value="<abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'/>" escape="false"/>
 <div class="itemElementLine floatbox">		
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>		
 		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>		
