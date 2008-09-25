@@ -35,7 +35,6 @@ import java.util.Map;
 
 import org.w3c.dom.Node;
 
-import com.sun.org.apache.xml.internal.utils.PrefixResolver;
 
 /**
  * This class maps namespace URIs to namespace prefixes for XPath evaluations.
@@ -45,7 +44,7 @@ import com.sun.org.apache.xml.internal.utils.PrefixResolver;
  * @version $Revision: 611 $ $LastChangedDate: 2007-11-07 12:04:29 +0100 (Wed, 07 Nov 2007) $
  * @revised by MuJ: 03.09.2007
  */
-public class XpathPrefixResolver implements PrefixResolver
+public class XpathPrefixResolver
 {
     /**
      * This map stores the mapping between the namespace names (URIs) and the assigned namespace prefixes.

@@ -33,19 +33,13 @@ package test.xmltransforming.component;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 import org.junit.Test;
 
 import test.TestBase;
-
-import com.sun.org.apache.xpath.internal.objects.XObject;
-
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationPathVO;
@@ -183,18 +177,6 @@ public class TransformAffiliationTest extends TestBase
         String roundTripOrganizationalUnitXml = xmlTransforming.transformToOrganizationalUnit(affiliation);
         logger.debug("testTransformToOrganizationalUnit() - String organizationalUnitXml=\n" + organizationalUnitXml
                 + "\n\ntestTransformToOrganizationalUnit() - String roundTripOrganizationalUnitXml=\n" + roundTripOrganizationalUnitXml);
-
-        // comapre objectIds
-/*        XObject xObject;
-        Pattern pattern = Pattern.compile("objid=\"([^\"]+)\"");
-        Matcher matcher1 = pattern.matcher(organizationalUnitXml);
-        matcher1.find();
-        String objIdBefore = matcher1.group(1);
-        Matcher matcher2 = pattern.matcher(roundTripOrganizationalUnitXml);
-        matcher2.find();
-        String objIdAfter = matcher2.group(1);
-        assertTrue(objIdBefore.length() > 0);
-        assertEquals(objIdBefore, objIdAfter);*/
     }
 
     private void assertEqualsMPIWG(AffiliationVO affiliation)
