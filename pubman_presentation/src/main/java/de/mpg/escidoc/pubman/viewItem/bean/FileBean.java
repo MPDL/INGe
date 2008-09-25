@@ -78,6 +78,7 @@ public class FileBean extends FacesBean
 	private State itemState;
 	private List<SearchHitVO> searchHitList = new ArrayList<SearchHitVO>();
 	private List<SearchHitBean> searchHits = new ArrayList<SearchHitBean>();
+	private LoginHelper loginHelper;
 	
 	
 
@@ -102,6 +103,7 @@ public class FileBean extends FacesBean
      */
     public FileBean(FileVO file, State itemState, List<SearchHitVO> searchHitList)
 	{
+        loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
 		this.file = file;
 		this.itemState = itemState;
 		this.searchHitList = searchHitList;
@@ -401,6 +403,14 @@ public class FileBean extends FacesBean
 	            getFile().getContent().startsWith("https://") ||
 	            getFile().getContent().startsWith("ftp://"))
 	           );
+	}
+	
+	public boolean getIsVisible()
+	{
+	    if(file.getVisibility().equals(FileVO.Visibility.PUBLIC))
+	        return true;
+	    else
+	        return false;
 	}
 
     
