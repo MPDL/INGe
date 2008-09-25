@@ -47,6 +47,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map; 
 import java.util.Properties;
 import java.util.regex.Matcher;
@@ -471,7 +472,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @return extended expression String
      * @throws JRException 
      */
-    public String applyElements(LayoutElement le, String delimiter) throws CitationStyleManagerException, JRException {
+    public String applyElements(CitationStyle cs, LayoutElement le, String delimiter) throws CitationStyleManagerException, JRException {
         String expr = "";
         String prevES = null;
         
@@ -483,7 +484,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	int i = 1;
             for (LayoutElement e : elements) {
             	String eS = "$V{" + e.getId() + "}"; 
-                addLayoutElementToVariablesMap(e);
+                addLayoutElementToVariablesMap(cs, e);
                 // insert delimiter between elements
             	if (i>1 && i<=eSize) { 
             		if (delimiter != null && delimiter.length()>0) {
@@ -730,7 +731,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 				m.appendReplacement(sb, "\\$F\\{"+ name +"\\}");
 				addJRField(name);
 			}
-			logger.info("sb: " + sb.toString());
 			
 		}
 		m.appendTail(sb);
@@ -750,7 +750,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws JRException 
       *
       */
-    public void addLayoutElementToVariablesMap(LayoutElement le) throws CitationStyleManagerException, JRException {
+    public void addLayoutElementToVariablesMap(CitationStyle cs, LayoutElement le) throws CitationStyleManagerException, JRException {
 
         String ref;
         String expr = "";
@@ -758,15 +758,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         String delimiter = p.getDelimiter();
         boolean isRepeatable = le.getRepeatable().equals("yes");
 
-//      goaway if element was already part of position bundle and was already processed
+//      go away if element was already part of position bundle and was already processed
 //        if (isRepeatable && lesWithScriptletMethod.contains(le.getName()))
 //            return;
 //      clean up JasperDesign: wipe already defined variable
         if (findInVariablesMap(le.getId())) {
 //          throw new Exception("Bad layout element name (" + le.getName() + "): there is already one with the same name");
-            // remove variable, it will be redifined further
+            // remove variable, it will be redefined further
             dataSet.removeVariable(le.getId());
-
             // it has been already processed as position bundle! do nothing
         }
         
@@ -774,41 +773,61 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         ref = le.getRef();
 
         //  if le has reference to
-        
 
-          if (ref != null && !ref.trim().equals("")) {
-            // repeatable!!! - produce Scriptlet
-            if (isRepeatable) {
-                  ps.createMethodForScriptlet(le, csc, fsc);
-                expr = applyParameters(le, "(($P{REPORT_SCRIPTLET}).get" + le.getId() + "())", true);
+
+        if ( checkVal(ref) ) {
+        	
+        	//look up in predefined LEs
+        	LayoutElement ple = cs.getLayoutElements().getElementByName(ref);
+        	// if found, use ple instead of le
+        	LayoutElement oldLe = le;
+            if ( ple != null )
+            {
+            	le = ple;
+                p = le.getParametersAtDefault();
+                ref = le.getRef();
+                delimiter = p.getDelimiter();
+                isRepeatable = le.getRepeatable().equals("yes");
             }
-            // not repeatable: normal
-            else {
-                // field in fieldsMap
-                if (findInFieldsMap(ref)) {
-                    // we ignore elements if they are defined
-                    expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
-                }
-                // variable in variablesMap
-                else if (findInVariablesMap(ref)) {
-                	// if there are elements
-                	expr = applyElements(le, delimiter);
-                	expr = applyParameters(le, expr, false);
-                }
-                else {
-                	addJRField(ref);
-                	expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
-                    //throw new CitationStyleManagerException("Bad reference: " + ref);
-                }
-            }
+        	
+        	// repeatable!!! - produce Scriptlet
+        	if (isRepeatable) {
+        		// check whether we have already created 
+        		// method for le in scriptlet and reference in JRFields
+        		if ( !findInFieldsMap("tmpField_" + le.getId()) )
+        		{	
+        			ps.createMethodForScriptlet(le, csc, fsc);
+        		}	
+        		expr = applyParameters(le, "(($P{REPORT_SCRIPTLET}).get" + le.getId() + "())", true);
+        	}
+        	// not repeatable: normal
+        	else {
+        		// field in fieldsMap
+        		if (findInFieldsMap(ref)) {
+        			// we ignore elements if they are defined
+        			expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
+        		}
+        		// variable in variablesMap
+        		else if (findInVariablesMap(ref)) {
+        			// if there are elements
+        			expr = applyElements(cs, le, delimiter);
+        			expr = applyParameters(le, expr, false);
+        		}
+        		else {
+        			addJRField(ref);
+        			expr = applyParameters(le, "($P{REPORT_SCRIPTLET}.xmlEncode($F{" + ref + "}))", false);
+        			//throw new CitationStyleManagerException("Bad reference: " + ref);
+        		}
+        	}
+        	
+        	le = oldLe;
         }
         // le has no ref
         else {
-            expr = applyElements(le, delimiter);
-            expr = applyParameters(le, expr, false);
+        	expr = applyElements(cs, le, delimiter);
+        	expr = applyParameters(le, expr, false);
         }
         
-    
           
         addJRVariable(le.getId(), expr);
     }
@@ -843,14 +862,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             		addJRVariable(name, val);        		
             	}
         	}
-        	
-        	
         }
+        
+//         add predefined layout elements
+//        List<LayoutElement> ples = cs.getLayoutElements().getLayoutElements();
+//        for ( LayoutElement ple : ples )
+//        	addLayoutElementToVariablesMap(cs, ple);
+        
+        
         
         //generate result citation variable
         String V = null;
         for (LayoutElement csld : cs.getCsLayoutDefinitions()) {
-            addLayoutElementToVariablesMap(csld);
+            addLayoutElementToVariablesMap(cs, csld);
             V =  "$V{" + csld.getId() + "}";
             expr += "!" + V + ".trim().equals(\"\") ? " + V + ":";
         }

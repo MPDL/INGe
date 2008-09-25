@@ -309,7 +309,7 @@ public class LayoutElement implements Cloneable {
     	setId( prefix );
     	if (getElementsAtDefault().size() > 0) {
     		int count = 1;
-    		Iterator it = positionBundle.keySet().iterator();
+    		Iterator<String> it = positionBundle.keySet().iterator();
     		while (it.hasNext()) {
     			String key = (String)it.next();
     			ArrayList<LayoutElement> elems = getElementsAt(key);

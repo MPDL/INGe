@@ -62,6 +62,10 @@ public class CitationStyle implements Cloneable {
     
     // special variables to be used in CitationStyle
     private HashMap<String, String[]> variables;
+    
+    // globally defined layoutElements on the citation style level 
+    private LayoutElementsCollection layoutElements;
+
 
 
 	/**
@@ -82,6 +86,7 @@ public class CitationStyle implements Cloneable {
         hasName = true;
         setCsLayoutDefinitions(new ArrayList<LayoutElement>());
         setVariables(new HashMap<String, String[]>());
+        setLayoutElements(new LayoutElementsCollection());
         
     }
     
@@ -136,6 +141,25 @@ public class CitationStyle implements Cloneable {
             variables.put(name, new String[] { xpath, expression });
     }
 	
+	public LayoutElementsCollection getLayoutElements() {
+		return layoutElements;
+	}
+
+	public void setLayoutElements(LayoutElementsCollection layoutElements) {
+		this.layoutElements = layoutElements;    
+	}
+	
+	// add layout element to the special collection 
+	// of predefined layout elements  
+    public void addLayoutElement( LayoutElement le ) {
+        if ( le !=null && le.getName() != null && !le.getName().trim().equals("") )
+        {
+        	layoutElements.addLayoutElement(le);
+        }
+    }
+	
+	
+	
     /**
      * Adds Citation Style Layout Definition (csld) to the list <code>csLayoutDefinitions</code>
      * in case if there is no csld with the same name 
@@ -153,8 +177,15 @@ public class CitationStyle implements Cloneable {
      * @return {@link LayoutElement}
      */
     public LayoutElement getElementByName( String name ) {
-        if (name==null || name.length()==0)
+        if ( name==null || name.trim().equals("") )
             return null;
+        
+        //check first predefined layout elements
+        LayoutElement pes = layoutElements.getElementByName(name);
+        if ( pes != null )
+        	return pes;
+        
+        //check csLayoutDefinitions
         for ( LayoutElement csld: csLayoutDefinitions ) {
             if ( csld.getElementByName(name)!=null)
                 return csld;
@@ -168,8 +199,14 @@ public class CitationStyle implements Cloneable {
      * @return {@link LayoutElement}
      */
     public LayoutElement getElementById( String id ) {
-        if (id==null || id.length()==0)
+        if (id==null || id.trim().equals(""))
             return null;
+        
+        //check first predefined layout elements
+        LayoutElement pes = layoutElements.getElementById(id);
+        if ( pes != null )
+        	return pes;
+        
         for ( LayoutElement csld: csLayoutDefinitions ) {
             if ( csld.getElementById(id) != null )
                 return csld;
@@ -217,26 +254,40 @@ public class CitationStyle implements Cloneable {
     	cs.setAttribute("read-only", getReadOnly() ? "yes" : "no");
     	cs.setAttribute("md-xpath", mdXPath);
 
+    	// variables
     	Iterator<String> iter = variables.keySet().iterator();
-    	while(iter.hasNext()) 
-    	{	
-    		String name = iter.next();
-    		Element variable = d.createElement("variable");
-    		variable.setAttribute("name", name);
-    		String value = variables.get(name)[0];
-    		if ( value != null && !value.trim().equals(""))
-    		{
-    			variable.setAttribute("xpath", value);    				
-    		}
-    		value = variables.get(name)[1];
-    		if ( value != null && !value.trim().equals(""))
-    		{
-    			variable.setAttribute("expression", value);    				
-    		}
-
-    		cs.appendChild(variable);
+    	if ( iter.hasNext() )
+    	{
+        	Element vs = d.createElement("variables");
+        	while(iter.hasNext()) 
+        	{	
+        		String name = iter.next();
+        		Element variable = d.createElement("variable");
+        		variable.setAttribute("name", name);
+        		String value = variables.get(name)[0];
+        		if ( value != null && !value.trim().equals(""))
+        		{
+        			variable.setAttribute("xpath", value);    				
+        		}
+        		value = variables.get(name)[1];
+        		if ( value != null && !value.trim().equals(""))
+        		{
+        			variable.setAttribute("expression", value);    				
+        		}
+        		vs.appendChild(variable);
+        	}
+        	cs.appendChild(vs);
     	}
     	
+    	// predefined layout-elements
+    	if ( layoutElements.getLayoutElements().size()>0 )
+    	{
+    		Element ls = d.createElement("layout-elements");
+    		cs.appendChild(layoutElements.getDomElement(d, ls));
+    	}
+    	
+    	
+    	//layout-definitions
     	for ( LayoutElement csld: csLayoutDefinitions ) {
     		cs.appendChild(csld.getDomElement(d, "cs-layout-definition") );
     	}
@@ -266,10 +317,15 @@ public class CitationStyle implements Cloneable {
      * @param prefix is prefix for csld
      */
     public void generateIDs (String prefix) {
-        int count = 1;
+    	int count = 1;
+    	for ( LayoutElement ple: layoutElements.getLayoutElements() ) {
+    		ple.generateIDs(prefix + "_PLE_" + count++ );
+    	}
+        count = 1;
         for ( LayoutElement csld: getCsLayoutDefinitions() ) {
             csld.generateIDs(prefix + "_CSLD_" + count++ );
         }
+        
     }
     
     public Object clone() {
@@ -280,20 +336,27 @@ public class CitationStyle implements Cloneable {
           // should never happen
         }
 
-        ((CitationStyle)clone).setCsLayoutDefinitions(new ArrayList<LayoutElement>());
-
-        for ( LayoutElement csld: csLayoutDefinitions ) {
-            ((CitationStyle)clone).addCsLayoutDefinition((LayoutElement)csld.clone());
-        }
         
+        //variables
         ((CitationStyle)clone).setVariables(new HashMap<String, String[]>());
         Iterator<String> iter = variables.keySet().iterator();
     	while(iter.hasNext()) 
     	{	
     		String name = iter.next();
     		((CitationStyle)clone).addVariable(name, variables.get(name)[0], variables.get(name)[1]);
-    	}        
+    	}
+    	
+        //layout elements
+        ((CitationStyle)clone).setLayoutElements(new LayoutElementsCollection());    	
+    	for ( LayoutElement le: layoutElements.getLayoutElements() ) {
+        	((CitationStyle)clone).addLayoutElement((LayoutElement)le.clone());
+        }
 
+    	// layout definitions
+        ((CitationStyle)clone).setCsLayoutDefinitions(new ArrayList<LayoutElement>());
+        for ( LayoutElement csld: csLayoutDefinitions ) {
+            ((CitationStyle)clone).addCsLayoutDefinition((LayoutElement)csld.clone());
+        }
         
         return clone;
     }
@@ -305,8 +368,9 @@ public class CitationStyle implements Cloneable {
         		"md-xpath:" + mdXPath + "," + 
         		"element-specific:" + elementSpecific + "," + 
         		"readOnly:" + readOnly + "," +
-        		csLayoutDefinitions + "," +
-        		variables +
+        		variables + ", " + 
+        		layoutElements + ", " + 
+        		csLayoutDefinitions + 
         	"]";
     }
 
@@ -318,6 +382,11 @@ public class CitationStyle implements Cloneable {
         cs.setMdXPath("//items/item/md-records/md-record/publication");
         cs.addVariable("hasPublication", "not(publication)=false()", null);
         cs.addVariable("hasPublication2", null, "${hasPublication}");
+        
+        LayoutElement le = new LayoutElement();
+        le.setName("test_layout_element");
+        cs.addLayoutElement(le);
+        
 
         LayoutElement csld1 = new LayoutElement();
 

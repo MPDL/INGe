@@ -238,11 +238,20 @@ public class CitationStylesCollection implements Cloneable  {
         digester.addSetProperties(cs, "md-xpath", "mdXPath");
 
 	        //add variables
-	        String v = cs + "/variable";
+	        String v = cs + "/variables/variable";
 	        digester.addCallMethod(v, "addVariable", 3);
 	        digester.addCallParam(v, 0, "name");
 	        digester.addCallParam(v, 1, "xpath");
 	        digester.addCallParam(v, 2, "expression");
+	        
+	        //add predefined layout elements
+	        String le = cs + "/layout-elements/layout-element";
+            digester.addObjectCreate(le, "de.mpg.escidoc.services.citationmanager.LayoutElement");
+    		digester.addSetProperties(le);
+            digester = LayoutElement.getDigesterRules(digester, le);
+            digester.addSetNext(le, "addLayoutElement");
+            
+	        
         
             // add cs-layout-definition
             String csld = cs + "/cs-layout-definition";
@@ -308,11 +317,19 @@ public class CitationStylesCollection implements Cloneable  {
     		digester.addSetProperties(cs, "md-xpath", "mdXPath");
     		
     		//add variables
-    		String v = cs + "/variable";
+    		String v = cs + "/variables/variable";
     		digester.addCallMethod(v, "addVariable", 3);
     		digester.addCallParam(v, 0, "name");
     		digester.addCallParam(v, 1, "xpath");
     		digester.addCallParam(v, 2, "expression");
+    		
+	        //add predefined layout elements
+	        String le = cs + "/layout-elements/layout-element";
+            digester.addObjectCreate(le, "de.mpg.escidoc.services.citationmanager.LayoutElement");
+    		digester.addSetProperties(le);
+            digester = LayoutElement.getDigesterRules(digester, le);
+            digester.addSetNext(le, "addLayoutElement");
+    		
     		
     		// add cs-layout-definition
     		String csld = cs + "/cs-layout-definition";
@@ -399,6 +416,8 @@ public class CitationStylesCollection implements Cloneable  {
 
 
         CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/APA_new/CitationStyle.xml");
+        
+        
         csc.writeToXml("src/main/resources/CitationStyles/APA_new/CitationStyleTestOutput.xml");
 //        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles\\CitationStyle.xml");
 
