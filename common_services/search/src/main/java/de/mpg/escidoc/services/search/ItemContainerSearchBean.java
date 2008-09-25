@@ -84,7 +84,7 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
 @RemoteBinding(jndiBinding = ItemContainerSearch.SERVICE_NAME)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
+@Interceptors({ LogStartEndInterceptor.class, LogMethodDurationInterceptor.class} )
 public class ItemContainerSearchBean implements ItemContainerSearch {
 	
 	/** logging instance */
@@ -108,8 +108,9 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     @EJB
     private StructuredExportHandler structuredExportHandler;
     
-    public ItemContainerSearchBean() {
-    	this.logger = Logger.getLogger(getClass());
+    public ItemContainerSearchBean() 
+    {
+        this.logger = Logger.getLogger(getClass());
     }
     
     /** Coreservice identifier for the 'all' lucene index database */
@@ -119,7 +120,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
     /** Coreservice identifier for the 'english' lucene index database */
     private static final String INDEXDATABASE_DE = "de";
     
-    /** Version of the cql search request */
+    /** Version of the cql search request. */
     private static final String SEARCHREQUEST_VERSION = "1.1";
     /** Maximum records to be retrieved */
     private static final String MAXIMUM_RECORDS = "10000";
@@ -224,7 +225,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
 
    			 outputFormat = outputFormat.trim();
    		 	 if ( 
-   		 			 ! FileFormatVO.isOutputFormatSupported(outputFormat) 
+   		 			 !FileFormatVO.isOutputFormatSupported(outputFormat) 
    		 		)
    		 		 throw new TechnicalException("file output format: " + outputFormat + 
    		 				 " for export format: " + exportFormat + " is not supported");
@@ -319,7 +320,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
         logger.debug("START TIME: " + time);
         
         return searchResult;
-	}
+    }
 	
 	private List<ItemContainerSearchResultVO> transformToSearchResultList( SearchRetrieveResponseType searchResult ) throws TechnicalException {
 		
@@ -346,10 +347,11 @@ public class ItemContainerSearchBean implements ItemContainerSearch {
 	                        	e.printStackTrace();
 	                        	String searchResultItem = messages[0].getAsString();
 			                    logger.debug("Search result: " + searchResultItem);
-	                        	ItemContainerSearchResultVO containerResult = xmlTransforming.transformToContainer( searchResultItem );        
+	                        	ItemContainerSearchResultVO containerResult = xmlTransforming.transformToContainerResult( searchResultItem );        
 		                        resultList.add( containerResult );
 	                        }
 	                        catch( Exception f ) {
+	                        	f.printStackTrace();
 	                        	throw new TechnicalException( f );
 	                        }
 	                    }
