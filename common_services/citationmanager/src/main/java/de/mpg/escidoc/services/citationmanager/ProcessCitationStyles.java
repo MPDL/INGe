@@ -1415,7 +1415,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         //loadCitationStyleFromXml(csName);
         
 		String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle.jasper"; 
-        JasperReport jasperReport = (JasperReport)JRLoader.loadObject(csj); 
+        JasperReport jasperReport = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj)); 
 
         start = System.currentTimeMillis();
         
@@ -1475,15 +1475,20 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //		logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
 		
 
-		String csj = ResourceUtil.getPathToCitationStyles() + citationStyle + "/CitationStyle.jasper"; 
-		JasperReport jr = (JasperReport)JRLoader.loadObject(csj); 
-		if ( jr == null )
-		{
-			throw new CitationStyleManagerException("Cannot find: " + csj);
-		}
+		String csj = ResourceUtil.getPathToCitationStyles() + citationStyle + "/CitationStyle.jasper";
 		
+		JasperReport jr = null;
+		try 
+		{
+			jr = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj)); 
+		} 
+		catch (Exception e) 
+		{
+			throw new CitationStyleManagerException("Cannot load JasperReport: " + csj, e);
+		}
 
-		Map params = new HashMap();
+//		Map<String, > params = new HashMap();
+		Map<String, Object> params = new HashMap<String, Object>();
 		params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
 		
 		// generate snippet export 
