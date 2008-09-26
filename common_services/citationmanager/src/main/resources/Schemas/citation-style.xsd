@@ -34,29 +34,36 @@
 <xs:schema xmlns="http://www.escidoc.de/citationstyle" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.escidoc.de/citationstyle" elementFormDefault="qualified">
 
 
-    <!--citation-styles-collection -->
-	<xs:element name="citation-styles-collection">
-		<xs:complexType>
-			<xs:sequence>
-				<xs:element ref="citation-style" maxOccurs="unbounded"/>
-			</xs:sequence>
-			<xs:attribute name="name" type="xs:NCName" use="required"/>
-		</xs:complexType>
-	</xs:element>
-	
     <!--citation-style -->
 	<xs:element name="citation-style">
 		<xs:complexType>
 			<xs:sequence>
+				<xs:element name="variables" type="variablesType" minOccurs="0" maxOccurs="unbounded"/>
+				<xs:element name="layout-elements" type="layoutElementsType" minOccurs="0" maxOccurs="unbounded"/>
 				<xs:element ref="cs-layout-definition" maxOccurs="unbounded"/>
 			</xs:sequence>
-			<xs:attribute name="name" type="xs:NCName" use="required"/>
 			<xs:attribute name="element-specific" type="yes-noType" use="required"/>
 			<xs:attribute name="read-only" type="yes-noType" use="required"/>
+			<xs:attribute name="name" type="xs:NCName" use="required"/>
+			<xs:attribute name="md-xpath" type="xs:string" use="required"/>
 		</xs:complexType>
 	</xs:element>
 	
-    <!--cs-layout-definition -->
+	<!-- variables-->
+	<xs:complexType name="variablesType">
+		<xs:sequence>
+			<xs:element name="variable" maxOccurs="unbounded">
+				<xs:complexType>
+					<xs:attribute name="name" type="xs:NCName" use="required" />
+					<xs:attribute name="xpath" type="xs:string" use="optional" />
+					<xs:attribute name="expression" type="xs:string" use="optional" />
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+    <!-- cs-layout-definition -->
 	<xs:element name="cs-layout-definition">
 		<xs:complexType>
 			<xs:all>
@@ -67,16 +74,25 @@
 		</xs:complexType>
 	</xs:element>
 	
+	
+	<!-- 
+		layout-elements bundle type for predefined
+		layout-elements of the citation-style
+	 -->
+	<xs:complexType name="layoutElementsType">
+		<xs:sequence>
+			<xs:element name="layout-element" type="layoutElementType" maxOccurs="unbounded"/>
+		</xs:sequence>
+	</xs:complexType>
+	
 	<!-- layout-element -->
-	<xs:element name="layout-element">
-		<xs:complexType>
-			<xs:group ref="layout-elementGroup" minOccurs="0" maxOccurs="unbounded"/>
-			<xs:attribute name="name" type="xs:NCName"/>
-			<xs:attribute name="ref" />
-			<xs:attribute name="repeatable" type="repeatableType"/>
-			<xs:attribute name="func" type="funcType" />
-		</xs:complexType>
-	</xs:element>
+	<xs:complexType name="layoutElementType">
+		<xs:group ref="layout-elementGroup" minOccurs="0" maxOccurs="unbounded" />
+		<xs:attribute name="name" type="xs:NCName" />
+		<xs:attribute name="ref" />
+		<xs:attribute name="repeatable" type="repeatableType" />
+		<xs:attribute name="func" type="funcType" />
+	</xs:complexType>
 	
 	<xs:group name="layout-elementGroup">
 		<xs:sequence>
@@ -89,7 +105,7 @@
 	<xs:element name="elements">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element ref="layout-element" minOccurs="0" maxOccurs="unbounded" />
+				<xs:element name="layout-element" type="layoutElementType" minOccurs="0" maxOccurs="unbounded" />
 			</xs:sequence>
 			<xs:attribute name="position" type="positionType"/>
 		</xs:complexType>
