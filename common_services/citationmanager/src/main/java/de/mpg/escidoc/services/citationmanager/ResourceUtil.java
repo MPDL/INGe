@@ -160,17 +160,13 @@ public class ResourceUtil
     public static String getPathToClasses() throws IOException
     {
     	String classString = ResourceUtil.class.getName().replace(".", "/") + ".class";
+//    	logger.info(":" + ResourceUtil.class.getClassLoader().getResource(classString).getFile() );
         String result = ResourceUtil.class.getClassLoader().getResource(classString).getFile().replace(classString, "");
         // jar context!!!
 //        if (!result.equals(ResourceUtil.class.getClassLoader().getResource(".")))
-        if ( result.indexOf(".jar!") == -1 )
-        {
-        	return result;
-        }
-        else
-        {
-        	return RESOURCES_DIRECTORY_JAR;
-        }
+        return 
+        	result.indexOf(".jar!") == -1 ?
+        		result : RESOURCES_DIRECTORY_JAR;
     }
 
 
