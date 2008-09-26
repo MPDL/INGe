@@ -42,6 +42,7 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.util.JRXmlUtils;
 
 import org.apache.log4j.Logger;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Document;
 
@@ -72,6 +73,7 @@ public class ProcessCitationStyleTest extends TestCase {
     private final String DEFAULT_CITSTYLE = "APA";
 	
     @Test
+    @Ignore
     public final void testCitationStyleProcessing() throws Exception  {
     	
     	long start;
@@ -105,7 +107,7 @@ public class ProcessCitationStyleTest extends TestCase {
 		
 		//get xmls
         p.loadFontStylesFromXml(csPath);
-        p.loadCitationStyleFromXml(csPath, cs);
+        p.loadCitationStyleFromXml(cs);
 		
     	//get Default/citation-style-test.jrxml
     	p.loadCitationStyleTestJRXml();
