@@ -41,7 +41,7 @@
 				<head>
 					<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURL}unapi"/>
+					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLzotero}unapi"/>
 					
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
