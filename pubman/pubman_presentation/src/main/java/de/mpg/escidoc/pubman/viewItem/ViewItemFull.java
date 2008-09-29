@@ -201,6 +201,7 @@ public class ViewItemFull extends FacesBean
 
     /**unapi*/
 	private String unapiURL;
+	private String unapiURLzotero;
 	private String unapiEscidoc;
 	private String unapiEndnote;
 	private String unapiBibtex;
@@ -432,6 +433,7 @@ public class ViewItemFull extends FacesBean
             try
             {
                 this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+                this.unapiURLzotero = this.unapiURL.replaceFirst("unapi", "zotero");
             }
             catch (Exception e) {
                 logger.error("Error getting unapi url property", e);
@@ -1995,5 +1997,13 @@ public class ViewItemFull extends FacesBean
 
 	public void setUnapiApa(String unapiApa) {
 		this.unapiApa = unapiApa;
+	}
+	
+	public String getUnapiURLzotero() {
+		return this.unapiURLzotero;
+	}
+
+	public void setUnapiURLzotero(String unapiURLzotero) {
+		this.unapiURLzotero = unapiURLzotero;
 	}
 }
