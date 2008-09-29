@@ -38,6 +38,7 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 
 /**
@@ -655,5 +656,25 @@ public class BibTexUtil
     public static void setGenreMapping(Map<BibTexUtil.Genre, MdsPublicationVO.Genre> genreMapping)
     {
         BibTexUtil.genreMapping = genreMapping;
+    }
+    
+    /**
+     * Parses a string containing information about start and end page.
+     * 
+     * @param pagesString A BibTeX "pages" string, e.g. "1--20", "3-5".
+     * @param sourceVO The {@link SourceVO} where the pages information should be added.
+     */
+    public static void fillSourcePages(String pagesString, SourceVO sourceVO)
+    {
+        String[] pieces = pagesString.split(" *-+ *");
+        if (pieces.length == 2)
+        {
+            sourceVO.setStartPage(pieces[0]);
+            sourceVO.setEndPage(pieces[1]);
+        }
+        else
+        {
+            sourceVO.setStartPage(pagesString);
+        }
     }
 }

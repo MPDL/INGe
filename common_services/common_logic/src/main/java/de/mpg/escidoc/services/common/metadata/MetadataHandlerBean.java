@@ -232,7 +232,7 @@ public class MetadataHandlerBean implements MetadataHandler
                     }
                     else
                     {
-                        sourceVO.setStartPage(BibTexUtil.bibtexDecode(fields.get("pages").toString()));
+                        BibTexUtil.fillSourcePages(BibTexUtil.bibtexDecode(fields.get("pages").toString()), sourceVO);
                     }
                 }
 
