@@ -70,7 +70,6 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  */
 public class CommonUtils extends InternationalizedImpl
 {
-    @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CommonUtils.class);
     private static final String NO_ITEM_SET = "-";
     private static final String DATE_FORMAT = "yyyy-MM-dd";

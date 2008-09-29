@@ -37,6 +37,7 @@ import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.BooleanOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
@@ -99,6 +100,10 @@ public class DateCriterion extends Criterion
         this.dateTypeList = dateType;
     }
     
+    /**
+     * Checks if 'to' search term is empty
+     * @return true if empty, false if not
+     */
     private boolean isFromEmpty() {
     	if ( from == null || from.trim().equals("") ) {
 			return true;
@@ -108,6 +113,10 @@ public class DateCriterion extends Criterion
 		}
     }
     
+    /**
+     * Checks if 'to' search term is empty
+     * @return true if empty, false if not
+     */
     private boolean isToEmpty() {
     	if ( to == null || to.trim().equals("") ) {
 			return true;
@@ -147,10 +156,10 @@ public class DateCriterion extends Criterion
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     			 for( int i = 0; i < dateTypeList.size(); i++ ) {
     				 MetadataSearchCriterion criterionFrom = 
-    					 new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, LogicalOperator.OR );
+    					 new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, BooleanOperator.GREATER_THAN_EQUALS, LogicalOperator.OR );
     				 MetadataSearchCriterion criterionTo = 
     					 new MetadataSearchCriterion( getCriterionByDateType( 
-    							 dateTypeList.get( i ) ), dateFormat.format(currentDate), LogicalOperator.AND );
+    							 dateTypeList.get( i ) ), dateFormat.format(currentDate), BooleanOperator.LESS_THAN_EQUALS, LogicalOperator.AND );
     			 criterions.add( criterionFrom );
     			 criterions.add( criterionTo );
     			 }
@@ -158,9 +167,9 @@ public class DateCriterion extends Criterion
     		else {
     			for( int i = 0; i < dateTypeList.size(); i++ ) {
     				MetadataSearchCriterion criterionFrom = 
-    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, LogicalOperator.OR );
+    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, BooleanOperator.GREATER_THAN_EQUALS, LogicalOperator.OR );
     				MetadataSearchCriterion criterionTo = 
-    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), to, LogicalOperator.AND );
+    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), to, BooleanOperator.LESS_THAN_EQUALS, LogicalOperator.AND );
     				criterions.add( criterionFrom );
     				criterions.add( criterionTo );
     			}		

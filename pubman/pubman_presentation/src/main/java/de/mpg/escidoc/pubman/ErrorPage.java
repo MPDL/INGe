@@ -40,6 +40,7 @@ import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.parser.ParseException;
 
 /**
  * BackingBean for ErrorPage.jsp.
@@ -123,7 +124,7 @@ public class ErrorPage extends BreadcrumbPage
             detail = "No Exception was set to display.";            
         }
         // added by NiH
-        else if (exception instanceof TechnicalException)
+        else if ( exception instanceof ParseException )
         {
             summary = getMessage("search_ParseError");
             detail = this.exception.getClass().toString();            
@@ -148,7 +149,7 @@ public class ErrorPage extends BreadcrumbPage
 
         error(summary, detail);
         HtmlMessages pageAlert = new HtmlMessages();
-//        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
+        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
 //        pageAlert.setTitle(title);
 //        pageAlert.setSummary(summary);
 //        pageAlert.setDetail(detail);
@@ -157,7 +158,7 @@ public class ErrorPage extends BreadcrumbPage
     }
     
     /**
-     * Redirets to the referring GUI Tool page.
+     * Redirects to the referring GUI Tool page.
      * @author Tobias Schraut
      * @return a navigation string
      */
