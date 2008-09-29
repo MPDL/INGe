@@ -69,6 +69,10 @@
 		<servlet-name>UnapiServlet</servlet-name>
 		<url-pattern>/unapi/*</url-pattern>
 	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>UnapiServlet</servlet-name>
+		<url-pattern>/zotero/*</url-pattern>
+	</servlet-mapping>
 
 	<session-config>
         <!-- Default to 5 minute session timeouts -->
