@@ -86,11 +86,36 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
 		return node;
 	}
 	
+	public String getCqlString() throws ParseException, TechnicalException {
+		StringBuffer buffer = new StringBuffer();
+		if( searchCriteria.size() != 0 ) {
+			buffer.append( searchCriteria.get( 0 ).generateCqlQuery() );
+		}
+		// first add the nodes from the list
+		for( int i = 1; i < searchCriteria.size(); i++ ) {
+			try {
+				buffer.append( " " + searchCriteria.get( i ).getLogicalOperatorAsString() + " " );
+			} catch (TechnicalException e) {
+			}
+			buffer.append( searchCriteria.get( i ).generateCqlQuery() );
+		}
+		// then add the content type nodes
+		for( int i = 0; i < contentTypes.size(); i++ ) {
+			try {
+				buffer.append( " " + contentTypes.get( i ).getLogicalOperatorAsString() + " " );
+			} catch (TechnicalException e) {
+			}
+			buffer.append( contentTypes.get( i ).generateCqlQuery() );
+		}
+		return buffer.toString();
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	public String getCqlQuery() throws CQLParseException, IOException, ParseException, TechnicalException {
-		return getCqlNode().toCQL();
+		return getCqlString();
+		// return getCqlNode().toCQL();
 	}
 	
 	private CQLNode generateNodeWithCriterion( CQLNode node, MetadataSearchCriterion criterion ) throws CQLParseException, IOException, ParseException, TechnicalException {

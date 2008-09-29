@@ -31,8 +31,6 @@ package de.mpg.escidoc.services.search.query;
 
 import java.io.Serializable;
 
-import org.apache.log4j.Logger;
-
 import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 
 /**
@@ -46,7 +44,7 @@ public class SearchQuery implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
 
-	/** Selects the lucene query index */
+	/** Selects the lucene query index. */
 	private IndexDatabaseSelector indexSelector;
 	
 	/** The default index database to be searched by the query. */
