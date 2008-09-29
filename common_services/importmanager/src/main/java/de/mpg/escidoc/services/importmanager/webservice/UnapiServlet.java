@@ -51,6 +51,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();
 
 	private String filename = "unapi";
+	
+	private boolean zotero = false;
 
 	private final static Logger logger = Logger.getLogger(UnapiServlet.class);
 
@@ -69,10 +71,15 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		OutputStream outStream = response.getOutputStream();
 
 		// Retrieve the command from the location path
-		String command = request.getPathInfo();
+		String command = request.getPathInfo();		
 		if (command != null && command.length() > 0) 
 		{
 			command = command.substring(1);
+		}
+		
+		if (request.getRequestURL().toString().contains("zotero"))
+		{
+			this.zotero = true;
 		}
 
 		// Handle Call
@@ -113,18 +120,17 @@ public class UnapiServlet extends HttpServlet implements Unapi
 						byte[] data = this.unapi(identifier, format);
 						if (data == null) 
 						{
-							response
-									.sendError(404, "Identifier not recognized");
+							response.sendError(404, "Identifier not recognized");
 						} 
 						else 
 						{
-							response.setContentType(this.importHandler
-									.getContentType());
-							response.setHeader("Content-disposition",
-									"attachment; filename="
+							response.setContentType(this.importHandler.getContentType());
+							if(!this.zotero)
+							{
+								response.setHeader("Content-disposition", "attachment; filename="
 											+ this.filename
-											+ this.importHandler
-													.getFileEnding());
+											+ this.importHandler.getFileEnding());
+							}
 							response.setStatus(200);
 							outStream.write(data);
 						}
@@ -152,6 +158,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		}
 		outStream.flush();
 		outStream.close();
+		this.resetValues();
 	}
 
 	/**
@@ -210,12 +217,18 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		String[] tmp = identifier.split(":");
 		ImportSourceVO source = this.sourceHandler
 				.getSourceByIdentifier(tmp[0]);
+		
+		if (identifier.startsWith("http")&& identifier.contains("escidoc"))
+		{
+			source = this.sourceHandler.getSourceByIdentifier("escidoc");
+		}
+		
 		// No source for this identifier
 		if (source == null) 
 		{
 			return null;
 		}
-
+		
 		FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
 		FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
 
@@ -322,16 +335,16 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		{
 			return this.ID_TYPE_ESCIDOC;
 		}
-		if (identifier.startsWith("http")
-				&& format.trim().toLowerCase().equals("url")) 
+		if (identifier.startsWith("http")) 
 		{
 			return this.ID_TYPE_URL;
 		}
-		if (identifier.startsWith("http")
-				&& !format.trim().toLowerCase().equals("url")) 
-		{
-			return this.ID_TYPE_UNKNOWN;
-		}
+//		if (identifier.startsWith("http")
+//				&& !identifier.contains("escidoc")) 
+//		{
+//			return this.ID_TYPE_UNKNOWN;
+//		}
+
 		return this.ID_TYPE_URI;
 	}
 
@@ -344,6 +357,13 @@ public class UnapiServlet extends HttpServlet implements Unapi
 	{
 		String[] extracts = Identifier.split("/");
 		return extracts[extracts.length - 1];
+	}
+	
+	private void resetValues()
+	{
+		this.importHandler.setContentType("");
+		this.importHandler.setFileEnding("");
+		this.filename = ("");
 	}
 
 }
