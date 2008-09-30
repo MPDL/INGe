@@ -85,7 +85,7 @@ import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
-
+import de.mpg.escidoc.services.virr.transformation.METSTransformation;
 
 
 /**
@@ -97,23 +97,25 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
 @RemoteBinding(jndiBinding = ImportHandler.SERVICE_NAME)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
-@Interceptors( { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
+@Interceptors({ LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
 
-public class ImportHandlerBean implements ImportHandler {
+public class ImportHandlerBean implements ImportHandler 
+{
 	
-	private final static Logger logger = Logger.getLogger(ImportHandlerBean.class);
+	private final static Logger LOGGER = Logger.getLogger(ImportHandlerBean.class);
 	
-	private final String fetchType_METADATA = 	"METADATA";
-	private final String fetchType_FILE 	= 	"FILE";
-	private final String fetchType_CITATION = 	"CITATION";
-	private final String fetchType_LAYOUT	= 	"LAYOUT";
-	private final String fetchType_UNKNOWN 	= 	"UNKNOWN";
-	private final String REGEX 				=	"GETID";
+	private final String fetchTypeMETADATA 	= 	"METADATA";
+	private final String fetchTypeFILE 		= 	"FILE";
+	private final String fetchTypeCITATION 	= 	"CITATION";
+	private final String fetchTypeLAYOUT	= 	"LAYOUT";
+	private final String fetchTypeUNKNOWN 	= 	"UNKNOWN";
+	private final String regex 				=	"GETID";
 	
 	//This is tmp till clarification of new transformation design
-	private final String fetchType_ENDNOTE 	= 	"ENDNOTE";
-	private final String fetchType_BIBTEX 	= 	"BIBTEX";
-	private final String fetchType_APA 		= 	"APA";
+	private final String fetchTypeENDNOTE 	= 	"ENDNOTE";
+	private final String fetchTypeBIBTEX 	= 	"BIBTEX";
+	private final String fetchTypeAPA 		= 	"APA";
+	private final String fetchTypeMETS		= 	"METS";
 
 
 	private ImportSourceHandlerBean sourceHandler = new ImportSourceHandlerBean();	
@@ -130,7 +132,8 @@ public class ImportHandlerBean implements ImportHandler {
     																 		IdentifierNotRecognisedException, 
     																 		SourceNotAvailableException, 
     																 		TechnicalException,
-    																 		FormatNotRecognizedException{
+    																 		FormatNotRecognizedException
+    {
     	
     	ImportSourceVO source = this.sourceHandler.getSourceByName(sourceName);
     	MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
@@ -145,49 +148,67 @@ public class ImportHandlerBean implements ImportHandler {
     																					   IdentifierNotRecognisedException, 
     																					   SourceNotAvailableException, 
     																					   TechnicalException,
-    																					   FormatNotRecognizedException{  	
+    																					   FormatNotRecognizedException
+    {  	
     	byte[] fetchedData = null;
     	
-    	try{
+    	try
+    	{
         	identifier = this.trimIdentifier(sourceName, identifier);
         	ImportSourceVO importSource = new ImportSourceVO();
         	importSource = this.sourceHandler.getSourceByName(sourceName);         	
 	    	String fetchType = this.getFetchingType(importSource, format);  
 	    	
-	    	if (fetchType.equals(this.fetchType_METADATA)){
+	    	if (fetchType.equals(this.fetchTypeMETADATA))
+	    	{
 	    		fetchedData = this.fetchMetadata(importSource, identifier, format).getBytes();
 	    	}
 	    	
-	    	if (fetchType.equals(this.fetchType_FILE)){
+	    	if (fetchType.equals(this.fetchTypeFILE))
+	    	{
 	    		fetchedData = this.fetchData(importSource, identifier, new String [] {format});
 	    	}	    	
-	    	if (fetchType.equals(this.fetchType_CITATION)){
+	    	if (fetchType.equals(this.fetchTypeCITATION))
+	    	{
 	    		//TODO
 	    	}	   
-	    	if (fetchType.equals(this.fetchType_LAYOUT)){
+	    	if (fetchType.equals(this.fetchTypeLAYOUT))
+	    	{
 	    		//TODO
 	    	}	
-	    	if (fetchType.equals(this.fetchType_ENDNOTE)){
+	    	if (fetchType.equals(this.fetchTypeENDNOTE))
+	    	{
 	    		//Temp
 	    		fetchedData = this.fetchEndnoteTemp(identifier);
 	    	}
-	    	if (fetchType.equals(this.fetchType_BIBTEX)){
+	    	if (fetchType.equals(this.fetchTypeBIBTEX))
+	    	{
 	    		//Temp
 	    		fetchedData = this.fetchBibtexTemp(identifier);
 	    	}
-	    	if (fetchType.equals(this.fetchType_APA)){
+	    	if (fetchType.equals(this.fetchTypeAPA))
+	    	{
 	    		//Temp
 	    		fetchedData = this.fetchApaTemp(identifier);
 	    	}
-	    	if (fetchType.equals(this.fetchType_UNKNOWN)){
+	    	if (fetchType.equals(this.fetchTypeMETS))
+	    	{
+	    		//Temp
+	    		fetchedData = this.fetchMETSTemp(identifier);
+	    	}
+	    	if (fetchType.equals(this.fetchTypeUNKNOWN))
+	    	{
 	    		throw new FormatNotRecognizedException();
 	    	}
 	    	
 	    	System.out.println("Fetched file type: " + fetchType);
     	}
-    	catch(IdentifierNotRecognisedException e){throw new IdentifierNotRecognisedException();}
-    	catch(SourceNotAvailableException e){throw new SourceNotAvailableException();}
-    	catch(TechnicalException e){throw new TechnicalException();}
+    	catch(IdentifierNotRecognisedException e)
+    	{throw new IdentifierNotRecognisedException();}
+    	catch(SourceNotAvailableException e)
+    	{throw new SourceNotAvailableException();}
+    	catch(TechnicalException e)
+    	{throw new TechnicalException();}
     	
     	return fetchedData;
     }
@@ -198,7 +219,8 @@ public class ImportHandlerBean implements ImportHandler {
     public byte[] doFetch(String sourceName, String identifier, String[] formats)throws FileNotFoundException, 
     																						  IdentifierNotRecognisedException, 
     																						  SourceNotAvailableException, 
-    																						  TechnicalException{
+    																						  TechnicalException
+    {
     	identifier = this.trimIdentifier(sourceName, identifier);
     	ImportSourceVO importSource = new ImportSourceVO();
     	importSource = this.sourceHandler.getSourceByName(sourceName); 
@@ -209,21 +231,23 @@ public class ImportHandlerBean implements ImportHandler {
 	
 	
     /**
-     * This method provides XML formated output of the supported import sources
+     * This method provides XML formated output of the supported import sources.
      * @return xml presentation of all available import sources
      */
-    public String explainSources ()
+    public String explainSources()
     {
     	String explainXML = "";
-    	try{
+    	try
+    	{
     		explainXML = ResourceUtil.getResourceAsString("resources/sources.xml");
     	}
-    	catch(IOException e){ e.printStackTrace();}
+    	catch(IOException e)
+    	{ e.printStackTrace();}
     	return explainXML;
     }	
 
     /**
-     * Operation for fetching data of type METADATA
+     * Operation for fetching data of type METADATA.
      * @param importSource
      * @param identifier
      * @param format
@@ -234,7 +258,8 @@ public class ImportHandlerBean implements ImportHandler {
      */
     private String fetchMetadata(ImportSourceVO importSource, String identifier, String format)throws IdentifierNotRecognisedException, 
     																								 SourceNotAvailableException, 
-    																								 TechnicalException{   	
+    																								 TechnicalException
+    {   	
     	String itemXML = null; 
     	boolean supportedProtocol = false;
     	InitialContext initialContext = null;
@@ -242,42 +267,53 @@ public class ImportHandlerBean implements ImportHandler {
     	MetadataVO md = this.getMdObjectToFetch(importSource, format);
 
     	//Replace regex with identifier
-    	try {
+    	try 
+    	{
 	    	String decoded = java.net.URLDecoder.decode(md.getMdUrl().toString(), importSource.getEncoding()); 
 	    	md.setMdUrl(new URL (decoded));
-	    	md.setMdUrl(new URL (md.getMdUrl().toString().replaceAll(this.REGEX, identifier.trim())));
+	    	md.setMdUrl(new URL (md.getMdUrl().toString().replaceAll(this.regex, identifier.trim())));
 	    	importSource = this.sourceHandler.updateMdEntry(importSource, md);
 
 	    	//Select harvesting method	    	
-	    	if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh")){
-	    		logger.debug("Fetch OAI record from URL: " + md.getMdUrl());
+	    	if (importSource.getHarvestProtocol().toLowerCase().equals("oai-pmh"))
+	    	{
+	    		LOGGER.debug("Fetch OAI record from URL: " + md.getMdUrl());
 				itemXML = fetchOAIRecord (importSource, md);
 				supportedProtocol = true;
 	    	}
-	    	if (importSource.getHarvestProtocol().toLowerCase().equals("ejb")){
-				logger.debug("Fetch record via EJB: ");
+	    	if (importSource.getHarvestProtocol().toLowerCase().equals("ejb"))
+	    	{
+				LOGGER.debug("Fetch record via EJB: ");
 				itemXML = this.fetchEsciDocRecord(identifier);
 				supportedProtocol = true;							
 	    	}
-	    	if (!supportedProtocol){
-	    		logger.warn("Harvesting protocol " +importSource.getHarvestProtocol()+" not supported");
+	    	if (!supportedProtocol)
+	    	{
+	    		LOGGER.warn("Harvesting protocol " +importSource.getHarvestProtocol()+" not supported");
 	    		return null;
 	    	}
     	}
-    	catch(IdentifierNotRecognisedException e){throw new IdentifierNotRecognisedException(e); }
-    	catch(MalformedURLException e){e.printStackTrace();}
-    	catch(UnsupportedEncodingException e){ e.printStackTrace();}
+    	catch(IdentifierNotRecognisedException e)
+    	{throw new IdentifierNotRecognisedException(e); }
+    	catch(MalformedURLException e)
+    	{e.printStackTrace();}
+    	catch(UnsupportedEncodingException e)
+    	{ e.printStackTrace();}
 
 	    //Transform the itemXML if necessary
 	    if (itemXML!= null && !itemXML.trim().equals("")
-	    		&& !format.trim().toLowerCase().equals(md.getMdLabel().toLowerCase())){
-			try {
+	    		&& !format.trim().toLowerCase().equals(md.getMdLabel().toLowerCase()))
+	    {
+			try 
+			{
 		    	initialContext = new InitialContext();
 				mdHandler = (MetadataHandler) initialContext.lookup(MetadataHandler.SERVICE_NAME);
 				itemXML= mdHandler.transform(md.getMdLabel(),format,itemXML);
 			} 
-			catch (NamingException e) {logger.error("Unable to initialize Metadata Handler", e);return null;}
-		    catch (Exception e){throw new IdentifierNotRecognisedException(e);}
+			catch(NamingException e) 
+			{LOGGER.error("Unable to initialize Metadata Handler", e);return null;}
+		    catch(Exception e)
+		    {throw new IdentifierNotRecognisedException(e);}
 	   	}
 	    
 		this.setContentType(md.getMdFormat());
@@ -287,11 +323,14 @@ public class ImportHandlerBean implements ImportHandler {
     }
     
     /**
-     * fetch data from a given url
+     * fetch data from a given url.
 	 * @param url
 	 * @return byte[]
+	 * @throws SourceNotAvailableException
+	 * @throws TechnicalException
 	 */
-    public byte[] fetchMetadatafromURL (URL url)throws SourceNotAvailableException, TechnicalException{
+    public byte[] fetchMetadatafromURL(URL url)throws SourceNotAvailableException, TechnicalException
+    {
     	
     	byte[] input = null;
 	  	URLConnection conn = null;
@@ -300,12 +339,13 @@ public class ImportHandlerBean implements ImportHandler {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
     	ZipOutputStream zos = new ZipOutputStream(baos);
 
-	    	try {
+	    	try 
+	    	{
 		    	conn = url.openConnection();
 		    	HttpURLConnection httpConn = (HttpURLConnection) conn;
 		    	int responseCode = httpConn.getResponseCode();
 
-		    	switch (responseCode)
+		    	switch(responseCode)
 		    	{
 		    	case 503: 	String retryAfterHeader = conn.getHeaderField("Retry-After");
 	            
@@ -318,13 +358,15 @@ public class ImportHandlerBean implements ImportHandler {
 		    	   			break;
 		    	   			
 		    	case 302: 	String  alternativeLocation = conn.getHeaderField("Location");
-		        			try {
+		        			try 
+		        			{
 		        				return fetchMetadatafromURL(new URL (alternativeLocation));	        				
 		        			}
-		        			catch(MalformedURLException e){e.printStackTrace();}
+		        			catch(MalformedURLException e)
+		        			{e.printStackTrace();}
 		        			break;	        			
 
-		    	case 200:	logger.info("Http Status 200 OK");
+		    	case 200:	LOGGER.info("Http Status 200 OK");
 		    				
 		    				//Fetch file
 					        GetMethod method = new GetMethod(url.toString());
@@ -352,20 +394,23 @@ public class ImportHandlerBean implements ImportHandler {
 		    	}
 	    	}	
 
-	    	catch (IOException e){logger.error("Couldn't download file from: " + url, e);}	
-	    	catch (ParseException e){logger.error("Couldn't parse response header", e);}
+	    	catch (IOException e)
+	    	{LOGGER.error("Couldn't download file from: " + url, e);}	
+	    	catch (ParseException e)
+	    	{LOGGER.error("Couldn't parse response header", e);}
 		
 		return baos.toByteArray();
     }
     
 	/**
-	 * Operation for fetching data of type FILE
+	 * Operation for fetching data of type FILE.
 	 * @param importSource
 	 * @param identifier
 	 * @param listOfFormats
 	 * @return byte[] of the fetched file, zip file if more than one record was fetched
 	 */
-    private byte[] fetchData(ImportSourceVO importSource, String identifier, String[] listOfFormats){
+    private byte[] fetchData(ImportSourceVO importSource, String identifier, String[] listOfFormats)
+    {
 
     	byte [] in = null;   
     	FullTextVO fulltext = new FullTextVO();   		
@@ -374,32 +419,39 @@ public class ImportHandlerBean implements ImportHandler {
 
        	
 		//Call fetch file for every selected format
-		for (int i =0; i < listOfFormats.length; i++){
+		for (int i =0; i < listOfFormats.length; i++)
+		{
 			String format = listOfFormats[i];
 			fulltext=this.getFtObjectToFetch(importSource, format);
 					
 			//Replace regex with identifier
-			try {
+			try 
+			{
 				 String decoded = java.net.URLDecoder.decode(fulltext.getFtUrl().toString(), importSource.getEncoding()); 
 				 fulltext.setFtUrl(new URL (decoded));
-				 fulltext.setFtUrl(new URL (fulltext.getFtUrl().toString().replaceAll(this.REGEX, identifier.trim())));						
+				 fulltext.setFtUrl(new URL (fulltext.getFtUrl().toString().replaceAll(this.regex, identifier.trim())));						
 			} 
-			catch (MalformedURLException e) {logger.error("Error when replacing regex in fetching URL"); e.printStackTrace(); }
-			catch(UnsupportedEncodingException e){e.printStackTrace();}
+			catch (MalformedURLException e) 
+			{LOGGER.error("Error when replacing regex in fetching URL"); e.printStackTrace(); }
+			catch(UnsupportedEncodingException e)
+			{e.printStackTrace();}
 			
-			logger.debug("Fetch file from URL: " + fulltext.getFtUrl());
+			LOGGER.debug("Fetch file from URL: " + fulltext.getFtUrl());
 			
-			try {
+			try 
+			{
 				in= this.fetchFile(importSource, fulltext);	
 				
 				//If only one file => return it in fetched format
-				if (listOfFormats.length == 1){
+				if (listOfFormats.length == 1)
+				{
 					this.setContentType(fulltext.getFtFormat());
 					this.setFileEnding(fulltext.getFileType());
 					return in;
 				}
 				//If more than one file => add it to zip
-				else{
+				else
+				{
 					ZipEntry ze = new ZipEntry( identifier + fulltext.getFileType());
 					ze.setSize(in.length);
 					ze.setTime(this.currentDate());  
@@ -416,40 +468,47 @@ public class ImportHandlerBean implements ImportHandler {
 				this.setContentType("application/zip");
 				this.setFileEnding(".zip");
 			} 
-			catch (SourceNotAvailableException e) {logger.warn("Import Source not available",e);}
-			catch (TechnicalException e) {logger.warn("Technical problems occurred when communication with import source",e);}
-			catch (IOException e){ e.printStackTrace();}
+			catch(SourceNotAvailableException e) 
+			{LOGGER.warn("Import Source not available",e);}
+			catch(TechnicalException e) 
+			{LOGGER.warn("Technical problems occurred when communication with import source",e);}
+			catch(IOException e)
+			{ e.printStackTrace();}
 		}
 		
-		try {
+		try 
+		{
 			zos.close();
 		} 
-		catch (IOException e) {e.printStackTrace();}
+		catch(IOException e) 
+		{e.printStackTrace();}
 		
 		return baos.toByteArray();
     }
 
 
     /**
-     * Handlers the http request to fetch a file from an external source
+     * Handlers the http request to fetch a file from an external source.
      * @param importSource
      * @param fulltext
      * @return byte[] of the fetched file
      * @throws SourceNotAvailableException
      * @throws TechnicalException
      */
-	private byte[] fetchFile(ImportSourceVO importSource, FullTextVO fulltext) throws SourceNotAvailableException, TechnicalException{
+	private byte[] fetchFile(ImportSourceVO importSource, FullTextVO fulltext) throws SourceNotAvailableException, TechnicalException
+	{
     	
     	URLConnection conn = null;
     	Date retryAfter = null;	
     	byte[] input = null;
 
-    	try {
+    	try 
+    	{
 	    	conn = fulltext.getFtUrl().openConnection();
 	    	HttpURLConnection httpConn = (HttpURLConnection) conn;
 	    	int responseCode = httpConn.getResponseCode();
 
-	    	switch (responseCode)
+	    	switch(responseCode)
 	    	{
 	    	case 503: 	String retryAfterHeader = conn.getHeaderField("Retry-After");
             
@@ -458,24 +517,26 @@ public class ImportHandlerBean implements ImportHandler {
 	    	   				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 	    	   				retryAfter = dateFormat.parse(retryAfterHeader);
 	    	   				
-	    	   				logger.debug("Retry after " + retryAfter);
+	    	   				LOGGER.debug("Retry after " + retryAfter);
 	    	   				throw new SourceNotAvailableException(retryAfter);
 	    	   			}
 	    	   			else
 	    	   			{
-	    	   				logger.debug("Retry after " + importSource.getRetryAfter());
+	    	   				LOGGER.debug("Retry after " + importSource.getRetryAfter());
 	    	   				throw new TechnicalException("Import source returned 503 without 'Retry-After' header.");
 	    	   			}
 	    	   			
 	    	case 302: 	String  alternativeLocation = conn.getHeaderField("Location");
-	        			try {
+	        			try 
+	        			{
 	        				fulltext.setFtUrl(new URL(alternativeLocation));
 	        				return fetchFile(importSource, fulltext);	        				
 	        			}
-	        			catch(MalformedURLException e){e.printStackTrace();}
+	        			catch(MalformedURLException e)
+	        			{e.printStackTrace();}
 	        			break;	        			
 
-	    	case 200:	logger.info("Http Status 200 OK");
+	    	case 200:	LOGGER.info("Http Status 200 OK");
 
 	    		        GetMethod method = new GetMethod(fulltext.getFtUrl().toString());
 	    		        HttpClient client = new HttpClient();
@@ -487,34 +548,38 @@ public class ImportHandlerBean implements ImportHandler {
 	    	default:	throw new TechnicalException("An error occurred during importing from external system: " + responseCode + ": " + httpConn.getResponseMessage());
 	    	}
     	}	
-    	catch (IOException e){logger.error("Couldn't download file from: " + importSource.getName(), e);}	
-    	catch (ParseException e){logger.error("Couldn't parse response header", e);}
+    	catch(IOException e)
+    	{LOGGER.error("Couldn't download file from: " + importSource.getName(), e);}	
+    	catch(ParseException e)
+    	{LOGGER.error("Couldn't parse response header", e);}
 
     	return input;
     }
     
     /**
-     * Fetches an OAI record for given record identifier
+     * Fetches an OAI record for given record identifier.
      * @param sourceURL
 	 * @return itemXML
      * @throws SourceNotAvailableException 
      * @throws TechnicalException 
      */
-    private String fetchOAIRecord (ImportSourceVO importSource, MetadataVO md) throws SourceNotAvailableException, TechnicalException, IdentifierNotRecognisedException {
+    private String fetchOAIRecord (ImportSourceVO importSource, MetadataVO md) throws SourceNotAvailableException, TechnicalException, IdentifierNotRecognisedException 
+    {
     	
     	String itemXML= "";
     	URLConnection conn; 
     	Date retryAfter;
     	String charset = importSource.getEncoding();
-    	InputStreamReader ISreader;
-    	BufferedReader Breader;
+    	InputStreamReader isReader;
+    	BufferedReader bReader;
 
-    	try {
+    	try 
+    	{
 	    	conn = md.getMdUrl().openConnection();
 	    	HttpURLConnection httpConn = (HttpURLConnection) conn;
 	    	int responseCode = httpConn.getResponseCode();
 	    	
-	    	switch (responseCode)
+	    	switch(responseCode)
 	    	{
 	    	case 503: 	String retryAfterHeader = conn.getHeaderField("Retry-After");
             
@@ -522,32 +587,33 @@ public class ImportHandlerBean implements ImportHandler {
 	    	   			{
 	    	   				SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
 	    	   				retryAfter = dateFormat.parse(retryAfterHeader);	    	                    
-	    	   				logger.debug("Retry after " + retryAfter);
+	    	   				LOGGER.debug("Retry after " + retryAfter);
 	    	   				throw new SourceNotAvailableException(retryAfter);
 	    	   			}
 	    	   			else
 	    	   			{
-	    	   				logger.debug("Retry after " + importSource.getRetryAfter());
+	    	   				LOGGER.debug("Retry after " + importSource.getRetryAfter());
 	    	   				throw new SourceNotAvailableException(importSource.getRetryAfter());
 	    	   			}
 	    	   			
 	    	case 302: 	String  alternativeLocation = conn.getHeaderField("Location");
-	        			try {
+	        			try 
+	        			{
 	        				md.setMdUrl(new URL(alternativeLocation));
 	        				importSource = this.sourceHandler.updateMdEntry(importSource, md);
 	        				return fetchOAIRecord(importSource, md);
 	        			}
-	        			catch(MalformedURLException e){e.printStackTrace();}
+	        			catch(MalformedURLException e)
+	        			{e.printStackTrace();}
 	        			break;
 	        			
 
-	    	case 200:	logger.info("Http Status 200 OK");
+	    	case 200:	LOGGER.info("Http Status 200 OK");
 	    				break;
 	    	
 	    	default:	throw new TechnicalException("An error occurred during importing from external system: " + responseCode + ": " + httpConn.getResponseMessage());
 	    	}
-	    	
-	    	
+
     		String contentTypeHeader = conn.getHeaderField("Content-Type");
     		String contentType = contentTypeHeader;
     		
@@ -557,52 +623,65 @@ public class ImportHandlerBean implements ImportHandler {
     			if (contentTypeHeader.contains("encoding="))
     			{
     				charset = contentTypeHeader.substring(contentTypeHeader.indexOf("encoding=") + 9);
-    				logger.debug("Charset found: " + charset);
+    				LOGGER.debug("Charset found: " + charset);
     			}
     		}
     	}
     	
-    	catch (IOException e){e.printStackTrace();}	
-    	catch (ParseException e){logger.error("Couldn't parse response header", e);}
+    	catch(IOException e)
+    	{e.printStackTrace();}	
+    	catch(ParseException e)
+    	{LOGGER.error("Couldn't parse response header", e);}
     		
     	//Get itemXML
-    	try {
-    		ISreader = new InputStreamReader(md.getMdUrl().openStream(), charset);      	
-        	Breader = new BufferedReader(ISreader);
+    	try 
+    	{
+    		isReader = new InputStreamReader(md.getMdUrl().openStream(), charset);      	
+        	bReader = new BufferedReader(isReader);
         	String line = "";
 
-    		while ((line = Breader.readLine()) != null)
+    		while ((line = bReader.readLine()) != null)
     		{
     			itemXML += line + "\n";
     			
     		}
     	}
-    	catch(UnsupportedEncodingException e){e.printStackTrace();}
-    	catch(IOException e){throw new IdentifierNotRecognisedException();}
+    	catch(UnsupportedEncodingException e)
+    	{e.printStackTrace();}
+    	catch(IOException e)
+    	{throw new IdentifierNotRecognisedException();}
     	
     	return itemXML;
     }
     
     /**
-     * Fetches a eSciDoc Record from eSciDoc system
+     * Fetches a eSciDoc Record from eSciDoc system.
      * @param  identifier of the item
      * @return itemXML as String
      * @throws IdentifierNotRecognisedException
      * @throws SourceNotAvailableException
      */
-    private String fetchEsciDocRecord (String identifier) throws IdentifierNotRecognisedException, SourceNotAvailableException{
-		try {
+    private String fetchEsciDocRecord (String identifier) throws IdentifierNotRecognisedException, SourceNotAvailableException
+    {
+		try 
+		{
 			return ServiceLocator.getItemHandler().retrieve(identifier);
 		} 
-		catch (ItemNotFoundException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
-		catch (URISyntaxException e) {e.printStackTrace(); throw new IdentifierNotRecognisedException(e);}
-		catch (Exception e) {e.printStackTrace(); throw new SourceNotAvailableException(e);} 
+		catch(ItemNotFoundException e) 
+		{e.printStackTrace(); throw new IdentifierNotRecognisedException(e);} 
+		catch(URISyntaxException e) 
+		{e.printStackTrace(); throw new IdentifierNotRecognisedException(e);}
+		catch(Exception e) 
+		{e.printStackTrace(); throw new SourceNotAvailableException(e);} 
     }
     
     /**
-     * For a more flexible interface for handling user input
+     * For a more flexible interface for handling user input.
      * This is the only source specific method, which should be updated when a new source
      * is specified for import
+     * @param sourceName
+     * @param identifier
+     * @return a trimed identifier
      */
     public String trimIdentifier(String sourceName, String identifier)
     {
@@ -622,11 +701,13 @@ public class ImportHandlerBean implements ImportHandler {
     }
     
 
-    private byte[] fetchEndnoteTemp (String identifier)throws IdentifierNotRecognisedException{
+    private byte[] fetchEndnoteTemp(String identifier)throws IdentifierNotRecognisedException
+    {
     	byte[] cite = null;
     	String item = null;
     	
-    	try {
+    	try 
+    	{
     		InitialContext initialContext = new InitialContext();
     		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
     		StructuredExportHandler structExport = (StructuredExportHandler) initialContext.lookup(StructuredExportHandler.SERVICE_NAME);
@@ -640,21 +721,29 @@ public class ImportHandlerBean implements ImportHandler {
 			this.setContentType("text/plain");
 			this.setFileEnding(".enl");
 		} 
-    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
-    	catch (SourceNotAvailableException e) {e.printStackTrace();}
-    	catch (NamingException e) {e.printStackTrace();}
-    	catch (StructuredExportManagerException e) {e.printStackTrace();}
-    	catch (StructuredExportXSLTNotFoundException e) {e.printStackTrace();}
-    	catch (TechnicalException e) {e.printStackTrace();}
+    	catch(IdentifierNotRecognisedException e) 
+    	{throw new IdentifierNotRecognisedException(e);} 
+    	catch(SourceNotAvailableException e) 
+    	{e.printStackTrace();}
+    	catch(NamingException e) 
+    	{e.printStackTrace();}
+    	catch(StructuredExportManagerException e) 
+    	{e.printStackTrace();}
+    	catch(StructuredExportXSLTNotFoundException e) 
+    	{e.printStackTrace();}
+    	catch(TechnicalException e) 
+    	{e.printStackTrace();}
 
     	return cite;
     }
     
-    private byte[] fetchBibtexTemp (String identifier)throws IdentifierNotRecognisedException {
+    private byte[] fetchBibtexTemp(String identifier)throws IdentifierNotRecognisedException 
+    {
     	byte[] bib = null;
     	String item = null;
     	
-    	try {
+    	try 
+    	{
     		InitialContext initialContext = new InitialContext();
     		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
     		StructuredExportHandler structExport = (StructuredExportHandler) initialContext.lookup(StructuredExportHandler.SERVICE_NAME);
@@ -668,21 +757,29 @@ public class ImportHandlerBean implements ImportHandler {
 			this.setContentType("text/plain");
 			this.setFileEnding(".bib");
 		} 
-    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
-    	catch (SourceNotAvailableException e) {e.printStackTrace();}
-    	catch (NamingException e) {e.printStackTrace();}
-    	catch (StructuredExportManagerException e) {e.printStackTrace();}
-    	catch (StructuredExportXSLTNotFoundException e) {e.printStackTrace();}
-    	catch (TechnicalException e) {e.printStackTrace();}
+    	catch(IdentifierNotRecognisedException e) 
+    	{throw new IdentifierNotRecognisedException(e);} 
+    	catch(SourceNotAvailableException e) 
+    	{e.printStackTrace();}
+    	catch(NamingException e) 
+    	{e.printStackTrace();}
+    	catch(StructuredExportManagerException e) 
+    	{e.printStackTrace();}
+    	catch(StructuredExportXSLTNotFoundException e) 
+    	{e.printStackTrace();}
+    	catch(TechnicalException e) 
+    	{e.printStackTrace();}
 
     	return bib;
     }
     
-    private byte[] fetchApaTemp (String identifier) throws IdentifierNotRecognisedException{
+    private byte[] fetchApaTemp(String identifier) throws IdentifierNotRecognisedException
+    {
     	byte[] apa = null;
     	String item = null;
     	
-    	try {
+    	try 
+    	{
     		InitialContext initialContext = new InitialContext();
     		XmlTransforming xmlTransforming = (XmlTransforming)initialContext.lookup(XmlTransforming.SERVICE_NAME);
     		CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext.lookup(CitationStyleHandler.SERVICE_NAME);
@@ -696,15 +793,34 @@ public class ImportHandlerBean implements ImportHandler {
 			this.setContentType("application/rtf");
 			this.setFileEnding(".rtf");
 		} 
-    	catch (IdentifierNotRecognisedException e) {throw new IdentifierNotRecognisedException(e);} 
-    	catch (SourceNotAvailableException e) {e.printStackTrace();}
-    	catch (NamingException e) {e.printStackTrace();}
-    	catch (CitationStyleManagerException e) {e.printStackTrace();}
-    	catch (JRException e) {e.printStackTrace();}
-    	catch (IOException e) {e.printStackTrace();}
-    	catch (TechnicalException e) {e.printStackTrace();}
+    	catch(IdentifierNotRecognisedException e) 
+    	{throw new IdentifierNotRecognisedException(e);} 
+    	catch(SourceNotAvailableException e) 
+    	{e.printStackTrace();}
+    	catch(NamingException e) 
+    	{e.printStackTrace();}
+    	catch(CitationStyleManagerException e) 
+    	{e.printStackTrace();}
+    	catch(JRException e) 
+    	{e.printStackTrace();}
+    	catch(IOException e) 
+    	{e.printStackTrace();}
+    	catch(TechnicalException e) 
+    	{e.printStackTrace();}
 
     	return apa;
+    }
+    
+    private byte[] fetchMETSTemp (String identifier) throws IdentifierNotRecognisedException
+    {
+    	byte[] mets = null;
+    	try{	    	
+				METSTransformation metsTransform = new METSTransformation();
+				mets = metsTransform.transformToMETS(identifier);		    	
+    	}
+    	catch(Exception e) 
+    	{throw new IdentifierNotRecognisedException(e);} 
+    	return mets;
     }
     
     /**
@@ -713,14 +829,17 @@ public class ImportHandlerBean implements ImportHandler {
      * @param format
      * @return Metadata Object of the format to fetch
      */
-    private MetadataVO getMdObjectToFetch(ImportSourceVO source, String format){
+    private MetadataVO getMdObjectToFetch(ImportSourceVO source, String format)
+    {
     	MetadataVO sourceMd = null;
     	MetadataVO transformMd = null;
     	
     	//First: check if format can be fetched directly
-		for (int i=0; i< source.getMdFormats().size(); i++){
+		for (int i=0; i< source.getMdFormats().size(); i++)
+		{
 			sourceMd = source.getMdFormats().get(i);
-    		if (sourceMd.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
+    		if (sourceMd.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
+    		{
     			return sourceMd;
         	}
 		}
@@ -729,33 +848,42 @@ public class ImportHandlerBean implements ImportHandler {
     	Vector <String> possibleFormats = this.sourceHandler.getFormatsForTransformation(format);
     	Vector <MetadataVO> possibleMds = new Vector <MetadataVO>();
     	
-		for (int i=0; i< source.getMdFormats().size(); i++){
+		for (int i=0; i< source.getMdFormats().size(); i++)
+		{
 			transformMd = source.getMdFormats().get(i);
-    		for (int x =0; x< possibleFormats.size(); x++){
+    		for (int x =0; x< possibleFormats.size(); x++)
+    		{
     			String possibleFormat = possibleFormats.get(x);
-	    		if (transformMd.getMdLabel().trim().toLowerCase().equals(possibleFormat)){
+	    		if (transformMd.getMdLabel().trim().toLowerCase().equals(possibleFormat))
+	    		{
 	    			possibleMds.add(transformMd);
 	        	}
     		}
 		}
 		
 		//More than one format from this source can be transformed into the requested format
-		if (possibleMds.size() > 1){
-			for (int y=0; y< possibleMds.size(); y++){
+		if (possibleMds.size() > 1)
+		{
+			for (int y=0; y< possibleMds.size(); y++)
+			{
 				transformMd = possibleMds.get(y);
-				if (transformMd.isMdDefault()){
+				if (transformMd.isMdDefault())
+				{
 					return sourceMd = this.sourceHandler.getMdObjectfromSource(source,transformMd.getMdLabel());
 				}
 				//If no default format was declared, one random like metadata set is returned
-				else {
+				else 
+				{
 					sourceMd = this.sourceHandler.getMdObjectfromSource(source,transformMd.getMdLabel());
 				}
 			}
 		}		
-		if (possibleMds.size() == 1){
+		if (possibleMds.size() == 1)
+		{
 			sourceMd= possibleMds.get(0);
 		}
-		if (possibleMds.size() == 0){
+		if (possibleMds.size() == 0)
+		{
 			sourceMd = null;
 		}
     	return sourceMd;
@@ -767,56 +895,73 @@ public class ImportHandlerBean implements ImportHandler {
      * @param format
      * @return Fulltext Object of the format to fetch
      */
-    private FullTextVO getFtObjectToFetch(ImportSourceVO source, String format){
-    	FullTextVO Ft = null;
+    private FullTextVO getFtObjectToFetch(ImportSourceVO source, String format)
+    {
+    	FullTextVO ft = null;
     	
-		for (int i=0; i< source.getFtFormats().size(); i++){
-			Ft = source.getFtFormats().get(i);
-    		if (Ft.getFtLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
-    			return Ft;
+		for (int i=0; i< source.getFtFormats().size(); i++)
+		{
+			ft = source.getFtFormats().get(i);
+    		if (ft.getFtLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
+    		{
+    			return ft;
         	}
-    		else {Ft = null;}
+    		else 
+    		{ft = null;}
 		}   	
-    	return Ft;
+    	return ft;
     }
 
     /**
-     * Decide which kind of data has to be fetched
+     * Decide which kind of data has to be fetched.
      * @param source
      * @param format
      * @return type of data to be fetched {METADATA, FILE, CITATION, LAYOUTFORMAT}
      */
-    private String getFetchingType (ImportSourceVO source, String format){
+    private String getFetchingType(ImportSourceVO source, String format)
+    {
     	
     	//tmp, till we clearify the new transformation service design
-    	if(format.toLowerCase().equals("endnote")){return this.fetchType_ENDNOTE;}
-    	if(format.toLowerCase().equals("bibtex")){return this.fetchType_BIBTEX;}
-    	if(format.toLowerCase().equals("apa")){return this.fetchType_APA;}
+    	if(format.toLowerCase().equals("endnote"))
+    	{return this.fetchTypeENDNOTE;}
+    	if(format.toLowerCase().equals("bibtex"))
+    	{return this.fetchTypeBIBTEX;}
+    	if(format.toLowerCase().equals("apa"))
+    	{return this.fetchTypeAPA;}
+    	if(format.toLowerCase().equals("mets"))
+    	{return this.fetchTypeMETS;}
     	
-    	if (this.getMdObjectToFetch(source, format)!= null){return this.fetchType_METADATA;}
-    	if (this.getFtObjectToFetch(source, format)!= null){return this.fetchType_FILE;}
+    	if (this.getMdObjectToFetch(source, format)!= null)
+    	{return this.fetchTypeMETADATA;}
+    	if (this.getFtObjectToFetch(source, format)!= null)
+    	{return this.fetchTypeFILE;}
     	
-    	return this.fetchType_UNKNOWN;
+    	return this.fetchTypeUNKNOWN;
     }
 	
-    public long currentDate() {
+    public long currentDate() 
+    {
         Date today = new Date();
         return today.getTime(); 
-      }
+    }
     
-	public String getContentType() {
+	public String getContentType() 
+	{
 		return this.contentType;
 	}
 
-	public void setContentType(String contentType) {
+	public void setContentType(String contentType) 
+	{
 		this.contentType = contentType;
 	}
 	
-	public String getFileEnding() {
+	public String getFileEnding() 
+	{
 		return this.fileEnding;
 	}
 
-	public void setFileEnding(String fileEnding) {
+	public void setFileEnding(String fileEnding) 
+	{
 		this.fileEnding = fileEnding;
 	}
 }
