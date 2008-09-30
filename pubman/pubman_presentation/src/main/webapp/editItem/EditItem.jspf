@@ -87,15 +87,18 @@
 				<h:outputText value="#{lbl.EditItem_lblFile}" />
 			</h:panelGroup>
 		</h2>		
+			
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
+      		<tr:panelGroupLayout partialTriggers="fileUploads:btn_uploadFile fileUploads:lnk_addFile fileUploads:lnk_removeFile">
       		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
+	      	
 	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	      				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}" rendered="#{component.size == 0}"/>
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak"/> 			
+	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="true"/> 			
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<div>
@@ -137,17 +140,16 @@
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
+						<tr:commandLink id="lnk_addFile" partialSubmit="true" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
+						<tr:commandLink id="lnk_removeFile" partialSubmit="true" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
-		        	
+			
        		</tr:iterator> 
-		
-		
+			</tr:panelGroupLayout>
         
 	</h:panelGroup>
 	
