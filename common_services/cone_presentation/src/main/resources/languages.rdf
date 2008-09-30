@@ -297,14 +297,6 @@
 		<dc:identifier>cy</dc:identifier>
 		<dc:title xml:lang="fr">gallois</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:cs">
-		<dc:identifier>cs</dc:identifier>
-		<dc:title xml:lang="en">Czech</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:cs">
-		<dc:identifier>cs</dc:identifier>
-		<dc:title xml:lang="fr">tch&#232;que</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:da">
 		<dc:identifier>da</dc:identifier>
 		<dc:title xml:lang="en">Danish</dc:title>
@@ -377,14 +369,6 @@
 		<dc:identifier>et</dc:identifier>
 		<dc:title xml:lang="fr">estonien</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:eu">
-		<dc:identifier>eu</dc:identifier>
-		<dc:title xml:lang="en">Basque</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:eu">
-		<dc:identifier>eu</dc:identifier>
-		<dc:title xml:lang="fr">basque</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:ee">
 		<dc:identifier>ee</dc:identifier>
 		<dc:title xml:lang="en">Ewe</dc:title>
@@ -433,14 +417,6 @@
 		<dc:identifier>fr</dc:identifier>
 		<dc:title xml:lang="fr">fran&#231;ais</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:fr">
-		<dc:identifier>fr</dc:identifier>
-		<dc:title xml:lang="fr">French</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:fr">
-		<dc:identifier>fr</dc:identifier>
-		<dc:title xml:lang="fr">fran&#231;ais</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:fy">
 		<dc:identifier>fy</dc:identifier>
 		<dc:title xml:lang="en">Western Frisian</dc:title>
@@ -464,14 +440,6 @@
 	<rdf:Description rdf:about="urn:iso639:ka">
 		<dc:identifier>ka</dc:identifier>
 		<dc:title xml:lang="fr">g&#233;orgien</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:de">
-		<dc:identifier>de</dc:identifier>
-		<dc:title xml:lang="en">German</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:de">
-		<dc:identifier>de</dc:identifier>
-		<dc:title xml:lang="fr">allemand</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:gd">
 		<dc:identifier>gd</dc:identifier>
@@ -504,14 +472,6 @@
 	<rdf:Description rdf:about="urn:iso639:gv">
 		<dc:identifier>gv</dc:identifier>
 		<dc:title xml:lang="fr">manx; mannois</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:el">
-		<dc:identifier>el</dc:identifier>
-		<dc:title xml:lang="en">Greek, Modern (1453-)</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:el">
-		<dc:identifier>el</dc:identifier>
-		<dc:title xml:lang="fr">grec moderne (apr&#232;s 1453)</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:gn">
 		<dc:identifier>gn</dc:identifier>
@@ -593,14 +553,6 @@
 		<dc:identifier>hu</dc:identifier>
 		<dc:title xml:lang="fr">hongrois</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:hy">
-		<dc:identifier>hy</dc:identifier>
-		<dc:title xml:lang="en">Armenian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:hy">
-		<dc:identifier>hy</dc:identifier>
-		<dc:title xml:lang="fr">arm&#233;nien</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:ig">
 		<dc:identifier>ig</dc:identifier>
 		<dc:title xml:lang="en">Igbo</dc:title>
@@ -673,14 +625,6 @@
 		<dc:identifier>ik</dc:identifier>
 		<dc:title xml:lang="fr">inupiaq</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:is">
-		<dc:identifier>is</dc:identifier>
-		<dc:title xml:lang="en">Icelandic</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:is">
-		<dc:identifier>is</dc:identifier>
-		<dc:title xml:lang="fr">islandais</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:it">
 		<dc:identifier>it</dc:identifier>
 		<dc:title xml:lang="en">Italian</dc:title>
@@ -728,14 +672,6 @@
 	<rdf:Description rdf:about="urn:iso639:ks">
 		<dc:identifier>ks</dc:identifier>
 		<dc:title xml:lang="fr">kashmiri</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ka">
-		<dc:identifier>ka</dc:identifier>
-		<dc:title xml:lang="en">Georgian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ka">
-		<dc:identifier>ka</dc:identifier>
-		<dc:title xml:lang="fr">g&#233;orgien</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:kr">
 		<dc:identifier>kr</dc:identifier>
@@ -945,14 +881,6 @@
 		<dc:identifier>ms</dc:identifier>
 		<dc:title xml:lang="fr">malais</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:mk">
-		<dc:identifier>mk</dc:identifier>
-		<dc:title xml:lang="en">Macedonian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:mk">
-		<dc:identifier>mk</dc:identifier>
-		<dc:title xml:lang="fr">mac&#233;donien</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:mg">
 		<dc:identifier>mg</dc:identifier>
 		<dc:title xml:lang="en">Malagasy</dc:title>
@@ -984,30 +912,6 @@
 	<rdf:Description rdf:about="urn:iso639:mn">
 		<dc:identifier>mn</dc:identifier>
 		<dc:title xml:lang="fr">mongol</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:mi">
-		<dc:identifier>mi</dc:identifier>
-		<dc:title xml:lang="en">Maori</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:mi">
-		<dc:identifier>mi</dc:identifier>
-		<dc:title xml:lang="fr">maori</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ms">
-		<dc:identifier>ms</dc:identifier>
-		<dc:title xml:lang="en">Malay</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ms">
-		<dc:identifier>ms</dc:identifier>
-		<dc:title xml:lang="fr">malais</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:my">
-		<dc:identifier>my</dc:identifier>
-		<dc:title xml:lang="en">Burmese</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:my">
-		<dc:identifier>my</dc:identifier>
-		<dc:title xml:lang="fr">birman</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:na">
 		<dc:identifier>na</dc:identifier>
@@ -1056,14 +960,6 @@
 	<rdf:Description rdf:about="urn:iso639:ne">
 		<dc:identifier>ne</dc:identifier>
 		<dc:title xml:lang="fr">n&#233;palais</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:nl">
-		<dc:identifier>nl</dc:identifier>
-		<dc:title xml:lang="en">Dutch; Flemish</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:nl">
-		<dc:identifier>nl</dc:identifier>
-		<dc:title xml:lang="fr">n&#233;erlandais; flamand</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:nn">
 		<dc:identifier>nn</dc:identifier>
@@ -1145,14 +1041,6 @@
 		<dc:identifier>pa</dc:identifier>
 		<dc:title xml:lang="fr">pendjabi</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:fa">
-		<dc:identifier>fa</dc:identifier>
-		<dc:title xml:lang="en">Persian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:fa">
-		<dc:identifier>fa</dc:identifier>
-		<dc:title xml:lang="fr">persan</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:pi">
 		<dc:identifier>pi</dc:identifier>
 		<dc:title xml:lang="en">Pali</dc:title>
@@ -1209,14 +1097,6 @@
 		<dc:identifier>ro</dc:identifier>
 		<dc:title xml:lang="fr">roumain</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ro">
-		<dc:identifier>ro</dc:identifier>
-		<dc:title xml:lang="fr">Romanian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:ro">
-		<dc:identifier>ro</dc:identifier>
-		<dc:title xml:lang="fr">roumain</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:rn">
 		<dc:identifier>rn</dc:identifier>
 		<dc:title xml:lang="en">Rundi</dc:title>
@@ -1260,14 +1140,6 @@
 	<rdf:Description rdf:about="urn:iso639:sk">
 		<dc:identifier>sk</dc:identifier>
 		<dc:title xml:lang="en">Slovak</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:sk">
-		<dc:identifier>sk</dc:identifier>
-		<dc:title xml:lang="fr">slovaque</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:sk">
-		<dc:identifier>sk</dc:identifier>
-		<dc:title xml:lang="fr">Slovak</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:sk">
 		<dc:identifier>sk</dc:identifier>
@@ -1336,14 +1208,6 @@
 	<rdf:Description rdf:about="urn:iso639:es">
 		<dc:identifier>es</dc:identifier>
 		<dc:title xml:lang="fr">espagnol; castillan</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:sq">
-		<dc:identifier>sq</dc:identifier>
-		<dc:title xml:lang="en">Albanian</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:sq">
-		<dc:identifier>sq</dc:identifier>
-		<dc:title xml:lang="fr">albanais</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:sc">
 		<dc:identifier>sc</dc:identifier>
@@ -1448,14 +1312,6 @@
 	<rdf:Description rdf:about="urn:iso639:th">
 		<dc:identifier>th</dc:identifier>
 		<dc:title xml:lang="fr">tha&#239;</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:bo">
-		<dc:identifier>bo</dc:identifier>
-		<dc:title xml:lang="en">Tibetan</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:bo">
-		<dc:identifier>bo</dc:identifier>
-		<dc:title xml:lang="fr">tib&#233;tain</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:ti">
 		<dc:identifier>ti</dc:identifier>
@@ -1569,14 +1425,6 @@
 		<dc:identifier>vo</dc:identifier>
 		<dc:title xml:lang="fr">volap&#252;k</dc:title>
 	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:cy">
-		<dc:identifier>cy</dc:identifier>
-		<dc:title xml:lang="en">Welsh</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:cy">
-		<dc:identifier>cy</dc:identifier>
-		<dc:title xml:lang="fr">gallois</dc:title>
-	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:wa">
 		<dc:identifier>wa</dc:identifier>
 		<dc:title xml:lang="en">Walloon</dc:title>
@@ -1624,14 +1472,6 @@
 	<rdf:Description rdf:about="urn:iso639:za">
 		<dc:identifier>za</dc:identifier>
 		<dc:title xml:lang="fr">zhuang; chuang</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:zh">
-		<dc:identifier>zh</dc:identifier>
-		<dc:title xml:lang="en">Chinese</dc:title>
-	</rdf:Description>
-	<rdf:Description rdf:about="urn:iso639:zh">
-		<dc:identifier>zh</dc:identifier>
-		<dc:title xml:lang="fr">chinois</dc:title>
 	</rdf:Description>
 	<rdf:Description rdf:about="urn:iso639:zu">
 		<dc:identifier>zu</dc:identifier>

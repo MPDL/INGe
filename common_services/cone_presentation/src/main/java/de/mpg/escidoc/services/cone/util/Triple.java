@@ -12,7 +12,7 @@ public class Triple
         
     }
     
-    public Triple(String object, String predicate, String subject)
+    public Triple(String subject, String predicate, String object)
     {
         this.object = object;
         this.predicate = predicate;

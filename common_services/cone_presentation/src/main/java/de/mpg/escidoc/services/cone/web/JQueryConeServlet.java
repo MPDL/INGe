@@ -7,8 +7,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,23 +23,38 @@ import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.services.cone.ServiceList.Service;
-import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.ResourceUtil;
-import de.mpg.escidoc.services.cone.util.Triple;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
 import de.mpg.escidoc.services.cone.ServiceList;
+import de.mpg.escidoc.services.cone.ServiceList.Service;
+import de.mpg.escidoc.services.cone.util.Pair;
+import de.mpg.escidoc.services.cone.util.ResourceUtil;
 
+/**
+ * Servlet to answer calls from the JQuery Javascript API.
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
+ */
 public class JQueryConeServlet extends HttpServlet
 {
 
     private static final Logger logger = Logger.getLogger(JQueryConeServlet.class);
+    private static final String ERROR_TRANSFORMING_RESULT = "Error transforming result";
+    private static final String DB_ERROR_MESSAGE = "Error querying database.";
+    private static final String REGEX_PREDICATE_REPLACE = ":/\\-\\.";
+    private static final String DEFAULT_ENCODING = "UTF-8";
+    private static final String CONTENT_TYPE = "text/plain";
     
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
-        request.setCharacterEncoding("UTF-8");
+        request.setCharacterEncoding(DEFAULT_ENCODING);
         
         PrintWriter out = response.getWriter();
         
@@ -70,11 +86,12 @@ public class JQueryConeServlet extends HttpServlet
             try
             {
                 Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
-                transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+                transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
                 transformer.transform(new StreamSource(source), new StreamResult(out));
             }
-            catch (Exception e) {
-                logger.error("Error transforming result", e);
+            catch (Exception e)
+            {
+                logger.error(ERROR_TRANSFORMING_RESULT, e);
                 throw new IOException(e.getMessage());
             }
         }
@@ -88,13 +105,23 @@ public class JQueryConeServlet extends HttpServlet
         }
     }
 
-    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model) throws IOException
+    /**
+     * Retrieve the details for a given id.
+     * 
+     * @param request Just to use it in the method.
+     * @param response Just to use it in the method.
+     * @param out Just to use it in the method.
+     * @param model The requested type of data, e.g. "jnar", "lang"
+     * @throws IOException
+     */
+    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model)
+        throws IOException
     {
         Service service = ServiceList.getInstance().new Service(model);
 
         if (ServiceList.getInstance().getList().contains(service))
         {
-            response.setContentType("text/plain");
+            response.setContentType(CONTENT_TYPE);
             String id = request.getParameter("id");
             
             if (id == null)
@@ -109,23 +136,22 @@ public class JQueryConeServlet extends HttpServlet
             {
             
                 Querier querier = QuerierFactory.newQuerier();
-                
-                logger.debug("Querier is " + querier);
-                
+
                 if (querier == null)
                 {
                     reportMissingQuerier(response);
                 }
                 else
                 {
-                    Set<Triple> result = null;
+                    Map<String, List<String>> result = null;
                     
                     try
                     {
                         result = querier.details(model, id);
                     }
-                    catch (Exception e) {
-                        logger.error("Error querying database.", e);
+                    catch (Exception e)
+                    {
+                        logger.error(DB_ERROR_MESSAGE, e);
                     }
    
                     out.println(formatDetails(result));
@@ -146,13 +172,13 @@ public class JQueryConeServlet extends HttpServlet
      * @throws IOException
      */
     private void queryAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model)
-            throws IOException
+        throws IOException
     {
         Service service = ServiceList.getInstance().new Service(model);
 
         if (ServiceList.getInstance().getList().contains(service))
         {
-            response.setContentType("text/plain");
+            response.setContentType(CONTENT_TYPE);
             String query = request.getParameter("q");
             String lang = request.getParameter("lang");
             
@@ -177,14 +203,15 @@ public class JQueryConeServlet extends HttpServlet
                 }
                 else
                 {
-                    Set<Pair> result = null;
+                    List<Pair> result = null;
                     
                     try
                     {
                         result = querier.query(model, query, lang);
                     }
-                    catch (Exception e) {
-                        logger.error("Error querying database.", e);
+                    catch (Exception e)
+                    {
+                        logger.error(DB_ERROR_MESSAGE, e);
                     }
    
                     out.println(formatQuery(result));
@@ -226,6 +253,7 @@ public class JQueryConeServlet extends HttpServlet
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
+    @SuppressWarnings("unused")
     private OutputStream format(String source) throws IOException
     {
         
@@ -240,20 +268,21 @@ public class JQueryConeServlet extends HttpServlet
             Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
             transformer.transform(new StreamSource(new StringReader(source)), new StreamResult(result));
         }
-        catch (Exception e) {
-            logger.error("Error transforming result", e);
+        catch (Exception e)
+        {
+            logger.error(ERROR_TRANSFORMING_RESULT, e);
             throw new IOException(e.getMessage());
         }
         return result;
     }
 
     /**
-     * Formats an Map<String, String> into a JQuery readable list.
+     * Formats an Map&lt;String, String> into a JQuery readable list.
      * 
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    private String formatQuery(Set<Pair> pairs) throws IOException
+    private String formatQuery(List<Pair> pairs) throws IOException
     {
         
         StringWriter result = new StringWriter();
@@ -275,28 +304,52 @@ public class JQueryConeServlet extends HttpServlet
     }
 
     /**
-     * Formats an Map<String, String> into a JQuery readable list.
+     * Formats an Map&lt;String, String> into a JQuery readable list.
      * 
      * @param result The RDF.
      * @return A String formatted  in a JQuery readable format.
      */
-    private String formatDetails(Set<Triple> triples) throws IOException
+    private String formatDetails(Map<String, List<String>> triples) throws IOException
     {
         
         StringWriter result = new StringWriter();
         
         result.append("{\n");
-        
-        for (Triple triple : triples)
+        for (Iterator<String> iterator = triples.keySet().iterator(); iterator.hasNext();)
         {
-            String object = triple.getObject();
-            String subject = triple.getSubject();
-            String predicate = triple.getPredicate();
+            String predicate = (String) iterator.next();
+            List<String> objects = triples.get(predicate);
             
-            result.append(predicate.substring(predicate.lastIndexOf("/") + 1).replace("'", "\\'"));
-            result.append(" : \"");
-            result.append(object.replace("'", "\\'"));
-            result.append("\"\n");
+            result.append("\"");
+            result.append(predicate.replaceAll("[" + REGEX_PREDICATE_REPLACE + "]+", "_").replace("'", "\\'"));
+            result.append("\" : \"");
+            if (objects.size() == 1)
+            {
+                result.append(objects.get(0).replace("'", "\\'"));
+            }
+            else
+            {
+                result.append("{\n");
+                for (Iterator<String> iterator2 = objects.iterator(); iterator2.hasNext();)
+                {
+                    String object = (String) iterator2.next();
+                    result.append("\"");
+                    result.append(object.replace("'", "\\'"));
+                    result.append("\"");
+                    if (iterator2.hasNext())
+                    {
+                        result.append(",");
+                    }
+                    result.append("\n");
+                }
+                result.append("}");
+            }
+            result.append("\"");
+            if (iterator.hasNext())
+            {
+                result.append(",");
+            }
+            result.append("\n");
         }
         result.append("}");
         return result.toString();

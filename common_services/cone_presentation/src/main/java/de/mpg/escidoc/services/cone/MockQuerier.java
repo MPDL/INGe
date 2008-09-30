@@ -1,24 +1,26 @@
 package de.mpg.escidoc.services.cone;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.Triple;
 
 public class MockQuerier implements Querier
 {
 
     
     
-    public Set<Pair> query(String model, String query, String lang) throws Exception
+    public List<Pair> query(String model, String query, String lang) throws Exception
     {
         return query(model, query);
     }
 
-    public Set<Pair> query(String model, String query)
+    public List<Pair> query(String model, String query)
     {
         
         Map<String, String> resultMap = new LinkedHashMap<String, String>();
@@ -173,7 +175,7 @@ public class MockQuerier implements Querier
             }
         }
         
-        Set<Pair> resultSet = new HashSet<Pair>();
+        List<Pair> resultSet = new ArrayList<Pair>();
         
         for (String subject : resultMap.keySet())
         {
@@ -184,13 +186,40 @@ public class MockQuerier implements Querier
         return resultSet;
     }
 
-    public Set<Triple> details(String model, String query) throws Exception
+    public Map<String, List<String>> details(String model, String query) throws Exception
     {
-        Set<Triple> resultSet = new HashSet<Triple>();
-        Triple triple1 = new Triple("urn:id:001", "http://purl.org/dc/elements/1.1/title", "This is the title");
-        Triple triple2 = new Triple("urn:id:001", "http://purl.org/dc/elements/1.1/description", "This is the description. This is the description. This is the description. This is the description. ");
-        resultSet.add(triple1);
-        resultSet.add(triple2);
+        Map<String, List<String>> resultSet = new HashMap<String, List<String>>();
+        List<String> triple1 = new ArrayList<String>();
+        triple1.add("This is the title");
+        resultSet.put("http://purl.org/dc/elements/1.1/title", triple1);
+        List<String> triple2 = new ArrayList<String>();
+        triple2.add("This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. ");
+        resultSet.put("http://purl.org/dc/elements/1.1/description", triple1);
+
+        return resultSet;
+    }
+
+    public Map<String, List<String>> details(String model, String id, String lang) throws Exception
+    {
+        Map<String, List<String>> resultSet = new HashMap<String, List<String>>();
+        if ("de".equals(lang))
+        {
+            List<String> triple1 = new ArrayList<String>();
+            triple1.add("Dies ist der Titel");
+            resultSet.put("http://purl.org/dc/elements/1.1/title", triple1);
+            List<String> triple2 = new ArrayList<String>();
+            triple2.add("Dies ist die Beschreibung. Dies ist die Beschreibung. Dies ist die Beschreibung. Dies ist die Beschreibung. Dies ist die Beschreibung. Dies ist die Beschreibung. ");
+            resultSet.put("http://purl.org/dc/elements/1.1/description", triple1);
+        }
+        else
+        {
+            List<String> triple1 = new ArrayList<String>();
+            triple1.add("This is the title");
+            resultSet.put("http://purl.org/dc/elements/1.1/title", triple1);
+            List<String> triple2 = new ArrayList<String>();
+            triple2.add("This is the description. This is the description. This is the description. This is the description. This is the description. This is the description. ");
+            resultSet.put("http://purl.org/dc/elements/1.1/description", triple1);
+        }
         return resultSet;
     }
     

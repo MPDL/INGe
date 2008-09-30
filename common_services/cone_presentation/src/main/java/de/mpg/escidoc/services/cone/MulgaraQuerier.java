@@ -1,12 +1,10 @@
 package de.mpg.escidoc.services.cone;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -15,7 +13,6 @@ import org.mulgara.itql.ItqlInterpreterBean;
 import org.mulgara.query.Answer;
 
 import de.mpg.escidoc.services.cone.util.Pair;
-import de.mpg.escidoc.services.cone.util.Triple;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class MulgaraQuerier implements Querier
@@ -25,12 +22,12 @@ public class MulgaraQuerier implements Querier
     
     
     
-    public Set<Pair> query(String model, String query) throws Exception
+    public List<Pair> query(String model, String query) throws Exception
     {
         return query(model, query, null);
     }
 
-    public Set<Pair> query(String model, String searchString, String language) throws Exception
+    public List<Pair> query(String model, String searchString, String language) throws Exception
     {
         
         if (language == null)
@@ -60,7 +57,7 @@ public class MulgaraQuerier implements Querier
         Answer answer = interpreter.executeQuery(query);
         logger.debug("Took " + (new Date().getTime() - now) + " ms.");
         
-        Set<Pair> resultSet = new LinkedHashSet<Pair>();
+        List<Pair> resultSet = new ArrayList<Pair>();
 
         String query2 = "";
         boolean found = false;
@@ -101,7 +98,12 @@ public class MulgaraQuerier implements Querier
         return result;
     }
 
-    public Set<Triple> details(String model, String id) throws Exception
+    public Map<String, List<String>> details(String model, String id) throws Exception
+    {
+        return details(model, id, null);
+    }
+
+    public Map<String, List<String>> details(String model, String id, String language) throws Exception
     {
         id = formatIdString(id);
         
@@ -117,7 +119,7 @@ public class MulgaraQuerier implements Querier
         
         Answer answer = interpreter.executeQuery(query);
 
-        Set<Triple> resultMap = new HashSet<Triple>();
+        Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
 
         while (answer.next())
         {
@@ -134,8 +136,19 @@ public class MulgaraQuerier implements Querier
                 object = matcher.group(1);
                 lang = matcher.group(3);
             }
-            Triple triple = new Triple(id, predicate, object);
-            resultMap.add(triple);
+            if (lang == null || language == null || lang.equals(language))
+            {
+                if (resultMap.containsKey(predicate))
+                {
+                    resultMap.get(predicate).add(object);
+                }
+                else
+                {
+                    ArrayList<String> newEntry = new ArrayList<String>();
+                    newEntry.add(object);
+                    resultMap.put(predicate, newEntry);
+                }
+            }
         }
         
         logger.info("Result: " + resultMap);
