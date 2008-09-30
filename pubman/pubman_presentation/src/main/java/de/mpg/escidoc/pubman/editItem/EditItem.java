@@ -41,6 +41,8 @@ import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
+import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
@@ -1061,7 +1063,23 @@ public class EditItem extends FacesBean
     		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
     		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
     	}
-    	return "loadEditItem";
+    	return null;
+    }
+    
+    /**
+     * This method adds a file to the list of files of the item 
+     * @return navigation string (null)
+     */
+    public void addFile(ActionEvent event)
+    {
+    	// avoid to upload more than one item before filling the metadata
+    	if(this.getEditItemSessionBean().getFiles() != null)
+    	{
+    		FileVO newFile = new FileVO();
+    		newFile.getMetadataSets().add(new MdsFileVO());
+    		newFile.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+    		this.getEditItemSessionBean().getFiles().add(new PubFileVOPresentation(this.getEditItemSessionBean().getFiles().size(), newFile, false));
+    	}
     }
     
     /**
