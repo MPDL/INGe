@@ -35,11 +35,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
-import javax.faces.component.html.HtmlPanelGrid;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 import javax.faces.event.ActionListener;
@@ -53,6 +51,7 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
 import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.data.CoreTable;
 import org.apache.myfaces.trinidad.model.UploadedFile;
 
@@ -88,7 +87,6 @@ import de.mpg.escidoc.services.common.util.creators.AuthorDecoder;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
@@ -99,7 +97,6 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorTyp
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
-import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -115,7 +112,9 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class EditItem extends FacesBean
 {
-    public static final String BEAN_NAME = "EditItem";
+
+	private static final long serialVersionUID = 1L;
+	public static final String BEAN_NAME = "EditItem";
     private static Logger logger = Logger.getLogger(EditItem.class);
 
     // Faces navigation string
@@ -143,9 +142,6 @@ public class EditItem extends FacesBean
     private HtmlCommandLink lnkAccept = new HtmlCommandLink();
     private HtmlCommandLink lnkRelease = new HtmlCommandLink();
 
-    // panels for dynamic components
-    private HtmlPanelGrid panDynamicFile = new HtmlPanelGrid();
-
     /** pub context name. */
     private String contextName = null;
 
@@ -161,12 +157,13 @@ public class EditItem extends FacesBean
     
     private UploadedFile uploadedFile;
     
+    private UIXIterator fileIterator = new UIXIterator();
+    
     private CoreTable fileTable = new CoreTable();
     
     PubItemVO item = null;
     
     private boolean fromEasySubmission = false;
-    private PubItemDepositing pubItemDepositing;
     
     private String creatorParseString;
     
@@ -179,7 +176,6 @@ public class EditItem extends FacesBean
         {
             InitialContext initialContext = new InitialContext();
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
-            this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
         }
         catch (NamingException ne)
         {
@@ -200,8 +196,6 @@ public class EditItem extends FacesBean
         super.init();
         
         this.fileTable = new CoreTable();
-        
-        Map map = FacesContext.getCurrentInstance().getExternalContext().getInitParameterMap();
 
         // enables the commandlinks
         this.enableLinks();
@@ -213,12 +207,12 @@ public class EditItem extends FacesBean
         
         
 //      FIXME provide access to parts of my VO to specialized POJO's
-        titleCollection = new TitleCollection(this.getPubItem().getMetadata());
-        eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
-        contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
-        creatorCollection = new CreatorCollection(this.getPubItem().getMetadata().getCreators());
-        identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
-        sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
+        this.titleCollection = new TitleCollection(this.getPubItem().getMetadata());
+        this.eventTitleCollection = new TitleCollection(this.getPubItem().getMetadata().getEvent());
+        this.contentAbstractCollection = new ContentAbstractCollection(this.getPubItem().getMetadata().getAbstracts());
+        this.creatorCollection = new CreatorCollection(this.getPubItem().getMetadata().getCreators());
+        this.identifierCollection = new IdentifierCollection(this.getPubItem().getMetadata().getIdentifiers());
+        this.sourceCollection = new SourceCollection(this.getPubItem().getMetadata().getSources());
 
         if (logger.isDebugEnabled())
         {
@@ -247,16 +241,16 @@ public class EditItem extends FacesBean
     public PubItemVO getPubItem()
     {
     	
-        if (item == null)
+        if (this.item == null)
         {
-            item = this.getItemControllerSessionBean().getCurrentPubItem();
+        	this.item = this.getItemControllerSessionBean().getCurrentPubItem();
         }
-        return item;
+        return this.item;
     }
 
     public String getContextName()
     {
-    	if (contextName == null)
+    	if (this.contextName == null)
     	{
 	        try
 	        {
@@ -271,7 +265,7 @@ public class EditItem extends FacesBean
 	            return ErrorPage.LOAD_ERRORPAGE;
 	        }
     	}
-    	return contextName;
+    	return this.contextName;
 
     }
 
@@ -280,11 +274,8 @@ public class EditItem extends FacesBean
      */
     private void initializeItem()
     {
-
         // get the item that is currently edited
         PubItemVO pubItem = this.getPubItem();
-        
-        EditItemSessionBean eisb = this.getEditItemSessionBean();
 
         if (pubItem != null)
         {
@@ -477,9 +468,9 @@ public class EditItem extends FacesBean
 
     public List<ListItem> getLanguages()
     {
-    	if (languages == null)
+    	if (this.languages == null)
     	{
-    		languages = new ArrayList<ListItem>();
+    		this.languages = new ArrayList<ListItem>();
     		if (getPubItem().getMetadata().getLanguages().size() == 0)
     		{
     			getPubItem().getMetadata().getLanguages().add("");
@@ -491,11 +482,11 @@ public class EditItem extends FacesBean
     			item.setValue(value);
     			item.setIndex(counter++);
     			item.setStringList(getPubItem().getMetadata().getLanguages());
-    			item.setItemList(languages);
-    			languages.add(item);
+    			item.setItemList(this.languages);
+    			this.languages.add(item);
     		}
     	}
-    	return languages;
+    	return this.languages;
     }
     
 	public SelectItem[] getLanguageOptions()
@@ -523,7 +514,7 @@ public class EditItem extends FacesBean
             {
                 String message = getMessage("itemIsValid");
                 info(message);
-                valMessage.setRendered(true);
+                this.valMessage.setRendered(true);
             }
         }
         catch (Exception e)
@@ -542,8 +533,6 @@ public class EditItem extends FacesBean
      */
     public String save()
     {
-    	EditItemSessionBean eisb = this.getEditItemSessionBean();
-    	ItemControllerSessionBean icsb = this.getItemControllerSessionBean();
     	// bind the temporary uploaded files to the files in the current item
     	bindUploadedFilesAndLocators();
     	
@@ -836,16 +825,16 @@ public class EditItem extends FacesBean
      */
     private void cleanEditItem()
     {
-    	item = null;
-    	titleCollection = null;
-        eventTitleCollection = null;
-        contentAbstractCollection = null;
-        creatorCollection = null;
-        identifierCollection = null;
-        sourceCollection = null;
-        languages = null;
-        uploadedFile = null;
-        fileTable = null;
+    	this.item = null;
+    	this.titleCollection = null;
+    	this.eventTitleCollection = null;
+    	this.contentAbstractCollection = null;
+    	this.creatorCollection = null;
+    	this.identifierCollection = null;
+    	this.sourceCollection = null;
+    	this.languages = null;
+    	this.uploadedFile = null;
+    	this.fileTable = null;
     }
     
     
@@ -1017,17 +1006,15 @@ public class EditItem extends FacesBean
     public void fileUploaded(ValueChangeEvent event)
     {
        
-    	int indexUpload = this.getEditItemSessionBean().getFiles().size()-1;
+      int indexUpload = this.getEditItemSessionBean().getFiles().size()-1;
         
-        UploadedFile file = (UploadedFile) event.getNewValue();
+      UploadedFile file = (UploadedFile) event.getNewValue();
       String contentURL;
       if (file != null || file.getLength()==0)
       {
         contentURL = uploadFile(file);
     	if(contentURL != null && !contentURL.trim().equals(""))
-    	{
-    		EditItemSessionBean eisb = this.getEditItemSessionBean();
-    		
+    	{	
     		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(indexUpload).getFile();
     		
     		fileVO.getDefaultMetadata().setSize((int)file.getLength());
@@ -1047,6 +1034,19 @@ public class EditItem extends FacesBean
           //show error message
           error(getMessage("ComponentEmpty"));
       }
+    }
+
+	/**
+     * Preview method for uploaded files
+     */
+    public void fileDownloaded(){
+
+    	int index = this.fileIterator.getRowIndex();
+  	
+		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(index).getFile();
+    	FileBean File = new FileBean(fileVO,this.getPubItem().getPublicStatus());
+    	
+    	File.downloadFile();
     }
     
     /**
@@ -1235,7 +1235,7 @@ public class EditItem extends FacesBean
             }
         }
 
-        valMessage.setRendered(true);
+        this.valMessage.setRendered(true);
     }
     
     
@@ -1268,7 +1268,6 @@ public class EditItem extends FacesBean
         }
         
         boolean isModerator = loginHelper.getAccountUser().isModerator(this.getPubItem().getContext());
-        boolean isDepositor = loginHelper.getAccountUser().isDepositor();
         boolean isOwner = true;
         if (this.getPubItem().getOwner() != null)
         {
@@ -1389,7 +1388,7 @@ public class EditItem extends FacesBean
 
     public HtmlMessages getValMessage()
     {
-        return valMessage;
+        return this.valMessage;
     }
 
     public void setValMessage(HtmlMessages valMessage)
@@ -1439,7 +1438,7 @@ public class EditItem extends FacesBean
 
     public HtmlCommandLink getLnkAccept()
     {
-        return lnkAccept;
+        return this.lnkAccept;
     }
 
     public void setLnkAccept(HtmlCommandLink lnkAccept)
@@ -1449,7 +1448,7 @@ public class EditItem extends FacesBean
 
     public HtmlCommandLink getLnkDelete()
     {
-        return lnkDelete;
+        return this.lnkDelete;
     }
 
     public void setLnkDelete(HtmlCommandLink lnkDelete)
@@ -1459,7 +1458,7 @@ public class EditItem extends FacesBean
 
     public HtmlCommandLink getLnkSave()
     {
-        return lnkSave;
+        return this.lnkSave;
     }
 
     public void setLnkSave(HtmlCommandLink lnkSave)
@@ -1469,7 +1468,7 @@ public class EditItem extends FacesBean
 
     public HtmlCommandLink getLnkSaveAndSubmit()
     {
-        return lnkSaveAndSubmit;
+        return this.lnkSaveAndSubmit;
     }
 
     public void setLnkSaveAndSubmit(HtmlCommandLink lnkSaveAndSubmit)
@@ -1479,7 +1478,7 @@ public class EditItem extends FacesBean
 
     public TitleCollection getEventTitleCollection()
     {
-        return eventTitleCollection;
+        return this.eventTitleCollection;
     }
 
     public void setEventTitleCollection(TitleCollection eventTitleCollection)
@@ -1489,7 +1488,7 @@ public class EditItem extends FacesBean
 
     public TitleCollection getTitleCollection()
     {
-        return titleCollection;
+        return this.titleCollection;
     }
 
     public void setTitleCollection(TitleCollection titleCollection)
@@ -1499,7 +1498,7 @@ public class EditItem extends FacesBean
 
     public ContentAbstractCollection getContentAbstractCollection()
     {
-        return contentAbstractCollection;
+        return this.contentAbstractCollection;
     }
 
     public void setContentAbstractCollection(ContentAbstractCollection contentAbstractCollection)
@@ -1509,7 +1508,7 @@ public class EditItem extends FacesBean
 
     public CreatorCollection getCreatorCollection()
     {
-        return creatorCollection;
+        return this.creatorCollection;
     }
 
     public void setCreatorCollection(CreatorCollection creatorCollection)
@@ -1519,7 +1518,7 @@ public class EditItem extends FacesBean
 
     public IdentifierCollection getIdentifierCollection()
     {
-        return identifierCollection;
+        return this.identifierCollection;
     }
 
     public void setIdentifierCollection(IdentifierCollection identifierCollection)
@@ -1529,7 +1528,7 @@ public class EditItem extends FacesBean
     
     public String getPubCollectionName()
     {
-        return contextName;
+        return this.contextName;
     }
 
     public void setPubCollectionName(String pubCollection)
@@ -1539,7 +1538,7 @@ public class EditItem extends FacesBean
 
     public SourceCollection getSourceCollection()
     {
-        return sourceCollection;
+        return this.sourceCollection;
     }
 
     public void setSourceCollection(SourceCollection sourceCollection)
@@ -1564,7 +1563,7 @@ public class EditItem extends FacesBean
 	}
 
 	public UploadedFile getUploadedFile() {
-		return uploadedFile;
+		return this.uploadedFile;
 	}
 
 	public void setUploadedFile(UploadedFile uploadedFile) {
@@ -1572,7 +1571,7 @@ public class EditItem extends FacesBean
 	}
 
 	public CoreTable getFileTable() {
-		return fileTable;
+		return this.fileTable;
 	}
 
 	public void setFileTable(CoreTable fileTable) {
@@ -1605,7 +1604,7 @@ public class EditItem extends FacesBean
 	}
 
 	public PubItemVO getItem() {
-		return item;
+		return this.item;
 	}
 
 	public void setItem(PubItemVO item) {
@@ -1614,7 +1613,7 @@ public class EditItem extends FacesBean
 
     public boolean isFromEasySubmission()
     {
-        return fromEasySubmission;
+        return this.fromEasySubmission;
     }
 
     public void setFromEasySubmission(boolean fromEasySubmission)
@@ -1624,7 +1623,7 @@ public class EditItem extends FacesBean
 
     public HtmlCommandLink getLnkRelease()
     {
-        return lnkRelease;
+        return this.lnkRelease;
     }
 
     public void setLnkRelease(HtmlCommandLink lnkRelease)
@@ -1731,8 +1730,15 @@ public class EditItem extends FacesBean
 
     public String getCreatorParseString()
     {
-        return creatorParseString;
+        return this.creatorParseString;
     }
    
+    public UIXIterator getFileIterator() {
+		return this.fileIterator;
+	}
+
+	public void setFileIterator(UIXIterator fileIterator) {
+		this.fileIterator = fileIterator;
+	}
 
 }
