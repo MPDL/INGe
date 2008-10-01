@@ -94,7 +94,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 				// Gives back a description of escidoc formats as default
 				response.setStatus(200);
 				response.setContentType("application/xml");
-				outStream.write(this.unapi(this.ID_TYPE_ESCIDOC));
+				outStream.write(this.unapi(this.ID_TYPE_ESCIDOC, false));
 			} 
 			else 
 			{
@@ -102,7 +102,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 				{
 					// Gives back a description of all available formats for a
 					// source
-					byte[] xml = this.unapi(identifier);
+					byte[] xml = this.unapi(identifier, true);
 					if (xml != null) 
 					{
 						response.setStatus(200);
@@ -208,8 +208,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
 	/**
 	 * {@inheritDoc}
+	 * if unapi interface is called with no identifier, the identifier is set to escidoc as default,
+	 * showing escidoc formats to fetch
+	 * Only when not the default identifier is set, the identifier is displayed in the formats xml.
 	 */
-	public byte[] unapi(String identifier) 
+	public byte[] unapi(String identifier, boolean show) 
 	{
 
 		Vector<FullTextVO> v_ft = new Vector<FullTextVO>();
@@ -232,6 +235,10 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		
 		FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
 		FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
+		
+		if (show){
+			xmlFormats.setId(identifier);
+		}
 
 		v_ft = source.getFtFormats();
 		v_md = source.getMdFormats();
