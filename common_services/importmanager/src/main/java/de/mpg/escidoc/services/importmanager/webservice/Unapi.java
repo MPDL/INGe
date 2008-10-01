@@ -21,9 +21,10 @@ public interface Unapi
 	/**
 	 * This operation gives back a description of all available formats for an identifier.
 	 * @param identifier
+	 * @param show defines if the identifier is visible in the formats xml
 	 * @return formatsXML
 	 */
-	public byte[] unapi(String identifier);
+	public byte[] unapi(String identifier, boolean show);
 	
 
 	/**
