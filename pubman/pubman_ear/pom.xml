@@ -62,6 +62,31 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>importmanager</artifactId>
 						</ejbModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>mods_3.2</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>mets_1.7</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-container</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-item</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-toc</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.pubman</groupId>
 							<artifactId>pubman_logic</artifactId>
