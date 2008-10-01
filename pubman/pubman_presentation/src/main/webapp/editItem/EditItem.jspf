@@ -90,7 +90,8 @@
 			
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
       		<tr:panelGroupLayout partialTriggers="fileUploads:btn_uploadFile fileUploads:lnk_addFile fileUploads:lnk_removeFile">
-      		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
+      		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
+
 	      	
 	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -99,6 +100,7 @@
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
 	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="true"/> 			
+							
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<div>
@@ -107,7 +109,8 @@
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
 						</div>
-	           		</h:panelGroup>
+						<tr:commandButton text="File Preview" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
+					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
 	           			<div>
@@ -150,7 +153,6 @@
 			
        		</tr:iterator> 
 			</tr:panelGroupLayout>
-        
 	</h:panelGroup>
 	
 	<%-- FILES LOCATOR --%>
