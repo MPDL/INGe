@@ -491,7 +491,36 @@
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
-		
+		<dependency>
+           <groupId>xmlbeans</groupId>
+           <artifactId>escidoc-toc</artifactId>
+           <version>1.0.0</version>
+           <scope>compile</scope>
+       </dependency> 
+       <dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mods_3.2</artifactId>
+			<version>3.2</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mets_1.7</artifactId>
+			<version>1.7</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-container</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-item</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
 		 <dependency>
 	    	<groupId>commons-digester</groupId>
 	    	<artifactId>commons-digester</artifactId>
