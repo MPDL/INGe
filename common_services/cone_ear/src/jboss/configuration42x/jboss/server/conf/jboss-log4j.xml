@@ -201,6 +201,14 @@
       <priority value="INFO"/>
    </category>
    
+   <category name="de.mpg">
+      <priority value="DEBUG"/>
+   </category>
+   
+   <category name="test">
+      <priority value="DEBUG"/>
+   </category>
+   
    <!-- Decrease the priority threshold for the org.jboss.varia category
    <category name="org.jboss.varia">
      <priority value="DEBUG"/>
