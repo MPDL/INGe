@@ -1,31 +1,31 @@
 /*
-* CDDL HEADER START
-*
-* The contents of this file are subject to the terms of the
-* Common Development and Distribution License, Version 1.0 only
-* (the "License"). You may not use this file except in compliance
-* with the License.
-*
-* You can obtain a copy of the license at license/ESCIDOC.LICENSE
-* or http://www.escidoc.de/license.
-* See the License for the specific language governing permissions
-* and limitations under the License.
-*
-* When distributing Covered Code, include this CDDL HEADER in each
-* file and include the License file at license/ESCIDOC.LICENSE.
-* If applicable, add the following below this CDDL HEADER, with the
-* fields enclosed by brackets "[]" replaced with your own identifying
-* information: Portions Copyright [yyyy] [name of copyright owner]
-*
-* CDDL HEADER END
-*/
+ * CDDL HEADER START
+ *
+ * The contents of this file are subject to the terms of the
+ * Common Development and Distribution License, Version 1.0 only
+ * (the "License"). You may not use this file except in compliance
+ * with the License.
+ *
+ * You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ * or http://www.escidoc.de/license.
+ * See the License for the specific language governing permissions
+ * and limitations under the License.
+ *
+ * When distributing Covered Code, include this CDDL HEADER in each
+ * file and include the License file at license/ESCIDOC.LICENSE.
+ * If applicable, add the following below this CDDL HEADER, with the
+ * fields enclosed by brackets "[]" replaced with your own identifying
+ * information: Portions Copyright [yyyy] [name of copyright owner]
+ *
+ * CDDL HEADER END
+ */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
-* All rights reserved. Use is subject to license terms.
-*/
+ * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ * für wissenschaftlich-technische Information mbH and Max-Planck-
+ * Gesellschaft zur Förderung der Wissenschaft e.V.
+ * All rights reserved. Use is subject to license terms.
+ */
 
 package de.mpg.escidoc.services.search.presentation;
 
@@ -51,17 +51,21 @@ import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 
 /**
- * Servlet for the REST interface.
- *
- * @author franke (initial creation)
- * @author $Author: vmakarenko $ (last modification)
- * @version $Revision$ $LastChangedDate$
+ * This servlet takes an cql query, calls the search service and returns the
+ * result.
+ * 
+ * @author vmakarenko
+ * 
  */
 public class RestServlet extends HttpServlet
 {
 
+    /** Serial identifier. */
+    private static final long serialVersionUID = 1L;
+    /** Logging instance. */
     private static final Logger LOGGER = Logger.getLogger(RestServlet.class);
-    
+
+    /** EJB instance of search service. */
     @EJB
     private ItemContainerSearch itemContainerSearch;
 
@@ -81,186 +85,176 @@ public class RestServlet extends HttpServlet
     @Override
     protected final void doPost(final HttpServletRequest req, final HttpServletResponse resp) throws ServletException,
             IOException
+    {
+        String cqlQuery = null;
+        String language = null;
+        String exportFormat = null;
+        String outputFormat = null;
+        try
+        {
+            try
             {
-    	String cqlQuery = null;
-    	String language = null;
-    	String exportFormat = null;
-    	String outputFormat = null;
-    	try
-    	{
-    		try
-    		{
-    			String qs = req.getQueryString();
+                String qs = req.getQueryString();
+                LOGGER.debug("QueryString: " + qs);
+                // Init exporting service
+                InitialContext ctx = new InitialContext();
+                itemContainerSearch = (ItemContainerSearch) ctx.lookup(ItemContainerSearch.SERVICE_NAME);
+                cqlQuery = req.getParameter("cqlQuery");
+                if (cqlQuery == null || cqlQuery.trim().equals(""))
+                {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: "
+                            + qs);
+                    return;
+                }
 
-    			LOGGER.debug("QueryString: " + qs);
+                language = req.getParameter("language");
+                language = language == null ? "" : language.trim().toLowerCase();
+                if (language.equals(""))
+                {
+                    language = "all";
+                } 
+                else if ("allende".indexOf(language) == -1)
+                {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
+                    return;
+                }
 
-    			// Init exporting service
-    			InitialContext ctx = new InitialContext();
-    			itemContainerSearch = (ItemContainerSearch) ctx.lookup(ItemContainerSearch.SERVICE_NAME);
+                exportFormat = req.getParameter("exportFormat");
+                exportFormat = exportFormat == null ? "" : exportFormat.trim().toUpperCase();
+                if (exportFormat.equals(""))
+                {
+                    exportFormat = "ENDNOTE";
+                    // if exportFormat is ENDNOTE set outputFormat forced to the
+                    // txt
+                } 
+                else if ("APAENDNOTE".indexOf(exportFormat) == -1)
+                {
+                    resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
+                    return;
+                }
 
-    			cqlQuery = req.getParameter("cqlQuery");
+                if (exportFormat.equals("ENDNOTE"))
+                {
+                    outputFormat = FileFormatVO.TEXT_NAME;
+                } 
+                else
+                {
+                    outputFormat = req.getParameter("outputFormat");
+                    outputFormat = outputFormat == null ? "" : outputFormat.trim().toLowerCase();
+                    // get default outputFormat if it is not defined
+                    if (outputFormat.equals(""))
+                    {
+                        outputFormat = FileFormatVO.DEFAULT_NAME;
+                    }
+                    // check output format consistency
+                    else if (!FileFormatVO.isOutputFormatSupported(outputFormat))
+                    {
+                        resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
+                                + " is not supported for the export format: " + exportFormat);
+                        return;
+                    }
+                }
 
-    			if ( cqlQuery == null || cqlQuery.trim().equals("") )
-    			{
-    				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: " + qs);
-    				return;
-    			}
+                ItemContainerSearch.IndexDatabaseSelector databaseSelector;
 
+                // transform language selector to enum
+                if (language.contains("all"))
+                {
+                    databaseSelector = IndexDatabaseSelector.All;
+                } 
+                else if (language.contains("en"))
+                {
+                    databaseSelector = IndexDatabaseSelector.English;
+                } 
+                else if (language.contains("de"))
+                {
+                    databaseSelector = IndexDatabaseSelector.German;
+                } 
+                else
+                {
+                    throw new TechnicalException("Cannot map language string to database selector.");
+                }
 
-    			//TODO: default values for all parameters 
-    			// should be defined later in VOs
-    			language = req.getParameter("language");
-    			language = language == null ? "" : language.trim().toLowerCase();
-    			if ( language.equals("") )
-    			{
-    				language = "all";
-    			}
-    			else if ( "allende".indexOf(language) == -1 )
-    			{
-    				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
-    				return;
-    			}
+                // create the query
+                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, databaseSelector, exportFormat, outputFormat);
+                // query the search service
+                ExportSearchResult queryResult = itemContainerSearch.searchAndExport(query);
 
-    			exportFormat = req.getParameter("exportFormat");
-    			exportFormat = exportFormat == null ? "" : exportFormat.trim().toUpperCase();
-    			if ( exportFormat.equals("") )
-    			{
-    				exportFormat = "ENDNOTE";
-        			//if exportFormat is ENDNOTE set outputFormat forced to the txt  
-    			}
-    			// export format is not defined. TODO: move to VO 
-    			else if ( "APAENDNOTE".indexOf(exportFormat) == -1 )
-    			{
-    				resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
-    				return;
-    			}
+                byte[] result = queryResult.getResult();
 
-    			if ( exportFormat.equals("ENDNOTE") )
-    			{
-    				outputFormat = FileFormatVO.TEXT_NAME;
-    			}
-    			else 
-				{
-					outputFormat = req.getParameter("outputFormat");
-					outputFormat = outputFormat == null ? "" : outputFormat.trim().toLowerCase();
-					//get default outputFormat if it is not defined
-					if ( outputFormat.equals("") )
-	    			{
-						outputFormat = FileFormatVO.DEFAULT_NAME;
-	    			}
-					// check output format consistency
-					else if ( !FileFormatVO.isOutputFormatSupported(outputFormat) )
-					{
-						resp.sendError(
-								HttpServletResponse.SC_BAD_REQUEST,
-								"File output format: " + outputFormat + 
-								" is not supported for the export format: " + exportFormat 
-						);
-						return;
-					}	
-				}
-    			
-    			ItemContainerSearch.IndexDatabaseSelector databaseSelector;
-    			
-    			if( language.contains("all") ) {
-    				databaseSelector = IndexDatabaseSelector.All;
-    			}
-    			else if( language.contains("en") ) {
-    				databaseSelector = IndexDatabaseSelector.English;
-    			}
-    			else if( language.contains("de") ) {
-    				databaseSelector = IndexDatabaseSelector.German;
-    			}
-    			else throw new TechnicalException( "Cannot map language string to database selector." );
-    			
-    			ExportSearchQuery query = new ExportSearchQuery( cqlQuery, databaseSelector, exportFormat, outputFormat );
+                String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
+                LOGGER.debug("fileName: " + fileName);
+                String contentType = getContentType(outputFormat);
+                resp.setContentType(contentType);
+                LOGGER.debug("contentType: " + contentType);
 
-    			ExportSearchResult queryResult = itemContainerSearch.searchAndExport( query );
-    			
-    			byte[] result = queryResult.getResult();
+                ServletOutputStream os = resp.getOutputStream();
 
-    			String fileName = exportFormat + "_output" + getFileExtension(outputFormat);
-    			LOGGER.debug("fileName: " + fileName);
-    			String contentType = getContentType(outputFormat);
-    			resp.setContentType(contentType);
-    			LOGGER.debug("contentType: " + contentType);
+                resp.addHeader("Content-Disposition", "attachment; filename=" + fileName);
 
-    			ServletOutputStream os = resp.getOutputStream( );
+                resp.setContentLength(result.length);
 
-    			resp.addHeader( "Content-Disposition","attachment; filename=" + fileName );
+                for (byte b : result)
+                {
+                    os.write(b);
+                }
+                os.close();
 
-    			resp.setContentLength( result.length  );
-
-    			for ( byte b : result )
-    			{
-    				os.write( b );
-    			}
-    			os.close();
-
-    		}
-    		catch (NamingException ne)
-    		{
-    			handleException(ne, resp);
-    		}
-    		catch (TechnicalException te)
-    		{
-    			handleException(te, resp);
-    		}
-    	}
-    	catch (Exception e)
-    	{
-    		throw new ServletException(e);
-    	}
-   }
-
-    
-/**
- * Mapping of outputFormat to mime-type 
- * TODO: Get the mapping directly from ItemExportingBean  
- * @param outputFormat
- * @return mime-type according to the outputFormat 
- */
-    private String getContentType(final String outputFormat) {
-		return FileFormatVO.getMimeTypeByName(outputFormat);
-	}
+            } 
+            catch (NamingException ne)
+            {
+                handleException(ne, resp);
+            } 
+            catch (TechnicalException te)
+            {
+                handleException(te, resp);
+            }
+        } 
+        catch (Exception e)
+        {
+            throw new ServletException(e);
+        }
+    }
 
     /**
-     * Mapping of the outputType file to the correct file extension  
-     * TODO: Get the mapping directly from ItemExportingBean  
+     * Mapping of outputFormat to mime-type. 
+     * TODO: Get the mapping directly from ItemExportingBean
+     * 
      * @param outputFormat
-     * @return mime-type according to the outputFormat 
+     * @return mime-type according to the outputFormat
      */
-        private String getFileExtension(final String outputFormat) {
-    		return "." + ( 
-    				outputFormat.trim().equals("snippet") ? 
-    						"xml" : 
-    						outputFormat 
-    		);
-    	}
-    
-    
-//    private String  
-    
+    private String getContentType(final String outputFormat)
+    {
+        return FileFormatVO.getMimeTypeByName(outputFormat);
+    }
+
+    /**
+     * Mapping of the outputType file to the correct file extension. 
+     * TODO: Get the mapping directly from ItemExportingBean
+     * 
+     * @param outputFormat
+     * @return mime-type according to the outputFormat
+     */
+    private String getFileExtension(final String outputFormat)
+    {
+        return "." + (outputFormat.trim().equals("snippet") ? "xml" : outputFormat);
+    }
+
+    /**
+     * Take care on an incoming exception.
+     * 
+     * @param e
+     *            exception
+     * @param resp
+     *            response stream
+     * @throws Exception
+     *             if the handling went wrong on any reason
+     */
     private void handleException(final Exception e, final HttpServletResponse resp) throws Exception
     {
         PrintWriter pw = resp.getWriter();
         pw.print("Error: ");
         e.printStackTrace(pw);
         pw.close();
-    	
-//    	String msg = "Error: " + e.getMessage() + "\n\n"; 
-//        for ( StackTraceElement ste : e.getStackTrace() )
-//        {
-//        	msg +=  
-//        			"at "
-//        			+ ste.getClassName()
-//        			+ "."
-//        			+ ste.getMethodName()
-//        			+ "("
-//        			+ ste.getLineNumber()
-//        			+ ")\n"
-//        			;
-//        }
-//        resp.sendError( HttpServletResponse.SC_INTERNAL_SERVER_ERROR, e.getMessage() );
     }
 }
