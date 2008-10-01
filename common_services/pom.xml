@@ -405,7 +405,10 @@
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 				
-				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
+				<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
+				<escidoc.cone.database.name>cone</escidoc.cone.database.name>
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>
@@ -544,6 +547,9 @@
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
+				<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
+				<escidoc.cone.database.name>cone</escidoc.cone.database.name>
 				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
 				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
 				<escidoc.cone.language.default>en</escidoc.cone.language.default>

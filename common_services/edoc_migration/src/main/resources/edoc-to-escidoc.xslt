@@ -64,7 +64,7 @@
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:variable name="user" select="'dummy-user'"/>
-	<xsl:variable name="context" select="'escidoc:36441'"/>
+	<xsl:variable name="context" select="'escidoc:23756'"/>
 	
 	<!--
 		DC XML  Header
