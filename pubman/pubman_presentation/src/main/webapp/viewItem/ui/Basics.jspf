@@ -57,6 +57,9 @@
 	
 	<!-- COinS -->
 	<!--<h:outputText value="#{ViewItemFull.coins}" escape="false"/>-->
+
+	<!-- The unAPI Identifier for this item -->
+	<h:outputText value="<abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'></abbr>" escape="false"/>
 	
 	<!-- LinkHeader -->
 <div class="itemElementLine floatbox">
