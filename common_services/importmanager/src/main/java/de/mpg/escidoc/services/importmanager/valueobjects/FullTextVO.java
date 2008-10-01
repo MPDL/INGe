@@ -2,7 +2,7 @@ package de.mpg.escidoc.services.importmanager.valueobjects;
 
 import java.net.URL;
 /**
- * 
+ * The full text Object class.
  * @author kleinfe1
  *
  */

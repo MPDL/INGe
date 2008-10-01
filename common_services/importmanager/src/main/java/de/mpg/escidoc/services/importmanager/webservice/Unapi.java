@@ -23,7 +23,7 @@ public interface Unapi
 	 * @param identifier
 	 * @return formatsXML
 	 */
-	public byte[] unapi (String identifier);
+	public byte[] unapi(String identifier);
 	
 
 	/**
@@ -31,10 +31,14 @@ public interface Unapi
 	 * @param identifier
 	 * @param format
 	 * @return data as byte[]
+	 * @throws IdentifierNotRecognisedException
+	 * @throws SourceNotAvailableException
+	 * @throws TechnicalException
+	 * @throws FormatNotRecognizedException
 	 */
-	public byte[] unapi (String identifier, String format)throws IdentifierNotRecognisedException,
-																 SourceNotAvailableException,
-																 TechnicalException,
-																 FormatNotRecognizedException;
+	public byte[] unapi(String identifier, String format)throws IdentifierNotRecognisedException,
+																SourceNotAvailableException,
+																TechnicalException,
+																FormatNotRecognizedException;
 	
 }

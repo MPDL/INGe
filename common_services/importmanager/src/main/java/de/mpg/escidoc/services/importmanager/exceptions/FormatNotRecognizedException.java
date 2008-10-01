@@ -29,13 +29,20 @@
 
 package de.mpg.escidoc.services.importmanager.exceptions;
 
+/**
+ * Exceptions for import formats.
+ * @author kleinfe1
+ *
+ */
 public class FormatNotRecognizedException extends Exception
 {
 
 	private static final long serialVersionUID = 1L;
 
 	public FormatNotRecognizedException()
-	{}
+	{
+		
+	}
 
     public FormatNotRecognizedException(String message)
     {
@@ -51,6 +58,4 @@ public class FormatNotRecognizedException extends Exception
     {
         super(message, cause);
     }
-
-
 }

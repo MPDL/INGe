@@ -31,6 +31,11 @@ package de.mpg.escidoc.services.importmanager.exceptions;
 
 import java.util.Date;
 
+/**
+ * Exceptions for import sources.
+ * @author kleinfe1
+ *
+ */
 public class SourceNotAvailableException extends Exception
 {
 

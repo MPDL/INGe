@@ -21,7 +21,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -109,37 +109,9 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.jibx</groupId>
-			<artifactId>jibx-extras</artifactId>
-			<version>1.1.5</version>
-			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jibx</groupId>
-			<artifactId>jibx-bind</artifactId>
-			<version>1.1.5</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.jibx</groupId>
-			<artifactId>jibx-run</artifactId>
-			<version>1.1.5</version>
-		</dependency>
-		<dependency>
-			<groupId>bcel</groupId>
-			<artifactId>bcel</artifactId>
-			<version>5.1</version>
-		</dependency>
-		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -183,9 +155,15 @@
 			<version>1.1.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
-			<groupId>axis</groupId>
-			<artifactId>axis</artifactId>
-			<version>1.4</version>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>structuredexportmanager</artifactId>
+			<version>1.0.6-SNAPSHOT</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>citationmanager</artifactId>
+			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -206,17 +184,41 @@
 			<version>2.1.0</version>
 			<scope>compile</scope>
 		</dependency>
-		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.6-SNAPSHOT</version>
+				<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mods_3.2</artifactId>
+			<version>3.2</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>citationmanager</artifactId>
-			<version>1.0.9-SNAPSHOT</version>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mets_1.7</artifactId>
+			<version>1.7</version>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-container</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-item</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-toc</artifactId>
+			<version>1.0.0</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+      		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      		<version>4.1</version>
+      		<scope>compile</scope>
+    	</dependency>
 	</dependencies>
 </project>

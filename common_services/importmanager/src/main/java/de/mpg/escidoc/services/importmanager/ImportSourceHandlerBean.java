@@ -28,37 +28,45 @@ import de.mpg.escidoc.services.importmanager.valueobjects.FullTextVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.ImportSourceVO;
 import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 
-public class ImportSourceHandlerBean {
-	
-    ImportSourcesDocument sourceDoc = null;
-    ImportSourcesType sourceType = null;
+/**
+ * This class handles the import function from external sources.
+ * @author kleinfe1
+ *
+ */
+public class ImportSourceHandlerBean 
+{
+    private ImportSourcesDocument sourceDoc = null;
+    private ImportSourcesType sourceType = null;
     
-    TransformationsDocument transformDoc = null;
-    TransformationsType transformType = null;
+    private TransformationsDocument transformDoc = null;
+    private TransformationsType transformType = null;
     
     // Metadata Service
     private MetadataHandler mdHandler = null;
     private InitialContext initialContext = null;
     
-    private final static Logger logger = Logger.getLogger(ImportHandlerBean.class);
+    private static final Logger LOGGER = Logger.getLogger(ImportHandlerBean.class);
 
     private String transformationFormat = null;
     
-	public ImportSourceHandlerBean ()
+	public ImportSourceHandlerBean()
 	{
 	
 	}
 	
-	public Vector<ImportSourceVO> getSources () throws Exception
+	public Vector<ImportSourceVO> getSources() throws Exception
 	{
 		Vector<ImportSourceVO> sourceVec = new Vector<ImportSourceVO>();
-		try{
+		try
+		{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml"); 	
 			this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
 		}
-		catch(XmlException e){e.printStackTrace();}
-		catch(IOException e){e.printStackTrace();}
+		catch(XmlException e)
+		{e.printStackTrace();}
+		catch(IOException e)
+		{e.printStackTrace();}
 		
 		this.initialContext = new InitialContext();
 		this.mdHandler = (MetadataHandler) this.initialContext.lookup(MetadataHandler.SERVICE_NAME);
@@ -95,11 +103,16 @@ public class ImportSourceHandlerBean {
 	            for (MDFetchSettingType mdf : mdfArray)
 	            {
 	            	MetadataVO mdVO  = new MetadataVO();
-	            	if (mdf.getDescription()!= null){
-	            	mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
+	            	if (mdf.getDescription()!= null)
+	            	{
+	            		mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
 	            	}
-	            	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
-	            	catch (MalformedURLException e) {e.printStackTrace();}
+	            	try 
+	            	{
+	            		mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));
+	            	} 
+	            	catch (MalformedURLException e) 
+	            	{e.printStackTrace();}
 	            	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
 	            	mdVO.setMdDefault(mdf.getDefault());
 	            	mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
@@ -116,8 +129,12 @@ public class ImportSourceHandlerBean {
 	            {
 	            	FullTextVO fulltextVO = new FullTextVO();
 	            	fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription()));
-	            	try {fulltextVO.setFtUrl(new URL (simpleLiteralTostring(ftf.getIdentifier())));} 
-	            	catch (MalformedURLException e) {e.printStackTrace();}
+	            	try 
+	            	{
+	            		fulltextVO.setFtUrl(new URL (simpleLiteralTostring(ftf.getIdentifier())));
+	            	} 
+	            	catch (MalformedURLException e) 
+	            	{e.printStackTrace();}
 	            	fulltextVO.setFtFormat(simpleLiteralTostring(ftf.getFormat()));
 	            	fulltextVO.setFtDefault(ftf.getDefault());
 	            	fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
@@ -128,18 +145,23 @@ public class ImportSourceHandlerBean {
 
 	            //Check if a transformation for the default MD format is possible
 	            //TODO: check via transformation.xml
-	            if (this.transformationFormat != null){
-	            	for (int i=0; i< sourceVO.getMdFormats().size(); i++){
+	            if (this.transformationFormat != null)
+	            {
+	            	for (int i=0; i< sourceVO.getMdFormats().size(); i++)
+	            	{
 	            		MetadataVO md = sourceVO.getMdFormats().get(i);
-	            		if (md.isMdDefault()){
-			            	if (this.mdHandler.checkTransformation(md.getMdLabel(), this.transformationFormat)) {
+	            		if (md.isMdDefault())
+	            		{
+			            	if (this.mdHandler.checkTransformation(md.getMdLabel(), this.transformationFormat)) 
+			            	{
 			            		sourceVec.add(sourceVO);
 			            	}
 		            	}
 	            	}
 	            }
 	            //If no transformationFormat is given => all sources are read in
-	            else {
+	            else 
+	            {
 	            	sourceVec.add(sourceVO);
 	            }
         	}        	
@@ -148,39 +170,52 @@ public class ImportSourceHandlerBean {
 	}
 	
 
-	public Vector<ImportSourceVO> getSources (String format) throws Exception
+	public Vector<ImportSourceVO> getSources(String format) throws Exception
 	{
 		this.transformationFormat = format;
 		return this.getSources();
 	}
 	
 
-	public ImportSourceVO getSourceByName (String name)
+	public ImportSourceVO getSourceByName(String name)
 	{ 
 		ImportSourceVO sourceVO = new ImportSourceVO();
 		Vector<FullTextVO> fulltextVec = new Vector<FullTextVO>();
 		Vector<MetadataVO> mdVec = new Vector<MetadataVO>();
 		boolean found = false;
 		
-		try{
+		try
+		{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml"); 	
 			this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
 		}
-		catch(XmlException e){e.printStackTrace();}
-		catch(IOException e){e.printStackTrace();}
+		catch(XmlException e)
+		{e.printStackTrace();}
+		catch(IOException e)
+		{e.printStackTrace();}
 	
         this.sourceType = this.sourceDoc.getImportSources();
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
         for (ImportSourceType source : sources)
-        {      	
-        	if (!source.getName().trim().toLowerCase().equals(name.trim().toLowerCase())){continue;}
-        	else{found = true;}
+        {
+        	if (!source.getName().trim().toLowerCase().equals(name.trim().toLowerCase()))
+        	{
+        		continue;
+        	}
+        	else
+        	{
+        		found = true;
+        	}
         	
         	sourceVO.setName(source.getName());      	
         	sourceVO.setDescription(simpleLiteralTostring(source.getDescription()));
-        	try {sourceVO.setUrl(new URL (simpleLiteralTostring(source.getIdentifier())));} 
-        	catch (MalformedURLException e1) {e1.printStackTrace();}
+        	try 
+        	{
+        		sourceVO.setUrl(new URL (simpleLiteralTostring(source.getIdentifier())));
+        	}
+        	catch (MalformedURLException e1) 
+        	{e1.printStackTrace();}
         	sourceVO.setType(simpleLiteralTostring(source.getFormatArray(0)));
         	sourceVO.setEncoding(simpleLiteralTostring(source.getFormatArray(1)));
         	sourceVO.setHarvestProtocol(simpleLiteralTostring(source.getHarvestProtocol()));
@@ -197,11 +232,14 @@ public class ImportSourceHandlerBean {
             for (MDFetchSettingType mdf : mdfArray)
             {
             	MetadataVO mdVO  = new MetadataVO();
-            	if (mdf.getDescription() != null){
+            	if (mdf.getDescription() != null)
+            	{
             		mdVO.setMdDesc(simpleLiteralTostring(mdf.getDescription()));
             	}
-            	try {mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
-            	catch (MalformedURLException e) {e.printStackTrace();}
+            	try 
+            	{mdVO.setMdUrl(new URL (simpleLiteralTostring(mdf.getIdentifier())));} 
+            	catch (MalformedURLException e) 
+            	{e.printStackTrace();}
             	mdVO.setMdFormat(simpleLiteralTostring(mdf.getFormat()));
             	mdVO.setMdDefault(mdf.getDefault());
             	mdVO.setMdLabel(simpleLiteralTostring(mdf.getLabel()));
@@ -218,8 +256,12 @@ public class ImportSourceHandlerBean {
             {
             	FullTextVO fulltextVO = new FullTextVO();
             	fulltextVO.setFtDesc(simpleLiteralTostring(ftf.getDescription()));
-            	try {fulltextVO.setFtUrl(new URL (simpleLiteralTostring(ftf.getIdentifier())));} 
-            	catch (MalformedURLException e) {e.printStackTrace();}
+            	try 
+            	{
+            		fulltextVO.setFtUrl(new URL (simpleLiteralTostring(ftf.getIdentifier())));
+            		} 
+            	catch (MalformedURLException e) 
+            	{e.printStackTrace();}
             	fulltextVO.setFtFormat(simpleLiteralTostring(ftf.getFormat()));
             	fulltextVO.setFtDefault(ftf.getDefault());
             	fulltextVO.setFtLabel(simpleLiteralTostring(ftf.getLabel()));
@@ -230,19 +272,24 @@ public class ImportSourceHandlerBean {
         }
         
         //this.printSourceXML(sourceVO);
-        if (found){return sourceVO;}
-        else {return null;}		
+        if (found)
+        {return sourceVO;}
+        else 
+        {return null;}		
 	}
 	
-	public ImportSourceVO getSourceByIdentifier (String id)
+	public ImportSourceVO getSourceByIdentifier(String id)
 	{ 		
-		try{
+		try
+		{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml"); 	
 			this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
 		}
-		catch(XmlException e){e.printStackTrace();}
-		catch(IOException e){e.printStackTrace();}
+		catch(XmlException e)
+		{e.printStackTrace();}
+		catch(IOException e)
+		{e.printStackTrace();}
 	
         this.sourceType = this.sourceDoc.getImportSources();
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
@@ -256,14 +303,18 @@ public class ImportSourceHandlerBean {
         return null;
 	}
 	
-	public String getSourceNameByIdentifier (String id){
-		try{
+	public String getSourceNameByIdentifier(String id)
+	{
+		try
+		{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/sources.xml"); 	
 			this.sourceDoc = ImportSourcesDocument.Factory.parse(in);
 		}
-		catch(XmlException e){e.printStackTrace();}
-		catch(IOException e){e.printStackTrace();}
+		catch(XmlException e)
+		{e.printStackTrace();}
+		catch(IOException e)
+		{e.printStackTrace();}
 	
         this.sourceType = this.sourceDoc.getImportSources();
         ImportSourceType[] sources = this.sourceType.getImportSourceArray();
@@ -275,20 +326,24 @@ public class ImportSourceHandlerBean {
         	{return source.getName();}
         }
         return null;
-	}
+    }
 	
     /**
-     * This operation returns the metadata informations to fetch
-     * if no format from was specified the default metadata informations are fetched
+     * This operation returns the metadata informations to fetch.
+     * If no format from was specified the default metadata informations are fetched
      * @param source
+     * @param format the format of which the metadata will be retrieved
      * @return metadata informations
      */
-    public MetadataVO getMdObjectfromSource(ImportSourceVO source, String format){
+    public MetadataVO getMdObjectfromSource(ImportSourceVO source, String format)
+    {
     	MetadataVO md= null;
 
-    	for (int i=0; i< source.getMdFormats().size(); i++){
+    	for (int i=0; i< source.getMdFormats().size(); i++)
+    	{
         	md = source.getMdFormats().get(i);
-        	if (md.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase())){
+        	if (md.getMdLabel().trim().toLowerCase().equals(format.trim().toLowerCase()))
+        	{
         		return md;
             }
     	}
@@ -297,8 +352,10 @@ public class ImportSourceHandlerBean {
     }
 	
     /**
-     * This is the only source specific method, which has to be updated when a new source
-     * is specified for import
+     * This is the only source specific method, which has to be updated when a new source is specified for import.
+     * @param sourceName
+     * @param identifier
+     * @return the trimedIdentifier as String
      */
     public String trimIdentifier(String sourceName, String identifier)
     {
@@ -317,12 +374,14 @@ public class ImportSourceHandlerBean {
     	return identifier.trim();
     }
     
-    public MetadataVO getDefaultMdFormatFromSource(ImportSourceVO source){
-    	
-    	Vector <MetadataVO> md_v = source.getMdFormats();   	
-    	for (int i=0; i< md_v.size(); i++){
+    public MetadataVO getDefaultMdFormatFromSource(ImportSourceVO source)
+    {
+    	Vector <MetadataVO> mdv = source.getMdFormats();   	
+    	for (int i=0; i< mdv.size(); i++)
+    	{
 			MetadataVO mdVO = source.getMdFormats().get(i);
-    		if (mdVO.isMdDefault()){
+    		if (mdVO.isMdDefault())
+    		{
     			return mdVO;
         	}
     	}
@@ -330,51 +389,62 @@ public class ImportSourceHandlerBean {
     }
     
     /**
-     * This operation updates a metadata information set of the importSource
+     * This operation updates a metadata information set of the importSource.
+     * @param source
+     * @param md the metadata object which will be updated
      * @return ImportSourceVO with updated metadata informations
      */
-    public ImportSourceVO updateMdEntry(ImportSourceVO source, MetadataVO md){
-    	
-    	Vector <MetadataVO> md_v = source.getMdFormats();
+    public ImportSourceVO updateMdEntry(ImportSourceVO source, MetadataVO md)
+    {
+    	Vector <MetadataVO> mdv = source.getMdFormats();
 
-    	if (md != null){
-			for (int i=0; i< md_v.size(); i++){
+    	if (md != null)
+    	{
+			for (int i=0; i< mdv.size(); i++)
+			{
 				MetadataVO mdVO = source.getMdFormats().get(i);
-	    		if (mdVO.getMdLabel().trim().toLowerCase().equals(md.getMdLabel().trim().toLowerCase())){
-	    			md_v.setElementAt(md,i);
+	    		if (mdVO.getMdLabel().trim().toLowerCase().equals(md.getMdLabel().trim().toLowerCase()))
+	    		{
+	    			mdv.setElementAt(md,i);
 	        	}
 			}
     	}
     	
-		source.setMdFormats(md_v);
+		source.setMdFormats(mdv);
     	return source;
     }
     
 	/**
-	 * This operation gives back the name of all formats which can be transformed into the requested format
-	 * @param format, the format in which the object should be transformed
+	 * This operation gives back the name of all formats which can be transformed into the requested format.
+	 * @param transformFormat the format in which the object should be transformed
 	 * @return a list of formats which can be transformed into the requested format
 	 * TODO: Bring this into MetadataHandler
 	 */
-	public Vector<String> getFormatsForTransformation(String transformFormat){
+	public Vector<String> getFormatsForTransformation(String transformFormat)
+	{
 	
 		Vector <String> formats = new Vector<String>();
-		try{
+		try
+		{
 			ClassLoader cl = this.getClass().getClassLoader();
 			java.io.InputStream in = cl.getResourceAsStream("resources/transformations.xml"); 	
 			this.transformDoc = TransformationsDocument.Factory.parse(in);
 		}
-		catch(XmlException e){e.printStackTrace();}
-		catch(IOException e){e.printStackTrace();}
+		catch(XmlException e)
+		{e.printStackTrace();}
+		catch(IOException e)
+		{e.printStackTrace();}
 	
         this.transformType = this.transformDoc.getTransformations();
         TransformationType[] transformations = this.transformType.getTransformationArray();
         for (TransformationType transformation : transformations)
         {
         	MetadataformatsType mdFormats = transformation.getMetadataFormats();
-        	for (MetadataformatType mdFormat : mdFormats.getMetadataFormatArray()){
+        	for (MetadataformatType mdFormat : mdFormats.getMetadataFormatArray())
+        	{
         		String mdFormatStr = this.simpleLiteralTostring(mdFormat.getLabel());
-        		if (mdFormatStr.trim().toLowerCase().equals(transformFormat.toLowerCase())){
+        		if (mdFormatStr.trim().toLowerCase().equals(transformFormat.toLowerCase()))
+        		{
         			
         			formats.add(this.simpleLiteralTostring(transformation.getFormat()));
         		}
@@ -384,7 +454,8 @@ public class ImportSourceHandlerBean {
         return formats;
 	}
 	
-	private String simpleLiteralTostring (SimpleLiteral sl){
+	private String simpleLiteralTostring(SimpleLiteral sl)
+	{
 		return sl.toString().substring(sl.toString().indexOf(">") + 1, sl.toString().lastIndexOf("<"));
 	}
 	
@@ -392,48 +463,47 @@ public class ImportSourceHandlerBean {
 	 * Print out source values for debug purpose
 	 * @param source
 	 */
-	public void printSourceXML(ImportSourceVO source){
-		
-		logger.info("____________________________________________________________________");
-		logger.info("Source Name      	: " + source.getName());
-		logger.info("Description      	: " + source.getDescription());
-		logger.info("Main URL         	: " + java.net.URLDecoder.decode(source.getUrl().toString()));
-		logger.info("Doc type     	  	: " + source.getType());
-		logger.info("Doc encoding     	: " + source.getEncoding());
-		logger.info("Identfier			: " + source.getIdentifier());
-		logger.info("Harvest protocol 	: " + source.getHarvestProtocol());
-		logger.info("Timeout		 	: " + source.getTimeout());
-		logger.info("Retry after	 	: " + source.getRetryAfter());
-		logger.info("Number of tries	: " + source.getNumberOfTries());
-		logger.info("Status				: " + source.getStatus());
-		logger.info("____________________________________________________________________");
+	public void printSourceXML(ImportSourceVO source)
+	{
+		String seperator = "____________________________________________________________________";
+		LOGGER.info(seperator);
+		LOGGER.info("Source Name      	: " + source.getName());
+		LOGGER.info("Description      	: " + source.getDescription());
+		LOGGER.info("Main URL         	: " + java.net.URLDecoder.decode(source.getUrl().toString()));
+		LOGGER.info("Doc type     	  	: " + source.getType());
+		LOGGER.info("Doc encoding     	: " + source.getEncoding());
+		LOGGER.info("Identfier			: " + source.getIdentifier());
+		LOGGER.info("Harvest protocol 	: " + source.getHarvestProtocol());
+		LOGGER.info("Timeout		 	: " + source.getTimeout());
+		LOGGER.info("Retry after	 	: " + source.getRetryAfter());
+		LOGGER.info("Number of tries	: " + source.getNumberOfTries());
+		LOGGER.info("Status				: " + source.getStatus());
+		LOGGER.info(seperator);
 
 		for (int i =0; i< source.getMdFormats().size(); i++)
 		{
 			MetadataVO md = source.getMdFormats().get(i);
-			logger.info("____________________________________________________________________");
-			logger.info("MD description		: " + md.getMdDesc());
-			logger.info("MD format			: " + md.getMdFormat());
-			logger.info("MD label			: " + md.getMdLabel());
-			logger.info("MD URL				: " + java.net.URLDecoder.decode(md.getMdUrl().toString()));
-			logger.info("MD default			: " + md.isMdDefault());
-			logger.info("____________________________________________________________________");
+			LOGGER.info(seperator);
+			LOGGER.info("MD description		: " + md.getMdDesc());
+			LOGGER.info("MD format			: " + md.getMdFormat());
+			LOGGER.info("MD label			: " + md.getMdLabel());
+			LOGGER.info("MD URL				: " + java.net.URLDecoder.decode(md.getMdUrl().toString()));
+			LOGGER.info("MD default			: " + md.isMdDefault());
+			LOGGER.info(seperator);
 			
 		}
 		
 		for (int i =0; i< source.getFtFormats().size(); i++)
 		{
 			FullTextVO ft = source.getFtFormats().get(i);
-			logger.info("____________________________________________________________________");
-			logger.info("FT description		: " + ft.getFtDesc());
-			logger.info("FT format			: " + ft.getFtFormat());
-			logger.info("FT label			: " + ft.getFtLabel());
-			logger.info("FT URL				: " + java.net.URLDecoder.decode(ft.getFtUrl().toString()));
-			logger.info("FT default			: " + ft.isFtDefault());
-			logger.info("____________________________________________________________________");
+			LOGGER.info(seperator);
+			LOGGER.info("FT description		: " + ft.getFtDesc());
+			LOGGER.info("FT format			: " + ft.getFtFormat());
+			LOGGER.info("FT label			: " + ft.getFtLabel());
+			LOGGER.info("FT URL				: " + java.net.URLDecoder.decode(ft.getFtUrl().toString()));
+			LOGGER.info("FT default			: " + ft.isFtDefault());
+			LOGGER.info(seperator);
 			
 		}
-		logger.info("____________________________________________________________________");		
 	}
-	
 }

@@ -58,6 +58,7 @@ import javax.interceptor.Interceptors;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
+import metsExport.METSTransformation;
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -85,7 +86,6 @@ import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
-import de.mpg.escidoc.services.virr.transformation.METSTransformation;
 
 
 /**

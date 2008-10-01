@@ -76,7 +76,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		{
 			command = command.substring(1);
 		}
-		System.out.println(request.getRequestURL());
+
+		//if zotero => response will not be an attachement
 		if (request.getRequestURL().toString().contains("zotero"))
 		{
 			this.zotero = true;
