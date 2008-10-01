@@ -12,8 +12,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common/cone_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common/cone_ear</developerConnection>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/cone_ear</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
