@@ -252,6 +252,11 @@
 	    	<version>1.1.13</version>
 	    	<scope>provided</scope>
 	    </dependency>
+	    <dependency>
+			<groupId>postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<version>8.1-407.jdbc3</version>
+		</dependency>  
 </dependencies>
 
 	<profiles>
