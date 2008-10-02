@@ -31,6 +31,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.xml.namespace.QName;
+
+import org.apache.xmlbeans.SchemaType;
 import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlObject;
@@ -147,10 +150,12 @@ public class WriteMETSData {
 	    //DVRights
 	    MdSecType rightsMD = this.amdSec.addNewRightsMD();
 	    rightsMD.setID("rights" + id);
+	    
 	    MdWrap wrap = rightsMD.addNewMdWrap();
 	    wrap.setMIMETYPE("text/xml");
 	    wrap.setMDTYPE(MdWrap.MDTYPE.OTHER);
 	    wrap.setOTHERMDTYPE("DVRIGHTS");
+
 	    XmlData xml = wrap.addNewXmlData();
 	    XmlObject dvrights = XmlObject.Factory.newInstance();
 	    XmlCursor cur = dvrights.newCursor();
