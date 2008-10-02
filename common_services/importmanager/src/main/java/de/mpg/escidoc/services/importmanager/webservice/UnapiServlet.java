@@ -1,7 +1,9 @@
 package de.mpg.escidoc.services.importmanager.webservice;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
@@ -34,7 +37,6 @@ import de.mpg.escidoc.services.importmanager.valueobjects.MetadataVO;
 
 /**
  * This class provides the implementation of the {@link Unapi} interface.
- * 
  * @author Friederike Kleinfercher (initial creation)
  */
 public class UnapiServlet extends HttpServlet implements Unapi 
@@ -169,6 +171,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 	{
 
 		Vector<ImportSourceVO> sources;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream(); 
 
 		try 
 		{
@@ -198,12 +201,19 @@ public class UnapiServlet extends HttpServlet implements Unapi
 				// disclaim.set(sourceDisclaim);
 			}
 
-			return xmlSourceDoc.toString().getBytes();
-		} catch (Exception e) {
+	        XmlOptions xOpts = new XmlOptions();
+	        xOpts.setSavePrettyPrint();
+	        xOpts.setSavePrettyPrintIndent(4);
+	        xOpts.setUseDefaultNamespace();
+	        xmlSourceDoc.save(baos,xOpts);
+
+		} 
+		catch (Exception e) 
+		{
 			logger.error("Error writing unapi-sources.xml", e);
 		}
 
-		return null;
+		return baos.toByteArray();
 	}
 
 	/**
@@ -215,6 +225,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 	public byte[] unapi(String identifier, boolean show) 
 	{
 
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();        
 		Vector<FullTextVO> v_ft = new Vector<FullTextVO>();
 		Vector<MetadataVO> v_md = new Vector<MetadataVO>();
 
@@ -266,7 +277,17 @@ public class UnapiServlet extends HttpServlet implements Unapi
 			xmlFormat.setType(ft.getFtFormat());
 		}
 
-		return xmlFormatsDoc.toString().getBytes();
+        try {
+        	XmlOptions xOpts = new XmlOptions();
+        	xOpts.setSavePrettyPrint();
+        	xOpts.setSavePrettyPrintIndent(4);
+        	xOpts.setUseDefaultNamespace();
+			xmlFormatsDoc.save(baos,xOpts);
+		} 
+        catch (IOException e) 
+        {e.printStackTrace();}
+
+		return baos.toByteArray();
 		// TODO
 		// Get additional formats provided by internal transformations
 	}
