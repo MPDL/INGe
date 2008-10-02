@@ -252,6 +252,8 @@ public class WriteMETSData {
 	        dmd.add(this.dmdSec.getID());
 	        this.physRoot.setADMID(amd);
 	        this.physRoot.setDMDID(dmd);
+	        //DFG Requirement
+	        this.physRoot.setTYPE("physSequence");
 	    }
 	    else 
 	    {
