@@ -64,7 +64,8 @@ public class METSTransformation extends XmlIO{
 		    xOpts.setSavePrettyPrintIndent(4);
 	        Map<String, String> namespaces = new HashMap<String, String>();
 	        namespaces.put("http://www.loc.gov/mods/v3", "mods");
-	        namespaces.put("http://www.w3.org/1999/xlink", "xlink");
+	        namespaces.put("http://www.w3.org/1999/xlink", "xlink");       
+	        namespaces.put("http://dfg-viewer.de/", "dv");
 	        xOpts.setSaveSuggestedPrefixes(namespaces);
 	        in = this.writeMETS.getMetsDoc(metsId).newInputStream(xOpts);
 	        
@@ -214,7 +215,8 @@ public class METSTransformation extends XmlIO{
 					}
 				}
 				
-				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, page.getORDER().toString(),page.getORDERLABEL(), divId+"", page.getTYPE(), false);
+				//Tmp +1 till we fixed that order starts at 0
+				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, page.getORDER().toString()+1,page.getORDERLABEL(), divId+"", page.getTYPE(), false);
 				divId++;
 			}
 		} 
