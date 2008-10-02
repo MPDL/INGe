@@ -3,6 +3,7 @@ package metsExport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,6 +13,8 @@ import org.apache.xmlbeans.XmlOptions;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+
+import sun.security.util.BigInt;
 
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
@@ -216,7 +219,9 @@ public class METSTransformation extends XmlIO{
 				}
 				
 				//Tmp +1 till we fixed that order starts at 0
-				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, page.getORDER().toString()+1,page.getORDERLABEL(), divId+"", page.getTYPE(), false);
+				int order = Integer.parseInt(page.getORDER().toString());
+				order++;
+				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, order+"",page.getORDERLABEL(), divId+"", page.getTYPE(), false);
 				divId++;
 			}
 		} 
