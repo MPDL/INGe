@@ -150,9 +150,9 @@ public class METSTransformation extends XmlIO{
 		String amdId ="amd1";
 		
 		//TODO: Read this from properties
-		owner = "Max Planck Digital Library";
-		logo = "http://www.mpdl.mpg.de/mpdl/sys/css/screen/images/logo.gif"; 
-		url = "http://mpdl.mpg.de";
+		owner = "Max Planck Institute for European Legal History ";
+		logo = "http://www.mpier.uni-frankfurt.de/images/minerva_logo.gif "; 
+		url = "http://www.mpier.uni-frankfurt.de ";
 		reference ="TODO";
 			
 		this.writeMETS.createAmdSec(amdId, owner, logo, url, reference);
