@@ -113,6 +113,8 @@
 			function suggest() {
 			
 				var q = $.trim($input.val());
+				var lang = '';
+				lang = $('body').attr('lang');
 
 				if (q.length >= options.minchars) {
 					
@@ -128,7 +130,7 @@
 							processData: false,
 							type: "GET",
 							url: options.source,
-							data: "q="+escape(q),
+							data: "lang="+lang+"&q="+escape(q),
 							success:function(txt){
 									$results.hide();
 									var items = parseTxt(txt, q);

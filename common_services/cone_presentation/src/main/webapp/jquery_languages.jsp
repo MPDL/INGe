@@ -10,7 +10,7 @@
 		<link href="./js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 		<title>CONE 4 JQuery</title>
 	</head>
-	<body>
+	<body lang="de">
 		<h1>CONE 4 JQuery</h1>
 		<form name="form1" method="get">
 			Enter query string:
