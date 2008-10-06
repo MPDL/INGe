@@ -70,6 +70,7 @@
 					<%-- Publication Language --%>
 					<div class="easySubmissionLangItem">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage}"/>
+						<input type="text" class="languageSuggest" />
 						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
 							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
 						</h:selectOneMenu>
