@@ -66,7 +66,7 @@ public class PropertyReader
 
     private static final String PROPERTY_FILE_KEY = "pubman.properties.file";
     
-    private static URI solution;
+    private static URL solution;
 
     /**
      * Gets the value of a property for the given key from the system properties or the escidoc property file.
@@ -116,11 +116,12 @@ public class PropertyReader
         {
             try
             {
-            solution = PropertyReader.class.getClassLoader().getResource("solution.properties").toURI();
+            solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
             }
             catch (Exception e)
             {
-                e.getMessage();
+                Logger.getLogger(PropertyReader.class).warn("WARNING: solution.properties not found: " + e.getMessage());
+
             }
             if (solution != null)
             {
