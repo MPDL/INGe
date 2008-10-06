@@ -326,6 +326,9 @@
 					</h:panelGroup>
 				</h:column>
 			</h:dataTable>
+			<script type="text/javascript">
+				$('.languageSuggest').suggest('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/lang/query');
+			</script>
 			<%-- SUBJECT --%>
 			<h:panelGroup layout="block" id="panSubject" styleClass="floatbox fullWidth">
 				<h:panelGroup layout="block" styleClass="editItemLeftCol">			
