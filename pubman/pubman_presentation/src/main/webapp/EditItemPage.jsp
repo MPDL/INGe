@@ -55,7 +55,7 @@
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 
 </head>
-<body>
+<body lang="#{InternationalizationHelper.locale}">
 	<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 	<div id="page_margins">
 						<div id="page">
