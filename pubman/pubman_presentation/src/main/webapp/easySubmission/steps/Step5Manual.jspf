@@ -95,7 +95,9 @@
 					<h:inputTextarea styleClass="journalSuggest" rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{EasySubmission.autosuggestJournals}"/>
 					</div>
 					
-					<script type="text/javascript">$(".journalSuggest").suggest('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/jnar/query');
+					<script type="text/javascript">
+						$(".journalSuggest").suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query');
+						$('.languageSuggest').suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query');
 					</script>
 				</div>
 				

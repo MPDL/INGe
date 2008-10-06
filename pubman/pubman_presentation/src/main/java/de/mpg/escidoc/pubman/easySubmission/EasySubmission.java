@@ -85,6 +85,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.importmanager.ImportHandler;
 import de.mpg.escidoc.services.importmanager.ImportHandlerBean;
@@ -174,6 +175,8 @@ public class EasySubmission extends FacesBean
 
 	private HtmlMessages valMessage = new HtmlMessages();
     private boolean autosuggestJournals = false;
+    
+    private String suggestConeUrl = null;
 
     /**
      * Public constructor.
@@ -1955,6 +1958,21 @@ public class EasySubmission extends FacesBean
             this.autosuggestJournals = false;
            }
         return "";
+    }
+	
+	/**
+	 * This method returns the URL to the cone autosuggest service read from the properties
+	 * @author Tobias Schraut
+	 * @return String the URL to the cone autosuggest service
+	 * @throws Exception
+	 */
+	public String getSuggestConeUrl() throws Exception
+    {
+        if (suggestConeUrl == null)
+        {
+            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+        }
+        return suggestConeUrl;
     }
 
     public void setAutosuggestJournals(boolean autosuggestJournals)
