@@ -171,7 +171,9 @@ public class ItemListSessionBean extends FacesBean
     
     public boolean getIsSearchResultList()
     {
-    	boolean isSearchresultList = false;
+    	//will be always set to true due to the need of showing checkboxes also in the workspaces.
+    	//TODO ScT: method logic can  be removed when it is fully clarified if items can be exported from anywhere 
+    	boolean isSearchresultList = true;
     	
     	// check in the list of one item is of type search result
     	if(this.currentPubItemList != null && this.currentPubItemList.size() > 0)
