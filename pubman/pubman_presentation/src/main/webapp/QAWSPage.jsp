@@ -65,6 +65,9 @@
 										<span class="mainMenu">
 											<jsp:directive.include file="desktop/Navigation.jspf"/> 
 										</span>
+										<div class="export">
+											<jsp:directive.include file="export/Export.jspf"/>
+										</div>
 									</div>
 									<div id="col2">
 										&#xa0;
