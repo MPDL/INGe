@@ -64,6 +64,7 @@ public class InternationalizationHelper
     public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.html";
     public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.html";
     private String selectedHelpPage;
+    private String locale = "en";
     
     public List<String> test = new ArrayList<String>();
     
@@ -82,7 +83,11 @@ public class InternationalizationHelper
 
     public InternationalizationHelper()
     {
-        userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+        if(FacesContext.getCurrentInstance().getExternalContext().getRequestLocale() != null)
+        {
+        	this.locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale().toString();
+        }
+    	userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
         Iterator<Locale> supportedLocales = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
         
         boolean found = false;
@@ -130,12 +135,14 @@ public class InternationalizationHelper
     public void toggleLocale(ActionEvent event)
     {
         FacesContext fc = FacesContext.getCurrentInstance();
+        
         //
         // toggle the locale
         Locale locale = null;
         Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
         String language = (String) map.get("language");
         String country = (String) map.get("country");
+        this.locale = language;
         try
         {
             locale = new Locale(language, country);
@@ -432,5 +439,15 @@ public class InternationalizationHelper
 
         return getSelectItemsForEnum(false, values);
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+    
+    
 
 }
