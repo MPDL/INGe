@@ -267,10 +267,14 @@
 			
 				if ($currentResult) {
 					$input.val($currentResult.text());
+					$input.resultID = getResultID($currentResult.text());
 					$results.hide();
 					
 					if (options.onSelect)
-						options.onSelect.apply(getResultID($currentResult.text()));
+					/*	options.onSelect.apply(getResultID($currentResult.text())); */
+						var args = new Array( getResultID($currentResult.text()) );
+						
+						options.onSelect.apply($input);
 				}
 			
 			}

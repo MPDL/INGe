@@ -14,10 +14,10 @@
 		<h1>CONE 4 JQuery</h1>
 		<form name="form1" method="get">
 			Enter query string:
-			<input class="journalSuggest" id="test1"/>
-			<input class="journalSuggest" id="test2"/>
+			<input class="languageSuggest" id="test1"/>
+			<input class="languageSuggest" id="test2"/>
 			<script type="text/javascript">
-				$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/lang/query",{ onSelect: function() {alert("You selected: " + this)}});
+				$(".languageSuggest").suggest("http://localhost:8080/cone/jquery/lang/query",{ onSelect: function() {alert("You selected: " + this)}});
 			</script>
 		</form>
 	</body>
