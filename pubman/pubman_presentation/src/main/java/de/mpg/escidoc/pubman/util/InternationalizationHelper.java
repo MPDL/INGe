@@ -83,11 +83,7 @@ public class InternationalizationHelper
 
     public InternationalizationHelper()
     {
-        if(FacesContext.getCurrentInstance().getExternalContext().getRequestLocale() != null)
-        {
-        	this.locale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale().toString();
-        }
-    	userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
+        userLocale = FacesContext.getCurrentInstance().getExternalContext().getRequestLocale();
         Iterator<Locale> supportedLocales = FacesContext.getCurrentInstance().getApplication().getSupportedLocales();
         
         boolean found = false;
@@ -113,6 +109,7 @@ public class InternationalizationHelper
         {
             selectedHelpPage = HELP_PAGE_EN;
         }
+        locale = userLocale.getLanguage();
         NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
     }
 
