@@ -98,7 +98,7 @@
 					
 					<script type="text/javascript">
 						$(".journalSuggest").suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query');
-						$('.languageSuggest').suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query');
+						$('.languageSuggest').suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query', { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); }    });
 					</script>
 				</div>
 				
