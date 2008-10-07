@@ -33,8 +33,13 @@
 
 <f:subview id="viewItemShort">
 	
-	<!-- COinS -->
+	<!-- COinS 
 	<h:outputText value="#{item.coins}" escape="false"/>
+    -->
+
+	<!-- unAPI identifier -->
+	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false"/>
+	
 	
 	<!-- Creators -->
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
