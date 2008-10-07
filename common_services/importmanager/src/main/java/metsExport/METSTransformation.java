@@ -3,9 +3,10 @@ package metsExport;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
+
+import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
@@ -13,8 +14,6 @@ import org.apache.xmlbeans.XmlOptions;
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-
-import sun.security.util.BigInt;
 
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
@@ -85,34 +84,10 @@ public class METSTransformation extends XmlIO{
         
         return baos.toByteArray();
     }
-    
-	/**
-	 * retrieves the baseURL for accessing the item.
-	 * @param escidocToc
-	 */
-	private void getBaseURL(String escidocToc)
-	{
-		//TODO
-		Document tocDoc;
-		try {
-			tocDoc = getDocument(escidocToc, false);
-//			Node attr = tocDoc.getElementsByTagName("escidocToc:toc").item(0).getAttributes().getNamedItem("xml:base");
-//			System.out.println(attr);
-//			this.baseURL = attr.getLocalName();
-			
-			NamedNodeMap a = tocDoc.getElementsByTagName("escidocToc:toc").item(0).getAttributes();
-			Node xml = a.getNamedItem("xml:base");
-			this.baseURL = xml.getTextContent();
-			System.out.println("Base: " + this.baseURL);
-			
-			TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
-		} 
-		catch (Exception e) {e.printStackTrace();}
-		
-	}
+
     
     /**
-     * Gets the escidoc:toc values for mets dmd section.
+     * Gets the escidoc:toc values for mets dmd section (from the book container).
      * @param escidocToc
      */
 	private void createDmdSec(String escidocToc)

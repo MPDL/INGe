@@ -19,12 +19,12 @@ import org.apache.xmlbeans.XmlOptions;
 import org.apache.xmlbeans.XmlString;
 import org.purl.dc.elements.x11.SimpleLiteral;
 
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.FormatType;
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.FormatsDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.FormatsType;
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.SourceType;
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.SourcesDocument;
-import de.mpg.escidoc.metadataprofile.schema.x01.formats.SourcesType;
+import noNamespace.FormatType;
+import noNamespace.FormatsDocument;
+import noNamespace.FormatsType;
+import noNamespace.SourceType;
+import noNamespace.SourcesDocument;
+import noNamespace.SourcesType;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.metadata.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.importmanager.ImportHandlerBean;
@@ -176,8 +176,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		try 
 		{
 			sources = this.sourceHandler.getSources();
-			SourcesDocument xmlSourceDoc = SourcesDocument.Factory
-					.newInstance();
+			SourcesDocument xmlSourceDoc = SourcesDocument.Factory.newInstance();
 			SourcesType xmlSources = xmlSourceDoc.addNewSources();
 
 			for (int i = 0; i < sources.size(); i++) 
@@ -247,7 +246,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 		FormatsDocument xmlFormatsDoc = FormatsDocument.Factory.newInstance();
 		FormatsType xmlFormats = xmlFormatsDoc.addNewFormats();
 		
-		if (show){
+		if (show)
+		{
 			xmlFormats.setId(identifier);
 		}
 
@@ -262,7 +262,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
 			xmlFormat.setName(md.getMdLabel().toLowerCase());
 			xmlFormat.setType(md.getMdFormat());
-			if (md.getMdDesc() != null) {
+			if (md.getMdDesc() != null) 
+			{
 				xmlFormat.setDocs(md.getMdDesc());
 			}
 		}
@@ -277,11 +278,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
 			xmlFormat.setType(ft.getFtFormat());
 		}
 
-        try {
+        try 
+        {
         	XmlOptions xOpts = new XmlOptions();
         	xOpts.setSavePrettyPrint();
         	xOpts.setSavePrettyPrintIndent(4);
-        	xOpts.setUseDefaultNamespace();
 			xmlFormatsDoc.save(baos,xOpts);
 		} 
         catch (IOException e) 
@@ -319,8 +320,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
 			}
 			if (idType.equals(this.ID_TYPE_URL)) 
 			{
-				return this.importHandler.fetchMetadatafromURL(new URL(
-						identifier));
+				return this.importHandler.fetchMetadatafromURL(new URL(identifier));
 			}
 			if (idType.equals(this.ID_TYPE_ESCIDOC)) 
 			{
@@ -379,8 +379,8 @@ public class UnapiServlet extends HttpServlet implements Unapi
 
 	/**
 	 * EsciDoc Identifier can consist of the citation URL, like.
-	 * http://test-pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. This
-	 * methods extracts the identifier from the URL
+	 * http://pubman.mpdl.mpg.de:8080/pubman/item/escidoc:1048:3. 
+	 * This method extracts the identifier from the URL
 	 */
 	private String setEsciDocIdentifier(String Identifier) 
 	{
