@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -70,6 +71,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.SearchResult;
@@ -117,7 +119,11 @@ public class SearchResultList extends ItemList
     //StG: String used for displaying of export items 
     private String displayExportData = null;
     
-    enum TypeOfList {
+    //unapi interface for zotero
+    private String unapiURLzotero;
+
+
+	enum TypeOfList {
     	SIMPLE_SEARCH,
     	ADVANCED_SEARCH,
     	AFFILIATION_SEARCH
@@ -145,6 +151,14 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
+        
+        String unapiURL;
+		try {
+			unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+			this.unapiURLzotero = unapiURL.replaceFirst("unapi", "zotero");
+		} 
+		catch (IOException e) {e.printStackTrace();} 
+		catch (URISyntaxException e) {e.printStackTrace();}   
         
     }
 
@@ -928,5 +942,14 @@ public class SearchResultList extends ItemList
 	
 	public boolean getQueryIsRendered() {
 		return valQuery.isRendered();
+	}
+	
+    
+    public String getUnapiURLzotero() {
+		return this.unapiURLzotero;
+	}
+
+	public void setUnapiURLzotero(String unapiURLzotero) {
+		this.unapiURLzotero = unapiURLzotero;
 	}
 }
