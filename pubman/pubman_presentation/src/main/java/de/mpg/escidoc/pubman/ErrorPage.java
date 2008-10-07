@@ -73,6 +73,9 @@ public class ErrorPage extends BreadcrumbPage
     
     private Exception exception = null;    
     private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();
+    
+    private String summary = null;
+    private String detail = null;
 
 
     /**
@@ -111,9 +114,6 @@ public class ErrorPage extends BreadcrumbPage
     {
         // remove all elements
         this.panPageAlert.getChildren().clear();
-        
-        String summary = "";
-        String detail = "";
 
         if (this.exception == null)
         {
@@ -127,7 +127,7 @@ public class ErrorPage extends BreadcrumbPage
         else if ( exception instanceof ParseException )
         {
             summary = getMessage("search_ParseError");
-            detail = this.exception.getClass().toString();            
+            detail = this.getStackTrace();          
         }
         /*
         // this exception indicates that the user tried to accept an item without changing it; if this exception is no longer thrown by the framework we should have to check for changes of the item manually
@@ -141,8 +141,8 @@ public class ErrorPage extends BreadcrumbPage
         else
         {
             // an exception has been set before
-            summary = this.exception.getClass().toString();
-            detail = this.exception.toString();
+            summary = this.exception.getCause().toString();
+            detail = this.getStackTrace();
         }
         
         // set the attributes of the pageAlert component
@@ -213,6 +213,16 @@ public class ErrorPage extends BreadcrumbPage
         return panPageAlert;
     }
 
+    public String getSummary()
+    {
+        return summary;
+    }
+
+    public String getDetail()
+    {
+        return detail;
+    }
+
     /**
      * Sets the panel with the pageAlert.
      * @param panPageAlert the new pageAlert component
@@ -238,5 +248,6 @@ public class ErrorPage extends BreadcrumbPage
     public void setException(Exception exception)
     {
         this.exception = exception;
+        this.init();
     }
 }

@@ -78,11 +78,11 @@
 											<input type="button" id="error-button" onclick="toggleErrorMessage()" value="+" class="inlineButton errorPageExpander"/>
 											<br/>
 											<div class="errorMessageContent" id="error-message-div">
-												<h:outputText value="#{ErrorPage.exception.message}"/>
+												<h:outputText value="#{ErrorPage.summary}"/>
 												<br/>
 												<br/>
 												<pre>
-													<h:outputText value="#{ErrorPage.stackTrace}"/>
+													<h:outputText value="#{ErrorPage.detail}"/>
 												</pre>
 											</div>
 										</div>

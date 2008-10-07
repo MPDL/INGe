@@ -522,7 +522,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items.", e);
-            ((ErrorPage) InternationalizedImpl.getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) InternationalizedImpl.getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }

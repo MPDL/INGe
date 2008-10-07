@@ -36,6 +36,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.BooleanOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
@@ -145,36 +146,52 @@ public class DateCriterion extends Criterion
     	}
     }
     
-    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    private ArrayList<CriterionType>getCriterionsList() throws TechnicalException {
+        ArrayList<CriterionType> list = new ArrayList<CriterionType>();
+        if( dateTypeList.size() == 0 ) {
+            List<DateType> dateList = new ArrayList<DateType>();
+            dateList.add( DateType.ACCEPTED );
+            dateList.add( DateType.CREATED );
+            dateList.add( DateType.MODIFIED );
+            dateList.add( DateType.PUBLISHED_ONLINE );
+            dateList.add( DateType.PUBLISHED_PRINT );
+            dateList.add( DateType.SUBMITTED );
+            for( int i = 0; i < dateList.size(); i++ ) {
+                list.add( getCriterionByDateType( dateList.get( i ) ) );
+            }
+        }
+        else
+        {
+            for( int i = 0; i < dateTypeList.size(); i++ ) {
+                list.add( getCriterionByDateType( dateTypeList.get( i ) ) );
+            }
+        }
+        return list;
+    }
+    
+    public  ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
     	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>(); 	
+    	
+    	
     	if( isFromEmpty() == true ) {
-    		// return an empty criteria list
+    		// required field missing, return an empty criteria list
     	}
-    	else {
-    		if( isToEmpty() == true ) {
+    	else if( isToEmpty() == true ) {
     			Date currentDate = new Date();   //actual date
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    			 for( int i = 0; i < dateTypeList.size(); i++ ) {
-    				 MetadataSearchCriterion criterionFrom = 
-    					 new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, BooleanOperator.GREATER_THAN_EQUALS, LogicalOperator.OR );
-    				 MetadataSearchCriterion criterionTo = 
-    					 new MetadataSearchCriterion( getCriterionByDateType( 
-    							 dateTypeList.get( i ) ), dateFormat.format(currentDate), BooleanOperator.LESS_THAN_EQUALS, LogicalOperator.AND );
-    			 criterions.add( criterionFrom );
-    			 criterions.add( criterionTo );
-    			 }
-    		}
-    		else {
-    			for( int i = 0; i < dateTypeList.size(); i++ ) {
-    				MetadataSearchCriterion criterionFrom = 
-    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), from, BooleanOperator.GREATER_THAN_EQUALS, LogicalOperator.OR );
-    				MetadataSearchCriterion criterionTo = 
-    					new MetadataSearchCriterion( getCriterionByDateType( dateTypeList.get( i ) ), to, BooleanOperator.LESS_THAN_EQUALS, LogicalOperator.AND );
-    				criterions.add( criterionFrom );
-    				criterions.add( criterionTo );
-    			}		
-    		}
+    			
+                MetadataDateSearchCriterion criterion = 
+                    new MetadataDateSearchCriterion( getCriterionsList(), from, 
+                            dateFormat.format(currentDate)); 	
+                criterions.add(criterion);
     	}
+    	else 
+    	{
+    	    MetadataDateSearchCriterion criterion = 
+                new MetadataDateSearchCriterion( getCriterionsList(), from, to );
+    	    criterions.add(criterion);
+    	}
+    	
 	   	return criterions;
 	} 
 }
