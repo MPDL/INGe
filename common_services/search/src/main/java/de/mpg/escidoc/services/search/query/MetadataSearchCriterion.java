@@ -6,6 +6,7 @@ package de.mpg.escidoc.services.search.query;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
@@ -31,7 +32,9 @@ public class MetadataSearchCriterion implements Serializable
     /** Criteria types for the search criterion. */
     public enum CriterionType
     {
-        TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY, DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC, SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE,
+        TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
+        DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
+        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE,
     };
 
     /**
@@ -55,11 +58,11 @@ public class MetadataSearchCriterion implements Serializable
     }
 
     /** The cql AND constant. */
-    private static final String CQL_AND = "and";
+    protected static final String CQL_AND = "and";
     /** The cql OR constant. */
-    private static final String CQL_OR = "or";
+    protected static final String CQL_OR = "or";
     /** The cql NOT constant. */
-    private static final String CQL_NOT = "not";
+    protected static final String CQL_NOT = "not";
 
     private static final String BOOLEAN_EQUALS = "=";
     private static final String BOOLEAN_GREATER_THAN_EQUALS = ">=";
@@ -116,6 +119,7 @@ public class MetadataSearchCriterion implements Serializable
     private String searchTerm = null;
     private LogicalOperator logicalOperator = null;
     private BooleanOperator cqlOperator = null;
+    private ArrayList<CriterionType> typeList = null;
 
     /**
      * Constructor with criterion type and search term.
@@ -124,14 +128,19 @@ public class MetadataSearchCriterion implements Serializable
      *            the type of a criteria
      * @param searchTerm
      *            the term to search for
-     * @throws TechnicalException  if creation of object fails
+     * @throws TechnicalException
+     *             if creation of object fails
      */
     public MetadataSearchCriterion(CriterionType type, String searchTerm) throws TechnicalException
     {
-        this.searchIndexes = setIndexByEnum(type);
+        typeList = new ArrayList<CriterionType>();
+
         this.searchTerm = searchTerm;
+
+        this.searchIndexes = setIndexByEnum(type);
         this.logicalOperator = LogicalOperator.UNSET;
         this.cqlOperator = BooleanOperator.EQUALS;
+        this.typeList.add(type);
     }
 
     /**
@@ -150,10 +159,12 @@ public class MetadataSearchCriterion implements Serializable
     public MetadataSearchCriterion(CriterionType type, String searchTerm, BooleanOperator booleanOperator)
         throws TechnicalException
     {
-        this.searchIndexes = setIndexByEnum(type);
+        typeList = new ArrayList<CriterionType>();
         this.searchTerm = searchTerm;
+        this.searchIndexes = setIndexByEnum(type);
         this.logicalOperator = LogicalOperator.UNSET;
         this.cqlOperator = BooleanOperator.EQUALS;
+        this.typeList.add(type);
     }
 
     /**
@@ -168,41 +179,67 @@ public class MetadataSearchCriterion implements Serializable
      *            the boolean operator to combine two search criteria
      * @param operator
      *            the boolean operator to use between the index and the search
-     * @throws TechnicalException if creation of object fails
+     * @throws TechnicalException
+     *             if creation of object fails
      */
     public MetadataSearchCriterion(CriterionType type, String searchTerm, BooleanOperator booleanOperator,
             LogicalOperator operator) throws TechnicalException
     {
-        this.searchIndexes = setIndexByEnum(type);
+        typeList = new ArrayList<CriterionType>();
         this.searchTerm = searchTerm;
+        this.searchIndexes = setIndexByEnum(type);
         this.logicalOperator = operator;
         this.cqlOperator = booleanOperator;
+        this.typeList.add(type);
     }
 
     /**
-     * Constructor with criterion type, search term and
-     * logical operator.
-     * @param type the type of a criteria
-     * @param searchTerm the term to search for
-     * @param operator the boolean operator to use between the index and the search
-     * @throws TechnicalException if creation of object fails
+     * Constructor with criterion type, search term and logical operator.
+     * 
+     * @param type
+     *            the type of a criteria
+     * @param searchTerm
+     *            the term to search for
+     * @param operator
+     *            the boolean operator to use between the index and the search
+     * @throws TechnicalException
+     *             if creation of object fails
      */
     public MetadataSearchCriterion(CriterionType type, String searchTerm, LogicalOperator operator)
         throws TechnicalException
     {
-        this.searchIndexes = setIndexByEnum(type);
+        typeList = new ArrayList<CriterionType>();
         this.searchTerm = searchTerm;
+        this.searchIndexes = setIndexByEnum(type);
         this.logicalOperator = operator;
         this.cqlOperator = BooleanOperator.EQUALS;
+        this.typeList.add(type);
+    }
+
+    protected MetadataSearchCriterion(ArrayList<CriterionType> types, String searchTerm) throws TechnicalException
+    {
+        typeList = new ArrayList<CriterionType>();
+        this.searchTerm = searchTerm;
+        this.searchIndexes = new ArrayList<String>();
+        for (int i = 0; i < types.size(); i++)
+        {
+            this.searchIndexes.addAll(setIndexByEnum(types.get(i)));
+        }
+        this.logicalOperator = LogicalOperator.UNSET;
+        this.cqlOperator = BooleanOperator.EQUALS;
+        this.typeList = types;
     }
 
     /**
      * Return the boolean operator as string.
-     * @param operator  boolean operator
-     * @return  boolean operator as string
-     * @throws TechnicalException  if enum is not supported
+     * 
+     * @param operator
+     *            boolean operator
+     * @return boolean operator as string
+     * @throws TechnicalException
+     *             if enum is not supported
      */
-    private String booleanOperatorToString(BooleanOperator operator) throws TechnicalException
+    protected String booleanOperatorToString(BooleanOperator operator) throws TechnicalException
     {
         switch (operator)
         {
@@ -216,12 +253,15 @@ public class MetadataSearchCriterion implements Serializable
                 throw new TechnicalException("Unsupported enum");
         }
     }
-    
-    /** 
+
+    /**
      * Return an array list with indices based on the criterion type.
-     * @param type  criterion type
-     * @return  array list with indices
-     * @throws TechnicalException  if criterion type is unknown
+     * 
+     * @param type
+     *            criterion type
+     * @return array list with indices
+     * @throws TechnicalException
+     *             if criterion type is unknown
      */
     private ArrayList<String> setIndexByEnum(CriterionType type) throws TechnicalException
     {
@@ -303,14 +343,40 @@ public class MetadataSearchCriterion implements Serializable
         }
         return indexes;
     }
+
     /**
      * Generate a Cql query string of the criteria.
-     * @return  cql query
-     * @throws ParseException  if searchstrings are not parseable
-     * @throws TechnicalException  if an internal error occurs 
+     * 
+     * @return cql query
+     * @throws ParseException
+     *             if searchstrings are not parseable
+     * @throws TechnicalException
+     *             if an internal error occurs
      */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
+        // if ((this.type == CriterionType.DATE_ACCEPTED) || (this.type ==
+        // CriterionType.DATE_ANY)
+        // || (this.type == CriterionType.DATE_CREATED) || (this.type ==
+        // CriterionType.DATE_ISSUED)
+        // || (this.type == CriterionType.DATE_MODIFIED) || (this.type ==
+        // CriterionType.DATE_PUBLISHED_ONLINE)
+        // || (this.type == CriterionType.DATE_SUBMITTED))
+        // {
+        // QueryParser parserFrom = new QueryParser(this.searchTerms.get(0),
+        // booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
+        // QueryParser parserTo = new QueryParser(this.searchTerms.get(1),
+        // booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
+        // for (int i = 0; i < searchIndexes.size(); i++)
+        // {
+        // parserFrom.addCQLIndex(searchIndexes.get(i));
+        // parserTo.addCQLIndex(searchIndexes.get(i));
+        // }
+        // String cqlQuery = " ( (" + parserFrom.parse() + " and " +
+        // parserTo.parse() + " " + " ) )";
+        // return cqlQuery;
+        // }
+
         QueryParser parser = new QueryParser(this.searchTerm, booleanOperatorToString(this.cqlOperator));
         for (int i = 0; i < searchIndexes.size(); i++)
         {
@@ -318,15 +384,31 @@ public class MetadataSearchCriterion implements Serializable
         }
         String cqlQuery = " ( " + parser.parse() + " ) ";
         return cqlQuery;
+
+    }
+
+    public ArrayList<String> getSearchIndexes()
+    {
+        return searchIndexes;
+    }
+
+    public String getSearchTerm()
+    {
+        return searchTerm;
     }
 
     /**
      * Generate a Cql tree structure.
+     * 
      * @return root node of the cql tree
-     * @throws CQLParseException  if tree cannot be parsed
-     * @throws IOException  if an io error occurs
-     * @throws ParseException if the search terms cannot be parsed
-     * @throws TechnicalException  if an internal error occurs
+     * @throws CQLParseException
+     *             if tree cannot be parsed
+     * @throws IOException
+     *             if an io error occurs
+     * @throws ParseException
+     *             if the search terms cannot be parsed
+     * @throws TechnicalException
+     *             if an internal error occurs
      */
     public CQLNode generateCqlTree() throws CQLParseException, IOException, ParseException, TechnicalException
     {
@@ -337,8 +419,10 @@ public class MetadataSearchCriterion implements Serializable
 
     /**
      * Return the logical operator as string.
-     * @return  logical operator as string
-     * @throws TechnicalException  if type is unknown
+     * 
+     * @return logical operator as string
+     * @throws TechnicalException
+     *             if type is unknown
      */
     public String getLogicalOperatorAsString() throws TechnicalException
     {
@@ -354,9 +438,10 @@ public class MetadataSearchCriterion implements Serializable
                 throw new TechnicalException();
         }
     }
-    
+
     /**
      * Getter for logical operator.
+     * 
      * @return logical operator
      */
     public LogicalOperator getLogicalOperator()
@@ -366,7 +451,9 @@ public class MetadataSearchCriterion implements Serializable
 
     /**
      * Setter for logical operator.
-     * @param operator  logical operator
+     * 
+     * @param operator
+     *            logical operator
      */
     public void setLogicalOperator(LogicalOperator operator)
     {

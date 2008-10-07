@@ -155,6 +155,9 @@ public class ItemContainerSearchBean implements ItemContainerSearch
             StandardSearchResult result = new StandardSearchResult(resultList, cqlQuery);
             return result;
         } 
+        catch( ParseException f ) {
+            throw new ParseException();
+        }
         catch (Exception e)
         {
             throw new TechnicalException(e);
