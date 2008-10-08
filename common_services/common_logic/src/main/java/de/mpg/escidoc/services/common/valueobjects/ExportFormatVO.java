@@ -76,7 +76,7 @@ public class ExportFormatVO extends ValueObject
      */
     public enum FormatType
     {
-        LAYOUT, STRUCTURED
+        LAYOUT, STRUCTURED, BIBTEX
     }
 
     /**
