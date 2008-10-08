@@ -43,13 +43,16 @@
 							<artifactId>search_presentation</artifactId>
 							<contextRoot>/search</contextRoot>
 						</webModule>
-						<jarModule>
+						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>framework_access</artifactId>
-							<includeInApplicationXml>
-								true 
-							</includeInApplicationXml>
-						</jarModule>
+							<artifactId>validation_presentation</artifactId>
+							<contextRoot>/validation</contextRoot>
+						</webModule>
+						<webModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>import_presentation</artifactId>
+							<contextRoot>/import</contextRoot>
+						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>common_logic</artifactId>
@@ -62,6 +65,13 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>importmanager</artifactId>
 						</ejbModule>
+						<jarModule>
+							<groupId>de.mpg.escidoc.services</groupId>
+							<artifactId>framework_access</artifactId>
+							<includeInApplicationXml>
+								true 
+							</includeInApplicationXml>
+						</jarModule>
 						<jarModule>
 							<groupId>xmlbeans</groupId>
 							<artifactId>mods_3.2</artifactId>
@@ -105,17 +115,6 @@
 							<groupId>de.mpg.escidoc.services</groupId>
 							<artifactId>validation</artifactId>
 						</ejbModule>
-						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>
-								validation_presentation
-							</artifactId>
-						</webModule>
-						<webModule>
-							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>import_presentation</artifactId>
-							<contextRoot>/import</contextRoot>
-						</webModule>
 						<jarModule>
 							<groupId>org.jibx</groupId>
 							<artifactId>jibx-run</artifactId>
