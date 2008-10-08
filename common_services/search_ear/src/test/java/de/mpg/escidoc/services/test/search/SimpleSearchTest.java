@@ -88,31 +88,31 @@ public class SimpleSearchTest extends TestBase
     @Test 
     public void testSimpleSearch() throws Exception {
     	
-    	ArrayList<String> contentTypes = new ArrayList<String>();
-    	contentTypes.add("escidoc:persistent4");
-    	
-    	MetadataSearchQuery queryMeta = new MetadataSearchQuery( contentTypes );
-    	queryMeta.addCriterion( new MetadataSearchCriterion( 
-    				MetadataSearchCriterion.CriterionType.ANY, "test", ">=" ) ); 
-    	//queryMeta.addCriterion( new MetadataSearchCriterion( 
-		//		MetadataSearchCriterion.CriterionType.IDENTIFIER, "hans OR franz", 
-		//		MetadataSearchCriterion.LogicalOperator.OR ) ); 
-    	// StandardSearchQuery query = new PlainCqlQuery( "escidoc.metadata=test", IndexDatabaseSelector.All );
-    	StandardSearchResult results = null;
-    	
-    	try {	
-    		results = itemContainerSearch.search( queryMeta );
-			System.out.println(" RESULTS: " + results.getResultList().size());
-			for( int i = 0; i < results.getResultList().size(); i++ ) {
-				if( results.getResultList().get( i ) instanceof ItemVO ) {
-					ItemVO testitem = (ItemVO) results.getResultList().get( i );
-					System.out.println( "PID: " + testitem.getPid() );
-				}
-			}
-		} catch (TechnicalException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//    	ArrayList<String> contentTypes = new ArrayList<String>();
+//    	contentTypes.add("escidoc:persistent4");
+//    	
+//    	MetadataSearchQuery queryMeta = new MetadataSearchQuery( contentTypes );
+//    	queryMeta.addCriterion( new MetadataSearchCriterion( 
+//    				MetadataSearchCriterion.CriterionType.ANY, "test", ">=" ) ); 
+//    	//queryMeta.addCriterion( new MetadataSearchCriterion( 
+//		//		MetadataSearchCriterion.CriterionType.IDENTIFIER, "hans OR franz", 
+//		//		MetadataSearchCriterion.LogicalOperator.OR ) ); 
+//    	// StandardSearchQuery query = new PlainCqlQuery( "escidoc.metadata=test", IndexDatabaseSelector.All );
+//    	StandardSearchResult results = null;
+//    	
+//    	try {	
+//    		results = itemContainerSearch.search( queryMeta );
+//			System.out.println(" RESULTS: " + results.getResultList().size());
+//			for( int i = 0; i < results.getResultList().size(); i++ ) {
+//				if( results.getResultList().get( i ) instanceof ItemVO ) {
+//					ItemVO testitem = (ItemVO) results.getResultList().get( i );
+//					System.out.println( "PID: " + testitem.getPid() );
+//				}
+//			}
+//		} catch (TechnicalException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
     }
     
     @After
