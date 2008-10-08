@@ -70,8 +70,9 @@ public class ExportItems extends FacesBean
 
     // constants for comboBoxes and HtmlSelectOneRadios
     public SelectItem EXPORTFORMAT_STRUCTURED = new SelectItem("STRUCTURED", getLabel("Export_ExportFormat_STRUCTURED"));
+    public SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
     public SelectItem EXPORTFORMAT_LAYOUT = new SelectItem("LAYOUT", getLabel("Export_ExportFormat_LAYOUT"));
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_STRUCTURED, EXPORTFORMAT_LAYOUT};
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_STRUCTURED, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_LAYOUT};
     public SelectItem LAYOUTCITATIONSTYLE_APA = new SelectItem("APA", getLabel("Export_LayoutCitationStyle_APA"));
     public SelectItem[] LAYOUTCITATIONSTYLE_OPTIONS = new SelectItem[]{LAYOUTCITATIONSTYLE_APA};
     public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
@@ -205,6 +206,7 @@ public class ExportItems extends FacesBean
         {
             logger.debug(">>>  New export format: " + selExportFormat);                     
             logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_STRUCTURED.getValue());
+            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_BIBTEX.getValue());
             logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_LAYOUT.getValue());
             
             logger.debug("curExportFormat:" + this.getSessionBean().getCurExportFormatVO());
@@ -216,6 +218,12 @@ public class ExportItems extends FacesBean
         {    
              sb.setExportFormatType(FormatType.STRUCTURED.toString());
              sb.setExportFormatName("ENDNOTE");
+             sb.setFileFormat(FileFormatVO.TEXT_NAME);       
+        }
+        else if (selExportFormat.equals((String)this.EXPORTFORMAT_BIBTEX.getValue()))
+        {    
+             sb.setExportFormatType(FormatType.BIBTEX.toString());
+             sb.setExportFormatName("BIBTEX");
              sb.setFileFormat(FileFormatVO.TEXT_NAME);       
         }
         else if (selExportFormat.equals((String)this.EXPORTFORMAT_LAYOUT.getValue()))
