@@ -186,7 +186,7 @@ public class ItemExportingBean implements ItemExporting
      	   if (logger.isDebugEnabled()) logger.debug(">>> start citationStyleHandler " + itemList);
      	   exportData = citationStyleHandler.getOutput( exportFormat, outputFormat, itemList );
    	 }	
-   	 else if ( formatType == FormatType.STRUCTURED )
+   	 else if ( formatType == FormatType.STRUCTURED || formatType == FormatType.BIBTEX)
    	 {
    		if (logger.isDebugEnabled()) logger.debug(">>> start structuredExportHandler " + itemList);
    		exportData = structuredExportHandler.getOutput( itemList, exportFormat );
