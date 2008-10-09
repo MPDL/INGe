@@ -35,7 +35,6 @@
 		<title>eSciDoc Import Service</title>
 	</head>
 	<body bgcolor="white">
-		<link rel="unapi-server" type="application/xml" title="unAPI" href="http://pubman.mpdl.mpg.de:8080/import/unapi/unapi"/>
 		<h1>
 			eSciDoc Import Service
 		</h1>
@@ -45,7 +44,10 @@
 		<ul>
 			<b>The service provides three operations:</b>
 				<li>
-			  		/unapi/unapi Gives back informations about all formats the ImportHandler can fetch.
+			  		/unapi Gives back informations about all sources the Importhandler can fetch from.
+				</li>
+				<li>
+			  		/unapi/unapi Gives back informations about all formats of the eSciDoc source (which is default).
 				</li>
 				<li>
     				/unapi/unapi?id=IDENTIFIER Gives back a list of all formats for this identifier.
@@ -57,19 +59,13 @@
 		<ul>
 			<b>The service will support two kinds of identifiers:</b>
 				<li>
-					identifier from a supported source (explained in /unapi).
-				</li>
-				<li>
-					In this case the format of the sources common identifier (e.g.arXiv:0807.4842 or escidoc:54927). 
+					identifier from a supported source (explained in /unapi). </br>
         			The format to fetch is defined in the &format parameter. All data will return in the fetched format
 				</li>
 				<li>
-					identifier = any URL (the eSciDoc Import Service has no information about this source and can only try to call the given URL for the fetching request).
-				</li>
-				<li>
+					identifier = any URL (the eSciDoc Import Service has no information about this source and can only try to call the given URL for the fetching request).</br>
 					In case of fetching from an unknown source via providing an URL the identifier is the url. 
-        			As the eSciDoc Import Service can not fetch a specific format from this url the &format parameter should be "url" to indicate that the fetching request is for an unknown source.
-					All data fetched via a url as an identifier will return as a zip file. At the moment only http requests are possible.
+        			As the eSciDoc Import Service can not fetch a specific format from this url the &format parameter has to be "url" to indicate that the fetching request is for an unknown source.
 				</li>
 		</ul>
 	</body>
