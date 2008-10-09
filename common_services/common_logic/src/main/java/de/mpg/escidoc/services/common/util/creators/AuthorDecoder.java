@@ -57,7 +57,7 @@ public class AuthorDecoder
      */
     public static void main(String[] args) throws Exception
     {
-        System.out.println(new LooseFormatSurnameFirst().getPattern());
+        //System.out.println(new LooseFormatSurnameFirst().getPattern());
         /*
         String[] prefixes1 =  "Damien van den Borgne".split(WesternFormat1.PREFIX, 3);
         String[] prefixes2 =  "Damien von Sudo".split(WesternFormat1.PREFIX, 3);
@@ -94,9 +94,18 @@ public class AuthorDecoder
     public AuthorDecoder(String authors) throws Exception
     {
 
-        // normalize the string
+        
+        System.out.println(authors);
+        //Interprete newline as new author
+        authors = authors.replaceAll("\\n+", " and ").trim();
+        
+        //normalize the string
         authors = authors.replaceAll("\\s+", " ").trim();
+        
+        //authors = authors.replaceAll("\\r+", "cr").trim();
 
+        System.out.println(authors);
+        
         logger.debug("Testing '" + authors + "'");
 
         AuthorFormat[] authorFormats = AuthorFormatList.getFormats();
