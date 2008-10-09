@@ -57,10 +57,14 @@
 					if (document.form.validationPoint.selectedIndex > 0)
 					{
 						queryString = '?validation-point=' + document.form.validationPoint.options[document.form.validationPoint.selectedIndex].value;
+						if (document.form.validationSchema.selectedIndex > 0)
+						{
+							queryString += '&validation-schema=' + document.form.validationSchema.options[document.form.validationSchema.selectedIndex].value;
+						}
 					}
 				
 					xmlhttp.onreadystatechange = requestDone;
-					xmlhttp.open("POST", document.form.url.value + queryString, true);
+					xmlhttp.open("POST", document.form.url.value + document.form.method.value + queryString, true);
 					xmlhttp.send(document.form.content.value);
 				}
 				else
@@ -110,6 +114,39 @@
 				w.document.close();
 				w.focus();
 			}
+
+
+			// This function decides which method should be called
+			function selectMethod(element)
+			{
+				if (element.options[element.selectedIndex].value == '')
+				{
+					document.form.method.value = 'validateItemXml';
+				}
+				else
+				{
+					if (document.form.validationPoint.selectedIndex == 0)
+					{
+						alert('Please choose a validation point first.');
+						element.selectedIndex = 0;
+					}
+					else
+					{
+						document.form.method.value = 'validateItemXmlBySchema';
+					}
+				}
+			}
+
+			// This function resets schema and method when validation point is set to 'none'.
+			function checkSchema(element)
+			{
+				if (element.selectedIndex == 0)
+				{
+					document.form.method.value = 'validateItemXml';
+					document.form.validationSchema.selectedIndex = 0;
+				}
+			}
+			
 		</script>
 	</head>
 	<body bgcolor="white">
@@ -123,7 +160,7 @@
 			</p>
 			<p>
 				Choose a validation point:<br/>
-				<select size="1" name="validationPoint">
+				<select size="1" name="validationPoint" onchange="checkSchema(this)">
 					<option value="">None (Default)</option>
 					<option value="default">Default</option>
 					<option value="submit_item">Submit</option>
@@ -131,8 +168,22 @@
 				</select>
 			</p>
 			<p>
+				Choose a validation schema:<br/>
+				<select size="1" name="validationSchema" onchange="selectMethod(this)">
+					<option value="">None (Pick the validation schema from the context provided with the item)</option>
+					<option value="simple">"simple": Checks only the very basics (Title, Creator)</option>
+					<option value="publication">"publication": default PubMan validation rules</option>
+					<option value="greymaterial">"greymaterial": Grey material of the MPDL</option>
+					<option value="greymaterialexternal">"greymaterialexternal": Grey material validation rules without MPDL relations</option>
+				</select>
+			</p>
+			<p>
 				This is the address where to send it:<br/>
-				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/rest/validateItemXml"/>
+				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/rest/"/>
+			</p>
+			<p>
+				This is the method to be invoked:<br/>
+				<input type="text" name="method" size="100" value="validateItemXml" readonly="true"/>
 			</p>
 			<p>
 				Then submit it here:<br/>

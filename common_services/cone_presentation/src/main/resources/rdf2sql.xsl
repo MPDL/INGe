@@ -39,20 +39,31 @@
 		
 			<xsl:variable name="subject" select="@rdf:about"/>
 			<xsl:variable name="pos" select="position()"/>
+			<xsl:variable name="newSubject">
+				<xsl:choose>
+					<xsl:when test="/rdf:RDF/rdf:Description[@rdf:about = $subject and position() &lt; $pos]">
+						<xsl:value-of select="$subject"/>_<xsl:value-of select="count(/rdf:RDF/rdf:Description[@rdf:about = $subject and position() &lt; $pos])"/>
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:value-of select="$subject"/>
+					</xsl:otherwise>
+				</xsl:choose>
+			</xsl:variable>
+			<xsl:variable name="pos" select="position()"/>
 			
 			<xsl:for-each select="*">
 				<xsl:variable name="predicate"><xsl:value-of select="namespace-uri()"/><xsl:value-of select="local-name()"/></xsl:variable>
 				<xsl:variable name="object"><xsl:value-of select="."/></xsl:variable>
 				<xsl:variable name="lang" select="@xml:lang"/>
 				
-				<!--<xsl:if test="not(/rdf:RDF/rdf:Description[position() &lt; $pos and @rdf:about = $subject]/*[concat(namespace-uri(), local-name()) = $predicate and . = $object and not(@xml:lang != $lang)])">INSERT INTO triples VALUES ('<xsl:value-of select="$subject"/>', '<xsl:value-of select="$predicate"/>', '<xsl:call-template name="escape"><xsl:with-param name="value" select="$object"/></xsl:call-template>', <xsl:choose><xsl:when test="not($lang)">null</xsl:when><xsl:otherwise>'<xsl:value-of select="$lang"/>'</xsl:otherwise></xsl:choose>, '<xsl:value-of select="$model"/>');
-</xsl:if>-->
+				<xsl:if test="not(/rdf:RDF/rdf:Description[position() &lt; $pos and @rdf:about = $newSubject]/*[concat(namespace-uri(), local-name()) = $predicate and . = $object and not(@xml:lang != $lang)])">INSERT INTO triples VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:value-of select="$predicate"/>', '<xsl:call-template name="escape"><xsl:with-param name="value" select="$object"/></xsl:call-template>', <xsl:choose><xsl:when test="not($lang)">null</xsl:when><xsl:otherwise>'<xsl:value-of select="$lang"/>'</xsl:otherwise></xsl:choose>, '<xsl:value-of select="$model"/>');
+</xsl:if>
 			</xsl:for-each>
 			
 			<xsl:choose>
-				<xsl:when test="$model = 'jnar'">INSERT INTO results VALUES ('<xsl:value-of select="$subject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/><xsl:if test="dc:publisher or dcterms:publisher">; <xsl:value-of select="dc:publisher"/><xsl:if test="dc:publisher and dcterms:publisher">, </xsl:if><xsl:value-of select="dcterms:publisher"/></xsl:if></xsl:with-param></xsl:call-template>');
+				<xsl:when test="$model = 'jnar'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/><xsl:if test="dc:publisher or dcterms:publisher">; <xsl:value-of select="dc:publisher"/><xsl:if test="dc:publisher and dcterms:publisher">, </xsl:if><xsl:value-of select="dcterms:publisher"/></xsl:if></xsl:with-param></xsl:call-template>');
 </xsl:when>
-				<xsl:when test="$model = 'lang'">INSERT INTO results VALUES ('<xsl:value-of select="$subject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/></xsl:with-param></xsl:call-template>', '<xsl:value-of select="dc:title/@xml:lang"/>');
+				<xsl:when test="$model = 'lang'">INSERT INTO results VALUES ('<xsl:value-of select="$newSubject"/>', '<xsl:call-template name="escape"><xsl:with-param name="value"><xsl:value-of select="dc:title"/></xsl:with-param></xsl:call-template>', '<xsl:value-of select="dc:title/@xml:lang"/>');
 </xsl:when>
 			</xsl:choose>
 		

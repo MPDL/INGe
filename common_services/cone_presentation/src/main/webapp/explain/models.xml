@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<models>
+	<model>
+		<name>jnar</name>
+		<description>Journal Names</description>
+		<samples>
+			<sample>
+				<description>Find journal names matching 'bio', e.g. 'Microbiology', 'Biometrics'.</description>
+				<method>
+					<name>query</name>
+					<parameters>
+						<parameter name="q">bio</parameter>
+					</parameters>
+				</method>
+			</sample>
+			<sample>
+				<description>Retrieve details about the "Journal of Endocrinological Investigation".</description>
+				<method>
+					<name>details</name>
+					<parameters>
+						<parameter name="id">urn:sfx:954925529888</parameter>
+					</parameters>
+				</method>
+			</sample>
+		</samples>
+		<example_page>../jquery_journals.jsp</example_page>
+	</model>
+	<model>
+		<name>lang</name>
+		<description>Languages</description>
+		<samples>
+			<sample>
+				<description>Find languages matching 'mal', given in french.</description>
+				<method>
+					<name>query</name>
+					<parameters>
+						<parameter name="q">mal</parameter>
+						<parameter name="lang">fr</parameter>
+					</parameters>
+				</method>
+			</sample>
+		</samples>
+		<example_page>../jquery_languages.jsp</example_page>
+	</model>
+</models>

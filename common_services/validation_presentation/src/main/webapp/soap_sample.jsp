@@ -33,56 +33,33 @@
 <html>
 	<head>
 		<title>eSciDoc Validation Service</title>
+		<script type="text/javascript" src="soapclient.js"></script>
 		<script type="text/javascript" id="script">
-
-			// The Object doing the request to the service.
-			var xmlhttp;
 		
 			// This function is called to send the request.
 			function submitItem()
 			{
-			
-				if (navigator.appName.indexOf('MSIE') >= 0 || navigator.appName.indexOf('Microsoft Internet Explorer') >= 0)
+
+				var pl = new SOAPClientParameters();
+				var url = document.form.url.value;
+				var method = document.form.method.value;
+				
+				pl.add("in0", document.form.content.value);
+				if (document.form.validationPoint.selectedIndex > 0)
 				{
-					alert('Sorry, this only works with mozilla based browsers.');
-				}
-				else if (navigator.appName.indexOf('Firefox/3') >= 0) >= 0)
-				{
-					alert('Sorry, this does not work with Firefox 3. The native SOAP support has been removed.');
-				}
-				else
-				{
-					var paramArray = new Array();
-					paramArray[0] = new SOAPParameter( document.form.content.value, "in0");
-					if (document.form.validationPoint.selectedIndex > 0)
+					pl.add("in1", document.form.validationPoint.options[document.form.validationPoint.selectedIndex].value);
+					if (method == 'validateItemXmlBySchema')
 					{
-						paramArray[1] = new SOAPParameter( document.form.validationPoint.options[document.form.validationPoint.selectedIndex].value, "in1");
+						pl.add("in2", document.form.validationSchema.options[document.form.validationSchema.selectedIndex].value);
 					}
-					xmlhttp=new SOAPCall();
-					xmlhttp.transportURI = document.form.url.value;
-					xmlhttp.encode(0, 'validateItemXml', null, 0, null, paramArray.length, paramArray);
-					xmlhttp.asyncInvoke(requestDone);
 				}
+				SOAPClient.invoke(url, method, pl, true, submitItem_callBack);
 
 			}
-			
-			// This function is called when there is a response from the service.
-			function requestDone(response, call, error)
+
+			function submitItem_callBack(result)
 			{
-				if (error != 0)
-				{
-					alert('Error: ' + error);
-				}
-				else
-				{
-					var responseParamArray = response.getParameters(false, {});
-					for (i = 0; i != responseParamArray.length; i++)
-					{
-						var param = responseParamArray[i];
-						var value = param.value;
-						document.getElementById('result').innerHTML = formatXml(value);
-					}
-				}
+				document.getElementById('result').innerHTML = formatXml(result);
 			}
 			
 			// This function tidies the response XML a little bit. Could be improved.
@@ -107,6 +84,38 @@
 				w.document.close();
 				w.focus();
 			}
+
+			// This function decides which method should be called
+			function selectMethod(element)
+			{
+				if (element.options[element.selectedIndex].value == '')
+				{
+					document.form.method.value = 'validateItemXml';
+				}
+				else
+				{
+					if (document.form.validationPoint.selectedIndex == 0)
+					{
+						alert('Please choose a validation point first.');
+						element.selectedIndex = 0;
+					}
+					else
+					{
+						document.form.method.value = 'validateItemXmlBySchema';
+					}
+				}
+			}
+
+			// This function resets schema and method when validation point is set to 'none'.
+			function checkSchema(element)
+			{
+				if (element.selectedIndex == 0)
+				{
+					document.form.method.value = 'validateItemXml';
+					document.form.validationSchema.selectedIndex = 0;
+				}
+			}
+			
 		</script>
 	</head>
 	<body bgcolor="white">
@@ -120,7 +129,7 @@
 			</p>
 			<p>
 				Choose a validation point:<br/>
-				<select size="1" name="validationPoint">
+				<select size="1" name="validationPoint" onchange="checkSchema(this)">
 					<option value="">None (Default)</option>
 					<option value="default">Default</option>
 					<option value="submit_item">Submit</option>
@@ -128,8 +137,22 @@
 				</select>
 			</p>
 			<p>
+				Choose a validation schema:<br/>
+				<select size="1" name="validationSchema" onchange="selectMethod(this)">
+					<option value="">None (Pick the validation schema from the context provided with the item)</option>
+					<option value="simple">"simple": Checks only the very basics (Title, Creator)</option>
+					<option value="publication">"publication": default PubMan validation rules</option>
+					<option value="greymaterial">"greymaterial": Grey material of the MPDL</option>
+					<option value="greymaterialexternal">"greymaterialexternal": Grey material validation rules without MPDL relations</option>
+				</select>
+			</p>
+			<p>
 				This is the address where to send it:<br/>
 				<input type="text" name="url" size="100" value="<%= (request.getProtocol().contains("HTTPS") ? "https" : "http") %>://<%= request.getServerName() %><%= (request.getServerPort() != 80 ? ":" + request.getServerPort() : "") %><%= request.getContextPath() %>/services/validation"/>
+			</p>
+			<p>
+				This is the method to be invoked:<br/>
+				<input type="text" name="method" size="100" value="validateItemXml" readonly="true"/>
 			</p>
 			<p>
 				Then submit it here:<br/>

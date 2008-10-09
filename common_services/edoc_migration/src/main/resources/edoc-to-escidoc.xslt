@@ -114,7 +114,7 @@
 	<xsl:template name="createComponent">		
 		<xsl:element name="ec:component">
 			<ec:properties>
-				<prop:valid-status>valid</prop:valid-status>
+				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>private</prop:visibility>
 				<prop:content-category>any-fulltext</prop:content-category>
 				<prop:mime-type>application/pdf</prop:mime-type>
@@ -145,7 +145,7 @@
 		</xsl:element>	
 		<xsl:element name="ec:component">
 			<ec:properties>
-				<prop:valid-status>valid</prop:valid-status>
+				<!-- <prop:valid-status>valid</prop:valid-status> -->
 				<prop:visibility>private</prop:visibility>
 				<prop:content-category>any-fulltext</prop:content-category>
 			</ec:properties>
@@ -237,9 +237,9 @@
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="genre='Lecture / Courseware'">
-					<xsl:variable name="genre" select="'lecture-courseware'"/>					
+					<xsl:variable name="genre" select="'courseware-lecture'"/>					
 					<xsl:call-template name="createEntry">
-						<xsl:with-param name="gen" select="'lecture-courseware'"/>
+						<xsl:with-param name="gen" select="'courseware-lecture'"/>
 					</xsl:call-template>
 				</xsl:when>
 				<xsl:when test="genre='Other'">

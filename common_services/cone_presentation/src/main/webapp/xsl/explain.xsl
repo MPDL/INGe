@@ -42,6 +42,9 @@
 					<xsl:value-of select="/explain/description"/>
 				</p>
 				<h2>Services</h2>
+				<p>
+					<a href="../explain/models.xml">Here</a> you can find a machine readable description of the available models.
+				</p>
 				<ul>
 					<xsl:for-each select="/explain/services/service">
 						<li>
@@ -53,16 +56,23 @@
 							<p>
 								<xsl:value-of select="description"/>
 							</p>
-							Parameters:
+							Methods:
 							<ul>
-								<xsl:for-each select="parameters/parameter">
+								<xsl:for-each select="methods/method">
 									<li>
-										<xsl:value-of select="name"/>
-										<xsl:choose>
-											<xsl:when test="@required = 'true'"> (required)</xsl:when>
-											<xsl:otherwise> (optional)</xsl:otherwise>
-										</xsl:choose>:
-										<xsl:value-of select="value"/>
+										<h4><xsl:value-of select="name"/></h4>
+										<xsl:if test="parameters/parameter">
+											Parameters:
+											<xsl:for-each select="parameters/parameter">
+												<b><xsl:value-of select="name"/></b>
+												<xsl:choose>
+													<xsl:when test="@required = 'true'"> (required)</xsl:when>
+													<xsl:otherwise> (optional)</xsl:otherwise>
+												</xsl:choose>:
+												<xsl:value-of select="value"/>
+												<br/>
+											</xsl:for-each>
+										</xsl:if>
 									</li>
 								</xsl:for-each>
 							</ul>
@@ -70,6 +80,9 @@
 							<ul>
 								<xsl:for-each select="samples/sample">
 									<li>
+										<xsl:if test="description">
+											<xsl:value-of select="description"/><br/>
+										</xsl:if>
 										<a href="{.}">
 											<xsl:value-of select="."/>
 										</a>

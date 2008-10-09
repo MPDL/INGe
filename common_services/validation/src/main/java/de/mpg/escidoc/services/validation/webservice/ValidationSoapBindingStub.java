@@ -62,7 +62,7 @@ public class ValidationSoapBindingStub extends Stub implements
     static OperationDesc[] _operations;
     static
     {
-        _operations = new OperationDesc[3];
+        _operations = new OperationDesc[4];
         _initOperationDesc1();
     }
 
@@ -84,6 +84,7 @@ public class ValidationSoapBindingStub extends Stub implements
         oper.setStyle(Style.RPC);
         oper.setUse(Use.ENCODED);
         _operations[0] = oper;
+        
         oper = new OperationDesc();
         oper.setName("validateItemXml");
         param = new ParameterDesc(new QName("", "in0"), ParameterDesc.IN, new QName("http://www.w3.org/2001/XMLSchema",
@@ -95,12 +96,31 @@ public class ValidationSoapBindingStub extends Stub implements
         oper.setStyle(Style.RPC);
         oper.setUse(Use.ENCODED);
         _operations[1] = oper;
+        
+        oper = new OperationDesc();
+        oper.setName("validateItemXmlBySchema");
+        param = new ParameterDesc(new QName("", "in0"), ParameterDesc.IN, new QName("http://www.w3.org/2001/XMLSchema",
+                "string"), String.class, false, false);
+        oper.addParameter(param);
+        param = new ParameterDesc(new QName("", "in1"), ParameterDesc.IN, new QName("http://www.w3.org/2001/XMLSchema",
+                "string"), String.class, false, false);
+        oper.addParameter(param);
+        param = new ParameterDesc(new QName("", "in2"), ParameterDesc.IN, new QName("http://www.w3.org/2001/XMLSchema",
+                "string"), String.class, false, false);
+        oper.addParameter(param);
+        oper.setReturnType(new QName("http://www.w3.org/2001/XMLSchema", "string"));
+        oper.setReturnClass(String.class);
+        oper.setReturnQName(new QName("", "validateItemXmlBySchemaReturn"));
+        oper.setStyle(Style.RPC);
+        oper.setUse(Use.ENCODED);
+        _operations[2] = oper;
+        
         oper = new OperationDesc();
         oper.setName("refreshValidationSchemaCache");
         oper.setReturnType(XMLType.AXIS_VOID);
         oper.setStyle(Style.RPC);
         oper.setUse(Use.ENCODED);
-        _operations[2] = oper;
+        _operations[3] = oper;
     }
 
     public ValidationSoapBindingStub() throws AxisFault
@@ -250,7 +270,7 @@ public class ValidationSoapBindingStub extends Stub implements
         }
     }
 
-    public void refreshValidationSchemaCache() throws java.rmi.RemoteException
+    public String validateItemXmlBySchema(String in0, String in1, String in2) throws java.rmi.RemoteException
     {
         if (super.cachedEndpoint == null)
         {
@@ -258,6 +278,46 @@ public class ValidationSoapBindingStub extends Stub implements
         }
         Call _call = createCall();
         _call.setOperation(_operations[2]);
+        _call.setUseSOAPAction(true);
+        _call.setSOAPActionURI("");
+        _call.setSOAPVersion(SOAPConstants.SOAP11_CONSTANTS);
+        _call.setOperationName(new QName("http://www.escidoc.de/", "validateItemXmlBySchema"));
+        setRequestHeaders(_call);
+        setAttachments(_call);
+        try
+        {
+            Object _resp = _call.invoke(new Object[] { in0, in1 });
+            if (_resp instanceof java.rmi.RemoteException)
+            {
+                throw (java.rmi.RemoteException)_resp;
+            }
+            else
+            {
+                extractAttachments(_call);
+                try
+                {
+                    return (String)_resp;
+                }
+                catch (Exception _exception)
+                {
+                    return (String)JavaUtils.convert(_resp, String.class);
+                }
+            }
+        }
+        catch (AxisFault axisFaultException)
+        {
+            throw axisFaultException;
+        }
+    }
+
+    public void refreshValidationSchemaCache() throws java.rmi.RemoteException
+    {
+        if (super.cachedEndpoint == null)
+        {
+            throw new NoEndPointException();
+        }
+        Call _call = createCall();
+        _call.setOperation(_operations[3]);
         _call.setUseSOAPAction(true);
         _call.setSOAPActionURI("");
         _call.setSOAPVersion(SOAPConstants.SOAP11_CONSTANTS);

@@ -108,37 +108,31 @@ public class PropertyReader
      */
     private static void loadProperties() throws IOException, URISyntaxException
     {
-        // Try to get location of properties file from system property
-        String propertiesFile = System.getProperty(PROPERTY_FILE_KEY);
+        String propertiesFile = null;
         Properties solProperties = new Properties();
-        
-        if (propertiesFile == null)
+        try
         {
-            try
-            {
             solution = PropertyReader.class.getClassLoader().getResource("solution.properties");
-            }
-            catch (Exception e)
-            {
-                Logger.getLogger(PropertyReader.class).warn("WARNING: solution.properties not found: " + e.getMessage());
-
-            }
-            if (solution != null)
-            {
-                Logger.getLogger(PropertyReader.class).info("Solution URI is "+solution.toString());
-                InputStream in = getInputStream("solution.properties");
-                solProperties.load(in);
-                String appname = solProperties.getProperty("appname");
-                propertiesFile = appname+".properties";
-            }
-            else
-            {
-             // Use Default location of properties file
-                propertiesFile = DEFAULT_PROPERTY_FILE;
-            }
-            // Use Default location of properties file
-            //propertiesFile = DEFAULT_PROPERTY_FILE;
         }
+        catch (Exception e)
+        {
+            Logger.getLogger(PropertyReader.class).warn("WARNING: solution.properties not found: " + e.getMessage());
+
+        }
+        if (solution != null)
+        {
+            Logger.getLogger(PropertyReader.class).info("Solution URI is "+solution.toString());
+            InputStream in = getInputStream("solution.properties");
+            solProperties.load(in);
+            String appname = solProperties.getProperty("appname");
+            propertiesFile = appname+".properties";
+        }
+        else
+        {
+         // Use Default location of properties file
+            propertiesFile = DEFAULT_PROPERTY_FILE;
+        }
+        
         InputStream instream = getInputStream(propertiesFile);
         properties = new Properties();
         properties.load(instream);

@@ -48,6 +48,14 @@
 					It returns an XML validation report.
 				</li>
 				<li>
+					<a href="/validation_presentation/rest/validateItemXmlBySchema">validateItemXmlBySchema (returns ValidationReportXml)</a>:
+					This service operation expects a POST request containing the item XML that should be validated.<br/>
+					Additionall, a validation schema has to be passed as request parameter.<br/>
+					Optionally, a validation point can be passed as request parameter in the form<br/>
+					<code>?validation-schema=validationSchema&amp;validation-point=&lt;validationPoint&gt;</code><br/>
+					It returns an XML validation report.
+				</li>
+				<li>
 					<a href="/validation_presentation/rest/refreshValidationSchemaCache">refreshValidationSchemaCache</a>:
 					This service expects a GET request without any data provided.<br/>
 					It returns nothing.
@@ -55,7 +63,7 @@
 			</ul>
 		</p>
 		<p>
-			Find <a href="/validation_presentation/rest_sample.jsp">here</a> a sample application using AJAX to call the service.
+			Find <a href="/validation/rest_sample.jsp">here</a> a sample application using AJAX to call the service.
 		</p>
 	</body>
 </html>

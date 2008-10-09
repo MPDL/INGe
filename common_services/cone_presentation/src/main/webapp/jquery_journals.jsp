@@ -8,16 +8,15 @@
 		<script src="./js/jquery.suggest.js" type="text/javascript"></script>
 		<script src="./js/jquery.dimensions.js" type="text/javascript"></script>
 		<link href="./js/jquery.suggest.css" rel="stylesheet" type="text/css" />
-		<title>CONE 4 JQuery</title>
+		<title>CoNE 4 JQuery</title>
 	</head>
 	<body lang="de">
-		<h1>CONE 4 JQuery</h1>
+		<h1>CoNE 4 JQuery</h1>
 		<form name="form1" method="get">
 			Enter query string:
-			<input class="journalSuggest" id="test1"/>
-			<input class="journalSuggest" id="test2"/>
+			<input class="journalSuggest" id="test1" size="100"/>
 			<script type="text/javascript">
-				$(".journalSuggest").suggest("http://localhost:8080/cone/jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
+				$(".journalSuggest").suggest("jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
 			</script>
 		</form>
 	</body>

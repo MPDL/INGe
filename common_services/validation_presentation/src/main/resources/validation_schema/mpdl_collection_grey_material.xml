@@ -38,6 +38,7 @@
 	<iso:ns prefix="escidocMetadataRecords" uri="${xsd.soap.common.mdrecords}"/>
 	<iso:ns prefix="dc" uri="http://purl.org/dc/elements/1.1/"/>
 	<iso:ns prefix="dcterms" uri="http://purl.org/dc/terms/"/>
+	<iso:ns prefix="xsi" uri="http://www.w3.org/2001/XMLSchema-instance"/>
 	<iso:ns prefix="escidocMetadataProfile" uri="${xsd.metadata.escidocprofile}"/>
 	<iso:ns prefix="escidoc" uri="${xsd.metadata.escidocprofile.types}"/>
 	<iso:ns prefix="escidocComponents" uri="${xsd.soap.item.components}"/>

@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.util.MissingResourceException;
+
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -101,6 +103,10 @@ public class RestServlet extends HttpServlet
                 if ("POST".equals(req.getMethod()) && "validateItemXml".equals(command))
                 {
                     String content = getBodyContent(req);
+                    if (content == null || "".equals(content))
+                    {
+                        throw new MissingParameterException("XML content is missing");
+                    }
                     String validationPoint = req.getParameter("validation-point");
                     if (validationPoint == null)
                     {
@@ -108,7 +114,25 @@ public class RestServlet extends HttpServlet
                     }
                     out.println(itemValidating.validateItemXml(content, validationPoint));
                 }
-                
+                // validateItemXmlBySchema
+                else if ("POST".equals(req.getMethod()) && "validateItemXmlBySchema".equals(command))
+                {
+                    String content = getBodyContent(req);
+                    String validationPoint = req.getParameter("validation-point");
+                    String validationSchema = req.getParameter("validation-schema");
+                    if (validationPoint == null)
+                    {
+                        throw new MissingParameterException("Parameter validation-point is missing");
+                    }
+                    else if (validationSchema == null)
+                    {
+                        throw new MissingParameterException("Parameter validation-schema is missing");
+                    }
+                    else
+                    {
+                        out.println(itemValidating.validateItemXmlBySchema(content, validationPoint, validationSchema));
+                    }
+                }
                 // refreshValidationSchemaCache
                 else if ("GET".equals(req.getMethod()) && "refreshValidationSchemaCache".equals(command))
                 {
@@ -134,6 +158,10 @@ public class RestServlet extends HttpServlet
             catch (ValidationSchemaNotFoundException nfe)
             {
                 handleException(nfe, resp);
+            }
+            catch (MissingParameterException mpe)
+            {
+                handleException(mpe, resp);
             }
         }
         catch (Exception e)
@@ -174,5 +202,30 @@ public class RestServlet extends HttpServlet
                     + ")");
         }
         resp.setStatus(500);
+    }
+    
+    public class MissingParameterException extends Exception
+    {
+
+        public MissingParameterException()
+        {
+            super();
+        }
+
+        public MissingParameterException(String arg0, Throwable arg1)
+        {
+            super(arg0, arg1);
+        }
+
+        public MissingParameterException(String arg0)
+        {
+            super(arg0);
+        }
+
+        public MissingParameterException(Throwable arg0)
+        {
+            super(arg0);
+        }
+        
     }
 }

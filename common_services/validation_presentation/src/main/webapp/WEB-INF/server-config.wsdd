@@ -57,8 +57,13 @@
 		<operation name="validateItemXml" qname="ns2:validateItemXml" returnQName="validateItemXmlReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://www.escidoc.de/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 			<parameter name="in0" type="xsd:string"/>
 		</operation>
+		<operation name="validateItemXmlBySchema" qname="ns2:validateItemXmlBySchema" returnQName="validateItemXmlBySchemaReturn" returnType="xsd:string" soapAction="" xmlns:ns2="http://www.escidoc.de/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+			<parameter name="in0" type="xsd:string"/>
+			<parameter name="in1" type="xsd:string"/>
+			<parameter name="in2" type="xsd:string"/>
+		</operation>
 		<operation name="refreshValidationSchemaCache" qname="ns3:refreshValidationSchemaCache" soapAction="" xmlns:ns3="http://www.escidoc.de/"/>
-		<parameter name="allowedMethods" value="validateItemXml refreshValidationSchemaCache"/>
+		<parameter name="allowedMethods" value="validateItemXml validateItemXmlBySchema refreshValidationSchemaCache"/>
 		<parameter name="typeMappingVersion" value="1.2"/>
 		<parameter name="wsdlPortType" value="ItemValidatingWebService"/>
 		<parameter name="className" value="de.mpg.escidoc.services.validation.ItemValidatingBean"/>

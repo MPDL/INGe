@@ -24,8 +24,8 @@
 
 /*
 * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */
 %>
@@ -40,6 +40,15 @@
 		<h1>
 			eSciDoc Validation Service
 		</h1>
+		<p>
+			The eSciDoc Validation Service checks XML metadata for syntactical and semantical correctness.
+			This is done by a <a href="http://www.schematron.com/" target="_blank">Schematron</a> validation based on a given 
+			validation template that is selected by the validation schema id and the given validation point. 
+		</p>
+		<p>
+			There are several ways to access the service. Below are links to the REST frontend and the SOAP frontend.
+			There is also an EJB3 interface called <code>ejb.de.mpg.escidoc.services.validation.ItemValidating</code>.
+		</p>
 		<ul>
 			<li>
 				<a href="services">SOAP Interface</a>

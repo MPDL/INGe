@@ -38,35 +38,64 @@
 		</xsl:processing-instruction>
 		<explain>
 			<name>
-				CONE
+				CoNE
 			</name>
 			<interface>
 				JQuery
 			</interface>
 			<description>
-				COntrolled Named Entities
+				Control of Named Entities
 			</description>
 			<services>
-				<xsl:for-each select="/services/service">
+				<xsl:for-each select="/models/model">
 					<service>
 						<name><xsl:value-of select="description"/></name>
 						<link><xsl:value-of select="name"/></link>
-						<parameters>
-							<parameter required="true">
-								<name>q</name>
-								<value>A string holding the search query.</value>
-							</parameter>
-							<parameter required="false">
-								<name>lang</name>
-								<value>A string holding language a) in which should be searched and b) in which the results should be given back.</value>
-							</parameter>
-						</parameters>
+						<methods>
+							<method>
+								<name>query</name>
+								<parameters>
+									<parameter required="true">
+										<name>q</name>
+										<type>String</type>
+										<value>A string holding the search query.</value>
+									</parameter>
+									<parameter required="false">
+										<name>lang</name>
+										<type>String</type>
+										<value>A string holding language a) in which should be searched and b) in which the results should be given back.</value>
+									</parameter>
+								</parameters>
+								<return>
+									<type>String</type>
+									<value>A "|" and newline - separated list of hits matching the given query.</value>
+								</return>
+							</method>
+							<method>
+								<name>details</name>
+								<parameters>
+									<parameter>
+										<name>id</name>
+										<type>URI</type>
+										<value>The identifier if the requested resource.</value>
+									</parameter>
+								</parameters>
+								<return>
+									<type>JSON</type>
+									<value>A JSON object containing the details of the requested resource</value>
+								</return>
+							</method>
+						</methods>
 						<samples>
-							<sample>
-								<xsl:value-of select="name"/>/query?<xsl:for-each select="sample/parameter">
-									<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
-								</xsl:for-each>
-							</sample>
+							<xsl:variable name="name" select="name"/>
+							<xsl:for-each select="samples/sample">
+								<sample>
+									<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
+										<xsl:if test="position() != 1">&amp;</xsl:if>
+										<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
+									</xsl:for-each>
+								</sample>
+							</xsl:for-each>
 							<sample>
 									<xsl:value-of select="example_page"/>
 							</sample>

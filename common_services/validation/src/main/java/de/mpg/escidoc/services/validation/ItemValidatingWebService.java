@@ -41,27 +41,43 @@ public interface ItemValidatingWebService
 {
 
     /**
-     * Validate the given item xml against the matching vsalidation schema using the default validation point.
+     * Validate the given item xml against the matching validation schema using the default validation point.
      *
      * @param itemXml The item as xml according to the xml schema.
-     * (like "submit_item", etcetera). If no validation point is given, "default will be used.
+     * (like "submit_item", etcetera). As validation point "default" will be used.
      * @return The validation report as xml.
      * @throws Exception Another exception.
      */
     String validateItemXml(final String itemXml) throws Exception;
 
     /**
-     * Validate the given item xml against the matching vsalidation schema.
+     * Validate the given item xml against the matching validation schema.
      *
      * @param itemXml The item as xml according to the xml schema.
      * @param validationPoint A string representing the current validation point
-     * (like "submit_item", etcetera). If no validation point is given, "default will be used.
+     * (like "submit_item", etcetera).
      * @return The validation report as xml.
      * @throws Exception Another exception.
      */
     String validateItemXml(
             final String itemXml,
             final String validationPoint) throws Exception;
+
+    /**
+     * Validate the given item xml against the matching validation schema.
+     *
+     * @param itemXml The item as xml according to the xml schema.
+     * @param validationPoint A string representing the current validation point
+     * (like "submit_item", etcetera).
+     * @param validationSchema A string representing the chosen validation schema
+     * 
+     * @return The validation report as xml.
+     * @throws Exception Another exception.
+     */
+    String validateItemXmlBySchema(
+            final String itemXml,
+            final String validationPoint,
+            final String validationSchema) throws Exception;
 
     /**
      * Refresh the validation schema cache.

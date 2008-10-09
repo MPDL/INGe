@@ -40,9 +40,11 @@ import java.rmi.RemoteException;
 
 public interface ItemValidatingWebService extends Remote
 {
-    public String validateItemXml(String in0, String in1) throws RemoteException;
+    public String validateItemXml(String itemXml, String validationPoint) throws RemoteException;
 
-    public String validateItemXml(String in0) throws RemoteException;
+    public String validateItemXml(String itemXml) throws RemoteException;
+    
+    public String validateItemXmlBySchema(String itemXml, String validationPoint, String validationSchema) throws RemoteException;
 
     public void refreshValidationSchemaCache() throws RemoteException;
 }

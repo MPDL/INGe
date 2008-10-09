@@ -572,7 +572,7 @@
 				<xsd.soap.item.itemlist>http://www.escidoc.de/schemas/itemlist/0.7</xsd.soap.item.itemlist>
 				<xsd.soap.common.mdrecords>http://www.escidoc.de/schemas/metadatarecords/0.4</xsd.soap.common.mdrecords>
 				<xsd.soap.common.relations>http://www.escidoc.de/schemas/relations/0.3</xsd.soap.common.relations>
-				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.6</xsd.soap.searchresult.searchresult>
+				<xsd.soap.searchresult.searchresult>http://www.escidoc.de/schemas/searchresult/0.7</xsd.soap.searchresult.searchresult>
 				<xsd.soap.useraccount.useraccount>http://www.escidoc.de/schemas/useraccount/0.5</xsd.soap.useraccount.useraccount>
 				<xsd.soap.ou.oupathlist>http://www.escidoc.de/schemas/organizationalunitpathlist/0.4</xsd.soap.ou.oupathlist>
 				<xsd.soap.ou.ou>http://www.escidoc.de/schemas/organizationalunit/0.6</xsd.soap.ou.ou>

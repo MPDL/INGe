@@ -10,14 +10,19 @@
 		<link href="./js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 		<title>CONE 4 JQuery</title>
 	</head>
-	<body lang="de">
+	<body id="body" lang="en">
 		<h1>CONE 4 JQuery</h1>
 		<form name="form1" method="get">
 			Enter query string:
-			<input class="languageSuggest" id="test1"/>
-			<input class="languageSuggest" id="test2"/>
+			<input class="languageSuggest" id="test1" size="100"/>
+			<select id="lang" onchange="document.getElementById('body').lang = this.options[this.selectedIndex].value">
+				<option value="en">Default (English)</option>
+				<option value="en">English</option>
+				<option value="de">Deutsch</option>
+				<option value="fr">Français</option>
+			</select>
 			<script type="text/javascript">
-				$(".languageSuggest").suggest("http://localhost:8080/cone/jquery/lang/query",{ onSelect: function() {alert("You selected: " + this)}});
+				$(".languageSuggest").suggest("jquery/lang/query",{ onSelect: function() {alert("You selected: " + this.getResultID())}});
 			</script>
 		</form>
 	</body>

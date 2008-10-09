@@ -35,7 +35,7 @@
 		JQuery
 	</interface>
 	<description>
-		COntrolled Named Entities
+		Control of Named Entities
 	</description>
 	<services>
 		<service>

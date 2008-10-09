@@ -56,8 +56,8 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.ServiceList;
-import de.mpg.escidoc.services.cone.ServiceList.Service;
+import de.mpg.escidoc.services.cone.ModelList;
+import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Pair;
 
 /**
@@ -110,7 +110,7 @@ public class JQueryConeServlet extends HttpServlet
         {
             response.setContentType("text/xml");
             
-            InputStream source = ResourceUtil.getResourceAsStream("explain/services.xml");
+            InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
             InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
             
             try
@@ -158,12 +158,12 @@ public class JQueryConeServlet extends HttpServlet
      * @param model The requested type of data, e.g. "jnar", "lang"
      * @throws IOException
      */
-    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model)
+    private void detailAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String modelName)
         throws Exception
     {
-        Service service = ServiceList.getInstance().new Service(model);
+        Model model = ModelList.getInstance().new Model(modelName);
 
-        if (ServiceList.getInstance().getList().contains(service))
+        if (ModelList.getInstance().getList().contains(model))
         {
             response.setContentType(CONTENT_TYPE);
             String id = request.getParameter("id");
@@ -191,7 +191,7 @@ public class JQueryConeServlet extends HttpServlet
                     
                     try
                     {
-                        result = querier.details(model, id);
+                        result = querier.details(modelName, id);
                     }
                     catch (Exception e)
                     {
@@ -204,7 +204,7 @@ public class JQueryConeServlet extends HttpServlet
         }
         else
         {
-            reportUnknownModel(model, response);
+            reportUnknownModel(modelName, response);
         }
     }
 
@@ -215,12 +215,12 @@ public class JQueryConeServlet extends HttpServlet
      * @param model
      * @throws IOException
      */
-    private void queryAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String model)
+    private void queryAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String modelName)
         throws Exception
     {
-        Service service = ServiceList.getInstance().new Service(model);
+        Model model = ModelList.getInstance().new Model(modelName);
 
-        if (ServiceList.getInstance().getList().contains(service))
+        if (ModelList.getInstance().getList().contains(model))
         {
             response.setContentType(CONTENT_TYPE);
             String query = request.getParameter("q");
@@ -251,7 +251,7 @@ public class JQueryConeServlet extends HttpServlet
                     
                     try
                     {
-                        result = querier.query(model, query, lang);
+                        result = querier.query(modelName, query, lang);
                     }
                     catch (Exception e)
                     {
@@ -264,7 +264,7 @@ public class JQueryConeServlet extends HttpServlet
         }
         else
         {
-            reportUnknownModel(model, response);
+            reportUnknownModel(modelName, response);
         }
     }
 
@@ -277,7 +277,7 @@ public class JQueryConeServlet extends HttpServlet
     private void reportUnknownModel(String model, HttpServletResponse response) throws IOException
     {
         response.setStatus(500);
-        response.getWriter().println("Error: Service " + model + " is not known.");
+        response.getWriter().println("Error: Model " + model + " is not known.");
     }
 
     private void reportEmptyParameter(String string, HttpServletResponse response)
