@@ -60,7 +60,8 @@
 							<ul>
 								<xsl:for-each select="methods/method">
 									<li>
-										<h5><xsl:value-of select="name"/></h5>
+										<b><xsl:value-of select="name"/></b>
+										<br/>
 										<xsl:if test="parameters/parameter">
 											Parameters:
 											<br/>
