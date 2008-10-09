@@ -28,14 +28,14 @@
 -->
 
 <binding name="ExportFormatVOListWrapper">
-	
-	<namespace prefix="escidoc" uri="http://escidoc.mpg.de/citation/schema/0.1/explain-styles" default="none"/>
-	<namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
-	
-	<!--  -->
-	<!-- The binding for ExportFormatVO -->
-	<!--  -->
-	<include path="ExportFormatVOListWrapper_binding.xml" />
+    
+    <namespace prefix="escidoc" uri="http://escidoc.mpg.de/export/schema/0.1/explain-formats" default="none"/>
+    <namespace prefix="dc" uri="http://purl.org/dc/elements/1.1/" default="none" />
+    
+    <!--  -->
+    <!-- The binding for ExportFormatVO -->
+    <!--  -->
+    <include path="ExportFormatVOListWrapper_binding.xml" />
 
 </binding>
 
