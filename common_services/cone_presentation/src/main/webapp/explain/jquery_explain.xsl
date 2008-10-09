@@ -74,7 +74,7 @@
 							<method>
 								<name>details</name>
 								<parameters>
-									<parameter>
+									<parameter required="true">
 										<name>id</name>
 										<type>URI</type>
 										<value>The identifier if the requested resource.</value>
