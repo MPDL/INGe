@@ -2,22 +2,21 @@ package metsExport;
 
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.namespace.QName;
 
 import org.apache.log4j.Logger;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.w3c.dom.Document;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
 
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.toc.x06.TocDocument;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -28,9 +27,11 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class METSTransformation extends XmlIO{
 
 	private WriteMETSData writeMETS = new WriteMETSData();
-	private String baseURL = "http://dev-coreservice.mpdl.mpg.de:8080";
+	private String baseURL = null;
 	
 	private Logger logger = Logger.getLogger(getClass());
+	
+	Login login = new Login();
     
 	public METSTransformation()
 	{
@@ -49,10 +50,11 @@ public class METSTransformation extends XmlIO{
 
         try
         {
-        	Login login = new Login();
-	        String escidocToc = ServiceLocator.getTocHandler(login.loginSysAdmin()).retrieve(eScidocId);
+	        String escidocToc = ServiceLocator.getTocHandler(this.login.loginSysAdmin()).retrieve(eScidocId);
 	        //Create mets id out of escidoc id
 	        String metsId = eScidocId.replace("escidoc", "mets");
+	        
+	        this.getBaseUrl();
 	        
 	        //Create different METS sections
 	        this.createDmdSec(escidocToc);
@@ -85,6 +87,16 @@ public class METSTransformation extends XmlIO{
         return baos.toByteArray();
     }
 
+    private void getBaseUrl()
+    {
+    	try {
+			this.baseURL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+		} 
+    	catch (IOException e) 
+    	{e.printStackTrace();} 
+    	catch (URISyntaxException e) 
+    	{e.printStackTrace();}
+    }
     
     /**
      * Gets the escidoc:toc values for mets dmd section (from the book container).
@@ -97,11 +109,36 @@ public class METSTransformation extends XmlIO{
 		String place ="Keine Angabe";
 		String year ="Keine Angabe";
 		String dmdId = "dmd1";
+		String containerId = null;
 	
 		try 
 		{
-			Document tocDoc = getDocument(escidocToc, false);
-			title = tocDoc.getElementsByTagName("dc:title").item(0).getTextContent();
+			TocDocument escidocTocDoc = TocDocument.Factory.parse(escidocToc);
+			
+			//Dummy root div
+			Div div = escidocTocDoc.getToc().getToc().getDiv();
+			Div[] children = div.getDivArray();
+			
+			for (int i =0; i< children.length; i++)
+			{
+				if (children[i].getTYPE().equals(this.writeMETS.getType_LOGICAL()))
+				{
+					containerId = children[i].getDivArray(0).getPtrArray(0).getHref();
+					//Id is returned as a href => extract id from link
+					int le = containerId.split("/").length-1;
+					containerId = containerId.split("/")[le];
+					System.out.println("ID: " + containerId);
+				}
+			}
+			
+			String containerMD = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieveMdRecord(containerId, "escidoc");
+			System.out.println(containerMD);
+			
+			Document containerDoc = getDocument(containerMD, false);
+			System.out.println(containerDoc);
+			
+//			Document tocDoc = getDocument(escidocToc, false);
+//			title = tocDoc.getElementsByTagName("dc:title").item(0).getTextContent();
 //			author = tocDoc.getElementsByTagName("escidoc:complete-name").item(0).getTextContent();
 //			tocDoc.getElementsByTagName("dc:place").item(0).getTextContent();
 //			tocDoc.getElementsByTagName("dc:date").item(0).getTextContent();
@@ -193,10 +230,8 @@ public class METSTransformation extends XmlIO{
 					}
 				}
 				
-				//Tmp +1 till we fixed that order starts at 0
 				int order = Integer.parseInt(page.getORDER().toString());
-				order++;
-				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, order+"",page.getORDERLABEL(), divId+"", page.getTYPE(), false);
+				this.writeMETS.addToStructMap(this.writeMETS.getType_PHYSICAL(), ptrIds, order+"",page.getORDERLABEL(), page.getID(), page.getTYPE(), false);
 				divId++;
 			}
 		} 
@@ -211,11 +246,11 @@ public class METSTransformation extends XmlIO{
 	public void createLogicals (String escidocToc)
 	{
 		int divId =1;
-		String[] id = new String [1];
 		
-		Div child;
-		Div[] childs;
-		Div[] childsChildren;
+		Div currentDiv;
+		Div[] currentChilds;
+		Div childX;
+		Div[] childChildren;
 		
 		TocDocument escidocTocDoc;
 		try {
@@ -237,16 +272,43 @@ public class METSTransformation extends XmlIO{
 			//Create the root element for the logical structMap
 			Div log_root = logical.getDivArray()[0];
 			this.writeMETS.createStructMap(this.writeMETS.getType_LOGICAL(), log_root.getTYPE());
+			this.writeMETS.createStructLink();
 			
-			//Create structured METS divs for the child elements
-			childs = log_root.getDivArray();
-			for (int x= 0; x< childs.length; x++ )
-			{
-				child = childs[x];
-				this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{child.getID()}, null, null, divId+"", child.getTYPE(), false);
+			currentDiv = log_root;
+			currentChilds = currentDiv.getDivArray();
+			
+			for(int i=0; i< currentChilds.length; i++){
+				childX = currentChilds[i];
+				//Add all divs to the structMap
+				this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childX.getID()}, childX.getORDER()+"", childX.getORDERLABEL(), "log"+divId, childX.getTYPE(), false);
+				if (childX.getPtrArray().length >0)
+				{
+					//create a structLink
+					for (int y=0; y<childX.getPtrArray().length;y++){
+						System.out.println(childX.getPtrArray()[y].getHref());
+						this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
+					}
+				}
+
 				divId ++;
-				
-				childsChildren = child.getDivArray();
+				//Add all childs to the structMap
+				while(childX.getDivArray().length > 0)
+				{
+					childChildren = childX.getDivArray();
+					for (int x=0; x < childChildren.length; x++ ){
+						this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childChildren[x].getID()}, childChildren[x].getORDER()+"", childChildren[x].getORDERLABEL(), divId+"", childChildren[x].getTYPE(), true);
+						if (childX.getPtrArray().length >0)
+						{
+							//create a structLink
+							for (int y=0; y<childX.getPtrArray().length;y++){
+								System.out.println(childX.getPtrArray()[y].getHref());
+								this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
+							}
+						}
+						childX =childChildren[x];
+						divId ++;
+					}
+				}
 			}
 		} 
 		catch (XmlException e) 

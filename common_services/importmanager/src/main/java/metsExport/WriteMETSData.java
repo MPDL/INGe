@@ -5,6 +5,7 @@ import gov.loc.mets.DivType;
 import gov.loc.mets.FileType;
 import gov.loc.mets.MdSecType;
 import gov.loc.mets.MetsDocument;
+import gov.loc.mets.StructLinkType;
 import gov.loc.mets.StructMapType;
 import gov.loc.mets.DivType.Fptr;
 import gov.loc.mets.FileType.FLocat;
@@ -13,6 +14,7 @@ import gov.loc.mets.MdSecType.MdWrap.XmlData;
 import gov.loc.mets.MetsDocument.Mets;
 import gov.loc.mets.MetsType.FileSec;
 import gov.loc.mets.MetsType.FileSec.FileGrp;
+import gov.loc.mets.StructLinkType.SmLink;
 import gov.loc.mods.v3.DateType;
 import gov.loc.mods.v3.ModsDocument;
 import gov.loc.mods.v3.ModsType;
@@ -59,11 +61,13 @@ public class WriteMETSData {
 	private MdSecType dmdSec = null;
 	private AmdSecType amdSec = null;
 	private StructMapType structMap = null;
+	private StructLinkType structLink = null;
 	
 	//Mets helpers
 	private DivType physRoot = null;
 	private DivType logRoot = null;
-	private DivType currentChild = null;
+	private DivType currentFather = null;
+	private DivType currentDiv = null;
 	private XmlOptions xOpts = null;
 
 	//Constants
@@ -272,7 +276,8 @@ public class WriteMETSData {
 	        this.logRoot.setDMDID(dmd);
 	        this.logRoot.setTYPE(logElem);
 	        	
-	        this.currentChild=this.logRoot;
+	        this.currentDiv=this.logRoot;
+	        this.currentFather=this.logRoot;
 	    }
 	}
 	    
@@ -288,10 +293,11 @@ public class WriteMETSData {
 	 */
 	public void addToStructMap (String mapType, String[] fileId, String order, String orderlabel, String divId, String structElem, boolean ischild)
 	{
+		//PHYSICAL structMap
 		if (mapType.equals(this.type_PHYSICAL))
 	    {
 			DivType div = this.physRoot.addNewDiv();
-		    div.setID("phys" + divId);
+		    div.setID(divId);
 		    BigInteger o = new BigInteger(order);
 		    div.setORDER(o);
 		    if (orderlabel != null)
@@ -305,21 +311,46 @@ public class WriteMETSData {
 		        fptr.setFILEID(fileId[i]);
 		    }
 		}
+		
+		//LOGICAL structMap
 		else 
-	    {
-			if (!ischild)
+	    {	
+			int childCount =0;
+	    	if (!ischild)
 	    	{
-				this.currentChild=this.logRoot;
+	    		//DivType div = this.currentFather.insertNewDiv(0);
+				DivType div = this.currentFather.addNewDiv();
+			    div.setID(divId);
+			    div.setTYPE(structElem);
+			    childCount =0;
+			    this.currentDiv = div;
 	    	}
+	    	else 
+	    	{
+	    		//DivType div = this.currentDiv.insertNewDiv(childCount);
 	    		
-	    	DivType div = this.currentChild.addNewDiv();
-		    div.setID("log" + divId);
-		    BigInteger o = new BigInteger(order);
-		    div.setORDER(o);
-		    div.setTYPE(structElem);
+	    		DivType div = this.currentDiv.addNewDiv();
+	    		childCount++;
+			    div.setID(divId);
+			    div.setTYPE(structElem);
+			    //this.currentFather = this.currentDiv;
+			    //this.currentDiv = div;
+	    	}
 	    }
 	}
 	   
+	public void createStructLink()
+	{
+		this.structLink = this.mets.addNewStructLink();
+	}
+	
+	public void addStructLink(String logID, String physID)
+	{
+		SmLink link = this.structLink.addNewSmLink();
+		link.setFrom(logID);
+		link.setTo(physID);
+	}
+	
 	/**
 	 * Creates a mets document out of the single sections.
 	 * @param metsId the id of the mets document to create

@@ -32,7 +32,8 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-import org.apache.xerces.dom.AttrImpl;
+//import org.apache.xerces.dom.AttrImpl;
+import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
 import org.w3c.dom.Document;
@@ -124,7 +125,8 @@ public class XmlIO
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setNamespaceAware(namespaceAwareness);
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();
-        result = docBuilder.parse(new ByteArrayInputStream(xml.toString().getBytes(encoding)));
+        result = docBuilder.parse(new ByteArrayInputStream(xml.getBytes(encoding)));
+        System.out.println(docBuilder);
         result.getDocumentElement().normalize();
         return result;
     }
@@ -135,52 +137,6 @@ public class XmlIO
         return nl;
     }
 
-    /**
-     * Serialize Dom Object to String.
-     * 
-     * @param xml Node to serialize.
-     * @param omitXMLDeclaration if XML declaration will be omitted.
-     * @return String representation of the Node.
-     * @throws Exception
-     */
-    protected static String nodeToString(final Node xml, final boolean omitXMLDeclaration) throws Exception
-    {
-        String result = new String();
-        if (xml instanceof AttrImpl)
-        {
-            result = xml.getTextContent();
-        }
-        else if (xml instanceof Document)
-        {
-            StringWriter stringOut = new StringWriter();
-            OutputFormat format = new OutputFormat((Document)xml);
-            format.setIndenting(true);
-            format.setPreserveSpace(false);
-            format.setOmitXMLDeclaration(omitXMLDeclaration);
-            format.setEncoding("UTF-8");
-            XMLSerializer serial = new XMLSerializer(stringOut, format);
-            serial.asDOMSerializer();
-            serial.serialize((Document)xml);
-            result = stringOut.toString();
-        }
-        else
-        {
-            DOMImplementationRegistry registry = DOMImplementationRegistry.newInstance();
-            DOMImplementationLS impl = (DOMImplementationLS)registry.getDOMImplementation("LS");
-            LSOutput lsOutput = impl.createLSOutput();
-            lsOutput.setEncoding("UTF-8");
-            ByteArrayOutputStream os = new ByteArrayOutputStream();
-            lsOutput.setByteStream(os);
-            LSSerializer writer = impl.createLSSerializer();
-            writer.write(xml, lsOutput);
-            result = ((ByteArrayOutputStream)lsOutput.getByteStream()).toString();
-            if ((omitXMLDeclaration) && (result.indexOf("?>") != -1))
-            {
-                result = result.substring(result.indexOf("?>") + 2);
-            }
-        }
-        return result;
-    }
 
     /**
      * Gets the value of the attribute of the root element from the document.
