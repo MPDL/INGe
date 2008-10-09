@@ -60,9 +60,10 @@
 							<ul>
 								<xsl:for-each select="methods/method">
 									<li>
-										<h4><xsl:value-of select="name"/></h4>
+										<h5><xsl:value-of select="name"/></h5>
 										<xsl:if test="parameters/parameter">
 											Parameters:
+											<br/>
 											<xsl:for-each select="parameters/parameter">
 												<b><xsl:value-of select="name"/></b>
 												<xsl:choose>
@@ -80,12 +81,14 @@
 							<ul>
 								<xsl:for-each select="samples/sample">
 									<li>
-										<xsl:if test="description">
-											<xsl:value-of select="description"/><br/>
-										</xsl:if>
 										<a href="{.}">
 											<xsl:value-of select="."/>
 										</a>
+										
+										<xsl:if test="@description">
+											:
+											<xsl:value-of select="@description"/>
+										</xsl:if>
 									</li>
 								</xsl:for-each>
 							</ul>

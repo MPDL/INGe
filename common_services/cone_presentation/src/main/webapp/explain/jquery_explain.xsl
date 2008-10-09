@@ -89,7 +89,7 @@
 						<samples>
 							<xsl:variable name="name" select="name"/>
 							<xsl:for-each select="samples/sample">
-								<sample>
+								<sample description="{description}">
 									<xsl:value-of select="$name"/>/<xsl:value-of select="method/name"/>?<xsl:for-each select="method/parameters/parameter">
 										<xsl:if test="position() != 1">&amp;</xsl:if>
 										<xsl:value-of select="@name"/>=<xsl:value-of select="."/>
