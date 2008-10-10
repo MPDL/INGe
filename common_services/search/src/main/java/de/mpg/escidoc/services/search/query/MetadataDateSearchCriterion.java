@@ -35,6 +35,8 @@ import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.parser.QueryParser;
 
 /**
+ * A date criteria is used to search for dates. A date criterion consists of a type of date indexes
+ * and a from and to search query date.
  * @author endres
  * 
  */
@@ -47,18 +49,37 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
     private String toField = null;
 
     /**
-     * @param type
-     * @param searchTerm
-     * @param operator
-     * @throws TechnicalException
+     * Constructor with date types and from and to search query.
+     * @param types  date index types
+     * @param from  date for beginning of date search
+     * @param to  date for end of date search
+     * @throws TechnicalException  if creation of object fails
      */
     public MetadataDateSearchCriterion(ArrayList<CriterionType> types, String from, String to)
-            throws TechnicalException
+        throws TechnicalException
     {
         super(types, from);
         toField = to;
     }
+    
+    /**
+     * Constructor with date types,from and to search query and a logical operator.
+     * @param types  date index types
+     * @param from  date for beginning of date search
+     * @param to  date for end of date search
+     * @param operator  logical operator to connect this criteria to the previous one
+     * @throws TechnicalException  if creation of object fails
+     */
+    public MetadataDateSearchCriterion(ArrayList<CriterionType> types, String from, String to, LogicalOperator operator)
+        throws TechnicalException 
+    {
+        super(types, from, operator);
+        toField = to;
+    }
 
+    /**
+     * {@inheritDoc}
+     */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
 

@@ -216,6 +216,12 @@ public class MetadataSearchCriterion implements Serializable
         this.typeList.add(type);
     }
 
+    /**
+     * Constructor with list of criteria and a searchterm.
+     * @param types  list of criteria
+     * @param searchTerm  search term
+     * @throws TechnicalException  if creation of object fails
+     */
     protected MetadataSearchCriterion(ArrayList<CriterionType> types, String searchTerm) throws TechnicalException
     {
         typeList = new ArrayList<CriterionType>();
@@ -226,6 +232,28 @@ public class MetadataSearchCriterion implements Serializable
             this.searchIndexes.addAll(setIndexByEnum(types.get(i)));
         }
         this.logicalOperator = LogicalOperator.UNSET;
+        this.cqlOperator = BooleanOperator.EQUALS;
+        this.typeList = types;
+    }
+    
+    /**
+     * Constructor with list of criteria, searchterm and logical operator for the criteria before.
+     * @param types  list of criteria
+     * @param searchTerm  search term
+     * @param operator  logical operator to connect with the criteria before
+     * @throws TechnicalException  if creation of object fails
+     */
+    protected MetadataSearchCriterion(ArrayList<CriterionType> types, String searchTerm, LogicalOperator operator) 
+        throws TechnicalException
+    {
+        typeList = new ArrayList<CriterionType>();
+        this.searchTerm = searchTerm;
+        this.searchIndexes = new ArrayList<String>();
+        for (int i = 0; i < types.size(); i++)
+        {
+            this.searchIndexes.addAll(setIndexByEnum(types.get(i)));
+        }
+        this.logicalOperator = operator;
         this.cqlOperator = BooleanOperator.EQUALS;
         this.typeList = types;
     }
