@@ -575,6 +575,7 @@ public class SearchResultList extends ItemList
 
         // check if we have received some criteria to search for
         if( criteria.size() == 0 ) {
+            valQuery.setValue( "" );
         	return (SearchResultList.LOAD_NO_ITEMS_FOUND);   
         }
         
