@@ -6,7 +6,6 @@ package de.mpg.escidoc.services.search.query;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 import org.z3950.zing.cql.CQLNode;
 import org.z3950.zing.cql.CQLParseException;
