@@ -204,7 +204,7 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
      *             if an internal error occurs
      */
     private CQLNode generateNodeWithCriterion(CQLNode node, MetadataSearchCriterion criterion)
-            throws CQLParseException, IOException, ParseException, TechnicalException
+        throws CQLParseException, IOException, ParseException, TechnicalException
     {
         CQLNode newRoot = null;
         switch (criterion.getLogicalOperator())
