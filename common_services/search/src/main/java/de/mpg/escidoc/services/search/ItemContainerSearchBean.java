@@ -53,7 +53,6 @@ import org.apache.axis.message.MessageElement;
 import org.apache.axis.types.NonNegativeInteger;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
-import org.z3950.zing.cql.CQLParseException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
@@ -155,7 +154,8 @@ public class ItemContainerSearchBean implements ItemContainerSearch
             StandardSearchResult result = new StandardSearchResult(resultList, cqlQuery);
             return result;
         } 
-        catch( ParseException f ) {
+        catch (ParseException f) 
+        {
             throw new ParseException();
         }
         catch (Exception e)
