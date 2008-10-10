@@ -100,10 +100,10 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class ItemControllerSessionBean extends FacesBean
 {
-	
-	private static final long serialVersionUID = 8235607890711998557L;
-	
-	public static final String BEAN_NAME = "ItemControllerSessionBean";
+
+    private static final long serialVersionUID = 8235607890711998557L;
+
+    public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
     private LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -120,10 +120,10 @@ public class ItemControllerSessionBean extends FacesBean
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
     private ContextVO currentContext = null;
-    private PubItemSimpleStatistics pubItemStatistic =null;
+    private PubItemSimpleStatistics pubItemStatistic = null;
     
     private static final String PROPERTY_CONTENT_MODEL = 
-    	"escidoc.framework_access.content-model.id.publication";
+        "escidoc.framework_access.content-model.id.publication";
 
 
     /**
@@ -145,7 +145,8 @@ public class ItemControllerSessionBean extends FacesBean
             this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
             this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
             this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            this.pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+            this.pubItemStatistic  =
+                (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
         }
         catch (NamingException e)
         {
@@ -250,7 +251,9 @@ public class ItemControllerSessionBean extends FacesBean
      * should be returned when the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String submitOrReleaseCurrentPubItem(final String submissionComment, final String navigationRuleWhenSuccessfull)
+    public String submitOrReleaseCurrentPubItem(
+            final String submissionComment,
+            final String navigationRuleWhenSuccessfull)
     {
         try
         {
@@ -283,7 +286,10 @@ public class ItemControllerSessionBean extends FacesBean
     
     /**
      * Submits a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * 
+     * @param submissionComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String saveAndSubmitOrReleaseCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
@@ -318,7 +324,10 @@ public class ItemControllerSessionBean extends FacesBean
     
     /**
      * Submits a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * 
+     * @param withdrawalComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String withdrawCurrentPubItem(String navigationRuleWhenSuccessfull, String withdrawalComment)
@@ -348,7 +357,9 @@ public class ItemControllerSessionBean extends FacesBean
     /**
      * Submits a list of PubItems and handles navigation afterwards.
      * @param pubItemList list with pubItems to submit
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * @param submissionComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     // //TODO NBU: remove this method
@@ -357,7 +368,7 @@ public class ItemControllerSessionBean extends FacesBean
         boolean allSubmitted = true;
         if (pubItemList.size() > 0)
         {
-            for (int i=0; i<pubItemList.size(); i++)
+            for (int i = 0; i < pubItemList.size(); i++)
             {
                 try
                 {
@@ -816,7 +827,8 @@ public class ItemControllerSessionBean extends FacesBean
             // Item is valid, but has informative messages.
             this.getItemListSessionBean().setListDirty(true);
             
-            if (ignoreInformativeMessages) {
+            if (ignoreInformativeMessages)
+            {
                 // clean up the item from unused sub-VOs
                 this.cleanUpItem(pubItem);
                 
@@ -1671,18 +1683,19 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
-        ArrayList<AffiliationVO> cleandedItemList = new ArrayList<AffiliationVO>();
-        for (AffiliationVO affiliationVO : itemList)
+        ArrayList<AffiliationVO> affiliationList =
+            (ArrayList<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> cleanedItemList = new ArrayList<AffiliationVO>();
+        for (AffiliationVO affiliationVO : affiliationList)
         {
             if (!"created".equals(affiliationVO.getPublicStatus()))
             {
-                cleandedItemList.add(affiliationVO);
+                cleanedItemList.add(affiliationVO);
             }
         }
         
 
-        return itemList;
+        return cleanedItemList;
     }
 
     /**
@@ -1793,7 +1806,9 @@ public class ItemControllerSessionBean extends FacesBean
         {
             // TODO FrM: Remove userHandle when Bug: http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597 is fixed
             String userHandle = AdminHelper.getAdminUserHandle();
-            xmlChildAffiliationList = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveChildObjects(parentAffiliation.getReference().getObjectId());
+            xmlChildAffiliationList = ServiceLocator
+                    .getOrganizationalUnitHandler(userHandle)
+                    .retrieveChildObjects(parentAffiliation.getReference().getObjectId());
         }
         catch (AuthenticationException e)
         {
@@ -1808,11 +1823,25 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        List<AffiliationVO> affiliationList = (List<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        List<AffiliationVO> affiliationList =
+            (List<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
-        List<AffiliationVOPresentation> wrappedAffiliationList = CommonUtils.convertToAffiliationVOPresentationList(affiliationList);
+        List<AffiliationVO> cleanedAffiliationList = new ArrayList<AffiliationVO>();
         
-        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
+        // Remove opened affiliations
+        for (AffiliationVO affiliationVO : affiliationList)
+        {
+            if (!"created".equals(affiliationVO.getPublicStatus()))
+            {
+                cleanedAffiliationList.add(affiliationVO);
+            }
+        }
+        
+        List<AffiliationVOPresentation> wrappedAffiliationList =
+            CommonUtils.convertToAffiliationVOPresentationList(cleanedAffiliationList);
+        
+        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList)
+        {
         	affiliationVOPresentation.setParent(parentAffiliation);
         	affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()+", "+parentAffiliation.getNamePath());
         	affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() +" "+parentAffiliation.getIdPath());
