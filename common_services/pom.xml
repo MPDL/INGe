@@ -169,8 +169,10 @@
 	<module>importmanager</module>
 	<module>import_presentation</module>
 	<module>import_ear</module>
-	 <module>endnotemanager</module>
+	<module>endnotemanager</module>
    	<module>endnotemanager_ear</module>
+   	<module>exportmanager</module>
+   	<module>exportmanager_ear</module>
 	</modules>
 
 	<scm>
