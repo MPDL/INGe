@@ -1794,7 +1794,8 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all child affiliations
      * @throws Exception if framework access fails
      */
-    public List<AffiliationVOPresentation> retrieveChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
+    public List<AffiliationVOPresentation> retrieveChildAffiliations(
+            AffiliationVOPresentation parentAffiliation) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1804,7 +1805,9 @@ public class ItemControllerSessionBean extends FacesBean
         String xmlChildAffiliationList = "";        
         try
         {
-            // TODO FrM: Remove userHandle when Bug: http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597 is fixed
+            // TODO FrM: Remove userHandle when Bug: 
+            // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
+            // is fixed
             String userHandle = AdminHelper.getAdminUserHandle();
             xmlChildAffiliationList = ServiceLocator
                     .getOrganizationalUnitHandler(userHandle)
