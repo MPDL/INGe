@@ -109,7 +109,7 @@
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
 						</div>
-						<tr:commandButton text="File Preview" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
+						<tr:commandButton text="#{lbl.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
 					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
