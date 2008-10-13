@@ -153,7 +153,7 @@ public class PubItemPublishingTest extends TestBase
 
         assertEquals(1, releasedPubItem.getFiles().size());
         FileVO pubFile = releasedPubItem.getFiles().get(0);
-        assertNotNull(pubFile.getPid());
+        // assertNotNull(pubFile.getPid());
 
     }
 
