@@ -37,8 +37,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 	private boolean selected = false;
 	private boolean shortView = true;
-	
-	
+	private boolean released = false;
+
+
 	/**
 	 * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
 	 */
@@ -120,8 +121,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 		if( item instanceof PubItemResultVO ) {
 			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
 			this.isSearchResult = true;
+
 		}
 		
+		this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
 		
 		// set up some pre-requisites
 		//the list of numbered affiliated organizations 
@@ -1045,5 +1048,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         this.isFromEasySubmission = isFromEasySubmission;
     }
+	
+	public boolean getIsReleased() 
+	{
+		return this.released;
+	}
+
+	public void setReleased(boolean released) 
+	{
+		this.released = released;
+	}
 	
 }
