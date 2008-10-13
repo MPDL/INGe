@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.editItem;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -40,12 +41,12 @@ import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlMessages;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.faces.event.ActionListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.InputStreamRequestEntity;
@@ -97,6 +98,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorTyp
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
@@ -1044,7 +1046,16 @@ public class EditItem extends FacesBean
     	int index = this.fileIterator.getRowIndex();
   	
 		FileVO fileVO = this.getEditItemSessionBean().getFiles().get(index).getFile();
+		
+		try {
+			fileVO.setContent(fileVO.getContent().replaceFirst(ServiceLocator.getFrameworkUrl(), ""));
+		} 
+		catch (ServiceException e) 
+		{e.printStackTrace();} 
+		catch (URISyntaxException e) 
+		{e.printStackTrace();}
     	FileBean File = new FileBean(fileVO,this.getPubItem().getPublicStatus());
+    	
     	
     	File.downloadFile();
     }
