@@ -38,7 +38,7 @@
 	-->
 
 	<!-- unAPI identifier -->
-	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false"/>
+	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
 	
 	<!-- Creator(s) -->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
