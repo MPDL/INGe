@@ -37,30 +37,30 @@
 			<h:outputText value="#{lbl.mainMenu_lnkHome}" />
 		</h:commandLink></h1>
 		<h1><h:outputText id="lblMyWorkspace"
-			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace}">
+			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace and ContextListSessionBean.depositorContextListSize>0}">
 		</h:outputText></h1>
 		<li><h:outputLink
 			value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
-			<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS}" />
+			<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:outputLink></li>
 			
 		<li><h:commandLink id="lnkNewSubmission"
 			action="#{CreateItem.newSubmission}" immediate="true">
-			<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission}" />
+			<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:commandLink></li>
 		
 		<li><h:commandLink
 			action="#{EasySubmission.newEasySubmission}">
-			<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission}"/>
+			<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 		</h:commandLink></li>
 		
 		<h1><h:outputText id="lblQAWorkspace"
-			value="#{lbl.mainMenu_lblQA}" rendered="#{QAWSPage.isModerator}"/>
+			value="#{lbl.mainMenu_lblQA}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}"/>
 		</h1>
 		
 		<li><h:outputLink
 			value="#{ApplicationBean.appContext}QAWSPage.jsp">
-			<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator}" />
+			<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
 		</h:outputLink></li>
 	</ul>
 	<h:outputText id="pageDummy" value="#{Navigation.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />

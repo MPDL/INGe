@@ -153,6 +153,19 @@ public class ContextListSessionBean extends FacesBean
     {
         return depositorContextList;
     }
+    
+    public int getDepositorContextListSize()
+    {
+        if (depositorContextList==null)
+        {
+            return 0;
+        }
+        else
+        {
+            return depositorContextList.size();
+        }
+        
+    }
 
     public void setDepositorContextList(List<PubContextVOPresentation> contextList)
     {
@@ -174,9 +187,24 @@ public class ContextListSessionBean extends FacesBean
     {
         return moderatorContextList;
     }
+    
+    public int getModeratorContextListSize()
+    {
+        if (moderatorContextList==null)
+        {
+            return 0;
+        }
+        else
+        {
+            return moderatorContextList.size();
+        }
+        
+    }
 
     public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList)
     {
         this.moderatorContextList = moderatorContextList;
     }
+    
+    
 }

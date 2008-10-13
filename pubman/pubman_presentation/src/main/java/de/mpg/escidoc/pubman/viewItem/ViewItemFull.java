@@ -319,7 +319,9 @@ public class ViewItemFull extends FacesBean
             
             //DiT: multiple new conditions for link-activation added
             isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-            isDepositor = loginHelper.getAccountUser().isDepositor();
+            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            isDepositor = loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
+            //isDepositor = loginHelper.getAccountUser().isDepositor();
             
             isOwner = true;
             if (this.pubItem.getOwner() != null)
