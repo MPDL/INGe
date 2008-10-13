@@ -692,7 +692,7 @@ public class PubItemDepositingTest extends TestBase
     {
         List<ContextVO> pubCollectionList = pmDepositing.getPubCollectionListForDepositing(user);
         assertNotNull(pubCollectionList);
-        assertEquals(1, pubCollectionList.size());
+        assertEquals(2, pubCollectionList.size());
         ContextVO pubCollection = pubCollectionList.get(0);
         assertNotNull(pubCollection.getReference());
         assertEquals(PUBMAN_TEST_COLLECTION_NAME, pubCollection.getName());
