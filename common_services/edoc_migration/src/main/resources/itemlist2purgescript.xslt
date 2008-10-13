@@ -57,7 +57,7 @@
 	xmlns:container-list="http://www.escidoc.de/schemas/containerlist/0.7"
 	xmlns:struct-map="http://www.escidoc.de/schemas/structmap/0.4"
 	xmlns:search="http://www.loc.gov/zing/srw/"
-	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.6">
+	xmlns:search-result="http://www.escidoc.de/schemas/searchresult/0.7">
 
 	<xsl:output method="text" encoding="UTF-8" indent="no"/>
 

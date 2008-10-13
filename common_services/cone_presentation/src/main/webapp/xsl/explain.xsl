@@ -75,6 +75,7 @@
 												<br/>
 											</xsl:for-each>
 										</xsl:if>
+										<br/>
 									</li>
 								</xsl:for-each>
 							</ul>

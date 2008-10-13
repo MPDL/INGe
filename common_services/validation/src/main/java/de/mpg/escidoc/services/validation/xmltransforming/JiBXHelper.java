@@ -32,6 +32,7 @@ package de.mpg.escidoc.services.validation.xmltransforming;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import de.mpg.escidoc.services.common.xmltransforming.exceptions.WrongEnumException;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportItemVO;
 

@@ -34,7 +34,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.MissingResourceException;
 
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -44,7 +43,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
+
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.ValidationSchemaNotFoundException;
@@ -202,26 +203,47 @@ public class RestServlet extends HttpServlet
                     + ")");
         }
         resp.setStatus(500);
+        LOGGER.error("Error validation item", e);
     }
     
+    /**
+     * Exception that is thrown when a parameter in the REST request is missing.
+     *
+     * @author franke (initial creation)
+     * @author $Author$ (last modification)
+     * @version $Revision$ $LastChangedDate$
+     *
+     */
     public class MissingParameterException extends Exception
     {
 
+        /**
+         * {@inheritDoc}
+         */
         public MissingParameterException()
         {
             super();
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public MissingParameterException(String arg0, Throwable arg1)
         {
             super(arg0, arg1);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public MissingParameterException(String arg0)
         {
             super(arg0);
         }
 
+        /**
+         * {@inheritDoc}
+         */
         public MissingParameterException(Throwable arg0)
         {
             super(arg0);

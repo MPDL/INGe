@@ -50,7 +50,7 @@ public class CreatePurgeScript
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
     private static final String CORESERVICES_URL = "http://dev-coreservice.mpdl.mpg.de:8080";
-    private static final String IMPORT_CONTEXT = "escidoc:36441";
+    private static final String IMPORT_CONTEXT = "escidoc:23756";
     
     /**
      * @param args
@@ -70,6 +70,7 @@ public class CreatePurgeScript
         FileOutputStream outputStream = new FileOutputStream("purge.sh");
         transform.transform(response, stylesheet, outputStream);
         logger.info("...done!");
+        
         logger.info("Finished!");
     }
 }
