@@ -31,6 +31,7 @@
 package de.mpg.escidoc.services.cone.web;
 
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -48,15 +49,16 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.common.util.ResourceUtil;
+import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.Querier;
 import de.mpg.escidoc.services.cone.QuerierFactory;
-import de.mpg.escidoc.services.cone.ModelList;
 import de.mpg.escidoc.services.cone.ModelList.Model;
 import de.mpg.escidoc.services.cone.util.Pair;
 
@@ -88,7 +90,7 @@ public class JQueryConeServlet extends HttpServlet
         
         PrintWriter out = response.getWriter();
         
-        // Read the service name and action from the URL
+        // Read the model name and action from the URL
         String[] path = request.getPathInfo().split("/");
         
         String model = null;
@@ -108,28 +110,13 @@ public class JQueryConeServlet extends HttpServlet
         
         if ("explain".equals(model))
         {
-            response.setContentType("text/xml");
-            
-            InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
-            InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
-            
-            try
-            {
-                Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
-                transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
-                transformer.transform(new StreamSource(source), new StreamResult(out));
-            }
-            catch (Exception e)
-            {
-                logger.error(ERROR_TRANSFORMING_RESULT, e);
-                throw new IOException(e.getMessage());
-            }
+            explain(response);
         }
         else if ("query".equals(action))
         {
             try
             {
-                queryAction(request, response, out, model);
+                queryAction(request, response, model);
             }
             catch (Exception e)
             {
@@ -146,6 +133,36 @@ public class JQueryConeServlet extends HttpServlet
             {
                 throw new ServletException(e);
             }
+        }
+    }
+
+    /**
+     * Send explain output to client.
+     * 
+     * @param response
+     * 
+     * @throws FileNotFoundException
+     * @throws TransformerFactoryConfigurationError
+     * @throws IOException
+     */
+    private void explain(HttpServletResponse response) throws FileNotFoundException,
+            TransformerFactoryConfigurationError, IOException
+    {
+        response.setContentType("text/xml");
+        
+        InputStream source = ResourceUtil.getResourceAsStream("explain/models.xml");
+        InputStream template = ResourceUtil.getResourceAsStream("explain/jquery_explain.xsl");
+        
+        try
+        {
+            Transformer transformer = TransformerFactory.newInstance().newTransformer(new StreamSource(template));
+            transformer.setOutputProperty(OutputKeys.ENCODING, DEFAULT_ENCODING);
+            transformer.transform(new StreamSource(source), new StreamResult(response.getWriter()));
+        }
+        catch (Exception e)
+        {
+            logger.error(ERROR_TRANSFORMING_RESULT, e);
+            throw new IOException(e.getMessage());
         }
     }
 
@@ -209,13 +226,14 @@ public class JQueryConeServlet extends HttpServlet
     }
 
     /**
+     * Retrieve a list of matching entities.
+     * 
      * @param request
      * @param response
-     * @param out
      * @param model
      * @throws IOException
      */
-    private void queryAction(HttpServletRequest request, HttpServletResponse response, PrintWriter out, String modelName)
+    private void queryAction(HttpServletRequest request, HttpServletResponse response, String modelName)
         throws Exception
     {
         Model model = ModelList.getInstance().new Model(modelName);
@@ -258,7 +276,7 @@ public class JQueryConeServlet extends HttpServlet
                         logger.error(DB_ERROR_MESSAGE, e);
                     }
    
-                    out.println(formatQuery(result));
+                    response.getWriter().println(formatQuery(result));
                 }
             }
         }

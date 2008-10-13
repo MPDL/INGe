@@ -31,9 +31,9 @@
 				.load(resetPosition)		// just in case user is changing size of page while loading
 				.resize(resetPosition);
 
-			$input.blur(function() {
-				setTimeout(function() { $results.hide() }, 200);
-			});
+			//$input.blur(function() {
+			//	setTimeout(function() { $results.hide() }, 200);
+			//});
 			
 			
 			// help IE users if possible
@@ -47,9 +47,6 @@
 				$input.keypress(processKey);	// onkeypress repeats arrow keys in Mozilla/Opera
 			else
 				$input.keydown(processKey);		// onkeydown repeats arrow keys in IE/Safari
-			
-
-
 
 			function resetPosition() {
 				// requires jquery.dimension plugin

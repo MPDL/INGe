@@ -19,7 +19,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -47,6 +46,8 @@ public class MulgaraQuerier implements Querier
 
     /**
      * Default constructor getting needed properties.
+     * 
+     * @throws Exception Any exception.
      */
     public MulgaraQuerier() throws Exception
     {
@@ -80,14 +81,13 @@ public class MulgaraQuerier implements Querier
                     + model + "_fulltext>";
         }
         query += " limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
-        logger.debug("query: " + query);
+
         ItqlInterpreterBean interpreter = new ItqlInterpreterBean();
         long now = new Date().getTime();
         Answer answer = interpreter.executeQuery(query);
         logger.debug("Took " + (new Date().getTime() - now) + " ms.");
         List<Pair> resultSet = new ArrayList<Pair>();
-        String query2 = "";
-        boolean found = false;
+
         while (answer.next())
         {
             String subject = answer.getObject(0).toString();
@@ -106,7 +106,7 @@ public class MulgaraQuerier implements Querier
                 resultSet.add(new Pair(subject, object));
             }
         }
-        logger.debug("Result: " + resultSet);
+
         return resultSet;
     }
 
