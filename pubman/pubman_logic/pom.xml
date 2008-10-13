@@ -31,19 +31,19 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>3.8.0</version>
+		<version>3.8.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
-	<version>3.8.0</version>
+	<version>3.8.0-SNAPSHOT</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.0/pubman_logic</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.0/pubman_logic</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.0</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_logic</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 
 	<build>
@@ -88,7 +88,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.6-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
@@ -100,7 +100,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.3</version>
+			<version>1.1.3-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
