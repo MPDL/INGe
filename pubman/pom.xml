@@ -155,6 +155,26 @@
 			<organization>Max Planck Digital Library</organization>
 			<timezone>+2</timezone>
 		</developer>
+		<developer>
+			<id>kleinfercher</id>
+			<name>Friederike Kleinfercher</name>
+			<email>kleinfercher@mpdl.mpg.de</email>
+			<roles>
+                <role>Software developer</role>
+            </roles>
+            <organization>Max Planck Digital Library</organization>
+            <timezone>+2</timezone>
+		</developer>
+		<developer>
+		  <id>haarlaender</id>
+            <name>Markus Haarlaender</name>
+            <email>haarlaender@mpdl.mpg.de</email>
+            <roles>
+                <role>Software developer</role>
+            </roles>
+            <organization>Max Planck Digital Library</organization>
+            <timezone>+2</timezone>
+		</developer>
 	</developers>
 
 	<mailingLists>
