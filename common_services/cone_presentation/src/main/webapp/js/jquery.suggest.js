@@ -249,12 +249,18 @@
 			function getResultID(result) {
 				var id = 'test';
 				var span = '<span class="' + options.matchClass + '">';
-				for(var i=0; i < cache[0]['items'].length; i++) {
-					var item = cache[0]['items'][i];
-					item[0] = item[0].replace(new RegExp(span,'ig'),'');
-					item[0] = item[0].replace(new RegExp('</span>','ig'),'');
-					item[0] = $.trim(item[0]);
-					if(item[0]==result) id= item[1];
+				for (var j = 0; j < cache.length; j++) {
+					for(var i = 0; i < cache[j]['items'].length; i++) {
+						var item = cache[j]['items'][i];
+						item[0] = item[0].replace(new RegExp(span,'ig'),'');
+						item[0] = item[0].replace(new RegExp('</span>','ig'),'');
+						item[0] = $.trim(item[0]);
+						//alert(item[0] + '==' + result + " : " + (item[0]==result));
+						if (item[0] == result) {
+							id = item[1];
+							break;
+						}
+					}
 				}
 				return id;
 			}
