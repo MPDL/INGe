@@ -81,6 +81,7 @@
 								fillField('journalSuggest', title, parent);
 								fillField('publisher', publisher, parent);
 								fillField('place', place, parent);
+								fillField('identifierValue', identifier, parent);
 							}
 
 							function fillField(name, value, commonParent)
@@ -309,10 +310,10 @@
 				<h:column>
 					<h:panelGroup layout="block" styleClass="editItemSingleCol">
 					<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblIdentifier}" />
-						<h:selectOneMenu styleClass="editItemComboBoxVeryShort" value="#{identifier.typeString}">
+						<h:selectOneMenu styleClass="editItemComboBoxVeryShort identifierType" value="#{identifier.typeString}">
 							<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}"/>
 						</h:selectOneMenu>
-						<h:inputText styleClass="editItemTextFieldShort leftSpace10" value="#{identifier.id}" />						
+						<h:inputText styleClass="editItemTextFieldShort leftSpace10 identifierValue" value="#{identifier.id}" />						
 						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" 
 							action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
