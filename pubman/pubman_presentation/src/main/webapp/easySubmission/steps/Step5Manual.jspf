@@ -97,7 +97,7 @@
 					</div>
 					
 					<script type="text/javascript">
-						$(".journalSuggest").suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query');
+						$(".journalSuggest").suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query', { onSelect: function() { $(this).val( ($(this).val().split(';'))[0] ); }  });
 						$('.languageSuggest').suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query', { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); }    });
 					</script>
 				</div>
