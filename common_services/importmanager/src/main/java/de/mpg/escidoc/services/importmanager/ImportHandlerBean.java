@@ -789,9 +789,9 @@ public class ImportHandlerBean implements ImportHandler
 			List <PubItemVO>pubitemList = Arrays.asList(itemVO);
 			String itemList = xmlTransforming.transformToItemList(pubitemList);
 			
-			apa = citeHandler.getOutput("APA", "rtf", itemList);
-			this.setContentType("application/rtf");
-			this.setFileEnding(".rtf");
+			apa = citeHandler.getOutput("APA", "html", itemList);
+			this.setContentType("application/html");
+			this.setFileEnding(".html");
 		} 
     	catch(IdentifierNotRecognisedException e) 
     	{throw new IdentifierNotRecognisedException(e);} 
