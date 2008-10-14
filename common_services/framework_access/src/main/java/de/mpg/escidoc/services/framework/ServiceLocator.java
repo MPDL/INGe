@@ -102,6 +102,7 @@ public class ServiceLocator
     private static ItemHandlerServiceLocator publicItemHandlerServiceLocator;
     private static ItemHandlerServiceLocator authorizedItemHandlerServiceLocator;
     private static ContainerHandlerServiceLocator authorizedContainerHandlerServiceLocator;
+    private static ContainerHandlerServiceLocator publicContainerHandlerServiceLocator;
     private static SemanticStoreHandlerServiceLocator authorizedSemanticScoreHandlerServiceLocator;
     private static ScopeHandlerServiceLocator publicScopeHandlerServiceLocator;
     private static AggregationDefinitionHandlerServiceLocator  publicAggregationDefinitionHandlerServiceLocator;
@@ -560,6 +561,27 @@ public class ServiceLocator
         }
         ContainerHandler handler = authorizedContainerHandlerServiceLocator.getContainerHandlerService();
         ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(userHandle));
+        return handler;
+    }
+
+    /**
+     * Gets the ContainerHandler service for an authentificated user.
+     *
+     * @return A ContainerHandler.
+     * @throws ServiceException
+     * @throws URISyntaxException 
+     */
+    public static ContainerHandler getContainerHandler() throws ServiceException, URISyntaxException
+    {
+        if (publicContainerHandlerServiceLocator == null)
+        {
+            publicContainerHandlerServiceLocator = new ContainerHandlerServiceLocator(new FileProvider(CONFIGURATION_FILE));
+            String url = getFrameworkUrl() + FRAMEWORK_PATH + "/" + publicContainerHandlerServiceLocator.getContainerHandlerServiceWSDDServiceName();
+            Logger.getLogger(ServiceLocator.class).info("publicContainerHandlerServiceLocator URL=" + url);
+            publicContainerHandlerServiceLocator.setContainerHandlerServiceEndpointAddress(url);
+        }
+        ContainerHandler handler = publicContainerHandlerServiceLocator.getContainerHandlerService();
+        ((Stub)handler)._setProperty(WSHandlerConstants.PW_CALLBACK_REF, new PWCallback(""));
         return handler;
     }
     
