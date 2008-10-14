@@ -33,7 +33,7 @@
 <f:loadBundle var="lbl" basename="Label"/>
 
 
-	<h:dataTable var="sourceBean" styleClass="" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even, list-row-odd" >
+	<h:dataTable var="sourceBean" styleClass="" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even sourceArea, list-row-odd sourceArea" >
 		<h:column>
 		<%-- GENRE --%>
 		<h:panelGroup layout="block" styleClass="floatbox">
@@ -66,7 +66,7 @@
 
 							function getJournalDetails(details)
 							{
-
+								var parent = $input.parents('.sourceArea');
 								var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
 								var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
 										(typeof details.http_purl_org_dc_terms_alternative == 'object' ?
@@ -78,20 +78,21 @@
 										(typeof details.http_purl_org_dc_elements_1_1_identifier == 'object' ?
 												details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
 
-								fillField('journalSuggest', title);
-								fillField('publisher', publisher);
-								fillField('place', place);
+								fillField('journalSuggest', title, parent);
+								fillField('publisher', publisher, parent);
+								fillField('place', place, parent);
 							}
 
-							function fillField(name, value)
+							function fillField(name, value, commonParent)
 							{
-								$('.' + name).val(value);
+								$(commonParent).find('.' + name).val(value);
 							}
 
 							
 							function fillFields()
 							{
 								//alert(this.resultID);
+								$input = $(this);
 								$.getJSON('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/jnar/details?id=' + this.resultID, getJournalDetails);							
 							}
 						
