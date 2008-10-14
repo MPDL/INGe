@@ -384,8 +384,8 @@
 				</h:panelGroup>
 			</div>
 				<h:panelGroup layout="block" styleClass="editItemSingleCol floatbox topSpace">					
-					<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" styleClass="noBorder" />
-					<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" styleClass="checkboxLbl" value="#{lbl.EditItem_lblInvitationstatus}" />	
+					<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" styleClass="noBorder" style="float: left; margin-right: 3px;" />
+					<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" styleClass="" style="float: left;" value="#{lbl.EditItem_lblInvitationstatus}" />	
 				</h:panelGroup>			
 			</h:panelGroup>
 		</h:panelGroup>
