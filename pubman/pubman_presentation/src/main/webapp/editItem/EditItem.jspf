@@ -99,7 +99,7 @@
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="true"/> 			
+	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
 							
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
