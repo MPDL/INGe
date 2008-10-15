@@ -943,6 +943,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	}
     }
     
+    public boolean getShowCheckbox()
+    {
+    	boolean showCheckbox = true;
+    	if(this.getPublicStatus().equals(State.WITHDRAWN))
+    	{
+    		showCheckbox = false;
+    	}
+    	return showCheckbox;
+    }
+    
 	public java.util.List<SearchHitVO> getSearchHitList() {
 		return searchHitList;
 	}

@@ -103,7 +103,7 @@ All rights reserved. Use is subject to license terms.
 				<h:column>
 					<h:panelGroup layout="block" styleClass="listItemHeader dark">
 						<div class="listItemHeaderTitle">
-							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{ItemListSessionBean.isSearchResultList}"/>
+							<h:selectBooleanCheckbox value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
 							<h:outputLink value="#{item.link}">
 								<h:outputText value="#{item.shortTitle}"/>
 							</h:outputLink>
