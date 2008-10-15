@@ -91,6 +91,7 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -367,6 +368,11 @@ public class ViewItemFull extends FacesBean
             this.coins = coins.getCOinSString(this.pubItem);
             
             // the list of sources
+           
+            //clear source list first
+            this.sourceList.clear();
+            
+            
             for(int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
             {
             	this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
@@ -395,7 +401,9 @@ public class ViewItemFull extends FacesBean
             }
             
           
-            
+            // Clear file and locator list first
+            this.fileList.clear();
+            this.locatorList.clear();
             for(int i = 0; i < this.pubItem.getFiles().size(); i++)
             {
             	if(searchHitList.size() > 0 && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
@@ -1523,6 +1531,19 @@ public class ViewItemFull extends FacesBean
 		this.pubItem = pubItem;
 	}
 
+	public ArrayList<TextVO> getAbstracts()
+	{
+		ArrayList<TextVO> abstracts = new ArrayList<TextVO>();
+		if(this.pubItem.getMetadata().getAbstracts() != null)
+		{
+			for(int i = 0; i < this.pubItem.getMetadata().getAbstracts().size(); i++)
+			{
+				//abstracts.add(new TextVO(CommonUtils.htmlEscape(this.pubItem.getMetadata().getAbstracts().get(i).getValue())));
+				abstracts.add(new TextVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
+			}
+		}
+		return abstracts;
+	}
 	public String getGenre()
     {
     	String genre="";
