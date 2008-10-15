@@ -15,9 +15,10 @@
 		<form name="form1" method="get">
 			Enter query string:
 			<input class="journalSuggest" id="test1" size="100"/>
-			<script type="text/javascript">
-				$(".journalSuggest").suggest("jquery/jnar/query",{ onSelect: function() {alert("You selected: " + this)}});
-			</script>
+			
 		</form>
+		<script type="text/javascript">
+			$(".journalSuggest").suggest("jquery/jnar/query");
+		</script>
 	</body>
 </html>

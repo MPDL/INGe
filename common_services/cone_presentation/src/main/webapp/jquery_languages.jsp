@@ -21,9 +21,9 @@
 				<option value="de">Deutsch</option>
 				<option value="fr">Français</option>
 			</select>
-			<script type="text/javascript">
-				$(".languageSuggest").suggest("jquery/lang/query",{ onSelect: function() {alert("You selected: " + this.getResultID())}});
-			</script>
 		</form>
+		<script type="text/javascript">
+			$(".languageSuggest").suggest("jquery/lang/query",{ onSelect: function() {alert("You selected: " + this.getResultID())}});
+		</script>
 	</body>
 </html>
