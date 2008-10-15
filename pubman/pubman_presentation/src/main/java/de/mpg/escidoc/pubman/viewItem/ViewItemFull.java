@@ -305,7 +305,7 @@ public class ViewItemFull extends FacesBean
                 
                 
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
-                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length()-1);
+                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
                 
                 this.citationURL = pubmanUrl + itemPattern;
                 
