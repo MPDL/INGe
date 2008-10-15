@@ -81,7 +81,17 @@ public class ContextListSessionBean extends FacesBean
             
             InitialContext initialContext = new InitialContext();
             this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
+            if(loginHelper.getAccountUser() != null 
+            		&& loginHelper.getAccountUser().getReference() != null 
+            		&& loginHelper.getAccountUser().getReference().getObjectId()!= null 
+            		&& !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+            	moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
+            }
+            else
+            {
+            	moderatorContexts.addAll(this.getDummyCollections(3));
+            }
         }
         catch (Exception e)
         {

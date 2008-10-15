@@ -1934,7 +1934,13 @@ public class ItemControllerSessionBean extends FacesBean
 
         try
         {
-            allCollections = this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
+            if(loginHelper.getAccountUser() != null 
+            		&& loginHelper.getAccountUser().getReference() != null 
+            		&& loginHelper.getAccountUser().getReference().getObjectId()!= null 
+            		&& !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+            	allCollections = this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
+            }
         }
         catch (Exception e)
         {
