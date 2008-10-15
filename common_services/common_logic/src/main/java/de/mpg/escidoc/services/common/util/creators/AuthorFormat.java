@@ -490,9 +490,11 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             }
             else if(parts.length==1)
             {
-                author.setSurname(parts[0]);
-                author.setFormat(this);
-                result.add(author);
+               
+                    author.setSurname(parts[0]);
+                    author.setFormat(this);
+                    result.add(author);
+                
             }
             else
             {

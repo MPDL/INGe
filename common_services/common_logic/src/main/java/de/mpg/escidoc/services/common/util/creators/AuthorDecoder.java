@@ -96,13 +96,14 @@ public class AuthorDecoder
 
         
         System.out.println(authors);
-        //Interprete newline as new author
-        authors = authors.replaceAll("\\n+", " and ").trim();
+        //Replace newline with "and" (and, thus, interprete as new author) if no seperation like ", ; and und et" is found before or after
+        //otherwise replace with "and" including the seperator
+        authors = authors.replaceAll("((,|;| and | und | et ))\\s*\\n\\s*", " and ").trim();
+        authors = authors.replaceAll("\\s*\\n\\s*(,|;| and | und | et )", " and ").trim();
+        authors = authors.replaceAll("\\n", " and ").trim();
         
         //normalize the string
         authors = authors.replaceAll("\\s+", " ").trim();
-        
-        //authors = authors.replaceAll("\\r+", "cr").trim();
 
         System.out.println(authors);
         
