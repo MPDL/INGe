@@ -33,7 +33,7 @@
 <f:loadBundle var="lbl" basename="Label"/>
 
 
-	<h:dataTable var="sourceBean" styleClass="" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even sourceArea, list-row-odd sourceArea" >
+	<h:dataTable id="sources" var="sourceBean" styleClass="" value="#{EditItem.sourceCollection.sourceManager.objectDM}" rendered="#{EditItem.sourceCollection.sourceManager.size > 0}" rowClasses="list-row-even sourceArea, list-row-odd sourceArea" >
 		<h:column>
 		<%-- GENRE --%>
 		<h:panelGroup layout="block" styleClass="floatbox">
@@ -46,70 +46,27 @@
 		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 			<h:panelGroup layout="block" styleClass="editItemSingleCol">								
 				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblGenre}"/>
-				<h:selectOneMenu styleClass="editItemComboBoxShort" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" onchange="$(this).siblings('.genreButton').click();">
+				<h:selectOneMenu styleClass="editItemComboBoxShort journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" >
 					<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
 				</h:selectOneMenu>
-
-				<tr:commandButton styleClass="genreButton" text="choose genre" id="btn_chooseGenre" partialSubmit="true" inlineStyle="visibility:hidden"/>
 			</h:panelGroup>
 		
 		<%-- Title --%>
 		<%/* The source embedded titleCollection */%>
 			
-				<tr:panelGroupLayout partialTriggers="btn_chooseGenre">
-					<h:panelGroup layout="block" styleClass="editItemSingleCol">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
-						<h:inputTextarea styleClass="editItemTextArea" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{!sourceBean.autosuggestJournals}"/>
-					
-						<h:inputTextarea styleClass="editItemTextArea journalSuggest" value="#{sourceBean.titleCollection.titleIF.title.value}" rendered="#{sourceBean.autosuggestJournals}" />
-						<script type="text/javascript">
-
-							function getJournalDetails(details)
-							{
-								var parent = $input.parents('.sourceArea');
-								var title = (typeof details.http_purl_org_dc_elements_1_1_title != 'undefined' ? details.http_purl_org_dc_elements_1_1_title : null);
-								var altTitle = (typeof details.http_purl_org_dc_terms_alternative != 'undefined' ?
-										(typeof details.http_purl_org_dc_terms_alternative == 'object' ?
-												details.http_purl_org_dc_terms_alternative[0] : details.http_purl_org_dc_terms_alternative) : null);
-								var publisher = (typeof details.http_purl_org_dc_elements_1_1_publisher != 'undefined' ? details.http_purl_org_dc_elements_1_1_publisher : null);
-								var place = (typeof details.http_purl_org_dc_terms_publisher != 'undefined' ? details.http_purl_org_dc_terms_publisher : null);
-								
-								var identifier = (typeof details.http_purl_org_dc_elements_1_1_identifier != 'undefined' ?
-										(typeof details.http_purl_org_dc_elements_1_1_identifier == 'object' ?
-												details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
-
-								fillField('journalSuggest', title, parent);
-								fillField('publisher', publisher, parent);
-								fillField('place', place, parent);
-								fillField('identifierValue', identifier, parent);
-							}
-
-							function fillField(name, value, commonParent)
-							{
-								$(commonParent).find('.' + name).val(value);
-							}
-
-							
-							function fillFields()
-							{
-								//alert(this.resultID);
-								$input = $(this);
-								$.getJSON('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/jnar/details?id=' + this.resultID, getJournalDetails);							
-							}
-						
-							$('.journalSuggest').suggest('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/jnar/query', { onSelect: fillFields});
-							$('.languageSuggest').suggest('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/lang/query', { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); }   });
-						</script>
-
-						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
-							title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
-							action="#{sourceBean.titleCollection.addTitle}" />
-						<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
-							title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
-							action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
-						<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
-					</h:panelGroup>
-				</tr:panelGroupLayout>
+				
+				<h:panelGroup layout="block" styleClass="editItemSingleCol">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblTitel}" />
+					<h:inputTextarea styleClass="editItemTextArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" />		
+					<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
+						title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
+						action="#{sourceBean.titleCollection.addTitle}" />
+					<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" 
+						title="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" 
+						action="#{sourceBean.titleCollection.removeTitle}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}"/>
+					<h:outputText value=" " rendered="#{sourceBean.titleCollection.alternativeTitleManager.size < 1}"/>
+				</h:panelGroup>
+				
 				<%-- ALTERNATIVE TITLE --%>
 				<h:dataTable var="data" styleClass="fullWidth" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}" rendered="#{sourceBean.titleCollection.alternativeTitleManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 					<h:column>					
@@ -119,9 +76,7 @@
 								<h:inputTextarea styleClass="editItemTextArea" value="#{data.value}" rendered="#{!sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
 								
 								<h:inputTextarea styleClass="journalSuggest" value="#{data.value}" rendered="#{sourceBean.autosuggestJournals}" onfocus="$(this).siblings('.genreButton').click();"/>
-								<script type="text/javascript">
-									$(".journalSuggest").suggest('<h:outputText value="#{sourceBean.suggestConeUrl}" />jquery/jnar/query');
-								</script>
+								
 							
 								<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" 
 									title="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" 
@@ -347,8 +302,9 @@
 			
 		
 		</h:column>
-		
+
 	</h:dataTable>
+
 
 
 	

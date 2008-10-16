@@ -82,7 +82,7 @@
 					<%-- Genre of Source --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}" onchange="$(this).siblings('.genreButton').click();">
+					<h:selectOneMenu id="cboSourceGenre" styleClass="journalPulldown" value="#{EasySubmission.source.genre}" >
 						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
 					</h:selectOneMenu>
 					<tr:commandButton styleClass="genreButton" action="#{EasySubmission.chooseSourceGenre}" text="choose genre" id="btn_chooseGenre" inlineStyle="visibility:hidden"/>
@@ -92,14 +92,9 @@
 					<%-- Title --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{!EasySubmission.autosuggestJournals}"/>
-					<h:inputTextarea styleClass="journalSuggest" rows="5" value="#{EasySubmission.sourceTitle}" rendered="#{EasySubmission.autosuggestJournals}"/>
+					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 					
-					<script type="text/javascript">
-						$(".journalSuggest").suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query', { onSelect: function() { $(this).val( ($(this).val().split(';'))[0] ); }  });
-						$('.languageSuggest').suggest('<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query', { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); }    });
-					</script>
 				</div>
 				
 				<div class="easySubmissionBoxBodyLine">

@@ -51,6 +51,8 @@
 <script type="text/javascript" language="JavaScript" src="../../cone/js/jquery-1.2.6.min.js">;</script>
 <script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.suggest.js">;</script>
 <script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.dimensions.js">;</script>
+<script type="text/javascript" language="JavaScript" src="resources/autoSuggestFunctions.js">;</script>
+
 
 <link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 
@@ -97,8 +99,18 @@
 				</div>
 		</div>
 		</tr:form>
+	
 		 </div>
 		  </div>
+
+<script type="text/javascript">
+	languageSuggestURL = 'http://localhost:8080/cone/jquery/lang/query';
+	journalSuggestURL = 'http://localhost:8080/cone/jquery/jnar/query';
+	journalDetailsBaseURL = 'http://localhost:8080/cone/jquery/jnar/details?id=';
+	journalSuggestCommonParentClass = 'sourceArea';
+	journalSuggestTrigger = 'JOURNAL';
+	bindSuggests();
+</script>
 </body>
 </html>
 
