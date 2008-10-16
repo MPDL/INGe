@@ -1585,6 +1585,12 @@
 			<replace>&#x01ce;</replace>
 		</replacement>
 
+		<!-- Escaping of " -->
+		<replacement>
+			<with>{"}</with>
+			<replace>&#x0022;</replace>
+		</replacement>
+
 		<!--<replacement><with>{\\_}</with>
 			<replace>&#x005f;</replace>
 		</replacement>

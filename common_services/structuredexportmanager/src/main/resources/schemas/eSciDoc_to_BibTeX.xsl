@@ -431,7 +431,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			<xsl:otherwise>		
 				<xsl:choose>
 					<xsl:when test="count(../parent::pub:source)=0">
-						<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>
+						<xsl:text disable-output-escaping="yes">", &#xA;</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text disable-output-escaping="yes">  </xsl:text>
