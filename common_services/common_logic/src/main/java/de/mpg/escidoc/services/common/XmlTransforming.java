@@ -50,6 +50,7 @@ import de.mpg.escidoc.services.common.valueobjects.LockVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.RelationVO;
+import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TocItemVO;
 import de.mpg.escidoc.services.common.valueobjects.TocVO;
@@ -405,4 +406,6 @@ public interface XmlTransforming
     public String transformToTocItem(TocItemVO tocItemVO) throws TechnicalException;
     
     public TocVO transformToTocVO(String tocXML) throws TechnicalException;
+    
+    public ResultVO transformToResult(String resultXml) throws TechnicalException;
 }

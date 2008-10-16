@@ -57,6 +57,11 @@ public abstract class ReferenceObject implements Serializable
      * Technical objectId-attribute of corresponding ValueOject.
      */
     private String objectId;
+    
+    /**
+     * An optional title of the reference
+     */
+    private String title;
 
     /**
      * Creates a new instance.
@@ -141,4 +146,16 @@ public abstract class ReferenceObject implements Serializable
     {
         return new StringBuilder(getClass().getName()).append(':').append(objectId).toString();
     }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+    
+    
 }

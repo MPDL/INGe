@@ -138,7 +138,7 @@ public class JibXTocDivMarshaller implements IMarshaller, IUnmarshaller, IAliasa
                 for(TocPtrVO tocPtrVO : tocDivVO.getTocPtrList())
                 {
                     ctx.startTagAttributes(m_index, PTR_ELEMENT_NAME);
-                    ctx.attribute(0, PTR_ID_ATTRIBUTE_NAME, tocPtrVO.getId());
+                    if (tocPtrVO.getId()!=null) ctx.attribute(0, PTR_ID_ATTRIBUTE_NAME, tocPtrVO.getId());
                     ctx.attribute(0, PTR_LOCTYPE_ATTRIBUTE_NAME, tocPtrVO.getLoctype());
                     if (tocPtrVO.getMimetype()!=null) ctx.attribute(0, PTR_MIMETYPE_ATTRIBUTE_NAME, tocPtrVO.getMimetype());
                     if (tocPtrVO.getUse()!=null) ctx.attribute(0, PTR_USE_ATTRIBUTE_NAME, tocPtrVO.getUse());

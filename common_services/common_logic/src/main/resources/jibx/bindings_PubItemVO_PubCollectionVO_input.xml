@@ -53,6 +53,7 @@
 	<namespace prefix="mods-md" uri="http://www.loc.gov/mods/v3" default="none" />
 	<namespace prefix="file" uri="${xsd.metadata.file}" default="none" />
 	<namespace prefix="jhove" uri="http://hul.harvard.edu/ois/xml/ns/jhove" default="none" />
+	<namespace prefix="result" uri="${xsd.soap.result.result}" default="none" />
 
 	<format type="java.util.Date" deserializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.deserializeDate"
 		serializer="de.mpg.escidoc.services.common.xmltransforming.JiBXHelper.serializeDate" />
@@ -81,6 +82,6 @@
 	<include path="MemberListWrapper_binding.xml" />
 	<include path="ContainerVO_binding_input.xml" />
 	<include path="face/MdsFacesContainer_binding_input.xml" />
-
+	<include path="ResultVO_binding.xml" />
 </binding>
 
