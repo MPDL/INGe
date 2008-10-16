@@ -7,7 +7,7 @@
 	<version>1.0.6-SNAPSHOT</version>
 	<name>common_services</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/common_services</url>
-	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan</description>
+	<description>The Common Services project provides all the basic services (such as framework access, endnotemanager etc.) used by applications like Faces or PubMan.</description>
 	<licenses>
 		<license>
 			<name>Common Development And Distribution License</name>
