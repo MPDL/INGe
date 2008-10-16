@@ -57,6 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
 import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ResultVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -133,7 +134,7 @@ public class PubItemPublishingBean implements PubItemPublishing
             PubItemVO actualItemVO;
             String url;
             PidTaskParamVO pidParam;
-            String result;
+            String result = null;
             String paramXml;
 
             // Floating PID assignment.
@@ -184,6 +185,8 @@ public class PubItemPublishingBean implements PubItemPublishing
                         actualItemVO.getVersion().getObjectId() + ":"
                         + actualItemVO.getVersion().getVersionNumber(), paramXml);
 
+                
+                
                 LOGGER.debug("Version PID assigned: " + result);
             }
             catch (Exception e) {
@@ -203,18 +206,23 @@ public class PubItemPublishingBean implements PubItemPublishing
                 LOGGER.debug("URL given to PID resolver: " + url);
                 //LOGGER.debug("file.getLastModificationDate(): " + file.getLastModificationDate());
 
-                pidParam = new PidTaskParamVO(actualItemVO.getModificationDate(), url);
-                paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
-
                 try
                 {
-                    // Assign floating PID
+                    
+                    ResultVO resultVO = xmlTransforming.transformToResult(result);
+                    pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), url);
+                    paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+                    
+                    // Assign component PID
                     result = adminHandler.assignContentPid(actualItemVO.getVersion().getObjectId(),
                             file.getReference().getObjectId(), paramXml);
     
                     LOGGER.debug("PID assigned: " + result);
                 }
                 catch (Exception e) {
+                    
+                    LOGGER.debug("Error: ", e);
+                    
                     LOGGER.warn("Component PID assignment for " + pubItemRef.getObjectId() + " failed. It probably already has one.");
                 }
 
