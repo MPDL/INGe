@@ -49,6 +49,7 @@ import de.escidoc.core.common.exceptions.application.security.AuthenticationExce
 import de.escidoc.core.common.exceptions.system.SqlDatabaseSystemException;
 import de.escidoc.core.common.exceptions.system.WebserverSystemException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWSSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -174,12 +175,16 @@ public class LoginHelper extends FacesBean
                 this.eSciDocUserHandle = new String(Base64.decode(userHandle));
                 this.loggedIn = true;
                 this.wasLoggedIn = false;
+              
             }
         }
         if (this.eSciDocUserHandle != null && !this.eSciDocUserHandle.equals(""))
         {
             fetchAccountUser(this.eSciDocUserHandle);
             this.btnLoginLogout = "login_btLogout";
+          //reinitialize ContextList
+            ((ContextListSessionBean)getSessionBean(ContextListSessionBean.class)).init();
+            
         }
 
         // enable the depositor links if necessary

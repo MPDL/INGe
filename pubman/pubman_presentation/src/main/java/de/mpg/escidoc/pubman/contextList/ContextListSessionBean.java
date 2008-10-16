@@ -67,10 +67,15 @@ public class ContextListSessionBean extends FacesBean
     public ContextListSessionBean()
     {
         
+        init();
+        
+    }
+    
+    public void init()
+    {
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         this.depositorContextList = this.retrieveDepositorContexts();
         this.moderatorContextList = this.retrieveModeratorContexts();
-        
     }
 
     private List<PubContextVOPresentation> retrieveModeratorContexts()
