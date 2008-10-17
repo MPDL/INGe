@@ -26,8 +26,7 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
@@ -207,7 +206,8 @@
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-	</modules>
+    <module>pubman_presentation_mock</module>
+  </modules>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
@@ -677,7 +677,7 @@
 			</activation>
 			<properties>
 				<!-- linux doesn't need the extra slash like windows does -->
-				<jboss.pathcorrection />
+				<jboss.pathcorrection/>
 			</properties>
 		</profile>
 	</profiles>
