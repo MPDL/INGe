@@ -31,6 +31,12 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <div class="searchResult">
 <f:subview id="content">
+
+			<h:panelGroup layout="block" styleClass="messageBox" rendered="#{SearchResultListPage.hasMessages}">
+				<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
+				<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchResultListPage.hasMessages}"/>
+			</h:panelGroup>
+
 	<h1 class="bottomSpace">
 		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>
 		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false"/>
@@ -45,9 +51,7 @@
 			<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 		</h:outputLink>
 	</p>
-	<div>
-		<h:outputText value="#{SearchResultList.valMessage}" id="valMessage" styleClass="message"/>
-	</div>
+
 	
 	<jsp:directive.include file="../list/itemList.jspf"/>
 

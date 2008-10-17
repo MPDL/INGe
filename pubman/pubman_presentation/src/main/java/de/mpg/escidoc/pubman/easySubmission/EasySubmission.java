@@ -79,9 +79,12 @@ import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
@@ -587,16 +590,7 @@ public class EasySubmission extends FacesBean
         this.valMessage.setRendered(true);
     }
 
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * 
-     * @param message the message to be displayed
-     */
-    private void showMessage(String message)
-    {
-        message = getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+   
 
     /**
      * Uploads a file
@@ -1798,6 +1792,63 @@ public class EasySubmission extends FacesBean
     {
         this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getTitle().setValue(
                 title);
+    }
+    
+   
+    
+    public String getSourcePublisher()
+    {
+      //Create new Publishing Info if not available yet
+        SourceVO source = this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0);
+        PublishingInfoVO pubVO;
+        if(source.getPublishingInfo()==null)
+        {
+           pubVO = new PublishingInfoVO();
+           source.setPublishingInfo(pubVO);
+        }
+        else
+        {
+            pubVO = source.getPublishingInfo();
+        }
+        return pubVO.getPublisher();  
+    }
+    
+    public void setSourcePublisher(String publisher)
+    {
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getPublishingInfo().setPublisher(publisher);
+        
+    }
+    
+    
+    public String getSourcePublisherPlace()
+    {
+       
+        return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getPublishingInfo().getPlace();
+    }
+    
+    public void setSourcePublisherPlace(String place)
+    {
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getPublishingInfo().setPlace(place);
+        
+    }
+    
+    public String getSourceIdentifier()
+    {
+       
+       if (this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().size()==0)
+       {
+           IdentifierVO identifier = new IdentifierVO();
+           this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().add(identifier);
+       }
+       return this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getIdentifiers().get(0).getId();
+    }
+    
+    public void setSourceIdentifier(String id)
+    {
+        PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
+        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER);
+        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setId(id);
+        
     }
 
     /**

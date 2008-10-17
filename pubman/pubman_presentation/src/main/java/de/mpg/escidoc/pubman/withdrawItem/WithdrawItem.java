@@ -188,7 +188,7 @@ public class WithdrawItem extends FacesBean
         	this.getItemListSessionBean().setListDirty(true);
             this.getItemListSessionBean().removeFromCurrentListByRO(this.getPubItem().getVersion());
 
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_WITHDRAWN);
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_WITHDRAWN));
         }
 
         return retVal;
@@ -203,16 +203,7 @@ public class WithdrawItem extends FacesBean
         return getSessionBean().getNavigationStringToGoBack();
     }
 
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
-     */
-    private void showMessage(final String message)
-    {
-        String localMessage = getMessage(message);
-        this.getItemListSessionBean().setMessage(localMessage);
-    }
+  
 
     /**
      * Returns a reference to the scoped data bean (the ItemControllerSessionBean).

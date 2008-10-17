@@ -34,16 +34,16 @@
 <div>
 	<f:subview id="content">
 		<div>
+			<h:panelGroup layout="block" styleClass="messageBox" rendered="#{QAWSPage.hasMessages}">
+				<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
+				<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{QAWSPage.hasMessages}"/>
+			</h:panelGroup>
+
+
 			<h1 class="bottomSpace">
 				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.QAWSPage}"/>
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
 			</h1>
-			
-			<h:panelGroup layout="block" styleClass="messageBox" rendered="#{QAWS.enableNoItemMsg || QAWS.showMessage}">
-				<h4><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h4>
-				<h:outputText id="valNoItemsMsg" styleClass="messageError" value="#{msg.depositorWS_valNoItemsMsg}" rendered="#{QAWS.enableNoItemMsg}"/>
-				<h:outputText value="#{QAWS.valMessage}" id="valMessage" styleClass="messageStatus" rendered="#{QAWS.showMessage}"/>
-			</h:panelGroup>
 			
 			<div>
 				<h:outputLabel styleClass="rightSpace" for="cboItemStateMenu" id="lblItemStateMenu" value="#{lbl.qaws_lblItemStateSelection}"/>

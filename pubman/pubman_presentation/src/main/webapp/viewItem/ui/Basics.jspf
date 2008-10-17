@@ -33,6 +33,8 @@
 
 <f:subview id="Basics">
 	
+
+
 	<h2>
 			<div class="viewItemTopHeader">
 			<h:panelGroup layout="block" rendered="#{!ViewItemFull.isStateWithdrawn}" styleClass="icon basicIcon"></h:panelGroup>
@@ -42,7 +44,7 @@
 				<h:outputText value=" (#{ViewItemFull.genre})"/>
 			</div>
 	</h2>
-	
+
 	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isFromEasySubmission}">
 			<h:outputText styleClass="messageError" value="#{msg.easy_submission_preview_hint}"/>
 	</h:panelGroup>	

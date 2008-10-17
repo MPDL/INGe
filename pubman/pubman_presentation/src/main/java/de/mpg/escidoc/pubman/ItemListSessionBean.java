@@ -65,7 +65,6 @@ public class ItemListSessionBean extends FacesBean
 
     private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
-    private String message = null;
     private String sortBy = "DATE";
     private String sortOrder = "DESCENDING";
     private String type = null;
@@ -186,15 +185,7 @@ public class ItemListSessionBean extends FacesBean
     	return isSearchresultList;
     }
 
-    public String getMessage()
-    {
-        return this.message;
-    }
-
-    public void setMessage(String message)
-    {
-        this.message = message;
-    }
+  
 
     public String getSortBy()
     {

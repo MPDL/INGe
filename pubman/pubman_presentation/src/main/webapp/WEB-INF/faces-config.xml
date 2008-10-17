@@ -54,6 +54,7 @@
 
 	<lifecycle>
 		<phase-listener id="debugRenderResponse">de.mpg.escidoc.pubman.util.RenderResponsePhaseListener</phase-listener>
+		<phase-listener id="facesMessagesListener">de.mpg.escidoc.pubman.appbase.FacesMessagesPhaseListener</phase-listener>
 	</lifecycle>
 
 

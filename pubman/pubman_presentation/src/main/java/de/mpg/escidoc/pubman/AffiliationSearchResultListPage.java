@@ -111,23 +111,7 @@ public class AffiliationSearchResultListPage extends BreadcrumbPage
         return "";
     }
 
-    /*
-     * Handle messages in fragments from here to please JSF life cycle.
-     * @author: Michael Franke
-     */
-    @Override
-    public void prerender()
-    {
-        
-        logger.info(" prerender ExportItems >>>");
-        
-        super.prerender();
-        SearchResultList fragment = (SearchResultList) getBean(SearchResultList.class);
-        fragment.handleMessage();
-        
-        ExportItems exportItems = (ExportItems) getBean(ExportItems.class);
-        exportItems.updateExportFormats();
-    }
+  
 
     /**
      * Returns the CommonSessionBean.

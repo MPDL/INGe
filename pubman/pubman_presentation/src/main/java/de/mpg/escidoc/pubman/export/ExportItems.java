@@ -358,7 +358,7 @@ public class ExportItems extends FacesBean
             if (status.equals("sent")){
                 logger.debug(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
                 SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
-                searchResultList.showMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT);
+                info(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
                 
                 return (SearchResultList.LOAD_SEARCHRESULTLIST);
                

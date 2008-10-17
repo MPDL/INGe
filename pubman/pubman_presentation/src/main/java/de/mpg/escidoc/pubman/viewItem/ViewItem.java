@@ -2136,12 +2136,13 @@ public class ViewItem extends FacesBean
         {
             if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
             {
-                this.showMessageDepositorWS(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
+                info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
             }
             else if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(
                     SearchResultList.LOAD_SEARCHRESULTLIST))
             {
-                this.showMessageSearchResultList(SearchResultList.MESSAGE_SUCCESSFULLY_DELETED);
+                info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            
             }
         }
         return retVal;
@@ -2527,29 +2528,6 @@ public class ViewItem extends FacesBean
         return comment;
     }
 
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageDepositorWS(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
-
-    /**
-     * Shows the given Message below the itemList after next Reload of the SerachResultList.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageSearchResultList(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
 
     /**
      * Returns the ItemControllerSessionBean.

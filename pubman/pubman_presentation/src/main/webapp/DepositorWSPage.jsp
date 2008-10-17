@@ -75,8 +75,9 @@
 									</div>
 									<div id="col3">
 										<div class="content">
+											
 											<jsp:directive.include file="depositorWS/DepositorWS.jspf"/>
-											<h:messages layout="table" showDetail="true" />
+											
 										</div>
 									</div>
 								</div>

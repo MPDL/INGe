@@ -66,6 +66,9 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     public FacesBean()
     {
     	super();
+    	
+
+    	
     }
     
     /**
@@ -74,6 +77,8 @@ public class FacesBean extends InternationalizedImpl implements Serializable
     protected void init() 
     {
         testLogin();
+        //restore messages if from redirect
+        //((FacesMessagesSessionBean) getSessionBean(FacesMessagesSessionBean.class)).restoreMessages();
     }
 
     /**
@@ -357,10 +362,13 @@ public class FacesBean extends InternationalizedImpl implements Serializable
      */
     public static void message(String summary, String detail, UIComponent component, Severity severity)
     {
+        
         FacesMessage fm = new FacesMessage(severity, summary, detail);
+        
+        
         if (component == null)
         {
-            getFacesContext().addMessage(null, fm);
+            getFacesContext().addMessage(null, fm);  
         }
         else
         {

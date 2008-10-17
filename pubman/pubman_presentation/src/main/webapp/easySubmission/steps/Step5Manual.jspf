@@ -95,6 +95,15 @@
 					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 					
+					<%-- Publisher (hidden for autosugggest)--%>
+					<h:inputTextarea value="#{EasySubmission.sourcePublisher}" styleClass="publisher" style="visibility:hidden;"/>
+
+					<%-- Place (hidden for autosugggest)--%>
+					<h:inputText value="#{EasySubmission.sourcePublisherPlace}" styleClass="place" style="visibility:hidden;"/>
+
+					<%-- Identifier (hidden for autosugggest)--%>
+					<h:inputText value="#{EasySubmission.sourceIdentifier}" styleClass="identifierValue" style="visibility:hidden;"/>
+					
 				</div>
 				
 				<div class="easySubmissionBoxBodyLine">

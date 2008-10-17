@@ -233,7 +233,7 @@ public class SearchResultList extends ItemList
         else
         {            
             logger.warn("No item selected.");
-            this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+            error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
             sb.setExportDisplayData(this.displayExportData);
             return "";
         }
@@ -295,7 +295,7 @@ public class SearchResultList extends ItemList
                 
                 if ( (exportFileData == null) || (new String(exportFileData)).trim().equals("") ){ 
                     logger.debug("No export data was delivered!");
-                    this.showMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED);
+                    error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
                     return "";
                 }
                 
@@ -338,7 +338,7 @@ public class SearchResultList extends ItemList
             } else
             {            
                 logger.warn("No item selected.");
-                this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+                error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
                 return "";
             }          
     }
@@ -396,7 +396,7 @@ public class SearchResultList extends ItemList
          else
         {            
             logger.warn("No item selected.");
-            this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+           error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
         }
     }
 
@@ -421,12 +421,12 @@ public class SearchResultList extends ItemList
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
-            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED));
             return null;
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }
@@ -490,8 +490,7 @@ public class SearchResultList extends ItemList
         lnkBrowse.setRendered(false);
         valQuery.setRendered(false);
         this.showBackInNoResultPage( false );
-        // reset some error message from last request
-        this.deleteMessage();
+       
 
         String searchString = this.getSessionBean().getSearchString();
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
@@ -571,7 +570,7 @@ public class SearchResultList extends ItemList
         valQuery.setRendered(true);
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
-        this.deleteMessage();
+        
 
         // check if we have received some criteria to search for
         if( criteria.size() == 0 ) {
@@ -634,8 +633,7 @@ public class SearchResultList extends ItemList
         lnkAdvancedSearch.setRendered(false);
         valQuery.setRendered(false);
         this.showBackInNoResultPage( true );
-//      reset some error message from last request
-        this.deleteMessage();
+       
         
         
         ArrayList<PubItemResultVO> itemsFound = null;

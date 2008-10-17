@@ -107,17 +107,7 @@ public class DepositorWSPage extends BreadcrumbPage
         }
     }
 
-    /*
-     * Handle messages in fragments from here to please JSF life cycle.
-     * @author: Michael Franke
-     */
-    @Override
-    public void prerender()
-    {
-        super.prerender();
-        DepositorWS fragment = (DepositorWS) getBean(DepositorWS.class);
-        fragment.handleMessage();
-    }
+   
     
     /**
      * Redirets to the referring GUI Tool page.

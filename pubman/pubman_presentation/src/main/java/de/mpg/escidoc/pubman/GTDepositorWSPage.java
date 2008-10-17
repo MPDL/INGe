@@ -102,17 +102,7 @@ public class GTDepositorWSPage extends FacesBean
         sessionBean.setRunAsGUITool(true);
     }
 
-    /**
-     * Handle messages in fragments from here to please JSF life cycle.
-     */
-    @Override
-    public void prerender()
-    {
-        super.prerender();
-        DepositorWS fragment = (DepositorWS)getBean(DepositorWS.class);
-        fragment.handleMessage();
-    }
-
+  
     /**
      * Returns the CommonSessionBean.
      * 

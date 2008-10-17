@@ -170,7 +170,7 @@ public class DepositorWS extends ItemList
                 logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
                 if (item.getVersion().getState() != PubItemVO.State.PENDING && item.getVersion().getState() != PubItemVO.State.RELEASED)
                 {
-                    this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
+                    error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                     return null;
                 }
                 // TODO FrM: Survey this change.
@@ -183,12 +183,12 @@ public class DepositorWS extends ItemList
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
-            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED));
             return null;
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }
@@ -213,7 +213,7 @@ public class DepositorWS extends ItemList
             logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
             if (item.getVersion().getState() != PubItemVO.State.PENDING)
             {
-                this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
+                error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                 return null;
             }
         }
@@ -265,18 +265,18 @@ public class DepositorWS extends ItemList
             else
             {
                 // Item is invalid, do not submit anything.
-                this.showMessage(DepositorWS.MESSAGE_NOT_SUCCESSFULLY_SUBMITTED);
+                error(getMessage(DepositorWS.MESSAGE_NOT_SUCCESSFULLY_SUBMITTED));
                 return null;
             }
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
-            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED));
             return null;
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }
@@ -299,7 +299,7 @@ public class DepositorWS extends ItemList
             logger.debug("Checking item: " + item.getVersion().getObjectId() + ":" + item.getVersion().getState());
             if (item.getVersion().getState() != PubItemVO.State.RELEASED)
             {
-                this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
+                error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                 return null;
             }
         }
@@ -312,12 +312,12 @@ public class DepositorWS extends ItemList
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
-            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED));
             return null;
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }
@@ -339,7 +339,7 @@ public class DepositorWS extends ItemList
         {
             if (item.getVersion().getState() != PubItemVO.State.PENDING)
             {
-                this.showMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE);
+                error(getMessage(DepositorWS.MESSAGE_WRONG_ITEM_STATE));
                 return null;
             }
         }
@@ -354,7 +354,7 @@ public class DepositorWS extends ItemList
             // show message
             if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
             {
-                this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
+                info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
             }
             // force reload of list next time this page is navigated to
             this.getItemListSessionBean().setListDirty(true);
@@ -362,7 +362,7 @@ public class DepositorWS extends ItemList
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }

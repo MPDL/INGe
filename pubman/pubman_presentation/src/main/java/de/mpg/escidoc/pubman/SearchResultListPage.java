@@ -114,23 +114,7 @@ public class SearchResultListPage extends BreadcrumbPage
         return (SearchResultList) getSessionBean(SearchResultList.class);
     }
 
-    /**
-     * Handle messages in fragments from here to please JSF life cycle.
-     * @author: Michael Franke
-     */
-    @Override
-    public void prerender()
-    {
-
-        logger.info(" prerender ExportItems >>>");
-
-        super.prerender();
-        SearchResultList fragment = (SearchResultList) getSessionBean(SearchResultList.class);
-        fragment.handleMessage();
-
-        ExportItems exportItems = (ExportItems)getSessionBean(ExportItems.class);
-        exportItems.updateExportFormats();
-    }
+   
 
     /**
      * Redirects to the referring GUI Tool page.

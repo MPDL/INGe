@@ -67,13 +67,11 @@ public abstract class ItemList extends FacesBean
     private static Logger logger = Logger.getLogger(ItemList.class);
 
     // bound components in JSP
-    private String valMessage = null;
-    private boolean showMessage = false;
     private HtmlSelectOneMenu cboSortBy = new HtmlSelectOneMenu();
     private HtmlSelectOneRadio rbgSortOrder = new HtmlSelectOneRadio();
     
-    /* holds the message tag to allow switching of the language */
-    private String messageLabel = null;
+
+
 
     // constants for comboBoxes
     //public SelectItem[] SORTBY_OPTIONS = null;
@@ -91,6 +89,7 @@ public abstract class ItemList extends FacesBean
     public static final String MESSAGE_SUCCESSFULLY_SAVED = "depositorWS_SuccessfullySaved";
     public static final String MESSAGE_SUCCESSFULLY_ACCEPTED = "depositorWS_SuccessfullyAccepted";
     public static final String MESSAGE_MANY_ITEMS_SELECTED = "depositorWS_ManyItemsSelected";
+    public static final String MESSAGE_SUCCESSFULLY_REVISED = "depositorWS_SuccessfullyRevised";
     public static final String NO_WITHDRAWAL_COMMENT_GIVEN = "depositorWS_NoWithdrawalCommentGiven";
 
     /**
@@ -161,7 +160,7 @@ public abstract class ItemList extends FacesBean
             }
             else
             {
-                this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+               info(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
                 return null;
             }
         }
@@ -212,7 +211,7 @@ public abstract class ItemList extends FacesBean
         else
         {
             logger.warn("No item selected.");
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            info(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
         }
 
         return null;
@@ -262,30 +261,8 @@ public abstract class ItemList extends FacesBean
         return WithdrawItem.LOAD_WITHDRAWITEM;
     }
 
-    /**
-     * Shows the given Message below the itemList.
-     * 
-     * @param message the message to be displayed
-     */
-    public void showMessage(String message)
-    {
-        this.messageLabel = message;
-        this.getItemListSessionBean().setMessage(message);
+   
 
-        // instantly make this message visible as the page is likely not reloaded and so
-        // the message is not set visible via the enableLinks()-method.
-        this.valMessage = message;
-        this.showMessage = true;
-    }
-
-    /**
-     * Removes the message below the itemList
-     */
-    public void deleteMessage()
-    {
-    	this.valMessage = null;
-        this.showMessage = false;
-    }
 
     /**
      * Creates the panel newly according to the values in the itemArray.
@@ -337,21 +314,7 @@ public abstract class ItemList extends FacesBean
         return null;
     }
 
-    /**
-     * Adds and removes messages concerning item lists.
-     * @author Michael Franke
-     */
-    public void handleMessage() 
-    {
-
-        String message = this.getItemListSessionBean().getMessage();
-
-        this.valMessage = message;
-        this.showMessage = (message != null);
-
-        // keep the message just once
-        this.getItemListSessionBean().setMessage(null);
-    }
+   
 
     /**
      * Has to be implemented by the inheriting classes to return the specialized subclass for the FacesBean.
@@ -439,25 +402,6 @@ public abstract class ItemList extends FacesBean
         return list.toArray(new SelectItem[]{});
     }
 
-	public String getValMessage() {
-		// if the message hasn't been set, don't do anything
-		if( this.valMessage != null ) {
-			// fetch a new message, e.g. when the language has changed
-			this.valMessage = getMessage( this.messageLabel );
-		}
-		return this.valMessage;
-	}
-
-	public void setValMessage(String valMessage) {
-		this.valMessage = valMessage;
-	}
-
-	public boolean getShowMessage() {
-		return showMessage;
-	}
-
-	public void setShowMessage(boolean showMessage) {
-		this.showMessage = showMessage;
-	}
+	
 
 }

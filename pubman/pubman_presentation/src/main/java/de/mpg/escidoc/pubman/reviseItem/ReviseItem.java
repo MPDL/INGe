@@ -158,6 +158,12 @@ public class ReviseItem extends FacesBean
         
         retVal = this.getItemControllerSessionBean().reviseCurrentPubItem(reviseComment, navigateTo);
         
+        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_REVISED));
+        }
+        
+        
         if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
         	try 
@@ -169,10 +175,7 @@ public class ReviseItem extends FacesBean
     		}
         }
         
-        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
-        {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
-        }
+      
 
         return retVal;
     }
@@ -189,16 +192,7 @@ public class ReviseItem extends FacesBean
         return QAWS.LOAD_QAWS;
     }
 
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
-     */
-    private void showMessage(final String message)
-    {
-        String localMessage = getMessage(message);
-        this.getItemListSessionBean().setMessage(localMessage);
-    }
+   
     
    
     

@@ -729,8 +729,10 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getNavigationStringToGoBack());
         
         // show message
-        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE))
         {
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            /*
             if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
             {
                 this.showMessageDepositorWS(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
@@ -740,6 +742,7 @@ public class ViewItemFull extends FacesBean
             {
                 this.showMessageSearchResultList(SearchResultList.MESSAGE_SUCCESSFULLY_DELETED);
             }
+            */
         }
         return retVal;
     }
@@ -1339,17 +1342,8 @@ public class ViewItemFull extends FacesBean
         return ReleaseHistory.LOAD_RELEASE_HISTORY;
     }
     
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageDepositorWS(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+  
+    
     
     /**
      * Returns a reference to the scoped data bean (the ItemListSessionBean).
@@ -1410,17 +1404,7 @@ public class ViewItemFull extends FacesBean
         return (SubmitItemSessionBean)getSessionBean(SubmitItemSessionBean.class);
     }
     
-    /**
-     * Shows the given Message below the itemList after next Reload of the SerachResultList.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageSearchResultList(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+    
     
     /**
      * Returns the SearchResultListSessionBean.

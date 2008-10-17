@@ -75,7 +75,6 @@
 									<div id="col3">
 										<div class="content">
 											<jsp:directive.include file="qaWS/qaWS.jspf"/>
-											<h:messages layout="table" showDetail="true" />
 										</div>
 									</div>
 								</div>

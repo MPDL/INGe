@@ -575,6 +575,7 @@ public class EditItem extends FacesBean
              // redirect to the view item page afterwards (if no error occured)
                 try 
                 {
+                    info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
                     FacesContext fc = FacesContext.getCurrentInstance();
                     HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
                     if (isFromEasySubmission())
@@ -650,7 +651,7 @@ public class EditItem extends FacesBean
         }
         else if (retVal != null && retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED));
         }
         
         // initialize viewItem
@@ -680,7 +681,7 @@ public class EditItem extends FacesBean
         }
         else if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
         }
         
         return retVal;
@@ -732,6 +733,7 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -750,6 +752,7 @@ public class EditItem extends FacesBean
             {
                 getSubmitItemSessionBean().setNavigationStringToGoBack(DepositorWS.LOAD_DEPOSITORWS);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                info(localMessage);
                 getSubmitItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -780,7 +783,7 @@ public class EditItem extends FacesBean
         // show message in DepositorWS
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
         }
 
         return retVal;
@@ -923,6 +926,7 @@ public class EditItem extends FacesBean
             {
                 getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SAVED);
+                info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
             
@@ -942,6 +946,7 @@ public class EditItem extends FacesBean
             {
                 getAcceptItemSessionBean().setNavigationStringToGoBack(ViewItemFull.LOAD_VIEWITEM);
                 String localMessage = getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_ACCEPTED);
+                info(localMessage);
                 getAcceptItemSessionBean().setMessage(localMessage);
             }
             return retVal;
@@ -1128,15 +1133,7 @@ public class EditItem extends FacesBean
     	return "loadEditItem";
     }
     
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS. 
-     * @param message the message to be displayed
-     */
-    private void showMessage(String message)
-    {
-        message = getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+ 
 
     /**
      * Retrieves the description of a context from the framework.
