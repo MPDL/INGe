@@ -15,7 +15,7 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
-	<artifactId>pubman_presentation</artifactId>
+	<artifactId>pubman_presentation_mock</artifactId>
 	<name>pubman_presentation_mock</name>
 	<version>3.8.1-SNAPSHOT</version>
 	<packaging>war</packaging>
