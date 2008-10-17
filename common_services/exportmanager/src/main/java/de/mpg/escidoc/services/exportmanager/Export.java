@@ -234,20 +234,13 @@ public class Export implements ExportHandler {
 	throws ExportManagerException, IOException 
 	{
 		//
-		if ( itemList == null || itemList.trim().equals("") )
-		{
-			throw new ExportManagerException("Empty item list");
-		}
+		Utils.checkCondition(!Utils.checkVal(itemList), "Empty item list");
 		
 		ExportFormatTypes exportFormatType = exportFormatType(exportFormat);
-		
-		if ( exportFormatType  == null )
-		{
-			throw new ExportManagerException("Export format is not defined:" + exportFormat);
-		}
+		Utils.checkCondition( exportFormatType == null, "Export format is not defined:" + exportFormat);
 		
 		boolean generateArchive = false;
-		if ( archiveFormat != null && !"".equals(archiveFormat.trim()) )
+		if ( Utils.checkVal(archiveFormat) )
 		{
 			try 
 			{
@@ -346,6 +339,42 @@ public class Export implements ExportHandler {
 		return tmpFile;
 	}
 	
+	private void addDescriptionEnrty(byte[] exportOut, String exportFormat, OutputStream aos) throws IOException, ExportManagerException
+	{
+		if (exportOut == null || exportOut.length == 0)
+			return;
+		
+		Utils.checkCondition(aos == null, "Archive OutputStream is null");
+		
+		Utils.checkCondition(!Utils.checkVal(exportFormat), "Empty export format");
+		String entryName =  "eSciDoc_export." + exportFormat.toLowerCase(); 
+		 
+		BufferedInputStream bis = new BufferedInputStream(new ByteArrayInputStream(exportOut));
+		if ( aos instanceof ZipOutputStream )
+		{
+			ZipEntry ze = new ZipEntry(entryName);
+			ze.setSize(exportOut.length);
+			((ZipOutputStream)aos).putNextEntry(ze);
+			writeFromStreamToStream(bis, aos);
+			((ZipOutputStream)aos).closeEntry();
+			bis.close();
+		}
+		else if ( aos instanceof TarOutputStream )
+		{
+			TarEntry te = new TarEntry(entryName);
+			te.setSize(exportOut.length);
+			((TarOutputStream)aos).putNextEntry(te);
+			writeFromStreamToStream(bis, aos);
+			((TarOutputStream)aos).closeEntry();
+			bis.close();
+		}
+		else
+		{
+			throw new ExportManagerException("Wrong archive OutputStream: " + aos);
+		}
+		
+	}
+	
 	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, byte[], String) 
 	) 
@@ -371,39 +400,22 @@ public class Export implements ExportHandler {
 			 byte[] exportOut, String itemList, BufferedOutputStream bos) throws ExportManagerException, IOException {
 
 		
-		if ( exportFormat == null || exportFormat.trim().equals("") )
-		{
-			throw new ExportManagerException("Empty export format");
-		}
-		if ( itemList == null || itemList.trim().equals("") )
-		{
-			throw new ExportManagerException("Empty item list");
-		}
-		if ( exportOut == null )
-		{
-			throw new ExportManagerException("Empty output");
-		}
-		if ( archiveFormat == null || archiveFormat.trim().equals("") )
-		{
-			throw new ExportManagerException("Empty archive format");
-		}
+		Utils.checkCondition(!Utils.checkVal(exportFormat), "Empty export format");
 		
-		BufferedInputStream bis = new BufferedInputStream(new ByteArrayInputStream(exportOut));
-		//ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		
+		Utils.checkCondition(!Utils.checkVal(itemList), "Empty item list");
+
+		Utils.checkCondition(!Utils.checkVal(archiveFormat), "Empty archive format");
+	
+	
 		switch ( ArchiveFormats.valueOf(archiveFormat) ) 
 		{
 			case zip:
 				try 
 				{
 					ZipOutputStream zos = new ZipOutputStream(bos);
+					
 					//add export result entry
-					ZipEntry ze = new ZipEntry( "eSciDoc_export." + exportFormat.toLowerCase());
-					ze.setSize(exportOut.length);
-					zos.putNextEntry(ze);
-					writeFromStreamToStream(bis, zos);
-					zos.closeEntry();
-					bis.close();
+					addDescriptionEnrty(exportOut, exportFormat, zos);
 					
 					//add LICENSE AGREEMENT entry
 					addLicenseAgreement(zos);
@@ -424,12 +436,7 @@ public class Export implements ExportHandler {
 					TarOutputStream tos = new TarOutputStream(bos);
 					
 					//add export result entry
-					TarEntry te = new TarEntry( "eSciDoc_export." + exportFormat.toLowerCase());
-					te.setSize(exportOut.length);
-					tos.putNextEntry(te);
-					writeFromStreamToStream(bis, tos);
-					tos.closeEntry();
-					bis.close();
+					addDescriptionEnrty(exportOut, exportFormat, tos);
 					 
 					//add LICENSE AGREEMENT entry
 					addLicenseAgreement(tos);
@@ -456,7 +463,7 @@ public class Export implements ExportHandler {
 					{
 						logger.info("Generate tar.gz output in tmp file: files' size = " + ilfs + " > Runtime.getRuntime().freeMemory()/2: " + mem);
 						File tar = generateArchiveFile(exportFormat, ArchiveFormats.tar.toString(), exportOut, itemList);
-						bis = new BufferedInputStream(new FileInputStream(tar));
+						BufferedInputStream bis = new BufferedInputStream(new FileInputStream(tar));
 						GZIPOutputStream gzos = new GZIPOutputStream(bos); 
 						writeFromStreamToStream(bis, gzos);
 						bis.close();
@@ -466,7 +473,7 @@ public class Export implements ExportHandler {
 					else
 					{
 						byte[] tar = generateArchive(exportFormat, ArchiveFormats.tar.toString(), exportOut, itemList);
-						bis = new BufferedInputStream(new ByteArrayInputStream(tar));
+						BufferedInputStream bis = new BufferedInputStream(new ByteArrayInputStream(tar));
 						GZIPOutputStream gzos = new GZIPOutputStream(bos); 
 						writeFromStreamToStream(bis, gzos);
 						bis.close();
@@ -493,8 +500,9 @@ public class Export implements ExportHandler {
 	 * @param af is Archive Format
 	 * @param os - archive OutputStream
 	 * @throws IOException
+	 * @throws ExportManagerException 
 	 */
-	private void addLicenseAgreement(OutputStream os) throws IOException 
+	private void addLicenseAgreement(OutputStream os) throws IOException, ExportManagerException 
 	{
 		BufferedInputStream bis = new BufferedInputStream(getResource(LICENSE_AGREEMENT_NAME));
 		if (os instanceof TarOutputStream)
@@ -521,6 +529,10 @@ public class Export implements ExportHandler {
 			writeFromStreamToStream(bis, zos);
 			bis.close();
 			zos.closeEntry();
+		}
+		else
+		{
+			throw new ExportManagerException("Wrong archive OutputStream: " + os);
 		}
 			
 	}
