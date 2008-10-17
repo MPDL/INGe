@@ -107,6 +107,16 @@ public class ExportHandlerBean implements ExportHandler
 			throws ExportManagerException, IOException {
 		return exportService.generateArchive(exportFormat, archiveFormat, export, itemListFiltered);
 	}
+	
+	/** 
+	 * {@inheritDoc}  
+	 * @throws IOException 
+	 */
+	public byte[] generateArchive(String archiveFormat,
+			String itemListFiltered)
+	throws ExportManagerException, IOException {
+		return exportService.generateArchive(archiveFormat, itemListFiltered);
+	}
 
     /** 
      * {@inheritDoc}  

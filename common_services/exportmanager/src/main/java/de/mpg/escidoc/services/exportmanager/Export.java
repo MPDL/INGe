@@ -393,6 +393,16 @@ public class Export implements ExportHandler {
 	}
 
 	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String) 
+	) 
+	 */
+	public byte[] generateArchive(String archiveFormat, String itemListFiltered)
+	throws ExportManagerException, IOException 
+	{
+		return generateArchive(null, archiveFormat, null, itemListFiltered);
+	}	
+	
+	/* (non-Javadoc)
 	 * @see de.mpg.escidoc.services.exportmanager.ExportHandler#generateArchive(String, String, byte[], String) 
 	) 
 	 */
@@ -400,7 +410,11 @@ public class Export implements ExportHandler {
 			 byte[] exportOut, String itemList, BufferedOutputStream bos) throws ExportManagerException, IOException {
 
 		
-		Utils.checkCondition(!Utils.checkVal(exportFormat), "Empty export format");
+		Utils.checkCondition(
+				!Utils.checkVal(exportFormat) 
+				&& !(exportOut == null || exportOut.length==0), 
+				"Empty export format"
+		);
 		
 		Utils.checkCondition(!Utils.checkVal(itemList), "Empty item list");
 
@@ -868,7 +882,9 @@ public class Export implements ExportHandler {
 		}
 		return fileIn;
 	}
-    
+
+
+   
 
 }
 

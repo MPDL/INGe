@@ -130,8 +130,28 @@ public interface ExportHandler {
     		byte[] description, 
     		String itemListFiltered
     ) throws 
-    	ExportManagerException, IOException;	
-
+    	ExportManagerException, IOException;
+	
+	/**
+	 * Generates archive, put the following issues in it:
+	 * 
+	 * 1) All files, referenced via URIs in the <code>itemListFiltered</code> XML 
+	 * 2) License agreement
+	 * 
+	 * @param archiveFormat is archive format for the export bundle. Can be zip, tar.gz, etc.
+	 * @param itemListFiltered is XML String which contents all file references (URIs) to be presented in the archive.
+	 * 	 	  The components which will not be exported should be removed from the itemList.    
+	 * @return archive as byte[]
+	 * @throws ExportManagerException
+	 * @throws IOException 
+	 */
+	
+	byte[] generateArchive(
+			String archiveFormat,
+			String itemListFiltered
+	) throws 
+	ExportManagerException, IOException;	
+ 
 	/**
 	 * Returns data presenting the items in export format.
 	 *  
