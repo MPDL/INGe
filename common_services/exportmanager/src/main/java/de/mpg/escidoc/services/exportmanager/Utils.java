@@ -34,7 +34,7 @@ package de.mpg.escidoc.services.exportmanager;
  * Utils class. 
  *
  * @author Vlad Makarenko (initial creation)
- * @author $Author: vdm $ (last modification)
+ * @author $Author$ (last modification)
  * @version $Revision:$ $LastChangedDate:$
  *
  */ 
