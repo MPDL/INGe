@@ -222,7 +222,7 @@
 					</xsl:for-each>	
 					
 					<!-- Artnum - Sequence Number of Article  -->
-					<xsl:variable name="sequence-number" select="pub:source/e:sequence-number"/>
+					<xsl:variable name="sequence-number" select="pub:source/e:sequence-number[.!=''][1]"/>
 					<!-- <xsl:variable name="sequence-number" select="normalize-space(e:source/e:sequence-number)"/> -->
 					<xsl:choose>
 						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source/e:start-page=''">
