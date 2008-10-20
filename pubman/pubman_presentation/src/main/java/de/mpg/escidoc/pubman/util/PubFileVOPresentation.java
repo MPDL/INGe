@@ -289,7 +289,7 @@ public class PubFileVOPresentation extends FacesBean {
 		}
 		
 		editItemSessionBean.reorganizeFileIndexes();
-		return "loadEditItem";		
+		return null;		
 	}
 	
 	public String removeLocatorEditItem ()

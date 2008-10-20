@@ -95,7 +95,7 @@ public class ContextListSessionBean extends FacesBean
             }
             else
             {
-            	moderatorContexts.addAll(this.getDummyCollections(3));
+            	//moderatorContexts.addAll(this.getDummyCollections(3));
             }
         }
         catch (Exception e)

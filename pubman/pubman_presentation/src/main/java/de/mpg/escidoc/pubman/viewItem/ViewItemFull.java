@@ -88,6 +88,7 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
@@ -1095,7 +1096,11 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowCiteItem()
     {
-        return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+        if(getPubItem().getPublicStatus().equals(State.WITHDRAWN))
+        {
+        	return false;	
+        }
+    	return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
     }
     
     
@@ -1766,7 +1771,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateWithdrawn()
     {
-        return isStateWithdrawn;
+        return this.getPubItem().getPublicStatus().equals(State.WITHDRAWN);
     }
 
     public void setStateWithdrawn(boolean isStateWithdrawn)
