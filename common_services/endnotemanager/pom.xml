@@ -29,19 +29,19 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.6-SNAPSHOT</version>
+		<version>1.0.6</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>endnotemanager</artifactId>
 	<name>endnotemanager</name>
 	<packaging>ejb</packaging>
-	<version>1.0.7-SNAPSHOT</version>
+	<version>1.0.7</version>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/endnotemanager</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.6/endnotemanager</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.6/endnotemanager</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.6</url>
 	</scm>
 
 	<build>
