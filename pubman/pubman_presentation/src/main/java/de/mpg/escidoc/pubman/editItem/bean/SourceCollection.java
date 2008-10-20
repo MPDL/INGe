@@ -5,6 +5,7 @@ import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
 
 /**
@@ -60,6 +61,9 @@ public class SourceCollection
 			// add creator additionally
 			CreatorVO newCreator = new CreatorVO();
 			newVO.getCreators().add(newCreator);
+			// add new identifier amnually
+			IdentifierVO newIdentifier = new IdentifierVO();
+			newVO.getIdentifiers().add(newIdentifier);
 			SourceBean sourceBean = new SourceBean(newVO);
 			// we do not have direct access to the original list
 			// so we have to add the new VO on our own
