@@ -91,9 +91,9 @@ Current functionalities
 		<li>An SearchandExport Service allows user-/local specific queries
 	     of data for integration into local systems.</b> 
 		</li>
-		<li>The service can be accessed directly under <a href="../search/SearchAndExport_info.jsp">REST interface</a> or via a <a href="../search/SearchAndExport_rest_sample.jsp">user-friendly interface </a>.</b> 
+		<li>The service can be accessed directly under <a href="${ApplicationBean.appContext}../../search/SearchAndExport_info.jsp">REST interface</a> or via a <a href="${ApplicationBean.appContext}../../search/SearchAndExport_rest_sample.jsp">user-friendly interface </a>.</b> 
 		</li>
-		<li>A <a href="../import">unAPI interface</a> provides access to the functionalities of the eSciDoc import service. This service provides fetching of escidoc items as well as sources supported by the import service like arXiv.</b> 
+		<li>A <a href="${ApplicationBean.appContext}../../import">unAPI interface</a> provides access to the functionalities of the eSciDoc import service. This service provides fetching of escidoc items as well as sources supported by the import service like arXiv.</b> 
 		</li>
 	</ul>
 
