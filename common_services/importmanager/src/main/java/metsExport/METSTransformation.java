@@ -178,7 +178,7 @@ public class METSTransformation extends XmlIO{
 		owner = "Max Planck Institute for European Legal History ";
 		logo = "http://www.mpier.uni-frankfurt.de/images/minerva_logo.gif "; 
 		url = "http://www.mpier.uni-frankfurt.de ";
-		reference ="TODO";
+		reference ="http://virr.mpdl.mpg.de/";
 			
 		this.writeMETS.createAmdSec(amdId, owner, logo, url, reference);
 	}
