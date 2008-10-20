@@ -87,6 +87,41 @@
 							<artifactId>import_presentation</artifactId>
 							<contextRoot>/import</contextRoot>
 						</webModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>xbean</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>xbean_xpath</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>mods_3.2</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>mets_1.7</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-container</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-item</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
+						<jarModule>
+							<groupId>xmlbeans</groupId>
+							<artifactId>escidoc-toc</artifactId>
+							<includeInApplicationXml>true</includeInApplicationXml>
+						</jarModule>
 					</modules>
 				</configuration>
 			</plugin>
@@ -328,6 +363,48 @@
 			<artifactId>jasperreports</artifactId>
 			<version>2.0.1-patched</version>
 			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xbean</artifactId>
+			<version>2.4.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>xbean_xpath</artifactId>
+			<version>2.4.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mods_3.2</artifactId>
+			<version>3.2</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>mets_1.7</artifactId>
+			<version>1.7</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-container</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-item</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>xmlbeans</groupId>
+			<artifactId>escidoc-toc</artifactId>
+			<version>1.0.0</version>
+			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 </project>
