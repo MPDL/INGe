@@ -71,7 +71,8 @@ public class METSTransformation extends XmlIO{
 	        this.createDmdSec(escidocToc);
 	        this.createAmdSec(escidocToc);
 	        this.createPhysicals(escidocToc);
-	        this.createLogicals(escidocToc);
+	        
+	        //this.createLogicals(escidocToc);
 	        
 	        //Create METS document out of these sections
 	        XmlOptions xOpts = new XmlOptions();
