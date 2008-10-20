@@ -82,19 +82,37 @@ public class MetadataDateSearchCriterion extends MetadataSearchCriterion
      */
     public String generateCqlQuery() throws ParseException, TechnicalException
     {
-
-        QueryParser parserFrom = new QueryParser(getSearchTerm(),
-                booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
-        QueryParser parserTo = new QueryParser(this.toField, booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
         StringBuffer buffer = new StringBuffer();
         buffer.append(" ( ");
         for (int i = 0; i < getSearchIndexes().size(); i++)
         {
-            parserFrom.addCQLIndex(getSearchIndexes().get(i));
-            parserTo.addCQLIndex(getSearchIndexes().get(i));
+            if( i == (getSearchIndexes().size() - 1) )
+            {
+               
+                buffer.append(createCqlFragment( this.getSearchTerm(), this.toField, getSearchIndexes().get(i) ));
+            }
+            else 
+            {
+                buffer.append(createCqlFragment( this.getSearchTerm(), this.toField, getSearchIndexes().get(i) ));
+                buffer.append(" " + CQL_OR + " ");
+            }
         }
-        buffer.append(" ( " + parserFrom.parse() + " " + CQL_AND + " " + parserTo.parse() + " ) ");
         buffer.append(" ) ");
+        return buffer.toString();
+    }
+    
+    private String createCqlFragment (String searchFrom, String searchTo, String index) 
+        throws ParseException, TechnicalException
+    {
+        QueryParser parserFrom = new QueryParser(getSearchTerm(),
+                booleanOperatorToString(BooleanOperator.GREATER_THAN_EQUALS));
+        QueryParser parserTo = new QueryParser(this.toField, booleanOperatorToString(BooleanOperator.LESS_THAN_EQUALS));
+        StringBuffer buffer = new StringBuffer();
+        
+        parserFrom.addCQLIndex( index );
+        parserTo.addCQLIndex( index );
+      
+        buffer.append(" ( " + parserFrom.parse() + " " + CQL_AND + " " + parserTo.parse() + " ) ");
         return buffer.toString();
     }
 }
