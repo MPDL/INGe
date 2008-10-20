@@ -73,7 +73,7 @@
 				<h:outputText value="Item Log"/>
 		</h:commandLink>
 	
-		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease}">
+		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	
@@ -81,7 +81,7 @@
 			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
-		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease}">
+		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
@@ -93,7 +93,7 @@
 </div>
 
 	<!-- unapiHeader -->
-<h:panelGroup rendered="#{ViewItemFull.isStateReleased}">
+<h:panelGroup rendered="#{ViewItemFull.isStateReleased && !ViewItemFull.isStateWithdrawn}">
 	<div class="itemElementLine floatbox" >
 		<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
