@@ -32,7 +32,7 @@ import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathFactory;
 
-//import org.apache.xerces.dom.AttrImpl;
+import org.apache.xerces.dom.AttrImpl;
 import net.sf.saxon.TransformerFactoryImpl;
 import org.apache.xml.serialize.OutputFormat;
 import org.apache.xml.serialize.XMLSerializer;
@@ -122,6 +122,9 @@ public class XmlIO
     {
         String encoding = "UTF-8";
         Document result = null;
+        
+    	// Use Saxon
+        //System.setProperty("javax.xml.parsers.DocumentBuilder", "net.sf.saxon.TransformerFactoryImpl");
         DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
         docBuilderFactory.setNamespaceAware(namespaceAwareness);
         DocumentBuilder docBuilder = docBuilderFactory.newDocumentBuilder();

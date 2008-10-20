@@ -98,7 +98,7 @@ public class WriteMETSData {
 	 * @throws IOException
 	 * @throws XmlException
 	 */
-	public void createDmdSec(String id, String title, String author, String place, String year)
+	public void createDmdSec(ModsType mods_type, String id)
 	            throws IOException, XmlException
 	{
 		this.dmdSec = this.mets.addNewDmdSec();
@@ -109,29 +109,29 @@ public class WriteMETSData {
 		wrap.setMIMETYPE("text/xml");
 		wrap.setMDTYPE(MdWrap.MDTYPE.MODS);
 		XmlData xml = wrap.addNewXmlData();
-		this.mods.setVersion(VersionType.X_3_2);
-		TitleInfoType tInfo = this.mods.addNewTitleInfo();
-		XmlObject xtitle = tInfo.addNewTitle();
-		XmlString tString = XmlString.Factory.newValue(title);
-		xtitle.set(tString);
-		tInfo.setTitleArray(0, title);
-		this.mods.setTitleInfoArray(0, tInfo);
-		NameType name = this.mods.addNewName();
-		XmlObject xName = name.addNewDisplayForm();
-		XmlString nString = XmlString.Factory.newValue(author);
-		xName.set(nString);
-		name.setDisplayFormArray(0, xName);
-		this.mods.setNameArray(0, name);
-		OriginInfoType oInfo = this.mods.addNewOriginInfo();
-		PlaceType placeType = oInfo.addNewPlace();
-		PlaceTermType ptt = placeType.addNewPlaceTerm();
-		ptt.setStringValue(place);
-		placeType.setPlaceTermArray(0, ptt);
-		oInfo.setPlaceArray(0, placeType);
-		DateType iDate = oInfo.addNewDateIssued();
-		iDate.setStringValue(year);
-		oInfo.setDateIssuedArray(0, iDate);
-		this.mods.setOriginInfoArray(0, oInfo);
+		this.mods = mods_type;
+//		TitleInfoType tInfo = this.mods.addNewTitleInfo();
+//		XmlObject xtitle = tInfo.addNewTitle();
+//		XmlString tString = XmlString.Factory.newValue(title);
+//		xtitle.set(tString);
+//		tInfo.setTitleArray(0, title);
+//		this.mods.setTitleInfoArray(0, tInfo);
+//		NameType name = this.mods.addNewName();
+//		XmlObject xName = name.addNewDisplayForm();
+//		XmlString nString = XmlString.Factory.newValue(author);
+//		xName.set(nString);
+//		name.setDisplayFormArray(0, xName);
+//		this.mods.setNameArray(0, name);
+//		OriginInfoType oInfo = this.mods.addNewOriginInfo();
+//		PlaceType placeType = oInfo.addNewPlace();
+//		PlaceTermType ptt = placeType.addNewPlaceTerm();
+//		ptt.setStringValue(place);
+//		placeType.setPlaceTermArray(0, ptt);
+//		oInfo.setPlaceArray(0, placeType);
+//		DateType iDate = oInfo.addNewDateIssued();
+//		iDate.setStringValue(year);
+//		oInfo.setDateIssuedArray(0, iDate);
+//		this.mods.setOriginInfoArray(0, oInfo);
 		this.modsDoc.setMods(this.mods);
 		xml.set(this.modsDoc);
 		wrap.setXmlData(xml);

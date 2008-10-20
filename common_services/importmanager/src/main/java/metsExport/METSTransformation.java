@@ -1,6 +1,9 @@
 package metsExport;
 
 
+import gov.loc.mods.v3.ModsDocument;
+import gov.loc.mods.v3.ModsType;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,14 +11,22 @@ import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.xml.namespace.QName;
+import javax.xml.parsers.DocumentBuilder;
+
 import org.apache.log4j.Logger;
+import org.apache.xmlbeans.XmlCursor;
 import org.apache.xmlbeans.XmlException;
 import org.apache.xmlbeans.XmlOptions;
 import org.w3c.dom.Document;
 
+import de.escidoc.schemas.container.x07.ContainerDocument;
+import de.escidoc.schemas.container.x07.ContainerDocument.Container;
+import de.escidoc.schemas.metadatarecords.x04.MdRecordDocument.MdRecord;
 import de.escidoc.schemas.tableofcontent.x01.DivDocument.Div;
 import de.escidoc.schemas.tableofcontent.x01.PtrDocument.Ptr;
 import de.escidoc.schemas.toc.x06.TocDocument;
+import de.mpg.escidoc.services.common.valueobjects.ContainerVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
@@ -104,12 +115,9 @@ public class METSTransformation extends XmlIO{
      */
 	private void createDmdSec(String escidocToc)
 	{
-		String title ="Keine Angabe";
-		String author ="Keine Angabe";
-		String place ="Keine Angabe";
-		String year ="Keine Angabe";
 		String dmdId = "dmd1";
 		String containerId = null;
+		ModsType mods = null;
 	
 		try 
 		{
@@ -127,23 +135,28 @@ public class METSTransformation extends XmlIO{
 					//Id is returned as a href => extract id from link
 					int le = containerId.split("/").length-1;
 					containerId = containerId.split("/")[le];
-					System.out.println("ID: " + containerId);
 				}
 			}
 			
-			String containerMD = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieveMdRecord(containerId, "escidoc");
-			System.out.println(containerMD);
-			
-			Document containerDoc = getDocument(containerMD, false);
-			System.out.println(containerDoc);
-			
-//			Document tocDoc = getDocument(escidocToc, false);
-//			title = tocDoc.getElementsByTagName("dc:title").item(0).getTextContent();
-//			author = tocDoc.getElementsByTagName("escidoc:complete-name").item(0).getTextContent();
-//			tocDoc.getElementsByTagName("dc:place").item(0).getTextContent();
-//			tocDoc.getElementsByTagName("dc:date").item(0).getTextContent();
+			String xml = ServiceLocator.getContainerHandler(this.login.loginSysAdmin()).retrieve(containerId);			
+            ContainerDocument cDoc = ContainerDocument.Factory.parse(xml);
+            Container container = cDoc.getContainer();
+	
+            MdRecord[] mdrecords = container.getMdRecords().getMdRecordArray();
 
-			this.writeMETS.createDmdSec(dmdId, title, author, place, year);
+            for (MdRecord mdr : mdrecords)
+            {
+            	if (mdr.getName().equals("escidoc")){
+	                XmlCursor modsCursor = mdr.newCursor();
+	                modsCursor.selectPath("./*/*");                           
+	                modsCursor.toNextSelection();               
+	                
+	                ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
+	                mods = modsDoc.getMods();
+            	}
+            }
+
+			this.writeMETS.createDmdSec(mods, dmdId);
 		} 
 		catch (Exception e) 
 		{this.logger.error("Creation of dmdSec for METS document failed ", e);}
