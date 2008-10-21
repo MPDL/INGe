@@ -76,116 +76,116 @@ public class ProcessCitationStyleTest extends TestCase {
     @Ignore
     public final void testCitationStyleProcessing() throws Exception  {
     	
-    	long start;
-    	long exec_time = 0;
-    	int FAILED = 0;
-    	String cs = System.getProperty("citation.style", DEFAULT_CITSTYLE);
-    	Properties tp = TestHelper.getTestProperties(cs); 
-    	String ds = tp.getProperty("data.source");
-    	boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
-    	
-    	//Sort test properties
-    	Object[] keys = tp.keySet().toArray();
-        Arrays.sort(keys);
-        
-        // Get number of tests
-        String lastKey = (String)keys[keys.length-1];
-        Pattern r = Pattern.compile("^test\\.(\\d+)\\..*");
-        Matcher m = r.matcher(lastKey);
-        if (!m.matches( )) 
-            throw new IllegalArgumentException("Bad last key: " + lastKey);
-        
-        int testsNumber = Integer.valueOf(m.group(1));
-        
-        logger.info("Number of tests: " + testsNumber);
-
-        //get DataSource
-		Document document = JRXmlUtils.parse(ResourceUtil.DATASOURCES_DIRECTORY + ds + ".xml");
-        
-		ProcessCitationStyles p = new ProcessCitationStyles();
-		File csPath = new File(ResourceUtil.CITATIONSTYLES_DIRECTORY);
-		
-		//get xmls
-        p.loadFontStylesFromXml(csPath);
-        p.loadCitationStyleFromXml(cs);
-		
-    	//get Default/citation-style-test.jrxml
-    	p.loadCitationStyleTestJRXml();
-    	
-    	//populate some of report parameters
-    	p.setJasperDesignDefaultProperties(cs);
-        
-    	//create Test Report
-    	p.parseAll(csPath, cs);
-    	JasperReport jr = JasperCompileManager.compileReport(p.getJasperDesign());
-       
-		// go through all tests
-        for ( int i = 1; i <= testsNumber; i++  ) {
-        	
-        	//get input data of test
-        	String name = tp.getProperty("test." + i + ".name");
-        	String rule = tp.getProperty("test." + i + ".rule");
-        	String id = tp.getProperty("test." + i + ".data.source.item.id");
-        	String result = tp.getProperty("test." + i + ".result");
-        	String testHeader = "Test number: " + i;
-        	
-        	//check whether they are complete
-/*        	if (name==null)
-        		throw new IllegalArgumentException ("name is not defined for " + testHeader);
-        	else if (rule==null) 
-        		throw new IllegalArgumentException ("rule is not defined for " + testHeader);
-       		else */
-            
-        	// test output of props
-        	logger.info("-----------------------------------------------");
-        	logger.info(testHeader);
-        	logger.info("Name: " + name);
-        	logger.info("Rule: " + rule);
-        	// process the next test if...
-        	if ( id == null || result == null ) {
-        		logger.info("Id and Result should be defined both. " + testHeader + " is skipped");
-        		continue;
-        	} 
-        	logger.info("id: " + id);
-        	
-        	String[] ids = id.split(",");
-        	String xpath = "";
-        	for ( String tmp : ids ) 
-        		xpath += "@objid='" + tmp + "' or " ;
-        	xpath = xpath.length()>0 ?  xpath.substring(0, xpath.length() - 4) : xpath;
-        	
-        	xpath = "/item-list/item[" + xpath + "]/md-records/md-record/publication";
-        	logger.info("xpath: " + xpath);
-        		
-        	// getOutput for special text report with DataSource defined with id
-	    	start = -System.currentTimeMillis();
-//        	String out = new String(p.getTextOutput(jr, document, xpath), "UTF-8");
-        	String out = new String(p.getTextOutput(jr, document, xpath));
-        	start += System.currentTimeMillis();
-        	exec_time +=  start; 
-        	logger.info("filling time: " + start);
-        	
-        	if (IS_IGNORE_MULTIPLY_SPACES)
-        		out = TestHelper.cleanCit(out);
-        	
-        	logger.info("Asserted result: " + result);
-        	logger.info("Processed result: " + out);
-        	
-        	//assertEquals(testHeader + ",", result, out);
-        	if (!result.equals(out)) {
-        		FAILED++;
-            	logger.info("Asserted and Processed results are different");
-            	logger.info(testHeader + " is failed");
-        	}
-        	
-        }
-    	logger.info("-----------------------------------------------");
-    	logger.info("Complete execution time: " + exec_time);
-        if (FAILED > 0 ) {
-        	logger.info(FAILED + " of " + testsNumber + " tests are failed");
-        	fail("FAILED");
-        } else {
-        	logger.info(testsNumber + " of " + testsNumber + " tests are passed successfully!");
-        }
+//    	long start;
+//    	long exec_time = 0;
+//    	int FAILED = 0;
+//    	String cs = System.getProperty("citation.style", DEFAULT_CITSTYLE);
+//    	Properties tp = TestHelper.getTestProperties(cs); 
+//    	String ds = tp.getProperty("data.source");
+//    	boolean IS_IGNORE_MULTIPLY_SPACES = tp.getProperty("ignore.multiply.spaces").equals("yes");
+//    	
+//    	//Sort test properties
+//    	Object[] keys = tp.keySet().toArray();
+//        Arrays.sort(keys);
+//        
+//        // Get number of tests
+//        String lastKey = (String)keys[keys.length-1];
+//        Pattern r = Pattern.compile("^test\\.(\\d+)\\..*");
+//        Matcher m = r.matcher(lastKey);
+//        if (!m.matches( )) 
+//            throw new IllegalArgumentException("Bad last key: " + lastKey);
+//        
+//        int testsNumber = Integer.valueOf(m.group(1));
+//        
+//        logger.info("Number of tests: " + testsNumber);
+//
+//        //get DataSource
+//		Document document = JRXmlUtils.parse(ResourceUtil.DATASOURCES_DIRECTORY + ds + ".xml");
+//        
+//		ProcessCitationStyles p = new ProcessCitationStyles();
+//		File csPath = new File(ResourceUtil.CITATIONSTYLES_DIRECTORY);
+//		
+//		//get xmls
+//        p.loadFontStylesFromXml(csPath);
+//        p.loadCitationStyleFromXml(cs);
+//		
+//    	//get Default/citation-style-test.jrxml
+//    	p.loadCitationStyleTestJRXml();
+//    	
+//    	//populate some of report parameters
+//    	p.setJasperDesignDefaultProperties(cs);
+//        
+//    	//create Test Report
+//    	p.parseAll(csPath, cs);
+//    	JasperReport jr = JasperCompileManager.compileReport(p.getJasperDesign());
+//       
+//		// go through all tests
+//        for ( int i = 1; i <= testsNumber; i++  ) {
+//        	
+//        	//get input data of test
+//        	String name = tp.getProperty("test." + i + ".name");
+//        	String rule = tp.getProperty("test." + i + ".rule");
+//        	String id = tp.getProperty("test." + i + ".data.source.item.id");
+//        	String result = tp.getProperty("test." + i + ".result");
+//        	String testHeader = "Test number: " + i;
+//        	
+//        	//check whether they are complete
+///*        	if (name==null)
+//        		throw new IllegalArgumentException ("name is not defined for " + testHeader);
+//        	else if (rule==null) 
+//        		throw new IllegalArgumentException ("rule is not defined for " + testHeader);
+//       		else */
+//            
+//        	// test output of props
+//        	logger.info("-----------------------------------------------");
+//        	logger.info(testHeader);
+//        	logger.info("Name: " + name);
+//        	logger.info("Rule: " + rule);
+//        	// process the next test if...
+//        	if ( id == null || result == null ) {
+//        		logger.info("Id and Result should be defined both. " + testHeader + " is skipped");
+//        		continue;
+//        	} 
+//        	logger.info("id: " + id);
+//        	
+//        	String[] ids = id.split(",");
+//        	String xpath = "";
+//        	for ( String tmp : ids ) 
+//        		xpath += "@objid='" + tmp + "' or " ;
+//        	xpath = xpath.length()>0 ?  xpath.substring(0, xpath.length() - 4) : xpath;
+//        	
+//        	xpath = "/item-list/item[" + xpath + "]/md-records/md-record/publication";
+//        	logger.info("xpath: " + xpath);
+//        		
+//        	// getOutput for special text report with DataSource defined with id
+//	    	start = -System.currentTimeMillis();
+////        	String out = new String(p.getTextOutput(jr, document, xpath), "UTF-8");
+//        	String out = new String(p.getTextOutput(jr, document, xpath));
+//        	start += System.currentTimeMillis();
+//        	exec_time +=  start; 
+//        	logger.info("filling time: " + start);
+//        	
+//        	if (IS_IGNORE_MULTIPLY_SPACES)
+//        		out = TestHelper.cleanCit(out);
+//        	
+//        	logger.info("Asserted result: " + result);
+//        	logger.info("Processed result: " + out);
+//        	
+//        	//assertEquals(testHeader + ",", result, out);
+//        	if (!result.equals(out)) {
+//        		FAILED++;
+//            	logger.info("Asserted and Processed results are different");
+//            	logger.info(testHeader + " is failed");
+//        	}
+//        	
+//        }
+//    	logger.info("-----------------------------------------------");
+//    	logger.info("Complete execution time: " + exec_time);
+//        if (FAILED > 0 ) {
+//        	logger.info(FAILED + " of " + testsNumber + " tests are failed");
+//        	fail("FAILED");
+//        } else {
+//        	logger.info(testsNumber + " of " + testsNumber + " tests are passed successfully!");
+//        }
     }	
 }
