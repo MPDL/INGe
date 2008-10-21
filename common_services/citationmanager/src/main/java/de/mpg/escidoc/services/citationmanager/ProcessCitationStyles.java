@@ -43,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -138,6 +139,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     // Commonly used file name for citation style definition xml
     public String CITATION_XML_FILENAME;
     
+    // Css Class postfix
+    public String CSS_CLASS_POSTFIX;
+    
     // if true the old scriptlets will not be deleted  
     // before the compilations of the new scriptlets, if false - otherwise 
     public boolean KEEP_OLD_SCRIPTLETS;
@@ -159,6 +163,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private static final String TASK_FILL = "fill";
     private static final String TASK_FILL_SORT_TITLE = "sort-title";
     private static final String TASK_COMPILE = "compile";
+    private static final String TASK_COMPILE_FILL_VIEW = "compile-fill-view";
     
     private static final String TASK_PDF = "pdf";
     private static final String TASK_RTF = "rtf";
@@ -214,6 +219,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	        DEFAULT_STYLENAME = props.getProperty("default.stylename");
 	        DEFAULT_REPORTNAME = props.getProperty("default.reportname");
 	        CITATION_XML_FILENAME = props.getProperty("citation.xml.filename");
+	        CSS_CLASS_POSTFIX = props.getProperty("css.class.postfix");
 	        KEEP_OLD_SCRIPTLETS = Boolean.parseBoolean(props.getProperty("keep.old.scriptlets").trim()); 
 	        KEEP_COMPILER_KEEP_JAVA_FILE = Boolean.parseBoolean(props.getProperty("keep.compiler.keep.java.file").trim());
 	        CREATE_JRXML = Boolean.parseBoolean(props.getProperty("create.jrxml").trim());
@@ -224,12 +230,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @param path A path to the directory of CitationStyle
      * @throws CitationStyleManagerException 
      */
-    public void loadFontStylesFromXml(File path) throws CitationStyleManagerException{
+    public void loadFontStylesFromXml() throws CitationStyleManagerException{
         try {
         	
             fsc = FontStylesCollection.loadFromXml( 
-            		// TODO: Ignore Path             		
-//            		path +
             		ResourceUtil.getPathToCitationStyles()
             		+ DEFAULT_STYLENAME 
             		+ "/" + ResourceUtil.FONTSTYLES_FILENAME + ".xml");
@@ -275,13 +279,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     public void loadCitationStyleFromXml(String name) throws CitationStyleManagerException{
         try {
             csc = CitationStylesCollection.loadFromXml(
-            		// TODO: Ignore Path             		
-//            		path +
             		ResourceUtil.getPathToCitationStyles()
             		+ name 
             		+ "/"
             		+ CITATION_XML_FILENAME
             );
+            lec = csc.getCitationStyleByName(name).getLayoutElements();
         } catch (Exception e) {
         	throw new CitationStyleManagerException("Error by loading CitationStylesCollection: " + e);
         }
@@ -356,9 +359,17 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private void addJRField(String name, String expr) throws JRException{
         if (findInFieldsMap(name))
         {
-        	logger.info("Field " + name + " is already in the hash of fields");
+        	logger.debug("Field " + name + " is already in the hash of fields");
             return;
         }
+        
+    	logger.debug("added Field: " + name + " expression: " + expr);
+    	if ( ! Utils.checkVal(name) )
+    	{
+        	logger.debug("Странное положение");
+    	}
+    		
+        
         //logger.info(name + ", " + expr);
         JRDesignField field = new JRDesignField();
         field.setName(name);
@@ -388,7 +399,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     private void addJRVariable(String name, String expr) throws JRException {
         // add Variable to JasperDesign
         if (findInVariablesMap(name)) {
-        	logger.info("Variable " + name + " is already in the hash of varaibles");
+        	logger.debug("Variable " + name + " is already in the hash of varaibles");
             return;
         }
         // walk around expression and add
@@ -523,28 +534,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         return expr;
     }
 
-    /**
-     * Paramaters' overwriting
-     *
-     * @param p1 is high parameter
-     * @param p2 is low parameter
-     * @return An overwritten parameter
-     */
-    public static String overParams(String p1, String p2){
-        return p1 != null && p1.length() > 0 ? p1 : p2 != null && p2.length() > 0 ? p2 : null;
-    }
-
-    /**
-     * Paramaters' overwriting
-     *
-     * @param p1 is high parameter
-     * @param p2 is low parameter
-     * @return An overwritten parameter
-     */
-    public static int overParams(int p1, int p2){
-        return p1 != 0 ? p1 : p2 != 0 ? p2 : 0;
-    }
-
 
     
      /**
@@ -576,12 +565,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         String oldExpr = expr;
 
 
-        if (lec != null && ref != null && ref.length() > 0) {
-            refLE = lec.getElementByName(ref);
-            if (refLE != null) {
-                pREF = refLE.getParametersAtDefault();
-            }
-        }
+//        if (lec != null && ref != null && ref.length() > 0) {
+//            refLE = lec.getElementByName(ref);
+//            if (refLE != null) {
+//                pREF = refLE.getParametersAtDefault();
+//            }
+//        }
 
 
         
@@ -589,21 +578,21 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
 
         // apply function  	
-        String func = overParams(le.getFunc(), refLE != null ? refLE.getFunc() : null);
+        String func = Utils.overParams(le.getFunc(), refLE != null ? refLE.getFunc() : null);
         if ( ProcessScriptlet.isInScriptletFunctionsTable( func ) ) 
         	chunk = "($P{REPORT_SCRIPTLET}." + func + "(" + chunk + "))";
         
         // startsWith
-        p = overParams(pLE.getStartsWith(), pREF != null ? pREF.getStartsWith() : null);
-        p = xmlEncode(p);
-        if (p != null && p.length() > 0) {
+        p = Utils.overParams(pLE.getStartsWith(), pREF != null ? pREF.getStartsWith() : null);
+        p = Utils.xmlEncode(p);
+        if ( Utils.checkVal(p) ) {
         	chunk = "\"" + p + "\" + " + chunk;
         }
-
+        
         // endsWith
-        p = overParams(pLE.getEndsWith(), pREF != null ? pREF.getEndsWith() : null);
-        p = xmlEncode(p);
-        if (p != null && p.length() > 0) {
+        p = Utils.overParams(pLE.getEndsWith(), pREF != null ? pREF.getEndsWith() : null);
+        p = Utils.xmlEncode(p);
+        if ( Utils.checkVal(p) ) {
         	chunk = chunk + " + \"" + p + "\"";
         }
         
@@ -612,15 +601,15 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //        expr = chunk;	
         
         // maxLength
-        int maxLength = overParams(pLE.getMaxLength(), pREF != null ? pREF.getMaxLength() : 0);
+        int maxLength = Utils.overParams(pLE.getMaxLength(), pREF != null ? pREF.getMaxLength() : 0);
         if (maxLength > 0) {
             expr = "(" + expr + ")";
             chunk = "(" + expr + ".length() > " + maxLength + " ? " +
                 expr + ".substring(0, " + (maxLength - 1) + ")";
             // maxLengthEndsWith
-            p = overParams(pLE.getMaxLengthEndsWith(), pREF != null ? pREF.getMaxLengthEndsWith() : null);
-            p = xmlEncode(p);
-            if (p != null && p.length() > 0) {
+            p = Utils.overParams(pLE.getMaxLengthEndsWith(), pREF != null ? pREF.getMaxLengthEndsWith() : null);
+            p = Utils.xmlEncode(p); /// ??????????????????
+            if (Utils.checkVal(p)) {
                 chunk += " + \"" + p + '"';
             }
             expr = chunk + ":" + expr + ")";
@@ -628,23 +617,29 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
 
         // validIf
-        p = overParams(pLE.getValidIf(), pREF != null ? pREF.getValidIf() : null);
-        if ( p != null && !p.trim().equals("") ) 
+        p = Utils.overParams(pLE.getValidIf(), pREF != null ? pREF.getValidIf() : null);
+        if ( Utils.checkVal(p) ) 
         {
         	//p = translateToJRExpression(p);
-            expr = "((" + p + ") ? (" + expr + ") : \"\")";
+            expr = "((" + p + ") ? (" + expr + ") : \"\")"; 
         }
 
         // fontStyle
-        p = overParams(pLE.getFontStyleRef(), pREF != null ? pREF.getFontStyleRef() : null);
-        if ( p != null && !p.trim().equals("") ) 
+        p = Utils.overParams(pLE.getFontStyleRef(), pREF != null ? pREF.getFontStyleRef() : null);
+        if ( Utils.checkVal(p) ) 
         {
             FontStyle fs = fsc.getFontStyleByName(p);
-            expr = String.format(fs.toStyle(), expr) ;
+            // cssClass
+            // make sense only for SNIPPET & HTML!!! 
+            expr = fs.applyCssClass(expr) ;
+
+            //styled text next
+            expr = fs.applyStyle(expr) ;
         }
+        
 
 //        logger.debug("le:" + le.getRepeatable()==null);
-        if (ref != null && ref.length() > 0) 
+        if ( Utils.checkVal(ref) ) 
         {
         	if ( isRepeatable )
         	{
@@ -681,8 +676,21 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		
         	}
         	else
-                // avoid "null" parameters for non-repeatable elements
+        	{
+        	//find reference element in predefined layout repeatable elements 
+              if (lec != null) {
+            	  LayoutElement ple = lec.getElementByName(ref);
+            	  if (ple != null ) 
+            	  {
+            		  ref = ple.getRepeatable().equals("yes") ? 
+            				  "tmpField_" + ple.getId() :
+            				  ple.getId(); 
+            	  }
+              }
+
+        		// avoid "null" parameters for non-repeatable elements
         		expr = "$" + findRefLocation(ref) + "{" + ref + "} != null ? " + expr + " : \"\"";
+        	}
         }
         
 //        expr = String.format(checkLen, oldExpr, chunk);	
@@ -718,7 +726,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		Pattern p = Pattern.compile("\\$\\{(.+?)\\}", Pattern.CASE_INSENSITIVE
 				| Pattern.DOTALL);
 		Matcher m = p.matcher(expr);
-		 StringBuffer sb = new StringBuffer();
+		StringBuffer sb = new StringBuffer();
 		while (m.find())
 		{
 			String name = m.group(1);
@@ -774,21 +782,35 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
         //  if le has reference to
 
+//logger.info("ref=" + ref);
 
-        if ( checkVal(ref) ) {
+        if ( Utils.checkVal(ref) ) {
         	
         	//look up in predefined LEs
         	LayoutElement ple = cs.getLayoutElements().getElementByName(ref);
+        	
+//        	LayoutElement oldLe = le;
+//            if ( ple != null )
+//            {
+//            	le = ple;
+//				ref = le.getRef();
+//				p = le.getParametersAtDefault();
+//				delimiter = p.getDelimiter();
+//				isRepeatable = le.getRepeatable().equals("yes");
+//            }
         	// if found, use ple instead of le
-        	LayoutElement oldLe = le;
-            if ( ple != null )
-            {
-            	le = ple;
-                p = le.getParametersAtDefault();
-                ref = le.getRef();
-                delimiter = p.getDelimiter();
-                isRepeatable = le.getRepeatable().equals("yes");
-            }
+			if (ple != null) 
+			{
+		        if (!findInVariablesMap(ple.getId())) 
+		        {
+					addLayoutElementToVariablesMap(cs, ple);
+		        }
+		        //in case if we have reference to the LE 
+		        //from predefined LEs, use only parameters!!!
+		        expr = applyParameters(le, "$V{" + ple.getId() + "}", false);		        	
+		        
+			} 
+			else
         	
         	// repeatable!!! - produce Scriptlet
         	if (isRepeatable) {
@@ -796,6 +818,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		// method for le in scriptlet and reference in JRFields
         		if ( !findInFieldsMap("tmpField_" + le.getId()) )
         		{	
+        			if (ps == null)
+        			{
+        				throw new CitationStyleManagerException("Empty scriptlet variable");
+        			}
         			ps.createMethodForScriptlet(le, csc, fsc);
         		}	
         		expr = applyParameters(le, "(($P{REPORT_SCRIPTLET}).get" + le.getId() + "())", true);
@@ -820,7 +846,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		}
         	}
         	
-        	le = oldLe;
+//        	le = oldLe;
         }
         // le has no ref
         else {
@@ -828,57 +854,66 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         	expr = applyParameters(le, expr, false);
         }
         
-          
         addJRVariable(le.getId(), expr);
     }
 
     
     
-    public void parseCitationStyle(CitationStyle cs) throws CitationStyleManagerException, JRException, FileNotFoundException, IOException {
+    public void parseCitationStyleBase(String name, boolean hasCssClasses) throws CitationStyleManagerException, JRException, FileNotFoundException, IOException {
 
-        // walkaround through all csLayoutDefinitions
-        String expr = "";
-
-        ps = new ProcessScriptlet(cs);
+    	Utils.checkCondition(!Utils.checkVal(name), "Empty citation style name");
+    	
+    	CitationStyle cs = csc.getCitationStyleByName(name);
+    	Utils.checkCondition(cs == null, "Cannot find citation style:" + name);
         
         // add special variables defined in cs XML
         HashMap<String, String[]> vars = cs.getVariables();   
         Iterator<String> iter = vars.keySet().iterator();
         while ( iter.hasNext() )
         {
-        	String name = iter.next();
+        	String key = iter.next();
         	//xpath is first  
-        	String val = vars.get(name)[0]; 
-        	if ( checkVal(val)  )
+        	String val = vars.get(key)[0]; 
+        	if ( Utils.checkVal(val)  )
         	{
-        		addJRField(name, val );        		
+        		addJRField(key, val );        		
         	}
         	else
             	//expression is second
         	{
-            	val = vars.get(name)[1];
-            	if ( checkVal(val)  )
+            	val = vars.get(key)[1];
+            	if ( Utils.checkVal(val)  )
             	{
-            		addJRVariable(name, val);        		
+            		addJRVariable(key, val);        		
             	}
         	}
         }
         
-//         add predefined layout elements
-//        List<LayoutElement> ples = cs.getLayoutElements().getLayoutElements();
-//        for ( LayoutElement ple : ples )
-//        	addLayoutElementToVariablesMap(cs, ple);
+//      fsc.removeCssClass();
+      
         
+    	//create ProcessScriptlet class before the 
+        //LEs processing
+        if (!hasCssClasses)
+        {
+        	//
+        	fsc.removeCssClass();
+        	ps = new ProcessScriptlet(cs);
+        }
+        else
+        {
+        	ps = new ProcessScriptlet(cs, CSS_CLASS_POSTFIX);
+        }
         
         
         //generate result citation variable
+        String expr = "";
         String V = null;
         for (LayoutElement csld : cs.getCsLayoutDefinitions()) {
             addLayoutElementToVariablesMap(cs, csld);
             V =  "$V{" + csld.getId() + "}";
             expr += "!" + V + ".trim().equals(\"\") ? " + V + ":";
         }
-        //expr = expr.substring(0, expr.length() - 1);
         expr += "\"\""; 
         expr = "($P{REPORT_SCRIPTLET}.cleanCit(" + expr + "))";
 
@@ -896,77 +931,22 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             dataSet.removeVariable(RESULT_CITATION_VARIABLE);
 
         addJRVariable(RESULT_CITATION_VARIABLE, expr);
+        
+
 
     }
 
-    /**
-     * Returns first not null && not empty String from String[] 
-     * @param values 
-     * @return first not null && not empty String
-     */
-    private String coalesce(String[] values)
+    public void parseCitationStyle(String name) throws FileNotFoundException, CitationStyleManagerException, JRException, IOException 
     {
-    	for ( String val : values)
-    		if ( checkVal(val) )
-    			return val;
-    	return null;
+    	parseCitationStyleBase(name, false);
     }
     
-    /**
-     * Returns true if val is not null && not empty String 
-     * @param val 
-     * @return first not null && not empty String
-     */
-    private boolean checkVal(String val)
+    public void parseCssClassCitationStyle(String name) throws FileNotFoundException, CitationStyleManagerException, JRException, IOException 
     {
-    	return ( val != null && !val.trim().equals("") );
+    	parseCitationStyleBase(name, true);
     }
-  
-
-     /**
-      * Fills  according to LayoutElementsCollection
-      * is taken from LayoutElements.xml
-     * @throws IOException 
-      *
-      */
-    public void parseAll(File path, String name) throws CitationStyleManagerException, IOException {
-
-    	if (jasperDesign == null) 
-    		throw new CitationStyleManagerException("Empty jasperDesign variable");
-    	
-    	// fill  CitationStyleCollection
-        for (CitationStyle cs : csc.getCitationStyles()) {
-            try {
-                parseCitationStyle(cs);
-            }
-            catch (Exception e) {
-                throw new CitationStyleManagerException("Cannot parse Citation Style(" + cs.getName() + "):" + e);
-            }
-        }
-    	if (ps == null) 
-    		throw new CitationStyleManagerException("Empty ProcessScriptlet instance variable");
-        ps.writeToScriptlet(path, name);
-        
-//		set getScriprtletClassName with the package prefix
-        String scn = ps.getScriptletClassName();
-        jasperDesign.setScriptletClass(ProcessScriptlet.getPackageName() + "." + scn);
-        
-        String scriptlet_fn_java = 
-        	ProcessScriptlet.getPathToScriptletJava() + scn + ".java";
-
-        //compile scriptlet java and put it in  
-        com.sun.tools.javac.Main.compile(new String[] {
-                "-cp",
-                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
-                "-d", ResourceUtil.getPathToClasses(),
-                scriptlet_fn_java
-                
-        });
-        
-        
-      }
-
-
+    
+    
 
     /**
      * Loads JasperDesign XML file
@@ -975,11 +955,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws CitationStyleManagerException 
      * @throws IOException 
      */
-    public void loadCitationStyleJRXml(File path, String name) throws JRException, CitationStyleManagerException, IOException{
+    public void loadCitationStyleJRXml(String name) throws JRException, CitationStyleManagerException, IOException{
         try {
             jasperDesign = JRXmlLoader.load( 
-            		// TODO: Ignore Path             		
-//            		path +
             		ResourceUtil.getPathToCitationStyles()
             		+ name + "/CitationStyle.jrxml"
             );
@@ -1027,8 +1005,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws CitationStyleManagerException 
      * @throws IOException 
      */
-    public void loadCitationStyleJRXml(File path) throws JRException, CitationStyleManagerException, IOException{
-        loadCitationStyleJRXml(path, DEFAULT_STYLENAME);
+    public void loadDefaultCitationStyleJRXml() throws JRException, CitationStyleManagerException, IOException{
+        loadCitationStyleJRXml(DEFAULT_STYLENAME);
     }
 
 
@@ -1039,8 +1017,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     public void verifyCitationStyle() throws JRException, CitationStyleManagerException {
     	
-    	if (jasperDesign == null) 
-    		throw new CitationStyleManagerException("Empty jasperDesign variable");
+    	Utils.checkCondition(jasperDesign == null, "Empty jasperDesign variable");
         Collection brokenRules = JasperCompileManager.verifyDesign(jasperDesign);
         if (brokenRules != null && brokenRules.size() > 0) {
             StringBuffer sbuffer = new StringBuffer();
@@ -1060,51 +1037,91 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     /**
      * Compiles JasperDesign file and saves it into .jasper file
      * @param path A path to the CitationStyles directory
-     * @param name A name of CItation Style
+     * @param csName A name of CItation Style
      * @throws CitationStyleManagerException 
      * @throws IOException 
      */
-    public void compileCitationStyleJRToFile(File path, String name) throws JRException, CitationStyleManagerException, IOException {
-    	if (jasperDesign == null) 
-    		throw new CitationStyleManagerException("Empty jasperDesign variable");
+    public void compileCitationStyleJRToFileBase(String csName, String postfix) throws JRException, CitationStyleManagerException, IOException {
+    	Utils.checkCondition(jasperDesign == null, "Empty jasperDesign variable");
         try {
-            JasperCompileManager.compileReportToFile(jasperDesign , 
-            		// TODO: Ignore Path             		
-//            		path +
+            JasperCompileManager.compileReportToFile(jasperDesign, 
             		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/CitationStyle.jasper");
+            		+ csName + "/CitationStyle" + postfix 
+            		+ ".jasper");
         }
         catch (JRException e) {
-            throw new JRException("FAILED .jasper creation: " + e);
+            throw new JRException("FAILED .jasper creation", e);
         }
+    }
+    public void compileCitationStyleJRToFile(String csName) throws JRException, CitationStyleManagerException, IOException {
+    	compileCitationStyleJRToFileBase(csName, "");
+    	
+    }
+    
+    public void compileCssClassCitationStyleJRToFile(String csName) throws JRException, CitationStyleManagerException, IOException {
+    	compileCitationStyleJRToFileBase(csName, CSS_CLASS_POSTFIX);
     }
 
     /**
      * Compiles JasperDesign file and saves it into .jrxml file
      * @param path A path to the CitationStyles directory
-     * @param name A name of CItation Style
+     * @param csName A name of CItation Style
      * @throws CitationStyleManagerException 
      * @throws IOException 
      */
-    public void compileCitationStyleJRToXml(File path, String name) throws JRException, CitationStyleManagerException, IOException 
+    public void compileCitationStyleJRToXmlBase(String csName, String postfix) throws JRException, CitationStyleManagerException, IOException 
     {
     	if (!CREATE_JRXML)
     		return;
     	
-    	if (jasperDesign == null) 
-    		throw new CitationStyleManagerException("Empty jasperDesign variable");
+    	Utils.checkCondition( !Utils.checkVal(csName), "Empty citation style name");
+    	
+    	Utils.checkCondition(jasperDesign == null, "Empty jasperDesign variable");
     	
         try {
             JasperCompileManager.writeReportToXmlFile(jasperDesign, 
-            		// TODO: Ignore Path             		
-//            		path +
             		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/CitationStyle.jrxml");
+            		+ csName + "/CitationStyle" + postfix
+            		+ ".jrxml");
         } catch (JRException e) {
-              throw new JRException("FAILED .jrxml creation: " + e);
+              throw new JRException("FAILED .jrxml creation", e);
         }
     }
+    
+    public void compileCitationStyleJRToXml(String csName) throws JRException, CitationStyleManagerException, IOException 
+    {
+    	compileCitationStyleJRToXmlBase(csName, "");
+    }
+    
+    public void compileCssClassCitationStyleJRToXml(String csName) throws JRException, CitationStyleManagerException, IOException 
+    {
+    	compileCitationStyleJRToXmlBase(csName, CSS_CLASS_POSTFIX);
+    }
+    
+    
+    public void compileScriptletToFile(String csName) throws CitationStyleManagerException, IOException 
+    {
+    	
+    	Utils.checkCondition( !Utils.checkVal(csName), "Empty citation style name");
 
+    	//save  Scriptlet in java file
+    	Utils.checkCondition(ps == null, "Scriptlet variable is empty");
+        File scriptlet_fn_java = ps.writeToScriptlet();
+        
+        //set correct scriptlet package QName in the jasperDesign
+        String scn = ps.getScriptletClassName();
+        jasperDesign.setScriptletClass(ProcessScriptlet.getPackageName() + "." + scn);
+
+        //compile scriptlet java  
+        com.sun.tools.javac.Main.compile(new String[] {
+                "-cp",
+                JRProperties.getProperty(JRProperties.COMPILER_CLASSPATH),
+                "-d", ResourceUtil.getPathToClasses(),
+                scriptlet_fn_java.getAbsolutePath()
+                
+        });
+    }
+    
 
     
     /**
@@ -1166,9 +1183,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @param name is a name of a Citation Style
      * @throws CitationStyleManagerException 
      */
-    public void loadCitationStyleDefinitionXmls(File path, String name) throws CitationStyleManagerException{
-        loadFontStylesFromXml(path);
-        loadLayoutElementsFromXml(path, name);
+    public void loadCitationStyleDefinitionXmls(String name) throws CitationStyleManagerException{
+        loadFontStylesFromXml();
+        //loadLayoutElementsFromXml(path, name);
         loadCitationStyleFromXml(name);
     }
 
@@ -1181,28 +1198,21 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      */
     public void setJasperDesignDefaultProperties(String name) throws CitationStyleManagerException {
     	
-    	if (jasperDesign == null) 
-    	{
-    		throw new CitationStyleManagerException("Empty jasperDesign variable");
-    	}
-    	if (csc == null) 
-    	{
-    		throw new CitationStyleManagerException("Ciataion Styles are not loaded");
-    	}
+    	Utils.checkCondition(!Utils.checkVal(name), "Empty citation style name");
+
+    	Utils.checkCondition(csc == null, "Empty citation style collection");
     	
+    	CitationStyle cs = csc.getCitationStyleByName(name);
+    	Utils.checkCondition(cs == null, "Cannot find citation style: " + name);
     	
+    	Utils.checkCondition(jasperDesign == null, "Empty jasperDesign variable");
+
 //		set report name
         jasperDesign.setName(name);
         
-//		assign correct scriptlet name               
-        String sc = jasperDesign.getScriptletClass();
-        String pn = ProcessScriptlet.getPackageName();
-        if ( sc != null && !sc.startsWith(pn))
-        	jasperDesign.setScriptletClass( pn + "." + sc );
-        
 //		set root path for XML DataSource  
         JRDesignQuery q = new JRDesignQuery();
-        q.setText(csc.getCitationStyleByName(name).getMdXPath());
+        q.setText(cs.getMdXPath());
         jasperDesign.setQuery(q);
 
 //		write the name of Citation Style in the header              
@@ -1220,23 +1230,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws CitationStyleManagerException 
      * @throws IOException 
      */
-    public void loadDefaultCitationStyleJRXml(File path, String name) throws JRException, CitationStyleManagerException, IOException {
-        try {
-            loadCitationStyleJRXml(path, DEFAULT_STYLENAME);
-            setJasperDesignDefaultProperties(name);
-        } catch (JRException e) {
-            throw new JRException("FAILED loading from .jrxml: " + e);
-        }
-    }
-
-    /**
-     * @param path
-     * @throws CitationStyleManagerException 
-     * @throws JRException 
-     * @throws IOException 
-     */
-    public void loadDefaultCitationStyleJRXml(File path) throws JRException, CitationStyleManagerException, IOException {
-        loadDefaultCitationStyleJRXml(path, DEFAULT_STYLENAME);
+    public void loadDefaultCitationStyleJRXml(String name) throws JRException, CitationStyleManagerException, IOException 
+    {
+    	loadCitationStyleJRXml(DEFAULT_STYLENAME);
+    	setJasperDesignDefaultProperties(name);
     }
 
     /**
@@ -1247,27 +1244,27 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws IOException
      * @throws CitationStyleManagerException 
      */
-    public void loadCitationStyleBundle(File path, String name) throws JRException, IOException, CitationStyleManagerException {
-    	
-    	loadCitationStyleDefinitionXmls(path, name); 
-    	loadCitationStyleJRXml(path);
-    	setJasperDesignDefaultProperties(name);
-
-    }
-
-    public void loadCitationStyleBundle(File path) throws JRException, IOException, CitationStyleManagerException{
-    	
-        loadCitationStyleBundle(path, DEFAULT_STYLENAME);
-
+    public void loadCitationStyleBundle(String name) throws JRException, IOException, CitationStyleManagerException 
+    {
+    	loadCitationStyleDefinitionXmls(name); 
+    	loadDefaultCitationStyleJRXml(name);
     }
 
 
-    public void saveCitationStyleBundle(File path, String name) throws JRException, IOException, CitationStyleManagerException{
-
+    public void saveCitationStyleBundle(String name) throws JRException, IOException, CitationStyleManagerException
+    {
         JRProperties.setProperty(JRProperties.COMPILER_KEEP_JAVA_FILE, String.valueOf(KEEP_COMPILER_KEEP_JAVA_FILE));
-        compileCitationStyleJRToFile(path, name);
-        compileCitationStyleJRToXml(path, name);
-
+        compileScriptletToFile(name);
+        compileCitationStyleJRToFile(name);
+        compileCitationStyleJRToXml(name);
+    }
+    
+    public void saveCssClassCitationStyleBundle(String name) throws JRException, IOException, CitationStyleManagerException
+    {
+    	JRProperties.setProperty(JRProperties.COMPILER_KEEP_JAVA_FILE, String.valueOf(KEEP_COMPILER_KEEP_JAVA_FILE));
+    	compileScriptletToFile(name);
+    	compileCssClassCitationStyleJRToFile(name);
+    	compileCssClassCitationStyleJRToXml(name);
     }
 
     /**
@@ -1315,36 +1312,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	return getCitationStylesList(new File("."));
     }
     
-    public static boolean findInList(String[] a, String name){
-    	for (String s: a) {
-			if (s.equals(name)) 
-				return true;
-		}
-    	return false;
-    }    
     
 
-    /**
-     * @param str
-     * @param count
-     * @return
-     */
-    public static String xmlEncode(String str, int count) {
-    	if (str!=null && str.length()>0) 
-    		for (int i = 1; i <= count; i++) 
-    			str = JRStringUtil.xmlEncode(str);
-    	return str;
-    }
-    
-    /**
-     * @param str
-     * @return
-     */
-    public static String xmlEncode(String str) {
-    	return xmlEncode(str, 2);
-    }
-
-    
+  
 
 	
 	/**
@@ -1370,20 +1340,21 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 * @throws CitationStyleManagerException 
 	 * @throws Exception
 	 */
-	public void compileReport(File root, String csName) throws JRException, IOException, CitationStyleManagerException{
-	
+	public void compileReport(String csName) throws JRException, IOException, CitationStyleManagerException{
 		
-		File csPath = getCsPath(root);
-		
-        ProcessScriptlet.cleanUpScriptlets(root, csName, KEEP_OLD_SCRIPTLETS);
-        loadCitationStyleBundle(csPath, csName);
-        parseAll(csPath, csName);
-        saveCitationStyleBundle(csPath, csName);
+        ProcessScriptlet.cleanUpScriptlets(csName, CSS_CLASS_POSTFIX, KEEP_OLD_SCRIPTLETS);  
+        
+        loadCitationStyleBundle(csName);
+        parseCssClassCitationStyle(csName);
+        saveCssClassCitationStyleBundle(csName);
+        
+//        loadCitationStyleBundle(csName);
+        loadDefaultCitationStyleJRXml(csName);
+        parseCitationStyle(csName);
+        saveCitationStyleBundle(csName);
+        
 	}
 	
-	public void compileReport(String csName) throws JRException, IOException, CitationStyleManagerException {
-		compileReport(new File("."), csName);
-	}
 	
 	/**
 	 * Fill report on DataSet
@@ -1396,9 +1367,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 * @throws CitationStyleManagerException 
 	 * @throws Exception
 	 */
-	public void fillReport(String csName, File dsFile, String jrpName) throws IOException, JRException, CitationStyleManagerException {
+	public void fillReportBase(String csName, String ouf, String dsFile, String jrpName) throws IOException, JRException, CitationStyleManagerException {
 
 
+		Utils.checkCondition( !Utils.checkVal(csName), "Empty citation style name");
+		Utils.checkCondition( !Utils.checkVal(ouf), "Empty output format");
+		Utils.checkCondition( !Utils.checkVal(dsFile), "Empty DataSource file name");
+		Utils.checkCondition( !Utils.checkVal(jrpName), "Empty JasperPrint file name");
+		
     	JRProperties.setProperty(JRProperties.COMPILER_KEEP_JAVA_FILE, String.valueOf(KEEP_COMPILER_KEEP_JAVA_FILE));
         
         long start = System.currentTimeMillis();
@@ -1407,27 +1383,19 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
         logger.info("JRXmlUtils.parse(dsFile) : " + (System.currentTimeMillis() - start));
                 
+        
+		String csj = ResourceUtil.getPathToCitationStyles() 
+			+ csName + "/CitationStyle" 
+			+ (OutFormats.snippet == OutFormats.valueOf(ouf) ? CSS_CLASS_POSTFIX : "")
+			+ ".jasper"; 
+		
+        JasperReport jasperReport = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj));
+        
         Map params = new HashMap();
         params.put(JRXPathQueryExecuterFactory.PARAMETER_XML_DATA_DOCUMENT, document);
 
-        //get REPORT_XML_ROOT_XPATH from loadCitationStyleFromXml !!!
-        // не нужно!!! загружать прямо с /CitationStyle.jasper, <queryString>!!!!
-        //loadCitationStyleFromXml(csName);
-        
-		String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle.jasper"; 
-        JasperReport jasperReport = (JasperReport)JRLoader.loadObject(ResourceUtil.getResourceAsStream(csj)); 
-
         start = System.currentTimeMillis();
-        
-//        JasperFillManager.fillReportToFile(
-//        		ResourceUtil.getPathToCitationStyles()
-//        		+ csName 
-//                + "/CitationStyle.jasper",
-//                // root + 
-//                jrpName + ".jrprint",
-//                params,
-//                new JRXmlDataSource(document, REPORT_XML_ROOT_XPATH)
-//         );
+
         JasperFillManager.fillReportToFile(
         		jasperReport,
         		// root + 
@@ -1435,6 +1403,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         		params,
         		new JRXmlDataSource(document, jasperReport.getQuery().getText())
         );
+        
         
         logger.info("JasperFillManager.fillReportToFile : " + (System.currentTimeMillis() - start));        
 	}
@@ -1447,9 +1416,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 * @throws IOException 
 	 * @throws CitationStyleManagerException 
 	 */
-	public void fillReport(String csName, File dsFile) throws IOException, JRException, CitationStyleManagerException {
+	public void fillReport(String csName, String ouf, String dsFile) throws IOException, JRException, CitationStyleManagerException {
 		
-		fillReport(csName, dsFile, DEFAULT_REPORTNAME );
+		fillReportBase(csName, ouf, dsFile, DEFAULT_REPORTNAME);
 	};
 
 	/**
@@ -1475,7 +1444,13 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 //		logger.info("JRXmlUtils.parse(ByteArrayInputStream) : " + (System.currentTimeMillis() - start));        
 		
 
-		String csj = ResourceUtil.getPathToCitationStyles() + citationStyle + "/CitationStyle.jasper";
+		String csj = 
+			ResourceUtil.getPathToCitationStyles() 
+			+ citationStyle 
+			+ "/CitationStyle" 
+			+ ( OutFormats.snippet == OutFormats.valueOf(outFormat) ? 
+					CSS_CLASS_POSTFIX : "" )
+			+	".jasper";
 		
 		JasperReport jr = null;
 		try 
@@ -1673,11 +1648,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	
 	public byte[] getOutput(String citationStyle, final String outFormat, String itemList) throws JRException, IOException, CitationStyleManagerException  {
 		
-		if (outFormat == null || outFormat.trim().equals(""))
-			throw new CitationStyleManagerException("Output format is not defined");
-
-		if (itemList == null || itemList.trim().equals("") )
-			throw new CitationStyleManagerException( "Empty item-list" );
+		Utils.checkCondition( !Utils.checkVal(outFormat), "Output format is not defined");
+		
+		Utils.checkCondition( !Utils.checkVal(itemList), "Empty item-list");
 		
 		int slashPos = outFormat.indexOf( "/" );
 		String ouf = slashPos == -1 ? outFormat : outFormat.substring( slashPos + 1 );
@@ -1732,11 +1705,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException 
 	{
-		if ( citationStyle == null || citationStyle.trim().equals("") )
-		{
-			throw new CitationStyleManagerException("Empty name of the citation style");
-		}
-		
+		Utils.checkCondition( !Utils.checkVal(citationStyle), "Empty name of the citation style");
+		 
 		try {
 			for ( String csn : XmlHelper.getListOfStyles() )
 				if ( csn.equals(citationStyle) )
@@ -1775,6 +1745,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         String dsName = null;
         String csName = null;
         String taskName = null;
+        String outputFormat = null;
 
         if(args.length == 0)
         {
@@ -1789,6 +1760,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 taskName = args[k].substring(2);
             if ( args[k].startsWith("-CS") )
                 csName = args[k].substring(3);
+            if ( args[k].startsWith("-OF") )
+            	outputFormat = args[k].substring(3);
             if ( args[k].startsWith("-DS") )
                 dsName = args[k].substring(3);
 
@@ -1811,7 +1784,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
             } else if (TASK_FILL.equalsIgnoreCase(taskName)) {
             	
-            	pcs.fillReport(csName, new File(dsName));
+            	pcs.fillReport(csName, outputFormat, dsName);
             	
                 logger.info("Filling time : " + (System.currentTimeMillis() - start));
                 
@@ -1823,6 +1796,15 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 logger.info("View creation time : " + (System.currentTimeMillis() - start));
                 
             }
+            else if (TASK_COMPILE_FILL_VIEW.equalsIgnoreCase(taskName))
+            {
+            	pcs.compileReport(csName); 
+            	pcs.fillReport(csName, outputFormat, dsName);
+            	pcs.viewReport(csName);
+            	
+            	logger.info("COMPILE_FILL_VIEW creation time : " + (System.currentTimeMillis() - start));
+            }
+            
             else if (TASK_PRINT.equalsIgnoreCase(taskName))
             {
                 pcs.viewReport(csName, TASK_PRINT);
@@ -1901,11 +1883,10 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 start = System.currentTimeMillis();
                 
                 pcs.fillReport(
-                		csName, 
-                		new File(
-                				ResourceUtil.getPathToDataSources() 
-                				+ xmlSortedFile
-                		)
+                		csName,
+                		outputFormat,
+                		ResourceUtil.getPathToDataSources() 
+                			+ xmlSortedFile
                 );
 
                 logger.info("Filling of the sorted file: " + (System.currentTimeMillis() - start));
