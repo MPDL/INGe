@@ -29,6 +29,8 @@
 
 package de.mpg.escidoc.services.citationmanager;
 
+import java.util.regex.Pattern;
+
 import org.apache.log4j.Logger;
 
 
@@ -57,7 +59,12 @@ public class FontStyle implements Cloneable{
     private String foreColor;		//foreground color of the font
     private String backColor;		//background color of the font
     private String pdfEncoding; 	//encoding for PDF
+    private String cssClass;		//Alternative class name for css
     private boolean isPdfEmbedded;  
+    
+    public static final String CSS_CLASS_REPORT_TAG = "\"&lt;span class=\\\"%s\\\"&gt;\"+%s+\"&lt;/span&gt;\"";
+    public static final String CSS_CLASS_REGEXP = "&lt;span class=&quot;(\\w+?)&quot;&gt;(.*?)&lt;/span&gt;";
+    public static final String CSS_CLASS_SUBST = "<span class=\"$1\">$2</span>";
     
     /**
      * Constructor
@@ -82,7 +89,8 @@ public class FontStyle implements Cloneable{
         pdfFontName = "ARIAL.TTF";
         foreColor = "black";
         backColor = "white";
-        pdfEncoding = "Identity-H"; 
+        pdfEncoding = "Identity-H";
+        cssClass = "";
         isPdfEmbedded = false;
     }
      
@@ -229,7 +237,17 @@ public class FontStyle implements Cloneable{
      */
     public boolean getIsPdfEmbedded() { return isPdfEmbedded; }
 
-    public Object clone() {
+    public String getCssClass() {
+		return cssClass;
+	}
+
+    public void setCssClass(String cssClass) {
+		this.cssClass = cssClass;
+	}
+	
+	
+
+	public Object clone() {
         Object clone = null;
         try {
           clone = super.clone();
@@ -250,10 +268,10 @@ public class FontStyle implements Cloneable{
      * @return String of the JasperReport font tag. String.format should 
      * be used to resolve %s  
      */
-    public String toStyle() {
+    public String applyStyle(String expr) {
         return
         	def ?
-        			"%s" :
+        			expr :
 		            "\"<style" +
 		            " fontName=\\\"" + fontName + "\\\"" +
 		            " fontSize=\\\"" + fontSize + "\\\"" +
@@ -266,13 +284,30 @@ public class FontStyle implements Cloneable{
 		            " backcolor=\\\"" + backColor + "\\\"" +
 		            " pdfEncoding=\\\"" + pdfEncoding + "\\\"" +
 		            " isPdfEmbedded=\\\"" + isPdfEmbedded + "\\\"" +
-		            ">\" + %s + \"</style>\"";
+	//	            " cssClass=\\\"" + cssClass + "\\\"" +
+		            ">\"+" + expr + "+\"</style>\"";
 	    }
 
+    /**
+     * Adds css class definition to an element  
+     */
+    
+    public String applyCssClass(String expr) {
+    	
+    	return
+    		this.cssClass==null || this.cssClass.trim().equals("") ?
+    				expr : String.format(CSS_CLASS_REPORT_TAG, this.cssClass, expr);
+//    			expr :
+//    				"\"&lt;span" +
+//    				" class=\\\"" + cssClass + "\\\"" +
+//    				"&gt;\"" + expr + "\"&lt;/span&gt;\"";
+    }    
+    
     public String toString() {
         return "["+ def + "," + name + "," + fontSize + "," + fontName + "," + isBold + "," +
                 isItalic + "," + isUnderline + "," + isStrikeThrough + "," + pdfFontName + "," +
-                foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + "]";
+                foreColor + "," + backColor + "," + pdfEncoding + "," + isPdfEmbedded + "," +
+                cssClass + "]";
     }
 
 
@@ -288,7 +323,9 @@ public class FontStyle implements Cloneable{
 
         logger.info("Default FontStyle:" + fs);
         logger.info("clone:" + fsclone);
-        logger.info("toStyle:" + fsclone.toStyle());
+        logger.info("toStyle:" + fsclone.applyStyle("style"));
+        fsclone.setCssClass("TestCssClass");
+        logger.info("CssClass:" + fsclone.applyCssClass("kuku"));
 
     }
 
