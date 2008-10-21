@@ -2843,7 +2843,7 @@ public class ReportingGUI extends JFrame {
 //	                    System.out.println("actionPerformed()"); // TODO
 
 	                    String csName = (String) listofcitationstylesjComboBox.getSelectedItem();
-	                    File dsFile = new File(xmlfilejTextField.getText());
+	                    String dsFile = xmlfilejTextField.getText();
 	                    
 //	                    System.out.println("csName "+csName );
 //	                    System.out.println("xmlfile "+xmlfilejTextField.getText() );
@@ -2861,8 +2861,8 @@ public class ReportingGUI extends JFrame {
 	                    	System.err.println("Here!5");
 
 	                    	pcs.compileReport(csName);
-	                    	pcs.fillReport(csName, dsFile);
-	                    	pcs.viewReport(csName, outPutFormat);
+	                    	pcs.fillReport(csName, outPutFormat, dsFile);
+	                    	pcs.viewReport(csName, outPutFormat); 
 	                    	
 	                        System.err.println("Processing time : " + (System.currentTimeMillis() - start));
 	                            
@@ -3841,7 +3841,7 @@ public class ReportingGUI extends JFrame {
 						
 	                    if (
 	                    		!newName.equals("") && 
-	                    		!ProcessCitationStyles.findInList(styleNames, newName)
+	                    		!Utils.findInList(styleNames, newName)
 	                    	)
 	                    	 {
 	                    
