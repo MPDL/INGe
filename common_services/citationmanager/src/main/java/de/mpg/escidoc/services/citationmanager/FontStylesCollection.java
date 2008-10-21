@@ -114,6 +114,15 @@ public class FontStylesCollection implements Cloneable {
         return null;
     }
 
+    
+    public void removeCssClass()
+    {
+        for ( FontStyle fs: fontStyles ) 
+        {
+        	fs.setCssClass(null);
+        }
+               	
+    }
 
 
     public String toString() {
@@ -158,6 +167,7 @@ public class FontStylesCollection implements Cloneable {
         digester.addSetProperties(path, "back-color", "backColor");
         digester.addSetProperties(path, "pdf-encoding", "pdfEncoding");
         digester.addSetProperties(path, "is-pdf-embedded", "isPdfEmbedded");
+        digester.addSetProperties(path, "css-class", "cssClass");
 
         
         digester.addSetNext(path, "addFontStyle");
@@ -223,6 +233,7 @@ public class FontStylesCollection implements Cloneable {
                 element.setAttribute("back-color", fs.getBackColor());
                 element.setAttribute("pdf-encoding", fs.getPdfEncoding());
                 element.setAttribute("is-pdf-embedded", "" + fs.getIsPdfEmbedded());
+                element.setAttribute("css-class", "" + fs.getCssClass());
 
             root.appendChild(element);
         }
@@ -233,7 +244,7 @@ public class FontStylesCollection implements Cloneable {
 
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
-        FontStylesCollection fsc = FontStylesCollection.loadFromXml("CitationStyles/Default/FontStyles.xml");
+        FontStylesCollection fsc = FontStylesCollection.loadFromXml("src/main/resources/CitationStyles/Default/FontStyles.xml");
 //        fsc.writeToXml("resource/CitationStyles/Default/FontStylesTestOutput.xml");
 
         // toString methods made...
