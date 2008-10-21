@@ -52,7 +52,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	
 	
 	<xsl:template match="/*">			
-		<!-- create entry for each item -->		
+		<!-- create entry for each item -->
 			<xsl:apply-templates select="ei:item/mdr:md-records/mdr:md-record/mdp:publication"/>				
 	</xsl:template>	
 	
@@ -128,7 +128,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		<xsl:value-of select="func:texString($escidocid,1)"/>
 		<xsl:value-of select="','"/>
 		
-		<xsl:text disable-output-escaping="yes">&#xA;</xsl:text><!-- line break -->
+		<xsl:text disable-output-escaping="yes">&#xD;&#xA;</xsl:text><!-- line break -->
 		<!-- TITLE -->
 		<xsl:apply-templates select="dc:title"/>		
 		<!-- CREATOR -->
@@ -191,7 +191,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		<xsl:apply-templates select="pub:source"/>			
 		<!-- END OF ENTRY -->		
 		<xsl:value-of select="concat('}','')"/>	
-		<xsl:text disable-output-escaping="yes">&#xA; &#xA;</xsl:text>
+		<xsl:text disable-output-escaping="yes">&#xD;&#xA;&#xD;&#xA;</xsl:text>
 	</xsl:template>
 	<!-- END createEntry -->
 	
@@ -291,7 +291,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 		<xsl:value-of select="func:texString($name,1)"/>
 		<xsl:text disable-output-escaping="yes"> = "</xsl:text>
 		<xsl:value-of select="func:texString(normalize-space($xpath),1)"/>
-		<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>
+		<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 	</xsl:template>
 	
 	<!-- SOURCE -->
@@ -324,7 +324,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			<xsl:text disable-output-escaping="yes">note = "</xsl:text>	
 				<xsl:apply-templates select="pub:creator/e:person[parent::*/parent::pub:source]"/>
 				<xsl:apply-templates select="pub:creator/e:organization[parent::*/parent::pub:source]"/>
-			<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>
+			<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 		</xsl:if>
 		
 		
@@ -405,7 +405,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 				<xsl:value-of select="' and '"/>
 			</xsl:when>
 			<xsl:otherwise>				
-				<xsl:text disable-output-escaping="yes">"; &#xA;</xsl:text>					
+				<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>					
 			</xsl:otherwise>
 		</xsl:choose>		
 	</xsl:template>
@@ -431,7 +431,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 			<xsl:otherwise>		
 				<xsl:choose>
 					<xsl:when test="count(../parent::pub:source)=0">
-						<xsl:text disable-output-escaping="yes">", &#xA;</xsl:text>
+						<xsl:text disable-output-escaping="yes">",&#xD;&#xA;</xsl:text>
 					</xsl:when>
 					<xsl:otherwise>
 						<xsl:text disable-output-escaping="yes">  </xsl:text>
