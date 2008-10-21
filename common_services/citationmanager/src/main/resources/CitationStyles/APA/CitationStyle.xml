@@ -27,7 +27,6 @@
 > 	
 	<!-- special variables to be used in expressions for short notations -->
 	<variables>
-	
 		<!-- variables which use xpath directly in DataSource NS-->
 		<variable name="hasPublication" xpath="not(publication)=false()" />
 		<variable name="isBookArticleOrChapter"
@@ -35,7 +34,7 @@
 		<variable name="isBookProceedingsThesis"
 			xpath="not(publication[@type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
 		<variable name="isJournalOrMagazineArticle"
-			xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='othe' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
+			xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
 			
 		<!-- variables which use java-like expressions with references to other variables defined above -->
 		<variable name="date"
@@ -80,11 +79,36 @@
 		<!-- "plain" layout elements -->
 		<layout-element name="issued" ref="publication/issued" func="get_year">
 			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
 				<starts-with value=" (" />
 				<ends-with value="). " />
 			</parameters>
 			<elements />
 		</layout-element>
+		<layout-element name="soucre-title" ref="publication/source/title">
+			<parameters>
+				<font-style ref="ITALIC" />
+			</parameters>
+			<elements />
+		</layout-element>
+		<layout-element name="PublisherBlock">
+			<parameters>
+				<starts-with value=" " />
+				<delimiter value=": " />
+			</parameters>
+			<elements>
+				<layout-element ref="publication/publishing-info/place" />
+				<layout-element ref="publication/publishing-info/publisher" />
+			</elements>
+		</layout-element>
+		<layout-element name="title-in-preparation" ref="publication/title">
+			<parameters>
+				<starts-with value=" (in preparation). " />
+			</parameters>
+			<elements />
+		</layout-element>
+		
+		
 		
 	</layout-elements>
 	
@@ -147,12 +171,7 @@
 					<layout-element ref="family-name" />
 				</elements>
 			</layout-element>
-			<layout-element ref="publication/source/title">
-				<parameters>
-					<font-style ref="ITALIC" />
-				</parameters>
-				<elements />
-			</layout-element>
+			<layout-element ref="source-title" />
 			<layout-element name="VolumeIssueBlock">
 				<parameters>
 					<starts-with value=" (pp. " />
@@ -164,7 +183,7 @@
 					<layout-element ref="publication/source/end-page" />
 				</elements>
 			</layout-element>
-			<layout-element name="PublisherBlock">
+			<layout-element ref="SourcePublisherBlock">
 				<parameters>
 					<starts-with value=". " />
 					<delimiter value=": " />
@@ -214,16 +233,7 @@
 				<elements />
 			</layout-element>
 				<!-- BOOK, element "publishing-info" -->
-			<layout-element name="PublisherBlock">
-				<parameters>
-					<starts-with value=" " />
-					<delimiter value=": " />
-				</parameters>
-				<elements>
-					<layout-element ref="publication/publishing-info/place" />
-					<layout-element ref="publication/publishing-info/publisher" />
-				</elements>
-			</layout-element>
+			<layout-element ref="PublisherBlock"/>
 		</elements>
 	</cs-layout-definition>
 		<!-- JOURNAL ARTICLE -->
@@ -284,12 +294,7 @@
 					<delimiter value="" />
 				</parameters>
 				<elements>
-					<layout-element ref="publication/source/title">
-						<parameters>
-							<font-style ref="ITALIC" />
-						</parameters>
-						<elements />
-					</layout-element>
+					<layout-element ref="source-title" />
 					<layout-element ref="publication/source/volume">
 						<parameters>
 							<font-style ref="ITALIC" />
@@ -339,12 +344,7 @@
 				</parameters>
 				<elements />
 			</layout-element>
-			<layout-element ref="publication/source/title">
-				<parameters>
-					<font-style ref="ITALIC" />
-				</parameters>
-				<elements />
-			</layout-element>
+			<layout-element ref="sourcetitle" />
 		</elements>
 	</cs-layout-definition>
 	<!--
@@ -362,17 +362,11 @@
 
 			<layout-element ref="publication/title">
 				<parameters>
-					<starts-with value=" (in press). " />
 					<ends-with value=". " />
 				</parameters>
 				<elements />
 			</layout-element>
-			<layout-element ref="publication/source/title">
-				<parameters>
-					<font-style ref="ITALIC" />
-				</parameters>
-				<elements />
-			</layout-element>
+			<layout-element ref="source-title" />
 		</elements>
 	</cs-layout-definition>
 	<!--
@@ -390,6 +384,7 @@
 			
 			<layout-element ref="publication/dateSubmitted" func="get_year">
 				<parameters>
+					<font-style ref="DISPLAY_DATE_STATUS"/>
 					<starts-with value=" (" />
 					<ends-with value="). " />
 				</parameters>
@@ -416,13 +411,8 @@
 		<elements>
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
-
-			<layout-element ref="publication/title">
-				<parameters>
-					<starts-with value=" (in preparation). " />
-				</parameters>
-				<elements />
-			</layout-element>
+			<layout-element ref="title-in-preparation" />
+			
 		</elements>
 	</cs-layout-definition>
 	<!--
@@ -436,13 +426,49 @@
 		<elements>
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
+			<layout-element ref="title-in-preparation" />
+		</elements>
+	</cs-layout-definition>
+	<!--Rule for books without a year/date-->
+	<!-- see: http://colab.mpdl.mpg.de/mediawiki/PubMan_Feeding_local_webpages/APA_citation#Rule_for_books_without_a_year.2Fdate -->
+	<cs-layout-definition name="BookWithoutDates">
+		<parameters>
+			<valid-if><![CDATA[${publication/@type}.equals("book") && ${date}==null]]></valid-if>
+			<ends-with value=".\n\n" />
+		</parameters>
+		<elements>
+			<layout-element ref="creator-person" />
+			<layout-element ref="creator-organization" />
 
 			<layout-element ref="publication/title">
 				<parameters>
-					<starts-with value=" (in preparation). " />
+					<font-style ref="ITALIC"/>
 				</parameters>
 				<elements />
 			</layout-element>
+			<layout-element ref="PublisherBlock"/>
 		</elements>
+		
 	</cs-layout-definition>
+<!--	Test CSLD: -->
+<!--	<cs-layout-definition name="notMatched">-->
+<!--		<parameters>-->
+<!--			<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
+<!--			<ends-with value=".\n\n" />-->
+<!--		</parameters>-->
+<!--		<elements>-->
+<!--			<layout-element ref="publication/@type" />-->
+<!--			<layout-element ref="publication/title" />-->
+<!--			<layout-element ref="publication/issued" /> -->
+<!--			<layout-element ref="isBookArticleOrChapter" /> -->
+<!--			<layout-element ref="isBookProceedingsThesis" /> -->
+<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
+<!--			<layout-element ref="publication/published-online" /> -->
+<!--			<layout-element ref="publication/dateAccepted" /> -->
+<!--			<layout-element ref="publication/dateSubmitted" /> -->
+<!--			<layout-element ref="publication/published-online" /> -->
+<!--			<layout-element ref="publication/created" /> -->
+<!--		</elements>-->
+<!--	</cs-layout-definition>		-->
+	
 </citation-style>
