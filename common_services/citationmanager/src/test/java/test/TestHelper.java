@@ -102,7 +102,7 @@ public class TestHelper
 //    	"<param>" +
 //		//items
 //			"<filter name=\"http://purl.org/dc/elements/1.1/identifier\">" +  
-//				"<id>escidoc:20041</id>" +
+//				"<id>escidoc:23004</id>" + 
 //			" </filter>" +
 //		"</param>";
         
@@ -177,5 +177,12 @@ public class TestHelper
     	}
     	return userHandle;
     }    
+    
+    protected static void writeToFile(String fileName, byte[] content) throws IOException
+    {
+    	FileOutputStream fos = new FileOutputStream(fileName);
+    	fos.write(content);
+    	fos.close();
+    }
 
 }
