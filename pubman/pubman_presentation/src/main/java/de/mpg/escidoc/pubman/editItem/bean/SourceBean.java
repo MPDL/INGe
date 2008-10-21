@@ -27,8 +27,6 @@ public class SourceBean
 	private IdentifierCollection identifierCollection;
 	private TitleCollection titleCollection;
 	
-	private String suggestConeUrl = null;
-	
 	private boolean autosuggestJournals = false;
 	
 	private CoreCommandButton btn_chooseCollection = new CoreCommandButton();
@@ -157,20 +155,6 @@ public class SourceBean
 	public void setBtn_chooseCollection(CoreCommandButton btn_chooseCollection) {
 		this.btn_chooseCollection = btn_chooseCollection;
 	}
-
-    public String getSuggestConeUrl() throws Exception
-    {
-        if (suggestConeUrl == null)
-        {
-            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
-        }
-        return suggestConeUrl;
-    }
-
-    public void setSuggestConeUrl(String suggestConeUrl)
-    {
-        this.suggestConeUrl = suggestConeUrl;
-    }
 
 	
 

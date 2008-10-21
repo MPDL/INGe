@@ -98,6 +98,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorTyp
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -168,6 +169,8 @@ public class EditItem extends FacesBean
     private boolean fromEasySubmission = false;
     
     private String creatorParseString;
+    
+    private String suggestConeUrl = null;
     
     /**
      * Public constructor.
@@ -1748,5 +1751,19 @@ public class EditItem extends FacesBean
 	public void setFileIterator(UIXIterator fileIterator) {
 		this.fileIterator = fileIterator;
 	}
+
+    public String getSuggestConeUrl() throws Exception
+    {
+        if (suggestConeUrl == null)
+        {
+            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+        }
+        return suggestConeUrl;
+    }
+
+    public void setSuggestConeUrl(String suggestConeUrl)
+    {
+        this.suggestConeUrl = suggestConeUrl;
+    }
 
 }

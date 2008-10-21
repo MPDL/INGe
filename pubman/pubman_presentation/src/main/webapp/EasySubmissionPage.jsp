@@ -90,7 +90,7 @@
 				<script type="text/javascript">
 					languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query';
 					journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query';
-					journalDetailsBaseURL = 'http://localhost:8080/cone/jquery/jnar/details?id=';
+					journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/details?id=';
 					journalSuggestCommonParentClass = 'easySubmissionBoxBody';
 					journalSuggestTrigger = 'JOURNAL';
 					bindSuggests();

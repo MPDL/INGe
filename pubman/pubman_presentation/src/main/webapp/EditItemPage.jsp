@@ -104,9 +104,9 @@
 		  </div>
 
 <script type="text/javascript">
-	languageSuggestURL = 'http://localhost:8080/cone/jquery/lang/query';
-	journalSuggestURL = 'http://localhost:8080/cone/jquery/jnar/query';
-	journalDetailsBaseURL = 'http://localhost:8080/cone/jquery/jnar/details?id=';
+	languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/lang/query';
+	journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/query';
+	journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/details?id=';
 	journalSuggestCommonParentClass = 'sourceArea';
 	journalSuggestTrigger = 'JOURNAL';
 	bindSuggests();
