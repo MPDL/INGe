@@ -86,6 +86,7 @@ public class ProcessScriptlet {
         "import net.sf.jasperreports.engine.data.JRXmlDataSource;\n" +
         "import net.sf.jasperreports.engine.design.JRDesignField;\n" +
         "import net.sf.jasperreports.engine.util.JRStringUtil;\n" +
+        "import de.mpg.escidoc.services.citationmanager.Utils;\n" +
 //        "import org.w3c.dom.Document;\n" +
 //        "import org.w3c.dom.Node;\n" +
 //        "import java.util.StringTokenizer;\n" + // for func get_initials
@@ -111,21 +112,28 @@ public class ProcessScriptlet {
         "   }\n" +
         "   return str;\n" +
         "}\n" +
-
+        
 //  Remove dublications of blanks, spaces and punctuation
 //	TODO: check it!        
         "public String cleanCit(String str) {\n" +
         "   if (str!=null && str.length()>0) {\n" +
 //        "System.out.println(\"before:\" + str);\n" +
-        "       str = str.replaceAll(\"\\\\p{Blank}+\", \" \");\n" +
-        "       str = str.replaceAll(\"([.]+\\\\s*[.]+)+\",\".\");\n" +
-        "       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style[.]*?\\\\>)[.]+\",\"$1\");\n" +
-        "       str = str.replaceAll(\"(([,.;:?!])[ \\t\\r]+)+\", \"$2 \");\n" +
         "       str = str.replace(\"null\", \"\");\n" +
-		"		str = Pattern.compile(\"\\\\n+\\\\s*\\\\n+\", Pattern.DOTALL).matcher(str).replaceAll(\"\");\n" +
+		"		str = Pattern.compile(\"[\\n\\r\\t]+\", Pattern.DOTALL).matcher(str).replaceAll(\" \");\n" +
+		"       str = str.replaceAll(\"\\\\p{Blank}+\", \" \");\n" +
+		"       str = str.replaceAll(\"([.]+\\\\s*[.]+)+\",\".\");\n" +
+		"       str = str.replaceAll(\"([,]+\\\\s*[,]+)+\",\",\");\n" +
+		"       str = str.replaceAll(\"([;]+\\\\s*[;]+)+\",\";\");\n" +
+		"       str = str.replaceAll(\"([:]+\\\\s*[:]+)+\",\":\");\n" +
+		"       str = str.replaceAll(\"([?]+\\\\s*[?]+)+\",\"?\");\n" +
+		"       str = str.replaceAll(\"([!]+\\\\s*[!]+)+\",\"!\");\n" +
+//		"       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style.*?\\\\>)\\\\s*[.]+\",\"$1\");\n" +
+		"       str = str.replaceAll(\"([,.;:?!])+\\\\s*(\\\\<[/]?style.*?\\\\>)\\\\s*([,.;:?!])+\",\"$1$2$3\");\n" +
+		"       str = str.replaceAll(\"([,.;:?!]+)\\\\p{Blank}*([,.;:?!]+)\", \"$1$2\");\n" +
+        "       str = Pattern.compile(\"\\\\<style.*?\\\\>\\\\s*\\\\<[/]style\\\\>\",Pattern.DOTALL).matcher(str).replaceAll(\"\");\n" + 
 //        "System.out.println(\"after:\" + str);\n" +
         "   }\n" +
-        "   return str;\n" +
+        "   return Utils.checkVal(str) ? str: null;\n" +
         "}\n";
 
 
@@ -133,9 +141,15 @@ public class ProcessScriptlet {
     private String scriptletBody;
     
 
-    public ProcessScriptlet(CitationStyle cs) throws FileNotFoundException, IOException {
+    public ProcessScriptlet(CitationStyle cs) throws FileNotFoundException, IOException 
+    {
+    	this(cs, "");
+    }
+
+    public ProcessScriptlet(CitationStyle cs, String postfix) throws FileNotFoundException, IOException 
+    {
     	
-        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs.getName()));
+        scriptletBody = String.format(scriptletBodyHeader, generateScriptletClassName(cs.getName() + postfix));
         
         String[] tokens = cs.getMdXPath().split("/");
         SCRIPTLET_XPATH_ROOT = tokens[ tokens.length - 1 ];    
@@ -147,6 +161,7 @@ public class ProcessScriptlet {
 
     }
 
+    
     /**
      * checks whether func in scriptletFunctionsTable
      * @param func - name of function to be applied
@@ -292,8 +307,8 @@ public class ProcessScriptlet {
                 chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
 
             // starts&endsWith (xmlEncoded!)
-            startsWith = ProcessCitationStyles.xmlEncode(ep.getStartsWith(), 1);
-            endsWith = ProcessCitationStyles.xmlEncode(ep.getEndsWith(), 1);
+            startsWith = Utils.xmlEncode(ep.getStartsWith(), 1);
+            endsWith = Utils.xmlEncode(ep.getEndsWith(), 1);
             chunkDef += chunkN + " = " +
                 chunkN + ".length()>0 ? (" +
                 (startsWith != null && startsWith.length() > 0 ? "\"" + startsWith + "\" + " : "") +
@@ -309,7 +324,7 @@ public class ProcessScriptlet {
                 // TODO: Not really the length of string due to XML encoding
                 chunkDef += chunkN + " = " + chunkN + ".length() > " + maxLength + " ? " + chunkN + ".substring(0, " + (maxLength - 1) + ")";
                 //maxLengthEndsWith
-                String maxLengthEndsWith = ProcessCitationStyles.xmlEncode(ep.getMaxLengthEndsWith(), 1);
+                String maxLengthEndsWith = Utils.xmlEncode(ep.getMaxLengthEndsWith(), 1);
                 if (maxLengthEndsWith != null && maxLengthEndsWith.length() > 0) {
                     chunkDef += " + \"" + maxLengthEndsWith + '"';
                 }
@@ -319,7 +334,7 @@ public class ProcessScriptlet {
             chunkRes += chunkN;
 
             // internalDelimiter handling
-            internalDelimiter = ProcessCitationStyles.xmlEncode(internalDelimiter, 1);
+            internalDelimiter = Utils.xmlEncode(internalDelimiter, 1);
             chunkRes += (internalDelimiter != null && internalDelimiter.length() > 0 && i<elements.size()-1?
                     " + insertDelimiter(" +
                             chunkN + ", \"" +
@@ -329,11 +344,13 @@ public class ProcessScriptlet {
 
 
 
-//          FontsStyles Handling
+//          FontsStyles Handling  
             chunkDef += chunkN + " = " + func + "(" + chunkN + ");";
+            FontStyle fs = fsc.getFontStyleByName(fontStyleRef);
             chunkDef += chunkN + " = " +
 //              String.format(fsc.getFontStyleByName(ep.getFontStyleRef()).toStyle(), chunkN) + ";\n";
-                String.format(fsc.getFontStyleByName(fontStyleRef).toStyle(), chunkN) + ";\n";
+               fs.applyStyle( fs.applyCssClass( chunkN ) ) + ";\n";
+            
 
 //          debug <---
 //          System.out.println(ep.getFontStyleRef());
@@ -355,7 +372,7 @@ public class ProcessScriptlet {
         chunkRes += ";";
 
         if (delimiter != null && delimiter.length() > 0) {
-            delimiter = ProcessCitationStyles.xmlEncode(delimiter, 1);
+            delimiter = Utils.xmlEncode(delimiter, 1);
             if (pos==-1) {
                 chunkRes +=
                     "delim = \"" + delimiter +"\";";
@@ -428,14 +445,8 @@ public class ProcessScriptlet {
         Arrays.sort(keys);
         for (int j = 0; j < keys.length; j++) {
             String key = (String)keys[j];
-            elements = (ArrayList)le.getElementsAt(key);
+            elements = (ArrayList<LayoutElement>)le.getElementsAt(key);
             parameters = (Parameters)le.getParametersAt(key);
-
-//          System.out.println (
-//                      "\n\nname:" + le.getName() +
-//                      "\nposition:" + key +
-//                      "\nparameters:" + parameters
-//          );
 
             pLE = parameters;
             pREF = null;
@@ -470,22 +481,26 @@ public class ProcessScriptlet {
 //              }
 //          }
 
-            String delimiter = ProcessCitationStyles.overParams(pLE.getDelimiter(), pREF != null ? pREF.getDelimiter() : null);
+            String delimiter = Utils.overParams(pLE.getDelimiter(), pREF != null ? pREF.getDelimiter() : null);
             // only once actions
             int maxCount = 0;
             if (i==0) {
 //                headerChunk = getHeaderChunk(name, xPath);
                 headerChunk = getHeaderChunk(id, xPath);
                 // maxCount handling
-                maxCount = ProcessCitationStyles.overParams(pLE.getMaxCount(), pREF != null ? pREF.getMaxCount() : 0);
+                maxCount = Utils.overParams(pLE.getMaxCount(), pREF != null ? pREF.getMaxCount() : 0);
                 String maxCountEndsWith = null;
                 if (maxCount > 0) {
-                    maxCountEndsWith = ProcessCitationStyles.overParams(pLE.getMaxCountEndsWith(), pREF != null ? pREF.getMaxCountEndsWith() : null);
+                	
+                	String lastMaxCountEndsWith = le.getParametersAt("last-max-count").getEndsWith();
+                    maxCountEndsWith = Utils.overParams(lastMaxCountEndsWith, pLE.getMaxCountEndsWith());
+//                    maxCountEndsWith = Utils.overParams(pLE.getMaxCountEndsWith(), pREF != null ? pREF.getMaxCountEndsWith() : null);
+                	
                 }
                 whileChunk = getWhileHeaderChunk(maxCount, maxCountEndsWith, delimiter);
             }
 
-            String internalDelimiter  = ProcessCitationStyles.overParams(pLE.getInternalDelimiter(), pREF != null ? pREF.getInternalDelimiter() : null);
+            String internalDelimiter  = Utils.overParams(pLE.getInternalDelimiter(), pREF != null ? pREF.getInternalDelimiter() : null);
             pos = key;
             headerChunk += getJRDesignFieldsChunk(elements, pos);
 
@@ -513,7 +528,7 @@ public class ProcessScriptlet {
      * @param name
      * @throws IOException
      */
-    public void writeToScriptlet(File path, String name) throws IOException{
+    public File writeToScriptlet() throws IOException{
         scriptletBody += "}";
         
         // TODO: Now we are ignoring path to save scriptlet, 
@@ -533,6 +548,7 @@ public class ProcessScriptlet {
             // TODO Auto-generated catch block
             throw new IOException("Cannot write to the " + f + ": " + e);
         }
+        return f;
     }
 
     private String getHeaderChunk(String name, String xPath) {
@@ -602,18 +618,19 @@ public class ProcessScriptlet {
         String wh;
         String d = delimiter!=null && delimiter.length()>0 ? "\"" + delimiter + "\"": "";
 
-        if (maxCount > 0) {
+        	if (maxCount > 0) {
             wh =
             "int count = 1;\n" +
             "boolean hasLast = false;\n" +
             "boolean maxCount = false;\n" +
             "away: while ( subDs.next() ) {\n" +
-            "if ( count++ >" +  maxCount + ") {\n" +
+            "if ( count >" +  maxCount + ") {\n" +
             // maxCountEndsWith handling
             (maxCountEndsWith != null && maxCountEndsWith.length() > 0 ?
                     " elems.add(new String[]{ \"" + maxCountEndsWith + "\", \"\" } );\n " : "") +
                 " maxCount = true;\n" +
-                " break away;\n}\n";
+                " break away;\n}" +
+                "\n count++;\n";
         } else {
             wh = "int count = -1;\n" +
             "while ( subDs.next() ) {\n";
@@ -681,47 +698,57 @@ public class ProcessScriptlet {
      * @throws JRException 
      * @throws JRException 
      */
-    public static void cleanUpScriptlets(File root, String csName, boolean keepOldScriptlets) throws IllegalArgumentException, IOException, JRException {
+    public static void cleanUpScriptlets(String csName, String cssClassPostfix, boolean keepOldScriptlets) throws IllegalArgumentException, IOException, JRException {
 
-    	// get name of the last created scriptlet to be cleaned up
-    	String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle.jasper"; 
-    	InputStream is = ResourceUtil.getResourceAsStream( csj );
-    	if ( is == null )
+    	// get name of the last created scriptlet to be cleaned up 
+    	
+    	String[] pfa =  new String[]{"", cssClassPostfix};
+    	File file;
+    	String fn;
+    	
+    	for (String pf : pfa)
     	{
-    		logger.warn( csj + " has not been found, cannot clean up old scriptlets" );
-    		return;
-    	}
-    	JasperReport jr = (JasperReport)JRLoader.loadObject(is);
-  	
-//      remove old sriptlet .class file
-    	String f = ResourceUtil.getPathToClasses() + convertQNameToPath(jr.getScriptletClass()) + ".class";
-        File file = new File(f);
-		// delete .class
-        if ( file.delete() )
-        {
-        	logger.info("action: cleaned up old Scriptlet Class: " + file + " for Citation Style: " + csName);
-        }
-        else
-        {
-        	logger.info("action: cannot clean up old Scriptlet Class: " + file + " for Citation Style: " + csName);
-        }
-        
-//      go away if we want to keep OLD SCRIPTLET for debugging
-        if (keepOldScriptlets)  
-            return;
+        	String csj = ResourceUtil.getPathToCitationStyles() + csName + "/CitationStyle"+ pf + ".jasper"; 
+        	InputStream is = ResourceUtil.getResourceAsStream( csj );
+        	if ( is == null )
+        	{
+        		logger.warn( csj + " has not been found, cannot clean up old scriptlets" );
+        		return;
+        	}
+        	JasperReport jr = (JasperReport)JRLoader.loadObject(is);
+      	
+        	// remove old sriptlet .class file
+        	fn = ResourceUtil.getPathToClasses() + convertQNameToPath(jr.getScriptletClass()) + ".class";
+        	
+            file = new File(fn);
+    		// delete .class
+            if ( file.delete() )
+            {
+            	logger.info("action: cleaned up old Scriptlet Class: " + file + " for Citation Style: " + csName);
+            }
+            else
+            {
+            	logger.info("action: cannot clean up old Scriptlet Class: " + file + " for Citation Style: " + csName);
+            }
+            
+            //go away if we want to keep OLD SCRIPTLET for debugging
+            if (keepOldScriptlets)  
+                continue;
 
-//      remove old sriptlet .java file
-    	f = getPathToScriptletJava() + file.getName().replace(".class", "") + ".java";
-        file = new File(f);
-        if ( file.delete() )
-        {
-        	logger.info("action: cleaned up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
-        }
-        else
-        {
-        	logger.info("action: cannot clean up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
-        }
-        
+        	fn = getPathToScriptletJava() + file.getName().replace(".class", "") + ".java";
+            file = new File(fn);
+//          remove old sriptlet .java file
+            if ( file.delete() )
+            {
+            	logger.info("action: cleaned up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
+            }
+            else
+            {
+            	logger.info("action: cannot clean up old java Scriptlet Class: " + file + " for Citation Style: " + csName);
+            }
+    		
+    	}
+    	
     }
 
     
