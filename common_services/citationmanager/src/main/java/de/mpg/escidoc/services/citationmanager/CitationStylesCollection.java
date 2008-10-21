@@ -328,7 +328,10 @@ public class CitationStylesCollection implements Cloneable  {
             digester.addObjectCreate(le, "de.mpg.escidoc.services.citationmanager.LayoutElement");
     		digester.addSetProperties(le);
             digester = LayoutElement.getDigesterRules(digester, le);
-            digester.addSetNext(le, "addLayoutElement");
+	        String lee = le + "/elements/layout-element";
+	        digester = LayoutElement.getDigesterRules(digester, lee );
+	        digester.addSetNext(le, "addLayoutElement");
+            
     		
     		
     		// add cs-layout-definition
@@ -415,10 +418,10 @@ public class CitationStylesCollection implements Cloneable  {
     public static void main(String[] args)  throws IOException, SAXException, CitationStyleManagerException{
 
 
-        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/APA_new/CitationStyle.xml");
+        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("src/main/resources/CitationStyles/AJP/CitationStyle.xml");
         
         
-        csc.writeToXml("src/main/resources/CitationStyles/APA_new/CitationStyleTestOutput.xml");
+        csc.writeToXml("src/main/resources/CitationStyles/AJP/CitationStyleTestOutput.xml");
 //        CitationStylesCollection csc = CitationStylesCollection.loadFromXml("CitationStyles\\CitationStyle.xml");
 
 
