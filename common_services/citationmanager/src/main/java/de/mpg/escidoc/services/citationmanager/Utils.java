@@ -36,8 +36,8 @@ import net.sf.jasperreports.engine.util.JRStringUtil;
  * Utils class. 
  *
  * @author Vlad Makarenko (initial creation)
- * @author $Author:$ (last modification)
- * @version $Revision:$ $LastChangedDate:$
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  *
  */ 
 public class Utils {
@@ -141,6 +141,6 @@ public class Utils {
      * @return
      */
     public static String xmlEncode(String str) {
-    	return xmlEncode(str, 2);
+    	return xmlEncode(str, 1);
     }    
 }
