@@ -206,7 +206,6 @@
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-    <module>pubman_presentation_mock</module>
   </modules>
 
 	<scm>
