@@ -261,7 +261,7 @@ public class ProcessSnippet {
 
 	/**
 	 * Extracts pure citation html from generated html report
-	 * see <code>net.sf.jasperreports.engine.export.JRHtmlExporter</code> for details
+	 * see <code>net.sf.jasperreports.engine.export.oasis.JRHtmlExporter</code> for details
 	 * @param html - reportPrint html
 	 * @return - pure citation style w/o html headers, tables, etc.
 	 */
@@ -273,7 +273,10 @@ public class ProcessSnippet {
 	    //omit first match, i.e. citation header
 	    m.find();
 	    String snippet = (m.find() ? m.group(1) : html).replace("<br/> ", "");
-	    return convertStyledTextToCssClass(snippet); 
+	    return
+	    	convertToAdditionalCssClass(
+	    			convertStyledTextToCssClass(snippet)
+	    	); 
 	}
 	
 	/**
@@ -355,6 +358,24 @@ public class ProcessSnippet {
 		
 		return targetHtml; 
 	}
+	
+	/**
+	 * Converts the style to the additional named CSS class (see FontStyle.cssClass)  
+	 * @param html - reportPrint html
+	 * @return - Citaion style with additional CSS class representation
+	 */
+	private String convertToAdditionalCssClass(String html)
+	{
+//		&lt;span class=&quot;DisplayDateStatus&quot;&gt; (2000). &lt;/span&gt;		
+		
+		Matcher m;
+		m = Pattern
+			.compile(FontStyle.CSS_CLASS_REGEXP, Pattern.CASE_INSENSITIVE | Pattern.DOTALL)
+			.matcher(html);
+		return 	m.find() ? 
+					m.replaceAll(FontStyle.CSS_CLASS_SUBST) :
+					html;
+	}
 
 	/**
 	 * Get of NS prefix (dirty hack, TODO: replace with proper NS support)  
@@ -404,6 +425,28 @@ public class ProcessSnippet {
     			"</span>"
     			
     	));
+    	
+    	logger.info(
+    			psn.convertToAdditionalCssClass(
+    			psn.convertStyledTextToCssClass(
+    			"<span style=\"" +
+    				"font-family: Arial; " +
+    				"font-size: 12.0px;" +
+    				"color: #ffffff;" +
+    				"background-color: #ffffff;" +
+    				"text-align: justified;" +
+    				"font-weight: bold;" +
+    				"font-style: italic;" +
+    				"text-decoration: underline;" +
+    				"text-decoration: line-through;" +
+    				"vertical-align: super;" +
+    				"vertical-align: sub;" +
+    			"\">" +
+    			"Meier, H., &amp; Meier, H." +
+    			"&lt;span class=&quot;BlaBlaBla&quot;&gt; (2007). &lt;/span&gt;" +
+    			"PubMan: The first of all." +
+    			"</span>"
+    			))); 
 	}
 
 	
