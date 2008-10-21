@@ -7,7 +7,7 @@ import de.mpg.escidoc.services.citationmanager.Utils;
 import java.util.*;
 import java.util.regex.*;
 
-public class ScriptletForRepeatableElements_APA extends JRDefaultScriptlet {
+public class ScriptletForRepeatableElements_APACssClass extends JRDefaultScriptlet {
 private ArrayList<String[]> elems = new ArrayList<String[]>();
 private long cTime = 0;
 private String insertDelimiter(String left, String delim, String right) {
