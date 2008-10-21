@@ -76,7 +76,7 @@ public class CommonUtils extends InternationalizedImpl
 
     //HTML escaped characters mapping
     private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
-    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "&lt;br&gt;", "&lt;br&gt;" };
+    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>" };
 
     /**
      * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).

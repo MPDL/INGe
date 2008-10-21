@@ -62,6 +62,12 @@
 		<converter-id>EnumConverter</converter-id>
 		<converter-class>de.mpg.escidoc.pubman.editItem.EnumConverter</converter-class>
 	</converter>
+	
+	<converter>
+		<converter-id>HTMLEscapeConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.HTMLEscapeConverter</converter-class>
+	</converter>
+	
 	<!--	
 		<converter>
 		<converter-for-class>java.lang.Enum</converter-for-class>
