@@ -149,9 +149,12 @@ public class METSTransformation extends XmlIO{
             {
             	if (mdr.getName().equals("escidoc")){
 	                XmlCursor modsCursor = mdr.newCursor();
-	                modsCursor.selectPath("./*/*");                           
-	                modsCursor.toNextSelection();               
-	                
+	                String nsuri = "http://www.loc.gov/mods/v3";
+	                String namespace = "declare namespace mods='"+nsuri+"';";
+	                //modsCursor.selectPath(namespace+"./*/*");
+	                modsCursor.selectPath(namespace+"./mods:virr-book/mods:mods");
+	                modsCursor.toNextSelection();     
+	                //System.out.println(modsCursor.xmlText());
 	                ModsDocument modsDoc = ModsDocument.Factory.parse(modsCursor.xmlText());
 	                mods = modsDoc.getMods();
             	}
