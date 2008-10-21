@@ -184,6 +184,7 @@
     <module>search</module>
     <module>search_presentation</module>
     <module>search_ear</module>
+    <module>cone_ear</module>
 	<module>cone_presentation</module>
 	<module>importmanager</module>
 	<module>import_presentation</module>
