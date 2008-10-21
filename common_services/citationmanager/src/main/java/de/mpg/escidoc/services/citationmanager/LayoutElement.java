@@ -300,6 +300,8 @@ public class LayoutElement implements Cloneable {
     		}
     	}
     }
+    
+   
 
     /**
      * Walk around completet collection and generate uniq ids for layout elements
