@@ -31,7 +31,7 @@ public class CitationTest {
 	private XmlHelper xh = new XmlHelper();
 	
 //	private final String dsFileName = "Kristina.xml";  
-//	private final String dsFileName = "item-list-inga.xml";  
+//	private final String dsFileName = "item-list-tobias.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
 //	private final String dsFileName = "1.xml";  
 	
@@ -50,7 +50,7 @@ public class CitationTest {
 
     /**
      * Get test item list from XML 
-     * @throws Exception
+     * @throws Exception 
      */
     @Before
     public final void getItemList() throws Exception
@@ -127,14 +127,15 @@ public class CitationTest {
 		long start;
     	byte[] result;
 		for ( OutFormats ouf : OutFormats.values() ) {
-//		for ( String ouf : new String[]{"snippet"} ) {
+//		for ( String ouf : new String[]{"snippet","html"} ) {
 			String format = ouf.toString();
 	    	start = System.currentTimeMillis();
 	    	result = pcs.getOutput("APA", format, itemList);
-//    		logger.info("ItemList\n: " + itemList);
-//    		logger.info("Result\n: " + new String(result));
-    		
-
+	    	
+    		logger.info("ItemList\n: " + itemList);
+    		//TestHelper.writeToFile("input.xml", itemList.getBytes());
+    		logger.info("Result\n: " + new String(result));
+	    	
 	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
 	    	assertTrue(format + " output should not be empty", result.length > 0);
     		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
