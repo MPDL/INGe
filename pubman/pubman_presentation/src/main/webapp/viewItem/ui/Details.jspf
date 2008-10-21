@@ -66,10 +66,10 @@
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
-			<pre>
-<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}"/>
-			</pre>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
+			
+		<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}" converter="HTMLEscapeConverter" escape="false"/>
+			
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		
