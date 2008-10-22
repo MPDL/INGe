@@ -44,7 +44,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
      */
     public synchronized void afterPhase(PhaseEvent event)
     {
-        logger.debug(event.getPhaseId().toString() + " - After Phase");
+        logger.trace(event.getPhaseId().toString() + " - After Phase");
         if (event.getPhaseId() == PhaseId.INVOKE_APPLICATION)
         {
             cacheMessages(event.getFacesContext());
@@ -60,7 +60,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
      */
     public synchronized void beforePhase(PhaseEvent event)
     {
-        logger.debug(event.getPhaseId().toString() + " - Before Phase");
+        logger.trace(event.getPhaseId().toString() + " - Before Phase");
         if (event.getPhaseId() == PhaseId.RESTORE_VIEW)
         {
             restoreMessages(event.getFacesContext());
@@ -74,7 +74,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
     private void removeFromCache(FacesContext context)
     {
         messageCache.clear();
-        logger.info("Message Cache cleared");
+        logger.trace("Message Cache cleared");
     }
 
     
@@ -107,7 +107,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
                 }
             }
         }
-        logger.debug("Saved " + cachedCount + " messages in cache");
+        logger.trace("Saved " + cachedCount + " messages in cache");
         return cachedCount;
     }
 
@@ -127,7 +127,7 @@ public class FacesMessagesPhaseListener implements PhaseListener
                     context.addMessage(clientId, message);
                 }
             }
-            logger.info("Restored Messages from Cache");
+            logger.trace("Restored Messages from Cache");
         }
     }
 
