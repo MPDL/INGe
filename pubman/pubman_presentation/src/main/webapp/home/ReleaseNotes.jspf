@@ -34,7 +34,9 @@
 				<h:outputText id="valOrientationText" value="#{lbl.HomePage}" />					
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
 			</h1>
-				
+			
+			<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+
 <!-- BEGIN Copy&paste the ReleaseNotes here -->		
 <div class="copyAndPasteReleaseNotes">
 		

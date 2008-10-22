@@ -141,8 +141,16 @@ public class ErrorPage extends BreadcrumbPage
         else
         {
             // an exception has been set before
-            summary = this.exception.getCause().toString();
-            detail = this.getStackTrace();
+            if (this.exception != null && this.exception.getCause() != null)
+            {
+                summary = this.exception.getCause().toString();
+                detail = this.getStackTrace();
+            }
+            else if (this.exception != null)
+            {
+                summary = this.exception.toString();
+                detail = this.getStackTrace();
+            }
         }
         
         // set the attributes of the pageAlert component

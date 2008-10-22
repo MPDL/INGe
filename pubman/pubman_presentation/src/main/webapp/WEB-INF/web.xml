@@ -128,12 +128,31 @@
 		<servlet-name>Redirect Servlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.pubman.servlet.RedirectServlet</servlet-class>
 	</servlet>
+	
+	<listener>
+		<listener-class>
+			de.mpg.escidoc.pubman.appbase.PubManSessionListener
+		</listener-class>
+	</listener>
+	
+	<filter>
+		<filter-name>SessionTimeoutFilter</filter-name>
+		<filter-class>
+			de.mpg.escidoc.pubman.appbase.SessionTimeoutFilter
+		</filter-class>
+	</filter>
+
 	<!-- This filter is always required;  one of its functions is 
 		file upload. -->
 	<filter>
 		<filter-name>trinidad</filter-name>
 		<filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
 	</filter>
+
+	<filter-mapping>
+		<filter-name>SessionTimeoutFilter</filter-name>
+		<servlet-name>Faces Servlet</servlet-name>
+	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>trinidad</filter-name>

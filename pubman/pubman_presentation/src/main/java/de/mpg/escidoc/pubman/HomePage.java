@@ -30,6 +30,10 @@
 
 package de.mpg.escidoc.pubman;
 
+import java.util.Map;
+
+import javax.faces.context.FacesContext;
+
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
@@ -60,6 +64,15 @@ public class HomePage extends BreadcrumbPage
      */
     public void init()
     {
+        Map<String, String> parameters = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        if (parameters.containsKey("expired"))
+        {
+            error(getMessage("LoginErrorPage_loggedOffFromSystem"));
+        }
+        else if (parameters.containsKey("logout"))
+        {
+            info(getMessage("LogoutMessage"));
+        }
         // Perform initializations inherited from our superclass
         super.init();
 
