@@ -63,9 +63,9 @@
 			<!-- if md-record is not in publication profile pur the message -->
 			<xsl:if test="name(mdp:publication)=''">
 				<xsl:value-of select="concat(
-					if ($mdr_pos!=1) then '&#10;' else ''
+					if ($mdr_pos!=1) then '&#13;&#10;' else ''
 					,'%0 Generic',
-					'&#10;'
+					'&#13;&#10;'
 					,'%Z Cannot export to the EndNote for the metadata record: '
 					,@xlink:href  
 					,'. Element: &lt;'
@@ -80,7 +80,7 @@
 				<xsl:for-each select="mdp:publication">
 				
 					<!-- Put new line for new doc  -->
-					<xsl:value-of select="if ($mdr_pos!=1) then '&#10;' else ''"/>
+					<xsl:value-of select="if ($mdr_pos!=1) then '&#13;&#10;' else ''"/>
 		
 					<!-- GENRES -->
 					<xsl:variable name="gen" select="@type"/>
@@ -222,7 +222,7 @@
 					</xsl:for-each>	
 					
 					<!-- Artnum - Sequence Number of Article  -->
-					<xsl:variable name="sequence-number" select="pub:source/e:sequence-number[.!=''][1]"/>
+					<xsl:variable name="sequence-number" select="(pub:source/e:sequence-number[.!=''])[1]"/>
 					<!-- <xsl:variable name="sequence-number" select="normalize-space(e:source/e:sequence-number)"/> -->
 					<xsl:choose>
 						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source/e:start-page=''">
@@ -606,7 +606,7 @@
 		<xsl:param name="value"/>
 		<xsl:variable name="strn" select="normalize-space($value)"/>
 		<xsl:if test="$tag!='' and $strn!=''">
-			<xsl:value-of select="concat('%', $tag , ' ',  $strn, '&#10;' )"/>
+			<xsl:value-of select="concat('%', $tag , ' ',  $strn, '&#13;&#10;' )"/>
 		</xsl:if>
 	</xsl:template>
 	
