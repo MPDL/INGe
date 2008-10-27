@@ -975,7 +975,7 @@ public class EasySubmission extends FacesBean
 		        		}		                
 		                this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
 		                this.setItem(itemVO);
-		        		System.out.println(this.xmlTransforming.transformToItem(itemVO));
+		        		//System.out.println(this.xmlTransforming.transformToItem(itemVO));
 		        		
 		        	 }
 		        	 catch(TechnicalException e){ e.printStackTrace();}
@@ -999,6 +999,9 @@ public class EasySubmission extends FacesBean
     		}
     	}
     	
+        //clear editItem
+        this.getEditItemSessionBean().getFiles().clear();
+        this.getEditItemSessionBean().getLocators().clear();
     	return "loadEditItem";
     }
 
