@@ -72,7 +72,7 @@ public class METSTransformation extends XmlIO{
 	        this.createAmdSec(escidocToc);
 	        this.createPhysicals(escidocToc);
 	        
-	        //this.createLogicals(escidocToc);
+	        this.createLogicals(escidocToc);
 	        
 	        //Create METS document out of these sections
 	        XmlOptions xOpts = new XmlOptions();
@@ -271,6 +271,7 @@ public class METSTransformation extends XmlIO{
 		
 		TocDocument escidocTocDoc;
 		try {
+			
 			escidocTocDoc = TocDocument.Factory.parse(escidocToc);
 			
 			//Dummy root div
@@ -289,44 +290,44 @@ public class METSTransformation extends XmlIO{
 			//Create the root element for the logical structMap
 			Div log_root = logical.getDivArray()[0];
 			this.writeMETS.createStructMap(this.writeMETS.getType_LOGICAL(), log_root.getTYPE());
-			this.writeMETS.createStructLink();
-			
-			currentDiv = log_root;
-			currentChilds = currentDiv.getDivArray();
-			
-			for(int i=0; i< currentChilds.length; i++){
-				childX = currentChilds[i];
-				//Add all divs to the structMap
-				this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childX.getID()}, childX.getORDER()+"", childX.getORDERLABEL(), "log"+divId, childX.getTYPE(), false);
-				if (childX.getPtrArray().length >0)
-				{
-					//create a structLink
-					for (int y=0; y<childX.getPtrArray().length;y++){
-						System.out.println(childX.getPtrArray()[y].getHref());
-						this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
-					}
-				}
-
-				divId ++;
-				//Add all childs to the structMap
-				while(childX.getDivArray().length > 0)
-				{
-					childChildren = childX.getDivArray();
-					for (int x=0; x < childChildren.length; x++ ){
-						this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childChildren[x].getID()}, childChildren[x].getORDER()+"", childChildren[x].getORDERLABEL(), divId+"", childChildren[x].getTYPE(), true);
-						if (childX.getPtrArray().length >0)
-						{
-							//create a structLink
-							for (int y=0; y<childX.getPtrArray().length;y++){
-								System.out.println(childX.getPtrArray()[y].getHref());
-								this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
-							}
-						}
-						childX =childChildren[x];
-						divId ++;
-					}
-				}
-			}
+//			this.writeMETS.createStructLink();
+//			
+//			currentDiv = log_root;
+//			currentChilds = currentDiv.getDivArray();
+//			
+//			for(int i=0; i< currentChilds.length; i++){
+//				childX = currentChilds[i];
+//				//Add all divs to the structMap
+//				this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childX.getID()}, childX.getORDER()+"", childX.getORDERLABEL(), "log"+divId, childX.getTYPE(), false);
+//				if (childX.getPtrArray().length >0)
+//				{
+//					//create a structLink
+//					for (int y=0; y<childX.getPtrArray().length;y++){
+//						System.out.println(childX.getPtrArray()[y].getHref());
+//						this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
+//					}
+//				}
+//
+//				divId ++;
+//				//Add all childs to the structMap
+//				while(childX.getDivArray().length > 0)
+//				{
+//					childChildren = childX.getDivArray();
+//					for (int x=0; x < childChildren.length; x++ ){
+//						this.writeMETS.addToStructMap(this.writeMETS.getType_LOGICAL(), new String[]{childChildren[x].getID()}, childChildren[x].getORDER()+"", childChildren[x].getORDERLABEL(), divId+"", childChildren[x].getTYPE(), true);
+//						if (childX.getPtrArray().length >0)
+//						{
+//							//create a structLink
+//							for (int y=0; y<childX.getPtrArray().length;y++){
+//								System.out.println(childX.getPtrArray()[y].getHref());
+//								this.writeMETS.addStructLink("log"+divId, childX.getPtrArray()[y].getHref());
+//							}
+//						}
+//						childX =childChildren[x];
+//						divId ++;
+//					}
+//				}
+//			}
 		} 
 		catch (XmlException e) 
 		{this.logger.error("Creation of logical parts for METS document failed ", e);}
