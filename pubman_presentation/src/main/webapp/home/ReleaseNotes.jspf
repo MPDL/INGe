@@ -27,7 +27,7 @@
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
-<div xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<div xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" class="underRework">
 	<f:subview id="Home">
 			
 			 <h1 class="bottomSpace"><h:outputText id="hdrApplicationtitle" value="#{ApplicationBean.appTitle} - "/>
