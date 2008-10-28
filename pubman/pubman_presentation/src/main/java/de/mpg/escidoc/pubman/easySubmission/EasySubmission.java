@@ -180,6 +180,9 @@ public class EasySubmission extends FacesBean
     private boolean autosuggestJournals = false;
     
     private String suggestConeUrl = null;
+    
+    
+    
 
     /**
      * Public constructor.
@@ -556,6 +559,10 @@ public class EasySubmission extends FacesBean
         // return null;
         // }
     }
+
+   
+
+   
 
     /**
      * Returns the ItemListSessionBean.
@@ -1793,8 +1800,7 @@ public class EasySubmission extends FacesBean
 
     public void setSourceTitle(String title)
     {
-        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getTitle().setValue(
-                title);
+        this.getItemControllerSessionBean().getCurrentPubItem().getMetadata().getSources().get(0).getTitle().setValue(title);
     }
     
    
@@ -1849,8 +1855,16 @@ public class EasySubmission extends FacesBean
     public void setSourceIdentifier(String id)
     {
         PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER);
         pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setId(id);
+        if (!id.trim().equals(""))
+        {
+            pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER); 
+        }
+        else
+        {
+            pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(null);
+        }
+        
         
     }
 
