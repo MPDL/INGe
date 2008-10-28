@@ -145,11 +145,11 @@
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}"/>
-						<tr:commandLink id="lnk_addFile" partialSubmit="true" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
+						<tr:commandLink id="lnk_addFile" partialSubmit="false" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.size > 0}"/>
-						<tr:commandLink id="lnk_removeFile" partialSubmit="true" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
+						<tr:commandLink id="lnk_removeFile" partialSubmit="false" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
 			
