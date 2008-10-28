@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -39,45 +39,87 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
+
+				<title>eSciDoc PubMan</title>
+
+				<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
 				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 				<meta http-equiv="pragma" content="no-cache"/>
 				<meta http-equiv="cache-control" content="no-cache"/>
 				<meta http-equiv="expires" content="0"/>
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+				
+				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript"></script>
+
 			</head>
-			<body><h:form id="form1">
-				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
-				<div id="page_margins">
-					<div id="page">
-						
-							<div id="header">
-								<jsp:directive.include file="desktop/Header.jspf" />
-								<div class="header">
-									<jsp:directive.include file="desktop/Login.jspf" />
-									<jsp:directive.include file="desktop/Search.jspf" />
-								</div>
+
+<!-- JIRA AS-564 -->
+<!-- start please provide language -->
+			<body lang="en">
+<!-- stop please provide language -->
+			
+			<h:form id="form1">
+
+			<!-- start: skip link navigation -->
+				<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
+					<h:outputText value="Skip to the main menu"/>
+				</h:outputLink>
+				<h:outputLink styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
+					<h:outputText value="Skip to the page content"/>
+				</h:outputLink>
+				<h:outputLink styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
+					<h:outputText value="Skip to the search menu"/>
+				</h:outputLink>
+				<h:outputLink styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
+					<h:outputText value="Skip to the meta menu"/>
+				</h:outputLink>
+			<!-- end: skip link navigation -->
+
+				<!-- import header -->
+				<jsp:directive.include file="header/Header.jspf" />
+
+				<div id="content" class="full_area0 clear">
+				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					<div class="clear">
+						<div class="headerSection">
+							
+						<!-- import breadcrumb -->
+						<jsp:directive.include file="header/Breadcrumb.jspf" />
+				
+							<div class="clear headLine">
+								<!-- skip anchor: mainMenu -->
+								<h:outputLink id="contentSkipLinkAnchor"></h:outputLink>
+								<!-- Headline starts here -->
+								<h1>Home</h1>
+								<!-- Headline ends here -->
 							</div>
-							<div id="nav">
-									<jsp:directive.include file="desktop/Breadcrumb.jspf" />
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+							<!-- content menu starts here -->
+								<div class="sub">
+								<!-- content menu upper line starts here -->
+									
+								<!-- content menu upper line ends here -->
+								</div>
+							<!-- content menu ends here -->
 							</div>
-							<div id="main">
-								<div id="col1">
-									<span class="mainMenu">
-										<jsp:directive.include file="desktop/Navigation.jspf" />
-									</span>
-								</div>
-								<div id="col2">
-									&#xa0;
-								</div>
-								<div id="col3">
-									<div class="content">
-										<jsp:directive.include file="home/ReleaseNotes.jspf" />
-									</div>
-								</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+								
+								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
+					<div class="full_area0">
+												
+						<jsp:directive.include file="home/ReleaseNotes.jspf" />
+						
+					</div>
+				<!-- end: content section -->
+				</div>
+
+
 				</h:form>
 			</body>
 		</html>
