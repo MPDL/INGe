@@ -42,7 +42,7 @@
 
 			<h1 class="bottomSpace">
 				<h:outputText id="valOrientationText" styleClass="orientationHeader"  value="#{lbl.QAWSPage}"/>
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#DepositorWS');return false"/>	   
+				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ModeratorWS');return false"/>	   
 			</h1>
 			
 			<div>
