@@ -1,47 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<item-list 
-	xmlns="http://www.escidoc.de/schemas/itemlist/0.3" 
-	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3" 
-	xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" 
-	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" 
+<item-list xmlns="http://www.escidoc.de/schemas/itemlist/0.3"
+	xmlns:md-records="http://www.escidoc.de/schemas/metadatarecords/0.3"
+	xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+	xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
 	xmlns:escidocComponents="http://www.escidoc.de/schemas/components/0.3"
-	xmlns:dcterms="http://purl.org/dc/terms/" 
-	xmlns:dc="http://purl.org/dc/elements/1.1/"	
-	xmlns:xlink="http://www.w3.org/1999/xlink" 
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../Schemas/escidoc/soap/item/0.3/item-list.xsd"
->
+	xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/schemas/itemlist/0.3 ../Schemas/escidoc/soap/item/0.3/item-list.xsd">
 	<!-- Journal articles. STATUS: works okay! -->
-	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3" objid="escidoc:1" last-modification-date="2006-12-21T13:15:23.485">
+	<item:item xmlns:item="http://www.escidoc.de/schemas/item/0.3"
+		objid="escidoc:1" last-modification-date="2006-12-21T13:15:23.485">
 		<item:properties>
 			<item:creation-date>2007-11-06T13:01:05.549Z</item:creation-date>
-			<item:created-by objid="escidoc:user2"/>
-			<item:context objid="escidoc:persistent3"/>
-			<item:content-model objid="escidoc:persistent4"/>
+			<item:created-by objid="escidoc:user2" />
+			<item:context objid="escidoc:persistent3" />
+			<item:content-model objid="escidoc:persistent4" />
 			<item:lock-status>unlocked</item:lock-status>
 			<item:version>
 				<item:version-status>released</item:version-status>
 			</item:version>
-			<item:content-model-specific/>
+			<item:content-model-specific />
 		</item:properties>
 		<md-records:md-records>
-			<md-records:md-record name="escidoc" schema="http://www.escidoc-project.de/metadata/schema/0.1">
-				<profile:publication xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication" xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/" xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/" type="article">
+			<md-records:md-record name="escidoc"
+				schema="http://www.escidoc-project.de/metadata/schema/0.1">
+				<profile:publication
+					xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publication"
+					xmlns:profile="http://escidoc.mpg.de/metadataprofile/schema/0.1/"
+					xmlns:e="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
+					xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes"
+					xmlns:dcterms="http://purl.org/dc/terms/" xmlns:dc="http://purl.org/dc/elements/1.1/"
+					type="article">
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Brandt</e:family-name>
 							<e:given-name>Ernst Helmut</e:given-name>
 							<e:organization>
-								<e:organization-name>MPI für Metallforschung/Ehem. Abt. Gao</e:organization-name>
-								<e:address/>
+								<e:organization-name>MPI für Metallforschung/Ehem. Abt. Gao
+								</e:organization-name>
+								<e:address />
 							</e:organization>
 						</e:person>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Mikitik</e:family-name>
 							<e:given-name>Grigorii P.</e:given-name>
 						</e:person>
@@ -56,45 +61,47 @@
 					<creator role="author">
 						<e:organization>
 							<e:organization-name>ASDEX Update</e:organization-name>
-							<e:address/>
+							<e:address />
 						</e:organization>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Overkamp</e:family-name>
 							<e:given-name>Inga</e:given-name>
 						</e:person>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Smittor</e:family-name>
 							<e:given-name>Thomas T.</e:given-name>
 						</e:person>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Krause</e:family-name>
 							<e:given-name>Michael T.</e:given-name>
 						</e:person>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Thanner</e:family-name>
 							<e:given-name>Mike</e:given-name>
 						</e:person>
 					</creator>
 					<creator role="author">
 						<e:person>
-							<e:complete-name/>
+							<e:complete-name />
 							<e:family-name>Tatzel</e:family-name>
 							<e:given-name>Robert I.</e:given-name>
 						</e:person>
 					</creator>
-					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/" xml:lang="en-GB">This is the article title! Please note that the organization Asdex Update should be displayed est DiT 08 ? &amp;; , $, §, \", @ % /, the !, -, the _, the ~, the @ and the # € mläüte ßind schön. à bientôt!</dc:title>
+					<dc:title xmlns:dc="http://purl.org/dc/elements/1.1/"
+						xml:lang="en-GB">This is the article title! Please note that the
+						organization Asdex Update should be displayed est DiT 08 ? &amp;; , $, §, \", @ % /, the !, -, the _, the ~, the @ and the # € mläüte ßind schön. à bientôt!</dc:title>
 					<dc:identifier xsi:type="eidt:DOI">10.1088/0953-2048/20/9/S01</dc:identifier>
 					<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF">2007-02-20</dcterms:dateSubmitted>
 					<dcterms:issued xsi:type="dcterms:W3CDTF">2007-08-23</dcterms:issued>
@@ -1372,4 +1379,5 @@ References
 			</escidocComponents:component>
 		</escidocComponents:components>		
 	</item:item -->
+
 </item-list> 
