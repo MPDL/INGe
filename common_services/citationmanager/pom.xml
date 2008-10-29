@@ -40,7 +40,7 @@
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmananger</developerConnection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/citationmanager</developerConnection>
 		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
