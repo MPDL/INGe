@@ -32,8 +32,9 @@
 * Citation Style Processing. 
 * Writers.   
 *
+* @author vmakarenko (initial creation)  
 * @author $Author$ (last modification)
-* @version $Revision$ $LastChangedDate:$
+* @version $Revision$ $LastChangedDate$
 *
 */
 package de.mpg.escidoc.services.citationmanager.data;

@@ -53,9 +53,10 @@ import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 /**
  * An instance of this class represents 
  * a Collection of {@link CitationStyle}s 
- * 
- * @author $Author:$ (last modification)
- * @version $Revision:$ $LastChangedDate:$
+ *
+ * @author vmakarenko (initial creation)  
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class CitationStylesCollection implements Cloneable  {
 	

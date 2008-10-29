@@ -43,8 +43,9 @@ import org.w3c.dom.Element;
  * An instance of this class represents 
  * a CitationStyle 
  * 
- * @author $Author:$ (last modification)
- * @version $Revision:$ $LastChangedDate:$
+ * @author vmakarenko (initial creation)  
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 public class CitationStyle implements Cloneable {
 	

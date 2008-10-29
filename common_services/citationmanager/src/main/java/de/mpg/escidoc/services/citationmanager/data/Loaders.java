@@ -32,8 +32,9 @@
 * Citation Style Processing. 
 * Loaders.   
 *
-* @author $Author:$ (last modification)
-* @version $Revision:$ $LastChangedDate:$
+* @author vmakarenko (initial creation)  
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate$
 *
 */
 
