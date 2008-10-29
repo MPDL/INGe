@@ -136,7 +136,7 @@ public class ProcessScriptlet {
 //        "System.out.println(\"before:\" + str);\n" +
         "       str = str.replace(\"null\", \"\");\n" +
 		"		str = Pattern.compile(\"[\\n\\r\\t]+\", Pattern.DOTALL).matcher(str).replaceAll(\" \");\n" +
-		"       str = str.replaceAll(\"\\\\p{Blank}+\", \" \");\n" +
+		"       str = str.replaceAll(\"\\\\s+\", \" \");\n" +
 		"       str = str.replaceAll(\"([.]+\\\\s*[.]+)+\",\".\");\n" +
 		"       str = str.replaceAll(\"([,]+\\\\s*[,]+)+\",\",\");\n" +
 		"       str = str.replaceAll(\"([;]+\\\\s*[;]+)+\",\";\");\n" +
@@ -148,11 +148,14 @@ public class ProcessScriptlet {
 		"       str = str.replaceAll(\"([({<\\\\[])\\\\s+(.*)\",\"$1$2\");\n" + 
 		"       str = str.replaceAll(\"(.*)\\\\s+([\\\\]>})])\",\"$1$2\");\n" + 
 //        "if ( str.indexOf(\"( 2008\")!=-1 ) {testString(str);\n}" +
-		"       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style.*?\\\\>)\\\\s*[.]+\",\"$1\");\n" +
-//		"       str = str.replaceAll(\"([,.;:?!])(\\\\s*<style.*?\\\\>)?[ ,.;:?!]+\",\"$1$2\");\n" +
-		"       str = str.replaceAll(\"([,.;:?!])+\\\\s*(\\\\<[/]?style.*?\\\\>)\\\\s*([,.;:?!])+\",\"$1$2$3\");\n" +
-		"       str = str.replaceAll(\"([,.;:?!]+)\\\\p{Blank}*([,.;:?!]+)\", \"$1$2\");\n" +
-        "       str = Pattern.compile(\"\\\\<style.*?\\\\>\\\\s*\\\\<[/]style\\\\>\",Pattern.DOTALL).matcher(str).replaceAll(\"\");\n" + 
+//        "System.out.println(\"before1:\" + str);\n" +
+		"       str = str.replaceAll(\"([.]+\\\\s*<[/]?style[^>]*?>)\\\\s*[.]+\",\"$1\");\n" +
+//		"System.out.println(\"before2:\" + str);\n" +
+////		"       str = str.replaceAll(\"([,.;:?!])(\\\\s*<style.*?\\\\>)?[ ,.;:?!]+\",\"$1$2\");\n" +
+//		"       str = str.replaceAll(\"([,.;:?!])+(\\\\s)+(\\\\<[/]?style.*?\\\\>)(\\\\s)+([,.;:?!])+\",\"$1$2$3\");\n" +
+		"       str = str.replaceAll(\"\\\\s+(<[/]?style[^>]*?>)?\\\\s*([,.;:?!])\",\"$1$2\");\n" +
+//		"System.out.println(\"before3:\" + str);\n" +
+        "       str = str.replaceAll(\"<style[^>]*?>\\\\s*<[/]style\\\\s*>\",\"\");\n" + 
 //        "System.out.println(\"after:\" + str);\n" +
         "   }\n" +
         "   return Utils.checkVal(str) ? str: null;\n" +
