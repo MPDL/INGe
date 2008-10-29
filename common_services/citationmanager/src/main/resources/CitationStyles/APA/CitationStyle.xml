@@ -106,13 +106,13 @@
 			</elements>
 		</layout-element>
 		
-		
-		<layout-element name="soucre-title" ref="publication/source/title">
+		<layout-element name="source-title" ref="publication/source/title">
 			<parameters>
 				<font-style ref="ITALIC" />
 			</parameters>
 			<elements />
 		</layout-element>
+		
 		<layout-element name="PublisherBlock">
 			<parameters>
 				<starts-with value=" " />
@@ -126,58 +126,58 @@
 		
 
 
-<!--	<layout-element name="debugBlock">-->
-<!--		<parameters>-->
-<!--			<starts-with value="debug:"/>-->
-<!--			<ends-with value=", citation: " />-->
-<!--			<delimiter value=","/>-->
-<!--		</parameters>-->
-<!--		<elements>-->
-<!--			<layout-element ref="publication/@type" />-->
-<!--			<layout-element ref="publication/title" />-->
-<!--			<layout-element ref="publication/issued" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="issued:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			<layout-element ref="isBookArticleOrChapter" /> -->
-<!--			<layout-element ref="isBookProceedingsThesis" /> -->
-<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
-<!--			<layout-element ref="publication/published-online" > -->
-<!--				<parameters>-->
-<!--					<starts-with value="published-online:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			<layout-element ref="publication/dateAccepted" > -->
-<!--				<parameters>-->
-<!--					<starts-with value="dateAccepted:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element>  -->
-<!--			<layout-element ref="publication/dateSubmitted">-->
-<!--				<parameters>-->
-<!--					<starts-with value="dateSubmitted:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			  -->
-<!--			<layout-element ref="publication/published-online" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="published-online:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--			 -->
-<!--			<layout-element ref="publication/created" >-->
-<!--				<parameters>-->
-<!--					<starts-with value="created:"/>-->
-<!--				</parameters>-->
-<!--				<elements/>-->
-<!--			</layout-element> -->
-<!--		</elements>-->
-<!--	</layout-element>		-->
+	<layout-element name="debugBlock">
+		<parameters>
+			<starts-with value="debug:"/>
+			<ends-with value=", citation: " />
+			<delimiter value=","/>
+		</parameters>
+		<elements>
+			<layout-element ref="publication/@type" />
+			<layout-element ref="publication/title" />
+			<layout-element ref="publication/issued" >
+				<parameters>
+					<starts-with value="issued:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="isBookArticleOrChapter" /> 
+			<layout-element ref="isBookProceedingsThesis" /> 
+			<layout-element ref="isJournalOrMagazineArticle" /> 
+			<layout-element ref="publication/published-online" > 
+				<parameters>
+					<starts-with value="published-online:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			<layout-element ref="publication/dateAccepted" > 
+				<parameters>
+					<starts-with value="dateAccepted:"/>
+				</parameters>
+				<elements/>
+			</layout-element>  
+			<layout-element ref="publication/dateSubmitted">
+				<parameters>
+					<starts-with value="dateSubmitted:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			  
+			<layout-element ref="publication/published-online" >
+				<parameters>
+					<starts-with value="published-online:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+			 
+			<layout-element ref="publication/created" >
+				<parameters>
+					<starts-with value="created:"/>
+				</parameters>
+				<elements/>
+			</layout-element> 
+		</elements>
+	</layout-element>		
 		
 	</layout-elements>
 	
@@ -364,7 +364,7 @@
 				<!-- JOURNAL ARTICLE, element "source"  -->
 			<layout-element name="SourceTitleVolumeIssuePhysicalDescriptionBlock">
 				<parameters>
-					<starts-with value="" />
+					<starts-with value=" " />
 					<ends-with value="." />
 					<delimiter value="" />
 				</parameters>
