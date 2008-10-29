@@ -202,7 +202,7 @@
 	
 	<xs:simpleType name="positionType">
 		<xs:restriction base="xs:string">
-			<xs:pattern value="last|default|[0-9][0-9]|[1-9]"/>
+			<xs:pattern value="last|last-max-count|default|[0-9][0-9]|[1-9]"/>
 		</xs:restriction>
 	</xs:simpleType>
 	
