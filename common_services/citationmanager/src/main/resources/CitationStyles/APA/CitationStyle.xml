@@ -37,8 +37,11 @@
 			xpath="not(publication[@type='article' or @type='issue' or @type='paper' or @type='book-item' or @type='courseware-lecture' or @type='other' or @type='conference-paper' or @type='conference-report' or @type='book' or @type='thesis' or @type='proceedings' or @type='journal' or @type='series' or @type='talk-at-event'])=false()" />
 			
 		<!-- variables which use java-like expressions with references to other variables defined above -->
+			
 		<variable name="date"
 			expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
+			
+		<variable name="inPressOrPreparation" expression="(${publication/published-online} != null || ${publication/dateAccepted} != null) ? &quot; (in press).&quot; : (${publication/published-online} == null &amp;&amp; ( ${publication/modified} != null || ${publication/modified} != null)) ? &quot; (in preparation).&quot; : null" /> 
 	</variables>
 	
 	<!-- predefined layout elements which can be referenced in CSLDs -->
@@ -85,6 +88,25 @@
 			</parameters>
 			<elements />
 		</layout-element>
+		
+		<layout-element name="in-press-or-preparation" ref="inPressOrPreparation">
+			<parameters>
+				<font-style ref="DISPLAY_DATE_STATUS"/>
+			</parameters>
+			<elements />
+		</layout-element>
+
+		<layout-element name="in-press-or-preparation-title" >
+			<parameters>
+				<ends-with value=". " />
+			</parameters>
+			<elements>
+				<layout-element ref="in-press-or-preparation"/>
+				<layout-element ref="publication/title"/>
+			</elements>
+		</layout-element>
+		
+		
 		<layout-element name="soucre-title" ref="publication/source/title">
 			<parameters>
 				<font-style ref="ITALIC" />
@@ -101,14 +123,61 @@
 				<layout-element ref="publication/publishing-info/publisher" />
 			</elements>
 		</layout-element>
-		<layout-element name="title-in-preparation" ref="publication/title">
-			<parameters>
-				<starts-with value=" (in preparation). " />
-			</parameters>
-			<elements />
-		</layout-element>
 		
-		
+
+
+<!--	<layout-element name="debugBlock">-->
+<!--		<parameters>-->
+<!--			<starts-with value="debug:"/>-->
+<!--			<ends-with value=", citation: " />-->
+<!--			<delimiter value=","/>-->
+<!--		</parameters>-->
+<!--		<elements>-->
+<!--			<layout-element ref="publication/@type" />-->
+<!--			<layout-element ref="publication/title" />-->
+<!--			<layout-element ref="publication/issued" >-->
+<!--				<parameters>-->
+<!--					<starts-with value="issued:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element> -->
+<!--			<layout-element ref="isBookArticleOrChapter" /> -->
+<!--			<layout-element ref="isBookProceedingsThesis" /> -->
+<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
+<!--			<layout-element ref="publication/published-online" > -->
+<!--				<parameters>-->
+<!--					<starts-with value="published-online:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element> -->
+<!--			<layout-element ref="publication/dateAccepted" > -->
+<!--				<parameters>-->
+<!--					<starts-with value="dateAccepted:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element>  -->
+<!--			<layout-element ref="publication/dateSubmitted">-->
+<!--				<parameters>-->
+<!--					<starts-with value="dateSubmitted:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element> -->
+<!--			  -->
+<!--			<layout-element ref="publication/published-online" >-->
+<!--				<parameters>-->
+<!--					<starts-with value="published-online:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element> -->
+<!--			 -->
+<!--			<layout-element ref="publication/created" >-->
+<!--				<parameters>-->
+<!--					<starts-with value="created:"/>-->
+<!--				</parameters>-->
+<!--				<elements/>-->
+<!--			</layout-element> -->
+<!--		</elements>-->
+<!--	</layout-element>		-->
 		
 	</layout-elements>
 	
@@ -119,7 +188,7 @@
 			<valid-if><![CDATA[${hasPublication}.equals("false") ]]></valid-if>
 			<starts-with
 				value="## Citaion style layout is not defined for metadata record: " />
-			<ends-with value=".\n\n" />
+<!--			<ends-with value=".\n\n" />-->
 		</parameters>
 		<elements>
 			<layout-element ref="../../@objid" />
@@ -141,6 +210,8 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
+			<layout-element ref="debugBlock" />	
+		
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
 			
@@ -206,6 +277,8 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
+						<layout-element ref="debugBlock" />	
+			
 				<!-- BOOK, element "creator" of type person -->
 			<!--
 				Note: We need to differentiate between "edited books" and "authored
@@ -248,6 +321,8 @@
 			<ends-with value="." />
 		</parameters>
 		<elements>
+						<layout-element ref="debugBlock" />	
+			
 				<!-- JOURNAL ARTICLE, element "creator" of type person -->
 			<layout-element ref="publication/creator[@role='author']/person|organization"
 				repeatable="yes">
@@ -328,57 +403,35 @@
 	<!--
 		case: issued is not filled and published-online is filled
 	-->
-	<cs-layout-definition name="notIssuedAndPublishedOnline">
+	<cs-layout-definition name="notIssuedAndPublishedOnlineOrDateAccepted">
 		<parameters>
-			<valid-if><![CDATA[${publication/issued} == null && ${publication/published-online} != null]]></valid-if>
-			<ends-with value=".\n\n" />
+			<valid-if><![CDATA[${publication/issued} == null && (${publication/published-online} != null || ${publication/dateAccepted} != null)]]></valid-if>
 		</parameters>
 		<elements>
+					<layout-element ref="debugBlock" />	
+		
+		
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
 
-			<layout-element ref="publication/title">
-				<parameters>
-					<starts-with value=" (in press). " />
-					<ends-with value=". " />
-				</parameters>
-				<elements />
-			</layout-element>
-			<layout-element ref="sourcetitle" />
-		</elements>
-	</cs-layout-definition>
-	<!--
-		case: published-online and issued are not filled and dateAccepted is
-		filled
-	-->
-	<cs-layout-definition name="notPublishedOnlineAndNotIssuedAndAccepted">
-		<parameters>
-			<valid-if><![CDATA[${publication/published-online} == null && ${publication/issued} == null  && ${publication/dateAccepted} != null]]></valid-if>
-			<ends-with value=".\n\n" />
-		</parameters>
-		<elements>
-			<layout-element ref="creator-person" />
-			<layout-element ref="creator-organization" />
+			<layout-element ref="in-press-or-preparation-title"/>
 
-			<layout-element ref="publication/title">
-				<parameters>
-					<ends-with value=". " />
-				</parameters>
-				<elements />
-			</layout-element>
 			<layout-element ref="source-title" />
 		</elements>
 	</cs-layout-definition>
+
 	<!--
 		case: published-online and issued are not filled and dateSubmitted is
 		filled
 	-->
 	<cs-layout-definition name="notPublishedOnlineAndNotIssuedAndSubmitted">
 		<parameters>
-			<valid-if><![CDATA[${publication/published-online} == null && ${publication/issued} == null && ${publication/dateSubmitted} != null]]></valid-if>
-			<ends-with value="Submitted for publication.\n\n" />
+			<valid-if><![CDATA[${publication/issued} == null && ${publication/published-online} == null && ${publication/dateSubmitted} != null]]></valid-if>
+			<ends-with value="Submitted for publication." />
 		</parameters>
 		<elements>
+					<layout-element ref="debugBlock" />	
+		
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
 			
@@ -400,49 +453,40 @@
 		</elements>
 	</cs-layout-definition>
 	<!--
-		case: published-online and issued are not filled and modified is
+		case: published-online and issued are not filled and modified or created are
 		filled
 	-->
-	<cs-layout-definition name="notPublishedOnlineAndNotIssuedAndModified">
+	<cs-layout-definition name="notPublishedOnlineAndNotIssuedAndModifiedOrCreated">
 		<parameters>
-			<valid-if><![CDATA[${publication/published-online} == null && ${publication/issued} == null && ( ${publication/modified} != null ) ]]></valid-if>
-			<ends-with value=".\n\n" />
+			<valid-if><![CDATA[${publication/issued} == null && ${publication/published-online} == null && ( ${publication/modified} != null || ${publication/created} != null)]]></valid-if>
 		</parameters>
 		<elements>
+		
+					<layout-element ref="debugBlock" />	
+		
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
-			<layout-element ref="title-in-preparation" />
+			<layout-element ref="in-press-or-preparation-title" />
 			
 		</elements>
 	</cs-layout-definition>
-	<!--
-		case: published-online and issued are not filled and created is filled
-	-->
-	<cs-layout-definition name="notPublishedOnlineAndNotIssuedAndCreated">
-		<parameters>
-			<valid-if><![CDATA[${publication/published-online} == null && ${publication/issued} == null && ( ${publication/created} != null) ]]></valid-if>
-			<ends-with value=".\n\n" />
-		</parameters>
-		<elements>
-			<layout-element ref="creator-person" />
-			<layout-element ref="creator-organization" />
-			<layout-element ref="title-in-preparation" />
-		</elements>
-	</cs-layout-definition>
-	<!--Rule for books without a year/date-->
+	<!--Rule for items without a year/date-->
 	<!-- see: http://colab.mpdl.mpg.de/mediawiki/PubMan_Feeding_local_webpages/APA_citation#Rule_for_books_without_a_year.2Fdate -->
-	<cs-layout-definition name="BookWithoutDates">
+	<cs-layout-definition name="ItemWithoutDates">
 		<parameters>
-			<valid-if><![CDATA[${publication/@type}.equals("book") && ${date}==null]]></valid-if>
-			<ends-with value=".\n\n" />
+			<valid-if><![CDATA[${date}==null]]></valid-if>
 		</parameters>
 		<elements>
+					<layout-element ref="debugBlock" />	
+		
 			<layout-element ref="creator-person" />
 			<layout-element ref="creator-organization" />
 
 			<layout-element ref="publication/title">
 				<parameters>
 					<font-style ref="ITALIC"/>
+					<starts-with value=" "/>
+					<ends-with value="."/>
 				</parameters>
 				<elements />
 			</layout-element>
@@ -451,24 +495,15 @@
 		
 	</cs-layout-definition>
 <!--	Test CSLD: -->
-<!--	<cs-layout-definition name="notMatched">-->
-<!--		<parameters>-->
-<!--			<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
-<!--			<ends-with value=".\n\n" />-->
-<!--		</parameters>-->
-<!--		<elements>-->
-<!--			<layout-element ref="publication/@type" />-->
-<!--			<layout-element ref="publication/title" />-->
-<!--			<layout-element ref="publication/issued" /> -->
-<!--			<layout-element ref="isBookArticleOrChapter" /> -->
-<!--			<layout-element ref="isBookProceedingsThesis" /> -->
-<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
-<!--			<layout-element ref="publication/published-online" /> -->
-<!--			<layout-element ref="publication/dateAccepted" /> -->
-<!--			<layout-element ref="publication/dateSubmitted" /> -->
-<!--			<layout-element ref="publication/published-online" /> -->
-<!--			<layout-element ref="publication/created" /> -->
-<!--		</elements>-->
-<!--	</cs-layout-definition>		-->
+	<cs-layout-definition name="notMatched">
+		<parameters>
+			<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>
+		</parameters>
+		<elements>
+		
+			<layout-element ref="debugBlock" />
+				
+		</elements>
+	</cs-layout-definition>		
 	
 </citation-style>
