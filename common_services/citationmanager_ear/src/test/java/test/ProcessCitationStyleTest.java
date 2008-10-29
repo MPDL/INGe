@@ -47,7 +47,7 @@ import org.junit.Test;
 import org.w3c.dom.Document;
 
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 
 /**
  * Test class for citation manager processing component

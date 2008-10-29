@@ -59,7 +59,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
 
 import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -73,7 +73,7 @@ public class TestHelper
 {
 
 	
-	public static final String ITEMS_LIMIT = "50"; 
+	public static final String ITEMS_LIMIT = "10"; 
 	public static final String CONTENT_MODEL = "escidoc:persistent4"; 
 	public static final String USER_NAME = "test_dep_scientist"; 
 	public static final String USER_PASSWD = "verdi"; 

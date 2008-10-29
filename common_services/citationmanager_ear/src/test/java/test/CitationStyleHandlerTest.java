@@ -58,9 +58,9 @@ import org.w3c.dom.Document;
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 public class CitationStyleHandlerTest {
 
@@ -95,7 +95,7 @@ public class CitationStyleHandlerTest {
     	
         itemList = TestHelper.getItemListFromFramework();
 		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
-		logger.info("item list from framework:\n" + itemList);
+//		logger.info("item list from framework:\n" + itemList);
         
     }
     
