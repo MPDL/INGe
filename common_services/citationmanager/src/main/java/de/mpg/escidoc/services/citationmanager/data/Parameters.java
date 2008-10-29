@@ -47,8 +47,8 @@ import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
  * parameters which are defined for a {@link LayoutElement} 
  *
  * @author makarenko (initial creation)
- * @author $Author: vdm $ (last modification)
- * @version $Revision: 146 $ $LastChangedDate: 2007-11-12 20:58:08 +0100 (Mon, 12 Nov 2007) $
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
  */
 
 
