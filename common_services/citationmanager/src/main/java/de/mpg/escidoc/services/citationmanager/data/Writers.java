@@ -32,8 +32,8 @@
 * Citation Style Processing. 
 * Writers.   
 *
-* @author $Author:$ (last modification)
-* @version $Revision:$ $LastChangedDate:$
+* @author $Author$ (last modification)
+* @version $Revision$ $LastChangedDate:$
 *
 */
 package de.mpg.escidoc.services.citationmanager.data;
