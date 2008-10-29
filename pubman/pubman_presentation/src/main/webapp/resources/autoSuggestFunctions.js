@@ -53,6 +53,9 @@
 						details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
 
 		fillField('journalSuggest', title, parent);
+		
+		$input.content = title;
+		
 		fillField('publisher', publisher, parent);
 		fillField('place', place, parent);
 		fillField('identifierValue', identifier, parent);
@@ -69,9 +72,22 @@
 		$.getJSON(journalDetailsBaseURL + this.resultID, getJournalDetails);							
 	}
 	
+	function clearFields()
+	{
+		if ($(this).val() != this.content)
+		{
+			var parent = $input.parents('.'+journalSuggestCommonParentClass);
+			
+			fillField('publisher', '', parent);
+			fillField('place', '', parent);
+			fillField('identifierValue', '', parent);
+		}
+	}
+	
 	function bindJournalSuggest()
 	{
 		$('.journalSuggest').suggest(journalSuggestURL, { onSelect: fillFields});
+		$('.journalSuggest').change(clearFields);
 	}
 	
 	function bindSuggests()
