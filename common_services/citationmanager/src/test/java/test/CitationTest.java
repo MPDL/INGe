@@ -6,17 +6,20 @@ package test;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.log4j.Logger;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.xml.sax.SAXException;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
-import de.mpg.escidoc.services.citationmanager.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.XmlHelper;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 import static org.junit.Assert.*;
 
@@ -30,7 +33,7 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
-//	private final String dsFileName = "Kristina.xml";  
+//	private final String dsFileName = "test.xml";  
 //	private final String dsFileName = "item-list-tobias.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
 //	private final String dsFileName = "1.xml";  
@@ -67,6 +70,16 @@ public class CitationTest {
     }	
 	
     /**
+     * Test list of styles
+     * @throws Exception Any exception.
+     */
+    @Test
+    public final void testListOfStyles() throws Exception {
+    	logger.info("List of citation styles: " );
+    	for (String s : XmlHelper.getListOfStyles() )
+    		logger.info("Citation Style: " + s);
+    }       
+    /**
      * Validates DataSource against XML Schema  
      * @throws IOException 
      */
@@ -94,26 +107,36 @@ public class CitationTest {
     /**
      * Validates CitationStyle against XML Schema and Schematron Schema  
      * @throws IOException 
+     * @throws SAXException 
+     * @throws ParserConfigurationException 
+     * @throws CitationStyleManagerException 
      */
     @Test
-    public final void testCitationStyleValidation() throws IOException{
+    public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
+    {
     	
-    	long start = 0;
-    	String csName = 
-    		ResourceUtil.getUriToResources()
-    		+ ResourceUtil.CITATIONSTYLES_DIRECTORY
-    		+ "APA/CitationStyle.xml";  
-    	logger.info("CitationStyle URI: " + csName);
-    	try {
-    		start = System.currentTimeMillis();
-    		xh.validateCitationStyleXML(csName);
-    		logger.info("CitationStyle XML file: " + csName + " is valid.");
-    		
-    	}catch (CitationStyleManagerException e){ 
-    		logger.info("CitationStyle XML file: " + csName + " is not valid.\n", e);
-    		fail();
+    	for (String cs : XmlHelper.getListOfStyles() )
+    	{
+    		logger.info("Validate Citation Style: " + cs);
+        	String csName = 
+        		ResourceUtil.getUriToResources()
+        		+ ResourceUtil.CITATIONSTYLES_DIRECTORY
+        		+ cs + "/CitationStyle.xml";  
+        	logger.info("CitationStyle URI: " + csName);
+        	long start = 0;
+        	try {
+        		start = -System.currentTimeMillis();
+        		xh.validateCitationStyleXML(csName);
+        		logger.info("CitationStyle XML file: " + csName + " is valid.");
+        		
+        	}catch (CitationStyleManagerException e){ 
+        		logger.info("CitationStyle XML file: " + csName + " is not valid.\n", e);
+        		fail();
+        	}
+        	logger.info("Citation Style XML Validation time : " + (start + System.currentTimeMillis()));
     	}
-    	logger.info("Data Source Validation time : " + (System.currentTimeMillis() - start));
+    		
+	
     }
 
 
@@ -124,36 +147,41 @@ public class CitationTest {
      */
     @Test
     public final void testCitManOutput() throws Exception {
-		long start;
-    	byte[] result;
-		for ( OutFormats ouf : OutFormats.values() ) {
-//		for ( String ouf : new String[]{"snippet","html"} ) {
-			String format = ouf.toString();
-	    	start = System.currentTimeMillis();
-	    	result = pcs.getOutput("APA", format, itemList);
-	    	
-    		logger.info("ItemList\n: " + itemList);
-    		//TestHelper.writeToFile("input.xml", itemList.getBytes());
-    		logger.info("Result\n: " + new String(result));
-	    	
-	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-	    	assertTrue(format + " output should not be empty", result.length > 0);
-    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-	        logger.info(format + " length: " + result.length);
-	        logger.info(format + " is OK");
-			
-		}
+    	
+    	for (String cs : 
+    		XmlHelper.getListOfStyles() 
+    		
+    	)
+    	{
+    		long start;
+        	byte[] result;
+    		for ( OutFormats ouf : OutFormats.values() ) {
+        		logger.info("Test Citation Style: " + cs);
+    			
+//    		for ( String ouf : new String[]{"snippet","html"} ) {
+    			String format = ouf.toString();
+    	    	start = System.currentTimeMillis();
+    	    	result = pcs.getOutput(cs, format, itemList);
+    	    	
+//        		logger.info("ItemList\n: " + itemList);
+//        		logger.info("Result\n: " + new String(result));
+        		
+    	    	
+    	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+    	    	assertTrue(format + " output should not be empty", result.length > 0);
+    	    	
+    	    	
+        		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+    	        logger.info(format + " length: " + result.length);
+    	        logger.info(format + " is OK");
+    	        
+    	        TestHelper.writeToFile(cs + "." + format, result);
+    			
+    		}
+    		
+    	}
     }
     
-    /**
-     * Test list of styles
-     * @throws Exception Any exception.
-     */
-    @Test
-    public final void testListOfStyles() throws Exception {
-    	logger.info("List of citation styles: " );
-    	for (String s : XmlHelper.getListOfStyles() )
-    		logger.info("Citation Style: " + s);
-    }    
+ 
     
 }
