@@ -54,6 +54,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 

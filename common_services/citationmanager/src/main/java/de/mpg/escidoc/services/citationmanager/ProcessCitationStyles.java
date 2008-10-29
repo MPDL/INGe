@@ -94,18 +94,18 @@ import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
-import de.mpg.escidoc.services.citationmanager.CitationStyle;
-import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
-import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.CitationStylesCollection;
-import de.mpg.escidoc.services.citationmanager.FontStyle;
-import de.mpg.escidoc.services.citationmanager.FontStylesCollection;
-import de.mpg.escidoc.services.citationmanager.LayoutElement;
-import de.mpg.escidoc.services.citationmanager.LayoutElementsCollection;
-import de.mpg.escidoc.services.citationmanager.Parameters;
-import de.mpg.escidoc.services.citationmanager.ProcessScriptlet;
-import de.mpg.escidoc.services.citationmanager.ResourceUtil;
-import de.mpg.escidoc.services.citationmanager.XmlHelper;
+import de.mpg.escidoc.services.citationmanager.data.CitationStyle;
+import de.mpg.escidoc.services.citationmanager.data.CitationStylesCollection;
+import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
+import de.mpg.escidoc.services.citationmanager.data.LayoutElement;
+import de.mpg.escidoc.services.citationmanager.data.LayoutElementsCollection;
+import de.mpg.escidoc.services.citationmanager.data.Loaders;
+import de.mpg.escidoc.services.citationmanager.data.Parameters;
+import de.mpg.escidoc.services.citationmanager.data.Writers;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
+import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 /**
 *
@@ -116,10 +116,7 @@ import de.mpg.escidoc.services.citationmanager.XmlHelper;
 *
 */
 
-/**
- * @author vlad
- *
- */
+
 public class ProcessCitationStyles implements CitationStyleHandler{
 
     /**
@@ -181,23 +178,23 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 
 
     // FontStylesCollection
-    private static FontStylesCollection fsc = null;
+    public FontStylesCollection fsc = null;
 
     // LayoutElementCollection
-    private LayoutElementsCollection lec = null;
+    public LayoutElementsCollection lec = null;
 
-    // CitationStyleDefinition
-    private CitationStylesCollection csc = null;
+	// CitationStyleDefinition
+    public CitationStylesCollection csc = null;
 
 
     // default JasperDesign which will be updated with new this procedure.
-    private JasperDesign jasperDesign = null;
+    public JasperDesign jasperDesign = null;
 
     // Dataset in JasperDesign which will be updated
-    private JRDesignDataset dataSet = null;
+    public JRDesignDataset dataSet = null;
     
     // ProcessScriptlet class instance
-    private ProcessScriptlet ps = null;
+    public ProcessScriptlet ps = null;
 
     
 	
@@ -225,107 +222,78 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	        CREATE_JRXML = Boolean.parseBoolean(props.getProperty("create.jrxml").trim());
 
 	}
-	/**
-     * Loads FontStyleCollection from XML
-     * @param path A path to the directory of CitationStyle
-     * @throws CitationStyleManagerException 
-     */
-    public void loadFontStylesFromXml() throws CitationStyleManagerException{
-        try {
-        	
-            fsc = FontStylesCollection.loadFromXml( 
-            		ResourceUtil.getPathToCitationStyles()
-            		+ DEFAULT_STYLENAME 
-            		+ "/" + ResourceUtil.FONTSTYLES_FILENAME + ".xml");
-        } catch (Exception e) {
-            throw new CitationStyleManagerException(
-            		"Error by FontStylesCollection loading: " + e);
-        }
-    }
-    /**
-     * Loads LayoutElementsCollection from XML
-     * @param name is name of CiatationStyle
-     * @param path is path to directory of CitationStyle
-     * @throws CitationStyleManagerException 
-     */
-    public void loadLayoutElementsFromXml(File path, String name) throws CitationStyleManagerException{
-        try {
-            lec = LayoutElementsCollection.loadFromXml(
-            		// TODO: Ignore Path             		
-//            		path +
-            		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/LayoutElements.xml"
-            );
-        } catch (Exception e) {
-        	throw new CitationStyleManagerException("Error by LayoutElementsCollection loading: " + e);
-        }
-    }
-    
-    public void loadLayoutElementsFromXml() throws CitationStyleManagerException{
-    	
-    	loadLayoutElementsFromXml(
-    			new File(ResourceUtil.CITATIONSTYLES_DIRECTORY),
-    			DEFAULT_STYLENAME
-    	);
 
-    }
+	   /**
+	 * @return
+	 */
+	public LayoutElementsCollection getLec() {
+			return lec;
+		}
 
-    /**
-     * Loads CitationStylesCollection from XML
-     * @param name is name of CiatationStyle
-     * @param path is path to directory of CitationStyle
-     * @throws CitationStyleManagerException 
-     */
-    public void loadCitationStyleFromXml(String name) throws CitationStyleManagerException{
-        try {
-            csc = CitationStylesCollection.loadFromXml(
-            		ResourceUtil.getPathToCitationStyles()
-            		+ name 
-            		+ "/"
-            		+ CITATION_XML_FILENAME
-            );
-            lec = csc.getCitationStyleByName(name).getLayoutElements();
-        } catch (Exception e) {
-        	throw new CitationStyleManagerException("Error by loading CitationStylesCollection: " + e);
-        }
-    }
+	    /**
+	     * @param lec
+	     */
+	    public void setLec(LayoutElementsCollection lec) {
+			this.lec = lec;
+		}
 
 
-	/**
-     * Writes LayoutElementsCollection to XML file
-     * @param path A path to the CitationStyles directory
-     * @param name A name of the CitationStyle
-     * @throws IOException
-     * @throws SAXException
-     * @throws CitationStyleManagerException 
-     */
-    private void writeLayoutElementsToXml(File path, String name) throws IOException, SAXException, CitationStyleManagerException {
-        try {
-            lec.writeToXml(path + "/" + name + "/LayoutElements.xml");
-        } catch (IOException e) {
-            throw new IOException("Cannot write to XML:" + e);
-        } catch (SAXException e) {
-            throw new SAXException("SAX error:" + e);
-        }
-    }
 
-    /**
-     * Writes LayoutElementsCollection to XML file
-     * @param path A path to the CitationStyles directory
-     * @param name A name of the CitationStyle
-     * @throws IOException
-     * @throws SAXException
-     * @throws CitationStyleManagerException 
-     */
-    private void writeCitationStyleToXml(File path, String name) throws IOException, SAXException, CitationStyleManagerException {
-        try {
-            csc.writeToXml(path + "/" + name + "/" + CITATION_XML_FILENAME);
-        } catch (IOException e) {
-            throw new IOException("Cannot write to XML:" + e);
-        } catch (SAXException e) {
-            throw new SAXException("SAX error:" + e);
-        }
-    }
+	    public CitationStylesCollection getCsc() {
+			return csc;
+		}
+
+
+
+	    public void setCsc(CitationStylesCollection csc) {
+			this.csc = csc;
+		}
+
+
+
+	    public FontStylesCollection getFsc() {
+			return fsc;
+		}
+
+
+
+	    public void setFsc(FontStylesCollection fsc) {
+			this.fsc = fsc;
+		}
+
+
+
+		public JRDesignDataset getDataSet() {
+			return dataSet;
+		}
+
+
+
+	    public void setDataSet(JRDesignDataset dataSet) {
+			this.dataSet = dataSet;
+		}
+
+
+
+	    public ProcessScriptlet getPs() {
+			return ps;
+		}
+
+
+
+	    public void setPs(ProcessScriptlet ps) {
+			this.ps = ps;
+		}
+
+
+	    public void setJasperDesign(JasperDesign jasperDesign) throws FileNotFoundException, JRException, IOException {
+			this.jasperDesign = jasperDesign;
+			setDataSet(jasperDesign.getMainDesignDataset());
+	        addDefaultJRFields();
+	        addDefaultJRVariables();
+		}
+
+
 
    /**
     * Find field by name in fieldsMap
@@ -427,7 +395,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws IOException 
      * @throws FileNotFoundException 
       */
-     private void addDefaultJRFields() throws JRException, FileNotFoundException, IOException {
+     public void addDefaultJRFields() throws JRException, FileNotFoundException, IOException {
     	 
     	Properties props = ResourceUtil.getProperties(ResourceUtil.CITATIONSTYLES_DIRECTORY, "fields.properties");
     	Iterator iter = props.keySet().iterator(); 
@@ -445,7 +413,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
      * @throws IOException 
      * @throws FileNotFoundException 
      */
-    private void addDefaultJRVariables() throws JRException, FileNotFoundException, IOException {
+    public void addDefaultJRVariables() throws JRException, FileNotFoundException, IOException {
     	
     	Properties props = ResourceUtil.getProperties(ResourceUtil.CITATIONSTYLES_DIRECTORY, "variables.properties");
     	Iterator iter = props.keySet().iterator(); 
@@ -498,7 +466,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
                 addLayoutElementToVariablesMap(cs, e);
                 // insert delimiter between elements
             	if (i>1 && i<=eSize) { 
-            		if (delimiter != null && delimiter.length()>0) {
+            		if (Utils.checkLen(delimiter)) {
                         expr += " + ("+ eS +".length()>0 && " + prevES + ".length()>0 ? \"" + delimiter + "\" : \"\") + ";
             		} else {
             			expr += " + ";
@@ -521,9 +489,9 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             Parameters p = parameters;
             String sw = p.getStartsWith();
             String ew = p.getEndsWith();
-            if ( sw!=null && sw.length()>0 )
+            if ( Utils.checkLen(sw) )
                 str = sw;
-            if ( ew!=null && ew.length()>0 )
+            if ( Utils.checkLen(ew) )
                 str += ew;
             if ( str.length()==0 )
                 throw new CitationStyleManagerException("Layout Element has no reference, no elements and it is not static element:<" + le.getName() + ">, id:<" + le.getId() + ">");
@@ -585,14 +553,14 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         // startsWith
         p = Utils.overParams(pLE.getStartsWith(), pREF != null ? pREF.getStartsWith() : null);
         p = Utils.xmlEncode(p);
-        if ( Utils.checkVal(p) ) {
+        if ( Utils.checkLen(p) ) {
         	chunk = "\"" + p + "\" + " + chunk;
         }
         
         // endsWith
         p = Utils.overParams(pLE.getEndsWith(), pREF != null ? pREF.getEndsWith() : null);
         p = Utils.xmlEncode(p);
-        if ( Utils.checkVal(p) ) {
+        if ( Utils.checkLen(p) ) {
         	chunk = chunk + " + \"" + p + "\"";
         }
         
@@ -609,7 +577,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             // maxLengthEndsWith
             p = Utils.overParams(pLE.getMaxLengthEndsWith(), pREF != null ? pREF.getMaxLengthEndsWith() : null);
             p = Utils.xmlEncode(p); /// ??????????????????
-            if (Utils.checkVal(p)) {
+            if (Utils.checkLen(p)) {
                 chunk += " + \"" + p + '"';
             }
             expr = chunk + ":" + expr + ")";
@@ -948,66 +916,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     
     
 
-    /**
-     * Loads JasperDesign XML file
-     * @param name is name of CitationStyle
-     * @param path is path to directory of CitationStyle
-     * @throws CitationStyleManagerException 
-     * @throws IOException 
-     */
-    public void loadCitationStyleJRXml(String name) throws JRException, CitationStyleManagerException, IOException{
-        try {
-            jasperDesign = JRXmlLoader.load( 
-            		ResourceUtil.getPathToCitationStyles()
-            		+ name + "/CitationStyle.jrxml"
-            );
-            
-//			init dataSet global variable              
-            dataSet = jasperDesign.getMainDesignDataset();
-            addDefaultJRFields();
-            addDefaultJRVariables();
 
-        }
-        catch (JRException e) {
-            throw new JRException("Error by loading of jasperDesign: " + e);
-        }
-    }
-    
-    /**
-     * Loads test JasperDesign XML file
-     * @param name is name of CitationStyle
-     * @throws CitationStyleManagerException 
-     * @throws IOException 
-     * @throws FileNotFoundException 
-     */
-    public void loadCitationStyleTestJRXml() throws JRException, CitationStyleManagerException, FileNotFoundException, IOException{
-        try {
-            jasperDesign = JRXmlLoader.load(
-            		ResourceUtil.CITATIONSTYLES_DIRECTORY 
-            		+ "/" + DEFAULT_STYLENAME 
-            		+ "/citation-style-test.jrxml"
-            				
-            );
-            dataSet = jasperDesign.getMainDesignDataset();
-            addDefaultJRFields();
-            addDefaultJRVariables();
-
-        }
-        catch (JRException e) {
-            throw new JRException("Error by loading of test jasperDesign: " + e);
-        }
-    }
-
-    /**
-     * Loads Default JasperDesign XML file for CitationStyle definition
-     * @param path is path to directory of CitationStyle
-     * @throws JRException
-     * @throws CitationStyleManagerException 
-     * @throws IOException 
-     */
-    public void loadDefaultCitationStyleJRXml() throws JRException, CitationStyleManagerException, IOException{
-        loadCitationStyleJRXml(DEFAULT_STYLENAME);
-    }
 
 
     /**
@@ -1110,7 +1019,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
         //set correct scriptlet package QName in the jasperDesign
         String scn = ps.getScriptletClassName();
-        jasperDesign.setScriptletClass(ProcessScriptlet.getPackageName() + "." + scn);
+        getJasperDesign().setScriptletClass(ProcessScriptlet.getPackageName() + "." + scn);
 
         //compile scriptlet java  
         com.sun.tools.javac.Main.compile(new String[] {
@@ -1122,74 +1031,7 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         });
     }
     
-
-    
-    /**
-     * Creates new CitationStyle directory on hand of existende CitationStyle
-     * @param path A path to the CitationStyles directory
-     * @param newName A name of CitationStyle to be created
-     * @param templName A name of template CitationStyle
-     * @throws Exception
-     * @throws JRException
-     * @throws IOException  
-     * @throws CitationStyleManagerException 
-     * @throws SAXException 
-     * @throws CitationStyleManagerException 
-     */
-    public void createNewCitationStyle(File path, String templName, String newName) throws JRException, IOException, CitationStyleManagerException, SAXException, CitationStyleManagerException {
-        // create new CitationStyle directory
-        File newPath = new File(path, newName);
-        File templPath = new File(path, templName);
-        if (newPath.mkdir()) {
-            // take only files!!!
-            String[] files = templPath.list(
-                        new FilenameFilter() {
-                            public boolean accept(File dir, String name){
-                                return !(new File(dir, name)).isDirectory() && name.endsWith(".xml");
-                            }
-                        }
-                    );
-            for (String fn : files) 
-                ResourceUtil.copyFileToFile(new File(templPath, fn), new File(newPath, fn));
-            
-        } else {
-            throw new IOException("Cannot create new directory for CitationStyle:" + newPath );
-        }
-        //replace old name with new one
-        loadCitationStyleFromXml(newName);
-        csc.getCitationStyleByName(templName).setName(newName);
-        writeCitationStyleToXml(path, newName);
-    }
-
-    /**
-     * Creates new CitationStyle directory on hand of DefaultCitationStyle XMLs (located in path)
-     * @param path A path to the CitationStyles directory
-     * @param newName A name of CitationStyle to be created
-     * @param templName A name of template CitationStyle
-     * @throws Exception
-     * @throws JRException
-     * @throws SAXException 
-     * @throws IOException 
-     * @throws CitationStyleManagerException 
-     */
-    public void createNewCitationStyle(File path, String newName) throws JRException, CitationStyleManagerException, IOException, SAXException, CitationStyleManagerException {
-        createNewCitationStyle(path, DEFAULT_STYLENAME, newName);
-    }
-
-    /**
-     * Loads Citation Style Definition XMLs:
-     * FontStyles.xml, LayoutElements.xml and CitationStyle.xml
-     * @param path path to ReportingTool
-     * @param name is a name of a Citation Style
-     * @throws CitationStyleManagerException 
-     */
-    public void loadCitationStyleDefinitionXmls(String name) throws CitationStyleManagerException{
-        loadFontStylesFromXml();
-        //loadLayoutElementsFromXml(path, name);
-        loadCitationStyleFromXml(name);
-    }
-
-    
+     
     /**
      * Populates following default properties of jasperDesign: 
      * <code>name, scriptletClass, query root, report header</code>,    
@@ -1205,10 +1047,11 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	CitationStyle cs = csc.getCitationStyleByName(name);
     	Utils.checkCondition(cs == null, "Cannot find citation style: " + name);
     	
+    	
     	Utils.checkCondition(jasperDesign == null, "Empty jasperDesign variable");
 
 //		set report name
-        jasperDesign.setName(name);
+    	jasperDesign.setName(name);
         
 //		set root path for XML DataSource  
         JRDesignQuery q = new JRDesignQuery();
@@ -1222,33 +1065,6 @@ public class ProcessCitationStyles implements CitationStyleHandler{
         
     }
     
-    /**
-     * Loads <code>jasperDesign</code> from DEFAULT_STYLENAME
-     * and sets <code>name</code> to the name of new CitationStyle
-     * @param path is a path to Ciation Styles Directory
-     * @param name is a neame of new Citation Style
-     * @throws CitationStyleManagerException 
-     * @throws IOException 
-     */
-    public void loadDefaultCitationStyleJRXml(String name) throws JRException, CitationStyleManagerException, IOException 
-    {
-    	loadCitationStyleJRXml(DEFAULT_STYLENAME);
-    	setJasperDesignDefaultProperties(name);
-    }
-
-    /**
-     * Loads complete Citation Style XMLs bundle  + jrXML
-     * @param path
-     * @param name
-     * @throws JRException
-     * @throws IOException
-     * @throws CitationStyleManagerException 
-     */
-    public void loadCitationStyleBundle(String name) throws JRException, IOException, CitationStyleManagerException 
-    {
-    	loadCitationStyleDefinitionXmls(name); 
-    	loadDefaultCitationStyleJRXml(name);
-    }
 
 
     public void saveCitationStyleBundle(String name) throws JRException, IOException, CitationStyleManagerException
@@ -1267,69 +1083,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
     	compileCssClassCitationStyleJRToXml(name);
     }
 
-    /**
-     * Deletes CitationStyleBundle
-     * @param path
-     * @param name A name of CitationStyle
-     * @throws IOException
-     * @throws Exception
-     */
-    public static void deleteCitationStyleBundle(File path, String name) throws IllegalArgumentException {
-
-        if (name == null) {
-            throw new IllegalArgumentException("deleteCitationStyleBundle: there is no null directory");        }
-
-        path = new File(path, name);
-        if (!path.isDirectory()) {
-            throw new IllegalArgumentException("deleteCitationStyleBundle: there is no directory:" + path);
-        }
-        for (String f: path.list())
-        	new File(path, f).delete();
-        path.delete();
-    }
-
    
-    
-    /**
-     * Returns list of Citation Styles 
-     * @param root
-     * @return list of Citation Styles
-     * @throws IllegalArgumentException
-     * @throws IOException
-     */
-    public static String[] getCitationStylesList(File root) throws IllegalArgumentException, IOException {
-    	File templPath = new File(getCsPath(root).toString());
-    	return templPath.list(
-    			new FilenameFilter() {
-    				public boolean accept(File dir, String name){
-    					return (new File(dir, name)).isDirectory() && !name.startsWith(".");
-    				}
-    			}
-    	);
-    }
-
-    public static String[] getCitationStylesList() throws IllegalArgumentException, IOException {
-    	return getCitationStylesList(new File("."));
-    }
-    
-    
-
-  
-
-	
-	/**
-	 * @param root
-	 * @return
-	 */
-	public static File getCsPath(File root) throws IOException{
-
-        root = new File(root.getCanonicalPath());
-        return new File(
-        		root + "/" + ResourceUtil.CITATIONSTYLES_DIRECTORY
-        );
-		
-	}
-	
+ 	
 	
 	/**
 	 * @param root
@@ -1344,12 +1099,12 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 		
         ProcessScriptlet.cleanUpScriptlets(csName, CSS_CLASS_POSTFIX, KEEP_OLD_SCRIPTLETS);  
         
-        loadCitationStyleBundle(csName);
+        Loaders.loadCitationStyleBundle(this, csName);
         parseCssClassCitationStyle(csName);
         saveCssClassCitationStyleBundle(csName);
         
 //        loadCitationStyleBundle(csName);
-        loadDefaultCitationStyleJRXml(csName);
+        Loaders.loadDefaultCitationStyleJRXml(this, csName);
         parseCitationStyle(csName);
         saveCitationStyleBundle(csName);
         
@@ -1531,8 +1286,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public void viewReport(String jrpName, String csName, String outFormat) throws JRException {
 
-		outFormat = outFormat==null || outFormat.equals("") ? TASK_VIEW : outFormat;
-		jrpName = jrpName==null || jrpName.equals("") ? DEFAULT_REPORTNAME : jrpName;
+		outFormat = !Utils.checkVal(outFormat) ? TASK_VIEW : outFormat;
+		jrpName = !Utils.checkVal(jrpName) ? DEFAULT_REPORTNAME : jrpName;
         
         String fileName =  jrpName + ".jrprint";
 

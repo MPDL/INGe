@@ -46,6 +46,15 @@ import java.util.regex.Pattern;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.citationmanager.data.CitationStyle;
+import de.mpg.escidoc.services.citationmanager.data.CitationStylesCollection;
+import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.data.FontStylesCollection;
+import de.mpg.escidoc.services.citationmanager.data.LayoutElement;
+import de.mpg.escidoc.services.citationmanager.data.Parameters;
+import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
+
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperReport;
@@ -86,7 +95,7 @@ public class ProcessScriptlet {
         "import net.sf.jasperreports.engine.data.JRXmlDataSource;\n" +
         "import net.sf.jasperreports.engine.design.JRDesignField;\n" +
         "import net.sf.jasperreports.engine.util.JRStringUtil;\n" +
-        "import de.mpg.escidoc.services.citationmanager.Utils;\n" +
+        "import de.mpg.escidoc.services.citationmanager.utils.Utils;\n" +
 //        "import org.w3c.dom.Document;\n" +
 //        "import org.w3c.dom.Node;\n" +
 //        "import java.util.StringTokenizer;\n" + // for func get_initials
@@ -113,6 +122,13 @@ public class ProcessScriptlet {
         "   return str;\n" +
         "}\n" +
         
+//        "public void testString(String str) {\n" +
+//        "   for(char ch : str.toCharArray()) {\n" +
+//        "		System.out.print(\"ch:\"+ch+\",int:\"+((int)ch)+\";\");\n" +
+//        "   }\n" +
+//        "}\n" +
+        
+        
 //  Remove dublications of blanks, spaces and punctuation
 //	TODO: check it!        
         "public String cleanCit(String str) {\n" +
@@ -127,7 +143,13 @@ public class ProcessScriptlet {
 		"       str = str.replaceAll(\"([:]+\\\\s*[:]+)+\",\":\");\n" +
 		"       str = str.replaceAll(\"([?]+\\\\s*[?]+)+\",\"?\");\n" +
 		"       str = str.replaceAll(\"([!]+\\\\s*[!]+)+\",\"!\");\n" +
-//		"       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style.*?\\\\>)\\\\s*[.]+\",\"$1\");\n" +
+//        "if ( str.indexOf(\"( 2008\")!=-1 ) {testString(str);\n}" +
+//				next 2: ( 2007 ) to (2007) 		
+		"       str = str.replaceAll(\"([({<\\\\[])\\\\s+(.*)\",\"$1$2\");\n" + 
+		"       str = str.replaceAll(\"(.*)\\\\s+([\\\\]>})])\",\"$1$2\");\n" + 
+//        "if ( str.indexOf(\"( 2008\")!=-1 ) {testString(str);\n}" +
+		"       str = str.replaceAll(\"([.]+\\\\s*\\\\<[/]?style.*?\\\\>)\\\\s*[.]+\",\"$1\");\n" +
+//		"       str = str.replaceAll(\"([,.;:?!])(\\\\s*<style.*?\\\\>)?[ ,.;:?!]+\",\"$1$2\");\n" +
 		"       str = str.replaceAll(\"([,.;:?!])+\\\\s*(\\\\<[/]?style.*?\\\\>)\\\\s*([,.;:?!])+\",\"$1$2$3\");\n" +
 		"       str = str.replaceAll(\"([,.;:?!]+)\\\\p{Blank}*([,.;:?!]+)\", \"$1$2\");\n" +
         "       str = Pattern.compile(\"\\\\<style.*?\\\\>\\\\s*\\\\<[/]style\\\\>\",Pattern.DOTALL).matcher(str).replaceAll(\"\");\n" + 
@@ -176,7 +198,7 @@ public class ProcessScriptlet {
         throw new CitationStyleManagerException("Unknown function:<" + func +">");
     }
 
-    private static String getWhileFooterChunk(String pos) {
+    private static String getWhileFooterChunk(String pos, int maxCount) {
         String wf = "}\n\n}\n" +
         "int es = elems.size();\n";
         if (pos.equals("last")) {
@@ -185,10 +207,16 @@ public class ProcessScriptlet {
 //                  "System.out.println(\"hasLast && count>2 && !subDs.next(), last, str, elems.size():\" + " +
 //                  "hasLast + \",\" + count + \",\" + n + \",\" + last + \",\" + str + \",\" + elems.size());\n" +
 // debug <--
-            "if ( hasLast && count>2 && ( maxCount || !subDs.next( ) ) ) {\n" +
-            "int idx = es - ( maxCount ? 3 : 2 ) ;\n" +
+            "if ( hasLast && count>2 && ( " +
+            ( maxCount>0 ? "maxCount || " : "") +
+            "!subDs.next( ) ) ) {\n" +
+            "int idx = es - ( " +
+            ( maxCount>0 ? "maxCount ? 3 : " : "") +
+            "2 ) ;\n" +
             "String[] elem = (String[])elems.get( idx );\n" +
-            "elems.set(idx + 1, new String[]{ last, maxCount ? elem[1] : \"\" });\n" +
+            "elems.set(idx + 1, new String[]{ last, " +
+            ( maxCount>0 ? "maxCount ? elem[1] : " : "")+
+            "\"\" });\n" +
             "elem[1] = delim;\n" +
             "elems.set(idx, elem);\n" +
             "\n}\n";
@@ -311,9 +339,9 @@ public class ProcessScriptlet {
             endsWith = Utils.xmlEncode(ep.getEndsWith(), 1);
             chunkDef += chunkN + " = " +
                 chunkN + ".length()>0 ? (" +
-                (startsWith != null && startsWith.length() > 0 ? "\"" + startsWith + "\" + " : "") +
+                (Utils.checkLen(startsWith) ? "\"" + startsWith + "\" + " : "") +
                 chunkN +
-                (endsWith != null && endsWith.length() > 0 ? " + \"" + endsWith + "\"" : "") +
+                (Utils.checkLen(endsWith) ? " + \"" + endsWith + "\"" : "") +
                 ") : \"\"; ";
 
 
@@ -325,7 +353,7 @@ public class ProcessScriptlet {
                 chunkDef += chunkN + " = " + chunkN + ".length() > " + maxLength + " ? " + chunkN + ".substring(0, " + (maxLength - 1) + ")";
                 //maxLengthEndsWith
                 String maxLengthEndsWith = Utils.xmlEncode(ep.getMaxLengthEndsWith(), 1);
-                if (maxLengthEndsWith != null && maxLengthEndsWith.length() > 0) {
+                if (Utils.checkLen(maxLengthEndsWith)) {
                     chunkDef += " + \"" + maxLengthEndsWith + '"';
                 }
                 chunkDef += " : " + chunkN +";";
@@ -508,7 +536,7 @@ public class ProcessScriptlet {
             whileChunk += getWhileInternalChunk(elements, parameters, fsc, i==0);
 
             if (i==positionBundle.size()-1) {
-                whileChunk += getWhileFooterChunk(pos);
+                whileChunk += getWhileFooterChunk(pos, maxCount);
             }
 
 //            if (i==0) {
@@ -616,25 +644,48 @@ public class ProcessScriptlet {
 
     private static String getWhileHeaderChunk(int maxCount, String maxCountEndsWith, String delimiter) {
         String wh;
-        String d = delimiter!=null && delimiter.length()>0 ? "\"" + delimiter + "\"": "";
+        String d = Utils.checkVal(delimiter) ? "\"" + delimiter + "\"": "";
 
-        	if (maxCount > 0) {
-            wh =
-            "int count = 1;\n" +
+        wh = 
+        	"int count = 1;\n" +	
             "boolean hasLast = false;\n" +
-            "boolean maxCount = false;\n" +
-            "away: while ( subDs.next() ) {\n" +
-            "if ( count >" +  maxCount + ") {\n" +
-            // maxCountEndsWith handling
-            (maxCountEndsWith != null && maxCountEndsWith.length() > 0 ?
-                    " elems.add(new String[]{ \"" + maxCountEndsWith + "\", \"\" } );\n " : "") +
-                " maxCount = true;\n" +
-                " break away;\n}" +
-                "\n count++;\n";
-        } else {
-            wh = "int count = -1;\n" +
-            "while ( subDs.next() ) {\n";
-        }
+            (
+            		maxCount > 0 ?
+            		(
+            	      "boolean maxCount = false;\n" +
+                      "away: while ( subDs.next() ) {\n" +
+                      "if ( count >" +  maxCount + ") {\n" +
+                      // maxCountEndsWith handling
+                      ( Utils.checkVal(maxCountEndsWith) ?
+                              " elems.add(new String[]{ \"" + maxCountEndsWith + "\", \"\" } );\n " : "") +
+                          " maxCount = true;\n" +
+                          " break away;\n}"
+            		) :
+            		(
+            	      "while ( subDs.next() ) {\n"
+            		)	
+            ) +	
+            "\n count++;\n" +
+            "switch (count) {\n";            
+
+        
+//        	if (maxCount > 0) {
+//            wh =
+//            "int count = 1;\n" +
+//            "boolean hasLast = false;\n" +
+//            "boolean maxCount = false;\n" +
+//            "away: while ( subDs.next() ) {\n" +
+//            "if ( count >" +  maxCount + ") {\n" +
+//            // maxCountEndsWith handling
+//            (maxCountEndsWith != null && maxCountEndsWith.length() > 0 ?
+//                    " elems.add(new String[]{ \"" + maxCountEndsWith + "\", \"\" } );\n " : "") +
+//                " maxCount = true;\n" +
+//                " break away;\n}" +
+//                "\n count++;\n";
+//        } else {
+//            wh = "int count = 1;\n" +
+//            "while ( subDs.next() ) {\n";
+//        }
 
 //        wh += "Document d = subDs.subDocument();\n";
 
@@ -643,7 +694,7 @@ public class ProcessScriptlet {
 //        wh +=  "System.out.println(\"I am here!!!:\" + count);\n";
 //  debug   --->
 
-        wh += "switch (count) {\n";
+//        wh += "switch (count) {\n";
         return wh;
     }
 
