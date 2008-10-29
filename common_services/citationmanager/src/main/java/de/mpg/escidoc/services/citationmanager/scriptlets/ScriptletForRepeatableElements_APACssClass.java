@@ -3,7 +3,7 @@ import net.sf.jasperreports.engine.JRDefaultScriptlet;
 import net.sf.jasperreports.engine.data.JRXmlDataSource;
 import net.sf.jasperreports.engine.design.JRDesignField;
 import net.sf.jasperreports.engine.util.JRStringUtil;
-import de.mpg.escidoc.services.citationmanager.Utils;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import java.util.*;
 import java.util.regex.*;
 
@@ -33,6 +33,9 @@ public String cleanCit(String str) {
        str = str.replaceAll("([:]+\\s*[:]+)+",":");
        str = str.replaceAll("([?]+\\s*[?]+)+","?");
        str = str.replaceAll("([!]+\\s*[!]+)+","!");
+       str = str.replaceAll("([({<\\[])\\s+(.*)","$1$2");
+       str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
+       str = str.replaceAll("([.]+\\s*\\<[/]?style.*?\\>)\\s*[.]+","$1");
        str = str.replaceAll("([,.;:?!])+\\s*(\\<[/]?style.*?\\>)\\s*([,.;:?!])+","$1$2$3");
        str = str.replaceAll("([,.;:?!]+)\\p{Blank}*([,.;:?!]+)", "$1$2");
        str = Pattern.compile("\\<style.*?\\>\\s*\\<[/]style\\>",Pattern.DOTALL).matcher(str).replaceAll("");
@@ -91,10 +94,10 @@ last = chunk_last_0 + insertDelimiter(chunk_last_0, ", ", chunk_last_1) + chunk_
 
 }
 int es = elems.size();
-if ( hasLast && count>2 && ( maxCount || !subDs.next( ) ) ) {
-int idx = es - ( maxCount ? 3 : 2 ) ;
+if ( hasLast && count>2 && ( !subDs.next( ) ) ) {
+int idx = es - ( 2 ) ;
 String[] elem = (String[])elems.get( idx );
-elems.set(idx + 1, new String[]{ last, maxCount ? elem[1] : "" });
+elems.set(idx + 1, new String[]{ last, "" });
 elem[1] = delim;
 elems.set(idx, elem);
 
@@ -144,7 +147,7 @@ result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "";
 elems.clear();
 return result;
 }
-public String getCS_1_CSLD_2_P_default_E_5() throws Exception {
+public String getCS_1_CSLD_2_P_default_E_6() throws Exception {
 String result = "";
 String str = "";
 String last = "";
@@ -161,8 +164,11 @@ field_default_1.setDescription("family-name");
 field_default_1.setValueClass(String.class);
 String chunk_default_1 = "";
 
-int count = -1;
+int count = 1;
+boolean hasLast = false;
 while ( subDs.next() ) {
+
+ count++;
 switch (count) {
 default:
 chunk_default_0 = (String)subDs.getFieldValue(field_default_0);chunk_default_0 = xmlEncode(chunk_default_0);chunk_default_0 = chunk_default_0!=null && chunk_default_0.length()>0 ? chunk_default_0 : "";chunk_default_0 = get_initials(chunk_default_0);chunk_default_0 = chunk_default_0.length()>0 ? (chunk_default_0) : ""; chunk_default_0 = get_initials(chunk_default_0);chunk_default_0 = chunk_default_0;
@@ -180,7 +186,7 @@ result += elem[0].length()>0 ? elem[0] + (es>1&&i<es-1?elem[1]:"") : "";
 elems.clear();
 return result;
 }
-public String getCS_1_CSLD_4_P_default_E_1() throws Exception {
+public String getCS_1_CSLD_4_P_default_E_2() throws Exception {
 String result = "";
 String str = "";
 String last = "";
@@ -232,10 +238,10 @@ last = chunk_last_0 + insertDelimiter(chunk_last_0, ", ", chunk_last_1) + chunk_
 
 }
 int es = elems.size();
-if ( hasLast && count>2 && ( maxCount || !subDs.next( ) ) ) {
-int idx = es - ( maxCount ? 3 : 2 ) ;
+if ( hasLast && count>2 && ( !subDs.next( ) ) ) {
+int idx = es - ( 2 ) ;
 String[] elem = (String[])elems.get( idx );
-elems.set(idx + 1, new String[]{ last, maxCount ? elem[1] : "" });
+elems.set(idx + 1, new String[]{ last, "" });
 elem[1] = delim;
 elems.set(idx, elem);
 
