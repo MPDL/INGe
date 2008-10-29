@@ -59,5 +59,20 @@
     pdf-font-name="ARIALBI.TTF"
     is-underline="true"
     is-strike-through="false"/>
+    
+  <font-style name="DISPLAY_DATE_STATUS"
+    def="true"
+    font-name="Arial"
+    font-size="12"
+    fore-color="black"
+    back-color="white"
+    is-bold="false"
+    is-italic="false"
+    pdf-font-name="ARIAL.TTF"
+    is-underline="false"
+    is-strike-through="false"
+    css-class="DisplayDateStatus"
+    />
+    
 
 </font-styles-collection>
