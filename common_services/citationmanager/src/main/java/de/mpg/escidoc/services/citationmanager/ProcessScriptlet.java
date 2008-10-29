@@ -432,13 +432,13 @@ public class ProcessScriptlet {
 
         String headerChunk = "";
         String whileChunk = "";
-        ArrayList elements;
+        ArrayList<LayoutElement> elements;
         Parameters parameters;
         Parameters pLE;
         Parameters pREF;
         String xPath;
         String ref = le.getRef();
-        LayoutElement refLE;
+        LayoutElement refLE; 
         String pos;
         int i = 0;
         String name = le.getName();
