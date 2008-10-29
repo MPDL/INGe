@@ -26,7 +26,7 @@ public String cleanCit(String str) {
    if (str!=null && str.length()>0) {
        str = str.replace("null", "");
 		str = Pattern.compile("[\n\r\t]+", Pattern.DOTALL).matcher(str).replaceAll(" ");
-       str = str.replaceAll("\\p{Blank}+", " ");
+       str = str.replaceAll("\\s+", " ");
        str = str.replaceAll("([.]+\\s*[.]+)+",".");
        str = str.replaceAll("([,]+\\s*[,]+)+",",");
        str = str.replaceAll("([;]+\\s*[;]+)+",";");
@@ -35,10 +35,9 @@ public String cleanCit(String str) {
        str = str.replaceAll("([!]+\\s*[!]+)+","!");
        str = str.replaceAll("([({<\\[])\\s+(.*)","$1$2");
        str = str.replaceAll("(.*)\\s+([\\]>})])","$1$2");
-       str = str.replaceAll("([.]+\\s*\\<[/]?style.*?\\>)\\s*[.]+","$1");
-       str = str.replaceAll("([,.;:?!])+\\s*(\\<[/]?style.*?\\>)\\s*([,.;:?!])+","$1$2$3");
-       str = str.replaceAll("([,.;:?!]+)\\p{Blank}*([,.;:?!]+)", "$1$2");
-       str = Pattern.compile("\\<style.*?\\>\\s*\\<[/]style\\>",Pattern.DOTALL).matcher(str).replaceAll("");
+       str = str.replaceAll("([.]+\\s*<[/]?style[^>]*?>)\\s*[.]+","$1");
+       str = str.replaceAll("\\s+(<[/]?style[^>]*?>)?\\s*([,.;:?!])","$1$2");
+       str = str.replaceAll("<style[^>]*?>\\s*<[/]style\\s*>","");
    }
    return Utils.checkVal(str) ? str: null;
 }
