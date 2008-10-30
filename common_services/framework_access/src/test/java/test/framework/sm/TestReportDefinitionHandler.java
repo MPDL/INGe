@@ -26,7 +26,7 @@ public class TestReportDefinitionHandler
     public void retrieveReportDefinitions() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        String definitions = ServiceLocator.getReportDefinitionHandler().retrieveReportDefinitions();
+        String definitions = ServiceLocator.getReportDefinitionHandler().retrieveReportDefinitions( null );
         zeit += System.currentTimeMillis();
         logger.info("retrieveReportDefinitions()->" + zeit + "ms");
         assertNotNull(definitions);

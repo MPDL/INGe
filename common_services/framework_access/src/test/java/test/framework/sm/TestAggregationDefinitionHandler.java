@@ -25,7 +25,7 @@ public class TestAggregationDefinitionHandler
     public void retrieveAggregationDefinitions() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        String definitions = ServiceLocator.getAggregationDefinitionHandler().retrieveAggregationDefinitions();
+        String definitions = ServiceLocator.getAggregationDefinitionHandler().retrieveAggregationDefinitions( null );
         zeit += System.currentTimeMillis();
         logger.info("retrieveAggregationDefinitions()->" + zeit + "ms");
         assertNotNull(definitions);

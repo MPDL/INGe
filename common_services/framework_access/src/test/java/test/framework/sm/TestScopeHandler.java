@@ -26,7 +26,7 @@ public class TestScopeHandler
     public void retrieveScopes() throws Exception
     {
         long zeit = -System.currentTimeMillis();
-        String scopes = ServiceLocator.getScopeHandler().retrieveScopes();
+        String scopes = ServiceLocator.getScopeHandler().retrieveScopes( null );
         zeit += System.currentTimeMillis();
         logger.info("retrieveScopes()->" + zeit + "ms");
         assertNotNull(scopes);
