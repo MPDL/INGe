@@ -83,32 +83,9 @@ public class Search extends FacesBean
      */
     public String search()
     {
-        // values must be set manually bcs the search button has been changed to
-        // immediate=true
+        
         SearchResultListSessionBean resultListSessionBean = (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
-        if (this.txtSearch.getSubmittedValue() != null)
-        {
-            resultListSessionBean.setSearchString(this.txtSearch.getSubmittedValue().toString());
-        }
-        if (this.chkIncludeFiles.getSubmittedValue() != null)
-        {
-            String fulltext = (String)this.chkIncludeFiles.getSubmittedValue();
-            if (fulltext != null)
-            {
-                if (fulltext.equals("true"))
-                {
-                    resultListSessionBean.setIncludeFiles(true);
-                }
-                else
-                {
-                    resultListSessionBean.setIncludeFiles(false);
-                }
-            }
-            else
-            {
-                resultListSessionBean.setIncludeFiles(false);
-            }
-        }
+       
         String retVal = this.getSearchResultList().startSearch();
         CommonSessionBean sessionBean = getCommonSessionBean();
         // if search returns an error, force JSF to load the ErrorPage
