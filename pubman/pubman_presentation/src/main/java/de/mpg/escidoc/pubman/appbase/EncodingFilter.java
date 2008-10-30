@@ -62,6 +62,8 @@ public class EncodingFilter implements Filter
             ServletException
     {
         request.setCharacterEncoding("UTF-8");
+        
+        filterChain.doFilter(request, response);
     }
 
     /**
