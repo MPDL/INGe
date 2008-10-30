@@ -136,164 +136,6 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
             // loop through all entries in the filter list
             for (Filter filter : filterTaskParamVO.getFilterList())
             {
-
-                // create 'filter' tag with 'name' attribute
-                //
-                ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
-                if (filter instanceof FrameworkItemTypeFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/content-model");
-                }
-                else if (filter instanceof FrameworkContextTypeFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type"); //context-type
-                }
-                else if (filter instanceof OwnerFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/created-by"); //created-by
-                }
-                else if (filter instanceof ItemRefFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //items
-                }
-                else if (filter instanceof AffiliationRefFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //organizational-units
-                }
-                else if (filter instanceof RoleFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role"); 
-                }
-                else if (filter instanceof PubCollectionStatusFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
-                }
-                else if (filter instanceof ItemStatusFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/version/status"); //latest-version-status (according to FIZ, only latest versions are filtered)
-                }
-                else if (filter instanceof TopLevelAffiliationFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); //see OrgUnitHandler - Method retrieveOrganizationalUnits()
-                }
-                else if (filter instanceof ObjectTypeFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); //object-type
-                }
-                else if (filter instanceof ContextFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context"); 
-                }
-                else if (filter instanceof ItemPublicStatusFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
-                }
-                else if (filter instanceof UserAccountStateFilter)
-                {
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active"); //public-status
-                }
-                ctx.closeStartContent();
-
-                // create filter content (the "top-level-organizational-units" filter needs no content)
-                //
-                if (filter instanceof AffiliationRefFilter)
-                {
-                    AffiliationRefFilter affiliationRefFilter = (AffiliationRefFilter)filter;
-
-                    // loop through all entries in the id list
-                    for (AffiliationRO affiliationRO : affiliationRefFilter.getIdList())
-                    {
-                        ctx.startTag(m_index, ID_ELEMENT_NAME).closeStartContent();
-                        ctx.content(affiliationRO.getObjectId());
-                        ctx.endTag(m_index, ID_ELEMENT_NAME);
-                    }
-
-                }
-                else if (filter instanceof ItemRefFilter)
-                {
-                    ItemRefFilter itemRefFilter = (ItemRefFilter)filter;
-
-                    // loop through all entries in the id list
-                    for (ItemRO itemRO : itemRefFilter.getIdList())
-                    {
-                        ctx.startTag(m_index, ID_ELEMENT_NAME).closeStartContent();
-                        ctx.content(itemRO.getObjectId());
-                        ctx.endTag(m_index, ID_ELEMENT_NAME);
-                    }
-
-                }
-                else if (filter instanceof OwnerFilter)
-                {
-                    OwnerFilter ownerFilter = (OwnerFilter)filter;
-                    ctx.content(ownerFilter.getUserRef().getObjectId());
-                }
-                else if (filter instanceof RoleFilter)
-                {
-                    RoleFilter roleFilter = (RoleFilter)filter;
-                    ctx.content(roleFilter.getRole());
-                }
-                else if (filter instanceof PubCollectionStatusFilter)
-                {
-                    PubCollectionStatusFilter pubCollectionStatusFilter = (PubCollectionStatusFilter)filter;
-                    ctx.content(pubCollectionStatusFilter.getState().toString().replace('_', '-').toLowerCase());
-                }
-                else if (filter instanceof ItemStatusFilter)
-                {
-                    ItemStatusFilter itemStatusFilter = (ItemStatusFilter)filter;
-                    ctx.content(itemStatusFilter.getState().toString().replace('_', '-').toLowerCase());
-                }
-                else if (filter instanceof FrameworkItemTypeFilter)
-                {
-                    FrameworkItemTypeFilter frameworkItemTypeFilter = (FrameworkItemTypeFilter)filter;
-                    ctx.content(frameworkItemTypeFilter.getType());
-                }
-                else if (filter instanceof FrameworkContextTypeFilter)
-                {
-                    FrameworkContextTypeFilter frameworkContextTypeFilter = (FrameworkContextTypeFilter)filter;
-                    ctx.content(frameworkContextTypeFilter.getType());
-                }
-                else if (filter instanceof ObjectTypeFilter)
-                {
-                    ObjectTypeFilter objectTypeFilter = (ObjectTypeFilter)filter;
-                    ctx.content(objectTypeFilter.getObjectType());
-                }
-                else if (filter instanceof ContextFilter)
-                {
-                    ContextFilter contextFilter = (ContextFilter)filter;
-                    ctx.content(contextFilter.getContextId());
-                }
-                else if (filter instanceof ItemPublicStatusFilter)
-                {
-                    ItemPublicStatusFilter publicStatusFilter= (ItemPublicStatusFilter)filter;
-                    ctx.content(publicStatusFilter.getState().toString().replace('_', '-').toLowerCase());
-                }
-                else if (filter instanceof UserAccountStateFilter)
-                {
-                    UserAccountStateFilter stateFilter= (UserAccountStateFilter)filter;
-                    ctx.content(String.valueOf(stateFilter.getActive()));
-                   
-                }
-
-                // finish filter element
-                //
-                ctx.endTag(m_index, FILTER_ELEMENT_NAME);
-
-                // for RoleFilter, an additional "user" element has to be created...
-                if (filter instanceof RoleFilter)
-                {
-                    RoleFilter roleFilter = (RoleFilter)filter;
-
-                    // create 'filter' tag with 'name' attribute
-                    ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
-                    ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "user");
-                    ctx.closeStartContent();
-
-                    // create filter content
-                    ctx.content(roleFilter.getUserRef().getObjectId());
-
-                    // finish filter element
-                    ctx.endTag(m_index, FILTER_ELEMENT_NAME);
-                }
                 
                 if (filter instanceof OffsetFilter)
                 {
@@ -323,14 +165,177 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                     ctx.content(orderFilter.getProperty());
                     ctx.endTag(m_index, "order-by");
                 }
+                
+                else{
 
+                    // create 'filter' tag with 'name' attribute
+                    //
+                    ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
+                    if (filter instanceof FrameworkItemTypeFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/content-model");
+                    }
+                    else if (filter instanceof FrameworkContextTypeFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/type"); //context-type
+                    }
+                    else if (filter instanceof OwnerFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/created-by"); //created-by
+                    }
+                    else if (filter instanceof ItemRefFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //items
+                    }
+                    else if (filter instanceof AffiliationRefFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://purl.org/dc/elements/1.1/identifier"); //organizational-units
+                    }
+                    else if (filter instanceof RoleFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "role"); 
+                    }
+                    else if (filter instanceof PubCollectionStatusFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
+                    }
+                    else if (filter instanceof ItemStatusFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/version/status"); //latest-version-status (according to FIZ, only latest versions are filtered)
+                    }
+                    else if (filter instanceof TopLevelAffiliationFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "top-level-organizational-units"); //see OrgUnitHandler - Method retrieveOrganizationalUnits()
+                    }
+                    else if (filter instanceof ObjectTypeFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"); //object-type
+                    }
+                    else if (filter instanceof ContextFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/structural-relations/context"); 
+                    }
+                    else if (filter instanceof ItemPublicStatusFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/public-status"); //public-status
+                    }
+                    else if (filter instanceof UserAccountStateFilter)
+                    {
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "http://escidoc.de/core/01/properties/active"); //public-status
+                    }
+                    ctx.closeStartContent();
+    
+                    // create filter content (the "top-level-organizational-units" filter needs no content)
+                    //
+                    if (filter instanceof AffiliationRefFilter)
+                    {
+                        AffiliationRefFilter affiliationRefFilter = (AffiliationRefFilter)filter;
+    
+                        // loop through all entries in the id list
+                        for (AffiliationRO affiliationRO : affiliationRefFilter.getIdList())
+                        {
+                            ctx.startTag(m_index, ID_ELEMENT_NAME).closeStartContent();
+                            ctx.content(affiliationRO.getObjectId());
+                            ctx.endTag(m_index, ID_ELEMENT_NAME);
+                        }
+    
+                    }
+                    else if (filter instanceof ItemRefFilter)
+                    {
+                        ItemRefFilter itemRefFilter = (ItemRefFilter)filter;
+    
+                        // loop through all entries in the id list
+                        for (ItemRO itemRO : itemRefFilter.getIdList())
+                        {
+                            ctx.startTag(m_index, ID_ELEMENT_NAME).closeStartContent();
+                            ctx.content(itemRO.getObjectId());
+                            ctx.endTag(m_index, ID_ELEMENT_NAME);
+                        }
+    
+                    }
+                    else if (filter instanceof OwnerFilter)
+                    {
+                        OwnerFilter ownerFilter = (OwnerFilter)filter;
+                        ctx.content(ownerFilter.getUserRef().getObjectId());
+                    }
+                    else if (filter instanceof RoleFilter)
+                    {
+                        RoleFilter roleFilter = (RoleFilter)filter;
+                        ctx.content(roleFilter.getRole());
+                    }
+                    else if (filter instanceof PubCollectionStatusFilter)
+                    {
+                        PubCollectionStatusFilter pubCollectionStatusFilter = (PubCollectionStatusFilter)filter;
+                        ctx.content(pubCollectionStatusFilter.getState().toString().replace('_', '-').toLowerCase());
+                    }
+                    else if (filter instanceof ItemStatusFilter)
+                    {
+                        ItemStatusFilter itemStatusFilter = (ItemStatusFilter)filter;
+                        ctx.content(itemStatusFilter.getState().toString().replace('_', '-').toLowerCase());
+                    }
+                    else if (filter instanceof FrameworkItemTypeFilter)
+                    {
+                        FrameworkItemTypeFilter frameworkItemTypeFilter = (FrameworkItemTypeFilter)filter;
+                        ctx.content(frameworkItemTypeFilter.getType());
+                    }
+                    else if (filter instanceof FrameworkContextTypeFilter)
+                    {
+                        FrameworkContextTypeFilter frameworkContextTypeFilter = (FrameworkContextTypeFilter)filter;
+                        ctx.content(frameworkContextTypeFilter.getType());
+                    }
+                    else if (filter instanceof ObjectTypeFilter)
+                    {
+                        ObjectTypeFilter objectTypeFilter = (ObjectTypeFilter)filter;
+                        ctx.content(objectTypeFilter.getObjectType());
+                    }
+                    else if (filter instanceof ContextFilter)
+                    {
+                        ContextFilter contextFilter = (ContextFilter)filter;
+                        ctx.content(contextFilter.getContextId());
+                    }
+                    else if (filter instanceof ItemPublicStatusFilter)
+                    {
+                        ItemPublicStatusFilter publicStatusFilter= (ItemPublicStatusFilter)filter;
+                        ctx.content(publicStatusFilter.getState().toString().replace('_', '-').toLowerCase());
+                    }
+                    else if (filter instanceof UserAccountStateFilter)
+                    {
+                        UserAccountStateFilter stateFilter= (UserAccountStateFilter)filter;
+                        ctx.content(String.valueOf(stateFilter.getActive()));
+                       
+                    }
+    
+                    // finish filter element
+                    //
+                    ctx.endTag(m_index, FILTER_ELEMENT_NAME);
+    
+                    // for RoleFilter, an additional "user" element has to be created...
+                    if (filter instanceof RoleFilter)
+                    {
+                        RoleFilter roleFilter = (RoleFilter)filter;
+    
+                        // create 'filter' tag with 'name' attribute
+                        ctx.startTagAttributes(m_index, FILTER_ELEMENT_NAME);
+                        ctx.attribute(m_index, NAME_ATTRIBUTE_NAME, "user");
+                        ctx.closeStartContent();
+    
+                        // create filter content
+                        ctx.content(roleFilter.getUserRef().getObjectId());
+    
+                        // finish filter element
+                        ctx.endTag(m_index, FILTER_ELEMENT_NAME);
+                    }
+                    
+                    
+    
+                }
+                
+                
+                }
+                // finish with end tag for container element
+                ctx.endTag(m_index, m_name);
             }
-            
-            
-
-            // finish with end tag for container element
-            ctx.endTag(m_index, m_name);
-        }
+        
     }
 
     /**
