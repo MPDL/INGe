@@ -40,7 +40,7 @@
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
-				<title>eSciDoc PubMan</title>
+				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
 				<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
 				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
@@ -52,14 +52,9 @@
 				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript"></script>
 
 			</head>
-
-<!-- JIRA AS-564 -->
-<!-- start please provide language -->
-			<body lang="en">
-<!-- stop please provide language -->
-			
+			<body lang="#{InternationalizationHelper.locale}">
 			<h:form id="form1">
-
+			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
 				<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
 					<h:outputText value="Skip to the main menu"/>
@@ -83,14 +78,11 @@
 					<div class="clear">
 						<div class="headerSection">
 							
-						<!-- import breadcrumb -->
 						<jsp:directive.include file="header/Breadcrumb.jspf" />
 				
-							<div class="clear headLine">
-								<!-- skip anchor: mainMenu -->
-								<h:outputLink id="contentSkipLinkAnchor"></h:outputLink>
+							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1>Home</h1>
+								<h1><h:outputText value="#{lbl.HomePage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -121,6 +113,15 @@
 
 
 				</h:form>
+				<script type="text/javascript">
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
+				});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
+				});
+				</script>
 			</body>
 		</html>
 	</f:view>
