@@ -74,9 +74,11 @@
 	
 	function clearFields()
 	{
-		if ($(this).val() != this.content)
+		if (typeof this.content != 'undefined' && this.content != '' && $(this).val() != this.content)
 		{
 			var parent = $input.parents('.'+journalSuggestCommonParentClass);
+			
+			this.content = '';
 			
 			fillField('publisher', '', parent);
 			fillField('place', '', parent);
