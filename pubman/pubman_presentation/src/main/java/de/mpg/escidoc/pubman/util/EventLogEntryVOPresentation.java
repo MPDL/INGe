@@ -64,21 +64,24 @@ public class EventLogEntryVOPresentation extends EventLogEntryVO
     public String getCurrentTypeLabel()
     {
         ResourceBundle labelBundle = ResourceBundle.getBundle(i18nHelper.getSelectedLabelBundle());
-        switch (getType())
+        if (getType()!=null)
         {
-            case CREATE:
-                return labelBundle.getString("ViewItemLog_lblCreate");
-            case RELEASE:
-                return labelBundle.getString("ViewItemLog_lblRelease");
-            case SUBMIT:
-                return labelBundle.getString("ViewItemLog_lblSubmit");
-            case UPDATE:
-                return labelBundle.getString("ViewItemLog_lblUpdate");
-            case WITHDRAW:
-                return labelBundle.getString("ViewItemLog_lblWithdraw");
-            case IN_REVISION:
-                return labelBundle.getString("ViewItemLog_lblInRevision");
-                
+            switch (getType())
+            {
+                case CREATE:
+                    return labelBundle.getString("ViewItemLog_lblCreate");
+                case RELEASE:
+                    return labelBundle.getString("ViewItemLog_lblRelease");
+                case SUBMIT:
+                    return labelBundle.getString("ViewItemLog_lblSubmit");
+                case UPDATE:
+                    return labelBundle.getString("ViewItemLog_lblUpdate");
+                case WITHDRAW:
+                    return labelBundle.getString("ViewItemLog_lblWithdraw");
+                case IN_REVISION:
+                    return labelBundle.getString("ViewItemLog_lblInRevision");
+                    
+            }
         }
         return "";
     }
