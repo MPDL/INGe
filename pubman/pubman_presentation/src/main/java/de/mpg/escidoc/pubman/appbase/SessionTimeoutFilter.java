@@ -77,8 +77,7 @@ public class SessionTimeoutFilter implements Filter
             ServletResponse response,
             FilterChain filterChain) throws IOException, ServletException
     {
-        request.setCharacterEncoding("UTF-8");
-        
+
         if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
         {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
