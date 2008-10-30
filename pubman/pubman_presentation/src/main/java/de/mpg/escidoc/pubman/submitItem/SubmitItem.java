@@ -160,7 +160,15 @@ public class SubmitItem extends FacesBean
         
         if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
         {
-            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
+            // distinguish between simple and standard workflow
+        	if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
+        	{
+        		info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_RELEASED));
+        	}
+        	else
+        	{
+        	info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
+        	}
         }
         
         
