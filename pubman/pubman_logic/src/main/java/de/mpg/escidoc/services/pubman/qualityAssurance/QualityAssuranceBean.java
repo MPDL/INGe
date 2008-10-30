@@ -65,6 +65,7 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkContextTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.PubCollectionStatusFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.RoleFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
@@ -111,6 +112,9 @@ public class QualityAssuranceBean implements QualityAssurance
         
           
         FilterTaskParamVO filter = new FilterTaskParamVO();
+        
+      
+        
         Filter f1 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(state));
         filter.getFilterList().add(f1);
         
@@ -137,6 +141,9 @@ public class QualityAssuranceBean implements QualityAssurance
         filter.getFilterList().add(f7);
         Filter f8 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
         filter.getFilterList().add(f8);
+        
+        Filter f9 = filter.new LimitFilter("0");
+        filter.getFilterList().add(f9);
        
         String xmlFilter = xmlTransforming.transformToFilterTaskParam(filter);
        
