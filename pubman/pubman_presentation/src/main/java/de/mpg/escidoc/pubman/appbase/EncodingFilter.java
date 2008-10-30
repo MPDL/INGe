@@ -50,9 +50,12 @@ import javax.servlet.ServletResponse;
  */
 public class EncodingFilter implements Filter
 {
+    /**
+     * {@inheritDoc}
+     */
     public void destroy()
     {
-        // TODO Auto-generated method stub
+        // Nothing to do here
     }
 
     /**
@@ -71,6 +74,6 @@ public class EncodingFilter implements Filter
      */
     public void init(FilterConfig config) throws ServletException
     {
-        // No initialization
+     // Nothing to do here
     }
 }
