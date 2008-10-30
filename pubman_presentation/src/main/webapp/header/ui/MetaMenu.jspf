@@ -31,9 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGroup styleClass="full_area0 metaMenu">
-	<!-- skip anchor: metaMenu -->
-	<h:outputLink id="metaMenuSkipLinkAnchor"></h:outputLink>
+<span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 	<!-- meta Menu starts here -->
 
 
@@ -70,7 +68,7 @@
 	<h:panelGroup styleClass="seperator" rendered="#{Login.loggedIn}"></h:panelGroup>
 
 	<!-- meta Menu ends here -->
-</h:panelGroup>
+</span>
 
 	
 

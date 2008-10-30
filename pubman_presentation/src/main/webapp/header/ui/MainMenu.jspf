@@ -31,9 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGroup styleClass="full_area0 small_marginLExcl mainMenu" layout="block">
-	<!-- skip anchor: mainMenu -->
-	<h:outputLink id="mainMenuSkipLinkAnchor"></h:outputLink>
+<div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to PubMan startpage." action="#{Navigation.loadHome}">
 		<h:outputText value="#{lbl.mainMenu_lnkHome}" />
@@ -76,7 +74,7 @@
 
 
 	<!-- main Menu ends here -->
-</h:panelGroup>
+</div>
 
 
 	

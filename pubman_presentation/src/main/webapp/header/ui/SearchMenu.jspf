@@ -31,9 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <f:loadBundle var="lbl" basename="Label"/>
 
-<h:panelGroup layout="block" styleClass="free_area0 searchMenu">
-	<!-- skip anchor: searchMenu -->
-	<h:outputLink id="searchMenuSkipLinkAnchor"></h:outputLink>
+<div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
 	<h:inputText styleClass="medium_txtInput quickSearchTextInput" binding="#{Search.txtSearch}" value="#{SearchResultListSessionBean.searchString}"/>
 	<h:panelGroup styleClass="xLarge_area0 quickSearchMenu">
@@ -56,7 +54,7 @@
 		</h:commandLink>
 	</h:panelGroup>
 	<!-- search Menu ends here -->
-</h:panelGroup>
+</div>
 
 	
 

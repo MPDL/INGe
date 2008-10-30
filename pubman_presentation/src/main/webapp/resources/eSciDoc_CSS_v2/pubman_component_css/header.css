@@ -90,6 +90,7 @@
 	.mainMenu {
 		margin-top: 0.27em;
 		margin-bottom: 1.55em;
+		padding-left: 5.74em !important;
 	}
 
 	.mainMenu input, .mainMenu a {
