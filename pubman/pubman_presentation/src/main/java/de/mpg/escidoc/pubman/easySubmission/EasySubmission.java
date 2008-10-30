@@ -928,7 +928,8 @@ public class EasySubmission extends FacesBean
 			            if (fileURL != null && !fileURL.toString().trim().equals(""))
 			            {			                
 			            	fileVO.setStorage(FileVO.Storage.INTERNAL_MANAGED);
-			            	fileVO.setVisibility(FileVO.Visibility.PRIVATE);
+			            	//This is tmp till we can read out this property from source xml
+			            	fileVO.setVisibility(FileVO.Visibility.PUBLIC);
 			            	fileVO.setDefaultMetadata(new MdsFileVO());
 			                fileVO.getDefaultMetadata().setTitle(new TextVO(importHandler.trimIdentifier(service,getServiceID()).trim()+ importHandler.getFileEnding()));
 			                fileVO.setMimeType(importHandler.getContentType());
@@ -942,6 +943,8 @@ public class EasySubmission extends FacesBean
 			                fileVO.setContent(fileURL.toString());
 			                fileVO.getDefaultMetadata().setSize(ba.length);
 			                fileVO.getDefaultMetadata().setDescription("Data downloaded from "+ service + " at " + CommonUtils.currentDate());
+			                //This is tmp till we can read out this property from source xml
+			                fileVO.setContentCategory( PubFileVOPresentation.ContentCategory.PRE_PRINT.toString());
 			            }
 		    		}
 	    		}
