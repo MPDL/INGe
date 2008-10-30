@@ -33,14 +33,14 @@
 
 <f:subview id="Breadcrumb">
 
-<h:panelGroup styleClass="clear breadcrumb">
+<span class="clear breadcrumb">
 	<!-- Breadcrumb starts here -->
 	<ol>
 		<tr:iterator id="BreadcrumbNavigation" var="item">
 			<li>
 
 
-<!-- start has to be reworked anyway -->
+<%-- start has to be reworked anyway --%>
 					<tr:goLink destination="/#{ApplicationBean.appContext}#{item.page}" rendered="#{!item.isLast && item.defaultAction == null}">
 						<tr:outputText value="#{item.pageLabel}" />
 					</tr:goLink>
@@ -49,13 +49,13 @@
 					</tr:commandLink>
 					<tr:outputText value="#{item.pageLabel}" rendered="#{item.isLast}"/>
 					<tr:outputText value=" / " rendered="#{!item.isLast}"/>
-<!-- stop has to be reworked anyway -->
+<%-- stop has to be reworked anyway --%>
 
 
 			</li>
 		</tr:iterator>
 	</ol>
 	<!-- Breadcrumb ends here -->
-</h:panelGroup>
+</span>
 
 </f:subview>

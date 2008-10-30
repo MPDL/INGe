@@ -33,28 +33,28 @@
 
 <f:subview id="Header">
 
-<h:panelGroup layout="block" styleClass="full_area0 clear">
+<div class="full_area0 clear">
 <!-- begin: header section (including meta menu, logo, searchMenu and main menu)-->
 
-	<!-- import meta menu here -->
+	<%-- import meta menu here --%>
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
 
-	<h:panelGroup layout="block" styleClass="full_area0 LogoNSearch">
+	<div class="full_area0 LogoNSearch">
 		<h:commandLink action="#{Navigation.loadHome}" title="Go to PubMan startpage.">
-			<h:panelGroup styleClass="xTiny_marginLExcl huge_area0 headerLogo">
-				<h:panelGroup styleClass="huge_area0 themePark"></h:panelGroup>
-			</h:panelGroup>
+			<span class="xTiny_marginLExcl huge_area0 headerLogo">
+				<span class="huge_area0 themePark"></span>
+			</span>
 		</h:commandLink>
 
-		<!-- import search here-->
+		<%-- import search here--%>
 		<jsp:directive.include file="ui/SearchMenu.jspf"/>
 
-	</h:panelGroup>
+	</div>
 
-	<!-- import main menu here -->
+	<%-- import main menu here --%>
 	<jsp:directive.include file="ui/MainMenu.jspf"/>
 
 <!-- end: header section -->
-</h:panelGroup>
+</div>
 
 </f:subview>

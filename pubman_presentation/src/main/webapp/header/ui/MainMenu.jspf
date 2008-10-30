@@ -29,7 +29,6 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
 
 <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
@@ -38,11 +37,11 @@
 	</h:commandLink>
 
 
-<!-- start should replace the following later -->
+<%-- start should replace the following later --%>
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Go to Workspace." value="#{ApplicationBean.appContext}MyItemsPage.jsp" rendered="false">
 		<h:outputText value="MY ITEMS" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-<!-- stop should replace the following later -->
+<%-- stop should replace the following later --%>
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
 		<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
@@ -52,11 +51,11 @@
 
 
 
-<!-- start should replace the following later -->
+<%-- start should replace the following later --%>
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Go to New Submission." value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="false">
 		<h:outputText value="NEW SUBMISSION" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-<!-- stop should replace the following later -->
+<%-- stop should replace the following later --%>
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" action="#{CreateItem.newSubmission}" immediate="true">
 		<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:commandLink>
@@ -75,8 +74,3 @@
 
 	<!-- main Menu ends here -->
 </div>
-
-
-	
-
-
