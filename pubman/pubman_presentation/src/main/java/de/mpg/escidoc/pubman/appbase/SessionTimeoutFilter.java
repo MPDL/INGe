@@ -44,12 +44,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
-import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
- * TODO Description
+ * Servlet filter to check if the user session has expired.
+ * If so, logout the user from the framework and redirect him/her to the homepage.
  *
  * @author franke (initial creation)
  * @author $Author$ (last modification)
@@ -60,59 +60,68 @@ public class SessionTimeoutFilter implements Filter
 {
     private static final Logger logger = Logger.getLogger(SessionTimeoutFilter.class);
     
-    public static String LOGOUT_URL = "/aa/logout";
+    public static final String LOGOUT_URL = "/aa/logout";
     
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#destroy()
+    /**
+     * {@inheritDoc}
      */
     public void destroy()
     {
-        // TODO Auto-generated method stub
+     // Nothing to do here
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest, javax.servlet.ServletResponse, javax.servlet.FilterChain)
+    /**
+     * {@inheritDoc}
      */
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain filterChain) throws IOException,
-            ServletException
+    public void doFilter(ServletRequest request,
+            ServletResponse response,
+            FilterChain filterChain) throws IOException, ServletException
     {
-        if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse)) {
+        request.setCharacterEncoding("UTF-8");
+        
+        if ((request instanceof HttpServletRequest) && (response instanceof HttpServletResponse))
+        {
             HttpServletRequest httpServletRequest = (HttpServletRequest) request;
             HttpServletResponse httpServletResponse = (HttpServletResponse) response;
             
             try
             {
-                String homePage = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+                String homePage = PropertyReader.getProperty("escidoc.pubman.instance.url")
+                        + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
                 
-                logger.debug("httpServletRequest.getRequestedSessionId(): " + httpServletRequest.getRequestedSessionId());
+                logger.debug("httpServletRequest.getRequestedSessionId(): "
+                        + httpServletRequest.getRequestedSessionId());
                 logger.debug(httpServletRequest.getContextPath());
                 logger.debug(httpServletRequest.getPathInfo());
                 logger.debug(httpServletRequest.getLocalAddr());
                 logger.debug(httpServletRequest.getQueryString());
                 
                 if (httpServletRequest.getRequestedSessionId() != null
-                        && httpServletRequest.getParameter("expired") == null
-                        && httpServletRequest.getParameter("logout") == null
-                        && !httpServletRequest.isRequestedSessionIdValid())
+                    && httpServletRequest.getParameter("expired") == null
+                    && httpServletRequest.getParameter("logout") == null
+                    && !httpServletRequest.isRequestedSessionIdValid())
                 {
 
-                        httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
-                        return;
+                    httpServletResponse.sendRedirect(ServiceLocator.getFrameworkUrl()
+                            + LOGOUT_URL + "?target="
+                            + URLEncoder.encode(homePage + "?expired=true", "UTF-8"));
+                    return;
                     
                 }
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 throw new ServletException("Error logging out", e);
             }
         }
         filterChain.doFilter(request, response);
     }
 
-    /* (non-Javadoc)
-     * @see javax.servlet.Filter#init(javax.servlet.FilterConfig)
+    /**
+     * {@inheritDoc}
      */
     public void init(FilterConfig arg0) throws ServletException
     {
-        // TODO Auto-generated method stub
+        // Nothing to do here
     }
 }
