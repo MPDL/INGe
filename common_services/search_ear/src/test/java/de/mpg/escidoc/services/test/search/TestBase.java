@@ -68,11 +68,16 @@ import org.apache.commons.httpclient.methods.PutMethod;
 import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.referenceobjects.ContextRO;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.GrantVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.PidTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ResultVO;
+import de.mpg.escidoc.services.common.valueobjects.TaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.DegreeType;
@@ -112,6 +117,8 @@ public class TestBase
     protected static final String MPG_TEST_AFFILIATION = "escidoc:persistent13";
 
     private static final int NUMBER_OF_URL_TOKENS = 2;
+    protected static final String PUBMAN_CONTENT_TYPE_ID = "escidoc:persistent4";
+    protected static final String TESTFILE_PATH = "src/test/resources/search/Der_kleine_Prinz_Auszug.pdf";
     
     static
     {
@@ -294,7 +301,7 @@ public class TestBase
      * @return The account user test_dep_scientist with handle set.
      * @throws Exception
      */
-    protected AccountUserVO getUserTestDepScientistWithHandle() throws Exception
+    protected static AccountUserVO getUserTestDepScientistWithHandle() throws Exception
     {
         return getUserWithHandle(loginScientist());
     }
@@ -305,7 +312,7 @@ public class TestBase
      * @return The account user test_dep_lib with handle set.
      * @throws Exception
      */
-    protected AccountUserVO getUserTestDepLibWithHandle() throws Exception
+    protected static AccountUserVO getUserTestDepLibWithHandle() throws Exception
     {
         return getUserWithHandle(loginDepositorLibrary());
     }
@@ -316,12 +323,12 @@ public class TestBase
      * @return The account user roland with handle set.
      * @throws Exception
      */
-    protected AccountUserVO getUserSystemAdministratorWithHandle() throws Exception
+    protected static AccountUserVO getUserSystemAdministratorWithHandle() throws Exception
     {
         return getUserWithHandle(loginSystemAdministrator());
     }
 
-    private AccountUserVO getUserWithHandle(String userHandle) throws Exception
+    private static AccountUserVO getUserWithHandle(String userHandle) throws Exception
     {
         String userXML = ServiceLocator.getUserAccountHandler(userHandle).retrieve(userHandle);
         XmlTransforming xmlTransforming = (XmlTransforming) getService(XmlTransforming.SERVICE_NAME);
@@ -341,7 +348,7 @@ public class TestBase
      * 
      * @return pub item 
      */
-    protected PubItemVO getNewPubItemWithoutFiles()
+    protected static PubItemVO getNewPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
         
@@ -380,7 +387,7 @@ public class TestBase
         return item;
     }
 
-    protected PubItemVO getComplexPubItemWithoutFiles()
+    protected static PubItemVO getComplexPubItemWithoutFiles()
     {
         PubItemVO item = new PubItemVO();
 
@@ -394,7 +401,7 @@ public class TestBase
         return item;
     }
 
-    protected MdsPublicationVO getMdsPublication()
+    protected static MdsPublicationVO getMdsPublication()
     {
         // Metadata
         MdsPublicationVO mds = new MdsPublicationVO();
@@ -602,6 +609,7 @@ public class TestBase
      */
     protected static Object getService(String serviceName) throws NamingException
     {
+        
         InitialContext context = new InitialContext();
         Object serviceInstance = context.lookup(serviceName);
         assertNotNull(serviceInstance);
@@ -611,7 +619,7 @@ public class TestBase
     /**
      * Helper: Retrieves the item from the Framework ItemHandler and transforms it to a PubItemVO.
      */
-    protected PubItemVO getPubItemFromFramework(ItemRO pubItemRef, AccountUserVO accountUser) throws Exception
+    protected static PubItemVO getPubItemFromFramework(ItemRO pubItemRef, AccountUserVO accountUser) throws Exception
     {
         XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
         String retrievedItem = ServiceLocator.getItemHandler(accountUser.getHandle()).retrieve(pubItemRef.getObjectId());
@@ -634,7 +642,7 @@ public class TestBase
      * @return The URL of the uploaded file
      * @throws Exception
      */
-    protected URL uploadFile(String filename, String mimetype, String userHandle) throws Exception
+    protected static URL uploadFile(String filename, String mimetype, String userHandle) throws Exception
     {
         XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
         // Prepare the HttpMethod.
@@ -684,5 +692,54 @@ public class TestBase
     {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         return sdf.format(new Date());
+    }
+    
+    protected static ItemVO createItem(ItemVO pubItem, AccountUserVO user) throws Exception
+    {
+        ItemHandler ih = ServiceLocator.getItemHandler(user.getHandle());
+        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        
+        String itemXml = xmlTransforming.transformToItem(pubItem);
+        String itemNew = ih.create(itemXml);
+        
+        return xmlTransforming.transformToItem(itemNew);
+        
+    }
+    
+    protected static ItemVO submitAndReleaseItem(ItemVO item, AccountUserVO user) throws Exception
+    {
+        ItemHandler ih = ServiceLocator.getItemHandler(user.getHandle());
+        XmlTransforming xmlTransforming = (XmlTransforming)getService(XmlTransforming.SERVICE_NAME);
+        String itemXml = xmlTransforming.transformToItem(item);
+        
+        //submit
+        TaskParamVO submitParam = new TaskParamVO(item.getModificationDate(), "test submit");
+        String paramXml = xmlTransforming.transformToTaskParam(submitParam);
+        String resultXml = ih.submit(item.getVersion().getObjectId(), paramXml);
+        ResultVO resultVO = xmlTransforming.transformToResult(resultXml);
+        
+        //assign Object PID
+        PidTaskParamVO pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), "http://localhost");
+        paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+        resultXml = ih.assignObjectPid(item.getVersion().getObjectId(), paramXml);
+        resultVO = xmlTransforming.transformToResult(resultXml);
+        
+        //assign Version PID
+        pidParam = new PidTaskParamVO(resultVO.getLastModificationDate(), "http://localhost");
+        paramXml = xmlTransforming.transformToPidTaskParam(pidParam);
+        resultXml = ih.assignVersionPid(item.getVersion().getObjectId(), paramXml);
+        resultVO = xmlTransforming.transformToResult(resultXml);
+        
+       
+        //release
+        TaskParamVO releaseParam = new TaskParamVO(resultVO.getLastModificationDate(), "test release");
+        String releaseParamXml = xmlTransforming.transformToTaskParam(releaseParam);
+        resultXml = ih.release(item.getVersion().getObjectId(), releaseParamXml);
+        
+        //retrieve and return
+        String releasedItemXml = ih.retrieve(item.getVersion().getObjectId());
+        ItemVO releasedItem = xmlTransforming.transformToItem(releasedItemXml);
+        return releasedItem;
+        
     }
 }

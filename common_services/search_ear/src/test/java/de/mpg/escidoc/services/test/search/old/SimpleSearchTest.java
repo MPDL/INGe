@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.test.search;
+package de.mpg.escidoc.services.test.search.old;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -61,6 +61,7 @@ import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.StandardSearchQuery;
 import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.test.search.TestBase;
 
 import javax.ejb.EJB;
 
@@ -84,7 +85,7 @@ public class SimpleSearchTest extends TestBase
     public void setUp() throws Exception {
     	itemContainerSearch = (ItemContainerSearch)getService(ItemContainerSearch.SERVICE_NAME);
     }
-    
+    /*
     @Test 
     public void testSimpleSearch() throws Exception {
     	
@@ -119,7 +120,7 @@ public class SimpleSearchTest extends TestBase
     public void tearDown() throws Exception {
     	
     }
-
+*/
 //    /**
 //     * Test method for
 //     * {@link de.mpg.escidoc.services.pubman.searching.PubItemSearchingBean#search(java.lang.String, boolean)}.

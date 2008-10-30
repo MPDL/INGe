@@ -6,6 +6,7 @@ package de.mpg.escidoc.services.test.search;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+
 /**
  * Integration test suite for service "Search".
  * @author endres
@@ -14,6 +15,8 @@ import org.junit.runners.Suite;
 
 @RunWith(Suite.class)
 @Suite.SuiteClasses({ 
+                    TestMetadataSearch.class,
+                    TestSearchAndExport.class
 //					 BracketsTest.class
 //                     ,ConstantsTest.class
 //                     ,ExpressionsTest.class                    
@@ -21,7 +24,7 @@ import org.junit.runners.Suite;
 //                     ,PhrasesTest.class
 //                     ,QueryParserTest.class                    
 //                     ,SearchPubItemsByAffiliationTest.class
-                     SimpleSearchTest.class
+//                     SimpleSearchTest.class
 //                     ,AdvancedSearchTest.class
 //                     ,SearchAndOutputTest.class
                     })

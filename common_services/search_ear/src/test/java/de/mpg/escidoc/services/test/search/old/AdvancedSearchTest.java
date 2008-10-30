@@ -28,7 +28,7 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.test.search;
+package de.mpg.escidoc.services.test.search.old;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -65,6 +65,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRol
 //import de.mpg.escidoc.services.pubman.valueobjects.TopicCriterionVO;
 //import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
 //import de.mpg.escidoc.services.pubman.valueobjects.DateCriterionVO.DateType;
+import de.mpg.escidoc.services.test.search.TestBase;
 
 /**
  * Test class for advanced search.
