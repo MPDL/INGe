@@ -54,9 +54,6 @@ public class Search extends FacesBean
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(Search.class);
     
-    // the two fields in the search.jspf
-    private HtmlInputText txtSearch = new HtmlInputText();
-    private HtmlSelectBooleanCheckbox chkIncludeFiles = new HtmlSelectBooleanCheckbox();
     
     /**
      * Public constructor
@@ -140,24 +137,5 @@ public class Search extends FacesBean
         return (SearchResultList)getBean(SearchResultList.class);
     }
 
-    // Getters and Setters
-    public HtmlSelectBooleanCheckbox getChkIncludeFiles()
-    {
-        return chkIncludeFiles;
-    }
-
-    public void setChkIncludeFiles(HtmlSelectBooleanCheckbox chkIncludeFiles)
-    {
-        this.chkIncludeFiles = chkIncludeFiles;
-    }
-
-    public HtmlInputText getTxtSearch()
-    {
-        return txtSearch;
-    }
-
-    public void setTxtSearch(HtmlInputText txtSearch)
-    {
-        this.txtSearch = txtSearch;
-    }
+   
 }
