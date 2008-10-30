@@ -1358,6 +1358,9 @@ public class ItemControllerSessionBean extends FacesBean
 
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
+        
+       
+        
         Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
         filter.getFilterList().add(f1);
         
@@ -1387,6 +1390,9 @@ public class ItemControllerSessionBean extends FacesBean
             Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
             filter.getFilterList().add(f7);
         }
+        
+        Filter f8 = filter.new LimitFilter("0");
+        filter.getFilterList().add(f8);
        
         
        
