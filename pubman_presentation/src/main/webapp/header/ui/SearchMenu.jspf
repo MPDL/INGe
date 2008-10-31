@@ -42,14 +42,14 @@
 	</span>
 	<span class="large_area0 advancedSearchMenu">
 		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
-			<h:panelGroup><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></h:panelGroup>
-			<h:panelGroup styleClass="min_imgArea advancedSearchIcon"></h:panelGroup>
+			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
+			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
 		</h:commandLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
 		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Organisation Search." immediate="true" action="#{Navigation.loadAffiliationTree}">
-			<h:panelGroup><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></h:panelGroup>
-			<h:panelGroup styleClass="min_imgArea organisationSearchIcon"></h:panelGroup>
+			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
+			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
 		</h:commandLink>
 	</span>
 	<!-- search Menu ends here -->
