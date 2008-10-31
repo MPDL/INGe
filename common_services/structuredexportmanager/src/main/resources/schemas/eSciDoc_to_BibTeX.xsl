@@ -39,7 +39,7 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
  xmlns:func="urn:my-functions"
  
  xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:dcterms="http://purl.org/dc/terms/"  
+   xmlns:dcterms="http://purl.org/dc/terms/"
    xmlns:ei="${xsd.soap.item.item}"
    xmlns:mdr="${xsd.soap.common.mdrecords}"
    xmlns:mdp="${xsd.metadata.escidocprofile}"
