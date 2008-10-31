@@ -41,6 +41,7 @@ import org.z3950.zing.cql.ModifierSet;
 
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * A search query with a set of metadata criteria. The criteria can be combined
@@ -68,7 +69,7 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
      * @param contentTypes
      *            list of content types
      * @throws TechnicalException
-     *             if the object cannot be instantiated
+     *             if the object cannot be instantiated 
      */
     public MetadataSearchQuery(ArrayList<String> contentTypes) throws TechnicalException
     {
@@ -140,6 +141,27 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
         }
         return node;
     }
+    
+    /**
+     * Checks if a set of criteria can be transformed into a cql query. 
+     * If a query has more than one criteria, the following criteria must have a 
+     * logical operator, otherwise no valid cql query can be created.
+     * @return true if query is valid, false if not
+     */
+    private boolean isQueryValid() 
+    {
+        for (int i = 1; i < searchCriteria.size(); i++)
+        {
+            if ((searchCriteria.get(i).getLogicalOperator() == null)
+                    || searchCriteria.get(i).getLogicalOperator() == LogicalOperator.UNSET)
+            {
+                // query is invalid
+                return false;
+            }
+        }
+        // query is valid
+        return true;
+    }
 
     /**
      * Get the cql query as string.
@@ -152,6 +174,11 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
      */
     public String getCqlString() throws ParseException, TechnicalException
     {
+        if (!isQueryValid()) 
+        {
+            throw new TechnicalException("The search query is invalid, missing logical operator at criteria");
+        }
+        
         StringBuffer buffer = new StringBuffer();
         if (searchCriteria.size() != 0)
         {
