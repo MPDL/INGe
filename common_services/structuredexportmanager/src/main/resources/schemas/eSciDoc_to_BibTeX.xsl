@@ -269,10 +269,12 @@ xmlns:escidoc="http://escidoc.mpg.de/metadataprofile/schema/0.1/types"
 	</xsl:template>
 	
 	<xsl:template match="dc:subject">
-		<xsl:call-template name="createField">
-			<xsl:with-param name="name" select="'keywords'"/>
-			<xsl:with-param name="xpath" select="."/>
-		</xsl:call-template>
+		<xsl:if test=".!=''">
+			<xsl:call-template name="createField">
+				<xsl:with-param name="name" select="'keywords'"/>
+				<xsl:with-param name="xpath" select="."/>
+			</xsl:call-template>
+		</xsl:if>
 	</xsl:template>
 	
 	<xsl:template match="dcterms:tableOfContents">
