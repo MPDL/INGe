@@ -71,6 +71,11 @@
 				</div>
 			</div>
 			
-		</h:panelGroup>		
+		</h:panelGroup>	
+		<div class="operatorCenter floatbox">
+                <h:selectOneMenu value="#{languageCriterionBean.logicOperator}">
+                    <f:selectItems value="#{languageCriterionBean.logicOptions}"/>
+                </h:selectOneMenu>
+            </div>	
 	</h:column>
 </h:dataTable>
