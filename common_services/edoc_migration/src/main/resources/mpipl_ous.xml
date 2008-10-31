@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
+	<xsl:variable name="organizational-units">
+		<ou name="Max Planck Society" id="escidoc:persistent13">
+			<ou name="MPI for Psycholinguistics" id="escidoc:17189">
+				<ou name="Acquisition Group" id="escidoc:55196"/>
+				<ou name="Comprehension Group" id="escidoc:17190"/>
+				<ou name="Language and Cognition Group" id="escidoc:55197"/>
+				<ou name="Production Group" id="escidoc:55198"/>
+				<ou name="Production Group Levelt" id="escidoc:55199"/>
+				<ou name="Adaptive Listening" id="escidoc:55200"/>
+				<ou name="Communication before Language" id="escidoc:55240"/>
+				<ou name="Comparative Cognitive Anthropology" id="escidoc:55344"/>
+				<ou name="Evolutionary Models of Language Change" id="escidoc:55241"/>
+				<ou name="Categories and Concepts across Language and Cognition" id="escidoc:55242"/>
+				<ou name="Decoding Continuous Speech" id="escidoc:55256"/>
+				<ou name="Information Structure in Language Acquisition" id="escidoc:55257"/>
+				<ou name="Language in Action" id="escidoc:55258"/>
+				<ou name="Multimodal Interaction" id="escidoc:55259"/>
+				<ou name="Phonological Learning for Speech Perception" id="escidoc:55260"/>
+				<ou name="The Dynamics of Multilingual Processing" id="escidoc:55261"/>
+				<ou name="Unification" id="escidoc:55262"/>
+				<ou name="Event representation" id="escidoc:55263"/>
+				<ou name="Gesture" id="escidoc:55264"/>
+				<ou name="Neurocognition of Language Processing" id="escidoc:55265"/>
+				<ou name="Pioneers of Island Melanesia" id="escidoc:55266"/>
+				<ou name="Sign Language Typology" id="escidoc:55267"/>
+				<ou name="Space" id="escidoc:55268"/>
+				<ou name="The Comparative Study of L2 Acquisition" id="escidoc:55269"/>
+				<ou name="The Dynamics of Learner Varieties" id="escidoc:55270"/>
+				<ou name="The Role of Finiteness" id="escidoc:55271"/>
+				<ou name="Utterance Encoding" id="escidoc:55272"/>
+				<ou name="Language Technology Group" id="escidoc:55276"/>
+				<ou name="Library" id="escidoc:55277"/>
+				<ou name="Other Research" id="escidoc:55278"/>
+			</ou>
+		</ou>
+		<ou name="external" id="escidoc:persistent22">
+<!--			<ou name="IWTS" id="escidoc:mpipl30"/>-->
+<!--			<ou name="CSLM" id="escidoc:mpipl31"/>-->
+<!--			<ou name="Pioneer" id="escidoc:mpipl32"/>-->
+		</ou>
+	</xsl:variable>
+</xsl:stylesheet>

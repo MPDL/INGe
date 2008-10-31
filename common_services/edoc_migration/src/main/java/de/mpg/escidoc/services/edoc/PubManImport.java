@@ -121,6 +121,10 @@ public class PubManImport
         for (String itemXml : itemXmls)
         {
             validateItem(itemXml);
+        }
+        
+        for (String itemXml : itemXmls)
+        {
             importItem(itemXml);
         }
     }

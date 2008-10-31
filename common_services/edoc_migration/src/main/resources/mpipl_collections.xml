@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
+	<xsl:variable name="collection-mapping">
+		<mapping>
+			<edoc-collection>Adaptive Listening</edoc-collection>
+			<escidoc-ou>Adaptive Listening</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Categories and Concepts across Language and Cognition</edoc-collection>
+			<escidoc-ou>Categories and Concepts across Language and Cognition</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Communication before Language</edoc-collection>
+			<escidoc-ou>Communication before Language</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Comparative Cognitive Anthropology</edoc-collection>
+			<escidoc-ou>Comparative Cognitive Anthropology</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Decoding Continuous Speech</edoc-collection>
+			<escidoc-ou>Decoding Continuous Speech</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Event Representation</edoc-collection>
+			<escidoc-ou>Event Representation</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Evolutionary Models of Language Change</edoc-collection>
+			<escidoc-ou>Evolutionary Models of Language Change</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Gesture</edoc-collection>
+			<escidoc-ou>Gesture</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Information Structure in Language Acquisition</edoc-collection>
+			<escidoc-ou>Information Structure in Language Acquisition</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Island Melanesia</edoc-collection>
+			<escidoc-ou>Pioneers of Island Melanesia</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Multimodal Interaction</edoc-collection>
+			<escidoc-ou>Multimodal Interaction</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Neurocognition of Language Processing</edoc-collection>
+			<escidoc-ou>Neurocognition of Language Processing</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Other Research</edoc-collection>
+			<escidoc-ou>Other Research</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Phonological Learning for Speech Perception</edoc-collection>
+			<escidoc-ou>Phonological Learning for Speech Perception</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Sign Language Typology</edoc-collection>
+			<escidoc-ou>Sign Language Typology</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Space</edoc-collection>
+			<escidoc-ou>Space</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Technical Group</edoc-collection>
+			<escidoc-ou>Language Technology Group</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>The Comparative Study of L2 Acquisition</edoc-collection>
+			<escidoc-ou>The Comparative Study of L2 Acquisition</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>The Dynamics of Learner Varieties</edoc-collection>
+			<escidoc-ou>The Dynamics of Learner Varieties</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>The Dynamics of Multilingual Processing</edoc-collection>
+			<escidoc-ou>The Dynamics of Multilingual Processing</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>The Neurobiology of Language</edoc-collection>
+			<escidoc-ou>Unification</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>The Role of Finiteness</edoc-collection>
+			<escidoc-ou>The Role of Finiteness</escidoc-ou>
+		</mapping>
+		<mapping>
+			<edoc-collection>Utterance Encoding</edoc-collection>
+			<escidoc-ou>Utterance Encoding</escidoc-ou>
+		</mapping>
+	</xsl:variable>
+</xsl:stylesheet>

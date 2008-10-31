@@ -63,15 +63,20 @@
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:variable name="user" select="'dummy-user'"/>
-	<xsl:variable name="context" select="'escidoc:23756'"/>
+	<xsl:param name="useAuthorList">true</xsl:param>
+	
+	<xsl:param name="user" select="'dummy-user'"/>
+	<xsl:param name="context" select="'escidoc:23756'"/>
 	
 	<!--
 		DC XML  Header
 	-->
 	<xsl:include href="src/main/resources/languages.xml"/>
-	<xsl:include href="src/main/resources/organizational-units.xml"/>
-
+	<xsl:include href="src/main/resources/functions.xslt"/>
+	<xsl:include href="src/main/resources/mpipl_authors.xml"/>
+	<xsl:include href="src/main/resources/mpipl_ous.xml"/>
+	<xsl:include href="src/main/resources/mpipl_collections.xml"/>
+	
 	<xsl:template match="/*">
 		<item-list>
 			<xsl:apply-templates select="record/metadata"/>		
@@ -669,65 +674,185 @@
 				<xsl:value-of select="error(QName('http://www.escidoc.de', 'err:CreatorRoleNotMapped' ), concat(@role, ' is not mapped to an eSciDoc creator role'))"/>
 			</xsl:otherwise>
 		</xsl:choose>
-		<!-- CREATOR -->	
+		<!-- CREATOR -->
+		<xsl:variable name="creatornfamily" select="creatornfamily"/>
+		<xsl:variable name="creatorngiven" select="creatorngiven"/>
 		<xsl:choose>
 			<xsl:when test="@creatorType='individual'">
-				<xsl:element name="e:person">
-					<xsl:element name="e:complete-name">
-						<xsl:value-of select="concat(creatorngiven, ' ', creatornfamily)"/>
-					</xsl:element>
-					<xsl:element name="e:family-name">
-						<xsl:value-of select="creatornfamily"/>
-					</xsl:element>				
-					<xsl:choose>
-						<xsl:when test="exists(creatorngiven) and not(creatorngiven='')">
-							<xsl:element name="e:given-name">
-								<xsl:value-of select="creatorngiven"/>
-							</xsl:element>
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:element name="e:given-name">
-								<xsl:value-of select="creatorini"/>
-							</xsl:element>
-						</xsl:otherwise>
-					</xsl:choose>	
-					<xsl:choose>
-						<xsl:when test="@internextern='mpg'">							
-							<xsl:for-each select="../../../docaff/affiliation">
-								<xsl:element name="e:organization">						
-									<xsl:element name="e:organization-name">
-										<xsl:value-of select="escidoc:ou(mpgunit, 'path')"/>
-										<xsl:if test="mpgsunit">
-											<xsl:value-of select="concat(', ', mpgsunit)"/>
-										</xsl:if>							
-									</xsl:element>
-									<e:identifier><xsl:value-of select="escidoc:ou(mpgunit, 'id')"/></e:identifier>
-								</xsl:element>
-							</xsl:for-each>						
-						</xsl:when>
-						<xsl:when test="@internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">						
-							<xsl:for-each select="../../../docaff/affiliation">
-								<xsl:element name="e:organization">						
-									<xsl:element name="e:organization-name">
-										<xsl:value-of select="mpgunit"/>		
-										<xsl:if test="mpgsunit">
-											<xsl:value-of select="concat(', ', mpgsunit)"/>
-										</xsl:if>							
-									</xsl:element>
-								</xsl:element>
-							</xsl:for-each>						
-						</xsl:when>
-						<xsl:otherwise>
-							<xsl:if test="docaff_external">
-								<xsl:element name="e:organization">
-									<xsl:element name="e:organization-name">
-										<xsl:value-of select="."/>
-									</xsl:element>
-								</xsl:element>
+				<xsl:choose>
+					<xsl:when test="$useAuthorList = 'true' and $authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]">
+						
+						<xsl:variable name="author" select="$authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]"/>
+						
+						<e:person>
+							<e:complete-name>
+								<xsl:value-of select="$author/givenname"/>
+								<xsl:text> </xsl:text>
+								<xsl:value-of select="$author/familyname"/>
+							</e:complete-name>
+							<e:family-name>
+								<xsl:value-of select="$author/familyname"/>
+							</e:family-name>
+							<e:given-name>
+								<xsl:value-of select="$author/givenname"/>
+							</e:given-name>
+
+							<xsl:variable name="author-organizational-units">
+								<ous>
+									<xsl:copy-of select="$organizational-units//ou[@name = $author/departments/department]"/>
+								</ous>
+							</xsl:variable>
+
+							<xsl:if test="not($author-organizational-units/ous/ou)">
+								<e:organization>
+									<e:organization-name>Organizational unit (<xsl:value-of select="$author/departments/department"/>) not found in tree.</e:organization-name>
+								</e:organization>
 							</xsl:if>
-						</xsl:otherwise>
-					</xsl:choose>		
-				</xsl:element>
+							
+							<xsl:for-each select="$author-organizational-units/ous/ou">
+								<e:organization>
+									<e:organization-name>
+										<xsl:value-of select="escidoc:ou-name(@name)"/>
+									</e:organization-name>
+									<e:identifier>
+										<xsl:value-of select="escidoc:ou-id(@name)"/>
+									</e:identifier>
+								</e:organization>
+							</xsl:for-each>
+							
+							<xsl:variable name="collection" select="../../../docaff/collection"/>
+
+							<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and count($author-organizational-units/ous/ou[@name = $collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou]) = 0">
+								<e:organization>
+									<e:organization-name>
+										<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+									</e:organization-name>
+									<e:identifier>
+										<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+									</e:identifier>
+								</e:organization>
+							</xsl:if>
+							
+						</e:person>
+												
+					</xsl:when>
+					<xsl:otherwise>
+						<xsl:element name="e:person">
+							<xsl:element name="e:complete-name">
+								<xsl:value-of select="concat(creatorngiven, ' ', creatornfamily)"/>
+							</xsl:element>
+							<xsl:element name="e:family-name">
+								<xsl:value-of select="creatornfamily"/>
+							</xsl:element>				
+							<xsl:choose>
+								<xsl:when test="exists(creatorngiven) and not(creatorngiven='')">
+									<xsl:element name="e:given-name">
+										<xsl:value-of select="creatorngiven"/>
+									</xsl:element>
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:element name="e:given-name">
+										<xsl:value-of select="creatorini"/>
+									</xsl:element>
+								</xsl:otherwise>
+							</xsl:choose>	
+							<xsl:choose>
+								<xsl:when test="@internextern='mpg'">							
+									<xsl:for-each select="../../../docaff/affiliation">
+										<xsl:element name="e:organization">
+											<xsl:element name="e:organization-name">
+												<xsl:choose>
+													<xsl:when test="mpgsunit">
+														<xsl:value-of select="escidoc:ou-name(mpgsunit)"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="escidoc:ou-name(mpgunit)"/>
+													</xsl:otherwise>
+												</xsl:choose>							
+											</xsl:element>
+											<e:identifier>
+												<xsl:choose>
+													<xsl:when test="mpgsunit">
+														<xsl:value-of select="escidoc:ou-id(mpgsunit)"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="escidoc:ou-id(mpgunit)"/>
+													</xsl:otherwise>
+												</xsl:choose>		
+											</e:identifier>
+										</xsl:element>
+									</xsl:for-each>
+									
+									<xsl:variable name="collection" select="../../../docaff/collection"/>
+
+									<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and not(../../../docaff/affiliation/*[. = $collection])">
+										<e:organization>
+											<e:organization-name>
+												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+											</e:organization-name>
+											<e:identifier>
+												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+											</e:identifier>
+										</e:organization>
+									</xsl:if>
+												
+								</xsl:when>
+								<xsl:when test="@internextern='unknown' and not(../creator[@internextern = 'mpg']) and ../../../docaff/affiliation and not(../../../docaff_external)">						
+									<xsl:for-each select="../../../docaff/affiliation">
+										<xsl:element name="e:organization">
+											<xsl:element name="e:organization-name">
+												<xsl:choose>
+													<xsl:when test="mpgsunit">
+														<xsl:value-of select="escidoc:ou-name(mpgsunit)"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="escidoc:ou-name(mpgunit)"/>
+													</xsl:otherwise>
+												</xsl:choose>							
+											</xsl:element>
+											<e:identifier>
+												<xsl:choose>
+													<xsl:when test="mpgsunit">
+														<xsl:value-of select="escidoc:ou-id(mpgsunit)"/>
+													</xsl:when>
+													<xsl:otherwise>
+														<xsl:value-of select="escidoc:ou-id(mpgunit)"/>
+													</xsl:otherwise>
+												</xsl:choose>		
+											</e:identifier>
+										</xsl:element>
+									</xsl:for-each>
+									
+									<xsl:variable name="collection" select="../../../docaff/collection"/>
+
+									<xsl:if test="$collection-mapping/mapping[edoc-collection = $collection] and not(../../../docaff/affiliation/*[. = $collection])">
+										<e:organization>
+											<e:organization-name>
+												<xsl:value-of select="escidoc:ou-name($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+											</e:organization-name>
+											<e:identifier>
+												<xsl:value-of select="escidoc:ou-id($collection-mapping/mapping[edoc-collection = $collection]/escidoc-ou)"/>
+											</e:identifier>
+										</e:organization>
+									</xsl:if>
+														
+								</xsl:when>
+								<xsl:otherwise>
+									<xsl:if test="../../../docaff/docaff_external">
+										<e:organization>
+											<e:organization-name>
+												<xsl:value-of select="escidoc:ou-name(../../../docaff/docaff_external)"/>
+											</e:organization-name>
+											<e:identifier>
+												<xsl:value-of select="escidoc:ou-id(../../../docaff/docaff_external)"/>
+											</e:identifier>
+										</e:organization>
+									</xsl:if>
+								</xsl:otherwise>
+							</xsl:choose>		
+						</xsl:element>
+					</xsl:otherwise>
+				</xsl:choose>
 			</xsl:when>
 			<xsl:otherwise>				
 				<xsl:element name="e:organization">

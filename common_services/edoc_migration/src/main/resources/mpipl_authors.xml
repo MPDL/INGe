@@ -1,0 +1,3831 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
+	<xsl:variable name="authors">
+		<authors>
+			<author>
+				<familyname>Abdel Rahman</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="1">
+					<alias>
+						<familyname>Abdel Rahman</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Allen</familyname>
+				<givenname>S. E. M.</givenname>
+				<aliases pos="2">
+					<alias>
+						<familyname>Allen</familyname>
+						<givenname>S. E. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Almeida</familyname>
+				<givenname>L.</givenname>
+				<aliases pos="3">
+					<alias>
+						<familyname>Almeida</familyname>
+						<givenname>L.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Other Research</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ameka</familyname>
+				<givenname>Felix K.</givenname>
+				<aliases pos="4">
+					<alias>
+						<familyname>Ameka</familyname>
+						<givenname>Felix</givenname>
+					</alias>
+					<alias>
+						<familyname>Ameka</familyname>
+						<givenname>Felix K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Ameka</familyname>
+						<givenname>F K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Ameka</familyname>
+						<givenname>F. K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Ameka</familyname>
+						<givenname>F.K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Andics</familyname>
+				<givenname>Attila</givenname>
+				<aliases pos="9">
+					<alias>
+						<familyname>Andics</familyname>
+						<givenname>Attila</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Auer</familyname>
+				<givenname>Eric</givenname>
+				<aliases pos="10">
+					<alias>
+						<familyname>Auer</familyname>
+						<givenname>Eric</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Austin</familyname>
+				<givenname>P.</givenname>
+				<aliases pos="11">
+					<alias>
+						<familyname>Austin</familyname>
+						<givenname>P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Baayen</familyname>
+				<givenname>R. Harald</givenname>
+				<aliases pos="12">
+					<alias>
+						<familyname>Baayen</familyname>
+						<givenname>H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Baayen</familyname>
+						<givenname>Harald</givenname>
+					</alias>
+					<alias>
+						<familyname>Baayen</familyname>
+						<givenname>R. H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Baayen</familyname>
+						<givenname>R.H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Baayen</familyname>
+						<givenname>R. Harald</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bastiaansen</familyname>
+				<givenname>Marcel C. M.</givenname>
+				<aliases pos="17">
+					<alias>
+						<familyname>Bastiaansen</familyname>
+						<givenname>Marcel</givenname>
+					</alias>
+					<alias>
+						<familyname>Bastiaansen</familyname>
+						<givenname>Marcel C. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Bastiaansen</familyname>
+						<givenname>M. C. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Baumann</familyname>
+				<givenname>H.</givenname>
+				<aliases pos="20">
+					<alias>
+						<familyname>Baumann</familyname>
+						<givenname>H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Behnke</familyname>
+				<givenname>K.</givenname>
+				<aliases pos="21">
+					<alias>
+						<familyname>Behnke</familyname>
+						<givenname>K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Berck</familyname>
+				<givenname>Peter</givenname>
+				<aliases pos="22">
+					<alias>
+						<familyname>Berck</familyname>
+						<givenname>Peter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bien</familyname>
+				<givenname>Heidrun</givenname>
+				<aliases pos="23">
+					<alias>
+						<familyname>Bien</familyname>
+						<givenname>Heidrun</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bierwisch</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="24">
+					<alias>
+						<familyname>Bierwisch</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bock</familyname>
+				<givenname>J. K.</givenname>
+				<aliases pos="25">
+					<alias>
+						<familyname>Bock</familyname>
+						<givenname>J. K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Bock</familyname>
+						<givenname>K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Boettner</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="27">
+					<alias>
+						<familyname>Boettner</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>B&#246;ttner</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bohnemeyer</familyname>
+				<givenname>J&#252;rgen</givenname>
+				<aliases pos="29">
+					<alias>
+						<familyname>Bohnemeyer</familyname>
+						<givenname>J.</givenname>
+					</alias>
+					<alias>
+						<familyname>Bohnemeyer</familyname>
+						<givenname>J&#252;rgen</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Bowerman</familyname>
+				<givenname>Melissa</givenname>
+				<aliases pos="31">
+					<alias>
+						<familyname>Bowerman</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Bowerman</familyname>
+						<givenname>Melissa</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Braun</familyname>
+				<givenname>Bettina</givenname>
+				<aliases pos="33">
+					<alias>
+						<familyname>Braun</familyname>
+						<givenname>Bettina</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Broeder</familyname>
+				<givenname>Daan</givenname>
+				<aliases pos="34">
+					<alias>
+						<familyname>Broeder</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>Broeder</familyname>
+						<givenname>Daan</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Broersma</familyname>
+				<givenname>Mirjam</givenname>
+				<aliases pos="36">
+					<alias>
+						<familyname>Broersma</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Broersma</familyname>
+						<givenname>Mirjam</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Brown</familyname>
+				<givenname>Amanda</givenname>
+				<aliases pos="38">
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>Amanda</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Brown</familyname>
+				<givenname>Colin M.</givenname>
+				<aliases pos="40">
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>C. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>Colin</givenname>
+					</alias>
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>Colin M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Neurocognition of Language Processing</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Brown</familyname>
+				<givenname>Penelope</givenname>
+				<aliases pos="43">
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>P</givenname>
+					</alias>
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Brown</familyname>
+						<givenname>Penelope</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Brugman</familyname>
+				<givenname>Hennie</givenname>
+				<aliases pos="46">
+					<alias>
+						<familyname>Brugman</familyname>
+						<givenname>H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Brugman</familyname>
+						<givenname>Hennie</givenname>
+					</alias>
+					<alias>
+						<familyname>Brugman</familyname>
+						<givenname>H. G.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Burenhult</familyname>
+				<givenname>Niclas</givenname>
+				<aliases pos="49">
+					<alias>
+						<familyname>Burenhult</familyname>
+						<givenname>N.</givenname>
+					</alias>
+					<alias>
+						<familyname>Burenhult</familyname>
+						<givenname>Niclas</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Burkhardt</familyname>
+				<givenname>Petra</givenname>
+				<aliases pos="51">
+					<alias>
+						<familyname>Burkhardt</familyname>
+						<givenname>Petra</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cablitz</familyname>
+				<givenname>Gabriele H.</givenname>
+				<aliases pos="52">
+					<alias>
+						<familyname>Cablitz</familyname>
+						<givenname>G.</givenname>
+					</alias>
+					<alias>
+						<familyname>Cablitz</familyname>
+						<givenname>Gabriele H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Cablitz</familyname>
+						<givenname>G. H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Chen</familyname>
+				<givenname>Aoju</givenname>
+				<aliases pos="55">
+					<alias>
+						<familyname>Chen</familyname>
+						<givenname>Aoju</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Chen</familyname>
+				<givenname>Jidong</givenname>
+				<aliases pos="56">
+					<alias>
+						<familyname>Chen</familyname>
+						<givenname>Jidong</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cho</familyname>
+				<givenname>Taehong</givenname>
+				<aliases pos="57">
+					<alias>
+						<familyname>Cho</familyname>
+						<givenname>T.</givenname>
+					</alias>
+					<alias>
+						<familyname>Cho</familyname>
+						<givenname>Taehong</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cholin</familyname>
+				<givenname>J.</givenname>
+				<aliases pos="59">
+					<alias>
+						<familyname>Cholin</familyname>
+						<givenname>J</givenname>
+					</alias>
+					<alias>
+						<familyname>Cholin</familyname>
+						<givenname>J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cholin</familyname>
+				<givenname>Joana</givenname>
+				<aliases pos="61">
+					<alias>
+						<familyname>Cholin</familyname>
+						<givenname>Joana</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Clark</familyname>
+				<givenname>E. V.</givenname>
+				<aliases pos="62">
+					<alias>
+						<familyname>Clark</familyname>
+						<givenname>E. V.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Claus</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="63">
+					<alias>
+						<familyname>Claus</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cooper</familyname>
+				<givenname>Nicole</givenname>
+				<aliases pos="64">
+					<alias>
+						<familyname>Cooper</familyname>
+						<givenname>N.</givenname>
+					</alias>
+					<alias>
+						<familyname>Cooper</familyname>
+						<givenname>Nicole</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cozijn</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="66">
+					<alias>
+						<familyname>Cozijn</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>IWTS</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Crago</familyname>
+				<givenname>M. B.</givenname>
+				<aliases pos="67">
+					<alias>
+						<familyname>Crago</familyname>
+						<givenname>M. B.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Cutler</familyname>
+				<givenname>Anne</givenname>
+				<aliases pos="68">
+					<alias>
+						<familyname>Cutler</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Cutler</familyname>
+						<givenname>Anne</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dahan</familyname>
+				<givenname>Delphine</givenname>
+				<aliases pos="70">
+					<alias>
+						<familyname>Dahan</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>Dahan</familyname>
+						<givenname>Delphine</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Damian</familyname>
+				<givenname>M. F.</givenname>
+				<aliases pos="72">
+					<alias>
+						<familyname>Damian</familyname>
+						<givenname>M. F.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Danziger</familyname>
+				<givenname>E.</givenname>
+				<aliases pos="73">
+					<alias>
+						<familyname>Danziger</familyname>
+						<givenname>E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Davidson</familyname>
+				<givenname>Douglas J.</givenname>
+				<aliases pos="74">
+					<alias>
+						<familyname>Davidson</familyname>
+						<givenname>D. J.</givenname>
+					</alias>
+					<alias>
+						<familyname>Davidson</familyname>
+						<givenname>Doug</givenname>
+					</alias>
+					<alias>
+						<familyname>Davidson</familyname>
+						<givenname>Douglas J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>de Jong</familyname>
+				<givenname>Nivja H.</givenname>
+				<aliases pos="77">
+					<alias>
+						<familyname>de Jong</familyname>
+						<givenname>N. H.</givenname>
+					</alias>
+					<alias>
+						<familyname>de Jong</familyname>
+						<givenname>N.H.</givenname>
+					</alias>
+					<alias>
+						<familyname>de Jong</familyname>
+						<givenname>Nivja H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>den Os</familyname>
+				<givenname>E.A.</givenname>
+				<aliases pos="80">
+					<alias>
+						<familyname>den Os</familyname>
+						<givenname>E.</givenname>
+					</alias>
+					<alias>
+						<familyname>den Os</familyname>
+						<givenname>E.A.</givenname>
+					</alias>
+					<alias>
+						<familyname>den Os</familyname>
+						<givenname>Els</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>de Ruiter</familyname>
+				<givenname>Jan Peter</givenname>
+				<aliases pos="83">
+					<alias>
+						<familyname>de Ruiter</familyname>
+						<givenname>Jan Peter</givenname>
+					</alias>
+					<alias>
+						<familyname>de Ruiter</familyname>
+						<givenname>J. P.</givenname>
+					</alias>
+					<alias>
+						<familyname>de Ruiter</familyname>
+						<givenname>J.P.</givenname>
+					</alias>
+					<alias>
+						<familyname>de Ruiter</familyname>
+						<givenname>J. P. A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dietrich</familyname>
+				<givenname>Christiane</givenname>
+				<aliases pos="87">
+					<alias>
+						<familyname>Dietrich</familyname>
+						<givenname>Christiane</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dimroth</familyname>
+				<givenname>Christine</givenname>
+				<aliases pos="88">
+					<alias>
+						<familyname>Dimroth</familyname>
+						<givenname>C</givenname>
+					</alias>
+					<alias>
+						<familyname>Dimroth</familyname>
+						<givenname>C.</givenname>
+					</alias>
+					<alias>
+						<familyname>Dimroth</familyname>
+						<givenname>Ch.</givenname>
+					</alias>
+					<alias>
+						<familyname>Dimroth</familyname>
+						<givenname>Christine</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dirksmeyer</familyname>
+				<givenname>Reiner</givenname>
+				<aliases pos="92">
+					<alias>
+						<familyname>Dirksmeyer</familyname>
+						<givenname>R.</givenname>
+					</alias>
+					<alias>
+						<familyname>Dirksmeyer</familyname>
+						<givenname>Reiner</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dobel</familyname>
+				<givenname>C.</givenname>
+				<aliases pos="94">
+					<alias>
+						<familyname>Dobel</familyname>
+						<givenname>C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Duffield</familyname>
+				<givenname>N.</givenname>
+				<aliases pos="95">
+					<alias>
+						<familyname>Duffield</familyname>
+						<givenname>N.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dukers</familyname>
+				<givenname>Alex</givenname>
+				<aliases pos="96">
+					<alias>
+						<familyname>Dukers</familyname>
+						<givenname>Alex</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Dunn</familyname>
+				<givenname>Michael</givenname>
+				<aliases pos="97">
+					<alias>
+						<familyname>Dunn</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Dunn</familyname>
+						<givenname>Michael</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Eisenbei&#223;</familyname>
+				<givenname>S.</givenname>
+				<aliases pos="99">
+					<alias>
+						<familyname>Eisenbei&#223;</familyname>
+						<givenname>S.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Eisner</familyname>
+				<givenname>Frank</givenname>
+				<aliases pos="100">
+					<alias>
+						<familyname>Eisner</familyname>
+						<givenname>Frank</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Enfield</familyname>
+				<givenname>Nicholas J.</givenname>
+				<aliases pos="101">
+					<alias>
+						<familyname>Enfield</familyname>
+						<givenname>Nicholas J.</givenname>
+					</alias>
+					<alias>
+						<familyname>Enfield</familyname>
+						<givenname>Nick</givenname>
+					</alias>
+					<alias>
+						<familyname>Enfield</familyname>
+						<givenname>Nick J.</givenname>
+					</alias>
+					<alias>
+						<familyname>Enfield</familyname>
+						<givenname>N. J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Erkelens</familyname>
+				<givenname>Marian</givenname>
+				<aliases pos="105">
+					<alias>
+						<familyname>Erkelens</familyname>
+						<givenname>Marian</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Other Research</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ernestus</familyname>
+				<givenname>Mirjam T. C.</givenname>
+				<aliases pos="106">
+					<alias>
+						<familyname>Ernestus</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Ernestus</familyname>
+						<givenname>Mirjam</givenname>
+					</alias>
+					<alias>
+						<familyname>Ernestus</familyname>
+						<givenname>Mirjam T. C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>CSLM</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Essegbey</familyname>
+				<givenname>J. K.</givenname>
+				<aliases pos="109">
+					<alias>
+						<familyname>Essegbey</familyname>
+						<givenname>J. K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Evans</familyname>
+				<givenname>N.</givenname>
+				<aliases pos="110">
+					<alias>
+						<familyname>Evans</familyname>
+						<givenname>N.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Faller</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="111">
+					<alias>
+						<familyname>Faller</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>FitzPatrick</familyname>
+				<givenname>Ian</givenname>
+				<aliases pos="112">
+					<alias>
+						<familyname>FitzPatrick</familyname>
+						<givenname>I.</givenname>
+					</alias>
+					<alias>
+						<familyname>FitzPatrick</familyname>
+						<givenname>Ian</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Frank</familyname>
+				<givenname>S. L.</givenname>
+				<aliases pos="114">
+					<alias>
+						<familyname>Frank</familyname>
+						<givenname>S. L.</givenname>
+					</alias>
+					<alias>
+						<familyname>Frank</familyname>
+						<givenname>S.L.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>IWTS</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Friederici</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="116">
+					<alias>
+						<familyname>Friederici</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Gaby</familyname>
+				<givenname>Alice R.</givenname>
+				<aliases pos="117">
+					<alias>
+						<familyname>Gaby</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Gaby</familyname>
+						<givenname>Alice</givenname>
+					</alias>
+					<alias>
+						<familyname>Gaby</familyname>
+						<givenname>Alice R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Goudbeek</familyname>
+				<givenname>Martijn</givenname>
+				<aliases pos="120">
+					<alias>
+						<familyname>Goudbeek</familyname>
+						<givenname>Martijn</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Grabe</familyname>
+				<givenname>E.</givenname>
+				<aliases pos="121">
+					<alias>
+						<familyname>Grabe</familyname>
+						<givenname>E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Gretsch</familyname>
+				<givenname>P.</givenname>
+				<aliases pos="122">
+					<alias>
+						<familyname>Gretsch</familyname>
+						<givenname>P</givenname>
+					</alias>
+					<alias>
+						<familyname>Gretsch</familyname>
+						<givenname>P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Gross</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="124">
+					<alias>
+						<familyname>Gross</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Guirardello</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="125">
+					<alias>
+						<familyname>Guirardello</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Gullberg</familyname>
+				<givenname>Marianne</givenname>
+				<aliases pos="126">
+					<alias>
+						<familyname>Gullberg</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Gullberg</familyname>
+						<givenname>Marianne</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Gulrajani</familyname>
+				<givenname>G.</givenname>
+				<aliases pos="128">
+					<alias>
+						<familyname>Gulrajani</familyname>
+						<givenname>G.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hagoort</familyname>
+				<givenname>Peter</givenname>
+				<aliases pos="129">
+					<alias>
+						<familyname>Hagoort</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Hagoort</familyname>
+						<givenname>Peter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hald</familyname>
+				<givenname>Lea A.</givenname>
+				<aliases pos="131">
+					<alias>
+						<familyname>Hald</familyname>
+						<givenname>Lea A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Haun</familyname>
+				<givenname>Daniel B. M.</givenname>
+				<aliases pos="132">
+					<alias>
+						<familyname>Haun</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>Haun</familyname>
+						<givenname>Daniel B. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Haun</familyname>
+						<givenname>D.B.M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Heinemann</familyname>
+				<givenname>Trine</givenname>
+				<aliases pos="135">
+					<alias>
+						<familyname>Heinemann</familyname>
+						<givenname>Trine</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Heinzel</familyname>
+				<givenname>U.</givenname>
+				<aliases pos="136">
+					<alias>
+						<familyname>Heinzel</familyname>
+						<givenname>U.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hellwig</familyname>
+				<givenname>B.</givenname>
+				<aliases pos="137">
+					<alias>
+						<familyname>Hellwig</familyname>
+						<givenname>B.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hellwig</familyname>
+				<givenname>Frauke M.</givenname>
+				<aliases pos="138">
+					<alias>
+						<familyname>Hellwig</familyname>
+						<givenname>F.</givenname>
+					</alias>
+					<alias>
+						<familyname>Hellwig</familyname>
+						<givenname>F.M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Hellwig</familyname>
+						<givenname>Frauke M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hendriks</familyname>
+				<givenname>H.</givenname>
+				<aliases pos="141">
+					<alias>
+						<familyname>Hendriks</familyname>
+						<givenname>H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Herbst</familyname>
+				<givenname>Laura E.</givenname>
+				<aliases pos="142">
+					<alias>
+						<familyname>Herbst</familyname>
+						<givenname>Laura E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hickmann</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="143">
+					<alias>
+						<familyname>Hickmann</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hoeks</familyname>
+				<givenname>J. C. J.</givenname>
+				<aliases pos="144">
+					<alias>
+						<familyname>Hoeks</familyname>
+						<givenname>J. C. J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hout</familyname>
+				<givenname>R. van</givenname>
+				<aliases pos="145">
+					<alias>
+						<familyname>Hout</familyname>
+						<givenname>R. van</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Hoymann</familyname>
+				<givenname>G.</givenname>
+				<aliases pos="146">
+					<alias>
+						<familyname>Hoymann</familyname>
+						<givenname>G.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Huettig</familyname>
+				<givenname>Falk</givenname>
+				<aliases pos="147">
+					<alias>
+						<familyname>Huettig</familyname>
+						<givenname>Falk</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Indefrey</familyname>
+				<givenname>Peter</givenname>
+				<aliases pos="148">
+					<alias>
+						<familyname>Indefrey</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Indefrey</familyname>
+						<givenname>Peter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Irwin</familyname>
+				<givenname>D. E.</givenname>
+				<aliases pos="150">
+					<alias>
+						<familyname>Irwin</familyname>
+						<givenname>D. E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Janse</familyname>
+				<givenname>Esther</givenname>
+				<aliases pos="151">
+					<alias>
+						<familyname>Janse</familyname>
+						<givenname>Esther</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jansen</familyname>
+				<givenname>Clemens</givenname>
+				<aliases pos="152">
+					<alias>
+						<familyname>Jansen</familyname>
+						<givenname>Clemens</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Janssen</familyname>
+				<givenname>D. P.</givenname>
+				<aliases pos="153">
+					<alias>
+						<familyname>Janssen</familyname>
+						<givenname>D. P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Janssen</familyname>
+				<givenname>Joris</givenname>
+				<aliases pos="154">
+					<alias>
+						<familyname>Janssen</familyname>
+						<givenname>Joris</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Janzen</familyname>
+				<givenname>Gabriele</givenname>
+				<aliases pos="155">
+					<alias>
+						<familyname>Janzen</familyname>
+						<givenname>G.</givenname>
+					</alias>
+					<alias>
+						<familyname>Janzen</familyname>
+						<givenname>Gabriele</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jensen</familyname>
+				<givenname>Ole</givenname>
+				<aliases pos="157">
+					<alias>
+						<familyname>Jensen</familyname>
+						<givenname>Ole</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jesse</familyname>
+				<givenname>Alexandra</givenname>
+				<aliases pos="158">
+					<alias>
+						<familyname>Jesse</familyname>
+						<givenname>Alexandra</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Johnson</familyname>
+				<givenname>Elizabeth K.</givenname>
+				<aliases pos="159">
+					<alias>
+						<familyname>Johnson</familyname>
+						<givenname>E.K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Johnson</familyname>
+						<givenname>Elizabeth K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jolink</familyname>
+				<givenname>Anke</givenname>
+				<aliases pos="161">
+					<alias>
+						<familyname>Jolink</familyname>
+						<givenname>Anke</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jongman</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="162">
+					<alias>
+						<familyname>Jongman</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Jordens</familyname>
+				<givenname>Peter</givenname>
+				<aliases pos="163">
+					<alias>
+						<familyname>Jordens</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Jordens</familyname>
+						<givenname>Peter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kastens</familyname>
+				<givenname>Karin</givenname>
+				<aliases pos="165">
+					<alias>
+						<familyname>Kastens</familyname>
+						<givenname>Karin</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Library</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kempen</familyname>
+				<givenname>Gerard</givenname>
+				<aliases pos="166">
+					<alias>
+						<familyname>Kempen</familyname>
+						<givenname>G.</givenname>
+					</alias>
+					<alias>
+						<familyname>Kempen</familyname>
+						<givenname>Gerard</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kemps</familyname>
+				<givenname>Rach&#232;l J. J. K.</givenname>
+				<aliases pos="168">
+					<alias>
+						<familyname>Kemps</familyname>
+						<givenname>Rach&#232;l J. J. K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Kemps</familyname>
+						<givenname>R. J. J. K.</givenname>
+					</alias>
+					<alias>
+						<familyname>Kemps</familyname>
+						<givenname>R. Rach&#232;l</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kemps-Snijders</familyname>
+				<givenname>Marc</givenname>
+				<aliases pos="171">
+					<alias>
+						<familyname>Kemps-Snijders</familyname>
+						<givenname>Marc</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Keune</familyname>
+				<givenname>Karen</givenname>
+				<aliases pos="172">
+					<alias>
+						<familyname>Keune</familyname>
+						<givenname>Karen</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kirsch</familyname>
+				<givenname>Kathrin</givenname>
+				<aliases pos="173">
+					<alias>
+						<familyname>Kirsch</familyname>
+						<givenname>Kathrin</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kita</familyname>
+				<givenname>Sotaro</givenname>
+				<aliases pos="174">
+					<alias>
+						<familyname>Kita</familyname>
+						<givenname>S.</givenname>
+					</alias>
+					<alias>
+						<familyname>Kita</familyname>
+						<givenname>Sotaro</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Klaas</familyname>
+				<givenname>Gerd</givenname>
+				<aliases pos="176">
+					<alias>
+						<familyname>Klaas</familyname>
+						<givenname>Gerd</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Klassmann</familyname>
+				<givenname>Alex</givenname>
+				<aliases pos="177">
+					<alias>
+						<familyname>Klassmann</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Klassmann</familyname>
+						<givenname>Alex</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Klein</familyname>
+				<givenname>Wolfgang</givenname>
+				<aliases pos="179">
+					<alias>
+						<familyname>Klein</familyname>
+						<givenname>W.</givenname>
+					</alias>
+					<alias>
+						<familyname>Klein</familyname>
+						<givenname>Wolfgang</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kolkman</familyname>
+				<givenname>K. M.</givenname>
+				<aliases pos="181">
+					<alias>
+						<familyname>Kolkman</familyname>
+						<givenname>K. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kooijman</familyname>
+				<givenname>Valesca</givenname>
+				<aliases pos="182">
+					<alias>
+						<familyname>Kooijman</familyname>
+						<givenname>Valesca</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kopecka</familyname>
+				<givenname>Anetta</givenname>
+				<aliases pos="183">
+					<alias>
+						<familyname>Kopecka</familyname>
+						<givenname>Anetta</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Korvorst</familyname>
+				<givenname>Marjolein</givenname>
+				<aliases pos="184">
+					<alias>
+						<familyname>Korvorst</familyname>
+						<givenname>Marjolein</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Koster</familyname>
+				<givenname>Mari&#235;tte</givenname>
+				<aliases pos="185">
+					<alias>
+						<familyname>Koster</familyname>
+						<givenname>Mari&#235;tte</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kr&#228;mer</familyname>
+				<givenname>I.</givenname>
+				<aliases pos="186">
+					<alias>
+						<familyname>Kr&#228;mer</familyname>
+						<givenname>I.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kramer</familyname>
+				<givenname>A. F.</givenname>
+				<aliases pos="187">
+					<alias>
+						<familyname>Kramer</familyname>
+						<givenname>A. F.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Krott</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="188">
+					<alias>
+						<familyname>Krott</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kuijpers</familyname>
+				<givenname>C.</givenname>
+				<aliases pos="189">
+					<alias>
+						<familyname>Kuijpers</familyname>
+						<givenname>C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kuperman</familyname>
+				<givenname>Victor</givenname>
+				<aliases pos="190">
+					<alias>
+						<familyname>Kuperman</familyname>
+						<givenname>Victor</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Kuzla</familyname>
+				<givenname>Claudia</givenname>
+				<aliases pos="191">
+					<alias>
+						<familyname>Kuzla</familyname>
+						<givenname>C.</givenname>
+					</alias>
+					<alias>
+						<familyname>Kuzla</familyname>
+						<givenname>Claudia</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Lahey</familyname>
+				<givenname>Mybeth</givenname>
+				<aliases pos="193">
+					<alias>
+						<familyname>Lahey</familyname>
+						<givenname>Mybeth</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Lauer</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="194">
+					<alias>
+						<familyname>Lauer</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Lausberg</familyname>
+				<givenname>H.</givenname>
+				<aliases pos="195">
+					<alias>
+						<familyname>Lausberg</familyname>
+						<givenname>H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Levelt</familyname>
+				<givenname>C. C.</givenname>
+				<aliases pos="196">
+					<alias>
+						<familyname>Levelt</familyname>
+						<givenname>C. C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Other Research</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Levelt</familyname>
+				<givenname>Willem J. M.</givenname>
+				<aliases pos="197">
+					<alias>
+						<familyname>Levelt</familyname>
+						<givenname>J. W. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Levelt</familyname>
+						<givenname>Willem J. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Levelt</familyname>
+						<givenname>W. J. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Levelt</familyname>
+						<givenname>W.J.M.</givenname>
+					</alias>
+					<alias>
+						<familyname>M Levelt</familyname>
+						<givenname>W. J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Levinson</familyname>
+				<givenname>S. C.</givenname>
+				<aliases pos="201">
+					<alias>
+						<familyname>Levinson</familyname>
+						<givenname>S.</givenname>
+					</alias>
+					<alias>
+						<familyname>Levinson</familyname>
+						<givenname>S. C.</givenname>
+					</alias>
+					<alias>
+						<familyname>Levinson</familyname>
+						<givenname>S.C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Levinson</familyname>
+				<givenname>Stephen C.</givenname>
+				<aliases pos="204">
+					<alias>
+						<familyname>Levinson</familyname>
+						<givenname>Stephen</givenname>
+					</alias>
+					<alias>
+						<familyname>Levinson</familyname>
+						<givenname>Stephen C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Liszkowski</familyname>
+				<givenname>Ulf</givenname>
+				<aliases pos="206">
+					<alias>
+						<familyname>Liszkowski</familyname>
+						<givenname>Ulf</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Communication before Language</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>L&#252;pke</familyname>
+				<givenname>Friederike</givenname>
+				<aliases pos="207">
+					<alias>
+						<familyname>L&#252;pke</familyname>
+						<givenname>Friederike</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Majid</familyname>
+				<givenname>Asifa</givenname>
+				<aliases pos="208">
+					<alias>
+						<familyname>Majid</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Majid</familyname>
+						<givenname>Asifa</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Mak</familyname>
+				<givenname>W. M.</givenname>
+				<aliases pos="210">
+					<alias>
+						<familyname>Mak</familyname>
+						<givenname>W. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Margetts</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="211">
+					<alias>
+						<familyname>Margetts</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Matsuo</familyname>
+				<givenname>Ayumi</givenname>
+				<aliases pos="212">
+					<alias>
+						<familyname>Matsuo</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Matsuo</familyname>
+						<givenname>Ayumi</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Mauth</familyname>
+				<givenname>K.</givenname>
+				<aliases pos="214">
+					<alias>
+						<familyname>Mauth</familyname>
+						<givenname>K.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>McGregor</familyname>
+				<givenname>W. B.</givenname>
+				<aliases pos="215">
+					<alias>
+						<familyname>McGregor</familyname>
+						<givenname>W.</givenname>
+					</alias>
+					<alias>
+						<familyname>McGregor</familyname>
+						<givenname>W. B.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>McQueen</familyname>
+				<givenname>James M.</givenname>
+				<aliases pos="217">
+					<alias>
+						<familyname>McQueen</familyname>
+						<givenname>James M.</givenname>
+					</alias>
+					<alias>
+						<familyname>McQueen</familyname>
+						<givenname>J. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>McQueen</familyname>
+						<givenname>J.M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Meeuwissen</familyname>
+				<givenname>M.H.W.</givenname>
+				<aliases pos="220">
+					<alias>
+						<familyname>Meeuwissen</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Meeuwissen</familyname>
+						<givenname>M.H.W.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Meira</familyname>
+				<givenname>S.</givenname>
+				<aliases pos="222">
+					<alias>
+						<familyname>Meira</familyname>
+						<givenname>S.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Melinger</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="223">
+					<alias>
+						<familyname>Melinger</familyname>
+						<givenname>A</givenname>
+					</alias>
+					<alias>
+						<familyname>Melinger</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Menenti</familyname>
+				<givenname>Laura</givenname>
+				<aliases pos="225">
+					<alias>
+						<familyname>Menenti</familyname>
+						<givenname>Laura</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Meyer</familyname>
+				<givenname>A. S.</givenname>
+				<aliases pos="226">
+					<alias>
+						<familyname>Meyer</familyname>
+						<givenname>A. S.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Mitterer</familyname>
+				<givenname>Holger</givenname>
+				<aliases pos="227">
+					<alias>
+						<familyname>Mitterer</familyname>
+						<givenname>Holger</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Moscoso del Prado Mart&#237;n</familyname>
+				<givenname>Ferm&#237;n</givenname>
+				<aliases pos="229">
+					<alias>
+						<familyname>Moscoso del Prado Martin</familyname>
+						<givenname>F</givenname>
+					</alias>
+					<alias>
+						<familyname>Moscoso del Prado Martin</familyname>
+						<givenname>F.</givenname>
+					</alias>
+					<alias>
+						<familyname>Moscoso del Prado Martin</familyname>
+						<givenname>Ferm&#237;n</givenname>
+					</alias>
+					<alias>
+						<familyname>Moscoso del Prado Mart&#237;n</familyname>
+						<givenname>Fermin</givenname>
+					</alias>
+					<alias>
+						<familyname>Moscoso del Prado Mart&#237;n</familyname>
+						<givenname>Ferm&#237;n</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>M&#252;ller</familyname>
+				<givenname>Oliver</givenname>
+				<aliases pos="234">
+					<alias>
+						<familyname>M&#252;ller</familyname>
+						<givenname>Oliver</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Murty</familyname>
+				<givenname>Lalita</givenname>
+				<aliases pos="235">
+					<alias>
+						<familyname>Murty</familyname>
+						<givenname>L.</givenname>
+					</alias>
+					<alias>
+						<familyname>Murty</familyname>
+						<givenname>Lalita</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Nagengast</familyname>
+				<givenname>J.</givenname>
+				<aliases pos="237">
+					<alias>
+						<familyname>Nagengast</familyname>
+						<givenname>J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Narasimhan</familyname>
+				<givenname>Bhuvana</givenname>
+				<aliases pos="238">
+					<alias>
+						<familyname>Narasimham</familyname>
+						<givenname>Bhuvana</givenname>
+					</alias>
+					<alias>
+						<familyname>Narasimhan</familyname>
+						<givenname>B.</givenname>
+					</alias>
+					<alias>
+						<familyname>Narasimhan</familyname>
+						<givenname>Bhuvana</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Nederhof</familyname>
+				<givenname>Mark-Jan</givenname>
+				<aliases pos="241">
+					<alias>
+						<familyname>Nederhof</familyname>
+						<givenname>Mark-Jan</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Nederstigt</familyname>
+				<givenname>Ulrike</givenname>
+				<aliases pos="242">
+					<alias>
+						<familyname>Nederstigt</familyname>
+						<givenname>U.</givenname>
+					</alias>
+					<alias>
+						<familyname>Nederstigt</familyname>
+						<givenname>Ulrike</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Norris</familyname>
+				<givenname>D.</givenname>
+				<aliases pos="244">
+					<alias>
+						<familyname>Norris</familyname>
+						<givenname>D.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>N&#252;se</familyname>
+				<givenname>Ralf</givenname>
+				<aliases pos="245">
+					<alias>
+						<familyname>N&#252;se</familyname>
+						<givenname>R.</givenname>
+					</alias>
+					<alias>
+						<familyname>N&#252;se</familyname>
+						<givenname>Ralf</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Nuyts</familyname>
+				<givenname>J.</givenname>
+				<aliases pos="247">
+					<alias>
+						<familyname>Nuyts</familyname>
+						<givenname>J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Other Research</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>O'Connor</familyname>
+				<givenname>Loretta M.</givenname>
+				<aliases pos="248">
+					<alias>
+						<familyname>O'Connor</familyname>
+						<givenname>L.</givenname>
+					</alias>
+					<alias>
+						<familyname>O'Connor</familyname>
+						<givenname>Loretta</givenname>
+					</alias>
+					<alias>
+						<familyname>O'Connor</familyname>
+						<givenname>Loretta M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>&#214;zdemir</familyname>
+				<givenname>Rebecca</givenname>
+				<aliases pos="251">
+					<alias>
+						<familyname>&#214;zdemir</familyname>
+						<givenname>Rebecca</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>&#214;zy&#252;rek</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="252">
+					<alias>
+						<familyname>&#214;zy&#252;rek</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Offenga</familyname>
+				<givenname>Freddy</givenname>
+				<aliases pos="253">
+					<alias>
+						<familyname>Offenga</familyname>
+						<givenname>F.</givenname>
+					</alias>
+					<alias>
+						<familyname>Offenga</familyname>
+						<givenname>Freddy</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Os</familyname>
+				<givenname>E. den</givenname>
+				<aliases pos="255">
+					<alias>
+						<familyname>Os</familyname>
+						<givenname>E. den</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>O'Shannessy</familyname>
+				<givenname>Carmel</givenname>
+				<aliases pos="256">
+					<alias>
+						<familyname>O'Shannessy</familyname>
+						<givenname>Carmel</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Otake</familyname>
+				<givenname>Takashi</givenname>
+				<aliases pos="257">
+					<alias>
+						<familyname>Otake</familyname>
+						<givenname>T.</givenname>
+					</alias>
+					<alias>
+						<familyname>Otake</familyname>
+						<givenname>Takashi</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ozyurek</familyname>
+				<givenname>Asli</givenname>
+				<aliases pos="259">
+					<alias>
+						<familyname>Ozyurek</familyname>
+						<givenname>Asli</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Panda</familyname>
+				<givenname>Sibaji</givenname>
+				<aliases pos="260">
+					<alias>
+						<familyname>Panda</familyname>
+						<givenname>Sibaji</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Sign Language Typology</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Pasveer</familyname>
+				<givenname>Dennis</givenname>
+				<aliases pos="261">
+					<alias>
+						<familyname>Pasveer</familyname>
+						<givenname>Dennis</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Perdue</familyname>
+				<givenname>C.</givenname>
+				<aliases pos="262">
+					<alias>
+						<familyname>Perdue</familyname>
+						<givenname>C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Perniss</familyname>
+				<givenname>Pamela M.</givenname>
+				<aliases pos="263">
+					<alias>
+						<familyname>Perniss</familyname>
+						<givenname>Pamela</givenname>
+					</alias>
+					<alias>
+						<familyname>Perniss</familyname>
+						<givenname>Pamela M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Petersson</familyname>
+				<givenname>Karl Magnus</givenname>
+				<aliases pos="265">
+					<alias>
+						<familyname>Petersson</familyname>
+						<givenname>Karl M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Petersson</familyname>
+						<givenname>Karl Magnus</givenname>
+					</alias>
+					<alias>
+						<familyname>Petersson</familyname>
+						<givenname>K. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Pluymaekers</familyname>
+				<givenname>Mark</givenname>
+				<aliases pos="268">
+					<alias>
+						<familyname>Pluymaekers</familyname>
+						<givenname>Mark</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Praamstra</familyname>
+				<givenname>P.</givenname>
+				<aliases pos="269">
+					<alias>
+						<familyname>Praamstra</familyname>
+						<givenname>P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Rapold</familyname>
+				<givenname>Christian J.</givenname>
+				<aliases pos="270">
+					<alias>
+						<familyname>Rapold</familyname>
+						<givenname>Christian J.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Reesink</familyname>
+				<givenname>Ger</givenname>
+				<aliases pos="271">
+					<alias>
+						<familyname>Reesink</familyname>
+						<givenname>G.</givenname>
+					</alias>
+					<alias>
+						<familyname>Reesink</familyname>
+						<givenname>Ger</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ringersma</familyname>
+				<givenname>Jacquelijn</givenname>
+				<aliases pos="273">
+					<alias>
+						<familyname>Ringersma</familyname>
+						<givenname>Jacquelijn</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Roberts</familyname>
+				<givenname>Leah</givenname>
+				<aliases pos="274">
+					<alias>
+						<familyname>Roberts</familyname>
+						<givenname>L.</givenname>
+					</alias>
+					<alias>
+						<familyname>Roberts</familyname>
+						<givenname>Leah</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Robinson</familyname>
+				<givenname>Stuart</givenname>
+				<aliases pos="276">
+					<alias>
+						<familyname>Robinson</familyname>
+						<givenname>S.</givenname>
+					</alias>
+					<alias>
+						<familyname>Robinson</familyname>
+						<givenname>Stuart</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Roelofs</familyname>
+				<givenname>Ardi</givenname>
+				<aliases pos="278">
+					<alias>
+						<familyname>Roelofs</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Roelofs</familyname>
+						<givenname>Ardi</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Romary</familyname>
+				<givenname>Laurent</givenname>
+				<aliases pos="280">
+					<alias>
+						<familyname>Romary</familyname>
+						<givenname>L.</givenname>
+					</alias>
+					<alias>
+						<familyname>Romary</familyname>
+						<givenname>Laurent</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Other Research</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ruiter</familyname>
+				<givenname>J. P. de</givenname>
+				<aliases pos="282">
+					<alias>
+						<familyname>Ruiter</familyname>
+						<givenname>J. P. de</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Russel</familyname>
+				<givenname>Albert</givenname>
+				<aliases pos="283">
+					<alias>
+						<familyname>Russel</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Russel</familyname>
+						<givenname>Albert</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Salverda</familyname>
+				<givenname>Anne Pier</givenname>
+				<aliases pos="285">
+					<alias>
+						<familyname>Salverda</familyname>
+						<givenname>Anne Pier</givenname>
+					</alias>
+					<alias>
+						<familyname>Salverda</familyname>
+						<givenname>A. P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Schiller</familyname>
+				<givenname>Niels O.</givenname>
+				<aliases pos="287">
+					<alias>
+						<familyname>Schiller</familyname>
+						<givenname>N.</givenname>
+					</alias>
+					<alias>
+						<familyname>Schiller</familyname>
+						<givenname>Niels O.</givenname>
+					</alias>
+					<alias>
+						<familyname>Schiller</familyname>
+						<givenname>N. O.</givenname>
+					</alias>
+					<alias>
+						<familyname>Schiller</familyname>
+						<givenname>N.O.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Schmiedtov&#225;</familyname>
+				<givenname>B.</givenname>
+				<aliases pos="291">
+					<alias>
+						<familyname>Schmiedtov&#225;</familyname>
+						<givenname>B.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Schreuder</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="292">
+					<alias>
+						<familyname>Schreuder</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>IWTS</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Schultze-Berndt</familyname>
+				<givenname>E.</givenname>
+				<aliases pos="293">
+					<alias>
+						<familyname>Schultze-Berndt</familyname>
+						<givenname>E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Seifart</familyname>
+				<givenname>Frank</givenname>
+				<aliases pos="294">
+					<alias>
+						<familyname>Seifart</familyname>
+						<givenname>F.</givenname>
+					</alias>
+					<alias>
+						<familyname>Seifart</familyname>
+						<givenname>Frank</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Senft</familyname>
+				<givenname>Gunter</givenname>
+				<aliases pos="296">
+					<alias>
+						<familyname>Senft</familyname>
+						<givenname>G.</givenname>
+					</alias>
+					<alias>
+						<familyname>Senft</familyname>
+						<givenname>Gunter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Sereno</familyname>
+				<givenname>J. A.</givenname>
+				<aliases pos="298">
+					<alias>
+						<familyname>Sereno</familyname>
+						<givenname>J. A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Seuren</familyname>
+				<givenname>P. A. M.</givenname>
+				<aliases pos="299">
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>P. A. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>P.A.M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Seuren</familyname>
+				<givenname>Pieter A. M.</givenname>
+				<aliases pos="302">
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>Pieter</givenname>
+					</alias>
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>Pieter A. M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Seuren</familyname>
+						<givenname>Pieter A.M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Seyfeddinipur</familyname>
+				<givenname>Mandana</givenname>
+				<aliases pos="305">
+					<alias>
+						<familyname>Seyfeddinipur</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Seyfeddinipur</familyname>
+						<givenname>Mandana</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Shatzman</familyname>
+				<givenname>Keren B.</givenname>
+				<aliases pos="307">
+					<alias>
+						<familyname>Shatzman</familyname>
+						<givenname>K. B.</givenname>
+					</alias>
+					<alias>
+						<familyname>Shatzman</familyname>
+						<givenname>Keren B.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Sinha</familyname>
+				<givenname>C. G.</givenname>
+				<aliases pos="309">
+					<alias>
+						<familyname>Sinha</familyname>
+						<givenname>C. G.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Sign Language Typology</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Skiba</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="310">
+					<alias>
+						<familyname>Skiba</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Skiba</familyname>
+				<givenname>Roman</givenname>
+				<aliases pos="311">
+					<alias>
+						<familyname>Skiba</familyname>
+						<givenname>Roman</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Skiba</familyname>
+				<givenname>Romuald</givenname>
+				<aliases pos="312">
+					<alias>
+						<familyname>Skiba</familyname>
+						<givenname>Romuald</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Sleiderink</familyname>
+				<givenname>A. M.</givenname>
+				<aliases pos="313">
+					<alias>
+						<familyname>Sleiderink</familyname>
+						<givenname>A. M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Slobin</familyname>
+				<givenname>D. I.</givenname>
+				<aliases pos="314">
+					<alias>
+						<familyname>Slobin</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>Slobin</familyname>
+						<givenname>D. I.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Sloetjes</familyname>
+				<givenname>Han</givenname>
+				<aliases pos="316">
+					<alias>
+						<familyname>Sloetjes</familyname>
+						<givenname>H.</givenname>
+					</alias>
+					<alias>
+						<familyname>Sloetjes</familyname>
+						<givenname>Han</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Smits</familyname>
+				<givenname>Roel</givenname>
+				<aliases pos="318">
+					<alias>
+						<familyname>Smits</familyname>
+						<givenname>R.</givenname>
+					</alias>
+					<alias>
+						<familyname>Smits</familyname>
+						<givenname>Roel</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Spenke</familyname>
+				<givenname>H.</givenname>
+				<aliases pos="320">
+					<alias>
+						<familyname>Spenke</familyname>
+						<givenname>H.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Sprenger</familyname>
+				<givenname>Simone A.</givenname>
+				<aliases pos="321">
+					<alias>
+						<familyname>Sprenger</familyname>
+						<givenname>S. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Sprenger</familyname>
+						<givenname>Simone A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Staden</familyname>
+				<givenname>M. van</givenname>
+				<aliases pos="323">
+					<alias>
+						<familyname>Staden</familyname>
+						<givenname>M. van</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Starren</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="324">
+					<alias>
+						<familyname>Starren</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Stevens</familyname>
+				<givenname>Michael E.</givenname>
+				<aliases pos="325">
+					<alias>
+						<familyname>Stevens</familyname>
+						<givenname>Michael E.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Stivers</familyname>
+				<givenname>Tanya</givenname>
+				<aliases pos="326">
+					<alias>
+						<familyname>Stivers</familyname>
+						<givenname>T.</givenname>
+					</alias>
+					<alias>
+						<familyname>Stivers</familyname>
+						<givenname>Tanya</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Stoll</familyname>
+				<givenname>S.</givenname>
+				<aliases pos="328">
+					<alias>
+						<familyname>Stoll</familyname>
+						<givenname>S.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Swift</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="329">
+					<alias>
+						<familyname>Swift</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Swingley</familyname>
+				<givenname>Daniel</givenname>
+				<aliases pos="330">
+					<alias>
+						<familyname>Swingley</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>Swingley</familyname>
+						<givenname>Daniel</givenname>
+					</alias>
+					<alias>
+						<familyname>Swingley</familyname>
+						<givenname>D. C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Ter Keurs</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="333">
+					<alias>
+						<familyname>Ter Keurs</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Terrill</familyname>
+				<givenname>Angela</givenname>
+				<aliases pos="334">
+					<alias>
+						<familyname>Terrill</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Terrill</familyname>
+						<givenname>Angela</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Trilsbeek</familyname>
+				<givenname>Paul</givenname>
+				<aliases pos="336">
+					<alias>
+						<familyname>Trilsbeek</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Trilsbeek</familyname>
+						<givenname>Paul</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Tuinman</familyname>
+				<givenname>Annelie</givenname>
+				<aliases pos="338">
+					<alias>
+						<familyname>Tuinman</familyname>
+						<givenname>Annelie</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Turennout</familyname>
+				<givenname>M. van</givenname>
+				<aliases pos="339">
+					<alias>
+						<familyname>Turennout</familyname>
+						<givenname>M. van</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Alphen</familyname>
+				<givenname>Petra M.</givenname>
+				<aliases pos="340">
+					<alias>
+						<familyname>van Alphen</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Alphen</familyname>
+						<givenname>Petra</givenname>
+					</alias>
+					<alias>
+						<familyname>van Alphen</familyname>
+						<givenname>Petra M.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Alphen</familyname>
+						<givenname>P.M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Berkum</familyname>
+				<givenname>Jos J. A.</givenname>
+				<aliases pos="344">
+					<alias>
+						<familyname>van Berkum</familyname>
+						<givenname>J. J. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Berkum</familyname>
+						<givenname>Jos</givenname>
+					</alias>
+					<alias>
+						<familyname>van Berkum</familyname>
+						<givenname>Jos J. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Berkum</familyname>
+						<givenname>Jos J. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Van Berkum</familyname>
+						<givenname>J. J. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Van Berkum</familyname>
+						<givenname>Jos J. A.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Berkum</familyname>
+						<givenname>Jos  J. A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van den Brink</familyname>
+				<givenname>Danielle</givenname>
+				<aliases pos="350">
+					<alias>
+						<familyname>van den Brink</familyname>
+						<givenname>D.</givenname>
+					</alias>
+					<alias>
+						<familyname>van den Brink</familyname>
+						<givenname>Danielle</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van der Lugt</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="352">
+					<alias>
+						<familyname>van der Lugt</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van der Meulen</familyname>
+				<givenname>F. F.</givenname>
+				<aliases pos="353">
+					<alias>
+						<familyname>van der Meulen</familyname>
+						<givenname>F.</givenname>
+					</alias>
+					<alias>
+						<familyname>van der Meulen</familyname>
+						<givenname>F. F.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van de Ven</familyname>
+				<givenname>Marco</givenname>
+				<aliases pos="355">
+					<alias>
+						<familyname>van de Ven</familyname>
+						<givenname>Marco</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van de Weijer</familyname>
+				<givenname>J. C.</givenname>
+				<aliases pos="356">
+					<alias>
+						<familyname>van de Weijer</familyname>
+						<givenname>J.</givenname>
+					</alias>
+					<alias>
+						<familyname>van de Weijer</familyname>
+						<givenname>J. C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Donselaar</familyname>
+				<givenname>Wilma</givenname>
+				<aliases pos="358">
+					<alias>
+						<familyname>van Donselaar</familyname>
+						<givenname>W.</givenname>
+					</alias>
+					<alias>
+						<familyname>van Donselaar</familyname>
+						<givenname>Wilma</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Geenhoven</familyname>
+				<givenname>V.</givenname>
+				<aliases pos="360">
+					<alias>
+						<familyname>van Geenhoven</familyname>
+						<givenname>V.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Gijn</familyname>
+				<givenname>Rik</givenname>
+				<aliases pos="361">
+					<alias>
+						<familyname>van Gijn</familyname>
+						<givenname>Rik</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Mulken</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="362">
+					<alias>
+						<familyname>van Mulken</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Turennout</familyname>
+				<givenname>M.</givenname>
+				<aliases pos="363">
+					<alias>
+						<familyname>van Turennout</familyname>
+						<givenname>M.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Van Uytvanck</familyname>
+				<givenname>Dieter</givenname>
+				<aliases pos="364">
+					<alias>
+						<familyname>Van Uytvanck</familyname>
+						<givenname>Dieter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>van Valkenhoef</familyname>
+				<givenname>Tobias</givenname>
+				<aliases pos="365">
+					<alias>
+						<familyname>van Valkenhoef</familyname>
+						<givenname>Tobias</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Veer</familyname>
+				<givenname>K van der</givenname>
+				<aliases pos="366">
+					<alias>
+						<familyname>Veer</familyname>
+						<givenname>K van der</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Verhagen</familyname>
+				<givenname>Josje</givenname>
+				<aliases pos="367">
+					<alias>
+						<familyname>Verhagen</familyname>
+						<givenname>Josje</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Verhees</familyname>
+				<givenname>Femke</givenname>
+				<aliases pos="368">
+					<alias>
+						<familyname>Verhees</familyname>
+						<givenname>Femke</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Pioneer</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Vigliocco</familyname>
+				<givenname>G.</givenname>
+				<aliases pos="369">
+					<alias>
+						<familyname>Vigliocco</familyname>
+						<givenname>G.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Vonk</familyname>
+				<givenname>Wietske</givenname>
+				<aliases pos="370">
+					<alias>
+						<familyname>Vonk</familyname>
+						<givenname>W.</givenname>
+					</alias>
+					<alias>
+						<familyname>Vonk</familyname>
+						<givenname>Wietske</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>von Stutterheim</familyname>
+				<givenname>C.</givenname>
+				<aliases pos="372">
+					<alias>
+						<familyname>von Stutterheim</familyname>
+						<givenname>C.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wagner</familyname>
+				<givenname>Anita</givenname>
+				<aliases pos="373">
+					<alias>
+						<familyname>Wagner</familyname>
+						<givenname>A.</givenname>
+					</alias>
+					<alias>
+						<familyname>Wagner</familyname>
+						<givenname>Anita</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Warner</familyname>
+				<givenname>Natasha</givenname>
+				<aliases pos="375">
+					<alias>
+						<familyname>Warner</familyname>
+						<givenname>N.</givenname>
+					</alias>
+					<alias>
+						<familyname>Warner</familyname>
+						<givenname>Natasha</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Warner</familyname>
+				<givenname>N. L.</givenname>
+				<aliases pos="377">
+					<alias>
+						<familyname>Warner</familyname>
+						<givenname>N. L.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wassenaar</familyname>
+				<givenname>Marlies</givenname>
+				<aliases pos="378">
+					<alias>
+						<familyname>Wassenaar</familyname>
+						<givenname>M.</givenname>
+					</alias>
+					<alias>
+						<familyname>Wassenaar</familyname>
+						<givenname>Marlies</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Weber</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="380">
+					<alias>
+						<familyname>Weber</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wegener</familyname>
+				<givenname>Claudia</givenname>
+				<aliases pos="381">
+					<alias>
+						<familyname>Wegener</familyname>
+						<givenname>Claudia</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wheeldon</familyname>
+				<givenname>L.</givenname>
+				<aliases pos="382">
+					<alias>
+						<familyname>Wheeldon</familyname>
+						<givenname>L.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Production Group Levelt</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Widlok</familyname>
+				<givenname>Thomas</givenname>
+				<aliases pos="383">
+					<alias>
+						<familyname>Widlok</familyname>
+						<givenname>T.</givenname>
+					</alias>
+					<alias>
+						<familyname>Widlok</familyname>
+						<givenname>Thomas</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wilkins</familyname>
+				<givenname>David P.</givenname>
+				<aliases pos="385">
+					<alias>
+						<familyname>Wilkins</familyname>
+						<givenname>David P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Wilkins</familyname>
+						<givenname>D. P.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Willems</familyname>
+				<givenname>D.</givenname>
+				<aliases pos="387">
+					<alias>
+						<familyname>Willems</familyname>
+						<givenname>D.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Windhouwer</familyname>
+				<givenname>Menzo</givenname>
+				<aliases pos="388">
+					<alias>
+						<familyname>Windhouwer</familyname>
+						<givenname>Menzo</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wittek</familyname>
+				<givenname>A.</givenname>
+				<aliases pos="389">
+					<alias>
+						<familyname>Wittek</familyname>
+						<givenname>A.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Acquisition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wittenburg</familyname>
+				<givenname>F.</givenname>
+				<aliases pos="390">
+					<alias>
+						<familyname>Wittenburg</familyname>
+						<givenname>F.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Wittenburg</familyname>
+				<givenname>Peter</givenname>
+				<aliases pos="391">
+					<alias>
+						<familyname>Wittenburg</familyname>
+						<givenname>P.</givenname>
+					</alias>
+					<alias>
+						<familyname>Wittenburg</familyname>
+						<givenname>Peter</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Zavala</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="393">
+					<alias>
+						<familyname>Zavala</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language and Cognition Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Zeshan</familyname>
+				<givenname>Ulrike</givenname>
+				<aliases pos="394">
+					<alias>
+						<familyname>Zeshan</familyname>
+						<givenname>U.</givenname>
+					</alias>
+					<alias>
+						<familyname>Zeshan</familyname>
+						<givenname>Ulrike</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Sign Language Typology</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Zinn</familyname>
+				<givenname>Claus</givenname>
+				<aliases pos="396">
+					<alias>
+						<familyname>Zinn</familyname>
+						<givenname>Claus</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Language Technology Group</department>
+				</departments>
+			</author>
+			<author>
+				<familyname>Zondervan</familyname>
+				<givenname>R.</givenname>
+				<aliases pos="397">
+					<alias>
+						<familyname>Zondervan</familyname>
+						<givenname>R.</givenname>
+					</alias>
+				</aliases>
+				<departments>
+					<department>Comprehension Group</department>
+				</departments>
+			</author>
+		</authors>
+	</xsl:variable>
+</xsl:stylesheet>
