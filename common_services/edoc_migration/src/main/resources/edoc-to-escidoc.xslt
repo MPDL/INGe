@@ -514,6 +514,10 @@
 		<xsl:if test="not(exists(issuetitle))">
 			<!-- ISSUE -->
 			<xsl:apply-templates select="issuenr"/>
+			<!-- START_PAGE -->
+			<xsl:apply-templates select="spage"/>
+			<!-- END-PAGE -->
+			<xsl:apply-templates select="epage"/>
 			<!-- SEQUENCE_NR -->
 			<xsl:apply-templates select="artnum"/>
 		</xsl:if>			
