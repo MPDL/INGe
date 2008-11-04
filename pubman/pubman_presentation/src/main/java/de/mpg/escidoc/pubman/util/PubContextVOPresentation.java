@@ -7,6 +7,7 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.easySubmission.EasySubmissionSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 
 /**
@@ -58,6 +59,12 @@ public class PubContextVOPresentation extends ContextVO {
     
     public String select()
     {
+    	// first clear the EditItemSessionBean
+        this.getEditItemSessionBean().clean();
+        
+        this.getItemControllerSessionBean().createNewPubItem(EditItem.LOAD_EDITITEM,
+                this.getReference());
+        
     	selected = true;
     	//return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EditItem.LOAD_EDITITEM, getReference());
     	((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).getCurrentPubItem().setContext(this.getReference());
@@ -123,5 +130,32 @@ public class PubContextVOPresentation extends ContextVO {
         {
             return result;
         }
+    }
+    
+    /**
+     * Returns the EditItemSessionBean.
+     * @return a reference to the scoped data bean (ItemListSessionBean)
+     */
+    protected EditItemSessionBean getEditItemSessionBean()
+    {
+        return (EditItemSessionBean) getSessionBean(EditItemSessionBean.class);
+    }
+    
+    /**
+     * Returns the EasySubmissionSessionBean.
+     * @return a reference to the scoped data bean (EasySubmissionSessionBean)
+     */
+    protected EasySubmissionSessionBean getEasySubmissionSessionBean()
+    {
+        return (EasySubmissionSessionBean) getSessionBean(EasySubmissionSessionBean.class);
+    }
+    
+    /**
+     * Returns a reference to the scoped data bean (the ItemControllerSessionBean). 
+     * @return a reference to the scoped data bean
+     */
+    protected ItemControllerSessionBean getItemControllerSessionBean()
+    {
+        return (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
     }
 }
