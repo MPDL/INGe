@@ -498,5 +498,10 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.reviseItem.ReviseItem</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>AffiliationDetailPage</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.AffiliationDetailPage</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 	
 </faces-config>
