@@ -315,7 +315,8 @@ public class ResourceUtil
     
     
     /**
-     * Returns list of Citation Styles 
+     * Returns list of Citation Styles according 
+     * to the content of the <code>CitaionStyles</code> directory  
      * @param root
      * @return list of Citation Styles
      * @throws IllegalArgumentException
