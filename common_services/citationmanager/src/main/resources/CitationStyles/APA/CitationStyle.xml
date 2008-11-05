@@ -233,7 +233,7 @@
 			<layout-element ref="publication/source/creator[@role='editor']/person"
 				repeatable="yes">
 				<parameters>
-					<starts-with value="In" />
+					<starts-with value="In " />
 					<ends-with value="(Eds.), " />
 					<delimiter value=", " />
 				</parameters>
@@ -254,7 +254,7 @@
 					<layout-element ref="publication/source/end-page" />
 				</elements>
 			</layout-element>
-			<layout-element ref="SourcePublisherBlock">
+			<layout-element name="SourcePublisherBlock">
 				<parameters>
 					<starts-with value=". " />
 					<delimiter value=": " />
