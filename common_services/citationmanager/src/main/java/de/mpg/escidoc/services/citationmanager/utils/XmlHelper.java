@@ -29,12 +29,16 @@
 
 package de.mpg.escidoc.services.citationmanager.utils;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -46,14 +50,20 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.apache.log4j.Logger;
+import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.traversal.DocumentTraversal;
+import org.w3c.dom.traversal.NodeFilter;
+import org.w3c.dom.traversal.NodeIterator;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
 import com.topologi.schematron.SchtrnParams;
 import com.topologi.schematron.SchtrnValidator;
 
@@ -118,7 +128,46 @@ public class XmlHelper {
     {
     	return createDocumentBuilder().newDocument(); 
     }
-     
+
+    
+    /**
+     * Creates new org.w3c.dom.Document with Traversing possibility 
+     * @param is <code>InputSource</code>
+     * @return org.w3c.dom.Document
+     * @throws CitationStyleManagerException
+     */    
+	public static Document parseDocumentForTraversing(InputSource is) throws CitationStyleManagerException
+	{
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
+		DocumentBuilder parser;
+		try 
+		{
+			parser = dbf.newDocumentBuilder();
+		} 
+		catch (ParserConfigurationException e) 
+		{
+			throw new CitationStyleManagerException("Cannot create DocumentBuilder:", e);
+		}
+
+		// Check for the traversal module
+		DOMImplementation impl = parser.getDOMImplementation();
+		if (!impl.hasFeature("traversal", "2.0")) 
+		{
+			throw new CitationStyleManagerException ("A DOM implementation that supports traversal is required.");
+		}
+		Document doc;
+		try 
+		{
+			doc = parser.parse(is);
+		} 
+		catch (Exception e) 
+		{
+			throw new CitationStyleManagerException ("Cannot parse InputSource to w3c document:", e);
+		}
+		
+		return doc;
+	}	    
     
     /**
      * Base procedure for xml serialization
@@ -334,35 +383,212 @@ public class XmlHelper {
     	public void warning(SAXParseException exception) throws SAXException { }     
     }
 
- 
+    
+    public static Document getExplainDocument() throws CitationStyleManagerException
+    {
+    	Document doc = null;
+    	try 
+    	{
+    		doc = parseDocumentForTraversing(
+    				new InputSource(
+    						ResourceUtil.getResourceAsStream(
+							ResourceUtil.getPathToSchemas() 
+							+ ResourceUtil.EXPLAIN_FILE
+					)    				)
+    				);
+		} catch (Exception e) 
+		{
+			throw new CitationStyleManagerException("Cannot parse explain file", e);
+		}
+    	return doc;
+    }
+    
+    
 
 	/* 
 	 * Returns list of Citation Styles 
 	 */
-	public static String[] getListOfStyles() throws CitationStyleManagerException, ParserConfigurationException, FileNotFoundException, SAXException, IOException {
+	public static String[] getListOfStyles() throws CitationStyleManagerException {
 
-		Document doc = createDocumentBuilder().parse(
-				new InputSource(
-						ResourceUtil.getResourceAsStream(
-								ResourceUtil.getPathToSchemas() 
-								+ ResourceUtil.EXPLAIN_FILE
-						)
-				)
-		);
+		NodeIterator ni = getFilteredNodes(new ExportFormatNodeFilter(), getExplainDocument());
+		ArrayList<String> lof = new ArrayList<String>();
+		Node n;
+		while ((n = ni.nextNode()) != null)
+		{
+			lof.add(n.getTextContent());
+		}		
+		return lof.size()==0 ? null : lof.toArray(new String[lof.size()]);
+	}
+
+	/* 
+	 * Checks whether the csName is in the list of Citation Styles
+	 */
+    public static boolean isCitationStyle(String csName) throws CitationStyleManagerException 
+	{
+		Utils.checkCondition( !Utils.checkVal(csName), "Empty name of the citation style");
+		 
+		for ( String csn : getListOfStyles() )
+			if ( csn.equals(csName) )
+				return true;
 		
-		Element root = doc.getDocumentElement( );
+		return false;
 		
-		NodeList identifierElements = root.getElementsByTagName("dc:identifier");
+	}    
+	
+
+	/**
+	 * Returns the list of the output formats (first element of the array) and mime-types 
+	 * (second element) for the citation style <code>csName</code>.  
+	 * @param csName is name of citation style
+	 * @return list of the output formats  
+	 * @throws CitationStyleManagerException
+	 */
+	public static List<String[]> getOutputFormatList(String csName) throws CitationStyleManagerException 
+	{
+		if (!isCitationStyle(csName)) 
+			return null;
 		
-		String[] str = new String[ identifierElements.getLength( ) ];
-		
-		for (int i = 0; i < str.length; i++) 
-			str[i] = identifierElements.item(i).getTextContent();
-		
-		return str;
-		
+		NodeIterator ni = getFilteredNodes(new OutputFormatNodeFilter(csName), getExplainDocument());
+
+		ArrayList<String[]> ofal = new ArrayList<String[]>();
+		Node n;
+		while ((n = ni.nextNode()) != null)
+		{
+			Node fc = n.getFirstChild().getNextSibling();
+			ofal.add(new String[] {
+					fc.getTextContent(), //here should be name of output format 
+					fc.getNextSibling()  //here is mime-type of the output format
+					.getNextSibling()  
+					.getTextContent() 
+					});
+		}
+		return ofal;	    
 	}
     
     
+	/**
+	 * Returns the list of the output formats
+	 * for the citation style <code>csName</code> 
+	 * @param csName is name of citation style
+	 * @return list of the output formats 
+	 * @throws CitationStyleManagerException
+	 */
+	public static String[] getOutputFormats(String csName) throws CitationStyleManagerException 
+	{
+		
+		List<String[]> ofal = getOutputFormatList(csName);
+		String[] ofl = new String[ ofal.size() ];
+		for (int i = 0; i < ofl.length; i++) 
+		{
+			ofl[i] = (ofal.get(i))[0];
+		}
+		return ofl;	    
+	}
 	
+	
+	/**
+	 * Returns the mime-type for output format of the citation style
+	 * @param csName is name of citation style
+	 * @param outFormat is the output format 
+	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
+	 * @throws CitationStyleManagerException if no <code>csName</code> or <code>outFormat</code> are defined 
+	 */ 
+	public static String getMimeType(String csName, String outFormat) throws CitationStyleManagerException{
+		
+		List<String[]> ofal = getOutputFormatList(csName);
+		
+		Utils.checkCondition( ofal==null || ofal.size()==0, "Empty list of output formats for citation style: " + csName);
+
+		Utils.checkName(outFormat,  "Empty output format: " + outFormat);
+
+		for( String[] of : ofal )
+		{
+			if (outFormat.equals(of[0]))
+				return of[1];
+		}
+		return null;	    
+	}
+    
+
+	/**
+	 * Returns <code>org.w3c.dom.traversal.NodeIterator</code> for org.w3c.dom.Document traversing
+	 *  
+	 * @throws ExportManagerException
+	 */
+	private static NodeIterator getFilteredNodes(NodeFilter nodeFilter, Document doc) throws CitationStyleManagerException  
+	{
+		NodeIterator ni = ((DocumentTraversal) doc).createNodeIterator(
+				doc.getDocumentElement(), 
+				NodeFilter.SHOW_ELEMENT,
+				nodeFilter, 
+				true
+		);	
+		return ni;
+	} 	
+	
+	
+}
+
+class OutputFormatNodeFilter implements NodeFilter {
+	
+	public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
+	public String cs;
+
+	public OutputFormatNodeFilter(String cs)
+	{
+		super();
+		this.cs = cs;
+	}
+	
+	public short acceptNode(Node n) {
+		Node parent = n.getParentNode();
+		if 
+		(
+				"output-format".equals(n.getLocalName()) 
+				&& parent != null 
+				&& "export-format".equals(parent.getLocalName())
+				&& cs.equals(
+						parent
+						.getChildNodes()
+						.item(3)						
+						.getTextContent()// name, style
+				   ) 				
+		)		
+		{
+//			System.out.println("Matched-->" + n.getLocalName()  
+//			+ ";parent:" + parent.getLocalName()
+//			+ ";n.getNamespaceURI():" + n.getNamespaceURI()
+//			);
+			return FILTER_ACCEPT;
+		}
+		return FILTER_SKIP;
+	}
+}
+
+class ExportFormatNodeFilter implements NodeFilter {
+	
+	public static final String DC_NS = "http://purl.org/dc/elements/1.1/";
+	
+	public short acceptNode(Node n) {
+		Node parent = n.getParentNode();
+//		System.out.println("I am here!!!!-->" + n.getLocalName()  
+//				+ ";parent:" + parent.getLocalName()
+//				+ ";n.getNamespaceURI():" + n.getNamespaceURI()
+//				);
+		if 
+		(
+				"identifier".equals(n.getLocalName())
+				&& DC_NS.equals(n.getNamespaceURI()) 
+				&& parent != null 
+				&& "export-format".equals(parent.getLocalName())
+		)		
+		{
+//			System.out.println("Matched-->" + n.getLocalName()  
+//					+ ";parent:" + parent.getLocalName()
+//					+ ";n.getNamespaceURI():" + n.getNamespaceURI()
+//					);
+			return FILTER_ACCEPT;
+		}
+		return FILTER_SKIP;
+	}
 }
