@@ -1460,21 +1460,35 @@ public class ProcessCitationStyles implements CitationStyleHandler{
 	 */
 	public boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException 
 	{
-		Utils.checkCondition( !Utils.checkVal(citationStyle), "Empty name of the citation style");
-		 
-		try {
-			for ( String csn : XmlHelper.getListOfStyles() )
-				if ( csn.equals(citationStyle) )
-					return true;
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			throw new CitationStyleManagerException(e);
-		}
-		
-		return false;
-		
+		return XmlHelper.isCitationStyle(citationStyle);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getStyles()
+	 */	
+	public String[] getStyles() throws CitationStyleManagerException
+	{
+		return XmlHelper.getListOfStyles();
+	}
+    	
+
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getOutputFormats(java.lang.String)
+	 */	
+	public String[] getOutputFormats(String cs) throws CitationStyleManagerException
+	{
+		return XmlHelper.getOutputFormats(cs);
+	}
+	
+	/* (non-Javadoc)
+	 * @see de.mpg.escidoc.services.citationmanager.CitationStyleHandler#getMimeType(java.lang.String, java.lang.String)
+	 */	
+	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException
+	{
+		return XmlHelper.getMimeType(cs, ouf);
+	}
+	
+	
 	
 	
 	/*---------------*/
@@ -1719,7 +1733,8 @@ public class ProcessCitationStyles implements CitationStyleHandler{
             logger.debug("Sucessfully processed!");
         }
     }
-    
+
+
 }
 
 
