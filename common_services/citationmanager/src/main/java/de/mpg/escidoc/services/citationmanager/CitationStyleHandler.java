@@ -67,7 +67,33 @@ public interface CitationStyleHandler {
      * citation styles, <code>false</code> otherwise.
      * @throws StructuredExportManagerException 
      */
-    boolean isCitationStyle(String citationStyle) throws CitationStyleManagerException;
+    boolean isCitationStyle(String cs) throws CitationStyleManagerException;
+    
+    /**
+     * The method returns the list 
+     * of the available citation styles
+     * @throws StructuredExportManagerException 
+     */
+    String[] getStyles() throws CitationStyleManagerException;
+    
+    
+    /**
+     * The method returns the list of available output formats for 
+     * citation style <code>cs</code>   
+	 * @param cs - name of citation style
+	 * @return list of available output formats
+	 * @throws CitationStyleManagerException
+	 */
+	String[] getOutputFormats(String cs) throws CitationStyleManagerException; 
+    
+	/**
+	 * Returns the mime-type for output format of the citation style
+	 * @param cs is name of citation style
+	 * @param ouf is the output format 
+	 * @return mime-type, or <code>null</code>, if no <code>mime-type</code> has been found    
+	 * @throws CitationStyleManagerException if no <code>cs</code> or <code>ouf</code> are defined 
+	 */ 
+	String getMimeType(String cs, String ouf) throws CitationStyleManagerException;
     
 	/**
 	 * This method provides the formatted output in the desired citation style.
@@ -79,8 +105,6 @@ public interface CitationStyleHandler {
 	 * Metadata record for each item in the item list should be specified in
 	 * accordance with escidoc_publication_profile.xsd
 	 */
-    
-    
 	byte[] getOutput(String citationStyle, String ouputFormat, String itemList)
 		throws IOException, JRException, CitationStyleManagerException;
 	
