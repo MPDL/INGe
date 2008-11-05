@@ -66,7 +66,6 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
     
     /**
      * {@inheritDoc}
-     * @throws CitationStyleManagerException 
      */
      public String explainStyles() throws CitationStyleManagerException
      {           
@@ -77,7 +76,6 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
 
      /**
       * {@inheritDoc}
-     * @throws IOException 
       */
     public byte[] getOutput(String citationStyle, String outputFormat, String itemList)
         throws JRException, CitationStyleManagerException, IOException
@@ -92,10 +90,31 @@ public class CitationStyleHandlerBean implements CitationStyleHandler
 
     /**
      * {@inheritDoc}
-    * @throws CitationStyleManagerException 
      */
 	public boolean isCitationStyle(String citationStyle)
 			throws CitationStyleManagerException {
 		return citStylesMan.isCitationStyle(citationStyle);
 	}
+
+    /**
+     * {@inheritDoc}
+     */
+	public String[] getStyles() throws CitationStyleManagerException {
+		return citStylesMan.getStyles();
+	}
+	
+    /**
+     * {@inheritDoc}
+     */
+	public String[] getOutputFormats(String cs) throws CitationStyleManagerException {
+		return citStylesMan.getOutputFormats(cs);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	public String getMimeType(String cs, String ouf) throws CitationStyleManagerException {
+		return citStylesMan.getMimeType(cs, ouf);
+	}
+	
 }
