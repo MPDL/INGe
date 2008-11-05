@@ -19,6 +19,7 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 import static org.junit.Assert.*;
@@ -74,11 +75,39 @@ public class CitationTest {
      * @throws Exception Any exception.
      */
     @Test
-    public final void testListOfStyles() throws Exception {
+    public final void testGetStyles() throws Exception {
     	logger.info("List of citation styles: " );
-    	for (String s : XmlHelper.getListOfStyles() )
+    	for (String s : pcs.getStyles() )
     		logger.info("Citation Style: " + s);
+    }
+    
+    /**
+     * Test list of styles
+     * @throws Exception Any exception.
+     */
+    @Test
+    public final void testExplainStuff() throws Exception {
+    	
+    	String explain = pcs.explainStyles();
+    	assertTrue("Empty explain xml", Utils.checkVal(explain) );
+    	logger.info("Explain file:" + explain);
+    	
+    	logger.info("List of citation styles with output formats: " );
+    	for (String s : pcs.getStyles() )
+    	{
+    		logger.info("Citation Style: " + s);
+    		for(String of : pcs.getOutputFormats(s))
+    		{
+        		logger.info("--Output Format: " + of);
+        		logger.info("--Mime Type: " + pcs.getMimeType(s, of));
+    		}
+    		
+    	}	
+    	
+    	
+    	
     }       
+    
     /**
      * Validates DataSource against XML Schema  
      * @throws IOException 
@@ -115,7 +144,7 @@ public class CitationTest {
     public final void testCitationStyleValidation() throws IOException, CitationStyleManagerException, ParserConfigurationException, SAXException
     {
     	
-    	for (String cs : XmlHelper.getListOfStyles() )
+    	for (String cs : pcs.getStyles() )
     	{
     		logger.info("Validate Citation Style: " + cs);
         	String csName = 
@@ -141,17 +170,13 @@ public class CitationTest {
 
 
     /**
-     * Test service with a item list XML.
-     * All exports 
+     * Test service for all citation styles and all output formats 
      * @throws Exception Any exception.
      */
     @Test
     public final void testCitManOutput() throws Exception {
     	
-    	for (String cs : 
-    		XmlHelper.getListOfStyles() 
-    		
-    	)
+    	for (String cs : pcs.getStyles() )
     	{
     		long start;
         	byte[] result;
