@@ -1,0 +1,155 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<div id="editFile" class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.EditItem_lblFile}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
+
+<%-- Add File --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder fileSection"  rendered="#{component.index == 0 && component.size == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />Save File<span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="quad_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
+						<span class="xDouble_area0 tiny_marginRIncl">
+							<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
+						</span>
+						<span class="large_area0 large_negMarginRIncl">
+							<span class="large_area0 fileInputPositioner">
+								<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
+							</span>
+						</span>
+						<label class="large_label endline fileLabel groupBtn">Choose File</label>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="Upload File" partialSubmit="false"/>
+				</span>
+			</h:panelGroup>
+			
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine fileSection" rendered="#{component.index > 0 && component.size == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" />Add New File<span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="quad_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblPath}"/>
+						<span class="xDouble_area0 tiny_marginRIncl">
+							<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
+						</span>
+						<span class="large_area0 large_negMarginRIncl">
+							<span class="large_area0 fileInputPositioner" >
+								<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
+							</span>
+						</span>
+						<label class="large_label endline fileLabel groupBtn">Choose File</label>
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="free_txtBtn groupBtn fileUploadBtn" text="Upload File" partialSubmit="false"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File content category --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.index == 0 && component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblContentCategory}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}">
+						<f:selectItems value="#{EditItem.contentCategories}" />
+					</h:selectOneMenu>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{component.index > 0 && component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblContentCategory}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="double_area0 xTiny_marginLExcl xTiny_marginRIncl">
+					<h:selectOneMenu styleClass="double_select replace" value="#{component.file.contentCategory}">
+						<f:selectItems value="#{EditItem.contentCategories}" />
+					</h:selectOneMenu>
+				</span>
+			</h:panelGroup>
+
+<%-- Filename, File visibility --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}"/><span class="noDisplay">:</span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="xDouble_area0 tiny_marginRIncl">
+						<label class="xDouble_label"><span class="mandatory" title="<h:outputText value='#{msg.mandatoryField}' />">*</span><h:outputText value="#{lbl.EditItem_lblName}"/></label>
+						<h:inputText styleClass="xDouble_txtInput" value="#{component.file.defaultMetadata.title.value}"/>
+					</span>
+					<span class="large_area0 endline">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblVisibility}"/>
+						<h:selectOneRadio styleClass="small_radioBtn large_area0" value="#{component.file.visibility}">
+							<f:selectItems value="#{EditItem.visibilities}" />
+						</h:selectOneRadio>
+					</span>
+				</span>
+			</h:panelGroup>
+
+<%-- File description, MIME type --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="xDouble_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblDescription}"/>
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{component.description}" cols="15" rows="3" />
+					</span>
+					<span class="large_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="large_label labelToTextAreaBottom" value="#{lbl.EditItem_lblMimeType}" />
+						<h:inputText styleClass="large_txtInput" value="#{component.mimeType}" />
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " action="#{component.removeFile}"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" />
+				</span>
+			</h:panelGroup>
+
+		</tr:iterator>
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblFile}" /></a>	
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblFile}" /></a>
+</div>

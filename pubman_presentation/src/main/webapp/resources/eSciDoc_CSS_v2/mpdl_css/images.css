@@ -120,12 +120,14 @@
 		background-image: url('../../images/15x15.gif');
 		background-repeat: no-repeat;
 		background-position: right;
+		position: absolute;
 	}
 	
 	.organisationSearchIcon {
 		background-image: url('../../images/15x15.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
+		position: absolute;
 	}
 
 	/*SORTING IMAGES FOR CONTENT MENU*/
@@ -293,6 +295,12 @@
 	
 	.remove:disabled {
 		background-image: url('../../images/PM_remove_deactivated_15x15.gif');
+		background-repeat: no-repeat;
+		background-position: center center;
+	}
+	
+	.fixErrorMessageBlockBtn {
+		background-image: url('../../images/15x15.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
 	}

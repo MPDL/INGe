@@ -61,6 +61,7 @@ function install_javascripts() {
 	installFullItem();
 	installDateTextbox();
 	installSelectReplacement();
+	bindSuggests();
 }
 
 /*INCLUDES EXTERNAL JAVASCRIPTS*/
@@ -71,6 +72,8 @@ function include_javascripts() {
 		include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_item_list.js');
 		include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_full_item.js');
 		include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/eSciDoc_single_elements.js');
+		include_dom('../../cone/js/jquery.suggest.js');
+		include_dom('./resources/eSciDoc_JavaScript/autoSuggestFunctions.js');
 		/*REITERATION NEEDED TO START ALL INCLUDED JAVASCRIPTS*/
 		included = true;
 		include_javascripts();

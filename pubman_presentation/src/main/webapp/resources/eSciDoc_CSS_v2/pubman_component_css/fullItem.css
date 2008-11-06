@@ -151,8 +151,16 @@
 	margin-top: -1.7em;
 }
 
+.fullItem .sourcesControls input, .fullItem .sourcesControls button {
+	margin-top: 0.46em;
+}
+
 .fullItem .inputTxtArea {
 	height: 4em;
+}
+
+.formButtonArea {
+	margin-top: 0.10em;
 }
 
 .fullItem .toTextAreaBottom {

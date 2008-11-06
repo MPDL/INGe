@@ -34,7 +34,7 @@
 	/*HEADER*/
 		/*H1*/
 		h1 {
-				color: #7D1D3D;
+				color: #163D4B;
 			}
 		/*H2*/
 		h2 {
@@ -55,7 +55,7 @@
 		/*H6*/
 		h6 {
 				font-weight: bold;
-				color: #636363;
+				color: #524240;
 				margin: 0px;
 			}
 	/*GENERAL*/
@@ -76,49 +76,54 @@
 */
 /*GENERAL*/
 	body {
-		background-color: #FBFDFE;
+		background-color: #EDF4F6;
+		color: #524240;
+	}
+	
+	input, button, textarea, select {
+		color: #000000;
 	}
 	
 	a, a:visited {
-		color: #1B90B5;
+		color: #388097;
 		text-decoration: none;
 	}
 	
 	a:hover, a:focus, input:hover, input:focus {
-		color: #636363;
+		color: #382926;
 		text-decoration: none;
 	}
 	/*SEPERATORS*/
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator, .itemList .seperator, .fullItem .seperator  {
-		background-color: #1B90B5;
+		background-color: #388097;
 	}
 	
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
-		border-color: #FBFDFE;
+		border-color: #EDF4F6;
 	}
 	
 	.fullItem .fullItemControls .seperator {
-		border-color: #1B90B5;
+		border-color: #388097;
 	}
 	
 	.itemList .seperator, .fullItem .seperator {
-		border-color: #999999;
+		border-color: #BAB4B3;
 	}
 	
 	.contentMenu .void {
-		border-color: #FBFDFE;
-		background-color: #FBFDFE;
+		border-color: #EDF4F6;
+		background-color: #EDF4F6;
 	}
 /*HEADER*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
 	.metaMenu input, .metaMenu button, .metaMenu label, .metaMenu a, .quickSearchMenu input, .quckSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu span, .contentMenu input, contentMenu a  {
-		background-color: #FBFDFE;
-		color: #1B90B5;
+		background-color: #EDF4F6;
+		color: #388097;
 	}
 	
 	.logoAlternate span {
 		font-weight: bold;
-		color: #636363;
+		color: #524240;
 	}
 	
 	.logoAlternate span a {
@@ -126,11 +131,11 @@
 	}
 	
 	.contentMenu span {
-		color: #636363;
+		color: #524240;
 	}
 	
 	.metaMenu input:hover, .metaMenu input:focus, .metaMenu button:hover, .metaMenu button:focus, .metaMenu a:hover, .metaMenu a:focus, .quickSearchMenu input:hover, .quickSearchMenu input:focus, .quckSearchMenu a:hover, .quckSearchMenu a:focus, .quickSearchCheckBoxMenu label:hover, .quickSearchCheckBoxMenu label:focus, .advancedSearchMenu input:hover, .advancedSearchMenu input:focus, .advancedSearchMenu a:hover, .advancedSearchMenu a:focus, .organisationSearchMenu input:hover, .organisationSearchMenu input:focus, .organisationSearchMenu a:hover, .organisationSearchMenu a:focus, .mainMenu input:hover, .mainMenu input:focus, .mainMenu a:hover, .mainMenu a:focus, .contentMenu input:hover, .contentMenu input:focus, contentMenu a:hover, contentMenu a:focus  {
-		color: #636363;
+		color: #524240;
 	}
 	
 	/*COLORING FOR BREADCRUMB SLASHES*/
@@ -139,11 +144,11 @@
 	}
 	/*COLORING FOR BREADCRUMB TEXT*/
 	.breadcrumb li a, .breadcrumb li a:visited {
-		color:#1B90B5;
+		color:#388097;
 	}
 	
 	.breadcrumb li a:hover, .breadcrumb li a:focus {
-		color: #636363;
+		color: #382926;
 	}
 	
 	.contentMenu span, .contentMenu input, .contentMenu a {
@@ -153,40 +158,41 @@
 /*EXT. PAGINATOR*/
 
 	.paginatorFallbackGoBtn {
-		background-color: #FBFDFE;
-		color: #1B90B5;
+		background-color: #EDF4F6;
+		color: #388097;
 	}
 
 	/*RANGE SELECTOR*/
 	
 	.rangeSelector input {
-		background-color: #FBFDFE;
+		background-color: #EDF4F6;
 		background: inherit;
 	}
 	
 	.rangeSelector .line {
-		background-color: #FFFFFF;
-		border-color: #999999;
-		color: #1B90B5;
+		background-color: #EDF4F6;
+		border-color: #AFCCD5;
+		color: #388097;
 	}
 	
 	.rangeSelector .actual {
-		background-color: #E8F4F7;
+		background-color: #73A686;
+		color: #FFFFFF;
 	}
 
 	/*PAGE BROWSER*/
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
-		background-color: #FBFDFE;
-		color: #1B90B5;
+		background-color: #EDF4F6;
+		color: #388097;
 	}
 	
 	.pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
-		color: #262626;
+		color: #524240;
 	}
 	
 	.pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
 		font-weight: bold;
-		color: #636363;
+		color: #524240;
 	}
 	
 	@media print {
@@ -197,7 +203,7 @@
 	}
 	
 	.pageBrowser .deactivated, .pageBrowser .deactivated:hover, .pageBrowser .deactivated:focus {
-		color: #999999;
+		color: #827775;
 	}
 	
 /*LISTS & FULL ITEM*/
@@ -205,11 +211,11 @@
 	/*GENERAL*/
 	
 	.itemList, .fullItem {
-		border-top-color: #1B90B5;
+		border-top-color: #163D4B;
 	}
 	
 	.fullItem {
-		border-bottom-color: #999999;
+		border-bottom-color: #BAB4B3;
 	}
 	
 	/*LIST HEADER*/
@@ -223,12 +229,12 @@
 		/*SELECT MENU*/
 	
 	.itemList .checkboxSelectButton {
-		background-color: #FBFDFE;
+		background-color: #FFFFFF;
 		cursor: pointer;
 	}
 	
 	.selectMenu {
-		border-color: #1b90b5;
+		border-color: #AFCCD5;
 		opacity: 0.95;
 		filter: alpha(opacity=95);
 	}
@@ -242,7 +248,8 @@
 	}
 
 	.selectMenu a:hover, .selectMenu input:hover {
-		background-color: #E8F4F7;
+		background-color: #73A686;
+		color: #FFFFFF;
 	}
 	
 	/*LIST ITEM*/
@@ -250,11 +257,11 @@
 		/*GENERAL*/
 		
 	.listItem {
-		border-top-color: #999999 !important;
+		border-top-color: #BAB4B3 !important;
 	}
 	
 	.searchHit {
-		background-color: #E7F4FA;
+		background-color: #AFCCD5;
 	}
 	
 	.fullItem, .listItem:hover, .itemBlock .itemLine:hover {
@@ -282,30 +289,30 @@
 	}
 	
 	.fullItem .fullItemControls .actual {
-		color: #FBFDFE;
-		background-color: #1B90B5;
+		color: #FFFFFF;
+		background-color: #388097;
 	}
 	
 	/*FULL ITEM BLOCK*/
 	
 	.fullItem .itemBlock, .fullItem .itemHeader {
-		border-top-color: #999999;
+		border-top-color: #BAB4B3;
 	}
 	
 	.itemBlock .voidBlock {
-		color: #C1C1C1;
+		color: #BAB4B3;
 	}
 	
 	.fullItem li, .itemBlock .itemLine {
-		border-top-color: #C1C1C1;
+		border-top-color: #BAB4B3;
 	}
 	
 	.itemBlock .newBlock {
-		border-top-color: #999999;
+		border-top-color: #BAB4B3;
 	}
 	
 	.affHover {
-		background-color: #E7F4FA;
+		background-color: #73A686;
 	}
 	
 	.add, .remove {
@@ -324,7 +331,7 @@
 	}
 	
 	.fullItem .groupBtn:hover, .fullItem .groupBtn:focus {
-		color: #163D4B;
+		color: #382926;
 		cursor: pointer;
 	}
 	
@@ -335,18 +342,18 @@
 	
 /*SINGLE ELEMENTS*/
 	.dateJSLabel {
-		background-color: #E8F4F7;
-		color: #262626;
+		background-color: #EDF4F6;
+		color: #524240;
 	}
 	
 	.replace .replaceLabel {
-		border-color: #A1D6ED !important;
-		color: #1398D1 !important;
+		border-color: #AFCCD5 !important;
+		color: #388097; !important;
 	}
 	
 	.replace .pulldown {
-		border-color: #A1D6ED !important;
-		background-color: #FAFDFE !important;
+		border-color: #AFCCD5 !important;
+		background-color: #EDF4F6 !important;
 	}
 	
 	.replace .open, .replace .close {
@@ -354,20 +361,93 @@
 	}
 	
 	.replace .actual, .replace .selectLine:hover {
-		background-color: #E7F4FA !important;
-		color: #1398D1 !important;
+		background-color: #73A686 !important;
+		color: #FFFFFF !important;
 	}
 
+/*FORM BUTTONS*/
+	.cancelButton, .activeButton {
+		border-style: solid;
+		padding-top: 0.10em;
+		padding-bottom: 0.10em;
+	}
+
+	.cancelButton {
+		float: left;
+		color: #388097;
+		background-color: #EDF4F6;
+		border-top-color: #EDF4F6;
+		border-right-color: #388097;
+		border-bottom-color: #388097;
+		border-left-color: #EDF4F6;
+	}
+	
+	.cancelButton:hover {
+		color: #382926;
+		background-color: #EDF4F6;
+		border-top-color: #EDF4F6;
+		border-right-color: #382926;
+		border-bottom-color: #382926;
+		border-left-color: #EDF4F6;
+	}
+	
+	.activeButton {
+		float: right;
+		color: #FFFFFF;
+		background-color: #388097;
+		border-color: #388097;
+	}
+	
+	.activeButton:hover {
+		color: #FFFFFF;
+		background-color: #163D4B;
+		border-color: #382926;
+	}
+	
 /*BLANK INPUT*/
 	.blankInput {
-		color: #999999;
+		color: #BAB4B3;
 	}	
 
-/*ERROR MESSAGES*/
-	.falseValue {
+/*MESSAGE AREAS*/
+	.messageArea {
+		border-style: solid;
+		background-color: #FFFFFF;
+		margin-bottom: 1em;
+	}
+	
+	.infoMessageArea {
+		border-color: #56871B;
+	}
+	
+	.errorMessageArea {
+		border-color: #E95A29;
+	}
+	
+	.errorMessageArea h2 {
 		color: #E95A29;
 	}
 	
+	.absoluteMessageArea {
+		position: fixed;
+		z-index: 100;
+	}
+	
+	.fixErrorMessageBlockBtn {
+		float: right;
+		background-color: #ffffff;
+	}
+	
+/*ERROR OR WARNING MESSAGES*/
+	.falseValue, .messageError, .messageWarn, .messageFatal {
+		color: #E95A29;
+	}
+	
+/*STATUS OR SUCCESS MESSAGE*/
+	.messageStatus {
+		color: #56871B;
+	}
+
 /*MANDATORY FIELD*/
 	.mandatory {
 		color: #E95A29;

@@ -1,0 +1,199 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<div id="editDetail" class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.EditItem_lblDetails}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
+
+<%-- Language of Publication --%>
+		<tr:iterator var="language" id="lgTable" value="#{EditItem.languages}" binding="#{EditItem.pubLangIterator}" varStatus="index">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0}" /><h:outputText value="#{lbl.EditItem_lblContentLanguage}" rendered="#{language.index == 0}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<input type="text" class="xDouble_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="small_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}">
+						<f:selectItems value="#{EditItem.languageOptions}"/>
+					</h:selectOneMenu>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{language.addItem}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{! language.moreThanOne}" action="#{language.removeItem}" />
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
+<%-- Dates --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{lbl.EditItem_lblDatePublishedOnline}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
+				</span>
+			</span>
+		</div>
+
+<%-- Number of Pages --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{lbl.EditItem_lblTotalNoOfPages}" />
+					<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{EditItem.pubItem.metadata.totalNumberOfPages}" />
+				</span>
+			</span>
+		</div>
+
+<%-- Publisher, Place --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="xDouble_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{lbl.EditItem_lblPublisher}" />
+					<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{EditItem.pubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{lbl.EditItem_lblPlace}" />
+					<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{EditItem.pubItem.metadata.publishingInfo.place}" />
+				</span>
+			</span>
+		</div>
+
+<%-- Table of Contents --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputLabel styleClass="quad_label" for="txtaTableOfContent" id="lblTableOfContent" value="#{lbl.EditItem_lblTableOfContent}" />
+				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" id="txtaTableOfContent" value="#{EditItem.pubItem.metadata.tableOfContents.value}" cols="15" rows="3" />
+			</span>
+		</div>
+
+<%-- Review Type --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="cboReviewType" id="lblReviewType" value="#{lbl.EditItem_lblReviewType}" />
+					<h:selectOneMenu styleClass="large_select replace" id="cboReviewType" value="#{EditItem.pubItem.metadata.reviewMethod}">
+						<f:selectItems value="#{EditItem.reviewMethods}" />
+					</h:selectOneMenu>
+				</span>
+			</span>
+		</div>
+
+<%-- Identifier --%>
+		<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="large_area0 largeFormPush">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblIdentifierType}" />
+						<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}">
+							<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
+						</h:selectOneMenu>
+					</span>
+					<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblIdentifierValue}" />
+					<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.identifierCollection.identifierManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EditItem.identifierCollection.identifierManager.removeObject}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+
+<%-- Edition, Degree type, location --%>
+		<div class="free_area0 endline itemLine noTopBorder">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" id="lblEdition" for="txtEdition" value="#{lbl.EditItem_lblEdition}" />
+					<h:inputText styleClass="large_txtInput" id="txtEdition" value="#{EditItem.pubItem.metadata.publishingInfo.edition}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
+					<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{EditItem.pubItem.metadata.degree}">
+						<f:selectItems value="#{EditItem.degreeTypes}" />
+					</h:selectOneMenu>
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" id="lblLocation" for="txtLocation" value="#{lbl.EditItem_lblLocation}" />
+					<h:inputText styleClass="large_txtInput" id="txtLocation" value="#{EditItem.pubItem.metadata.location}" />
+				</span>
+			</span>
+		</div>
+
+	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblDetails}" /></a>	
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblDetails}" /></a>
+</div>

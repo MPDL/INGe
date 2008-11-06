@@ -50,6 +50,7 @@ public class PubFileVOPresentation extends FacesBean {
 		this.file = new FileVO();
 		
 		file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
+		init();
 	}
 	
 	public PubFileVOPresentation(int fileIndex, boolean isLocator)
@@ -89,6 +90,7 @@ public class PubFileVOPresentation extends FacesBean {
 	public void init()
 	{
 	    this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+	    setVisibility();
 	}
 	
 	private void initStatisticService()
@@ -203,8 +205,21 @@ public class PubFileVOPresentation extends FacesBean {
     	{
     		visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
     	}
+    	else
+    	{
+    	    this.file.setVisibility(FileVO.Visibility.PUBLIC);
+    	    visibility = internationalized.getLabel(this.i18nHelper.convertEnumToString(this.file.getVisibility()));
+    	}
     	return visibility;
     }
+	
+	private void setVisibility()
+	{
+	    if(this.file.getVisibility() == null)
+	    {
+	        this.file.setVisibility(FileVO.Visibility.PUBLIC);
+	    }
+	}
     
     public void setMimeType(String mimeType)
     {

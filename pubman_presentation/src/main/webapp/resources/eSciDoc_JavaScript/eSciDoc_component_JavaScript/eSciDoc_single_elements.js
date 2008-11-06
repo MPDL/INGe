@@ -2,7 +2,7 @@
 
 function validateDate(inputField) {
 	/*DATE VALIDATION ACCORDING TO THE GREGORIAN CALENDAR*/
-	var input_empty = "YYYY-MM-DD";
+	var input_empty = "";
 	var isValidDate = true;
 	var isBC = false;
 	var validChars = "0123456789-";
@@ -97,7 +97,7 @@ function addDateJSLabels() {
 function addDateJSFunctions() {
 	$(".dateJSInput").each(function(){
 		$(this).focus(function() {
-			var input_empty = "YYYY-MM-DD", empty_string = "";
+			var input_empty = "", empty_string = "";
 			
 			$(this).removeClass("falseValue");
 			
@@ -107,7 +107,7 @@ function addDateJSFunctions() {
 				$(this).removeClass("blankInput");
 			}
 	
-			if($(this).val != "")
+			if($(this).val() != "")
 			{
 				var date = null;
 				date = Date.parse($(this).val());
@@ -119,7 +119,7 @@ function addDateJSFunctions() {
 	        return false;    
 		});
 		$(this).blur(function(){
-			var input_empty = "YYYY-MM-DD", empty_string = "";
+			var input_empty = "", empty_string = "";
 		
 			$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
 			
@@ -131,7 +131,7 @@ function addDateJSFunctions() {
 		});
 		$(this).keyup(function(event){
 			var message = "";
-			var input_empty = "YYYY-MM-DD", empty_string = "";
+			var input_empty = "", empty_string = "";
 			var date = null;
 
 			$(".dateJSLabel[for='"+$(this).attr("id")+"']").text("");
@@ -143,7 +143,7 @@ function addDateJSFunctions() {
 				{
 					$(".dateJSLabel[for='"+$(this).attr("id")+"']").removeClass("noDisplay").text(date.toString("yyyy-MM-dd"));
 					var oEvent = event || window.event;
-					if(oEvent.keyCode == 39)
+					if(oEvent.keyCode == 13)
 					{
 						$(this).val(date.toString("yyyy-MM-dd"));
 						$(".dateJSLabel[for='"+$(this).attr("id")+"']").addClass("noDisplay").text("");
@@ -172,13 +172,17 @@ function rebuildSelectDOM() {
 		var classNameString = $(ele).attr("class");
 		var lengthValue;
 		var possibleLengthValues = classNameString.split(' ');
+		var otherClasses = '';
 		for(var i=0; i<possibleLengthValues.length; i++) {
 			if(possibleLengthValues[i].match('_select')) {
 				var wholeLengthValue = possibleLengthValues[i].split('_');
 				lengthValue = wholeLengthValue[0];
+			} else {
+				if(possibleLengthValues[i].match('replace')){}
+				else {otherClasses = otherClasses+possibleLengthValues[i]+' '};
 			}
 		};
-		var replacementString = '<span class="'+lengthValue+'_area0 replace">';
+		var replacementString = '<span class="'+lengthValue+'_area0 replace '+otherClasses+'">';
 			if($(ele).find('option[selected]').length==0){
 				replacementString = replacementString+'<span class="'+lengthValue+'_area1_p7 replaceLabel">'+$(ele).find('option').text()+'</span>';
 				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ele.getAttribute("onchange")+'" />';
@@ -207,16 +211,26 @@ function rebuildSelectDOM() {
 function addReplacementFunctions() {
 	$('span.replace').find('.open').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('.pulldown').show(); })});
 	$('span.replace').find('.close').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('.pulldown').hide(); })});
-	$('span.replace').find('.selectLine').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('input[type=hidden]').val($(this).attr('name')); $(this).parents('.replace').find('.replaceLabel').text($(this).text()); $(this).parents('.pulldown').find('.actual').removeClass('actual'); $(this).addClass('actual'); $(this).parents('.pulldown').hide(); $(this).parents('.replace').find('input[type=hidden]').trigger('change');  })});
+	$('span.replace').find('.selectLine').each(function(i,ele){$(ele).click(function(){ $(this).parents('.replace').find('input:hidden').val($(this).attr('name')); $(this).parents('.replace').find('.replaceLabel').text($(this).text()); $(this).parents('.pulldown').find('.actual').removeClass('actual'); $(this).addClass('actual');  $(this).parents('.pulldown').hide(); $(this).parents('span.replace').find('input:hidden').trigger('change');  })});
 }
+
+jQuery.fn.replaceValue = function(value) {
+	if($(this).find('input[type=hidden]').length > 0 ){
+		$(this).find('input[type=hidden]').val(value);
+		$(this).find('.replaceLabel').text($(this).find('.selectLine[name='+value+']:first').text());
+		$(this).find('.actual').removeClass('actual');
+		$(this).find('.selectLine[name='+value+']').addClass('actual');
+		$(this).find('input[type=hidden]').trigger('change'); 
+	}
+};
 
 function installDateTextbox() {
 	/*GET LANGUAGE*/
 	var language = '';
-	language = $('body').attr('lang');
+	language = document.body.lang;
 	if(language != '') language = '-'+language;
 	/*INCLUDE RIGHT LANGUAGE HERE*/
-	include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/dateJS/date'+language+'.js');
+	include_dom('./resources/eSciDoc_JavaScript/eSciDoc_component_JavaScript/DateJS/date'+language+'.js');
 	addDateJSLabels();
 	addDateJSFunctions();
 }

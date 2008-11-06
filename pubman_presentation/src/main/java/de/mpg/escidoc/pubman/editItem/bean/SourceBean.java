@@ -6,6 +6,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 
+import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
 import de.mpg.escidoc.pubman.editItem.EditItem;
@@ -31,7 +32,6 @@ public class SourceBean
 	
 	private CoreCommandButton btn_chooseCollection = new CoreCommandButton();
 	
-
     public SourceBean()
 	{
 		// ensure the parentVO is never null;
@@ -155,8 +155,6 @@ public class SourceBean
 	public void setBtn_chooseCollection(CoreCommandButton btn_chooseCollection) {
 		this.btn_chooseCollection = btn_chooseCollection;
 	}
-
-	
 
 
 }

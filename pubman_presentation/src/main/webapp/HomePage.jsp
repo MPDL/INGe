@@ -49,7 +49,7 @@
 				<meta http-equiv="expires" content="0"/>
 				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				
-				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript"></script>
+				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
