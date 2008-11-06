@@ -1714,12 +1714,12 @@ public class EditItem extends FacesBean
             EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
             setCreatorParseString("");
 
-            return EditItem.LOAD_EDITITEM;
+            return null;
         }
         catch (Exception e)
         {
             error(getMessage("ErrorParsingCreatorString"));
-            return EditItem.LOAD_EDITITEM;
+            return null;
             
         }
     }
@@ -1730,12 +1730,12 @@ public class EditItem extends FacesBean
         {
             EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
             setCreatorParseString("");
-            return EditItem.LOAD_EDITITEM;
+            return null;
         }
         catch (Exception e)
         {
             error(getMessage("ErrorParsingCreatorString"));
-            return EditItem.LOAD_EDITITEM;
+            return null;
             
         }
     }
