@@ -103,8 +103,12 @@
 							<escidoc:place></escidoc:place>
 							<escidoc:edition></escidoc:edition>
 						</publication:publishing-info>
-						<dcterms:created xsi:type="dcterms:W3CDTF"></dcterms:created>
-						<dcterms:modified xsi:type="dcterms:W3CDTF"></dcterms:modified>
+						<dcterms:created xsi:type="dcterms:W3CDTF">
+							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/created"/>
+						</dcterms:created>
+						<dcterms:modified xsi:type="dcterms:W3CDTF">
+							<xsl:value-of select="oaipmh:OAI-PMH/oaipmh:GetRecord/oaipmh:record/oaipmh:metadata/arxiv:arXiv/updated"/>
+						</dcterms:modified>
 						<dcterms:dateSubmitted xsi:type="dcterms:W3CDTF"></dcterms:dateSubmitted>
 						<dcterms:dateAccepted xsi:type="dcterms:W3CDTF"></dcterms:dateAccepted>
 						<!--  -->
