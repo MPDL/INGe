@@ -413,6 +413,10 @@ public class ItemListSessionBean extends FacesBean
         }
         else if (event.getNewValue().equals(InternationalizationHelper.SelectMultipleItems.SELECT_VISIBLE.toString()))
         {
+        	// first deselect all
+        	for (PubItemVOPresentation item : currentPubItemList) {
+				item.setSelected(false);
+			}
         	int size = currentPubItemList.size();
         	for (int i = 0; i < itemsPerPage; i++)
         	{
