@@ -10,9 +10,14 @@ import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
 import de.mpg.escidoc.pubman.editItem.EditItem;
+import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
+import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.PublishingInfoVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.SourceVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -22,6 +27,9 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class SourceBean
 {
+    private final static String HIDDEN_DELIMITER = "\\|\\|##\\|\\|";
+    private final static String HIDDEN_IDTYPE_DELIMITER = "\\|";
+    
 	private SourceVO source;
 	
 	private CreatorCollection creatorCollection;
@@ -31,6 +39,10 @@ public class SourceBean
 	private boolean autosuggestJournals = false;
 	
 	private CoreCommandButton btn_chooseCollection = new CoreCommandButton();
+	
+	private String hiddenAlternativeTitlesField;
+	
+	private String hiddenIdsField;
 	
     public SourceBean()
 	{
@@ -155,6 +167,86 @@ public class SourceBean
 	public void setBtn_chooseCollection(CoreCommandButton btn_chooseCollection) {
 		this.btn_chooseCollection = btn_chooseCollection;
 	}
+	
+	   /**
+     * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the model.
+     * Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3
+     * Format of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
+     * @return
+     */
+    public String parseAndSetAlternativeTitlesAndIds()
+    {
+        if (!getHiddenAlternativeTitlesField().trim().equals(""))
+        {
+            AlternativeTitleManager altTitleManager =  getTitleCollection().getAlternativeTitleManager();
+            altTitleManager.getObjectList().clear();
+            
+            String[] alternativeTitles = getHiddenAlternativeTitlesField().split(HIDDEN_DELIMITER);
+            for (int i = 0; i < alternativeTitles.length; i++)
+            {
+                String alternativeTitle = alternativeTitles[i].trim();
+                if (!alternativeTitle.equals(""))
+                {
+                    
+                    TextVO textVO = new TextVO(alternativeTitle);
+                    altTitleManager.getObjectList().add(textVO);
+                   
+                }
+            }
+        }
+        
+        
+        if (!getHiddenIdsField().trim().equals(""))
+        {
+            IdentifierManager idManager = getIdentifierCollection().getIdentifierManager();
+            idManager.getObjectList().clear();
+            //idManager.getDataListFromVO().clear();
+            
+            String[] ids = getHiddenIdsField().split(HIDDEN_DELIMITER);
+            for (int i = 0; i < ids.length; i++)
+            {
+                String idComplete = ids[i].trim();
+                
+                String[] idParts = idComplete.split(HIDDEN_IDTYPE_DELIMITER);
+                
+                //id has no type, use type 'other'
+                if (idParts.length==1 && !idParts[0].equals(""))
+                {
+                    IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+                    idManager.getObjectList().add(idVO);
+                }
+                
+                //Id has a type
+                else if (idParts.length==2)
+                {
+                    IdentifierVO idVO = new IdentifierVO(IdType.valueOf(idParts[0]), idParts[1].trim());
+                    idManager.getObjectList().add(idVO);
+                }
+            }  
+        }
+        
+        return "";
+    }
+
+    public void setHiddenIdsField(String hiddenIdsField)
+    {
+        this.hiddenIdsField = hiddenIdsField;
+    }
+
+    public String getHiddenIdsField()
+    {
+        return hiddenIdsField;
+    }
+
+    public void setHiddenAlternativeTitlesField(String hiddenAlternativeTitlesField)
+    {
+        this.hiddenAlternativeTitlesField = hiddenAlternativeTitlesField;
+    }
+
+    public String getHiddenAlternativeTitlesField()
+    {
+        return hiddenAlternativeTitlesField;
+    }
 
 
 }

@@ -23,8 +23,8 @@
 
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-* für wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Förderung der Wissenschaft e.V.
+* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
@@ -35,6 +35,7 @@
 	var languageSuggestURL = '';
 	var journalSuggestURL = '';
 	var journalDetailsBaseURL = '';
+	var autopasteDelimiter = ' ||##|| ';
 	var journalSuggestCommonParentClass = 'sourceArea';
 	var journalSuggestTrigger = 'JOURNAL';
 
@@ -52,10 +53,32 @@
 				(typeof details.http_purl_org_dc_elements_1_1_identifier == 'object' ?
 						details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
 
+		var allAltTitles = '';
+		if(typeof(altTitle)=='object'){
+			allAltTitles = altTitle[0];
+			for(var i=1; i<altTitle.length; i++) {
+					allAltTitles = allAltTitles + autopasteDelimiter + altTitle[i];
+			}
+		} else {
+			allAltTitles = altTitle;
+		}
+		
+		var allIDs = '';
+		if(typeof(identifier)=='object'){
+			allIDs = identifier[0];
+			for(var i=1; i<altTitle.length; i++) {
+				allIDs = allIDs + autopasteDelimiter + identifier[i];
+			}
+		} else {
+			allIDs = identifier;
+		}
+		
 		fillField('journalSuggest', title, parent);
+		fillField('sourceAltTitlePasteField', allAltTitles, parent);
 		fillField('publisher', publisher, parent);
 		fillField('place', place, parent);
-		fillField('identifierValue', identifier, parent);
+		fillField('sourceIdentifierPasteField', allIDs, parent);
+		$(parent).find('.hiddenAutosuggestUploadBtn').click();
 	}
 
 	function fillField(name, value, commonParent)

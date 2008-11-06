@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -77,7 +77,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 <%-- JIRA PUBMAN-518 --%>
 <%-- start please read out autosuggested alternative titles here --%>
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value=" " cols="15" rows="3" />
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{sourceBean.hiddenAlternativeTitlesField}" cols="15" rows="3" />
 <%-- stop please read out autosuggested alternative titles here --%>
 				</span>
 			</div>
@@ -89,7 +89,7 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{data.value}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
 						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
@@ -273,8 +273,11 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 <%-- JIRA PUBMAN-517 --%>
 <%-- start please read out autosuggested IDs here --%>
-					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value=" " cols="15" rows="3" />
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
 <%-- stop please read out autosuggested IDs here --%>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" title="upload autosuggested" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
 				</span>
 			</div>
 
