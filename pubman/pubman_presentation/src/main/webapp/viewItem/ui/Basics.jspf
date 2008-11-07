@@ -53,8 +53,9 @@
 			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}"/>
 	</h:panelGroup>	
 	
+	<%-- Show last public status comment in case item is in state in revision--%>
 	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isStateInRevision}">
-			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}"/>
+			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}"/>
 	</h:panelGroup>	
 	
 	<!-- COinS -->
