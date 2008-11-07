@@ -9,6 +9,7 @@ import javax.faces.model.SelectItem;
 import org.apache.myfaces.trinidad.component.UIXIterator;
 import org.apache.myfaces.trinidad.component.core.nav.CoreCommandButton;
 
+import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
@@ -25,7 +26,7 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * 
  * @author Mario Wagner
  */
-public class SourceBean
+public class SourceBean extends FacesBean
 {
     private final static String HIDDEN_DELIMITER = "\\|\\|##\\|\\|";
     private final static String HIDDEN_IDTYPE_DELIMITER = "\\|";
@@ -43,6 +44,9 @@ public class SourceBean
 	private String hiddenAlternativeTitlesField;
 	
 	private String hiddenIdsField;
+	
+	private String creatorParseString;
+    private boolean overwriteCreators;
 	
     public SourceBean()
 	{
@@ -247,6 +251,42 @@ public class SourceBean
     {
         return hiddenAlternativeTitlesField;
     }
+    
+    public String addCreatorString()
+    {
+        try
+        {
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
+            setCreatorParseString("");
 
+            return null;
+        }
+        catch (Exception e)
+        {
+            error(getMessage("ErrorParsingCreatorString"));
+            return null;
+            
+        }
+    }
+
+    public void setCreatorParseString(String creatorParseString)
+    {
+        this.creatorParseString = creatorParseString;
+    }
+
+    public String getCreatorParseString()
+    {
+        return creatorParseString;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
+    }
 
 }

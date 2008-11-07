@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -51,7 +51,7 @@
 			
 			<%-- JIRA AS-565 --%>
 			<%-- start please provide checkbox for add all (overwrite old) instead of extra button (see in editItem/ui/CreatorCollection.jspf) --%>
-						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="false" />
+						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItem.overwriteCreators}" />
 			<%-- stop please provide checkbox for add all (overwrite old) instead of extra button (see in editItem/ui/CreatorCollection.jspf) --%>
 			
 						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />

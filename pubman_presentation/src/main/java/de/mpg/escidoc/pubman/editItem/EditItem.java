@@ -176,6 +176,8 @@ public class EditItem extends FacesBean
     
     private String creatorParseString;
     
+    private boolean overwriteCreators;
+    
     private String suggestConeUrl = null;
     
     /**
@@ -1711,7 +1713,7 @@ public class EditItem extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
             setCreatorParseString("");
 
             return null;
@@ -1724,21 +1726,7 @@ public class EditItem extends FacesBean
         }
     }
     
-    public String overwriteAndAddCreatorString()
-    {
-        try
-        {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
-            setCreatorParseString("");
-            return null;
-        }
-        catch (Exception e)
-        {
-            error(getMessage("ErrorParsingCreatorString"));
-            return null;
-            
-        }
-    }
+   
 
     public void setCreatorParseString(String creatorParseString)
     {
@@ -1830,6 +1818,16 @@ public class EditItem extends FacesBean
     public void setSourceIdentifierIterator(UIXIterator sourceIdentifierIterator)
     {
         this.sourceIdentifierIterator = sourceIdentifierIterator;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
     }
     
     

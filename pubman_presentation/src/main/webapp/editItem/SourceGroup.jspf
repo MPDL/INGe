@@ -84,7 +84,7 @@
 
 	<%-- Source alternative title --%>
 			<tr:iterator var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}">
-				<div class="free_area0 endline itemLine noTopBorder">
+				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
 					</b>
@@ -92,10 +92,10 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
 					</span>
-				</div>
+				</h:panelGroup>
 			</tr:iterator>
 
 <%-- Source creator --%>
@@ -110,12 +110,12 @@
 						<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
 				<%-- JIRA AS-567 --%>
 				<%-- start please provide author copy&paste for source creators --%>
-						<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value=" " cols="15" rows="3" />
+						<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{sourceBean.creatorParseString}" cols="15" rows="3" />
 						<span class="large_checkbox underRework">
-							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="false" />
+							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
 							<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 						</span>
-						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text="#{lbl.EditItem_btnAddAuthors}" action=" " />
+						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text="#{lbl.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
 				<%-- stop please provide author copy&paste for source creators --%>
 					</span>
 				</h:panelGroup>
