@@ -43,6 +43,10 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
  */
 public class ItemVOListWrapper implements Serializable
 {
+    private String numberOfRecords;
+    private String limit;
+    private String offset;
+    
     /**
      * Fixed serialVersionUID to prevent java.io.InvalidClassExceptions like
      * 'de.mpg.escidoc.services.common.valueobjects.ItemVO; local class incompatible: stream classdesc
@@ -77,4 +81,36 @@ public class ItemVOListWrapper implements Serializable
     {
         this.itemVOList = itemVOList;
     }
+
+    public void setNumberOfRecords(String numberOfRecords)
+    {
+        this.numberOfRecords = numberOfRecords;
+    }
+
+    public String getNumberOfRecords()
+    {
+        return numberOfRecords;
+    }
+
+    public void setLimit(String limit)
+    {
+        this.limit = limit;
+    }
+
+    public String getLimit()
+    {
+        return limit;
+    }
+
+    public void setOffset(String offset)
+    {
+        this.offset = offset;
+    }
+
+    public String getOffset()
+    {
+        return offset;
+    }
+    
+   
 }

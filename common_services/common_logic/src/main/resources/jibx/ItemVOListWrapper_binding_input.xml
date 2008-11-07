@@ -32,6 +32,10 @@
 	<mapping name="item-list" ns="${xsd.soap.item.itemlist}"
 		class="de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper">
 
+		<value style="attribute" name="limit" field="limit" usage="optional" />
+		<value style="attribute" name="offset" field="offset" usage="optional" />
+		<value style="attribute" name="number-of-records" field="numberOfRecords" usage="optional" />
+		
 		<!-- Node: item-list.item(*) -->
 		<!-- Field: PubItemVOListWrapper.pubItemVOList [List<PubItemVO>] -->
 		<collection field="itemVOList"

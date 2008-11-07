@@ -1099,6 +1099,36 @@ public class XmlTransformingBean implements XmlTransforming
         return newList;
     }
     
+    public ItemVOListWrapper transformToItemListWrapper(String itemListXml) throws TechnicalException
+    {
+        logger.debug("transformToPubItemListWrapper(String) - String itemList=\n" + itemListXml);
+        if (itemListXml == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":transformToPubItemList:itemList is null");
+        }
+        ItemVOListWrapper itemVOListWrapper = null;
+        try
+        {
+            // unmarshal ItemVOListWrapper from String
+            IBindingFactory bfact = BindingDirectory.getFactory("PubItemVO_PubCollectionVO_input", ItemVOListWrapper.class);
+            IUnmarshallingContext uctx = bfact.createUnmarshallingContext();
+            StringReader sr = new StringReader(itemListXml);
+            Object unmarshalledObject = uctx.unmarshalDocument(sr, null);
+            itemVOListWrapper = (ItemVOListWrapper)unmarshalledObject;
+        }
+        catch (JiBXException e)
+        {
+            // throw a new UnmarshallingException, log the root cause of the JiBXException first
+            logger.error(e.getRootCause());
+            throw new UnmarshallingException(itemListXml, e);
+        }
+        catch (ClassCastException e)
+        {
+            throw new TechnicalException(e);
+        }
+       return itemVOListWrapper;
+    }
+    
     public FaceItemVO transformToFaceItem(String itemXml) throws TechnicalException
     {
         ItemVO itemVO = transformToItem(itemXml);

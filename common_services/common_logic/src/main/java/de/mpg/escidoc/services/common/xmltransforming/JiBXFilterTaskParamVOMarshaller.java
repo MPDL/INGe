@@ -157,11 +157,9 @@ public class JiBXFilterTaskParamVOMarshaller implements IMarshaller, IAliasable
                 {
                     OrderFilter orderFilter = (OrderFilter) filter;
                     ctx.startTag(m_index, "order-by");
-                    //attribute sorting only in case sort order is descending
-                    if (orderFilter.getSortOrder().equals(OrderFilter.ORDER_DESCENDING))
-                    {
-                        ctx.attribute(m_index, "sorting", orderFilter.getSortOrder());
-                    }
+                    
+                    ctx.attribute(m_index, "sorting", orderFilter.getSortOrder());
+                    
                     ctx.content(orderFilter.getProperty());
                     ctx.endTag(m_index, "order-by");
                 }
