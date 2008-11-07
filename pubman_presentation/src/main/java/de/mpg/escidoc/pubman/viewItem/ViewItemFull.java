@@ -884,7 +884,7 @@ public class ViewItemFull extends FacesBean
                     {
                         if (organizationsFound == 0)
                         {
-                            annotation.append("   [");
+                            annotation.append("<sup>");
                         }
                         if (organizationsFound > 0 && j < this.affiliatedOrganizationsList.size())
                         {
@@ -897,9 +897,9 @@ public class ViewItemFull extends FacesBean
             }
             if (annotation.length() > 0)
             {
-                annotation.append("]");
+                annotation.append("</sup>");
             }
-            formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+            formattedCreator = formatter.formatCreator(creator, annotation.toString());
             if (creator.getPerson() != null)
             {
                 this.creatorArray.add(formattedCreator);
