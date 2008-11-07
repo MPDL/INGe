@@ -556,6 +556,7 @@ public class FilterTaskParamVO extends ValueObject
         {
             super();
             this.property = property;
+            this.sortOrder = sortOrder;
         }
 
         public String getProperty()
