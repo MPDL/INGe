@@ -33,7 +33,7 @@
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblBasic}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblCreators}" />
 	</h3>
 	<span class="seperator"></span>
 	<div class="free_area0 itemBlockContent endline">
@@ -67,13 +67,13 @@
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
-					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.OrganizationIdentifier}"/></h:panelGroup>
+					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
 			</span>
 		</div>
 	
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblBasic}" /></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblCreators}" /></a>	
 	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblBasic}" /></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblCreators}" /></a>
 </div>
