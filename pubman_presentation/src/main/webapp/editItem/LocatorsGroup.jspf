@@ -124,7 +124,7 @@
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<span class="xDouble_area0 tiny_marginRIncl">
 						<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblDescription}" />
-						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.description}" cols="15" rows="3" />
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" value="#{locator.file.description}" cols="15" rows="3" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
