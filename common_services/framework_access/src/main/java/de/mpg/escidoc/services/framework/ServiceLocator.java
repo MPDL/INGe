@@ -353,19 +353,19 @@ public class ServiceLocator
     /**
      * Gets the SearchHandler service for an anonymous user.
      *
-     * @param language The 2 character ISO code of the language.
+     * @param databaseIdentifier  escidoc search database identifier
      * @return A SearchHandler (SRWPort).
      * @throws ServiceException
      * @throws URISyntaxException 
      */
-    public static SRWPort getSearchHandler(String language) throws ServiceException, URISyntaxException
+    public static SRWPort getSearchHandler(String databaseIdentifier) throws ServiceException, URISyntaxException
     {
-        if (language == null)
+        if ( databaseIdentifier == null)
         {
-            language = SRW_LANGUAGE;
+            throw new ServiceException("Database identifier is not valid");
         }
         SRWSampleServiceLocator searchHandlerServiceLocator = new SRWSampleServiceLocator();
-        String url = getFrameworkUrl() + SRW_PATH + "/" + SRW_DATABASE + language + "/" + searchHandlerServiceLocator.getSRWWSDDServiceName();
+        String url = getFrameworkUrl() + SRW_PATH + "/" + databaseIdentifier + "/" + searchHandlerServiceLocator.getSRWWSDDServiceName();
         Logger.getLogger(ServiceLocator.class).info("publicSearchHandlerServiceLocator URL=" + url);
         searchHandlerServiceLocator.setSRWEndpointAddress(url);
         SRWPort handler = searchHandlerServiceLocator.getSRW();
