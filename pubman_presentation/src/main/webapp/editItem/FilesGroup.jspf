@@ -108,6 +108,16 @@
 				</span>
 			</h:panelGroup>
 
+<%-- Real filename --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{component.file.name}" />
+				</span>
+			</h:panelGroup>
+
 <%-- Filename, File visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{component.size > 0}">
 				<b class="xLarge_area0_p8 endline labelLine clear">

@@ -87,7 +87,17 @@
 				</span>
 			</h:panelGroup>
 
-<%-- Locator URL, Locator visibility --%>
+<%-- Locator URL --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{locator.locator}" />
+				</span>
+			</h:panelGroup>
+
+<%-- Locator name, Locator visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{locator.locator != null && locator.locator != ''}">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblFileProperties}" /><span class="noDisplay">: </span>

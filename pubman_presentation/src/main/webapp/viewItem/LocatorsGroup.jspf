@@ -33,89 +33,60 @@
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
+	<h:panelGroup styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
 
-		<tr:iterator var="file" value="#{ViewItemFull.fileList}" binding="#{ViewItemFull.fileIterator}" varStatus="index">
+		<tr:iterator var="locator" value="#{ViewItemFull.locatorList}" binding="#{ViewItemFull.locatorIterator}" varStatus="index">
 
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{ViewItemFull.fileIterator.rowIndex > 0}"/>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{ViewItemFull.locatorIterator.rowIndex > 0}"/>
 
-<%-- File name --%>
+<%-- Locator URL --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
+					<h:outputText value="#{lbl.ViewItemFull_lblLocatorLocation}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<tr:commandLink action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator)}">
-							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
-						</tr:commandLink>
-						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator)}"/>
+						<h:outputLink value="#{locator.locatorLink}" rendered="#{ViewItemFull.isStateWithdrawn == false && locator.locatorIsLink}" target="_blank">
+							<h:outputText value="#{locator.fileName}" />
+						</h:outputLink>
+						<h:outputText value="#{locator.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false && !locator.locatorIsLink}"/>
 						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
 
-<%-- File visibility --%>
+<%-- Locator visibility --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{locator.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 				</span>
 			</h:panelGroup>
 
-<%-- File MIME type --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemMedium_lblFileMimeTypeSize}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.file.mimeType} / #{file.fileSize}"/>
-				</span>
-			</h:panelGroup>
-
-<%-- File content category --%>
+<%-- Locator content category --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileCategory}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.contentCategory}"/>
+					<h:outputText value="#{locator.contentCategory}"/>
 				</span>
 			</h:panelGroup>
 
-<%-- File description --%>
+<%-- Locator description --%>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{file.file.description}"/>
+					<h:outputText value="#{locator.file.description}"/>
 				</span>
 			</h:panelGroup>
 
-<%-- File fulltext searchhits --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{file.showSearchHits}">
-				<b class="xLarge_area0 endline labelLine">
-					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/><span class="noDisplay">: <br /></span>
-				</b>
-				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<tr:iterator var="hit" value="#{file.searchHits}" binding="#{ViewItemFull.fileSearchHitIterator}" varStatus="index">
-						<h:panelGroup styleClass="xHuge_area0">
-							<h:outputText value="#{hit.beforeSearchHitString}"/>
-								<h:outputText value='<em class="searchHit">' escape="false"/>
-									<h:outputText value="#{hit.searchHitString}"/>
-								<h:outputText value="</em>" escape="false"/>
-							<h:outputText value="#{hit.afterSearchHitString}"/>
-						</h:panelGroup>
-					</tr:iterator>
-				</span>
-			</h:panelGroup>
-			
-	
 		</tr:iterator>
 
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>	
