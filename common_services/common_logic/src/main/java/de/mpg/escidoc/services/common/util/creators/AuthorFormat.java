@@ -481,9 +481,9 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                     
                 }
                 
-                author.setGivenName(givenName);
-                author.setSurname(prefix + surname);
-                author.setTitle(title);
+                author.setGivenName(givenName.trim());
+                author.setSurname(prefix.trim() + " " + surname.trim());
+                author.setTitle(title.trim());
                 author.setFormat(this);
                 result.add(author);
                
@@ -491,7 +491,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
             else if(parts.length==1 && !parts[0].equals(""))
             {
                
-                    author.setSurname(parts[0]);
+                    author.setSurname(parts[0].trim());
                     author.setFormat(this);
                     result.add(author);
                 
@@ -567,14 +567,14 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
                     
                 }
                 
-                author.setGivenName(givenName);
-                author.setSurname(prefix + surname);
-                author.setTitle(title);
+                author.setGivenName(givenName.trim());
+                author.setSurname(prefix.trim() + " " + surname.trim());
+                author.setTitle(title.trim());
                
             }
             else 
             {
-                author.setSurname(parts[0]);
+                author.setSurname(parts[0].trim());
             }
            
 
