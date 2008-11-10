@@ -1031,6 +1031,11 @@ public class EditItem extends FacesBean
             fileVO.setName(file.getFilename());
             fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
             fileVO.setMimeType(file.getContentType());
+            // correct several PDF Mime type errors manually
+            if(file.getFilename() != null && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
+            {
+            	fileVO.setMimeType("application/pdf");
+            }
             FormatVO formatVO = new FormatVO();
             formatVO.setType("dcterms:IMT");
             formatVO.setValue(file.getContentType());
