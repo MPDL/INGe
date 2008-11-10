@@ -212,6 +212,18 @@
 		background-repeat: no-repeat;
 		background-position: left;
 	}
+	
+	.releasedItem {
+		background-image: url('../../images/31x31.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
+	
+	.inRevisionItem {
+		background-image: url('../../images/31x31.gif');
+		background-repeat: no-repeat;
+		background-position: left;
+	}
 
 	.withdrawnItem {
 		background-image: url('../../images/31x31.gif');
