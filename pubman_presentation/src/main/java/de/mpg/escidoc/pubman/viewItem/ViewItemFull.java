@@ -1533,6 +1533,10 @@ public class ViewItemFull extends FacesBean
 		}
 		return abstracts;
 	}
+	
+	public boolean getHasAbstracts() {
+	    return this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0;
+	}
 	public String getGenre()
     {
     	String genre="";
