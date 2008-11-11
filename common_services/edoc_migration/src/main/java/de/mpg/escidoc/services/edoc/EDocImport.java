@@ -1,11 +1,9 @@
 package de.mpg.escidoc.services.edoc;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.FileWriter;
-import java.io.OutputStreamWriter;
-import java.io.StringReader;
+import java.io.OutputStream;
 import java.io.StringWriter;
 import java.util.List;
 
@@ -14,6 +12,36 @@ import javax.xml.parsers.SAXParserFactory;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.InputSource;
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/ 
+
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
@@ -53,25 +81,22 @@ public class EDocImport extends DefaultHandler
 	
 	public EDocImport(String pathXml, String pathXslt) throws Exception
 	{
+        System.out.print("Started SAX parser transformation...");
+        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+        parser.parse(new InputSource(new FileReader(ResourceUtil.getResourceAsFile(pathXml))), this);
+        System.out.println("done!");
+
+        File test = new File("test.xml");
+        FileWriter writer = new FileWriter(test);
+        writer.write(newXml.toString());
+        writer.close();
+        
 	    System.out.print("Started xslt transformation...");
 		XSLTTransform transform = new XSLTTransform();
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-		transform.transform(ResourceUtil.getResourceAsFile(pathXml), ResourceUtil.getResourceAsFile(pathXslt), baos);
-
-		String result = baos.toString("UTF-8");
+        OutputStream fwout = new FileOutputStream(new File("edoc_export_out.xml"), false);
+		transform.transform(newXml.toString(), ResourceUtil.getResourceAsFile(pathXslt), fwout);
 		System.out.println("done!");
-		System.out.print("Started SAX parser transformation...");
-		SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
 		
-		parser.parse(new InputSource(new StringReader(result)), this);
-		System.out.println("done!");
-		System.out.print("Writing item XML file...");
-		OutputStreamWriter fwout = new OutputStreamWriter(new FileOutputStream(new File("edoc_export_out.xml"), false), "UTF-8");
-
-		fwout.write(getResult());
-		fwout.close();
-		System.out.println("done!");
 		System.out.println("Finished!");
 	}
 
@@ -97,30 +122,44 @@ public class EDocImport extends DefaultHandler
 	@Override
 	public void endElement(String uri, String localName, String name)
 			throws SAXException {
-		if ("creatorstring".equals(name))
+		if ("issuecontributorfn".equals(name) ||
+		        "proceedingscontributorfn".equals(name) ||
+		        "seriescontributorfn".equals(name) ||
+		        "bookcontributorfn".equals(name) ||
+		        "bookcreatorfn".equals(name))
 		{
 			try
 			{
 				AuthorDecoder authorDecoder = new AuthorDecoder(creatorString.toString());
 				List<Author> authors = authorDecoder.getBestAuthorList();
-				for(int i=0; i < authors.size(); i++){
-					authors.get(i);
-					newXml.append("<e:creator role=\"editor\">");
-					newXml.append("<e:person>");	
-					newXml.append("<e:complete-name>");
-					newXml.append(escape(authors.get(i).getGivenName() + " " + authors.get(i).getSurname()));
-					newXml.append("</e:complete-name>");
-					newXml.append("<e:family-name>");
-					newXml.append(escape(authors.get(i).getSurname()));
-					newXml.append("</e:family-name>");
-					newXml.append("<e:given-name>");
-					newXml.append(escape(authors.get(i).getGivenName()));
-					newXml.append("</e:given-name>");
-					newXml.append("</e:person>");
-					newXml.append("</e:creator>");
-				}				
-				
-				
+				if (authors.size() > 0)
+				{
+				    newXml.append("<creators>\n");
+    				for(int i=0; i < authors.size(); i++){
+    					newXml.append("<creator role=\"");
+    					if ("bookcreatorfn".equals(name))
+    					{
+    					    newXml.append("author");
+    					}
+    					else
+    					{
+    					    newXml.append("editor");
+    					}
+    					newXml.append("\" creatorType=\"individual\">\n");
+    					newXml.append("<creatorini>");	
+    					newXml.append(escape(authors.get(i).getInitial()));
+    					newXml.append("</creatorini>\n");
+    					newXml.append("<creatornfamily>");
+    					newXml.append(escape(authors.get(i).getSurname()));
+    					newXml.append("</creatornfamily>\n");
+    					newXml.append("<creatorngiven>");
+    					newXml.append(escape(authors.get(i).getGivenName()));
+    					newXml.append("</creatorngiven>\n");
+    					newXml.append("</creator>\n");
+    				}
+    				 newXml.append("</creators>\n");
+				}
+
 			}
 			catch (Exception e) {
 				e.printStackTrace();
@@ -140,7 +179,11 @@ public class EDocImport extends DefaultHandler
 	@Override
 	public void startElement(String uri, String localName, String name,
 			Attributes attributes) throws SAXException {
-		if ("creatorstring".equals(name))
+	    if ("issuecontributorfn".equals(name) ||
+                "proceedingscontributorfn".equals(name) ||
+                "seriescontributorfn".equals(name) ||
+                "bookcontributorfn".equals(name) ||
+                "bookcreatorfn".equals(name))
 		{
 			inCreatorstring = true;
 			creatorString = new StringWriter();

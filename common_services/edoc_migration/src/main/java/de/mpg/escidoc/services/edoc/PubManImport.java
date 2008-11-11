@@ -59,9 +59,8 @@ import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.validation.ItemInvalidException;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
-import de.mpg.escidoc.services.validation.ItemValidatingBean;
 
 /**
  * TODO Description
@@ -81,7 +80,7 @@ public class PubManImport
     
     private ItemValidating validating;
     
-    private static final String CORESERVICES_URL = "http://dev-coreservice.mpdl.mpg.de:8080";
+    private static String CORESERVICES_URL;
     
     /**
      * @param args
@@ -90,7 +89,8 @@ public class PubManImport
     {
         if (args != null && args.length == 3)
         {
-            PubManImport pubManImport = new PubManImport(args[0], args[1], args[2]);
+            CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+            new PubManImport(args[0], args[1], args[2]);
         }
         else
         {

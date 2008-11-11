@@ -37,6 +37,9 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.framework.PropertyReader;
+
+
 /**
  * TODO Description
  *
@@ -49,14 +52,16 @@ public class CreatePurgeScript
 {
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
-    private static final String CORESERVICES_URL = "http://dev-coreservice.mpdl.mpg.de:8080";
-    private static final String IMPORT_CONTEXT = "escidoc:23756";
+    private static String CORESERVICES_URL;
+    private static final String IMPORT_CONTEXT = "escidoc:31013";
     
     /**
      * @param args
      */
     public static void main(String[] args) throws Exception
     {
+        CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
+        
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
         GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/srw/search/escidoc_all?maximumRecords=10000&query=escidoc.context.objid=" + IMPORT_CONTEXT);

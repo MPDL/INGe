@@ -1,44 +1,71 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+ CDDL HEADER START
+
+ The contents of this file are subject to the terms of the
+ Common Development and Distribution License, Version 1.0 only
+ (the "License"). You may not use this file except in compliance
+ with the License.
+
+ You can obtain a copy of the license at license/ESCIDOC.LICENSE
+ or http://www.escidoc.de/license.
+ See the License for the specific language governing permissions
+ and limitations under the License.
+
+ When distributing Covered Code, include this CDDL HEADER in each
+ file and include the License file at license/ESCIDOC.LICENSE.
+ If applicable, add the following below this CDDL HEADER, with the
+ fields enclosed by brackets "[]" replaced with your own identifying
+ information: Portions Copyright [yyyy] [name of copyright owner]
+
+ CDDL HEADER END
+
+
+ Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
+ All rights reserved. Use is subject to license terms.
+-->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="2.0">
 	<xsl:variable name="organizational-units">
 		<ou name="Max Planck Society" id="escidoc:persistent13">
-			<ou name="MPI for Psycholinguistics" id="escidoc:17189">
-				<ou name="Acquisition Group" id="escidoc:55196"/>
-				<ou name="Comprehension Group" id="escidoc:17190"/>
-				<ou name="Language and Cognition Group" id="escidoc:55197"/>
-				<ou name="Production Group" id="escidoc:55198"/>
-				<ou name="Production Group Levelt" id="escidoc:55199"/>
-				<ou name="Adaptive Listening" id="escidoc:55200"/>
-				<ou name="Communication before Language" id="escidoc:55240"/>
-				<ou name="Comparative Cognitive Anthropology" id="escidoc:55344"/>
-				<ou name="Evolutionary Models of Language Change" id="escidoc:55241"/>
-				<ou name="Categories and Concepts across Language and Cognition" id="escidoc:55242"/>
-				<ou name="Decoding Continuous Speech" id="escidoc:55256"/>
-				<ou name="Information Structure in Language Acquisition" id="escidoc:55257"/>
-				<ou name="Language in Action" id="escidoc:55258"/>
-				<ou name="Multimodal Interaction" id="escidoc:55259"/>
-				<ou name="Phonological Learning for Speech Perception" id="escidoc:55260"/>
-				<ou name="The Dynamics of Multilingual Processing" id="escidoc:55261"/>
-				<ou name="Unification" id="escidoc:55262"/>
-				<ou name="Event representation" id="escidoc:55263"/>
-				<ou name="Gesture" id="escidoc:55264"/>
-				<ou name="Neurocognition of Language Processing" id="escidoc:55265"/>
-				<ou name="Pioneers of Island Melanesia" id="escidoc:55266"/>
-				<ou name="Sign Language Typology" id="escidoc:55267"/>
-				<ou name="Space" id="escidoc:55268"/>
-				<ou name="The Comparative Study of L2 Acquisition" id="escidoc:55269"/>
-				<ou name="The Dynamics of Learner Varieties" id="escidoc:55270"/>
-				<ou name="The Role of Finiteness" id="escidoc:55271"/>
-				<ou name="Utterance Encoding" id="escidoc:55272"/>
-				<ou name="Language Technology Group" id="escidoc:55276"/>
-				<ou name="Library" id="escidoc:55277"/>
-				<ou name="Other Research" id="escidoc:55278"/>
+			<ou name="MPI for Psycholinguistics" alias="MPI für Psycholinguistik" id="escidoc:22007">
+				<ou name="Acquisition Group" id="escidoc:22008"/>
+				<ou name="Comprehension Group" id="escidoc:22010"/>
+				<ou name="Language and Cognition Group" id="escidoc:22011"/>
+				<ou name="Production Group" id="escidoc:22012"/>
+				<ou name="Production Group Levelt" id="escidoc:22013"/>
+				<ou name="Adaptive Listening" id="escidoc:22014"/>
+				<ou name="Communication before Language" id="escidoc:22015"/>
+				<ou name="Comparative Cognitive Anthropology" id="escidoc:22016"/>
+				<ou name="Evolutionary Models of Language Change" id="escidoc:22017"/>
+				<ou name="Categories and Concepts across Language and Cognition" id="escidoc:22018"/>
+				<ou name="Decoding Continuous Speech" id="escidoc:22019"/>
+				<ou name="Information Structure in Language Acquisition" id="escidoc:22020"/>
+				<ou name="Language in Action" id="escidoc:22021"/>
+				<ou name="Multimodal Interaction" id="escidoc:22022"/>
+				<ou name="Phonological Learning for Speech Perception" id="escidoc:22023"/>
+				<ou name="The Dynamics of Multilingual Processing" id="escidoc:2204"/>
+				<ou name="Unification" id="escidoc:22025"/>
+				<ou name="Event representation" id="escidoc:22026"/>
+				<ou name="Gesture" id="escidoc:22027"/>
+				<ou name="Neurocognition of Language Processing" id="escidoc:22028"/>
+				<ou name="Pioneers of Island Melanesia" id="escidoc:22029"/>
+				<ou name="Sign Language Typology" id="escidoc:22030"/>
+				<ou name="Space" id="escidoc:22031"/>
+				<ou name="The Comparative Study of L2 Acquisition" id="escidoc:22032"/>
+				<ou name="The Dynamics of Learner Varieties" id="escidoc:22033"/>
+				<ou name="The Role of Finiteness" id="escidoc:22034"/>
+				<ou name="Utterance Encoding" id="escidoc:22035"/>
+				<ou name="Technical Group" id="escidoc:22036"/>
+				<ou name="Library" id="escidoc:22037"/>
+				<ou name="Other Research" id="escidoc:22038"/>
 			</ou>
 		</ou>
 		<ou name="external" id="escidoc:persistent22">
-<!--			<ou name="IWTS" id="escidoc:mpipl30"/>-->
-<!--			<ou name="CSLM" id="escidoc:mpipl31"/>-->
-<!--			<ou name="Pioneer" id="escidoc:mpipl32"/>-->
+			<ou name="IWTS" id="escidoc:22009"/>
+			<ou name="CSLM" id="escidoc:22039"/>
+			<ou name="Pioneer" id="escidoc:22040"/>
 		</ou>
 	</xsl:variable>
 </xsl:stylesheet>

@@ -63,10 +63,11 @@
 
 	<xsl:output method="xml" encoding="UTF-8" indent="yes"/>
 	
-	<xsl:param name="useAuthorList">true</xsl:param>
+	<xsl:param name="useAuthorList" select="false()"/>
+	<xsl:param name="removeSpacesInInitials" select="true()"/>
 	
 	<xsl:param name="user" select="'dummy-user'"/>
-	<xsl:param name="context" select="'escidoc:23756'"/>
+	<xsl:param name="context" select="'escidoc:31013'"/>
 	
 	<!--
 		DC XML  Header
@@ -403,7 +404,6 @@
 						</xsl:element>
 					</xsl:if>
 				</xsl:when>
-				
 				<xsl:when test="titleofproceedings">
 					<xsl:element name="publ:source">
 						<xsl:call-template name="createProceedings"/>
@@ -533,7 +533,11 @@
 			</xsl:element>			
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:apply-templates select="issuecontributorfn"/>			
+		<xsl:for-each select="creators/creator">				
+			<xsl:element name="e:creator">
+				<xsl:call-template name="createCreator"/>					
+			</xsl:element>
+		</xsl:for-each>		
 		<xsl:apply-templates select="issuecorporatebody"/>
 		<!-- START_PAGE -->
 		<xsl:apply-templates select="spage"/>
@@ -553,8 +557,11 @@
 			</xsl:element>		
 		</xsl:if>		
 		<!-- CREATOR -->	
-		<xsl:apply-templates select="bookcreatorfn"/>
-		<xsl:apply-templates select="bookcontributorfn"/>
+		<xsl:for-each select="creators/creator">				
+			<xsl:element name="e:creator">
+				<xsl:call-template name="createCreator"/>					
+			</xsl:element>
+		</xsl:for-each>
 		<xsl:apply-templates select="bookcorporatebody"/>		
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
@@ -609,7 +616,11 @@
 			</xsl:element>
 		</xsl:if>		
 		<!-- CREATOR -->
-		<xsl:apply-templates select="seriescontributorfn"/>
+		<xsl:for-each select="creators/creator">				
+			<xsl:element name="e:creator">
+				<xsl:call-template name="createCreator"/>					
+			</xsl:element>
+		</xsl:for-each>
 		<xsl:apply-templates select="seriescorporatebody"/>		
 		<!-- VOLUME -->
 		<xsl:apply-templates select="volume"/>
@@ -631,7 +642,11 @@
 			<xsl:apply-templates select="phydescSource"/>
 		</xsl:if>
 		<!-- CREATOR -->
-		<xsl:apply-templates select="proceedingscontributorfn"/>
+		<xsl:for-each select="creators/creator">				
+			<xsl:element name="e:creator">
+				<xsl:call-template name="createCreator"/>					
+			</xsl:element>
+		</xsl:for-each>
 		<!-- START_PAGE -->
 		<xsl:apply-templates select="spage"/>
 		<!-- END-PAGE -->
@@ -681,25 +696,43 @@
 		<!-- CREATOR -->
 		<xsl:variable name="creatornfamily" select="creatornfamily"/>
 		<xsl:variable name="creatorngiven" select="creatorngiven"/>
+		<xsl:variable name="creatorngivenNew"><xsl:choose><xsl:when test="$removeSpacesInInitials"><xsl:value-of select="replace(creatorngiven, '([A-Z][a-z]*\.) ([A-Z][a-z]*\.) ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)?', '$1$2$3$4$5$6$7$8')"/></xsl:when><xsl:otherwise><xsl:value-of select="creatorngiven"/></xsl:otherwise></xsl:choose></xsl:variable>
+		<xsl:variable name="creatoriniNew"><xsl:choose>
+				<xsl:when test="$removeSpacesInInitials"><xsl:value-of select="replace(creatorini, '([A-Z][a-z]*\.) ([A-Z][a-z]*\.) ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)? ?([A-Z][a-z]*\.)?', '$1$2$3$4$5$6$7$8')"/></xsl:when>
+				<xsl:otherwise><xsl:value-of select="creatorini"/></xsl:otherwise>
+			</xsl:choose></xsl:variable>
 		<xsl:choose>
 			<xsl:when test="@creatorType='individual'">
 				<xsl:choose>
-					<xsl:when test="$useAuthorList = 'true' and $authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]">
+					<xsl:when test="$authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]">
 						
 						<xsl:variable name="author" select="$authors/authors/author[aliases/alias[familyname = $creatornfamily and givenname = $creatorngiven]]"/>
 						
 						<e:person>
-							<e:complete-name>
-								<xsl:value-of select="$author/givenname"/>
-								<xsl:text> </xsl:text>
-								<xsl:value-of select="$author/familyname"/>
-							</e:complete-name>
-							<e:family-name>
-								<xsl:value-of select="$author/familyname"/>
-							</e:family-name>
-							<e:given-name>
-								<xsl:value-of select="$author/givenname"/>
-							</e:given-name>
+							<xsl:choose>
+								<xsl:when test="$useAuthorList">
+									<e:complete-name>
+										<xsl:value-of select="$author/givenname"/>
+										<xsl:text> </xsl:text>
+										<xsl:value-of select="$author/familyname"/>
+									</e:complete-name>
+									<e:family-name>
+										<xsl:value-of select="$author/familyname"/>
+									</e:family-name>
+									<e:given-name>
+										<xsl:value-of select="$author/givenname"/>
+									</e:given-name>
+								</xsl:when>
+								<xsl:otherwise>
+									<e:complete-name><xsl:value-of select="$creatorngivenNew"/><xsl:text> </xsl:text><xsl:value-of select="$creatornfamily"/></e:complete-name>
+									<e:family-name><xsl:value-of select="$creatornfamily"/></e:family-name>
+									<e:given-name><xsl:value-of select="$creatorngivenNew"/></e:given-name>
+								</xsl:otherwise>
+							</xsl:choose>
+
+							<e:identifier>
+								<xsl:value-of select="$author/@id"/>
+							</e:identifier>
 
 							<xsl:variable name="author-organizational-units">
 								<ous>
@@ -743,25 +776,19 @@
 					<xsl:otherwise>
 						<xsl:element name="e:person">
 							<xsl:element name="e:complete-name">
-								<xsl:value-of select="concat(creatorngiven, ' ', creatornfamily)"/>
+								<xsl:value-of select="concat($creatorngivenNew, ' ', creatornfamily)"/>
 							</xsl:element>
-							<xsl:element name="e:family-name">
-								<xsl:value-of select="creatornfamily"/>
-							</xsl:element>				
+							<xsl:element name="e:family-name"><xsl:value-of select="creatornfamily"/></xsl:element>				
 							<xsl:choose>
 								<xsl:when test="exists(creatorngiven) and not(creatorngiven='')">
-									<xsl:element name="e:given-name">
-										<xsl:value-of select="creatorngiven"/>
-									</xsl:element>
+									<xsl:element name="e:given-name"><xsl:value-of select="$creatorngivenNew"/></xsl:element>
 								</xsl:when>
 								<xsl:otherwise>
-									<xsl:element name="e:given-name">
-										<xsl:value-of select="creatorini"/>
-									</xsl:element>
+									<xsl:element name="e:given-name"><xsl:value-of select="$creatoriniNew"/></xsl:element>
 								</xsl:otherwise>
 							</xsl:choose>	
 							<xsl:choose>
-								<xsl:when test="@internextern='mpg'">							
+								<xsl:when test="@internextern='mpg'">
 									<xsl:for-each select="../../../docaff/affiliation">
 										<xsl:element name="e:organization">
 											<xsl:element name="e:organization-name">
