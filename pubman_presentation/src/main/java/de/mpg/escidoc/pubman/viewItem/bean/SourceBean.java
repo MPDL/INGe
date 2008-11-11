@@ -208,7 +208,7 @@ public class SourceBean extends FacesBean
                         {
                             if (organizationsFound == 0)
                             {
-                                annotation.append("   [");
+                                annotation.append("<sup>");
                             }
                             if (organizationsFound > 0 && j < this.sourceAffiliatedOrganizationsList.size())
                             {
@@ -221,9 +221,9 @@ public class SourceBean extends FacesBean
                 }
                 if (annotation.length() > 0)
                 {
-                    annotation.append("]");
+                    annotation.append("</sup>");
                 }
-                formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+                formattedCreator = formatter.formatCreator(creator, annotation.toString());
                 if (creator.getPerson() != null)
                 {
                     this.sourceCreatorArray.add(formattedCreator);

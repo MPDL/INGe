@@ -174,7 +174,10 @@
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 									<h:outputText styleClass="noDisplay" value="Item is " />
-									<label class="medium_label endline" style="text-align: center;"><h:outputText value="#{ViewItemFull.itemState}" /></label>
+									<label class="medium_label endline" style="text-align: center;">
+										<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
+										<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
+									</label>
 								</h:panelGroup>	
 							</div>
 							<div class="full_area0 itemBlock visibility">
@@ -190,6 +193,9 @@
 							<jsp:directive.include file="viewItem/PersOrgGroup.jspf" />
 							<jsp:directive.include file="viewItem/ContentGroup.jspf" />
 							<jsp:directive.include file="viewItem/DetailGroup.jspf" />
+							<jsp:directive.include file="viewItem/EventGroup.jspf" />
+							<jsp:directive.include file="viewItem/SourceGroup.jspf" />
+							<jsp:directive.include file="viewItem/SystemDetailGroup.jspf" />
 
 						</div>
 					</div>
@@ -209,110 +215,3 @@
 		</html>
 	</f:view>
 </jsp:root>
-
-<!-- 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
-
-	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-	<f:view locale="#{InternationalizationHelper.userLocale}">
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="msg" basename="Messages"/>
-			<html>
-				<head>
-					<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
-					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLzotero}unapi"/>
-					
-					<meta http-equiv="pragma" content="no-cache"/>
-					<meta http-equiv="cache-control" content="no-cache"/>
-					<meta http-equiv="expires" content="0"/>
-					<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></title>
-					
-					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-				</head>
-				<body>
-					<h:outputText id="pageDummy" value="#{ViewItemFullPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
-					<div id="page_margins">
-						<div id="page">
-							<h:form id="form1">
-								<div id="header">
-									<jsp:directive.include file="../desktop/Header.jspf"/>
-									<jsp:directive.include file="../desktop/Login.jspf"/>
-									<jsp:directive.include file="../desktop/Search.jspf"/>
-								</div>
-								<div id="nav">
-									<jsp:directive.include file="../desktop/Breadcrumb.jspf"/>
-								</div>
-								<div id="main">
-									<div id="col1">
-										<span class="mainMenu">
-											<jsp:directive.include file="desktop/Navigation.jspf"/> 
-										</span>
-									</div>
-									<div id="col2">
-										<div class="contentActions">
-											<h1><h:outputText value="#{lbl.actionMenu_Header}"/></h1>
-											<ul>
-												<li><h:commandLink id="lnkHelp" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ViewItem');return false" value="#{lbl.mainMenu_lnkHelp}"/></li>
-									
-												
-												<li><h:commandLink id="lnkEdit" action="#{ViewItemFull.editItem}"
-													 value="#{lbl.actionMenu_lnkEdit}" 
-													 rendered="#{!ViewItemFull.isStateWithdrawn and ((ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner) || (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator)}"/></li>
-												
-												<li><h:commandLink id="lnkSubmit" action="#{ViewItemFull.submitItem}" 
-													 value="#{lbl.actionMenu_lnkSubmit}" rendered="#{!ViewItemFull.isStateWithdrawn and  (ViewItemFull.isStatePending || ViewItemFull.isStateInRevision) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowStandard}"/></li>
-													 
-												 <li><h:commandLink id="lnkRelease" action="#{ViewItemFull.submitItem}" 
-												 value="#{lbl.actionMenu_lnkRelease}" rendered="#{!ViewItemFull.isStateWithdrawn and ((ViewItemFull.isStatePending || ViewItemFull.isStateSubmitted) and ViewItemFull.isLatestVersion and ViewItemFull.isOwner and ViewItemFull.isWorkflowSimple) }"/></li>
-
-												<li><h:commandLink id="lnkAccept" action="#{ViewItemFull.acceptItem}" 
-												 value="#{lbl.actionMenu_lnkAccept}" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled) }"/></li>
-												 
-												 <li><h:commandLink id="lnkRevise" action="#{ViewItemFull.reviseItem}" 
-												 value="#{lbl.actionMenu_lnkRevise}" rendered="#{!ViewItemFull.isStateWithdrawn and (ViewItemFull.isStateSubmitted and ViewItemFull.isLatestVersion and ViewItemFull.isModerator and !ViewItemFull.isModifyDisabled and ViewItemFull.isWorkflowStandard) }"/></li>
-												 
-												<li><h:commandLink id="lnkDelete" onclick="if(!confirmDelete('form1:viewItemFull'))return false;"
-													 value="#{lbl.actionMenu_lnkDelete}" action="#{ViewItemFull.deleteItem}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStatePending and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
-													 
-												<li><h:commandLink id="lnkWithdraw" action="#{ViewItemFull.withdrawItem}"
-													 value="#{lbl.actionMenu_lnkWithdraw}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and ViewItemFull.isOwner}"/></li>
-													 
-												<li><h:commandLink id="lnkModify" action="#{ViewItemFull.modifyItem}"
-													 value="#{lbl.actionMenu_lnkModify}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestVersion and !ViewItemFull.isModifyDisabled and ViewItemFull.isModerator}"/></li>
-													 
-												<li><h:commandLink id="lnkCreateNewRevision" action="#{ViewItemFull.createNewRevision}"
-													 value="#{lbl.actionMenu_lnkCreateNewRevision}" rendered="#{!ViewItemFull.isStateWithdrawn and ViewItemFull.isStateReleased and ViewItemFull.isLatestRelease and !ViewItemFull.isCreateNewRevisionDisabled and ViewItemFull.isDepositor}"/></li>
-												
-												
-												
-													 
-												<h:panelGroup rendered="#{ViewItemFull.isDepositor and !ViewItemFull.isStateWithdrawn}">
-													<li><h:commandLink binding="#{ViewItemSessionBean.lnkCreateItemFromTemplate}" id="lnkCreateItemFromTemplate" action="#{ItemControllerSessionBean.createItemFromTemplate}"
-													 	value="#{lbl.actionMenu_lnkCreateItemFromTemplate}"/></li>
-												</h:panelGroup>
-												<h:commandButton action="#{viewItemViewItem.viewItemFull}" id="btnDeleteItem" style="visibility:hidden;" />
-											</ul>
-										</div>
-									</div>
-									<div id="col3">
-										<div class="content">
-											<jsp:directive.include file="./viewItem/viewItemFull.jspf"/>
-										</div>
-									</div>
-								</div>
-								<jsp:directive.include file="../desktop/messages.jspf"/>
-							</h:form>
-						 </div>
-					  </div>
-				</body>
-			<script type="text/javascript" src="/clickheat/js/clickheat.js"></script><script type="text/javascript">clickHeatPage = 'view_Item';initClickHeat();</script>
-			</html>
-		
-	</f:view>
-</jsp:root>
- -->

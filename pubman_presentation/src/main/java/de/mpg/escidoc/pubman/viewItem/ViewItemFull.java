@@ -997,13 +997,16 @@ public class ViewItemFull extends FacesBean
     {
     	if(this.pubItem.getMetadata() != null)
         {
-            if((this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0)
-                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
-                    || this.pubItem.getMetadata().getPublishingInfo() != null
+            if((this.pubItem.getMetadata().getLanguages() != null && this.pubItem.getMetadata().getLanguages().size() > 0)
+                    || (getShowDates())
                     || (this.pubItem.getMetadata().getTotalNumberOfPages() != null && !this.pubItem.getMetadata().getTotalNumberOfPages().trim().equals(""))
-                    || this.pubItem.getMetadata().getDegree() != null
+                    || (this.pubItem.getMetadata().getPublishingInfo() != null)
+                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
+                    || (this.pubItem.getMetadata().getReviewMethod() != null)
+                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0)
+                    || (this.pubItem.getMetadata().getDegree() != null)
                     || (this.pubItem.getMetadata().getLocation() != null && !this.pubItem.getMetadata().getLocation().trim().equals(""))
-                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0))
+                    )
             {
             	return true;
             }

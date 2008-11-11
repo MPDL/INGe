@@ -1,0 +1,179 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.showSources}">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource}" />
+		</h3>
+		<span class="seperator"></span>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSource}" /></a>
+</h:panelGroup>
+
+
+<tr:iterator var="source" value="#{ViewItemFull.sourceList}" binding="#{ViewItemFull.sourceIterator}" varStatus="index">
+
+	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSources}">
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" />
+		</h3>
+		<span class="seperator"></span>
+		<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
+	
+	<%-- Source Title --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceTitle}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.source.title.value}"/>
+				</span>
+			</div>
+
+	<%-- Source alternative title --%>
+		<tr:iterator var="altTitle" value="#{source.source.alternativeTitles}" binding="#{ViewItemFull.sourceTitleIterator}" varStatus="index">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblSourceAlternativeTitle}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{altTitle.value}"/>
+				</span>
+			</h:panelGroup>
+		</tr:iterator>
+	
+	<%-- Source genre --%>
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceGenre}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.genre}"/>
+				</span>
+			</div>
+
+
+	<%-- Source creators --%>
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblSourceCreators}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<tr:iterator var="sourceCreatorPerson" value="#{source.sourceCreatorArray}" binding="#{ViewItemFull.sourceCreatorPersonsIterator}" varStatus="index">
+						<h:panelGroup styleClass="free_area0 creator">
+							<h:outputText value="#{sourceCreatorPerson}" escape="false" />
+						</h:panelGroup>
+						<h:outputText value="<br />" escape="false"/>
+					</tr:iterator>
+					<tr:iterator var="sourceCreatorOrganization" value="#{source.sourceCreatorOrganizationsArray}" binding="#{ViewItemFull.sourceCreatorOrganizationsIterator}" varStatus="index">
+						<h:panelGroup styleClass="free_area0 creator">
+							<h:outputText value="#{sourceCreatorOrganization.organizationName}"/>
+						</h:panelGroup>
+						<h:outputText value="<br />" escape="false"/>
+					</tr:iterator>		
+				</span>
+			</div>
+	
+	<%-- Source affiliations --%>
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceAffiliations}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<tr:iterator var="creatorAffiliation" value="#{source.sourceOrganizationList}" binding="#{ViewItemFull.sourceCreatorAffiliationsIterator}" varStatus="index">
+						<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
+						<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
+						<h:outputText value="<br />" escape="false"/>
+					</tr:iterator>
+				</span>
+			</div>
+
+	<%-- Source publishing Info --%>
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourcePubInfo}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.publishingInfo}"/>
+				</span>
+			</div>
+	
+	<%-- Volume / Issue --%>
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.source.volume}"/>
+					<h:outputText value=" (" rendered="#{source.source.issue != null && source.source.issue != ''}" />
+					<h:outputText value="#{source.source.issue}"/>
+					<h:outputText value=")" rendered="#{source.source.issue != null && source.source.issue != ''}" />
+				</span>
+			</h:panelGroup>
+
+	<%-- Sequence Number --%>
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.source.sequenceNumber}"/>
+				</span>
+			</h:panelGroup>
+
+	<%-- Start-/Endpage --%>
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.startEndPage}"/>
+				</span>
+			</h:panelGroup>
+
+	<%-- Source identifiers --%>
+			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					<h:outputText value="#{lbl.ViewItemFull_lblSourceIdentifier}"/><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{source.identifiers}"/>
+				</span>
+			</h:panelGroup>
+	
+			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" /></a>	
+		</h:panelGroup>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSource} #{ViewItemFull.sourceIterator.rowIndex +1}" /></a>
+	
+	</h:panelGroup>
+
+</tr:iterator>
