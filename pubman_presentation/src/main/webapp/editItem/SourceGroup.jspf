@@ -75,10 +75,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-<%-- JIRA PUBMAN-518 --%>
-<%-- start please read out autosuggested alternative titles here --%>
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{sourceBean.hiddenAlternativeTitlesField}" cols="15" rows="3" />
-<%-- stop please read out autosuggested alternative titles here --%>
 				</span>
 			</div>
 
@@ -108,15 +105,12 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
-				<%-- JIRA AS-567 --%>
-				<%-- start please provide author copy&paste for source creators --%>
 						<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{sourceBean.creatorParseString}" cols="15" rows="3" />
-						<span class="large_checkbox underRework">
+						<span class="large_checkbox">
 							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
 							<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 						</span>
 						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text="#{lbl.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
-				<%-- stop please provide author copy&paste for source creators --%>
 					</span>
 				</h:panelGroup>
 	
@@ -271,10 +265,7 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-<%-- JIRA PUBMAN-517 --%>
-<%-- start please read out autosuggested IDs here --%>
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
-<%-- stop please read out autosuggested IDs here --%>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
 					<h:commandButton styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" title="upload autosuggested" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
