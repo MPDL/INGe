@@ -33,43 +33,64 @@
 
 <div class="full_area0 itemBlock">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.EditItem_lblContent}" />
+		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderEvent}" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.pubItem.metadata.subject != null || ViewItemFull.hasAbstracts}">
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showEvents}">
 
-<%-- Free keywords --%>
+<%-- Event title --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblSubject}" /><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblEventTitle}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.subject.value}" />
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.title.value}"/>
 			</span>
 		</div>
 
-<%-- Abstract --%>
-		<tr:iterator var="abstract" value="#{ViewItemFull.pubItem.metadata.abstracts}" binding="#{ViewItemFull.abstractIterator}" varStatus="index">
+<%-- Event alternative title --%>
+		<tr:iterator var="eventAltTitles" value="#{ViewItemFull.pubItem.metadata.event.alternativeTitles}" binding="#{ViewItemFull.eventAltTitleIterator}" varStatus="index">
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
-					&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+					&#160;<h:outputText value="#{lbl.ViewItemFull_lblEventAlternativeTitle}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<h:outputText value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
+					<h:outputText value="#{eventAltTitles.value}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
 
-		<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{!ViewItemFull.hasAbstracts}">
+<%-- Event place --%>
+		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblAbstract}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblEventPlace}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				&#160;
+				<h:outputText value="#{ViewItemFull.pubItem.metadata.event.place.value}"/>
+			</span>
+		</div>
+
+<%-- Start / end date --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemFull_lblEventStartEndDate}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{ViewItemFull.startEndDate}"/>
+			</span>
+		</div>
+
+<%-- Invitation status --%>
+		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText value="#{lbl.ViewItemMedium_lblEventInvited}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.EditItem_lblInvitationstatus}" />
 			</span>
 		</h:panelGroup>
 
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblContent}" /></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderEvent}" /></a>	
 	</h:panelGroup>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblContent}" /></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderEvent}" /></a>
 </div>
