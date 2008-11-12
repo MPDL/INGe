@@ -32,6 +32,8 @@ package de.mpg.escidoc.pubman.search;
 import java.util.ArrayList;
 import java.util.Locale;
 
+import org.apache.myfaces.trinidad.component.UIXIterator;
+
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.EventCriterionCollection;
@@ -71,6 +73,8 @@ public class AdvancedSearchEdit extends SearchResultList
     private EventCriterionCollection eventCriterionCollection = null;
     private IdentifierCriterionCollection identifierCriterionCollection = null;
     private LanguageCriterionCollection languageCriterionCollection = null;
+    
+    private UIXIterator anyFieldCriterionIterator = new UIXIterator();
     
    /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -298,5 +302,17 @@ public class AdvancedSearchEdit extends SearchResultList
 	{
 		this.languageCriterionCollection = languageCriterionCollection;
 	}
+
+    public UIXIterator getAnyFieldCriterionIterator()
+    {
+        return anyFieldCriterionIterator;
+    }
+
+    public void setAnyFieldCriterionIterator(UIXIterator anyFieldCriterionIterator)
+    {
+        this.anyFieldCriterionIterator = anyFieldCriterionIterator;
+    }
+	
+	
 	
 }
