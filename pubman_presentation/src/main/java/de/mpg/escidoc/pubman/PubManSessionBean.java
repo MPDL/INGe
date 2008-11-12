@@ -37,7 +37,7 @@ public class PubManSessionBean extends FacesBean
 {
 	public static final String BEAN_NAME = "PubManSessionBean";
     
-    private String locale = "en";
+    private String locale;
 	
 	/**
      * Default constructor.
@@ -54,6 +54,8 @@ public class PubManSessionBean extends FacesBean
     public void init()
     {
        super.init();
+       InternationalizationHelper i18nHelper = new InternationalizationHelper();
+       this.locale = i18nHelper.getLocale();
     }
     
     public void changeLanguage(ValueChangeEvent event)
