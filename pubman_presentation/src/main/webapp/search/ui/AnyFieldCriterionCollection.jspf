@@ -85,11 +85,12 @@
 					</h:selectOneRadio>
 <%-- Stop please provide additional radio button option any field and fulltext --%>
 				</span>
-				<span class="large_area0_p8 lineToolSection">
-					<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{anyFieldCriterionBean.logicOperator}">
-						<f:selectItems value="#{anyFieldCriterionBean.logicOptions}"/>
-					</h:selectOneMenu>
-				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{anyFieldCriterionBean.logicOperator}">
+					<f:selectItems value="#{anyFieldCriterionBean.logicOptions}"/>
+				</h:selectOneMenu>
 			</h:panelGroup>
 
 		</tr:iterator>
