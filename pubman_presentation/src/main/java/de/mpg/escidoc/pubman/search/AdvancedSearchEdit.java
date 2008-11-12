@@ -75,6 +75,7 @@ public class AdvancedSearchEdit extends SearchResultList
     private LanguageCriterionCollection languageCriterionCollection = null;
     
     private UIXIterator anyFieldCriterionIterator = new UIXIterator();
+    private UIXIterator personCriterionIterator = new UIXIterator();
     
    /**
     * Create a new instance. Set the buttons and the search type masks.
@@ -311,6 +312,16 @@ public class AdvancedSearchEdit extends SearchResultList
     public void setAnyFieldCriterionIterator(UIXIterator anyFieldCriterionIterator)
     {
         this.anyFieldCriterionIterator = anyFieldCriterionIterator;
+    }
+
+    public UIXIterator getPersonCriterionIterator()
+    {
+        return personCriterionIterator;
+    }
+
+    public void setPersonCriterionIterator(UIXIterator personCriterionIterator)
+    {
+        this.personCriterionIterator = personCriterionIterator;
     }
 	
 	

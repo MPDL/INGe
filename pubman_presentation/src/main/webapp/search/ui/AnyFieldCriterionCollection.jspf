@@ -51,7 +51,9 @@
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
 					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
+<%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
+--%>
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex > 0}">
@@ -65,7 +67,7 @@
 				<span class="large_area0_p8 lineToolSection">
 					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
 					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
-<%--
+<%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
 --%>
 				</span>

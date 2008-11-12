@@ -79,6 +79,10 @@ function addFullItemFunctions() {
 
 	$('.showMultipleAuthors').click(function(){ $(this).parents('.itemBlock').find('.multipleAuthors').slideDown('slow');; $(this).hide(); });
 	$('.multipleAuthors').hide();
+	
+	$('.checkAll').click(function(){ $(this).parents('.itemLine').find('.checkboxTripleGroup').find(':checkbox').attr('checked','true'); $(this).parents('.itemLine').find('.checkboxTripleGroup').find('span:hidden').show(); $(this).parents('.itemLine').find('.checkboxTripleGroup').find('.showMoreCheckboxes').hide(); });
+	$('.showMoreCheckboxes').click(function(){ $(this).hide(); $(this).siblings().show(); });
+	$('.checkboxTripleGroup').each(function(i,elem){if($(elem).find('.medium_checkbox:gt(1)').find(':checked').length == 0) {$(elem).find('.medium_checkbox:gt(1)').hide();} else {$(elem).find('.showMoreCheckboxes').hide();};});
 }
 
 function installFullItem() {

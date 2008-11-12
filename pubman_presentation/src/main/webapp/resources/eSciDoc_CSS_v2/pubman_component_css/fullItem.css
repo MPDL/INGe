@@ -159,6 +159,10 @@
 	height: 4em;
 }
 
+.fullItem .checkboxTripleGroup {
+	width: 30.46em;
+}
+
 .formButtonArea {
 	margin-top: 0.10em;
 }
