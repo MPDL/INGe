@@ -33,15 +33,10 @@
 <span id="metaMenuSkipLinkAnchor" class="full_area0 metaMenu">
 	<!-- meta Menu starts here -->
 
-
-
-<%-- JIRA AS-563 --%>
-<%-- start please replace --%>
-	<select class="medium_select endline replace" title="Choose your language here.">
-		<option>English</option>
-		<option>Deutsch</option>
-	</select>
-<%-- stop please replace --%>
+	<h:selectOneMenu value="#{PubManSessionBean.locale}" immediate="true" onchange="submit();" valueChangeListener="#{PubManSessionBean.changeLanguage}" styleClass="medium_select endline replace" title="Choose your language here.">
+		<f:selectItem itemValue="en" itemLabel="#{lbl.ENUM_LANGUAGE_EN}"/>
+		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
+	</h:selectOneMenu>
 
 
 
