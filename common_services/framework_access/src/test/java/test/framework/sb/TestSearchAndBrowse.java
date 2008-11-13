@@ -123,7 +123,7 @@ public class TestSearchAndBrowse
         searchRetrieveRequest.setVersion(VERSION);
         searchRetrieveRequest.setRecordPacking("xml");
         searchRetrieveRequest.setQuery(query);
-        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("en").searchRetrieveOperation(searchRetrieveRequest);
+        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_en").searchRetrieveOperation(searchRetrieveRequest);
         logger.info("searchForAbstracts(" + query + ")->" + zeit + "ms");
         logger.debug("SearchResult()=" + searchResult.getNumberOfRecords());
         assertNotNull(searchResult);
@@ -144,7 +144,7 @@ public class TestSearchAndBrowse
         searchRetrieveRequest.setVersion(VERSION);
         searchRetrieveRequest.setRecordPacking("xml");
         searchRetrieveRequest.setQuery(query);
-        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler(null).searchRetrieveOperation(searchRetrieveRequest);
+        SearchRetrieveResponseType searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
         logger.info("searchForDates(" + query + ")->" + zeit + "ms");
         logger.debug("SearchResult()=" + searchResult.getNumberOfRecords());
         assertNotNull(searchResult);
