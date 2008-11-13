@@ -66,6 +66,68 @@
 							<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
 						</h:selectOneMenu>
 					</div>
+
+					<%-- Date published in print--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDatePublishedInPrint}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.datePublishedInPrint}"/>
+          			</div>
+
+					<%-- Date published online--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDatePublishedOnline}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.datePublishedOnline}"/>
+          			</div>
+
+					<%-- Date submitted--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateSubmitted}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.dateSubmitted}"/>
+          			</div>
+
+					<%-- Date accepted--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateAccepted}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.dateAccepted}"/>
+          			</div>
+
+					<%-- Date created--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateCreated}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.dateCreated}"/>
+          			</div>
+
+					<%-- Date modified--%>
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateModified}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.dateModified}"/>
+          			</div>
+
+					<%-- Total Number of Pages --%>
+					<div class="easySubmissionBasicInfItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblTotalNumberOfPages}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.totalNumberOfPages}"/>
+          			</div>
+
+					<%-- Publisher --%>
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublisher}"/>
+					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmissionSessionBean.item.metadata.publishingInfo.publisher}"/>
+					</div>
+
+					<%-- Publisher place --%>
+					<div class="easySubmissionBasicInfItem">
+						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblPublisherPlace}" title="#{msg.mandatoryField}" />
+          				<h:inputText value="#{EasySubmissionSessionBean.item.metadata.publishingInfo.place}"/>
+          			</div>
+
+					<%-- Degree Type --%>
+          			<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateType}"/>
+						<h:selectOneMenu id="cboDegreeType" value="#{EasySubmissionSessionBean.item.metadata.degree}">
+							<f:selectItems value="#{EasySubmission.DegreeTypes}" />
+						</h:selectOneMenu>
+					</div>
 				
 					<%-- Publication Language --%>
 					<div class="easySubmissionLangItem">
@@ -105,23 +167,6 @@
 					<h:inputText value="#{EasySubmission.sourceIdentifier}" styleClass="identifierValue" style="visibility:hidden;"/>
 					
 				</div>
-				
-				<div class="easySubmissionBoxBodyLine">
-					<%-- Keywords --%>
-					<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords}"/>
-    	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
-					</div>
-				</div>
-          		
-          		<div class="easySubmissionBoxBodyLine">
-          			<%-- Abstract --%>
-          			<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract}"/>
-          				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
-          			</div>
-          		</div>
-          		
 			</div>
 		</div>
 	</div>

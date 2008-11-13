@@ -323,8 +323,39 @@ public class EasySubmission extends FacesBean
                 contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
             }
         }
-        // set the current submission step to step1
-        easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP1);
+        // set the current submission step to step2
+        easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        // set method to manual
+        easySubmissionSessionBean.setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_MANUAL);
+        return "loadNewEasySubmission";
+    }
+    
+    public String newImport()
+    {
+        // initialize the collection list first
+        this.getContextListSessionBean();
+        EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
+        this.getItemControllerSessionBean().setCurrentPubItem(null);
+        // clean the EasySubmissionSessionBean
+        easySubmissionSessionBean.getFiles().clear();
+        easySubmissionSessionBean.getLocators().clear();
+        easySubmissionSessionBean.setSelectedDate("");
+        // also make sure that the EditItemSessionBean is cleaned, too
+        this.getEditItemSessionBean().getFiles().clear();
+        this.getEditItemSessionBean().getLocators().clear();
+        // deselect the selected context
+        ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+        if (contextListSessionBean.getDepositorContextList() != null)
+        {
+            for (int i = 0; i < contextListSessionBean.getDepositorContextList().size(); i++)
+            {
+                contextListSessionBean.getDepositorContextList().get(i).setSelected(false);
+            }
+        }
+        // set the current submission step to step2
+        easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP2);
+        // set method to import
+        easySubmissionSessionBean.setCurrentSubmissionMethod(EasySubmissionSessionBean.SUBMISSION_METHOD_FETCH_IMPORT);
         return "loadNewEasySubmission";
     }
 
@@ -2034,5 +2065,14 @@ public class EasySubmission extends FacesBean
     public boolean isAutosuggestJournals()
     {
         return autosuggestJournals;
+    }
+    
+    /**
+     * Returns all options for degreeType.
+     * @return all options for degreeType
+     */
+    public SelectItem[] getDegreeTypes()
+    {
+        return this.i18nHelper.getSelectItemsDegreeType(true);
     }
 }
