@@ -362,10 +362,10 @@
 			<!-- TOTAL NUMBER OF PAGES -->
 			<xsl:choose>
 				<xsl:when test="$gen='book-item' and not(exists(booktitle))">
-					<xsl:apply-templates select="phydescPubl"/>
+					<xsl:call-template name="phydescPubl"/>
 				</xsl:when>
-				<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings))">
-					<xsl:apply-templates select="phydescPubl"/>
+				<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings)) and exists(phydesc)">
+					<xsl:call-template name="phydescPubl"/>
 				</xsl:when>				
 			</xsl:choose>			
 			<!-- ABSTRACT -->
@@ -414,8 +414,10 @@
 						<xsl:call-template name="createSeries"/>
 					</xsl:element>
 				</xsl:when>
-			</xsl:choose>		
-		</xsl:element><!--end publication-->				
+			</xsl:choose>	
+			<xsl:apply-templates select="phydesc"/>
+			<!--end publication-->	
+		</xsl:element>				
 	</xsl:template>
 	
 	<xsl:template match="corporatebody">
@@ -572,7 +574,9 @@
 		<!-- SEQUENCE_NR -->
 		<xsl:apply-templates select="artnum"/>
 		<!--NUMBER OF PAGES -->
-		<xsl:apply-templates select="phydescSource"/>
+		<xsl:if test="phydesc"> 
+			<xsl:call-template name="phydescSource"/>
+		</xsl:if>
 		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="e:publishing-info">
@@ -583,17 +587,23 @@
 		</xsl:if>
 	</xsl:template>
 	
-	<xsl:template match="phydescPubl">
+	<xsl:template name="phydescPubl">
 		<xsl:element name="publ:total-number-of-pages">
-			<xsl:value-of select="."/>
+			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>	
 	
-	<xsl:template match="phydescSource">
-		<xsl:element name="e:total-number-of-pages">
-			<xsl:value-of select="."/>
+	<xsl:template name="phydescSource">
+		<xsl:element name="publ:total-number-of-pages">
+			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>	
+	
+	<xsl:template match="phydesc">
+		<xsl:element name="publ:total-number-of-pages">
+			<xsl:value-of select="."/>
+		</xsl:element>		
+	</xsl:template>
 	
 	<xsl:template match="publisheradd">
 		<xsl:element name="e:place">
@@ -639,7 +649,10 @@
 					<xsl:value-of select="editiondescription"/>
 				</xsl:element>
 			</xsl:if>
-			<xsl:apply-templates select="phydescSource"/>
+			<xsl:if test="phydesc"> 
+				<xsl:call-template name="phydescSource"/>
+			</xsl:if>
+			
 		</xsl:if>
 		<!-- CREATOR -->
 		<xsl:for-each select="creators/creator">				
