@@ -2,9 +2,9 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.GenreCriterion;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.GenreCriterionVO;
 
 /**
  * POJO bean to deal with one GenreCriterionVO.
@@ -15,7 +15,7 @@ public class GenreCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "GenreCriterionBean";
 	
-	private GenreCriterionVO genreCriterionVO;
+	private GenreCriterion genreCriterionVO;
 	
 	// selection fields for the MdsPublicationVO.Genre enum
 	private boolean searchArticle, searchBook, searchBookItem, searchCoursewareLecture, searchConferencePaper, searchConferenceReport;
@@ -25,26 +25,26 @@ public class GenreCriterionBean extends CriterionBean
     public GenreCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new GenreCriterionVO());
+		this(new GenreCriterion());
 	}
 
-	public GenreCriterionBean(GenreCriterionVO genreCriterionVO)
+	public GenreCriterionBean(GenreCriterion genreCriterionVO)
 	{
 		setGenreCriterionVO(genreCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return genreCriterionVO;
 	}
 
-	public GenreCriterionVO getGenreCriterionVO()
+	public GenreCriterion getGenreCriterionVO()
 	{
 		return genreCriterionVO;
 	}
 
-	public void setGenreCriterionVO(GenreCriterionVO genreCriterionVO)
+	public void setGenreCriterionVO(GenreCriterion genreCriterionVO)
 	{
 		this.genreCriterionVO = genreCriterionVO;
 		if (genreCriterionVO.getGenre() == null)

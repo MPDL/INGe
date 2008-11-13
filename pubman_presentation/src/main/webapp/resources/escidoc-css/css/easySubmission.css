@@ -414,6 +414,10 @@
   	float: left;
   }
 
+  .easySubmissionLangItem input {
+  	width: 104px;
+  }
+
   .easySubmissionLangItem select {
   	width: 50px;
   }

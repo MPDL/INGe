@@ -28,31 +28,52 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package test.pubman.searching;
+package de.mpg.escidoc.pubman.appbase;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Suite;
+import java.io.IOException;
+
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 
 /**
- * Integration test suite for PubManSearching.
- * @author Johannes Mueller (initial creation)
- * @author $Author: jmueller $ (last modification)
- * @version $Revision: 422 $ $LastChangedDate: 2007-11-07 12:15:06 +0100 (Wed, 07 Nov 2007) $
- * Revised by NiH: 22.08.2007
+ * 
+ * Servlet filter implementation to initialize the request encoding.
+ *
+ * @author franke (initial creation)
+ * @author $Author$ (last modification)
+ * @version $Revision$ $LastChangedDate$
+ *
  */
-@RunWith(Suite.class)
-@Suite.SuiteClasses({ 
-					 BracketsTest.class
-                     ,ConstantsTest.class
-                     ,ExpressionsTest.class                    
-                     ,OperationsTest.class
-                     ,PhrasesTest.class
-                     ,QueryParserTest.class                    
-                     ,SearchPubItemsByAffiliationTest.class
-                     ,SearchTest.class
-                     ,AdvancedSearchTest.class
-                     ,SearchAndOutputTest.class
-                    })
-public class PubManSearchingTest
+public class EncodingFilter implements Filter
 {
+    /**
+     * {@inheritDoc}
+     */
+    public void destroy()
+    {
+        // Nothing to do here
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException,
+            ServletException
+    {
+        request.setCharacterEncoding("UTF-8");
+        
+        chain.doFilter(request, response);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public void init(FilterConfig config) throws ServletException
+    {
+     // Nothing to do here
+    }
 }

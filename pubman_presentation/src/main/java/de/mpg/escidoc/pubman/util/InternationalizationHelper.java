@@ -64,6 +64,7 @@ public class InternationalizationHelper
     public static final String HELP_PAGE_DE = "help/eSciDoc_help_de.html";
     public static final String HELP_PAGE_EN = "help/eSciDoc_help_en.html";
     private String selectedHelpPage;
+    private String locale = "en";
     
     public List<String> test = new ArrayList<String>();
     
@@ -108,6 +109,7 @@ public class InternationalizationHelper
         {
             selectedHelpPage = HELP_PAGE_EN;
         }
+        locale = userLocale.getLanguage();
         NO_ITEM_SET = new SelectItem("", getLabel("EditItem_NO_ITEM_SET"));
     }
 
@@ -130,12 +132,14 @@ public class InternationalizationHelper
     public void toggleLocale(ActionEvent event)
     {
         FacesContext fc = FacesContext.getCurrentInstance();
+        
         //
         // toggle the locale
         Locale locale = null;
         Map<String, String> map = fc.getExternalContext().getRequestParameterMap();
         String language = (String) map.get("language");
         String country = (String) map.get("country");
+        this.locale = language;
         try
         {
             locale = new Locale(language, country);
@@ -432,5 +436,15 @@ public class InternationalizationHelper
 
         return getSelectItemsForEnum(false, values);
     }
+
+	public String getLocale() {
+		return locale;
+	}
+
+	public void setLocale(String locale) {
+		this.locale = locale;
+	}
+    
+    
 
 }

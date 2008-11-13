@@ -28,25 +28,39 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
+
+import java.util.ArrayList;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
- * identifier criterion vo for the advanced search.
- * @created 15-Mai-2007 15:46:47
+ * event criterion vo for the advanced search.
+ * @created 15-Mai-2007 15:46:31
  * @author NiH
  * @version 1.0
  * Revised by NiH: 13.09.2007
  */
-public class IdentifierCriterionVO extends CriterionVO 
+public class EventCriterion extends Criterion
 {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
     /**
      * constructor.
      */
-    public IdentifierCriterionVO()
+    public EventCriterion()
     {
         super();
-	}
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.EVENT, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
+	}	
 }

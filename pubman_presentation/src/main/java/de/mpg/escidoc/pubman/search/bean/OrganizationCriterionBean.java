@@ -1,7 +1,7 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.OrganizationCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 
 /**
  * POJO bean to deal with one OrganizationCriterionVO.
@@ -12,32 +12,32 @@ public class OrganizationCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "OrganizationCriterionBean";
 	
-	private OrganizationCriterionVO organizationCriterionVO;
+	private OrganizationCriterion organizationCriterionVO;
 	
 	
     public OrganizationCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new OrganizationCriterionVO());
+		this(new OrganizationCriterion());
 	}
 
-	public OrganizationCriterionBean(OrganizationCriterionVO organizationCriterionVO)
+	public OrganizationCriterionBean(OrganizationCriterion organizationCriterionVO)
 	{
 		setOrganizationCriterionVO(organizationCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return organizationCriterionVO;
 	}
 
-	public OrganizationCriterionVO getOrganizationCriterionVO()
+	public OrganizationCriterion getOrganizationCriterionVO()
 	{
 		return organizationCriterionVO;
 	}
 
-	public void setOrganizationCriterionVO(OrganizationCriterionVO organizationCriterionVO)
+	public void setOrganizationCriterionVO(OrganizationCriterion organizationCriterionVO)
 	{
 		this.organizationCriterionVO = organizationCriterionVO;
 	}

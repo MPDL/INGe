@@ -46,8 +46,16 @@
 					<meta http-equiv="expires" content="0"/>
 					<!-- FrM: Moved JS sources to external file -->
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+					
+					<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery-1.2.6.min.js">;</script>
+					<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.suggest.js">;</script>
+					<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.dimensions.js">;</script>
+					<script type="text/javascript" language="JavaScript" src="resources/autoSuggestFunctions.js">;</script>
+					
+					<link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+
 				</head>
-				<body>
+				<body lang="#{InternationalizationHelper.locale}">
 					<h:outputText id="pageDummy" value="#{EasySubmissionPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 					<div id="page_margins">
 						<div id="page">
@@ -79,6 +87,14 @@
 							</tr:form>
 						 </div>
 					  </div>
+				<script type="text/javascript">
+					languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query';
+					journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query';
+					journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/details?id=';
+					journalSuggestCommonParentClass = 'easySubmissionBoxBody';
+					journalSuggestTrigger = 'JOURNAL';
+					bindSuggests();
+				</script>
 				</body>
 			<script type="text/javascript" src="/clickheat/js/clickheat.js"></script><script type="text/javascript">clickHeatPage = 'view_Item';initClickHeat();</script>
 			</html>

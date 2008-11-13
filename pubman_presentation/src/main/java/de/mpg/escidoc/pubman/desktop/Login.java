@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.desktop;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URLEncoder;
 
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.context.FacesContext;
@@ -42,9 +43,9 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
-import de.escidoc.core.common.exceptions.application.security.AuthenticationException;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 
 /**
@@ -56,6 +57,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 public class Login extends FacesBean
 {
     public static String LOGIN_URL = "/aa/login";
+    public static String LOGOUT_URL = "/aa/logout";
     final public static String BEAN_NAME = "Login";
     private String btnLoginLogout = "login_btLogin";
     private String displayUserName = "";
@@ -112,15 +114,7 @@ public class Login extends FacesBean
             if (userHandle != null)
             {
                 long zeit = -System.currentTimeMillis();
-                try
-                {
-                    ServiceLocator.getUserManagementWrapper(userHandle).logout();
-                }
-                catch (AuthenticationException e)
-                {
-                    forceLogout();
-                    return "loadLoginErrorPage";
-                }
+
                 zeit += System.currentTimeMillis();
                 logger.info("logout->" + zeit + "ms");
 //                loginHelper.setLoggedIn(false);
@@ -129,9 +123,10 @@ public class Login extends FacesBean
 //                depWSSessionBean.setMyWorkspace(false);
 //                depWSSessionBean.setDepositorWS(false);
 //                depWSSessionBean.setNewSubmission(false);
-                fc.getExternalContext().redirect(request.getContextPath());
                 HttpSession session = (HttpSession) fc.getExternalContext().getSession(false);
                 session.invalidate();
+             // Logout mechanism
+                logout();
             }
         }
         else
@@ -141,6 +136,19 @@ public class Login extends FacesBean
                     ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
         }
         return "";
+    }
+
+    /**
+     * @param fc
+     * @throws IOException
+     * @throws ServiceException
+     * @throws URISyntaxException
+     */
+    public void logout() throws IOException, ServiceException, URISyntaxException
+    {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        fc.getExternalContext().redirect(
+                ServiceLocator.getFrameworkUrl() + LOGOUT_URL + "?target=" + URLEncoder.encode(PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path") + "?logout=true", "UTF-8"));
     }
 
     /**

@@ -42,12 +42,12 @@
 	
 		<!-- Identifier -->
 <div class="itemElementLine floatbox">		
-	<h:outputText value="<div class='itemTitle'>" escape="false"/>
-		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>
+	<h:outputText value="<div class='itemTitle'>" escape="false"/>		
+		<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/>		
 	<h:outputText value="</div>" escape="false"/>
-	
+
 	<h:outputText value="<div class='itemText'>" escape="false"/>
-		<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
+			<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
 	<h:outputText value="</div>" escape="false"/>
 </div>
 
@@ -56,11 +56,12 @@
 	<h:outputText value="<div class='itemTitle odd'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblLastModified}"/>
 	<h:outputText value="</div>" escape="false"/>
-	
+
 	<h:outputText value="<div class='itemText odd'>" escape="false"/>
 		<h:outputText value="#{ViewItemFull.modificationDate}"/>
 		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{ViewItemFull.modificationDate == null || ViewItemFull.modificationDate == ''}" escape="false"/>
 	<h:outputText value="</div>" escape="false"/>
+
 </div>
 
 	<!-- Item state -->

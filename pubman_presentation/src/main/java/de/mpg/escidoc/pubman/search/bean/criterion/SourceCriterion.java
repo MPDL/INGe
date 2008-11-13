@@ -28,38 +28,40 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
+
+import java.util.ArrayList;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
- * any filed criterion vo for the advanced search.
- * @created 10-Mai-2007 15:42:17
+ * Source criterion vo for the advanced search.
+ * @created 15-Mai-2007 15:46:59
  * @author NiH
  * @version 1.0
  * Revised by NiH: 13.09.2007
  */
-public class AnyFieldCriterionVO extends CriterionVO
+public class SourceCriterion extends Criterion
 {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
-    // boolean flag for the full text search
-    private boolean includeFiles;
 
     /**
      * constructor.
      */
-    public AnyFieldCriterionVO()
+    public SourceCriterion()
     {
         super();
-    }
-
-    public boolean isIncludeFiles()
-    {
-        return includeFiles;
-    }
-
-    public void setIncludeFiles(boolean newVal)
-    {
-        includeFiles = newVal;
-    }
+	}
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.SOURCE, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
+	}	
 }

@@ -67,10 +67,15 @@ public class ContextListSessionBean extends FacesBean
     public ContextListSessionBean()
     {
         
+        init();
+        
+    }
+    
+    public void init()
+    {
         this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         this.depositorContextList = this.retrieveDepositorContexts();
         this.moderatorContextList = this.retrieveModeratorContexts();
-        
     }
 
     private List<PubContextVOPresentation> retrieveModeratorContexts()
@@ -81,7 +86,17 @@ public class ContextListSessionBean extends FacesBean
             
             InitialContext initialContext = new InitialContext();
             this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
+            if(loginHelper.getAccountUser() != null 
+            		&& loginHelper.getAccountUser().getReference() != null 
+            		&& loginHelper.getAccountUser().getReference().getObjectId()!= null 
+            		&& !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+            	moderatorContexts = CommonUtils.convertToPubCollectionVOPresentationList(qualityAssurance.retrievePubContextsForModerator(loginHelper.getAccountUser()));
+            }
+            else
+            {
+            	//moderatorContexts.addAll(this.getDummyCollections(3));
+            }
         }
         catch (Exception e)
         {
@@ -153,6 +168,19 @@ public class ContextListSessionBean extends FacesBean
     {
         return depositorContextList;
     }
+    
+    public int getDepositorContextListSize()
+    {
+        if (depositorContextList==null)
+        {
+            return 0;
+        }
+        else
+        {
+            return depositorContextList.size();
+        }
+        
+    }
 
     public void setDepositorContextList(List<PubContextVOPresentation> contextList)
     {
@@ -174,9 +202,24 @@ public class ContextListSessionBean extends FacesBean
     {
         return moderatorContextList;
     }
+    
+    public int getModeratorContextListSize()
+    {
+        if (moderatorContextList==null)
+        {
+            return 0;
+        }
+        else
+        {
+            return moderatorContextList.size();
+        }
+        
+    }
 
     public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList)
     {
         this.moderatorContextList = moderatorContextList;
     }
+    
+    
 }

@@ -17,7 +17,8 @@ import de.mpg.escidoc.pubman.viewItem.ViewItemOrganization;
 import de.mpg.escidoc.pubman.viewItem.bean.SearchHitBean;
 import de.mpg.escidoc.pubman.viewItem.ui.COinSUI;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
@@ -36,8 +37,9 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 
 	private boolean selected = false;
 	private boolean shortView = true;
-	
-	
+	private boolean released = false;
+
+
 	/**
 	 * True if the item is shown in the revisions list, additional information is displayed then (release date, description)
 	 */
@@ -112,14 +114,17 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	.getApplication().getVariableResolver()
     	.resolveVariable(FacesContext.getCurrentInstance(), InternationalizationHelper.BEAN_NAME);
     
-	public PubItemVOPresentation(PubItemVO item)
+	public PubItemVOPresentation( PubItemVO item)
 	{
 		super(item);
-		if (item instanceof PubItemResultVO)
-		{
+
+		if( item instanceof PubItemResultVO ) {
 			this.searchHitList = ((PubItemResultVO)item).getSearchHitList();
 			this.isSearchResult = true;
+
 		}
+		
+		this.released = this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
 		
 		// set up some pre-requisites
 		//the list of numbered affiliated organizations 
@@ -924,8 +929,8 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
     	if (this.getVersion() !=  null && this.getVersion().getObjectId() != null)
     	{
-    		return PropertyReader
-					.getProperty("escidoc.pubman.instance.url")
+    		return PropertyReader.getProperty("escidoc.pubman.instance.url")
+			+ PropertyReader.getProperty("escidoc.pubman.instance.context.path")
     			+ PropertyReader
     				.getProperty("escidoc.pubman.item.pattern")
     				.replaceAll("\\$1", this.getVersion().getObjectId()
@@ -936,6 +941,16 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	{
     		return null;
     	}
+    }
+    
+    public boolean getShowCheckbox()
+    {
+    	boolean showCheckbox = true;
+    	if(this.getPublicStatus().equals(State.WITHDRAWN))
+    	{
+    		showCheckbox = false;
+    	}
+    	return showCheckbox;
     }
     
 	public java.util.List<SearchHitVO> getSearchHitList() {
@@ -1043,5 +1058,15 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     {
         this.isFromEasySubmission = isFromEasySubmission;
     }
+	
+	public boolean getIsReleased() 
+	{
+		return this.released;
+	}
+
+	public void setReleased(boolean released) 
+	{
+		this.released = released;
+	}
 	
 }

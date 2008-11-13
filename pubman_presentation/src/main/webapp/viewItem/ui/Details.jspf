@@ -51,7 +51,9 @@
 			
 			<h:outputText value="<div class='itemText'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2==ViewItemFull.abstractIterator.rowIndex}"/>
 			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{(ViewItemFull.abstractIterator.rowIndex%2)*2!=ViewItemFull.abstractIterator.rowIndex}"/>
-				<h:outputText value="#{abstract.value}"/>
+				
+					<h:outputText value="#{abstract.value}" converter="HTMLEscapeConverter" escape="false"/>
+					
 				<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{abstract == null || abstract.value == ''}"/>
 			<h:outputText value="</div>" escape="false"/>
 		</tr:iterator>
@@ -64,8 +66,10 @@
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
-			<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}"/>
-			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
+			
+		<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}" converter="HTMLEscapeConverter" escape="false"/>
+			
+		<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" escape="false" rendered="#{ViewItemFull.pubItem.metadata.tableOfContents == null || ViewItemFull.pubItem.metadata.tableOfContents.value == ''}"/>
 		<h:outputText value="</div>" escape="false"/>
 </div>
 		

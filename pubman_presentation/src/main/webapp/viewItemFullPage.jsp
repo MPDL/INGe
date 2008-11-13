@@ -41,9 +41,12 @@
 				<head>
 					<link rel="stylesheet" type="text/css" href="../resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
+					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLzotero}unapi"/>
+					
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
+					<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></title>
 					<!-- FrM: Moved JS sources to external file -->
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 					<title><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/> <h:outputText value=" (#{ViewItemFull.genre})"/></title>

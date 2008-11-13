@@ -28,38 +28,39 @@
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
+package de.mpg.escidoc.pubman.search.bean.criterion;
+
+import java.util.ArrayList;
+
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 
 /**
- * title criterion vo for the advanced search.
- * @created 15-Mai-2007 15:45:40
+ * topic criterion vo for the advanced search.
+ * @created 15-Mai-2007 15:45:57
  * @author NiH
  * @version 1.0
  * Revised by NiH: 13.09.2007
  */
-public class TitleCriterionVO extends CriterionVO
+public class TopicCriterion extends Criterion
 {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
-	
-    //language for the search criterion
-    private String language;
-
-	/**
-	 * constructor.
-	 */
-	public TitleCriterionVO()
+    /**
+     * constructor.
+     */
+    public TopicCriterion()
     {
         super();
 	}
-
-	public String getLanguage()
-    {
-		return language;
-	}
-
-	public void setLanguage(String newVal)
-    {
-		language = newVal;
-	}
+    
+    /**
+     * {@inheritDoc}
+     */
+    public ArrayList<MetadataSearchCriterion> createSearchCriterion() throws TechnicalException {
+    	ArrayList<MetadataSearchCriterion> criterions = new ArrayList<MetadataSearchCriterion>();
+    	MetadataSearchCriterion criterion = 
+			new MetadataSearchCriterion( CriterionType.TOPIC, getSearchString() );
+    	criterions.add( criterion );
+	   	return criterions;
+    }	
 }

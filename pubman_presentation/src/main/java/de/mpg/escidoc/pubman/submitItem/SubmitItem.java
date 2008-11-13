@@ -158,6 +158,20 @@ public class SubmitItem extends FacesBean
         
         retVal = this.getItemControllerSessionBean().submitOrReleaseCurrentPubItem(submissionComment, navigateTo);
         
+        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        {
+            // distinguish between simple and standard workflow
+        	if(this.getItemControllerSessionBean().getCurrentWorkflow() != null && this.getItemControllerSessionBean().getCurrentWorkflow().equals(PubItemDepositing.WORKFLOW_SIMPLE))
+        	{
+        		info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_RELEASED));
+        	}
+        	else
+        	{
+        	info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED));
+        	}
+        }
+        
+        
         // redirect to the view item page afterwards (if no error occured)
         if(ViewItemFull.LOAD_VIEWITEM.equals(retVal))
         {
@@ -170,10 +184,7 @@ public class SubmitItem extends FacesBean
     		}
         }
         
-        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
-        {
-            this.showMessage(DepositorWS.MESSAGE_SUCCESSFULLY_SUBMITTED);
-        }
+       
 
         return retVal;
     }
@@ -184,19 +195,19 @@ public class SubmitItem extends FacesBean
      */
     public final String cancel()
     {
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        try 
+        {
+            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
+        } 
+        catch (IOException e) {
+            logger.error("Could not redirect to View Item Page", e);
+        }
         return DepositorWS.LOAD_DEPOSITORWS;
     }
 
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in FacesBean and displays it once (e.g. for a reload)
-     */
-    private void showMessage(final String message)
-    {
-        String localMessage = getMessage(message);
-        this.getItemListSessionBean().setMessage(localMessage);
-    }
+  
     
     /**
      * Adds and removes messages on this page, if any.

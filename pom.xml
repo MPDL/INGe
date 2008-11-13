@@ -26,13 +26,12 @@
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
--->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+--><project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>3.5.5-SNAPSHOT</version>
+	<version>3.8.3-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -155,6 +154,26 @@
 			<organization>Max Planck Digital Library</organization>
 			<timezone>+2</timezone>
 		</developer>
+		<developer>
+			<id>kleinfercher</id>
+			<name>Friederike Kleinfercher</name>
+			<email>kleinfercher@mpdl.mpg.de</email>
+			<roles>
+                <role>Software developer</role>
+            </roles>
+            <organization>Max Planck Digital Library</organization>
+            <timezone>+2</timezone>
+		</developer>
+		<developer>
+		  <id>haarlaender</id>
+            <name>Markus Haarlaender</name>
+            <email>haarlaender@mpdl.mpg.de</email>
+            <roles>
+                <role>Software developer</role>
+            </roles>
+            <organization>Max Planck Digital Library</organization>
+            <timezone>+2</timezone>
+		</developer>
 	</developers>
 
 	<mailingLists>
@@ -187,7 +206,7 @@
 		<module>pubman_logic_ear</module>
 		<module>pubman_presentation</module>
 		<module>pubman_ear</module>
-	</modules>
+  </modules>
 
 	<scm>
 	        <connection>scm:svn:https://zim02.gwdg.de/repos/pubman/branches/nims</connection>
@@ -372,6 +391,10 @@
 				</reportSets>
 			</plugin>
 			<plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>changelog-maven-plugin</artifactId>
+            </plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
 				<configuration>
@@ -380,6 +403,25 @@
 					<targetJdk>1.5</targetJdk>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-checkstyle-plugin</artifactId>
+            <configuration>
+                <configLocation>http://escidoc1.escidoc.mpg.de/resources/checkstyle/checkstyle.xml</configLocation>
+            </configuration>
+        </plugin>
+        <plugin>
+                <!-- JavaNCSS - A Source Measurement Suite for Java
+                    http://www.kclee.de/clemens/java/javancss/ -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>javancss-maven-plugin</artifactId>
+        </plugin>
+        <plugin>
+                <!-- A Java package dependency analyzer that generates
+                      design quality metrics http://clarkware.com/software/JDepend.html -->
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>jdepend-maven-plugin</artifactId>
+        </plugin>
 		</plugins>
 	</reporting>
 
@@ -408,16 +450,16 @@
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
-				<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</cargo.jboss.url>
+				<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.3.GA.zip</cargo.jboss.url>
 				<!-- local intallation of the jboss for integration-tests -->
-				<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</cargo.jboss.install.dir>
+				<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.3.GA/jboss-4.2.3.GA</cargo.jboss.install.dir>
 
 
 				<!-- deploy the pubman ear to this server and port via jmx /goal: jboss:deploy -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
 				<jboss.deploy.port>8080</jboss.deploy.port>
 				<!-- the ears are deployed to this server using jboss:harddeploy -->
-				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.2.GA/jboss-4.2.2.GA</jboss.install.dir>
+				<jboss.install.dir>${user.home}/jboss/server_eclipse/jboss-4.2.3.GA/jboss-4.2.3.GA</jboss.install.dir>
 				<!-- These properties are included in the properties-service.xml via a xsl transformation -->
 				<jboss.property.1>pubman.properties.file=./pubman.properties</jboss.property.1>
 				<jboss.property.2>com.sun.xml.namespace.QName.useCompatibleSerialVersionUID=1.0</jboss.property.2>
@@ -437,8 +479,9 @@
 				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://localhost:8080/pubman/item/</escidoc.pubman.instance.url>
-				<escidoc.pubman.item.pattern>$1</escidoc.pubman.item.pattern>
+				<escidoc.pubman.instance.url>http://localhost:8080</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
+				<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
@@ -457,14 +500,24 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
-				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
-				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
+				<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
+				<escidoc.cone.database.name>cone</escidoc.cone.database.name>
+				<escidoc.cone.mulgara.server.name>zim02.gwdg.de</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
+				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
+				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
+				
+				<!-- unAPI -->
+				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
+				
 				
 			</properties>
 			
@@ -505,9 +558,9 @@
 				<!-- this path is used as root for all jboss installations -->
 				<cargo.install.dir>${user.home}/jboss</cargo.install.dir>
 				<!-- fetch the jboss from this url -->
-				<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.2.GA.zip</cargo.jboss.url>
+				<cargo.jboss.url>http://heanet.dl.sourceforge.net/sourceforge/jboss/jboss-4.2.3.GA.zip</cargo.jboss.url>
 				<!-- local intallation of the jboss for integration-tests -->
-				<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.2.GA/jboss-4.2.2.GA</cargo.jboss.install.dir>
+				<cargo.jboss.install.dir>${user.home}/jboss/jboss-4.2.3.GA/jboss-4.2.3.GA</cargo.jboss.install.dir>
 
 				<!-- deploy the pubman ear to this server and port via jmx -->
 				<jboss.deploy.host>localhost</jboss.deploy.host>
@@ -525,15 +578,16 @@
 				<escidoc.pubman_presentation.disable.view_statistics>false</escidoc.pubman_presentation.disable.view_statistics>
 				<escidoc.pubman_presentation.disable.view_revisions>false</escidoc.pubman_presentation.disable.view_revisions>
 
-				<escidoc.pubman_presentation.email.mailservername>mailhost.rzg.mpg.de</escidoc.pubman_presentation.email.mailservername>
-				<escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
-				<escidoc.pubman_presentation.email.withauthentication>false</escidoc.pubman_presentation.email.withauthentication>
-				<escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
-				<escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
+				<escidoc.pubman_presentation.email.mailservername>mail.mpisoc.mpg.de</escidoc.pubman_presentation.email.mailservername>
+                <escidoc.pubman_presentation.email.sender>pubman@mpdl.mpg.de</escidoc.pubman_presentation.email.sender>
+                <escidoc.pubman_presentation.email.withauthentication>true</escidoc.pubman_presentation.email.withauthentication>
+                <escidoc.pubman_presentation.email.authenticationuser>pubman</escidoc.pubman_presentation.email.authenticationuser>
+                <escidoc.pubman_presentation.email.authenticationpwd>cGVSeP</escidoc.pubman_presentation.email.authenticationpwd>
 
 				<!-- URL of this PubMan instance -->
-				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de:8080/pubman/item/</escidoc.pubman.instance.url>
-				<escidoc.pubman.item.pattern>$1</escidoc.pubman.item.pattern>
+				<escidoc.pubman.instance.url>http://dev-pubman.mpdl.mpg.de:8080</escidoc.pubman.instance.url>
+				<escidoc.pubman.instance.context.path>/pubman</escidoc.pubman.instance.context.path>
+				<escidoc.pubman.item.pattern>/item/$1</escidoc.pubman.item.pattern>
 				<escidoc.pubman.component.pattern>/viewComponentPage.jsp?componentId=$1</escidoc.pubman.component.pattern>
 
 				<!-- URL of the FIZ framework instance -->
@@ -551,14 +605,23 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.type.pattern>:content-model objid=\"([^\"]*)\"</escidoc.content.type.pattern>
-				<escidoc.context.pattern>:context objid=\"([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
-				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.MockQuerier</escidoc.cone.querier.class>
-				<escidoc.cone.mulgara.server.name>localhost</escidoc.cone.mulgara.server.name>
-				<escidoc.cone.mulgara.server.port>9099</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
+				<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
+				<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
+				<escidoc.cone.database.name>cone</escidoc.cone.database.name>
+				<escidoc.cone.mulgara.server.name>zim02.gwdg.de</escidoc.cone.mulgara.server.name>
+				<escidoc.cone.mulgara.server.port>8888</escidoc.cone.mulgara.server.port>
+				<escidoc.cone.language.default>en</escidoc.cone.language.default>
+				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
+				<escidoc.cone.service.url>http://dev-pubman.mpdl.mpg.de:8080/cone/</escidoc.cone.service.url>
+				
+				<!-- unAPI -->
+				<escidoc.unapi.server>http://dev-pubman.mpdl.mpg.de:8080/import/unapi/</escidoc.unapi.server>
 				
 			</properties>
 				<distributionManagement>

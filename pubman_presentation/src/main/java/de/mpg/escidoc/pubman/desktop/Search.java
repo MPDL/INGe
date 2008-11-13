@@ -54,9 +54,6 @@ public class Search extends FacesBean
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(Search.class);
     
-    // the two fields in the search.jspf
-    private HtmlInputText txtSearch = new HtmlInputText();
-    private HtmlSelectBooleanCheckbox chkIncludeFiles = new HtmlSelectBooleanCheckbox();
     
     /**
      * Public constructor
@@ -83,32 +80,9 @@ public class Search extends FacesBean
      */
     public String search()
     {
-        // values must be set manually bcs the search button has been changed to
-        // immediate=true
+        
         SearchResultListSessionBean resultListSessionBean = (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
-        if (this.txtSearch.getSubmittedValue() != null)
-        {
-            resultListSessionBean.setSearchString(this.txtSearch.getSubmittedValue().toString());
-        }
-        if (this.chkIncludeFiles.getSubmittedValue() != null)
-        {
-            String fulltext = (String)this.chkIncludeFiles.getSubmittedValue();
-            if (fulltext != null)
-            {
-                if (fulltext.equals("true"))
-                {
-                    resultListSessionBean.setIncludeFiles(true);
-                }
-                else
-                {
-                    resultListSessionBean.setIncludeFiles(false);
-                }
-            }
-            else
-            {
-                resultListSessionBean.setIncludeFiles(false);
-            }
-        }
+       
         String retVal = this.getSearchResultList().startSearch();
         CommonSessionBean sessionBean = getCommonSessionBean();
         // if search returns an error, force JSF to load the ErrorPage
@@ -163,24 +137,5 @@ public class Search extends FacesBean
         return (SearchResultList)getBean(SearchResultList.class);
     }
 
-    // Getters and Setters
-    public HtmlSelectBooleanCheckbox getChkIncludeFiles()
-    {
-        return chkIncludeFiles;
-    }
-
-    public void setChkIncludeFiles(HtmlSelectBooleanCheckbox chkIncludeFiles)
-    {
-        this.chkIncludeFiles = chkIncludeFiles;
-    }
-
-    public HtmlInputText getTxtSearch()
-    {
-        return txtSearch;
-    }
-
-    public void setTxtSearch(HtmlInputText txtSearch)
-    {
-        this.txtSearch = txtSearch;
-    }
+   
 }

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.LanguageCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.LanguageCriterion;
 
 /**
  * @author endres
@@ -17,7 +17,7 @@ public class LanguageCriterionCollection {
 
 public static final String BEAN_NAME = "LanguageCriterionCollection";
 	
-	private List<LanguageCriterionVO> parentVO;
+	private List<LanguageCriterion> parentVO;
 	private LanguageCriterionManager languageCriterionManager;
 	
 	// collapsed by default
@@ -30,8 +30,8 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
 	public LanguageCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<LanguageCriterionVO> ctorList = new ArrayList<LanguageCriterionVO>();
-		ctorList.add(new LanguageCriterionVO());
+		List<LanguageCriterion> ctorList = new ArrayList<LanguageCriterion>();
+		ctorList.add(new LanguageCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -39,17 +39,17 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
 	 * CTOR to refine or fill a predefined ArrayList<LanguageCriterionVO>
 	 * @param parentVO
 	 */
-	public LanguageCriterionCollection(List<LanguageCriterionVO> parentVO)
+	public LanguageCriterionCollection(List<LanguageCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<LanguageCriterionVO> getParentVO()
+	public List<LanguageCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<LanguageCriterionVO> parentVO)
+	public void setParentVO(List<LanguageCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -62,16 +62,16 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
 	 */
 	public class LanguageCriterionManager extends DataModelManager<LanguageCriterionBean>
 	{
-		List<LanguageCriterionVO> parentVO;
+		List<LanguageCriterion> parentVO;
 		
-		public LanguageCriterionManager(List<LanguageCriterionVO> parentVO)
+		public LanguageCriterionManager(List<LanguageCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public LanguageCriterionBean createNewObject()
 		{
-			LanguageCriterionVO newVO = new LanguageCriterionVO();
+			LanguageCriterion newVO = new LanguageCriterion();
 			// create a new wrapper pojo
 			LanguageCriterionBean languageCriterionBean = new LanguageCriterionBean(newVO);
 			// we do not have direct access to the original list
@@ -93,19 +93,19 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice SourceCriterionBean
 			List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
-			for (LanguageCriterionVO languageCriterionVO : parentVO)
+			for (LanguageCriterion languageCriterionVO : parentVO)
 			{
 				beanList.add(new LanguageCriterionBean(languageCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<LanguageCriterionVO> parentVO)
+		public void setParentVO(List<LanguageCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice SourceCriterionBean
 			List<LanguageCriterionBean> beanList = new ArrayList<LanguageCriterionBean>();
-			for (LanguageCriterionVO languageCriterionVO : parentVO)
+			for (LanguageCriterion languageCriterionVO : parentVO)
 			{
 				beanList.add(new LanguageCriterionBean(languageCriterionVO));
 			}
@@ -137,10 +137,10 @@ public static final String BEAN_NAME = "LanguageCriterionCollection";
     	}
     }
 
-    public List<LanguageCriterionVO> getFilledCriterionVO()
+    public List<LanguageCriterion> getFilledCriterion()
 	{
-    	List<LanguageCriterionVO> returnList = new ArrayList<LanguageCriterionVO>();
-    	for (LanguageCriterionVO vo : parentVO)
+    	List<LanguageCriterion> returnList = new ArrayList<LanguageCriterion>();
+    	for (LanguageCriterion vo : parentVO)
     	{
     		if ((vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{

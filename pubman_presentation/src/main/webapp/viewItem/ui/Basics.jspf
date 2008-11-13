@@ -33,6 +33,8 @@
 
 <f:subview id="Basics">
 	
+
+
 	<h2>
 			<div class="viewItemTopHeader">
 			<h:panelGroup layout="block" rendered="#{!ViewItemFull.isStateWithdrawn}" styleClass="icon basicIcon"></h:panelGroup>
@@ -42,7 +44,7 @@
 				<h:outputText value=" (#{ViewItemFull.genre})"/>
 			</div>
 	</h2>
-	
+
 	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isFromEasySubmission}">
 			<h:outputText styleClass="messageError" value="#{msg.easy_submission_preview_hint}"/>
 	</h:panelGroup>	
@@ -56,7 +58,10 @@
 	</h:panelGroup>	
 	
 	<!-- COinS -->
-	<h:outputText value="#{ViewItemFull.coins}" escape="false"/>
+	<!--<h:outputText value="#{ViewItemFull.coins}" escape="false"/>-->
+
+	<!-- The unAPI Identifier for this item -->
+	<h:outputText value="<abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'></abbr>" escape="false" rendered="#{ViewItemFull.isStateReleased}"/>
 	
 	<!-- LinkHeader -->
 <div class="itemElementLine floatbox">
@@ -68,7 +73,7 @@
 				<h:outputText value="Item Log"/>
 		</h:commandLink>
 	
-		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease}">
+		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	
@@ -76,7 +81,7 @@
 			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
-		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease}">
+		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
@@ -86,6 +91,29 @@
 		
 	<h:outputText value="</div>" escape="false"/>
 </div>
+
+	<!-- unapiHeader -->
+<h:panelGroup rendered="#{ViewItemFull.isStateReleased && !ViewItemFull.isStateWithdrawn}">
+	<div class="itemElementLine floatbox" >
+		<h:outputText value="<div class='itemTitle'>" escape="false"/>
+		<h:outputText value="</div>" escape="false"/>
+		<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
+			<h:outputLink value="#{ViewItemFull.unapiApa}">
+				<h:outputText value="APA"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiBibtex}">
+				<h:outputText value="BibTex"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiEndnote}">
+				<h:outputText value="EndNote"/>
+			</h:outputLink>	
+			<h:outputLink value="#{ViewItemFull.unapiEscidoc}">
+				<h:outputText value="eSciDoc"/>
+			</h:outputLink>	
+			<h:outputText value="#{lbl.export_lblSimpleExport}"/>
+		<h:outputText value="</div>" escape="false"/>
+	</div>
+</h:panelGroup>	
 	
 	<!--Withdrawal Information -->
 <h:panelGroup rendered="#{ViewItemFull.isStateWithdrawn}">

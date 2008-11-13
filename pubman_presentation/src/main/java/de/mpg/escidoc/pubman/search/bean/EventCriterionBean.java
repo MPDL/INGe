@@ -1,7 +1,7 @@
 package de.mpg.escidoc.pubman.search.bean;
 
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.EventCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.EventCriterion;
 
 /**
  * POJO bean to deal with one EventCriterionVO.
@@ -12,7 +12,7 @@ public class EventCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "EventCriterionBean";
 	
-	private EventCriterionVO eventCriterionVO;
+	private EventCriterion eventCriterionVO;
 	
 	// collapsed by default
 	protected boolean collapsed = true;
@@ -20,26 +20,26 @@ public class EventCriterionBean extends CriterionBean
     public EventCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new EventCriterionVO());
+		this(new EventCriterion());
 	}
 
-	public EventCriterionBean(EventCriterionVO eventCriterionVO)
+	public EventCriterionBean(EventCriterion eventCriterionVO)
 	{
 		setEventCriterionVO(eventCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return eventCriterionVO;
 	}
 
-	public EventCriterionVO getEventCriterionVO()
+	public EventCriterion getEventCriterionVO()
 	{
 		return eventCriterionVO;
 	}
 
-	public void setEventCriterionVO(EventCriterionVO eventCriterionVO)
+	public void setEventCriterionVO(EventCriterion eventCriterionVO)
 	{
 		this.eventCriterionVO = eventCriterionVO;
 	}

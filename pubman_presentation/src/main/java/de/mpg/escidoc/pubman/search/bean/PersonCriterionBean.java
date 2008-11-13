@@ -2,10 +2,10 @@ package de.mpg.escidoc.pubman.search.bean;
 
 import java.util.ArrayList;
 
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.search.bean.criterion.PersonCriterion;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRole;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.PersonCriterionVO;
 
 /**
  * POJO bean to deal with one PersonCriterionVO.
@@ -16,7 +16,7 @@ public class PersonCriterionBean extends CriterionBean
 {
 	public static final String BEAN_NAME = "PersonCriterionBean";
 	
-	private PersonCriterionVO personCriterionVO;
+	private PersonCriterion personCriterionVO;
 	
 	// selection fields for the CreatorVO.CreatorRole enum
 	private boolean searchAuthor, searchEditor, searchAdvisor, searchArtist, searchCommentator, searchContributor;
@@ -25,26 +25,26 @@ public class PersonCriterionBean extends CriterionBean
     public PersonCriterionBean()
 	{
 		// ensure the parentVO is never null;
-		this(new PersonCriterionVO());
+		this(new PersonCriterion());
 	}
 
-	public PersonCriterionBean(PersonCriterionVO personCriterionVO)
+	public PersonCriterionBean(PersonCriterion personCriterionVO)
 	{
 		setPersonCriterionVO(personCriterionVO);
 	}
 
 	@Override
-	public CriterionVO getCriterionVO()
+	public Criterion getCriterionVO()
 	{
 		return personCriterionVO;
 	}
 
-	public PersonCriterionVO getPersonCriterionVO()
+	public PersonCriterion getPersonCriterionVO()
 	{
 		return personCriterionVO;
 	}
 
-	public void setPersonCriterionVO(PersonCriterionVO personCriterionVO)
+	public void setPersonCriterionVO(PersonCriterion personCriterionVO)
 	{
 		this.personCriterionVO = personCriterionVO;
 		if (personCriterionVO.getCreatorRole() == null)

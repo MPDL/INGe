@@ -70,14 +70,13 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
  */
 public class CommonUtils extends InternationalizedImpl
 {
-    @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(CommonUtils.class);
     private static final String NO_ITEM_SET = "-";
     private static final String DATE_FORMAT = "yyyy-MM-dd";
 
     //HTML escaped characters mapping
     private static final String[] problematicCharacters = { "&", ">", "<", "\"", "\'", "\n", "\r" };
-    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "&lt;br&gt;", "&lt;br&gt;" };
+    private static final String[] escapedCharacters = { "&amp;", "&gt;", "&lt;", "&quot;", "&apos;", "<br/>", "<br/>" };
 
     /**
      * Converts a Set to an Array of SelectItems (an empty SelectItem is included at the beginning).
@@ -639,4 +638,10 @@ public class CommonUtils extends InternationalizedImpl
         return limitedString;
     }
 
+    public static String currentDate() {
+      Calendar cal = Calendar.getInstance();
+      SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+      return sdf.format(cal.getTime());
+
+    }
 }

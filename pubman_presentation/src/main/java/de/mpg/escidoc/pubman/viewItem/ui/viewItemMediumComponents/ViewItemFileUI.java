@@ -40,7 +40,7 @@ import de.mpg.escidoc.pubman.ui.HTMLElementUI;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.services.common.referenceobjects.FileRO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
@@ -223,19 +223,19 @@ public class ViewItemFileUI extends HtmlPanelGroup
                 this.getChildren().add(htmlElement.getEndTag("div"));
                 
                 //*** SEARCH HITS (IF POSSIBLE) ***
-                if(this.pubItem instanceof PubItemResultVO && this.pubItem.getVersion().getState() != null && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
-                {
-                    PubItemResultVO resultItem = (PubItemResultVO)this.pubItem;
-                    // label
-                    this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
-                    
-                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblFileFullTxtSearchHits")));
-                    
-                    this.getChildren().add(htmlElement.getEndTag("div"));
-                    
-                    // value
-                    addSearchResultHitsToPage(resultItem, this.pubItem.getFiles().get(i).getReference());
-                }
+//                if(this.pubItem instanceof PubItemResultVO && this.pubItem.getVersion().getState() != null && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
+//                {
+//                    PubItemResultVO resultItem = (PubItemResultVO)this.pubItem;
+//                    // label
+//                    this.getChildren().add(htmlElement.getStartTagWithStyleClass("div", "itemTitle"));
+//                    
+//                    this.getChildren().add(CommonUtils.getTextElementConsideringEmpty(bundleLabel.getString("ViewItemFull_lblFileFullTxtSearchHits")));
+//                    
+//                    this.getChildren().add(htmlElement.getEndTag("div"));
+//                    
+//                    // value
+//                    addSearchResultHitsToPage(resultItem, this.pubItem.getFiles().get(i).getReference());
+//                }
                 
                 // add some empty rows
                 this.getChildren().add(htmlElement.getStartTag("br"));
@@ -252,7 +252,7 @@ public class ViewItemFileUI extends HtmlPanelGroup
      * @param resultItem the search result item
      * @param fileRO the reference of the file where the full text was found
      */
-    private void addSearchResultHitsToPage(PubItemResultVO resultItem, FileRO fileRO)
+    private void addSearchResultHitsToPage(ItemResultVO resultItem, FileRO fileRO)
     {
         // browse through the list of files and examine which of the files is the one the search result hits where found in
         for(int i = 0; i < resultItem.getSearchHitList().size(); i++)

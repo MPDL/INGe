@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,8 +46,6 @@ import javax.faces.component.html.HtmlCommandLink;
 import javax.faces.component.html.HtmlOutputText;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.httpclient.HttpClient;
@@ -57,21 +56,27 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubItemVOWrapper;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.SearchResult;
+import de.mpg.escidoc.services.search.query.StandardSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 
 
 /**
@@ -84,8 +89,10 @@ import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
  */
 public class SearchResultList extends ItemList
 {
-    public static final String BEAN_NAME = "SearchResultList";
-    private static Logger logger = Logger.getLogger(SearchResultList.class);
+	private static final long serialVersionUID = 1L;
+	
+	public static final String BEAN_NAME = "SearchResultList";
+    protected static Logger logger = Logger.getLogger(SearchResultList.class);
     
     // Faces navigation string
     public final static String LOAD_SEARCHRESULTLIST = "showSearchResults";
@@ -112,7 +119,11 @@ public class SearchResultList extends ItemList
     //StG: String used for displaying of export items 
     private String displayExportData = null;
     
-    enum TypeOfList {
+    //unapi interface for zotero
+    private String unapiURLzotero;
+
+
+	enum TypeOfList {
     	SIMPLE_SEARCH,
     	ADVANCED_SEARCH,
     	AFFILIATION_SEARCH
@@ -140,6 +151,14 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
+        
+        String unapiURL;
+		try {
+			unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+			this.unapiURLzotero = unapiURL.replaceFirst("unapi", "zotero");
+		} 
+		catch (IOException e) {e.printStackTrace();} 
+		catch (URISyntaxException e) {e.printStackTrace();}   
         
     }
 
@@ -214,7 +233,7 @@ public class SearchResultList extends ItemList
         else
         {            
             logger.warn("No item selected.");
-            this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+            error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
             sb.setExportDisplayData(this.displayExportData);
             return "";
         }
@@ -276,7 +295,7 @@ public class SearchResultList extends ItemList
                 
                 if ( (exportFileData == null) || (new String(exportFileData)).trim().equals("") ){ 
                     logger.debug("No export data was delivered!");
-                    this.showMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED);
+                    error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
                     return "";
                 }
                 
@@ -319,7 +338,7 @@ public class SearchResultList extends ItemList
             } else
             {            
                 logger.warn("No item selected.");
-                this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+                error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
                 return "";
             }          
     }
@@ -377,7 +396,7 @@ public class SearchResultList extends ItemList
          else
         {            
             logger.warn("No item selected.");
-            this.showMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
+           error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
         }
     }
 
@@ -402,12 +421,12 @@ public class SearchResultList extends ItemList
         }
         else if (this.getItemListSessionBean().getSelectedPubItems().size() > 1)
         {
-            this.showMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_MANY_ITEMS_SELECTED));
             return null;
         }
         else
         {
-            this.showMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED);
+            error(getMessage(DepositorWS.MESSAGE_NO_ITEM_SELECTED));
             return null;
         }
     }
@@ -417,8 +436,6 @@ public class SearchResultList extends ItemList
      */
     protected void createDynamicItemList2()
     {
-
-        List<PubItemVO> list = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
         
         if(this.getItemListSessionBean().getCurrentPubItemList() != null)
         {
@@ -426,11 +443,6 @@ public class SearchResultList extends ItemList
             {
                 logger.debug("Creating dynamic item list with " + this.getItemListSessionBean().getCurrentPubItemList().size() + " entries.");
             }
-            
-            // create an ItemListUI for all PubItems
-            List<PubItemVO> pubItemList = CommonUtils.convertToPubItemVOList(this.getItemListSessionBean().getCurrentPubItemList());
-            List<PubItemVOWrapper> pubItemWrapperList = CommonUtils.convertToWrapperList(pubItemList);
-
         }
 
         // enable or disable the action links according to item state and availability of items
@@ -478,16 +490,42 @@ public class SearchResultList extends ItemList
         lnkBrowse.setRendered(false);
         valQuery.setRendered(false);
         this.showBackInNoResultPage( false );
-        // reset some error message from last request
-        this.deleteMessage();
+       
 
         String searchString = this.getSessionBean().getSearchString();
         boolean includeFiles = this.getSessionBean().getIncludeFiles();
         
+        // check if the searchString contains useful data
+        if( searchString.trim().equals("") ) {
+        	return (SearchResultList.LOAD_NO_ITEMS_FOUND);
+        }
+        
         try
-        {
-            List<PubItemResultVO> itemsFound = this.getItemControllerSessionBean().searchItems(searchString, includeFiles);
-            this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
+        {   	
+        	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+        	        	
+        	if( includeFiles == true ) {
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY_INCLUDE, 
+        				searchString ) );
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+        				searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+        	}
+        	else {
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY, 
+            			searchString ) );
+        		criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+        				searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+        	}
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTEXT_OBJECTID, 
+    				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID, 
+    				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+        	
+        	// search for the given criteria
+        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+        	List<PubItemResultVO> itemsFound = extractItemsOfSearchResult( result );
+        	
+        	this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("SearchResultList");
@@ -497,7 +535,7 @@ public class SearchResultList extends ItemList
         catch (Exception e)
         {
             logger.error("Could not search for items.", e);
-            ((ErrorPage) this.getRequestBean(ErrorPage.class)).setException(e);
+            ((ErrorPage) InternationalizedImpl.getSessionBean(ErrorPage.class)).setException(e);
             
             return ErrorPage.LOAD_ERRORPAGE;
         }
@@ -519,7 +557,7 @@ public class SearchResultList extends ItemList
      * @author Hugo Niedermaier 
      * @return string, identifying the page that should be navigated to after this methodcall
      */    
-    public String startAdvancedSearch(ArrayList<CriterionVO> criterionVOList, String language)
+    public String startAdvancedSearch( ArrayList<MetadataSearchCriterion> criteria )
     {
         int result;
         if (logger.isDebugEnabled())
@@ -532,18 +570,26 @@ public class SearchResultList extends ItemList
         valQuery.setRendered(true);
         this.showBackInNoResultPage( true );
 //      reset some error message from last request
-        this.deleteMessage();
+        
 
+        // check if we have received some criteria to search for
+        if( criteria.size() == 0 ) {
+            valQuery.setValue( "" );
+        	return (SearchResultList.LOAD_NO_ITEMS_FOUND);   
+        }
+        
+        String cqlQuery = null;
         try
         {
-            ArrayList<PubItemVO> itemsFound = this.getItemControllerSessionBean().advancedSearchItems(criterionVOList, language);
+            StandardSearchResult queryResult = this.getItemControllerSessionBean().searchItems( criteria );
+            ArrayList<PubItemResultVO> itemsFound = extractItemsOfSearchResult( queryResult );
+            cqlQuery = queryResult.getCqlQuery();
             result = itemsFound.size();
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AdvancedSearchResultList");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
             this.getSessionBean().setType(SearchResultListSessionBean.SearchType.ADVANCED_SEARCH);
-            this.getSessionBean().setCriterionVOList(criterionVOList);
-            this.getSessionBean().setLanguage(language);
+            this.getSessionBean().setSearchCriteria( criteria );
             getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
         }
         catch (Exception e)
@@ -558,26 +604,18 @@ public class SearchResultList extends ItemList
         this.sortItemList();
         //this.createDynamicItemList2();
         
-        try
-        {
-            InitialContext initialContext = new InitialContext();
-            PubItemSearching pubItemSearching = (PubItemSearching)initialContext.lookup(PubItemSearching.SERVICE_NAME);
-            valQuery.setValue( pubItemSearching.getCqlQuery());
-            if (result > 0)
-            {
-            	getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);
-            }
-            else
-            {
-                return (SearchResultList.LOAD_NO_ITEMS_FOUND);            
-            }
+        if( cqlQuery != null ) {
+        	valQuery.setValue( cqlQuery );
         }
-        catch (NamingException e)
-        {
-            logger.error("PubItemSearchingBean Initialization Failure: \n" + e);
-            return (SearchResultList.LOAD_NO_ITEMS_FOUND);
-        }
+		if (result > 0)
+		{
+			getViewItemSessionBean().setNavigationStringToGoBack(SearchResultList.LOAD_SEARCHRESULTLIST);
+		    return (SearchResultList.LOAD_SEARCHRESULTLIST);
+		}
+		else
+		{
+		    return (SearchResultList.LOAD_NO_ITEMS_FOUND);            
+		}
     }
     
     /**
@@ -595,14 +633,18 @@ public class SearchResultList extends ItemList
         lnkAdvancedSearch.setRendered(false);
         valQuery.setRendered(false);
         this.showBackInNoResultPage( true );
-//      reset some error message from last request
-        this.deleteMessage();
+       
         
         
-        ArrayList<PubItemVO> itemsFound = null;
+        ArrayList<PubItemResultVO> itemsFound = null;
         try
         {
-            itemsFound = this.getItemControllerSessionBean().searchItemsByAffiliation(affiliation);
+        	ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+        	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
+        				affiliation.getReference().getObjectId() ));
+        	
+        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+            itemsFound = extractItemsOfSearchResult( result );
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("AffiliationSearchResultList");
@@ -708,6 +750,23 @@ public class SearchResultList extends ItemList
             }
         }
     }
+    
+    private ArrayList<PubItemResultVO> extractItemsOfSearchResult( StandardSearchResult result ) { 
+    
+    	List<ItemContainerSearchResultVO> results = result.getResultList();
+    	
+    	ArrayList<PubItemResultVO> pubItemList = new ArrayList<PubItemResultVO>();
+    	for( int i = 0; i < results.size(); i++ ) {
+    		//check if we have found an item
+    		if( results.get( i ) instanceof ItemResultVO ) {
+    			// cast to PubItemResultVO
+    			ItemResultVO item = (ItemResultVO)results.get( i );
+    			PubItemResultVO pubItem = new PubItemResultVO( item, item.getSearchHitList() ) ;
+    			pubItemList.add( pubItem );
+    		}
+    	}
+    	return pubItemList;
+    }
 
     /**
      * Method is called in jsp. Triggers download action
@@ -747,23 +806,6 @@ public class SearchResultList extends ItemList
         // authorization. Therefore, the eSciDoc user handle must be provided.
         // Put the handle in the cookie "escidocCookie"
         method.setRequestHeader("Cookie", "escidocCookie=" + eSciDocUserHandle);
-    }
-    
-    private void setLinksAndMessages( TypeOfList typeList) {
-    	switch( typeList ) {
-    	case SIMPLE_SEARCH:
-    		 lnkAdvancedSearch.setRendered(false);
-    	     lnkBrowse.setRendered(false);
-    	     valQuery.setRendered(false);
-    	     this.showBackInNoResultPage( false );
-    	     // reset some error message from last request
-    	     this.deleteMessage();
-    		break;
-    	case ADVANCED_SEARCH:
-    		break;
-    	case AFFILIATION_SEARCH:
-    		break;
-    	}
     }
     
     /**
@@ -899,5 +941,14 @@ public class SearchResultList extends ItemList
 	
 	public boolean getQueryIsRendered() {
 		return valQuery.isRendered();
+	}
+	
+    
+    public String getUnapiURLzotero() {
+		return this.unapiURLzotero;
+	}
+
+	public void setUnapiURLzotero(String unapiURLzotero) {
+		this.unapiURLzotero = unapiURLzotero;
 	}
 }

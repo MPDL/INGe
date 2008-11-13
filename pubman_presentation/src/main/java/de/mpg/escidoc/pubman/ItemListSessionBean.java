@@ -65,7 +65,6 @@ public class ItemListSessionBean extends FacesBean
 
     private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
-    private String message = null;
     private String sortBy = "DATE";
     private String sortOrder = "DESCENDING";
     private String type = null;
@@ -171,7 +170,9 @@ public class ItemListSessionBean extends FacesBean
     
     public boolean getIsSearchResultList()
     {
-    	boolean isSearchresultList = false;
+    	//will be always set to true due to the need of showing checkboxes also in the workspaces.
+    	//TODO ScT: method logic can  be removed when it is fully clarified if items can be exported from anywhere 
+    	boolean isSearchresultList = true;
     	
     	// check in the list of one item is of type search result
     	if(this.currentPubItemList != null && this.currentPubItemList.size() > 0)
@@ -184,15 +185,7 @@ public class ItemListSessionBean extends FacesBean
     	return isSearchresultList;
     }
 
-    public String getMessage()
-    {
-        return this.message;
-    }
-
-    public void setMessage(String message)
-    {
-        this.message = message;
-    }
+  
 
     public String getSortBy()
     {

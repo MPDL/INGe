@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.DataModelManager;
-import de.mpg.escidoc.services.pubman.valueobjects.OrganizationCriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.OrganizationCriterion;
 
 /**
  * Bean to handle the OrganizationCriterionCollection on a single jsp.
@@ -16,7 +16,7 @@ public class OrganizationCriterionCollection
 {
 	public static final String BEAN_NAME = "OrganizationCriterionCollection";
 	
-	private List<OrganizationCriterionVO> parentVO;
+	private List<OrganizationCriterion> parentVO;
 	private OrganizationCriterionManager organizationCriterionManager;
 	
 	/**
@@ -26,8 +26,8 @@ public class OrganizationCriterionCollection
 	public OrganizationCriterionCollection()
 	{
 		// ensure the parentVO is never null;
-		List<OrganizationCriterionVO> ctorList = new ArrayList<OrganizationCriterionVO>();
-		ctorList.add(new OrganizationCriterionVO());
+		List<OrganizationCriterion> ctorList = new ArrayList<OrganizationCriterion>();
+		ctorList.add(new OrganizationCriterion());
 		setParentVO(ctorList);
 	}
 
@@ -35,17 +35,17 @@ public class OrganizationCriterionCollection
 	 * CTOR to refine or fill a predefined ArrayList<OrganizationCriterionVO>
 	 * @param parentVO
 	 */
-	public OrganizationCriterionCollection(List<OrganizationCriterionVO> parentVO)
+	public OrganizationCriterionCollection(List<OrganizationCriterion> parentVO)
 	{
 		setParentVO(parentVO);
 	}
 
-	public List<OrganizationCriterionVO> getParentVO()
+	public List<OrganizationCriterion> getParentVO()
 	{
 		return parentVO;
 	}
 
-	public void setParentVO(List<OrganizationCriterionVO> parentVO)
+	public void setParentVO(List<OrganizationCriterion> parentVO)
 	{
 		this.parentVO = parentVO;
 		// ensure proper initialization of our DataModelManager
@@ -58,16 +58,16 @@ public class OrganizationCriterionCollection
 	 */
 	public class OrganizationCriterionManager extends DataModelManager<OrganizationCriterionBean>
 	{
-		List<OrganizationCriterionVO> parentVO;
+		List<OrganizationCriterion> parentVO;
 		
-		public OrganizationCriterionManager(List<OrganizationCriterionVO> parentVO)
+		public OrganizationCriterionManager(List<OrganizationCriterion> parentVO)
 		{
 			setParentVO(parentVO);
 		}
 		
 		public OrganizationCriterionBean createNewObject()
 		{
-			OrganizationCriterionVO newVO = new OrganizationCriterionVO();
+			OrganizationCriterion newVO = new OrganizationCriterion();
 			// create a new wrapper pojo
 			OrganizationCriterionBean organizationCriterionBean = new OrganizationCriterionBean(newVO);
 			// we do not have direct access to the original list
@@ -89,19 +89,19 @@ public class OrganizationCriterionCollection
 			if (parentVO == null) return null;
 			// we have to wrap all VO's in a nice OrganizationCriterionBean
 			List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
-			for (OrganizationCriterionVO organizationCriterionVO : parentVO)
+			for (OrganizationCriterion organizationCriterionVO : parentVO)
 			{
 				beanList.add(new OrganizationCriterionBean(organizationCriterionVO));
 			}
 			return beanList;
 		}
 
-		public void setParentVO(List<OrganizationCriterionVO> parentVO)
+		public void setParentVO(List<OrganizationCriterion> parentVO)
 		{
 			this.parentVO = parentVO;
 			// we have to wrap all VO's into a nice OrganizationCriterionBean
 			List<OrganizationCriterionBean> beanList = new ArrayList<OrganizationCriterionBean>();
-			for (OrganizationCriterionVO organizationCriterionVO : parentVO)
+			for (OrganizationCriterion organizationCriterionVO : parentVO)
 			{
 				beanList.add(new OrganizationCriterionBean(organizationCriterionVO));
 			}
@@ -133,10 +133,10 @@ public class OrganizationCriterionCollection
     	}
     }
 
-    public List<OrganizationCriterionVO> getFilledCriterionVO()
+    public List<OrganizationCriterion> getFilledCriterion()
 	{
-    	List<OrganizationCriterionVO> returnList = new ArrayList<OrganizationCriterionVO>();
-    	for (OrganizationCriterionVO vo : parentVO)
+    	List<OrganizationCriterion> returnList = new ArrayList<OrganizationCriterion>();
+    	for (OrganizationCriterion vo : parentVO)
     	{
     		if ((vo.getSearchString() != null && vo.getSearchString().length() > 0))
     		{

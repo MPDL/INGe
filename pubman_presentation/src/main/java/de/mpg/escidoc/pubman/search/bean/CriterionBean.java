@@ -3,9 +3,9 @@ package de.mpg.escidoc.pubman.search.bean;
 import javax.faces.model.SelectItem;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO.LogicOperator;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 
 
@@ -35,7 +35,7 @@ public abstract class CriterionBean extends FacesBean
     	return ((InternationalizationHelper)getSessionBean(InternationalizationHelper.class)).getSelectItemsForEnum(false, values);
     }
 
-    public abstract CriterionVO getCriterionVO();
+    public abstract Criterion getCriterionVO();
     
 	public final String collapse()
 	{
@@ -59,15 +59,15 @@ public abstract class CriterionBean extends FacesBean
 		this.logicOperator = logicOperator;
 		if (logicOperator.equals("LOGIC_AND"))
 		{
-			getCriterionVO().setLogicOperator(LogicOperator.AND);
+			getCriterionVO().setLogicalOperator(LogicalOperator.AND);
 		}
 		else if (logicOperator.equals("LOGIC_OR"))
 		{
-			getCriterionVO().setLogicOperator(LogicOperator.OR);
+			getCriterionVO().setLogicalOperator(LogicalOperator.OR);
 		}
 		else if (logicOperator.equals("LOGIC_NOT"))
 		{
-			getCriterionVO().setLogicOperator(LogicOperator.NOT);
+			getCriterionVO().setLogicalOperator(LogicalOperator.NOT);
 		}
 	}
 

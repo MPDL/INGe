@@ -41,7 +41,10 @@ import de.mpg.escidoc.pubman.search.bean.LanguageCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined 
@@ -138,35 +141,73 @@ public class AdvancedSearchEdit extends SearchResultList
      */
     public String startSearch()
     {
-        ArrayList<CriterionVO> criterionVOList = new ArrayList<CriterionVO>();
+        ArrayList<Criterion> criterionList = new ArrayList<Criterion>();
         
         // collect VO's from internal collections
         // we have to ensure, that no empty criterions are moved to the criterionVOList
-        criterionVOList.addAll(anyFieldCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(personCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(organizationCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(genreCriterionCollection.getFilledCriterionVO());
-       	criterionVOList.addAll(dateCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(sourceCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(eventCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(identifierCriterionCollection.getFilledCriterionVO());
-    	criterionVOList.addAll(languageCriterionCollection.getFilledCriterionVO());
+        criterionList.addAll( anyFieldCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( personCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( organizationCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( genreCriterionCollection.getFilledCriterion() );
+       	criterionList.addAll( dateCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( sourceCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( eventCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( identifierCriterionCollection.getFilledCriterion() );
+    	criterionList.addAll( languageCriterionCollection.getFilledCriterion() );
+    	
+    	 //start the advanced search in the PubItemSearching interface
+        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
+    	
+    	ArrayList<MetadataSearchCriterion> searchCriteria = new ArrayList<MetadataSearchCriterion>();
+    	
+    	if( criterionList.size() == 0 ) {
+    		return list.startAdvancedSearch( searchCriteria );
+    	}
+    	
+    	// transform the criteria to searchCriteria
+    	try {
+    		// transform first element
+        	ArrayList<MetadataSearchCriterion> subset = transformToSearchCriteria( 
+    				null, criterionList.get( 0 ) );
+    		searchCriteria.addAll( subset );
+    		for( int i = 1; i < criterionList.size(); i++ ) {
+    			
+    			ArrayList<MetadataSearchCriterion> sub = transformToSearchCriteria( 
+    					criterionList.get( i - 1 ), criterionList.get( i ) );
+    			searchCriteria.addAll( sub );	
+    		}
+    	}
+    	catch( TechnicalException e ) {
+    		logger.error("Could not transform advanced search criteria", e);
+    	}
     
     	//set the old list dirty
     	this.getItemListSessionBean().setListDirty(true);
-    	
-        //start the advanced search in the PubItemSearching interface
-        SearchResultList list = (SearchResultList)getBean(SearchResultList.class);
         
-        if (languageString == null || languageString.length() == 0 || 
-        		(! languageString.equalsIgnoreCase("de") && ! languageString.equalsIgnoreCase("en" )))
-        {
-            return list.startAdvancedSearch(criterionVOList, null);
-        }
-        else 
-        {
-            return list.startAdvancedSearch(criterionVOList, languageString);
-        }
+        return list.startAdvancedSearch( searchCriteria );
+    }
+    
+    private ArrayList<MetadataSearchCriterion> transformToSearchCriteria
+    	( Criterion predecessor, Criterion transformMe ) throws TechnicalException {
+    	
+    	// we're on the first element of the criteria
+    	if( predecessor == null ) {
+    		ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
+    		if( results.size() != 0 ) {
+    			// set the first logicaloperator as unset as there is no predecessor
+    			results.get( 0 ).setLogicalOperator( LogicalOperator.UNSET );
+    		}
+    		return results;
+    		
+    	}
+    	else {
+    		ArrayList<MetadataSearchCriterion> results = transformMe.createSearchCriterion();
+    		if( results.size() != 0 ) {
+    			LogicalOperator operator = predecessor.getLogicalOperator();
+    			results.get( 0 ).setLogicalOperator( operator );
+    		}
+    		return results;
+    	}
     }
 
     public PersonCriterionCollection getPersonCriterionCollection()

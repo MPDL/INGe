@@ -89,9 +89,12 @@ public class AffiliationVOPresentation extends AffiliationVO
 
 		for (IdentifierVO identifier : getDetails().getIdentifiers())
         {
-			html.append("<span>, &nbsp;");
-			html.append(identifier.getId());
-			html.append("</span>");
+		    if( identifier.getId().trim().equals("") != true )
+		    {
+		        html.append("<span>, &nbsp;");
+		        html.append(identifier.getId());
+		        html.append("</span>");
+		    }
 		}
 		html.append("</div></div>");
 		html.append("</body></html>");
@@ -206,6 +209,11 @@ public class AffiliationVOPresentation extends AffiliationVO
             }
         }
         return uriList;
+    }
+    
+    public boolean getIsClosed()
+    {
+        return getPublicStatus().equals("closed");
     }
     
     

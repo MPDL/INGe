@@ -38,7 +38,7 @@
 		<div class="viewItemTopHeader">
 			<div class="icon affiliationsIcon"></div>
 			<h:outputText id="txtOrga" styleClass="orientationHeader" value="#{lbl.AffiliationTree_txtHeadline}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-80003.3');return false"/>
+			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#OrganizationsSearch');return false"/>
 		</div>	
 		</h2>
 		<br/>
@@ -51,6 +51,7 @@
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
 					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
+					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
 					<%--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />--%>
 				</h:panelGroup>
 			</f:facet>

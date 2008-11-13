@@ -41,6 +41,7 @@
 				<head>
 					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
+					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
@@ -65,14 +66,18 @@
 										<span class="mainMenu">
 											<jsp:directive.include file="desktop/Navigation.jspf"/> 
 										</span>
+										<div class="export">
+											<jsp:directive.include file="export/Export.jspf"/>
+										</div>
 									</div>
 									<div id="col2">
 										&#xa0;
 									</div>
 									<div id="col3">
 										<div class="content">
+											
 											<jsp:directive.include file="depositorWS/DepositorWS.jspf"/>
-											<h:messages layout="table" showDetail="true" />
+											
 										</div>
 									</div>
 								</div>

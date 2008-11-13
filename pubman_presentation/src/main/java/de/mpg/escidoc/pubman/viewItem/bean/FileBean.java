@@ -172,24 +172,26 @@ public class FileBean extends FacesBean
             LoginHelper loginHelper = (LoginHelper)FacesContext.getCurrentInstance().getApplication().getVariableResolver().resolveVariable(FacesContext.getCurrentInstance(), "LoginHelper");
     
             
-            String fileLocation = ServiceLocator.getFrameworkUrl() + file.getContent();
-            String filename = file.getName(); // Filename suggested in browser Save As dialog
+            String fileLocation = ServiceLocator.getFrameworkUrl() + this.file.getContent();
+            String filename = this.file.getName(); // Filename suggested in browser Save As dialog
             filename = filename.replace(" ", "_"); // replace empty spaces because they cannot be procesed by the http-response (filename will be cutted after the first empty space)
-            String contentType = file.getMimeType(); // For dialog, try
+            String contentType = this.file.getMimeType(); // For dialog, try
+            System.out.println("MIME: " + contentType);
             
             // application/x-download
             FacesContext facesContext = FacesContext.getCurrentInstance();
             HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
             response.setHeader("Content-disposition", "attachment; filename=" + URLEncoder.encode(filename, "UTF-8"));
-            if(file.getDefaultMetadata() != null)
+            if(this.file.getDefaultMetadata() != null)
             {
-            	response.setContentLength(file.getDefaultMetadata().getSize());
+            	response.setContentLength(this.file.getDefaultMetadata().getSize());
             }
             
             response.setContentType(contentType);
+            System.out.println("MIME: " + response.getContentType());
     
             byte[] buffer = null;
-            if (file.getDefaultMetadata() != null)
+            if (this.file.getDefaultMetadata() != null)
             {
                 try
                 {
@@ -208,9 +210,9 @@ public class FileBean extends FacesBean
                     InputStream input = method.getResponseBodyAsStream();
                     try
                     {
-                        if(file.getDefaultMetadata() != null)
+                        if(this.file.getDefaultMetadata() != null)
                         {
-                        	buffer = new byte[file.getDefaultMetadata().getSize()];
+                        	buffer = new byte[this.file.getDefaultMetadata().getSize()];
                             int numRead;
                             long numWritten = 0;
                             while ((numRead = input.read(buffer)) != -1) {
@@ -237,6 +239,7 @@ public class FileBean extends FacesBean
         catch (Exception e)
         {
             logger.debug("File Download Error: " + e.toString());
+            System.out.println(e.toString());
         }
         return null;
     }

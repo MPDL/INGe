@@ -31,6 +31,7 @@
 package de.mpg.escidoc.pubman.viewItem;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -87,9 +88,11 @@ import de.mpg.escidoc.services.common.referenceobjects.AffiliationRO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -197,8 +200,16 @@ public class ViewItemFull extends FacesBean
     
     /**The url used for the citation*/
     private String citationURL;
+
+    /**unapi*/
+	private String unapiURL;
+	private String unapiURLzotero;
+	private String unapiEscidoc;
+	private String unapiEndnote;
+	private String unapiBibtex;
+	private String unapiApa;
     
-    /** Properties for action links rendering conditions*/
+	/** Properties for action links rendering conditions*/
     private boolean isStateWithdrawn;
     private boolean isLoggedIn;
     private boolean isLatestVersion;
@@ -289,28 +300,30 @@ public class ViewItemFull extends FacesBean
             //set citation url
             try
             {
-                String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url");
+                String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
                 
                 String itemPattern = PropertyReader.getProperty("escidoc.pubman.item.pattern").replaceAll("\\$1", getPubItem().getVersion().getObjectIdAndVersion());
                 
                 
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
-                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length()-1);
+                if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
                 
-                citationURL = pubmanUrl + itemPattern;
+                this.citationURL = pubmanUrl + itemPattern;
                 
             }
             catch (Exception e)
             {
                 e.printStackTrace();
-                citationURL = "";
+                this.citationURL = "";
             }
             
             loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             
             //DiT: multiple new conditions for link-activation added
             isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-            isDepositor = loginHelper.getAccountUser().isDepositor();
+            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            isDepositor = loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
+            //isDepositor = loginHelper.getAccountUser().isDepositor();
             
             isOwner = true;
             if (this.pubItem.getOwner() != null)
@@ -356,6 +369,11 @@ public class ViewItemFull extends FacesBean
             this.coins = coins.getCOinSString(this.pubItem);
             
             // the list of sources
+           
+            //clear source list first
+            this.sourceList.clear();
+            
+            
             for(int i = 0; i < this.pubItem.getMetadata().getSources().size(); i++)
             {
             	this.sourceList.add(new SourceBean(this.pubItem.getMetadata().getSources().get(i)));
@@ -384,7 +402,9 @@ public class ViewItemFull extends FacesBean
             }
             
           
-            
+            // Clear file and locator list first
+            this.fileList.clear();
+            this.locatorList.clear();
             for(int i = 0; i < this.pubItem.getFiles().size(); i++)
             {
             	if(searchHitList.size() > 0 && !this.pubItem.getVersion().getState().equals(PubItemVO.State.WITHDRAWN))
@@ -420,7 +440,21 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
-            
+            //Unapi Export tmp static
+            try
+            {
+                this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
+                this.unapiURLzotero = this.unapiURL.replaceFirst("unapi", "zotero");
+            }
+            catch (Exception e) {
+                logger.error("Error getting unapi url property", e);
+                throw new RuntimeException(e);
+            }
+            this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
+            this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
+            this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
+            this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
+
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
             // set up the release history of the item
             //createReleaseHistory();
@@ -696,8 +730,10 @@ public class ViewItemFull extends FacesBean
                 this.getViewItemSessionBean().getNavigationStringToGoBack());
         
         // show message
-        if (retVal.compareTo(ErrorPage.LOAD_ERRORPAGE) != 0)
+        if (!retVal.equals(ErrorPage.LOAD_ERRORPAGE))
         {
+            info(getMessage(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED));
+            /*
             if (this.getViewItemSessionBean().getNavigationStringToGoBack().equals(DepositorWS.LOAD_DEPOSITORWS))
             {
                 this.showMessageDepositorWS(DepositorWS.MESSAGE_SUCCESSFULLY_DELETED);
@@ -707,6 +743,7 @@ public class ViewItemFull extends FacesBean
             {
                 this.showMessageSearchResultList(SearchResultList.MESSAGE_SUCCESSFULLY_DELETED);
             }
+            */
         }
         return retVal;
     }
@@ -1059,7 +1096,11 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowCiteItem()
     {
-        return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
+        if(getPubItem().getPublicStatus().equals(State.WITHDRAWN))
+        {
+        	return false;	
+        }
+    	return getPubItem().getVersion().getState().equals(PubItemVO.State.RELEASED);
     }
     
     
@@ -1306,17 +1347,8 @@ public class ViewItemFull extends FacesBean
         return ReleaseHistory.LOAD_RELEASE_HISTORY;
     }
     
-    /**
-     * Shows the given Message below the itemList after next Reload of the DepositorWS.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageDepositorWS(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+  
+    
     
     /**
      * Returns a reference to the scoped data bean (the ItemListSessionBean).
@@ -1377,17 +1409,7 @@ public class ViewItemFull extends FacesBean
         return (SubmitItemSessionBean)getSessionBean(SubmitItemSessionBean.class);
     }
     
-    /**
-     * Shows the given Message below the itemList after next Reload of the SerachResultList.
-     * 
-     * @param message the message to be displayed
-     * @param keepMessage stores this message in SessionBean and displays it once (e.g. for a reload)
-     */
-    private void showMessageSearchResultList(String message)
-    {
-        message = this.getMessage(message);
-        this.getItemListSessionBean().setMessage(message);
-    }
+    
     
     /**
      * Returns the SearchResultListSessionBean.
@@ -1498,6 +1520,19 @@ public class ViewItemFull extends FacesBean
 		this.pubItem = pubItem;
 	}
 
+	public ArrayList<TextVO> getAbstracts()
+	{
+		ArrayList<TextVO> abstracts = new ArrayList<TextVO>();
+		if(this.pubItem.getMetadata().getAbstracts() != null)
+		{
+			for(int i = 0; i < this.pubItem.getMetadata().getAbstracts().size(); i++)
+			{
+				//abstracts.add(new TextVO(CommonUtils.htmlEscape(this.pubItem.getMetadata().getAbstracts().get(i).getValue())));
+				abstracts.add(new TextVO(this.pubItem.getMetadata().getAbstracts().get(i).getValue()));
+			}
+		}
+		return abstracts;
+	}
 	public String getGenre()
     {
     	String genre="";
@@ -1736,7 +1771,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateWithdrawn()
     {
-        return isStateWithdrawn;
+        return this.getPubItem().getPublicStatus().equals(State.WITHDRAWN);
     }
 
     public void setStateWithdrawn(boolean isStateWithdrawn)
@@ -1934,4 +1969,53 @@ public class ViewItemFull extends FacesBean
         }
         return itemState;
     }
+    
+    
+    public String getUnapiURL() {
+		return this.unapiURL;
+	}
+
+	public void setUnapiURL(String unapiURL) {
+		this.unapiURL = unapiURL;
+	}
+	
+	public String getUnapiEscidoc() {
+		return this.unapiEscidoc;
+	}
+
+	public void setUnapiEscidoc(String unapiEscidoc) {
+		this.unapiEscidoc = unapiEscidoc;
+	}
+
+	public String getUnapiEndnote() {
+		return this.unapiEndnote;
+	}
+
+	public void setUnapiEndnote(String unapiEndnote) {
+		this.unapiEndnote = unapiEndnote;
+	}
+
+	public String getUnapiBibtex() {
+		return this.unapiBibtex;
+	}
+
+	public void setUnapiBibtex(String unapiBibtex) {
+		this.unapiBibtex = unapiBibtex;
+	}
+
+	public String getUnapiApa() {
+		return this.unapiApa;
+	}
+
+	public void setUnapiApa(String unapiApa) {
+		this.unapiApa = unapiApa;
+	}
+	
+	public String getUnapiURLzotero() {
+		return this.unapiURLzotero;
+	}
+
+	public void setUnapiURLzotero(String unapiURLzotero) {
+		this.unapiURLzotero = unapiURLzotero;
+	}
 }

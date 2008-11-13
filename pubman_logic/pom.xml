@@ -31,14 +31,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>3.5.5-SNAPSHOT</version>
+		<version>3.8.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_logic</artifactId>
 	<name>pubman_logic</name>
 	<packaging>ejb</packaging>
-	<version>3.5.5-SNAPSHOT</version>
+	<version>3.8.3-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/branches/nims/pubman_logic</connection>
@@ -82,33 +82,45 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>citationmanager</artifactId>
-			<version>1.0.8</version>
+			<version>1.0.13</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>structuredexportmanager</artifactId>
-			<version>1.0.5</version>
+			<version>1.0.10</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.6</version>
+			<version>1.0.11</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.2</version>
+			<version>1.1.7</version>
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
-			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.1</version>
-			<scope>test</scope>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>importmanager</artifactId>
+			<version>1.0.4</version>
+			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>de.mpg.escidoc.services</groupId>
+			<artifactId>search</artifactId>
+			<version>1.0.6</version>
+			<scope>compile</scope>
+		</dependency>
+		  <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.1</version>
+            <scope>test</scope>
+        </dependency>
 	</dependencies>
 
 </project>

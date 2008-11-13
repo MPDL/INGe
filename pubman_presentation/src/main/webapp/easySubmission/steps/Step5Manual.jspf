@@ -70,6 +70,7 @@
 					<%-- Publication Language --%>
 					<div class="easySubmissionLangItem">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage}"/>
+						<input type="text" class="languageSuggest" />
 						<h:selectOneMenu id="cboPubLanguage" value="#{EasySubmission.publicationLanguage}">
 							<f:selectItems value="#{EasySubmission.publicationLanguages}" />
 						</h:selectOneMenu>
@@ -81,16 +82,28 @@
 					<%-- Genre of Source --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
-					<h:selectOneMenu id="cboSourceGenre" value="#{EasySubmission.source.genre}">
+					<h:selectOneMenu id="cboSourceGenre" styleClass="journalPulldown" value="#{EasySubmission.source.genre}" >
 						<f:selectItems value="#{EasySubmission.sourceGenreOptions}" />
 					</h:selectOneMenu>
+					<tr:commandButton styleClass="genreButton" action="#{EasySubmission.chooseSourceGenre}" text="choose genre" id="btn_chooseGenre" inlineStyle="visibility:hidden"/>
 					</div>
+					
 				
 					<%-- Title --%>
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
-					<h:inputTextarea rows="5" value="#{EasySubmission.sourceTitle}"/>
+					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
+					
+					<%-- Publisher (hidden for autosugggest)--%>
+					<h:inputTextarea value="#{EasySubmission.sourcePublisher}" styleClass="publisher" style="visibility:hidden;"/>
+
+					<%-- Place (hidden for autosugggest)--%>
+					<h:inputText value="#{EasySubmission.sourcePublisherPlace}" styleClass="place" style="visibility:hidden;"/>
+
+					<%-- Identifier (hidden for autosugggest)--%>
+					<h:inputText value="#{EasySubmission.sourceIdentifier}" styleClass="identifierValue" style="visibility:hidden;"/>
+					
 				</div>
 				
 				<div class="easySubmissionBoxBodyLine">

@@ -61,12 +61,11 @@ import de.mpg.escidoc.services.common.valueobjects.AccountUserVO;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.ContextVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.FileVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.PubItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.VersionHistoryEntryVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
@@ -82,11 +81,13 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.pubman.ItemExporting;
 import de.mpg.escidoc.services.pubman.PubItemDepositing;
 import de.mpg.escidoc.services.pubman.PubItemPublishing;
-import de.mpg.escidoc.services.pubman.PubItemSearching;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
-import de.mpg.escidoc.services.pubman.valueobjects.CriterionVO;
+import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
+import de.mpg.escidoc.services.search.query.StandardSearchResult;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -99,6 +100,9 @@ import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
  */
 public class ItemControllerSessionBean extends FacesBean
 {
+
+    private static final long serialVersionUID = 8235607890711998557L;
+
     public static final String BEAN_NAME = "ItemControllerSessionBean";
     private static Logger logger = Logger.getLogger(ItemControllerSessionBean.class);
 
@@ -107,7 +111,7 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
     private QualityAssurance qualityAssurance = null;
-    private PubItemSearching pubItemSearching = null;
+    private ItemContainerSearch itemContainerSearch = null;
     private XmlTransforming xmlTransforming = null;
     private ItemValidating itemValidating = null;
     private ItemExporting itemExporting = null;
@@ -116,7 +120,11 @@ public class ItemControllerSessionBean extends FacesBean
     private ValidationReportVO currentItemValidationReport = null;
     private PubItemVO currentPubItem = null;
     private ContextVO currentContext = null;
-    private PubItemSimpleStatistics pubItemStatistic =null;
+    private PubItemSimpleStatistics pubItemStatistic = null;
+    
+    private static final String PROPERTY_CONTENT_MODEL = 
+        "escidoc.framework_access.content-model.id.publication";
+
 
     /**
      * Public constructor, initializing used Beans.
@@ -130,14 +138,15 @@ public class ItemControllerSessionBean extends FacesBean
             // initialize used Beans
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-            this.pubItemSearching = (PubItemSearching) initialContext.lookup(PubItemSearching.SERVICE_NAME);
+            this.itemContainerSearch = (ItemContainerSearch) initialContext.lookup(ItemContainerSearch.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
             this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
             this.emailHandling = (EmailHandling) initialContext.lookup(EmailHandling.SERVICE_NAME);
             this.dataGathering = (DataGathering) initialContext.lookup(DataGathering.SERVICE_NAME);
             this.qualityAssurance = (QualityAssurance) initialContext.lookup(QualityAssurance.SERVICE_NAME);
-            this.pubItemStatistic  = (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
+            this.pubItemStatistic  =
+                (PubItemSimpleStatistics) initialContext.lookup(PubItemSimpleStatistics.SERVICE_NAME);
         }
         catch (NamingException e)
         {
@@ -242,7 +251,9 @@ public class ItemControllerSessionBean extends FacesBean
      * should be returned when the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
-    public String submitOrReleaseCurrentPubItem(final String submissionComment, final String navigationRuleWhenSuccessfull)
+    public String submitOrReleaseCurrentPubItem(
+            final String submissionComment,
+            final String navigationRuleWhenSuccessfull)
     {
         try
         {
@@ -275,7 +286,10 @@ public class ItemControllerSessionBean extends FacesBean
     
     /**
      * Submits a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * 
+     * @param submissionComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String saveAndSubmitOrReleaseCurrentPubItem(String submissionComment, String navigationRuleWhenSuccessfull)
@@ -310,7 +324,10 @@ public class ItemControllerSessionBean extends FacesBean
     
     /**
      * Submits a PubItem and handles navigation afterwards.
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * 
+     * @param withdrawalComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     public String withdrawCurrentPubItem(String navigationRuleWhenSuccessfull, String withdrawalComment)
@@ -340,7 +357,9 @@ public class ItemControllerSessionBean extends FacesBean
     /**
      * Submits a list of PubItems and handles navigation afterwards.
      * @param pubItemList list with pubItems to submit
-     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when the operation is successfull
+     * @param submissionComment A comment
+     * @param navigationRuleWhenSuccessfull the navigation rule which should be returned when
+     * the operation is successful.
      * @return string, identifying the page that should be navigated to after this methodcall
      */
     // //TODO NBU: remove this method
@@ -349,7 +368,7 @@ public class ItemControllerSessionBean extends FacesBean
         boolean allSubmitted = true;
         if (pubItemList.size() > 0)
         {
-            for (int i=0; i<pubItemList.size(); i++)
+            for (int i = 0; i < pubItemList.size(); i++)
             {
                 try
                 {
@@ -808,7 +827,8 @@ public class ItemControllerSessionBean extends FacesBean
             // Item is valid, but has informative messages.
             this.getItemListSessionBean().setListDirty(true);
             
-            if (ignoreInformativeMessages) {
+            if (ignoreInformativeMessages)
+            {
                 // clean up the item from unused sub-VOs
                 this.cleanUpItem(pubItem);
                 
@@ -1338,6 +1358,9 @@ public class ItemControllerSessionBean extends FacesBean
 
         // define the filter criteria
         FilterTaskParamVO filter = new FilterTaskParamVO();
+        
+       
+        
         Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
         filter.getFilterList().add(f1);
         
@@ -1367,6 +1390,9 @@ public class ItemControllerSessionBean extends FacesBean
             Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
             filter.getFilterList().add(f7);
         }
+        
+        Filter f8 = filter.new LimitFilter("0");
+        filter.getFilterList().add(f8);
        
         
        
@@ -1401,7 +1427,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
+        ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
 
         return itemList;
     }
@@ -1477,7 +1503,7 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming items...");
         }
-        ArrayList<PubItemVO> itemList = (ArrayList) this.xmlTransforming.transformToPubItemList(xmlItemList);
+        ArrayList<PubItemVO> itemList = (ArrayList<PubItemVO>) this.xmlTransforming.transformToPubItemList(xmlItemList);
 
         return itemList;
     }
@@ -1598,77 +1624,22 @@ public class ItemControllerSessionBean extends FacesBean
     }
 
     /**
-     * Returns all items which contain the searchString.
-     * @author Hugo Niedermaier
-     * @param list List of criterionVOs for the search
-     * @return all items which contain the searchString
-     * @throws Exception if framework access fails
-     */
-    public ArrayList<PubItemVO> advancedSearchItems(ArrayList<CriterionVO> list, String language ) throws Exception
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Advanced Searching");
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList) this.pubItemSearching.advancedSearch(list, language );
-        
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size());
-        }
-        
-        return itemList;
-    }
-
-    /**
-     * Returns all items for the specified affiliation.
-     * @author Hugo Niedermaier
-     * @param affiliationRO the affiliation where the items have to be returned for
-     * @return all items for the specified affiliation
-     * @throws Exception if framework access fails
-     */
-    public ArrayList<PubItemVO> searchItemsByAffiliation(AffiliationVO affiliation) throws Exception
-    {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Advanced Searching");
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemVO> itemList = (ArrayList)this.pubItemSearching.searchPubItemsByAffiliation(new AffiliationVO(affiliation) );
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size());
-        }
-        
-        return itemList;
-    }
-
-    /**
      * Returns all items which contain the searchString as List.
      * @param searchString the string which should be searched for
      * @param includeFiles determines if the search should include the files of the items
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
      */
-    public ArrayList<PubItemResultVO> searchItems(String searchString, boolean includeFiles) throws Exception
+    public StandardSearchResult searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
     {
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Searching Items " + (includeFiles ? "(including files) " : "") + "for string: " + searchString);
-        }
-
-        // retrieve the items applying the searchString
-        ArrayList<PubItemResultVO> itemList = (ArrayList<PubItemResultVO>) this.pubItemSearching.search(searchString, includeFiles);
-        
-        if (logger.isDebugEnabled())
-        {
-            logger.debug("Found " + itemList.size() + " items for string: " + searchString);
-        }
-        
-        return itemList;
+    	ArrayList<String> contentTypes = new ArrayList<String>();
+    	String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+    	contentTypes.add( contentTypeIdPublication );
+    	
+    	MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
+    	// we get items and containers from the search service
+    	StandardSearchResult result = this.itemContainerSearch.search( query );
+    	return result;
     }
 
     /**
@@ -1718,14 +1689,23 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming affiliations...");
         }
-        ArrayList<AffiliationVO> itemList = (ArrayList) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> affiliationList =
+            (ArrayList<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlAffiliationList);
+        ArrayList<AffiliationVO> cleanedItemList = new ArrayList<AffiliationVO>();
+        for (AffiliationVO affiliationVO : affiliationList)
+        {
+            if (!"created".equals(affiliationVO.getPublicStatus()))
+            {
+                cleanedItemList.add(affiliationVO);
+            }
+        }
         
 
-        return itemList;
+        return cleanedItemList;
     }
 
     /**
-     * Method forsending an email with attached file. The sending requires authentication.
+     * Method for sending an email with attached file. The sending requires authentication.
      * 
      * @author:  StG
      * @param smtpHost   the outgoing smpt mail server
@@ -1820,7 +1800,8 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all child affiliations
      * @throws Exception if framework access fails
      */
-    public List<AffiliationVOPresentation> retrieveChildAffiliations(AffiliationVOPresentation parentAffiliation) throws Exception
+    public List<AffiliationVOPresentation> retrieveChildAffiliations(
+            AffiliationVOPresentation parentAffiliation) throws Exception
     {
         if (logger.isDebugEnabled())
         {
@@ -1830,9 +1811,13 @@ public class ItemControllerSessionBean extends FacesBean
         String xmlChildAffiliationList = "";        
         try
         {
-            // TODO FrM: Remove userHandle when Bug: http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597 is fixed
+            // TODO FrM: Remove userHandle when Bug: 
+            // http://www.escidoc-project.de/issueManagement/show_bug.cgi?id=597
+            // is fixed
             String userHandle = AdminHelper.getAdminUserHandle();
-            xmlChildAffiliationList = ServiceLocator.getOrganizationalUnitHandler(userHandle).retrieveChildObjects(parentAffiliation.getReference().getObjectId());
+            xmlChildAffiliationList = ServiceLocator
+                    .getOrganizationalUnitHandler(userHandle)
+                    .retrieveChildObjects(parentAffiliation.getReference().getObjectId());
         }
         catch (AuthenticationException e)
         {
@@ -1847,11 +1832,25 @@ public class ItemControllerSessionBean extends FacesBean
         {
             logger.debug("Transforming child affiliations...");
         }
-        List<AffiliationVO> affiliationList = (List) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
+        List<AffiliationVO> affiliationList =
+            (List<AffiliationVO>) this.xmlTransforming.transformToAffiliationList(xmlChildAffiliationList);
 
-        List<AffiliationVOPresentation> wrappedAffiliationList = CommonUtils.convertToAffiliationVOPresentationList(affiliationList);
+        List<AffiliationVO> cleanedAffiliationList = new ArrayList<AffiliationVO>();
         
-        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList) {
+        // Remove opened affiliations
+        for (AffiliationVO affiliationVO : affiliationList)
+        {
+            if (!"created".equals(affiliationVO.getPublicStatus()))
+            {
+                cleanedAffiliationList.add(affiliationVO);
+            }
+        }
+        
+        List<AffiliationVOPresentation> wrappedAffiliationList =
+            CommonUtils.convertToAffiliationVOPresentationList(cleanedAffiliationList);
+        
+        for (AffiliationVOPresentation affiliationVOPresentation : wrappedAffiliationList)
+        {
         	affiliationVOPresentation.setParent(parentAffiliation);
         	affiliationVOPresentation.setNamePath(affiliationVOPresentation.getDetails().getName()+", "+parentAffiliation.getNamePath());
         	affiliationVOPresentation.setIdPath(affiliationVOPresentation.getReference().getObjectId() +" "+parentAffiliation.getIdPath());
@@ -1941,7 +1940,13 @@ public class ItemControllerSessionBean extends FacesBean
 
         try
         {
-            allCollections = this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
+            if(loginHelper.getAccountUser() != null 
+            		&& loginHelper.getAccountUser().getReference() != null 
+            		&& loginHelper.getAccountUser().getReference().getObjectId()!= null 
+            		&& !loginHelper.getAccountUser().getReference().getObjectId().trim().equals(""))
+            {
+            	allCollections = this.pubItemDepositing.getPubCollectionListForDepositing(loginHelper.getAccountUser());
+            }
         }
         catch (Exception e)
         {
@@ -2066,8 +2071,6 @@ public class ItemControllerSessionBean extends FacesBean
     public List<RelationVOPresentation> retrieveRevisions(PubItemVO pubItemVO) throws Exception
     {
         List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-        String xmlItem = "";
         
         if(loginHelper.getESciDocUserHandle() != null)
         {
@@ -2111,8 +2114,6 @@ public class ItemControllerSessionBean extends FacesBean
     public List<RelationVOPresentation> retrieveParentsForRevision(PubItemVO pubItemVO) throws Exception
     {
         List<RelationVOPresentation> revisionVOList = new ArrayList<RelationVOPresentation>();
-
-        String xmlItem = "";
         
         if(loginHelper.getESciDocUserHandle() != null)
         {
@@ -2289,6 +2290,6 @@ public class ItemControllerSessionBean extends FacesBean
     
     public String getStatisticValue(String reportDefinitionType) throws Exception
     {
-        return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), AdminHelper.getAdminUserHandle());
+        return pubItemStatistic.getNumberOfItemOrFileRequests(reportDefinitionType, this.getCurrentPubItem().getVersion().getObjectId(), loginHelper.getAccountUser());
     }
 }

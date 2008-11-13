@@ -37,6 +37,9 @@
 		<f:loadBundle var="msg" basename="Messages"/>
 <html>
 <head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
 <link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 					<meta http-equiv="pragma" content="no-cache"/>
@@ -44,8 +47,17 @@
 					<meta http-equiv="expires" content="0"/>
 <!-- FrM: Moved JS sources to external file -->
 <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+
+<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery-1.2.6.min.js">;</script>
+<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.suggest.js">;</script>
+<script type="text/javascript" language="JavaScript" src="../../cone/js/jquery.dimensions.js">;</script>
+<script type="text/javascript" language="JavaScript" src="resources/autoSuggestFunctions.js">;</script>
+
+
+<link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
+
 </head>
-<body>
+<body lang="#{InternationalizationHelper.locale}">
 	<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 	<div id="page_margins">
 						<div id="page">
@@ -87,8 +99,18 @@
 				</div>
 		</div>
 		</tr:form>
+	
 		 </div>
 		  </div>
+
+<script type="text/javascript">
+	languageSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/lang/query';
+	journalSuggestURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/query';
+	journalDetailsBaseURL = '<h:outputText value="#{EditItem.suggestConeUrl}"/>jquery/jnar/details?id=';
+	journalSuggestCommonParentClass = 'sourceArea';
+	journalSuggestTrigger = 'JOURNAL';
+	bindSuggests();
+</script>
 </body>
 </html>
 

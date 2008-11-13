@@ -114,6 +114,14 @@ public class ExportItemsSessionBean extends FacesBean
             curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
             this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
         }
+        if (exportFormatType.equals("BIBTEX")){
+            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
+            this.curExportFormatVO.setName("BIBTEX");
+            // default format for STRUCTURED is TEXT
+            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
+            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+        }
         else { 
         	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
         	this.curExportFormatVO.setName(exportFormatName);
@@ -171,6 +179,11 @@ public class ExportItemsSessionBean extends FacesBean
          if (exportFormatType.equals("STRUCTURED"))
          {
              this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
+         	 this.enableLayout = false;
+         }
+         if (exportFormatType.equals("BIBTEX"))
+         {
+             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
          	 this.enableLayout = false;
          }
          else if  (exportFormatType.equals("LAYOUT"))

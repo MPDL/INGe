@@ -34,7 +34,9 @@
 				<h:outputText id="valOrientationText" value="#{lbl.HomePage}" />					
 				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
 			</h1>
-				
+			
+			<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+
 <!-- BEGIN Copy&paste the ReleaseNotes here -->		
 <div class="copyAndPasteReleaseNotes">
 		
@@ -42,7 +44,7 @@
 About PubMan
 </h2>
 
-<ol>PubMan - the eSciDoc Solution for Publication Management 	
+<ol>PubMan - the eSciDoc Solution for Publication Management
 
 		<ul>
 			<li>PubMan supports scientists and institutes in the management and the digital curation of their publications. This solution addresses all disciplines and focuses on the target groups scientists, local librarians and local IT. Due to the heterogeneous policies, cultures and workflows of the Max Planck Institutes, customization and configuration options throughout the solution's features are of major importance.
@@ -88,10 +90,12 @@ Current functionalities
 	     odt) and citation styles (currently only APA) or sent by email. In
 	     addition, export to Endnote is possible.
 		</li>
-		<li>An Search and Output Service allows user-/local specific queries
+		<li>An SearchandExport Service allows user-/local specific queries
 	     of data for integration into local systems.</b> 
 		</li>
-		<li>The service can be accessed directly under <a href="search/SearchAndOutput_info.jsp">REST interface</a> or via a <a href="search/SearchAndOutput_rest_sample.jsp">user-friendly interface </a>.</b> 
+		<li>The service can be accessed directly under <a href="${ApplicationBean.appContext}../../search/SearchAndExport_info.jsp">REST interface</a> or via a <a href="${ApplicationBean.appContext}../../search/SearchAndExport_rest_sample.jsp">user-friendly interface </a>.</b> 
+		</li>
+		<li>A <a href="${ApplicationBean.appContext}../../import">unAPI interface</a> provides access to the functionalities of the eSciDoc import service. This service provides fetching of escidoc items as well as sources supported by the import service like arXiv.</b> 
 		</li>
 	</ul>
 
@@ -155,7 +159,17 @@ Current functionalities
 	</ul>
 </ol>
 Contexts (i.e.collections), Organizational Units and Users are managed in an own eSciDoc solution, called the admin solution. This solution is also available for other eSciDoc solutions like <a href="http://colab.mpdl.mpg.de/mediawiki/Faces">FACES</a> or <a href="http://colab.mpdl.mpg.de/mediawiki/ViRR:_Virtueller_Raum_Reichsrecht">ViRR</a>.
-
+<br/><br/>
+<ol>Service interfaces
+	<ul>
+		<li>
+			<a href="/validation/" target="_blank">Validation service</a>: Validation and reporting on XML metadata.
+		</li>
+		<li>
+			<a href="/cone/jquery/explain" target="_blank">Control of Named Entities Service (CoNE)</a>: Query for vocabularies like journal names or languages.
+		</li>
+	</ul>
+</ol>
 </div>
 
 <!-- END Copy&paste the ReleaseNotes here -->

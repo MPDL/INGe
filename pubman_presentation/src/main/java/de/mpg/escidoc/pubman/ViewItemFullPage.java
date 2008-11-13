@@ -33,10 +33,12 @@ package de.mpg.escidoc.pubman;
 import java.io.IOException;
 
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
+import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.viewItem.ViewItemSessionBean;
 
 /**
@@ -68,6 +70,30 @@ public class ViewItemFullPage extends BreadcrumbPage
     {
         // Perform initializations inherited from our superclass
         super.init();
+        
+        FacesContext fc = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
+        String userHandle = request.getParameter(LoginHelper.PARAMETERNAME_USERHANDLE);
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("UserHandle: " + userHandle);
+        }        
+        
+        LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+        if(loginHelper == null)
+        {
+            loginHelper = new LoginHelper();
+        }
+        
+        try
+        {
+            loginHelper.insertLogin();
+        }
+        catch (Exception e)
+        {
+            logger.error("Could not login." + "\n" + e.toString());
+        }
 
          // redirect to the referring GUI Tool page if the application has been started as GUI Tool
         CommonSessionBean sessionBean = getCommonSessionBean();

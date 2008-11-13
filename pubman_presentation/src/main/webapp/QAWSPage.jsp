@@ -65,6 +65,9 @@
 										<span class="mainMenu">
 											<jsp:directive.include file="desktop/Navigation.jspf"/> 
 										</span>
+										<div class="export">
+											<jsp:directive.include file="export/Export.jspf"/>
+										</div>
 									</div>
 									<div id="col2">
 										&#xa0;
@@ -72,7 +75,6 @@
 									<div id="col3">
 										<div class="content">
 											<jsp:directive.include file="qaWS/qaWS.jspf"/>
-											<h:messages layout="table" showDetail="true" />
 										</div>
 									</div>
 								</div>

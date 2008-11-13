@@ -139,9 +139,6 @@ public class Navigation extends FacesBean
      */
     public String loadAffiliationTree()
     {
-    	// FIXME: Häää?
-        //this.getAffiliationSessionBean().setBrowseByAffiliation(false);
-        //this.getAffiliationSessionBean().setWasInit(false);
         
         this.getAffiliationBean().setSource(null);
         return AffiliationBean.LOAD_AFFILIATION_TREE;

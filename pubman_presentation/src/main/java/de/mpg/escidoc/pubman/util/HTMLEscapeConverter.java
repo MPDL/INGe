@@ -22,28 +22,41 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
-package de.mpg.escidoc.services.pubman.valueobjects;
-
 /**
- * Language criterion for the advanced search
- * @author tendres
- *
+ * This converter escapes HTML elements for displaying them correctly in the jsp pages
+ * @author Tobias Schraut
  */
-public class LanguageCriterionVO extends CriterionVO {
-	/** serial for the serializable interface*/
-	private static final long serialVersionUID = 1L;
+package de.mpg.escidoc.pubman.util;
+
+import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
+import javax.faces.convert.Converter;
+import javax.faces.convert.ConverterException;
+
+public class HTMLEscapeConverter implements Converter 
+{
 	
-    /**
-     * constructor.
-     */
-    public LanguageCriterionVO()
-    {
-        super();
+	   public static final String CONVERTER_ID = "HTMLEscapeConverter";
+	   
+	   
+	   public HTMLEscapeConverter()
+	   {
+	   }
+	   
+	   public String getAsString(FacesContext context, UIComponent c, Object object) throws ConverterException 
+	   {
+	      final String textValue = (String) object;
+	      return CommonUtils.htmlEscape(textValue);
+	   }
+
+	public Object getAsObject(FacesContext context, UIComponent c, String text) {
+		  final String textValue = text;
+	      return CommonUtils.htmlEscape(textValue);
 	}
 }

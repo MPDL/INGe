@@ -73,8 +73,7 @@
 			<h:panelGroup layout="block" id="lblPersonsAndOrganizations" styleClass="editItemBlockHeaders">
 				<h:outputText value="#{lbl.EditItem_lblPersonsAndOrganizations}" />
 			</h:panelGroup>
-		</h2>
-						
+		</h2>						
 			<jsp:directive.include file="ui/CreatorCollection.jspf"/>		
 		
 	</h:panelGroup>
@@ -88,23 +87,32 @@
 				<h:outputText value="#{lbl.EditItem_lblFile}" />
 			</h:panelGroup>
 		</h2>		
-		
+			
 			<%--<h:outputLabel id="lblFiles" value="#{lbl.EditItem_lblFile}" />--%>
-      		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" varStatus="index">
+      		<tr:panelGroupLayout partialTriggers="fileUploads:btn_uploadFile fileUploads:lnk_addFile fileUploads:lnk_removeFile">
+      		<tr:iterator var="component" id="fileUploads" value="#{EditItem.files}" binding="#{EditItem.fileIterator}" varStatus="index">
+
+	      	
 	      		<h:panelGroup layout="block" styleClass="editItemOuterBlockPanel floatbox">
 	      			<h:panelGroup layout="block" styleClass="editItemSingleCol">
 	      				<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblPath}" rendered="#{component.size == 0}"/>
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak"/> 			
+	      				<tr:commandButton id="btn_uploadFile" text="Upload File" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
+							
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
+						<div>
 	           			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblVisibility}" rendered="#{component.size > 0}"/>
 	           			<h:selectOneMenu id="cboVisibility" value="#{component.file.visibility}" styleClass="editItemComboBoxShort" rendered="#{component.size > 0}">
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
-	           		</h:panelGroup>
+						</div>
+						<!--  
+						<tr:commandButton text="#{lbl.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
+						-->
+					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
 	           			<div>
@@ -137,18 +145,16 @@
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btAddFile}" action="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
+						<tr:commandLink id="lnk_addFile" partialSubmit="false" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.size > 0}"/>
-						<tr:commandLink text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
+						<tr:commandLink id="lnk_removeFile" partialSubmit="false" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
-		        	
+			
        		</tr:iterator> 
-		
-		
-        
+			</tr:panelGroupLayout>
 	</h:panelGroup>
 	
 	<%-- FILES LOCATOR --%>
@@ -312,6 +318,7 @@
 				<h:column>
 					<h:panelGroup layout="block" styleClass="editItemSingleCol">
 						<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblContentLanguage}" />
+						<input type="text" class="languageSuggest" />
 						<h:selectOneMenu styleClass="editItemComboBoxLanguage" value="#{language.value}" id="selectContentLanguage" valueChangeListener="#{language.valueChanged}">
 							<f:selectItems value="#{EditItem.languageOptions}"/>
 						</h:selectOneMenu>
@@ -379,8 +386,8 @@
 				</h:panelGroup>
 			</div>
 				<h:panelGroup layout="block" styleClass="editItemSingleCol floatbox topSpace">					
-					<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" styleClass="noBorder" />
-					<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" styleClass="checkboxLbl" value="#{lbl.EditItem_lblInvitationstatus}" />	
+					<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" styleClass="noBorder" style="float: left; margin-right: 3px;" />
+					<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" styleClass="" style="float: left;" value="#{lbl.EditItem_lblInvitationstatus}" />	
 				</h:panelGroup>			
 			</h:panelGroup>
 		</h:panelGroup>

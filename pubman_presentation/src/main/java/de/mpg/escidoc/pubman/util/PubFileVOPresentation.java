@@ -33,6 +33,7 @@ public class PubFileVOPresentation extends FacesBean {
 	private String fileType;
     private PubItemSimpleStatistics pubItemStatistics;
     private static final Logger logger = Logger.getLogger(PubFileVOPresentation.class);
+    private LoginHelper loginHelper;
 
 
     /**
@@ -64,6 +65,7 @@ public class PubFileVOPresentation extends FacesBean {
 		{
 		    file.setStorage(FileVO.Storage.INTERNAL_MANAGED);
 		}
+		init();
 	}
 	
 	public PubFileVOPresentation(int fileIndex, FileVO file)
@@ -71,6 +73,7 @@ public class PubFileVOPresentation extends FacesBean {
 		this.index = fileIndex; 
 		this.file = file;
 		this.removeButton.setTitle("btnRemove_" + fileIndex);
+		init();
 	}
 
 	public PubFileVOPresentation(int fileIndex, FileVO file, boolean isLocator)
@@ -79,6 +82,13 @@ public class PubFileVOPresentation extends FacesBean {
 		this.file = file;
 		this.removeButton.setTitle("btnRemove_" + fileIndex);
 		this.isLocator = isLocator;
+		init();
+	}
+	
+	
+	public void init()
+	{
+	    this.loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
 	}
 	
 	private void initStatisticService()
@@ -279,7 +289,7 @@ public class PubFileVOPresentation extends FacesBean {
 		}
 		
 		editItemSessionBean.reorganizeFileIndexes();
-		return "loadEditItem";		
+		return null;		
 	}
 	
 	public String removeLocatorEditItem ()
@@ -353,7 +363,7 @@ public class PubFileVOPresentation extends FacesBean {
         initStatisticService();
         String fileID = file.getReference().getObjectId();
         
-        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, AdminHelper.getAdminUserHandle());
+        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ALL_USERS, fileID, loginHelper.getAccountUser());
         return result;
     }
     
@@ -361,7 +371,7 @@ public class PubFileVOPresentation extends FacesBean {
     {
         initStatisticService();
         String fileID = file.getReference().getObjectId();
-        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, AdminHelper.getAdminUserHandle());
+        String result = pubItemStatistics.getNumberOfItemOrFileRequests(PubItemSimpleStatistics.REPORTDEFINITION_FILE_DOWNLOADS_PER_FILE_ANONYMOUS, fileID, loginHelper.getAccountUser());
         return result;
     }
 }

@@ -39,7 +39,8 @@ import javax.faces.context.FacesContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.services.pubman.searching.ParseException;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.search.parser.ParseException;
 
 /**
  * BackingBean for ErrorPage.jsp.
@@ -52,7 +53,12 @@ import de.mpg.escidoc.services.pubman.searching.ParseException;
  */
 public class ErrorPage extends BreadcrumbPage
 {   
-    private static Logger logger = Logger.getLogger(ErrorPage.class);
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private static Logger logger = Logger.getLogger(ErrorPage.class);
     
     // used by calling components to get this Bean
     public final static String BEAN_NAME = "ErrorPage";
@@ -67,6 +73,9 @@ public class ErrorPage extends BreadcrumbPage
     
     private Exception exception = null;    
     private HtmlPanelGrid panPageAlert = new HtmlPanelGrid();
+    
+    private String summary = null;
+    private String detail = null;
 
 
     /**
@@ -105,10 +114,6 @@ public class ErrorPage extends BreadcrumbPage
     {
         // remove all elements
         this.panPageAlert.getChildren().clear();
-        
-        String title = "Error";
-        String summary = "";
-        String detail = "";
 
         if (this.exception == null)
         {
@@ -119,10 +124,10 @@ public class ErrorPage extends BreadcrumbPage
             detail = "No Exception was set to display.";            
         }
         // added by NiH
-        else if (exception instanceof ParseException)
+        else if ( exception instanceof ParseException )
         {
             summary = getMessage("search_ParseError");
-            detail = this.exception.getClass().toString();            
+            detail = this.getStackTrace();          
         }
         /*
         // this exception indicates that the user tried to accept an item without changing it; if this exception is no longer thrown by the framework we should have to check for changes of the item manually
@@ -136,15 +141,23 @@ public class ErrorPage extends BreadcrumbPage
         else
         {
             // an exception has been set before
-            summary = this.exception.getClass().toString();
-            detail = this.exception.toString();
+            if (this.exception != null && this.exception.getCause() != null)
+            {
+                summary = this.exception.getCause().toString();
+                detail = this.getStackTrace();
+            }
+            else if (this.exception != null)
+            {
+                summary = this.exception.toString();
+                detail = this.getStackTrace();
+            }
         }
         
         // set the attributes of the pageAlert component
 
         error(summary, detail);
         HtmlMessages pageAlert = new HtmlMessages();
-//        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
+        pageAlert.setId(FacesContext.getCurrentInstance().getViewRoot().createUniqueId());
 //        pageAlert.setTitle(title);
 //        pageAlert.setSummary(summary);
 //        pageAlert.setDetail(detail);
@@ -153,7 +166,7 @@ public class ErrorPage extends BreadcrumbPage
     }
     
     /**
-     * Redirets to the referring GUI Tool page.
+     * Redirects to the referring GUI Tool page.
      * @author Tobias Schraut
      * @return a navigation string
      */
@@ -208,6 +221,16 @@ public class ErrorPage extends BreadcrumbPage
         return panPageAlert;
     }
 
+    public String getSummary()
+    {
+        return summary;
+    }
+
+    public String getDetail()
+    {
+        return detail;
+    }
+
     /**
      * Sets the panel with the pageAlert.
      * @param panPageAlert the new pageAlert component
@@ -233,5 +256,6 @@ public class ErrorPage extends BreadcrumbPage
     public void setException(Exception exception)
     {
         this.exception = exception;
+        this.init();
     }
 }
