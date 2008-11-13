@@ -32,6 +32,7 @@ import javax.faces.event.ValueChangeEvent;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
+import de.mpg.escidoc.pubman.util.LoginHelper;
 
 public class PubManSessionBean extends FacesBean
 {
@@ -54,13 +55,13 @@ public class PubManSessionBean extends FacesBean
     public void init()
     {
        super.init();
-       InternationalizationHelper i18nHelper = new InternationalizationHelper();
+       InternationalizationHelper i18nHelper = this.getI18nHelper();
        this.locale = i18nHelper.getLocale();
     }
     
     public void changeLanguage(ValueChangeEvent event)
     {
-    	InternationalizationHelper i18nHelper = new InternationalizationHelper();
+    	InternationalizationHelper i18nHelper = this.getI18nHelper();
     	if(event != null)
     	{
     		i18nHelper.changeLanguage(event);
@@ -77,5 +78,25 @@ public class PubManSessionBean extends FacesBean
 	public void setLocale(String locale) {
 		this.locale = locale;
 	}
+	
+	/**
+     * Returns the LoginHelper.
+     *
+     * @return a reference to the scoped data bean (LoginHelper)
+     */
+    protected LoginHelper getLoginHelper()
+    {
+        return (LoginHelper) getSessionBean(LoginHelper.class);
+    }
+    
+    /**
+     * Returns the InternationalizationHelper.
+     *
+     * @return a reference to the scoped data bean (InternationalizationHelper)
+     */
+    protected InternationalizationHelper getI18nHelper()
+    {
+        return (InternationalizationHelper) getSessionBean(InternationalizationHelper.class);
+    }
 	
 }
