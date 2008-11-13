@@ -206,7 +206,7 @@ public class TransformPubItemResultListIntegrationTest extends XmlTransformingTe
             SearchRetrieveResponseType searchResult = null;
             try
             {
-                searchResult = ServiceLocator.getSearchHandler(null).searchRetrieveOperation(searchRetrieveRequest);
+                searchResult = ServiceLocator.getSearchHandler("escidoc_all").searchRetrieveOperation(searchRetrieveRequest);
             }
             catch (Exception e)
             {
