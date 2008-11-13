@@ -102,7 +102,7 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-									Search Query here
+								
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
@@ -129,6 +129,7 @@
 					$(window).scrollTop($("input[id$='offset']").val());
 					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
 				});
+				languageSuggestURL = '<h:outputText value="#{AdvancedSearchEdit.suggestConeUrl}"/>jquery/lang/query';
 			</script>
 			</body>
 		</html>

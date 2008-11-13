@@ -224,6 +224,12 @@ jQuery.fn.replaceValue = function(value) {
 	}
 };
 
+jQuery.fn.getValue = function() {
+	if($(this).find('input[type=hidden]').length > 0 ){
+		return $(this).find('input[type=hidden]').val();
+	}
+};
+
 function installDateTextbox() {
 	/*GET LANGUAGE*/
 	var language = '';

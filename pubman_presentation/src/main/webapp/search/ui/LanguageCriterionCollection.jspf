@@ -29,8 +29,72 @@
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderLanguage}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">
+
+		<tr:iterator var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" binding="#{languageCriterionIterator}" varStatus="index">
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{languageCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
+					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="small_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
+					</h:selectOneMenu>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{languageCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblLanguageTerm}" />
+					<h:inputText styleClass="xDouble_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="small_select replace" value="#{languageCriterionBean.languageCriterionVO.searchString}">
+						<f:selectItems value="#{languageCriterionBean.languageOptions}"/>
+					</h:selectOneMenu>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size == 1}" action="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{languageCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
+					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
+				</h:selectOneMenu>				
+			</h:panelGroup>
+
+		</tr:iterator>
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.adv_search_lbHeaderLanguage}" /></a>
+</div>
+
+
+
+<%-- 
 <h:dataTable var="languageCriterionBean" value="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
 	<h:column>
 
@@ -74,3 +138,4 @@
 		</h:panelGroup>		
 	</h:column>
 </h:dataTable>
+--%>

@@ -22,7 +22,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -32,8 +32,9 @@ function addFullItemFunctions() {
 	$('.itemBlock').each(function(i,ele){$(ele).find('.collapse').each(function(j,elem){$(elem).show();}); $(ele).find('.expand').each(function(j,elem){$(elem).hide();});  $(ele).not('.visibility').find('.blockHeader').each(function(j,elem){if($(elem).siblings('.itemBlockContent').length==0)$(elem).addClass('voidBlock');});})
 	$('.fullItem').find('.visibility').find('.collapse').click(function(){$(this).hide(); $(this).parents('.itemBlock').find('.expand').show(); $(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.collapse:visible').trigger('click');});
 	$('.fullItem').find('.visibility').find('.expand').click(function(){$(this).hide(); $(this).parents('.itemBlock').find('.collapse').show(); $(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.expand:visible').trigger('click');}); 
-	$('.itemBlock:not(".visibility")').find('.expand').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('slow', function(){$(this).parents('.itemBlock').find('.collapse').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.expand:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').show(); $(this).parents('.fullItem').find('.visibility').find('.expand').hide();} });})});
-	$('.itemBlock:not(".visibility")').find('.collapse').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('slow', function(){$(this).parents('.itemBlock').find('.expand').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.collapse:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').hide(); $(this).parents('.fullItem').find('.visibility').find('.expand').show();} });})});	
+	$('.itemBlock:not(".visibility")').find('.expand').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('slow', function(){$(this).parents('.itemBlock').find('.collapse').show();  $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.expand:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').show(); $(this).parents('.fullItem').find('.visibility').find('.expand').hide();} });})});
+	$('.itemBlock:not(".visibility")').find('.collapse').each(function(i,ele){$(ele).click(function(){$(this).hide(); $(this).parents('.itemBlock').children('.itemBlockContent').children('.lineToolSection').hide(); $(this).parents('.itemBlock').children('.itemBlockContent').slideToggle('slow', function(){$(this).parents('.itemBlock').find('.expand').show(); if(($(this).parents('.fullItem').find('.itemBlock:not(".visibility")').find('.collapse:visible').length)==0) { $(this).parents('.fullItem').find('.visibility').find('.collapse').hide(); $(this).parents('.fullItem').find('.visibility').find('.expand').show();} });})});
+	$('.hideBlockIfVoid').each(function(i,elem){ if( ($(elem).find(':checkbox:checked').length == 0) && ($(elem).find("textarea[value!=''], :text[value!='']").length == 0) && ($(elem).find('.languageSuggest').siblings("select[value!='']").length == 0) && ($(elem).find('.languageSuggest').siblings('span.replace').find("input:hidden[value!='']").length == 0) ) { $(elem).siblings('.expand').show(); $(elem).find('.collapse').hide(); $(elem).hide();  };   });
 	
 	$('.creator').each(function(i,ele){$(ele).hover(function(){
 				$(this).addClass('affHover');
