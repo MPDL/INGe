@@ -55,6 +55,21 @@
 				
 			</div>
 		</div>
+		<div class="easySubmissionBoxBodyLine">
+			<%-- Keywords --%>
+			<div class="easySubmissionLastItem">
+				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords}"/>
+  	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
+			</div>
+		</div>
+        		
+   		<div class="easySubmissionBoxBodyLine">
+   			<%-- Abstract --%>
+   			<div class="easySubmissionLastItem">
+				<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract}"/>
+   				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
+   			</div>
+   		</div>
 	</div>
 	<div class="easySubmissionControls floatbox">
 		<div>
