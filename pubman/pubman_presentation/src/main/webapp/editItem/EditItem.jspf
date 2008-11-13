@@ -36,8 +36,11 @@
 <h1 id="editItemHeader">
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
-		<h:outputText value="#{lbl.EditItemPage} : " />
+		<h:outputText value="#{lbl.EditItemPage}" />
+		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#NewSubmission');return false"/>
+		<h:outputText value=": " />
 		<h:commandLink value="#{EditItem.contextName}" styleClass="noBorder" onclick="loadDescription('#{EditItem.contextDescriptionForPopup}');return false"/>
+		
 	</h:panelGroup>
 </h1>
 <h:panelGroup layout="block" styleClass="messageBox" rendered="#{EditItem.hasMessages}">
