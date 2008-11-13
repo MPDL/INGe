@@ -189,6 +189,7 @@
 				for (var i = 0; i < items.length; i++)
 					html += '<li>' + items[i][0] + '</li>';
 
+				resetPosition();
 				$results.html(html).show();
 				
 				$results
