@@ -332,15 +332,25 @@
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier"/>			
 			<!-- PUBLISHING-INFO -->
-			<xsl:choose>
+			<xsl:choose>				
+				<xsl:when test="$gen='book' or $gen='proceedings'">
+					<!-- case: book or proceedings -->					
+					<xsl:element name="publ:publishing-info">
+						<xsl:apply-templates select="publisher"/>
+						<xsl:apply-templates select="publisheradd"/>
+						<xsl:apply-templates select="editiondescription"/>
+					</xsl:element>					
+				</xsl:when>
 				<xsl:when test="$gen='book-item'">
+					<!-- case: book-item without source book -->
 					<xsl:if test="not(exists(booktitle))">
 						<xsl:element name="publ:publishing-info">
 							<xsl:apply-templates select="publisher"/>
+							<xsl:apply-templates select="publisheradd"/>
 							<xsl:apply-templates select="editiondescription"/>
 						</xsl:element>
 					</xsl:if>
-				</xsl:when>
+				</xsl:when>				
 			</xsl:choose>
 			
 			<!-- DATES -->
