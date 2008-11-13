@@ -83,7 +83,9 @@ public class SQLQuerier implements Querier
             }
             query += " object ilike '" + searchStringsWithWildcards[i] + "'";
         }
-        query += ") limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
+        query += ")";
+        query += " order by value";
+        query += " limit " + PropertyReader.getProperty("escidoc.cone.maximum.results") + ";";
         logger.debug("query: " + query);
         Connection connection = dataSource.getConnection();
         Statement statement = connection.createStatement();
