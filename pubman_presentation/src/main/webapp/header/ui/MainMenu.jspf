@@ -67,7 +67,7 @@
 
 <!-- JIRA AS-562 -->
 <!-- start please find context sensitivity here -->
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl underRework" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl underRework" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 <!-- stop please find context sensitivity here -->
 
 
