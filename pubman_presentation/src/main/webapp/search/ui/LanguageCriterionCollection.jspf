@@ -80,7 +80,7 @@
 			</h:panelGroup>
 
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder"></h:panelGroup>
-			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection" rendered="#{AdvancedSearchEdit.languageCriterionCollection.languageCriterionManager.size != (languageCriterionIterator.rowIndex + 1)}">
 				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{languageCriterionBean.logicOperator}">
 					<f:selectItems value="#{languageCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>				
