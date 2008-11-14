@@ -110,7 +110,6 @@
 						<div class="full_area0 fullItem">
 							<div class="full_area0 fullItemControls">
 <!-- JIRA AS-583 -->
-<!-- start please develop local Tags functionality
 								<span class="full_area0_p5 underRework">
 									<b class="free_area0 small_marginLExcl">&#160;<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}" rendered="#{ViewItemFull.isStateWithdrawn}" /></b>
 									<h:panelGroup styleClass="seperator" />
@@ -119,7 +118,7 @@
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}" />
 									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
-										<h:outputText value="Item Log"/>
+										<h:outputText value="#{lbl.ViewItemLogPage}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}" />
 									<h:commandLink styleClass="free_area0" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease and !ViewItemFull.isStateWithdrawn}">
@@ -134,12 +133,11 @@
 										<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 									</h:commandLink>
 									<h:panelGroup styleClass="seperator" />
-									<h:outputLink styleClass="free_area0" value="#contentSkipLinkAnchor">
+									<h:outputLink styleClass="free_area0" value="#{ViewItemFull.citationURL}">
 										<h:outputText value="#{lbl.ViewItemPage}"/>
 									</h:outputLink>
 									<h:panelGroup styleClass="seperator" />
 								</span>
-stop please develop local Tags functionality -->
 							</div>
 
 							<jsp:directive.include file="localTags/LocalTags.jspf" />
@@ -147,10 +145,10 @@ stop please develop local Tags functionality -->
 						</div>
 						<div class="full_area0 formButtonArea">
 <!-- JIRA AS-583 -->
-<!-- form buttons
+<!-- 
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.EditItem_lnkCancel}" action=""/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.EditItem_lnkSave}" action=""/>
--->						
+-->					
 						</div>
 					</div>
 				<!-- end: content section -->
