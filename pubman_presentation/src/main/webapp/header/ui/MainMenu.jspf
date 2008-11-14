@@ -51,26 +51,12 @@
 
 
 
-<%-- start should replace the following later --%>
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Go to New Submission." value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="true">
-		<h:outputText value="NEW SUBMISSION" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Go to New Submission." value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-<%-- stop should replace the following later --%>
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" action="#{CreateItem.newSubmission}" immediate="true">
-		<h:outputText value="#{lbl.actionMenu_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-	</h:commandLink>
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" action="#{EasySubmission.newEasySubmission}">
-		<h:outputText value="#{lbl.mainMenu_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
-	</h:commandLink>
 
-
-
-<!-- JIRA AS-562 -->
-<!-- start please find context sensitivity here -->
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl underRework" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
-<!-- stop please find context sensitivity here -->
-
-
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 
 	<!-- main Menu ends here -->
 </div>

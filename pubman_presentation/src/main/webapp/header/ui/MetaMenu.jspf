@@ -38,8 +38,6 @@
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 	</h:selectOneMenu>
 
-
-
 	<h:commandLink styleClass="small_area0_p3 endline" title="Show gerneral help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>

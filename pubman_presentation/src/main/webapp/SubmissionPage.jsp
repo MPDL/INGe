@@ -117,6 +117,15 @@
 				<!-- end: content section -->
 				</div>
 			</tr:form>
+			<script type="text/javascript">
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
+				});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				});
+			</script>
 			</body>
 		</html>
 	</f:view>
