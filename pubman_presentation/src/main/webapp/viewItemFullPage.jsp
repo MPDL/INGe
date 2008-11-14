@@ -181,18 +181,20 @@
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl releasedItem" rendered="#{ViewItemFull.isStateReleased and !ViewItemFull.isStateWithdrawn}" />
 									<h:panelGroup styleClass="big_imgArea xSmall_marginLExcl inRevisionItem" rendered="#{ViewItemFull.isStateInRevision}" />
 									<h:outputText styleClass="noDisplay" value="Item is " />
-									<label class="medium_label endline" style="text-align: center;">
-										<h:outputText value="#{ViewItemFull.itemPublicState}" rendered="#{ViewItemFull.isStateWithdrawn}"/>
-										<h:outputText value="#{ViewItemFull.itemState}" rendered="#{!ViewItemFull.isStateWithdrawn}"/>
-									</label>
+									<h:outputLabel styleClass="medium_label endline messageWarn" style="text-align: center;" rendered="#{ViewItemFull.isStateWithdrawn}">
+										<h:outputText value="#{ViewItemFull.itemPublicState}" />
+									</h:outputLabel>
+									<h:outputLabel styleClass="medium_label endline" style="text-align: center;" rendered="#{!ViewItemFull.isStateWithdrawn}">
+										<h:outputText value="#{ViewItemFull.itemState}" />
+									</h:outputLabel>
 								</h:panelGroup>	
 							</div>
-							<div class="full_area0 itemBlock visibility">
+							<h:panelGroup layout="block" styleClass="full_area0 itemBlock visibility" rendered="#{!ViewItemFull.isStateWithdrawn}">
 								<h:outputText styleClass="xLarge_area0_p8 endline blockHeader" value="Visibility" />
 								<h:panelGroup styleClass="seperator" />
 								<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup} #{lbl.ViewItemFull_lblAll}" /></a>
 								<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblAll}" /></a>
-							</div>
+							</h:panelGroup>
 
 							<jsp:directive.include file="viewItem/BasicGroup.jspf" />
 							<jsp:directive.include file="viewItem/FilesGroup.jspf" />
@@ -203,6 +205,7 @@
 							<jsp:directive.include file="viewItem/EventGroup.jspf" />
 							<jsp:directive.include file="viewItem/SourceGroup.jspf" />
 							<jsp:directive.include file="viewItem/SystemDetailGroup.jspf" />
+							<jsp:directive.include file="viewItem/WithdrawnGroup.jspf" />
 
 						</div>
 					</div>

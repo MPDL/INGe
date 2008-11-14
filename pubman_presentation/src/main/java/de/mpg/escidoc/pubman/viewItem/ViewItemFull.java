@@ -1067,6 +1067,21 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
+     * Returns the total number of files in the item
+     * @return int
+     */
+    public int getAmountOfFiles() {
+        if (this.fileList != null && this.fileList.size() > 0)
+        {
+            return this.fileList.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
      * Returns a true or a false according to the existance of locators in the item
      * @return boolean
      */
@@ -1080,6 +1095,21 @@ public class ViewItemFull extends FacesBean
     	{
     		return false;
     	}
+    }
+    
+    /**
+     * Returns the total number of locators in the item
+     * @return int
+     */
+    public int getAmountOfLocators() {
+        if (this.locatorList != null && this.locatorList.size() > 0)
+        {
+            return this.locatorList.size();
+        }
+        else
+        {
+            return 0;
+        }
     }
     
     /**

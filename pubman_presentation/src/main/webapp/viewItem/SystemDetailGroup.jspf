@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSystemDetails}">
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.showSystemDetails and !ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderSystemDetails}" />
 	</h3>
@@ -79,8 +79,8 @@
 			</span>
 		</h:panelGroup>
 
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{ViewItemFull.showSystemDetails}" /></a>	
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>	
 	</h:panelGroup>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{ViewItemFull.showSystemDetails}" /></a>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderSystemDetails}" /></a>
 
 </h:panelGroup>

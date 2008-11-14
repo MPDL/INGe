@@ -31,22 +31,64 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{ViewItemFull.isStateWithdrawn}">
 	<h3 class="xLarge_area0_p8 endline blockHeader">
-		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderDetails}" />
+		<h:outputText value="#{lbl.EditItem_lblBasic} (#{ViewItemFull.itemPublicState})" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showDetails}">
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline">
 
-<%-- Languages --%>
+<%-- Date of withdrawal --%>
 		<div class="free_area0 endline itemLine noTopBorder">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				<h:outputText value="#{lbl.ViewItemFull_lblLanguages}"/><span class="noDisplay">: </span>
+				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalDate}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<tr:iterator var="languages" value="#{ViewItemFull.pubItem.metadata.languages}" binding="#{ViewItemFull.languagesIterator}" varStatus="index">
-					<h:outputText value="#{languages}"/>
-					<h:outputText value=", " rendered="#{ViewItemFull.languagesIterator.rowIndex +1 < ViewItemFull.languagesIterator.rowCount}"/>
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.withdrawalDate}"/>
+			</span>
+		</div>
+
+<%-- Withdrawal comment --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0_p8 endline labelLine clear">
+				<h:outputText styleClass="messageWarn" value="#{lbl.ViewItemFull_lblWithdrawalComment}"/><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.pubItem.withdrawalComment}"/>
+			</span>
+		</div>
+
+<%-- Creators --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0 endline labelLine">
+				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
+					<h:panelGroup styleClass="free_area0 creator">
+						<h:outputText value="#{creatorPerson}" escape="false"/>
+					</h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
+				</tr:iterator>
+				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" binding="#{ViewItemFull.creatorOrganizationsIterator}" varStatus="index">
+					<h:panelGroup styleClass="free_area0 creator">
+						<h:outputText value="#{creatorOrganization.organizationName}"/>
+					</h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
+				</tr:iterator>		
+			</span>
+		</div>
+
+<%-- Affiliations --%>
+		<div class="free_area0 endline itemLine">
+			<b class="xLarge_area0 endline labelLine">
+				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
+					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
+					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
+					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
 			</span>
 		</div>
@@ -84,77 +126,58 @@
 			</span>
 		</div>
 
-<%-- Pages --%>
+<%-- Files total --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPages}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.totalNumberOfPages}"/>
+				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFileAttached}" rendered="#{ViewItemFull.amountOfFiles == 1}"/>
+				<h:outputText value="#{ViewItemFull.amountOfFiles} #{lbl.ViewItemShort_lblFilesAttached}" rendered="#{ViewItemFull.amountOfFiles != 1}"/>
 			</span>
 		</div>
 
-<%-- Publishing Info --%>
+<%-- Locators total --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPublishingInfo}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.publishingInfo}"/>
+				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorAttached}" rendered="#{ViewItemFull.amountOfLocators == 1}"/>
+				<h:outputText value="#{ViewItemFull.amountOfLocators} #{lbl.ViewItemShort_lblLocatorsAttached}" rendered="#{ViewItemFull.amountOfLocators != 1}"/>
 			</span>
 		</div>
 
-<%-- Table of Content --%>
+<%-- Item identifier --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblTOC}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblSystemIdentifiers}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.tableOfContents.value}" converter="HTMLEscapeConverter" escape="false"/>
+				<h:outputText value="#{ViewItemFull.pubItem.version.objectIdAndVersion}"/>
 			</span>
 		</div>
 
-<%-- Review method --%>
+<%-- Item state --%>
 		<div class="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblRevisionMethod}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblItemState}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.reviewMethod}"/>
+				<h:outputText styleClass="messageWarn" value="#{ViewItemFull.itemPublicState}"/>
 			</span>
 		</div>
 
-<%-- Identifiers --%>
-		<div class="free_area0 endline itemLine">
+<%-- Collection name --%>
+		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
 			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblIdentifiers}"/><span class="noDisplay">: </span>
+				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.identifiers}"/>
+				<h:outputText value="#{ViewItemFull.contextName}, #{lbl.ViewItemFull_lblIsAffiliatedTo}: #{ViewItemFull.affiliations}"/>
 			</span>
-		</div>
+		</h:panelGroup>
 
-<%-- Degree Type --%>
-		<div class="free_area0 endline itemLine">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblDegreeType}"/><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.degreeType}"/>
-			</span>
-		</div>
-
-<%-- Publication Location --%>
-		<div class="free_area0 endline itemLine">
-			<b class="xLarge_area0_p8 endline labelLine clear">
-				&#160;<h:outputText value="#{lbl.ViewItemFull_lblPublicationLocation}"/><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.pubItem.metadata.location}"/>
-			</span>
-		</div>
-
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>	
 	</h:panelGroup>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemFull_lblSubHeaderDetails}" /></a>
+
 </h:panelGroup>
