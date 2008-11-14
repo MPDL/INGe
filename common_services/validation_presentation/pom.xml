@@ -1,48 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!--
- CDDL HEADER START
-
- The contents of this file are subject to the terms of the
- Common Development and Distribution License, Version 1.0 only
- (the "License"). You may not use this file except in compliance
- with the License.
-
- You can obtain a copy of the license at license/ESCIDOC.LICENSE
- or http://www.escidoc.de/license.
- See the License for the specific language governing permissions
- and limitations under the License.
-
- When distributing Covered Code, include this CDDL HEADER in each
- file and include the License file at license/ESCIDOC.LICENSE.
- If applicable, add the following below this CDDL HEADER, with the
- fields enclosed by brackets "[]" replaced with your own identifying
- information: Portions Copyright [yyyy] [name of copyright owner]
-
- CDDL HEADER END
-
-
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
- All rights reserved. Use is subject to license terms.
--->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <parent>
     <artifactId>common_services</artifactId>
     <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0.10-SNAPSHOT</version>
+    <version>1.0.10</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>validation_presentation</artifactId>
   <name>validation_presentation</name>
-  <version>1.0.14-SNAPSHOT</version>
+  <version>1.0.14</version>
  	<packaging>war</packaging>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_presentation</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_presentation</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.10/validation_presentation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.10/validation_presentation</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.10</url>
 	</scm>
 
 	<build>
@@ -61,10 +33,9 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.12-SNAPSHOT</version>
+			<version>1.0.12</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
 </project>
- 
