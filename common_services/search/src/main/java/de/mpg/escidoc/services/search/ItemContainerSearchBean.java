@@ -116,11 +116,11 @@ public class ItemContainerSearchBean implements ItemContainerSearch
     }
 
     /** Coreservice identifier for the 'all' lucene index database. */
-    private static final String INDEXDATABASE_ALL = "all";
+    private static final String INDEXDATABASE_ALL = "escidoc_all";
     /** Coreservice identifier for the 'german' lucene index database. */
-    private static final String INDEXDATABASE_EN = "en";
+    private static final String INDEXDATABASE_EN = "escidoc_en";
     /** Coreservice identifier for the 'english' lucene index database. */
-    private static final String INDEXDATABASE_DE = "de";
+    private static final String INDEXDATABASE_DE = "escidoc_de";
 
     /** Version of the cql search request. */
     private static final String SEARCHREQUEST_VERSION = "1.1";
