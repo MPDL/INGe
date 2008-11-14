@@ -128,7 +128,7 @@
 			</div>
 	
 	<%-- Volume / Issue --%>
-			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
 				</b>
@@ -141,7 +141,7 @@
 			</h:panelGroup>
 
 	<%-- Sequence Number --%>
-			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
 				</b>
@@ -151,7 +151,7 @@
 			</h:panelGroup>
 
 	<%-- Start-/Endpage --%>
-			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
 				</b>
@@ -161,7 +161,7 @@
 			</h:panelGroup>
 
 	<%-- Source identifiers --%>
-			<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+			<h:panelGroup styleClass="free_area0 endline itemLine">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceIdentifier}"/><span class="noDisplay">: </span>
 				</b>

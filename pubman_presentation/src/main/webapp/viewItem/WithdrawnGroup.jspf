@@ -169,7 +169,7 @@
 		</div>
 
 <%-- Collection name --%>
-		<h:panelGroup styleClass="free_area0 endline itemLine" rendered="#{ViewItemFull.invited}">
+		<h:panelGroup styleClass="free_area0 endline itemLine">
 			<b class="xLarge_area0_p8 endline labelLine clear">
 				<h:outputText value="#{lbl.ViewItemFull_lblnameOfCollection}"/><span class="noDisplay">: </span>
 			</b>
