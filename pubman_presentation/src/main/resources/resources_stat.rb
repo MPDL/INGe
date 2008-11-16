@@ -3,6 +3,8 @@
 
 require "pp"
 
+IGNORE_UNTRANSLATED = [ "ae", "oe", "ss", "ue" ]
+
 def parse_resource_file( filename )
    resource = {}
    open( filename ) do |io|
@@ -11,11 +13,11 @@ def parse_resource_file( filename )
          next if line =~ /^\s*$/
          if line =~ /^\s*([\w\.]+)\s*=\s*(.+)$/
             if resource[ $1 ]
-               puts "#{filename}: Warining: duplicate resource: #{ $1 }"
+               puts "#{filename}:#{$.}: Warining: duplicate resource: #{ $1 }"
             end
             resource[ $1 ] = $2.strip
          else
-            puts "#{filename}: Warining: unknown line: #{line}"
+            puts "#{filename}:#{$.}: Warining: unknown line: #{line}"
          end
       end
    end
@@ -40,7 +42,7 @@ if $0 == __FILE__
             if orig[ k ]
                if not new[ k ]
                   count[ "only in en" ] << k
-               elsif orig[ k ] == new[ k ]
+               elsif orig[ k ] == new[ k ] and not IGNORE_UNTRANSLATED.include? k
                   count[ "untranslated" ] << k
                else
                   count[ "translated" ] += 1
