@@ -36,6 +36,7 @@ import java.util.List;
 import javax.naming.InitialContext;
 
 import org.apache.log4j.Logger;
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
@@ -61,6 +62,8 @@ public class ContextListSessionBean extends FacesBean
     private QualityAssurance qualityAssurance;
     private LoginHelper loginHelper;
 
+    private UIXIterator contextIterator = new UIXIterator();
+    
     /**
      * Public constructor.
      */
@@ -219,6 +222,16 @@ public class ContextListSessionBean extends FacesBean
     public void setModeratorContextList(List<PubContextVOPresentation> moderatorContextList)
     {
         this.moderatorContextList = moderatorContextList;
+    }
+
+    public UIXIterator getContextIterator()
+    {
+        return contextIterator;
+    }
+
+    public void setContextIterator(UIXIterator contextIterator)
+    {
+        this.contextIterator = contextIterator;
     }
     
     

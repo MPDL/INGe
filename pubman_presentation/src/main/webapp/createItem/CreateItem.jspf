@@ -28,26 +28,5 @@
             All rights reserved. Use is subject to license terms.
              */
 %>
-<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 
-<div>
-	<f:subview id="CreateItem">
-		<div>
-			<h1 class="bottomSpace">
-				<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateItemPage}"/>
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#NewSubmission');return false"/>	  
-			</h1>
-
-			<h4>
-				<h:outputText value="#{msg.create_Item_Select_Collection}"/>
-			</h4>
-
-			<jsp:directive.include file="../list/contextList.jspf"/>
-	
-			<div>
-				<h:commandButton id="cancel" styleClass="inlineButton" value="#{lbl.cancel}" action="#{CreateItemPage.cancel}" />
-			</div>
-		</div>
-	</f:subview>
-</div>
+<jsp:directive.include file="../list/contextList.jspf"/>
