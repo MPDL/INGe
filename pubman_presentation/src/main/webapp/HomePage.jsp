@@ -53,6 +53,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
 			<h:form id="form1">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->

@@ -58,6 +58,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText id="pageDummy" value="#{AdvancedSearchPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->

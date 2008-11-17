@@ -21,47 +21,34 @@ information: Portions Copyright [yyyy] [name of copyright owner]
 CDDL HEADER END
 
 
-Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+für wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Förderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<%@ taglib uri="http://www.escidoc.de/jsf" prefix="e" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
-<div>
-	<f:subview id="list">
-			<table>
 
-				<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
-				<div class="listItem">	
-					<div class='listItemRow odd'>
-						<div class='itemTitle odd'>
-							<h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/>
-						</div>
-						<div class='itemText odd'>
-								<h:outputText value="#{eventEntry.currentTypeLabel} #{eventEntry.formattedDate}"/>
-						</div>
-					</div>
-	
-					
-					<div class="listItemRow">
-						<div class='itemTitle'>
-							<h:outputText value="#{lbl.ViewItemLog_lblComment}" />
-						</div>
-						<div class='itemText'>
-							<h:outputText value="#{eventEntry.formattedComment}" />
-						</div>
-					</div>
-				</div>
-					
-				</tr:iterator>		
-			
-		
-		
-		</table>
-			
-	</f:subview>
-</div>
+<tr:iterator value="#{ItemVersionListSessionBean.eventLogList}" var="eventEntry" varStatus="index">
+	<li class="full_area0 listItem">
+		<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
+			<span class="huge_area0_p8 endline labelLine">
+				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/><br class="noDisplay" /></a>
+				<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 endline">
+				<h:outputText value="#{eventEntry.formattedDate}"/>
+			</span>
+		</div>
+		<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
+			<span class="huge_area0_p8 endline labelLine">
+				<h:outputText value="#{lbl.ViewItemLog_lblComment}" /><span class="noDisplay">: </span>
+			</span>
+			<span class="xHuge_area0 endline">
+				<h:outputText value="#{eventEntry.formattedComment}" />
+			</span>
+		</div>
+	</li>
+</tr:iterator>

@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -58,6 +58,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText id="pageDummy" value="#{ViewItemLogPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
@@ -195,63 +196,3 @@
 		</html>
 	</f:view>
 </jsp:root>
-
-
-<!-- 
-<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-
-<jsp:output doctype-root-element="html"
-        doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
-        doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" />
-
-<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
-<f:view locale="#{InternationalizationHelper.userLocale}">
-		<f:loadBundle var="lbl" basename="Label"/>
-		<f:loadBundle var="msg" basename="Messages"/>
-<html>
-<head>
-<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<meta http-equiv="pragma" content="no-cache"/>
-					<meta http-equiv="cache-control" content="no-cache"/>
-					<meta http-equiv="expires" content="0"/>
-
-<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-</head>
-<body>
-	<h:outputText id="pageDummy" value="#{ViewItemLogPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
-	<div id="page_margins">
-						<div id="page">
-		<h:form id="form1">
-		<div id="header">
-		<jsp:directive.include file="desktop/Header.jspf"/>
-		<jsp:directive.include file="desktop/Login.jspf"/>
-		<jsp:directive.include file="desktop/Search.jspf"/>
-		</div>
-		<div id="nav">
-		<jsp:directive.include file="desktop/Breadcrumb.jspf"/>
-		</div>
-		<div id="main">
-			<div id="col1">
-									<span class="mainMenu">
-					 <jsp:directive.include file="desktop/Navigation.jspf"/>
-						</span>
-						</div>
-							<div id="col2">
-								&#xa0;
-							</div>
-									<div id="col3">
-										<div class="content">
-				<jsp:directive.include file="itemLog/ViewItemLog.jspf"/>
-				</div>
-				</div>
-		</div>
-		</h:form>
-		 </div>
-		  </div>
-</body>
-</html>
-
-</f:view>
-</jsp:root>
--->
