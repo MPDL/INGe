@@ -35,7 +35,7 @@ All rights reserved. Use is subject to license terms.
 	<li class="full_area0 listItem">
 		<div class="free_area0_p0 small_marginLIncl endline listItemLine" >
 			<span class="huge_area0_p8 endline labelLine">
-				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/><br class="noDisplay" /></a>
+				<b class="itemBlockSubHeader"><h:outputText value="#{lbl.ViewItemFull_lblVersion} #{eventEntry.versionHistoryVO.reference.versionNumber}"/><br class="noDisplay" /></b>
 				<h:outputText value="#{eventEntry.currentTypeLabel}"/><span class="noDisplay">: </span>
 			</span>
 			<span class="xHuge_area0 endline">
