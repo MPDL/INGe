@@ -431,7 +431,7 @@
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 
-				<!--  Due to a historical defect, QName was released with multiple 
+				<!--  Due to a historical defect, QName was released with multiple
 					serialVersionUID values even though its serialization was the
 					same.
 					To workaround this issue, serialVersionUID is set with either
@@ -444,7 +444,7 @@
 				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
-				
+
 				<escidoc.cone.querier.class>de.mpg.escidoc.services.cone.SQLQuerier</escidoc.cone.querier.class>
 				<escidoc.cone.database.server.name>zim02.gwdg.de</escidoc.cone.database.server.name>
 				<escidoc.cone.database.server.port>5432</escidoc.cone.database.server.port>
@@ -455,10 +455,13 @@
 				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
-				
+
+                <!--search-->
+                <escidoc.search.service.url>http://localhost:8080/search/</escidoc.search.service.url>
+
 				<!-- unAPI -->
 				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
-				
+
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -497,11 +500,11 @@
 				<xsd.soap.statistic.reportparameters>http://www.escidoc.de/schemas/reportparameters/0.3</xsd.soap.statistic.reportparameters>
 				<xsd.soap.statistic.reportdefinitionlist>http://www.escidoc.de/schemas/reportdefinitionlist/0.3</xsd.soap.statistic.reportdefinitionlist>
 				<xsd.soap.statistic.reportdefinition>http://www.escidoc.de/schemas/reportdefinition/0.3</xsd.soap.statistic.reportdefinition>
-				
+
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-				
+
 			</properties>
 
 			<distributionManagement>
@@ -574,7 +577,7 @@
 				<!-- Identifier of the content type "publication" in the actual framework instance -->
 				<escidoc.framework_access.content-model.id.publication>escidoc:persistent4</escidoc.framework_access.content-model.id.publication>
 
-				<!--  Due to a historical defect, QName was released with multiple 
+				<!--  Due to a historical defect, QName was released with multiple
 					serialVersionUID values even though its serialization was the
 					same.
 					To workaround this issue, serialVersionUID is set with either
@@ -598,10 +601,10 @@
 				<escidoc.cone.rdf.path>c:/temp/projects/common_services/cone_presentation/src/main/resources/</escidoc.cone.rdf.path>
 				<escidoc.cone.maximum.results>50</escidoc.cone.maximum.results>
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
-				
+
 				<!-- unAPI -->
 				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
-				
+
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
 				<xsd.soap.common.srel>http://escidoc.de/core/01/structural-relations/</xsd.soap.common.srel>
@@ -643,8 +646,8 @@
 				<xsd.soap.toc.toc>http://www.escidoc.de/schemas/toc/0.6</xsd.soap.toc.toc>
 				<xsd.soap.toc.table-of-content>http://www.escidoc.de/schemas/tableofcontent/0.1</xsd.soap.toc.table-of-content>
 				<xsd.soap.result.result>http://www.escidoc.de/schemas/result/0.1</xsd.soap.result.result>
-				
-				
+
+
 			</properties>
 
 			<distributionManagement>
