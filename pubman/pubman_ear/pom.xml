@@ -413,14 +413,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>search_presentation</artifactId>
-			<version>1.0.7</version>
+			<version>1.0.8-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
