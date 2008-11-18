@@ -40,7 +40,7 @@
 
 		<div id="contentSkipLinkAnchor" class="clear headLine">
 			<!-- Headline starts here -->
-			<h1><h:outputText value="#{lbl.submission_lnkImport}"/></h1>
+			<h1><h:outputText value="#{lbl.EasySubmission}"/></h1>
 			<!-- Headline ends here -->
 		</div>
 	</div>
@@ -70,7 +70,30 @@
 </div>			
 <div class="full_area0">
 	<div class="full_area0 fullItem">
-		<div class="full_area0 itemBlock noTopBorder">
+		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
+			<span class="small_area0 endline">
+				&nbsp;
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b class="actual">
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 1
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 2
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 3
+				</b>
+			</span>
+		</h:panelGroup>
+		<div class="full_area0 itemBlock">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
 				<h:outputText value="#{lbl.EditItem_lblBasic}" />
 			</h3>
