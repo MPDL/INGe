@@ -630,7 +630,7 @@ public class EasySubmission extends FacesBean
      */
     public void fileUploaded(ValueChangeEvent event)
     {
-        int indexUpload = this.getItem().getFiles().size() - 1;
+        int indexUpload = this.getEasySubmissionSessionBean().getFiles().size() - 1;
         UploadedFile file = (UploadedFile)event.getNewValue();
         String contentURL;
         if (file != null)
@@ -638,7 +638,7 @@ public class EasySubmission extends FacesBean
             contentURL = uploadFile(file);
             if (contentURL != null && !contentURL.trim().equals(""))
             {
-                FileVO fileVO = this.getItem().getFiles().get(indexUpload);
+                FileVO fileVO = this.getEasySubmissionSessionBean().getFiles().get(indexUpload).getFile();
                 fileVO.getDefaultMetadata().setSize((int)file.getLength());
                 fileVO.setName(file.getFilename());
                 fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
@@ -1743,6 +1743,7 @@ public class EasySubmission extends FacesBean
         int fileNumber = 0;
         if (this.getEasySubmissionSessionBean().getFiles() != null)
         {
+            /*
             for (int i = 0; i < this.getEasySubmissionSessionBean().getFiles().size(); i++)
             {
                 if (this.getEasySubmissionSessionBean().getFiles().get(i).getFileType().equals(
@@ -1751,6 +1752,8 @@ public class EasySubmission extends FacesBean
                     fileNumber++;
                 }
             }
+            */
+            fileNumber = this.getEasySubmissionSessionBean().getFiles().size();
         }
         return fileNumber;
     }
@@ -1765,6 +1768,7 @@ public class EasySubmission extends FacesBean
         int locatorNumber = 0;
         if (this.getEasySubmissionSessionBean().getFiles() != null)
         {
+            /*
             for (int i = 0; i < this.getEasySubmissionSessionBean().getFiles().size(); i++)
             {
                 if (this.getEasySubmissionSessionBean().getFiles().get(i).getFileType().equals(
@@ -1773,6 +1777,8 @@ public class EasySubmission extends FacesBean
                     locatorNumber++;
                 }
             }
+            */
+            locatorNumber = this.getEasySubmissionSessionBean().getLocators().size();
         }
         return locatorNumber;
     }
