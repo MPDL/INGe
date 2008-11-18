@@ -516,7 +516,7 @@ public class EasySubmission extends FacesBean
      */
     public String save()
     {
-        mapSelectedDate();
+        //mapSelectedDate();
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFiles();
         this.setFromEasySubmission(true);
@@ -1203,7 +1203,7 @@ public class EasySubmission extends FacesBean
     public String loadPreview()
     {
         // Map entered date to entered type
-        mapSelectedDate();
+        //mapSelectedDate();
         // validate
         return validateStep5("loadEditItem");
     }
