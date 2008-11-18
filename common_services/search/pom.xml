@@ -40,9 +40,12 @@
 					<execution>
 						<id>javacc</id>
 						<phase>generate-sources</phase>
-						<goals>
+						<goals> 
 							<goal>javacc</goal>
 						</goals>
+						<configuration>
+              				<buildParser>true</buildParser>
+            			</configuration>
 					</execution>
 				</executions>
 			</plugin>

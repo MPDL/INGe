@@ -17,7 +17,7 @@ import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
  * @author endres
  * 
  */
-public interface StandardSearchQuery
+public interface StandardSearchQuery 
 {
     /**
      * Getter for the index database selector.

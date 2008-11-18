@@ -51,7 +51,7 @@ import net.sf.jasperreports.engine.JRException;
 
 import org.apache.axis.message.MessageElement;
 import org.apache.axis.types.NonNegativeInteger;
-import org.apache.log4j.Logger;
+import org.apache.log4j.Logger; 
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
@@ -66,7 +66,7 @@ import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.escidoc.services.search.parser.ParseException;  
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.StandardSearchQuery;
@@ -166,7 +166,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch
 
     /**
      * {@inheritDoc}
-     */
+     */ 
     public ExportSearchResult searchAndExport(ExportSearchQuery query) throws Exception
     {
 
@@ -175,6 +175,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
         searchRetrieveRequest.setQuery(query.getCqlQuery());
+        searchRetrieveRequest.setSortKeys(query.getSortKeys());
 
         NonNegativeInteger nni = new NonNegativeInteger(MAXIMUM_RECORDS);
         searchRetrieveRequest.setMaximumRecords(nni);
@@ -184,79 +185,45 @@ public class ItemContainerSearchBean implements ItemContainerSearch
                 .getIndexSelector());
         String itemList = transformToItemListAsString(searchResult);
 
-        if (query.getExportFormat() == null || query.getExportFormat().trim().equals(""))
+        String outputFormat = query.getOutputFormat();
+        String exportFormat = query.getExportFormat();
+        
+        if ( !checkVal(exportFormat) )
         {
             throw new TechnicalException("exportFormat is empty");
         }
-            
-        if (itemList == null || itemList.trim().equals(""))
+        if ( !checkVal(itemList) )
         {
             throw new TechnicalException("itemList is empty");
         }
+        
+        
         byte[] exportData = null;
-
+        
         // structured export
-        boolean flag = false;
-        try
+        if ( structuredExportHandler.isStructuredFormat(exportFormat) )
         {
-            for (String ef : structuredExportHandler.getFormatsList())
-            {
-                if (query.getExportFormat().equals(ef))
-                {
-                    exportData = getOutput(query.getExportFormat(), FormatType.STRUCTURED, null,
-                            itemList);
-                    return new ExportSearchResult(exportData, cqlQuery);
-                }
-            }
+                exportData = getOutput(exportFormat, FormatType.STRUCTURED, null,
+                        itemList);
+                return new ExportSearchResult(exportData, cqlQuery);
         } 
-        catch (Exception e)
+        // citation style
+        else if ( citationStyleHandler.isCitationStyle(exportFormat) ) 
         {
-            throw new TechnicalException(e);
-        }
-
-        try
-        {
-            for (String ef : XmlHelper.getListOfStyles())
-            {
-                if (query.getExportFormat().equals(ef))
-                {
-                    flag = true;
-                    break;
-                }
-            }
-        } 
-        catch (Exception e)
-        {
-            throw new TechnicalException(e);
-        }
-
-        String outputFormat = query.getOutputFormat();
-        String exportFormat = query.getExportFormat();
-
-        if (flag)
-        {
-
-            if (outputFormat == null || outputFormat.trim().equals(""))
+            if ( !checkVal(outputFormat) )
             {
                 throw new TechnicalException("outputFormat should be not empty for exportFormat:"
                         + exportFormat);
             }
             outputFormat = outputFormat.trim();
-            if (!FileFormatVO.isOutputFormatSupported(outputFormat))
+            if ( citationStyleHandler.getMimeType(exportFormat, outputFormat)==null)
             {
                 throw new TechnicalException("file output format: " + outputFormat
                         + " for export format: " + exportFormat + " is not supported");
             }
-            try
-            {
-                exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
-                return new ExportSearchResult(exportData, cqlQuery);
-            } 
-            catch (Exception e)
-            {
-                throw new TechnicalException(e);
-            }
-        } 
+            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
+            return new ExportSearchResult(exportData, cqlQuery);
+        }
         else
         {
             // no export format found!!!
@@ -470,5 +437,9 @@ public class ItemContainerSearchBean implements ItemContainerSearch
         String itemStringList = xmlTransforming.transformToItemList(resultList);
         return itemStringList;
     }
+    
+    private boolean checkVal(String str) {
+    	return !(str == null || str.trim().equals("")); 
+	}
 
 }

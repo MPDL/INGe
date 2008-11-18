@@ -49,8 +49,10 @@ public class ExportSearchQuery extends SearchQuery
     private String exportFormat;
     /** Output format to use. */
     private String outputFormat;
+    /** Sort keys */
+    private String sortKeys;
 
-    /**
+	/**
      * Create an export search query.
      * 
      * @param cqlQuery
@@ -60,11 +62,12 @@ public class ExportSearchQuery extends SearchQuery
      * @param outputFormat
      *            the output format to use
      */
-    public ExportSearchQuery(String cqlQuery, String exportFormat, String outputFormat)
+    public ExportSearchQuery(String cqlQuery, String exportFormat, String outputFormat, String sortKeys)
     {
         super();
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
+        this.sortKeys = sortKeys;
         this.cqlQuery = cqlQuery;
     }
 
@@ -81,11 +84,12 @@ public class ExportSearchQuery extends SearchQuery
      *            the output format to use
      */
     public ExportSearchQuery(String cqlQuery, IndexDatabaseSelector indexSelector,
-            String exportFormat, String outputFormat)
+            String exportFormat, String outputFormat, String sortKeys)
     {
         super(indexSelector);
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
+        this.sortKeys = sortKeys;
         this.cqlQuery = cqlQuery;
     }
 
@@ -118,5 +122,16 @@ public class ExportSearchQuery extends SearchQuery
     {
         return outputFormat;
     }
+    
+    
+    /**
+     * Getter for the sortKeys.
+     * 
+     * @return output format
+     */
+	public String getSortKeys() {
+		return sortKeys;
+	}
+    
 
 }
