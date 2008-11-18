@@ -156,6 +156,7 @@ public class EasySubmission extends FacesBean
     private UploadedFile uploadedFile;
     private UIXIterator fileIterator = new UIXIterator();
     private UIXIterator locatorIterator = new UIXIterator();
+    private UIXIterator creatorIterator = new UIXIterator();
     public SelectItem[] locatorVisibilities;
     private CreatorCollection creatorCollection;
     private String selectedDate;
@@ -2081,4 +2082,16 @@ public class EasySubmission extends FacesBean
     {
         return this.i18nHelper.getSelectItemsDegreeType(true);
     }
+
+    public UIXIterator getCreatorIterator()
+    {
+        return creatorIterator;
+    }
+
+    public void setCreatorIterator(UIXIterator creatorIterator)
+    {
+        this.creatorIterator = creatorIterator;
+    }
+    
+    
 }
