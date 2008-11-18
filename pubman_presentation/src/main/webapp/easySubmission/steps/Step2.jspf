@@ -57,8 +57,7 @@
 		<div class="subHeader">
 			<!-- Subheadline starts here -->
 				<h:outputText value="#{msg.create_Item_Select_Collection}"/>
-				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages}">
-					<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages}">
 					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
 				</h:panelGroup>
