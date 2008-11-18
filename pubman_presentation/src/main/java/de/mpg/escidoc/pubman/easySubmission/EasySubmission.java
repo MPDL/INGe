@@ -631,6 +631,9 @@ public class EasySubmission extends FacesBean
      */
     public void fileUploaded(ValueChangeEvent event)
     {
+        uploadedFile = (UploadedFile)event.getNewValue();
+        upload(true);
+        /*
         int indexUpload = this.getEasySubmissionSessionBean().getFiles().size() - 1;
         UploadedFile file = (UploadedFile)event.getNewValue();
         String contentURL;
@@ -651,6 +654,7 @@ public class EasySubmission extends FacesBean
                 fileVO.setContent(contentURL);
             }
         }
+        */
     }
 
     /**
@@ -670,6 +674,7 @@ public class EasySubmission extends FacesBean
         if (file != null)
         {
             // set the file name automatically if it is not filled by the user
+            /*
             if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() == null
                     || this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue().trim()
                             .equals(""))
@@ -681,9 +686,11 @@ public class EasySubmission extends FacesBean
                     && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("")
                     && !this.getFiles().get(this.getFiles().size() - 1).getContentCategory().trim().equals("-"))
             {
+            */
                 contentURL = uploadFile(file);
                 if (contentURL != null && !contentURL.trim().equals(""))
                 {
+                    this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
                     this.getFiles().get(indexUpload).getFile().getDefaultMetadata().setSize((int)file.getLength());
                     // set the file name automatically if it is not filled by the user
                     /*
@@ -701,12 +708,15 @@ public class EasySubmission extends FacesBean
                     this.getFiles().get(indexUpload).getFile().setContent(contentURL);
                 }
                 this.init();
-            }
+            
+        }/*
             else
             {
                 errorMessage.append(getMessage("ComponentContentCategoryNotProvidedEasySubmission"));
             }
+           
         }
+        
         else
         {
             if (this.getFiles().get(indexUpload).getFile().getDefaultMetadata().getTitle().getValue() != null
@@ -722,6 +732,7 @@ public class EasySubmission extends FacesBean
                 }
             }
         }
+        */
         if (errorMessage.length() > 0)
         {
             error(errorMessage.toString());
