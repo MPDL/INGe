@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -49,7 +49,7 @@
 					<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{EasySubmission.creatorParseString}" cols="15" rows="3" />
 					<span class="large_checkbox">
 						<%-- EasySubmission.overwriteCreators --%>
-						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="" />	
+						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EasySubmission.overwriteCreators}" />	
 						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 					</span>
 					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EasySubmission.addCreatorString}" />

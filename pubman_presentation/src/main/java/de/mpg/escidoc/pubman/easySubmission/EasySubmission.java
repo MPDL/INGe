@@ -181,6 +181,8 @@ public class EasySubmission extends FacesBean
     private boolean autosuggestJournals = false;
     
     private String suggestConeUrl = null;
+    
+    private boolean overwriteCreators;
 
     /**
      * Public constructor.
@@ -1973,7 +1975,8 @@ public class EasySubmission extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
+            setCreatorParseString("");
 
             return "loadNewEasySubmission";
         }
@@ -1985,21 +1988,7 @@ public class EasySubmission extends FacesBean
         }
     }
     
-    public String overwriteAndAddCreatorString()
-    {
-        try
-        {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
-
-            return "loadNewEasySubmission";
-        }
-        catch (Exception e)
-        {
-            error(getMessage("ErrorParsingCreatorString"));
-            return "loadNewEasySubmission";
-            
-        }
-    }
+    
     
 
 	public boolean isFulltext() {
@@ -2102,6 +2091,16 @@ public class EasySubmission extends FacesBean
     public void setCreatorIterator(UIXIterator creatorIterator)
     {
         this.creatorIterator = creatorIterator;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
     }
     
     
