@@ -98,7 +98,7 @@
 				languageSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/lang/query';
 				journalSuggestURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/query';
 				journalDetailsBaseURL = '<h:outputText value="#{EasySubmission.suggestConeUrl}" />jquery/jnar/details?id=';
-				journalSuggestCommonParentClass = 'easySubmissionBoxBody';
+				journalSuggestCommonParentClass = 'itemBlock';
 				journalSuggestTrigger = 'JOURNAL';
 				bindSuggests();
 			</script>
