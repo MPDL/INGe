@@ -43,12 +43,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.search.ItemContainerSearch;
 import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
+import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 
 /**
  * This servlet takes an cql query, calls the search service and returns the
@@ -90,6 +92,7 @@ public class RestServlet extends HttpServlet
         String language = null;
         String exportFormat = null;
         String outputFormat = null;
+        String sortKeys = null;
         try
         {
             try
@@ -100,7 +103,7 @@ public class RestServlet extends HttpServlet
                 InitialContext ctx = new InitialContext();
                 itemContainerSearch = (ItemContainerSearch) ctx.lookup(ItemContainerSearch.SERVICE_NAME);
                 cqlQuery = req.getParameter("cqlQuery");
-                if (cqlQuery == null || cqlQuery.trim().equals(""))
+                if ( !checkVal(cqlQuery) )
                 {
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "cqlQuery is not defined in the QueryString: "
                             + qs);
@@ -113,41 +116,46 @@ public class RestServlet extends HttpServlet
                 {
                     language = "all";
                 } 
-                else if ("allende".indexOf(language) == -1)
+                else if ( !("all".equals(language) || "en".equals(language) || "de".equals(language)) )
                 {
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong language: " + language);
                     return;
                 }
 
                 exportFormat = req.getParameter("exportFormat");
-                exportFormat = exportFormat == null ? "" : exportFormat.trim().toUpperCase();
+                exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim().toUpperCase();
+                
+                ProcessCitationStyles pcs = new ProcessCitationStyles();
+                StructuredExport se = new StructuredExport();
                 if (exportFormat.equals(""))
                 {
-                    exportFormat = "ENDNOTE";
+                 // TODO: move default values to services
+                	exportFormat = "ENDNOTE";
                     // if exportFormat is ENDNOTE set outputFormat forced to the
                     // txt
                 } 
-                else if ("APAENDNOTE".indexOf(exportFormat) == -1)
+                else if ( !(pcs.isCitationStyle(exportFormat) || se.isStructuredFormat(exportFormat)) )
                 {
                     resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "Wrong export format: " + exportFormat);
                     return;
                 }
 
-                if (exportFormat.equals("ENDNOTE"))
+                if ( se.isStructuredFormat(exportFormat) )
                 {
                     outputFormat = FileFormatVO.TEXT_NAME;
                 } 
                 else
+                	// citation style
                 {
                     outputFormat = req.getParameter("outputFormat");
-                    outputFormat = outputFormat == null ? "" : outputFormat.trim().toLowerCase();
+                    outputFormat = !checkVal(outputFormat) ? "" : outputFormat.trim().toLowerCase();
                     // get default outputFormat if it is not defined
                     if (outputFormat.equals(""))
                     {
                         outputFormat = FileFormatVO.DEFAULT_NAME;
                     }
                     // check output format consistency
-                    else if (!FileFormatVO.isOutputFormatSupported(outputFormat))
+                    else if ( pcs.getMimeType(exportFormat, outputFormat)==null )
                     {
                         resp.sendError(HttpServletResponse.SC_BAD_REQUEST, "File output format: " + outputFormat
                                 + " is not supported for the export format: " + exportFormat);
@@ -175,8 +183,11 @@ public class RestServlet extends HttpServlet
                     throw new TechnicalException("Cannot map language string to database selector.");
                 }
 
-                // create the query
-                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, databaseSelector, exportFormat, outputFormat);
+                //sortKeys
+                sortKeys = req.getParameter("sortKeys"); 
+                
+                // create the query 
+                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, databaseSelector, exportFormat, outputFormat, sortKeys);
                 // query the search service
                 ExportSearchResult queryResult = itemContainerSearch.searchAndExport(query);
 
@@ -257,4 +268,9 @@ public class RestServlet extends HttpServlet
         e.printStackTrace(pw);
         pw.close();
     }
+    
+    private boolean checkVal(String str) {
+    	return !(str == null || str.trim().equals(""));
+    }	
+	    
 }
