@@ -31,7 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<f:subview id="easySubmissionStep3Manual">
+<f:subview id="easySubmissionStep1Manual">
 
 <div class="clear">
 	<div class="headerSection">
@@ -129,7 +129,7 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">	
-	<h:commandLink styleClass="free_area1_p8 cancelButton" action="#{EasySubmission.loadStep2}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep2}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
 	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
 </div>
 

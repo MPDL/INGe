@@ -61,7 +61,7 @@
 	margin: 0.36em 0.28em 0.45em 0.27em;
 }
 
-.fullItem .itemBlock, .fullItem .itemHeader {
+.fullItem .itemBlock, .fullItem .itemHeader, .fullItem .easySubmissionHeader {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
 }

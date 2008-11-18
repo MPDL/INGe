@@ -108,7 +108,13 @@
 	}
 	
 	.fullItem .fullItemControls .seperator {
+		background-color: #FFFFFF;
 		border-color: #388097;
+	}
+	
+	.fullItem .easySubmissionHeader .seperator {
+		background-color: #FFFFFF;
+		border-color: #163D4B;
 	}
 	
 	.itemList .seperator, .fullItem .seperator {
@@ -285,6 +291,15 @@
 
 	.listItem td .itemHeadline b {
 		font-size: 11px !important;
+	}
+	
+	.fullItem .easySubmissionHeader b {
+		color: #BAB4B3;
+		font-size: 18px;
+	}
+	
+	.fullItem .easySubmissionHeader b.actual {
+		color: #524240;
 	}
 	
 	/*FULL ITEM HEADER*/
