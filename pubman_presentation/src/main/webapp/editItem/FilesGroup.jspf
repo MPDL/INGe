@@ -55,7 +55,7 @@
 								<tr:inputFile styleClass="fileInput" value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
 							</span>
 						</span>
-						<label class="large_label endline fileLabel groupBtn">Choose File</label>
+						<h:outputLabel styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">

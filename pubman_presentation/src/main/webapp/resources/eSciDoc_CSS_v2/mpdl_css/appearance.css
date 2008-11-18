@@ -93,6 +93,11 @@
 		color: #382926;
 		text-decoration: none;
 	}
+	
+	a:disabled, a.disabled {
+		cursor: default;
+		color: #827775;
+	}
 	/*SEPERATORS*/
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator, .itemList .seperator, .fullItem .seperator  {
 		background-color: #388097;

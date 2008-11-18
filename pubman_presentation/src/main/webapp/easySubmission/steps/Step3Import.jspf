@@ -31,109 +31,104 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<f:subview id="easySubmissionStep3Import">
-	
-	<h1>
-		<div class="orientationHeader"><h:outputText value="#{lbl.EasySubmission}"/></div>
-	</h1>
-	
-	<div class="easySubmissionBox floatbox">
-		<div class="easySubmissionBoxHeader">
-			<ol class="three">
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>1</span></li>
-				<li class="easySubmissionDone"><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>2</span></li>
-				<li class="easySubmissionActivated easySubmissionLast"><p><div><h:outputText value="#{lbl.easy_submission_lblStep}"/></div><span>3</span></li>
-			</ol>
+<f:subview id="Import">
+
+<div class="clear">
+	<div class="headerSection">
+		
+	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
+
+		<div id="contentSkipLinkAnchor" class="clear headLine">
+			<!-- Headline starts here -->
+			<h1><h:outputText value="#{lbl.submission_lnkImport}"/></h1>
+			<!-- Headline ends here -->
 		</div>
-		<div class="easySubmissionBoxBody">
-			<h3><h:outputText value="#{msg.easy_submission_Step3Import}"/></h3>
-			
-			<div class="easySubmissionBoxBodyContent">
-				<div>
-					<div class="easySubmissionBoxBodyLine">
-					<div class="trinidadRadiobuttonTable">
-						<h:outputText value="<input type='radio' name='providedFormat' id='easySubmission:easySubmissionStep3Import:eSubID' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectExternal&quot;);'" escape="false" />
-						<h:outputText value="checked='checked'" rendered="#{EasySubmission.disableBibtexFields}"/>
-						<h:outputText value="/>" escape="false"/>
-						<h:outputLabel value="#{lbl.easy_submission_lblProvideID}" for="eSubID"/>
-					</div>
-					</div>
-					<div class="easySubmissionBoxBodySubLine">
-						<h:outputText value="#{lbl.easy_submission_lblYouCanFetch}"/>
-					</div>
-					<div class="easySubmissionBoxBodySubLine">
-							<div class="bibTeXImportIDItem">
-								<h:outputLabel value="#{lbl.easy_submission_lblIDType}"/>
-								<h:selectOneMenu id="cboExtServiceType" value="#{EasySubmissionSessionBean.currentExternalServiceType}" 
-													disabled="#{EasySubmission.disableExternalFields}" onchange="changeImportSource();" binding="#{EasySubmission.sourceSelect}">
-		           					
-		           					<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}" />
-		          				</h:selectOneMenu>
-								<h:commandButton action="#{EasySubmission.changeImportSource}" immediate="true" 
-									id="btnChangeImportSource" value="" style="visibility:hidden;"/>
-							</div>
-
-							<div class="bibTeXImportIDItem">
-								<h:outputLabel value="#{lbl.easy_submission_lblIDValue}"/>
-								<tr:inputText value="#{EasySubmission.serviceID}" disabled="#{EasySubmission.disableExternalFields}"/>
-							</div>
-					</div>
-				</div>
-
-				<div>
-					<div  class="easySubmissionBoxBodyContent">
-					<div class="trinidadRadiobuttonTable">
-						<h:outputLabel value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmission.fulltext}"/>
-						<h:selectOneRadio id="rbgFulltext"  
-									  value="FORMAT"
-									  binding="#{EasySubmissionSessionBean.radioSelectFulltext}"
-									  rendered="#{EasySubmission.fulltext}">										
-							 <f:selectItems value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
+	</div>
+	<div class="small_marginLIncl subHeaderSection">
+		<div class="contentMenu">
+		<!-- content menu starts here -->
+			<div class="sub">
+			<!-- content menu lower line starts here -->
+				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblProvideID}" rendered="#{EasySubmission.disableBibtexFields}" />								
+				<h:commandLink id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
+				<h:panelGroup styleClass="seperator" />
+				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblUploadBibtex}" rendered="#{EasySubmission.disableExternalFields}" />
+				<h:commandLink id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
+			<!-- content menu lower line ends here -->
+			</div>
+		<!-- content menu ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
+				
+			<!-- Subheadline ends here -->
+		</div>
+	</div>
+</div>			
+<div class="full_area0">
+	<div class="full_area0 fullItem">
+		<div class="full_area0 itemBlock noTopBorder">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				Fetch Metadata
+			</h3>
+			<span class="seperator"></span>
+			<div class="free_area0 itemBlockContent endline">
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableBibtexFields}">		
+					<b class="xLarge_area0 endline labelLine">
+						<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline underRework">
+						<span class="large_area0 largeFormPush">
+							<h:outputLabel styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
+				<%-- JIRA AS-589 --%>
+				<%-- start Please provide valueChangeListener instead of hidden button --%>
+							<h:selectOneMenu styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
+								<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
+							</h:selectOneMenu>
+							<h:commandButton action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
+				<%-- stop Please provide valueChangeListener instead of hidden button --%>
+						</span>
+						<span class="xDouble_area0">
+							<h:outputLabel styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
+							<h:inputText styleClass="xDouble_txtInput" value="#{EasySubmission.serviceID}"/>
+						</span>
+					</span>
+					<b class="xLarge_area0 endline labelLine">
+						<h:outputText value="#{lbl.easy_submission_lblFulltext}" rendered="#{EasySubmission.fulltext}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneRadio styleClass="large_radioBtn tiny_marginRIncl xHuge_area0" value="FORMAT" binding="#{EasySubmissionSessionBean.radioSelectFulltext}" rendered="#{EasySubmission.fulltext}">										
+							<f:selectItems value="#{EasySubmissionSessionBean.FULLTEXT_OPTIONS}"/>
 						</h:selectOneRadio>
-					</div>
-					</div>
-				</div>
+					</span>
+				</h:panelGroup>
 
 
-				<div>
-					<div class="easySubmissionBoxBodyLine">
-					<div class="trinidadRadiobuttonTable">
-    					<h:outputText value="<input type='radio' name='providedFormat' id='easySubmission:easySubmissionStep3Import:eSubBib' class='noBorderNoBgColor' onchange='selectExternalService(&quot;easySubmission:easySubmissionStep3Import:btn_selectBibtex&quot;);'" escape="false" />
-						<h:outputText value="checked='checked'" rendered="#{EasySubmission.disableExternalFields}"/>
-						<h:outputText value="/>" escape="false"/>
-    					<h:outputLabel value="#{lbl.easy_submission_lblUploadBibtex}" for="eSubBib"/>
-    				</div>
-    				</div>
-    				<div class="easySubmissionBoxBodySubLine">
-    					<h:outputText value="#{lbl.easy_submission_lblImportReferences}"/>
-    				</div>
-    				<div class="easySubmissionBoxBodySubLine">
-    					<div class="margin5Right">
-							<h:outputText value="#{lbl.easy_submission_lblBibtexPath}"/>
-						</div>
-						<tr:inputFile value="#{EasySubmission.uploadedBibTexFile}" disabled="#{EasySubmission.disableBibtexFields}"/>
-					</div>
-				</div>			
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstLine" rendered="#{EasySubmission.disableExternalFields}">		
+					<b class="xLarge_area0 endline labelLine">
+						<h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline fileSection">
+						<span class="quad_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="quad_label" value="#{lbl.easy_submission_lblBibtexPath}"/>
+							<span class="xDouble_area0 tiny_marginRIncl">
+								<input class="xDouble_txtInput fileLocation" type="text" readonly="readonly"/>
+							</span>
+							<span class="large_area0 large_negMarginRIncl">
+								<span class="large_area0 fileInputPositioner">
+									<tr:inputFile styleClass="fileInput" value="#{EasySubmission.uploadedBibTexFile}" onchange="$(this).parents('.fileSection').find('.fileLocation').val($(this).val()); if($(this).val()!=''){$(this).parents('.fileSection').find('.fileUploadBtn').removeAttr('disabled');} else {$(this).parents('.fileSection').find('.fileUploadBtn').attr('disabled','disabled');};" />
+								</span>
+							</span>
+							<h:outputLabel styleClass="large_label endline fileLabel groupBtn" value="#{lbl.EditItem_btChooseFile}" />
+						</span>
+					</span>
+				</h:panelGroup>
 			</div>
 		</div>
 	</div>
-	<h:commandButton id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" style="visibility: hidden;"/>
-	<h:commandButton id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" style="visibility: hidden;"/>
+</div>
+<div class="full_area0 formButtonArea">					
+	<tr:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></tr:commandLink>
+</div>
 
-	<div class="easySubmissionControls floatbox">
-		<div>
-			<div class="easySubmissionsBackSection">
-			<h:commandLink action="#{EasySubmission.loadStep2}">
-				<h:panelGroup styleClass="easySubmissionBackButton"/>
-				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
-			</h:commandLink>
-			</div>
-			<div class="easySubmissionsNextSection">
-			<tr:commandLink action="#{EasySubmission.harvestData}">
-				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
-				<h:panelGroup styleClass="easySubmissionNextButton"/>
-			</tr:commandLink>
-			</div>
-		</div>
-	</div>
 </f:subview>
