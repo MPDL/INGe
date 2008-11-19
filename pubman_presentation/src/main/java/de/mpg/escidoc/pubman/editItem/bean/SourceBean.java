@@ -1,5 +1,7 @@
 package de.mpg.escidoc.pubman.editItem.bean;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javax.faces.context.FacesContext;
@@ -28,8 +30,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class SourceBean extends FacesBean
 {
-    private final static String HIDDEN_DELIMITER = "\\|\\|##\\|\\|";
-    private final static String HIDDEN_IDTYPE_DELIMITER = "\\|";
+    public final static String HIDDEN_DELIMITER = "\\|\\|##\\|\\|";
+    public final static String HIDDEN_IDTYPE_DELIMITER = "\\|";
     
 	private SourceVO source;
 	
@@ -184,19 +186,8 @@ public class SourceBean extends FacesBean
         {
             AlternativeTitleManager altTitleManager =  getTitleCollection().getAlternativeTitleManager();
             altTitleManager.getObjectList().clear();
+            altTitleManager.getObjectList().addAll(parseAlternativeTitles(getHiddenAlternativeTitlesField()));
             
-            String[] alternativeTitles = getHiddenAlternativeTitlesField().split(HIDDEN_DELIMITER);
-            for (int i = 0; i < alternativeTitles.length; i++)
-            {
-                String alternativeTitle = alternativeTitles[i].trim();
-                if (!alternativeTitle.equals(""))
-                {
-                    
-                    TextVO textVO = new TextVO(alternativeTitle);
-                    altTitleManager.getObjectList().add(textVO);
-                   
-                }
-            }
         }
         
         
@@ -206,30 +197,58 @@ public class SourceBean extends FacesBean
             idManager.getObjectList().clear();
             //idManager.getDataListFromVO().clear();
             
-            String[] ids = getHiddenIdsField().split(HIDDEN_DELIMITER);
-            for (int i = 0; i < ids.length; i++)
-            {
-                String idComplete = ids[i].trim();
-                
-                String[] idParts = idComplete.split(HIDDEN_IDTYPE_DELIMITER);
-                
-                //id has no type, use type 'other'
-                if (idParts.length==1 && !idParts[0].equals(""))
-                {
-                    IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
-                    idManager.getObjectList().add(idVO);
-                }
-                
-                //Id has a type
-                else if (idParts.length==2)
-                {
-                    IdentifierVO idVO = new IdentifierVO(IdType.valueOf(idParts[0]), idParts[1].trim());
-                    idManager.getObjectList().add(idVO);
-                }
-            }  
+            idManager.getObjectList().addAll(parseIdentifiers(getHiddenIdsField()));
         }
         
         return "";
+    }
+    
+    public static List<TextVO> parseAlternativeTitles(String titleList)
+    {
+        List<TextVO> list = new ArrayList<TextVO>();
+        
+        String[] alternativeTitles = titleList.split(HIDDEN_DELIMITER);
+        for (int i = 0; i < alternativeTitles.length; i++)
+        {
+            String alternativeTitle = alternativeTitles[i].trim();
+            if (!alternativeTitle.equals(""))
+            {
+                
+                TextVO textVO = new TextVO(alternativeTitle);
+                list.add(textVO);
+               
+            }
+        }
+        return list;
+    }
+    
+    public static List<IdentifierVO> parseIdentifiers(String idList)
+    {
+        List<IdentifierVO> list = new ArrayList<IdentifierVO>();
+  
+        String[] ids = idList.split(HIDDEN_DELIMITER);
+        for (int i = 0; i < ids.length; i++)
+        {
+            String idComplete = ids[i].trim();
+            
+            String[] idParts = idComplete.split(HIDDEN_IDTYPE_DELIMITER);
+            
+            //id has no type, use type 'other'
+            if (idParts.length==1 && !idParts[0].equals(""))
+            {
+                IdentifierVO idVO = new IdentifierVO(IdType.OTHER, idParts[0].trim());
+                list.add(idVO);
+            }
+            
+            //Id has a type
+            else if (idParts.length==2)
+            {
+                IdentifierVO idVO = new IdentifierVO(IdType.valueOf(idParts[0]), idParts[1].trim());
+                list.add(idVO);
+            }
+        }  
+        return list;
+        
     }
 
     public void setHiddenIdsField(String hiddenIdsField)

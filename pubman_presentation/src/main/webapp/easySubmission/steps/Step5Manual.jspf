@@ -306,7 +306,7 @@
 						</span>
 					</div>
 
-			<%-- Source alternative title copy&paste 
+			<%-- Source alternative title copy&paste --%>
 					<div class="free_area0 endline itemLine noTopBorder noDisplay">
 						<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
@@ -315,7 +315,7 @@
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{EasySubmission.hiddenAlternativeTitlesField}" cols="15" rows="3" />
 						</span>
 					</div>
---%>
+
 			<%-- Source details publisher, place --%>
 					<div class="free_area0 endline itemLine noTopBorder noDisplay">
 						<b class="xLarge_area0_p8 endline labelLine clear">
@@ -339,7 +339,7 @@
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
 						</b>
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
-							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{EasySubmission.sourceIdentifier}" cols="15" rows="3" />
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{EasySubmission.hiddenIdsField}" cols="15" rows="3" />
 						</span>
 					</div>
 

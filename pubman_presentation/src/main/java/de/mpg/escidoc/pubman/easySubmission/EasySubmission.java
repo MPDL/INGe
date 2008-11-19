@@ -66,6 +66,9 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
+import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
+import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
+import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.InternationalizationHelper;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -174,15 +177,19 @@ public class EasySubmission extends FacesBean
      * the ID for the object to fetch by the external service
      */
     private String serviceID;
+   
     private String creatorParseString;
-
+    private boolean overwriteCreators;
 
 	private HtmlMessages valMessage = new HtmlMessages();
     private boolean autosuggestJournals = false;
     
     private String suggestConeUrl = null;
     
-    private boolean overwriteCreators;
+    private String hiddenAlternativeTitlesField;
+    
+    private String hiddenIdsField;
+    
 
     /**
      * Public constructor.
@@ -519,6 +526,7 @@ public class EasySubmission extends FacesBean
         //mapSelectedDate();
         // bind the temporary uploaded files to the files in the current item
         bindUploadedFiles();
+        parseAndSetAlternativeSourceTitlesAndIds();
         this.setFromEasySubmission(true);
         if (validateStep5("validate") == null)
         {
@@ -1075,6 +1083,9 @@ public class EasySubmission extends FacesBean
 
     public String loadStep4Manual()
     {
+        //parse hidden source information
+        parseAndSetAlternativeSourceTitlesAndIds();
+        
         // first try to upload the entered file
         upload(false);
         // then try to save the locator
@@ -1130,10 +1141,12 @@ public class EasySubmission extends FacesBean
             }
         }
         // additionally map the dates if the user comes from Step5
+        /*
         if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP5))
         {
             mapSelectedDate();
         }
+        */
         FacesContext fc = FacesContext.getCurrentInstance();
         // validate
         try
@@ -1204,6 +1217,7 @@ public class EasySubmission extends FacesBean
     {
         // Map entered date to entered type
         //mapSelectedDate();
+        parseAndSetAlternativeSourceTitlesAndIds();
         // validate
         return validateStep5("loadEditItem");
     }
@@ -2101,6 +2115,54 @@ public class EasySubmission extends FacesBean
     public boolean getOverwriteCreators()
     {
         return overwriteCreators;
+    }
+
+    public void setHiddenAlternativeTitlesField(String hiddenAlternativeTitlesField)
+    {
+        this.hiddenAlternativeTitlesField = hiddenAlternativeTitlesField;
+    }
+
+    public String getHiddenAlternativeTitlesField()
+    {
+        return hiddenAlternativeTitlesField;
+    }
+
+    public void setHiddenIdsField(String hiddenIdsField)
+    {
+        this.hiddenIdsField = hiddenIdsField;
+    }
+
+    public String getHiddenIdsField()
+    {
+        return hiddenIdsField;
+    }
+    
+    /**
+     * Takes the text from the hidden input fields, splits it using the delimiter and adds them to the item.
+     * Format of alternative titles: alt title 1 ||##|| alt title 2 ||##|| alt title 3
+     * Format of ids: URN|urn:221441 ||##|| URL|http://www.xwdc.de ||##|| ESCIDOC|escidoc:21431
+     * @return
+     */
+    public String parseAndSetAlternativeSourceTitlesAndIds()
+    {
+        if (getHiddenAlternativeTitlesField() != null && !getHiddenAlternativeTitlesField().trim().equals(""))
+        {
+            SourceVO source = getSource();
+            source.getAlternativeTitles().clear();
+
+            source.getAlternativeTitles().addAll(SourceBean.parseAlternativeTitles(getHiddenAlternativeTitlesField()));
+        }
+        
+        
+        if (getHiddenIdsField()!=null && !getHiddenIdsField().trim().equals(""))
+        {
+           List<IdentifierVO> identifiers = getSource().getIdentifiers();
+           identifiers.clear();
+           identifiers.addAll(SourceBean.parseIdentifiers(getHiddenIdsField()));  
+          
+        }
+        
+        return "";
     }
     
     
