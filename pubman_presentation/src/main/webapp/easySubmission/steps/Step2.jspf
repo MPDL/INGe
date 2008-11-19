@@ -76,8 +76,5 @@
 
 	</div>
 </div>
-<h:commandLink action="#{EasySubmission.loadStep3Manual}" disabled="#{EasySubmission.disableNextButton}">
-	<h:outputText value="#{lbl.easy_submission_btnNext}" />
-</h:commandLink>
 
 </f:subview>

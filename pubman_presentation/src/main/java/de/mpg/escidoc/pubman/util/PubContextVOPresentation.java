@@ -76,7 +76,10 @@ public class PubContextVOPresentation extends ContextVO {
     	}
     	selected = true;
     	EasySubmissionSessionBean easySubmissionSessionBean = (EasySubmissionSessionBean)getSessionBean(EasySubmissionSessionBean.class);
-    	return ((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
+    	
+    	((ItemControllerSessionBean) getSessionBean(ItemControllerSessionBean.class)).createNewPubItem(EasySubmission.LOAD_EASYSUBMISSION, getReference());
+    	easySubmissionSessionBean.setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP3);
+    	return EasySubmission.LOAD_EASYSUBMISSION;
     }
     
     /**
