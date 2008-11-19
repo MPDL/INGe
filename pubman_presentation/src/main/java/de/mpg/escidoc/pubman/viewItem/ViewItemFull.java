@@ -292,8 +292,8 @@ public class ViewItemFull extends FacesBean
         
         
         //check if arriving from easy submission
-        EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
-        this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
+        //EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
+        //this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
         
         if(this.pubItem != null)
         {
