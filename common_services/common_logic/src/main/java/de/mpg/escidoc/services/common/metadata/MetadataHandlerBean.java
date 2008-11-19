@@ -32,12 +32,9 @@ package de.mpg.escidoc.services.common.metadata;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -50,6 +47,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+
+import net.sf.saxon.TransformerFactoryImpl;
 
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
@@ -525,7 +524,7 @@ public class MetadataHandlerBean implements MetadataHandler
 
         XmlTransforming xmlTransforming = new XmlTransformingBean();
 
-        logger.debug("Source:" + itemVO.getMetadata().getSources().get(0).getTitle());
+        //logger.debug("Source:" + itemVO.getMetadata().getSources().get(0).getTitle());
 
         return xmlTransforming.transformToItem(itemVO);
     }
@@ -597,11 +596,7 @@ public class MetadataHandlerBean implements MetadataHandler
     {
     	String xsltUri = formatFrom.toLowerCase() + "2" + formatTo.toLowerCase() + ".xsl";
     	
-    	// Use Saxon for XPath2.0 support
-        System.setProperty("javax.xml.transform.TransformerFactory", "net.sf.saxon.TransformerFactoryImpl");
-        System.out.println("Use Saxon Parser");
-    	
-        TransformerFactory factory = TransformerFactory.newInstance();
+        TransformerFactory factory = new TransformerFactoryImpl();
         factory.setURIResolver(new LocalURIResolver(this.METADATA_XSLT_LOCATION));
         StringWriter writer = new StringWriter();
         
