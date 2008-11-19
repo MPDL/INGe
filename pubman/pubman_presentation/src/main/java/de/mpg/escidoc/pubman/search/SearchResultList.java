@@ -216,11 +216,11 @@ public class SearchResultList extends ItemList
             
                 return ErrorPage.LOAD_ERRORPAGE;
             }
-            
+
             if (curExportFormat.getFormatType() ==  ExportFormatVO.FormatType.STRUCTURED)
             {
             	// replace the carriage returns by html breaks so that h:outputText can correctly display it
-            	this.displayExportData = this.displayExportData.replace("\n","<br>");
+            	this.displayExportData = this.displayExportData.replaceAll("\n","<br/>");
             }
             logger.debug("prepareDisplayExportData set FULL data to session bean ");
             
