@@ -66,7 +66,9 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.editItem.bean.CreatorCollection;
+import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection;
 import de.mpg.escidoc.pubman.editItem.bean.SourceBean;
+import de.mpg.escidoc.pubman.editItem.bean.TitleCollection;
 import de.mpg.escidoc.pubman.editItem.bean.IdentifierCollection.IdentifierManager;
 import de.mpg.escidoc.pubman.editItem.bean.TitleCollection.AlternativeTitleManager;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -81,6 +83,7 @@ import de.mpg.escidoc.services.common.metadata.MultipleEntriesInBibtexException;
 import de.mpg.escidoc.services.common.metadata.NoEntryInBibtexException;
 import de.mpg.escidoc.services.common.valueobjects.AdminDescriptorVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.FormatVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.MdsFileVO;
@@ -162,6 +165,7 @@ public class EasySubmission extends FacesBean
     private UIXIterator creatorIterator = new UIXIterator();
     public SelectItem[] locatorVisibilities;
     private CreatorCollection creatorCollection;
+    private IdentifierCollection identifierCollection;
     private String selectedDate;
     private UploadedFile uploadedBibTexFile;
     private boolean fromEasySubmission = false;
@@ -189,6 +193,10 @@ public class EasySubmission extends FacesBean
     private String hiddenAlternativeTitlesField;
     
     private String hiddenIdsField;
+    
+    private TitleCollection eventTitleCollection;
+    
+    private UIXIterator identifierIterator;
     
 
     /**
@@ -272,6 +280,13 @@ public class EasySubmission extends FacesBean
         if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP4))
         {
             this.creatorCollection = new CreatorCollection(this.getItem().getMetadata().getCreators());
+        }
+        
+        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP5))
+        {
+           
+            this.identifierCollection = new IdentifierCollection(this.getItem().getMetadata().getIdentifiers());
+            this.eventTitleCollection = new TitleCollection(this.getItem().getMetadata().getEvent());
         }
     	
     	//Get informations about import sources if submission method = fetching import
@@ -1210,6 +1225,7 @@ public class EasySubmission extends FacesBean
         
         
         this.getEasySubmissionSessionBean().setCurrentSubmissionStep(EasySubmissionSessionBean.ES_STEP5);
+        this.init();
         return "loadNewEasySubmission";
     }
 
@@ -2163,6 +2179,76 @@ public class EasySubmission extends FacesBean
         }
         
         return "";
+    }
+
+    public void setIdentifierCollection(IdentifierCollection identifierCollection)
+    {
+        this.identifierCollection = identifierCollection;
+    }
+
+    public IdentifierCollection getIdentifierCollection()
+    {
+        return identifierCollection;
+    }
+    
+    /**
+     * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a checkbox.
+     * @return true if invitationstatus in VO is set, else false
+     */
+    public boolean getInvited()
+    {
+        boolean retVal = false;
+
+        // Changed by FrM: Check for event       
+        if (this.getItem().getMetadata().getEvent() != null && this.getItem().getMetadata().getEvent().getInvitationStatus() != null
+                && this.getItem().getMetadata().getEvent().getInvitationStatus().equals(EventVO.InvitationStatus.INVITED))
+        {
+            retVal = true;
+        }
+
+        return retVal;
+    }
+
+    /**
+     * Invitationstatus of event has to be converted as it's an enum that is supposed to be shown in a checkbox.
+     * @param invited the value of the checkbox
+     */
+    public void setInvited(boolean invited)
+    {
+        if (invited)
+        {
+            this.getItem().getMetadata().getEvent().setInvitationStatus(EventVO.InvitationStatus.INVITED);
+        }
+        else
+        {
+            this.getItem().getMetadata().getEvent().setInvitationStatus(null);
+        }
+
+        if (logger.isDebugEnabled())
+        {
+            logger.debug("Invitationstatus in VO has been set to: '"
+                    + this.getItem().getMetadata().getEvent().getInvitationStatus() + "'");
+        }
+    }
+
+    public void setEventTitleCollection(TitleCollection eventTitleCollection)
+    {
+        this.eventTitleCollection = eventTitleCollection;
+    }
+
+    public TitleCollection getEventTitleCollection()
+    {
+        return eventTitleCollection;
+    }
+
+    public void setIdentifierIterator(UIXIterator identifierIterator)
+    {
+        this.identifierIterator = identifierIterator;
+    }
+
+    public UIXIterator getIdentifierIterator()
+    {
+        return identifierIterator;
     }
     
     

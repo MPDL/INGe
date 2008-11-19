@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -177,30 +177,31 @@
 					</span>
 				</div>
 		
-<%-- no Identifier at the moment
 		<!-- Identifier -->
-				<tr:iterator var="identifier" value="#{EditItem.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.identifierIterator}" varStatus="index">
+				<tr:iterator var="identifier" value="#{EasySubmission.identifierCollection.identifierManager.objectDM}" binding="#{EasySubmission.identifierIterator}" varStatus="index">
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+						
 						<b class="xLarge_area0_p8 endline labelLine clear">
-							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
 						</b>
+						
 						<span class="xHuge_area0 xTiny_marginLExcl endline">
 							<span class="large_area0 largeFormPush">
 								<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblIdentifierType}" />
 								<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}">
-									<f:selectItems value="#{EditItem.identifierCollection.identifierTypes}"/>
+									<f:selectItems value="#{EasySubmission.identifierCollection.identifierTypes}"/>
 								</h:selectOneMenu>
 							</span>
 							<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblIdentifierValue}" />
 							<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.identifierCollection.identifierManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EditItem.identifierCollection.identifierManager.removeObject}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}"/>
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
---%>
+
 		<%-- Edition, Degree type, location --%>
 				<div class="free_area0 endline itemLine noTopBorder">
 					<b class="xLarge_area0_p8 endline labelLine clear">
@@ -217,8 +218,15 @@
 				</div>
 
 			</div>
+		</div>
 
-<%-- no Event section at the moment
+		<div class="full_area0 itemBlock">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{lbl.EditItem_lblEvent}" />
+			</h3>
+			<span class="seperator"></span>
+
+<%-- no Event section at the moment --%>
 			<div class="free_area0 itemBlockContent endline">
 		<!-- Event title -->
 				<div class="free_area0 endline itemLine noTopBorder">
@@ -226,16 +234,16 @@
 						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.eventTitleCollection.titleIF.title.value}" cols="15" rows="3"/>
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.eventTitleCollection.addTitle}" />
-						<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.eventTitleCollection.removeTitle}" />
+						<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" />
+						<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" />
 					</span>
 				</div>
 		
 		<!-- Alternative event title -->
-				<tr:iterator var="altTitle" value="#{EditItem.eventTitleCollection.alternativeTitleManager.objectDM}">
+				<tr:iterator var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
 						<b class="xLarge_area0_p8 endline labelLine clear">
 							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAltTitle}"/><span class="noDisplay">: </span>
@@ -244,8 +252,8 @@
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
@@ -270,14 +278,14 @@
 						</span>
 						<span class="medium_area0">
 							<span class="medium_checkbox">
-								<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EditItem.invited}" />
+								<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EasySubmission.invited}" />
 								<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{lbl.EditItem_lblInvitationstatus}" />
 							</span>
 						</span>
 					</span>
 				</div>
 			</div>
---%>
+
 			<div class="full_area0 itemBlock" >
 				<h3 class="xLarge_area0_p8 endline blockHeader">
 					<h:outputText value="#{lbl.EditItem_lblSource}" />
