@@ -95,7 +95,7 @@ public class AuthorDecoder
     {
 
         
-        System.out.println(authors);
+        //System.out.println(authors);
         //Replace newline with "and" (and, thus, interprete as new author) if no seperation like ", ; and und et" is found before or after
         //otherwise replace with "and" including the seperator
         authors = authors.replaceAll("((,|;| and| und| et))\\s*\\n\\s*", " and ").trim();
@@ -105,7 +105,7 @@ public class AuthorDecoder
         //normalize the string
         authors = authors.replaceAll("\\s+", " ").trim();
 
-        System.out.println(authors);
+        //System.out.println(authors);
         
         logger.debug("Testing '" + authors + "'");
 
