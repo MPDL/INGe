@@ -343,8 +343,7 @@
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier"/>			
 			<!-- PUBLISHING-INFO -->
-			<xsl:choose>	
-				
+			<xsl:choose>				
 				<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
 					<!-- case: book or proceedings -->					
 					<xsl:call-template name="createPublishinginfo"/>					
@@ -439,7 +438,16 @@
 						<xsl:call-template name="createSeries"/>
 					</xsl:element>
 				</xsl:when>
-			</xsl:choose>	
+			</xsl:choose>
+			<!-- isPartOf RELATION -->	
+			<xsl:if test="../relations/relation[@reltype='ispartof']">
+				<xsl:element name="publ:source">
+					<xsl:attribute name="type" select="'series'"/>
+					<xsl:element name="dc:title">
+						<xsl:value-of select="."/>
+					</xsl:element>
+				</xsl:element>
+			</xsl:if>
 			<xsl:apply-templates select="phydesc"/>
 			<!--end publication-->	
 		</xsl:element>				
