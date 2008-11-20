@@ -46,6 +46,7 @@
 				<link href="../../cone/js/jquery.suggest.css" rel="stylesheet" type="text/css" />
 
 				<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLzotero}unapi"/>
 				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
 				<meta http-equiv="pragma" content="no-cache"/>
 				<meta http-equiv="cache-control" content="no-cache"/>
@@ -58,6 +59,9 @@
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText id="pageDummy" value="#{ViewItemFullPage.beanName}" styleClass="noDisplay" />
+			<!-- The unAPI Identifier for this item -->
+			<h:outputText value="<abbr class='unapi-id' title='#{ViewItemFull.pubItem.version.objectIdAndVersion}'></abbr>" escape="false" rendered="#{ViewItemFull.isStateReleased}"/>
+
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->
