@@ -29,7 +29,6 @@
 
 package de.mpg.escidoc.services.search.query;
 
-import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 
 /**
  * Search query used by the export interface.
@@ -44,15 +43,17 @@ public class ExportSearchQuery extends SearchQuery
     private static final long serialVersionUID = 1L;
 
     /** Cql query. */
-    private String cqlQuery;
+    private String cqlQuery = null;
     /** Export format to use. */
-    private String exportFormat;
+    private String exportFormat = null;
     /** Output format to use. */
-    private String outputFormat;
-    /** Sort keys */
+    private String outputFormat = null;
+    /** Index database selector. */
+    private String indexSelector = null;
+    /** Sort keys. */
     private String sortKeys;
 
-	/**
+    /**
      * Create an export search query.
      * 
      * @param cqlQuery
@@ -64,7 +65,23 @@ public class ExportSearchQuery extends SearchQuery
      */
     public ExportSearchQuery(String cqlQuery, String exportFormat, String outputFormat, String sortKeys)
     {
-        super();
+        this.outputFormat = outputFormat;
+        this.exportFormat = exportFormat;
+        this.cqlQuery = cqlQuery;
+    }
+
+    /**
+     * Create an export search query.
+     * 
+     * @param cqlQuery
+     *            the cql query to use
+     * @param exportFormat
+     *            the export format to use
+     * @param outputFormat
+     *            the output format to use
+     */
+    public ExportSearchQuery(String cqlQuery, String exportFormat, String outputFormat)
+    {
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
         this.sortKeys = sortKeys;
@@ -76,21 +93,21 @@ public class ExportSearchQuery extends SearchQuery
      * 
      * @param cqlQuery
      *            the cql query to use
-     * @param indexSelector
-     *            the index database to use
      * @param exportFormat
      *            the export format to use
+     * @param indexSelector
+     *            the selected index selector
      * @param outputFormat
      *            the output format to use
      */
-    public ExportSearchQuery(String cqlQuery, IndexDatabaseSelector indexSelector,
-            String exportFormat, String outputFormat, String sortKeys)
+    public ExportSearchQuery(String cqlQuery, String indexSelector, String exportFormat, String outputFormat,
+            String sortKeys)
     {
-        super(indexSelector);
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
         this.sortKeys = sortKeys;
         this.cqlQuery = cqlQuery;
+        this.indexSelector = indexSelector;
     }
 
     /**
@@ -122,16 +139,34 @@ public class ExportSearchQuery extends SearchQuery
     {
         return outputFormat;
     }
-    
-    
+
+    /**
+     * Getter for the output format.
+     * 
+     * @return output format
+     */
+    public String getIndexSelector()
+    {
+        return indexSelector;
+    }
+
     /**
      * Getter for the sortKeys.
      * 
      * @return output format
      */
-	public String getSortKeys() {
-		return sortKeys;
-	}
-    
+    public String getSortKeys()
+    {
+        return sortKeys;
+    }
 
+    /**
+     * True if an index selector is available.
+     * 
+     * @return true or false
+     */
+    public boolean hasIndexSelector()
+    {
+        return (this.indexSelector != null);
+    }
 }

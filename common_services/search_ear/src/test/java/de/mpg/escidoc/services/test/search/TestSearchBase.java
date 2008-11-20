@@ -57,7 +57,7 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRol
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
 /**
@@ -74,7 +74,7 @@ public class TestSearchBase extends TestBase
 {
     private static Logger logger = Logger.getLogger(TestSearchBase.class);
     @EJB
-    protected ItemContainerSearch itemContainerSearch;
+    protected Search itemContainerSearch;
     protected static String itemTitle;
     protected static String creatorsGivenName;
     protected static String creatorsFamilyName;
@@ -100,7 +100,7 @@ public class TestSearchBase extends TestBase
     @Before
     public void setUp() throws Exception
     {
-        this.itemContainerSearch = (ItemContainerSearch) getService(ItemContainerSearch.SERVICE_NAME);
+        this.itemContainerSearch = (Search) getService(Search.SERVICE_NAME);
     }
 
     /**

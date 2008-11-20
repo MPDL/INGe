@@ -53,14 +53,13 @@ import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FileVO.Visibility;
-import de.mpg.escidoc.services.search.ItemContainerSearch;
-import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
+import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.PlainCqlQuery;
 import de.mpg.escidoc.services.search.query.SearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.test.search.TestBase;
 
 import javax.ejb.EJB;
@@ -76,14 +75,14 @@ import javax.ejb.EJB;
 public class SimpleSearchTest extends TestBase
 {
 	@EJB
-    private ItemContainerSearch itemContainerSearch;
+    private Search itemContainerSearch;
 	
     /**
      * @throws Exception
      */
     @Before
     public void setUp() throws Exception {
-    	itemContainerSearch = (ItemContainerSearch)getService(ItemContainerSearch.SERVICE_NAME);
+    	itemContainerSearch = (Search)getService(Search.SERVICE_NAME);
     }
     /*
     @Test 

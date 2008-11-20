@@ -4,7 +4,7 @@
 	<Description>Search and output of eSciDoc items. Citation style: APA; output format: html; languages: all</Description>
 	<Tags>eSciDoc PubMan export search APA</Tags>
 	<Contact>pubman@mpdl.mpg.de</Contact>
-	<Url type="text/html" template="${escidoc.search.service.url}SearchAndExport?cqlQuery={searchTerms}&amp;exportFormat=APA&amp;outputFormat=html&amp;language=all"/>
+	<Url type="text/html" template="search/SearchAndExport?cqlQuery={searchTerms}&amp;exportFormat=APA&amp;outputFormat=html&amp;language=all"/>
 	<Query role="example" searchTerms="test"/>
 	<LongName>SearchAndExport of eSciDoc items</LongName>
 	<Developer>makarenko@mpdl.mpg.de</Developer>

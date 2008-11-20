@@ -1,83 +1,77 @@
-/*
- * CDDL HEADER START
- *
- * The contents of this file are subject to the terms of the
- * Common Development and Distribution License, Version 1.0 only
- * (the "License"). You may not use this file except in compliance
- * with the License.
- *
- * You can obtain a copy of the license at license/ESCIDOC.LICENSE
- * or http://www.escidoc.de/license.
- * See the License for the specific language governing permissions
- * and limitations under the License.
- *
- * When distributing Covered Code, include this CDDL HEADER in each
- * file and include the License file at license/ESCIDOC.LICENSE.
- * If applicable, add the following below this CDDL HEADER, with the
- * fields enclosed by brackets "[]" replaced with your own identifying
- * information: Portions Copyright [yyyy] [name of copyright owner]
- *
- * CDDL HEADER END
+/**
+ * 
  */
-
-/*
- * Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- * für wissenschaftlich-technische Information mbH and Max-Planck-
- * Gesellschaft zur Förderung der Wissenschaft e.V.
- * All rights reserved. Use is subject to license terms.
- */
-
 package de.mpg.escidoc.services.search.query;
 
+import java.io.IOException;
 import java.io.Serializable;
 
-import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
+import org.apache.axis.types.NonNegativeInteger;
+import org.apache.axis.types.PositiveInteger;
+import org.z3950.zing.cql.CQLParseException;
+
+import de.mpg.escidoc.services.search.parser.ParseException;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 
 /**
- * This is the base class for search queries. A search query always consists of
- * a index database selector. The default selector is chosen if none is
- * supplied.
+ * This interface provides a ADT for standard search queries.
  * 
  * @author endres
  * 
  */
-public class SearchQuery implements Serializable
+public abstract class SearchQuery implements Serializable
 {
-
+    /** Serial version identifier. */
     private static final long serialVersionUID = 1L;
-
-    /** Selects the lucene query index. */
-    private IndexDatabaseSelector indexSelector;
-
-    /** The default index database to be searched by the query. */
-    private static final IndexDatabaseSelector INDEX_DEFAULT = IndexDatabaseSelector.All;
-
+    /** Defines where the offset for the search result will be.*/
+    private PositiveInteger startRecord = null;
+    /** Defines how many results shall be retrieved. */
+    private NonNegativeInteger maximumRecords = null;
+    
+    private static final String DEFAULT_MAXIMUM_RECORDS = "10000";
+    
     /**
-     * Constructor with index database selector.
      * 
-     * @param indexSelector
-     *            index database selector
      */
-    public SearchQuery(IndexDatabaseSelector indexSelector)
+    public SearchQuery() 
     {
-        this.indexSelector = indexSelector;
+        this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS);
+        this.startRecord = null;
+    }
+    
+    /**
+     * Get the Cql query of a standard search query.
+     * 
+     * @return cql query
+     * @throws CQLParseException
+     *             a parse error occur, when building up the node tree
+     * @throws IOException
+     *             an io error occurs
+     * @throws TechnicalException
+     *             an internal error occurs
+     * @throws ParseException
+     *             a parse error occur, when parsing the search terms in the
+     *             criteria
+     */
+    public abstract String getCqlQuery() throws CQLParseException, IOException, TechnicalException, ParseException;
+
+    public PositiveInteger getStartRecord()
+    {
+        return startRecord;
     }
 
-    /**
-     * Default constructor with no index database selector. Default is chosen.
-     */
-    public SearchQuery()
+    public void setStartRecord(PositiveInteger startRecord)
     {
-        this.indexSelector = INDEX_DEFAULT;
+        this.startRecord = startRecord;
     }
 
-    /**
-     * Get the index database selector.
-     * 
-     * @return index database selector
-     */
-    public IndexDatabaseSelector getIndexSelector()
+    public NonNegativeInteger getMaximumRecords()
     {
-        return indexSelector;
+        return maximumRecords;
+    }
+
+    public void setMaximumRecords(NonNegativeInteger maximumRecords)
+    {
+        this.maximumRecords = maximumRecords;
     }
 }

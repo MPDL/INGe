@@ -61,16 +61,17 @@ import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO.CreatorRol
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.MdsPublicationVO.Genre;
 import de.mpg.escidoc.services.framework.PropertyReader;
-import de.mpg.escidoc.services.search.ItemContainerSearch;
-import de.mpg.escidoc.services.search.ItemContainerSearchBean;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.bean.SearchBean;
 import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataDateSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.BooleanOperator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
@@ -437,7 +438,7 @@ public class TestMetadataSearch extends TestSearchBase
         MetadataSearchQuery query = getStandardQuery();
         query.addCriterion(new MetadataSearchCriterion(CriterionType.TITLE, testTitle, LogicalOperator.AND));
         
-        StandardSearchResult result = itemContainerSearch.search(query);
+        ItemContainerSearchResult result = itemContainerSearch.searchForItemContainer(query);
         
         List<ItemContainerSearchResultVO> resultList = result.getResultList();
         
@@ -453,15 +454,34 @@ public class TestMetadataSearch extends TestSearchBase
     public void testSearchEmptyString() throws Exception
     {
         //search the item for source
-        StandardSearchResult result;
+        ItemContainerSearchResult result;
         try
         {
             String testTitle = "";
             MetadataSearchQuery query = getStandardQuery();
             query.addCriterion(new MetadataSearchCriterion(CriterionType.TITLE, testTitle, LogicalOperator.AND));
             
-            result = itemContainerSearch.search(query);
+            result = itemContainerSearch.searchForItemContainer(query);
             fail("ParseException expected");
+        }
+        catch (ParseException e)
+        {
+        }
+        
+       
+    }
+    
+    @Test
+    public void testOrganizationalSearch() throws Exception
+    {
+        OrgUnitsSearchResult result = null;
+        try
+        {
+            String testTitle = "MPS";
+            MetadataSearchQuery query = getStandardQuery();
+            query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, testTitle, LogicalOperator.AND));
+            
+            result = itemContainerSearch.searchForOrganizationalUnits(query);
         }
         catch (ParseException e)
         {
@@ -478,7 +498,7 @@ public class TestMetadataSearch extends TestSearchBase
      */
     private void searchAndCompareResults(MetadataSearchQuery query, ItemVO itemToCompare) throws Exception
     {
-        StandardSearchResult result = itemContainerSearch.search(query);
+        ItemContainerSearchResult result = itemContainerSearch.searchForItemContainer(query);
         List<ItemContainerSearchResultVO> resultList = result.getResultList();
         assertEquals("Wrong number of search results", 1, resultList.size());
         ItemVO resultItem = (ItemVO)resultList.get(0);

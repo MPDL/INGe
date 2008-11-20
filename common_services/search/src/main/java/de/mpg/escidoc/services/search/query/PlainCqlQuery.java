@@ -29,7 +29,6 @@
 
 package de.mpg.escidoc.services.search.query;
 
-import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
 
 /**
  * This query is used if you want to use a plain cql query.
@@ -37,7 +36,7 @@ import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
  * @author endres
  * 
  */
-public class PlainCqlQuery extends SearchQuery implements StandardSearchQuery
+public class PlainCqlQuery extends SearchQuery
 {
     /** Serial identifier. */
     private static final long serialVersionUID = 1L;
@@ -61,20 +60,6 @@ public class PlainCqlQuery extends SearchQuery implements StandardSearchQuery
     public PlainCqlQuery(String cqlQuery)
     {
         super();
-        this.cqlQuery = cqlQuery;
-    }
-
-    /**
-     * Create a query with a index database selector.
-     * 
-     * @param cqlQuery
-     *            cql query
-     * @param selector
-     *            index database selector
-     */
-    public PlainCqlQuery(String cqlQuery, IndexDatabaseSelector selector)
-    {
-        super(selector);
         this.cqlQuery = cqlQuery;
     }
 }

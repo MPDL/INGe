@@ -27,7 +27,7 @@
  * All rights reserved. Use is subject to license terms.
  */
 
-package de.mpg.escidoc.services.search;
+package de.mpg.escidoc.services.search.bean;
 
 import gov.loc.www.zing.srw.RecordType;
 import gov.loc.www.zing.srw.SearchRetrieveRequestType;
@@ -50,8 +50,8 @@ import javax.interceptor.Interceptors;
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.axis.message.MessageElement;
-import org.apache.axis.types.NonNegativeInteger;
-import org.apache.log4j.Logger; 
+import org.apache.axis.types.PositiveInteger;
+import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
@@ -61,16 +61,19 @@ import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
+import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.framework.ServiceLocator;
-import de.mpg.escidoc.services.search.parser.ParseException;  
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.StandardSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportHandler;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportManagerException;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFoundException;
@@ -80,12 +83,12 @@ import de.mpg.escidoc.services.structuredexportmanager.StructuredExportXSLTNotFo
  * 
  */
 @Remote
-@RemoteBinding(jndiBinding = ItemContainerSearch.SERVICE_NAME)
+@RemoteBinding(jndiBinding = Search.SERVICE_NAME)
 @Stateless
 @TransactionAttribute(TransactionAttributeType.NOT_SUPPORTED)
 @Interceptors(
 { LogStartEndInterceptor.class, LogMethodDurationInterceptor.class })
-public class ItemContainerSearchBean implements ItemContainerSearch
+public class SearchBean implements Search
 {
 
     /** Logging instance. */
@@ -110,7 +113,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch
     private StructuredExportHandler structuredExportHandler;
 
     /** Standard constructor. */
-    public ItemContainerSearchBean()
+    public SearchBean()
     {
         this.logger = Logger.getLogger(getClass());
     }
@@ -121,18 +124,18 @@ public class ItemContainerSearchBean implements ItemContainerSearch
     private static final String INDEXDATABASE_EN = "escidoc_en";
     /** Coreservice identifier for the 'english' lucene index database. */
     private static final String INDEXDATABASE_DE = "escidoc_de";
+    /** Coreservice identifier for the organizational unit index database. */
+    private static final String INDEXDATABASE_OU = "escidocou_all";
 
     /** Version of the cql search request. */
     private static final String SEARCHREQUEST_VERSION = "1.1";
-    /** Maximum records to be retrieved. */
-    private static final String MAXIMUM_RECORDS = "10000";
     /** Packing of result. */
     private static final String RECORD_PACKING = "xml";
 
     /**
      * {@inheritDoc}
      */
-    public StandardSearchResult search(StandardSearchQuery query) throws Exception
+    public ItemContainerSearchResult searchForItemContainer(SearchQuery query) throws Exception
     {
 
         try
@@ -143,15 +146,15 @@ public class ItemContainerSearchBean implements ItemContainerSearch
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
-
-            NonNegativeInteger count = new NonNegativeInteger(MAXIMUM_RECORDS);
-            searchRetrieveRequest.setMaximumRecords(count);
+            
+            searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
+            searchRetrieveRequest.setStartRecord(query.getStartRecord());
             searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-            SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, query
-                    .getIndexSelector());
+            SearchRetrieveResponseType searchResult = performSearch(
+                    searchRetrieveRequest, INDEXDATABASE_ALL);
             List<ItemContainerSearchResultVO> resultList = transformToSearchResultList(searchResult);
-            StandardSearchResult result = new StandardSearchResult(resultList, cqlQuery);
+            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery);
             return result;
         } 
         catch (ParseException f) 
@@ -166,8 +169,8 @@ public class ItemContainerSearchBean implements ItemContainerSearch
 
     /**
      * {@inheritDoc}
-     */ 
-    public ExportSearchResult searchAndExport(ExportSearchQuery query) throws Exception
+     */
+    public ExportSearchResult searchAndExportItems(ExportSearchQuery query) throws Exception
     {
 
         String cqlQuery = query.getCqlQuery();
@@ -175,59 +178,130 @@ public class ItemContainerSearchBean implements ItemContainerSearch
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
         searchRetrieveRequest.setQuery(query.getCqlQuery());
-        searchRetrieveRequest.setSortKeys(query.getSortKeys());
 
-        NonNegativeInteger nni = new NonNegativeInteger(MAXIMUM_RECORDS);
-        searchRetrieveRequest.setMaximumRecords(nni);
+        searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
+        searchRetrieveRequest.setMaximumRecords(query.getStartRecord());
         searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-        SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, query
-                .getIndexSelector());
+        String index = null;
+        if (query.hasIndexSelector()) 
+        {
+            index = query.getIndexSelector();
+        }
+        else
+        {
+            index = INDEXDATABASE_ALL;
+        }
+        SearchRetrieveResponseType searchResult = performSearch(
+                searchRetrieveRequest, index);
         String itemList = transformToItemListAsString(searchResult);
 
-        String outputFormat = query.getOutputFormat();
-        String exportFormat = query.getExportFormat();
-        
-        if ( !checkVal(exportFormat) )
+        if (query.getExportFormat() == null || query.getExportFormat().trim().equals(""))
         {
             throw new TechnicalException("exportFormat is empty");
-        }
-        if ( !checkVal(itemList) )
+        }           
+        if (itemList == null || itemList.trim().equals(""))
         {
             throw new TechnicalException("itemList is empty");
         }
-        
-        
         byte[] exportData = null;
-        
         // structured export
-        if ( structuredExportHandler.isStructuredFormat(exportFormat) )
+        boolean flag = false;
+        try
         {
-                exportData = getOutput(exportFormat, FormatType.STRUCTURED, null,
-                        itemList);
-                return new ExportSearchResult(exportData, cqlQuery);
+            for (String ef : structuredExportHandler.getFormatsList())
+            {
+                if (query.getExportFormat().equals(ef))
+                {
+                    exportData = getOutput(query.getExportFormat(), FormatType.STRUCTURED, null,
+                            itemList);
+                    return new ExportSearchResult(exportData, cqlQuery);
+                }
+            }
         } 
-        // citation style
-        else if ( citationStyleHandler.isCitationStyle(exportFormat) ) 
+        catch (Exception e)
         {
-            if ( !checkVal(outputFormat) )
+            throw new TechnicalException(e);
+        }
+
+        try
+        {
+            for (String ef : XmlHelper.getListOfStyles())
+            {
+                if (query.getExportFormat().equals(ef))
+                {
+                    flag = true;
+                    break;
+                }
+            }
+        } 
+        catch (Exception e)
+        {
+            throw new TechnicalException(e);
+        }
+        String outputFormat = query.getOutputFormat();
+        String exportFormat = query.getExportFormat();
+        if (flag)
+        {
+            if (outputFormat == null || outputFormat.trim().equals(""))
             {
                 throw new TechnicalException("outputFormat should be not empty for exportFormat:"
                         + exportFormat);
             }
             outputFormat = outputFormat.trim();
-            if ( citationStyleHandler.getMimeType(exportFormat, outputFormat)==null)
+            if (!FileFormatVO.isOutputFormatSupported(outputFormat))
             {
                 throw new TechnicalException("file output format: " + outputFormat
                         + " for export format: " + exportFormat + " is not supported");
             }
-            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
-            return new ExportSearchResult(exportData, cqlQuery);
-        }
+            try
+            {
+                exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
+                return new ExportSearchResult(exportData, cqlQuery);
+            } 
+            catch (Exception e)
+            {
+                throw new TechnicalException(e);
+            }
+        } 
         else
         {
             // no export format found!!!
             throw new TechnicalException("Export format: " + exportFormat + " is not supported");
+        }
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public OrgUnitsSearchResult searchForOrganizationalUnits(SearchQuery query) throws Exception
+    {
+        try
+        {
+            // call framework Search service
+            String cqlQuery = query.getCqlQuery();
+
+            SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+            searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
+            searchRetrieveRequest.setQuery(cqlQuery);
+
+            searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
+            searchRetrieveRequest.setStartRecord(query.getStartRecord());
+            searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
+
+            SearchRetrieveResponseType searchResult = performSearch(
+                    searchRetrieveRequest, INDEXDATABASE_OU);
+            List<AffiliationVO> resultList = transformToAffiliationList(searchResult);
+            OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery);
+            return result;
+        } 
+        catch (ParseException f) 
+        {
+            throw new ParseException();
+        }
+        catch (Exception e)
+        {
+            throw new TechnicalException(e);
         }
     }
 
@@ -280,28 +354,6 @@ public class ItemContainerSearchBean implements ItemContainerSearch
     }
 
     /**
-     * Returns the index database selector as string.
-     * @param sel  index database selector
-     * @return  selector as string
-     * @throws TechnicalException
-     */
-    private String getIndexDatabaseSelectorAsString(IndexDatabaseSelector sel)
-        throws TechnicalException
-    {
-        switch (sel)
-        {
-            case All:
-                return INDEXDATABASE_ALL;
-            case English:
-                return INDEXDATABASE_EN;
-            case German:
-                return INDEXDATABASE_DE;
-            default:
-                throw new TechnicalException();
-        }
-    }
-
-    /**
      * Perform a search with the SRU interface.
      * @param searchRetrieveRequest  SRU search request
      * @param sel  index dtabase selector
@@ -309,7 +361,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch
      * @throws TechnicalException  if the search fails
      */
     private SearchRetrieveResponseType performSearch(SearchRetrieveRequestType searchRetrieveRequest, 
-        IndexDatabaseSelector sel)
+        String index)
         throws TechnicalException
     {
 
@@ -318,7 +370,7 @@ public class ItemContainerSearchBean implements ItemContainerSearch
         try
         {
             logger.info("Cql search string: <" + searchRetrieveRequest.getQuery() + ">");
-            searchResult = ServiceLocator.getSearchHandler(getIndexDatabaseSelectorAsString(sel))
+            searchResult = ServiceLocator.getSearchHandler(index)
                     .searchRetrieveOperation(searchRetrieveRequest);
             logger.info("Search result: " + searchResult.getNumberOfRecords()
                     + " item(s) or container(s)");
@@ -438,8 +490,28 @@ public class ItemContainerSearchBean implements ItemContainerSearch
         return itemStringList;
     }
     
-    private boolean checkVal(String str) {
-    	return !(str == null || str.trim().equals("")); 
-	}
-
+    private List<AffiliationVO> transformToAffiliationList(SearchRetrieveResponseType searchResult) 
+        throws Exception
+    {
+        ArrayList<AffiliationVO> resultList = new ArrayList<AffiliationVO>();
+        if (searchResult.getRecords() != null)
+        {
+            for (RecordType record : searchResult.getRecords().getRecord())
+            {
+                StringOrXmlFragment data = record.getRecordData();
+                MessageElement[] messages = data.get_any();
+                // Data is in the first record
+                if (messages.length == 1)
+                {                
+                    String searchResultItem = messages[0].getAsString();
+                    logger.debug("Search result: " + searchResultItem);
+                    AffiliationVO itemResult = 
+                        xmlTransforming.transformToAffiliation(searchResultItem);
+                    resultList.add(itemResult);
+                    
+                }
+            }
+        }
+        return resultList;
+    }
 }

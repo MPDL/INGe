@@ -46,8 +46,7 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.search.ItemContainerSearch;
-import de.mpg.escidoc.services.search.ItemContainerSearch.IndexDatabaseSelector;
+import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
@@ -69,7 +68,7 @@ public class RestServlet extends HttpServlet
 
     /** EJB instance of search service. */
     @EJB
-    private ItemContainerSearch itemContainerSearch;
+    private Search itemContainerSearch;
 
     /**
      * {@inheritDoc}
@@ -92,7 +91,6 @@ public class RestServlet extends HttpServlet
         String language = null;
         String exportFormat = null;
         String outputFormat = null;
-        String sortKeys = null;
         try
         {
             try
@@ -101,7 +99,7 @@ public class RestServlet extends HttpServlet
                 LOGGER.debug("QueryString: " + qs);
                 // Init exporting service
                 InitialContext ctx = new InitialContext();
-                itemContainerSearch = (ItemContainerSearch) ctx.lookup(ItemContainerSearch.SERVICE_NAME);
+                itemContainerSearch = (Search) ctx.lookup(Search.SERVICE_NAME);
                 cqlQuery = req.getParameter("cqlQuery");
                 if ( !checkVal(cqlQuery) )
                 {
@@ -163,33 +161,32 @@ public class RestServlet extends HttpServlet
                     }
                 }
 
-                ItemContainerSearch.IndexDatabaseSelector databaseSelector;
+                String index = null;
 
                 // transform language selector to enum
                 if (language.contains("all"))
                 {
-                    databaseSelector = IndexDatabaseSelector.All;
+                    index = "all";
                 } 
                 else if (language.contains("en"))
                 {
-                    databaseSelector = IndexDatabaseSelector.English;
+                    index = "en";
                 } 
                 else if (language.contains("de"))
                 {
-                    databaseSelector = IndexDatabaseSelector.German;
+                    index = "de";
                 } 
                 else
                 {
                     throw new TechnicalException("Cannot map language string to database selector.");
                 }
-
-                //sortKeys
-                sortKeys = req.getParameter("sortKeys"); 
                 
-                // create the query 
-                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, databaseSelector, exportFormat, outputFormat, sortKeys);
+                // create the query
+                ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat,
+                        outputFormat, req.getParameter("sortKeys"));
+                
                 // query the search service
-                ExportSearchResult queryResult = itemContainerSearch.searchAndExport(query);
+                ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);
 
                 byte[] result = queryResult.getResult();
 

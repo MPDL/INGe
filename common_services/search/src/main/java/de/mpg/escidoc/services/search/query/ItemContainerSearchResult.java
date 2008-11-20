@@ -41,7 +41,7 @@ import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearc
  * @author endres
  * 
  */
-public class StandardSearchResult extends SearchResult implements Serializable
+public class ItemContainerSearchResult extends SearchResult implements Serializable
 {
 
     /** Serial identifier. */
@@ -57,7 +57,7 @@ public class StandardSearchResult extends SearchResult implements Serializable
      * @param cqlQuery
      *            cql query
      */
-    public StandardSearchResult(List<ItemContainerSearchResultVO> results, String cqlQuery)
+    public ItemContainerSearchResult(List<ItemContainerSearchResultVO> results, String cqlQuery)
     {
         super(cqlQuery);
         this.resultList = results;

@@ -82,7 +82,7 @@ public class TestSearchAndExport extends TestSearchBase
         query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, itemTitle));
         ExportSearchQuery exportQuery = new ExportSearchQuery(query.getCqlQuery(), "APA", "snippet");
        
-        ExportSearchResult result = itemContainerSearch.searchAndExport(exportQuery);
+        ExportSearchResult result = itemContainerSearch.searchAndExportItems(exportQuery);
         String resultString = new String((byte[]) result.getResult());
         
         //List<? extends ItemVO> itemList = xmlTransforming.transformToItemList(resultString);
@@ -122,7 +122,7 @@ public class TestSearchAndExport extends TestSearchBase
         query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, itemTitle));
         ExportSearchQuery exportQuery = new ExportSearchQuery(query.getCqlQuery(), "APA", "html");
        
-        ExportSearchResult result = itemContainerSearch.searchAndExport(exportQuery);
+        ExportSearchResult result = itemContainerSearch.searchAndExportItems(exportQuery);
         
         byte[] htmlFile = result.getResult();
         

@@ -54,7 +54,7 @@ import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOpera
  * @author endres
  * 
  */
-public class MetadataSearchQuery extends SearchQuery implements StandardSearchQuery
+public class MetadataSearchQuery extends SearchQuery
 {
     /** Serial identifier. */
     private static final long serialVersionUID = 1L;
@@ -77,7 +77,7 @@ public class MetadataSearchQuery extends SearchQuery implements StandardSearchQu
         addContentTypeCriterions(contentTypes);
         this.searchCriteria = new ArrayList<MetadataSearchCriterion>();
     }
-
+    
     /**
      * Creates a query with a list of content types and a list of search
      * criteria.

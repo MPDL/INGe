@@ -31,8 +31,9 @@ package de.mpg.escidoc.services.search;
 
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
-import de.mpg.escidoc.services.search.query.StandardSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 
 /**
  * Interface for the item and container search service.
@@ -40,43 +41,29 @@ import de.mpg.escidoc.services.search.query.StandardSearchResult;
  * @author tendres
  * 
  */
-public interface ItemContainerSearch
+public interface Search
 {
 
     /**
      * The name to obtain this service.
      */
-    String SERVICE_NAME = "ejb/de/mpg/escidoc/services/search/ItemContainerSearch";
+    String SERVICE_NAME = "ejb/de/mpg/escidoc/services/search/Search";
 
     /**
-     * Selects which index database which queried at the eSciDoc coreservice.
-     * 
-     */
-    public enum IndexDatabaseSelector
-    {
-        /** This index database has all languages indexed, no stemming. */
-        All,
-        /** This index database has the german languages indexed, with stemming. */
-        English,
-        /** This index database has the english languages indexed, with stemming. */
-        German
-    }
-
-    /**
-     * The Search interface searches for items and containers.
+     * Searches for items and containers.
      * 
      * @param query
-     *            a standard search query
-     * @return a standard search result
+     *            search query
+     * @return search result
      * @throws Exception
      *             if some errors occur during search
      */
-    public StandardSearchResult search(StandardSearchQuery query) throws Exception;
+    public ItemContainerSearchResult searchForItemContainer(SearchQuery query) throws Exception;
 
     /**
      * 
-     * The SearchAndExport interface is used to search for items and container
-     * and exports them to various formats. Only items are supported.
+     * The SearchAndExport interface is used to search for items.
+     * and exports them to various formats.
      * 
      * @param query
      *            an export search query
@@ -85,5 +72,14 @@ public interface ItemContainerSearch
      * @throws Exception
      *             if some errors occur during search
      */
-    public ExportSearchResult searchAndExport(ExportSearchQuery query) throws Exception;
+    public ExportSearchResult searchAndExportItems(ExportSearchQuery query) throws Exception;
+    
+    /**
+     * Searches for organizational units.
+     * 
+     * @param query  search query
+     * @return  search result including organizational units
+     * @throws Exception  if some errors occur during search
+     */
+    public OrgUnitsSearchResult searchForOrganizationalUnits(SearchQuery query) throws Exception; 
 }
