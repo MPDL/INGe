@@ -75,8 +75,8 @@ import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.SearchResult;
-import de.mpg.escidoc.services.search.query.StandardSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
 
 
 /**
@@ -222,6 +222,7 @@ public class SearchResultList extends ItemList
             	// replace the carriage returns by html breaks so that h:outputText can correctly display it
             	this.displayExportData = this.displayExportData.replaceAll("\n","<br/>");
             }
+            
             logger.debug("prepareDisplayExportData set FULL data to session bean ");
             
             sb.setExportDisplayData(this.displayExportData);
@@ -522,7 +523,7 @@ public class SearchResultList extends ItemList
     				searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
         	
         	// search for the given criteria
-        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+        	ItemContainerSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
         	List<PubItemResultVO> itemsFound = extractItemsOfSearchResult( result );
         	
         	this.getItemListSessionBean().setCurrentPubItemList(CommonUtils.convertToPubItemVOPresentationList(itemsFound));
@@ -581,7 +582,7 @@ public class SearchResultList extends ItemList
         String cqlQuery = null;
         try
         {
-            StandardSearchResult queryResult = this.getItemControllerSessionBean().searchItems( criteria );
+            ItemContainerSearchResult queryResult = this.getItemControllerSessionBean().searchItems( criteria );
             ArrayList<PubItemResultVO> itemsFound = extractItemsOfSearchResult( queryResult );
             cqlQuery = queryResult.getCqlQuery();
             result = itemsFound.size();
@@ -643,7 +644,7 @@ public class SearchResultList extends ItemList
         	criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ORGANIZATION_PIDS, 
         				affiliation.getReference().getObjectId() ));
         	
-        	StandardSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
+        	ItemContainerSearchResult result = this.getItemControllerSessionBean().searchItems( criteria );
             itemsFound = extractItemsOfSearchResult( result );
             
             getItemListSessionBean().setListDirty(false);
@@ -751,7 +752,7 @@ public class SearchResultList extends ItemList
         }
     }
     
-    private ArrayList<PubItemResultVO> extractItemsOfSearchResult( StandardSearchResult result ) { 
+    private ArrayList<PubItemResultVO> extractItemsOfSearchResult( ItemContainerSearchResult result ) { 
     
     	List<ItemContainerSearchResultVO> results = result.getResultList();
     	

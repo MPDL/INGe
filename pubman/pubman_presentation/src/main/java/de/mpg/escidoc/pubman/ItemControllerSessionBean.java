@@ -84,10 +84,14 @@ import de.mpg.escidoc.services.pubman.PubItemPublishing;
 import de.mpg.escidoc.services.pubman.PubItemSimpleStatistics;
 import de.mpg.escidoc.services.pubman.QualityAssurance;
 import de.mpg.escidoc.services.pubman.util.AdminHelper;
-import de.mpg.escidoc.services.search.ItemContainerSearch;
+import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.parser.ParseException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
-import de.mpg.escidoc.services.search.query.StandardSearchResult;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.OrgUnitsSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.CriterionType;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 import de.mpg.escidoc.services.validation.ItemValidating;
 import de.mpg.escidoc.services.validation.valueobjects.ValidationReportVO;
 
@@ -111,7 +115,7 @@ public class ItemControllerSessionBean extends FacesBean
     private PubItemDepositing pubItemDepositing = null;
     private PubItemPublishing pubItemPublishing = null;
     private QualityAssurance qualityAssurance = null;
-    private ItemContainerSearch itemContainerSearch = null;
+    private Search search = null;
     private XmlTransforming xmlTransforming = null;
     private ItemValidating itemValidating = null;
     private ItemExporting itemExporting = null;
@@ -138,7 +142,7 @@ public class ItemControllerSessionBean extends FacesBean
             // initialize used Beans
             this.pubItemDepositing = (PubItemDepositing) initialContext.lookup(PubItemDepositing.SERVICE_NAME);
             this.pubItemPublishing = (PubItemPublishing) initialContext.lookup(PubItemPublishing.SERVICE_NAME);
-            this.itemContainerSearch = (ItemContainerSearch) initialContext.lookup(ItemContainerSearch.SERVICE_NAME);
+            this.search = (Search) initialContext.lookup(Search.SERVICE_NAME);
             this.xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
             this.itemValidating = (ItemValidating) initialContext.lookup(ItemValidating.SERVICE_NAME);
             this.itemExporting = (ItemExporting) initialContext.lookup(ItemExporting.SERVICE_NAME);
@@ -1630,15 +1634,34 @@ public class ItemControllerSessionBean extends FacesBean
      * @return all items which contain the searchString
      * @throws Exception if framework access fails
      */
-    public StandardSearchResult searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
+    public ItemContainerSearchResult searchItems( ArrayList<MetadataSearchCriterion> criteria ) throws Exception
     {
+//        ArrayList<String> contentTypes2 = new ArrayList<String>();
+//        String contentTypeIdPublication2 = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+//        contentTypes2.add( contentTypeIdPublication2 );
+//       
+//        
+//        OrgUnitsSearchResult resultTest = null;
+//        try
+//        {
+//            String testTitle = "MPS";
+//            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes2 );
+//            query.addCriterion(new MetadataSearchCriterion(CriterionType.ANY, testTitle, LogicalOperator.AND));
+//            
+//            resultTest = this.search.searchForOrganizationalUnits(query);
+//        }
+//        catch (ParseException e)
+//        {
+//        }
+//        
+        
     	ArrayList<String> contentTypes = new ArrayList<String>();
     	String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
     	contentTypes.add( contentTypeIdPublication );
     	
     	MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
     	// we get items and containers from the search service
-    	StandardSearchResult result = this.itemContainerSearch.search( query );
+    	ItemContainerSearchResult result = this.search.searchForItemContainer(query);
     	return result;
     }
 
