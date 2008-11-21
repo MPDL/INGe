@@ -58,7 +58,7 @@ public class StructuredExportTest
 {
 		private StructuredExportHandler export = new StructuredExport();
 	    private String endNoteTestOutput;
-
+ 
 	    private Logger logger = Logger.getLogger(StructuredExportTest.class);
 	    
 	    private HashMap<String, String> itemLists;
@@ -67,15 +67,13 @@ public class StructuredExportTest
 	    	new HashMap<String, String>()   
 	    	{  
 				{  
-//		    		put("ENDNOTE", "src/test/resources/item_publication_item6_0.xml");  
-//		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
+		    		put("ENDNOTE", "src/test/resources/escidoc_44161_1.xml");  
+		    		put("BIBTEX", "src/test/resources/item_test_bibtex.xml");  
 //		    		put("CSV", "src/test/resources/faces_item-list.xml");  
-		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
+//		    		put("BAD_ITEM_LIST", "src/test/resources/item_publication_bad.xml");  
 		    	}  
 	    	};
 	    
-	    private String fwItemList;	
-	    	
 
 	    /**
 	     * Get test item list from XML 
@@ -85,16 +83,17 @@ public class StructuredExportTest
 	    public final void getItemLists() throws Exception
 	    {
 	    	itemLists = new HashMap<String, String>();
+	    	
+	    	String itemList = TestHelper.getItemListFromFramework();
+    		assertFalse("item list from framework is empty", itemList == null || itemList.trim().equals("") );
+    		logger.info("item list from framework:\n" + itemList);
+    		
 	    	for ( String key : ITEM_LISTS_FILE_MAMES.keySet() )
 	    	{
-	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
-	    		assertNotNull("Item list xml is not found", itemList);
+//	    		String itemList =  TestHelper.readFile(ITEM_LISTS_FILE_MAMES.get(key), "UTF-8");
+//	    		assertNotNull("Item list xml is not found", itemList);
 	    		itemLists.put(key, itemList);
 	    	}
-	    	
-	    	fwItemList = TestHelper.getItemListFromFramework();
-    		assertFalse("item list from framework is empty", fwItemList == null || fwItemList.trim().equals("") );
-    		logger.info("item list from framework:\n" + fwItemList);
 	    	
 //	    	FileOutputStream fos = new FileOutputStream("fwItemList.xml");
 //	    	fos.write(fwItemList.getBytes());
@@ -147,29 +146,24 @@ public class StructuredExportTest
 	     * Test service with a item list XML.
 	     * @throws Exception Any exception.
 	     */
-	    // FIXME tendres: vlad has to take a look on the xslt transformation
 	    @Test
-	    @Ignore
 	    public final void testStructuredExports() throws Exception
 	    {
 	    	long start;
-	    	String[] fl = export.getFormatsList();
-	    	
-    		String itemList = fwItemList;
-	    	
-	    	for (String f : new String[]{"ENDNOTE","BIBTEX" })
+//	    	String[] fl = export.getFormatsList();
+	    	for (String f : ITEM_LISTS_FILE_MAMES.keySet()) 
 	    	{
 	    		logger.info("Export format: " + f);
 	    		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
-//	    		String itemList = itemLists.get(f);
+	    		String itemList = itemLists.get(f);
 //	    		logger.info("Test item list:\n" + itemList);
 		    	start = System.currentTimeMillis();
-		    	String result = new String(export.getOutput(itemList, f));
+		    	byte[] result = export.getOutput(itemList, f);
 	    		logger.info("Processing time: " + (System.currentTimeMillis() - start) );
 		    	logger.info("---------------------------------------------------");
-		    	logger.info(f + " export result:\n" + result);
-		    	assertFalse(f + " output is empty", result == null || result.trim().equals("") );
-		    	// assertTrue("Export is not equal to test output", result.equals(endNoteTestOutput));
+		    	assertFalse(f + " output is empty", result == null || result.length==0 );
+		    	logger.info(f + " export result:\n" + new String(result) );
+//		    	TestHelper.writeBinFile(result, f + "Win.txt");
 	    	}
 	    	
 	    }

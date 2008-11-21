@@ -264,6 +264,6 @@ public class TestHelper
     		throw new ServiceException("User not logged in.");
     	}
     	return userHandle;
-    }    
-
+    }
+    
 }
