@@ -38,6 +38,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 
@@ -76,7 +77,15 @@ public class StructuredExport implements StructuredExportHandler {
 	private final static String PATH_TO_SCHEMAS = "schemas/";
 	private final static String PATH_TO_RESOURCES = "resources/";
 	private final static String EXPLAIN_FILE = "explain-structured-formats.xml";
-	
+    private static final Map<String, String> XSLT_FILE_LIST =   
+    	new HashMap<String, String>()   
+    	{  
+			{  
+	    		put( "ENDNOTE",	"eSciDoc_to_EndNote.xsl"	);  
+	    		put( "BIBTEX", 	"eSciDoc_to_BibTeX.xsl"			);  
+	    		put( "CSV", 	"Faces_to_CSV.xsl"				);  
+	    	}  
+    	};	
 	public StructuredExport()
 	{
 //		 Use Saxon for XPath2.0 support
@@ -164,7 +173,7 @@ public class StructuredExport implements StructuredExportHandler {
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				throw new StructuredExportXSLTNotFoundException("fi" + e);
+				throw new StructuredExportXSLTNotFoundException("File not found:" + e);
 			} catch (TransformerConfigurationException e) {
 				// TODO Auto-generated catch block
 				throw new StructuredExportManagerException(e);
@@ -273,10 +282,13 @@ public class StructuredExport implements StructuredExportHandler {
 		for (int i = 0; i < formatElements.getLength( ); i++)
 		{ 
 			Element n = (Element)formatElements.item(i);
+			String id = n.getElementsByTagName("dc:identifier").item(0).getTextContent(); 
 			//populate key/value pars
+			logger.info("ID: " + id);
+			logger.info("FILE: " + XSLT_FILE_LIST.get(id));
 			fh.put(
-					n.getElementsByTagName("dc:identifier").item(0).getTextContent(),
-					n.getAttribute("xslt")
+					id, 
+					XSLT_FILE_LIST.get(id)
 			);
 		}
 		
@@ -294,7 +306,7 @@ public class StructuredExport implements StructuredExportHandler {
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setValidating(false);
         dbf.setIgnoringComments(true);
-        dbf.setNamespaceAware(false);
+        dbf.setNamespaceAware(true);
 
         return dbf.newDocumentBuilder();
     }
