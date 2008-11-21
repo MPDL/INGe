@@ -222,11 +222,9 @@
 					</xsl:for-each>	
 					
 					<!-- Artnum - Sequence Number of Article  -->
-					<xsl:variable name="sequence-number" select="(pub:source/e:sequence-number[.!=''])[1]"/>
-					<!-- <xsl:variable name="sequence-number" select="normalize-space(e:source/e:sequence-number)"/> -->
+					<xsl:variable name="sequence-number" select="pub:source[1]/e:sequence-number[.!='']"/>
 					<xsl:choose>
-						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source/e:start-page=''">
-						
+						<xsl:when test="($gen='article' or $gen='conference-paper') and pub:source[1]/e:start-page=''">
 							<xsl:if test="$sequence-number!=''">
 								<xsl:call-template name="print-line">
 									<xsl:with-param name="tag" select="'P'"/>
@@ -282,11 +280,11 @@
 						*:source[@type='series' and ../*:item[@type='book-item']/dcterms:alternative -> %S
 					-->
 					<!-- <xsl:for-each select="*:source/(dc:title|dcterms:alternative)">-->
-					<xsl:for-each select="pub:source/dc:title">
-						<xsl:variable name="jb" select="normalize-space(.)"/>
-						<xsl:variable name="sgenre" select="../@type"/>
+					<xsl:variable name="stitle" select="pub:source[1]/(dc:title|dcterms:alternative)[1]"/>
+					<xsl:if test="$stitle!=''">
+						<xsl:variable name="jb" select="normalize-space($stitle)"/>
+						<xsl:variable name="sgenre" select="$stitle/../@type"/>
 						<xsl:if test="$jb!=''">
-							
 							<xsl:choose>
 								<xsl:when test="$sgenre='journal'">
 									<xsl:call-template name="print-line">
@@ -308,7 +306,7 @@
 								</xsl:otherwise>
 							</xsl:choose>
 						</xsl:if>
-					</xsl:for-each>
+					</xsl:if>
 		
 					
 					
@@ -395,7 +393,7 @@
 					</xsl:for-each>
 		
 					<!-- Start Page - End Page -->
-					<xsl:for-each select="pub:source">
+					<xsl:for-each select="pub:source[1]">
 						<xsl:variable name="sp" select="normalize-space(e:start-page)"/>
 						<xsl:if test="not($sp='')">
 							<xsl:choose> 
@@ -449,7 +447,7 @@
 					</xsl:for-each>
 		
 					<!-- 	Issue -->
-					<xsl:for-each select="pub:source">
+					<xsl:for-each select="pub:source[1]">
 						<xsl:if test="not(@type='series')">
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'N'"/>
@@ -483,7 +481,7 @@
 					<!-- Physical Description -->
 					<xsl:variable name="pd" select="normalize-space(mdp:total-number-of-pages)"/>
 					<xsl:if test="$pd!=''">
-						<xsl:variable name="flag" select="normalize-space(pub:source/e:start-page)!='' and normalize-space(pub:source/e:end-page)!=''"/>
+						<xsl:variable name="flag" select="normalize-space(pub:source[1]/e:start-page)!='' and normalize-space(pub:source[1]/e:end-page)!=''"/>
 						<xsl:if test="$gen='book'">						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="'P'"/>
@@ -519,7 +517,7 @@
 					</xsl:if>
 		
 					<!-- Volume -->
-					<xsl:for-each select="pub:source/e:volume">
+					<xsl:for-each select="pub:source[1]/e:volume">
 					<xsl:variable name="sgenre" select="../@type"/>						
 							<xsl:call-template name="print-line">
 								<xsl:with-param name="tag" select="if ($sgenre='series') then 'N' else 'V'"/>
