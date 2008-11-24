@@ -34,6 +34,11 @@
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
 						<jarModule>
+                            <groupId>javabib</groupId>
+                            <artifactId>javabib</artifactId>
+                            <includeInApplicationXml>true</includeInApplicationXml>
+                        </jarModule>
+						<jarModule>
 							<groupId>axis</groupId>
 							<artifactId>axis</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
@@ -314,5 +319,11 @@
 			<artifactId>saxon</artifactId>
 			<version>8.7</version>
 		</dependency>
+		<dependency>
+            <groupId>javabib</groupId>
+            <artifactId>javabib</artifactId>
+            <version>20040801</version>
+            <scope>compile</scope>
+        </dependency>
 	</dependencies>
 </project>
