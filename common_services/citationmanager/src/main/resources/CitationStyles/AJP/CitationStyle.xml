@@ -1,0 +1,613 @@
+<?xml version="1.0" encoding="UTF-8"?>
+	<!--
+		CDDL HEADER START The contents of this file are subject to the terms
+		of the Common Development and Distribution License, Version 1.0 only
+		(the "License"). You may not use this file except in compliance with
+		the License. You can obtain a copy of the license at
+		license/ESCIDOC.LICENSE or http://www.escidoc.de/license. See the
+		License for the specific language governing permissions and
+		limitations under the License. When distributing Covered Code, include
+		this CDDL HEADER in each file and include the License file at
+		license/ESCIDOC.LICENSE. If applicable, add the following below this
+		CDDL HEADER, with the fields enclosed by brackets "[]" replaced with
+		your own identifying information: Portions Copyright [yyyy] [name of
+		copyright owner] CDDL HEADER END Copyright 2006-2007
+		Fachinformationszentrum Karlsruhe Gesellschaft für
+		wissenschaftlich-technische Information mbH and Max-Planck-
+		Gesellschaft zur Förderung der Wissenschaft e.V. All rights reserved.
+		Use is subject to license terms.
+	-->
+	<!--
+		See specifications here:
+		http://colab.mpdl.mpg.de/mediawiki/PubMan_Func_Spec_Export/AJP
+	-->
+<citation-style name="AJP"
+	xmlns="http://www.escidoc.de/citationstyle" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.escidoc.de/citationstyle ../../Schemas/citation-style.xsd"
+	read-only="no" element-specific="no" md-xpath="//item/md-records/md-record"> 	
+	<!-- special variables to be used in expressions for short notations -->
+	<variables>
+		<!-- variables which use xpath directly in DataSource NS-->
+		<variable name="hasPublication" xpath="not(publication)=false()" />
+		<variable name="authorsCount"
+			xpath="string(count(publication/creator[@role='author']/person|organization))" />
+		<variable name="sourceEditorsCount"
+			xpath="string(count(publication/source/creator[@role='editor']/person|organization))" />
+		<variable name="hasTotalNumberOfPages" xpath="not(publication/total-number-of-pages)=false()" />
+		<variable name="bookEditorsCount" xpath="string(count(publication[@type='book']/creator[@role='editor']))" />
+			
+		<!--
+			variables which use java-like expressions with references to other
+			variables defined above
+		-->
+		<variable name="date"
+			expression="${publication/published-online} != null ? ${publication/published-online} : ${publication/issued} != null ? ${publication/issued} : ${publication/dateAccepted} != null ? ${publication/dateAccepted} : ${publication/dateSubmitted} != null ? ${publication/dateSubmitted} : ${publication/modified} != null ? ${publication/modified} : ${publication/created} != null ? ${publication/created} : null" />
+		<variable name="static_in"	expression="&quot;in&quot;" />
+		<variable name="ed"	expression=" Integer.parseInt(${bookEditorsCount}) == 1 ? &quot; (ed)&quot; : &quot; (eds)&quot;" />
+
+	</variables>
+	
+	<!-- predefined layout elements which can be referenced in CSLDs -->
+	<layout-elements> 
+		<!-- repeatable layout elements -->
+		<layout-element name="authors-MoreThan2"
+			ref="publication/creator[@role='author']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})!=2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="authors-Equal2"
+			ref="publication/creator[@role='author']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=" and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${authorsCount})==2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="authors">
+			<parameters>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="authors-Equal2" />
+				<layout-element ref="authors-MoreThan2" />
+			</elements>
+		</layout-element>	
+		
+		
+		<layout-element name="book-editors-MoreThan2"
+			ref="publication[@type='book']/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${bookEditorsCount})!=2]]></valid-if>
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="book-editors-Equal2"
+			ref="publication[@type='book']/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=" and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${bookEditorsCount})==2]]></valid-if>
+				<delimiter value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="book-editors">
+			<parameters>
+				<delimiter value="" />
+				<ends-with value=","/>
+			</parameters>
+			<elements>
+				<layout-element ref="book-editors-Equal2" />
+				<layout-element ref="book-editors-MoreThan2" />
+				<layout-element ref="ed" />
+			</elements>
+		</layout-element>	
+		
+		
+		<layout-element name="source-editors-MoreThan2"
+			ref="publication/source/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=", and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})!=2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="source-editors-Equal2"
+			ref="publication/source/creator[@role='editor']/person|organization"
+			repeatable="yes">
+			<parameters position="last">
+				<delimiter value=" and " />
+			</parameters>
+			<elements position="last">
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+			<parameters>
+				<valid-if><![CDATA[Integer.parseInt(${sourceEditorsCount})==2]]></valid-if>
+				<delimiter value=", " />
+				<ends-with value=", " />
+			</parameters>
+			<elements>
+				<layout-element ref="given-name" />
+				<layout-element ref="family-name" />
+			</elements>
+		</layout-element>
+		<layout-element name="source-editors">
+			<parameters>
+				<delimiter value="" />
+			</parameters>
+			<elements>
+				<layout-element ref="source-editors-Equal2" />
+				<layout-element ref="source-editors-MoreThan2" />
+			</elements>
+		</layout-element>	
+		
+			
+		<!-- "plain" layout elements -->
+		<layout-element name="quoted_title" ref="publication/title">
+			<parameters>
+				<starts-with value="&quot;" />
+				<ends-with value=",&quot;" />
+			</parameters>
+			<elements />
+		</layout-element>
+		
+		<layout-element name="vol" ref="publication/source/volume">
+			<parameters>
+				<starts-with value="Vol. "/>
+			</parameters>
+			<elements/>
+		</layout-element>
+		
+		
+		<layout-element name="pp"> 
+			<parameters>
+				<starts-with value="pp. "/>
+			</parameters>
+			<elements>
+				<layout-element ref="publication/total-number-of-pages" >
+					<parameters> 
+						<valid-if><![CDATA[${hasTotalNumberOfPages}.equals("true")]]></valid-if>
+					</parameters>
+					<elements/>
+				</layout-element>
+				<layout-element name="VolumeIssueBlock">
+					<parameters>
+						<valid-if><![CDATA[${hasTotalNumberOfPages}.equals("false")]]></valid-if>
+						<delimiter value="-" />
+					</parameters>
+					<elements>
+						<layout-element ref="publication/source/start-page" />
+						<layout-element ref="publication/source/end-page" />
+					</elements>
+				</layout-element>			
+			</elements>
+		</layout-element>			
+		
+		<layout-element name="publishingInfoAndIssued">
+				<parameters>
+					<delimiter value=", " />
+					<starts-with value=" (" />
+					<ends-with value=")" />
+				</parameters>
+				<elements>
+					<layout-element ref="publication/publishing-info/publisher" />
+					<layout-element ref="publication/publishing-info/place" />
+					<layout-element ref="publication/issued" func="get_year" />
+				</elements>
+			</layout-element>
+
+			<layout-element name="editorsAndPublishingInfoAndIssued">
+				<parameters>
+					<delimiter value=" "/>
+					<starts-with value=" edited by "/>
+				</parameters>
+				<elements>
+					<layout-element ref="source-editors"/>
+					<layout-element ref="publishingInfoAndIssued" />
+				</elements>
+			</layout-element>
+			
+			<layout-element name="edition" ref="publication/publishing-info/edition" >
+				<parameters>
+					<starts-with value=", "/>
+					<ends-with value=" ed"/>
+				</parameters>
+				<elements/>
+			</layout-element>	
+			
+			<layout-element  name="title-italic" ref="publication/title">
+				<parameters>
+					<starts-with value=" "/>
+					<ends-with value="."/>
+					<font-style ref="ITALIC"/>
+				</parameters>
+				<elements />
+			</layout-element>
+		
+		<!-- debug elements: -->
+			<layout-element name="debug_genre" ref="publication/@type" >
+				<parameters>
+				<starts-with value="Genre:"/>
+				<ends-with value=";"/>
+				<font-style ref="BOLD"/>
+				</parameters>
+				<elements/>
+			</layout-element>
+			
+		
+	</layout-elements>
+	
+    
+    <!-- Print warning message for non-publication items -->
+	<cs-layout-definition name="isNotPublication">
+		<parameters>
+			<valid-if><![CDATA[${hasPublication}.equals("false") ]]></valid-if>
+			<starts-with
+				value="## Citaion style layout is not defined for metadata record: " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			<layout-element ref="../../@objid" />
+		</elements>
+		<!-- BOOK CHAPTER -->
+		<!--
+			Question: Should courseware, other, conference-paper and
+			conference-report handled identically?
+		-->
+		<!--
+			Note: We need to differentiate between conference-papers published in
+			a book and those published in a journal issue
+		-->
+	</cs-layout-definition>
+
+	<cs-layout-definition name="Article">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("article") ]]></valid-if>
+			<delimiter value=" " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+						
+					<!-- JOURNAL ARTICLE, element "journal article"  -->
+			<layout-element ref="quoted_title"/>
+			
+					<!-- JOURNAL ARTICLE, element "source"  -->
+			<layout-element name="SourceTitleVolumeIssuePhysicalDescriptionBlock">
+				<parameters >
+					<delimiter value=""/>
+				</parameters>
+				<elements>
+					<layout-element ref="publication/source/title" />
+					<layout-element ref="publication/source/volume">
+						<parameters>
+							<font-style ref="ITALIC" />
+							<starts-with value=", " />
+						</parameters>
+						<elements />
+					</layout-element>
+					<layout-element ref="publication/source/issue">
+						<parameters>
+							<starts-with value="(" />
+							<ends-with value=")" />
+						</parameters>
+						<elements />
+					</layout-element>
+					<layout-element ref="publication/source/start-page">
+						<parameters>
+							<starts-with value=", " />
+						</parameters>
+						<elements />
+					</layout-element>
+					<layout-element ref="publication/source/end-page">
+						<parameters>
+							<starts-with value="-" />
+						</parameters>
+						<elements />
+					</layout-element>
+				</elements>
+			</layout-element>
+			<layout-element ref="publication/issued" func="get_year">
+				<parameters>
+					<starts-with value="(" />
+					<ends-with value=")" />
+				</parameters>
+				<elements />
+			</layout-element>
+		</elements>
+	</cs-layout-definition>
+
+	<cs-layout-definition name="BookNotEditors">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})==0 ]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+						
+			<layout-element ref="title-italic"/>
+
+			<layout-element ref="publishingInfoAndIssued"/>
+						
+			<layout-element ref="edition" />
+			
+		</elements>
+	</cs-layout-definition>
+	
+	<cs-layout-definition name="BookEditors">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})>0 ]]></valid-if>
+			<delimiter value="" />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="book-editors" />
+			
+			<layout-element ref="bookEditorsCount"/>
+						
+			<layout-element  ref="title-italic"/>
+
+			<layout-element ref="publishingInfoAndIssued"/>
+						
+			<layout-element ref="edition"/>
+		</elements>
+	</cs-layout-definition>
+
+	
+	<cs-layout-definition name="BookChapter">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book-item") ]]></valid-if>
+			<delimiter value=", " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+						
+			<layout-element  ref="publication/title">
+				<parameters>
+					<starts-with value="&quot;" />
+					<ends-with value="&quot;" />
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element name="BookTitleBlock">
+				<parameters>
+					<delimiter value=" "/>
+				</parameters>
+				<elements>
+					<layout-element ref="static_in"/>
+					<layout-element ref="publication/source[@type='book']/title">
+						<parameters>
+							<font-style ref="ITALIC"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+				</elements>
+			</layout-element>
+
+			<layout-element ref="editorsAndPublishingInfoAndIssued"/>
+			
+			<layout-element ref="vol"/>
+			
+			<layout-element ref="pp"/>
+			
+		</elements>
+	</cs-layout-definition>
+	
+		
+	<cs-layout-definition name="Thesis">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("thesis") ]]></valid-if>
+			<delimiter value=", " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" >
+				<parameters>
+					<ends-with value="PhD-Thesis"/>
+				</parameters>
+				<elements/>
+			</layout-element>
+
+			<layout-element ref="publication/publishing-info/publisher" />
+			
+			<layout-element ref="publication/issued" func="get_year" />
+						
+		</elements>
+	</cs-layout-definition>
+
+	<cs-layout-definition name="Report">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("report") ]]></valid-if>
+			<delimiter value=", " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+
+			<layout-element ref="publication/identifier[contains(@type,'OTHER')]" >
+				<parameters>
+					<starts-with value="Report No. "/>
+				</parameters>
+				<elements/>
+			</layout-element>
+			
+			<layout-element ref="publication/issued" func="get_year" />
+						
+		</elements>
+	</cs-layout-definition>	
+	
+	<cs-layout-definition name="Proceedings">
+		<parameters>
+			<valid-if><![CDATA[ ${publication/@type}.equals("proceedings") ]]></valid-if>
+			<delimiter value=", " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+
+			<layout-element ref="publication/event/title" >
+				<parameters>
+					<starts-with value="presented at "/>
+				</parameters>
+				<elements/>
+			</layout-element>
+			
+			<layout-element ref="publication/event/place" />
+			
+			<layout-element ref="publication/issued" func="get_year" />
+						
+		</elements>
+	</cs-layout-definition>
+	
+	<cs-layout-definition name="Generic">
+		<parameters>
+			<delimiter value=", " />
+			<ends-with value="." />
+		</parameters>
+		<elements>
+			
+			<layout-element ref="debug_genre" />
+			
+			<layout-element ref="authors" />
+						
+			<layout-element  ref="publication/title">
+				<parameters>
+					<starts-with value="&quot;" />
+					<ends-with value="&quot;" />
+				</parameters>
+				<elements />
+			</layout-element>
+			
+			<layout-element name="SourceTitleBlock">
+				<parameters>
+					<delimiter value=" "/>
+				</parameters>
+				<elements>
+					<layout-element ref="static_in"/>
+					<layout-element ref="publication/source/title">
+						<parameters>
+							<font-style ref="ITALIC"/>
+						</parameters>
+						<elements/>
+					</layout-element>
+				</elements>
+			</layout-element>
+			
+			<layout-element ref="editorsAndPublishingInfoAndIssued"/>
+			
+			<layout-element ref="vol"/>
+			
+			<layout-element ref="pp"/>
+			
+		</elements>
+	</cs-layout-definition>
+	
+<!--	Test CSLD: -->
+	<cs-layout-definition name="notMatched">
+		<parameters>
+<!--	-->
+<!--		<valid-if><![CDATA[${hasPublication}.equals("true")]]></valid-if>-->
+<!--	-->
+			<font-style ref="BOLD"/>
+			<ends-with value=".\n\n" />
+		</parameters>
+		<elements/>
+<!--			<layout-element ref="publication/@type" />-->
+<!--			<layout-element ref="publication/title" />-->
+<!--			<layout-element ref="publication/issued" /> -->
+<!--			<layout-element ref="isBookArticleOrChapter" /> -->
+<!--			<layout-element ref="isBookProceedingsThesis" /> -->
+<!--			<layout-element ref="isJournalOrMagazineArticle" /> -->
+<!--			<layout-element ref="publication/published-online" /> -->
+<!--			<layout-element ref="publication/dateAccepted" /> -->
+<!--			<layout-element ref="publication/dateSubmitted" /> -->
+<!--			<layout-element ref="publication/published-online" /> -->
+<!--			<layout-element ref="publication/created" /> -->
+<!--		</elements>-->
+	</cs-layout-definition>		
+</citation-style>
