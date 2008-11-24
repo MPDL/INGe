@@ -2,19 +2,19 @@
   <parent>
     <artifactId>common_services</artifactId>
     <groupId>de.mpg.escidoc.services</groupId>
-    <version>1.0.11</version>
+    <version>1.0.12-SNAPSHOT</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <groupId>de.mpg.escidoc.services</groupId>
   <artifactId>validation_presentation</artifactId>
   <name>validation_presentation</name>
-  <version>1.0.15</version>
+  <version>1.0.16-SNAPSHOT</version>
  	<packaging>war</packaging>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11/validation_presentation</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11/validation_presentation</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_presentation</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/validation_presentation</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
@@ -33,7 +33,7 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>validation</artifactId>
-			<version>1.0.13</version>
+			<version>1.0.14-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
