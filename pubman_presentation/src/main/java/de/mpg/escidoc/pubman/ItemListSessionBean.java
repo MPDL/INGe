@@ -392,6 +392,16 @@ public class ItemListSessionBean extends FacesBean
 		}
     }
     
+    public String selectNone()
+    {
+        return "";
+    }
+    
+    public String selectAll()
+    {
+        return "";
+    }
+    
     /**
      * ValueChange handler for comboBoxes.
      * @param event the event of the valueChange
