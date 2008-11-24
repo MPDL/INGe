@@ -953,6 +953,88 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	return showCheckbox;
     }
     
+    /**
+     * This method return the public state of the current item
+     * @author Tobias Schraut
+     * @return String public state of the current item
+     */
+    public String getItemPublicState()
+    {
+        String itemState="";
+        if(this.getPublicStatus() != null)
+        {
+            itemState = getLabel(this.i18nHelper.convertEnumToString(this.getPublicStatus()));
+        }
+        return itemState;
+    }
+    
+    /**
+     * This method return the state of the current item version
+     * @author Tobias Schraut
+     * @return String state of the current item version
+     */
+    public String getItemState()
+    {
+        
+        String itemState="";
+        if(this.getVersion().getState() != null)
+        {
+            itemState = getLabel(this.i18nHelper.convertEnumToString(this.getVersion().getState()));
+        }
+        return itemState;
+    }
+    
+    /**
+     * This method return true if the item is withdrawn, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is withdrawn
+     */
+    public boolean getIsStateWithdrawn()
+    {
+        return this.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+    }
+    
+    /**
+     * This method return true if the item is submitted, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is submitted
+     */
+    public boolean getIsStateSubmitted()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+    }
+    
+    /**
+     * This method return true if the item is released, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is released
+     */
+    public boolean getIsStateReleased()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+    }
+    
+    /**
+     * This method return true if the item is pending, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is pending
+     */
+    public boolean getIsStatePending()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+    }
+    
+    /**
+     * This method return true if the item is in revision, otherwise false
+     * @author Tobias Schraut
+     * @return Boolean true if item is in revision
+     */
+    public boolean getIsStateInRevision()
+    {
+        return this.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+    }
+    
+    
 	public java.util.List<SearchHitVO> getSearchHitList() {
 		return searchHitList;
 	}

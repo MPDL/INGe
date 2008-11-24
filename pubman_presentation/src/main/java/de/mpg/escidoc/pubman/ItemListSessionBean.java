@@ -196,6 +196,10 @@ public class ItemListSessionBean extends FacesBean
     {
         this.sortBy = sortBy;
     }
+    
+    public void setSortByState(final ActionEvent event) {
+        this.sortBy = "STATE";
+    }
 
     public String getSortOrder()
     {

@@ -86,7 +86,7 @@ function addFullItemFunctions() {
 	$('.checkboxTripleGroup').each(function(i,elem){if($(elem).find('.medium_checkbox:gt(1)').find(':checked').length == 0) {$(elem).find('.medium_checkbox:gt(1)').hide();} else {$(elem).find('.showMoreCheckboxes').hide();};});
 	
 	$('.showMoreDates').click(function(){ $(this).hide(); $(this).siblings().show(); });
-	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(1)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(1)').hide();} else {$(elem).find('.showMoreDates').hide();};});
+	$('.datesGroup').each(function(i,elem){if($(elem).find('span.large_area0:gt(0)').find(":text[value!='']").length == 0) {$(elem).find('span.large_area0:gt(0)').hide();} else {$(elem).find('.showMoreDates').hide();};});
 }
 
 function installFullItem() {

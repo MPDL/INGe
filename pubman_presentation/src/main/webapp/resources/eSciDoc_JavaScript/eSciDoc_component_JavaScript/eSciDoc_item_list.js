@@ -32,7 +32,7 @@ function addItemListFunctions() {
 	$('.itemList').each(function(i,ele){$(ele).find('.mediumView').each(function(j,elem){$(elem).hide();}); $(ele).find('.collapse').each(function(j,elem){$(elem).hide();}); $(ele).find('.expand').each(function(j,elem){$(elem).show();});})
 	$('.checkboxSelectButton').click(function(){$(this).siblings('.selectMenu').show();});
 	$('.checkBoxCloseSelectButton').click(function(){$(this).parent().hide();});
-		$('.selectMenu').find('.selectTotal').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=true;}); alert('Trigger some event here!'); $(this).parents('.selectMenu').hide();});
+		$('.selectMenu').find('.selectTotal').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=true;}); $(this).parents('.selectMenu').hide();});
 		$('.selectMenu').find('.selectAll').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=true;}); $(this).parents('.selectMenu').hide();});
 		$('.selectMenu').find('.selectNone').click(function(){$(this).parents('.itemList').find('.itemCheckBox').each(function(i, elem){elem.checked=false;});});
 		$('.selectMenu').find('a').each(function(i,elem){$(elem).click(function(){$(this).parents('.selectMenu').hide()});});

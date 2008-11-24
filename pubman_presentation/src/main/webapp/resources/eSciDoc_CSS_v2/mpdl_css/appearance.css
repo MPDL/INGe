@@ -127,7 +127,7 @@
 	}
 /*HEADER*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
-	.metaMenu input, .metaMenu button, .metaMenu label, .metaMenu a, .quickSearchMenu input, .quckSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu span, .contentMenu input, contentMenu a  {
+	.metaMenu input, .metaMenu button, .metaMenu label, .metaMenu a, .quickSearchMenu input, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, contentMenu a  {
 		background-color: #EDF4F6;
 		color: #388097;
 	}
@@ -174,7 +174,27 @@
 	}
 
 	/*RANGE SELECTOR*/
+
+	.rangeSelector .replaceLabel {
+		border-color: #AFCCD5 !important;
+		color: #388097 !important;
+	}
 	
+	.rangeSelector .pulldown {
+		border-color: #AFCCD5 !important;
+		background-color: #EDF4F6 !important;
+	}
+	
+	.rangeSelector .open, .rangeSelector .close {
+		background-color: inherit;
+	}
+	
+	.rangeSelector .actual, .rangeSelector .selectLine:hover {
+		background-color: #73A686 !important;
+		color: #FFFFFF !important;
+	}
+
+/*	
 	.rangeSelector input {
 		background-color: #EDF4F6;
 		background: inherit;
@@ -190,7 +210,7 @@
 		background-color: #73A686;
 		color: #FFFFFF;
 	}
-
+*/
 	/*PAGE BROWSER*/
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		background-color: #EDF4F6;

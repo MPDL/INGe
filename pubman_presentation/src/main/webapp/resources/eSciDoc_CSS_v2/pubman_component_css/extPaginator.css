@@ -41,8 +41,12 @@
 
 /*RANGE SELECTOR*/
 
+
+
+
+/*
 	.rangeSelector {
-		/*WRONG WIDTH AND MARGIN FOR IE LESS THAN 7*/
+		
 		width: 13.19em;
 		margin-right: -0.27em;
 		margin-left: 5.09em;
@@ -50,7 +54,7 @@
 	}
 	
 		html > body .rangeSelector {
-			/*CORRECT WIDTH AND MARGIN*/
+			
 			width: 12.93em;
 			margin-right: 0px;
 		}
@@ -73,7 +77,7 @@
 	}
 
 	.rangeSelector .headline {
-		/*overflow-y: visible;*/
+		
 		margin-top: 0.73em;
 	}
 
@@ -83,13 +87,13 @@
 	}
 
 	.rangeSelector .hitsLabel {
-		/*WRONG WIDTH FOR IE LESS THAN 7*/
+		
 		width: 6.00em;
 		margin-right: 0px;
 	}
 
 		html > body .rangeSelector .hitsLabel {
-			/*CORRECT WIDTH*/
+			
 			width: 6.63em;
 		}
 
@@ -108,11 +112,11 @@
 	.rangeSelector div {
 		height: 1.36em;
 	}
+	
+	
+*/
 
 /*PAGE BROWSER*/
-	.pageBrowser {
-		margin-left: 6.55em;
-	}
 
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		height: 2.45em;

@@ -42,34 +42,13 @@
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
 
-				<link href="./resources/eSciDoc_CSS_v2/main.css" type="text/css" rel="stylesheet"/>
-				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-				<meta http-equiv="pragma" content="no-cache"/>
-				<meta http-equiv="cache-control" content="no-cache"/>
-				<meta http-equiv="expires" content="0"/>
-				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
-				
-				<script src="./resources/eSciDoc_JavaScript/eSciDoc_javascript.js" language="JavaScript" type="text/javascript">;</script>
+				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
 			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
 			<h:form id="form1">
 			<h:inputHidden id="offset"></h:inputHidden>
-			<!-- start: skip link navigation -->
-				<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the main menu"/>
-				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
-					<h:outputText value="Skip to the page content"/>
-				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the search menu"/>
-				</h:outputLink>
-				<h:outputLink styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
-					<h:outputText value="Skip to the meta menu"/>
-				</h:outputLink>
-			<!-- end: skip link navigation -->
 
 				<!-- import header -->
 				<jsp:directive.include file="header/Header.jspf" />

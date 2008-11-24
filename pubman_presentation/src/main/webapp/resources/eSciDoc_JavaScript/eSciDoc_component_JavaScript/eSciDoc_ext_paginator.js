@@ -29,6 +29,60 @@
 */
 
 function rebuildRangeSelectorDOM() {
+	$('.rangeSelector').find('select').each(function(i, ele){
+		var classNameString = $(ele).attr("class");
+		var lengthValue;
+		var possibleLengthValues = classNameString.split(' ');
+		var otherClasses = '';
+		for(var i=0; i<possibleLengthValues.length; i++) {
+			if(possibleLengthValues[i].match('_select')) {
+				var wholeLengthValue = possibleLengthValues[i].split('_');
+				lengthValue = wholeLengthValue[0];
+			} else {
+				if(possibleLengthValues[i].match('replace')){}
+				else {otherClasses = otherClasses+possibleLengthValues[i]+' '};
+			}
+		};
+		var replacementString = '<span class="large_area0 designedRangeSelector'+otherClasses+'">';
+			if($(ele).find('option[selected]').length==0){
+				replacementString = replacementString+'<span class="large_area1_p7 replaceLabel">'+$(ele).find('option').text()+' '+$(ele).siblings('.hitsLabel').text()+'</span>';
+				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ele.getAttribute("onchange")+'" />';
+			}
+			else{
+				replacementString = replacementString+'<span class="large_area1_p7 replaceLabel">'+$(ele).find('option[selected]').text()+' '+$(ele).siblings('.hitsLabel').text()+'</span>';
+				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option[selected]').val()+'"';
+				if(ele.getAttribute("onchange")!=null) replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
+				replacementString = replacementString+' />';
+			}
+			replacementString = replacementString+'<span class="large_area0_p8 openArea"><input type="button" class="min_imgBtn open" /></span><span class="large_area1 pulldown">';
+			$(ele).find('option').each(function(j, elem){
+				replacementString = replacementString+'<a class="large_area0_p7 selectLine';
+				if($(elem).text()==$(ele).find('option[selected]').text()) replacementString = replacementString+' actual';
+				if(j==0) {replacementString = replacementString+'" name="'+$(elem).val()+'">'+$(elem).text()+' '+$(ele).siblings('.hitsLabel').text()+'</a>';}
+				else {replacementString = replacementString+'" name="'+$(elem).val()+'">'+$(elem).text()+'</a>';};
+				if(j==0) {
+					replacementString = replacementString+'<input type="button" class="min_imgBtn close endline"/>';
+				}
+			})
+		replacementString = replacementString+'</span></span>'
+		replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
+		$(ele).siblings('.hitsLabel').remove();
+		$('.paginatorFallbackGoBtn').remove();
+		$(ele).replaceWith(replacementString);
+	});
+}
+
+function addPaginatorFunctions() {
+	$('.rangeSelector').find('.open').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('.pulldown').show(); })});
+	$('.rangeSelector').find('.close').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('.pulldown').hide(); })});
+	$('.rangeSelector').find('.selectLine').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('input[type=hidden]').val($(this).attr('name')); $(this).parents('.rangeSelector').find('.replaceLabel').text($(this).text()+' '); $(this).parents('.pulldown').find('.actual').removeClass('actual'); $(this).addClass('actual'); $(this).parents('.pulldown').hide(); $(this).parents('.rangeSelector').find('input[type=hidden]').trigger('change'); $('form').submit();  })});
+}
+
+
+
+
+
+function rebuildRangeSelectorDOMOld() {
 	if (!document.getElementsByTagName) return false;
 	var possibleRangeSelectors = document.getElementsByTagName("select");
 	for(var i=0; i < possibleRangeSelectors.length; i++) {
@@ -135,7 +189,7 @@ function rebuildRangeSelectorDOM() {
 	}
 }
 
-function addPaginatorFunctions() {
+function addPaginatorFunctionsOld() {
 	if (!document.getElementsByTagName) return false;
 	var possibleOpenButtons = document.getElementsByTagName("input");
 	for (var i=0; i < possibleOpenButtons.length; i++) {

@@ -33,6 +33,21 @@
 
 <f:subview id="Header">
 
+<!-- start: skip link navigation -->
+	<h:outputLink styleClass="skipLink" title="skip link" value="#mainMenuSkipLinkAnchor">
+		<h:outputText value="Skip to the main menu"/>
+	</h:outputLink>
+	<h:outputLink styleClass="skipLink" title="skip link" value="#contentSkipLinkAnchor">
+		<h:outputText value="Skip to the page content"/>
+	</h:outputLink>
+	<h:outputLink styleClass="skipLink" title="skip link" value="#searchMenuSkipLinkAnchor">
+		<h:outputText value="Skip to the search menu"/>
+	</h:outputLink>
+	<h:outputLink styleClass="skipLink" title="skip link" value="#metaMenuSkipLinkAnchor">
+		<h:outputText value="Skip to the meta menu"/>
+	</h:outputLink>
+<!-- end: skip link navigation -->
+
 <div class="full_area0 clear">
 <!-- begin: header section (including meta menu, logo, searchMenu and main menu)-->
 

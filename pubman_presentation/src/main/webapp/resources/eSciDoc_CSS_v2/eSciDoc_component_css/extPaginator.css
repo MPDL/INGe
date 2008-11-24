@@ -33,12 +33,58 @@
 /*EXTENDED PAGINATOR GLOBAL*/
 
 	.paginator {
-		overflow: visible;
 		margin-right: 0px;
 	}
 
 /*RANGE SELECTOR*/
 
+.rangeSelector .replaceLabel {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	white-space: nowrap;
+	z-index: 1;
+	border-top-width: 0px !important;
+	border-bottom-width: 0px !important;
+	border-style: solid;
+	position: absolute;
+}
+
+.rangeSelector .pulldown {
+	border-style: solid !important;
+	border-top-width: 0px !important;
+	white-space: nowrap;
+	position: absolute;
+	z-index:3;
+	display: none;
+	/*ADD OPACITY*/
+	opacity: 0.9;
+	filter: alpha(opacity=90);
+}
+
+.rangeSelector .selectLine {
+	margin-right: 0px !important;
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+}
+
+.rangeSelector .open, .replace .close {
+	float: right !important;
+}
+
+.rangeSelector .openArea {
+	padding-top: 0px !important;
+	padding-bottom: 0px !important;
+	position: absolute;
+	z-index: 2;
+}
+
+.rangeSelector .close {
+	margin-right: -2.10em !important;
+	position: relative;
+	z-index:4;
+}
+
+/*
 	.rangeSelector {
 		overflow: visible;
 		float: left;
@@ -49,7 +95,7 @@
 		z-index: 1;
 		position: absolute;
 		float: none;
-		/*ADD OPACITY*/
+		
 		opacity: 0.95;
 		filter: alpha(opacity=95);
 	}
@@ -85,7 +131,7 @@
 		z-index: 1;
 		cursor: inherit;
 	}
-	
+*/
 @media print {
 	.rangeSelector {
 		display: none;
