@@ -394,11 +394,19 @@ public class ItemListSessionBean extends FacesBean
     
     public String selectNone()
     {
+        for (PubItemVOPresentation item : currentPubItemList)
+        {
+            item.setSelected(false);
+        }
         return "";
     }
     
     public String selectAll()
     {
+        for (PubItemVOPresentation item : currentPubItemList) 
+        {
+            item.setSelected(true);
+        }
         return "";
     }
     
