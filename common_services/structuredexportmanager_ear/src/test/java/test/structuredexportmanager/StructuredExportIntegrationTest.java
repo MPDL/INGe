@@ -154,7 +154,8 @@ public class StructuredExportIntegrationTest
 	    public final void testStructuredExports() throws Exception
 	    {
 	    	long start;
-	    	String[] fl = export.getFormatsList();
+//	    	String[] fl = export.getFormatsList();
+	    	String[] fl = new String[]{"BIBTEX","ENDNOTE"};
 	    	
 	    	for (String f : fl)
 	    	{
