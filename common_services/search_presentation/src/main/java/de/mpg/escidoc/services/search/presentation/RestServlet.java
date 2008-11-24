@@ -166,15 +166,15 @@ public class RestServlet extends HttpServlet
                 // transform language selector to enum
                 if (language.contains("all"))
                 {
-                    index = "all";
+                    index = "escidoc_all";
                 } 
                 else if (language.contains("en"))
                 {
-                    index = "en";
+                    index = "escidoc_en";
                 } 
                 else if (language.contains("de"))
                 {
-                    index = "de";
+                    index = "escidoc_de";
                 } 
                 else
                 {

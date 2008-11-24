@@ -72,7 +72,7 @@
 		</h2>
 		<ul>
 			<li>
-				exportFormat = APA, outputFormat = html, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider( location.protocol + '//' + location.host  + '/search/opensearch_apa_html_all.xml');">Add</a>
+				exportFormat = APA, outputFormat = html, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider( location.protocol + '//' + location.host  + '/search/opensearch_apa.xml');">Add</a>
 			</li>
 			<li>
 				exportFormat = EndNote, language = all. <a href="#" onclick="javascript:window.external.AddSearchProvider(location.protocol + '//' + location.host  + '/search/opensearch_endnote_all.xml');">Add</a>
