@@ -1010,6 +1010,10 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
 	public List<SearchHitBean> getSearchHits() {
 		return searchHits;
 	}
+	
+	public boolean getHasSearchHits() {
+        return getSearchHits()!=null && getSearchHits().size()>0;
+    }
 
 	public void setSearchHits(List<SearchHitBean> searchHits) {
 		this.searchHits = searchHits;
