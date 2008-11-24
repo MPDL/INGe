@@ -4,18 +4,18 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.11</version>
+		<version>1.0.12-SNAPSHOT</version>
 	</parent>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>syndicationmanager</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<name>syndicationmanager</name>
 	<url>http://maven.apache.org</url>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11/syndicationmanager</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11/syndicationmanager</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/tags/common_services-1.0.11</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndicationmanager</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/syndicationmanager</developerConnection>
+		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 
 	<build>
