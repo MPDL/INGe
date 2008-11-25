@@ -543,6 +543,7 @@ public class EasySubmission extends FacesBean
         bindUploadedFiles();
         parseAndSetAlternativeSourceTitlesAndIds();
         this.setFromEasySubmission(true);
+        //info(getMessage("easy_submission_preview_hint"));
         if (validateStep5("validate") == null)
         {
             return null;
