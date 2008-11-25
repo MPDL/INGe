@@ -267,10 +267,6 @@
 				<groupId>org.apache.maven.wagon</groupId>
 				<artifactId>wagon-webdav</artifactId>
 			</extension>
-			<extension>
-                <groupId>org.apache.maven.wagon</groupId>
-                <artifactId>wagon-ssh</artifactId>
-            </extension>
 		</extensions>
 		<!-- if no tests are present don't fail the complete package process -->
 		<pluginManagement>
