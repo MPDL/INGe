@@ -49,7 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{EditItemPage.beanName}" styleClass="noDisplay" />
+			<h:outputText id="pageDummy" value="#{DepositorWSPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
