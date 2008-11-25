@@ -2,14 +2,14 @@
 	<parent>
 		<artifactId>common_services</artifactId>
 		<groupId>de.mpg.escidoc.services</groupId>
-		<version>1.0.12-SNAPSHOT</version>
+		<version>1.0.12</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>cone_presentation</artifactId>
 	<packaging>war</packaging>
 	<name>cone_presentation</name>
-	<version>1.0.8-SNAPSHOT</version>
+	<version>1.0.8</version>
 	<url>http://maven.apache.org</url>
 	<build>
 		<plugins>
@@ -69,13 +69,13 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>framework_access</artifactId>
-			<version>1.0.13-SNAPSHOT</version>
+			<version>1.0.13</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
 			<artifactId>common_logic</artifactId>
-			<version>1.1.10-SNAPSHOT</version>
+			<version>1.1.10</version>
 			<type>ejb</type>
 			<scope>provided</scope>
 		</dependency>
