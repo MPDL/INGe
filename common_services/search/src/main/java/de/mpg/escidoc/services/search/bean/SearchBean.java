@@ -167,109 +167,8 @@ public class SearchBean implements Search
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public ExportSearchResult searchAndExportItems(ExportSearchQuery query) throws Exception
-    {
 
-        String cqlQuery = query.getCqlQuery();
-        // call framework Search service
-        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
-        searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
-        searchRetrieveRequest.setQuery(query.getCqlQuery());
-
-        searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
-        searchRetrieveRequest.setMaximumRecords(query.getStartRecord());
-        searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
-
-        String index = null;
-        if (query.hasIndexSelector()) 
-        {
-            index = query.getIndexSelector();
-        }
-        else
-        {
-            index = INDEXDATABASE_ALL;
-        }
-        SearchRetrieveResponseType searchResult = performSearch(
-                searchRetrieveRequest, index);
-        String itemList = transformToItemListAsString(searchResult);
-
-        if (query.getExportFormat() == null || query.getExportFormat().trim().equals(""))
-        {
-            throw new TechnicalException("exportFormat is empty");
-        }           
-        if (itemList == null || itemList.trim().equals(""))
-        {
-            throw new TechnicalException("itemList is empty");
-        }
-        byte[] exportData = null;
-        // structured export
-        boolean flag = false;
-        try
-        {
-            for (String ef : structuredExportHandler.getFormatsList())
-            {
-                if (query.getExportFormat().equals(ef))
-                {
-                    exportData = getOutput(query.getExportFormat(), FormatType.STRUCTURED, null,
-                            itemList);
-                    return new ExportSearchResult(exportData, cqlQuery);
-                }
-            }
-        } 
-        catch (Exception e)
-        {
-            throw new TechnicalException(e);
-        }
-
-        try
-        {
-            for (String ef : XmlHelper.getListOfStyles())
-            {
-                if (query.getExportFormat().equals(ef))
-                {
-                    flag = true;
-                    break;
-                }
-            }
-        } 
-        catch (Exception e)
-        {
-            throw new TechnicalException(e);
-        }
-        String outputFormat = query.getOutputFormat();
-        String exportFormat = query.getExportFormat();
-        if (flag)
-        {
-            if (outputFormat == null || outputFormat.trim().equals(""))
-            {
-                throw new TechnicalException("outputFormat should be not empty for exportFormat:"
-                        + exportFormat);
-            }
-            outputFormat = outputFormat.trim();
-            if (!FileFormatVO.isOutputFormatSupported(outputFormat))
-            {
-                throw new TechnicalException("file output format: " + outputFormat
-                        + " for export format: " + exportFormat + " is not supported");
-            }
-            try
-            {
-                exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
-                return new ExportSearchResult(exportData, cqlQuery);
-            } 
-            catch (Exception e)
-            {
-                throw new TechnicalException(e);
-            }
-        } 
-        else
-        {
-            // no export format found!!!
-            throw new TechnicalException("Export format: " + exportFormat + " is not supported");
-        }
-    }
+    
     
     /**
      * {@inheritDoc}
@@ -305,53 +204,7 @@ public class SearchBean implements Search
         }
     }
 
-    /**
-     * Queries an export service to get the search result in an binary format.
-     * @param exportFormat  export format to transform to
-     * @param formatType  format type to transform to
-     * @param outputFormat  output format to transform to
-     * @param itemList  the list of items to be transformed
-     * @return  a binary stream which contains the items in a given format (pdf, etc.)
-     * @throws TechnicalException  
-     * @throws StructuredExportXSLTNotFoundException  if the corresponding xslt is not found
-     * @throws StructuredExportManagerException if structured exportmanager reports an error
-     * @throws IOException  if an io error occurs
-     * @throws JRException  if a jr error occurs
-     * @throws CitationStyleManagerException  if the citationstyle manager reports an error
-     */
-    private byte[] getOutput(String exportFormat, FormatType formatType, String outputFormat,
-            String itemList) throws TechnicalException, StructuredExportXSLTNotFoundException,
-            StructuredExportManagerException, IOException, JRException,
-            CitationStyleManagerException
-    {
-
-        byte[] exportData = null;
-
-        // structured export
-        if (formatType == FormatType.LAYOUT)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug(">>> start citationStyleHandler " + itemList);
-            }
-            exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
-        } 
-        else if (formatType == FormatType.STRUCTURED)
-        {
-            if (logger.isDebugEnabled())
-            {
-                logger.debug(">>> start structuredExportHandler " + itemList);
-            }
-            exportData = structuredExportHandler.getOutput(itemList, exportFormat);
-        } 
-        else
-        {
-            // no export format found!!!
-            throw new TechnicalException("format Type: " + formatType + " is not supported");
-        }
-
-        return exportData;
-    }
+    
 
     /**
      * Perform a search with the SRU interface.
@@ -451,6 +304,125 @@ public class SearchBean implements Search
         }
         return resultList;
     }
+    
+    
+    /**
+     * {@inheritDoc}
+     */ 
+    public ExportSearchResult searchAndExportItems(ExportSearchQuery query) throws Exception
+    {
+
+        String cqlQuery = query.getCqlQuery();
+        // call framework Search service
+        SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
+        searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
+        searchRetrieveRequest.setQuery(query.getCqlQuery());
+        searchRetrieveRequest.setSortKeys(query.getSortKeys());
+
+        searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
+        searchRetrieveRequest.setStartRecord(query.getStartRecord());
+        
+        searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
+
+        SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, query
+                .getIndexSelector());
+        String itemList = transformToItemListAsString(searchResult);
+
+        String outputFormat = query.getOutputFormat();
+        String exportFormat = query.getExportFormat();
+        
+        if ( !checkVal(exportFormat) )
+        {
+            throw new TechnicalException("exportFormat is empty");
+        }
+        if ( !checkVal(itemList) )
+        {
+            throw new TechnicalException("itemList is empty");
+        }
+        
+        
+        byte[] exportData = null;
+        
+        // structured export
+        if ( structuredExportHandler.isStructuredFormat(exportFormat) )
+        {
+                exportData = getOutput(exportFormat, FormatType.STRUCTURED, null,
+                        itemList);
+                return new ExportSearchResult(exportData, cqlQuery);
+        } 
+        // citation style
+        else if ( citationStyleHandler.isCitationStyle(exportFormat) ) 
+        {
+            if ( !checkVal(outputFormat) )
+            {
+                throw new TechnicalException("outputFormat should be not empty for exportFormat:"
+                        + exportFormat);
+            }
+            outputFormat = outputFormat.trim();
+            if ( citationStyleHandler.getMimeType(exportFormat, outputFormat)==null)
+            {
+                throw new TechnicalException("file output format: " + outputFormat
+                        + " for export format: " + exportFormat + " is not supported");
+            }
+            exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
+            return new ExportSearchResult(exportData, cqlQuery);
+        }
+        else
+        {
+            // no export format found!!!
+            throw new TechnicalException("Export format: " + exportFormat + " is not supported");
+        }
+    }
+
+    /**
+     * Queries an export service to get the search result in an binary format.
+     * @param exportFormat  export format to transform to
+     * @param formatType  format type to transform to
+     * @param outputFormat  output format to transform to
+     * @param itemList  the list of items to be transformed
+     * @return  a binary stream which contains the items in a given format (pdf, etc.)
+     * @throws TechnicalException  
+     * @throws StructuredExportXSLTNotFoundException  if the corresponding xslt is not found
+     * @throws StructuredExportManagerException if structured exportmanager reports an error
+     * @throws IOException  if an io error occurs
+     * @throws JRException  if a jr error occurs
+     * @throws CitationStyleManagerException  if the citationstyle manager reports an error
+     */
+    private byte[] getOutput(String exportFormat, FormatType formatType, String outputFormat,
+            String itemList) throws TechnicalException, StructuredExportXSLTNotFoundException,
+            StructuredExportManagerException, IOException, JRException,
+            CitationStyleManagerException
+    {
+
+        byte[] exportData = null;
+
+        // structured export
+        if (formatType == FormatType.LAYOUT)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug(">>> start citationStyleHandler " + itemList);
+            }
+            exportData = citationStyleHandler.getOutput(exportFormat, outputFormat, itemList);
+        } 
+        else if (formatType == FormatType.STRUCTURED)
+        {
+            if (logger.isDebugEnabled())
+            {
+                logger.debug(">>> start structuredExportHandler " + itemList);
+            }
+            exportData = structuredExportHandler.getOutput(itemList, exportFormat);
+        } 
+        else
+        {
+            // no export format found!!!
+            throw new TechnicalException("format Type: " + formatType + " is not supported");
+        }
+
+        return exportData;
+    }
+
+    
 
     /**
      * Transforms the search result set to a xml string.
@@ -513,5 +485,8 @@ public class SearchBean implements Search
             }
         }
         return resultList;
+    }
+    private boolean checkVal(String str) {
+        return !(str == null || str.trim().equals("")); 
     }
 }
