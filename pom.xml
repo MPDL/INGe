@@ -155,6 +155,16 @@
 			<timezone>+2</timezone>
 		</developer>
 		<developer>
+		  <id>meichau</id>
+            <name>Markus Meichau</name>
+            <email>meichau@mpdl.mpg.de</email>
+            <roles>
+                <role>Software developer</role>
+            </roles>
+            <organization>Max Planck Digital Library</organization>
+            <timezone>+2</timezone>
+		</developer>
+		<developer>
 			<id>kleinfercher</id>
 			<name>Friederike Kleinfercher</name>
 			<email>kleinfercher@mpdl.mpg.de</email>
