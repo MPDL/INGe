@@ -74,6 +74,8 @@ public class Navigation extends FacesBean
 
     public static final String BEAN_NAME = "Navigation";
     private List<NavigationRule> navRules;
+    
+    private boolean showExportMenuOption;
 
     /** identifier from the breadcrump component in the page */
 
@@ -386,6 +388,16 @@ public class Navigation extends FacesBean
     protected SearchResultList getSearchResultList()
     {
         return (SearchResultList) getSessionBean(SearchResultList.class);
+    }
+
+    public void setShowExportMenuOption(boolean showExportMenuOption)
+    {
+        this.showExportMenuOption = showExportMenuOption;
+    }
+
+    public boolean getShowExportMenuOption()
+    {
+        return showExportMenuOption;
     }
 
 }

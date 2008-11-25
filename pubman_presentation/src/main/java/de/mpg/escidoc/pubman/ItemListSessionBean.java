@@ -233,7 +233,9 @@ public class ItemListSessionBean extends FacesBean
         return "";
     }
     
-    
+    public String startExport() {
+        return "loadExportPage";
+    }
 
     public String getSortOrder()
     {

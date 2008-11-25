@@ -319,6 +319,11 @@ public class LoginHelper extends FacesBean
     {
         return loggedIn;
     }
+    
+    public boolean getLoggedIn()
+    {
+        return loggedIn;
+    }
 
     public void setLoggedIn(boolean loggedIn)
     {

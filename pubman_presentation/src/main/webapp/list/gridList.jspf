@@ -94,7 +94,7 @@ All rights reserved. Use is subject to license terms.
 
 
 
-<table class="full_area0 itemList loggedIn" rules="none" style="border-collapse: collapse;">
+<table class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />" rules="none" style="border-collapse: collapse;">
   <thead class="listHeader" style="text-align: left; vertical-align:top;">
     <tr class="full_area0">
       	<th class="free_area0_p8 endline itemSelectArea">

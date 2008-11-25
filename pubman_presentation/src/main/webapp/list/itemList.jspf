@@ -93,7 +93,7 @@ All rights reserved. Use is subject to license terms.
 </div>
 
 
-<div class="full_area0 itemList loggedIn">
+<div class="full_area0 itemList <h:outputText value='loggedIn' rendered='#{LoginHelper.loggedIn}' />">
 	<div class="full_area0 listHeader">
 		<span class="free_area0_p8 endline itemSelectArea">
 			<input type="button" class="min_imgBtn checkboxSelectButton"/>
