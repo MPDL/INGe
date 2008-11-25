@@ -95,7 +95,14 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ExportItemsSessionBean.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ExportItemsSessionBean.hasMessages and !ExportItemsSessionBean.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
+								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

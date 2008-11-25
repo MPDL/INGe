@@ -120,14 +120,13 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{ViewItemFull.hasErrorMessages}">
-									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ViewItemFull.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ViewItemFull.hasMessages and !ViewItemFull.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ViewItemFull.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
@@ -203,7 +202,7 @@
 
 
 
-
+<!-- 
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
 <jsp:output doctype-root-element="html"
@@ -221,7 +220,7 @@
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
-					<!-- FrM: Moved JS sources to external file -->
+					
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				</head>
 				<body>
@@ -260,3 +259,4 @@
 		
 	</f:view>
 </jsp:root>
+-->
