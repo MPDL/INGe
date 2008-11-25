@@ -65,6 +65,7 @@ public class ItemListSessionBean extends FacesBean
 
     private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
+    private String listType = "BIB";
     private String sortBy = "DATE";
     private String sortOrder = "DESCENDING";
     private String type = null;
@@ -197,9 +198,42 @@ public class ItemListSessionBean extends FacesBean
         this.sortBy = sortBy;
     }
     
-    public void setSortByState(final ActionEvent event) {
+    public String setSortByState() {
         this.sortBy = "STATE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
     }
+    
+    public String setSortByTitle() {
+        this.sortBy = "TITLE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByCreator() {
+        this.sortBy = "CREATOR";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByGenre() {
+        this.sortBy = "GENRE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByDate() {
+        this.sortBy = "DATE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    
 
     public String getSortOrder()
     {
@@ -566,5 +600,21 @@ public class ItemListSessionBean extends FacesBean
             return isInRevisionView;
         }
         
+        public boolean getIsListTypeBib(){
+            return this.listType.equals("BIB");
+        }
         
+        public String changeListTypeToBib(){
+            listType = "BIB";
+            return "";
+        }
+        
+        public boolean getIsListTypeGrid(){
+            return this.listType.equals("GRID");
+        }
+        
+        public String changeListTypeToGrid(){
+            listType = "GRID";
+            return "";
+        }
 }

@@ -74,21 +74,23 @@
 								<div class="sub">
 								<!-- content menu upper line starts here -->
 									<a href="">VIEW OPTIONS</a>
-									<span class="seperator void"></span>
+									<h:outputText styleClass="seperator void" />
 									<a href="">FILTER OPTIONS</a>
-									<span class="seperator void"></span>
-									<span>SORTING</span>
+									<h:outputText styleClass="seperator void" />
+									<a href="">SORTING</a>
 								<!-- content menu upper line ends here -->
 								</div>
 								<div class="sub">
 								<!-- content menu lower line starts here -->
-									<h:commandLink styleClass="free_area0">
+									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
 									</h:commandLink>
+									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{ItemListSessionBean.isListTypeBib}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink styleClass="free_area0">
+									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeGrid}"  action="#{ItemListSessionBean.changeListTypeToGrid}">
 										<h:outputText value="Grid list" />
 									</h:commandLink>
+									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
 								<!-- content menu lower line ends here -->
 								</div>
 								<div class="sub">
@@ -126,11 +128,12 @@
 							</div>
 						</div>
 					</div>
-					<div class="full_area0">
-
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">
 						<jsp:directive.include file="list/itemList.jspf" />
-
-					</div>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeGrid}">
+						<jsp:directive.include file="list/gridList.jspf" />
+					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
 			

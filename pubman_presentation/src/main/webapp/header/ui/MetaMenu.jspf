@@ -38,17 +38,18 @@
 		<f:selectItem itemValue="de" itemLabel="#{lbl.ENUM_LANGUAGE_DE}"/>
 	</h:selectOneMenu>
 
-	<h:commandLink styleClass="small_area0_p3 endline" title="Show gerneral help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" />
+<%-- <h:commandLink styleClass="small_area0_p3 endline" title="Show gerneral help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', ' ');return false" value="#{lbl.mainMenu_lnkHelp}" /> --%>
+	<h:commandLink styleClass="small_area0_p3 endline" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
-
+<%--
 	<h:outputLink value="#" styleClass="small_area0_p3 endline" title="Show frequently asked questions.">
 		<h:outputText value="#{lbl.faq}"/>
 	</h:outputLink>
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
-
-	<h:commandLink styleClass="small_area0_p3 endline" title="Show information about pubman." onclick="loadAbout();return false" value="#{lbl.about}" />
+--%>
+	<h:commandLink styleClass="large_area0_p3 endline" title="Show information about pubman." onclick="loadAbout();return false" value="#{lbl.about}" />
 
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 

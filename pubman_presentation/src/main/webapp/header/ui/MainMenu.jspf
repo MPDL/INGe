@@ -56,7 +56,9 @@
 		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
 
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" />
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." value="Export" />
+
+<%-- <h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to Help." onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#{PubManRequestBean.helpAnchor}');return false" value="#{lbl.mainMenu_lnkHelp}" /> --%>
 
 	<!-- main Menu ends here -->
 </div>
