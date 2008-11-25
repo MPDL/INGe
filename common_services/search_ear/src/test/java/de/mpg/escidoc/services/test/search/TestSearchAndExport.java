@@ -74,6 +74,7 @@ public class TestSearchAndExport extends TestSearchBase
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testSearchAndExportSnippetAPA() throws Exception
     {
         
@@ -114,6 +115,7 @@ public class TestSearchAndExport extends TestSearchBase
      * @throws Exception
      */
     @Test
+    @Ignore
     public void testSearchAndExportHtmlApa() throws Exception
     {
         
