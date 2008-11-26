@@ -433,13 +433,13 @@
 	
 	.activeButton {
 		float: right;
-		color: #FFFFFF;
+		color: #FFFFFF !important;
 		background-color: #388097;
 		border-color: #388097;
 	}
 	
 	.activeButton:hover {
-		color: #FFFFFF;
+		color: #FFFFFF !important;
 		background-color: #163D4B;
 		border-color: #382926;
 	}
