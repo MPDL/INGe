@@ -45,76 +45,89 @@ public class LooseFormatWithInfoInBraces extends AuthorFormat {
     public final String BRACES_WITH_ANY_CONTENT = "\\s+\\(\\s*(\\s*\\S+)+\\s*\\)\\s*";
     @Override
     public String getPattern() {
-        return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*(,|;)*\\s*$";
+        //return "^\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*(\\s*(,|;| and | und | et )\\s*" + LOOSE_SYLLABLE + "(\\s+" + LOOSE_SYLLABLE + ")*(" + BRACES_WITH_ANY_CONTENT + ")*)*\\s*(,|;)*\\s*$";
+       return ".";
     }
 
     @Override
     public List<Author> getAuthors(String authorsString) throws Exception
     {
-        
-        List<String> parts = new ArrayList<String>();
-        String currentString = "";
-        String currentStringWithoutBracketContent="";
-        
-        //remove last comma or semicolon
-        
-        String openedBracketsRegEx = "(\\(|\\{|\\[)";
-        String closedBracketsRegEx = "(\\)|\\}|\\])";
-        String seperatorsRegEX = "(,|;)";
-        int brackets = 0;
-        
-        //split string by commas and semicolons (if they are not inside a bracket)
-        for (int i = 0; i < authorsString.length(); i++)
+        //string contains semicolons and commas -> interprete as format with surname first
+        if (authorsString.contains(",") && authorsString.contains(";"))
         {
-            String currentChar = String.valueOf(authorsString.charAt(i));
-            if (currentChar.matches(openedBracketsRegEx))
+            String[] authors = authorsString.split("(;| and | und | et )");
+            return getAuthorListLooseFormatSurnameFirst(authors);
+        }
+        
+        //interprete as format with given name first and info in brackets
+        else
+        {
+            
+        
+            List<String> parts = new ArrayList<String>();
+            String currentString = "";
+            String currentStringWithoutBracketContent="";
+            
+            //remove last comma or semicolon
+            
+            String openedBracketsRegEx = "(\\(|\\{|\\[)";
+            String closedBracketsRegEx = "(\\)|\\}|\\])";
+            String seperatorsRegEX = "(,|;)";
+            int brackets = 0;
+            
+            //split string by commas and semicolons (if they are not inside a bracket)
+            for (int i = 0; i < authorsString.length(); i++)
             {
-                brackets+=1;
-                currentString+=currentChar;
+                String currentChar = String.valueOf(authorsString.charAt(i));
+                if (currentChar.matches(openedBracketsRegEx))
+                {
+                    brackets+=1;
+                    currentString+=currentChar;
+                    
+                }
+                else if (currentChar.matches(closedBracketsRegEx))
+                {
+                    brackets-=1;
+                    currentString+=currentChar;
+                }
+                else if (currentChar.matches(seperatorsRegEX) && brackets == 0)
+                {
+                    parts.add(new String(currentString));
+                    currentString="";
+                    
+                }
+                else
+                {
+                    currentString+=currentChar;
+                }
                 
             }
-            else if (currentChar.matches(closedBracketsRegEx))
+            // add last Part if not empty
+            if (!currentString.trim().equals(""))
             {
-                brackets-=1;
-                currentString+=currentChar;
-            }
-            else if (currentChar.matches(seperatorsRegEX) && brackets == 0)
-            {
-                parts.add(new String(currentString));
-                currentString="";
-                
-            }
-            else
-            {
-                currentString+=currentChar;
+                parts.add(currentString);
             }
             
-        }
-        // add last Part if not empty
-        if (!currentString.trim().equals(""))
-        {
-            parts.add(currentString);
-        }
-        
-        
-        
-        //split strings by rest of seperators
-        String seperatorsRegEX2 = "( and | und | et )";
-        List<String> parts2 = new ArrayList<String>();
-        for (int i = 0; i < parts.size(); i++)
-        {
-            String part = parts.get(i);
-            String[] newSeps = part.split(seperatorsRegEX2);
-            for (int j = 0; j < newSeps.length; j++)
+            
+            
+            //split strings by rest of seperators
+            String seperatorsRegEX2 = "( and | und | et )";
+            List<String> parts2 = new ArrayList<String>();
+            for (int i = 0; i < parts.size(); i++)
             {
-                parts2.add(newSeps[j]);
+                String part = parts.get(i);
+                String[] newSeps = part.split(seperatorsRegEX2);
+                for (int j = 0; j < newSeps.length; j++)
+                {
+                    parts2.add(newSeps[j]);
+                }
             }
+           
+            
+            String[] authors = parts2.toArray(new String[0]);
+            
+            return getAuthorListLooseFormat(authors);
         }
-       
-        
-        String[] authors = parts2.toArray(new String[0]);
-        
-        return getAuthorListLooseFormat(authors);
     }
 
     

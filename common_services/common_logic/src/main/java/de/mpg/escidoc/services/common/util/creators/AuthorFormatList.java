@@ -43,7 +43,7 @@ public final class AuthorFormatList
 
     private static AuthorFormat[] formats = new AuthorFormat[]
     {
-
+        
         new WesternFormat1(),
         new WesternFormat2(),
         new WesternFormat3(),
@@ -55,14 +55,15 @@ public final class AuthorFormatList
         new WesternFormat9(),
         new WesternFormat10(),
         new WesternFormat11(),
-        new WesternFormat12(),
+        //new WesternFormat12(),
         new OxfordJournalFormat(),
         new ScienceDirectFormat(),
         new BibTeXSpecialFormat1(),
-        new LooseFormat(),
-        new LooseFormatSurnameFirst(),
+        //new LooseFormat(),
+        //new LooseFormatSurnameFirst(),
         new LooseFormatWithInfoInBraces(),
         new ResidualFormat()
+        
 
     };
 
