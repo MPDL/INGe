@@ -80,7 +80,7 @@
 									<h:outputText styleClass="free_area0" value="FILTER OPTIONS" rendered="#{ItemListSessionBean.submenu == 'FILTER'}" />
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" rendered="#{ItemListSessionBean.submenu != 'SORTING'}" />
-									<h:outputText value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />		
+									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />		
 									
 								<!-- content menu upper line ends here -->
 								</div>
