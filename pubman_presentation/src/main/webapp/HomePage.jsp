@@ -99,8 +99,9 @@
 							</span>
 							
 							<div class="sideSection free_area0_p8">
-								<h2>News</h2>
-								dsjrgkjbkjxlf  oif oi oif oig drdo gn
+
+								<jsp:directive.include file="home/News.jspf" />
+								
 							</div>		
 							
 						</div>	
