@@ -256,12 +256,6 @@
 				<filtering>true</filtering>
 			</testResource>
 		</testResources>
-		<extensions>
-			<extension>
-				<groupId>org.apache.maven.wagon</groupId>
-				<artifactId>wagon-webdav</artifactId>
-			</extension>
-		</extensions>
 		<!-- if no tests are present don't fail the complete package process -->
 		<pluginManagement>
 			<plugins>
