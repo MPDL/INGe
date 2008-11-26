@@ -74,10 +74,10 @@
 								<div class="sub">
 								<!-- content menu upper line starts here -->
 									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{ItemListSessionBean.changeSubmenuToView}" rendered="#{ItemListSessionBean.submenu != 'VIEW'}"/>
-									<h:outputText value="VIEW OPTIONS" rendered="#{ItemListSessionBean.submenu == 'VIEW'}" />
+									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{ItemListSessionBean.submenu == 'VIEW'}" />
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" rendered="#{ItemListSessionBean.submenu != 'SORTING'}" />
-									<h:outputText value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />		
+									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />		
 								<!-- content menu upper line ends here -->
 								</div>
 								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
