@@ -22,15 +22,41 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 */ %>
 
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+
+<div class="full_area0 itemHeader">
+	<h:panelGroup styleClass="xLarge_area0 endline" >
+		&#160;
+	</h:panelGroup>
+		<h:panelGroup styleClass="seperator" />
+	<h:panelGroup styleClass="free_area0_p8 endline itemHeadline">
+		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
+			<f:facet name="nodeStamp">
+				<h:panelGroup>
+					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px" rendered="#{node.mps}"/>
+					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
+					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
+					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
+					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
+					<%-- <h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  /> --%>
+				</h:panelGroup>
+			</f:facet>
+		</tr:tree>
+	</h:panelGroup>
+</div>
+
+
+
+<%--
 <div>
 	<f:loadBundle var="lbl"	basename="Label" />
 	<f:subview id="AffiliationTreePage">
@@ -51,10 +77,11 @@
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
 					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
-					<%--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />--%>
+					<!--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />-->
 				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
 		
 	</f:subview>
 </div>
+--%>
