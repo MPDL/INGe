@@ -78,12 +78,9 @@
 					&#160;<span class="noDisplay"> </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-<%-- JIRA AS-584 --%>
-<%-- Start please provide additional radio button option any field and fulltext --%>
-					<h:selectOneRadio styleClass="medium_radioBtn xTiny_marginRIncl xHuge_area0 underRework" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}">
+					<h:selectOneRadio styleClass="medium_radioBtn xTiny_marginRIncl xHuge_area0" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}">
 						<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
 					</h:selectOneRadio>
-<%-- Stop please provide additional radio button option any field and fulltext --%>
 				</span>
 			</h:panelGroup>
 
