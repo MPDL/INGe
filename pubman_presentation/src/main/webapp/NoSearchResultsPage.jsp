@@ -27,6 +27,105 @@
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 -->
+
+<jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page" xmlns:tr="http://myfaces.apache.org/trinidad">
+
+	<jsp:output doctype-root-element="html"
+	       doctype-public="-//W3C//DTD XHTML 1.0 Transitional//EN"
+	       doctype-system="http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd" /> 
+
+	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
+	<f:view locale="#{InternationalizationHelper.userLocale}">
+			<f:loadBundle var="lbl" basename="Label"/>
+			<f:loadBundle var="msg" basename="Messages"/>
+				
+		<html xmlns="http://www.w3.org/1999/xhtml">
+			<head>
+
+				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
+
+				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+
+			</head>
+			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText id="pageDummy" value="#{NoSearchResultsPage.beanName}" styleClass="noDisplay" />
+			<tr:form usesUpload="true">
+			<h:inputHidden id="offset"></h:inputHidden>
+			
+				<jsp:directive.include file="header/Header.jspf" />
+
+				<div id="content" class="full_area0 clear">
+				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					<div class="clear">
+						<div class="headerSection">
+							
+						<jsp:directive.include file="header/Breadcrumb.jspf" />
+				
+							<div id="contentSkipLinkAnchor" class="clear headLine">
+								<!-- Headline starts here -->
+								<h1><h:outputText value="#{lbl.SearchResultListPage}" /></h1>
+								<!-- Headline ends here -->
+							</div>
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+							<!-- content menu starts here -->
+								<div class="sub">
+								<!-- content menu upper line starts here -->
+	
+								<!-- content menu upper line ends here -->
+								</div>
+							<!-- content menu ends here -->
+							</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+								<h:commandLink styleClass="free_area0 xTiny_marginRIncl" binding="#{SearchResultList.lnkAdvancedSearch}" immediate="true" value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
+								<a class="free_area0" href="#contentSkipLinkAnchor" onclick="$(this).siblings('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
+								<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
+									<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
+									<h:outputText binding="#{SearchResultList.valQuery}"/>
+								</h:panelGroup>
+								<!-- Subheadline ends here -->
+							</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{SearchResultListPage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchResultListPage.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{SearchResultListPage.hasMessages and !SearchResultListPage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchResultListPage.hasMessages}"/>
+								</h:panelGroup>
+								<!-- Subheadline ends here -->
+							</div>
+						</div>
+					</div>
+					<div class="full_area0">
+						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.searchResultList_Notification}"/>
+					</div>
+				<!-- end: content section -->
+				</div>
+			
+			</tr:form>
+			<script type="text/javascript">
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
+				});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop());});
+				});
+			</script>
+			</body>
+		</html>
+	</f:view>
+</jsp:root>
+
+
+
+<!--
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
 <jsp:output doctype-root-element="html"
@@ -44,7 +143,7 @@
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
-<!-- FrM: Moved JS sources to external file -->
+
 <script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 </head>
 <body>
@@ -80,3 +179,4 @@
 
 </f:view>
 </jsp:root>
+-->
