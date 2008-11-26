@@ -1,0 +1,58 @@
+Migration from eDoc to PubMan
+=============================
+
+Components
+----------
+* EDocImport.java : Executable that transforms exported eDoc data into eSciDoc 
+  item list.
+* PubManImport.java : Exceutable that validates an item list and imports it 
+  into PubMan.
+* CreatePurgeScript : Executable that generates a Fedora purge script to remove 
+  the imported items from the repository.
+
+* edoc-to-escidoc.xslt : XSLT transformation from eDoc to publication item list
+* mpipl_authors.xml, mpipl_collections.xml, mpipl_ous.xml : data includes for 
+  the transformation specific for MPIPL
+
+Workflow
+--------
+
+1) In the admin tool, the context for the imported publications has to be 
+   created and opened. Remember the id.
+2) The ID of this context has to be entered in edoc-to-escidoc.xslt (line 70).
+3) If needed, a special user has to be entered in PubMan granted the right to 
+   create and release items in the specific context.
+4) In PubMan, the organizational structure has to be setup, i.e. the OUs have 
+   to be entered.
+5) This structure has to be transferred to a file like mpipl_ous.xml. When new 
+   files are created, these have to be imported into edoc-to-escidoc.xslt 
+   (line 75).
+6) The authors of the MPI have to be mapped in a file like mpipl_authors.xml. 
+   The aliasing is only needed when a mapping to one authorized name is desired.
+7) If there should be a mapping of the authors to the eDoc collection, then a
+   file like mpipl_collections.xml has to be created.
+8) eDoc data have to be exported into an XML file.
+9) The data are transformed with the following execution
+     java EDocImport -Dfile.encoding=UTF-8 -Xmx512m <eDoc-data-file>
+   where <eDoc-data-file> is the path and filename of the exported data. A new 
+   file is created in the project root directory named "edoc_export_out.xml"
+10) The data are imported with the following execution
+      java PubManImport -Dfile.encoding=UTF-8 -Xmx512m "edoc_export_out.xml" <eSciDoc-user-name> <eSciDoc-password>
+11) CHECK THE IMPORTED DATA
+
+If the imported data shall be removed from the repository, do the following
+
+1) Set the context id in CreatePurgeScript.java (line 56)
+2) Execute
+      java -Xmx512m CreatePurgeScript
+   A file is created in the project root directory name "purge.sh"
+3) Copy this file to the following path of your fedora installation
+     FEDORA_HOME/client/bin
+4) Set the execution flags of the file
+     chmod 755 purge.sh
+5) Execute it
+     ./purge.sh
+   This might take a while.
+6) Recache the repository
+7) Reindex the repository
+8) Have a drink

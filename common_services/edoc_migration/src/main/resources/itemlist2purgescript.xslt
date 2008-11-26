@@ -62,11 +62,10 @@
 	<xsl:output method="text" encoding="UTF-8" indent="no"/>
 
 	<xsl:template match="/">
+<xsl:for-each select="item-list:item-list/*"><xsl:sort select="@xlink:href"/><xsl:variable name="objid" select="substring-after(@xlink:href, '/ir/item/')"/>./fedora-purge.sh localhost:8082 fedoraAdmin fedoraAdmin <xsl:value-of select="$objid"/> http "Purged_object_<xsl:value-of select="$objid"/>"
+</xsl:for-each>
 <xsl:for-each select="search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/*">./fedora-purge.sh localhost:8082 fedoraAdmin fedoraAdmin <xsl:value-of select="@objid"/> http "Purged_object_<xsl:value-of select="@objid"/>"
 </xsl:for-each>
 	</xsl:template>
 	
-	<xsl:template match="XXX">
-		<xsl:for-each select="search:searchRetrieveResponse/search:records/search:record/search:recordData/search-result:search-result-record/*"><xsl:value-of select="@objid"/> or </xsl:for-each>
-	</xsl:template>
 </xsl:stylesheet>

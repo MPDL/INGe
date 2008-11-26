@@ -35,6 +35,7 @@ import java.io.FileOutputStream;
 
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
+import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -48,12 +49,12 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class CreatePurgeScript
+public class CreatePurgeScript2
 {
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
     private static String CORESERVICES_URL;
-    private static final String IMPORT_CONTEXT = "escidoc:23756";
+    private static final String IMPORT_CONTEXT = "escidoc:31013";
     
     /**
      * @param args
@@ -64,9 +65,14 @@ public class CreatePurgeScript
         
         logger.info("Querying core-services...");
         HttpClient httpClient = new HttpClient();
-        GetMethod getMethod = new GetMethod(CORESERVICES_URL + "/srw/search/escidoc_all?maximumRecords=10000&query=escidoc.context.objid=" + IMPORT_CONTEXT);
-        httpClient.executeMethod(getMethod);
-        String response = getMethod.getResponseBodyAsString();
+        String filter = "<param><filter name=\"http://escidoc.de/core/01/structural-relations/context\">" + IMPORT_CONTEXT + "</filter><order-by>http://escidoc.de/core/01/properties/creation-date</order-by><limit>0</limit></param>";
+
+        PostMethod postMethod = new PostMethod(CORESERVICES_URL + "/ir/items/filter");
+        
+        postMethod.setRequestBody(filter);
+        
+        httpClient.executeMethod(postMethod);
+        String response = postMethod.getResponseBodyAsString();
         logger.info("...done!");
         
         //System.out.println(response);
