@@ -107,7 +107,7 @@
 								<!-- Subheadline starts here -->
 								<h:commandLink styleClass="free_area0 xTiny_marginRIncl" binding="#{SearchResultList.lnkAdvancedSearch}" immediate="true" value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
 								<a class="free_area0" href="#contentSkipLinkAnchor" onclick="$(this).siblings('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
-								<h:panelGroup layout="block" styleClass="full_area0_p6 searchQuery" style="display: none;">
+								<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
 									<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
 									<h:outputText binding="#{SearchResultList.valQuery}"/>
 								</h:panelGroup>
