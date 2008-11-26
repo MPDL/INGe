@@ -73,7 +73,7 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<a href="">VIEW OPTIONS</a>
+									<a href="" >VIEW OPTIONS</a>
 									<h:outputText styleClass="seperator void" />
 									<a href="">FILTER OPTIONS</a>
 									<h:outputText styleClass="seperator void" />
