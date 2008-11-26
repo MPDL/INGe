@@ -21,30 +21,20 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
-<div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
-	<f:subview id="ViewRevisions">
-		<br/>
-		<h:outputText value="#{RevisionList.dummy}"/>
-		<p>
-			<h:outputLink value="#{ApplicationBean.appContext}#{ViewItemRevisionsPage.previousPageURI}">
-				<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
-			</h:outputLink>
-		</p>
-		<h1 class="bottomSpace">
-			<h:outputText id="valOrientationText" value="#{lbl.ViewItemRevisions_Header} "/>
-			<h:outputText id="valItemID" value="#{ItemControllerSessionBean.currentPubItem.version.objectId}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#ViewRevision');return false"/>
-		</h1>
-		<h:outputText value="#{lbl.ViewItemReleaseHistory_lblNoRevision}" rendered="#{!RevisionList.showRevisions}"/>
-	
-		<h:panelGroup rendered="#{RevisionList.showRevisions}">
-			<jsp:directive.include file="../list/itemList.jspf"/>
-		</h:panelGroup>
-	</f:subview>
-</div>
+
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f"%>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:outputText value="#{RevisionList.dummy}"/>
+<ol>
+	<h:panelGroup rendered="#{RevisionList.showRevisions}">
+		<jsp:directive.include file="../list/itemRevisionsList.jspf"/>
+	</h:panelGroup>
+</ol>
