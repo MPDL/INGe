@@ -224,7 +224,7 @@ public class AnyFieldCriterionBean extends CriterionBean
 			AnyFieldCriterion anyFieldCriterionVO = new AnyFieldCriterion();
 			anyFieldCriterionVO.setSearchString(searchString);
 			anyFieldCriterionVO.setLogicalOperator(logicOperator);
-			this.setIncludeFiles(true);
+			anyFieldCriterionVO.setIncludeFiles(true);
 			// Reinitialize this POJO, because the selectedType has been changed.
 			criterionVO = anyFieldCriterionVO;
 		}
