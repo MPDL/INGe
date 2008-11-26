@@ -3,7 +3,7 @@
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman</artifactId>
 	<packaging>pom</packaging>
-	<version>3.8.5</version>
+	<version>3.8.6-SNAPSHOT</version>
 	<name>pubman</name>
 	<url>http://escidoc1.escidoc.mpg.de/projects/pubman</url>
 	<description>
@@ -181,9 +181,9 @@
   </modules>
 
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.5</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.5</developerConnection>
-		<url>https://zim02.gwdg.de/repos/pubman/tags/pubman-3.8.5</url>
+		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</connection>
+		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman</developerConnection>
+		<url>https://zim02.gwdg.de/repos/pubman/</url>
 	</scm>
 
 	<distributionManagement>
