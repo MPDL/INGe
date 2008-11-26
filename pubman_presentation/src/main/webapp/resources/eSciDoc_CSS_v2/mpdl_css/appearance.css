@@ -237,6 +237,23 @@
 		color: #827775;
 	}
 	
+/* INFO PAGE*/
+
+.infoPage {
+	border-style: solid;
+	border-color: #BAB4B3;
+}
+
+.infoPage .mainSection h2 {
+	border-style: solid;
+	border-color: #BAB4B3;
+}
+
+.infoPage .sideSection {
+	border-style: solid;
+	border-color: #BAB4B3;
+}
+	
 /*LISTS & FULL ITEM*/
 
 	/*GENERAL*/

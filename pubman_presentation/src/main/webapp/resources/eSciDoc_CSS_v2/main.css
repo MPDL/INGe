@@ -37,6 +37,8 @@
 /* import component specific styles | komponentenspezifische Stylesheets einbinden */
 	/* import header styles | das Stylesheet für den Seitenkopf einbinden */
 		@import url(./eSciDoc_component_css/header.css);	
+	/* import home page styles | das Stylesheet für die HOME Seite einbinden */
+		@import url(./eSciDoc_component_css/infoPage.css);	
 	/* import extended paginator component styles | das Stylesheet für die Komponente "erweiterter Paginator" einbinden */
 		@import url(./eSciDoc_component_css/extPaginator.css);
 	/* import list component styles | das Stylesheet für die Listenkomponenten einbinden */

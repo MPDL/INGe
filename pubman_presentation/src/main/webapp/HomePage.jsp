@@ -78,16 +78,34 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
 					<div class="full_area0">
-												
-						<jsp:directive.include file="home/ReleaseNotes.jspf" />
-						
+						<div class="full_area0 infoPage">
+							<span class="half_area0_p8 mainSection">
+
+								<jsp:directive.include file="home/ReleaseNotes.jspf" />
+								
+							</span>
+							
+							<div class="sideSection free_area0_p8">
+								<h2>News</h2>
+								dsjrgkjbkjxlf  oif oi oif oig drdo gn
+							</div>		
+							
+						</div>	
 					</div>
+				<!-- 	<jsp:directive.include file="home/ReleaseNotes.jspf" />   -->
 				<!-- end: content section -->
 				</div>
 
