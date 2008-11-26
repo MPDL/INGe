@@ -107,7 +107,7 @@
 									<h:commandButton styleClass="noDisplay changeCollection" action="#{QAWS.changeContext}" immediate="true" value="change"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<div class="sub">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
@@ -116,10 +116,10 @@
 									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 								<!-- content menu lower line ends here -->
-								</div>
+								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
-							<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
+							<div>
 								<!-- Subheadline starts here -->
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{QAWSPage.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
@@ -130,7 +130,7 @@
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{QAWSPage.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
-							</h:panelGroup>
+							</div>
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">
