@@ -70,6 +70,8 @@ public class ItemListSessionBean extends FacesBean
     private String sortOrder = "DESCENDING";
     private String type = null;
     
+    private String submenu = "VIEW";
+    
     private int itemsPerPage = 10;
     private int currentPubItemListPointer = 0;
 
@@ -153,6 +155,8 @@ public class ItemListSessionBean extends FacesBean
     {
         setIsRevisionView(false);
         setIsInRevisionView(false);
+        
+        
         
     }
 
@@ -578,7 +582,11 @@ public class ItemListSessionBean extends FacesBean
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		if(!type.equals(this.type)){
+		    setSubmenu("VIEW");
+		}
+	    this.type = type;
+		
 	}
 	
 	 public boolean getIsRevisionView()
@@ -618,5 +626,35 @@ public class ItemListSessionBean extends FacesBean
         public String changeListTypeToGrid(){
             listType = "GRID";
             return "";
+        }
+
+       
+        
+        public String changeSubmenuToSorting()
+        {
+            submenu="SORTING";
+            return "";
+        }
+        
+        public String changeSubmenuToView()
+        {
+            submenu="VIEW";
+            return "";
+        }
+
+        public String changeSubmenuToFilter()
+        {
+            submenu="FILTER";
+            return "";
+        }
+        
+        public void setSubmenu(String submenu)
+        {
+            this.submenu = submenu;
+        }
+
+        public String getSubmenu()
+        {
+            return submenu;
         }
 }

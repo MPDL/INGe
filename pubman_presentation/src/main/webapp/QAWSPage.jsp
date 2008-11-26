@@ -73,14 +73,15 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<a href="" >VIEW OPTIONS</a>
+									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{ItemListSessionBean.changeSubmenuToView}" />
 									<h:outputText styleClass="seperator void" />
-									<a href="">FILTER OPTIONS</a>
+									<h:commandLink styleClass="free_area0" value="FILTER OPTIONS" action="#{ItemListSessionBean.changeSubmenuToFilter}" />
 									<h:outputText styleClass="seperator void" />
-									<a href="">SORTING</a>
+									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" />		
+									
 								<!-- content menu upper line ends here -->
 								</div>
-								<div class="sub">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
 									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
@@ -92,8 +93,8 @@
 									</h:commandLink>
 									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
 								<!-- content menu lower line ends here -->
-								</div>
-								<div class="sub">
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
 									<h:selectOneMenu styleClass="large_select replace" binding="#{QAWS.cboItemStateMenu}" value="#{QAWSSessionBean.selectedItemState}" onchange="$(this).parents('.replace').siblings('.changeState').click();">
@@ -105,7 +106,7 @@
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeCollection" action="#{QAWS.changeContext}" immediate="true" value="change"/>
 								<!-- content menu lower line ends here -->
-								</div>
+								</h:panelGroup>
 								<div class="sub">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
@@ -118,7 +119,7 @@
 								</div>
 							<!-- content menu ends here -->
 							</div>
-							<div class="subHeader">
+							<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- Subheadline starts here -->
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{QAWSPage.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
@@ -129,7 +130,7 @@
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{QAWSPage.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
-							</div>
+							</h:panelGroup>
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">

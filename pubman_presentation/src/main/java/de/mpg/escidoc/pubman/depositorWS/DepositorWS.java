@@ -424,6 +424,7 @@ public class DepositorWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("DepositorWS");
+        //this.getItemListSessionBean().setSubmenu("VIEW");
         if (newItemState.equals(PubItemVO.State.IN_REVISION.name()))
         {
             getItemListSessionBean().setIsInRevisionView(true);

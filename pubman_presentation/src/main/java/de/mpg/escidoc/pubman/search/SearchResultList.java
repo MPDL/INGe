@@ -535,6 +535,7 @@ public class SearchResultList extends ItemList
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("SearchResultList");
+            //this.getItemListSessionBean().setSubmenu("VIEW");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
             this.getSessionBean().setType(SearchResultListSessionBean.SearchType.NORMAL_SEARCH);
         }

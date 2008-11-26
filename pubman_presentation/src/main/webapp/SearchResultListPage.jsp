@@ -73,12 +73,12 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<a href="">VIEW OPTIONS</a>
+									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{ItemListSessionBean.changeSubmenuToView}" />
 									<h:outputText styleClass="seperator void" />
-									<a href="">SORTING</a>
+									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" />		
 								<!-- content menu upper line ends here -->
 								</div>
-								<div class="sub">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
 									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
@@ -90,8 +90,8 @@
 									</h:commandLink>
 									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
 								<!-- content menu lower line ends here -->
-								</div>
-								<div class="sub">
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
@@ -100,7 +100,7 @@
 									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 								<!-- content menu lower line ends here -->
-								</div>
+								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">

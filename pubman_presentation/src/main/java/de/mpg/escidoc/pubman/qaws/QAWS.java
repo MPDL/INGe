@@ -296,6 +296,7 @@ public class QAWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("QAWS");
+        //this.getItemListSessionBean().setSubmenu("VIEW");
         getViewItemSessionBean().setNavigationStringToGoBack(QAWS.LOAD_QAWS);
         return QAWS.LOAD_QAWS;
     }
