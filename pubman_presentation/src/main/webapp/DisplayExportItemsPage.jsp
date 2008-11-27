@@ -37,6 +37,7 @@
 	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
+		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 				<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
