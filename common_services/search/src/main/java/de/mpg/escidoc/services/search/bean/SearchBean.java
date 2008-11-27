@@ -146,6 +146,7 @@ public class SearchBean implements Search
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
+            searchRetrieveRequest.setSortKeys(query.getSortKeys());
             
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
@@ -183,6 +184,7 @@ public class SearchBean implements Search
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
+            searchRetrieveRequest.setSortKeys(query.getSortKeys());
 
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());

@@ -27,6 +27,8 @@ public abstract class SearchQuery implements Serializable
     private PositiveInteger startRecord = null;
     /** Defines how many results shall be retrieved. */
     private NonNegativeInteger maximumRecords = null;
+    /** Sorting keys. */
+    private String sortKeys = null;
     
     private static final String DEFAULT_MAXIMUM_RECORDS = "10000";
     
@@ -36,7 +38,6 @@ public abstract class SearchQuery implements Serializable
     public SearchQuery() 
     {
         this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS);
-        this.startRecord = null;
     }
     
     /**
@@ -73,5 +74,23 @@ public abstract class SearchQuery implements Serializable
     public void setMaximumRecords(NonNegativeInteger maximumRecords)
     {
         this.maximumRecords = maximumRecords;
+    }
+    /**
+     * Getter for the sort keys.
+     * 
+     * @return output format
+     */
+    public String getSortKeys()
+    {
+        return sortKeys;
+    }
+
+    /**
+     * Seter for the sort keys.
+     * @param sortKeys
+     */
+    public void setSortKeys(String sortKeys)
+    {
+        this.sortKeys = sortKeys;
     }
 }

@@ -50,8 +50,6 @@ public class ExportSearchQuery extends SearchQuery
     private String outputFormat = null;
     /** Index database selector. */
     private String indexSelector = null;
-    /** Sort keys. */
-    private String sortKeys;
 
     /**
      * Create an export search query.
@@ -68,6 +66,7 @@ public class ExportSearchQuery extends SearchQuery
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
         this.cqlQuery = cqlQuery;
+        setSortKeys(sortKeys);
     }
 
     /**
@@ -84,7 +83,6 @@ public class ExportSearchQuery extends SearchQuery
     {
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
-        this.sortKeys = sortKeys;
         this.cqlQuery = cqlQuery;
     }
 
@@ -105,7 +103,6 @@ public class ExportSearchQuery extends SearchQuery
     {
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
-        this.sortKeys = sortKeys;
         this.cqlQuery = cqlQuery;
         this.indexSelector = indexSelector;
     }
@@ -148,16 +145,6 @@ public class ExportSearchQuery extends SearchQuery
     public String getIndexSelector()
     {
         return indexSelector;
-    }
-
-    /**
-     * Getter for the sortKeys.
-     * 
-     * @return output format
-     */
-    public String getSortKeys()
-    {
-        return sortKeys;
     }
 
     /**
