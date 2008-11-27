@@ -52,12 +52,12 @@
 
 
 
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Go to New Submission." value="#{ApplicationBean.appContext}SubmissionPage.jsp">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp">
 		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
 
 
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{ItemListSessionBean.startExport}" rendered="#{Navigation.showExportMenuOption}">
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.export_lblExport}" action="#{ItemListSessionBean.startExport}" rendered="#{Navigation.showExportMenuOption}">
 		<h:outputText value="#{lbl.export_lblExport}" />
 	</h:commandLink>
 <%--
