@@ -53,7 +53,7 @@ public class CreatePurgeScript
     private static final Logger logger = Logger.getLogger(CreatePurgeScript.class);
     
     private static String CORESERVICES_URL;
-    private static final String IMPORT_CONTEXT = "escidoc:23756";
+    private static final String IMPORT_CONTEXT = "escidoc:31013";
     
     /**
      * @param args

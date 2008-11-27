@@ -345,13 +345,17 @@
 			<!-- PUBLISHING-INFO -->
 			<xsl:choose>				
 				<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
-					<!-- case: book or proceedings -->					
-					<xsl:call-template name="createPublishinginfo"/>					
+					<!-- case: book or proceedings -->
+					<xsl:element name="publ:publishing-info">				
+						<xsl:call-template name="createPublishinginfo"/>
+					</xsl:element>					
 				</xsl:when>
 				<xsl:when test="$gen='book-item'">
 					<!-- case: book-item without source book -->
 					<xsl:if test="not(exists(booktitle))">
-						<xsl:call-template name="createPublishinginfo"/>
+						<xsl:element name="publ:publishing-info">
+							<xsl:call-template name="createPublishinginfo"/>
+						</xsl:element>
 					</xsl:if>
 				</xsl:when>	
 							
@@ -454,11 +458,9 @@
 	</xsl:template>
 	
 	<xsl:template name="createPublishinginfo">
-		<xsl:element name="publ:publishing-info">
-			<xsl:apply-templates select="publisher"/>
-			<xsl:apply-templates select="publisheradd"/>
-			<xsl:apply-templates select="editiondescription"/>
-		</xsl:element>
+		<xsl:apply-templates select="publisher"/>
+		<xsl:apply-templates select="publisheradd"/>
+		<xsl:apply-templates select="editiondescription"/>
 	</xsl:template>
 	
 	<xsl:template match="corporatebody">
@@ -569,7 +571,9 @@
 		</xsl:if>	
 		<!-- PUBLISHININFO -->
 		<xsl:if test="not(exists(issuetitle))">
-			<xsl:call-template name="createPublishinginfo"/>
+			<xsl:element name="e:publishing-info">
+				<xsl:call-template name="createPublishinginfo"/>
+			</xsl:element>
 		</xsl:if>		
 	</xsl:template>
 	
@@ -626,7 +630,9 @@
 			<xsl:call-template name="phydescSource"/>					
 		</xsl:if>		
 		<xsl:if test="exists(publisher) or exists(editiondescription)">
-			<xsl:call-template name="createPublishinginfo"/>
+			<xsl:element name="e:publishing-info">
+				<xsl:call-template name="createPublishinginfo"/>
+			</xsl:element>
 		</xsl:if>
 	</xsl:template>
 	
@@ -696,7 +702,9 @@
 				<xsl:call-template name="phydescSource"/>
 			</xsl:if>
 			<xsl:if test="exists(publisher) or exists(editiondescription)">
-				<xsl:call-template name="createPublishinginfo"/>
+				<xsl:element name="e:publishing-info">
+					<xsl:call-template name="createPublishinginfo"/>
+				</xsl:element>
 			</xsl:if>
 		</xsl:if>
 		<!-- CREATOR -->

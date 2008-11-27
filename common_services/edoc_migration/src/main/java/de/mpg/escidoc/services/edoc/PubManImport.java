@@ -126,6 +126,7 @@ public class PubManImport
         for (String itemXml : itemXmls)
         {
             importItem(itemXml);
+            wait(1000);
         }
     }
     
