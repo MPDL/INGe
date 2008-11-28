@@ -232,7 +232,7 @@ public class EasySubmission extends FacesBean
         this.locatorVisibilities = this.i18nHelper.getSelectItemsVisibility(true);
         // if the user has reached Step 3, an item has already been created and must be set in the
         // EasySubmissionSessionBean for further manipulation
-        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3))
+        if (this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2))
         {
             //this.getEasySubmissionSessionBean().setCurrentItem(this.getItemControllerSessionBean().getCurrentPubItem()
             // );
@@ -290,7 +290,8 @@ public class EasySubmission extends FacesBean
         }
     	
     	//Get informations about import sources if submission method = fetching import
-    	if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP3)
+    	EasySubmissionSessionBean essb = this.getEasySubmissionSessionBean();
+        if(this.getEasySubmissionSessionBean().getCurrentSubmissionStep().equals(EasySubmissionSessionBean.ES_STEP2)
     			&&this.getEasySubmissionSessionBean().getCurrentSubmissionMethod().equals("FETCH_IMPORT"))
     	{
     		//Call source initialization only once
@@ -305,6 +306,8 @@ public class EasySubmission extends FacesBean
         {
             this.autosuggestJournals = true;
         }
+    	
+    	
     }
 
     public String selectSubmissionMethod()

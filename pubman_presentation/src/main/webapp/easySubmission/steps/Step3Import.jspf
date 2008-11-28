@@ -84,16 +84,13 @@
 					<b class="xLarge_area0 endline labelLine">
 						<h:outputText value="#{lbl.easy_submission_lblProvideID}" /><span class="noDisplay">: </span>
 					</b>
-					<span class="xHuge_area0 xTiny_marginLExcl endline underRework">
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<span class="large_area0 largeFormPush">
 							<h:outputLabel styleClass="large_label" value="#{lbl.easy_submission_lblIDType}"/>
-				<%-- JIRA AS-589 --%>
-				<%-- start Please provide valueChangeListener instead of hidden button --%>
 							<h:selectOneMenu styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
 								<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
 							</h:selectOneMenu>
 							<h:commandButton action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
-				<%-- stop Please provide valueChangeListener instead of hidden button --%>
 						</span>
 						<span class="xDouble_area0">
 							<h:outputLabel styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
