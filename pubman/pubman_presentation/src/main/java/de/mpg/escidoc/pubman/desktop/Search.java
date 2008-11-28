@@ -102,6 +102,8 @@ public class Search extends FacesBean
                     searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
             criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID, 
                     searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
+                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
             
             ArrayList<String> contentTypes = new ArrayList<String>();
             String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );

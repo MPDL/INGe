@@ -87,7 +87,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             
             pubItemList =  extractItemsOfSearchResult(result);
             //TODO To be changed
-            this.numberOfRecords = pubItemList.size();
+            this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
         }
         catch (Exception e)
         {
