@@ -41,6 +41,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
@@ -123,6 +124,8 @@ public class RestServlet extends HttpServlet
                 exportFormat = req.getParameter("exportFormat");
                 exportFormat = !checkVal(exportFormat) ? "" : exportFormat.trim().toUpperCase();
                 
+                
+                
                 ProcessCitationStyles pcs = new ProcessCitationStyles();
                 StructuredExport se = new StructuredExport();
                 if (exportFormat.equals(""))
@@ -183,7 +186,25 @@ public class RestServlet extends HttpServlet
                 
                 // create the query
                 ExportSearchQuery query = new ExportSearchQuery(cqlQuery, index, exportFormat,
-                        outputFormat, req.getParameter("sortKeys"));
+                        outputFormat );
+                
+                // check if sortKeys is set
+                if( checkVal( req.getParameter("sortKeys") ) )
+                {
+                    query.setSortKeys( req.getParameter("sortKeys") );
+                }
+                
+                // check if startRecord is set
+                if( checkVal( req.getParameter("startRecord") ) )
+                {
+                    query.setStartRecord( req.getParameter("startRecord") );
+                }
+                
+                // check if maximum records are set
+                if( checkVal( req.getParameter("maximumRecords") ) )
+                {
+                    query.setMaximumRecords( req.getParameter("maximumRecords") );
+                }
                 
                 // query the search service
                 ExportSearchResult queryResult = itemContainerSearch.searchAndExportItems(query);

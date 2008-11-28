@@ -44,6 +44,9 @@
 				queryString += '&exportFormat=' + document.form.exportFormat.options[document.form.exportFormat.selectedIndex].value;
 				queryString += '&outputFormat=' + document.form.outputFormat.options[document.form.outputFormat.selectedIndex].value;
 				queryString += '&language=' + document.form.language.options[document.form.language.selectedIndex].value;
+				queryString += '&sortKeys=' + document.form.sortKeys.value;
+				queryString += '&startRecord=' + document.form.startRecord.value;
+				queryString += '&maximumRecords=' + document.form.maximumRecords.value;
 				
 				var req = document.form.url.value  + queryString;
 				
@@ -67,6 +70,18 @@
 				<label class="colLbl">This is the CQL search query:</label><br/>
 				<input type="text" size="100" name="cqlQuery" value="escidoc.metadata=test"></input>
 			</div>
+			<div class="editItemSingleCol">
+                <label class="colLbl">Add a sorting key here:</label><br/>
+                <input type="text" size="20" name="sortKeys" value=""></input>
+            </div>
+            <div class="editItemSingleCol">
+                <label class="colLbl">Define the start record (first record as default):</label><br/>
+                <input type="text" size="10" name="startRecord" value=""></input>
+            </div>
+            <div class="editItemSingleCol">
+                <label class="colLbl">Define the maximum records (all records as default):</label><br/>
+                <input type="text" size="10" name="maximumRecords" value=""></input>
+            </div>
 			<div class="editItemSingleCol">
 				<label class="colLbl"><strong>Info:</strong> You can find
 				 <a href="<%= PropertyReader.getProperty("escidoc.framework_access.framework.url") %>/srw/search/escidoc_all?operation=explain" target="_blank" >here</a> 
