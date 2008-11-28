@@ -38,7 +38,7 @@
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
-			<f:loadBundle var="tip" basename="Tooltip"/>
+				
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
@@ -49,7 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText id="pageDummy" value="#{SearchResultListPage.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -73,43 +73,36 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
-									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
+									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{ItemListSessionBean.changeSubmenuToView}" rendered="#{ItemListSessionBean.submenu != 'VIEW'}"/>
+									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{ItemListSessionBean.submenu == 'VIEW'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="FILTER OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToFilter}" rendered="#{PubItemListSessionBean.subMenu != 'FILTER'}"/>
-									<h:outputText styleClass="free_area0" value="FILTER OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="SORTING" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
-									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="ADD SELECTED TO BASKET" action="#{PubItemListSessionBean.addSelectedToCart}" />		
-										
+									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" rendered="#{ItemListSessionBean.submenu != 'SORTING'}" />
+									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />		
 								<!-- content menu upper line ends here -->
 								</div>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
+									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
+									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{ItemListSessionBean.isListTypeBib}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
+									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeGrid}"  action="#{ItemListSessionBean.changeListTypeToGrid}">
 										<h:outputText value="Grid list" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
-										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
+									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
+										<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
 									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
-									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
-									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.setSortOrder}" />
-								</h:panelGroup>
+									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
+									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 								<!-- content menu lower line ends here -->
+								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
@@ -136,11 +129,11 @@
 							</div>
 						</div>
 					</div>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}">
-						<jsp:directive.include file="list/itemListNew.jspf" />
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">
+						<jsp:directive.include file="list/itemList.jspf" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}">
-						<jsp:directive.include file="list/gridListNew.jspf" />
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeGrid}">
+						<jsp:directive.include file="list/gridList.jspf" />
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>

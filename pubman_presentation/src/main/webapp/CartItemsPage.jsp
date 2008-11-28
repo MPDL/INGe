@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -38,7 +38,7 @@
 	<f:view locale="#{InternationalizationHelper.userLocale}">
 			<f:loadBundle var="lbl" basename="Label"/>
 			<f:loadBundle var="msg" basename="Messages"/>
-			<f:loadBundle var="tip" basename="Tooltip"/>
+				
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
@@ -49,7 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{SearchRetrieverRequestBean.beanName}" styleClass="noDisplay" />
+			<h:outputText id="pageDummy" value="#{CartItemsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -64,7 +64,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.SearchResultListPage}" /></h1>
+								<h1><h:outputText value="#{lbl.ExportPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>
@@ -73,64 +73,37 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
-									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="FILTER OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToFilter}" rendered="#{PubItemListSessionBean.subMenu != 'FILTER'}"/>
-									<h:outputText styleClass="free_area0" value="FILTER OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="SORTING" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
-									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
-									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="ADD SELECTED TO BASKET" action="#{PubItemListSessionBean.addSelectedToCart}" />		
-										
+									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" disabled="#{!ExportItemsSessionBean.enableExport}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
+									</h:selectOneMenu>
+									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
+									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{(ExportItemsSessionBean.enableLayout and ExportItemsSessionBean.enableExport)}">
+										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
+									</h:selectOneMenu>
 								<!-- content menu upper line ends here -->
 								</div>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+								<div class="sub">
 								<!-- content menu lower line starts here -->
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
-										<h:outputText value="Bibliographic list" />
-									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
+									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{CartItemsRetrieverRequestBean.showDisplayExportData}"	disabled="#{!ExportItemsSessionBean.enableExport}"/>
 									<h:outputText styleClass="seperator" />
-									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
-										<h:outputText value="Grid list" />
-									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{CartItemsRetrieverRequestBean.downloadExportFile}" disabled="#{!ExportItemsSessionBean.enableExport}" />
+									<h:outputText styleClass="seperator" />
+									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{CartItemsRetrieverRequestBean.showExportEmailPage}" disabled="#{!ExportItemsSessionBean.enableExport}" />
+									<h:outputText styleClass="seperator" />
+									<h:commandLink id="btnDelete" styleClass="free_area0" value="Delete Selected" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
 								<!-- content menu lower line ends here -->
-								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
-								<!-- content menu lower line starts here -->
-									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
-										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
-									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
-									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
-									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.setSortOrder}" />
-								</h:panelGroup>
-								<!-- content menu lower line ends here -->
+								</div>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:commandLink styleClass="free_area0 xTiny_marginRIncl" binding="#{SearchResultList.lnkAdvancedSearch}" immediate="true" value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
-								<a class="free_area0" href="#contentSkipLinkAnchor" onclick="$(this).siblings('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
-								<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
-									<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
-									<h:outputText binding="#{SearchResultList.valQuery}"/>
-								</h:panelGroup>
-								<!-- Subheadline ends here -->
-							</div>
-							<div class="subHeader">
-								<!-- Subheadline starts here -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{SearchResultListPage.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ExportItemsSessionBean.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchResultListPage.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{SearchResultListPage.hasMessages and !SearchResultListPage.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{ExportItemsSessionBean.hasMessages and !ExportItemsSessionBean.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchResultListPage.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
@@ -162,6 +135,8 @@
 
 
 
+
+
 <!-- 
 <jsp:root version="2.1" xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 
@@ -180,12 +155,12 @@
 					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
-					<meta http-equiv="expires" content="0"/>				
+					<meta http-equiv="expires" content="0"/>
 					
 					<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
 				</head>
 				<body>
-					<h:outputText id="pageDummy" value="#{SearchResultListPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
+					<h:outputText id="pageDummy" value="#{DepositorWSPage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute" />
 					<div id="page_margins">
 						<div id="page">
 							<h:form id="form1">
@@ -200,7 +175,7 @@
 								<div id="main">
 									<div id="col1">
 										<span class="mainMenu">
-											 <jsp:directive.include file="desktop/Navigation.jspf"/>
+											<jsp:directive.include file="desktop/Navigation.jspf"/> 
 										</span>
 										<div class="export">
 											<jsp:directive.include file="export/Export.jspf"/>
@@ -211,7 +186,9 @@
 									</div>
 									<div id="col3">
 										<div class="content">
-											<jsp:directive.include file="search/SearchResultList.jspf"/>
+											
+											<jsp:directive.include file="depositorWS/DepositorWS.jspf"/>
+											
 										</div>
 									</div>
 								</div>
@@ -223,4 +200,4 @@
 		
 	</f:view>
 </jsp:root>
--->
+ -->

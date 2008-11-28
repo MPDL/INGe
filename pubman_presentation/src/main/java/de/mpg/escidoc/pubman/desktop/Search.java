@@ -30,6 +30,12 @@
 
 package de.mpg.escidoc.pubman.desktop;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.faces.component.html.HtmlInputText;
 import javax.faces.component.html.HtmlSelectBooleanCheckbox;
 
@@ -39,148 +45,102 @@ import de.mpg.escidoc.pubman.CommonSessionBean;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
+import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.PubItemResultVO;
+import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
+import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;
+import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
+import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 
-/**
- * Search.java Backing bean for the Search.jspf takes the serach values of the jsp page and calls the serach method of
- * pubman_logic
- * 
- * @author: Tobias Schraut, created 24.01.2007
- * @version: $Revision: 1647 $ $LastChangedDate: 2007-12-06 13:28:26 +0100 (Do, 06 Dez 2007) $ Revised by ScT: 21.08.2007
- */
+
 public class Search extends FacesBean
 {
+    private static final String PROPERTY_CONTENT_MODEL = "escidoc.framework_access.content-model.id.publication";
+    
     @SuppressWarnings("unused")
     private static Logger logger = Logger.getLogger(Search.class);
+
+    private String searchString;
+    private boolean includeFiles;
     
-    // the two fields in the search.jspf
-    private HtmlInputText txtSearch = new HtmlInputText();
-    private HtmlSelectBooleanCheckbox chkIncludeFiles = new HtmlSelectBooleanCheckbox();
+  
+    public String startSearch()
+    {
+
+        String searchString = getSearchString();
+        boolean includeFiles = getIncludeFiles();
+        
+        // check if the searchString contains useful data
+        if( searchString.trim().equals("") ) {
+            return (SearchResultList.LOAD_NO_ITEMS_FOUND);
+        }
+        
+              
+        try
+        {
+            ArrayList<MetadataSearchCriterion> criteria = new ArrayList<MetadataSearchCriterion>();
+                        
+            if( includeFiles == true ) {
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY_INCLUDE, 
+                        searchString ) );
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+                        searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+            }
+            else {
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.ANY, 
+                        searchString ) );
+                criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.IDENTIFIER, 
+                        searchString, MetadataSearchCriterion.LogicalOperator.OR ) );
+            }
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CONTEXT_OBJECTID, 
+                    searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+            criteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.CREATED_BY_OBJECTID, 
+                    searchString, MetadataSearchCriterion.LogicalOperator.NOT ) );
+            
+            ArrayList<String> contentTypes = new ArrayList<String>();
+            String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
+            contentTypes.add( contentTypeIdPublication );
+            
+            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, criteria );
+            String cql = query.getCqlQuery();
+            
+            //redirect to SearchResultPage which processes the query
+            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql));
+            
+            
+        }
+        catch (Exception e)
+        {
+            error("Error in search query!");
+        }
+        return "";
+           
+    }
     
-    /**
-     * Public constructor
-     */
-    public Search()
+
+    public void setSearchString(String searchString)
     {
-        this.init();
+        this.searchString = searchString;
     }
 
-    /**
-     * Callback method that is called whenever a page is navigated to, either directly via a URL, or indirectly via page
-     * navigation.
-     */
-    public void init()
+    public String getSearchString()
     {
-        // Perform initializations inherited from our superclass
-        super.init();
+        return searchString;
     }
 
-    /**
-     * Starts a new search with the binded search criteria in SearchResultListSessionBean.
-     * 
-     * @return string, identifying the page that should be navigated to after this methodcall
-     */
-    public String search()
+    public void setIncludeFiles(boolean includeFiles)
     {
-        // values must be set manually bcs the search button has been changed to
-        // immediate=true
-        SearchResultListSessionBean resultListSessionBean = (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
-        if (this.txtSearch.getSubmittedValue() != null)
-        {
-            resultListSessionBean.setSearchString(this.txtSearch.getSubmittedValue().toString());
-        }
-        if (this.chkIncludeFiles.getSubmittedValue() != null)
-        {
-            String fulltext = (String)this.chkIncludeFiles.getSubmittedValue();
-            if (fulltext != null)
-            {
-                if (fulltext.equals("true"))
-                {
-                    resultListSessionBean.setIncludeFiles(true);
-                }
-                else
-                {
-                    resultListSessionBean.setIncludeFiles(false);
-                }
-            }
-            else
-            {
-                resultListSessionBean.setIncludeFiles(false);
-            }
-        }
-        String retVal = this.getSearchResultList().startSearch();
-        CommonSessionBean sessionBean = getCommonSessionBean();
-        // if search returns an error, force JSF to load the ErrorPage
-        if (retVal == ErrorPage.LOAD_ERRORPAGE)
-        {
-            // if search has been run as GUI Tool go to the GUI Tool error page.
-            if (sessionBean.isRunAsGUITool() == true)
-            {
-                retVal = ErrorPage.GT_LOAD_ERRORPAGE;
-            }
-        }
-        return retVal;
+        this.includeFiles = includeFiles;
     }
 
-    /**
-     * Returns a reference to the scoped data bean (the ItemControllerSessionBean).
-     * 
-     * @return a reference to the scoped data bean
-     */
-    protected ItemControllerSessionBean getItemControllerSessionBean()
+    public boolean getIncludeFiles()
     {
-        return (ItemControllerSessionBean)getBean(ItemControllerSessionBean.class);
-    }
-
-    /**
-     * Returns the SearchResultListSessionBean.
-     * 
-     * @return a reference to the scoped data bean (SearchResultListSessionBean)
-     */
-    protected SearchResultListSessionBean getSearchResultListSessionBean()
-    {
-        return (SearchResultListSessionBean)getBean(SearchResultListSessionBean.class);
-    }
-
-    /**
-     * Returns the CommonSessionBean.
-     * 
-     * @return a reference to the scoped data bean (CommonSessionBean)
-     */
-    protected CommonSessionBean getCommonSessionBean()
-    {
-        return (CommonSessionBean)getBean(CommonSessionBean.class);
-    }
-
-    /**
-     * Returns the SearchResultList.
-     * 
-     * @return a reference to the scoped data bean (SearchResultList)
-     */
-    protected SearchResultList getSearchResultList()
-    {
-        return (SearchResultList)getBean(SearchResultList.class);
-    }
-
-    // Getters and Setters
-    public HtmlSelectBooleanCheckbox getChkIncludeFiles()
-    {
-        return chkIncludeFiles;
-    }
-
-    public void setChkIncludeFiles(HtmlSelectBooleanCheckbox chkIncludeFiles)
-    {
-        this.chkIncludeFiles = chkIncludeFiles;
-    }
-
-    public HtmlInputText getTxtSearch()
-    {
-        return txtSearch;
-    }
-
-    public void setTxtSearch(HtmlInputText txtSearch)
-    {
-        this.txtSearch = txtSearch;
+        return includeFiles;
     }
 }

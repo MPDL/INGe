@@ -41,6 +41,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
@@ -261,9 +262,14 @@ public class ExportItems extends FacesBean
     {
     	ExportItemsSessionBean sb = this.getSessionBean();
     	cleanUpEmailFields();	
+    	PubItemListSessionBean plsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        plsb.redirect();
+        return "";
+    	/*
     	return sb.getNavigationStringToGoBack() != null ? 
     		sb.getNavigationStringToGoBack() : 
     		SearchResultList.LOAD_SEARCHRESULTLIST;
+    		*/
     }
     
     /**
@@ -360,7 +366,10 @@ public class ExportItems extends FacesBean
                 SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
                 info(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
                 
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);
+                PubItemListSessionBean plsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+                plsb.redirect();
+                
+                //return (SearchResultList.LOAD_SEARCHRESULTLIST);
                
             } 
             return status;

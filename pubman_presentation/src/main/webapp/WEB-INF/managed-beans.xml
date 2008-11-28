@@ -508,4 +508,39 @@
 		<managed-bean-class>de.mpg.escidoc.pubman.PubManRequestBean</managed-bean-class>
 		<managed-bean-scope>request</managed-bean-scope>
 	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>PubItemListSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.PubItemListSessionBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>MyItemsRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.MyItemsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>MyTasksRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.MyTasksRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>RevisionsRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.RevisionsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>CartItemsRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.CartItemsRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>SearchRetrieverRequestBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>PubItemStorageSessionBean</managed-bean-name>
+		<managed-bean-class>de.mpg.escidoc.pubman.test.PubItemStorageSessionBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
 </faces-config>

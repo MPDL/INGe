@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -49,17 +49,20 @@
 		<h:outputText value="#{lbl.mainMenu_lnkQAWorkspace}" rendered="#{QAWSPage.isModerator and ContextListSessionBean.moderatorContextListSize>0}" />
 	</h:outputLink>
 
-
-
-
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp">
 		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
 
 
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.export_lblExport}" action="#{ItemListSessionBean.startExport}" rendered="#{Navigation.showExportMenuOption}">
-		<h:outputText value="#{lbl.export_lblExport}" />
-	</h:commandLink>
+	
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.appContext}CartItemsPage.jsp">
+		<h:outputText value="Item Basket/Export (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
+	</h:outputLink>
+<%-- 
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">
+
+	--%>
+	
 <%--
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." value="#{ApplicationBean.appContext}ExportPage.jsp">
 		<h:outputText value="#{lbl.export_lblExport}" />

@@ -49,7 +49,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{QAWSPage.beanName}" styleClass="noDisplay" />
+			<h:outputText id="pageDummy" value="#{MyTasksRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			
@@ -73,73 +73,77 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{ItemListSessionBean.changeSubmenuToView}" rendered="#{ItemListSessionBean.submenu != 'VIEW'}"/>
-									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{ItemListSessionBean.submenu == 'VIEW'}" />
+									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
+									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="FILTER OPTIONS" action="#{ItemListSessionBean.changeSubmenuToFilter}" rendered="#{ItemListSessionBean.submenu != 'FILTER'}" />
-									<h:outputText styleClass="free_area0" value="FILTER OPTIONS" rendered="#{ItemListSessionBean.submenu == 'FILTER'}" />
+									<h:commandLink styleClass="free_area0" value="FILTER OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToFilter}" rendered="#{PubItemListSessionBean.subMenu != 'FILTER'}"/>
+									<h:outputText styleClass="free_area0" value="FILTER OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}" />
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="SORTING" action="#{ItemListSessionBean.changeSubmenuToSorting}" rendered="#{ItemListSessionBean.submenu != 'SORTING'}" />
-									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{ItemListSessionBean.submenu == 'SORTING'}" />	
+									<h:commandLink styleClass="free_area0" value="SORTING" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
+									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />	
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink styleClass="free_area0" value="ADD SELECTED TO BASKET" action="#{PubItemListSessionBean.addSelectedToCart}" />	
 								<!-- content menu upper line ends here -->
 								</div>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'VIEW'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
 								<!-- content menu lower line starts here -->
-									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeBib}" action="#{ItemListSessionBean.changeListTypeToBib}">
+									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
 										<h:outputText value="Bibliographic list" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{ItemListSessionBean.isListTypeBib}" />
+									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink styleClass="free_area0" rendered="#{!ItemListSessionBean.isListTypeGrid}"  action="#{ItemListSessionBean.changeListTypeToGrid}">
+									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
 										<h:outputText value="Grid list" />
 									</h:commandLink>
-									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{ItemListSessionBean.isListTypeGrid}" />
+									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'FILTER'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'FILTER'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ENUM_CRITERIA_STATE}: "/>
-									<h:selectOneMenu styleClass="large_select replace" binding="#{QAWS.cboItemStateMenu}" value="#{QAWSSessionBean.selectedItemState}" onchange="$(this).parents('.replace').siblings('.changeState').click();">
-										<f:selectItems value="#{QAWS.selectItemStateList}"/>
+									<h:selectOneMenu styleClass="large_select replace" value="#{MyTasksRetrieverRequestBean.selectedItemState}" onchange="$(this).parents('.replace').siblings('.changeState').click();">
+										<f:selectItems value="#{MyTasksRetrieverRequestBean.itemStateSelectItems}"/>
 									</h:selectOneMenu>
-									<tr:commandButton styleClass="noDisplay changeState" action="#{QAWS.changeItemState}" immediate="true" id="btnChangeItemState" text="#{lbl.depositorWS_btnChangeItemState}"/>
-									<h:selectOneMenu styleClass="xDouble_select replace" binding="#{QAWS.cboContextMenu}" value="#{QAWSSessionBean.selectedContextId}" onchange="$(this).parents('.replace').siblings('.changeCollection').click();">
-										<f:selectItems value="#{QAWS.selectContextList}"/>
+									<h:commandButton styleClass="noDisplay changeState" action="#{MyTasksRetrieverRequestBean.changeItemState}" value="change item state"/>
+									<h:outputText styleClass="free_area0" value="#{lbl.qaws_lblCollectionSelection}: "/>
+									<h:selectOneMenu styleClass="xDouble_select replace" value="#{MyTasksRetrieverRequestBean.selectedContext}" onchange="$(this).parents('.replace').siblings('.changeCollection').click();">
+										<f:selectItems value="#{MyTasksRetrieverRequestBean.contextSelectItems}"/>
 									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay changeCollection" action="#{QAWS.changeContext}" immediate="true" value="change"/>
+									<h:commandButton styleClass="noDisplay changeCollection" action="#{MyTasksRetrieverRequestBean.changeContext}" value="change context"/>
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
-									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
-										<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
+									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
+										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
 									</h:selectOneMenu>
-									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
-									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
+									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
+									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
+									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.setSortOrder}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
 							<div>
 								<!-- Subheadline starts here -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{QAWSPage.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{MyTasksRetrieverRequestBean.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{QAWSPage.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyTasksRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{QAWSPage.hasMessages and !QAWSPage.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{MyTasksRetrieverRequestBean.hasMessages and !MyTasksRetrieverRequestBean.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
-									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{QAWSPage.hasMessages}"/>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{MyTasksRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">
-						<jsp:directive.include file="list/itemList.jspf" />
+						<jsp:directive.include file="list/itemListNew.jspf" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeGrid}">
-						<jsp:directive.include file="list/gridList.jspf" />
+						<jsp:directive.include file="list/gridListNew.jspf" />
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>

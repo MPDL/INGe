@@ -58,7 +58,7 @@
 
 			</head>
 			<body lang="#{InternationalizationHelper.locale}">
-			<h:outputText id="pageDummy" value="#{ViewItemRevisionsPage.beanName}" styleClass="noDisplay" />
+			<h:outputText id="pageDummy" value="#{RevisionsRetrieverRequestBean.beanName}" styleClass="noDisplay" />
 			<tr:form usesUpload="true">
 			<h:inputHidden id="offset"></h:inputHidden>
 			<!-- start: skip link navigation -->

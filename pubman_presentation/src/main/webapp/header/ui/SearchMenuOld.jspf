@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -32,22 +32,22 @@
 
 <div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
 	<!-- search Menu starts here -->
-	<h:inputText styleClass="medium_txtInput quickSearchTextInput" value="#{Search.searchString}"/>
+	<h:inputText styleClass="medium_txtInput quickSearchTextInput" binding="#{Search.txtSearch}" value="#{SearchResultListSessionBean.searchString}"/>
 	<span class="xLarge_area0 quickSearchMenu">
 		<h:panelGroup styleClass="free_checkbox quickSearchCheckBoxMenu">
-			<h:selectBooleanCheckbox id="quickSearchCheckBox" value="#{Search.includeFiles}" />
+			<h:selectBooleanCheckbox id="quickSearchCheckBox" binding="#{Search.chkIncludeFiles}" value="#{SearchResultListSessionBean.includeFiles}" />
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
-		<h:commandButton styleClass="std_imgBtn quickSearchIcon" title="Start search." action="#{Search.startSearch}" value=" "/>	
+		<h:commandButton styleClass="std_imgBtn quickSearchIcon" title="Start search." action="#{Search.search}" value=" " immediate="true"/>	
 	</span>
 	<span class="large_area0 advancedSearchMenu">
-		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
 			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
 			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
 		</h:commandLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
-		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Organisation Search." action="#{Navigation.loadAffiliationTree}">
+		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Organisation Search." immediate="true" action="#{Navigation.loadAffiliationTree}">
 			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
 			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
 		</h:commandLink>

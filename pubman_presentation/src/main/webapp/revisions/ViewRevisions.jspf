@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -32,9 +32,9 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:outputText value="#{RevisionList.dummy}"/>
+<%--<h:outputText value="#{RevisionList.dummy}"/>--%>
 <ol>
-	<h:panelGroup rendered="#{RevisionList.showRevisions}">
-		<jsp:directive.include file="../list/itemRevisionsList.jspf"/>
+	<h:panelGroup rendered="#{RevisionsRetrieverRequestBean.completeNumberOfRecords>0}">
+		<jsp:directive.include file="../list/itemRevisionsListNew.jspf"/>
 	</h:panelGroup>
 </ol>
