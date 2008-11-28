@@ -343,7 +343,7 @@
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier"/>			
 			<!-- PUBLISHING-INFO -->
-			<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
+			<xsl:if test="exists(publisher) or exists(editiondescription)">
 				<xsl:choose>				
 					<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
 						<!-- case: book or proceedings -->
@@ -577,7 +577,7 @@
 			<xsl:apply-templates select="artnum"/>
 		</xsl:if>	
 		<!-- PUBLISHININFO -->
-		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(publisheradd) or exists(editiondescription))">
+		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(editiondescription))">
 			<xsl:element name="e:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
@@ -636,7 +636,7 @@
 		<xsl:if test="phydesc and exists(booktitle)"> 			
 			<xsl:call-template name="phydescSource"/>					
 		</xsl:if>		
-		<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
+		<xsl:if test="exists(publisher) or exists(editiondescription)">
 			<xsl:element name="e:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
@@ -708,7 +708,7 @@
 			<xsl:if test="phydesc"> 
 				<xsl:call-template name="phydescSource"/>
 			</xsl:if>
-			<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
+			<xsl:if test="exists(publisher) or exists(editiondescription)">
 				<xsl:element name="e:publishing-info">
 					<xsl:call-template name="createPublishinginfo"/>
 				</xsl:element>
