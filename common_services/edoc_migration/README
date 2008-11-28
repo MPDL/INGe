@@ -42,7 +42,7 @@ Workflow
 
 If the imported data shall be removed from the repository, do the following
 
-1) Set the context id in CreatePurgeScript.java (line 56)
+1) Set the context id in CreatePurgeScript2.java (line 56)
 2) Execute
       java -Xmx512m CreatePurgeScript
    A file is created in the project root directory name "purge.sh"
