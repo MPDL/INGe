@@ -65,9 +65,12 @@ public class ItemListSessionBean extends FacesBean
 
     private List<PubItemVOPresentation> currentPubItemList = new ArrayList<PubItemVOPresentation>();
     private boolean isListDirty = true;
+    private String listType = "BIB";
     private String sortBy = "DATE";
     private String sortOrder = "DESCENDING";
     private String type = null;
+    
+    private String submenu = "VIEW";
     
     private int itemsPerPage = 10;
     private int currentPubItemListPointer = 0;
@@ -153,6 +156,8 @@ public class ItemListSessionBean extends FacesBean
         setIsRevisionView(false);
         setIsInRevisionView(false);
         
+        
+        
     }
 
     public List<PubItemVOPresentation> getSelectedPubItems()
@@ -195,6 +200,45 @@ public class ItemListSessionBean extends FacesBean
     public void setSortBy(String sortBy)
     {
         this.sortBy = sortBy;
+    }
+    
+    public String setSortByState() {
+        this.sortBy = "STATE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByTitle() {
+        this.sortBy = "TITLE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByCreator() {
+        this.sortBy = "CREATOR";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByGenre() {
+        this.sortBy = "GENRE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String setSortByDate() {
+        this.sortBy = "DATE";
+        setSortOrder("DESCENDING");
+        sortItemList();
+        return "";
+    }
+    
+    public String startExport() {
+        return "loadExportPage";
     }
 
     public String getSortOrder()
@@ -392,6 +436,24 @@ public class ItemListSessionBean extends FacesBean
 		}
     }
     
+    public String selectNone()
+    {
+        for (PubItemVOPresentation item : currentPubItemList)
+        {
+            item.setSelected(false);
+        }
+        return "";
+    }
+    
+    public String selectAll()
+    {
+        for (PubItemVOPresentation item : currentPubItemList) 
+        {
+            item.setSelected(true);
+        }
+        return "";
+    }
+    
     /**
      * ValueChange handler for comboBoxes.
      * @param event the event of the valueChange
@@ -413,10 +475,6 @@ public class ItemListSessionBean extends FacesBean
         }
         else if (event.getNewValue().equals(InternationalizationHelper.SelectMultipleItems.SELECT_VISIBLE.toString()))
         {
-        	// first deselect all
-        	for (PubItemVOPresentation item : currentPubItemList) {
-				item.setSelected(false);
-			}
         	int size = currentPubItemList.size();
         	for (int i = 0; i < itemsPerPage; i++)
         	{
@@ -524,7 +582,11 @@ public class ItemListSessionBean extends FacesBean
 	}
 
 	public void setType(String type) {
-		this.type = type;
+		if(!type.equals(this.type)){
+		    setSubmenu("VIEW");
+		}
+	    this.type = type;
+		
 	}
 	
 	 public boolean getIsRevisionView()
@@ -548,5 +610,51 @@ public class ItemListSessionBean extends FacesBean
             return isInRevisionView;
         }
         
+        public boolean getIsListTypeBib(){
+            return this.listType.equals("BIB");
+        }
         
+        public String changeListTypeToBib(){
+            listType = "BIB";
+            return "";
+        }
+        
+        public boolean getIsListTypeGrid(){
+            return this.listType.equals("GRID");
+        }
+        
+        public String changeListTypeToGrid(){
+            listType = "GRID";
+            return "";
+        }
+
+       
+        
+        public String changeSubmenuToSorting()
+        {
+            submenu="SORTING";
+            return "";
+        }
+        
+        public String changeSubmenuToView()
+        {
+            submenu="VIEW";
+            return "";
+        }
+
+        public String changeSubmenuToFilter()
+        {
+            submenu="FILTER";
+            return "";
+        }
+        
+        public void setSubmenu(String submenu)
+        {
+            this.submenu = submenu;
+        }
+
+        public String getSubmenu()
+        {
+            return submenu;
+        }
 }

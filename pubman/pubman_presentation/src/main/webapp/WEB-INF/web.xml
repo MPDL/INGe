@@ -135,33 +135,19 @@
 		</listener-class>
 	</listener>
 	
-	<!-- IMPORTANT: Do not place any filters above this filer. Otherwise, the request encoding will break. -->
-	<filter>
-		<filter-name>EncodingFilter</filter-name>
-		<filter-class>
-			de.mpg.escidoc.pubman.appbase.EncodingFilter
-		</filter-class>
-	</filter>
-
 	<filter>
 		<filter-name>SessionTimeoutFilter</filter-name>
 		<filter-class>
 			de.mpg.escidoc.pubman.appbase.SessionTimeoutFilter
 		</filter-class>
 	</filter>
-	
+
 	<!-- This filter is always required;  one of its functions is 
 		file upload. -->
 	<filter>
 		<filter-name>trinidad</filter-name>
 		<filter-class>org.apache.myfaces.trinidad.webapp.TrinidadFilter</filter-class>
 	</filter>
-
-	<!-- IMPORTANT: Do not place any filters above this filer. Otherwise, the request encoding will break. -->
-	<filter-mapping>
-		<filter-name>EncodingFilter</filter-name>
-		<servlet-name>Faces Servlet</servlet-name>
-	</filter-mapping>
 
 	<filter-mapping>
 		<filter-name>SessionTimeoutFilter</filter-name>

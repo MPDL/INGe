@@ -211,10 +211,5 @@ public class AffiliationVOPresentation extends AffiliationVO
         return uriList;
     }
     
-    public boolean getIsClosed()
-    {
-        return getPublicStatus().equals("closed");
-    }
-    
     
 }

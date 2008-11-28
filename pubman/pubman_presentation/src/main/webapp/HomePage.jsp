@@ -22,7 +22,7 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
  für wissenschaftlich-technische Information mbH and Max-Planck-
  Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
@@ -37,48 +37,91 @@
 	<f:view locale="#{InternationalizationHelper.userLocale}" xmlns:e="http://www.escidoc.de/jsf">
 		<f:loadBundle var="lbl" basename="Label"/>
 		<f:loadBundle var="msg" basename="Messages"/>
+		<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
-				<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
-				<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-				<meta http-equiv="pragma" content="no-cache"/>
-				<meta http-equiv="cache-control" content="no-cache"/>
-				<meta http-equiv="expires" content="0"/>
-				<script type="text/javascript" language="JavaScript" src="resources/scripts.js">;</script>
+
+				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+
+				<jsp:directive.include file="header/ui/StandardImports.jspf" />
+
 			</head>
-			<body><h:form id="form1">
-				<h:outputText value="#{HomePage.beanName}" style="height: 0px; width: 0px; visibility:hidden; position: absolute;" />
-				<div id="page_margins">
-					<div id="page">
-						
-							<div id="header">
-								<jsp:directive.include file="desktop/Header.jspf" />
-								<div class="header">
-									<jsp:directive.include file="desktop/Login.jspf" />
-									<jsp:directive.include file="desktop/Search.jspf" />
-								</div>
+			<body lang="#{InternationalizationHelper.locale}">
+			<h:outputText value="#{HomePage.beanName}" styleClass="noDisplay" />
+			<h:form id="form1">
+			<h:inputHidden id="offset"></h:inputHidden>
+
+				<!-- import header -->
+				<jsp:directive.include file="header/Header.jspf" />
+
+				<div id="content" class="full_area0 clear">
+				<!-- begin: content section (including elements that visualy belong to the header (breadcrumb, headline, subheader and content menu)) -->
+					<div class="clear">
+						<div class="headerSection">
+							
+						<jsp:directive.include file="header/Breadcrumb.jspf" />
+				
+							<div id="contentSkipLinkAnchor" class="clear headLine">
+								<!-- Headline starts here -->
+								<h1><h:outputText value="#{lbl.HomePage}" /></h1>
+								<!-- Headline ends here -->
 							</div>
-							<div id="nav">
-									<jsp:directive.include file="desktop/Breadcrumb.jspf" />
+						</div>
+						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+							<!-- content menu starts here -->
+								<div class="sub">
+								<!-- content menu upper line starts here -->
+									
+								<!-- content menu upper line ends here -->
+								</div>
+							<!-- content menu ends here -->
 							</div>
-							<div id="main">
-								<div id="col1">
-									<span class="mainMenu">
-										<jsp:directive.include file="desktop/Navigation.jspf" />
-									</span>
-								</div>
-								<div id="col2">
-									&#xa0;
-								</div>
-								<div id="col3">
-									<div class="content">
-										<jsp:directive.include file="home/ReleaseNotes.jspf" />
-									</div>
-								</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages}">
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
+								</h:panelGroup>
+								<!-- Subheadline ends here -->
 							</div>
 						</div>
 					</div>
+					<div class="full_area0">
+						<div class="full_area0 infoPage">
+							<span class="half_area0_p8 mainSection">
+
+								<jsp:directive.include file="home/ReleaseNotes.jspf" />
+								
+							</span>
+							
+							<div class="sideSection free_area0_p8">
+
+								<jsp:directive.include file="home/News.jspf" />
+								
+							</div>		
+							
+						</div>	
+					</div>
+				<!-- 	<jsp:directive.include file="home/ReleaseNotes.jspf" />   -->
+				<!-- end: content section -->
+				</div>
+
+
 				</h:form>
+				<script type="text/javascript">
+				$("input[id$='offset']").submit(function() {
+					$(this).val($(window).scrollTop());
+				});
+				$(document).ready(function () {
+					$(window).scrollTop($("input[id$='offset']").val());
+					$(window).scroll(function(){$("input[id$='offset']").val($(window).scrollTop())});
+				});
+				</script>
 			</body>
 		</html>
 	</f:view>

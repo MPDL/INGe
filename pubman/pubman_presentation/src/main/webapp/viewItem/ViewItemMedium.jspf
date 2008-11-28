@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,6 +31,101 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<h:panelGroup layout="block" styleClass="full_area0 mediumView">
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblPublishingInfo}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.publishingInfo}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblEventTitle}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.eventTitle}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourceGenre}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.sourceGenre}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourceTitle}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.sourceTitle}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourceVolumeIssue}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.firstSource.volume}"/>
+			<h:outputText value=" (" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
+			<h:outputText value="#{item.firstSource.issue}"/>
+			<h:outputText value=")" rendered="#{item.firstSource != null && item.firstSource.issue != null && item.firstSource.issue != ''}" />
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourceStartEndPage}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.startEndPageSource}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourceSequenceNo}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.firstSource.sequenceNumber}"/>
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemMedium_lblSourcePublishingInfo}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.publishingInfoSource}"/>
+		</span>
+	</div>
+	<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{item.furtherSources > 0}">
+		<span class="huge_area0_p8 endline labelLine">
+			&#160;<span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.furtherSources} #{lbl.ViewItemMedium_lblSourceFurtherSources}"/>
+		</span>
+	</h:panelGroup>
+	<h:panelGroup layout="block" styleClass="free_area0_p0 small_marginLIncl endline listItemLine" rendered="#{item.hasSearchHits}">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}" /><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<tr:iterator var="hit" value="#{item.searchHits}" rendered="#{ItemListSessionBean.isSearchResultList}" binding="#{ViewItemMedium.fileSearchHitIterator}" varStatus="index" >
+				<h:panelGroup styleClass="xHuge_area0 endline">
+					<h:outputText value="#{hit.beforeSearchHitString}"/>
+					<h:outputText styleClass="searchHit" value="#{hit.searchHitString}"/>
+					<h:outputText value="#{hit.afterSearchHitString}"/>
+				</h:panelGroup>
+			</tr:iterator>
+		</span>
+	</h:panelGroup>
+</h:panelGroup>
+
+
+
+<%--
 <f:subview id="viewItemMedium">
 	
 	<!-- COinS 
@@ -83,7 +178,7 @@
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
 		<h:outputText value="<p>" escape="false"/>
-		<%-- 
+		<!-- 
 			<h:outputText value="#{lbl.ViewItem_lblDateCreated}: " rendered="#{item.metadata.dateCreated != ''}"/>
 			<h:outputText value="#{item.metadata.dateCreated}"/>
 				<h:outputText value=" | " rendered="#{item.metadata.dateModified != null && item.metadata.dateModified != ''}" />
@@ -101,7 +196,7 @@
 				<h:outputText value=" | " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{lbl.ViewItem_lblDatePublishedInPrint}: " rendered="#{item.metadata.datePublishedInPrint != null && item.metadata.datePublishedInPrint != ''}"/>
 			<h:outputText value="#{item.metadata.datePublishedInPrint}"/>
-		--%>
+		-->
 			<h:outputText value="#{item.datesAsString}"/>
 			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}" rendered="#{item.datesAsString == null || item.datesAsString == ''}" escape="false"/>
 		<h:outputText value="</p>" escape="false"/>
@@ -284,3 +379,4 @@
 	</h:panelGroup>
 	
 </f:subview>
+--%>

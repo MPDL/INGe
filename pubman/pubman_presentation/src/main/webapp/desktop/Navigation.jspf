@@ -40,7 +40,7 @@
 			value="#{lbl.mainMenu_lblMyWorkspace}" rendered="#{DepositorWSSessionBean.myWorkspace and ContextListSessionBean.depositorContextListSize>0}">
 		</h:outputText></h1>
 		<li><h:outputLink
-			value="#{ApplicationBean.appContext}DepositorWSPage.jsp">
+			value="#{ApplicationBean.appContext}DepositorWSPageNew.jsp">
 			<h:outputText value="#{lbl.mainMenu_lnkDepositor}" rendered="#{DepositorWSSessionBean.depositorWS and ContextListSessionBean.depositorContextListSize>0}" />
 		</h:outputLink></li>
 			

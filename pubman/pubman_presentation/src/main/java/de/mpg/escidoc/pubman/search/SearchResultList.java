@@ -58,6 +58,7 @@ import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.appbase.InternationalizedImpl;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
+import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -151,6 +152,10 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
+        
+        
+        Navigation navBean = (Navigation)getRequestBean(Navigation.class);
+        navBean.setShowExportMenuOption(true);
         
         String unapiURL;
 		try {
@@ -530,6 +535,7 @@ public class SearchResultList extends ItemList
             
             getItemListSessionBean().setListDirty(false);
             getItemListSessionBean().setType("SearchResultList");
+            //this.getItemListSessionBean().setSubmenu("VIEW");
             getItemListSessionBean().setCurrentPubItemListPointer(0);
             this.getSessionBean().setType(SearchResultListSessionBean.SearchType.NORMAL_SEARCH);
         }

@@ -36,11 +36,8 @@
 <h1 id="editItemHeader">
 	<h:panelGroup layout="block" styleClass="itemIcon"></h:panelGroup>	
 	<h:panelGroup layout="block" id="valOrientationText" styleClass="orientationHeader">
-		<h:outputText value="#{lbl.EditItemPage}" />
-		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#NewSubmission');return false"/>
-		<h:outputText value=": " />
+		<h:outputText value="#{lbl.EditItemPage} : " />
 		<h:commandLink value="#{EditItem.contextName}" styleClass="noBorder" onclick="loadDescription('#{EditItem.contextDescriptionForPopup}');return false"/>
-		
 	</h:panelGroup>
 </h1>
 <h:panelGroup layout="block" styleClass="messageBox" rendered="#{EditItem.hasMessages}">
@@ -112,9 +109,7 @@
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
 						</div>
-						<!--  
 						<tr:commandButton text="#{lbl.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
-						-->
 					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
@@ -148,11 +143,11 @@
            		<h:panelGroup layout="block" styleClass="editItemAddLink">
 					<h:panelGroup layout="block" styleClass="editItemLeftCol">
 						<h:panelGroup layout="block" styleClass="icon addIcon" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}"/>
-						<tr:commandLink id="lnk_addFile" partialSubmit="false" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
+						<tr:commandLink id="lnk_addFile" partialSubmit="true" text="#{lbl.EditItem_btAddFile}" actionListener="#{EditItem.addFile}" rendered="#{component.index+1 == EditItem.numberOfFiles && component.size > 0}" />
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="editItemRightCol">
 						<h:panelGroup layout="block" styleClass="icon removeIcon" rendered="#{component.size > 0}"/>
-						<tr:commandLink id="lnk_removeFile" partialSubmit="false" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
+						<tr:commandLink id="lnk_removeFile" partialSubmit="true" text="#{lbl.EditItem_btRemoveFile}" rendered="#{component.size > 0}" action="#{component.removeFile}"/>						
 					</h:panelGroup>
 		        </h:panelGroup>  	
 			

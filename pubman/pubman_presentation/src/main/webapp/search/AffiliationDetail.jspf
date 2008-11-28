@@ -21,13 +21,42 @@
  CDDL HEADER END
 
 
- Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
- fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+ Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+ für wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Förderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 */ %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h2><h:outputText value="#{AffiliationDetail.affiliationVO.name}"/></h2>
+<!-- Affiliation description -->
+<tr:iterator var="description" value="#{AffiliationDetail.affiliationVO.defaultMetadata.descriptions}" varStatus="index">
+	<h:outputText value="#{description}"/>
+	<br/>
+</tr:iterator>
+<br/>
+<h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
+<br/>
+<!--URIs as links -->
+<tr:iterator var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
+	<h:outputLink value="#{uri}" target="_blank">
+		<h:outputText value="#{uri}"/>
+	</h:outputLink>
+	<br/>
+</tr:iterator>
+<!--other identifiers as plain text -->
+<tr:iterator var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" varStatus="index">
+		<h:outputText value="#{identifier.id}" rendered="#{identifier.typeString != 'URI'}"/>
+	<br/>
+</tr:iterator>
+
+
+
+
+
+<%--  
 <div xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html" xmlns:jsp="http://java.sun.com/JSP/Page">
 	<f:subview id="AffiliationDetail">
 
@@ -35,11 +64,11 @@
 			<h:panelGroup styleClass="listHeader dark" layout="block">
 				<h3>
 					<h:outputText value="#{AffiliationDetail.affiliationVO.name}"/>
-<%-- 
+<!-- 
 					<h:panelGroup rendered="#{AffiliationDetail.affiliationVO.abbreviation != ''}">
 						(<h:outputText value="#{AffiliationDetail.affiliationVO.abbreviation}"/>)
 					</h:panelGroup>
---%>
+-->
 				</h3>
 				<h:panelGroup styleClass="displayControls moveTop" layout="block">
 					<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{AffiliationDetail.toggleDetails}" rendered="#{!AffiliationDetail.renderDetails}"/>
@@ -56,19 +85,19 @@
 				<br/><br/>
 				<h:outputText value="#{AffiliationDetail.affiliationVO.defaultMetadata.city}, #{AffiliationDetail.affiliationVO.defaultMetadata.countryCode}"/>
 				<br/>
-				<%--URIs as links --%>
+				<!--URIs as links -->
 				<tr:iterator var="uri" value="#{AffiliationDetail.affiliationVO.uris}" varStatus="index">
 					<h:outputLink value="#{uri}" target="_blank">
 						<h:outputText value="#{uri}"/>
 					</h:outputLink>
 					<br/>
 				</tr:iterator>
-				<%--other identifiers as plain text --%>
+				<!--other identifiers as plain text -->
 				<tr:iterator var="identifier" value="#{AffiliationDetail.affiliationVO.defaultMetadata.identifiers}" varStatus="index">
 						<h:outputText value="#{identifier.id}" rendered="#{identifier.typeString != 'URI'}"/>
 					<br/>
 				</tr:iterator>
-<%-- 
+<!-- 
 				<h:outputText value="#{AffiliationDetail.affiliationVO.postcode}"/>
 				<h:outputText value="#{AffiliationDetail.affiliationVO.city}"/>
 				<br/>
@@ -87,9 +116,10 @@
 						<h:outputText value="#{AffiliationDetail.affiliationVO.homepageUrl}"/>
 					</h:outputLink>
 				</h:panelGroup>
---%>
+-->
 
 			</h:panelGroup>
 		</h:panelGroup>
 	</f:subview>
 </div>
+--%>

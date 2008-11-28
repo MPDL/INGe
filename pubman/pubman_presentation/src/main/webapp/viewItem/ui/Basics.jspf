@@ -53,9 +53,8 @@
 			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_withdrawn}"/>
 	</h:panelGroup>	
 	
-	<%-- Show last public status comment in case item is in state in revision--%>
 	<h:panelGroup layout="block" rendered = "#{ViewItemFull.isStateInRevision}">
-			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.publicStatusComment}"/>
+			<h:outputText styleClass="messageError" value="#{msg.ViewItemFull_inRevision} #{ViewItemFull.pubItem.version.lastMessage}"/>
 	</h:panelGroup>	
 	
 	<!-- COinS -->
@@ -79,14 +78,14 @@
 		</h:commandLink>
 	
 		<a href="#fileSection">
-			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles && !ViewItemFull.isStateWithdrawn}"/>
+			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
 		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
-		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (!ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
+		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 		</h:commandLink>
 		

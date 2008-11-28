@@ -1,0 +1,124 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<h:panelGroup layout="block" styleClass="full_area0 itemBlock" rendered="#{!ViewItemFull.isStateWithdrawn}">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.ViewItemMedium_lblSubHeaderFile}" />
+	</h3>
+	<span class="seperator"></span>
+	<h:panelGroup styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showFiles}">
+
+		<tr:iterator var="file" value="#{ViewItemFull.fileList}" binding="#{ViewItemFull.fileIterator}" varStatus="index">
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine newBlock" rendered="#{ViewItemFull.fileIterator.rowIndex > 0}"/>
+
+<%-- File name --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<tr:commandLink action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator)}">
+							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+						</tr:commandLink>
+						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator)}"/>
+						<h:outputText value="#{lbl.ViewItemFull_lblNoAccess}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File visibility --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileVisibility}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{file.visibility}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
+					<h:outputText value="#{lbl.ViewItemFull_lblWithdrawn}" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File MIME type --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileMimeTypeSize}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{file.file.mimeType} / #{file.fileSize}"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File content category --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileCategory}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{file.contentCategory}"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File description --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemMedium_lblFileDescription}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputText value="#{file.file.description}"/>
+				</span>
+			</h:panelGroup>
+
+<%-- File fulltext searchhits --%>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{file.showSearchHits}">
+				<b class="xLarge_area0 endline labelLine">
+					<h:outputText value="#{lbl.ViewItemFull_lblFulltextSearchResults}"/><span class="noDisplay">: <br /></span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<tr:iterator var="hit" value="#{file.searchHits}" binding="#{ViewItemFull.fileSearchHitIterator}" varStatus="index">
+						<h:panelGroup styleClass="xHuge_area0">
+							<h:outputText value="#{hit.beforeSearchHitString}"/>
+								<h:outputText value='<em class="searchHit">' escape="false"/>
+									<h:outputText value="#{hit.searchHitString}"/>
+								<h:outputText value="</em>" escape="false"/>
+							<h:outputText value="#{hit.afterSearchHitString}"/>
+						</h:panelGroup>
+					</tr:iterator>
+				</span>
+			</h:panelGroup>
+			
+	
+		</tr:iterator>
+
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>	
+	</h:panelGroup>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.ViewItemMedium_lblSubHeaderFile}" /></a>
+</h:panelGroup>

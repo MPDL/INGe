@@ -46,6 +46,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
@@ -95,6 +96,9 @@ public class DepositorWS extends ItemList
         {
             logger.debug("Initializing DepositorWS...");
         }
+        
+        Navigation navBean = (Navigation)getRequestBean(Navigation.class);
+        navBean.setShowExportMenuOption(true);
         
         if (!"DepositorWS".equals(getItemListSessionBean().getType()))
         {
@@ -420,6 +424,7 @@ public class DepositorWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("DepositorWS");
+        //this.getItemListSessionBean().setSubmenu("VIEW");
         if (newItemState.equals(PubItemVO.State.IN_REVISION.name()))
         {
             getItemListSessionBean().setIsInRevisionView(true);

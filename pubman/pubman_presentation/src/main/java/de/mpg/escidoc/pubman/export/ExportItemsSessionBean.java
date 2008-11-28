@@ -38,8 +38,6 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
-import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
-import de.mpg.escidoc.services.common.valueobjects.MdsFilmVO.FilmType;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
@@ -108,22 +106,30 @@ public class ExportItemsSessionBean extends FacesBean
         // Perform initializations inherited from our superclass
         super.init();
         
-        if (exportFormatType.equals("LAYOUT"))
-        { 
-        	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-            // default format for STRUCTURED is pdf
-            curFileFormatVO.setName(FileFormatVO.PDF_NAME);
-            curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
-        }
-        else 
-        {
+        if (exportFormatType.equals("STRUCTURED")){
             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
+            this.curExportFormatVO.setName("ENDNOTE");
             // default format for STRUCTURED is TEXT
             curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
             curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
         }
-        this.curExportFormatVO.setName(exportFormatName);
-        this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+        if (exportFormatType.equals("BIBTEX")){
+            this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
+            this.curExportFormatVO.setName("BIBTEX");
+            // default format for STRUCTURED is TEXT
+            curFileFormatVO.setName(FileFormatVO.TEXT_NAME);
+            curFileFormatVO.setMimeType(FileFormatVO.TEXT_MIMETYPE);
+            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+        }
+        else { 
+        	this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+        	this.curExportFormatVO.setName(exportFormatName);
+            // default format for STRUCTURED is pdf
+            curFileFormatVO.setName(FileFormatVO.PDF_NAME);
+            curFileFormatVO.setMimeType(FileFormatVO.PDF_MIMETYPE);
+            this.curExportFormatVO.setSelectedFileFormat(curFileFormatVO);
+        }
         
         try
         {
@@ -170,17 +176,22 @@ public class ExportItemsSessionBean extends FacesBean
 
     public void setExportFormatType(String exportFormatType)
     {
-    	if  (exportFormatType.equals("LAYOUT"))
-    	{
-    		this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
-    		this.enableLayout = true;
-    	}
-    	else
-    	{
-    		this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
-    		this.enableLayout = false;
-    	}
-        this.exportFormatType = exportFormatType;
+         if (exportFormatType.equals("STRUCTURED"))
+         {
+             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.STRUCTURED);
+         	 this.enableLayout = false;
+         }
+         if (exportFormatType.equals("BIBTEX"))
+         {
+             this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.BIBTEX);
+         	 this.enableLayout = false;
+         }
+         else if  (exportFormatType.equals("LAYOUT"))
+         {
+        	 this.curExportFormatVO.setFormatType(ExportFormatVO.FormatType.LAYOUT);
+        	 this.enableLayout = true;
+         }
+         this.exportFormatType = exportFormatType;
     }
  
     public String getExportFormatName()
@@ -206,9 +217,7 @@ public class ExportItemsSessionBean extends FacesBean
         if ( 
         		fileFormat == null || fileFormat.trim().equals("")
         		//  ENDNOTE fileForamt is always TXT
-//        		|| getExportFormatName().equals("ENDNOTE")
-//        		|| getExportFormatName().equals("BIBTEX")
-        		|| getCurExportFormatVO().getFormatType() == FormatType.STRUCTURED 
+        		|| getExportFormatName().equals("ENDNOTE")
         )
         	fileFormat = FileFormatVO.TEXT_NAME;
         

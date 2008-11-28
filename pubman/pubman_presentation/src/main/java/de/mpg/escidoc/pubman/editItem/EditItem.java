@@ -161,7 +161,13 @@ public class EditItem extends FacesBean
     private UploadedFile uploadedFile;
     
     private UIXIterator fileIterator = new UIXIterator();
-    
+    private UIXIterator creatorIterator = new UIXIterator();
+    private UIXIterator pubLangIterator = new UIXIterator();
+    private UIXIterator identifierIterator = new UIXIterator();
+    private UIXIterator sourceIterator = new UIXIterator();
+    private UIXIterator sourceCreatorIterator = new UIXIterator();
+    private UIXIterator sourceIdentifierIterator = new UIXIterator();
+
     private CoreTable fileTable = new CoreTable();
     
     PubItemVO item = null;
@@ -169,6 +175,8 @@ public class EditItem extends FacesBean
     private boolean fromEasySubmission = false;
     
     private String creatorParseString;
+    
+    private boolean overwriteCreators;
     
     private String suggestConeUrl = null;
     
@@ -1031,11 +1039,6 @@ public class EditItem extends FacesBean
             fileVO.setName(file.getFilename());
             fileVO.getDefaultMetadata().setTitle(new TextVO(file.getFilename()));
             fileVO.setMimeType(file.getContentType());
-            // correct several PDF Mime type errors manually
-            if(file.getFilename() != null && (file.getFilename().endsWith(".pdf") || file.getFilename().endsWith(".PDF")))
-            {
-            	fileVO.setMimeType("application/pdf");
-            }
             FormatVO formatVO = new FormatVO();
             formatVO.setType("dcterms:IMT");
             formatVO.setValue(file.getContentType());
@@ -1710,34 +1713,20 @@ public class EditItem extends FacesBean
     {
         try
         {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), false);
+            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), getOverwriteCreators());
             setCreatorParseString("");
 
-            return EditItem.LOAD_EDITITEM;
+            return null;
         }
         catch (Exception e)
         {
             error(getMessage("ErrorParsingCreatorString"));
-            return EditItem.LOAD_EDITITEM;
+            return null;
             
         }
     }
     
-    public String overwriteAndAddCreatorString()
-    {
-        try
-        {
-            EditItem.parseCreatorString(getCreatorParseString(), getCreatorCollection(), true);
-            setCreatorParseString("");
-            return EditItem.LOAD_EDITITEM;
-        }
-        catch (Exception e)
-        {
-            error(getMessage("ErrorParsingCreatorString"));
-            return EditItem.LOAD_EDITITEM;
-            
-        }
-    }
+   
 
     public void setCreatorParseString(String creatorParseString)
     {
@@ -1771,4 +1760,75 @@ public class EditItem extends FacesBean
         this.suggestConeUrl = suggestConeUrl;
     }
 
+    public UIXIterator getCreatorIterator()
+    {
+        return creatorIterator;
+    }
+
+    public void setCreatorIterator(UIXIterator creatorIterator)
+    {
+        this.creatorIterator = creatorIterator;
+    }
+
+    public UIXIterator getPubLangIterator()
+    {
+        return pubLangIterator;
+    }
+
+    public void setPubLangIterator(UIXIterator pubLangIterator)
+    {
+        this.pubLangIterator = pubLangIterator;
+    }
+
+    public UIXIterator getIdentifierIterator()
+    {
+        return identifierIterator;
+    }
+
+    public void setIdentifierIterator(UIXIterator identifierIterator)
+    {
+        this.identifierIterator = identifierIterator;
+    }
+
+    public UIXIterator getSourceIterator()
+    {
+        return sourceIterator;
+    }
+
+    public void setSourceIterator(UIXIterator sourceIterator)
+    {
+        this.sourceIterator = sourceIterator;
+    }
+
+    public UIXIterator getSourceCreatorIterator()
+    {
+        return sourceCreatorIterator;
+    }
+
+    public void setSourceCreatorIterator(UIXIterator sourceCreatorIterator)
+    {
+        this.sourceCreatorIterator = sourceCreatorIterator;
+    }
+
+    public UIXIterator getSourceIdentifierIterator()
+    {
+        return sourceIdentifierIterator;
+    }
+
+    public void setSourceIdentifierIterator(UIXIterator sourceIdentifierIterator)
+    {
+        this.sourceIdentifierIterator = sourceIdentifierIterator;
+    }
+
+    public void setOverwriteCreators(boolean overwriteCreators)
+    {
+        this.overwriteCreators = overwriteCreators;
+    }
+
+    public boolean getOverwriteCreators()
+    {
+        return overwriteCreators;
+    }
+    
+    
 }

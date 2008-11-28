@@ -21,135 +21,121 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:dataTable var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-	<h:column>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderPerson}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
 
-		<%/* panTitleBar */%>
-		<h:panelGroup> 
-			<div class="listHeader dark">
-				<%/* panTitelComponent */%>
-				
-					<h3>
-					<h:outputText value="#{lbl.adv_search_lbHeaderPerson}" />
-				</h3>
-				
-			
-				<%/* panControls */%>
-				
-					<div class="displayControls moveTop">
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{personCriterionBean.collapse}" rendered="#{!personCriterionBean.collapsed}" />	
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{personCriterionBean.expand}" rendered="#{personCriterionBean.collapsed}"/>	
-					</div>
-				
-			</div>
-		</h:panelGroup>
-		
-		<%/* panContainer */%>
-		<h:panelGroup rendered="#{!personCriterionBean.collapsed}">
-			<div class="formField floatbox">				
-				<div class="searchTerm">
-					<h:outputLabel value="#{lbl.adv_search_lblSearchPerson}" />
-					<h:inputText immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
-				</div>
-				
-				
-				<div class="objectButtons floatbox">
-					<h:outputLabel value="#{lbl.adv_search_lblChkRole}" />
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{personCriterionBean.selectAll}" />
-				</div>
-				
-				
-					<div class="formGroupCheckboxMatrix floatbox">
-						<h:panelGroup layout="block" styleClass="checkboxCol">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" for="personCriterionBean_searchAuthor" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchIllustrator" value="#{personCriterionBean.searchIllustrator}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" for="personCriterionBean_searchIllustrator" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol">	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchEditor" value="#{personCriterionBean.searchEditor}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" for="personCriterionBean_searchEditor" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchPainter" value="#{personCriterionBean.searchPainter}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PAINTER}" for="personCriterionBean_searchPainter" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol">		
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchAdvisor" value="#{personCriterionBean.searchAdvisor}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ADVISOR}" for="personCriterionBean_searchAdvisor" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchPhotographer" value="#{personCriterionBean.searchPhotographer}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" for="personCriterionBean_searchPhotographer" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol">	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchArtist" value="#{personCriterionBean.searchArtist}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ARTIST}" for="personCriterionBean_searchArtist" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchTranscriber" value="#{personCriterionBean.searchTranscriber}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" for="personCriterionBean_searchTranscriber" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol">	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchCommentator" value="#{personCriterionBean.searchCommentator}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" for="personCriterionBean_searchCommentator" />
-							</h:panelGroup>	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchTranslator" value="#{personCriterionBean.searchTranslator}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" for="personCriterionBean_searchTranslator" />
-							</h:panelGroup>
-						</h:panelGroup>
-						<h:panelGroup layout="block" styleClass="checkboxCol">		
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="personCriterionBean_searchContributor" value="#{personCriterionBean.searchContributor}" />
-								<h:outputLabel value="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" for="personCriterionBean_searchContributor" />
-							</h:panelGroup>	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">						
-								<h:outputLabel value=" " />
-							</h:panelGroup>
-						</h:panelGroup>
-					</div>				
-				
-				<div class="objectButtons floatbox">					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size > 1}"/>
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
-				</div>
-			</div>	
-				
-			
-		</h:panelGroup>
+		<tr:iterator var="personCriterionBean" value="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.personCriterionIterator}" varStatus="index">
 
-		
-			<div class="operatorCenter">
-				<h:selectOneMenu value="#{personCriterionBean.logicOperator}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.personCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:inputText styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.personCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchPerson}" />
+					<h:inputText styleClass="quad_txtInput" immediate="true" value="#{personCriterionBean.personCriterionVO.searchString}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.size == 1}" action="#{AdvancedSearchEdit.personCriterionCollection.personCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{personCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<a class="medium_area0 xTiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<span class="free_area0 checkboxTripleGroup">
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchAuthor" value="#{personCriterionBean.searchAuthor}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_AUTHOR}" for="personCriterionBean_searchAuthor" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchEditor" value="#{personCriterionBean.searchEditor}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_EDITOR}" for="personCriterionBean_searchEditor" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchAdvisor" value="#{personCriterionBean.searchAdvisor}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ADVISOR}" for="personCriterionBean_searchAdvisor" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchArtist" value="#{personCriterionBean.searchArtist}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ARTIST}" for="personCriterionBean_searchArtist" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchCommentator" value="#{personCriterionBean.searchCommentator}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_COMMENTATOR}" for="personCriterionBean_searchCommentator" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchContributor" value="#{personCriterionBean.searchContributor}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_CONTRIBUTOR}" for="personCriterionBean_searchContributor" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchIllustrator" value="#{personCriterionBean.searchIllustrator}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_ILLUSTRATOR}" for="personCriterionBean_searchIllustrator" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchPainter" value="#{personCriterionBean.searchPainter}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PAINTER}" for="personCriterionBean_searchPainter" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchPhotographer" value="#{personCriterionBean.searchPhotographer}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_PHOTOGRAPHER}" for="personCriterionBean_searchPhotographer" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchTranscriber" value="#{personCriterionBean.searchTranscriber}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSCRIBER}" for="personCriterionBean_searchTranscriber" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="personCriterionBean_searchTranslator" value="#{personCriterionBean.searchTranslator}" />
+							<h:outputLabel value="#{lbl.ENUM_CREATORROLE_TRANSLATOR}" for="personCriterionBean_searchTranslator" />
+						</span>
+						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{personCriterionBean.logicOperator}">
 					<f:selectItems value="#{personCriterionBean.logicOptions}"/>
-			</h:selectOneMenu>
-			</div>
-		
-		
-	</h:column>
-</h:dataTable>
+				</h:selectOneMenu>				
+			</h:panelGroup>
 
-
+		</tr:iterator>
+		
+	</div>
+</div>

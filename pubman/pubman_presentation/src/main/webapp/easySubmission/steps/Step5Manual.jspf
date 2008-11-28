@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,6 +31,343 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<f:subview id="easySubmissionStep3Manual">
+
+<div class="clear">
+	<div class="headerSection">
+		
+	<jsp:directive.include file="../../header/Breadcrumb.jspf" />
+
+		<div id="contentSkipLinkAnchor" class="clear headLine">
+			<!-- Headline starts here -->
+			<h1><h:outputText value="#{lbl.EasySubmission}"/></h1>
+			<!-- Headline ends here -->
+		</div>
+	</div>
+	<div class="small_marginLIncl subHeaderSection">
+		<div class="contentMenu">
+		<!-- content menu starts here -->
+			<div class="sub">
+			<!-- content menu lower line starts here -->
+
+			<!-- content menu lower line ends here -->
+			</div>
+		<!-- content menu ends here -->
+		</div>
+		<div class="subHeader">
+			<!-- Subheadline starts here -->
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{EasySubmissionSessionBean.hasErrorMessages}">
+					<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EasySubmissionSessionBean.hasMessages and !EasySubmissionSessionBean.hasErrorMessages}">
+					<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+					<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EasySubmissionSessionBean.hasMessages}"/>
+				</h:panelGroup>
+			<!-- Subheadline ends here -->
+		</div>
+	</div>
+</div>			
+<div class="full_area0">
+	<div class="full_area0 fullItem">
+		<h:panelGroup layout="block" styleClass="full_area0 easySubmissionHeader" >
+			<span class="small_area0 endline">
+				&nbsp;
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 1
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b>
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 2
+				</b>
+			</span>
+			<span class="seperator"></span>
+			<span class="endline xTiny_marginLExcl huge_area0_p4">
+				<b class="actual">
+					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 3
+				</b>
+			</span>
+		</h:panelGroup>
+		<div class="full_area0 itemBlock">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{lbl.EditItem_lblDetails}" />
+			</h3>
+			<span class="seperator"></span>
+			<div class="free_area0 itemBlockContent endline">
+
+		<%-- Language of Publication --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" /><h:outputText value="#{lbl.EditItem_lblContentLanguage}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<input type="text" class="xDouble_txtInput tiny_marginRIncl languageSuggest" />
+						<h:selectOneMenu styleClass="small_select replace" value="#{EasySubmission.publicationLanguage}" >
+							<f:selectItems value="#{EasySubmission.publicationLanguages}"/>
+						</h:selectOneMenu>
+					</span>
+				</div>
+		
+		<%-- Dates --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{lbl.EditItem_lblDatePublishedOnline}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
+						</span>
+						<a class="large_area0 tiny_marginRIncl toLabelInputBottom showMoreDates" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</div>
+		
+		<%-- Number of Pages --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtTotalNoOfPages" id="lblTotalNoOfPages" value="#{lbl.EditItem_lblTotalNoOfPages}" />
+							<h:inputText styleClass="large_txtInput" id="txtTotalNoOfPages" value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}" />
+						</span>
+					</span>
+				</div>
+		
+		<%-- Publisher, Place --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="xDouble_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="xDouble_label" id="lblPublisher" for="txtaPublisher" value="#{lbl.EditItem_lblPublisher}" />
+							<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea" id="txtaPublisher" value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.publisher}" cols="15" rows="3" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" id="lblPlace" for="txtPlace" value="#{lbl.EditItem_lblPlace}" />
+							<h:inputText styleClass="large_txtInput" id="txtPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.place}" />
+						</span>
+					</span>
+				</div>
+		
+		<!-- Identifier -->
+				<tr:iterator var="identifier" value="#{EasySubmission.identifierCollection.identifierManager.objectDM}" binding="#{EasySubmission.identifierIterator}" varStatus="index">
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+						
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EasySubmission.identifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+						</b>
+						
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<span class="large_area0 largeFormPush">
+								<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblIdentifierType}" />
+								<h:selectOneMenu styleClass="large_select replace" value="#{identifier.typeString}">
+									<f:selectItems value="#{EasySubmission.identifierCollection.identifierTypes}"/>
+								</h:selectOneMenu>
+							</span>
+							<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblIdentifierValue}" />
+							<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
+						</span>
+						<span class="large_area0_p8 lineToolSection">
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
+						</span>
+					</h:panelGroup>
+				</tr:iterator>
+
+		<%-- Edition, Degree type, location --%>
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="cboDegreeType" id="lblDegreeType" value="#{lbl.EditItem_lblDegreeType}" />
+							<h:selectOneMenu styleClass="large_select replace" id="cboDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
+								<f:selectItems value="#{EasySubmission.degreeTypes}" />
+							</h:selectOneMenu>
+						</span>
+					</span>
+				</div>
+
+			</div>
+		</div>
+
+		<div class="full_area0 itemBlock">
+			<h3 class="xLarge_area0_p8 endline blockHeader">
+				<h:outputText value="#{lbl.EditItem_lblEvent}" />
+			</h3>
+			<span class="seperator"></span>
+
+<%-- no Event section at the moment --%>
+			<div class="free_area0 itemBlockContent endline">
+		<!-- Event title -->
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3"/>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" />
+						<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" />
+					</span>
+				</div>
+		
+		<!-- Alternative event title -->
+				<tr:iterator var="altTitle" value="#{EasySubmission.eventTitleCollection.alternativeTitleManager.objectDM}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAltTitle}"/><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+						</span>
+						<span class="large_area0_p8 lineToolSection">
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
+						</span>
+					</h:panelGroup>
+				</tr:iterator>
+		
+		<!-- Event place, Event start date, Event end date -->
+				<div class="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventPlace" for="txtEventPlace" value="#{lbl.EditItem_lblPlace}" />
+							<h:inputText styleClass="medium_txtInput" id="txtEventPlace" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.place.value}" />
+						</span>
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventStartDate" for="txtEventStartDate" value="#{lbl.EditItem_lblStartDate}" />	
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventStartDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.startDate}" />
+						</span>
+						<span class="medium_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="medium_label" id="lblEventEndDate" for="txtEventEndDate" value="#{lbl.EditItem_lblEndDate}" />	
+							<h:inputText styleClass="medium_txtInput dateJSInput" id="txtEventEndDate" value="#{ItemControllerSessionBean.currentPubItem.metadata.event.endDate}" />
+						</span>
+						<span class="medium_area0">
+							<span class="medium_checkbox">
+								<h:selectBooleanCheckbox id="chkInvitationStatus" value="#{EasySubmission.invited}" />
+								<h:outputLabel id="lblInvitationStatus" for="chkInvitationStatus" value="#{lbl.EditItem_lblInvitationstatus}" />
+							</span>
+						</span>
+					</span>
+				</div>
+			</div>
+
+			<div class="full_area0 itemBlock" >
+				<h3 class="xLarge_area0_p8 endline blockHeader">
+					<h:outputText value="#{lbl.EditItem_lblSource}" />
+				</h3>
+				<span class="seperator"></span>
+				<div class="free_area0 itemBlockContent endline">
+
+			<%-- Source genre --%>
+					<div class="free_area0 endline itemLine noTopBorder">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" /><h:outputText value="#{lbl.EditItem_lblGenre}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{EasySubmission.source.genre}" valueChangeListener="#{EasySubmission.chooseSourceGenre}" >
+								<f:selectItems value="#{EasySubmission.sourceGenreOptions}"/>
+							</h:selectOneMenu>
+						</span>
+					</div>
+		
+			<%-- Source title --%>
+					<div class="free_area0 endline itemLine noTopBorder">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{EasySubmission.sourceTitle}" cols="15" rows="3" />
+						</span>
+					</div>
+
+			<%-- Source alternative title copy&paste --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{EasySubmission.hiddenAlternativeTitlesField}" cols="15" rows="3" />
+						</span>
+					</div>
+
+			<%-- Source details publisher, place --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<span class="xDouble_area0 tiny_marginRIncl">
+								<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblPublisher}" />
+								<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{EasySubmission.sourcePublisher}" cols="15" rows="3" />
+							</span>
+							<span class="large_area0 xTiny_marginRIncl">
+								<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblPlace}"/>
+								<h:inputText styleClass="large_txtInput place" value="#{EasySubmission.sourcePublisherPlace}" />
+							</span>
+						</span>
+					</div>
+
+			<%-- Source details identifier copy&paste --%>
+					<div class="free_area0 endline itemLine noTopBorder noDisplay">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{EasySubmission.hiddenIdsField}" cols="15" rows="3" />
+						</span>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="full_area0 formButtonArea">	
+	<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
+	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadPreview}"><h:outputText value="#{lbl.easy_submission_btnAddDetails}" /></h:commandLink>
+</div>
+
+</f:subview>
+
+
+<%--
 <f:subview id="easySubmissionStep5Manual">
 	
 	<h1>
@@ -53,21 +390,70 @@
 				
 				
 				<div class="easySubmissionBoxBodyLine">
-					<%-- Date --%>
+
+					<!-- Date published in print-->
 					<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDate}" title="#{msg.mandatoryField}" />
-          				<h:inputText value="#{EasySubmissionSessionBean.selectedDate}"/>
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDatePublishedInPrint}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}"/>
           			</div>
-          		
-          			<%-- Date Type --%>
+
+					<!-- Date published online-->
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDatePublishedOnline}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}"/>
+          			</div>
+
+					<!-- Date submitted-->
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateSubmitted}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}"/>
+          			</div>
+
+					<!-- Date accepted-->
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateAccepted}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}"/>
+          			</div>
+
+					<!-- Date created-->
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateCreated}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}"/>
+          			</div>
+
+					<!-- Date modified-->
+					<div class="easySubmissionDateItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateModified}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}"/>
+          			</div>
+
+					<!-- Total Number of Pages -->
+					<div class="easySubmissionBasicInfItem">
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblTotalNumberOfPages}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.totalNumberOfPages}"/>
+          			</div>
+
+					<!-- Publisher -->
+					<div class="easySubmissionBasicInfItem">
+					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublisher}"/>
+					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.publisher}"/>
+					</div>
+
+					<!-- Publisher place -->
+					<div class="easySubmissionBasicInfItem">
+						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblPublisherPlace}" title="#{msg.mandatoryField}" />
+          				<h:inputText value="#{ItemControllerSessionBean.currentPubItem.metadata.publishingInfo.place}"/>
+          			</div>
+
+					<!-- Degree Type -->
           			<div class="easySubmissionDateItem">
-						<h:outputLabel styleClass="colLbl" value="* #{lbl.easy_submission_lblDateType}" title="#{msg.mandatoryField}" />
-						<h:selectOneMenu id="cboDateType" value="#{EasySubmissionSessionBean.currentDateType}" binding="#{EasySubmission.dateSelect}">
-							<f:selectItems value="#{EasySubmission.DATE_TYPE_OPTIONS}" />
+						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblDateType}"/>
+						<h:selectOneMenu id="cboDegreeType" value="#{ItemControllerSessionBean.currentPubItem.metadata.degree}">
+							<f:selectItems value="#{EasySubmission.degreeTypes}" />
 						</h:selectOneMenu>
 					</div>
 				
-					<%-- Publication Language --%>
+					<!-- Publication Language -->
 					<div class="easySubmissionLangItem">
 						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblPublicationLanguage}"/>
 						<input type="text" class="languageSuggest" />
@@ -79,7 +465,7 @@
 				
 				
 				<div class="easySubmissionBoxBodyLine">
-					<%-- Genre of Source --%>
+					<!-- Genre of Source -->
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceGenre}"/>
 					<h:selectOneMenu id="cboSourceGenre" styleClass="journalPulldown" value="#{EasySubmission.source.genre}" >
@@ -89,39 +475,22 @@
 					</div>
 					
 				
-					<%-- Title --%>
+					<!-- Title -->
 					<div class="easySubmissionBasicInfItem">
 					<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblSourceTitle}"/>
 					<h:inputTextarea styleClass="sourceTitle" rows="5" value="#{EasySubmission.sourceTitle}"/>
 					</div>
 					
-					<%-- Publisher (hidden for autosugggest)--%>
+					<!-- Publisher (hidden for autosugggest)-->
 					<h:inputTextarea value="#{EasySubmission.sourcePublisher}" styleClass="publisher" style="visibility:hidden;"/>
 
-					<%-- Place (hidden for autosugggest)--%>
+					<!-- Place (hidden for autosugggest)-->
 					<h:inputText value="#{EasySubmission.sourcePublisherPlace}" styleClass="place" style="visibility:hidden;"/>
 
-					<%-- Identifier (hidden for autosugggest)--%>
+					<!-- Identifier (hidden for autosugggest)-->
 					<h:inputText value="#{EasySubmission.sourceIdentifier}" styleClass="identifierValue" style="visibility:hidden;"/>
 					
 				</div>
-				
-				<div class="easySubmissionBoxBodyLine">
-					<%-- Keywords --%>
-					<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblKeywords}"/>
-    	    	  		<h:inputTextarea rows="5" value="#{EasySubmission.subject}"/>
-					</div>
-				</div>
-          		
-          		<div class="easySubmissionBoxBodyLine">
-          			<%-- Abstract --%>
-          			<div class="easySubmissionLastItem">
-						<h:outputLabel styleClass="colLbl" value="#{lbl.easy_submission_lblAbstract}"/>
-          				<h:inputTextarea rows="5" value="#{EasySubmission.abstract}"/>
-          			</div>
-          		</div>
-          		
 			</div>
 		</div>
 	</div>
@@ -147,3 +516,5 @@
 		</div>
 	</div>
 </f:subview>
+
+--%>

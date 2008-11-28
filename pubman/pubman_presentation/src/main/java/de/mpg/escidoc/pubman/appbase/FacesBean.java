@@ -33,6 +33,7 @@ package de.mpg.escidoc.pubman.appbase;
 import java.io.IOException;
 import java.io.Serializable;
 import java.net.URISyntaxException;
+import java.util.Iterator;
 
 import javax.faces.FactoryFinder;
 import javax.faces.application.Application;
@@ -391,4 +392,17 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         return BEAN_NAME;
     }
 
+    public boolean getHasErrorMessages()
+    {
+        for (Iterator<FacesMessage> i = getFacesContext().getMessages(); i.hasNext();)
+        {
+            FacesMessage fm = i.next();
+            if (fm.getSeverity().equals(FacesMessage.SEVERITY_ERROR) || fm.getSeverity().equals(FacesMessage.SEVERITY_WARN) || fm.getSeverity().equals(FacesMessage.SEVERITY_FATAL))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
 }

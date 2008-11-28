@@ -1,0 +1,338 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            f�r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur F�rderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
+
+<tr:iterator var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" binding="#{EditItem.sourceIterator}" varStatus="index">
+	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
+		<h3 class="xLarge_area0_p8 endline blockHeader">
+			<h:outputText value="#{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" />
+		</h3>
+		<span class="seperator"></span>
+		<div class="free_area0 itemBlockContent endline">
+
+	<%-- Source genre --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="true" /><h:outputText value="#{lbl.EditItem_lblGenre}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:selectOneMenu styleClass="large_select replace journalPulldown" value="#{sourceBean.source.genre}" valueChangeListener="#{sourceBean.chooseSourceGenre}" >
+						<f:selectItems value="#{sourceBean.sourceGenreOptions}"/>
+					</h:selectOneMenu>
+				</span>
+				<span class="huge_area0_p8 lineToolSection sourcesControls">
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text="#{lbl.EditItem_btRemoveSource}" shortDesc="#{lbl.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text="#{lbl.EditItem_btAddSource}" shortDesc="#{lbl.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
+				</span>
+			</div>
+
+	<%-- Source title --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblTitel}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+				</span>
+			</div>
+
+	<%-- Source alternative title copy&paste --%>
+			<div class="free_area0 endline itemLine noTopBorder noDisplay">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceAltTitlePasteField" value="#{sourceBean.hiddenAlternativeTitlesField}" cols="15" rows="3" />
+				</span>
+			</div>
+
+	<%-- Source alternative title --%>
+			<tr:iterator var="altTitle" value="#{sourceBean.titleCollection.alternativeTitleManager.objectDM}">
+				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblAlternativeTitel}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+					</span>
+				</h:panelGroup>
+			</tr:iterator>
+
+<%-- Source creator --%>
+			<tr:iterator var="creatorBean" value="#{sourceBean.creatorCollection.creatorManager.objectDM}" binding="#{EditItem.sourceCreatorIterator}" varStatus="index">
+
+	<%-- Source Author copy&paste --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine multipleAuthors" rendered="#{EditItem.sourceCreatorIterator.rowIndex == 0 }">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.submission_lblAuthorCopyPasteLabel}"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputLabel styleClass="quad_label" value="#{lbl.submission_lblAuthorCopyPaste}" />
+						<h:inputTextarea styleClass="xDouble_txtArea tiny_marginRIncl inputTxtArea" value="#{sourceBean.creatorParseString}" cols="15" rows="3" />
+						<span class="large_checkbox">
+							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
+							<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
+						</span>
+						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text="#{lbl.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
+					</span>
+				</h:panelGroup>
+	
+	<%-- Source creator role --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCreatorIterator.rowIndex == 0 }">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+							<f:selectItems value="#{creatorBean.creatorRoles}"/>
+						</h:selectOneMenu>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.sourceCreatorIterator.rowIndex > 0 }">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneMenu styleClass="large_select replace" value="#{creatorBean.creator.roleString}">
+							<f:selectItems value="#{creatorBean.creatorRoles}"/>
+						</h:selectOneMenu>
+					</span>
+				</h:panelGroup>
+
+	<%-- Source creator type --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorType}"/><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:selectOneRadio styleClass="medium_radioBtn double_area0" value="#{creatorBean.creator.typeString}" 
+							valueChangeListener="#{creatorBean.processCreatorTypeChanged}" onchange="submit();">
+							<f:selectItems value="#{creatorBean.creatorTypes}"/>
+						</h:selectOneRadio>
+					</span>
+				</h:panelGroup>
+
+	<%-- Source creator person family name, Creator person given name --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.personType}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="double_area0 xTiny_marginRIncl">
+							<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonFamilyName}"/>
+							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.familyName}"/>
+						</span>
+						<span class="double_area0">
+							<h:outputLabel styleClass="double_label" value="#{lbl.EditItem_lblPersonGivenName}"/>
+							<h:inputText styleClass="double_txtInput" value="#{creatorBean.creator.person.givenName}"/>
+						</span>
+					</span>
+				</h:panelGroup>
+
+	<%-- Source creator person affiliation --%>
+				<tr:iterator var="persOrga" value="#{creatorBean.personOrganisationManager.objectDM}" rendered="#{creatorBean.personType}">
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+							<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
+						</span>
+						<span class="large_area0_p8 lineToolSection">
+							<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
+						</span>
+					</h:panelGroup>
+					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+						<b class="xLarge_area0_p8 endline labelLine clear">
+							&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+						</b>
+						<span class="xHuge_area0 xTiny_marginLExcl endline">
+							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
+						</span>
+						<span class="large_area0_p8 lineToolSection">
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{creatorBean.personOrganisationManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
+						</span>
+					</h:panelGroup>
+				</tr:iterator>
+
+	<%-- Source creator organisation affiliation --%>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:outputLabel styleClass="quad_label" value="#{lbl.EditItem_lblOrganizationNameAndAddress}" />
+						<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+					</span>
+				</h:panelGroup>
+				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{creatorBean.creator.organization.address}" cols="15" rows="3" />
+					</span>
+				</h:panelGroup>
+				
+	<%-- Handle source creator controls --%>
+				<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
+					<tr:commandButton text=" " styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" />
+					<tr:commandButton text=" " styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
+				</h:panelGroup>
+
+			</tr:iterator>
+
+<%-- Source Details --%>
+
+	<%-- Source details volume --%>
+			<div class="free_area0 endline itemLine">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblDetailsOfSource}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="large_area0">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblVolume}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.volume}" />
+					</span>
+				</span>
+			</div>
+
+	<%-- Source details publisher, place --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="xDouble_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="xDouble_label" value="#{lbl.EditItem_lblPublisher}" />
+						<h:inputTextarea styleClass="xDouble_txtArea inputTxtArea publisher" value="#{sourceBean.source.publishingInfo.publisher}" cols="15" rows="3" />
+					</span>
+					<span class="large_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblPlace}"/>
+						<h:inputText styleClass="large_txtInput place" value="#{sourceBean.source.publishingInfo.place}" />
+					</span>
+				</span>
+			</div>
+
+	<%-- Source details identifier copy&paste --%>
+			<div class="free_area0 endline itemLine noTopBorder noDisplay">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="auto #{lbl.EditItem_lblIdentifier}" /><span class="noDisplay">: </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceIdentifierPasteField" value="#{sourceBean.hiddenIdsField}" cols="15" rows="3" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<h:commandButton styleClass="free_txtBtn groupTool hiddenAutosuggestUploadBtn" title="upload autosuggested" action="#{sourceBean.parseAndSetAlternativeTitlesAndIds}" />
+				</span>
+			</div>
+
+	<%-- Source details identifier --%>
+			<tr:iterator  var="identifier" value="#{sourceBean.identifierCollection.identifierManager.objectDM}" binding="#{EditItem.sourceIdentifierIterator}" varStatus="index">
+				<h:panelGroup styleClass="free_area0 endline itemLine noTopBorder">
+					<b class="xLarge_area0_p8 endline labelLine clear">
+						&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblIdentifier}" rendered="#{EditItem.sourceIdentifierIterator.rowIndex == 0}" /><span class="noDisplay">: </span>
+					</b>
+					<span class="xHuge_area0 xTiny_marginLExcl endline">
+						<span class="large_area0 largeFormPush">
+							<h:selectOneMenu styleClass="large_select replace identifierType" value="#{identifier.typeString}">
+								<f:selectItems value="#{sourceBean.identifierCollection.identifierTypes}"/>
+							</h:selectOneMenu>
+						</span>
+						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" />
+					</span>
+					<span class="large_area0_p8 lineToolSection">
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
+					</span>
+				</h:panelGroup>
+			</tr:iterator>
+
+	<%-- Source details edition, issue --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblEdition}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.publishingInfo.edition}" />
+					</span>
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblIssue}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.issue}" />
+					</span>
+				</span>
+			</div>
+
+	<%-- Source details start page, end page, sequence --%>
+			<div class="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&nbsp;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblStartpage}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.startPage}" />
+					</span>
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblEndpage}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.endPage}" />
+					</span>
+					<span class="large_area0 tiny_marginRIncl">
+						<h:outputLabel styleClass="large_label" value="#{lbl.EditItem_lblSequenceNumber}" />
+						<h:inputText styleClass="large_txtInput" value="#{sourceBean.source.sequenceNumber}" />
+					</span>
+				</span>
+			</div>
+			
+			<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" /></a>	
+		</div>
+		<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.EditItem_lblSource} #{EditItem.sourceIterator.rowIndex+1}" /></a>
+	</h:panelGroup>
+</tr:iterator>

@@ -21,81 +21,76 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:dataTable var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-	<h:column>
+<div class="full_area0 itemBlock noTopBorder">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
 
-		<%/* panTitleBar */%>
-		<h:panelGroup> 
-			<div class="listHeader dark">
-				<%/* panTitelComponent */%>				
-					<h3>
-						<h:outputText value="#{lbl.adv_search_lbHeaderWoP}" />
-					</h3>			
-			
-				<%/* panControls */%>				
-					<div class="displayControls moveTop">
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{anyFieldCriterionBean.collapse}" rendered="#{!anyFieldCriterionBean.collapsed}" />	
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{anyFieldCriterionBean.expand}" rendered="#{anyFieldCriterionBean.collapsed}"/>	
-					</div>
-				
-			</div>
-		</h:panelGroup>
-		
-		<%/* panContainer */%>
-		<h:panelGroup rendered="#{!anyFieldCriterionBean.collapsed}">
-			<div class="formField floatbox">
-				<div class=" light fullWidth floatbox">
-					<div class="searchTerm">
-						<h:outputLabel value="#{lbl.adv_search_lblSearchTerm}" />
-						<h:inputText value="#{anyFieldCriterionBean.criterionVO.searchString}" />
-					</div>
-				
+		<tr:iterator var="anyFieldCriterionBean" value="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.anyFieldCriterionIterator}" varStatus="index">
 
-				
-					<div class="formGroupTitle advSearchRadioButtonGroup floatbox">
-						<h:selectOneRadio layout="pageDirection" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}" onclick="submit();">
-							<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
-						</h:selectOneRadio>
-						<h:panelGroup styleClass="check checkItem">
-							<h:selectBooleanCheckbox value="#{anyFieldCriterionBean.includeFiles}" disabled="#{anyFieldCriterionBean.includeFilesDisabled}"/>
-							<h:outputLabel value="#{lbl.adv_search_lblChkInclude}" />
-						</h:panelGroup>					
-					</div>
-				</div>	
-				
-				
-					
-						
-						<div class="objectButtons floatbox">							
-							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size > 1}"/>
-							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
-							<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
-						</div>
-					
-				
-			</div>
-			
-		</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText styleClass="quad_txtInput" value="#{anyFieldCriterionBean.criterionVO.searchString}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.anyFieldCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:outputLabel styleClass="quad_label" value="#{lbl.adv_search_lblSearchTerm}" />
+					<h:inputText styleClass="quad_txtInput" value="#{anyFieldCriterionBean.criterionVO.searchString}" />
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.size == 1}" action="#{AdvancedSearchEdit.anyFieldCriterionCollection.anyFieldCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{anyFieldCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
 
-		
-			<div class="operatorCenter floatbox">
-				<h:selectOneMenu value="#{anyFieldCriterionBean.logicOperator}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<h:selectOneRadio styleClass="medium_radioBtn xTiny_marginRIncl xHuge_area0" value="#{anyFieldCriterionBean.selectedType}" valueChangeListener="#{anyFieldCriterionBean.processTypeChanged}">
+						<f:selectItems value="#{anyFieldCriterionBean.typeOptions}"/>
+					</h:selectOneRadio>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{anyFieldCriterionBean.logicOperator}">
 					<f:selectItems value="#{anyFieldCriterionBean.logicOptions}"/>
 				</h:selectOneMenu>
-			</div>
-		
-		
-	</h:column>
-</h:dataTable>
+			</h:panelGroup>
 
-
+		</tr:iterator>
+		
+	</div>
+</div>

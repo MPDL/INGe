@@ -21,115 +21,113 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
 <%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
-<f:loadBundle var="lbl" basename="Label"/>
+<%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
-<h:dataTable var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" rendered="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size > 0}" rowClasses="list-row-even, list-row-odd">
-	<h:column>
+<div class="full_area0 itemBlock">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		<h:outputText value="#{lbl.adv_search_lbHeaderDate}" />
+	</h3>
+	<span class="seperator"></span>
+	<div class="free_area0 itemBlockContent endline">
 
-		<%/* panTitleBar */%>
-		<h:panelGroup> 
-			<div class="listHeader dark">
-				<%/* panTitelComponent */%>
-				
-					<h3>
-						<h:outputText value="#{lbl.adv_search_lbHeaderDate}" />
-					</h3>
-				
-			
-				<%/* panControls */%>
-				
-					<div class="displayControls moveTop">
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{dateCriterionBean.collapse}" rendered="#{!dateCriterionBean.collapsed}" />	
-						<h:commandLink styleClass="smallFont" value="[#{lbl.Search_lblShowHide}]" action="#{dateCriterionBean.expand}" rendered="#{dateCriterionBean.collapsed}"/>
-							
-					</div>
-				
-			</div>
-		</h:panelGroup>
-		
-		<%/* panContainer */%>
-		<h:panelGroup rendered="#{!dateCriterionBean.collapsed}">
-			<div class="formField floatbox">		
-				<div class="innerPanel floatbox">		
-					<div class="searchTerm leftHalf floatbox">
-						<div class="dateCol wider topSpace10">
-							<h:outputLabel value="#{lbl.adv_search_lblFrom}" />
-							<h:inputText styleClass="dateField" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
-						</div>
-						<div class="dateCol wider">
-							<h:outputLabel value="#{lbl.adv_search_lblTo}" />
-							<h:inputText styleClass="dateField" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
-						</div>
-					</div>
-				
-				<div class="rightHalf floatbox">
-					<div class="objectButtons floatbox rightHalfInnerPanel">
-						<h:outputLabel value="#{lbl.adv_search_lblChkType}" />
-						<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAll}" action="#{dateCriterionBean.selectAll}" />
-					</div>
-				
-				
-					<div class="formGroupCheckboxMatrix floatbox rightHalfInnerPanel">
-						<h:panelGroup layout="block" styleClass="checkboxCol dateColShort">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
-							</h:panelGroup>	
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
-							</h:panelGroup>
-						</h:panelGroup>							
-						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
-							</h:panelGroup>
-						</h:panelGroup>							
-						<h:panelGroup layout="block" styleClass="checkboxCol dateCol">
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
-							</h:panelGroup>
-							<h:panelGroup layout="block" styleClass="checkItem floatbox">
-								<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
-								<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
-							</h:panelGroup>							
-						</h:panelGroup>
-					</div>	
-				</div>				
-				</div>
-				<div class="objectButtons floatbox">					
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btRemove}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}" rendered="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size > 1}"/>
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btAdd}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />				
-					<h:commandButton styleClass="inlineButton" value="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
-				</div>
-			</div>
-				
-			
-		</h:panelGroup>
+		<tr:iterator var="dateCriterionBean" value="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.objectDM}" binding="#{AdvancedSearchEdit.dateCriterionIterator}" varStatus="index">
 
-		
-			<div class="operatorCenter">
-				<h:selectOneMenu value="#{dateCriterionBean.logicOperator}">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{AdvancedSearchEdit.dateCriterionIterator.rowIndex == 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="double_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="double_label" for="startDate" value="#{lbl.adv_search_lblFrom}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDate" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+					</span>
+					<span class="double_area0 xTiny_marginRIncl">
+						<h:outputLabel styleClass="double_label" for="endDate" value="#{lbl.adv_search_lblTo}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDate" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{AdvancedSearchEdit.dateCriterionIterator.rowIndex > 0}">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<span class="double_area0 xTinx_marginRIncl">
+						<h:outputLabel styleClass="double_label" for="startDates" value="#{lbl.adv_search_lblFrom}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="startDates" immediate="true" value="#{dateCriterionBean.dateCriterionVO.from}" />
+					</span>
+					<span class="double_area0 xTinx_marginRIncl">
+						<h:outputLabel styleClass="double_label" for="endDates" value="#{lbl.adv_search_lblTo}" />
+						<h:inputText styleClass="double_txtInput dateJSInput" id="endDates" immediate="true" value="#{dateCriterionBean.dateCriterionVO.to}" />
+					</span>
+				</span>
+				<span class="large_area0_p8 lineToolSection">
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.size == 1}" action="#{AdvancedSearchEdit.dateCriterionCollection.dateCriterionManager.removeObject}"/>
+<%-- 
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{dateCriterionBean.clearCriterion}" />
+--%>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
+				<b class="xLarge_area0_p8 endline labelLine clear">
+					&#160;<span class="noDisplay"> </span>
+				</b>
+				<span class="xHuge_area0 xTiny_marginLExcl endline">
+					<a class="medium_area0 xTiny_marginRIncl checkAll"><h:outputText value="#{lbl.adv_search_btAll}" /></a>
+					<span class="free_area0 checkboxTripleGroup">
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedPrint" value="#{dateCriterionBean.searchPublishedPrint}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedpr}" for="dateCriterionBean_searchPublishedPrint" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchPublishedOnline" value="#{dateCriterionBean.searchPublishedOnline}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_publishedon}" for="dateCriterionBean_searchPublishedOnline" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchAccepted" value="#{dateCriterionBean.searchAccepted}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_accepted}" for="dateCriterionBean_searchAccepted" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchSubmitted" value="#{dateCriterionBean.searchSubmitted}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_submitted}" for="dateCriterionBean_searchSubmitted" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchModified" value="#{dateCriterionBean.searchModified}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_modified}" for="dateCriterionBean_searchModified" />
+						</span>
+						<span class="medium_checkbox xTiny_marginRIncl">
+							<h:selectBooleanCheckbox id="dateCriterionBean_searchCreated" value="#{dateCriterionBean.searchCreated}" />
+							<h:outputLabel value="#{lbl.adv_search_lblChkType_created}" for="dateCriterionBean_searchCreated" />
+						</span>
+						<a class="medium_area0 xTiny_marginRIncl showMoreCheckboxes" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
+					</span>
+				</span>
+			</h:panelGroup>
+
+			<h:panelGroup layout="block" styleClass="large_area0_p8 lineToolSection">
+				<h:selectOneMenu styleClass="small_select xSmall_marginLIncl endline replace" value="#{dateCriterionBean.logicOperator}">
 					<f:selectItems value="#{dateCriterionBean.logicOptions}"/>
-				</h:selectOneMenu>
-			</div>
-		
-		
-	</h:column>
-</h:dataTable>
+				</h:selectOneMenu>				
+			</h:panelGroup>
 
-
+		</tr:iterator>
+		
+	</div>
+</div>

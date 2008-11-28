@@ -21,25 +21,14 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 </jsp:scriptlet>
-<div xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
-	<f:subview id="Home">
-			
-			 <h1 class="bottomSpace"><h:outputText id="hdrApplicationtitle" value="#{ApplicationBean.appTitle} - "/>
-				<h:outputText id="valOrientationText" value="#{lbl.HomePage}" />					
-				<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#Home');return false"/>
-			</h1>
-			
-			<h:messages errorClass="messageError" infoClass="messageStatus" layout="table" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
 
-<!-- BEGIN Copy&paste the ReleaseNotes here -->		
-<div class="copyAndPasteReleaseNotes">
-		
+<!-- BEGIN Copy&paste the ReleaseNotes here -->				
 <h2 class="about">
 About PubMan
 </h2>
@@ -170,9 +159,4 @@ Contexts (i.e.collections), Organizational Units and Users are managed in an own
 		</li>
 	</ul>
 </ol>
-</div>
-
 <!-- END Copy&paste the ReleaseNotes here -->
-
-	</f:subview>
-</div>

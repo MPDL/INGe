@@ -21,9 +21,9 @@
             CDDL HEADER END
 
 
-            Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-            fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -31,6 +31,54 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h"%>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<h:panelGroup layout="block" styleClass="full_area0 shortView">
+	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
+	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+ 			<div><a class="collapse"><span class="noDisplay">Show </span>Less<span class="noDisplay"> Details</span></a>
+			<a class="expand"><span class="noDisplay">Show </span>More<span class="noDisplay"> Details</span></a></div>
+			<h:outputText value="#{lbl.ViewItemShort_lblCreators}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.creators}"/>&#160;
+		</span>
+	</div>
+	<div class="free_area0_p0 small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemShort_lblDates}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.latestDate}"/>&#160;
+		</span>
+	</div>
+	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemShort_lblGenre}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<h:outputText value="#{item.genre}"/>&#160;
+		</span>
+	</div>
+	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemShort_lblFile}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<span class="files"><h:outputText value="#{item.fileInfo}"/></span>
+		</span>
+	</div>
+	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
+		<span class="huge_area0_p8 endline labelLine">
+			<h:outputText value="#{lbl.ViewItemShort_lblLocator}"/><span class="noDisplay">: </span>
+		</span>
+		<span class="xHuge_area0 endline">
+			<span class="locators"><h:outputText value="#{item.locatorInfo}"/></span>
+		</span>
+	</div>
+</h:panelGroup>
+
+
+<%-- 
 <f:subview id="viewItemShort">
 	
 	<!-- COinS 
@@ -84,7 +132,7 @@
 	<!-- Locators -->
 	<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="#{lbl.ViewItemShort_lblLocator}"/>
-		<%--<h:outputText value="&#160;" escape="false"/>--%>
+
 	<h:outputText value="</div>" escape="false"/>
 	
 	<h:outputText value="<div class='itemText'>" escape="false"/>
@@ -114,3 +162,4 @@
 		<h:outputText value="</div>" escape="false"/>
 	</h:panelGroup>
 </f:subview>
+--%>

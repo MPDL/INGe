@@ -21,9 +21,9 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
-* fÃ¼r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur FÃ¶rderung der Wissenschaft e.V.
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
@@ -31,6 +31,8 @@ package de.mpg.escidoc.pubman.search;
 
 import java.util.ArrayList;
 import java.util.Locale;
+
+import org.apache.myfaces.trinidad.component.UIXIterator;
 
 import de.mpg.escidoc.pubman.search.bean.AnyFieldCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.DateCriterionCollection;
@@ -45,6 +47,8 @@ import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
+
+import de.mpg.escidoc.services.framework.PropertyReader;
 
 /**
  * Provides a set of search type query masks, which can be dynamically increased and combined 
@@ -72,6 +76,17 @@ public class AdvancedSearchEdit extends SearchResultList
     private IdentifierCriterionCollection identifierCriterionCollection = null;
     private LanguageCriterionCollection languageCriterionCollection = null;
     
+    private UIXIterator anyFieldCriterionIterator = new UIXIterator();
+    private UIXIterator personCriterionIterator = new UIXIterator();
+    private UIXIterator dateCriterionIterator = new UIXIterator();
+    private UIXIterator genreCriterionIterator = new UIXIterator();
+    private UIXIterator organizationCriterionIterator = new UIXIterator();
+    private UIXIterator eventCriterionIterator = new UIXIterator();
+    private UIXIterator sourceCriterionIterator = new UIXIterator();
+    private UIXIterator identifierCriterionIterator = new UIXIterator();
+    private UIXIterator languageCriterionIterator = new UIXIterator();
+    
+    private String suggestConeUrl = null;
    /**
     * Create a new instance. Set the buttons and the search type masks.
     *
@@ -298,5 +313,108 @@ public class AdvancedSearchEdit extends SearchResultList
 	{
 		this.languageCriterionCollection = languageCriterionCollection;
 	}
-	
+
+    public UIXIterator getAnyFieldCriterionIterator()
+    {
+        return anyFieldCriterionIterator;
+    }
+
+    public void setAnyFieldCriterionIterator(UIXIterator anyFieldCriterionIterator)
+    {
+        this.anyFieldCriterionIterator = anyFieldCriterionIterator;
+    }
+
+    public UIXIterator getPersonCriterionIterator()
+    {
+        return personCriterionIterator;
+    }
+
+    public void setPersonCriterionIterator(UIXIterator personCriterionIterator)
+    {
+        this.personCriterionIterator = personCriterionIterator;
+    }
+
+    public UIXIterator getDateCriterionIterator()
+    {
+        return dateCriterionIterator;
+    }
+
+    public void setDateCriterionIterator(UIXIterator dateCriterionIterator)
+    {
+        this.dateCriterionIterator = dateCriterionIterator;
+    }
+
+    public UIXIterator getGenreCriterionIterator()
+    {
+        return genreCriterionIterator;
+    }
+
+    public void setGenreCriterionIterator(UIXIterator genreCriterionIterator)
+    {
+        this.genreCriterionIterator = genreCriterionIterator;
+    }
+
+    public UIXIterator getOrganizationCriterionIterator()
+    {
+        return organizationCriterionIterator;
+    }
+
+    public void setOrganizationCriterionIterator(UIXIterator organizationCriterionIterator)
+    {
+        this.organizationCriterionIterator = organizationCriterionIterator;
+    }
+
+    public UIXIterator getEventCriterionIterator()
+    {
+        return eventCriterionIterator;
+    }
+
+    public void setEventCriterionIterator(UIXIterator eventCriterionIterator)
+    {
+        this.eventCriterionIterator = eventCriterionIterator;
+    }
+
+    public UIXIterator getSourceCriterionIterator()
+    {
+        return sourceCriterionIterator;
+    }
+
+    public void setSourceCriterionIterator(UIXIterator sourceCriterionIterator)
+    {
+        this.sourceCriterionIterator = sourceCriterionIterator;
+    }
+
+    public UIXIterator getIdentifierCriterionIterator()
+    {
+        return identifierCriterionIterator;
+    }
+
+    public void setIdentifierCriterionIterator(UIXIterator identifierCriterionIterator)
+    {
+        this.identifierCriterionIterator = identifierCriterionIterator;
+    }
+
+    public UIXIterator getLanguageCriterionIterator()
+    {
+        return languageCriterionIterator;
+    }
+
+    public void setLanguageCriterionIterator(UIXIterator languageCriterionIterator)
+    {
+        this.languageCriterionIterator = languageCriterionIterator;
+    }
+
+    public String getSuggestConeUrl() throws Exception
+    {
+        if (suggestConeUrl == null)
+        {
+            suggestConeUrl = PropertyReader.getProperty("escidoc.cone.service.url");
+        }
+        return suggestConeUrl;
+    }
+
+    public void setSuggestConeUrl(String suggestConeUrl)
+    {
+        this.suggestConeUrl = suggestConeUrl;
+    }
 }

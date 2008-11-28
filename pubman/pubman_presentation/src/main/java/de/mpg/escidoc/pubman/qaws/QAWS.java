@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemList;
 import de.mpg.escidoc.pubman.ItemListSessionBean;
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
+import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -111,6 +112,9 @@ public class QAWS extends ItemList
         {
             logger.debug("Initializing DepositorWS...");
         }
+        
+        Navigation navBean = (Navigation)getRequestBean(Navigation.class);
+        navBean.setShowExportMenuOption(true);
         
         if (!"QAWS".equals(getItemListSessionBean().getType()))
         {
@@ -292,6 +296,7 @@ public class QAWS extends ItemList
         // no reload necessary next time this page is navigated to
         this.getItemListSessionBean().setListDirty(false);
         this.getItemListSessionBean().setType("QAWS");
+        //this.getItemListSessionBean().setSubmenu("VIEW");
         getViewItemSessionBean().setNavigationStringToGoBack(QAWS.LOAD_QAWS);
         return QAWS.LOAD_QAWS;
     }

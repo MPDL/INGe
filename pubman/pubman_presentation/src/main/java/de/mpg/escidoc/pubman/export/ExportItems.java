@@ -41,6 +41,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
@@ -69,10 +70,10 @@ public class ExportItems extends FacesBean
     //private HtmlSelectOneMenu cboLayoutCitStyles = new HtmlSelectOneMenu();
 
     // constants for comboBoxes and HtmlSelectOneRadios
-    public SelectItem EXPORTFORMAT_ENDNOTE = new SelectItem("ENDNOTE", getLabel("Export_ExportFormat_ENDNOTE"));
+    public SelectItem EXPORTFORMAT_STRUCTURED = new SelectItem("STRUCTURED", getLabel("Export_ExportFormat_STRUCTURED"));
     public SelectItem EXPORTFORMAT_BIBTEX = new SelectItem("BIBTEX", getLabel("Export_ExportFormat_BIBTEX"));
     public SelectItem EXPORTFORMAT_LAYOUT = new SelectItem("LAYOUT", getLabel("Export_ExportFormat_LAYOUT"));
-    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_ENDNOTE, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_LAYOUT};
+    public SelectItem[] EXPORTFORMAT_OPTIONS = new SelectItem[]{EXPORTFORMAT_STRUCTURED, EXPORTFORMAT_BIBTEX, EXPORTFORMAT_LAYOUT};
     public SelectItem LAYOUTCITATIONSTYLE_APA = new SelectItem("APA", getLabel("Export_LayoutCitationStyle_APA"));
     public SelectItem[] LAYOUTCITATIONSTYLE_OPTIONS = new SelectItem[]{LAYOUTCITATIONSTYLE_APA};
     public SelectItem FILEFORMAT_PDF = new SelectItem("pdf", getLabel("Export_FileFormat_PDF"));
@@ -205,15 +206,30 @@ public class ExportItems extends FacesBean
         if (logger.isDebugEnabled())
         {
             logger.debug(">>>  New export format: " + selExportFormat);                     
-            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_ENDNOTE.getValue());
+            logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_STRUCTURED.getValue());
             logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_BIBTEX.getValue());
             logger.debug(selExportFormat + "; " + (String)this.EXPORTFORMAT_LAYOUT.getValue());
             
             logger.debug("curExportFormat:" + this.getSessionBean().getCurExportFormatVO());
         }
+ 
 
-        if (selExportFormat.equals((String)this.EXPORTFORMAT_LAYOUT.getValue()))
+        // change the GUI according to the values
+        if (selExportFormat.equals((String)this.EXPORTFORMAT_STRUCTURED.getValue()))
+        {    
+             sb.setExportFormatType(FormatType.STRUCTURED.toString());
+             sb.setExportFormatName("ENDNOTE");
+             sb.setFileFormat(FileFormatVO.TEXT_NAME);       
+        }
+        else if (selExportFormat.equals((String)this.EXPORTFORMAT_BIBTEX.getValue()))
+        {    
+             sb.setExportFormatType(FormatType.BIBTEX.toString());
+             sb.setExportFormatName("BIBTEX");
+             sb.setFileFormat(FileFormatVO.TEXT_NAME);       
+        }
+        else if (selExportFormat.equals((String)this.EXPORTFORMAT_LAYOUT.getValue()))
         {
+            sb.setExportFormatType(FormatType.LAYOUT.toString());
             sb.setExportFormatName("APA");
             //set default fileFormat of APA to PDF 
             String fileFormat = sb.getFileFormat();  
@@ -221,13 +237,7 @@ public class ExportItems extends FacesBean
             		fileFormat.trim().equals(FileFormatVO.TEXT_NAME)
             	)
             	sb.setFileFormat(FileFormatVO.PDF_NAME); 
-        }
-        else
-        {
-            sb.setExportFormatName(selExportFormat);
-            sb.setFileFormat(FileFormatVO.TEXT_NAME);       
-        }
-        
+         }
         
     }
 
@@ -252,9 +262,14 @@ public class ExportItems extends FacesBean
     {
     	ExportItemsSessionBean sb = this.getSessionBean();
     	cleanUpEmailFields();	
+    	PubItemListSessionBean plsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+        plsb.redirect();
+        return "";
+    	/*
     	return sb.getNavigationStringToGoBack() != null ? 
     		sb.getNavigationStringToGoBack() : 
     		SearchResultList.LOAD_SEARCHRESULTLIST;
+    		*/
     }
     
     /**
@@ -351,7 +366,10 @@ public class ExportItems extends FacesBean
                 SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
                 info(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
                 
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);
+                PubItemListSessionBean plsb = (PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class);
+                plsb.redirect();
+                
+                //return (SearchResultList.LOAD_SEARCHRESULTLIST);
                
             } 
             return status;

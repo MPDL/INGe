@@ -1,0 +1,268 @@
+@charset "UTF-8";
+
+/*
+*
+* CDDL HEADER START
+*
+* The contents of this file are subject to the terms of the
+* Common Development and Distribution License, Version 1.0 only
+* (the "License"). You may not use this file except in compliance
+* with the License.
+*
+* You can obtain a copy of the license at license/ESCIDOC.LICENSE
+* or http://www.escidoc.de/license.
+* See the License for the specific language governing permissions
+* and limitations under the License.
+*
+* When distributing Covered Code, include this CDDL HEADER in each
+* file and include the License file at license/ESCIDOC.LICENSE.
+* If applicable, add the following below this CDDL HEADER, with the
+* fields enclosed by brackets "[]" replaced with your own identifying
+* information: Portions Copyright [yyyy] [name of copyright owner]
+*
+* CDDL HEADER END
+*/
+
+/*
+* Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
+* All rights reserved. Use is subject to license terms.
+*/
+
+/*GENERAL*/
+
+.itemList {
+	border-top-width: 0.19em !important;
+	border-top-style: solid; 
+}
+
+.itemList .seperator {
+	width: 0.09em;
+	margin: 0px;
+	padding: 0px;
+	border-width: 0px;
+	border-top-width: 1.3em;
+	border-style: solid;
+}
+
+/*LIST HEADER*/
+
+	/*GENERAL*/
+	
+.listHeader a {
+	padding-top: 0.37em;
+	padding-bottom: 0px;
+	margin: 0px;
+	margin-right: -0.09em;
+}
+
+.listHeader .collapse, .listHeader .expand {
+	margin-left: 0.19em;
+	background-position: left;
+}
+
+.listHeader .headerSwitchView {
+	padding-top: 0.37em;
+	padding-bottom: 0em;
+}
+	/*SELECT MENU*/
+	
+.itemList .checkboxSelectButton {
+	margin-top: 0.19em;
+	margin-right: 0.19em;
+}
+
+	/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+	* html .itemList th .checkboxSelectButton {
+	margin-right: -1.19em;
+	}
+	/*REPLACEMENT HACK FOR IE 7*/
+	*:first-child+html .itemList th .checkboxSelectButton {
+	margin-right: -1.19em;
+	}
+
+.itemList .itemSelectArea {
+	padding-top: 0em;
+	padding-bottom: 0em;
+	width: 3.47em;
+}
+
+.selectMenu {
+	border-style: solid;
+	border-top-width: 0px !important;
+	z-index: 3;
+}
+
+.selectMenu input {
+	margin-left: 0.56em;
+	margin-top: 0.19em;
+}
+
+.selectMenu span {
+	padding-top: 0.28em;
+	padding-bottom: 0em;
+}
+
+.selectMenu a span {
+	padding-top: 0em;
+}
+
+	/*STATUS RELATED HEADER ELEMENTS*/
+
+.listHeader .statusArea {
+	width: 9.19em;
+}
+
+.listHeader th.statusArea {
+	width: 9.28em;
+}
+
+.listHeader .statusArea a {
+	width: 7.74em;
+}
+
+/*LIST ITEM*/
+
+	/*GENERAL*/
+	
+.listItem {
+	border-top-width: 0.09em !important;
+	border-top-style: solid !important;
+}
+
+.itemList tr.listItem {
+	border: 0px !important;
+}
+
+.listItem td {
+	 border-top: 0.09em solid #999999 !important;
+}
+
+.listItem td span, .listItem td {
+	padding-top: 0px;
+	margin-right: 0px;
+}
+
+.listItem .itemHeader, .listItem .shortView, .listItem .mediumView {
+	margin-bottom: 0.5em;
+}
+
+.listItem .shortView, .listItem .mediumView {
+	padding-bottom: 0.65em;
+}
+
+	/*ITEM HEADER*/
+
+.listItem .itemHeadline {
+	width: 59.56em;
+	padding-top: 0.19em;
+	padding-bottom: 1.00em;
+}
+
+.itemHeader label {
+	padding-top: 0em;
+}
+
+.listHeader .itemHeader {
+	width: 38.65em;
+}
+
+.loggedIn .listHeader .itemHeader {
+	width: 20.19em;
+}
+
+.listItem td .itemHeadline {
+	width: 28.01em;
+	padding-bottom: 0.19em;
+}
+
+.loggedIn .listItem td .itemHeadline {
+	width: 18.65em;
+}
+
+.listHeader th .itemHeadline {
+	width: 28.01em;
+}
+
+.loggedIn .listHeader th .itemHeadline {
+	width: 18.65em;
+}
+
+	/*ITEM BODY*/
+
+.listItem .collapse, .listItem .expand {
+	padding-left: 1.36em;
+	margin-left: -8px;
+}
+
+.listItem .itemCheckBox {
+	float: right;
+}
+
+.listItem .statusIcon {
+	z-index: 1;
+	margin-top: 1.73em;
+	margin-left: -8.65em;
+}
+
+/*REPLACEMENT HACK FOR IE LESS THAN 6*/
+	* html .listItem .statusIcon {
+	margin-top: 0em;
+	margin-left: 0em;
+	}
+	/*REPLACEMENT HACK FOR IE 7*/
+	*:first-child+html .listItem .statusIcon {
+	margin-top: 0em;
+	margin-left: 0em;
+	}
+
+.listItem td .statusIcon {
+	margin-top: 0.09em;
+	margin-left: 0em;
+}
+
+.listItem .listItemLine {
+	width: 75.92em; /*835px*/
+	margin-top: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.listItemLine .labelLine {
+	width: 22.45em;
+	margin-right: 0.82em !important;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+
+.loggedIn .labelLine {
+	width: 12.19em;
+	padding-left: 11.00em !important;
+}
+
+.listItem .filesSection {
+	margin-top: 0.19em;
+}
+
+.listItem .files, .listItem .locators {
+	padding-left: 2.10em;
+	margin-left: 0.19em;
+}
+
+.listItem td .files, .listItem td .locators {
+	margin: 0px;
+}
+
+	/*STATUS RELATED ITEM ELEMENTS*/
+
+.listItem .statusArea {
+	width: 7.65em;
+	padding-top: 0.28em;
+}
+
+.listItem td .statusArea {
+	width: 7.74em;
+	padding-top: 0em;
+}

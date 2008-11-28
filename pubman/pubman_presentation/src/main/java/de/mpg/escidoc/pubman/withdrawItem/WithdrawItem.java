@@ -200,16 +200,7 @@ public class WithdrawItem extends FacesBean
      */
     public final String cancel()
     {
-        FacesContext fc = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) fc.getExternalContext().getRequest();
-        try 
-        {
-            fc.getExternalContext().redirect(request.getContextPath() + "/faces/viewItemFullPage.jsp?itemId=" + this.getItemControllerSessionBean().getCurrentPubItem().getVersion().getObjectId());
-        } 
-        catch (IOException e) {
-            logger.error("Could not redirect to View Item Page", e);
-        }
-        return DepositorWS.LOAD_DEPOSITORWS;
+        return getSessionBean().getNavigationStringToGoBack();
     }
 
   

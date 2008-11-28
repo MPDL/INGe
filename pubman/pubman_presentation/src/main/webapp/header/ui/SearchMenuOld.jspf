@@ -1,0 +1,56 @@
+<%
+            /* 
+            CDDL HEADER START
+
+            The contents of this file are subject to the terms of the
+            Common Development and Distribution License, Version 1.0 only
+            (the "License"). You may not use this file except in compliance
+            with the License.
+
+            You can obtain a copy of the license at license/ESCIDOC.LICENSE
+            or http://www.escidoc.de/license.
+            See the License for the specific language governing permissions
+            and limitations under the License.
+
+            When distributing Covered Code, include this CDDL HEADER in each
+            file and include the License file at license/ESCIDOC.LICENSE.
+            If applicable, add the following below this CDDL HEADER, with the
+            fields enclosed by brackets "[]" replaced with your own identifying
+            information: Portions Copyright [yyyy] [name of copyright owner]
+
+            CDDL HEADER END
+
+
+            Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
+            für wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Förderung der Wissenschaft e.V.
+            All rights reserved. Use is subject to license terms.
+             */
+%>
+<%@ taglib uri="http://java.sun.com/jsf/core" prefix="f" %>
+<%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
+
+<div id="searchMenuSkipLinkAnchor" class="free_area0 searchMenu">
+	<!-- search Menu starts here -->
+	<h:inputText styleClass="medium_txtInput quickSearchTextInput" binding="#{Search.txtSearch}" value="#{SearchResultListSessionBean.searchString}"/>
+	<span class="xLarge_area0 quickSearchMenu">
+		<h:panelGroup styleClass="free_checkbox quickSearchCheckBoxMenu">
+			<h:selectBooleanCheckbox id="quickSearchCheckBox" binding="#{Search.chkIncludeFiles}" value="#{SearchResultListSessionBean.includeFiles}" />
+			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
+		</h:panelGroup>
+		<h:commandButton styleClass="std_imgBtn quickSearchIcon" title="Start search." action="#{Search.search}" value=" " immediate="true"/>	
+	</span>
+	<span class="large_area0 advancedSearchMenu">
+		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." immediate="true" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
+			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
+		</h:commandLink>
+	</span>
+	<span class="medium_area0 organisationSearchMenu endline">
+		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Organisation Search." immediate="true" action="#{Navigation.loadAffiliationTree}">
+			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
+			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
+		</h:commandLink>
+	</span>
+	<!-- search Menu ends here -->
+</div>

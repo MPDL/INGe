@@ -292,8 +292,8 @@ public class ViewItemFull extends FacesBean
         
         
         //check if arriving from easy submission
-        EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
-        this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
+        //EasySubmission easySubmissionRequestBean = (EasySubmission)getRequestBean(EasySubmission.class);
+        //this.isFromEasySubmission = easySubmissionRequestBean.getFromEasySubmission();
         
         if(this.pubItem != null)
         {
@@ -884,7 +884,7 @@ public class ViewItemFull extends FacesBean
                     {
                         if (organizationsFound == 0)
                         {
-                            annotation.append("   [");
+                            annotation.append("<sup>");
                         }
                         if (organizationsFound > 0 && j < this.affiliatedOrganizationsList.size())
                         {
@@ -897,9 +897,9 @@ public class ViewItemFull extends FacesBean
             }
             if (annotation.length() > 0)
             {
-                annotation.append("]");
+                annotation.append("</sup>");
             }
-            formattedCreator = formatter.formatCreator(creator) + annotation.toString();
+            formattedCreator = formatter.formatCreator(creator, annotation.toString());
             if (creator.getPerson() != null)
             {
                 this.creatorArray.add(formattedCreator);
@@ -997,13 +997,16 @@ public class ViewItemFull extends FacesBean
     {
     	if(this.pubItem.getMetadata() != null)
         {
-            if((this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0)
-                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
-                    || this.pubItem.getMetadata().getPublishingInfo() != null
+            if((this.pubItem.getMetadata().getLanguages() != null && this.pubItem.getMetadata().getLanguages().size() > 0)
+                    || (getShowDates())
                     || (this.pubItem.getMetadata().getTotalNumberOfPages() != null && !this.pubItem.getMetadata().getTotalNumberOfPages().trim().equals(""))
-                    || this.pubItem.getMetadata().getDegree() != null
+                    || (this.pubItem.getMetadata().getPublishingInfo() != null)
+                    || (this.pubItem.getMetadata().getTableOfContents() != null && this.pubItem.getMetadata().getTableOfContents().getValue() != null && !this.pubItem.getMetadata().getTableOfContents().getValue().trim().equals(""))
+                    || (this.pubItem.getMetadata().getReviewMethod() != null)
+                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0)
+                    || (this.pubItem.getMetadata().getDegree() != null)
                     || (this.pubItem.getMetadata().getLocation() != null && !this.pubItem.getMetadata().getLocation().trim().equals(""))
-                    || (this.pubItem.getMetadata().getIdentifiers() != null && this.pubItem.getMetadata().getIdentifiers().size() > 0))
+                    )
             {
             	return true;
             }
@@ -1064,6 +1067,21 @@ public class ViewItemFull extends FacesBean
     }
     
     /**
+     * Returns the total number of files in the item
+     * @return int
+     */
+    public int getAmountOfFiles() {
+        if (this.fileList != null && this.fileList.size() > 0)
+        {
+            return this.fileList.size();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+    
+    /**
      * Returns a true or a false according to the existance of locators in the item
      * @return boolean
      */
@@ -1077,6 +1095,21 @@ public class ViewItemFull extends FacesBean
     	{
     		return false;
     	}
+    }
+    
+    /**
+     * Returns the total number of locators in the item
+     * @return int
+     */
+    public int getAmountOfLocators() {
+        if (this.locatorList != null && this.locatorList.size() > 0)
+        {
+            return this.locatorList.size();
+        }
+        else
+        {
+            return 0;
+        }
     }
     
     /**
@@ -1532,6 +1565,10 @@ public class ViewItemFull extends FacesBean
 			}
 		}
 		return abstracts;
+	}
+	
+	public boolean getHasAbstracts() {
+	    return this.pubItem.getMetadata().getAbstracts() != null && this.pubItem.getMetadata().getAbstracts().size() > 0;
 	}
 	public String getGenre()
     {
