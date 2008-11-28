@@ -41,6 +41,7 @@ import java.util.StringTokenizer;
 
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.SliderUI;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import javax.xml.rpc.ServiceException;
@@ -58,6 +59,9 @@ import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.log4j.Logger;
 import org.xml.sax.InputSource;
 
+import de.mpg.escidoc.services.common.XmlTransforming;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.XmlTransformingBean;
 import de.mpg.escidoc.services.framework.ServiceLocator;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.validation.ItemValidating;
@@ -70,7 +74,7 @@ import de.mpg.escidoc.services.validation.ItemValidating;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class PubManImport
+public class PubManImport extends Thread
 {
     
     Logger logger = Logger.getLogger(PubManImport.class);
@@ -79,6 +83,7 @@ public class PubManImport
     private List<String> itemIds = new ArrayList<String>();
     
     private ItemValidating validating;
+    private String fileName;
     
     private static String CORESERVICES_URL;
     
@@ -90,7 +95,8 @@ public class PubManImport
         if (args != null && args.length == 3)
         {
             CORESERVICES_URL = PropertyReader.getProperty("escidoc.framework_access.framework.url");
-            new PubManImport(args[0], args[1], args[2]);
+            PubManImport pubManImport = new PubManImport(args[0], args[1], args[2]);
+            pubManImport.start();
         }
         else
         {
@@ -102,31 +108,49 @@ public class PubManImport
     public PubManImport(String fileName, String username, String password) throws Exception
     {
         userHandle = loginUser(username, password);
+        this.fileName = fileName;
         InitialContext context = new InitialContext();
         validating = (ItemValidating) context.lookup(ItemValidating.SERVICE_NAME);
+    }
+    
+    
+    public void run()
+    {
+
+        XmlTransforming xmlTransforming = new XmlTransformingBean();
         
-        File file = new File(fileName);
-        if (!file.exists())
+        try
         {
-            System.err.println("File \"" + file.getAbsolutePath() + "\" not found!");
-            System.exit(1);
+            File file = new File(fileName);
+            if (!file.exists())
+            {
+                System.err.println("File \"" + file.getAbsolutePath() + "\" not found!");
+                System.exit(1);
+            }
+            
+            SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
+            ImportHandler importHandler = new ImportHandler();
+            parser.parse(new InputSource(new InputStreamReader(new FileInputStream(file))), importHandler);
+            
+            List<String> itemXmls = importHandler.getItems();
+            
+            for (String itemXml : itemXmls)
+            {
+                validateItem(itemXml);
+                ItemVO itemVO = xmlTransforming.transformToItem(itemXml);
+                System.out.println(itemVO);
+            }
+            
+            // System.exit(0);
+            
+            for (String itemXml : itemXmls)
+            {
+                importItem(itemXml);
+                sleep(5000);
+            }
         }
-        
-        SAXParser parser = SAXParserFactory.newInstance().newSAXParser();
-        ImportHandler importHandler = new ImportHandler();
-        parser.parse(new InputSource(new InputStreamReader(new FileInputStream(file))), importHandler);
-        
-        List<String> itemXmls = importHandler.getItems();
-        
-        for (String itemXml : itemXmls)
-        {
-            validateItem(itemXml);
-        }
-        
-        for (String itemXml : itemXmls)
-        {
-            importItem(itemXml);
-            wait(1000);
+        catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
     

@@ -79,14 +79,14 @@
 	<xsl:include href="src/main/resources/mpipl_collections.xml"/>
 	
 	<xsl:variable name="dependentGenre">
-			<type>Article</type>
-			<type>Conference-Paper</type>
-			<type>Conference-Report</type>
-			<type>InBook</type>
-			<type>Issue</type>
-			<type>Paper</type>
-			<type>Poster</type>
-			<type>Talk at Event</type>
+			<type>article</type>
+			<type>conference-paper</type>
+			<type>conference-report</type>
+			<type>book-item</type>
+			<type>issue</type>
+			<type>paper</type>
+			<type>poster</type>
+			<type>talk-at-event</type>
 		</xsl:variable>
 	
 	<xsl:template match="/*">
@@ -343,23 +343,25 @@
 			<!-- IDENTIFIER -->
 			<xsl:call-template name="createIdentifier"/>			
 			<!-- PUBLISHING-INFO -->
-			<xsl:choose>				
-				<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
-					<!-- case: book or proceedings -->
-					<xsl:element name="publ:publishing-info">				
-						<xsl:call-template name="createPublishinginfo"/>
-					</xsl:element>					
-				</xsl:when>
-				<xsl:when test="$gen='book-item'">
-					<!-- case: book-item without source book -->
-					<xsl:if test="not(exists(booktitle))">
-						<xsl:element name="publ:publishing-info">
+			<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
+				<xsl:choose>				
+					<xsl:when test="$gen='book' or $gen='proceedings' or $gen='thesis'">
+						<!-- case: book or proceedings -->
+						<xsl:element name="publ:publishing-info">				
 							<xsl:call-template name="createPublishinginfo"/>
-						</xsl:element>
-					</xsl:if>
-				</xsl:when>	
-							
-			</xsl:choose>
+						</xsl:element>					
+					</xsl:when>
+					<xsl:when test="$gen='book-item'">
+						<!-- case: book-item without source book -->
+						<xsl:if test="not(exists(booktitle))">
+							<xsl:element name="publ:publishing-info">
+								<xsl:call-template name="createPublishinginfo"/>
+							</xsl:element>
+						</xsl:if>
+					</xsl:when>	
+								
+				</xsl:choose>
+			</xsl:if>
 			
 			<!-- DATES -->
 			<xsl:apply-templates select="datemodified"/>
@@ -381,21 +383,6 @@
 			<xsl:if test="exists(nameofevent)">
 				<xsl:call-template name="createEvent"/>
 			</xsl:if>
-			
-			<!-- TOTAL NUMBER OF PAGES -->
-			<xsl:choose>
-				<xsl:when test="$gen='book-item' and not(exists(booktitle))">
-					<xsl:call-template name="phydescPubl"/>
-				</xsl:when>
-				<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings)) and exists(phydesc)">
-					<xsl:call-template name="phydescPubl"/>
-				</xsl:when>
-				<xsl:when test="$gen=$dependentGenre/type">
-					<xsl:if test="not(exists(titleofproceedings)) and not(exists(booktitle)) and not(exists(issuetitle)) and not(exists(journaltitle)) and not(exists(titleodseries))">
-						<xsl:call-template name="phydescPubl"/>	
-					</xsl:if>					
-				</xsl:when>				
-			</xsl:choose>			
 			<!-- ABSTRACT -->
 			<xsl:apply-templates select="abstract"/>
 			<!-- SUBJECT -->
@@ -405,7 +392,7 @@
 			<xsl:apply-templates select="toc"/>
 			<!-- REVIEW METHOD -->
 			<xsl:apply-templates select="reviewType"/>
-			<!-- SOURCE -->			
+			<!-- SOURCE -->
 			<xsl:choose>
 				<xsl:when test="journaltitle">
 					<xsl:element name="publ:source">
@@ -443,16 +430,36 @@
 					</xsl:element>
 				</xsl:when>
 			</xsl:choose>
+			
 			<!-- isPartOf RELATION -->	
 			<xsl:if test="../relations/relation[@reltype='ispartof']">
 				<xsl:element name="publ:source">
 					<xsl:attribute name="type" select="'series'"/>
 					<xsl:element name="dc:title">
-						<xsl:value-of select="."/>
+						<xsl:value-of select="../relations/relation[@reltype='ispartof']"/>
 					</xsl:element>
 				</xsl:element>
 			</xsl:if>
-			<xsl:apply-templates select="phydesc"/>
+			
+			<!-- TOTAL NUMBER OF PAGES -->
+			<xsl:if test="phydesc">
+				<xsl:choose>
+					<xsl:when test="$gen='book-item' and not(exists(booktitle))">
+						<xsl:call-template name="phydescPubl"/>
+					</xsl:when>
+					<xsl:when test="$gen='conference-paper' and not(exists(titleofproceedings)) and exists(phydesc)">
+						<xsl:call-template name="phydescPubl"/>
+					</xsl:when>
+					<xsl:when test="$gen=$dependentGenre/type">
+						<xsl:if test="not(exists(titleofproceedings)) and not(exists(booktitle)) and not(exists(issuetitle)) and not(exists(journaltitle)) and not(exists(titleodseries))">
+							<xsl:call-template name="phydescPubl"/>
+						</xsl:if>					
+					</xsl:when>
+					<xsl:when test="not($gen=$dependentGenre/type)">
+						<xsl:call-template name="phydescPubl"/>
+					</xsl:when>		
+				</xsl:choose>			
+			</xsl:if>
 			<!--end publication-->	
 		</xsl:element>				
 	</xsl:template>
@@ -570,7 +577,7 @@
 			<xsl:apply-templates select="artnum"/>
 		</xsl:if>	
 		<!-- PUBLISHININFO -->
-		<xsl:if test="not(exists(issuetitle))">
+		<xsl:if test="not(exists(issuetitle)) and (exists(publisher) or exists(publisheradd) or exists(editiondescription))">
 			<xsl:element name="e:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
@@ -629,7 +636,7 @@
 		<xsl:if test="phydesc and exists(booktitle)"> 			
 			<xsl:call-template name="phydescSource"/>					
 		</xsl:if>		
-		<xsl:if test="exists(publisher) or exists(editiondescription)">
+		<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
 			<xsl:element name="e:publishing-info">
 				<xsl:call-template name="createPublishinginfo"/>
 			</xsl:element>
@@ -643,7 +650,7 @@
 	</xsl:template>	
 	
 	<xsl:template name="phydescSource">
-		<xsl:element name="publ:total-number-of-pages">
+		<xsl:element name="e:total-number-of-pages">
 			<xsl:value-of select="phydesc"/>
 		</xsl:element>
 	</xsl:template>	
@@ -687,7 +694,7 @@
 	
 	<!-- PROCEEDINGS TEMPLATE -->
 	<xsl:template name="createProceedings">
-		<!-- TITLE -->				
+		<!-- TITLE -->
 		<xsl:if test="titleofproceedings">
 			<xsl:attribute name="type" select="'proceedings'"/>
 			<xsl:element name="dc:title">
@@ -701,7 +708,7 @@
 			<xsl:if test="phydesc"> 
 				<xsl:call-template name="phydescSource"/>
 			</xsl:if>
-			<xsl:if test="exists(publisher) or exists(editiondescription)">
+			<xsl:if test="exists(publisher) or exists(publisheradd) or exists(editiondescription)">
 				<xsl:element name="e:publishing-info">
 					<xsl:call-template name="createPublishinginfo"/>
 				</xsl:element>
