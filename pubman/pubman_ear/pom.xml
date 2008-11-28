@@ -2,14 +2,14 @@
 	<parent>
 		<artifactId>pubman</artifactId>
 		<groupId>de.mpg.escidoc.pubman</groupId>
-		<version>3.8.7-SNAPSHOT</version>
+		<version>4.0.0-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.pubman</groupId>
 	<artifactId>pubman_ear</artifactId>
 	<name>pubman_ear</name>
 	<packaging>ear</packaging>
-	<version>3.8.7-SNAPSHOT</version>
+	<version>4.0.0-SNAPSHOT</version>
 
 	<scm>
 		<connection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/pubman/pubman_ear</connection>
@@ -427,14 +427,14 @@
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_logic</artifactId>
-			<version>3.8.7-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.pubman</groupId>
 			<artifactId>pubman_presentation</artifactId>
-			<version>3.8.7-SNAPSHOT</version>
+			<version>4.0.0-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>war</type>
 		</dependency>
