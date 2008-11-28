@@ -31,6 +31,10 @@ package de.mpg.escidoc.services.search.query;
 
 import java.io.Serializable;
 import java.util.List;
+
+import org.apache.axis.types.NonNegativeInteger;
+import org.apache.axis.types.PositiveInteger;
+
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 
 /**
@@ -57,9 +61,10 @@ public class ItemContainerSearchResult extends SearchResult implements Serializa
      * @param cqlQuery
      *            cql query
      */
-    public ItemContainerSearchResult(List<ItemContainerSearchResultVO> results, String cqlQuery)
+    public ItemContainerSearchResult(List<ItemContainerSearchResultVO> results, String cqlQuery, 
+            NonNegativeInteger totalNumberOfResults)
     {
-        super(cqlQuery);
+        super(cqlQuery, totalNumberOfResults);
         this.resultList = results;
     }
 

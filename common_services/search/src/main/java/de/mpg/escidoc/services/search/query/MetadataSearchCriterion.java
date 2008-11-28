@@ -33,7 +33,7 @@ public class MetadataSearchCriterion implements Serializable
     {
         TITLE, ANY, ANY_INCLUDE, PERSON, PERSON_ROLE, ORGANIZATION, ORGANIZATION_PIDS, GENRE, DATE_ANY,
         DATE_CREATED, DATE_ACCEPTED, DATE_SUBMITTED, DATE_MODIFIED, DATE_PUBLISHED_ONLINE, DATE_ISSUED, TOPIC,
-        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE,
+        SOURCE, EVENT, IDENTIFIER, CONTEXT_OBJECTID, CREATED_BY_OBJECTID, LANGUAGE, CONTENT_TYPE, OBJECT_TYPE
     };
 
     /**
@@ -113,6 +113,8 @@ public class MetadataSearchCriterion implements Serializable
     private static final String INDEX_CREATED_BY_OBJECTID = "escidoc.created-by.objid";
     /** Index for languages. */
     private static final String INDEX_LANGUAGE = "escidoc.language";
+    /** Index for object types. */
+    private static final String INDEX_OBJECT_TYPE = "escidoc.objecttype";
 
     private ArrayList<String> searchIndexes = null;
     private String searchTerm = null;
@@ -364,6 +366,9 @@ public class MetadataSearchCriterion implements Serializable
                 break;
             case DATE_ISSUED:
                 indexes.add(INDEX_DATE_ISSUED);
+                break;
+            case OBJECT_TYPE:
+                indexes.add(INDEX_OBJECT_TYPE);
                 break;
             default:
                 throw new TechnicalException("The index is unknown. Cannot map to index name.");

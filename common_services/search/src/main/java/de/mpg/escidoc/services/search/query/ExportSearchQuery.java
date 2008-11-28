@@ -51,24 +51,27 @@ public class ExportSearchQuery extends SearchQuery
     /** Index database selector. */
     private String indexSelector = null;
 
+
     /**
-     * Create an export search query.
+     * Create an export search query with a index database selector.
      * 
      * @param cqlQuery
      *            the cql query to use
      * @param exportFormat
      *            the export format to use
+     * @param indexSelector
+     *            the selected index selector
      * @param outputFormat
      *            the output format to use
      */
-    public ExportSearchQuery(String cqlQuery, String exportFormat, String outputFormat, String sortKeys)
+    public ExportSearchQuery(String cqlQuery, String indexSelector, String exportFormat, String outputFormat)
     {
         this.outputFormat = outputFormat;
         this.exportFormat = exportFormat;
         this.cqlQuery = cqlQuery;
-        setSortKeys(sortKeys);
+        this.indexSelector = indexSelector;
     }
-
+    
     /**
      * Create an export search query.
      * 
@@ -86,26 +89,6 @@ public class ExportSearchQuery extends SearchQuery
         this.cqlQuery = cqlQuery;
     }
 
-    /**
-     * Create an export search query with a index database selector.
-     * 
-     * @param cqlQuery
-     *            the cql query to use
-     * @param exportFormat
-     *            the export format to use
-     * @param indexSelector
-     *            the selected index selector
-     * @param outputFormat
-     *            the output format to use
-     */
-    public ExportSearchQuery(String cqlQuery, String indexSelector, String exportFormat, String outputFormat,
-            String sortKeys)
-    {
-        this.outputFormat = outputFormat;
-        this.exportFormat = exportFormat;
-        this.cqlQuery = cqlQuery;
-        this.indexSelector = indexSelector;
-    }
 
     /**
      * Getter for the cql query.

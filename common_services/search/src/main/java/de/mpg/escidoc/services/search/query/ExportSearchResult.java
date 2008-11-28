@@ -5,6 +5,8 @@ package de.mpg.escidoc.services.search.query;
 
 import java.io.Serializable;
 
+import org.apache.axis.types.NonNegativeInteger;
+
 /**
  * Search result for an export search query.
  * 
@@ -26,9 +28,9 @@ public class ExportSearchResult extends SearchResult implements Serializable
      * @param cqlQuery
      *            cql query
      */
-    public ExportSearchResult(byte[] result, String cqlQuery)
+    public ExportSearchResult(byte[] result, String cqlQuery, NonNegativeInteger totalNumberOfResults)
     {
-        super(cqlQuery);
+        super(cqlQuery, totalNumberOfResults);
         this.result = result;
     }
 

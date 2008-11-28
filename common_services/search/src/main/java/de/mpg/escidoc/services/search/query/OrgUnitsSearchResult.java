@@ -30,6 +30,9 @@ package de.mpg.escidoc.services.search.query;
 
 import java.util.List;
 
+import org.apache.axis.types.NonNegativeInteger;
+import org.apache.axis.types.PositiveInteger;
+
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
 
 
@@ -52,9 +55,10 @@ public class OrgUnitsSearchResult extends SearchResult
      * @param cqlQuery
      *            cql query
      */
-    public OrgUnitsSearchResult(List<AffiliationVO> results, String cqlQuery)
+    public OrgUnitsSearchResult(List<AffiliationVO> results, String cqlQuery, 
+            NonNegativeInteger totalNumberOfResults)
     {
-        super(cqlQuery);
+        super(cqlQuery, totalNumberOfResults);
         this.results = results;
     }
     

@@ -155,7 +155,8 @@ public class SearchBean implements Search
             SearchRetrieveResponseType searchResult = performSearch(
                     searchRetrieveRequest, INDEXDATABASE_ALL);
             List<ItemContainerSearchResultVO> resultList = transformToSearchResultList(searchResult);
-            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList, cqlQuery);
+            ItemContainerSearchResult result = new ItemContainerSearchResult(resultList,
+                    cqlQuery, searchResult.getNumberOfRecords());
             return result;
         } 
         catch (ParseException f) 
@@ -193,7 +194,8 @@ public class SearchBean implements Search
             SearchRetrieveResponseType searchResult = performSearch(
                     searchRetrieveRequest, INDEXDATABASE_OU);
             List<AffiliationVO> resultList = transformToAffiliationList(searchResult);
-            OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery);
+            OrgUnitsSearchResult result = new OrgUnitsSearchResult(resultList, cqlQuery,
+                    searchResult.getNumberOfRecords());
             return result;
         } 
         catch (ParseException f) 
@@ -326,8 +328,19 @@ public class SearchBean implements Search
         
         searchRetrieveRequest.setRecordPacking(RECORD_PACKING);
 
-        SearchRetrieveResponseType searchResult = performSearch(searchRetrieveRequest, query
-                .getIndexSelector());
+        SearchRetrieveResponseType searchResult = null;
+        
+        if( query.getIndexSelector() == null )
+        {
+            searchResult = performSearch(searchRetrieveRequest, 
+                    INDEXDATABASE_ALL);
+        }
+        else 
+        {
+            searchResult = performSearch(searchRetrieveRequest, 
+                    query.getIndexSelector());
+        }
+        
         String itemList = transformToItemListAsString(searchResult);
 
         String outputFormat = query.getOutputFormat();
@@ -350,7 +363,7 @@ public class SearchBean implements Search
         {
                 exportData = getOutput(exportFormat, FormatType.STRUCTURED, null,
                         itemList);
-                return new ExportSearchResult(exportData, cqlQuery);
+                return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
         } 
         // citation style
         else if ( citationStyleHandler.isCitationStyle(exportFormat) ) 
@@ -367,7 +380,7 @@ public class SearchBean implements Search
                         + " for export format: " + exportFormat + " is not supported");
             }
             exportData = getOutput(exportFormat, FormatType.LAYOUT, outputFormat, itemList);
-            return new ExportSearchResult(exportData, cqlQuery);
+            return new ExportSearchResult(exportData, cqlQuery, searchResult.getNumberOfRecords());
         }
         else
         {

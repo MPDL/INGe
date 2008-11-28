@@ -23,23 +23,23 @@ public abstract class SearchQuery implements Serializable
 {
     /** Serial version identifier. */
     private static final long serialVersionUID = 1L;
-    /** Defines where the offset for the search result will be.*/
+    /** Defines where the offset for the search result will be. */
     private PositiveInteger startRecord = null;
     /** Defines how many results shall be retrieved. */
     private NonNegativeInteger maximumRecords = null;
     /** Sorting keys. */
     private String sortKeys = null;
-    
+    /** Maximum number of results. */
     private static final String DEFAULT_MAXIMUM_RECORDS = "10000";
-    
+
     /**
      * 
      */
-    public SearchQuery() 
+    public SearchQuery()
     {
         this.maximumRecords = new NonNegativeInteger(DEFAULT_MAXIMUM_RECORDS);
     }
-    
+
     /**
      * Get the Cql query of a standard search query.
      * 
@@ -66,6 +66,19 @@ public abstract class SearchQuery implements Serializable
         this.startRecord = startRecord;
     }
 
+    public void setStartRecord(String startRecord)
+    {
+        try
+        {
+            PositiveInteger i = new PositiveInteger(startRecord);
+            this.startRecord = i;
+        } 
+        catch (Exception e)
+        {
+            // trying to set an invalid value, restoring to default
+        }
+    }
+
     public NonNegativeInteger getMaximumRecords()
     {
         return maximumRecords;
@@ -75,6 +88,19 @@ public abstract class SearchQuery implements Serializable
     {
         this.maximumRecords = maximumRecords;
     }
+
+    public void setMaximumRecords(String maximumRecords)
+    {
+        try
+        {
+            NonNegativeInteger i = new NonNegativeInteger(maximumRecords);
+            this.maximumRecords = i;
+        } catch (Exception e)
+        {
+            // trying to set an invalid value
+        }
+    }
+
     /**
      * Getter for the sort keys.
      * 
@@ -87,6 +113,7 @@ public abstract class SearchQuery implements Serializable
 
     /**
      * Seter for the sort keys.
+     * 
      * @param sortKeys
      */
     public void setSortKeys(String sortKeys)
