@@ -22,7 +22,8 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 public abstract class SearchQuery implements Serializable
 {   
     /** Sorting Definition. */
-    public enum SortingOrder {
+    public enum SortingOrder 
+    {
         /** Ascending order. */
         ASCENDING,
         /** Descending order */
@@ -118,7 +119,7 @@ public abstract class SearchQuery implements Serializable
      */
     public String getCqlSortingQuery() 
     {
-        if(this.sortingOrder == null  && this.sortKeys.contains(CQL_DESCENDING_DEFINITION))
+        if(this.sortKeys == null || this.sortingOrder == null  || this.sortKeys.contains(CQL_DESCENDING_DEFINITION))
         {
             return this.sortKeys;
         }
