@@ -22,7 +22,7 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 public abstract class SearchQuery implements Serializable
 {   
     /** Sorting Definition. */
-    enum SortingOrder {
+    public enum SortingOrder {
         /** Ascending order. */
         ASCENDING,
         /** Descending order */
