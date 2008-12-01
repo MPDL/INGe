@@ -34,7 +34,9 @@
 
 .itemList {
 	border-top-width: 0.19em !important;
-	border-top-style: solid; 
+	border-bottom-width: 0.19em !important;
+	border-top-style: solid;
+	border-bottom-style: solid; 
 }
 
 .itemList .seperator {

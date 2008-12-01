@@ -129,7 +129,9 @@
 	}
 	
 	.advancedSearchIcon {
+/*
 		background-image: url('../../images/All_Search_LensAdvaced_15_Active.gif');
+*/
 		background-repeat: no-repeat;
 		background-position: right;
 		position: absolute;
@@ -425,7 +427,7 @@
 
 /*GENERAL*/
 
-	.collapse, .expand, .files, .locators {
+	.collapse, .expand /*, .files, .locators*/ {
 		cursor: pointer;
 	}
 	

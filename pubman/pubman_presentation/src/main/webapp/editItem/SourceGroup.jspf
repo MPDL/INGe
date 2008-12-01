@@ -31,6 +31,7 @@
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr"%>
 
+<div id="#editSource"></div>
 <tr:iterator var="sourceBean" value="#{EditItem.sourceCollection.sourceManager.objectDM}" binding="#{EditItem.sourceIterator}" varStatus="index">
 	<h:panelGroup layout="block" styleClass="full_area0 itemBlock" >
 		<h3 class="xLarge_area0_p8 endline blockHeader">

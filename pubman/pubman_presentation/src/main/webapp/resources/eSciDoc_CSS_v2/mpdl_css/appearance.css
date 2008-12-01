@@ -194,23 +194,6 @@
 		color: #FFFFFF !important;
 	}
 
-/*	
-	.rangeSelector input {
-		background-color: #EDF4F6;
-		background: inherit;
-	}
-	
-	.rangeSelector .line {
-		background-color: #EDF4F6;
-		border-color: #AFCCD5;
-		color: #388097;
-	}
-	
-	.rangeSelector .actual {
-		background-color: #73A686;
-		color: #FFFFFF;
-	}
-*/
 	/*PAGE BROWSER*/
 	.pageBrowser input, .pageBrowser button, .pageBrowser a {
 		background-color: #EDF4F6;
@@ -262,7 +245,7 @@
 		border-top-color: #163D4B;
 	}
 	
-	.fullItem {
+	.itemList, .fullItem {
 		border-bottom-color: #BAB4B3;
 	}
 	
