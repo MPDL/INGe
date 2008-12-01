@@ -34,7 +34,7 @@
 
 <%--<h:outputText value="#{RevisionList.dummy}"/>--%>
 <ol>
-	<h:panelGroup rendered="#{RevisionsRetrieverRequestBean.completeNumberOfRecords>0}">
+	<h:panelGroup rendered="#{RevisionsRetrieverRequestBean.totalNumberOfElements>0}">
 		<jsp:directive.include file="../list/itemRevisionsListNew.jspf"/>
 	</h:panelGroup>
 </ol>
