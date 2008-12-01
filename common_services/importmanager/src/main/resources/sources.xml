@@ -2,22 +2,15 @@
 <Import-Sources xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:eidt="http://escidoc.mpg.de/metadataprofile/schema/0.1/idtypes" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/ImportSource explain-import.xsd">
 
 	<Import-Source name="arXiv">
-		<!--Source description-->
 		<dc:description>ArXiv is an e-print service in the fields of physics, mathematics, non-linear science, computer science, quantitative biology and statistics.</dc:description>
-		<!--Source location-->
 		<dc:identifier xsi:type="dcterms:URI">http://arxiv.org</dc:identifier>
-		<!--Content type-->
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<!--Character encoding-->
 		<dc:format>UTF-8</dc:format>
 		<source-identifier>arXiv</source-identifier>
-		<!--Harvest protocol -->
 		<harvest-protocol>OAI-PMH</harvest-protocol>
-		<!--Request information-->
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<!--Source status -->
 		<status>published</status>
 		
 		<!--Information about Metadata fetching -->
@@ -25,44 +18,54 @@
 			<MD-fetch-setting default="true">
 				<dc:description>http://arxiv.org/help/prep</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=arXiv</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>arXiv</label>
-				<!--File ending-->
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting>
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>oai_dc</label>
-				<!--File ending-->
 				<fileType>.xml</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<dc:format>text/plain</dc:format>
+				<label>EndNote</label>
+				<fileType>.enl</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<dc:format>text/plain</dc:format>
+				<label>BibTex</label>
+				<fileType>.bib</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<dc:format>text/html</dc:format>
+				<label>APA</label>
+				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		
 		<!--Information about data fetching-->
 		<FT-fetch-settings>
 			<FT-fetch-setting default="true">
-				<dc:description>The full text to be fetched will be in the pdf format</dc:description>
 				<dc:identifier>http://export.arxiv.org/pdf/GETID</dc:identifier>
-				<!--Format of this data-->
 				<dc:format>application/pdf</dc:format>
-				<!--Label of this data-->
 				<label>PDF</label>
-				<!--File ending-->
 				<fileType>.pdf</fileType>
+				<content-categorie>PRE_PRINT</content-categorie>
+				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 			<FT-fetch-setting default="false">
-				<dc:description>The full text to be fetched will be in the postscript format</dc:description>
 				<dc:identifier>http://export.arxiv.org/ps/GETID</dc:identifier>
-				<!--Format of this data-->
 				<dc:format>application/gzip</dc:format>
-				<!--Label of this data-->
 				<label>Postscript</label>
-				<!--File ending-->
 				<fileType>.ps.gz</fileType>
+				<content-categorie>PRE_PRINT</content-categorie>
+				<visibility>PUBLIC</visibility>
 			</FT-fetch-setting>
 		</FT-fetch-settings>
 	</Import-Source>
@@ -70,103 +73,85 @@
 
 	
 	<Import-Source name="PubMedCentral">
-		<!--Source description-->
-		<dc:description>PubMed is a service of the U.S. National Library of Medicine that includes over 17 million citations from MEDLINE and other life science journals for biomedical articles back to the 1950s.</dc:description>
-		<!--Source location-->
+		<dc:description>PubMed Central (PMC) is the U.S. National Institutes of Health (NIH) free digital archive of biomedical and life sciences journal literature.</dc:description>
 		<dc:identifier xsi:type="dcterms:URI">http://www.pubmedcentral.nih.gov/</dc:identifier>
-		<!--Content type-->
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<!--Character encoding-->
 		<dc:format>UTF-8</dc:format>
 		<source-identifier>PMCID</source-identifier>
 		<source-oai_identifier>oai:pubmedcentral.nih.gov:</source-oai_identifier>
-		<!--Harvest protocol -->
 		<harvest-protocol>OAI-PMH</harvest-protocol>
-		<!--Request information-->
 		<retry-after>3</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<!--Source status -->
 		<status>published</status>
 			
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="true">
 				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
-				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc</dc:identifier>
-				<!--The MIME Type-->
+				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
 				<dc:format>application/xml</dc:format>
 				<label>PubMed</label>
-				<!--File ending-->
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=oai_dc</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>oai_dc</label>
-				<!--File ending-->
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 
 		<FT-fetch-settings>
+			<FT-fetch-setting default="true">
+				<dc:identifier>http://www.pubmedcentral.nih.gov/picrender.fcgi?artid=GETID%26blobtype=pdf</dc:identifier>
+				<dc:format>application/pdf</dc:format>
+				<label>PDF</label>
+				<fileType>.pdf</fileType>
+				<content-categorie>ANY_FULLTEXT</content-categorie>
+				<visibility>PUBLIC</visibility>
+			</FT-fetch-setting>
 		</FT-fetch-settings>
 	</Import-Source>
 	
 	<Import-Source name="eSciDoc">
-		<!--Source description-->
-		<dc:description>eSciDoc is as a joint project of the Max Planck Society and FIZ Karlsruhe, funded by the Federal Ministry of Education and Research (BMBF), aimed at building an e-research platform for multi-disciplinary research organizations.</dc:description>
-		<!--Source location-->
+		<dc:description>eSciDoc is a eScience-aware knowledge and information management system.</dc:description>
 		<dc:identifier xsi:type="dcterms:URI">http://www.escidoc-project.de</dc:identifier>
-		<!--Content type-->
 		<dc:format xsi:type="dcterms:IMT">text/xml</dc:format>
-		<!--Character encoding-->
 		<dc:format>UTF-8</dc:format>
 		<source-identifier>escidoc</source-identifier>
-		<!--Harvest protocol -->
 		<harvest-protocol>ejb</harvest-protocol>
-		<!--Request information-->
 		<retry-after>0</retry-after>
 		<timeout>0</timeout>
 		<number-of-tries>5</number-of-tries>
-		<!--Source status -->
 		<status>published</status>
 		
 		<!--Information about Metadata fetching -->
 		<MD-fetch-settings>
 			<MD-fetch-setting default="false">
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>text/plain</dc:format>
 				<label>EndNote</label>
-				<!--File ending-->
 				<fileType>.enl</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>text/plain</dc:format>
 				<label>BibTex</label>
-				<!--File ending-->
 				<fileType>.bib</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<!--The MIME Type-->
-				<dc:format>application/rtf</dc:format>
+				<dc:format>text/html</dc:format>
 				<label>APA</label>
-				<!--File ending-->
-				<fileType>.rtf</fileType>
+				<fileType>.html</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="true">
 				<dc:description>http://colab.mpdl.mpg.de/mediawiki/ESciDoc_Metadata</dc:description>
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
-				<!--The MIME Type-->
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
-				<!--File ending-->
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
