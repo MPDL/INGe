@@ -17,6 +17,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
@@ -24,7 +25,7 @@ import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 
-public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, OrderFilter>
+public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
     public static String BEAN_NAME = "CartItemsRetrieverRequestBean";
     private int numberOfRecords;
@@ -59,7 +60,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     }
 
     @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, OrderFilter additionalFilters)
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
         List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();

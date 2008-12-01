@@ -32,6 +32,7 @@ package de.mpg.escidoc.pubman.desktop;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.net.URLEncoder;
 
 import javax.faces.component.html.HtmlInputText;
@@ -134,6 +135,7 @@ public class Login extends FacesBean
             // Login mechanism
             fc.getExternalContext().redirect(
                     ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
+            
         }
         return "";
     }

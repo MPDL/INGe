@@ -120,7 +120,7 @@
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
 									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
-									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.setSortOrder}" />
+									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 							<!-- content menu ends here -->

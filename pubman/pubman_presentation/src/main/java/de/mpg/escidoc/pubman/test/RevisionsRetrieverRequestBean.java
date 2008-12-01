@@ -4,13 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
-public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, OrderFilter>
+public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
     
     private int numberOfRecords;
@@ -46,7 +47,7 @@ public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     }
 
     @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, OrderFilter additionalFilters)
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         
         //limit and offset is ignored because no paginator is used

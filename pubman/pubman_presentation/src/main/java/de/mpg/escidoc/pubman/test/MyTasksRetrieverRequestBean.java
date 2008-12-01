@@ -9,6 +9,7 @@ import javax.naming.InitialContext;
 
 import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.desktop.Navigation;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
@@ -49,8 +50,8 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
         
-        initContextMenu();
-        setItemStateSelectItems(Arrays.asList(this.i18nHelper.getSelectItemsForEnum(false, new PubItemVO.State[]{PubItemVO.State.SUBMITTED, PubItemVO.State.RELEASED, PubItemVO.State.IN_REVISION})));
+        initSelectionMenu();
+        
     }
     
     @Override
@@ -60,7 +61,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     }
 
     @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, OrderFilter orderFilter)
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         try
         {
@@ -68,6 +69,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
       
+            checkSortCriterias(sc);
             // define the filter criteria
             FilterTaskParamVO filter = new FilterTaskParamVO();
             
@@ -76,19 +78,31 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
             
-            if (getSelectedItemState().toLowerCase().equals("withdrawn"))
+            if (getSelectedItemState().toLowerCase().equals("all"))
             {
-                Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.SUBMITTED);
                 filter.getFilterList().add(0,f3);
+                Filter f12 = filter.new ItemStatusFilter(PubItemVO.State.RELEASED);
+                filter.getFilterList().add(0,f12);
+                Filter f13 = filter.new ItemStatusFilter(PubItemVO.State.IN_REVISION);
+                filter.getFilterList().add(0,f13);
+                
+                //all public status except withdrawn
+                Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
+                filter.getFilterList().add(0,f4);
+                Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
+                filter.getFilterList().add(0,f5);
+                Filter f6 = filter.new ItemPublicStatusFilter(PubItemVO.State.SUBMITTED);
+                filter.getFilterList().add(0,f6);
+                Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
+                filter.getFilterList().add(0,f7);
             }
             else
             {
-                if (!"all".equals(getSelectedItemState()))
-                {
-                    Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(getSelectedItemState()));
-                    filter.getFilterList().add(0,f3);
-                }
-            
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(getSelectedItemState()));
+                filter.getFilterList().add(0,f3);
+                
+                //all public status except withdrawn
                 Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
                 filter.getFilterList().add(0,f4);
                 Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
@@ -99,10 +113,17 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
                 filter.getFilterList().add(0,f7);
             }
             
-            Filter f10 = filter.new ContextFilter(getSelectedContext());
-            filter.getFilterList().add(f10);
             
-            filter.getFilterList().add(orderFilter);
+            if (!getSelectedContext().toLowerCase().equals("all"))
+            {
+                Filter f10 = filter.new ContextFilter(getSelectedContext());
+                filter.getFilterList().add(f10);
+            }
+            
+           
+            
+            Filter f11 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+            filter.getFilterList().add(f11);
             Filter f8 = filter.new LimitFilter(String.valueOf(limit));
             filter.getFilterList().add(f8);
             Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
@@ -138,7 +159,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
         if (selectedItemState==null)
         {
-            setSelectedItemState("SUBMITTED");
+            setSelectedItemState("all");
         }
         else
         {
@@ -174,14 +195,24 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return selectedContext;
     }
     
-    private void initContextMenu()
+    private void initSelectionMenu()
     {
+        
+        //item states
+        List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
+        itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        setItemStateSelectItems(itemStateSelectItems);
+        
+        
         //Contexts (Collections)
         ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
         List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
         
         contextSelectItems = new ArrayList<SelectItem>();
-        
+        contextSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
         for(int i=0; i<contextVOList.size(); i++)
         {
             String workflow = "null";
@@ -222,5 +253,11 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             }
             return "";
         
+    }
+    
+    @Override
+    public String getListPageName()
+    {
+        return "QAWSPage.jsp";
     }
 }

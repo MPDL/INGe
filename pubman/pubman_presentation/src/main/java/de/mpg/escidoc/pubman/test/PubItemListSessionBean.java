@@ -16,10 +16,11 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
-public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, OrderFilter>
+public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
     public static String BEAN_NAME = "PubItemListSessionBean";
     
+    /*
     public static String[] sortCriteriaNames = new String[]{"TITLE", "EVENT_TITLE", "GENRE",
           "PUBLISHING_INFO", "REVIEW_METHOD", "MODIFICATION_DATE", "CONTEXT", "STATE", "OWNER"};
     
@@ -35,6 +36,63 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         "/properties/created-by/title" 
     };
     
+    */
+    public static enum SORT_CRITERIA
+    {
+        TITLE ("escidoc.title", "/md-records/md-record/publication/title"),
+        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
+        SOURCE_TITLE ("escidoc.any-source", ""),
+        GENRE ("escidoc.genre", "/md-records/md-record/publication/type"),
+        DATE ("escidoc.any-dates", ""),
+        CREATOR ("escidoc.complete-name", ""),
+        PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
+        MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
+        STATE("escidoc.version.status", "/properties/version/status");
+        
+        private String index;
+        private String sortPath;
+        private String sortOrder;
+        
+        SORT_CRITERIA(String index, String sortPath)
+        {
+            this.setIndex(index);
+            this.setSortPath(sortPath);
+            this.sortOrder="";
+        }
+
+        public void setIndex(String index)
+        {
+            this.index = index;
+        }
+
+        public String getIndex()
+        {
+            return index;
+        }
+
+        public void setSortPath(String sortPath)
+        {
+            this.sortPath = sortPath;
+        }
+
+        public String getSortPath()
+        {
+            return sortPath;
+        }
+
+        public void setSortOrder(String sortOrder)
+        {
+            this.sortOrder = sortOrder;
+        }
+
+        public String getSortOrder()
+        {
+            return sortOrder;
+        }
+        
+        
+        
+    }
     
     private static String parameterSelectedSortBy = "sortBy";
     
@@ -57,9 +115,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         
         sortBySelectItems = new ArrayList<SelectItem>();
         
-        for (int i = 0; i < sortCriteriaNames.length; i++)
+        for (SORT_CRITERIA sc : SORT_CRITERIA.values())
         {
-            sortBySelectItems.add(new SelectItem(sortCriteriaNames[i], getLabel("ENUM_CRITERIA_"+sortCriteriaNames[i])));
+            sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
         }
         
         //sortBySelectItems = Arrays.asList(this.i18nHelper.getSelectItemsItemListSortBy());
@@ -329,22 +387,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
 
     @Override
-    public OrderFilter getAdditionalFilters()
+    public SORT_CRITERIA getAdditionalFilters()
     {
-        FilterTaskParamVO filter = new FilterTaskParamVO();
-        int sortCriteriaNumber=0;
-        for (int i = 0; i < sortCriteriaNames.length; i++)
-        {
-            if(sortCriteriaNames[i].equals(selectedSortBy))
-            {
-                sortCriteriaNumber = i;
-            }
-        }
-        
-        OrderFilter f10 = filter.new OrderFilter(sortCriteriaFilters[sortCriteriaNumber],selectedSortOrder);
-        
-        return f10;
-        
+        SORT_CRITERIA sc = SORT_CRITERIA.valueOf(getSelectedSortBy());
+        sc.setSortOrder(getSelectedSortOrder());
+        return sc;
     }
 
 

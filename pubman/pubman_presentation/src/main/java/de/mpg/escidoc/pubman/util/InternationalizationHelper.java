@@ -446,7 +446,7 @@ public class InternationalizationHelper
         // TODO FrM: add an extra 'all', since it's not member of the enum
         // selectItems[0] = new SelectItem("all", getLabel("depositorWS_ItemState_all"));
 
-        return getSelectItemsForEnum(false, values);
+        return getSelectItemsForEnum(true, values);
     }
 
     /**

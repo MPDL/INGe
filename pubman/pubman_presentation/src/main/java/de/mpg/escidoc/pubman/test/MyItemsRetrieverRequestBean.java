@@ -12,6 +12,7 @@ import javax.naming.InitialContext;
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.desktop.Navigation;
+import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
@@ -36,7 +37,7 @@ import de.mpg.escidoc.services.framework.ServiceLocator;
  * @version $Revision$ $LastChangedDate$
  *
  */
-public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, OrderFilter>
+public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
 {
     private static Logger logger = Logger.getLogger(MyItemsRetrieverRequestBean.class);
     public static String BEAN_NAME = "MyItemsRetrieverRequestBean";
@@ -63,10 +64,14 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         //activate export option in menu
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
-        
-        
-        
-        itemStateSelectItems = Arrays.asList(i18nHelper.getSelectItemsItemState());
+
+        itemStateSelectItems = new ArrayList<SelectItem>();
+        itemStateSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
         
     }
 
@@ -77,14 +82,18 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     }
 
     @Override
-    public List<PubItemVOPresentation> retrieveList(int offset, int limit, OrderFilter orderFilter)
+    public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         try
         {
+            
+            
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
       
+            checkSortCriterias(sc);
+            
             // define the filter criteria
             FilterTaskParamVO filter = new FilterTaskParamVO();
             
@@ -95,17 +104,20 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             
             if (selectedItemState.toLowerCase().equals("withdrawn"))
             {
+                //use public status instead of version status here
                 Filter f3 = filter.new ItemPublicStatusFilter(PubItemVO.State.WITHDRAWN);
                 filter.getFilterList().add(0,f3);
             }
+            else if (selectedItemState.toLowerCase().equals("all"))
+            {
+               //no more filters
+            }
             else
             {
-                if (!"all".equals(selectedItemState))
-                {
-                    Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
-                    filter.getFilterList().add(0,f3);
-                }
-            
+                Filter f3 = filter.new ItemStatusFilter(PubItemVO.State.valueOf(selectedItemState));
+                filter.getFilterList().add(0,f3);
+                
+                //all public status except withdrawn
                 Filter f4 = filter.new ItemPublicStatusFilter(PubItemVO.State.IN_REVISION);
                 filter.getFilterList().add(0,f4);
                 Filter f5 = filter.new ItemPublicStatusFilter(PubItemVO.State.PENDING);
@@ -115,9 +127,15 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
                 Filter f7 = filter.new ItemPublicStatusFilter(PubItemVO.State.RELEASED);
                 filter.getFilterList().add(0,f7);
             }
+               
+                
+            
+                
             
             
-            filter.getFilterList().add(orderFilter);
+            Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+            filter.getFilterList().add(f10);
+
             Filter f8 = filter.new LimitFilter(String.valueOf(limit));
             filter.getFilterList().add(f8);
             Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
@@ -150,6 +168,18 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
     }
     
+    protected void checkSortCriterias(SORT_CRITERIA sc)
+    {
+        if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
+        {
+            error("The selected sorting criteria \""+sc.name()+"\" is currently not supported, but will be provided soon.\nItems are displayed unsorted!");
+            //getBasePaginatorListSessionBean().redirect();
+        }
+        
+    }
+
+  
+
     public void setItemStateSelectItems(List<SelectItem> itemStateSelectItem)
     {
         this.itemStateSelectItems = itemStateSelectItem;
@@ -195,7 +225,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         String selectedItemState = getExternalContext().getRequestParameterMap().get(parameterSelectedItemState);
         if (selectedItemState==null)
         {
-            setSelectedItemState("PENDING");
+            setSelectedItemState("all");
         }
         else
         {
