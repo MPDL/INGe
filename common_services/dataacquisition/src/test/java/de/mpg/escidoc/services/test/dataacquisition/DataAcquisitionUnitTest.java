@@ -1,4 +1,5 @@
 /*
+*
 * CDDL HEADER START
 *
 * The contents of this file are subject to the terms of the
@@ -25,57 +26,26 @@
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
-*/
+*/ 
 
-package de.mpg.escidoc.services.importmanager.exceptions;
-
-import java.util.Date;
+package de.mpg.escidoc.services.test.dataacquisition;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
 
 /**
- * Exceptions for import sources.
- * @author kleinfe1
+ * 
+ * Test suite for unit test of dataAcquisition service
  *
+ * @author Friederike Kleinfercher (initial creation)
  */
-public class SourceNotAvailableException extends Exception
-{
-
-	private static final long serialVersionUID = 1L;
-	private Date retryAfter = null;
-    
-    public SourceNotAvailableException()
-    {
-        
-    }
-
-    public SourceNotAvailableException(String message)
-    {
-        super(message);
-    }
-
-    public SourceNotAvailableException(Throwable cause)
-    {
-        super(cause);
-    }
-
-    public SourceNotAvailableException(String message, Throwable cause)
-    {
-        super(message, cause);
-    }
-
-    public SourceNotAvailableException(Date retryAfter)
-    {
-        super();
-        this.retryAfter = retryAfter;
-    }
-
-    public Date getRetryAfter()
-    {
-        return this.retryAfter;
-    }
-
-    public void setRetryAfter(Date retryAfter)
-    {
-        this.retryAfter = retryAfter;
-    }
+@RunWith(Suite.class)
+@Suite.SuiteClasses({ 
+					DataSourceHandlerTest.class,
+					DataHandlerTest.class
+                    })
+                    
+                    
+public class DataAcquisitionUnitTest {
 
 }
+
