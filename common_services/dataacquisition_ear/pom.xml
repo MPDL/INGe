@@ -6,22 +6,19 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
-	<artifactId>import_ear</artifactId>
+	<artifactId>dataacquisition_ear</artifactId>
 	<packaging>ear</packaging>
-	<name>import_ear</name>
+	<name>dataacquisition_ear</name>
 	<version>1.0.9-SNAPSHOT</version>
 	<scm>
-		<connection>scm:svn:https://zim02.gwdg.de/repos/common/trunk/common_services/import_ear</connection>
-		<developerConnection>scm:svn:https://zim02.gwdg.de/repos/pubman/trunk/common_services/import_ear</developerConnection>
-		<url>https://zim02.gwdg.de/repos/common/</url>
 	</scm>
 	<build>
 		<plugins>
 			<plugin>
 				<artifactId>maven-ear-plugin</artifactId>
 				<configuration>
-					<displayName>import</displayName>
-					<description>Import Service</description>
+					<displayName>dataacquisition</displayName>
+					<description>Data Acquisition Service</description>
 					<resourcesDir>target/classes/in_ear</resourcesDir>
 					<version>5</version>
 					<modules>
@@ -84,8 +81,8 @@
 						</ejbModule>
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>import_presentation</artifactId>
-							<contextRoot>/import</contextRoot>
+							<artifactId>dataacquisition_presentation</artifactId>
+							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
 						<jarModule>
 							<groupId>xmlbeans</groupId>
@@ -332,14 +329,14 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>importmanager</artifactId>
+			<artifactId>dataacquisition</artifactId>
 			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>import_presentation</artifactId>
+			<artifactId>dataacquisition_presentation</artifactId>
 			<version>1.0.9-SNAPSHOT</version>
 			<type>war</type>
 			<scope>compile</scope>
