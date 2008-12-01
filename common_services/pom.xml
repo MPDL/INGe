@@ -186,8 +186,8 @@
     <module>search_ear</module>
     <module>cone_ear</module>
 	<module>cone_presentation</module>
-	<module>importmanager</module>
-	<module>import_presentation</module>
+	<module>dataacquisition</module>
+	<module>dataacquisition_presentation</module>
 	<module>import_ear</module>
    	<module>exportmanager</module>
    	<module>exportmanager_ear</module>
@@ -446,7 +446,8 @@
 				<escidoc.cone.service.url>http://localhost:8080/cone/</escidoc.cone.service.url>
 
 				<!-- unAPI -->
-				<escidoc.unapi.server>http://localhost:8080/import/unapi/</escidoc.unapi.server>
+				<escidoc.unapi.download.server>http://localhost:8080/dataacquisition/download/unapi</escidoc.unapi.download.server>
+				<escidoc.unapi.view.server>http://localhost:8080/dataacquisition/view/unapi</escidoc.unapi.view.server>
 
 				<!-- Current XSD Schema versions -->
 				<xsd.soap.common.prop>http://escidoc.de/core/01/properties/</xsd.soap.common.prop>
