@@ -22,14 +22,13 @@
 
 /*
 * Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-* fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
-* Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
+* für wissenschaftlich-technische Information mbH and Max-Planck-
+* Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
 */ 
 
 package de.mpg.escidoc.pubman.search;
 
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -45,10 +44,8 @@ import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
-import de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
-import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion.LogicalOperator;
 
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -62,9 +59,6 @@ import de.mpg.escidoc.services.framework.PropertyReader;
  */
 public class AdvancedSearchEdit extends SearchResultList
 {
-    private static final String PROPERTY_CONTENT_MODEL = 
-        "escidoc.framework_access.content-model.id.publication";
-    
     public static final String BEAN_NAME = "AdvancedSearchEdit";
     /** faces navigation string */
     public static final String LOAD_SEARCHPAGE = "displaySearchPage";
@@ -197,32 +191,15 @@ public class AdvancedSearchEdit extends SearchResultList
     					criterionList.get( i - 1 ), criterionList.get( i ) );
     			searchCriteria.addAll( sub );	
     		}
-    		
-    		
-    		
-            //search only for items
-            searchCriteria.add( new MetadataSearchCriterion( MetadataSearchCriterion.CriterionType.OBJECT_TYPE, 
-                    "item", MetadataSearchCriterion.LogicalOperator.AND ) );
-            
-            ArrayList<String> contentTypes = new ArrayList<String>();
-            String contentTypeIdPublication = PropertyReader.getProperty( PROPERTY_CONTENT_MODEL );
-            contentTypes.add( contentTypeIdPublication );
-            
-            MetadataSearchQuery query = new MetadataSearchQuery( contentTypes, searchCriteria );
-            
-            String cql = query.getCqlQuery();
-            
-            //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
     	}
-    	catch(Exception e ) {
+    	catch( TechnicalException e ) {
     		logger.error("Could not transform advanced search criteria", e);
     	}
     
-    	
-    	
-    	
-        return "";
+    	//set the old list dirty
+    	this.getItemListSessionBean().setListDirty(true);
+        
+        return list.startAdvancedSearch( searchCriteria );
     }
     
     private ArrayList<MetadataSearchCriterion> transformToSearchCriteria

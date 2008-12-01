@@ -98,18 +98,25 @@
 		<param-value>session</param-value>
 	</context-param>
 
+	<!-- Genre Servlet -->
+	<servlet>
+		<servlet-name>Genre Servlet</servlet-name>
+		<servlet-class>de.mpg.escidoc.pubman.init.GenreServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
 	<!-- Faces Servlet -->
 	<servlet>
 		<servlet-name>Faces Servlet</servlet-name>
 		<servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
-		<load-on-startup>1</load-on-startup>
+		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
 	<!-- Initializer Servlet -->
 	<servlet>
 		<servlet-name>Initializer Servlet</servlet-name>
 		<servlet-class>de.mpg.escidoc.pubman.init.InitializerServlet</servlet-class>
-		<load-on-startup>2</load-on-startup>
+		<load-on-startup>3</load-on-startup>
 	</servlet>
 	
 	<!-- Initializer Servlet -->

@@ -41,6 +41,7 @@
 		<message-bundle>Label</message-bundle>
 		<message-bundle>Messages</message-bundle>
 		<message-bundle>Tooltip</message-bundle>
+		<message-bundle>Genre_Book</message-bundle>
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>

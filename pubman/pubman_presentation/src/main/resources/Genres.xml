@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration-settings metadata-profile="publication-metadata">
+	<configuration id="full-submission">
+		<genre id="DEFAULT"	label="id_article_label">
+			<group id="basic" label="id_basic_grp">
+				<field id="dc:title" repeatable="false" display="true"
+					label="id_title_label" optional="false" />
+				<field id="dc:alternative" repeatable="false" display="true"
+					label="id_alternative_label" optional="true" />
+			</group>
+		</genre>
+		<genre default-genre-form="true" id="article" default-genre="true"
+			label="id_article_label">
+			<group id="basic" label="id_basic_grp">
+				<field id="genre" repeatable="false" display="true" label="id_genre_label"
+					optional="false" />
+				<field id="dc:title" repeatable="false"
+					label="id_title_label_new" optional="false" />
+			</group>
+			<group id="files" label="id_grp_files_label">
+				<field id="file" repeatable="true" display="true" label="id_files_label"
+					optional="true" />
+			</group>
+			<group id="locators" label="id_grp_locators_label">
+				<field id="filelocator" repeatable="true" display="true"
+					label="id_locators_label" optional="true" />
+			</group>
+			<group id="creators" label="id_grp_label_creators">
+				<group id="creator" repeatable="true" display="true"
+					label="id_creators_label" optional="false">
+					<field id="creator.person.family-name" display="true"
+						label="id_creator_firstname" optional="false" />
+					<field id="creator.person.given-name" display="true"
+						label="id_creator_firstname" optional="true" />
+					<field id="creator.person.type" display="true" label="id_creator_type"
+						optional="false" />
+					<field id="creator.person.identifier" display="false"
+						label="id_creator_identifier" optional="false" />
+					<field id="creator.organization.name" display="true"
+						label="id_creator_firstname" optional="false" />
+					<field id="creator.organization.address" display="true"
+						label="id_creator_firstname" optional="true" />
+					<field id="creator.organization.identifier" display="false"
+						label="id_creator_identifier" optional="false" />
+				</group>
+			</group>
+			<group id="content" label="id_grp_content">
+				<field id="dc:subject" repeatable="true" display="true"
+					label="id_subject_label" optional="true" />
+				<field id="dcterms:abstract" repeatable="true" display="true"
+					label="id_abstract_label" optional="true" />
+			</group>
+			<group id="details" label="id_grp_details">
+				<field id="dc:language" repeatable="true" display="true"
+					label="id_language_label" optional="true" />
+				<field id="dcterms:issued" repeatable="false" display="true"
+					label="id_date_label" optional="true" />
+				<field id="total-number-of-pages" repeatable="false" display="true"
+					label="id_total_number_of_pages_label" optional="true" />
+				<group id="publishing-info" repeatable="false" display="true"
+					label="id_publishing_label" optional="true">
+					<field id="publishing-info.publisher" repeatable="false"
+						display="true" label="id_publisher_label" optional="false" />
+					<field id="publishing-info.place" repeatable="false" display="true"
+						label="id_publisherplace_label" optional="false" />
+					<field id="publishing-info.edition" repeatable="false"
+						display="true" label="id_publisheredition_label" optional="true" />
+				</group>
+				<field id="dcterms:tableOfContents" repeatable="false"
+					display="true" label="id_table_of_content" optional="true" />
+				<field id="review-method" repeatable="false" display="true"
+					label="id_review_method" optional="true" />
+				<field id="dc:identifier" repeatable="true" display="true"
+					label="id_identifier_label" optional="true" />
+				<field id="degree" repeatable="false" display="true"
+					label="id_degree_label" optional="true" />
+				<field id="location" repeatable="false" display="true"
+					label="id_location_label" optional="true" />
+			</group>
+			<group id="source-basic" label="id_grp_source">
+				<group id="source" repeatable="true" display="true" label="id_source_label"
+					optional="true">
+					<field id="source.genre" default-value="journal" display="true"
+						optional="false" label="id_source_genre_lbl" repeatable="false" />
+					<field id="source.title" display="true" label="id_source_title_lbl"
+						repeatable="false" optional="false" />
+					<field id="source.alternative" display="true"
+						label="id_source_alternative_lbl" repeatable="true" optional="true" />
+				</group>
+			</group>
+			<group id="source-creators" label="id_grp_creators_source_lbl">
+				<group id="creator" repeatable="true" display="true"
+					label="id_creators_label" optional="false">
+					<field id="source.creator.person.family-name" display="true"
+						label="id_creator_firstname" optional="false" />
+					<field id="source.creator.person.given-name" display="true"
+						label="id_creator_firstname" optional="true" />
+					<field id="source.creator.person.type" display="true"
+						label="id_creator_type" optional="false" />
+					<field id="source.creator.person.identifier" display="false"
+						label="id_creator_identifier" optional="false" />
+					<field id="source.creator.organization.name" display="true"
+						label="id_creator_firstname" optional="false" />
+					<field id="source.creator.organization.address" display="true"
+						label="id_creator_firstname" optional="true" />
+					<field id="source.creator.organization.identifier" display="false"
+						label="id_creator_identifier" optional="false" />
+				</group>
+			</group>
+			<group id="source-details" label="id_grp_source_details_lbl">
+				<field id="source" repeatable="false" display="true"
+					label="id_lbl_source_details" optional=""></field>
+			</group>
+		</genre>
+	</configuration>
+</configuration-settings>

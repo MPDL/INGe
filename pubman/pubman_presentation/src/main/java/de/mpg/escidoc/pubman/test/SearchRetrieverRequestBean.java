@@ -25,17 +25,13 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     
     public static String BEAN_NAME = "SearchRetrieverRequestBean";
     
-    public static String parameterCqlQuery = "cql";
-    
-    public static String parameterSearchType = "searchType";
+    private static String parameterCqlQuery = "cql";
     
     private String cqlQuery;
     
     private int numberOfRecords;
 
     private Search searchService;
-    
-    private String searchType;
     
     public SearchRetrieverRequestBean()
     {
@@ -71,28 +67,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     @Override
     public void readOutParameters()
     {
-        String cql = getExternalContext().getRequestParameterMap().get(parameterCqlQuery);
-        if (cql==null)
-        {
-            setCqlQuery("");
-            error("You have to call this page with a parameter \"cql\" and a cql query!"); 
-            
-        }
-        else
-        {
-            setCqlQuery(URLDecoder.decode(cql));
-        }
-        
-        
-        String searchType = getExternalContext().getRequestParameterMap().get(parameterSearchType);
-        if (searchType==null)
-        {
-            setSearchType("simple");
-        }
-        else
-        {
-            setSearchType(URLDecoder.decode(searchType));
-        }
+        String cql = URLDecoder.decode(getExternalContext().getRequestParameterMap().get(parameterCqlQuery));
+        setCqlQuery(cql);
         
     }
 
@@ -111,7 +87,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             
             pubItemList =  extractItemsOfSearchResult(result);
             //TODO To be changed
-            this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+            this.numberOfRecords = pubItemList.size();
         }
         catch (Exception e)
         {
@@ -154,16 +130,5 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public String getListPageName()
     {
         return "SearchResultListPage.jsp";
-    }
-
-    public void setSearchType(String searchType)
-    {
-        this.searchType = searchType;
-        getBasePaginatorListSessionBean().getParameterMap().put(parameterSearchType, searchType);
-    }
-
-    public String getSearchType()
-    {
-        return searchType;
     }
 }
