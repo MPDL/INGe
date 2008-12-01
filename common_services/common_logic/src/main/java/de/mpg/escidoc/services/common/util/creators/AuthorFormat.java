@@ -62,7 +62,7 @@ public abstract class AuthorFormat implements Comparable<AuthorFormat>
     protected static final String TITLE = "(Dr\\.|Doktor|Doctor|Prof\\.|Professor|Kardinal|Geheimrat|Bischof|)";
     protected static final String PREFIX = "(von|vom|von +und +zu|zu|de +la|dela|la|d e|du|of|van|van +der|van +den|den|der|und|le|Le|La)";
     protected static final String MIDDLEFIX = "(y|dela|de la)";
-    protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))* +(" + PREFIX + ")?)";
+    protected static final String GIVEN_NAME_FORMAT = "(" + NAME + "( *(" + NAME + "|" + INITIALS + "))*( +" + PREFIX + ")?)";
     protected static final String GIVEN_NAME_FORMAT_MIXED = "((" + NAME + "|" + INITIALS + ")( *(" + NAME + "|" + INITIALS + "))*)";
     
     protected static final String FORBIDDEN_CHARACTERS = "(\\d|\\*|\\(|\\)|\\[|\\]|\\{|\\}|!|\\$|§|%|&|/|=|\\+|\\?|¤|email|written|et al)";
