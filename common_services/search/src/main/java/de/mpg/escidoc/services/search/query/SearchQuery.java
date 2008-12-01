@@ -118,7 +118,7 @@ public abstract class SearchQuery implements Serializable
      */
     public String getCqlSortingQuery() 
     {
-        if(this.sortingOrder == null)
+        if(this.sortingOrder == null  && this.sortKeys.contains(CQL_DESCENDING_DEFINITION))
         {
             return this.sortKeys;
         }
@@ -130,7 +130,11 @@ public abstract class SearchQuery implements Serializable
             }
             else
             {
-                return this.sortKeys + CQL_DESCENDING_DEFINITION;
+                if(this.sortKeys != null) 
+                {
+                    return this.sortKeys + CQL_DESCENDING_DEFINITION;
+                }
+                else return null;
             }
         }
     }
@@ -154,6 +158,16 @@ public abstract class SearchQuery implements Serializable
     public void setSortKeysAndOrder(String keys, SortingOrder order)
     {
         this.sortKeys = keys;
+        this.sortingOrder = order;
+    }
+    
+    /**
+     * Set the sort order.
+     *
+     * @param order the sorting order
+     */
+    public void setSortOrder(SortingOrder order)
+    {
         this.sortingOrder = order;
     }
 }
