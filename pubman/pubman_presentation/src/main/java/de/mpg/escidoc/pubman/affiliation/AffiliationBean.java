@@ -21,6 +21,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.search.AffiliationDetail;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
+import de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
@@ -268,7 +269,7 @@ public class AffiliationBean extends FacesBean
             String cql = query.getCqlQuery();
             
             //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql));
+            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=org");
             
         }
         catch (Exception e)

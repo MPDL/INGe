@@ -45,6 +45,7 @@ import de.mpg.escidoc.pubman.search.bean.OrganizationCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.PersonCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.SourceCriterionCollection;
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
+import de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.search.query.MetadataSearchCriterion;
 import de.mpg.escidoc.services.search.query.MetadataSearchQuery;
@@ -212,7 +213,7 @@ public class AdvancedSearchEdit extends SearchResultList
             String cql = query.getCqlQuery();
             
             //redirect to SearchResultPage which processes the query
-            getExternalContext().redirect("SearchResultListPage.jsp?cql="+URLEncoder.encode(cql));
+            getExternalContext().redirect("SearchResultListPage.jsp?"+SearchRetrieverRequestBean.parameterCqlQuery+"="+URLEncoder.encode(cql)+"&"+SearchRetrieverRequestBean.parameterSearchType+"=advanced");
     	}
     	catch(Exception e ) {
     		logger.error("Could not transform advanced search criteria", e);
