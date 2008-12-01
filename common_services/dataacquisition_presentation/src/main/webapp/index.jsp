@@ -23,7 +23,7 @@
 */
 
 /*
-* Copyright 2006-2007 Fachinformationszentrum Karlsruhe Gesellschaft
+* Copyright 2006-2008 Fachinformationszentrum Karlsruhe Gesellschaft
 * für wissenschaftlich-technische Information mbH and Max-Planck-
 * Gesellschaft zur Förderung der Wissenschaft e.V.
 * All rights reserved. Use is subject to license terms.
@@ -32,41 +32,48 @@
 
 <html>
 	<head>
-		<title>eSciDoc Import Service</title>
+		<title>eSciDoc DataAcquisition Service</title>
 	</head>
 	<body bgcolor="white">
 		<h1>
-			eSciDoc Import Service
+			eSciDoc DataAcquisition Service
 		</h1>
 		<p>
-			The eSciDoc Import Service is a interface for harvesting data from external servers.
+			The eSciDoc DataAcquisition Service is a interface for harvesting data from external servers.</br>
 		</p>
 		<ul>
-			<b>The service provides three operations:</b>
-				<li>
-			  		/unapi Gives back informations about all sources the Importhandler can fetch from.
-				</li>
-				<li>
-			  		/unapi/unapi Gives back informations about all formats of the eSciDoc source (which is default).
-				</li>
-				<li>
-    				/unapi/unapi?id=IDENTIFIER Gives back a list of all formats for this identifier.
-				</li>
-				<li>
-    				/unapi/unapi?id=IDENTIFIER&format=FORMAT Fetches the given format for this identifier.
-				</li>
+			<b>The four steps to fetch data:</b>
+				<p>
+			  		1. Choose the presentation of the data </br>
+					dataacquisition/view: 		Views the fetched data in the browser</br>
+					dataacquisition/download:	The fetched data will be provided as a download</br>
+				</p>
+				<p>
+			  		2. Call the unAPI service interface</br>
+					dataacquisition/view/unapi</br>
+					dataacquisition/download/unapi</br>
+				</p>
+				<p>
+			  		3. Provide the identifier of the item you want to fetch</br>
+					dataacquisition/view/unapi?id=escidoc:1234</br>
+					dataacquisition/download/unapi?id=escidoc:1234</br>
+				</p>
+				<p>
+			  		4. Provide the format you want the fetched item in</br>
+					dataacquisition/view/unapi?id=escidoc:1234&format=bibtex</br>
+					dataacquisition/download/unapi?id=escidoc:1234&format=bibtex</br>
+				</p>
+				
 		</ul>
 		<ul>
-			<b>The service will support two kinds of identifiers:</b>
-				<li>
-					identifier from a supported source (explained in /unapi). </br>
-        			The format to fetch is defined in the &format parameter. All data will return in the fetched format
-				</li>
-				<li>
-					identifier = any URL (the eSciDoc Import Service has no information about this source and can only try to call the given URL for the fetching request).</br>
-					In case of fetching from an unknown source via providing an URL the identifier is the url. 
-        			As the eSciDoc Import Service can not fetch a specific format from this url the &format parameter has to be "url" to indicate that the fetching request is for an unknown source.
-				</li>
+			<b>Supported Identifiers:</b>
+				<p>
+					1. A identifier from a supported source (explained in /dataacquisition).</br>
+				</p>
+				<p>
+					2. A identifier = any URL (the eSciDoc DataAcquisition Service has no information about this source and can only try to call the given URL for the fetching request).</br>
+					   The format has to be set to "url". The response will be a zip file of the fetched content. The view option for url identifiers is disabled.
+				</p>
 		</ul>
 	</body>
 </html>

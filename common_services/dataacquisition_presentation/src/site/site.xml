@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<project name="pubman">
+<project name="dataaquisition_presentation">
   <body>
     <menu ref="parent"/> <!-- Erzeugt Link zum Parent-Modul-->
     <menu ref="modules"/>
