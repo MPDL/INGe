@@ -45,6 +45,7 @@
 				queryString += '&outputFormat=' + document.form.outputFormat.options[document.form.outputFormat.selectedIndex].value;
 				queryString += '&language=' + document.form.language.options[document.form.language.selectedIndex].value;
 				queryString += '&sortKeys=' + document.form.sortKeys.value;
+				queryString += '&sortOrder=' + document.form.sortOrder.options[document.form.sortOrder.selectedIndex].value;
 				queryString += '&startRecord=' + document.form.startRecord.value;
 				queryString += '&maximumRecords=' + document.form.maximumRecords.value;
 				
@@ -73,6 +74,13 @@
 			<div class="editItemSingleCol">
                 <label class="colLbl">Add a sorting key here:</label><br/>
                 <input type="text" size="20" name="sortKeys" value=""></input>
+            </div>
+            <div class="editItemSingleCol">
+                <label class="colLbl">Sorting order</label><br/>
+                <select size="1" name="sortOrder" style="width:120px">
+                    <option value="ascending">ascending</option>
+                    <option value="descending">descending</option>
+                </select>
             </div>
             <div class="editItemSingleCol">
                 <label class="colLbl">Define the start record (first record as default):</label><br/>

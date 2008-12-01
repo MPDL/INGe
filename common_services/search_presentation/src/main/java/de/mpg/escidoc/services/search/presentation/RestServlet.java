@@ -47,9 +47,12 @@ import org.apache.log4j.Logger;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.SearchHitVO.SearchHitType;
 import de.mpg.escidoc.services.search.Search;
+import de.mpg.escidoc.services.search.query.SearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchQuery;
 import de.mpg.escidoc.services.search.query.ExportSearchResult;
+import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 import de.mpg.escidoc.services.structuredexportmanager.StructuredExport;
 
 /**
@@ -204,6 +207,21 @@ public class RestServlet extends HttpServlet
                 if( checkVal( req.getParameter("maximumRecords") ) )
                 {
                     query.setMaximumRecords( req.getParameter("maximumRecords") );
+                }
+                
+                // check if sortOrder is set
+                if( checkVal( req.getParameter("sortOrder") ) )
+                {
+                    String sortOrder = req.getParameter("sortOrder");
+                    if( sortOrder.contains("descending") )
+                    {
+                        query.setSortOrder(SortingOrder.DESCENDING);
+                    }
+                    else
+                    {
+                        query.setSortOrder(SortingOrder.ASCENDING);
+                    }
+                    
                 }
                 
                 // query the search service
