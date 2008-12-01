@@ -34,7 +34,7 @@
 
 .itemList {
 	border-top-width: 0.19em !important;
-	border-bottom-width: 0.19em !important;
+	border-bottom-width: 0.10em !important;
 	border-top-style: solid;
 	border-bottom-style: solid; 
 }
@@ -59,7 +59,7 @@
 	margin-right: -0.09em;
 }
 
-.listHeader .collapse, .listHeader .expand {
+.listHeader .collapse, .listHeader .collapse:hover, .listHeader .collapse:focus, .listHeader .expand, .listHeader .expand:hover, .listHeader .expand:focus {
 	margin-left: 0.19em;
 	background-position: left;
 }

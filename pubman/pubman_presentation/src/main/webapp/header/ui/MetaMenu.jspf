@@ -58,7 +58,7 @@
 	<h:panelGroup styleClass="seperator"></h:panelGroup>
 
 
-	<h:outputLabel styleClass="large_label endline" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
+	<h:outputLabel styleClass="large_label endline xTiny_marginLExcl" value="#{LoginHelper.accountUser.name}" rendered="#{LoginHelper.loggedIn}"></h:outputLabel>
 	<h:panelGroup styleClass="seperator xTiny_marginRExcl" rendered="#{LoginHelper.loggedIn}"></h:panelGroup>
 
 	<!-- meta Menu ends here -->

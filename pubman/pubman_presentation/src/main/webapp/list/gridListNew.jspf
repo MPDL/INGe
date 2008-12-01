@@ -317,15 +317,7 @@ All rights reserved. Use is subject to license terms.
 
  
  	<div class="large_area0 small_marginLIncl rangeSelector">
- 		<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{PubItemListSessionBean.elementsPerPageBottom}" onchange="$(this).parents('div').find('.hiddenElementsNumberChangedButton').click();">
- 			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
- 			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
- 			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
- 			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
- 			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
- 		</h:selectOneMenu>
-		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="go"  action="#{PubItemListSessionBean.redirect}"/>
- 		<h:outputLabel for="extSelectBottom" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
+ 		&#160;
  	</div>
 
  	<div class="small_marginLExcl pageBrowser">
@@ -344,13 +336,6 @@ All rights reserved. Use is subject to license terms.
  		<tr:goButton styleClass="min_imgBtn skipToLast" text=" " shortDesc="#{lbl.ItemList_Results} #{((PubItemListSessionBean.paginatorPageSize-1) * PubItemListSessionBean.elementsPerPage + 1)} - #{PubItemListSessionBean.totalNumberOfElements}" disabled="#{PubItemListSessionBean.currentPageNumber == PubItemListSessionBean.paginatorPageSize}" destination="#{PubItemListSessionBean.linkForLastPage}"/>
  	</div>
 
- 	<div class="gotoBox">
- 		<label class="free_label gotoLabel">Go to page</label>
- 		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageBottom}"/>
- 		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
- 		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
- 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="go" title="Go to selected page" action="#{PubItemListSessionBean.goToPageBottom}"/>
- 	</div>
 </div>
 
 </f:subview>

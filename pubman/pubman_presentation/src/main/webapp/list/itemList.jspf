@@ -237,15 +237,7 @@ All rights reserved. Use is subject to license terms.
 <div class="full_area0 paginator">
 
 	<div class="large_area0 small_marginLIncl rangeSelector">
-		<h:selectOneMenu id="extSelectBottom" styleClass="free_select" value="#{ItemListSessionBean.itemsPerPage}" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.changeItemsPerPage}">
-			<f:selectItem itemValue="10" itemLabel="10"></f:selectItem>
-			<f:selectItem itemValue="25" itemLabel="25"></f:selectItem>
-			<f:selectItem itemValue="50" itemLabel="50"></f:selectItem>
-			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
-			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
-		</h:selectOneMenu>
-		<h:outputLabel for="extSelectBottom" styleClass="free_label hitsLabel" value="#{lbl.ItemList_ObjectsPerPage}" />
-		<input class="xTiny_txtBtn paginatorFallbackGoBtn" type="submit" name="rangeSelector" value="go" title="Show selected hits per page"/>
+		&#160;
 	</div>
 
 	<div class="small_marginLExcl pageBrowser">
@@ -262,14 +254,6 @@ All rights reserved. Use is subject to license terms.
 		</tr:iterator>
 		<h:commandButton styleClass="forward" value="Next" title="#{lbl.ItemList_Results} #{ItemListSessionBean.currentPubItemListPointer+1+ItemListSessionBean.itemsPerPage} -  #{ItemListSessionBean.currentPubItemListPointer + 2*ItemListSessionBean.itemsPerPage}" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoFollowingPage}"/>
 		<h:commandButton styleClass="min_imgBtn skipToLast" value=" " title="#{lbl.ItemList_Results} #{(ItemListSessionBean.pageSize-1)*ItemListSessionBean.itemsPerPage + 1} - #{ItemListSessionBean.pageSize*ItemListSessionBean.itemsPerPage}" disabled="#{ItemListSessionBean.isLastPage}" action="#{ItemListSessionBean.gotoLastPage}"/>
-	</div>
-
-	<div class="gotoBox">
-		<label class="free_label gotoLabel">Go to page</label>
-		<input type="text" class="tiny_txtInput"/>
-		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
-		<h:outputLabel styleClass="free_label" value="#{ItemListSessionBean.pageSize}" />
-		<input class="xTiny_txtBtn paginatorFallbackGoBtn" type="submit" name="goToBox" value="go" title="Go to selected page"/>
 	</div>
 
 </div>
