@@ -76,7 +76,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>importmanager</artifactId>
+			<artifactId>dataacquisition</artifactId>
 			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 		</dependency>

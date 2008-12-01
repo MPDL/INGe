@@ -202,8 +202,8 @@ public class ViewItemFull extends FacesBean
     private String citationURL;
 
     /**unapi*/
-	private String unapiURL;
-	private String unapiURLzotero;
+	private String unapiURLdownload;
+	private String unapiURLview;
 	private String unapiEscidoc;
 	private String unapiEndnote;
 	private String unapiBibtex;
@@ -440,20 +440,20 @@ public class ViewItemFull extends FacesBean
             	}
             }
             
-            //Unapi Export tmp static
+            //Unapi Export 
             try
             {
-                this.unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
-                this.unapiURLzotero = this.unapiURL.replaceFirst("unapi", "zotero");
+                this.unapiURLdownload = PropertyReader.getProperty("escidoc.unapi.download.server");
+                this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+                this.unapiEscidoc = this.unapiURLdownload+"?id="+itemID+"&format=escidoc";
+                this.unapiEndnote = this.unapiURLdownload+"?id="+itemID+"&format=endnote";
+                this.unapiBibtex = this.unapiURLdownload+"?id="+itemID+"&format=bibtex";
+                this.unapiApa = this.unapiURLdownload+"?id="+itemID+"&format=apa";
             }
             catch (Exception e) {
                 logger.error("Error getting unapi url property", e);
                 throw new RuntimeException(e);
             }
-            this.unapiEscidoc = this.unapiURL+"unapi?id="+itemID+"&format=escidoc";
-            this.unapiEndnote = this.unapiURL+"unapi?id="+itemID+"&format=endnote";
-            this.unapiBibtex = this.unapiURL+"unapi?id="+itemID+"&format=bibtex";
-            this.unapiApa = this.unapiURL+"unapi?id="+itemID+"&format=apa";
 
             // TODO ScT: remove this and related methods when the procedure of handling release history button is fully clarified
             // set up the release history of the item
@@ -2008,12 +2008,12 @@ public class ViewItemFull extends FacesBean
     }
     
     
-    public String getUnapiURL() {
-		return this.unapiURL;
+    public String getUnapiURLdownload() {
+		return this.unapiURLdownload;
 	}
 
-	public void setUnapiURL(String unapiURL) {
-		this.unapiURL = unapiURL;
+	public void setUnapiURLdownload(String unapiURLdownload) {
+		this.unapiURLdownload = unapiURLdownload;
 	}
 	
 	public String getUnapiEscidoc() {
@@ -2048,11 +2048,11 @@ public class ViewItemFull extends FacesBean
 		this.unapiApa = unapiApa;
 	}
 	
-	public String getUnapiURLzotero() {
-		return this.unapiURLzotero;
+	public String getUnapiURLview() {
+		return this.unapiURLview;
 	}
 
-	public void setUnapiURLzotero(String unapiURLzotero) {
-		this.unapiURLzotero = unapiURLzotero;
+	public void setUnapiURLview(String unapiURLview) {
+		this.unapiURLview = unapiURLview;
 	}
 }

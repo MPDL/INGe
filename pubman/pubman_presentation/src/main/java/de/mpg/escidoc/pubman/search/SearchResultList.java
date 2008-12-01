@@ -121,7 +121,7 @@ public class SearchResultList extends ItemList
     private String displayExportData = null;
     
     //unapi interface for zotero
-    private String unapiURLzotero;
+    private String unapiURLview;
 
 
 	enum TypeOfList {
@@ -152,19 +152,12 @@ public class SearchResultList extends ItemList
 
         // Perform initializations inherited from our superclass
         super.init();
-        
-        
-        Navigation navBean = (Navigation)getRequestBean(Navigation.class);
-        navBean.setShowExportMenuOption(true);
-        
-        String unapiURL;
-		try {
-			unapiURL = PropertyReader.getProperty("escidoc.unapi.server");
-			this.unapiURLzotero = unapiURL.replaceFirst("unapi", "zotero");
-		} 
-		catch (IOException e) {e.printStackTrace();} 
-		catch (URISyntaxException e) {e.printStackTrace();}   
-        
+
+    	try 
+    	{
+    		this.unapiURLview = PropertyReader.getProperty("escidoc.unapi.view.server");
+    	} 
+    	catch (Exception e) {logger.warn("Reading in unAPI server URL from properties failed.", e);} 
     }
 
     /**
@@ -951,11 +944,11 @@ public class SearchResultList extends ItemList
 	}
 	
     
-    public String getUnapiURLzotero() {
-		return this.unapiURLzotero;
+    public String getUnapiURLview() {
+		return this.unapiURLview;
 	}
 
-	public void setUnapiURLzotero(String unapiURLzotero) {
-		this.unapiURLzotero = unapiURLzotero;
+	public void setUnapiURLview(String unapiURLview) {
+		this.unapiURLview = unapiURLview;
 	}
 }

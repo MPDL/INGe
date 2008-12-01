@@ -50,8 +50,8 @@
 						</webModule>
 						<webModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>import_presentation</artifactId>
-							<contextRoot>/import</contextRoot>
+							<artifactId>dataacquisition_presentation</artifactId>
+							<contextRoot>/dataacquisition</contextRoot>
 						</webModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -63,7 +63,7 @@
 						</ejbModule>
 						<ejbModule>
 							<groupId>de.mpg.escidoc.services</groupId>
-							<artifactId>importmanager</artifactId>
+							<artifactId>dataacquisition</artifactId>
 						</ejbModule>
 						<jarModule>
 							<groupId>de.mpg.escidoc.services</groupId>
@@ -370,7 +370,7 @@
 		</dependency>
 		<dependency>
 			<groupId>de.mpg.escidoc.services</groupId>
-			<artifactId>importmanager</artifactId>
+			<artifactId>dataacquisition</artifactId>
 			<version>1.0.9-SNAPSHOT</version>
 			<scope>compile</scope>
 			<type>ejb</type>
@@ -405,7 +405,7 @@
 		</dependency>
 		<dependency>
             <groupId>de.mpg.escidoc.services</groupId>
-            <artifactId>import_presentation</artifactId>
+            <artifactId>dataacquisition_presentation</artifactId>
             <version>1.0.9-SNAPSHOT</version>
             <scope>compile</scope>
             <type>war</type>

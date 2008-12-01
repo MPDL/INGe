@@ -35,14 +35,14 @@
 
 	<jsp:directive.page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8"/>
 	<f:view locale="#{InternationalizationHelper.userLocale}">
-			<f:loadBundle var="lbl" basename="Label"/>
-			<f:loadBundle var="msg" basename="Messages"/>
-			<f:loadBundle var="tip" basename="Tooltip"/>
+	<f:loadBundle var="lbl" basename="Label"/>
+	<f:loadBundle var="msg" basename="Messages"/>
+	<f:loadBundle var="tip" basename="Tooltip"/>
 		<html xmlns="http://www.w3.org/1999/xhtml">
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle} #{ViewItemFull.pubItem.metadata.title.value}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLzotero}unapi"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{ViewItemFull.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
