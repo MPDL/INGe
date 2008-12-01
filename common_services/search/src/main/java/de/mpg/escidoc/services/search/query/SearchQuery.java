@@ -20,7 +20,14 @@ import de.mpg.escidoc.services.common.exceptions.TechnicalException;
  * 
  */
 public abstract class SearchQuery implements Serializable
-{
+{   
+    /** Sorting Definition. */
+    enum SortingOrder {
+        /** Ascending order. */
+        ASCENDING,
+        /** Descending order */
+        DESCENDING
+    };
     /** Serial version identifier. */
     private static final long serialVersionUID = 1L;
     /** Defines where the offset for the search result will be. */
@@ -29,11 +36,15 @@ public abstract class SearchQuery implements Serializable
     private NonNegativeInteger maximumRecords = null;
     /** Sorting keys. */
     private String sortKeys = null;
+    /** Sorting order */
+    private SortingOrder sortingOrder = null;
     /** Maximum number of results. */
     private static final String DEFAULT_MAXIMUM_RECORDS = "10000";
+    /** Cql definition for a descending order of the search result */
+    private static final String CQL_DESCENDING_DEFINITION = ",,0";
 
     /**
-     * 
+     *  Default constructor. 
      */
     public SearchQuery()
     {
@@ -100,24 +111,49 @@ public abstract class SearchQuery implements Serializable
             // trying to set an invalid value
         }
     }
-
+    
     /**
-     * Getter for the sort keys.
-     * 
-     * @return output format
+     * Returns the Cql query for the sorting of the search result.  
+     * @return cql query defintion 
      */
-    public String getSortKeys()
+    public String getCqlSortingQuery() 
     {
-        return sortKeys;
+        if(this.sortingOrder == null)
+        {
+            return this.sortKeys;
+        }
+        else
+        {
+            if(this.sortingOrder == SortingOrder.ASCENDING)
+            {
+                return this.sortKeys;
+            }
+            else
+            {
+                return this.sortKeys + CQL_DESCENDING_DEFINITION;
+            }
+        }
     }
 
     /**
-     * Seter for the sort keys.
+     * Setter for the sort keys.
      * 
-     * @param sortKeys
+     * @param keys the sorting key
      */
-    public void setSortKeys(String sortKeys)
+    public void setSortKeys(String keys)
     {
-        this.sortKeys = sortKeys;
+        this.sortKeys = keys;
+    }
+    
+    /**
+     * Set the sortKeys and the order.
+     * 
+     * @param keys the sorting key
+     * @param order the sorting order
+     */
+    public void setSortKeysAndOrder(String keys, SortingOrder order)
+    {
+        this.sortKeys = keys;
+        this.sortingOrder = order;
     }
 }

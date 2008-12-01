@@ -50,19 +50,16 @@ import javax.interceptor.Interceptors;
 import net.sf.jasperreports.engine.JRException;
 
 import org.apache.axis.message.MessageElement;
-import org.apache.axis.types.PositiveInteger;
 import org.apache.log4j.Logger;
 import org.jboss.annotation.ejb.RemoteBinding;
 
 import de.mpg.escidoc.services.citationmanager.CitationStyleHandler;
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
-import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.valueobjects.AffiliationVO;
-import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO.FormatType;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
@@ -146,7 +143,7 @@ public class SearchBean implements Search
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
-            searchRetrieveRequest.setSortKeys(query.getSortKeys());
+            searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
             
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
@@ -185,7 +182,7 @@ public class SearchBean implements Search
             SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
             searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
             searchRetrieveRequest.setQuery(cqlQuery);
-            searchRetrieveRequest.setSortKeys(query.getSortKeys());
+            searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
 
             searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
             searchRetrieveRequest.setStartRecord(query.getStartRecord());
@@ -321,7 +318,7 @@ public class SearchBean implements Search
         SearchRetrieveRequestType searchRetrieveRequest = new SearchRetrieveRequestType();
         searchRetrieveRequest.setVersion(SEARCHREQUEST_VERSION);
         searchRetrieveRequest.setQuery(query.getCqlQuery());
-        searchRetrieveRequest.setSortKeys(query.getSortKeys());
+        searchRetrieveRequest.setSortKeys(query.getCqlSortingQuery());
 
         searchRetrieveRequest.setMaximumRecords(query.getMaximumRecords());
         searchRetrieveRequest.setStartRecord(query.getStartRecord());
