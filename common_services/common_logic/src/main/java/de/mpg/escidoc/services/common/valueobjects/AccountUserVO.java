@@ -161,6 +161,38 @@ public class AccountUserVO extends ValueObject
         }
         return moderator;
     }
+    
+    /**
+     * Delivers true if the granted role is of type 'PrivilegedViewer' for the given object (normally a PubCollection).
+     * 
+     * @param refObj true, if the user has the PrivilegedViewer role
+     * @return true if the granted role is of type 'PrivilegedViewer' for the given object
+     */
+    public boolean isPrivilegedViewer(ReferenceObject refObj)
+    {
+        if (refObj == null)
+        {
+            throw new IllegalArgumentException(getClass().getSimpleName() + ":isPrivilegedViewer:objectRef is null");
+        }
+        boolean privilegedViewer = false;
+        for (GrantVO grant : this.grants)
+        {
+            // every system administrator is a privilegedViewer, too
+            if (grant.getRole().equals("escidoc:role-system-administrator"))
+            {
+                privilegedViewer = true;
+            }
+
+            if (grant.getRole().equals(PredefinedRoles.PRIVILEGEDVIEWER.frameworkValue()))                    
+            {
+                if (grant.getObjectRef().equals(refObj.getObjectId()))
+                {
+                    privilegedViewer = true;
+                }
+            }
+        }
+        return privilegedViewer;
+    }
 
     /**
      * Delivers the list of affiliations the account user is affiliated to.
