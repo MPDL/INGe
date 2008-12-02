@@ -233,7 +233,7 @@ public class PubFileVOPresentation extends FacesBean {
         {
             if ("dcterms:IMT".equals(formatVO.getType()))
             {
-                formatVO.setType(mimeType);
+                formatVO.setValue(mimeType);
                 found = true;
                 break;
             }
