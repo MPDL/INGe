@@ -1,116 +1,511 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration-settings metadata-profile="publication-metadata">
-	<configuration id="full-submission">
-		<genre id="DEFAULT"	label="id_article_label">
-			<group id="basic" label="id_basic_grp">
-				<field id="dc:title" repeatable="false" display="true"
-					label="id_title_label" optional="false" />
-				<field id="dc:alternative" repeatable="false" display="true"
-					label="id_alternative_label" optional="true" />
+<configuration-settings metadata-profile-version="1" xmlns="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://escidoc.mpg.de/metadataprofile/schema/0.1/publicationform E:\Repository\04_Design\01_System\MetadataHandling\XML_Schema\escidoc_publication_display_profile.xsd">
+	<configuration>
+		<default-configuration>
+			<group id="item_basic" repeatable="false" display="true" optional="false" label="g_item_basic" form-id="all">
+				<field id="item.genre" repeatable="false" display="true" optional="false" label="item_genre"/>
+				<field id="item.title" repeatable="false" display="true" optional="false" label="item_title"/>
+				<field id="item.title.alternative" repeatable="true" display="true" optional="true" label="item_title_alternative"/>
+			</group>
+			<group id="files" display="true" repeatable="true" optional="true" label="g_files" form-id="all">
+				<field id="component.name" repeatable="false" display="true" label="component_name" optional="false"/>
+				<field id="component.content-category" repeatable="false" display="true" optional="false" label="component_content-category"/>
+				<field id="component.visibility" repeatable="false" display="true" optional="false" label="component_visibility"/>
+				<field id="component.content" repeatable="false" display="true" optional="false" label="component_content"/>
+				<field id="component.description" repeatable="false" display="true" optional="true" label="component_description"/>
+			</group>
+			<group id="locators" display="true" repeatable="true" optional="true" label="g_locators" form-id="all">
+				<field id="component.name" repeatable="false" display="true" label="locator_name" optional="false"/>
+				<field id="component.content-category" repeatable="false" display="true" optional="false" label="locator_content-category"/>
+				<field id="component.visibility" repeatable="false" display="true" optional="false" label="locator_component_visibility"/>
+				<field id="component.description" repeatable="false" display="true" optional="true" label="locator_description"/>
+			</group>
+			<group id="creator_person_organization" repeatable="false" display="true" optional="false" label="g_creator_person_organization" form-id="all">
+				<group id="creator" display="true" repeatable="true" optional="false" label="g_creator" form-id="all" default-value="persons">
+					<group id="select_roles" repeatable="false" display="true" optional="false" label="g_select_roles">
+						<field id="creator.type" repeatable="false" display="true" optional="false" default-value="author" label="creator_type"/>
+					</group>
+					<group id="persons" repeatable="true" display="true" optional="false" label="g_persons">
+						<field id="person.family-name" display="true" label="person_family-name" optional="false" repeatable="false"/>
+						<field id="person.given-name" display="true" label="person_given-name" optional="true" repeatable="false"/>
+						<field id="person.identifier.type" display="false" label="person_identifier_type" optional="true" repeatable="false"/>
+						<field id="person.identifier.value" display="false" label="person_identifier_value" optional="true" repeatable="false"/>
+					</group>
+					<group id="organizations" repeatable="true" display="true" optional="false" label="g_organizations">
+						<field id="organization.name" display="true" label="organization_name" optional="false" repeatable="false"/>
+						<field id="organization.address" display="true" label="organization_address" optional="true" repeatable="false"/>
+						<field id="organization.identifier.type" display="false" label="organization_identifier_type" optional="true" repeatable="false"/>
+						<field id="organization.identifier.value" display="false" label="organization_identifier_value" optional="false" repeatable="false"/>
+					</group>
+				</group>
+			</group>
+			<group id="content" repeatable="false" display="true" optional="true" label="g_content" form-id="all">
+				<field id="item.subject" repeatable="true" display="true" optional="true"/>
+				<field id="item.abstract" repeatable="true" display="true" label="item_abstract" optional="true"/>
+			</group>
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="item_details_dates" repeatable="false" display="true" optional="true" label="g_item_details_dates" form-id="all">
+					<field id="item.date-issued" repeatable="false" display="true" label="item_date-issued" optional="true"/>
+					<field id="item.date-accepted" repeatable="false" display="true" optional="true" label="item_date-accepted"/>
+					<field id="item.date-modified" repeatable="false" display="true" optional="true" label="item_date-modified"/>
+					<field id="item.date-created" repeatable="false" display="true" optional="true" label="item_date-created"/>
+					<field id="item.date-submitted" repeatable="false" display="true" optional="true" label="item_date-submitted"/>
+					<field id="item.published-online" repeatable="false" display="true" optional="true" label="item_published-online"/>
+				</group>
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true"/>
+					<field id="publishing-info.place" repeatable="false" display="true" label="publishing-info_place" optional="true"/>
+					<field id="publishing-info.edition" repeatable="false" display="true" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.total-number-of-pages" repeatable="false" display="true" label="item_total-number-of-pages" optional="true"/>
+				</group>
+				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.review-method" repeatable="false" optional="true" display="true" label="item_review-method"/>
+				</group>
+				<group id="identifiers" display="true" optional="true" repeatable="true" label="g_identifiers" form-id="all">
+					<field id="item.identifier.type" repeatable="false" display="true" optional="true" label="item_identifier_type"/>
+					<field id="item.identifier.value" repeatable="false" display="true" optional="true" label="item_identifier_value"/>
+				</group>
+				<group id="item_degree" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.degree" repeatable="false" optional="true" display="true" label="item_degree"/>
+				</group>
+				<group id="item_location" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.location" repeatable="false" optional="true" display="true" label="item_location"/>
+				</group>
+				<group id="item_language" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.language" repeatable="false" optional="true" display="true" label="item_language"/>
+				</group>
+				<group id="item_toc" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.table-of-contents" repeatable="false" optional="true" display="true" label="item_table-of-contents"/>
+				</group>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="all" label="g_events">
+				<field id="event.title" repeatable="false" display="true" optional="false" label="event_title"/>
+				<field id="event.title.alternative" repeatable="true" display="true" optional="true" label="event_title_alternative"/>
+				<field id="event.place" repeatable="false" display="true" optional="true" label="event_place"/>
+				<field id="event.start-date" repeatable="false" display="true" optional="false" label="event_start-date"/>
+				<field id="event.end-date" repeatable="false" display="true" optional="true" label="event_end-date"/>
+				<field id="event.invitation-status" repeatable="false" display="true" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
+					<field id="source.genre" repeatable="false" display="true" optional="false" label="source_genre"/>
+					<field id="source.title" repeatable="false" display="true" optional="false" label="source_title"/>
+					<field id="source.title.alternative" repeatable="true" display="true" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="true" optional="false" label="g_source_person_organization" form-id="all">
+					<group id="select_roles" repeatable="false" display="true" optional="false" label="g_select_roles">
+						<field id="creator.type" repeatable="false" display="true" optional="false" default-value="author" label="creator_type"/>
+					</group>
+					<group id="source_persons" repeatable="true" display="true" optional="false" label="g_source_persons">
+						<field id="person.family-name" display="true" label="person_family-name" optional="false" repeatable="false"/>
+						<field id="person.given-name" display="true" label="person_given-name" optional="true" repeatable="false"/>
+						<field id="person.identifier.type" display="false" label="person_identifier_type" optional="true" repeatable="false"/>
+						<field id="person.identifier.value" display="false" label="person_identifier_value" optional="true" repeatable="false"/>
+					</group>
+					<group id="source_organizations" repeatable="true" display="true" optional="false" label="g_source_organizations">
+						<field id="organization.name" display="true" label="organization_name" optional="false" repeatable="false"/>
+						<field id="organization.address" display="true" label="organization_address" optional="true" repeatable="false"/>
+						<field id="organization.identifier.type" display="false" label="organization_identifier_type" optional="true" repeatable="false"/>
+						<field id="organization.identifier.value" display="false" label="organization_identifier_value" optional="false" repeatable="false"/>
+					</group>
+				</group>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="all">
+					<field id="source.volume" repeatable="false" display="true" optional="true" label="source_volume"/>
+					<field id="source.issue" repeatable="false" display="true" optional="true" label="source_issue"/>
+					<field id="source.start-page" repeatable="false" display="true" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="true" optional="true" label="source_end-page"/>
+				</group>
+				<group id="source_details_2" repeatable="false" display="true" optional="false" label="g_source_details" form-id="all">
+					<field id="source.sequence-number" repeatable="false" display="true" optional="true" label="source_sequence_number"/>
+				</group>
+				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true"/>
+					<field id="publishing-info.place" repeatable="false" display="true" label="publishing-info_place" optional="true"/>
+					<field id="publishing-info.edition" repeatable="false" display="true" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="source_identifiers" display="true" optional="true" repeatable="true" label="g_source_identifiers" form-id="all">
+					<field id="source.identifier.type" repeatable="false" display="true" optional="true" label="source_identifier_type"/>
+					<field id="source.identifier.value" repeatable="false" display="true" optional="true" label="source_identifier_value"/>
+				</group>
+			</group>
+		</default-configuration>
+		<genre id="ARTICLE" label="ENUM_GENRE_ARTICLE">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
+					<field id="source.genre" repeatable="false" display="true" optional="false" label="source_genre"/>
+					<field id="source.title" repeatable="false" display="true" optional="false" label="source_title"/>
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="all"/>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="easy-submission"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
 			</group>
 		</genre>
-		<genre default-genre-form="true" id="article" default-genre="true"
-			label="id_article_label">
-			<group id="basic" label="id_basic_grp">
-				<field id="genre" repeatable="false" display="true" label="id_genre_label"
-					optional="false" />
-				<field id="dc:title" repeatable="false"
-					label="id_title_label_new" optional="false" />
-			</group>
-			<group id="files" label="id_grp_files_label">
-				<field id="file" repeatable="true" display="true" label="id_files_label"
-					optional="true" />
-			</group>
-			<group id="locators" label="id_grp_locators_label">
-				<field id="filelocator" repeatable="true" display="true"
-					label="id_locators_label" optional="true" />
-			</group>
-			<group id="creators" label="id_grp_label_creators">
-				<group id="creator" repeatable="true" display="true"
-					label="id_creators_label" optional="false">
-					<field id="creator.person.family-name" display="true"
-						label="id_creator_firstname" optional="false" />
-					<field id="creator.person.given-name" display="true"
-						label="id_creator_firstname" optional="true" />
-					<field id="creator.person.type" display="true" label="id_creator_type"
-						optional="false" />
-					<field id="creator.person.identifier" display="false"
-						label="id_creator_identifier" optional="false" />
-					<field id="creator.organization.name" display="true"
-						label="id_creator_firstname" optional="false" />
-					<field id="creator.organization.address" display="true"
-						label="id_creator_firstname" optional="true" />
-					<field id="creator.organization.identifier" display="false"
-						label="id_creator_identifier" optional="false" />
+		<genre id="BOOK" label="ENUM_GENRE_BOOK">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="easy-submission">
+					<field id="publishing-info.publisher" repeatable="false" display="true" label="publishing-info_publisher" optional="true"/>
+					<field id="publishing-info.place" repeatable="false" display="true" label="publishing-info_place" optional="true"/>
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
 				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
-			<group id="content" label="id_grp_content">
-				<field id="dc:subject" repeatable="true" display="true"
-					label="id_subject_label" optional="true" />
-				<field id="dcterms:abstract" repeatable="true" display="true"
-					label="id_abstract_label" optional="true" />
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
+		</genre>
+		<genre id="BOOK_ITEM" label="ENUM_GENRE_BOOK_ITEM">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
 			</group>
-			<group id="details" label="id_grp_details">
-				<field id="dc:language" repeatable="true" display="true"
-					label="id_language_label" optional="true" />
-				<field id="dcterms:issued" repeatable="false" display="true"
-					label="id_date_label" optional="true" />
-				<field id="total-number-of-pages" repeatable="false" display="true"
-					label="id_total_number_of_pages_label" optional="true" />
-				<group id="publishing-info" repeatable="false" display="true"
-					label="id_publishing_label" optional="true">
-					<field id="publishing-info.publisher" repeatable="false"
-						display="true" label="id_publisher_label" optional="false" />
-					<field id="publishing-info.place" repeatable="false" display="true"
-						label="id_publisherplace_label" optional="false" />
-					<field id="publishing-info.edition" repeatable="false"
-						display="true" label="id_publisheredition_label" optional="true" />
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
 				</group>
-				<field id="dcterms:tableOfContents" repeatable="false"
-					display="true" label="id_table_of_content" optional="true" />
-				<field id="review-method" repeatable="false" display="true"
-					label="id_review_method" optional="true" />
-				<field id="dc:identifier" repeatable="true" display="true"
-					label="id_identifier_label" optional="true" />
-				<field id="degree" repeatable="false" display="true"
-					label="id_degree_label" optional="true" />
-				<field id="location" repeatable="false" display="true"
-					label="id_location_label" optional="true" />
-			</group>
-			<group id="source-basic" label="id_grp_source">
-				<group id="source" repeatable="true" display="true" label="id_source_label"
-					optional="true">
-					<field id="source.genre" default-value="journal" display="true"
-						optional="false" label="id_source_genre_lbl" repeatable="false" />
-					<field id="source.title" display="true" label="id_source_title_lbl"
-						repeatable="false" optional="false" />
-					<field id="source.alternative" display="true"
-						label="id_source_alternative_lbl" repeatable="true" optional="true" />
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="full-submission">
+					<field id="source.volume" repeatable="false" display="true" optional="true" label="source_volume"/>
+					<field id="source.issue" repeatable="false" display="false" optional="true" label="source_issue"/>
+					<field id="source.start-page" repeatable="false" display="true" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="true" optional="true" label="source_end-page"/>
 				</group>
-			</group>
-			<group id="source-creators" label="id_grp_creators_source_lbl">
-				<group id="creator" repeatable="true" display="true"
-					label="id_creators_label" optional="false">
-					<field id="source.creator.person.family-name" display="true"
-						label="id_creator_firstname" optional="false" />
-					<field id="source.creator.person.given-name" display="true"
-						label="id_creator_firstname" optional="true" />
-					<field id="source.creator.person.type" display="true"
-						label="id_creator_type" optional="false" />
-					<field id="source.creator.person.identifier" display="false"
-						label="id_creator_identifier" optional="false" />
-					<field id="source.creator.organization.name" display="true"
-						label="id_creator_firstname" optional="false" />
-					<field id="source.creator.organization.address" display="true"
-						label="id_creator_firstname" optional="true" />
-					<field id="source.creator.organization.identifier" display="false"
-						label="id_creator_identifier" optional="false" />
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="easy-submission">
+					<field id="source.volume" repeatable="false" display="false" optional="true" label="source_volume"/>
+					<field id="source.issue" repeatable="false" display="false" optional="true" label="source_issue"/>
 				</group>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="all"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
 			</group>
-			<group id="source-details" label="id_grp_source_details_lbl">
-				<field id="source" repeatable="false" display="true"
-					label="id_lbl_source_details" optional=""></field>
+		</genre>
+		<genre id="PROCEEDINGS" label="ENUM_GENRE_PROCEEDINGS">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="easy-submission">
+					<field id="publishing-info.place" repeatable="false" display="false" label="publishing-info_place" optional="true"/>
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
 			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="all" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="false" optional="false" label="g_source_basic" form-id="easy-submission"/>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="all"/>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="full-submission">
+					<field id="source.volume" repeatable="false" display="false" optional="true" label="source_volume"/>
+					<field id="source.start-page" repeatable="false" display="false" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="false" optional="true" label="source_end-page"/>
+				</group>
+				<group id="source_details_1" repeatable="false" display="false" optional="false" label="g_source_details" form-id="easy-submission"/>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="all"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="all"/>
+			</group>
+		</genre>
+		<genre id="TALK_AT_EVENT" label="ENUM_GENRE_TALK_AT_EVENT">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="easy-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
+		</genre>
+		<genre id="CONFERENCE_PAPER" label="ENUM_GENRE_CONFERENCE_PAPER">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.place" repeatable="false" display="false" label="publishing-info_place" optional="true"/>
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="easy-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="all"/>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="easy-submission">
+					<field id="source.issue" repeatable="false" display="false" optional="true" label="source_issue"/>
+				</group>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="easy-submission"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="all"/>
+			</group>
+		</genre>
+		<genre id="CONFERENCE_REPORT" label="ENUM_GENRE_CONFERENCE_REPORT">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="easy-submission" label="g_events">
+				<field id="event.title.alternative" repeatable="true" display="false" optional="true" label="event_title_alternative"/>
+				<field id="event.start-date" repeatable="false" display="false" optional="false" label="event_start-date"/>
+				<field id="event.end-date" repeatable="false" display="false" optional="true" label="event_end-date"/>
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="all">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="easy-submission"/>
+				<group id="source_details_1" repeatable="false" display="false" optional="false" label="g_source_details" form-id="easy-submission"/>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="all"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
+			</group>
+		</genre>
+		<genre id="COURSEWARE_LECTURE" label="ENUM_GENRE_ COURSEWARE_LECTURE">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission">
+					<field id="item.total-number-of-pages" repeatable="false" display="true" label="item_total-number-of-pages" optional="true"/>
+				</group>
+				<group id="review_method" repeatable="false" display="true" optional="true" form-id="all">
+					<field id="item.review-method" repeatable="false" optional="true" display="true" label="item_review-method"/>
+				</group>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
+			</group>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="easy-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="full-submission"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="full-submission"/>
+			</group>
+		</genre>
+		<genre id="THESIS" label="ENUM_GENRE_THESIS">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="full-submission"/>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="full-submission">
+					<field id="source.issue" repeatable="false" display="false" optional="true" label="source_issue"/>
+					<field id="source.start-page" repeatable="false" display="false" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="false" optional="true" label="source_end-page"/>
+				</group>
+				<group id="source_details_2" repeatable="false" display="true" optional="false" label="g_source_details" form-id="all">
+					<field id="source.sequence-number" repeatable="false" display="true" optional="true" label="source_sequence_number"/>
+				</group>
+				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="all"/>
+			</group>
+		</genre>
+		<genre id="PAPER" label="ENUM_GENRE_PAPER">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="all"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="full-submission">
+					<field id="source.start-page" repeatable="false" display="false" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="false" optional="true" label="source_end-page"/>
+				</group>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="full-submission"/>
+				<group id="source_publishing_info" repeatable="false" display="true" label="g_source_publishing_info" optional="true" form-id="full-submission">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="full-submission"/>
+			</group>
+		</genre>
+		<genre id="REPORT" label="ENUM_GENRE_REPORT">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_events"/>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_sources"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="full-submission">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="true" optional="false" label="g_source_person_organization" form-id="full-submission"/>
+				<group id="source_details_1" repeatable="false" display="true" optional="false" label="g_source_details" form-id="full-submission">
+					<field id="source.issue" repeatable="false" display="false" optional="true" label="source_issue"/>
+					<field id="source.start-page" repeatable="false" display="false" optional="true" label="source_start-page"/>
+					<field id="source.end-page" repeatable="false" display="false" optional="true" label="source_end-page"/>
+				</group>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="all"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="all"/>
+			</group>
+		</genre>
+		<genre id="JOURNAL" label="ENUM_GENRE_JOURNAL">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="item_details_dates" repeatable="false" display="false" optional="true" label="g_item_details_dates" form-id="all"/>
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="full-submission">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="easy-submission"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
+		</genre>
+		<genre id="ISSUE" label="ENUM_GENRE_ISSUE">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="full-submission">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="full-submission"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="true" optional="true" form-id="all" label="g_sources">
+				<group id="source_basic" repeatable="false" display="true" optional="false" label="g_source_basic" form-id="easy-submission">
+					<field id="source.title.alternative" repeatable="true" display="false" optional="true" label="source_title_alternative"/>
+				</group>
+				<group id="source_person_organization" repeatable="true" display="false" optional="false" label="g_source_person_organization" form-id="all"/>
+				<group id="source_details_1" repeatable="false" display="false" optional="false" label="g_source_details" form-id="easy-submission"/>
+				<group id="source_details_2" repeatable="false" display="false" optional="false" label="g_source_details" form-id="all"/>
+				<group id="source_publishing_info" repeatable="false" display="false" label="g_source_publishing_info" optional="true" form-id="all"/>
+				<group id="source_identifiers" display="false" optional="true" repeatable="true" label="g_source_identifiers" form-id="easy-submission"/>
+			</group>
+		</genre>
+		<genre id="SERIES" label="ENUM_GENRE_SERIES">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="item_details_dates" repeatable="false" display="false" optional="true" label="g_item_details_dates" form-id="all"/>
+				<group id="publishing_info" repeatable="false" display="false" label="g_publishing_info" optional="true" form-id="easy-submission"/>
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="full-submission">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="total_number_of_pages" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="identifiers" display="true" optional="true" repeatable="false" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="all"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="all" label="g_events"/>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
+		</genre>
+		<genre id="OTHER" label="ENUM_GENRE_OTHER">
+			<group id="details" repeatable="false" display="true" optional="true" form-id="all" label="g_details">
+				<group id="publishing_info" repeatable="false" display="true" label="g_publishing_info" optional="true" form-id="all">
+					<field id="publishing-info.edition" repeatable="false" display="false" optional="true" label="publishing-info_edition"/>
+				</group>
+				<group id="review_method" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="identifiers" display="false" optional="true" repeatable="true" label="g_identifiers" form-id="all"/>
+				<group id="item_degree" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_location" repeatable="false" display="false" optional="true" form-id="all"/>
+				<group id="item_language" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+				<group id="item_toc" repeatable="false" display="false" optional="true" form-id="easy-submission"/>
+			</group>
+			<group id="events" repeatable="true" display="false" optional="true" form-id="easy-submission" label="g_events"/>
+			<group id="events" repeatable="true" display="true" optional="true" form-id="full-submission" label="g_events">
+				<field id="event.invitation-status" repeatable="false" display="false" optional="true" label="event_invitation-status"/>
+			</group>
+			<group id="sources" repeatable="true" display="false" optional="true" form-id="all" label="g_sources"/>
 		</genre>
 	</configuration>
 </configuration-settings>
