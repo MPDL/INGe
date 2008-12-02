@@ -107,6 +107,7 @@ public class DataHandlerBean implements DataHandler
     private final String fetchTypeENDNOTE = "ENDNOTE";
     private final String fetchTypeBIBTEX = "BIBTEX";
     private final String fetchTypeAPA = "APA";
+    private final String fetchTypeAJP = "AJP";
     private final String fetchTypeMETS = "METS";
     private DataSourceHandlerBean sourceHandler = new DataSourceHandlerBean();
     private String contentType;
@@ -148,7 +149,7 @@ public class DataHandlerBean implements DataHandler
             
             //Hack for natasa, will be deleted when transformation service is impelemented
             if ((fetchType.equals(this.fetchTypeENDNOTE) || fetchType.equals(this.fetchTypeBIBTEX) 
-                    || fetchType.equals(this.fetchTypeAPA)) & sourceName.toLowerCase().equals("arxiv"))
+                    || fetchType.equals(this.fetchTypeAPA) || fetchType.equals(this.fetchTypeAJP)) & sourceName.toLowerCase().equals("arxiv"))
             {
                 // Temp
                 fetchedData = this.fetchArxivHack(identifier, format, importSource);
@@ -184,6 +185,11 @@ public class DataHandlerBean implements DataHandler
             {
                 // Temp
                 fetchedData = this.fetchApaTemp(identifier);
+            }
+            if (fetchType.equals(this.fetchTypeAJP))
+            {
+                // Temp
+                fetchedData = this.fetchAjpTemp(identifier);
             }
             if (fetchType.equals(this.fetchTypeMETS))
             {
@@ -894,6 +900,57 @@ public class DataHandlerBean implements DataHandler
         return apa;
     }
 
+    private byte[] fetchAjpTemp(String identifier) throws IdentifierNotRecognisedException, RuntimeException
+    {
+        byte[] ajp = null;
+        String item = null;
+        try
+        {
+            InitialContext initialContext = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+            CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
+                    .lookup(CitationStyleHandler.SERVICE_NAME);
+            item = this.fetchEsciDocRecord(identifier);
+            PubItemVO itemVO = xmlTransforming.transformToPubItem(item);
+            List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+            String itemList = xmlTransforming.transformToItemList(pubitemList);
+            ajp = citeHandler.getOutput("AJP", "html", itemList);
+            this.setContentType("text/html");
+            this.setFileEnding(".html");
+        }
+        catch (IdentifierNotRecognisedException e)
+        {
+            this.logger.error("Item with identifier " + identifier + " was not found.", e);
+            throw new IdentifierNotRecognisedException(e);
+        }
+        catch (NamingException e)
+        {
+            this.logger.error("An error occurred while initializing the context.", e);
+            throw new RuntimeException();
+        }
+        catch (CitationStyleManagerException e)
+        {
+            this.logger.error("CitationStyleManager threw an exception.", e);
+            throw new RuntimeException();
+        }
+        catch (JRException e)
+        {
+            this.logger.error("CitationStyleManager threw an exception.", e);
+            throw new RuntimeException();
+        }
+        catch (IOException e)
+        {
+            this.logger.error("CitationStyleManager threw an exception.", e);
+            throw new RuntimeException();
+        }
+        catch (TechnicalException e)
+        {
+            this.logger.error("An error occurred while transforming the record " + identifier + " to a PubItem.", e);
+            throw new RuntimeException();
+        }
+        return ajp;
+    }
+    
     /**
      * This method enables the fetching of arXiv data and the transformation in all available eSciDoc formats.
      * @param identifier
@@ -952,6 +1009,20 @@ public class DataHandlerBean implements DataHandler
                 List<PubItemVO> pubitemList = Arrays.asList(itemVO);
                 String itemList = xmlTransforming.transformToItemList(pubitemList);
                 fetchedFormat = citeHandler.getOutput("APA", "html", itemList);
+                this.setContentType("text/html");
+                this.setFileEnding(".html");
+            }
+            
+            if (format.toLowerCase().equals("ajp"))
+            {
+                InitialContext initialContext = new InitialContext();
+                XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+                CitationStyleHandler citeHandler = (CitationStyleHandler) initialContext
+                        .lookup(CitationStyleHandler.SERVICE_NAME);
+                PubItemVO itemVO = xmlTransforming.transformToPubItem(eSciDocItem);
+                List<PubItemVO> pubitemList = Arrays.asList(itemVO);
+                String itemList = xmlTransforming.transformToItemList(pubitemList);
+                fetchedFormat = citeHandler.getOutput("AJP", "html", itemList);
                 this.setContentType("text/html");
                 this.setFileEnding(".html");
             }
@@ -1078,6 +1149,10 @@ public class DataHandlerBean implements DataHandler
         if (format.toLowerCase().equals("apa"))
         {
             return this.fetchTypeAPA;
+        }
+        if (format.toLowerCase().equals("ajp"))
+        {
+            return this.fetchTypeAJP;
         }
         if (format.toLowerCase().equals("mets"))
         {
