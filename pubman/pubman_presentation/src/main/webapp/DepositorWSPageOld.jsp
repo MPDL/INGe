@@ -43,7 +43,7 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
-				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
+				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -175,7 +175,7 @@
 				<head>
 					<link rel="stylesheet" type="text/css" href="./resources/escidoc-css/css/main.css" />
 					<link rel="SHORTCUT ICON" href="./images/escidoc.ico"/>
-					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
+					<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLview}"/>
 					<meta http-equiv="pragma" content="no-cache"/>
 					<meta http-equiv="cache-control" content="no-cache"/>
 					<meta http-equiv="expires" content="0"/>
