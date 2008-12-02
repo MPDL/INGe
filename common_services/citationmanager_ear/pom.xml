@@ -86,6 +86,13 @@
 							<artifactId>javabib</artifactId>
 							<includeInApplicationXml>true</includeInApplicationXml>
 						</jarModule>
+						<jarModule>
+							<groupId>net.sf.saxon</groupId>
+							<artifactId>saxon</artifactId>
+							<includeInApplicationXml>
+								true
+							</includeInApplicationXml>
+						</jarModule>					
 					</modules>
 				</configuration>
 			</plugin>
