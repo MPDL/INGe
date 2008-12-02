@@ -4,21 +4,21 @@
 <jasperReport name="AJP" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20" scriptletClass="de.mpg.escidoc.services.citationmanager.scriptlets.ScriptletForRepeatableElements_AJPCssClass">
 	<property name="ireport.scriptlethandling" value="2"/>
 	<property name="ireport.encoding" value="UTF-8"/>
-	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.*"/>
+	<import value="java.util.*"/>
 	<import value="net.sf.jasperreports.engine.data.*"/>
 	<reportFont name="Normal" isDefault="false" fontName="Arial" size="12" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfFontName="ARIAL.TTF" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 	<queryString>
 		<![CDATA[//item/md-records/md-record]]>
 	</queryString>
+	<field name="sourceEditorsCount" class="java.lang.String">
+		<fieldDescription><![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]></fieldDescription>
+	</field>
 	<field name="authorsCount" class="java.lang.String">
 		<fieldDescription><![CDATA[string(count(publication/creator[@role='author']/person|organization))]]></fieldDescription>
 	</field>
 	<field name="hasPublication" class="java.lang.String">
 		<fieldDescription><![CDATA[not(publication)=false()]]></fieldDescription>
-	</field>
-	<field name="bookEditorsCount" class="java.lang.String">
-		<fieldDescription><![CDATA[string(count(publication[@type='book']/creator[@role='editor']))]]></fieldDescription>
 	</field>
 	<field name="publication/published-online" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/published-online]]></fieldDescription>
@@ -38,8 +38,8 @@
 	<field name="publication/created" class="java.lang.String">
 		<fieldDescription><![CDATA[publication/created]]></fieldDescription>
 	</field>
-	<field name="sourceEditorsCount" class="java.lang.String">
-		<fieldDescription><![CDATA[string(count(publication/source/creator[@role='editor']/person|organization))]]></fieldDescription>
+	<field name="bookEditorsCount" class="java.lang.String">
+		<fieldDescription><![CDATA[string(count(publication[@type='book']/creator[@role='editor']))]]></fieldDescription>
 	</field>
 	<field name="hasTotalNumberOfPages" class="java.lang.String">
 		<fieldDescription><![CDATA[not(publication/total-number-of-pages)=false()]]></fieldDescription>
@@ -116,14 +116,14 @@
 	<variable name="most-recent-date.status" class="java.lang.String">
 		<variableExpression><![CDATA[$P{REPORT_SCRIPTLET}.mostRecentDateStatus(new String[]{ $F{publication/published-online}, $F{publication/issued}, $F{publication/dateAccepted}, $F{publication/dateSubmitted}, $F{publication/modified}, $F{publication/created} })]]></variableExpression>
 	</variable>
-	<variable name="ed" class="java.lang.String">
-		<variableExpression><![CDATA[ Integer.parseInt($F{bookEditorsCount}) == 1 ? " (ed)" : " (eds)"]]></variableExpression>
-	</variable>
 	<variable name="static_in" class="java.lang.String">
 		<variableExpression><![CDATA["in"]]></variableExpression>
 	</variable>
 	<variable name="date" class="java.lang.String">
 		<variableExpression><![CDATA[$F{publication/published-online} != null ? $F{publication/published-online} : $F{publication/issued} != null ? $F{publication/issued} : $F{publication/dateAccepted} != null ? $F{publication/dateAccepted} : $F{publication/dateSubmitted} != null ? $F{publication/dateSubmitted} : $F{publication/modified} != null ? $F{publication/modified} : $F{publication/created} != null ? $F{publication/created} : null]]></variableExpression>
+	</variable>
+	<variable name="ed" class="java.lang.String">
+		<variableExpression><![CDATA[ Integer.parseInt($F{bookEditorsCount}) == 1 ? " (ed)" : " (eds)"]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_1_P_default_E_1" class="java.lang.String">
 		<variableExpression><![CDATA[$F{../../@objid} != null ? (!(($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{../../@objid})) : "") : ""]]></variableExpression>
@@ -186,7 +186,7 @@
 		<variableExpression><![CDATA[$V{CS_1_PLE_3} != null ? (!($V{CS_1_PLE_3}).trim().equals("") ? $V{CS_1_PLE_3} : "") : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_PLE_16" class="java.lang.String">
-		<variableExpression><![CDATA[$F{publication/title} != null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title}))).trim().equals("") ? ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title})) + "." : "")+"</style>" : ""]]></variableExpression>
+		<variableExpression><![CDATA[$F{publication/title} != null ? "<style fontName=\"Arial\" fontSize=\"12\" isBold=\"false\" isItalic=\"true\" isUnderline=\"false\" isStrikeThrough=\"false\" pdfFontName=\"ARIALBI.TTF\" forecolor=\"black\" backcolor=\"white\" pdfEncoding=\"Identity-H\" isPdfEmbedded=\"false\">"+(!(($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title}))).trim().equals("") ? " " + ($P{REPORT_SCRIPTLET}.xmlEncode($F{publication/title})) + "." : "")+"</style>" : ""]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3_P_default_E_3" class="java.lang.String">
 		<variableExpression><![CDATA[$V{CS_1_PLE_16} != null ? (!($V{CS_1_PLE_16}).trim().equals("") ? $V{CS_1_PLE_16} : "") : ""]]></variableExpression>
@@ -390,10 +390,10 @@
 		<variableExpression><![CDATA[(($F{publication/@type}.equals("article")) ? ((!($V{CS_1_CSLD_2_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_2} + ($V{CS_1_CSLD_2_P_default_E_3}.length()>0 && $V{CS_1_CSLD_2_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_3} + ($V{CS_1_CSLD_2_P_default_E_4}.length()>0 && $V{CS_1_CSLD_2_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_4} + ($V{CS_1_CSLD_2_P_default_E_5}.length()>0 && $V{CS_1_CSLD_2_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_5}).trim().equals("") ? $V{CS_1_CSLD_2_P_default_E_1} + ($V{CS_1_CSLD_2_P_default_E_2}.length()>0 && $V{CS_1_CSLD_2_P_default_E_1}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_2} + ($V{CS_1_CSLD_2_P_default_E_3}.length()>0 && $V{CS_1_CSLD_2_P_default_E_2}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_3} + ($V{CS_1_CSLD_2_P_default_E_4}.length()>0 && $V{CS_1_CSLD_2_P_default_E_3}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_4} + ($V{CS_1_CSLD_2_P_default_E_5}.length()>0 && $V{CS_1_CSLD_2_P_default_E_4}.length()>0 ? " " : "") + $V{CS_1_CSLD_2_P_default_E_5} + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_3" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{publication/@type}.equals("book") && Integer.parseInt($F{bookEditorsCount})==0) ? ((!($V{CS_1_CSLD_3_P_default_E_1} + $V{CS_1_CSLD_3_P_default_E_2} + $V{CS_1_CSLD_3_P_default_E_3} + $V{CS_1_CSLD_3_P_default_E_4} + $V{CS_1_CSLD_3_P_default_E_5}).trim().equals("") ? $V{CS_1_CSLD_3_P_default_E_1} + $V{CS_1_CSLD_3_P_default_E_2} + $V{CS_1_CSLD_3_P_default_E_3} + $V{CS_1_CSLD_3_P_default_E_4} + $V{CS_1_CSLD_3_P_default_E_5} + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{publication/@type}.equals("book") && Integer.parseInt($F{authorsCount})>0) ? ((!($V{CS_1_CSLD_3_P_default_E_1} + $V{CS_1_CSLD_3_P_default_E_2} + $V{CS_1_CSLD_3_P_default_E_3} + $V{CS_1_CSLD_3_P_default_E_4} + $V{CS_1_CSLD_3_P_default_E_5}).trim().equals("") ? $V{CS_1_CSLD_3_P_default_E_1} + $V{CS_1_CSLD_3_P_default_E_2} + $V{CS_1_CSLD_3_P_default_E_3} + $V{CS_1_CSLD_3_P_default_E_4} + $V{CS_1_CSLD_3_P_default_E_5} + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_4" class="java.lang.String">
-		<variableExpression><![CDATA[(($F{publication/@type}.equals("book") && Integer.parseInt($F{bookEditorsCount})>0) ? ((!($V{CS_1_CSLD_4_P_default_E_1} + $V{CS_1_CSLD_4_P_default_E_2} + $V{CS_1_CSLD_4_P_default_E_3} + $V{CS_1_CSLD_4_P_default_E_4} + $V{CS_1_CSLD_4_P_default_E_5} + $V{CS_1_CSLD_4_P_default_E_6}).trim().equals("") ? $V{CS_1_CSLD_4_P_default_E_1} + $V{CS_1_CSLD_4_P_default_E_2} + $V{CS_1_CSLD_4_P_default_E_3} + $V{CS_1_CSLD_4_P_default_E_4} + $V{CS_1_CSLD_4_P_default_E_5} + $V{CS_1_CSLD_4_P_default_E_6} + "." : "")) : "")]]></variableExpression>
+		<variableExpression><![CDATA[(($F{publication/@type}.equals("book") && Integer.parseInt($F{bookEditorsCount})>0 && Integer.parseInt($F{authorsCount})==0) ? ((!($V{CS_1_CSLD_4_P_default_E_1} + $V{CS_1_CSLD_4_P_default_E_2} + $V{CS_1_CSLD_4_P_default_E_3} + $V{CS_1_CSLD_4_P_default_E_4} + $V{CS_1_CSLD_4_P_default_E_5} + $V{CS_1_CSLD_4_P_default_E_6}).trim().equals("") ? $V{CS_1_CSLD_4_P_default_E_1} + $V{CS_1_CSLD_4_P_default_E_2} + $V{CS_1_CSLD_4_P_default_E_3} + $V{CS_1_CSLD_4_P_default_E_4} + $V{CS_1_CSLD_4_P_default_E_5} + $V{CS_1_CSLD_4_P_default_E_6} + "." : "")) : "")]]></variableExpression>
 	</variable>
 	<variable name="CS_1_CSLD_5" class="java.lang.String">
 		<variableExpression><![CDATA[(($F{publication/@type}.equals("book-item")) ? ((!($V{CS_1_CSLD_5_P_default_E_1} + ($V{CS_1_CSLD_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_5_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_2} + ($V{CS_1_CSLD_5_P_default_E_3}.length()>0 && $V{CS_1_CSLD_5_P_default_E_2}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_3} + ($V{CS_1_CSLD_5_P_default_E_4}.length()>0 && $V{CS_1_CSLD_5_P_default_E_3}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_4} + ($V{CS_1_CSLD_5_P_default_E_5}.length()>0 && $V{CS_1_CSLD_5_P_default_E_4}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_5} + ($V{CS_1_CSLD_5_P_default_E_6}.length()>0 && $V{CS_1_CSLD_5_P_default_E_5}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_6} + ($V{CS_1_CSLD_5_P_default_E_7}.length()>0 && $V{CS_1_CSLD_5_P_default_E_6}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_7}).trim().equals("") ? $V{CS_1_CSLD_5_P_default_E_1} + ($V{CS_1_CSLD_5_P_default_E_2}.length()>0 && $V{CS_1_CSLD_5_P_default_E_1}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_2} + ($V{CS_1_CSLD_5_P_default_E_3}.length()>0 && $V{CS_1_CSLD_5_P_default_E_2}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_3} + ($V{CS_1_CSLD_5_P_default_E_4}.length()>0 && $V{CS_1_CSLD_5_P_default_E_3}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_4} + ($V{CS_1_CSLD_5_P_default_E_5}.length()>0 && $V{CS_1_CSLD_5_P_default_E_4}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_5} + ($V{CS_1_CSLD_5_P_default_E_6}.length()>0 && $V{CS_1_CSLD_5_P_default_E_5}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_6} + ($V{CS_1_CSLD_5_P_default_E_7}.length()>0 && $V{CS_1_CSLD_5_P_default_E_6}.length()>0 ? ", " : "") + $V{CS_1_CSLD_5_P_default_E_7} + "." : "")) : "")]]></variableExpression>

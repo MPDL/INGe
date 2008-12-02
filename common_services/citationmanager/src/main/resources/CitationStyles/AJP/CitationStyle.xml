@@ -381,9 +381,9 @@
 		</elements>
 	</cs-layout-definition>
 
-	<cs-layout-definition name="BookNotEditors">
+	<cs-layout-definition name="BookHasAuthors">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})==0 ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${authorsCount})>0 ]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>
@@ -402,9 +402,9 @@
 		</elements>
 	</cs-layout-definition>
 	
-	<cs-layout-definition name="BookEditors">
+	<cs-layout-definition name="BookHasEditorsAndHasNotAuthors">
 		<parameters>
-			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})>0 ]]></valid-if>
+			<valid-if><![CDATA[ ${publication/@type}.equals("book") && Integer.parseInt(${bookEditorsCount})>0 && Integer.parseInt(${authorsCount})==0 ]]></valid-if>
 			<delimiter value="" />
 			<ends-with value="." />
 		</parameters>

@@ -34,7 +34,7 @@ public class CitationTest {
 	
 	private XmlHelper xh = new XmlHelper();
 	
-//	private final String dsFileName = "test.xml";  
+//	private final String dsFileName = "APA_output.xml";  
 //	private final String dsFileName = "item-list-tobias.xml";  
 //	private final String dsFileName = "mpi-psl.xml";  
 //	private final String dsFileName = "1.xml";  
@@ -180,11 +180,12 @@ public class CitationTest {
     	{
     		long start;
         	byte[] result;
-    		for ( OutFormats ouf : OutFormats.values() ) {
+    		for ( String format : 
+    				pcs.getOutputFormats(cs)
+//    				new String[]{"snippet"}
+    		) {
         		logger.info("Test Citation Style: " + cs);
     			
-//    		for ( String ouf : new String[]{"snippet","html"} ) {
-    			String format = ouf.toString();
     	    	start = System.currentTimeMillis();
     	    	result = pcs.getOutput(cs, format, itemList);
     	    	
