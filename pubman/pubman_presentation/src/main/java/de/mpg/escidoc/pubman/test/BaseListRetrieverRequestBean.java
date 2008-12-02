@@ -42,10 +42,12 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
             getBasePaginatorListSessionBean().update();
             
         }
+        /*
         else
         {
             getBasePaginatorListSessionBean().saveState();
         }
+        */
     }
     
     /**

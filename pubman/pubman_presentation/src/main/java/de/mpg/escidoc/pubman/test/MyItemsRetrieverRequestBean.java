@@ -84,6 +84,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
+        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
         try
         {
             
@@ -158,13 +159,14 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
             }
             
             numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
-            return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
         }
         catch (Exception e)
         {
-           e.printStackTrace();
-           return null;
+          error("Error in retrieving items");
+           
         }
+        return returnList;
 
     }
     

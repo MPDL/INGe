@@ -1,49 +1,44 @@
 package de.mpg.escidoc.pubman.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 public class PubItemStorageSessionBean extends FacesBean
 {
     public static String BEAN_NAME = "PubItemStorageSessionBean";
     
-    private List<PubItemVOPresentation> storedPubItems;
+    private Map<String, ItemRO> storedPubItems;
     
     public PubItemStorageSessionBean()
     {
-        storedPubItems = new ArrayList<PubItemVOPresentation>();
+        storedPubItems = new HashMap<String, ItemRO>();
     }
 
-    public void setStoredPubItems(List<PubItemVOPresentation> storedPubItems)
-    {
-        this.storedPubItems = storedPubItems;
-    }
 
-    public List<PubItemVOPresentation> getStoredPubItems()
-    {
-        return storedPubItems;
-    }
-    
     public int getStoredPubItemsSize()
     {
         return storedPubItems.size();
     }
     
-    public List<PubItemVOPresentation> getSelectedPubItems()
+    
+
+
+    public void setStoredPubItems(Map<String, ItemRO> storedPubItems)
     {
-        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-        for (PubItemVOPresentation pubItem : getStoredPubItems())
-        {
-            if(pubItem.getSelected())
-            {
-                returnList.add(pubItem);
-            }
-        }
-        return returnList;
+        this.storedPubItems = storedPubItems;
     }
-    
-    
+
+
+
+    public Map<String, ItemRO> getStoredPubItems()
+    {
+        return storedPubItems;
+    }
+
 }

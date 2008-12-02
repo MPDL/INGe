@@ -102,9 +102,9 @@
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
  				<span class="medium_area0_p8">Select Item: </span>
- 				<h:commandLink styleClass="large_area0 selectTotal" action="#{ItemListSessionBean.selectAll}" ><span class="medium_area0_p8 tiny_marginLIncl">All</span></h:commandLink>
- 				<a class="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl">All on Page</span></a>
- 				<h:commandLink styleClass="large_area0 selectNone" action="#{ItemListSessionBean.selectNone}" ><span class="medium_area0_p8 tiny_marginLIncl">None</span></h:commandLink>
+ 				<h:commandLink  disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl">All on Page</span></h:commandLink>
+ 				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
+ 				<h:commandLink disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl">None</span></h:commandLink>
  			</div>
  			&nbsp;
  		</span>

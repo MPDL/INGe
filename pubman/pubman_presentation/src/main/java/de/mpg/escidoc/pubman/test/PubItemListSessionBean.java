@@ -15,9 +15,14 @@ import java.util.Map;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.faces.event.PhaseEvent;
+import javax.faces.event.PhaseId;
+import javax.faces.event.PhaseListener;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
@@ -34,8 +39,9 @@ import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
-public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA>
+public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> implements PhaseListener
 {
+    private static Logger logger = Logger.getLogger(PubItemListSessionBean.class);
     public static String BEAN_NAME = "PubItemListSessionBean";
     
     /*
@@ -484,30 +490,52 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     {
         PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
         List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
-        pubItemStorage.getStoredPubItems().addAll(selectedPubItems);
+        
+        int number = 0;
+        for(PubItemVOPresentation pubItem : selectedPubItems)
+        {
+            if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
+            {
+                pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+                number++;
+            }      
+        }
+        
+     
 
             
-        info(selectedPubItems.size() + " items were added to the basket.");
+        info(number + " items were added to the basket.");
         
         redirect();
        
         return "";
     }
 
-    @Override
-    protected void saveState()
-    {
-       List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
-       
-       for (PubItemVOPresentation pubItem : selectedPubItems)
-       {
-           getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(),pubItem.getVersion());
-       }
-        
-    }
     
     @Override
-    protected void listUpdated()
+    protected void beforeRedirect()
+    {
+        saveSelections();
+    }
+    
+    private void saveSelections()
+    {
+        
+        
+        for (PubItemVOPresentation pubItem : getCurrentPartList())
+        {
+            if (pubItem.getSelected())
+            {
+                getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(),pubItem.getVersion());
+            }
+            else
+            {
+                getSelectedItemRefs().remove(pubItem.getVersion().getObjectIdAndVersion());
+            }
+        }
+    }
+    
+    private void updateSelections()
     {
         for (PubItemVOPresentation pubItem : getCurrentPartList())
         {
@@ -516,6 +544,20 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             }
         }
         getSelectedItemRefs().clear();
+        
+    }
+    
+    @Override
+    protected void saveState()
+    {
+       
+        
+    }
+    
+    @Override
+    protected void listUpdated()
+    {
+        updateSelections();
     }
     
     
@@ -704,19 +746,46 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return selectedItemRefs;
     }
     
-    public void selectAll()
+    public String selectAllOnPage()
     {
         for (PubItemVOPresentation pubItem : getCurrentPartList())
         {
             getSelectedItemRefs().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
         }
-        getSelectedItemRefs().clear();
+        redirect();
+        return"";
+        //getSelectedItemRefs().clear();
     }
     
-    public void selectNone()
+    public String selectNone()
     {
         getSelectedItemRefs().clear();
+        redirect();
+        return "";
     }
+
+
+    public void afterPhase(PhaseEvent pe)
+    {
+        logger.debug("After Phase: "+pe.getPhaseId());
+        
+    }
+
+
+    public void beforePhase(PhaseEvent pe)
+    {
+        logger.debug("Before Phase: "+pe.getPhaseId());
+        
+    }
+
+
+    public PhaseId getPhaseId()
+    {
+        // TODO Auto-generated method stub
+        return null;
+    }
+    
+    
 
 
     

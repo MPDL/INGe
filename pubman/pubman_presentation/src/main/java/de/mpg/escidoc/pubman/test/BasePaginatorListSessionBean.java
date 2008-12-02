@@ -404,6 +404,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     public void redirect()
     {
         //update();
+        beforeRedirect();
         try
         {
             getExternalContext().redirect(getRedirectUrl());
@@ -413,6 +414,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
            error("Could not redirect!");
         }
     }
+
+    protected abstract void beforeRedirect();
+   
 
     private String getUrlParameterString()
     {

@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.escidoc.pubman.ErrorPage;
@@ -19,11 +20,25 @@ import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
+import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
+import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
+import de.mpg.escidoc.services.common.valueobjects.ItemVO;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
+import de.mpg.escidoc.services.framework.PropertyReader;
+import de.mpg.escidoc.services.framework.ServiceLocator;
 
 public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
@@ -62,191 +77,71 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
-        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
         List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
-        List<PubItemVOPresentation> selectedItems = pssb.getStoredPubItems();
-        this.numberOfRecords = selectedItems.size();
-        for (int i = offset; i < offset+limit; i++)
+        try
         {
-            if (i < selectedItems.size())
+            PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
+            
+            LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            InitialContext initialContext = new InitialContext();
+            XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
+      
+            List<ItemRO> idList = new ArrayList<ItemRO>();
+            for(ItemRO id : pssb.getStoredPubItems().values())
             {
-                returnList.add(selectedItems.get(i));
+                idList.add(id);
             }
+            
+            // define the filter criteria
+            FilterTaskParamVO filter = new FilterTaskParamVO();
+            
+            Filter f1 = filter.new ItemRefFilter(idList);
+            filter.getFilterList().add(0,f1);
+            
+            Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+            filter.getFilterList().add(f10);
+            Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+            filter.getFilterList().add(f8);
+            Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
+            filter.getFilterList().add(f9);
+           
+            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
+            
+            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+    
+            ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
+    
+            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+            for(ItemVO item : itemList.getItemVOList())
+            {
+                pubItemList.add(new PubItemVO(item));
+            }
+            
+            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+        }
+        catch (Exception e)
+        {
+          error("Error in retrieving items");
+           
         }
         return returnList;
+
     }
 
-    /**
-     * Returns the navigation string for loading the DisplayExportItemsPage.jsp .
-     * 
-     * @author: StG
-     */
-    public String showDisplayExportData()
-    {
-        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        String displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        // set the currently selected items in the FacesBean
-        // this.setSelectedItemsAndCurrentItem();
-        if (pssb.getSelectedPubItems().size() != 0)
-        {
-            // save selected file format on the web interface
-            String selectedFileFormat = sb.getFileFormat();
-            // for the display export data the file format should be always HTML
-            sb.setFileFormat(FileFormatVO.HTML_NAME);
-            ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-            try
-            {
-                displayExportData = new String(icsb.retrieveExportData(curExportFormat, CommonUtils
-                        .convertToPubItemVOList(pssb.getSelectedPubItems())));
-            }
-            catch (TechnicalException e)
-            {
-                ((ErrorPage)this.getSessionBean(ErrorPage.class)).setException(e);
-                return ErrorPage.LOAD_ERRORPAGE;
-            }
-            if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED)
-            {
-                // replace the carriage returns by html breaks so that h:outputText can correctly display it
-                displayExportData = displayExportData.replaceAll("\n", "<br/>");
-            }
-            sb.setExportDisplayData(displayExportData);
-            // restore selected file format on the interface
-            sb.setFileFormat(selectedFileFormat);
-            return "showDisplayExportItemsPage";
-        }
-        else
-        {
-            error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-            sb.setExportDisplayData(displayExportData);
-            return "";
-        }
-    }
-
-    /**
-     * Invokes the email service to send per email the the page with the selected items as attachment. This method is
-     * called when the user selects one or more items and then clicks on the EMail-Button in the Export-Items Panel.
-     * 
-     * @author: StG
-     */
-    public String showExportEmailPage()
-    {
-        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        // this.setSelectedItemsAndCurrentItem();
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        if (pssb.getSelectedPubItems().size() != 0)
-        {
-            // gets the export format VO that holds the data.
-            ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-            byte[] exportFileData;
-            try
-            {
-                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pssb
-                        .getSelectedPubItems()));
-            }
-            catch (TechnicalException e)
-            {
-                ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e);
-                return ErrorPage.LOAD_ERRORPAGE;
-            }
-            if ((exportFileData == null) || (new String(exportFileData)).trim().equals(""))
-            {
-                error(getMessage(ExportItems.MESSAGE_NO_EXPORTDATA_DELIVERED));
-                return "";
-            }
-            // YEAR + MONTH + DAY_OF_MONTH
-            Calendar rightNow = Calendar.getInstance();
-            String date = rightNow.get(Calendar.YEAR) + "-" + rightNow.get(Calendar.DAY_OF_MONTH) + "-"
-                    + rightNow.get(Calendar.MONTH) + "_";
-            // create an attachment temp file from the byte[] stream
-            File exportAttFile;
-            try
-            {
-                exportAttFile = File.createTempFile("eSciDoc_Export_" + curExportFormat.getName() + "_" + date, "."
-                        + curExportFormat.getSelectedFileFormat().getName());
-                FileOutputStream fos = new FileOutputStream(exportAttFile);
-                fos.write(exportFileData);
-                fos.close();
-            }
-            catch (IOException e1)
-            {
-                ((ErrorPage)getSessionBean(ErrorPage.class)).setException(e1);
-                return ErrorPage.LOAD_ERRORPAGE;
-            }
-            sb.setExportEmailTxt(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_TEXT));
-            sb.setAttExportFileName(exportAttFile.getName());
-            sb.setAttExportFile(exportAttFile);
-            sb.setExportEmailSubject(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SUBJECT_TEXT) + ": "
-                    + exportAttFile.getName());
-            // hier call set the values on the exportEmailView - attachment file, subject, ....
-            return "displayExportEmailPage";
-        }
-        else
-        {
-            error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-            return "";
-        }
-    }
-
-    /**
-     * Downloads the page with the selected items as export. This method is called when the user selects one or more
-     * items and then clicks on the Download-Button in the Export-Items Panel.
-     * 
-     * @author: StG
-     */
-    public String downloadExportFile()
-    {
-        PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
-        ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
-        // set the currently selected items in the FacesBean
-        // this.setSelectedItemsAndCurrentItem();
-        ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        if (pssb.getSelectedPubItems().size() != 0)
-        {
-            // export format and file format.
-            ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
-            byte[] exportFileData = null;
-            try
-            {
-                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pssb
-                        .getSelectedPubItems()));
-            }
-            catch (TechnicalException e)
-            {
-            }
-            FacesContext facesContext = FacesContext.getCurrentInstance();
-            HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
-            String contentType = curExportFormat.getSelectedFileFormat().getMimeType();
-            response.setContentType(contentType);
-            try
-            {
-                response.setHeader("Content-disposition", "attachment; filename="
-                        + URLEncoder.encode("ExportFile", "UTF-8"));
-                OutputStream out = response.getOutputStream();
-                out.write(exportFileData);
-                out.flush();
-                facesContext.responseComplete();
-                out.close();
-            }
-            catch (IOException e1)
-            {
-            }
-        }
-        else
-        {
-            error(getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED));
-        }
-        
-        getBasePaginatorListSessionBean().redirect();
-        return "";
-    }
+   
 
     public String deleteSelected()
     {
         PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
-        pssb.getStoredPubItems().removeAll(pssb.getSelectedPubItems());
+       
+        
+        for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList())
+        {
+            if (pubItem.getSelected())
+                pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+        }
+       
         getBasePaginatorListSessionBean().redirect();
        
         return "";

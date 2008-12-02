@@ -82,10 +82,10 @@
 									<h:commandLink styleClass="free_area0" value="SORTING" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
 									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />	
 									<h:outputText styleClass="seperator void" />
-									<h:commandLink styleClass="free_area0" value="ADD SELECTED TO BASKET" action="#{PubItemListSessionBean.addSelectedToCart}" />
-									<h:outputText styleClass="seperator void" />
 									<h:commandLink styleClass="free_area0" value="EXPORT" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
 									<h:outputText styleClass="free_area0" value="EXPORT" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink styleClass="free_area0" value="ADD SELECTED TO BASKET" action="#{PubItemListSessionBean.addSelectedToCart}" />
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->

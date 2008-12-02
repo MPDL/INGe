@@ -43,7 +43,9 @@
 			<head>
 
 				<title><h:outputText value="#{ApplicationBean.appTitle}"/></title>
+				<!--
 				<link rel="unapi-server" type="application/xml" title="unAPI" href="#{SearchResultList.unapiURLzotero}unapi"/>
+				-->
 
 				<jsp:directive.include file="header/ui/StandardImports.jspf" />
 
@@ -76,8 +78,13 @@
 									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
 									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
 									<h:outputText styleClass="seperator void" />
+									<h:commandLink styleClass="free_area0" value="SORTING" action="#{PubItemListSessionBean.changeSubmenuToSorting}" rendered="#{PubItemListSessionBean.subMenu != 'SORTING'}"/>	
+									<h:outputText styleClass="free_area0" value="SORTING" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}" />
+									<h:outputText styleClass="seperator void" />
 									<h:commandLink styleClass="free_area0" value="EXPORT" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
 									<h:outputText styleClass="free_area0" value="EXPORT" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink styleClass="free_area0" value="DELETE SELECTED" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->
@@ -109,6 +116,17 @@
 										<h:outputText value="Grid list" />
 									</h:commandLink>
 									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+								<!-- content menu lower line ends here -->
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'SORTING'}">
+								<!-- content menu lower line starts here -->
+									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
+									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" value="#{PubItemListSessionBean.selectedSortBy}" onchange="$(this).parents('div').find('.changeSortBy').click();" >
+										<f:selectItems value="#{PubItemListSessionBean.sortBySelectItems}" />
+									</h:selectOneMenu>
+									<h:commandButton styleClass="noDisplay changeSortBy" value=" "  action="#{PubItemListSessionBean.redirect}"/>
+									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
+									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!PubItemListSessionBean.isAscending}" action="#{PubItemListSessionBean.changeSortOrder}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 							<!-- content menu ends here -->
