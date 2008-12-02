@@ -188,7 +188,7 @@
 	<module>cone_presentation</module>
 	<module>dataacquisition</module>
 	<module>dataacquisition_presentation</module>
-	<module>import_ear</module>
+	<module>dataacquisition_ear</module>
    	<module>exportmanager</module>
    	<module>exportmanager_ear</module>
     <module>syndicationmanager</module>
