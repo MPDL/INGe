@@ -135,13 +135,13 @@ All rights reserved. Use is subject to license terms.
       <th class="large_area0">
 			<!-- Currently disabled bacause not possible to sort by this criterium at the moment -->
      		<span class="seperator"></span>
-			<h:commandLink disabled="true" styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'CREATOR'}" action="#{PubItemListSessionBean.changeToSortByCreator}">
+			<h:commandLink styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'CREATOR'}" action="#{PubItemListSessionBean.changeToSortByCreator}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 ascSort " rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="large_area0_p8 ascSort " rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>	
       </th>
@@ -160,20 +160,19 @@ All rights reserved. Use is subject to license terms.
       <th class="large_area0">
 			<!-- Currently disabled bacause not possible to sort by this criterium at the moment -->
 			<span class="seperator"></span>
-			<h:commandLink disabled="true" styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'DATE'}" action="#{PubItemListSessionBean.changeToSortByDate}">
+			<h:commandLink styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'DATE'}" action="#{PubItemListSessionBean.changeToSortByDate}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>	
 	  </th>
       <th class="large_area0">
-			<!-- Currently disabled bacause not possible to sort by this criterium at the moment -->
 			<span class="seperator"></span>
-			<h:commandLink disabled="true" styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
+			<h:commandLink  disabled="true" styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="Files"/>
  			</h:commandLink>
  			<h:commandLink disabled="true" styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">

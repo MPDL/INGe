@@ -229,6 +229,38 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         return "";
         
     }
+    
+    public String changeToSortByDate()
+    {
+        
+        try
+        {
+            setSelectedSortBy("DATE");
+            redirect();
+        }
+        catch (Exception e)
+        {
+           error("Could not redirect");
+        }
+        return "";
+        
+    }
+    
+    public String changeToSortByCreator()
+    {
+        
+        try
+        {
+            setSelectedSortBy("CREATOR");
+            redirect();
+        }
+        catch (Exception e)
+        {
+           error("Could not redirect");
+        }
+        return "";
+        
+    }
 
 
 
