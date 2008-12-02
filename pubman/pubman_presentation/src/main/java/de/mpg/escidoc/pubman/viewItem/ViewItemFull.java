@@ -118,6 +118,7 @@ public class ViewItemFull extends FacesBean
     
     public boolean isDepositor = false;
     public boolean isModerator = false;
+    public boolean isPrivilegedViewer=false;
     
     // Validation Service
     private ItemValidating itemValidating = null; 
@@ -321,6 +322,7 @@ public class ViewItemFull extends FacesBean
             
             //DiT: multiple new conditions for link-activation added
             isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+            isPrivilegedViewer= loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
             ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
             isDepositor = loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
             //isDepositor = loginHelper.getAccountUser().isDepositor();
@@ -1830,12 +1832,22 @@ public class ViewItemFull extends FacesBean
 	{
 		return isModerator;
 	}
-
+	
 	public void setModerator(boolean isModerator)
 	{
 		this.isModerator = isModerator;
 	}
 
+    public boolean getisPrivilegedViewer()
+    {
+        return isPrivilegedViewer;
+    }
+	
+    public void setPrivilegedViewer(boolean isPrivilegedViewer)
+    {
+        this.isPrivilegedViewer = isPrivilegedViewer;
+    }
+    
     public boolean getIsLoggedIn()
     {
         return isLoggedIn;
