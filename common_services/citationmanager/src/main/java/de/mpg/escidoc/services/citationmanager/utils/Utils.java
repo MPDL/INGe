@@ -1,5 +1,7 @@
 package de.mpg.escidoc.services.citationmanager.utils;
 
+import java.util.regex.Pattern;
+
 import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import net.sf.jasperreports.engine.util.JRStringUtil;
@@ -169,4 +171,14 @@ public class Utils {
     public static String xmlEncode(String str) {
     	return xmlEncode(str, 1);
     }    
+    
+    public static String replaceAllTotal(String what, String expr, String replacement)
+    {
+	    return 
+	    	Pattern
+	    		.compile(expr, Pattern.CASE_INSENSITIVE | Pattern.DOTALL)
+	    		.matcher(what)
+	    		.replaceAll(replacement);
+    }
+    
 }

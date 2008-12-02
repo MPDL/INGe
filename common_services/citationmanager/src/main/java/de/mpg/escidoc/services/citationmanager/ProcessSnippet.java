@@ -55,6 +55,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import de.mpg.escidoc.services.citationmanager.data.FontStyle;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
@@ -274,7 +275,8 @@ public class ProcessSnippet {
 	    Matcher m = p.matcher(html);
 	    //omit first match, i.e. citation header
 	    m.find();
-	    String snippet = (m.find() ? m.group(1) : html).replace("<br/> ", "");
+	    //remove all <br/>
+	    String snippet = Utils.replaceAllTotal(m.find() ? m.group(1) : html, "<br/?>", "");
 	    return
 	    	convertToAdditionalCssClass(
 	    			convertStyledTextToCssClass(snippet)
