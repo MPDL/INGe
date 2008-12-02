@@ -7,7 +7,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>de.mpg.escidoc.services</groupId>
 	<artifactId>dataacquisition</artifactId>
-    <name>dataAcquisition</name>
+    <name>dataacquisition</name>
 	<packaging>ejb</packaging>
 	<version>1.0.9-SNAPSHOT</version>
 
