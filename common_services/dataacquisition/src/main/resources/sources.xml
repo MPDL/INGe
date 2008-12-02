@@ -22,7 +22,7 @@
 				<label>arXiv</label>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
-			<MD-fetch-setting>
+			<MD-fetch-setting default="false">
 				<dc:description>http://www.openarchives.org/OAI/2.0/oai_dc.xsd</dc:description>
 				<dc:identifier>http://export.arxiv.org/oai2/oai2?verb=GetRecord%26identifier=oai:arXiv.org:GETID%26metadataPrefix=oai_dc</dc:identifier>
 				<dc:format>application/xml</dc:format>
@@ -45,6 +45,12 @@
 				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
 				<dc:format>text/html</dc:format>
 				<label>APA</label>
+				<fileType>.html</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<dc:format>text/html</dc:format>
+				<label>AJP</label>
 				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
@@ -153,6 +159,12 @@
 				<dc:format>application/xml</dc:format>
 				<label>ESciDoc</label>
 				<fileType>.xml</fileType>
+			</MD-fetch-setting>
+			<MD-fetch-setting default="false">
+				<dc:identifier>http://www.ThisIsInternallyHandled.info</dc:identifier>
+				<dc:format>text/html</dc:format>
+				<label>AJP</label>
+				<fileType>.html</fileType>
 			</MD-fetch-setting>
 		</MD-fetch-settings>
 		
