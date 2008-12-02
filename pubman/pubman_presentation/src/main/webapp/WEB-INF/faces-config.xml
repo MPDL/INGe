@@ -44,6 +44,18 @@
 		<message-bundle>Genre_ARTICLE</message-bundle>
 		<message-bundle>Genre_BOOK_ITEM</message-bundle>
 		<message-bundle>Genre_BOOK</message-bundle>
+		<message-bundle>Genre_CONFERENCE_PAPER</message-bundle>
+		<message-bundle>Genre_CONFERENCE_REPORT</message-bundle>
+		<message-bundle>Genre_COURSEWARE_LECTURE</message-bundle>
+		<message-bundle>Genre_ISSUE</message-bundle>
+		<message-bundle>Genre_JOURNAL</message-bundle>
+		<message-bundle>Genre_OTHER</message-bundle>
+		<message-bundle>Genre_PAPER</message-bundle>
+		<message-bundle>Genre_PROCEEDINGS</message-bundle>
+		<message-bundle>Genre_REPORT</message-bundle>
+		<message-bundle>Genre_SERIES</message-bundle>
+		<message-bundle>Genre_TALK_AT_EVENT</message-bundle>
+		<message-bundle>Genre_THESIS</message-bundle>
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>
