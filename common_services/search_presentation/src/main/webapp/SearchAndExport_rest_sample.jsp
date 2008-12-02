@@ -56,7 +56,12 @@
 				//window.open(req,'','height=100, width=100, toolbar=no, scrollbars=yes, resizable=yes');
 				location.href = req;
 			}
-			
+
+			function checkOutputFormat()
+			{
+				var efv = document.form.exportFormat.value;
+				document.form.outputFormat.disabled =  ! (efv == "APA" ||  efv == "AJP" ); 
+			}				
 		</script>
 	</head>
 	<body>
@@ -105,9 +110,11 @@
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl">Choose an Export format:</label><br/>
-				<select size="1" name="exportFormat" onchange="checkEndNote()" style="width:120px">
+				<select size="1" name="exportFormat" onchange="checkOutputFormat()" style="width:120px">
 					<option value="APA">APA</option>
+					<option value="AJP">AJP</option>
 					<option value="ENDNOTE">EndNote</option>
+					<option value="BIBTEX">BibTeX</option>
 				</select>
 			</div>
 			<div class="editItemSingleCol">
@@ -126,7 +133,7 @@
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl">Then submit it here:</label><br/>
-				<input type="button" class="inlineButton" value="Submit" onclick="submitItem()"/>
+				<input type="button" class="inlineButton" value="Submit" onclick="submitItem()" />
 			</div>
 			<div class="editItemSingleCol">
 				<label class="colLbl">The complete URI:</label><br/>

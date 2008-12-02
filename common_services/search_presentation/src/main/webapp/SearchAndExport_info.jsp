@@ -50,13 +50,13 @@
 				<strong>cqlQuery</strong> defines CQL search request (required).  
 			</li>
 			<li>
-				<strong>exportFormat</strong> can be <i>APA</i> or <i>ENDNOTE</i>. (Default: <i>ENDNOTE</i>)  
+				<strong>exportFormat</strong> can be <i>APA</i>, <i>AJP</i>, <i>BIBTEX</i> or <i>ENDNOTE</i>. (Default: <i>ENDNOTE</i>)  
 			</li>
 			<li>
 				<strong>language</strong> can be <i>all</i>, <i>en</i> or <i>de</i>. (Default: <i>all</i>)  
 			</li>
 			<li>
-				<strong>outputFormat</strong> is only relevant for <i>APA</i> exportFormat and can be <i>pdf, html, rtf, odt, snippet</i>. (Default: <i>pdf</i>). 
+				<strong>outputFormat</strong> is only relevant for <i>APA</i> and <i>AJP</i> exportFormat and can be <i>pdf, html, rtf, odt, snippet</i>. (Default: <i>pdf</i>). 
 				<i>ENDNOTE</i> will be always returned as plain text.  
 				 
 			</li>
