@@ -124,7 +124,9 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         for(int i=0; i<((getTotalNumberOfElements()-1)/elementsPerPage) + 1; i++)
         {
             paginatorPageList.add(new PaginatorPage(i+1));
-        }   
+        }
+        
+        listUpdated();
         
         
     }
@@ -132,6 +134,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     protected abstract void saveState();
     
     protected abstract void readOutParameters();
+    
+    protected abstract void listUpdated();
     
 
     public List<ListElementType> getCurrentPartList()

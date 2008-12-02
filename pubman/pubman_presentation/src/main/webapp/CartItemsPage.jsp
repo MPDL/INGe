@@ -73,26 +73,44 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" disabled="#{!ExportItemsSessionBean.enableExport}" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
+									<h:commandLink styleClass="free_area0" value="VIEW OPTIONS" action="#{PubItemListSessionBean.changeSubmenuToView}" rendered="#{PubItemListSessionBean.subMenu != 'VIEW'}" />
+									<h:outputText styleClass="free_area0" value="VIEW OPTIONS" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}" />
+									<h:outputText styleClass="seperator void" />
+									<h:commandLink styleClass="free_area0" value="EXPORT" action="#{PubItemListSessionBean.changeSubmenuToExport}" rendered="#{PubItemListSessionBean.subMenu != 'EXPORT'}"/>	
+									<h:outputText styleClass="free_area0" value="EXPORT" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />		
+								<!-- content menu upper line ends here -->
+								</div>
+								<!-- content menu lower line starts here -->
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
 									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
-									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{(ExportItemsSessionBean.enableLayout and ExportItemsSessionBean.enableExport)}">
+									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableLayout}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
-								<!-- content menu upper line ends here -->
-								</div>
-								<div class="sub">
-								<!-- content menu lower line starts here -->
-									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{CartItemsRetrieverRequestBean.showDisplayExportData}"	disabled="#{!ExportItemsSessionBean.enableExport}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}">
+									<h:commandButton id="btnDisplayItems" styleClass="free_area0" value="#{lbl.export_btDisplay}" action="#{PubItemListSessionBean.showDisplayExportData}"/>
 									<h:outputText styleClass="seperator" />
-									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{CartItemsRetrieverRequestBean.downloadExportFile}" disabled="#{!ExportItemsSessionBean.enableExport}" />
+									<h:commandLink id="btnExportDownload" styleClass="free_area0" value="#{lbl.export_btDownload}" action="#{PubItemListSessionBean.downloadExportFile}" />
 									<h:outputText styleClass="seperator" />
-									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{CartItemsRetrieverRequestBean.showExportEmailPage}" disabled="#{!ExportItemsSessionBean.enableExport}" />
-									<h:outputText styleClass="seperator" />
-									<h:commandLink id="btnDelete" styleClass="free_area0" value="Delete Selected" action="#{CartItemsRetrieverRequestBean.deleteSelected}" />
+									<h:commandLink id="btnExportEMail" styleClass="free_area0" value="#{lbl.export_btEMail}" action="#{PubItemListSessionBean.showExportEmailPage}"/>
 								<!-- content menu lower line ends here -->
-								</div>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="sub" rendered="#{PubItemListSessionBean.subMenu == 'VIEW'}">
+								<!-- content menu lower line starts here -->
+									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}" action="#{PubItemListSessionBean.changeListTypeToBib}">
+										<h:outputText value="Bibliographic list" />
+									</h:commandLink>
+									<h:outputText styleClass="free_area0" value="Bibliographic list" rendered="#{PubItemListSessionBean.listType == 'BIB'}" />
+									<h:outputText styleClass="seperator" />
+									<h:commandLink styleClass="free_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}"  action="#{PubItemListSessionBean.changeListTypeToGrid}">
+										<h:outputText value="Grid list" />
+									</h:commandLink>
+									<h:outputText styleClass="free_area0" value="Grid list" rendered="#{PubItemListSessionBean.listType == 'GRID'}" />
+								<!-- content menu lower line ends here -->
+								</h:panelGroup>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">

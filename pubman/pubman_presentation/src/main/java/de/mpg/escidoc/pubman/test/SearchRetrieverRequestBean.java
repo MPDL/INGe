@@ -97,12 +97,13 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             InitialContext initialContext = new InitialContext();
             this.searchService = (Search) initialContext.lookup(Search.SERVICE_NAME);
             
+            /*
             List<SelectItem> sortCriteriaSelectItems = new ArrayList<SelectItem>();
             for(SORT_CRITERIA sc : SORT_CRITERIA.values())
             {
                 sortCriteriaSelectItems.add(new SelectItem(sc.getIndex(), sc.name()));
             }
-            
+            */
             
         }
         catch (NamingException e)
