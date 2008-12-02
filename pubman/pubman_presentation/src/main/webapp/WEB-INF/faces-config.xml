@@ -41,7 +41,9 @@
 		<message-bundle>Label</message-bundle>
 		<message-bundle>Messages</message-bundle>
 		<message-bundle>Tooltip</message-bundle>
-		<message-bundle>Genre_Book</message-bundle>
+		<message-bundle>Genre_ARTICLE</message-bundle>
+		<message-bundle>Genre_BOOK_ITEM</message-bundle>
+		<message-bundle>Genre_BOOK</message-bundle>
 		<locale-config>
 			<default-locale>en</default-locale>
 			<supported-locale>de</supported-locale>
@@ -68,6 +70,11 @@
 	<converter>
 		<converter-id>HTMLEscapeConverter</converter-id>
 		<converter-class>de.mpg.escidoc.pubman.util.HTMLEscapeConverter</converter-class>
+	</converter>
+	
+	<converter>
+		<converter-id>GenreLabelConverter</converter-id>
+		<converter-class>de.mpg.escidoc.pubman.util.GenreLabelConverter</converter-class>
 	</converter>
 	
 	<!--	

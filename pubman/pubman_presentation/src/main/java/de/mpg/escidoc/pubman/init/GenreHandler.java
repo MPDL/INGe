@@ -83,6 +83,10 @@ public class GenreHandler extends ShortContentHandler
 		
 		try
 		{
+			if ("default-configuration".equals(name))
+			{
+				map = defaultMap;
+			}
 			if ("genre".equals(name))
 			{
 				genre = attributes.getValue("id");
