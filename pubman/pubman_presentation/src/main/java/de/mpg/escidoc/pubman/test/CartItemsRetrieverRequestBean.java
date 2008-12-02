@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
+import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
@@ -78,6 +79,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
+        
         try
         {
             PubItemStorageSessionBean pssb = (PubItemStorageSessionBean)getSessionBean(PubItemStorageSessionBean.class);
@@ -92,33 +94,47 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
                 idList.add(id);
             }
             
-            // define the filter criteria
-            FilterTaskParamVO filter = new FilterTaskParamVO();
-            
-            Filter f1 = filter.new ItemRefFilter(idList);
-            filter.getFilterList().add(0,f1);
-            
-            Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
-            filter.getFilterList().add(f10);
-            Filter f8 = filter.new LimitFilter(String.valueOf(limit));
-            filter.getFilterList().add(f8);
-            Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
-            filter.getFilterList().add(f9);
-           
-            String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
-            
-            String xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
-    
-            ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
-    
-            List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
-            for(ItemVO item : itemList.getItemVOList())
+            if (idList.size()>0)
             {
-                pubItemList.add(new PubItemVO(item));
+                checkSortCriterias(sc);
+                
+                // define the filter criteria
+                FilterTaskParamVO filter = new FilterTaskParamVO();
+                
+                Filter f1 = filter.new ItemRefFilter(idList);
+                filter.getFilterList().add(0,f1);
+                
+                Filter f10 = filter.new OrderFilter(sc.getSortPath(), sc.getSortOrder());
+                filter.getFilterList().add(f10);
+                Filter f8 = filter.new LimitFilter(String.valueOf(limit));
+                filter.getFilterList().add(f8);
+                Filter f9 = filter.new OffsetFilter(String.valueOf(offset));
+                filter.getFilterList().add(f9);
+               
+                String xmlparam = xmlTransforming.transformToFilterTaskParam(filter); 
+                
+                String xmlItemList = "";
+                if (loginHelper.getESciDocUserHandle()!=null)
+                  xmlItemList = ServiceLocator.getItemHandler(loginHelper.getESciDocUserHandle()).retrieveItems(xmlparam);
+                else
+                  xmlItemList = ServiceLocator.getItemHandler().retrieveItems(xmlparam);
+        
+                ItemVOListWrapper itemList = (ItemVOListWrapper) xmlTransforming.transformToItemListWrapper(xmlItemList);
+        
+                List<PubItemVO> pubItemList = new ArrayList<PubItemVO>();
+                for(ItemVO item : itemList.getItemVOList())
+                {
+                    pubItemList.add(new PubItemVO(item));
+                }
+                
+                numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
+                returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
             }
-            
-            numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
-            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+            else
+            {
+                numberOfRecords = 0;
+            }
+
         }
         catch (Exception e)
         {
@@ -151,6 +167,16 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     public String getListPageName()
     {
         return "CartItemsPage.jsp";
+    }
+    
+    protected void checkSortCriterias(SORT_CRITERIA sc)
+    {
+        if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
+        {
+            error("The selected sorting criteria \""+sc.name()+"\" is currently not supported, but will be provided soon.\nItems are displayed unsorted!");
+            //getBasePaginatorListSessionBean().redirect();
+        }
+        
     }
     
     
