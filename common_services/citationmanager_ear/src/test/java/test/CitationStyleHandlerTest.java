@@ -60,6 +60,7 @@ import de.mpg.escidoc.services.citationmanager.CitationStyleManagerException;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles;
 import de.mpg.escidoc.services.citationmanager.ProcessCitationStyles.OutFormats;
 import de.mpg.escidoc.services.citationmanager.utils.ResourceUtil;
+import de.mpg.escidoc.services.citationmanager.utils.Utils;
 import de.mpg.escidoc.services.citationmanager.utils.XmlHelper;
 
 public class CitationStyleHandlerTest {
@@ -100,31 +101,68 @@ public class CitationStyleHandlerTest {
     }
     
 
-	@Test
-	public void testExplainStyles() throws IOException, IllegalArgumentException, CitationStyleManagerException {
-		String result = pcs.explainStyles();
-		assertNotNull(result);
-	}
-
     /**
-     * Test service with a item list XML.
+     * Test list of styles
+     * @throws Exception Any exception.
+     */
+    @Test
+    public final void testExplainStuff() throws Exception {
+    	
+    	String explain = pcs.explainStyles();
+    	assertTrue("Empty explain xml", Utils.checkVal(explain) );
+    	logger.info("Explain file:" + explain);
+    	
+    	logger.info("List of citation styles with output formats: " );
+    	for (String s : pcs.getStyles() )
+    	{
+    		logger.info("Citation Style: " + s);
+    		for(String of : pcs.getOutputFormats(s))
+    		{
+        		logger.info("--Output Format: " + of);
+        		logger.info("--Mime Type: " + pcs.getMimeType(s, of));
+    		}
+    		
+    	}	
+    	
+    	
+    	
+    }  
+    /**
+     * Test service for all citation styles and all output formats 
      * @throws Exception Any exception.
      */
     @Test
     public final void testCitManOutput() throws Exception {
-		long start;
-    	byte[] result;
-		for ( OutFormats ouf : OutFormats.values() ) {
-			String format = ouf.toString();
-	    	start = System.currentTimeMillis();
-	    	result = pcs.getOutput("APA", format, itemList);
-	        logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
-	        logger.info(format + " length: " + result.length);
-	        assertTrue(format + " output should not be empty", result.length > 0);
-	        logger.info(format + " is OK");
-			
-		}
+    	
+    	for (String cs : pcs.getStyles() )
+    	{
+    		long start;
+        	byte[] result;
+    		for ( String format : pcs.getOutputFormats(cs) ) {
+        		logger.info("Test Citation Style: " + cs);
+    			
+//    		for ( String ouf : new String[]{"snippet","html"} ) {
+    	    	start = System.currentTimeMillis();
+    	    	result = pcs.getOutput(cs, format, itemList);
+    	    	
+//        		logger.info("ItemList\n: " + itemList);
+//        		logger.info("Result\n: " + new String(result));
+        		
+    	    	
+    	    	logger.info("Output to " + format + ", time: " + (System.currentTimeMillis() - start));
+    	    	assertTrue(format + " output should not be empty", result.length > 0);
+    	    	
+    	    	
+        		logger.info("Number of items to proceed: " + TestHelper.ITEMS_LIMIT);
+    	        logger.info(format + " length: " + result.length);
+    	        logger.info(format + " is OK");
+    	        
+    			
+    		}
+    		
+    	}
     }
+
     
     /**
      * Test service with a wrong Citation Style 
