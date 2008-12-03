@@ -22,8 +22,8 @@ CDDL HEADER END
 
 
 Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-für wissenschaftlich-technische Information mbH and Max-Planck-
-Gesellschaft zur Förderung der Wissenschaft e.V.
+fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
 All rights reserved. Use is subject to license terms.
  */
 %>
@@ -31,7 +31,7 @@ All rights reserved. Use is subject to license terms.
 <%@ taglib uri="http://java.sun.com/jsf/html" prefix="h" %>
 <%@ taglib uri="http://myfaces.apache.org/trinidad" prefix="tr" %>
 
-<tr:iterator var="item" value="#{ItemListSessionBean.currentPubItemList}">
+<tr:iterator var="item" value="#{PubItemListSessionBean.currentPartList}">
 	<li class="full_area0 listItem">
 		<div class="free_area0 itemHeader">
 			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="Is Revision of:"/><br class="noDisplay" /></b>

@@ -160,11 +160,11 @@
 							</div>
 						</div>
 					</div>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeBib}">
-						<jsp:directive.include file="list/itemListNew.jspf" />
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}">
+						<jsp:directive.include file="list/itemList.jspf" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{ItemListSessionBean.isListTypeGrid}">
-						<jsp:directive.include file="list/gridListNew.jspf" />
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}">
+						<jsp:directive.include file="list/gridList.jspf" />
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
