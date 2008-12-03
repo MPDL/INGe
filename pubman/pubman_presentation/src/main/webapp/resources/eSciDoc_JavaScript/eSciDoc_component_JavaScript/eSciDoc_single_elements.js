@@ -282,6 +282,11 @@ function addDateJSFunctions() {
 
 function rebuildSelectDOM() {
 	$('select.replace').each(function(i, ele){
+		
+		var ieChange = ele.getAttribute("onchange").toString();
+		ieChange = ieChange.substr(ieChange.indexOf("{")+1);
+		ieChange = ieChange.substring(0,ieChange.lastIndexOf("}"));
+		
 		var classNameString = $(ele).attr("class");
 		var lengthValue;
 		var possibleLengthValues = classNameString.split(' ');
@@ -296,19 +301,36 @@ function rebuildSelectDOM() {
 			}
 		};
 		var replacementString = '<span class="'+lengthValue+'_area0 replace '+otherClasses+'">';
-			
+		
 			if((BrowserDetect.browser == 'Firefox')&& (BrowserDetect.version < 3 )) {
 				replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
 				};
 		
 			if($(ele).find('option[selected]').length==0){
 				replacementString = replacementString+'<span class="'+lengthValue+'_area1_p7 replaceLabel">'+$(ele).find('option').text()+'</span>';
-				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ele.getAttribute("onchange")+'" />';
+				
+				if(BrowserDetect.browser != 'Explorer'){
+					replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ele.getAttribute("onchange")+'" />';
+					}
+				else {
+					replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option').val()+'" onchange="'+ieChange+'" />';
+					}
 			}
 			else{
 				replacementString = replacementString+'<span class="'+lengthValue+'_area1_p7 replaceLabel">'+$(ele).find('option[selected]').text()+'</span>';
 				replacementString = replacementString+'<input type="hidden" id="'+$(ele).attr('id')+'" name="'+$(ele).attr('name')+'" class="hiddenInput" value="'+$(ele).find('option[selected]').val()+'"';
-				if(ele.getAttribute("onchange")!=null) replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
+				if(ele.getAttribute("onchange")!=null) {
+					
+					if(BrowserDetect.browser != 'Explorer'){
+						replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
+						}
+					else {
+						replacementString = replacementString+' onchange="'+ieChange+'"';
+						}
+					
+					
+					replacementString = replacementString+' onchange="'+ele.getAttribute("onchange")+'"';
+				}
 				replacementString = replacementString+' />';
 			}
 			replacementString = replacementString+'<span class="'+lengthValue+'_area0_p8 openArea"><input type="button" class="min_imgBtn open" /></span><span class="'+lengthValue+'_area1 pulldown">';
