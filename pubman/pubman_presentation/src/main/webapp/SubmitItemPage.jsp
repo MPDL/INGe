@@ -97,7 +97,7 @@
 
 							<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" id="lnkCancel" value="#{lbl.SubmitItem_lnkCancel}" action="#{SubmitItem.cancel}"/>
 							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkSubmit}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isStandardWorkflow}" />
-							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkSave" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow}" />
+							<h:commandLink styleClass="free_area1_p8 activeButton" id="lnkRelease" value="#{lbl.SubmitItem_lnkRelease}" action="#{SubmitItem.submit}" rendered="#{SubmitItem.isSimpleWorkflow}" />
 				
 						</div>
 					</div>
