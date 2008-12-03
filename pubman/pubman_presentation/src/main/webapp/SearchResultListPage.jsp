@@ -130,6 +130,13 @@
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
+								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems} #{lbl.SearchResultList_lblFound}"/>
+								<h:outputText value=" ("/>
+ 								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
+								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
+								<h:outputText value=")"/>	
+							</div>
+							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:panelGroup rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>

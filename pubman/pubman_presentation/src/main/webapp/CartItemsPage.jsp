@@ -130,6 +130,13 @@
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
+								<h:outputText value="#{PubItemListSessionBean.totalNumberOfElements} #{lbl.SearchResultList_lblItems}"/>
+								<h:outputText value=" ("/>
+ 								<h:outputText value="#{lbl.ENUM_SORTORDER_ASCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{PubItemListSessionBean.isAscending}"/>
+								<h:outputText value="#{lbl.ENUM_SORTORDER_DESCENDING} #{lbl.SearchResultList_lblSortedBy} #{PubItemListSessionBean.selectedSortByLabel}" rendered="#{!PubItemListSessionBean.isAscending}"/>
+								<h:outputText value=")"/>	
+							</div>
+							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{ExportItemsSessionBean.hasErrorMessages}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>

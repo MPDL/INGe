@@ -1,5 +1,7 @@
 package de.mpg.escidoc.pubman.test;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,9 +10,14 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
+import javax.servlet.ServletException;
+import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import sun.security.action.GetLongAction;
+
+import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
@@ -55,9 +62,30 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
         logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
+        checkLogin();
         
     }
     
+    private void checkLogin()
+    {
+        LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
+        Login login = (Login) getSessionBean(Login.class);
+        
+        //if not logged in redirect to login page
+        if(!loginHelper.isLoggedIn())
+        {
+            try
+            {
+                login.loginLogout();
+            }
+            catch (Exception e){
+                error("Could not redirect to login!");
+            }
+           
+        }
+        
+    }
+
     @Override
     public void init()
     {
@@ -201,6 +229,17 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     public String getSelectedItemState()
     {
         return selectedItemState;
+    }
+    
+    public String getSelectedItemStateLabel()
+    {
+        String returnString = "";
+        if (!getSelectedItemState().equals("all"))
+        {
+            returnString =  getLabel(i18nHelper.convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
+        }
+        return returnString;
+        
     }
     
     public String changeItemState()

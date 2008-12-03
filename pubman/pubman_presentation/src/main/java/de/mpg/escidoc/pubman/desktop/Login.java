@@ -140,7 +140,7 @@ public class Login extends FacesBean
             String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
             if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
             
-            String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + breadCrumbHistory.getCurrentItem().getPage();
+            String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + URLEncoder.encode(breadCrumbHistory.getCurrentItem().getPage());
             fc.getExternalContext().redirect(url);
             
         }

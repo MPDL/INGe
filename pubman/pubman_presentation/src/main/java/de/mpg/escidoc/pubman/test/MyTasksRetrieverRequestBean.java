@@ -195,6 +195,28 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return selectedContext;
     }
     
+    public String getSelectedContextLabel()
+    {
+        String returnString = "";
+        
+        if (!getSelectedContext().equals("all"))
+        {
+            ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            List<PubContextVOPresentation> contextVOList = clsb.getModeratorContextList();
+            
+            
+            for(PubContextVOPresentation contextVO : contextVOList)
+            {
+                    if(contextVO.getReference().getObjectId().equals(getSelectedContext()))
+                    {
+                        returnString = contextVO.getName();
+                        break;
+                    }
+            }
+        }
+        return returnString;
+    }
+    
     private void initSelectionMenu()
     {
         

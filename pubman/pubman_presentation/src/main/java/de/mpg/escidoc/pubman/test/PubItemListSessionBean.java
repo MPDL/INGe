@@ -37,6 +37,7 @@ import de.mpg.escidoc.services.common.valueobjects.FileFormatVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
+import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
 
 public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItemVOPresentation, PubItemListSessionBean.SORT_CRITERIA> implements PhaseListener
@@ -413,6 +414,22 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     {
         return selectedSortBy;
     }
+    
+    public String getSelectedSortByLabel()
+    {
+        
+        
+        String returnString = "";
+        
+        
+        if (!getSelectedSortBy().equals("all"))
+        {
+            returnString =  getLabel("ENUM_CRITERIA_"+getSelectedSortBy());
+        }
+        return returnString;
+    }
+    
+    
 
 
 
