@@ -405,4 +405,15 @@ public class FacesBean extends InternationalizedImpl implements Serializable
         return false;
     }
     
+    public int getNumberOfMessages()
+    {
+        int number = 0;
+        for (Iterator<FacesMessage> i = getFacesContext().getMessages(); i.hasNext();)
+        {
+            i.next();
+            number++;
+        }
+        return number;
+    }
+    
 }
