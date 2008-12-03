@@ -44,13 +44,13 @@
 				<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblCreators}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" binding="#{ViewItemFull.creatorPersonsIterator}" varStatus="index">
+				<tr:iterator var="creatorPerson" value="#{ViewItemFull.creatorArray}" >
 					<h:panelGroup styleClass="free_area0 creator">
 						<h:outputText value="#{creatorPerson}" escape="false"/>
 					</h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
 				</tr:iterator>
-				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" binding="#{ViewItemFull.creatorOrganizationsIterator}" varStatus="index">
+				<tr:iterator var="creatorOrganization" value="#{ViewItemFull.creatorOrganizationsArray}" >
 					<h:panelGroup styleClass="free_area0 creator">
 						<h:outputText value="#{creatorOrganization.organizationName}"/>
 					</h:panelGroup>
@@ -65,7 +65,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblAffiliations}"/><span class="noDisplay">: <br /></span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" binding="#{ViewItemFull.creatorAffiliationsIterator}" varStatus="index">
+				<tr:iterator var="creatorAffiliation" value="#{ViewItemFull.organizationList}" >
 					<h:panelGroup styleClass="xTiny_area0 endline"><h:outputText value="#{creatorAffiliation.position}"/></h:panelGroup>
 					<h:panelGroup styleClass="free_area0 affiliation"><h:outputText value="#{creatorAffiliation.organizationName}, #{creatorAffiliation.organizationAddress}, #{creatorAffiliation.organizationIdentifier}"/></h:panelGroup>
 					<h:outputText value="<br />" escape="false"/>
