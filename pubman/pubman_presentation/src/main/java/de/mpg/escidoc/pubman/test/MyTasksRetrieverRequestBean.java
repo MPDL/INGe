@@ -43,9 +43,16 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     
     private List<SelectItem> contextSelectItems;
     
+    
+    public MyTasksRetrieverRequestBean()
+    {
+        super();
+    }
+    
     @Override
     public void init()
     {
+        checkLogin();
         //super.init();
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
@@ -63,6 +70,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
     @Override
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
+        List<PubItemVOPresentation> returnList = new ArrayList<PubItemVOPresentation>();
         try
         {
             LoginHelper loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
@@ -72,9 +80,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             checkSortCriterias(sc);
             // define the filter criteria
             FilterTaskParamVO filter = new FilterTaskParamVO();
-            
-            Filter f1 = filter.new OwnerFilter(loginHelper.getAccountUser().getReference());
-            filter.getFilterList().add(0,f1);
+           
             Filter f2 = filter.new FrameworkItemTypeFilter(PropertyReader.getProperty("escidoc.framework_access.content-model.id.publication"));
             filter.getFilterList().add(f2);
             
@@ -143,13 +149,15 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
             }
             
             numberOfRecords = Integer.parseInt(itemList.getNumberOfRecords());
-            return CommonUtils.convertToPubItemVOPresentationList(pubItemList);
+            returnList = CommonUtils.convertToPubItemVOPresentationList(pubItemList);
         }
         catch (Exception e)
         {
-           e.printStackTrace();
-           return null;
+            error("Error in retrieving items");
+            numberOfRecords = 0;
         }
+        return returnList;
+        
 
     }
     

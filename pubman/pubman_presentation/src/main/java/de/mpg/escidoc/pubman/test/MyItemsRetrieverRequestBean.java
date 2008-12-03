@@ -62,11 +62,11 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         super((PubItemListSessionBean)getSessionBean(PubItemListSessionBean.class));
         logger.info("RenderResponse: "+FacesContext.getCurrentInstance().getRenderResponse());
         logger.info("ResponseComplete: "+FacesContext.getCurrentInstance().getResponseComplete());
-        checkLogin();
+       
         
     }
     
-    private void checkLogin()
+    protected void checkLogin()
     {
         LoginHelper loginHelper = (LoginHelper)getSessionBean(LoginHelper.class);
         Login login = (Login) getSessionBean(Login.class);
@@ -89,6 +89,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     @Override
     public void init()
     {
+        checkLogin();
         //activate export option in menu
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
@@ -192,7 +193,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         catch (Exception e)
         {
           error("Error in retrieving items");
-           
+          numberOfRecords = 0; 
         }
         return returnList;
 

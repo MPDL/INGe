@@ -2,6 +2,7 @@ package de.mpg.escidoc.pubman.test;
 
 import java.util.List;
 
+import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 
@@ -20,7 +21,7 @@ import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
  * @param <ListElementType> The Type of the list elements managed by this bean
  * @param <FilterType> The type of filters managed by this bean
  */
-public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbItem
+public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbPage
 {
     private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
     
@@ -32,6 +33,7 @@ public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> 
      */
     public BaseListRetrieverRequestBean (BasePaginatorListSessionBean<ListElementType, FilterType> plb)
     {
+        super.init();
         this.setBasePaginatorListSessionBean(plb);
         getBasePaginatorListSessionBean().setPaginatorListRetriever(this);
         getBasePaginatorListSessionBean().setPageType(getType());
