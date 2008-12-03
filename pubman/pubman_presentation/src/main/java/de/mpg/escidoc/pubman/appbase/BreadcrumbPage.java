@@ -2,18 +2,21 @@ package de.mpg.escidoc.pubman.appbase;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.el.ValueExpression;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 
 import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
+import de.mpg.escidoc.pubman.test.SearchRetrieverRequestBean;
 
 /**
  *
@@ -49,23 +52,20 @@ public abstract class BreadcrumbPage extends FacesBean
         //-----
         Map<String, String> parameterMap = fc.getExternalContext().getRequestParameterMap();
         
+        
+        HttpServletRequest requ = (HttpServletRequest)fc.getExternalContext().getRequest();
+        if (requ.getQueryString()!=null)
+        {
+            page+="?"+requ.getQueryString();
+        }
+                
+        
+        /*
         String itemId = parameterMap.get("itemId");
         if (itemId!=null) 
         {
             page += "?itemId="+itemId;
         }
-        
-        /*
-        String parameters="?";
-        for (Iterator<Map.Entry<String, String>> iter = parameterMap.entrySet().iterator(); iter.hasNext();)
-        {
-            Map.Entry<String, String> parameter = iter.next();
-            parameters+=parameter.getKey()+"="+parameter.getValue()+"&";
-        }
-        
-        page+=parameters;
-        //----
-         
          */
         
         Method defaultAction = null;

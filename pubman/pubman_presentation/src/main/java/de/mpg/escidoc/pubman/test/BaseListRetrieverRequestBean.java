@@ -3,6 +3,7 @@ package de.mpg.escidoc.pubman.test;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated list.
@@ -19,7 +20,7 @@ import de.mpg.escidoc.pubman.appbase.FacesBean;
  * @param <ListElementType> The Type of the list elements managed by this bean
  * @param <FilterType> The type of filters managed by this bean
  */
-public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends FacesBean
+public abstract class BaseListRetrieverRequestBean<ListElementType, FilterType> extends BreadcrumbItem
 {
     private BasePaginatorListSessionBean<ListElementType, FilterType> basePaginatorListSessionBean;
     
