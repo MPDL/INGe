@@ -44,7 +44,9 @@ import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
 
+import de.mpg.escidoc.pubman.ApplicationBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.services.framework.PropertyReader;
 import de.mpg.escidoc.services.framework.ServiceLocator;
@@ -132,9 +134,14 @@ public class Login extends FacesBean
         }
         else
         {
-            // Login mechanism
-            fc.getExternalContext().redirect(
-                    ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + request.getRequestURL().toString());
+            //login mechanism
+            BreadcrumbItemHistorySessionBean breadCrumbHistory = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
+            
+            String pubmanUrl = PropertyReader.getProperty("escidoc.pubman.instance.url") + PropertyReader.getProperty("escidoc.pubman.instance.context.path");
+            if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
+            
+            String url =  ServiceLocator.getFrameworkUrl() + LOGIN_URL + "?target=" + pubmanUrl + "faces/" + breadCrumbHistory.getCurrentItem().getPage();
+            fc.getExternalContext().redirect(url);
             
         }
         return "";

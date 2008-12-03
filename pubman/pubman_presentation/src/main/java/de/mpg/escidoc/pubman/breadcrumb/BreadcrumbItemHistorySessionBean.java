@@ -47,8 +47,6 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
     // the List of BreadCrumbs representing JSP's that have been viewed
     private List<BreadcrumbItem> breadcrumbs = new ArrayList<BreadcrumbItem>();
 
-    private BreadcrumbItem currentItem;
-
     private static Logger logger = Logger.getLogger(BreadcrumbItemHistorySessionBean.class);
 
     /**
@@ -178,12 +176,14 @@ public class BreadcrumbItemHistorySessionBean extends FacesBean
 
     public BreadcrumbItem getCurrentItem()
     {
-        return currentItem;
-    }
-
-    public void setCurrentItem(BreadcrumbItem currentItem)
-    {
-        this.currentItem = currentItem;
+        if (breadcrumbs.size() > 0)
+        {
+            return breadcrumbs.get(breadcrumbs.size() - 1);
+        }
+        else
+        {
+            return new BreadcrumbItem("HomePage", "HomePage", null);
+        }
     }
 
 	public BreadcrumbItem getPreviousItem() {
