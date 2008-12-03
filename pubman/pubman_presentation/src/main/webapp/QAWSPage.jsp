@@ -64,7 +64,7 @@
 				
 							<div id="contentSkipLinkAnchor" class="clear headLine">
 								<!-- Headline starts here -->
-								<h1><h:outputText value="#{lbl.DepositorWSPage}" /></h1>
+								<h1><h:outputText value="#{lbl.QAWSPage}" /></h1>
 								<!-- Headline ends here -->
 							</div>
 						</div>

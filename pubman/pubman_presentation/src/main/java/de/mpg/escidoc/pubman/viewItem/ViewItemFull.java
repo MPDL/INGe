@@ -74,6 +74,7 @@ import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
+import de.mpg.escidoc.pubman.test.PubItemStorageSessionBean;
 import de.mpg.escidoc.pubman.util.AffiliationVOPresentation;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
@@ -2066,5 +2067,21 @@ public class ViewItemFull extends FacesBean
 
 	public void setUnapiURLview(String unapiURLview) {
 		this.unapiURLview = unapiURLview;
+	}
+	
+	public String addToBasket()
+	{
+	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
+       
+        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
+        {
+            pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+            info("The item was added to the basket.");
+        }
+        else
+        {
+            error("The item is already in the basket.");
+        }
+        return "";
 	}
 }
