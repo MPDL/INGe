@@ -117,6 +117,13 @@
 									<h:panelGroup styleClass="seperator" />
 								</span>
 							</div>
+							<div class="full_area0 listItem">
+								<div class="free_area0 itemHeader">
+									<span class="free_area0_p6 endline itemHeadline">
+										<b><h:outputText value="#{ViewItemFull.pubItem.metadata.title.value}"/></b>
+									</span>
+								</div>
+							</div>
 
 							<jsp:directive.include file="localTags/LocalTags.jspf" />
 

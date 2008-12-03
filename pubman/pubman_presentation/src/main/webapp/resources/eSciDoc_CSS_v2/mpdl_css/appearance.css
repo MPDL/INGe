@@ -92,6 +92,7 @@
 	a:hover, a:focus, input:hover, input:focus {
 		color: #382926;
 		text-decoration: none;
+		cursor: pointer;
 	}
 	
 	a:disabled, a.disabled {
