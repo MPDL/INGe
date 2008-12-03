@@ -144,6 +144,7 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public List<PubItemVOPresentation> retrieveList(int offset, int limit, SORT_CRITERIA sc)
     {
         List<PubItemVOPresentation> pubItemList = new ArrayList<PubItemVOPresentation>();
+        checkSortCriterias(sc);
         try
         {
             PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
@@ -218,5 +219,15 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
     public String getSearchType()
     {
         return searchType;
+    }
+    
+    protected void checkSortCriterias(SORT_CRITERIA sc)
+    {
+        if  (sc.getIndex()== null || sc.getIndex().equals(""))
+        {
+            error("The selected sorting criteria \""+sc.name()+"\" is currently not supported, but will be provided soon.\nItems are displayed unsorted!");
+            //getBasePaginatorListSessionBean().redirect();
+        }
+        
     }
 }

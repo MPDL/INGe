@@ -62,7 +62,7 @@ All rights reserved. Use is subject to license terms.
  			<f:selectItem itemValue="100" itemLabel="100"></f:selectItem>
  			<f:selectItem itemValue="250" itemLabel="250"></f:selectItem>
  		</h:selectOneMenu>
-		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="go"  action="#{PubItemListSessionBean.redirect}"/>
+		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn hiddenElementsNumberChangedButton"  value="go"  action="#{PubItemListSessionBean.changeElementsPerPageTop}"/>
  		<h:outputLabel for="extSelectTop" styleClass="free_label hitsLabel" value=" #{lbl.ItemList_ObjectsPerPage}" />
  	</div>
 
@@ -172,14 +172,14 @@ All rights reserved. Use is subject to license terms.
 	  </th>
       <th class="large_area0">
 			<span class="seperator"></span>
-			<h:commandLink  disabled="true" styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="Files"/>
+			<h:commandLink  styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="Files"/>
+ 			<h:commandLink styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>
- 			<h:commandLink disabled="true" styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
- 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="Files"/>
+ 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>	
 	  </th>
     </tr>

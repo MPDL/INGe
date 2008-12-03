@@ -72,7 +72,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         CREATOR ("escidoc.complete-name", ""),
         PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
         MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
-        STATE("escidoc.version.status", "/properties/version/status");
+        STATE("escidoc.version.status", "/properties/version/status"),
+        FILE("","");
         
         private String index;
         private String sortPath;
@@ -253,6 +254,22 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         try
         {
             setSelectedSortBy("CREATOR");
+            redirect();
+        }
+        catch (Exception e)
+        {
+           error("Could not redirect");
+        }
+        return "";
+        
+    }
+   
+    public String changeToSortByFile()
+    {
+        
+        try
+        {
+            setSelectedSortBy("FILE");
             redirect();
         }
         catch (Exception e)
