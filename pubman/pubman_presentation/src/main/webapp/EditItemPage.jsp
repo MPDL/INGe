@@ -70,12 +70,13 @@
 						<div class="small_marginLIncl subHeaderSection">
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EditItem.hasErrorMessages}">
+								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.numberOfMessages == 1}"/>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea absoluteMessageArea" rendered="#{EditItem.hasErrorMessages and EditItem.numberOfMessages != 1}">
 									<input type="button" class="min_imgBtn fixErrorMessageBlockBtn" onclick="$(this).parents('.messageArea').removeClass('absoluteMessageArea'); $(this).hide();" />
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EditItem.hasMessages and !EditItem.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{EditItem.hasMessages and !EditItem.hasErrorMessages and EditItem.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 								</h:panelGroup>

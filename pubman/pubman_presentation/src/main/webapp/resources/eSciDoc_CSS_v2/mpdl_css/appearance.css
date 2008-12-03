@@ -203,11 +203,13 @@
 	
 	.pageBrowser input:hover, .pageBrowser button:hover, .pageBrowser a:hover, .pageBrowser input:focus, .pageBrowser button:focus, .pageBrowser a:focus {
 		color: #524240;
+		cursor: pointer;
 	}
 	
 	.pageBrowser .actual, .pageBrowser .actual:hover, .pageBrowser .actual:focus {
 		font-weight: bold;
 		color: #524240;
+		cursor: pointer;
 	}
 	
 	@media print {

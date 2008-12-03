@@ -79,11 +79,12 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages}">
+								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.numberOfMessages == 1}"/>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
 								</h:panelGroup>
-								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages}">
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{HomePage.hasMessages and !HomePage.hasErrorMessages and HomePage.numberOfMessages != 1}">
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
 								</h:panelGroup>
