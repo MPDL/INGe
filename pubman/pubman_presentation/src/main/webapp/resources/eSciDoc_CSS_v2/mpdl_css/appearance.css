@@ -127,7 +127,7 @@
 	}
 /*HEADER*/
 	/*COLORING FOR ALL MENU INPUTS AND LABELS*/
-	.metaMenu input, .metaMenu button, .metaMenu label, .metaMenu a, .quickSearchMenu input, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, contentMenu a  {
+	.metaMenu input, .metaMenu button, .metaMenu a, .quickSearchMenu input, .quickSearchMenu a, .quickSearchCheckBoxMenu label, .advancedSearchMenu input, .advancedSearchMenu a, .organisationSearchMenu input, .organisationSearchMenu a, .mainMenu input, .mainMenu a, .contentMenu input, contentMenu a  {
 		background-color: #EDF4F6;
 		color: #388097;
 	}

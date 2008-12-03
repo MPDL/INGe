@@ -138,14 +138,18 @@
 	}
 	
 	.advancedSearchIcon:hover, .advancedSearchIcon:focus {
+/*
 		background-image: url('../../images/All_Search_LensAdvaced_15_Hover.gif');
+*/
 		background-repeat: no-repeat;
 		background-position: right;
 		position: absolute;
 	}
 	
 	.advancedSearchIcon:disabled {
+/*
 		background-image: url('../../images/All_Search_LensAdvaced_15_Deactivated.gif');
+*/
 		background-repeat: no-repeat;
 		background-position: right;
 		position: absolute;
