@@ -294,7 +294,10 @@ function addDateJSFunctions() {
 function rebuildSelectDOM() {
 	$('select.replace').each(function(i, ele){
 		
-		var ieChange = ele.getAttribute("onchange").toString();
+		var ieChange = "";
+		if(ele.getAttribute("onchange") != null) {
+			ieChange = ele.getAttribute("onchange").toString();
+		}
 		ieChange = ieChange.substr(ieChange.indexOf("{")+1);
 		ieChange = ieChange.substring(0,ieChange.lastIndexOf("}"));
 		
