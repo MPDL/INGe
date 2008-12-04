@@ -46,7 +46,7 @@
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
 					<input type="text" class="xDouble_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="small_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}">
+					<h:selectOneMenu styleClass="small_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
 						<f:selectItems value="#{EditItem.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>

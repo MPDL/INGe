@@ -108,7 +108,7 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline">
 						<input type="text" class="xDouble_txtInput tiny_marginRIncl languageSuggest" />
-						<h:selectOneMenu styleClass="small_select replace" value="#{EasySubmission.publicationLanguage}" >
+						<h:selectOneMenu styleClass="small_select replace" value="#{EasySubmission.publicationLanguage}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
 							<f:selectItems value="#{EasySubmission.publicationLanguages}"/>
 						</h:selectOneMenu>
 					</span>
