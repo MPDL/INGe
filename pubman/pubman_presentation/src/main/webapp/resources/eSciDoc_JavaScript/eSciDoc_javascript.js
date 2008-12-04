@@ -59,6 +59,7 @@ function install_javascripts() {
 	installExtPaginator();
 	installItemList();
 	installFullItem();
+	installQuickSearchShortcut();
 	installDateTextbox();
 	installSelectReplacement();
 	bindSuggests();

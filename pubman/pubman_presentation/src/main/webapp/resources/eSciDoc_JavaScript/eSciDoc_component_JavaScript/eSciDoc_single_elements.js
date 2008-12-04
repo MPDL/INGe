@@ -111,6 +111,17 @@ var BrowserDetect = {
 
 BrowserDetect.init();
 
+/*QUICK SEARCH INITIALISATION*/
+
+function addQuickSearchFunction(){
+	$('.quickSearchTextInput').keydown(function(keyEvent){
+		if(keyEvent.keyCode == '13'){
+			$(this).parents('.searchMenu').find('.quickSearchBtn').click();
+		};
+	});
+};
+
+
 /*DATE INPUT FIELD*/
 
 function validateDate(inputField) {
@@ -377,6 +388,10 @@ jQuery.fn.getValue = function() {
 		return $(this).find('input[type=hidden]').val();
 	}
 };
+
+function installQuickSearchShortcut() {
+	addQuickSearchFunction();
+}
 
 function installDateTextbox() {
 	/*GET LANGUAGE*/

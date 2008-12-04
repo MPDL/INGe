@@ -38,7 +38,7 @@
 			<h:selectBooleanCheckbox id="quickSearchCheckBox" value="#{Search.includeFiles}" />
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
-		<h:commandButton styleClass="std_imgBtn quickSearchIcon" title="Start search." action="#{Search.startSearch}" value=" "/>	
+		<h:commandButton styleClass="std_imgBtn quickSearchBtn quickSearchIcon" title="Start search." action="#{Search.startSearch}" value=" "/>	
 	</span>
 	<span class="large_area0 advancedSearchMenu">
 		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">

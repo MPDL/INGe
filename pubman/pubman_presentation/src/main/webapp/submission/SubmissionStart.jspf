@@ -28,36 +28,7 @@
              */
 %>
 
-<div class="full_area0 itemHeader noTopBorder">
-	<span class="xLarge_area0 endline">
-		&#160;
-	</span>
-	<span class="seperator"></span>
-	<span class="free_area0_p8 endline itemHeadline">
-		<b>
-			<h:commandLink id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
-				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
-			</h:commandLink>
-		</b>
-	</span>
-</div>
-<div class="full_area0 itemBlock noTopBorder">
-	<h3 class="xLarge_area0_p8 endline blockHeader">
-		&#160;
-	</h3>
-	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">		
-		<div class="free_area0 endline itemLine firstLine">
-			<b class="xLarge_area0 endline labelLine">
-				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
-			</b>
-			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{lbl.submission_descNewSubmission}" />
-			</span>
-		</div>
-		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
-	</div>
-	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
-</div>
+
 <div class="full_area0 itemHeader">
 	<span class="xLarge_area0 endline">
 		&#160;
@@ -82,6 +53,36 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<h:outputText value="#{lbl.submission_descEasySubmission}" />
+			</span>
+		</div>
+		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
+	</div>
+	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
+</div>
+<div class="full_area0 itemHeader noTopBorder">
+	<span class="xLarge_area0 endline">
+		&#160;
+	</span>
+	<span class="seperator"></span>
+	<span class="free_area0_p8 endline itemHeadline">
+		<b>
+			<h:commandLink id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
+			</h:commandLink>
+		</b>
+	</span>
+</div>
+<div class="full_area0 itemBlock noTopBorder">
+	<h3 class="xLarge_area0_p8 endline blockHeader">
+		&#160;
+	</h3>
+	<div class="free_area0 itemBlockContent hideBlockIfVoid endline">		
+		<div class="free_area0 endline itemLine firstLine">
+			<b class="xLarge_area0 endline labelLine">
+				<h:outputText value="#{lbl.submission_lblDescription}" /><span class="noDisplay">: </span>
+			</b>
+			<span class="xHuge_area0 xTiny_marginLExcl endline">
+				<h:outputText value="#{lbl.submission_descNewSubmission}" />
 			</span>
 		</div>
 		<a class="free_area0 collapse"><h:outputText value="#{lbl.ViewItemFull_lblHideGroup} #{lbl.submission_lblDescription}" /></a>
