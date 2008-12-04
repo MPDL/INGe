@@ -23,8 +23,8 @@
 
 
  Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
- für wissenschaftlich-technische Information mbH and Max-Planck-
- Gesellschaft zur Förderung der Wissenschaft e.V.
+ fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+ Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
  All rights reserved. Use is subject to license terms.
 */ %>
 
@@ -46,42 +46,10 @@
 					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
 					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
 					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
-					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
-					<%-- <h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  /> --%>
+					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="openCenteredWindow('#{ApplicationBean.appContext}AffiliationDetailPage.jsp?id=#{node.reference.objectId}', 800, 400, 'Details');return false"/>
+					<tr:outputText value=" (#{lbl.AffilitationTree_ouClosed})" rendered="#{node.isClosed}"/>
 				</h:panelGroup>
 			</f:facet>
 		</tr:tree>
 	</h:panelGroup>
 </div>
-
-
-
-<%--
-<div>
-	<f:loadBundle var="lbl"	basename="Label" />
-	<f:subview id="AffiliationTreePage">
-		<h2>
-		<div class="viewItemTopHeader">
-			<div class="icon affiliationsIcon"></div>
-			<h:outputText id="txtOrga" styleClass="orientationHeader" value="#{lbl.AffiliationTree_txtHeadline}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#x1-80003.3');return false"/>
-		</div>	
-		</h2>
-		<br/>
-		
-		<tr:tree var="node" value="#{AffiliationBean.tree}" varStatus="status" selectedRowKeys="#{AffiliationBean.selected}" selectionListener="#{AffiliationBean.select}">
-			<f:facet name="nodeStamp">
-				<h:panelGroup>
-					<h:graphicImage value="../images/minerva_22.gif" height="22px" width="22px" rendered="#{node.mps}"/>
-					<h:graphicImage value="../images/affiliations_tree_22.gif" height="22px" width="22px" rendered="#{!node.mps && node.topLevel}"/>
-					<h:graphicImage value="../images/publications_22.gif" height="22px" width="22px" rendered="#{!node.topLevel}"/>
-					<tr:commandLink text="#{node.name}" action="#{node.startSearch}"/>
-					<h:commandButton styleClass="noBorder" image="./images/PM_info_16.gif" onclick="loadDescription('#{node.htmlDescription}');return false"/>
-					<!--<h:commandButton styleClass="noBorder" image="./images/info.gif" action=""  />-->
-				</h:panelGroup>
-			</f:facet>
-		</tr:tree>
-		
-	</f:subview>
-</div>
---%>
