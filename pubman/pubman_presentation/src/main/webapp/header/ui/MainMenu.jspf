@@ -32,7 +32,7 @@
 
 <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Go to PubMan startpage." action="#{Navigation.loadHome}">
+	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" action="#{Navigation.loadHome}">
 		<h:outputText value="#{lbl.mainMenu_lnkHome}" />
 	</h:commandLink>
 

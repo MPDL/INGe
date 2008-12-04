@@ -38,16 +38,16 @@
 			<h:selectBooleanCheckbox id="quickSearchCheckBox" value="#{Search.includeFiles}" />
 			<h:outputLabel for="quickSearchCheckBox" value="#{lbl.search_lblIncludeFiles}"/>
 		</h:panelGroup>
-		<h:commandButton styleClass="std_imgBtn quickSearchBtn quickSearchIcon" title="Start search." action="#{Search.startSearch}" value=" "/>	
+		<h:commandButton styleClass="std_imgBtn quickSearchBtn" title="#{tip.adv_search_btStart}" action="#{Search.startSearch}" value=" "/>	
 	</span>
 	<span class="large_area0 advancedSearchMenu">
-		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Advanced Search." rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
+		<h:commandLink styleClass="free_area0_p3 endline" title="#{tip.search_lblAdvancedSearch}" rendered="#{!AdvancedSearch.disableAdvancedSearch}" action="#{AdvancedSearch.showSearchPage}">
 			<span><h:outputText value="#{lbl.search_lblAdvancedSearch}"/></span>
 			<h:panelGroup styleClass="min_imgArea advancedSearchIcon" />
 		</h:commandLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
-		<h:commandLink styleClass="free_area0_p3 endline" title="Go to Organisation Search." action="#{Navigation.loadAffiliationTree}">
+		<h:commandLink styleClass="free_area0_p3 endline" title="" action="#{Navigation.loadAffiliationTree}">
 			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
 			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
 		</h:commandLink>
