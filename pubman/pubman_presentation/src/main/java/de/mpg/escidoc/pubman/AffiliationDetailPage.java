@@ -123,7 +123,7 @@ public class AffiliationDetailPage extends FacesBean
     
     public String getDescription()
     {
-        if (affilitation!=null && affilitation.getDefaultMetadata()!=null)
+        if (affilitation!=null && affilitation.getDefaultMetadata()!=null && affilitation.getDefaultMetadata().getDescriptions().size()>0)
             return affilitation.getDefaultMetadata().getDescriptions().get(0);
         else
             return "";
