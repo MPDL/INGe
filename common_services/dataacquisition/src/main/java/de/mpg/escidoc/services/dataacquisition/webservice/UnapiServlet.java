@@ -26,6 +26,7 @@ import org.purl.dc.elements.x11.SimpleLiteral;
 
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -157,6 +158,11 @@ public class UnapiServlet extends HttpServlet implements Unapi
                             this.resetValues();
                             this.logger.error("Format " + format + " was not recognised.", e);
                             response.sendError(406, "Format not recognized");
+                        }
+                        catch (FormatNotAvailableException e)
+                        {
+                            this.resetValues();
+                            response.sendError(403, "Format " + e.getMessage() + "was not available on import source.");
                         }
                         catch (AccessException e)
                         {
@@ -293,7 +299,7 @@ public class UnapiServlet extends HttpServlet implements Unapi
      * {@inheritDoc}
      */
     public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException
+            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException
     {
         this.filename = identifier;
         String[] tmp = identifier.split(":");
@@ -342,6 +348,10 @@ public class UnapiServlet extends HttpServlet implements Unapi
         catch (FormatNotRecognisedException e)
         {
             throw new FormatNotRecognisedException();
+        }
+        catch (FormatNotAvailableException e)
+        {
+            throw new FormatNotAvailableException(e.getMessage());
         }
         catch (RuntimeException e)
         {

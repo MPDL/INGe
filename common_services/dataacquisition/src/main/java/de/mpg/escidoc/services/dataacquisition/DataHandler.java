@@ -29,6 +29,7 @@ package de.mpg.escidoc.services.dataacquisition;
 
 import java.rmi.AccessException;
 
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -69,9 +70,10 @@ public interface DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws FormatNotRecognisedException
      * @throws RuntimeException
+     * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
@@ -86,9 +88,10 @@ public interface DataHandler
      * @throws IdentifierNotRecognisedException
      * @throws FormatNotRecognisedException
      * @throws RuntimeException
+     * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, String format) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
 
     /**
      * This operation fetches data from the specified source and returns it in the requested format. 
@@ -103,7 +106,8 @@ public interface DataHandler
      * @throws FormatNotRecognisedException
      * @throws RuntimeException
      * @throws AccessException
+     * @throws FormatNotAvailableException
      */
     byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException;
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
 }

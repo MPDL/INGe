@@ -2,6 +2,7 @@ package de.mpg.escidoc.services.dataacquisition.webservice;
 
 import java.rmi.AccessException;
 
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -44,5 +45,5 @@ public interface Unapi
      * @throws AccessException (Restricted access to the source)
      */
     public byte[] unapi(String identifier, String format) throws IdentifierNotRecognisedException,
-            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException;
+            SourceNotAvailableException, FormatNotRecognisedException, RuntimeException, AccessException, FormatNotAvailableException;
 }

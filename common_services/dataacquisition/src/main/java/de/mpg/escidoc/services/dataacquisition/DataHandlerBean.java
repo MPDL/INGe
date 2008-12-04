@@ -72,6 +72,7 @@ import de.mpg.escidoc.services.common.logging.LogMethodDurationInterceptor;
 import de.mpg.escidoc.services.common.logging.LogStartEndInterceptor;
 import de.mpg.escidoc.services.common.util.ResourceUtil;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.IdentifierNotRecognisedException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
@@ -126,7 +127,7 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier) throws SourceNotAvailableException, AccessException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
     {
         DataSourceVO source = this.sourceHandler.getSourceByName(sourceName);
         MetadataVO md = this.sourceHandler.getDefaultMdFormatFromSource(source);
@@ -137,7 +138,7 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier, String format) throws SourceNotAvailableException,
-            AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException
+            AccessException, IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
     {
         byte[] fetchedData = null;
         try
@@ -214,6 +215,10 @@ public class DataHandlerBean implements DataHandler
         {
             throw new SourceNotAvailableException();
         }
+        catch (FormatNotAvailableException e)
+        {
+            throw new FormatNotAvailableException(e.getMessage());
+        }
         catch (RuntimeException e)
         {
             throw new RuntimeException();
@@ -225,7 +230,7 @@ public class DataHandlerBean implements DataHandler
      * {@inheritDoc}
      */
     public byte[] doFetch(String sourceName, String identifier, String[] formats) throws SourceNotAvailableException,
-            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException
+            IdentifierNotRecognisedException, FormatNotRecognisedException, RuntimeException, FormatNotAvailableException
     {
         identifier = this.trimIdentifier(sourceName, identifier);
         DataSourceVO importSource = new DataSourceVO();
@@ -443,7 +448,7 @@ public class DataHandlerBean implements DataHandler
      * @throws SourceNotAvailableException
      */
     private byte[] fetchData(DataSourceVO importSource, String identifier, String[] listOfFormats) 
-        throws SourceNotAvailableException, RuntimeException
+        throws SourceNotAvailableException, RuntimeException, FormatNotAvailableException
     {
         byte[] in = null;
         FullTextVO fulltext = new FullTextVO();
@@ -495,6 +500,10 @@ public class DataHandlerBean implements DataHandler
             this.logger.error("Import Source " + importSource + " not available.", e);
             throw new SourceNotAvailableException();
         }
+        catch(FormatNotAvailableException e)
+        {
+            throw new FormatNotAvailableException(e.getMessage());
+        }
         catch (RuntimeException e)
         {
             this.logger.error("Technical problems occurred when communication with import source.", e);
@@ -528,10 +537,9 @@ public class DataHandlerBean implements DataHandler
      * @throws RuntimeException
      */
     private byte[] fetchFile(DataSourceVO importSource, FullTextVO fulltext) throws SourceNotAvailableException,
-            RuntimeException, AccessException
+            RuntimeException, AccessException, FormatNotAvailableException
     {
         URLConnection conn = null;
-        Date retryAfter = null;
         byte[] input = null;
         try
         {
@@ -541,20 +549,9 @@ public class DataHandlerBean implements DataHandler
             switch (responseCode)
             {
                 case 503:
-                    String retryAfterHeader = conn.getHeaderField("Retry-After");
-                    if (retryAfterHeader != null)
-                    {
-                        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
-                        retryAfter = dateFormat.parse(retryAfterHeader);
-                        this.logger.debug("Source responded with 503, retry after " + retryAfter + ".");
-                        throw new SourceNotAvailableException(retryAfter);
-                    }
-                    else
-                    {
-                        this.logger.debug("Source responded with 503, retry after " 
-                                + importSource.getRetryAfter() + ".");
-                        throw new SourceNotAvailableException(importSource.getRetryAfter());
-                    }
+                    //request was not prcessed by source
+                    this.logger.warn("Import source "+ importSource.getName() + "did not provide data in format " + fulltext.getFtLabel());
+                    throw new FormatNotAvailableException(fulltext.getFtLabel());
                 case 302:
                     String alternativeLocation = conn.getHeaderField("Location");
                     fulltext.setFtUrl(new URL(alternativeLocation));
@@ -587,11 +584,6 @@ public class DataHandlerBean implements DataHandler
         catch (IOException e)
         {
             this.logger.error("File could not be downloaded from.", e);
-            throw new RuntimeException();
-        }
-        catch (ParseException e)
-        {
-            this.logger.error("Response Header could not be parsed.", e);
             throw new RuntimeException();
         }
         return input;
