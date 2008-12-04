@@ -77,7 +77,7 @@
 	<div class="full_area0 fullItem">
 		<div class="full_area0 itemBlock noTopBorder">
 			<h3 class="xLarge_area0_p8 endline blockHeader">
-				Fetch Metadata
+				<h:outputText value="#{lbl.EasySubmission_lblFetchMetadata}"/>
 			</h3>
 			<span class="seperator"></span>
 			<div class="free_area0 itemBlockContent endline">
