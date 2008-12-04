@@ -95,6 +95,7 @@ import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.dataacquisition.DataHandlerBean;
 import de.mpg.escidoc.services.dataacquisition.DataSourceHandlerBean;
+import de.mpg.escidoc.services.dataacquisition.exceptions.FormatNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.exceptions.SourceNotAvailableException;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.DataSourceVO;
 import de.mpg.escidoc.services.dataacquisition.valueobjects.FullTextVO;
@@ -1016,7 +1017,6 @@ public class EasySubmission extends FacesBean
                             fileVO.getDefaultMetadata().setDescription("Data downloaded from "+ service + " at " + CommonUtils.currentDate());
                             fileVO.setContentCategory(dataHandler.getContentCategorie());
                         }
-                        //TODO: catch exception
                     }
                 }
                 
@@ -1043,6 +1043,11 @@ public class EasySubmission extends FacesBean
                     error(getMessage("easy_submission_external_source_not_available_error").replace("$1", Math.ceil(millis / 1000) + ""));             
                     return null;
                 }
+                catch (FormatNotAvailableException e)
+                {
+                    error(getMessage("formatNotAvailable_FromFetchingSource").replace("$1", e.getMessage()).replace("$2", service)); 
+                    this.getEasySubmissionSessionBean().getRadioSelectFulltext().setValue(this.FULLTEXT_NONE);
+                }
                 catch (Exception e) {
                     logger.error("Error fetching from external import source", e);              
                     error(getMessage("easy_submission_import_from_external_service_error"));                
@@ -1056,13 +1061,12 @@ public class EasySubmission extends FacesBean
                         itemVO = this.xmlTransforming.transformToPubItem(fetchedItem);       
                         itemVO.getFiles().clear();
                         itemVO.setContext(getItem().getContext());
-                        if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals("NONE")&& this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null)
+                        if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE))
                         {                           
                             itemVO.getFiles().add(fileVO);
                         }                       
                         this.getItemControllerSessionBean().setCurrentPubItem(itemVO);
                         this.setItem(itemVO);
-                        //System.out.println(this.xmlTransforming.transformToItem(itemVO));
                         
                      }
                      catch(TechnicalException e){ e.printStackTrace();}
@@ -1087,6 +1091,9 @@ public class EasySubmission extends FacesBean
     		}
     	}
     	
+    	//clear editItem
+        this.getEditItemSessionBean().getFiles().clear();
+        this.getEditItemSessionBean().getLocators().clear();
     	return "loadEditItem";
     }
 
