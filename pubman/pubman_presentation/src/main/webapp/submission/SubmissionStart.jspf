@@ -29,7 +29,7 @@
 %>
 
 
-<div class="full_area0 itemHeader">
+<div class="full_area0 itemHeader noTopBorder">
 	<span class="xLarge_area0 endline">
 		&#160;
 	</span>
@@ -59,7 +59,7 @@
 	</div>
 	<a class="free_area0 expand"><h:outputText value="#{lbl.ViewItemFull_lblShowGroup}  #{lbl.submission_lblDescription}" /></a>
 </div>
-<div class="full_area0 itemHeader noTopBorder">
+<div class="full_area0 itemHeader">
 	<span class="xLarge_area0 endline">
 		&#160;
 	</span>
