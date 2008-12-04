@@ -478,7 +478,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
         else
         {
-            setSelectedSortBy("TITLE");
+            setSelectedSortBy("MODIFICATION_DATE");
         }
         
         String sortOrder = getExternalContext().getRequestParameterMap().get(parameterSelectedSortOrder);
