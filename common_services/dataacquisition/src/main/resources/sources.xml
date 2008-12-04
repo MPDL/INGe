@@ -97,7 +97,7 @@
 				<dc:description>http://www.nlm.nih.gov/bsd/licensee/elements_descriptions.html</dc:description>
 				<dc:identifier>http://www.pubmedcentral.nih.gov/oai/oai.cgi?verb=getRecord%26identifier=oai:pubmedcentral.nih.gov:GETID%26metadataPrefix=pmc_fm</dc:identifier>
 				<dc:format>application/xml</dc:format>
-				<label>PubMed</label>
+				<label>pmc</label>
 				<fileType>.xml</fileType>
 			</MD-fetch-setting>
 			<MD-fetch-setting default="false">

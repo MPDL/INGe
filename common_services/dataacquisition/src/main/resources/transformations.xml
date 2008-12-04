@@ -40,4 +40,18 @@
 			</layout-format>
 		</layout-formats>
 	</Transformation>
+	
+	<Transformation>
+		<dc:format>pmc</dc:format>		
+		<metadata-formats>
+			<metadata-format>
+				<dc:description>This is a description of pubItem format</dc:description>
+				<dc:format>pubitem</dc:format>
+				<!--The MIME Type-->
+				<dc:format>application/xml</dc:format>
+				<label>Pubitem</label>
+			</metadata-format>
+		</metadata-formats>
+	</Transformation>
+	
 </Transformations>

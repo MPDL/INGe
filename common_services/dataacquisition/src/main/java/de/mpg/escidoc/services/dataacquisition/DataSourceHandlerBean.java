@@ -474,8 +474,7 @@ public class DataSourceHandlerBean
      * This operation gives back the name of all formats which can be transformed into the requested format.
      * 
      * @param transformFormat the format in which the object should be transformed
-     * @return a list of formats which can be transformed into the requested format TODO: Bring this into
-     *         MetadataHandler
+     * @return a list of formats which can be transformed into the requested format 
      */
     public Vector<String> getFormatsForTransformation(String transformFormat)
     {

@@ -736,22 +736,31 @@ public class DataHandlerBean implements DataHandler
             if (identifier.toLowerCase().startsWith("oai:arxiv.org:", 0))
             {
                 identifier = identifier.substring(14);
+                return identifier.trim();
             }
             if (identifier.toLowerCase().startsWith("arxiv:", 0))
             {
                 identifier = identifier.substring(6);
+                return identifier.trim();
             }
         }
         // Trim identifier for PubMedCentral
         if (sourceName.trim().toLowerCase().equals("pubmedcentral"))
         {
-            if (identifier.toLowerCase().startsWith("pmc", 0))
-            {
-                identifier = identifier.substring(3);
-            }
             if (identifier.toLowerCase().startsWith("pmcid:pmc", 0))
             {
                 identifier = identifier.substring(9);
+                return identifier.trim();
+            }
+            if (identifier.toLowerCase().startsWith("pmcid:", 0))
+            {
+                identifier = identifier.substring(6);
+                return identifier.trim();
+            }
+            if (identifier.toLowerCase().startsWith("pmc", 0))
+            {
+                identifier = identifier.substring(3);
+                return identifier.trim();
             }
         }
         return identifier.trim();
