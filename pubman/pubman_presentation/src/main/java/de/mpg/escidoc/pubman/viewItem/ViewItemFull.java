@@ -2073,9 +2073,9 @@ public class ViewItemFull extends FacesBean
 	{
 	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
        
-        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectIdAndVersion()))
+        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectId()))
         {
-            pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectIdAndVersion(), pubItem.getVersion());
+            pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectId(), pubItem.getVersion());
             info("The item was added to the basket.");
         }
         else

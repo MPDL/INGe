@@ -155,7 +155,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
         for (PubItemVOPresentation pubItem : getBasePaginatorListSessionBean().getCurrentPartList())
         {
             if (pubItem.getSelected())
-                pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectIdAndVersion());
+                pssb.getStoredPubItems().remove(pubItem.getVersion().getObjectId());
         }
        
         getBasePaginatorListSessionBean().redirect();
