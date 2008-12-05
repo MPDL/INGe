@@ -502,6 +502,7 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
         if (!pageType.equals(this.pageType))
         {
             pageTypeChanged();
+            setGoToPage("");
         }
         this.pageType = pageType;
     }
@@ -531,6 +532,8 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
     public void setGoToPage(String goToPage)
     {
         this.goToPage = goToPage;
+        this.goToPageTop = goToPage;
+        this.goToPageBottom = goToPage;
     }
 
     public String getGoToPage()

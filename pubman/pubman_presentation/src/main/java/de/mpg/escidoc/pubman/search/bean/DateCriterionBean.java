@@ -1,6 +1,10 @@
 package de.mpg.escidoc.pubman.search.bean;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import de.mpg.escidoc.pubman.search.bean.criterion.Criterion;
 import de.mpg.escidoc.pubman.search.bean.criterion.DateCriterion;
@@ -51,7 +55,15 @@ public class DateCriterionBean extends CriterionBean
 		{
 			dateCriterionVO.setDateType(new ArrayList<DateType>());
 		}
-			
+		
+		//set to-date default to current date
+		if (dateCriterionVO.getTo()==null || dateCriterionVO.getTo().trim().equals(""))
+		{
+		    
+		    SimpleDateFormat formater = new SimpleDateFormat("yyyy-MM-dd");
+		    dateCriterionVO.setTo(formater.format(new Date()));
+		}
+		
 		for (DateType date : dateCriterionVO.getDateType())
 		{
 			if (DateType.ACCEPTED.equals(date))
