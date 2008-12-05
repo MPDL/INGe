@@ -235,7 +235,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     public String getSelectedItemStateLabel()
     {
         String returnString = "";
-        if (!getSelectedItemState().equals("all"))
+        if (getSelectedItemState()!=null && !getSelectedItemState().equals("all"))
         {
             returnString =  getLabel(i18nHelper.convertEnumToString(PubItemVO.State.valueOf(getSelectedItemState())));
         }
