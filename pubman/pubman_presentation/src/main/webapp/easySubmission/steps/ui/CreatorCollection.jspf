@@ -122,7 +122,7 @@
 						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisationEasySubmission}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisationEasySubmission}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
