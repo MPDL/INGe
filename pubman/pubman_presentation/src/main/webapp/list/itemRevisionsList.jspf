@@ -34,7 +34,7 @@ All rights reserved. Use is subject to license terms.
 <tr:iterator var="item" value="#{PubItemListSessionBean.currentPartList}">
 	<li class="full_area0 listItem">
 		<div class="free_area0 itemHeader">
-			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="Is Revision of:"/><br class="noDisplay" /></b>
+			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="#{lbl.List_lblRevision}"/><br class="noDisplay" /></b>
 			<span class="free_area0_p6 medium_marginLIncl endline itemHeadline">
 				<h:outputLink value="#{item.link}">
 					<b><h:outputText value="#{item.shortTitle}"/></b>
@@ -43,8 +43,8 @@ All rights reserved. Use is subject to license terms.
 		</div>
 		<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 			<span class="huge_area0_p8 endline labelLine">
-	 			<div><a class="collapse itemInfoSwitch" style="display: none;" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay">Show </span>Less<span class="noDisplay"> Details</span></a>
-				<a class="expand itemInfoSwitch" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay">Show </span>More<span class="noDisplay"> Details</span></a></div>
+	 			<div><a class="collapse itemInfoSwitch" style="display: none;" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkLess}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a>
+				<a class="expand itemInfoSwitch" onclick="$(this).siblings('a').show(); $(this).hide();"><span class="noDisplay"><h:outputText value="#{lbl.List_lkShow}"/> </span><h:outputText value="#{lbl.List_lkMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.List_lkDetails}"/></span></a></div>
 				&#160;
 			</span>
 			<span class="xHuge_area0 endline">

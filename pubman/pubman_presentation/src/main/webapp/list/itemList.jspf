@@ -89,7 +89,7 @@
  		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageTop}"/>
  		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
  		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
- 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="go" title="Go to selected page" action="#{PubItemListSessionBean.goToPageTop}"/>
+ 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="go" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.goToPageTop}"/>
  	</div>
 
  </div>
@@ -101,10 +101,10 @@
  			<input type="button" class="min_imgBtn checkboxSelectButton"/>
  			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
  				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
- 				<span class="medium_area0_p8">Select Item: </span>
- 				<h:commandLink  disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl">All on Page</span></h:commandLink>
+ 				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
+ 				<h:commandLink  disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAll}"/></span></h:commandLink>
  				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
- 				<h:commandLink disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl">None</span></h:commandLink>
+ 				<h:commandLink disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
  			</div>
  			&nbsp;
  		</span>
@@ -122,8 +122,8 @@
  		</span>
  		<span class="seperator status"></span>
  		<span class="half_area0_p6 headerSwitchView">
- 			<a class="expand"><span class="noDisplay">Show </span>Medium View (All Items)</a>
- 			<a class="collapse"><span class="noDisplay">Show </span>Short View (All Items)</a>
+ 			<a class="expand"><span class="noDisplay"><h:outputText value="#{lbl.List_Show}"/> </span><h:outputText value="#{lbl.List_MedView}"/></a>
+ 			<a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.List_SelectItem}"/> </span><h:outputText value="#{lbl.List_ShortView}"/></a>
  		</span>
  	</div>
  	<ol>
@@ -189,7 +189,7 @@
  	</div>
 
  	<div class="small_marginLExcl pageBrowser">
- 		<label class="noDisplay pageLabel">Page</label>
+ 		<label class="noDisplay pageLabel"><h:outputText value="#{lbl.List_lblPage}"/></label>
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton styleClass="backward" text="Previous" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
@@ -205,11 +205,11 @@
  	</div>
 
 	<div class="gotoBox">
- 		<label class="free_label gotoLabel">Go to page</label>
+ 		<label class="free_label gotoLabel"><h:outputText value="#{lbl.List_lblGoToPage}"/></label>
  		<h:inputText styleClass="tiny_txtInput" value="#{PubItemListSessionBean.goToPageBottom}"/>
  		<h:outputLabel styleClass="free_label" value="#{lbl.ItemList_of} " />
  		<h:outputLabel styleClass="free_label" value="#{PubItemListSessionBean.paginatorPageSize}" />
- 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="go" title="Go to selected page" action="#{PubItemListSessionBean.goToPageBottom}"/>
+ 		<h:commandButton styleClass="xTiny_txtBtn paginatorFallbackGoBtn" value="go" title="#{lbl.List_btGo}" action="#{PubItemListSessionBean.goToPageBottom}"/>
  	</div>
 
 </div>
