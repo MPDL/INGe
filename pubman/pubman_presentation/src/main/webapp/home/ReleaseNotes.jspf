@@ -30,7 +30,7 @@
 
 <!-- BEGIN Copy&paste the ReleaseNotes here -->				
 <h2 class="about">
-About PubMan
+<h:outputText value="#{lbl.Home_Header_About}"/>
 </h2>
 
 <ol>PubMan - the eSciDoc Solution for Publication Management
@@ -51,7 +51,7 @@ About PubMan
 
 
 <h2 class="current">
-Current functionalities
+<h:outputText value="#{lbl.Home_Header_Current}"/>
 </h2>
 
 <ol>Access to content

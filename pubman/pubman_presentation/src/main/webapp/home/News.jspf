@@ -29,7 +29,7 @@
 </jsp:scriptlet>
 
 <!-- BEGIN Copy&paste the News here -->				
-<h2>News</h2>
+<h2><h:outputText value="#{lbl.Home_Header_News}"/></h2>
 <b>2008-11-26</b><br />
 First PubMan 4.0 beta finished
 <!-- END Copy&paste the News here -->
