@@ -408,6 +408,6 @@ function installDateTextbox() {
 }
 
 function installSelectReplacement() {
-	rebuildSelectDOM();
-	addReplacementFunctions();
+//	rebuildSelectDOM();
+//	addReplacementFunctions();
 }

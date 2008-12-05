@@ -29,7 +29,7 @@
 */
 
 function rebuildRangeSelectorDOM() {
-	$('.rangeSelector').find('select').each(function(i, ele){
+/*	$('.rangeSelector').find('select').each(function(i, ele){
 		var classNameString = $(ele).attr("class");
 		var lengthValue;
 		var possibleLengthValues = classNameString.split(' ');
@@ -67,16 +67,16 @@ function rebuildRangeSelectorDOM() {
 		replacementString = replacementString+'</span></span>'
 		replacementString = replacementString+'<span class="'+lengthValue+'_area0">&nbsp;</span>';
 		$(ele).siblings('.hitsLabel').remove();
-		$('.paginatorFallbackGoBtn').addClass('noDisplay');
-		$(ele).replaceWith(replacementString);
+*/		$('.paginatorFallbackGoBtn').addClass('noDisplay');
+/*		$(ele).replaceWith(replacementString);
 	});
-}
+*/}
 
 function addPaginatorFunctions() {
-	$('.rangeSelector').find('.open').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('.pulldown').show(); })});
+/*	$('.rangeSelector').find('.open').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('.pulldown').show(); })});
 	$('.rangeSelector').find('.close').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('.pulldown').hide(); })});
 	$('.rangeSelector').find('.selectLine').each(function(i,ele){$(ele).click(function(){ $(this).parents('.rangeSelector').find('input[type=hidden]').val($(this).attr('name')); $(this).parents('.rangeSelector').find('.replaceLabel').text($(this).text()+' '); $(this).parents('.pulldown').find('.actual').removeClass('actual'); $(this).addClass('actual'); $(this).parents('.pulldown').hide(); $(this).parents('.rangeSelector').find('input[type=hidden]').trigger('change'); $('form').submit();  })});
-	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
+*/	$('.gotoBox').find(':text').keydown(function(event){ switch (event.keyCode) { case 13: $(this).parents('.gotoBox').find('.paginatorFallbackGoBtn').click(); break;   }});
 }
 
 

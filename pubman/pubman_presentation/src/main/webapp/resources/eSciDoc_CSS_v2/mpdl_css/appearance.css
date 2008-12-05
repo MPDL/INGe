@@ -35,6 +35,7 @@
 		/*H1*/
 		h1 {
 				color: #163D4B;
+				font-weight: normal;
 			}
 		/*H2*/
 		h2 {
@@ -42,7 +43,7 @@
 			}
 		/*H3*/
 		h3 {
-				font-weight: normal;
+
 			}
 		/*H4*/
 			h4 {
@@ -92,6 +93,14 @@
 	a:hover, a:focus, input:hover, input:focus {
 		color: #382926;
 		text-decoration: none;
+	}
+	
+	input[type="text"], textarea {
+		border: 1px solid #388097;
+	}
+	
+	a:hover, a:focus {
+		text-decoration: underline;
 		cursor: pointer;
 	}
 	
@@ -191,7 +200,7 @@
 	}
 	
 	.rangeSelector .actual, .rangeSelector .selectLine:hover {
-		background-color: #73A686 !important;
+		background-color: #73A6B6 !important;
 		color: #FFFFFF !important;
 	}
 
@@ -282,7 +291,7 @@
 	}
 
 	.selectMenu a:hover, .selectMenu input:hover {
-		background-color: #73A686;
+		background-color: #73A6B6;
 		color: #FFFFFF;
 	}
 	
@@ -355,7 +364,7 @@
 	}
 	
 	.affHover {
-		background-color: #73A686;
+		background-color: #73A6B6;
 	}
 	
 	.add, .remove {
@@ -404,7 +413,7 @@
 	}
 	
 	.replace .actual, .replace .selectLine:hover {
-		background-color: #73A686 !important;
+		background-color: #73A6B6 !important;
 		color: #FFFFFF !important;
 	}
 
