@@ -22,8 +22,8 @@
 
 
             Copyright 2006-2009 Fachinformationszentrum Karlsruhe Gesellschaft
-            für wissenschaftlich-technische Information mbH and Max-Planck-
-            Gesellschaft zur Förderung der Wissenschaft e.V.
+            fï¿½r wissenschaftlich-technische Information mbH and Max-Planck-
+            Gesellschaft zur Fï¿½rderung der Wissenschaft e.V.
             All rights reserved. Use is subject to license terms.
              */
 %>
@@ -63,17 +63,23 @@
 		<span class="huge_area0_p8 endline labelLine">
 			<h:outputText value="#{lbl.ViewItemShort_lblFile}"/><span class="noDisplay">: </span>
 		</span>
-		<span class="xHuge_area0 endline">
-			<span class="files"><h:outputText value="#{item.fileInfo}"/></span>
-		</span>
+		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfFiles > 0}">
+			<span class="files"><h:outputLink value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink></span>
+		</h:panelGroup>
+		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfFiles == 0}">
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
+		</h:panelGroup>
 	</div>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
 			<h:outputText value="#{lbl.ViewItemShort_lblLocator}"/><span class="noDisplay">: </span>
 		</span>
-		<span class="xHuge_area0 endline">
-			<span class="locators"><h:outputText value="#{item.locatorInfo}"/></span>
-		</span>
+		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfLocators > 0}">
+			<span class="locators"><h:outputLink value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink></span>
+		</h:panelGroup>
+		<h:panelGroup styleClass="xHuge_area0 endline" rendered="#{item.numberOfLocators == 0}">
+			<h:outputText value="#{lbl.ViewItemFull_lblNoEntry}"/>
+		</h:panelGroup>
 	</div>
 </h:panelGroup>
 

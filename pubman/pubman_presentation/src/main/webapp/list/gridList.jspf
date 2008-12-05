@@ -73,7 +73,7 @@ All rights reserved. Use is subject to license terms.
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton styleClass="backward" text="#{lbl.List_lkPrevious}" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="10">
+ 		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
  			<tr:goButton styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
  			<tr:goButton styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
@@ -241,8 +241,8 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="large_area0_p8 endline filesSection">
-		      			<div class="files"><h:outputText value="#{item.fileInfo}"/></div>
-		      			<div class="locators"><h:outputText value="#{item.locatorInfo}"/></div>
+		      			<h:panelGroup layout="block" styleClass="files" rendered="#{item.numberOfFiles > 0}"><h:outputLink value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink></h:panelGroup>
+		      			<h:panelGroup layout="block" styleClass="locators" rendered="#{item.numberOfLocators > 0}"><h:outputLink value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink></h:panelGroup>
 		      		</span>
 		      	</td>
 		    </tr>
@@ -334,7 +334,7 @@ All rights reserved. Use is subject to license terms.
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton styleClass="backward" text="Previous" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="10">
+ 		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
  			<tr:goButton styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
  			<tr:goButton styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>

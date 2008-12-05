@@ -1970,8 +1970,16 @@ public class EasySubmission extends FacesBean
     public void setSourceIdentifier(String id)
     {
         PubItemVO pubItem = this.getItemControllerSessionBean().getCurrentPubItem();
-        pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER);
         pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setId(id);
+        if (!id.trim().equals(""))
+        {
+            pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(IdType.OTHER); 
+        }
+        else
+        {
+            pubItem.getMetadata().getSources().get(0).getIdentifiers().get(0).setType(null);
+        }
+        
         
     }
 

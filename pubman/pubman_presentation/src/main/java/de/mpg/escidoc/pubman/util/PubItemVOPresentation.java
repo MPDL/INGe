@@ -812,6 +812,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	return fileList;
     }
     
+    public int getNumberOfFiles()
+    {
+        return getFileList().size();
+    }
+    
     /**
      * This method examines which file is a locator and not a file and returns a list of locators
      * @return List<FileVO> locator list
@@ -830,6 +835,11 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     		}
     	}
     	return locatorList;
+    }
+    
+    public int getNumberOfLocators()
+    {
+        return getLocatorList().size();
     }
     
     /**

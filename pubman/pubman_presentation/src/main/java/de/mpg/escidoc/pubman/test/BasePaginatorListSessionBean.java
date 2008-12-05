@@ -330,13 +330,13 @@ public abstract class BasePaginatorListSessionBean<ListElementType, FilterType> 
 
     public int getFirstPaginatorPageNumber()
     {
-        if (getPaginatorPageSize()>10 && currentPageNumber > getPaginatorPageSize()-5)
+        if (getPaginatorPageSize()>7 && currentPageNumber > getPaginatorPageSize()-4)
         {
-            return getPaginatorPageSize() - 9;
+            return getPaginatorPageSize() - 6;
         }
-        else if (getPaginatorPageSize()>10 && currentPageNumber>5)
+        else if (getPaginatorPageSize()>7 && currentPageNumber>4)
         {
-            return currentPageNumber-5;
+            return currentPageNumber-3;
         }
         else 
         {

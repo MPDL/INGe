@@ -73,7 +73,7 @@
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton styleClass="backward" text="Previous" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="10">
+ 		<tr:iterator id="paginator" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
  			<tr:goButton styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
  			<tr:goButton styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
@@ -113,10 +113,10 @@
  			<h:commandLink styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.selectedSortOrder == 'ASCENDING' and PubItemListSessionBeanBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 desSort" rendered="#{PubItemListSessionBean.selectedSortOrder == 'DESCENDING' and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>	
  		</span>
@@ -193,7 +193,7 @@
  		<tr:goButton styleClass="min_imgBtn skipToFirst" text=" " shortDesc="#{lbl.ItemList_Results} 1 - #{PubItemListSessionBean.partListSize}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForFirstPage}"/>
  		<tr:goButton styleClass="backward" text="Previous" shortDesc="#{lbl.ItemList_Results} #{PubItemListSessionBean.offset-PubItemListSessionBean.elementsPerPage} - #{PubItemListSessionBean.offset-1}" disabled="#{PubItemListSessionBean.currentPageNumber == 1}" destination="#{PubItemListSessionBean.linkForPreviousPage}"/>
  		<h:panelGroup styleClass="seperator" />
- 		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="10">
+ 		<tr:iterator id="paginator2" var="paginatorPage" value="#{PubItemListSessionBean.paginatorPages}" first="#{PubItemListSessionBean.firstPaginatorPageNumber - 1}" rows="7">
  	
  			<tr:goButton styleClass="xSmall_txtBtn" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" destination="#{paginatorPage.link}" rendered="#{!(paginatorPage.number == PubItemListSessionBean.currentPageNumber)}"/>
  			<tr:goButton styleClass="xSmall_txtBtn actual" text="#{paginatorPage.number}" shortDesc="#{lbl.ItemList_Results} #{(paginatorPage.number-1) * PubItemListSessionBean.elementsPerPage +1} -  #{paginatorPage.number*PubItemListSessionBean.elementsPerPage}" disabled="true" rendered="#{paginatorPage.number == PubItemListSessionBean.currentPageNumber}"/>
