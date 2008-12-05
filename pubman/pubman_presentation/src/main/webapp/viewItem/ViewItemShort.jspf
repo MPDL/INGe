@@ -35,8 +35,8 @@
 	<h:outputText value="<abbr class='unapi-id' title='#{item.link}'></abbr>" escape="false" rendered="#{item.isReleased}"/>
 	<div class="free_area0_p0  small_marginLIncl endline listItemLine">
 		<span class="huge_area0_p8 endline labelLine">
- 			<div><a class="collapse"><span class="noDisplay">Show </span>Less<span class="noDisplay"> Details</span></a>
-			<a class="expand"><span class="noDisplay">Show </span>More<span class="noDisplay"> Details</span></a></div>
+ 			<div><a class="collapse"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblLess}"/><span class="noDisplay"> <h:outputText value="#{lbl.ViewItemShort_lblDetails}"/></span></a>
+			<a class="expand"><span class="noDisplay"><h:outputText value="#{lbl.ViewItemShort_lblShow}"/> </span><h:outputText value="#{lbl.ViewItemShort_lblMore}"/><span class="noDisplay"> <h:outputText value="#{lbl.ViewItemShort_lblDetails}"/></span></a></div>
 			<h:outputText value="#{lbl.ViewItemShort_lblCreators}"/><span class="noDisplay">: </span>
 		</span>
 		<span class="xHuge_area0 endline">

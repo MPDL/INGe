@@ -70,7 +70,7 @@
 	<h:outputText value="</div>" escape="false"/>
 	<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
 		<h:commandLink action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
-				<h:outputText value="Item Log"/>
+				<h:outputText value="#{lbl.ViewItemLog_Header}"/>
 		</h:commandLink>
 	
 		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
@@ -99,16 +99,16 @@
 		<h:outputText value="</div>" escape="false"/>
 		<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
 			<h:outputLink value="#{ViewItemFull.unapiApa}">
-				<h:outputText value="APA"/>
+				<h:outputText value="#{lbl.ViewItem_lkAPA}"/>
 			</h:outputLink>	
 			<h:outputLink value="#{ViewItemFull.unapiBibtex}">
-				<h:outputText value="BibTex"/>
+				<h:outputText value="#{lbl.ViewItem_lkBIBTEX}"/>
 			</h:outputLink>	
 			<h:outputLink value="#{ViewItemFull.unapiEndnote}">
-				<h:outputText value="EndNote"/>
+				<h:outputText value="#{lbl.ViewItem_lkENDNOTE}"/>
 			</h:outputLink>	
 			<h:outputLink value="#{ViewItemFull.unapiEscidoc}">
-				<h:outputText value="eSciDoc"/>
+				<h:outputText value="#{lbl.ViewItem_lkESCIDOC}"/>
 			</h:outputLink>	
 			<h:outputText value="#{lbl.export_lblSimpleExport}"/>
 		<h:outputText value="</div>" escape="false"/>
