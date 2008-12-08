@@ -656,13 +656,50 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         updateSelections();
     }
     
+    public String exportSelectedDisplay()
+    {
+        return showDisplayExportData(getSelectedItems());
+    }
+    
+    public String exportSelectedEmail()
+    {
+        return showExportEmailPage(getSelectedItems());
+    }
+    
+    public String exportSelectedDownload()
+    {
+        return downloadExportFile(getSelectedItems());
+    }
+    
+    public String exportAllDisplay()
+    {
+        return showDisplayExportData(retrieveAll());
+    }
+    
+    public String exportAllEmail()
+    {
+        return showExportEmailPage(retrieveAll());
+    }
+    
+    public String exportAllDownload()
+    {
+        return downloadExportFile(retrieveAll());
+    }
+    
+    private List<PubItemVOPresentation> retrieveAll()
+    {
+        List<PubItemVOPresentation> itemList = getPaginatorListRetriever().retrieveList(0, 0, getAdditionalFilters());
+        return itemList;
+    }
+    
+    
     
     /**
      * Returns the navigation string for loading the DisplayExportItemsPage.jsp .
      * 
      * @author: StG
      */
-    public String showDisplayExportData()
+    public String showDisplayExportData(List<PubItemVOPresentation> pubItemList)
     {
         saveSelections();
         
@@ -670,10 +707,10 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         String displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
         ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
         
-        List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
+      
         // set the currently selected items in the FacesBean
         // this.setSelectedItemsAndCurrentItem();
-        if (selectedPubItems.size() != 0)
+        if (pubItemList.size() != 0)
         {
             // save selected file format on the web interface
             String selectedFileFormat = sb.getFileFormat();
@@ -683,7 +720,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             try
             {
                 displayExportData = new String(icsb.retrieveExportData(curExportFormat, CommonUtils
-                        .convertToPubItemVOList(selectedPubItems)));
+                        .convertToPubItemVOList(pubItemList)));
             }
             catch (TechnicalException e)
             {
@@ -709,28 +746,30 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
 
+   
+    
     /**
      * Invokes the email service to send per email the the page with the selected items as attachment. This method is
      * called when the user selects one or more items and then clicks on the EMail-Button in the Export-Items Panel.
      * 
      * @author: StG
      */
-    public String showExportEmailPage()
+    public String showExportEmailPage(List<PubItemVOPresentation> pubItemList)
     {
         saveSelections();
         
         ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
         // this.setSelectedItemsAndCurrentItem();
         ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
-        if (selectedPubItems.size() != 0)
+       
+        if (pubItemList.size() != 0)
         {
             // gets the export format VO that holds the data.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
             byte[] exportFileData;
             try
             {
-                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(selectedPubItems));
+                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
             }
             catch (TechnicalException e)
             {
@@ -782,7 +821,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      * 
      * @author: StG
      */
-    public String downloadExportFile()
+    public String downloadExportFile(List<PubItemVOPresentation> pubItemList)
     {
         saveSelections();
         
@@ -790,15 +829,14 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         // set the currently selected items in the FacesBean
         // this.setSelectedItemsAndCurrentItem();
         ExportItemsSessionBean sb = (ExportItemsSessionBean)getSessionBean(ExportItemsSessionBean.class);
-        List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
-        if (selectedPubItems.size() != 0)
+        if (pubItemList.size() != 0)
         {
             // export format and file format.
             ExportFormatVO curExportFormat = sb.getCurExportFormatVO();
             byte[] exportFileData = null;
             try
             {
-                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(selectedPubItems));
+                exportFileData = icsb.retrieveExportData(curExportFormat, CommonUtils.convertToPubItemVOList(pubItemList));
             }
             catch (TechnicalException e)
             {
