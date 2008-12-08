@@ -54,7 +54,8 @@ public abstract class BreadcrumbPage extends FacesBean
         
         
         HttpServletRequest requ = (HttpServletRequest)fc.getExternalContext().getRequest();
-        if (requ.getQueryString()!=null)
+        //Add get parameters to page, but not if homepage (in order to avoid "expired=true" parameter)
+        if (requ.getQueryString()!=null && !pageName.equals("HomePage"))
         {
             page+="?"+requ.getQueryString();
         }
