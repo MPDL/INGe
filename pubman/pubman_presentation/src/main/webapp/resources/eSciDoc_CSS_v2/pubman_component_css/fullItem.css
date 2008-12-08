@@ -42,6 +42,7 @@
 .fullItem .seperator {
 	width: 0.09em;
 	border-top-width: 1.3em;
+	height: 0em;
 	border-style: solid;
 }
 

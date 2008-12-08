@@ -88,6 +88,8 @@
 
 	.breadcrumb {
 		float: right;
+		white-space: nowrap;
+		overflow: hidden;
 	}
 
 	.breadcrumb ol {

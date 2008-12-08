@@ -109,8 +109,16 @@
 		color: #827775;
 	}
 	/*SEPERATORS*/
-	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator, .itemList .seperator, .fullItem .seperator  {
+	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator  {
 		background-color: #388097;
+	}
+	
+	.itemList .seperator {
+		background-color: #EDF4F6;
+	}
+	
+	.fullItem .seperator {
+		background-color: #FFFFFF;
 	}
 	
 	.metaMenu .seperator, .contentMenu .seperator, .pageBrowser .seperator {
