@@ -72,7 +72,7 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu lower line starts here -->										
-									
+									&#160;
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
@@ -88,6 +88,7 @@
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{ExportItemsSessionBean.hasMessages}"/>
 								</h:panelGroup>	
+								&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

@@ -72,7 +72,7 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									
+									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
 							<!-- content menu ends here -->
@@ -88,6 +88,7 @@
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{HomePage.hasMessages}"/>
 								</h:panelGroup>
+								&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

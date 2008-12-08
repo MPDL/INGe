@@ -72,14 +72,14 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu upper line starts here -->
-									
+									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-								
+									&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
@@ -104,7 +104,6 @@
 								<h2>Bug Tracking</h2>
 								We always try to deliver the very best system possible, but unfortunately no software development can avoid any errors.<br />
 								To be able to constantly improve our system, we need your help as our users. Please take a few minutes to report the occurred error and what lead to it to our development team.<br />
-								You can directly report the error per mail by using the following <a href="mailto:support@pubman.mpdl.mpg.de?subject=Error%20Report">link</a>.
 								
 							</div>		
 							

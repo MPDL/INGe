@@ -140,7 +140,13 @@
 								<!-- Subheadline starts here -->
 								<h:panelGroup rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="AdvancedSearchPage.jsp"><h:outputText value="#{lbl.SearchResultList_lblAdvancedSearch}"/></h:outputLink>
-									<a class="free_area0" href="#" onclick="$(this).siblings('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
+									<a class="free_area0" href="#" onclick="$(this).parents('.subHeaderSection').find('.searchQuery').slideToggle('slow'); $(this).hide();"><h:outputText value="Show Query"/></a>
+								</h:panelGroup>
+								<!-- Subheadline ends here -->
+							</div>
+							<div class="subHeader">
+								<!-- Subheadline starts here -->
+								<h:panelGroup rendered="#{SearchRetrieverRequestBean.searchType == 'advanced'}">
 									<h:panelGroup layout="block" styleClass="half_area0_p6 searchQuery" style="display: none;">
 										<h2><h:outputText value="#{msg.searchResultList_QueryString}"/></h2>
 										<h:outputText value="#{SearchRetrieverRequestBean.cqlQuery}"/>
@@ -159,6 +165,7 @@
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{SearchRetrieverRequestBean.hasMessages}"/>
 								</h:panelGroup>
+								&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

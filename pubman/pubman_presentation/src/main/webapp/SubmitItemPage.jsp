@@ -75,14 +75,14 @@
 							<!-- content menu starts here -->
 								<div class="sub">
 								<!-- content menu lower line starts here -->										
-									
+									&#160;
 								<!-- content menu lower line ends here -->
 								</div>
 							<!-- content menu ends here -->
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-									
+									&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>

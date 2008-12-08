@@ -86,7 +86,7 @@
 									<h:outputText styleClass="free_area0" value="#{lbl.List_lblExportOptions}" rendered="#{PubItemListSessionBean.subMenu == 'EXPORT'}" />
 									<h:outputText styleClass="seperator void" />
 									<h:commandLink styleClass="free_area0" value="#{lbl.List_lblAddToBasket}" action="#{PubItemListSessionBean.addSelectedToCart}" />
-		
+									&#160;
 								<!-- content menu upper line ends here -->
 								</div>
 								<!-- content menu lower line starts here -->

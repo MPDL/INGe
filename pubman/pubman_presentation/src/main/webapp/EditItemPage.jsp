@@ -68,6 +68,15 @@
 							</div>
 						</div>
 						<div class="small_marginLIncl subHeaderSection">
+							<div class="contentMenu">
+							<!-- content menu starts here -->
+								<div class="sub">
+								<!-- content menu lower line starts here -->										
+									&#160;
+								<!-- content menu lower line ends here -->
+								</div>
+							<!-- content menu ends here -->
+							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
 								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.numberOfMessages == 0}"/>
@@ -80,6 +89,7 @@
 									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
 									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{EditItem.hasMessages}"/>
 								</h:panelGroup>
+								&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
