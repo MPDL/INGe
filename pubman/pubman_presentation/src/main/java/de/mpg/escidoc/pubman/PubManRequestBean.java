@@ -37,6 +37,7 @@ public class PubManRequestBean extends FacesBean
 	public static final String BEAN_NAME = "PubManRequestBean";
     
     private String helpAnchor = "";
+    private String requestedPage = "";
 	
 	/**
      * Default constructor.
@@ -57,6 +58,7 @@ public class PubManRequestBean extends FacesBean
        if(fc.getExternalContext().getRequestPathInfo() != null)
        {
     	   this.helpAnchor = fc.getExternalContext().getRequestPathInfo().replace("/", "");
+    	   this.requestedPage = this.helpAnchor.replaceAll(".jsp", "");
     	   this.helpAnchor = "#" +this.helpAnchor.replaceAll(".jsp", "");
        }
        
@@ -72,5 +74,14 @@ public class PubManRequestBean extends FacesBean
 	public void setHelpAnchor(String helpAnchor) {
 		this.helpAnchor = helpAnchor;
 	}
+
+	public String getRequestedPage() {
+		return requestedPage;
+	}
+
+	public void setRequestedPage(String requestedPage) {
+		this.requestedPage = requestedPage;
+	}
+	
 	
 }
