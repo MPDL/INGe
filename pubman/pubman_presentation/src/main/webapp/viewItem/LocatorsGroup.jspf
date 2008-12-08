@@ -36,7 +36,7 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblSubHeaderLocators}" />
 	</h3>
 	<span class="seperator"></span>
-	<h:panelGroup styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
+	<h:panelGroup layout="block" styleClass="free_area0 itemBlockContent endline" rendered="#{ViewItemFull.showLocators}">
 
 		<tr:iterator var="locator" value="#{ViewItemFull.locatorList}" binding="#{ViewItemFull.locatorIterator}" varStatus="index">
 

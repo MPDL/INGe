@@ -33,7 +33,7 @@
 
 <f:subview id="Breadcrumb">
 
-<span class="clear breadcrumb">
+<div class="clear breadcrumb">
 	<!-- Breadcrumb starts here -->
 	<ol>
 		<tr:iterator id="BreadcrumbNavigation" var="item">
@@ -56,6 +56,6 @@
 		</tr:iterator>
 	</ol>
 	<!-- Breadcrumb ends here -->
-</span>
+</div>
 
 </f:subview>
