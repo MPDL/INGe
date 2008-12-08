@@ -63,7 +63,7 @@
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.MainMenu_cartItemsPage}" value="#{ApplicationBean.appContext}CartItemsPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CartItemsPage'}" >
 		<h:outputText value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
 	</h:outputLink>
-	<h:outputText value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})" rendered="#{PubManRequestBean.requestedPage == 'CartItemsPage'}" />
 
 <%-- 
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">
