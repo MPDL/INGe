@@ -286,8 +286,10 @@
 	
 	.selectMenu {
 		border-color: #AFCCD5;
+		/*
 		opacity: 0.95;
 		filter: alpha(opacity=95);
+		*/
 	}
 
 	.selectMenu ,.selectMenu input {
