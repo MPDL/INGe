@@ -64,28 +64,28 @@
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
 				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
-				</span>
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
-				</span>
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
-				</span>
-				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
+					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
 					<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{lbl.EditItem_lblDatePublishedOnline}" />
 					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{EditItem.pubItem.metadata.datePublishedOnline}" />
 				</span>
 				<span class="large_area0 tiny_marginRIncl">
-					<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
-					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{EditItem.pubItem.metadata.datePublishedInPrint}" />
+					<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{EditItem.pubItem.metadata.dateAccepted}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{EditItem.pubItem.metadata.dateSubmitted}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{EditItem.pubItem.metadata.dateModified}" />
+				</span>
+				<span class="large_area0 tiny_marginRIncl">
+					<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
+					<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{EditItem.pubItem.metadata.dateCreated}" />
 				</span>
 			</span>
 		</div>

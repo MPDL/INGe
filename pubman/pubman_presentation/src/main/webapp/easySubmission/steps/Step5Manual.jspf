@@ -122,28 +122,28 @@
 					</b>
 					<span class="xHuge_area0 xTiny_marginLExcl endline datesGroup">
 						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
-						</span>
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}" />
-						</span>
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
-						</span>
-						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}" />
+							<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
 							<h:outputLabel styleClass="large_label" for="txtDatePublishedOnline" value="#{lbl.EditItem_lblDatePublishedOnline}" />
 							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedOnline" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedOnline}" />
 						</span>
 						<span class="large_area0 tiny_marginRIncl">
-							<h:outputLabel styleClass="large_label" for="txtDatePublishedInPrint" value="#{lbl.EditItem_lblDatePublishedInPrint}" />
-							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDatePublishedInPrint" value="#{ItemControllerSessionBean.currentPubItem.metadata.datePublishedInPrint}" />
+							<h:outputLabel styleClass="large_label" for="txtDateAccepted" value="#{lbl.EditItem_lblDateAccepted}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateAccepted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateAccepted}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateSubmitted" value="#{lbl.EditItem_lblDateSubmitted}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateSubmitted" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateSubmitted}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateModified" value="#{lbl.EditItem_lblDateModified}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateModified" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateModified}" />
+						</span>
+						<span class="large_area0 tiny_marginRIncl">
+							<h:outputLabel styleClass="large_label" for="txtDateCreated" value="#{lbl.EditItem_lblDateCreated}" />
+							<h:inputText styleClass="large_txtInput dateJSInput" id="txtDateCreated" value="#{ItemControllerSessionBean.currentPubItem.metadata.dateCreated}" />
 						</span>
 						<a class="large_area0 tiny_marginRIncl toLabelInputBottom showMoreDates" ><h:outputText value="#{lbl.adv_search_btShowMore}" /></a>
 					</span>
