@@ -47,8 +47,8 @@
 				<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EditItem.eventTitleCollection.titleIF.title.value}" cols="15" rows="3"/>
 			</span>
 			<span class="large_area0_p8 lineToolSection">
-				<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.eventTitleCollection.addTitle}" />
-				<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.eventTitleCollection.removeTitle}" />
+				<h:commandButton title="#{tip.EditItem_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EditItem.eventTitleCollection.addTitle}" />
+				<h:commandButton title="#{tip.EditItem_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EditItem.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EditItem.eventTitleCollection.removeTitle}" />
 			</span>
 		</div>
 
@@ -62,8 +62,8 @@
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
 				</span>
 			</h:panelGroup>
 		</tr:iterator>

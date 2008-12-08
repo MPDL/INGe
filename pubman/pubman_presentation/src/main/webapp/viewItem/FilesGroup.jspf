@@ -48,7 +48,7 @@
 					<h:outputText value="#{lbl.ViewItemMedium_lblFileName}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-						<tr:commandLink action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}">
+						<tr:commandLink title="#{tip.viewItem_download}" action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}">
 							<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 						</tr:commandLink>
 						<h:outputText value="#{file.fileName}" rendered="#{!ViewItemFull.isStateWithdrawn and !file.isVisible and !(ViewItemFull.isOwner || ViewItemFull.isModerator || ViewItemFull.isPrivilegedViewer)}"/>

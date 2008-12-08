@@ -49,8 +49,8 @@
 					<h:inputText styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>
@@ -65,8 +65,8 @@
 					<h:inputText styleClass="quad_txtInput" value="#{sourceCriterionBean.sourceCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.size == 1}" action="#{AdvancedSearchEdit.sourceCriterionCollection.sourceCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{sourceCriterionBean.clearCriterion}" />
 --%>

@@ -51,7 +51,7 @@
 						<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{EditItem.overwriteCreators}" />	
 						<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 					</span>
-					<h:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
+					<h:commandButton title="#{tip.EditItem_btnAddAuthors}" styleClass="free_txtBtn groupBtn toTextAreaBottom" value="#{lbl.EditItem_btnAddAuthors}" action="#{EditItem.addCreatorString}" />
 				</span>
 			</h:panelGroup>
 			
@@ -66,7 +66,7 @@
 					</h:selectOneMenu>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-					<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
+					<input type="button" title="#{tip.EditItem_btnMultipleAuthors}" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.creatorIterator.rowIndex > 0 }">
@@ -121,7 +121,7 @@
 						<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -132,8 +132,8 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{creatorBean.personOrganisationManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
 					</span>
 				</h:panelGroup>
 			</tr:iterator>
@@ -148,7 +148,7 @@
 					<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
@@ -161,8 +161,8 @@
 			</h:panelGroup>
 			
 			<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" />
-				<tr:commandButton text=" " styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" />
+				<tr:commandButton text="#{tip.EditItem_removeCreator}" styleClass="min_imgBtn sectionTool remove" disabled="#{EditItem.creatorCollection.creatorManager.size == 1}" action="#{EditItem.creatorCollection.creatorManager.removeObject}" />
+				<tr:commandButton text="#{tip.EditItem_addCreator}" styleClass="min_imgBtn sectionTool add" action="#{EditItem.creatorCollection.creatorManager.addObject}" />
 			</h:panelGroup>
 
 		</tr:iterator>

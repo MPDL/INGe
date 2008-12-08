@@ -37,8 +37,8 @@
 			<h:outputLabel styleClass="colLbl" value="#{lbl.EditItem_lblAbstract}" />
 			<h:inputTextarea styleClass="editItemComboBoxLong editItemTextArea" value="#{data.value}"/>
 		
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
-			<h:commandButton styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
+			<h:commandButton title="#{tip.EditItem_btAdd}" styleClass="inlineButton" value="#{lbl.EditItem_btAdd}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
+			<h:commandButton title="#{tip.EditItem_btRemove}" styleClass="inlineButton" value="#{lbl.EditItem_btRemove}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size > 1}"/>
 			<h:outputText value=" " rendered="#{EditItem.contentAbstractCollection.contentAbstractManager.size < 2}"/>
 			
 		</h:panelGroup>

@@ -36,7 +36,7 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:commandLink action="#{EasySubmission.newEasySubmission}">
+			<h:commandLink title="#{tip.submission_lnkEasySubmission}" action="#{EasySubmission.newEasySubmission}">
 				<h:outputText value="#{lbl.submission_lnkEasySubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 			</h:commandLink>
 		</b>
@@ -66,7 +66,7 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:commandLink id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
+			<h:commandLink title="#{tip.submission_lnkNewSubmission}" id="lnkNewSubmission" action="#{CreateItem.newSubmission}" immediate="true">
 				<h:outputText value="#{lbl.submission_lnkNewSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 			</h:commandLink>
 		</b>
@@ -96,7 +96,7 @@
 	<span class="seperator"></span>
 	<span class="free_area0_p8 endline itemHeadline">
 		<b>
-			<h:commandLink action="#{EasySubmission.newImport}">
+			<h:commandLink title="#{tip.submission_lnkImport}" action="#{EasySubmission.newImport}">
 				<h:outputText value="#{lbl.submission_lnkImport}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}"/>
 			</h:commandLink>
 		</b>

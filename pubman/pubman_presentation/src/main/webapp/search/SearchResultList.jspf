@@ -39,15 +39,15 @@
 
 	<h1 class="bottomSpace">
 		<h:outputText id="valOrientationText" value="#{lbl.SearchResultListPage}"/>
-		<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false"/>
+		<h:commandButton title="#{tip.search_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#SearchResults');return false"/>
 	</h1>
 	<p>
-		<h:commandLink binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
+		<h:commandLink title="#{tip.SearchResultList_lblAdvancedSearch}" binding="#{SearchResultList.lnkAdvancedSearch}" id="lnkAdvancedSearch" immediate="true"
 			value="#{lbl.SearchResultList_lblAdvancedSearch}" action="#{AdvancedSearch.showSearchPageAgain}"/>
 		<h:outputText value="#{msg.searchResultList_QueryString}" rendered="#{SearchResultList.queryIsRendered}" />
 		<h:outputText id="valQuery" binding="#{SearchResultList.valQuery}"/>
 		<br />
-		<h:outputLink value="#{ApplicationBean.appContext}#{SearchResultListPage.previousPageURI}">
+		<h:outputLink title="#{tip.SearchResultList_lblBack}" value="#{ApplicationBean.appContext}#{SearchResultListPage.previousPageURI}">
 			<h:outputText value="#{lbl.SearchResultList_lblBack}"/>
 		</h:outputLink>
 	</p>

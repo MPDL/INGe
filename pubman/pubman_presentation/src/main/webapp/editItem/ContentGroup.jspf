@@ -58,8 +58,8 @@
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{abstract.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addAbstract}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeAbstract}" disabled="#{EditItem.contentAbstractCollection.contentAbstractManager.size == 1}" action="#{EditItem.contentAbstractCollection.contentAbstractManager.removeObject}" />
 				</span>
 			</h:panelGroup>
 		</tr:iterator>

@@ -48,16 +48,16 @@
 					<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}"/>
 				</h:selectOneMenu>
 				<h:outputText value="#{lbl.ItemList_SortOrderAscending}" style="margin-left:5px; margin-right:5px;" rendered="#{ListControlSessionBean.sortOrderAscending}"/>
-				<h:commandButton image="images/sort_icon_descending.jpg" rendered="#{ListControlSessionBean.sortOrderAscending}"
+				<h:commandButton title="#{tip.ItemList_SortOrderDescending}" image="images/sort_icon_descending.jpg" rendered="#{ListControlSessionBean.sortOrderAscending}"
 					action="#{ListControlSessionBean.sortButtonAction}" actionListener="#{ListControlSessionBean.sortButtonPressed}" />
 				<h:outputText value="#{lbl.ItemList_SortOrderDescending}" style="margin-left:5px; margin-right:5px;" rendered="#{!ListControlSessionBean.sortOrderAscending}"/>
-				<h:commandButton image="images/sort_icon_ascending.jpg" rendered="#{!ListControlSessionBean.sortOrderAscending}"
+				<h:commandButton title="#{tip.ItemList_Details}" image="images/sort_icon_ascending.jpg" rendered="#{!ListControlSessionBean.sortOrderAscending}"
 					action="#{ListControlSessionBean.sortButtonAction}" actionListener="#{ListControlSessionBean.sortButtonPressed}" />
 				<div class="displayControls">
 					<h:outputText value="#{lbl.ItemList_Details}" style="margin-right:5px;"/>
-					<h:commandButton image="images/short_view_item.jpg" 
+					<h:commandButton title="#{tip.list_shortView}" image="images/short_view_item.jpg" 
 						action="#{ListControlSessionBean.shortButtonAction}" actionListener="#{ListControlSessionBean.shortButtonPressed}" />
-					<h:commandButton image="images/medium_view_item.jpg" 
+					<h:commandButton title="#{tip.list_mediumView}" image="images/medium_view_item.jpg" 
 						action="#{ListControlSessionBean.mediumButtonAction}" actionListener="#{ListControlSessionBean.mediumButtonPressed}" />
 				</div>
 			</h:panelGroup>

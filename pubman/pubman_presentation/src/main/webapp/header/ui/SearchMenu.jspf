@@ -47,7 +47,7 @@
 		</h:commandLink>
 	</span>
 	<span class="medium_area0 organisationSearchMenu endline">
-		<h:commandLink styleClass="free_area0_p3 endline" title="" action="#{Navigation.loadAffiliationTree}">
+		<h:commandLink styleClass="free_area0_p3 endline" title="#{tip.search_affiliationTree}" action="#{Navigation.loadAffiliationTree}">
 			<span><h:outputText value="#{lbl.mainMenu_lnkBrowseByAffiliation}"/></span>
 			<h:panelGroup styleClass="min_imgArea organisationSearchIcon" />
 		</h:commandLink>

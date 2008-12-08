@@ -36,7 +36,7 @@ All rights reserved. Use is subject to license terms.
 		<div class="free_area0 itemHeader">
 			<b class="huge_marginRIncl xTiny_marginLExcl"><h:outputText value="#{lbl.List_lblRevision}"/><br class="noDisplay" /></b>
 			<span class="free_area0_p6 medium_marginLIncl endline itemHeadline">
-				<h:outputLink value="#{item.link}">
+				<h:outputLink title="#{tip.list_shortTitle}" value="#{item.link}">
 					<b><h:outputText value="#{item.shortTitle}"/></b>
 				</h:outputLink>
 			</span>

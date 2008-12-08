@@ -33,7 +33,7 @@
 	        <div id="headerMain">
 				<div class="metaMenu">
 			        <span class="metaMenuMain">
-				        <h:commandLink id="lnkLogin" action="#{Login.loginLogout}"
+				        <h:commandLink id="lnkLogin" title="#{tip.Login_login_logout}" action="#{Login.loginLogout}"
 				        	value="#{LoginHelper.loginLogoutLabel}#{LoginHelper.accountUser.name}" immediate="true">
 				        </h:commandLink>
 				        <h:outputText value="   "/>
@@ -61,7 +61,7 @@
 								<f:param name="country" value="DE"/>
 							</h:commandLink>
 							<h:outputText value="   "/>
-							<h:commandLink 	id="lnkchangeLanguageEN" 
+							<h:commandLink 	id="lnkchangeLanguageEN" title="#{tip.Login_changeLanguage}"
 											actionListener="#{InternationalizationHelper.toggleLocale}"
 											action="#{Navigation.changeLanguage}"
 										   	styleClass="">

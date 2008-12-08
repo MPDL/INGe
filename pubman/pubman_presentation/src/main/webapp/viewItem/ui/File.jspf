@@ -56,7 +56,7 @@
 			<h:outputText value="<div class='itemText odd'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 			<h:outputText value="<div class='itemText odd withdrawn'>" escape="false" rendered="#{ViewItemFull.isStateWithdrawn == true}"/>
 
-				<tr:commandLink action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator)}">
+				<tr:commandLink title="#{tip.viewItem_download}" action="#{file.downloadFile}" rendered="#{!ViewItemFull.isStateWithdrawn and (file.isVisible || ViewItemFull.isOwner || ViewItemFull.isModerator)}">
 				<h:graphicImage styleClass="networkIcon" url="./resources/escidoc-css/images/PM_SM_h2_files_locators_16.gif" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 					<h:outputText value="#{file.fileName}" rendered="#{ViewItemFull.isStateWithdrawn == false}"/>
 				</tr:commandLink>

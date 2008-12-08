@@ -60,7 +60,7 @@
 			 			 		  	 onclick="#{SearchResultList.displayExportData}"
 									 styleClass="inlineButton" />
 					*/%>
-					<h:commandButton id="btnDisplayItems"
+					<h:commandButton id="btnDisplayItems" title="#{tip.export_btDisplay}"
 									 value="#{lbl.export_btDisplay}"
 									 action="#{SearchResultList.showDisplayExportData}"									  
 									 styleClass="inlineButton centeredExportButton"
@@ -76,17 +76,17 @@
 						 <f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 				</h:selectOneRadio>
 									 
-					<h:commandButton id="btnExportDownload"
+					<h:commandButton id="btnExportDownload" title="#{tip.export_btDownload}"
 									 value="#{lbl.export_btDownload}"
 									 actionListener="#{SearchResultList.downloadExportFile}"
 									 disabled="#{!ExportItemsSessionBean.enableExport}"
 									 styleClass="inlineButton exportDownloadButton" />
 				
-					<h:commandButton id="btnExportEMail"
+					<h:commandButton id="btnExportEMail" title="#{tip.export_btEMail}"
 									 value="#{lbl.export_btEMail}"
 									 action="#{SearchResultList.showExportEmailPage}"
 									 disabled="#{!ExportItemsSessionBean.enableExport}"
 									 styleClass="inlineButton exportSendMailButton" />
 			
-				<h:commandButton action="#{ExportItems.updateExportFormats}" id="btnUpdateExportFormats" value="updateExportFormats"  style="visibility:hidden;"/>									
+				<h:commandButton title="#{tip.export_exportFormats}" action="#{ExportItems.updateExportFormats}" id="btnUpdateExportFormats" value="updateExportFormats"  style="visibility:hidden;"/>									
 </f:subview></div>

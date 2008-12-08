@@ -32,7 +32,7 @@
 		<div>
 			<h1 class="bottomSpace">
 			<h:outputText id="valOrientationText" styleClass="orientationHeader" value="#{lbl.CreateRevisionPage}"/>
-			<h:commandButton type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>	 
+			<h:commandButton title="#{tip.revisions_help}" type="submit" styleClass="helpIcon" image="./resources/escidoc-css/images/PM_help_16.gif" onclick="loadHelp('#{InternationalizationHelper.selectedHelpPage}', '#CreateRevision');return false"/>	 
 			</h1>
 			<h2>
 				<h:outputText id="chooseCollection" value="#{lbl.CreateNewRevision_ChooseCollection}" />
@@ -43,8 +43,8 @@
 			</div>
 	
 			<div>
-				<h:commandButton id="cancel" value="#{lbl.cancel}" action="#{CreateRevision.cancelCollectionChoose}" />
-				<h:commandButton id="confirm" value="#{lbl.confirmSelection}" action="#{CreateRevision.confirmCollectionChoose}" />
+				<h:commandButton title="#{tip.cancel}" id="cancel" value="#{lbl.cancel}" action="#{CreateRevision.cancelCollectionChoose}" />
+				<h:commandButton title="#{tip.confirmSelection}" id="confirm" value="#{lbl.confirmSelection}" action="#{CreateRevision.confirmCollectionChoose}" />
 			</div>
 		</div>
 		<div>

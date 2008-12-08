@@ -104,83 +104,83 @@ All rights reserved. Use is subject to license terms.
 			<div class="large_area1 xTiny_marginLIncl selectMenu" style="display: none;">
 				<input type="button" class="min_imgBtn checkBoxCloseSelectButton"></input>
 				<span class="medium_area0_p8"><h:outputText value="#{lbl.List_SelectItem}"/></span>
-				<h:commandLink  disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAll}"/></span></h:commandLink>
+				<h:commandLink title="#{tip.List_lkAll}" disabled="true" styleClass="large_area0 selectAll"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkAll}"/></span></h:commandLink>
  				<%-- <a class="large_area0 selectTotal"><span class="medium_area0_p8 tiny_marginLIncl">All</span></a>--%>
- 				<h:commandLink disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
+ 				<h:commandLink title="#{tip.List_lkNone}" disabled="true" styleClass="large_area0 selectNone"><span class="medium_area0_p8 tiny_marginLIncl"><h:outputText value="#{lbl.List_lkNone}"/></span></h:commandLink>
 			</div>
 			&nbsp;
       	</th>
       	<th class="free_area0 endline status statusArea">
       		<span class="seperator"></span>
-			<h:commandLink styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
+			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'STATE'}" action="#{PubItemListSessionBean.changeToSortByState}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'STATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_STATE}"/>
  			</h:commandLink>	
 		</th>
       	<th class="free_area0">
       		<span class="seperator"></span>
-			<h:commandLink styleClass="free_area0_p8 itemHeadline" rendered="#{PubItemListSessionBean.selectedSortBy != 'TITLE'}" action="#{PubItemListSessionBean.changeToSortByTitle}">
+			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8 itemHeadline" rendered="#{PubItemListSessionBean.selectedSortBy != 'TITLE'}" action="#{PubItemListSessionBean.changeToSortByTitle}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_TITLE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 ascSort itemHeadline" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'TITLE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8 ascSort itemHeadline" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'TITLE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_TITLE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="free_area0_p8 desSort itemHeadline" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'TITLE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="free_area0_p8 desSort itemHeadline" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'TITLE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_TITLE}"/>
  			</h:commandLink>	
       	</th>
       <th class="large_area0">
 			<!-- Currently disabled bacause not possible to sort by this criterium at the moment -->
      		<span class="seperator"></span>
-			<h:commandLink styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'CREATOR'}" action="#{PubItemListSessionBean.changeToSortByCreator}">
+			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'CREATOR'}" action="#{PubItemListSessionBean.changeToSortByCreator}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 ascSort " rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 ascSort " rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'CREATOR'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_CREATOR}"/>
  			</h:commandLink>	
       </th>
       <th class="large_area0">
 			<span class="seperator"></span>
-			<h:commandLink styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'GENRE'}" action="#{PubItemListSessionBean.changeToSortByGenre}">
+			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'GENRE'}" action="#{PubItemListSessionBean.changeToSortByGenre}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_GENRE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'GENRE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'GENRE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_GENRE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'GENRE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'GENRE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_GENRE}"/>
  			</h:commandLink>	
 	  </th>
       <th class="large_area0">
 			<!-- Currently disabled bacause not possible to sort by this criterium at the moment -->
 			<span class="seperator"></span>
-			<h:commandLink styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'DATE'}" action="#{PubItemListSessionBean.changeToSortByDate}">
+			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'DATE'}" action="#{PubItemListSessionBean.changeToSortByDate}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'DATE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_DATE}"/>
  			</h:commandLink>	
 	  </th>
       <th class="large_area0">
 			<span class="seperator"></span>
-			<h:commandLink  styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
+			<h:commandLink title="#{tip.ItemList_SortBy} "  styleClass="large_area0_p8" rendered="#{PubItemListSessionBean.selectedSortBy != 'FILE'}" action="#{PubItemListSessionBean.changeToSortByFile}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 ascSort" rendered="#{PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>
- 			<h:commandLink styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
+ 			<h:commandLink title="#{tip.ItemList_SortBy} " styleClass="large_area0_p8 desSort" rendered="#{!PubItemListSessionBean.isAscending and PubItemListSessionBean.selectedSortBy == 'FILE'}" action="#{PubItemListSessionBean.changeSortOrder}">
  				<span class="noDisplay"><h:outputText value="#{lbl.ItemList_SortBy} " /></span><h:outputText value="#{lbl.ENUM_CRITERIA_FILE}"/>
  			</h:commandLink>	
 	  </th>
@@ -215,11 +215,11 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="free_area0_p8 itemHeadline">
-						<h:outputLink value="#{item.link}" rendered="#{PubItemListSessionBean.pageType != 'SearchResult'}">
+						<h:outputLink title="#{tip.list_item}" value="#{item.link}" rendered="#{PubItemListSessionBean.pageType != 'SearchResult'}">
  							<b><h:outputText value="#{item.shortTitle}"/></b>
 	 					</h:outputLink>
 						<!-- PUBMAN-613  : Bug in search results - Take latest release link here -->
-						<h:outputLink value="#{item.linkLatestRelease}" rendered="#{PubItemListSessionBean.pageType == 'SearchResult'}">
+						<h:outputLink title="#{tip.list_latestRelease}" value="#{item.linkLatestRelease}" rendered="#{PubItemListSessionBean.pageType == 'SearchResult'}">
 	 						<b><h:outputText value="#{item.shortTitle}"/></b>
 	 					</h:outputLink>
 		      		</span>
@@ -245,8 +245,8 @@ All rights reserved. Use is subject to license terms.
 		      	<td class="free_area0 endline">
 		      		<span class="seperator"></span>
 		      		<span class="large_area0_p8 endline filesSection">
-		      			<h:panelGroup layout="block" styleClass="files" rendered="#{item.numberOfFiles > 0}"><h:outputLink value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink></h:panelGroup>
-		      			<h:panelGroup layout="block" styleClass="locators" rendered="#{item.numberOfLocators > 0}"><h:outputLink value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink></h:panelGroup>
+		      			<h:panelGroup layout="block" styleClass="files" rendered="#{item.numberOfFiles > 0}"><h:outputLink title="#{tip.list_fileInfo}" value="#{item.link}#files"><h:outputText value="#{item.fileInfo}"/></h:outputLink></h:panelGroup>
+		      			<h:panelGroup layout="block" styleClass="locators" rendered="#{item.numberOfLocators > 0}"><h:outputLink title="#{tip.list_locInfo}" value="#{item.link}#locators"><h:outputText value="#{item.locatorInfo}"/></h:outputLink></h:panelGroup>
 		      		</span>
 		      	</td>
 		    </tr>

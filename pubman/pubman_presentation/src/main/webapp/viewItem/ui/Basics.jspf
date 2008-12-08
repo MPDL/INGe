@@ -69,11 +69,11 @@
 		<h:outputText value="#{lbl.ViewItemFull_lblLinkSection}"/>
 	<h:outputText value="</div>" escape="false"/>
 	<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
-		<h:commandLink action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
+		<h:commandLink title="#{tip.ViewItemLog_Header} action="#{ViewItemFull.showItemLog}" rendered="#{ViewItemFull.isLatestVersion and !ViewItemFull.isStateWithdrawn and ViewItemFull.isLoggedIn and (ViewItemFull.isDepositor || ViewItemFull.isModerator)}">
 				<h:outputText value="#{lbl.ViewItemLog_Header}"/>
 		</h:commandLink>
 	
-		<h:commandLink action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
+		<h:commandLink title="#{tip.ViewItemFull_btnItemStatistics}" action="#{ViewItemFull.showStatistics}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemStatistics}"/>
 		</h:commandLink>
 	
@@ -81,11 +81,11 @@
 			<h:outputText value="#{lbl.ViewItemFull_btnFileSection}"  rendered="#{ViewItemFull.showFiles}"/>
 		</a>
 		
-		<h:commandLink action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
+		<h:commandLink title="#{tip.ViewItemFull_btnItemRevisions}" action="#{ViewItemFull.showRevisions}" rendered="#{ViewItemFull.isLatestRelease && !ViewItemFull.isStateWithdrawn}">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemRevisions}"/>
 		</h:commandLink>
 		
-		<h:commandLink action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
+		<h:commandLink title="#{tip.ViewItemFull_btnItemVersions}" action="#{ViewItemFull.showReleaseHistory}" rendered="#{(!ViewItemFull.isStateWithdrawn and ViewItemFull.isLatestRelease) || (ViewItemFull.isStateWithdrawn and ViewItemFull.pubItem.version.versionNumber > 1) }">
 					<h:outputText value="#{lbl.ViewItemFull_btnItemVersions}"/>
 		</h:commandLink>
 		
@@ -98,16 +98,16 @@
 		<h:outputText value="<div class='itemTitle'>" escape="false"/>
 		<h:outputText value="</div>" escape="false"/>
 		<h:outputText value="<div class='itemText linkHead floatbox'>" escape="false"/>
-			<h:outputLink value="#{ViewItemFull.unapiApa}">
+			<h:outputLink title="#{tip.ViewItem_lkAPA} value="#{ViewItemFull.unapiApa}">
 				<h:outputText value="#{lbl.ViewItem_lkAPA}"/>
 			</h:outputLink>	
-			<h:outputLink value="#{ViewItemFull.unapiBibtex}">
+			<h:outputLink title="#{tip.ViewItem_lkBIBTEX} value="#{ViewItemFull.unapiBibtex}">
 				<h:outputText value="#{lbl.ViewItem_lkBIBTEX}"/>
 			</h:outputLink>	
-			<h:outputLink value="#{ViewItemFull.unapiEndnote}">
+			<h:outputLink title="#{tip.ViewItem_lkENDNOTE} value="#{ViewItemFull.unapiEndnote}">
 				<h:outputText value="#{lbl.ViewItem_lkENDNOTE}"/>
 			</h:outputLink>	
-			<h:outputLink value="#{ViewItemFull.unapiEscidoc}">
+			<h:outputLink title="#{tip.ViewItem_lkESCIDOC} value="#{ViewItemFull.unapiEscidoc}">
 				<h:outputText value="#{lbl.ViewItem_lkESCIDOC}"/>
 			</h:outputLink>	
 			<h:outputText value="#{lbl.export_lblSimpleExport}"/>
@@ -145,7 +145,7 @@
 		<h:outputText value="</div>" escape="false"/>
 		
 		<h:outputText value="<div class='itemText odd'>" escape="false"/>
-		<h:outputLink value="#{ViewItemFull.citationURL}">
+		<h:outputLink title="#{tip.viewItem_citationURL}" value="#{ViewItemFull.citationURL}">
 			<h:outputText value="#{ViewItemFull.citationURL}"/>
 		</h:outputLink>	
 		<h:outputText value="</div>" escape="false"/>
