@@ -79,7 +79,7 @@
 
 /*MAIN MENU*/
 
-	.mainMenu input, .mainMenu a {
+	.mainMenu input, .mainMenu a, .mainMenu span {
 		text-align: left;
 		text-decoration: none;
 	}

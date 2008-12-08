@@ -93,7 +93,7 @@
 		padding-left: 5.74em !important;
 	}
 
-	.mainMenu input, .mainMenu a {
+	.mainMenu input, .mainMenu a, .mainMenu span {
 		font-size: 16px !important;
 		font-weight: bold;
 		/*margin-left: -0.09em;*/
