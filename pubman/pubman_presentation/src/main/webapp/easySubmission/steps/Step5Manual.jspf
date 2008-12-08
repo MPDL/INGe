@@ -198,8 +198,8 @@
 							<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
@@ -239,8 +239,8 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{EasySubmission.eventTitleCollection.titleIF.title.value}" cols="15" rows="3"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<h:commandButton styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" />
-						<h:commandButton styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" />
+						<h:commandButton title="#{tip.easy_submission_addTitle}" styleClass="min_imgBtn groupTool add" value=" " action="#{EasySubmission.eventTitleCollection.addTitle}" />
+						<h:commandButton title="#{tip.easy_submission_removeTitle}" styleClass="min_imgBtn groupTool remove" value=" " disabled="#{EasySubmission.eventTitleCollection.alternativeTitleManager.size == 0}" action="#{EasySubmission.eventTitleCollection.removeTitle}" />
 					</span>
 				</div>
 		
@@ -254,8 +254,8 @@
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
@@ -361,9 +361,9 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">	
-	<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
-	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
-	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadPreview}"><h:outputText value="#{lbl.easy_submission_btnAddDetails}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnBack}" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep4Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.save}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnAddDetails}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadPreview}"><h:outputText value="#{lbl.easy_submission_btnAddDetails}" /></h:commandLink>
 </div>
 
 </f:subview>

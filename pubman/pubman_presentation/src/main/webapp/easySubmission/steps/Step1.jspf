@@ -64,13 +64,13 @@
 		<div>
 			
 			<div class="easySubmissionsBackSection deactivatedControl">
-			<h:commandLink action="#{EasySubmission.cancelEasySubmission}">
+			<h:commandLink title="#{tip.easy_submission_btnBack}" action="#{EasySubmission.cancelEasySubmission}">
 				<h:panelGroup styleClass="easySubmissionBackButton"/>
 				<h:outputLabel value="#{lbl.easy_submission_btnBack}" />
 			</h:commandLink>
 			</div>
 			<div class="easySubmissionsNextSection">
-			<h:commandLink action="#{EasySubmission.selectSubmissionMethod}">
+			<h:commandLink title="#{tip.easy_submission_btnNext}" action="#{EasySubmission.selectSubmissionMethod}">
 				<h:outputLabel value="#{lbl.easy_submission_btnNext}" />
 				<h:panelGroup styleClass="easySubmissionNextButton"/>
 			</h:commandLink>

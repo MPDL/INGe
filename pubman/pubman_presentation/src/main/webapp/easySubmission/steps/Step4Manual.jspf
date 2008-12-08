@@ -130,8 +130,8 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">	
-	<h:commandLink styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep3Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
-	<h:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep5Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnBack}" styleClass="free_area1_p8 cancelButton xLarge_marginLIncl" action="#{EasySubmission.loadStep3Manual}"><h:outputText value="#{lbl.easy_submission_btnBack}" /></h:commandLink>
+	<h:commandLink title="#{tip.easy_submission_btnNext}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.loadStep5Manual}"><h:outputText value="#{lbl.easy_submission_btnNext}" /></h:commandLink>
 </div>
 
 </f:subview>

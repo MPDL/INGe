@@ -50,10 +50,10 @@
 			<div class="sub">
 			<!-- content menu lower line starts here -->
 				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblProvideID}" rendered="#{EasySubmission.disableBibtexFields}" />								
-				<h:commandLink id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
+				<h:commandLink title="#{tip.easy_submission_lblProvideID}" id="btn_selectExternal" action="#{EasySubmission.selectImportExternal}" rendered="#{EasySubmission.disableExternalFields}" ><h:outputText value="#{lbl.easy_submission_lblProvideID}" /></h:commandLink>
 				<h:panelGroup styleClass="seperator" />
 				<h:outputText styleClass="free_area0" value="#{lbl.easy_submission_lblUploadBibtex}" rendered="#{EasySubmission.disableExternalFields}" />
-				<h:commandLink id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
+				<h:commandLink title="#{tip.easy_submission_lblUploadBibtex}" id="btn_selectBibtex" action="#{EasySubmission.selectImportBibtex}" rendered="#{EasySubmission.disableBibtexFields}" ><h:outputText value="#{lbl.easy_submission_lblUploadBibtex}" /></h:commandLink>
 			<!-- content menu lower line ends here -->
 			</div>
 		<!-- content menu ends here -->
@@ -92,7 +92,7 @@
 							<h:selectOneMenu styleClass="large_select replace" value="#{EasySubmissionSessionBean.currentExternalServiceType}" onchange="$(this).parents('.itemBlock').find('.hiddenButton').click();" binding="#{EasySubmission.sourceSelect}">
 								<f:selectItems value="#{EasySubmissionSessionBean.EXTERNAL_SERVICE_OPTIONS}"/>
 							</h:selectOneMenu>
-							<h:commandButton action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
+							<h:commandButton title="#{tip.easy_submission_btSelectSource}" action="#{EasySubmission.changeImportSource}" immediate="true" styleClass="hiddenButton" id="btnChangeImportSource" value="" style="visibility:hidden;"/>
 						</span>
 						<span class="xDouble_area0">
 							<h:outputLabel styleClass="xDouble_label" value="#{lbl.easy_submission_lblIDValue}"/>
@@ -134,7 +134,7 @@
 	</div>
 </div>
 <div class="full_area0 formButtonArea">					
-	<tr:commandLink styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></tr:commandLink>
+	<tr:commandLink text="#{tip.easy_submission_btnSave}" styleClass="free_area1_p8 activeButton" action="#{EasySubmission.harvestData}"><h:outputText value="#{lbl.easy_submission_btnSave}" /></tr:commandLink>
 </div>
 
 </f:subview>

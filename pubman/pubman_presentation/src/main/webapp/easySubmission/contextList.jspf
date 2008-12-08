@@ -40,7 +40,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink action="#{context.selectForEasySubmission}">
+				<h:commandLink title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>
@@ -53,7 +53,7 @@ All rights reserved. Use is subject to license terms.
 		<span class="seperator"></span>
 		<span class="free_area0_p8 endline itemHeadline">
 			<b>
-				<h:commandLink action="#{context.selectForEasySubmission}">
+				<h:commandLink title="#{tip.EasySubmission_select}" action="#{context.selectForEasySubmission}">
 					<h:outputText value="#{context.name}"/>
 				</h:commandLink>
 			</b>
