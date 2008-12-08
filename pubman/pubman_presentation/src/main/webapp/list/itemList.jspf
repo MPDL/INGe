@@ -154,7 +154,11 @@
  				</span>
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
- 					<h:outputLink value="#{item.link}">
+ 					<h:outputLink value="#{item.link}" rendered="#{PubItemListSessionBean.pageType != 'SearchResult'}">
+ 						<b><h:outputText value="#{item.shortTitle}"/></b>
+ 					</h:outputLink>
+					<!-- PUBMAN-613 : Bug in search results: Take latest release link here -->
+					<h:outputLink value="#{item.linkLatestRelease}" rendered="#{PubItemListSessionBean.pageType == 'SearchResult'}">
  						<b><h:outputText value="#{item.shortTitle}"/></b>
  					</h:outputLink>
  				</span>

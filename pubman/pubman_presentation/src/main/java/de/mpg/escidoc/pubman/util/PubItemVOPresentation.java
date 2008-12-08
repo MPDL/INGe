@@ -953,6 +953,24 @@ public class PubItemVOPresentation extends PubItemVO implements Internationalize
     	}
     }
     
+    public String getLinkLatestRelease() throws Exception
+    {
+        if (this.getLatestRelease()!=null && this.getLatestRelease().getObjectId() != null)
+        {
+            return PropertyReader.getProperty("escidoc.pubman.instance.url")
+            + PropertyReader.getProperty("escidoc.pubman.instance.context.path")
+                + PropertyReader
+                    .getProperty("escidoc.pubman.item.pattern")
+                    .replaceAll("\\$1", this.getLatestRelease().getObjectId()
+                            + (this.getLatestRelease().getVersionNumber() != 0 ? ":" 
+                                    + this.getLatestRelease().getVersionNumber() : ""));
+        }
+        else
+        {
+            return null;
+        }
+    }
+    
     public boolean getShowCheckbox()
     {
     	boolean showCheckbox = true;

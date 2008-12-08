@@ -56,7 +56,7 @@
 
 	
 	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" value="#{ApplicationBean.appContext}CartItemsPage.jsp">
-		<h:outputText value="Item Basket (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
+		<h:outputText value="#{lbl.CartItemsPage} (#{PubItemStorageSessionBean.storedPubItemsSize})"/>
 	</h:outputLink>
 <%-- 
 	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="Export selected Items." action="#{PubItemListSessionBean.startExport}">
