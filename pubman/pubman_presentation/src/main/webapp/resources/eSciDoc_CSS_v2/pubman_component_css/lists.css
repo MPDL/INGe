@@ -202,22 +202,6 @@
 	float: right;
 }
 
-.listItem .statusIcon {
-	z-index: 1;
-	margin-top: 1.73em;
-	margin-left: -8.65em;
-}
-
-/*REPLACEMENT HACK FOR IE LESS THAN 6*/
-	* html .listItem .statusIcon {
-	margin-top: 0em;
-	margin-left: 0em;
-	}
-	/*REPLACEMENT HACK FOR IE 7*/
-	*:first-child+html .listItem .statusIcon {
-	margin-top: 0em;
-	margin-left: 0em;
-	}
 
 .listItem td .statusIcon {
 	margin-top: 0.09em;

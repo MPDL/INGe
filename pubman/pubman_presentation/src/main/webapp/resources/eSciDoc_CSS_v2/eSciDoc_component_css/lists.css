@@ -85,10 +85,6 @@
 }
 
 .listItem .statusIcon {
-	position: absolute;
-}
-
-.listItem td .statusIcon {
 	position: relative;
 	float: left;
 }

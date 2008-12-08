@@ -138,7 +138,12 @@
  				</span>
  				<span class="seperator"></span>
  				<span class="free_area0_p8 status statusArea">
- 					<span class="noDisplay">(</span>
+ 					<h:panelGroup styleClass="big_imgArea statusIcon withdrawnItem" rendered="#{item.isStateWithdrawn}" />
+ 					<h:panelGroup styleClass="big_imgArea statusIcon pendingItem" rendered="#{item.isStatePending}" />
+ 					<h:panelGroup styleClass="big_imgArea statusIcon submittedItem" rendered="#{item.isStateSubmitted}" />
+ 					<h:panelGroup styleClass="big_imgArea statusIcon releasedItem" rendered="#{item.isStateReleased and !item.isStateWithdrawn}" />
+ 					<h:panelGroup styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{item.isStateInRevision}" />
+					<span class="noDisplay">(</span>
  					<h:outputLabel styleClass="medium_label endline messageWarn" rendered="#{item.isStateWithdrawn}">
  						<h:outputText value="#{item.itemPublicState}" />
  					</h:outputLabel>
@@ -146,11 +151,6 @@
  						<h:outputText value="#{item.itemState}" />
  					</h:outputLabel>
  					<span class="noDisplay">)</span>
- 					<h:panelGroup styleClass="big_imgArea statusIcon withdrawnItem" rendered="#{item.isStateWithdrawn}" />
- 					<h:panelGroup styleClass="big_imgArea statusIcon pendingItem" rendered="#{item.isStatePending}" />
- 					<h:panelGroup styleClass="big_imgArea statusIcon submittedItem" rendered="#{item.isStateSubmitted}" />
- 					<h:panelGroup styleClass="big_imgArea statusIcon releasedItem" rendered="#{item.isStateReleased and !item.isStateWithdrawn}" />
- 					<h:panelGroup styleClass="big_imgArea statusIcon inRevisionItem" rendered="#{item.isStateInRevision}" />
  				</span>
  				<span class="seperator status"></span>
  				<span class="free_area0_p6 endline itemHeadline">
