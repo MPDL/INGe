@@ -288,8 +288,8 @@
 						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd}" #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove}" #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
 					</span>
 				</h:panelGroup>
 			</tr:iterator>
