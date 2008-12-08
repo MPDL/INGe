@@ -66,7 +66,7 @@
 					</h:selectOneMenu>
 				</span>
 				<h:panelGroup styleClass="large_area0_p8 lineToolSection">
-					<input type="button" title="#{tip.EditItem_btnMultipleAuthors}" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
+					<input type="button" class="free_txtBtn groupBtn showMultipleAuthors" value="<h:outputText value='#{lbl.submission_lblAuthorCopyPasteLabel}'/>" />
 				</h:panelGroup>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{EditItem.creatorIterator.rowIndex > 0 }">
