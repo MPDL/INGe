@@ -198,8 +198,8 @@
 							<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addID}" action="#{EasySubmission.identifierCollection.identifierManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeID}" action="#{EasySubmission.identifierCollection.identifierManager.removeObject}" disabled="#{EasySubmission.identifierCollection.identifierManager.size == 1}"/>
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
@@ -254,8 +254,8 @@
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.easy_submission_addAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.easy_submission_removeAltTitle}" action="#{EasySubmission.eventTitleCollection.alternativeTitleManager.removeObject}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
