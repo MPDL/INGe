@@ -51,8 +51,8 @@
 					</h:selectOneMenu>
 				</span>
 				<span class="huge_area0_p8 lineToolSection sourcesControls">
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" shortDesc="#{lbl.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" shortDesc="#{lbl.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
 				</span>
 			</div>
 
