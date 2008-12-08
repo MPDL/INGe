@@ -49,8 +49,8 @@
 					<h:inputText styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
@@ -65,8 +65,8 @@
 					<h:inputText styleClass="quad_txtInput" value="#{eventCriterionBean.eventCriterionVO.searchString}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.search_btAdd}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.search_btRemove}" disabled="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.size == 1}" action="#{AdvancedSearchEdit.eventCriterionCollection.eventCriterionManager.removeObject}"/>
 <%-- 
 					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{lbl.adv_search_btClear}" action="#{eventCriterionBean.clearCriterion}" />
 --%>
