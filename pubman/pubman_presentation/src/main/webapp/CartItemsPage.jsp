@@ -90,7 +90,7 @@
 									<h:selectOneMenu value="#{ExportItemsSessionBean.exportFormatType}" styleClass="xLarge_select replace" onchange="$(this).parents('.sub').find('.exportUpdateButton').click();">
 											 <f:selectItems value="#{ExportItems.EXPORTFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>
-									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{ExportItems.updateExportFormats}" value="updateExportFormats" />	
+									<h:commandButton styleClass="noDisplay exportUpdateButton" action="#{CartItemsRetrieverRequestBean.updateExportOptions}" value="updateExportFormats" />	
 									<h:selectOneMenu value="#{ExportItemsSessionBean.fileFormat}" styleClass="medium_select replace" rendered="#{ExportItemsSessionBean.enableLayout}">
 										<f:selectItems value="#{ExportItems.FILEFORMAT_OPTIONS}"/>
 									</h:selectOneMenu>

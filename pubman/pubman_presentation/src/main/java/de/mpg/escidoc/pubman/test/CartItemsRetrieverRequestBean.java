@@ -180,4 +180,16 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     }
     
     
+    /**
+     * Method needs to be called over this bean, because it has to be called first in order to save the selections in the list
+     */
+    public void updateExportOptions()
+    {
+        ExportItems exportItemsBean = (ExportItems)getRequestBean(ExportItems.class);
+        exportItemsBean.updateExportFormats();
+        
+    }
+    
+    
+    
 }

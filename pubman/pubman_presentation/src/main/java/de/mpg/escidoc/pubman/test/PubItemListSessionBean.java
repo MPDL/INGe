@@ -620,8 +620,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     @Override
     protected void saveState()
     {
-       
-        
+        //saveSelections();
     }
     
     @Override
@@ -638,6 +637,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public String showDisplayExportData()
     {
+        saveSelections();
         
         ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
         String displayExportData = getMessage(ExportItems.MESSAGE_NO_ITEM_FOREXPORT_SELECTED);
@@ -690,6 +690,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public String showExportEmailPage()
     {
+        saveSelections();
         
         ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
         // this.setSelectedItemsAndCurrentItem();
@@ -756,6 +757,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
      */
     public String downloadExportFile()
     {
+        saveSelections();
         
         ItemControllerSessionBean icsb = (ItemControllerSessionBean)getSessionBean(ItemControllerSessionBean.class);
         // set the currently selected items in the FacesBean
