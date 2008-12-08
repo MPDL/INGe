@@ -116,18 +116,20 @@ public class SearchBean implements Search
     }
 
     /** Coreservice identifier for the 'all' lucene index database. */
-    private static final String INDEXDATABASE_ALL = "escidoc_all";
+    public static final String INDEXDATABASE_ALL = "escidoc_all";
     /** Coreservice identifier for the 'german' lucene index database. */
-    private static final String INDEXDATABASE_EN = "escidoc_en";
+    public static final String INDEXDATABASE_EN = "escidoc_en";
     /** Coreservice identifier for the 'english' lucene index database. */
-    private static final String INDEXDATABASE_DE = "escidoc_de";
+    public static final String INDEXDATABASE_DE = "escidoc_de";
     /** Coreservice identifier for the organizational unit index database. */
-    private static final String INDEXDATABASE_OU = "escidocou_all";
+    public static final String INDEXDATABASE_OU = "escidocou_all";
 
     /** Version of the cql search request. */
     private static final String SEARCHREQUEST_VERSION = "1.1";
     /** Packing of result. */
     private static final String RECORD_PACKING = "xml";
+    /** Diagnostic error from the SRW interface which should not be treated as an error. */
+    private static final String SRW_DIAGNOSTIC_NO_ERROR = "61/StartRecord > endRecord";
 
     /**
      * {@inheritDoc}
@@ -210,7 +212,7 @@ public class SearchBean implements Search
     /**
      * Perform a search with the SRU interface.
      * @param searchRetrieveRequest  SRU search request
-     * @param sel  index dtabase selector
+     * @param sel  index database selector
      * @return  search result set
      * @throws TechnicalException  if the search fails
      */
@@ -243,14 +245,13 @@ public class SearchBean implements Search
                 logger.warn(diagnostic.getUri());
                 logger.warn(diagnostic.getMessage());
                 logger.warn(diagnostic.getDetails());
+                if (!diagnostic.getDetails().contains(SRW_DIAGNOSTIC_NO_ERROR)) 
+                {
+                    throw new TechnicalException("Search request failed for query: "
+                            + searchRetrieveRequest.getQuery());
+                }
             }
-            throw new TechnicalException("Search request failed for query "
-                    + searchRetrieveRequest.getQuery()
-                    + ". Diagnostics returned. See log for details.");
         }
-
-        long time = new Date().getTime();
-        logger.debug("START TIME: " + time);
 
         return searchResult;
     }
