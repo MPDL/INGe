@@ -52,10 +52,15 @@ public class TitleCollection
 		return titleIF;
 	}
 
-	public void setTitleIF(TitleIF titleIF)
+	public void setTitleIF(TitleIF title)
 	{
-		this.titleIF = titleIF;
-		if (titleIF.getTitle() == null)
+		this.titleIF = title;
+		if( titleIF == null )
+        {
+           titleIF = new MdsPublicationVO();
+           titleIF.setTitle(new TextVO());
+        }
+		else if (titleIF.getTitle() == null)
 		{
 			titleIF.setTitle(new TextVO());
 		}
