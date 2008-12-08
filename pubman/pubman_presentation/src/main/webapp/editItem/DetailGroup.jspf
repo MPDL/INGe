@@ -45,8 +45,8 @@
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="#{language.index == 0}" /><h:outputText value="#{lbl.EditItem_lblContentLanguage}" rendered="#{language.index == 0}"/><span class="noDisplay">: </span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
-					<input type="text" class="xDouble_txtInput tiny_marginRIncl languageSuggest" />
-					<h:selectOneMenu styleClass="small_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
+					<input type="text" class="large_txtInput tiny_marginRIncl languageSuggest" />
+					<h:selectOneMenu styleClass="xDouble_select replace" value="#{language.value}" valueChangeListener="#{language.valueChanged}" onchange="$(this).parents('.itemLine').find('.languageSuggest').val('');">
 						<f:selectItems value="#{EditItem.languageOptions}"/>
 					</h:selectOneMenu>
 				</span>
