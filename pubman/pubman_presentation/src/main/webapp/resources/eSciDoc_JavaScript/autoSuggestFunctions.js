@@ -54,7 +54,7 @@
 						details.http_purl_org_dc_elements_1_1_identifier[0] : details.http_purl_org_dc_elements_1_1_identifier) : null);
 
 		var allAltTitles = '';
-		if(typeof(altTitle)=='object'){
+		if((typeof(altTitle)=='object') && (altTitle != null) ){
 			allAltTitles = altTitle[0];
 			for(var i=1; i<altTitle.length; i++) {
 					allAltTitles = allAltTitles + autopasteDelimiter + altTitle[i];
@@ -64,7 +64,7 @@
 		}
 		
 		var allIDs = '';
-		if(typeof(identifier)=='object'){
+		if((typeof(identifier)=='object') && (identifier != null)){
 			allIDs = identifier[0];
 			for(var i=1; i<altTitle.length; i++) {
 				allIDs = allIDs + autopasteDelimiter + identifier[i];
@@ -99,8 +99,36 @@
 	
 	function bindSuggests()
 	{
-		$('select.journalPulldown').change(function(){if($(this).val() == journalSuggestTrigger) {  $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest'); } else { $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown'); $('.autoSuggestsArea').hide(); }; setTimeout('bindJournalSuggest()', 500);});
-		$('span.journalPulldown').find('input[type=hidden]').change(function(){if($(this).val() == journalSuggestTrigger) {  $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest'); } else { $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress'); $(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown'); $('.autoSuggestsArea').hide(); }; setTimeout('bindJournalSuggest()', 500);});
+		$('select.journalPulldown[value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		$('span.journalPulldown').find('input[type=hidden][value="'+journalSuggestTrigger+'"]').parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+		
+		$('select.journalPulldown').change(
+				function(){
+					if($(this).val() == journalSuggestTrigger) {
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					} else { 
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$('.autoSuggestsArea').hide();
+					};
+					var t = window.setTimeout('bindJournalSuggest()', 500);
+				});
+
+		$('span.journalPulldown').find('input[type=hidden]').change(
+				function(){
+					if($(this).val() == journalSuggestTrigger) {
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').addClass('journalSuggest');
+					} else {
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').removeClass('journalSuggest');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keypress');
+						$(this).parents('.'+journalSuggestCommonParentClass).find('.sourceTitle').unbind('keydown');
+						$('.autoSuggestsArea').hide();
+					};
+					var t = window.setTimeout('bindJournalSuggest()', 500);
+				});
+
 		bindJournalSuggest();
+		
 		$('.languageSuggest').suggest(languageSuggestURL, { onSelect: function() { $(this).siblings('select').val( (this.resultID.split(':'))[2] ); $(this).siblings('span.replace').replaceValue( (this.resultID.split(':'))[2] ); }   });
 	};
