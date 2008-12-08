@@ -94,6 +94,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
 
+        /*
         itemStateSelectItems = new ArrayList<SelectItem>();
         itemStateSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
@@ -101,6 +102,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        */
         
     }
 
@@ -218,6 +220,14 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
 
     public List<SelectItem> getItemStateSelectItems()
     {
+        itemStateSelectItems = new ArrayList<SelectItem>();
+        itemStateSelectItems.add(new SelectItem("all", getLabel("EditItem_NO_ITEM_SET")));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.PENDING.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.PENDING))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.WITHDRAWN.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.WITHDRAWN))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        
         return itemStateSelectItems;
     }
     

@@ -143,13 +143,9 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     {
         super();
         
-        sortBySelectItems = new ArrayList<SelectItem>();
         selectedItemRefs = new HashMap<String, ItemRO>();
         
-        for (SORT_CRITERIA sc : SORT_CRITERIA.values())
-        {
-            sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
-        }
+        
         
         //sortBySelectItems = Arrays.asList(this.i18nHelper.getSelectItemsItemListSortBy());
 
@@ -183,6 +179,8 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         }
     }
     */
+    
+   
     
     public String changeToSortByState()
     {
@@ -415,6 +413,11 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     public List<SelectItem> getSortBySelectItems()
     {
+        sortBySelectItems = new ArrayList<SelectItem>();
+        for (SORT_CRITERIA sc : SORT_CRITERIA.values())
+        {
+            sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+        }
         return sortBySelectItems;
     }
 

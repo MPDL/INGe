@@ -57,7 +57,6 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
         
-        initSelectionMenu();
         
     }
     
@@ -225,10 +224,9 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         return returnString;
     }
     
-    private void initSelectionMenu()
+    
+    public List<SelectItem> getItemStateSelectItems()
     {
-        
-        //item states
         List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
         itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
@@ -236,6 +234,21 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
         setItemStateSelectItems(itemStateSelectItems);
         
+        return itemStateSelectItems;
+    }
+    
+    private void initSelectionMenu()
+    {
+        
+        /*
+        //item states
+        List<SelectItem> itemStateSelectItems = new ArrayList<SelectItem>();
+        itemStateSelectItems.add(new SelectItem("all",getLabel("EditItem_NO_ITEM_SET")));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.SUBMITTED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.SUBMITTED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.RELEASED.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.RELEASED))));
+        itemStateSelectItems.add(new SelectItem(PubItemVO.State.IN_REVISION.name(), getLabel(i18nHelper.convertEnumToString(PubItemVO.State.IN_REVISION))));
+        setItemStateSelectItems(itemStateSelectItems);
+        */
         
         //Contexts (Collections)
         ContextListSessionBean clsb = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
