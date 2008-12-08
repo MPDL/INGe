@@ -29,6 +29,7 @@ import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.export.ExportItems;
 import de.mpg.escidoc.pubman.export.ExportItemsSessionBean;
 import de.mpg.escidoc.pubman.util.CommonUtils;
+import de.mpg.escidoc.pubman.util.LoginHelper;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
@@ -65,15 +66,21 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public static enum SORT_CRITERIA
     {
         TITLE ("escidoc.title", "/md-records/md-record/publication/title"),
-        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
-        SOURCE_TITLE ("escidoc.any-source", ""),
         GENRE ("escidoc.genre", "/md-records/md-record/publication/type"),
         DATE ("escidoc.any-dates", ""),
         CREATOR ("escidoc.complete-name", ""),
         PUBLISHING_INFO ("escidoc.publisher", "/md-records/md-record/publication/source/publishing-info/publisher"),
         MODIFICATION_DATE ("escidoc.last-modification-date", "/last-modification-date"),
+        EVENT_TITLE ("escidoc.any-event", "/md-records/md-record/publication/event/title"),
+        SOURCE_TITLE ("escidoc.any-source", ""),
+        SOURCE_CREATOR("", ""),
+        REVIEW_METHOD("", "/md-records/md-record/publication/review-method"),
+        FILE("",""),
         STATE("escidoc.version.status", "/properties/version/status"),
-        FILE("","");
+        OWNER("escidoc.created-by.name", "/properties/created-by/title"),
+        COLLECTION("escidoc.context.name", "/properties/context/title");
+        
+        
         
         private String index;
         private String sortPath;
@@ -136,12 +143,16 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
 
     private Map<String, ItemRO> selectedItemRefs;
     
+    private LoginHelper loginHelper;
+    
     
 
 
     public PubItemListSessionBean()
     {
         super();
+        
+        loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
         
         selectedItemRefs = new HashMap<String, ItemRO>();
         
@@ -414,10 +425,26 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
     public List<SelectItem> getSortBySelectItems()
     {
         sortBySelectItems = new ArrayList<SelectItem>();
-        for (SORT_CRITERIA sc : SORT_CRITERIA.values())
+        
+        //the last three should not be in if not logged in
+        if (!loginHelper.isLoggedIn())
         {
-            sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+            for (int i = 0; i< SORT_CRITERIA.values().length - 3; i++)
+            {
+                SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
+                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+            }
         }
+        else
+        {
+            for (int i = 0; i< SORT_CRITERIA.values().length; i++)
+            {
+                SORT_CRITERIA sc = SORT_CRITERIA.values()[i];
+                sortBySelectItems.add(new SelectItem(sc.name(), getLabel("ENUM_CRITERIA_"+sc.name())));
+            }
+            
+        }
+        
         return sortBySelectItems;
     }
 
