@@ -491,6 +491,7 @@
 		background-image: url('../../images/All_Complete_PlusAdd_15_Active.gif');
 		background-repeat: no-repeat;
 		background-position: center center;
+		margin-right: 0.37em;
 	}
 	
 	.add:hover, .add:focus {
