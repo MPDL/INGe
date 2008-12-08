@@ -164,8 +164,8 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
             
             pubItemList =  extractItemsOfSearchResult(result);
-            //TODO To be changed
             this.numberOfRecords = Integer.parseInt(result.getTotalNumberOfResults().toString());
+            
         }
         catch (Exception e)
         {
