@@ -97,11 +97,12 @@
 								<h:panelGroup layout="block" styleClass="sub" rendered="#{ItemListSessionBean.submenu == 'SORTING'}">
 								<!-- content menu lower line starts here -->
 									<h:outputText styleClass="free_area0" value="#{lbl.ItemList_SortBy}: "/>
+									<h:commandLink styleClass="ascSort" value="#{lbl.ItemList_SortOrderAscending}" id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
+									<h:commandLink styleClass="desSort" value="#{lbl.ItemList_SortOrderDescending}" id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
+									<h:outputText styleClass="free_area0" value="&#160;#{lbl.SearchResultList_lblSortedBy}&#160;" />
 									<h:selectOneMenu styleClass="xLarge_select replace" id="sortBy" onchange="$('form').submit();" valueChangeListener="#{ItemListSessionBean.setSortBy}" value="#{ItemListSessionBean.sortBy}">
 										<f:selectItems value="#{ListControlSessionBean.selectSortByOptions}" />
 									</h:selectOneMenu>
-									<h:commandLink styleClass="min_imgArea ascSort" value=" " id="sortOrderAsc" rendered="#{ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
-									<h:commandLink styleClass="min_imgArea desSort" value=" " id="sortOrderDesc" rendered="#{!ItemListSessionBean.isAscending}" actionListener="#{ItemListSessionBean.setSortOrder}" />
 								<!-- content menu lower line ends here -->
 								</h:panelGroup>
 							<!-- content menu ends here -->
