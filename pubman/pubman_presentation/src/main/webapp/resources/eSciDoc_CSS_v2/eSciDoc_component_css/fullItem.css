@@ -103,11 +103,12 @@
 
 .fileSection .fileInputPositioner {
 	position: absolute;
+	overflow: hidden;
 	direction: rtl;
 }
 
 .fileSection .fileInput {
-	opacity: 0.0;
+	opacity: 0;
 	filter: alpha(opacity=0);
 	cursor: pointer !important;
 }
