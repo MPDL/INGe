@@ -83,6 +83,7 @@ public abstract class ItemList extends FacesBean
     public static final String MESSAGE_NO_ITEM_SELECTED = "depositorWS_NoItemSelected";
     public static final String MESSAGE_WRONG_ITEM_STATE = "depositorWS_wrongItemState";
     public static final String MESSAGE_SUCCESSFULLY_SUBMITTED = "depositorWS_SuccessfullySubmitted";
+    public static final String MESSAGE_SUCCESSFULLY_RELEASED = "depositorWS_SuccessfullyReleased";
     public static final String MESSAGE_NOT_SUCCESSFULLY_SUBMITTED = "depositorWS_NotSuccessfullySubmitted";
     public static final String MESSAGE_SUCCESSFULLY_WITHDRAWN = "depositorWS_SuccessfullyWithdrawn";
     public static final String MESSAGE_SUCCESSFULLY_DELETED = "depositorWS_SuccessfullyDeleted";
