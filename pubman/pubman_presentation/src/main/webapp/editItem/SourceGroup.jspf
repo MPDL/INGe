@@ -51,8 +51,8 @@
 					</h:selectOneMenu>
 				</span>
 				<span class="huge_area0_p8 lineToolSection sourcesControls">
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text="#{tip.EditItem_btRemoveSource}" shortDesc="#{lbl.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
-					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text="#{tip.EditItem_btAddSource}" shortDesc="#{lbl.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btRemoveSource}" shortDesc="#{lbl.EditItem_btRemoveSource}" action="#{EditItem.sourceCollection.sourceManager.removeObject}" disabled="#{EditItem.sourceCollection.sourceManager.size == 1}"/>
+					<tr:commandButton styleClass="free_txtBtn groupBtn sectionTool" text=" " shortDesc="#{tip.EditItem_btAddSource}" shortDesc="#{lbl.EditItem_btAddSource}" action="#{EditItem.sourceCollection.sourceManager.addObject}" />
 				</span>
 			</div>
 
@@ -65,8 +65,8 @@
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea sourceTitle" value="#{sourceBean.titleCollection.titleIF.title.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_btAdd}" shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_btRemove}" shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd}" shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.addTitle}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove}" shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.removeTitle}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
 				</span>
 			</div>
 
@@ -90,8 +90,8 @@
 						<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_btAdd}" shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_btRemove}" shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd}" #{lbl.EditItem_lblAlternativeTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove}" #{lbl.EditItem_lblTitel}" action="#{sourceBean.titleCollection.alternativeTitleManager.removeObject}" disabled="#{sourceBean.titleCollection.alternativeTitleManager.size == 0}"/>
 					</span>
 				</h:panelGroup>
 			</tr:iterator>
@@ -111,7 +111,7 @@
 							<h:selectBooleanCheckbox id="chkOverwriteStatus" value="#{sourceBean.overwriteCreators}" />
 							<h:outputLabel for="chkOverwriteStatus" value="#{lbl.EditItem_btnAddAuthorsOverwrite}" />
 						</span>
-						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text="#{tip.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn toTextAreaBottom" text=" " shortDesc="#{tip.EditItem_btnAddAuthors}" action="#{sourceBean.addCreatorString}" />
 					</span>
 				</h:panelGroup>
 	
@@ -181,7 +181,7 @@
 							<h:inputText styleClass="quad_txtInput" value="#{persOrga.name.value}"/>
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
+							<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectPersonOrganisation}" />
 						</span>
 					</h:panelGroup>
 					<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder">
@@ -192,8 +192,8 @@
 							<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{persOrga.address}" cols="15" rows="3" />	
 						</span>
 						<span class="large_area0_p8 lineToolSection">
-							<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" />
-							<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addOrga}" action="#{creatorBean.personOrganisationManager.addObject}" />
+							<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeOrga}" disabled="#{creatorBean.personOrganisationManager.size == 1}" action="#{creatorBean.personOrganisationManager.removeObject}" />
 						</span>
 					</h:panelGroup>
 				</tr:iterator>
@@ -208,7 +208,7 @@
 						<h:inputText styleClass="quad_txtInput" value="#{creatorBean.creator.organization.name.value}"/>
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
+						<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_btSelect}" action="#{creatorBean.selectOrganisation}" />
 					</span>
 				</h:panelGroup>
 				<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{creatorBean.organisationType}">
@@ -222,8 +222,8 @@
 				
 	<%-- Handle source creator controls --%>
 				<h:panelGroup styleClass="large_area0_p8 sectionToolSection">
-					<tr:commandButton text="#{tip.EditItem_btRemove}" styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" />
-					<tr:commandButton text="#{tip.EditItem_btAdd}" styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
+					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btRemove}" styleClass="min_imgBtn sectionTool remove" disabled="#{sourceBean.creatorCollection.creatorManager.size == 1}" action="#{sourceBean.creatorCollection.creatorManager.removeObject}" />
+					<tr:commandButton text=" " shortDesc="#{tip.EditItem_btAdd}" styleClass="min_imgBtn sectionTool add" action="#{sourceBean.creatorCollection.creatorManager.addObject}" />
 				</h:panelGroup>
 
 			</tr:iterator>
@@ -288,8 +288,8 @@
 						<h:inputText styleClass="xDouble_txtInput identifierValue" value="#{identifier.id}" />
 					</span>
 					<span class="large_area0_p8 lineToolSection">
-						<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_btAdd}" shortDesc="#{lbl.EditItem_btAdd} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
-						<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_btRemove}" shortDesc="#{lbl.EditItem_btRemove} #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
+						<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_btAdd}" #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.addObject}" />
+						<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_btRemove}" #{lbl.EditItem_lblIdentifier}" action="#{sourceBean.identifierCollection.identifierManager.removeObject}" disabled="#{sourceBean.identifierCollection.identifierManager.size == 1}"/>
 					</span>
 				</h:panelGroup>
 			</tr:iterator>

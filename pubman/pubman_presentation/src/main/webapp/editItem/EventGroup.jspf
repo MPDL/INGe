@@ -62,8 +62,8 @@
 					<h:inputTextarea styleClass="quad_txtArea inputTxtArea" value="#{altTitle.value}" cols="15" rows="3" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeAltTitle}" action="#{EditItem.eventTitleCollection.alternativeTitleManager.removeObject}" />
 				</span>
 			</h:panelGroup>
 		</tr:iterator>

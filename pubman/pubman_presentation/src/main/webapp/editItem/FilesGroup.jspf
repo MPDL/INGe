@@ -159,8 +159,8 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text="#{tip.EditItem_removeFile}" action="#{component.removeFile}"/>
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text="#{tip.EditItem_addFile}" action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" />
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" shortDesc="#{tip.EditItem_removeFile}" text=" " action="#{component.removeFile}"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" shortDesc="#{tip.EditItem_addFile}" text=" " action="#{EditItem.addFile}" disabled="#{EditItem.files[EditItem.numberOfFiles-1].size == 0}" />
 				</span>
 			</h:panelGroup>
 

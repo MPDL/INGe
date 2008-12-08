@@ -99,7 +99,7 @@
 	      				<tr:outputText value="#{component.file.name}" rendered="#{component.size > 0}"/>
 						<tr:inputFile value="#{EditItem.uploadedFile}" valueChangeListener="#{EditItem.fileUploaded}" rendered="#{component.size == 0}"/>
 	      				<%-- BUTTON --%>
-	      				<tr:commandButton id="btn_uploadFile" text="#{tip.EditItem_upload}" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
+	      				<tr:commandButton id="btn_uploadFile" text=" " shortDesc="#{tip.EditItem_upload}" rendered="#{component.size == 0}" styleClass="inlineButton noLineBreak" partialSubmit="false"/> 			
 							
 	      			</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemSingleCol">
@@ -109,7 +109,7 @@
 	            			<f:selectItems value="#{EditItem.visibilities}" />
 	           			</h:selectOneMenu>
 						</div>
-						<tr:commandButton text="#{tip.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
+						<tr:commandButton text=" " shortDesc="#{tip.EditItem_FilePreview}" rendered="#{component.size > 0}" styleClass="inlineButton noLineBreak" action="#{EditItem.fileDownloaded}" />
 					</h:panelGroup>
 	           		<h:panelGroup layout="block" styleClass="editItemFileBox floatbox" rendered="#{component.size > 0}">
 	           			<h:outputLabel styleClass="colLbl leftSpace10" value="#{lbl.EditItem_lblFileProperties}" rendered="#{component.size > 0}"/>
@@ -169,7 +169,7 @@
    				<h:outputLabel styleClass="colLbl noLblSpace" value="#{lbl.EditItem_lblURL}" rendered="#{locator.locator == null || locator.locator == ''}"/>      				
    				<h:inputText value="#{locator.locator}" rendered="#{locator.locator == null || locator.locator == ''}"/>
    				<h:outputText value="#{locator.locator}" rendered="#{locator.locator != null && locator.locator != ''}"/>
-   				<tr:commandButton styleClass="inlineButton" text="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.locator == null || locator.locator == ''}"/>						
+   				<tr:commandButton styleClass="inlineButton" text=" " shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" rendered="#{locator.locator == null || locator.locator == ''}"/>						
 			</h:panelGroup>
        
       		 <h:panelGroup layout="block" styleClass="editItemSingleCol">

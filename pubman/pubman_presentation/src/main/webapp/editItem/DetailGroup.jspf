@@ -51,8 +51,8 @@
 					</h:selectOneMenu>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addLang}" action="#{language.addItem}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeLang}" disabled="#{! language.moreThanOne}" action="#{language.removeItem}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addLang}" action="#{language.addItem}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeLang}" disabled="#{! language.moreThanOne}" action="#{language.removeItem}" />
 				</span>
 			</h:panelGroup>
 		</tr:iterator>
@@ -163,8 +163,8 @@
 					<h:inputText styleClass="xDouble_txtInput" value="#{identifier.id}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn groupTool add" text="#{tip.EditItem_addID}" action="#{EditItem.identifierCollection.identifierManager.addObject}" />
-					<tr:commandButton styleClass="min_imgBtn groupTool remove" text="#{tip.EditItem_removeID}" action="#{EditItem.identifierCollection.identifierManager.removeObject}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}"/>
+					<tr:commandButton styleClass="min_imgBtn groupTool add" text=" " shortDesc="#{tip.EditItem_addID}" action="#{EditItem.identifierCollection.identifierManager.addObject}" />
+					<tr:commandButton styleClass="min_imgBtn groupTool remove" text=" " shortDesc="#{tip.EditItem_removeID}" action="#{EditItem.identifierCollection.identifierManager.removeObject}" disabled="#{EditItem.identifierCollection.identifierManager.size == 1}"/>
 				</span>
 			</h:panelGroup>
 		</tr:iterator>

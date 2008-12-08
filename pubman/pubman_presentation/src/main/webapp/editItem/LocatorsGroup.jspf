@@ -49,7 +49,7 @@
 					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
 			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine" rendered="#{(locator.locator == null || locator.locator == '') && locator.index > 0 }" >
@@ -61,7 +61,7 @@
 					<h:inputText styleClass="quad_txtInput" value="#{locator.locator}" />
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="free_txtBtn groupBtn" text="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
+					<tr:commandButton styleClass="free_txtBtn groupBtn" text=" " shortDesc="#{tip.EditItem_lnkSave}" action="#{EditItem.saveLocator}" />
 				</span>
 			</h:panelGroup>
 
@@ -128,8 +128,8 @@
 					</span>
 				</span>
 				<span class="large_area0_p8 lineToolSection">
-					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}"/>	
-					<tr:commandButton styleClass="min_imgBtn sectionTool add" text="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }"/>
+					<tr:commandButton styleClass="min_imgBtn sectionTool remove" text=" " shortDesc="#{tip.EditItem_removeLoc}" action="#{locator.removeLocatorEditItem}"/>	
+					<tr:commandButton styleClass="min_imgBtn sectionTool add" text=" " shortDesc="#{tip.EditItem_addLoc}" action="#{EditItem.addLocator}" disabled="#{EditItem.locators[EditItem.numberOfLocators-1].locator == null || EditItem.locators[EditItem.numberOfLocators-1].locator == '' }"/>
 				</span>
 			</h:panelGroup>
 
