@@ -57,6 +57,7 @@ public class MyTasksRetrieverRequestBean extends MyItemsRetrieverRequestBean
         Navigation nav = (Navigation) getRequestBean(Navigation.class);
         nav.setShowExportMenuOption(true);
         
+        initSelectionMenu();
         
     }
     
