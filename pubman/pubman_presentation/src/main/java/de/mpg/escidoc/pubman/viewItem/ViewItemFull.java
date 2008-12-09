@@ -30,8 +30,8 @@
 
 package de.mpg.escidoc.pubman.viewItem;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -62,7 +62,6 @@ import de.mpg.escidoc.pubman.contextList.ContextListSessionBean;
 import de.mpg.escidoc.pubman.createItem.CreateItem;
 import de.mpg.escidoc.pubman.depositorWS.DepositorWS;
 import de.mpg.escidoc.pubman.desktop.Login;
-import de.mpg.escidoc.pubman.easySubmission.EasySubmission;
 import de.mpg.escidoc.pubman.editItem.EditItem;
 import de.mpg.escidoc.pubman.editItem.EditItemSessionBean;
 import de.mpg.escidoc.pubman.itemLog.ViewItemLog;
@@ -70,7 +69,6 @@ import de.mpg.escidoc.pubman.releases.ItemVersionListSessionBean;
 import de.mpg.escidoc.pubman.releases.ReleaseHistory;
 import de.mpg.escidoc.pubman.reviseItem.ReviseItem;
 import de.mpg.escidoc.pubman.revisions.RelationListSessionBean;
-import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.pubman.search.SearchResultListSessionBean;
 import de.mpg.escidoc.pubman.submitItem.SubmitItem;
 import de.mpg.escidoc.pubman.submitItem.SubmitItemSessionBean;
@@ -92,8 +90,10 @@ import de.mpg.escidoc.services.common.valueobjects.SearchHitVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO.State;
 import de.mpg.escidoc.services.common.valueobjects.metadata.CreatorVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.EventVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.OrganizationVO;
 import de.mpg.escidoc.services.common.valueobjects.metadata.TextVO;
+import de.mpg.escidoc.services.common.valueobjects.metadata.IdentifierVO.IdType;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.valueobjects.publication.PublicationAdminDescriptorVO;
 import de.mpg.escidoc.services.framework.PropertyReader;
@@ -299,6 +299,47 @@ public class ViewItemFull extends FacesBean
         
         if(this.pubItem != null)
         {
+            this.loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
+            
+            //DiT: multiple new conditions for link-activation added
+            this.isModerator = this.loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
+            this.isPrivilegedViewer= this.loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
+            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
+            this.isDepositor = this.loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
+            //isDepositor = loginHelper.getAccountUser().isDepositor();
+            
+            this.isOwner = true;
+            if (this.pubItem.getOwner() != null)
+            {
+                this.isOwner = (this.loginHelper.getAccountUser().getReference() != null ? this.loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
+            }
+            this.isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
+            this.isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
+
+            //@author Markus Haarlaender - setting properties for Action Links
+            
+            this.isLoggedIn = this.loginHelper.isLoggedIn();
+            this.isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
+            this.isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
+            
+            this.isStateWithdrawn = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
+            
+            this.isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
+            this.isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
+            this.isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
+            this.isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
+            
+            try
+            {
+                this.isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
+                this.isWorkflowSimple = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
+            }
+            catch (Exception e)
+            {
+                this.isWorkflowSimple = true;
+                this.isWorkflowStandard = false;
+            }
+            
             //set citation url
             try
             {
@@ -310,54 +351,16 @@ public class ViewItemFull extends FacesBean
                 if(!pubmanUrl.endsWith("/")) pubmanUrl = pubmanUrl + "/";
                 if (itemPattern.startsWith("/")) itemPattern = itemPattern.substring(1, itemPattern.length());
                 
-                this.citationURL = pubmanUrl + itemPattern;
+                if(!this.getIsStatePending())
+                {
+                    this.citationURL = pubmanUrl + itemPattern;
+                }       
                 
             }
             catch (Exception e)
             {
                 e.printStackTrace();
                 this.citationURL = "";
-            }
-            
-            loginHelper = (LoginHelper) getSessionBean(LoginHelper.class);
-            
-            //DiT: multiple new conditions for link-activation added
-            isModerator = loginHelper.getAccountUser().isModerator(this.pubItem.getContext());
-            isPrivilegedViewer= loginHelper.getAccountUser().isPrivilegedViewer(this.pubItem.getContext());
-            ContextListSessionBean contextListSessionBean = (ContextListSessionBean)getSessionBean(ContextListSessionBean.class);
-            isDepositor = loginHelper.getAccountUser().isDepositor() && contextListSessionBean.getDepositorContextList()!= null && contextListSessionBean.getDepositorContextList().size() > 0;
-            //isDepositor = loginHelper.getAccountUser().isDepositor();
-            
-            isOwner = true;
-            if (this.pubItem.getOwner() != null)
-            {
-            	isOwner = (loginHelper.getAccountUser().getReference() != null ? loginHelper.getAccountUser().getReference().getObjectId().equals(this.pubItem.getOwner().getObjectId()) : false);
-            }
-            isModifyDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_MODIFY);
-            isCreateNewRevisionDisabled = this.getRightsManagementSessionBean().isDisabled(RightsManagementSessionBean.PROPERTY_PREFIX_FOR_DISABLEING_FUNCTIONS + "." + ViewItemFull.FUNCTION_NEW_REVISION);
-
-            //@author Markus Haarlaender - setting properties for Action Links
-            
-            isLoggedIn = loginHelper.isLoggedIn();
-            isLatestVersion = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestVersion().getVersionNumber();
-            isLatestRelease = this.pubItem.getVersion().getVersionNumber() == this.pubItem.getLatestRelease().getVersionNumber();
-            
-            isStateWithdrawn = this.pubItem.getPublicStatus().toString().equals(PubItemVO.State.WITHDRAWN.toString());
-            
-            isStateSubmitted = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.SUBMITTED.toString());
-            isStateReleased = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.RELEASED.toString());
-            isStatePending = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.PENDING.toString());
-            isStateInRevision = this.pubItem.getVersion().getState().toString().equals(PubItemVO.State.IN_REVISION.toString());
-            
-            try
-            {
-                isWorkflowStandard = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.STANDARD);
-                isWorkflowSimple = (getContext().getAdminDescriptor().getWorkflow() == PublicationAdminDescriptorVO.Workflow.SIMPLE);
-            }
-            catch (Exception e)
-            {
-                isWorkflowSimple = true;
-                isWorkflowStandard = false;
             }
             
             // set up some pre-requisites
@@ -787,7 +790,7 @@ public class ViewItemFull extends FacesBean
                 info(getMessage(element.getContent()));
             }
         }
-        valMessage.setRendered(true);
+        this.valMessage.setRendered(true);
     }
     
     /**
@@ -982,7 +985,15 @@ public class ViewItemFull extends FacesBean
             {
                 identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getTypeString());
                 identifiers.append(": ");
-                identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                if (this.getisUriValidUrl(this.pubItem.getMetadata().getIdentifiers().get(i)))
+                {
+                    identifiers.append("<a href='"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"'>"+this.pubItem.getMetadata().getIdentifiers().get(i).getId()+"</a>"); 
+
+                }
+                else
+                {
+                    identifiers.append(this.pubItem.getMetadata().getIdentifiers().get(i).getId());
+                }
                 if (i < this.pubItem.getMetadata().getIdentifiers().size() - 1)
                 {
                     identifiers.append(", ");
@@ -1122,7 +1133,7 @@ public class ViewItemFull extends FacesBean
      */
     public boolean getShowSystemDetails()
     {
-        return loginHelper.isLoggedIn();
+        return this.loginHelper.isLoggedIn();
     }
     
     /**
@@ -1266,10 +1277,10 @@ public class ViewItemFull extends FacesBean
         
         if (this.context == null)
         {
-            context = getItemControllerSessionBean().getCurrentContext();
+            this.context = getItemControllerSessionBean().getCurrentContext();
         }
         
-        return context;
+        return this.context;
     }
     
     /**
@@ -1530,7 +1541,7 @@ public class ViewItemFull extends FacesBean
     // Getters and Setters
     public HtmlPanelGroup getPanelItemFull()
     {
-        return panelItemFull;
+        return this.panelItemFull;
     }
 
     public void setPanelItemFull(HtmlPanelGroup panelItemFull)
@@ -1540,7 +1551,7 @@ public class ViewItemFull extends FacesBean
 
     public HtmlMessages getValMessage()
     {
-        return valMessage;
+        return this.valMessage;
     }
 
     public void setValMessage(HtmlMessages valMessage)
@@ -1549,7 +1560,7 @@ public class ViewItemFull extends FacesBean
     }
     
     public PubItemVO getPubItem() {
-		return pubItem;
+		return this.pubItem;
 	}
 
 	public void setPubItem(PubItemVO pubItem) {
@@ -1617,12 +1628,12 @@ public class ViewItemFull extends FacesBean
 	
 	public String getCitationURL()
 	{
-	   return citationURL;
+	   return this.citationURL;
 	    
 	}
 	
 	public ArrayList<String> getOrganizationArray() {
-		return organizationArray;
+		return this.organizationArray;
 	}
 
 	public void setOrganizationArray(ArrayList<String> organizationArray) {
@@ -1630,7 +1641,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public ArrayList<ViewItemOrganization> getOrganizationList() {
-		return organizationList;
+		return this.organizationList;
 	}
 
 	public void setOrganizationList(ArrayList<ViewItemOrganization> organizationList) {
@@ -1638,7 +1649,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<OrganizationVO> getAffiliatedOrganizationsList() {
-		return affiliatedOrganizationsList;
+		return this.affiliatedOrganizationsList;
 	}
 
 	public void setAffiliatedOrganizationsList(
@@ -1647,7 +1658,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public ArrayList<String> getCreatorArray() {
-		return creatorArray;
+		return this.creatorArray;
 	}
 
 	public void setCreatorArray(ArrayList<String> creatorArray) {
@@ -1655,7 +1666,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public ArrayList<ViewItemCreatorOrganization> getCreatorOrganizationsArray() {
-		return creatorOrganizationsArray;
+		return this.creatorOrganizationsArray;
 	}
 
 	public void setCreatorOrganizationsArray(
@@ -1664,7 +1675,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getTitleIterator() {
-		return titleIterator;
+		return this.titleIterator;
 	}
 
 	public void setTitleIterator(UIXIterator titleIterator) {
@@ -1672,7 +1683,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getCreatorPersonsIterator() {
-		return creatorPersonsIterator;
+		return this.creatorPersonsIterator;
 	}
 
 	public void setCreatorPersonsIterator(UIXIterator creatorPersonsIterator) {
@@ -1680,7 +1691,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getCreatorAffiliationsIterator() {
-		return creatorAffiliationsIterator;
+		return this.creatorAffiliationsIterator;
 	}
 
 	public void setCreatorAffiliationsIterator(
@@ -1689,7 +1700,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getLanguagesIterator() {
-		return languagesIterator;
+		return this.languagesIterator;
 	}
 
 	public void setLanguagesIterator(UIXIterator languagesIterator) {
@@ -1697,7 +1708,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getAbstractIterator() {
-		return abstractIterator;
+		return this.abstractIterator;
 	}
 
 	public void setAbstractIterator(UIXIterator abstractIterator) {
@@ -1705,7 +1716,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getEventAltTitleIterator() {
-		return eventAltTitleIterator;
+		return this.eventAltTitleIterator;
 	}
 
 	public void setEventAltTitleIterator(UIXIterator eventAltTitleIterator) {
@@ -1713,7 +1724,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceIterator() {
-		return sourceIterator;
+		return this.sourceIterator;
 	}
 
 	public void setSourceIterator(UIXIterator sourceIterator) {
@@ -1721,7 +1732,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceTitleIterator() {
-		return sourceTitleIterator;
+		return this.sourceTitleIterator;
 	}
 
 	public void setSourceTitleIterator(UIXIterator sourceTitleIterator) {
@@ -1729,7 +1740,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceCreatorPersonsIterator() {
-		return sourceCreatorPersonsIterator;
+		return this.sourceCreatorPersonsIterator;
 	}
 
 	public void setSourceCreatorPersonsIterator(
@@ -1738,7 +1749,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getSourceCreatorAffiliationsIterator() {
-		return sourceCreatorAffiliationsIterator;
+		return this.sourceCreatorAffiliationsIterator;
 	}
 
 	public void setSourceCreatorAffiliationsIterator(
@@ -1747,7 +1758,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<SourceBean> getSourceList() {
-		return sourceList;
+		return this.sourceList;
 	}
 
 	public void setSourceList(List<SourceBean> sourceList) {
@@ -1755,7 +1766,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getFileIterator() {
-		return fileIterator;
+		return this.fileIterator;
 	}
 
 	public void setFileIterator(UIXIterator fileIterator) {
@@ -1763,7 +1774,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<FileBean> getFileList() {
-		return fileList;
+		return this.fileList;
 	}
 
 	public void setFileList(List<FileBean> fileList) {
@@ -1771,7 +1782,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public String getCoins() {
-		return coins;
+		return this.coins;
 	}
 
 	public void setCoins(String oinS) {
@@ -1779,7 +1790,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public List<FileBean> getLocatorList() {
-		return locatorList;
+		return this.locatorList;
 	}
 
 	public void setLocatorList(List<FileBean> locatorList) {
@@ -1787,7 +1798,7 @@ public class ViewItemFull extends FacesBean
 	}
 
 	public UIXIterator getLocatorIterator() {
-		return locatorIterator;
+		return this.locatorIterator;
 	}
 
 	public void setLocatorIterator(UIXIterator locatorIterator) {
@@ -1796,7 +1807,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getCreatorOrganizationsIterator()
     {
-        return creatorOrganizationsIterator;
+        return this.creatorOrganizationsIterator;
     }
 
     public void setCreatorOrganizationsIterator(UIXIterator creatorOrganizationsIterator)
@@ -1821,7 +1832,7 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getIsDepositor()
 	{
-		return isDepositor;
+		return this.isDepositor;
 	}
 
 	public void setDepositor(boolean isDepositor)
@@ -1831,7 +1842,7 @@ public class ViewItemFull extends FacesBean
 
 	public boolean getIsModerator()
 	{
-		return isModerator;
+		return this.isModerator;
 	}
 	
 	public void setModerator(boolean isModerator)
@@ -1841,7 +1852,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getisPrivilegedViewer()
     {
-        return isPrivilegedViewer;
+        return this.isPrivilegedViewer;
     }
 	
     public void setPrivilegedViewer(boolean isPrivilegedViewer)
@@ -1849,9 +1860,29 @@ public class ViewItemFull extends FacesBean
         this.isPrivilegedViewer = isPrivilegedViewer;
     }
     
+    public boolean getisUriValidUrl(IdentifierVO id)
+    {
+        boolean valid = false;
+        try
+        {
+            System.out.println("ID: " + id.getId() + "    TYPE: " + id.getType());
+            if (id.getType().equals(IdType.URI))
+            {
+                new URL (id.getId());
+                valid = true;
+            }
+        }
+        catch (MalformedURLException e)
+        {
+            logger.warn("URI: " + "is no valid URL", e);
+            return false;
+        }
+        return valid;
+    }
+    
     public boolean getIsLoggedIn()
     {
-        return isLoggedIn;
+        return this.isLoggedIn;
     }
 
     public void setLoggedIn(boolean isLoggedIn)
@@ -1861,7 +1892,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsLatestVersion()
     {
-        return isLatestVersion;
+        return this.isLatestVersion;
     }
 
     public void setLatestVersion(boolean isLatestVersion)
@@ -1871,7 +1902,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsLatestRelease()
     {
-        return isLatestRelease;
+        return this.isLatestRelease;
     }
 
     public void setLatestRelease(boolean isLatestRelease)
@@ -1881,7 +1912,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateSubmitted()
     {
-        return isStateSubmitted;
+        return this.isStateSubmitted;
     }
 
     public void setStateSubmitted(boolean isStateSubmitted)
@@ -1891,7 +1922,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateReleased()
     {
-        return isStateReleased;
+        return this.isStateReleased;
     }
 
     public void setStateReleased(boolean isStateReleased)
@@ -1901,7 +1932,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStatePending()
     {
-        return isStatePending;
+        return this.isStatePending;
     }
 
     public void setStatePending(boolean isStatePending)
@@ -1911,7 +1942,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsOwner()
     {
-        return isOwner;
+        return this.isOwner;
     }
 
     public void setOwner(boolean isOwner)
@@ -1921,7 +1952,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsModifyDisabled()
     {
-        return isModifyDisabled;
+        return this.isModifyDisabled;
     }
 
     public void setModifyDisabled(boolean isModifyDisabled)
@@ -1931,7 +1962,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsCreateNewRevisionDisabled()
     {
-        return isCreateNewRevisionDisabled;
+        return this.isCreateNewRevisionDisabled;
     }
 
     public void setCreateNewRevisionDisabled(boolean isCreateNewRevisionDisabled)
@@ -1956,7 +1987,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getSourceCreatorOrganizationsIterator()
     {
-        return sourceCreatorOrganizationsIterator;
+        return this.sourceCreatorOrganizationsIterator;
     }
 
     public void setSourceCreatorOrganizationsIterator(UIXIterator sourceCreatorOrganizationsIterator)
@@ -1966,7 +1997,7 @@ public class ViewItemFull extends FacesBean
 
     public UIXIterator getFileSearchHitIterator()
     {
-        return fileSearchHitIterator;
+        return this.fileSearchHitIterator;
     }
 
     public void setFileSearchHitIterator(UIXIterator fileSearchHitIterator)
@@ -1976,7 +2007,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsWorkflowStandard()
     {
-        return isWorkflowStandard;
+        return this.isWorkflowStandard;
     }
 
     public void setWorkflowStandard(boolean isWorkflowStandard)
@@ -1986,7 +2017,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsWorkflowSimple()
     {
-        return isWorkflowSimple;
+        return this.isWorkflowSimple;
     }
 
     public void setWorkflowSimple(boolean isWorkflowSimple)
@@ -2002,7 +2033,7 @@ public class ViewItemFull extends FacesBean
 
     public boolean getIsStateInRevision()
     {
-        return isStateInRevision;
+        return this.isStateInRevision;
     }
 
     public void setStateInRevision(boolean isStateInRevision)
@@ -2073,9 +2104,9 @@ public class ViewItemFull extends FacesBean
 	{
 	    PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
        
-        if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectId()))
+        if (!pubItemStorage.getStoredPubItems().containsKey(this.pubItem.getVersion().getObjectIdAndVersion()))
         {
-            pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectId(), pubItem.getVersion());
+            pubItemStorage.getStoredPubItems().put(this.pubItem.getVersion().getObjectIdAndVersion(), this.pubItem.getVersion());
             info(getMessage("basket_SingleAddedSuccessfully"));
         }
         else
