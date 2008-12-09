@@ -133,8 +133,8 @@
  		<li class="full_area0 listItem">
  			<h:panelGroup layout="block" styleClass="free_area0 itemHeader">
  				<span class="free_area0_p8 endline itemSelectArea">
- 					&#160;
  					<h:selectBooleanCheckbox styleClass="itemCheckBox" value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
+					&#160;
  				</span>
  				<span class="seperator"></span>
  				<span class="free_area0_p8 status statusArea">

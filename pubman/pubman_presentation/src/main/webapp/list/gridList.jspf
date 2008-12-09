@@ -192,8 +192,8 @@ All rights reserved. Use is subject to license terms.
 		    <tr class="full_area0 listItem">
 		      	<td class="free_area0 endline">
 		      		<span class="free_area0_p8 endline itemSelectArea">
-						&#160;
 						<h:selectBooleanCheckbox styleClass="itemCheckBox" value="#{item.selected}" immediate="true" valueChangeListener="#{item.select}" rendered="#{item.showCheckbox}"/>
+						&#160;
 		      		</span>
 		      	</td>
 		      	<td class="free_area0 endline status">
