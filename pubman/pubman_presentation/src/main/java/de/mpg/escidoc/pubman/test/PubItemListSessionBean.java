@@ -588,20 +588,40 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
         PubItemStorageSessionBean pubItemStorage = (PubItemStorageSessionBean) getSessionBean(PubItemStorageSessionBean.class);
         List<PubItemVOPresentation> selectedPubItems = getSelectedItems();
         
-        int number = 0;
+        int added = 0;
+        int existing = 0;
         for(PubItemVOPresentation pubItem : selectedPubItems)
         {
+            
             if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectId()))
             {
                 pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectId(), pubItem.getVersion());
-                number++;
-            }      
+                added++;
+            }
+            else
+            {
+                existing++;
+            }
+           
         }
         
      
 
+        
+        if(selectedPubItems.size()==0)
+        {
+            error(getMessage("basket_NoItemsSelected"));
+        } 
+        if (added>0 || existing>0)
+        {
+            info(getMessage("basket_MultipleAddedSuccessfully").replace("$1", String.valueOf(added)));   
+        }
+        if (existing>0)
+        {
+            info(getMessage("basket_MultipleAlreadyInBasket").replace("$1", String.valueOf(existing)));
+        }
             
-        info(number + " items were added to the basket.");
+       
         
         redirect();
        

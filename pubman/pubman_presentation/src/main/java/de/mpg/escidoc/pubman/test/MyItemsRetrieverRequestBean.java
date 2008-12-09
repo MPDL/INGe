@@ -205,7 +205,7 @@ public class MyItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<Pu
     {
         if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
         {
-            error("The selected sorting criteria \""+sc.name()+"\" is currently not supported, but will be provided soon.\nItems are displayed unsorted!");
+            error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_"+sc.name())));
             //getBasePaginatorListSessionBean().redirect();
         }
         

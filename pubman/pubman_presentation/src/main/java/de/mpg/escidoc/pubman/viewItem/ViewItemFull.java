@@ -2076,11 +2076,11 @@ public class ViewItemFull extends FacesBean
         if (!pubItemStorage.getStoredPubItems().containsKey(pubItem.getVersion().getObjectId()))
         {
             pubItemStorage.getStoredPubItems().put(pubItem.getVersion().getObjectId(), pubItem.getVersion());
-            info("The item was added to the basket.");
+            info(getMessage("basket_SingleAddedSuccessfully"));
         }
         else
         {
-            error("The item is already in the basket.");
+            error(getMessage("basket_SingleAlreadyInBasket"));
         }
         return "";
 	}

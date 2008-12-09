@@ -7,6 +7,7 @@ import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
@@ -14,6 +15,7 @@ import javax.faces.event.ActionEvent;
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletResponse;
 
+import de.escidoc.www.services.om.ItemHandler;
 import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.desktop.Login;
@@ -88,6 +90,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             InitialContext initialContext = new InitialContext();
             XmlTransforming xmlTransforming = (XmlTransforming) initialContext.lookup(XmlTransforming.SERVICE_NAME);
       
+            
             List<ItemRO> idList = new ArrayList<ItemRO>();
             for(ItemRO id : pssb.getStoredPubItems().values())
             {
@@ -134,6 +137,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
             {
                 numberOfRecords = 0;
             }
+                      
 
         }
         catch (Exception e)
@@ -173,7 +177,7 @@ public class CartItemsRetrieverRequestBean extends BaseListRetrieverRequestBean<
     {
         if  (sc.getSortPath()== null || sc.getSortPath().equals(""))
         {
-            error("The selected sorting criteria \""+sc.name()+"\" is currently not supported, but will be provided soon.\nItems are displayed unsorted!");
+            error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_"+sc.name())));
             //getBasePaginatorListSessionBean().redirect();
         }
         
