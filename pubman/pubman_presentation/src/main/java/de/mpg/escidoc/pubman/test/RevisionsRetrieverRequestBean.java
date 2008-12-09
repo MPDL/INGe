@@ -8,7 +8,6 @@ import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.pubman.util.RelationVOPresentation;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 
 public class RevisionsRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>

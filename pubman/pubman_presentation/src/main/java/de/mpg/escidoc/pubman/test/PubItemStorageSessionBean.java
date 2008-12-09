@@ -1,12 +1,9 @@
 package de.mpg.escidoc.pubman.test;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.referenceobjects.ItemRO;
 
 public class PubItemStorageSessionBean extends FacesBean

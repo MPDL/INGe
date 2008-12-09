@@ -1,11 +1,9 @@
 package de.mpg.escidoc.pubman.test;
 
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 
@@ -16,7 +14,6 @@ import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.PubItemResultVO;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.valueobjects.ItemResultVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.interfaces.ItemContainerSearchResultVO;
 import de.mpg.escidoc.services.search.Search;
 import de.mpg.escidoc.services.search.query.ItemContainerSearchResult;

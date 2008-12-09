@@ -3,8 +3,6 @@ package de.mpg.escidoc.pubman.test;
 import java.util.List;
 
 import de.mpg.escidoc.pubman.appbase.BreadcrumbPage;
-import de.mpg.escidoc.pubman.appbase.FacesBean;
-import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItem;
 
 /**
  * This class is an abstract class for all pages that need to implement and display a paginated list.

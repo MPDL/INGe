@@ -1,7 +1,6 @@
 package de.mpg.escidoc.pubman.test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.model.SelectItem;
@@ -17,15 +16,7 @@ import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ContextFilter;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemPublicStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.ItemStatusFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.LimitFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OffsetFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OwnerFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;

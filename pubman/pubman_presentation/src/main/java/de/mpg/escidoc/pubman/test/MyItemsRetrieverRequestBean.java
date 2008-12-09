@@ -1,35 +1,24 @@
 package de.mpg.escidoc.pubman.test;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.faces.context.FacesContext;
-import javax.faces.event.ValueChangeEvent;
 import javax.faces.model.SelectItem;
 import javax.naming.InitialContext;
-import javax.servlet.ServletException;
-import javax.xml.rpc.ServiceException;
 
 import org.apache.log4j.Logger;
-
-import sun.security.action.GetLongAction;
 
 import de.mpg.escidoc.pubman.desktop.Login;
 import de.mpg.escidoc.pubman.desktop.Navigation;
 import de.mpg.escidoc.pubman.test.PubItemListSessionBean.SORT_CRITERIA;
 import de.mpg.escidoc.pubman.util.CommonUtils;
 import de.mpg.escidoc.pubman.util.LoginHelper;
-import de.mpg.escidoc.pubman.util.PubContextVOPresentation;
 import de.mpg.escidoc.pubman.util.PubItemVOPresentation;
 import de.mpg.escidoc.services.common.XmlTransforming;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO;
 import de.mpg.escidoc.services.common.valueobjects.ItemVO;
 import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.Filter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.FrameworkItemTypeFilter;
-import de.mpg.escidoc.services.common.valueobjects.FilterTaskParamVO.OrderFilter;
 import de.mpg.escidoc.services.common.valueobjects.publication.PubItemVO;
 import de.mpg.escidoc.services.common.xmltransforming.wrappers.ItemVOListWrapper;
 import de.mpg.escidoc.services.framework.PropertyReader;
