@@ -155,7 +155,7 @@ public class WithdrawItem extends FacesBean
 
         if (withdrawalComment == null || "".equals(withdrawalComment))
         {
-            valMessage = getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN);
+            error(getMessage(DepositorWS.NO_WITHDRAWAL_COMMENT_GIVEN));
             return null;
         }
 
