@@ -472,8 +472,8 @@
 				<com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>1.0</com.sun.xml.namespace.QName.useCompatibleSerialVersionUID>
 
 				<!-- RE Pattern for retrieving determinators from item xml -->
-				<escidoc.content.model.pattern>:content-model (?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
-				<escidoc.context.pattern>:context (?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
+				<escidoc.content.model.pattern>:content-model [^>]*(?:objid=\"|xlink:href=\"/cmm/content-model/)?([^\"]*)\"</escidoc.content.model.pattern>
+				<escidoc.context.pattern>:context [^>]*(?:objid=\"|xlink:href=\"/ir/context/)?([^\"]*)\"</escidoc.context.pattern>
 
 				<escidoc.pubman.external.organisation.id>escidoc:persistent22</escidoc.pubman.external.organisation.id>
 
