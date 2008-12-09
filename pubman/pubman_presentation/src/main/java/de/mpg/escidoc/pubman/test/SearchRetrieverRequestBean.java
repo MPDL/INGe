@@ -150,16 +150,18 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
             PlainCqlQuery query = new PlainCqlQuery(getCqlQuery());
             query.setStartRecord(new PositiveInteger(String.valueOf(offset+1)));
             query.setMaximumRecords(new NonNegativeInteger(String.valueOf(limit)));
-            query.setSortKeys(sc.getIndex());
-            if (sc.getSortOrder().equals("descending"))
+            if(!sc.getIndex().equals(""))
             {
-                query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.DESCENDING);
+                if (sc.getSortOrder().equals("descending"))
+                {
+                    query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.DESCENDING);
+                }
+                   
+                else
+                {
+                    query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.ASCENDING);
+                } 
             }
-               
-            else
-            {
-                query.setSortKeysAndOrder(sc.getIndex(), SortingOrder.ASCENDING);
-            } 
             
             ItemContainerSearchResult result = this.searchService.searchForItemContainer(query);
             
