@@ -44,7 +44,7 @@
 				<h:outputText value="#{lbl.ViewItemFull_lblCiteItemAs}" /><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputLink value="#{ViewItemFull.citationURL}" rendered="#{!ViewItemFull.isStatePending}">
+				<h:outputLink value="#{ViewItemFull.citationURL}">
 					<h:outputText value="#{ViewItemFull.citationURL}"/>
 				</h:outputLink>	
 			</span>

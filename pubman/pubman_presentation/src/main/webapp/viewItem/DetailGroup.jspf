@@ -130,7 +130,7 @@
 				&#160;<h:outputText value="#{lbl.ViewItemFull_lblIdentifiers}"/><span class="noDisplay">: </span>
 			</b>
 			<span class="xHuge_area0 xTiny_marginLExcl endline">
-				<h:outputText value="#{ViewItemFull.identifiers}"/>
+				<h:outputText value="#{ViewItemFull.identifiers}" escape="false"/>
 			</span>
 		</div>
 
