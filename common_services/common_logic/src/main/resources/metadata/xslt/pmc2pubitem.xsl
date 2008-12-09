@@ -79,10 +79,11 @@
 	<xsl:template name="createItem">
 		<xsl:element name="ei:item">
 			<xsl:element name="ei:properties">
-				<xsl:element name="srel:context">
+				<srel:context objid="escidoc:persistent3" />
+				<!--<xsl:element name="srel:context">
 					<xsl:attribute name="xlink:href" select="concat('/ir/context/', $context)"/>
-				</xsl:element>
-				<srel:content-model xlink:href="/cmm/content-model/escidoc:persistent4"/>
+				</xsl:element>-->
+				<srel:content-model objid="escidoc:persistent4"/>
 				<xsl:element name="prop:content-model-specific"/>
 			</xsl:element>
 			<xsl:element name="mdr:md-records">
@@ -287,28 +288,45 @@
 			</xsl:when>
 			<xsl:when test="@pub-type='ppub'">
 				<xsl:element name="dcterms:issued">
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@pub-type='epub-ppub'">
 				<xsl:element name="dcterms:issued">
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>
 				</xsl:element>
 				<xsl:element name="publ:published-online">
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@pub-type='ecorrected'">
 				<xsl:element name="dcterms:modified">					
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>					
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>				
 				</xsl:element>
 			</xsl:when>
 			<xsl:when test="@pub-type='pcorrected'">
 				<xsl:element name="dcterms:modified">					
-					<xsl:value-of select="concat(pm:year,'-',pm:month,'-',pm:day)"/>					
+					<xsl:value-of select="pm:year"/>
+					<xsl:apply-templates select="pm:month"/>
+					<xsl:apply-templates select="pm:day"/>					
 				</xsl:element>
 			</xsl:when>
 		</xsl:choose>
+	</xsl:template>
+	
+	<xsl:template match="pm:month">
+		<xsl:value-of select="concat('-',.)"/>
+	</xsl:template>
+	<xsl:template match="pm:day">
+		<xsl:value-of select="concat('-',.)"/>
 	</xsl:template>
 	<!-- TOTAL NO OF PAGES  -->
 	<xsl:template match="pm:page-range">
