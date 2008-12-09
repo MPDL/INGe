@@ -32,9 +32,9 @@
 
 <div id="mainMenuSkipLinkAnchor" class="full_area0 mainMenu">
 	<!-- main Menu starts here -->
-	<h:commandLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" action="#{Navigation.loadHome}" rendered="#{PubManRequestBean.requestedPage != 'HomePage'}">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.mainMenu_lnkHome}" value="#{ApplicationBean.appContext}HomePage.jsp" rendered="#{PubManRequestBean.requestedPage != 'HomePage'}">
 		<h:outputText value="#{lbl.mainMenu_lnkHome}" />
-	</h:commandLink>
+	</h:outputLink>
 	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.mainMenu_lnkHome}" rendered="#{PubManRequestBean.requestedPage == 'HomePage'}" />
 
 <%-- start should replace the following later --%>
@@ -54,10 +54,10 @@
 
 
 
-	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'SubmissionPage'}">
+	<h:outputLink styleClass="free_area0 xTiny_marginRIncl" title="#{tip.actionMenu_lnkSubmission}" value="#{ApplicationBean.appContext}SubmissionPage.jsp" rendered="#{PubManRequestBean.requestedPage != 'CreateItemPage' and PubManRequestBean.requestedPage != 'SubmissionPage' and PubManRequestBean.requestedPage != 'EditItemPage' and PubManRequestBean.requestedPage != 'EasySubmissionPage'}">
 		<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0}" />
 	</h:outputLink>
-	<h:outputText value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and PubManRequestBean.requestedPage == 'SubmissionPage'}" />
+	<h:outputText styleClass="free_area0 xTiny_marginRIncl" value="#{lbl.actionMenu_lnkSubmission}" rendered="#{DepositorWSSessionBean.newSubmission and ContextListSessionBean.depositorContextListSize>0 and (PubManRequestBean.requestedPage == 'CreateItemPage' || PubManRequestBean.requestedPage == 'SubmissionPage' || PubManRequestBean.requestedPage == 'EditItemPage' || PubManRequestBean.requestedPage == 'EasySubmissionPage')}" />
 
 
 	

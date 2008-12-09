@@ -55,11 +55,11 @@
 	<jsp:directive.include file="ui/MetaMenu.jspf"/>
 
 	<div class="full_area0 LogoNSearch">
-		<h:commandLink action="#{Navigation.loadHome}" title="#{tip.navigation_lblStartpage}">
+		<h:outputLink title="#{tip.navigation_lblStartpage}" value="#{ApplicationBean.appContext}HomePage.jsp">
 			<span class="xTiny_marginLExcl huge_area0 headerLogo">
 				<span class="huge_area0 themePark"></span>
 			</span>
-		</h:commandLink>
+		</h:outputLink>
 
 		<%-- import search here--%>
 		<jsp:directive.include file="ui/SearchMenu.jspf"/>
