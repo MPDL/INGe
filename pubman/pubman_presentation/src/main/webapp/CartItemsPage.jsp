@@ -151,11 +151,14 @@
 							</div>
 						</div>
 					</div>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB'}">
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'BIB' and PubItemListSessionBean.partListSize>0}">
 						<jsp:directive.include file="list/itemList.jspf" />
 					</h:panelGroup>
-					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID'}">
+					<h:panelGroup layout="block" styleClass="full_area0" rendered="#{PubItemListSessionBean.listType == 'GRID' and PubItemListSessionBean.partListSize>0}">
 						<jsp:directive.include file="list/gridList.jspf" />
+					</h:panelGroup>
+					<h:panelGroup styleClass="full_area0" rendered="#{PubItemListSessionBean.partListSize==0}">
+						<h:outputText styleClass="free_area0 small_marginLExcl" value="#{msg.basket_NoItems}"/>
 					</h:panelGroup>
 				<!-- end: content section -->
 				</div>
