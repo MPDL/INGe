@@ -79,7 +79,16 @@
 							</div>
 							<div class="subHeader">
 								<!-- Subheadline starts here -->
-									&#160;
+								<h:messages style="list-style-type: none; padding: 0px;" errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItem.numberOfMessages == 1}"/>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea errorMessageArea" rendered="#{WithdrawItem.hasErrorMessages and WithdrawItem.numberOfMessages > 1}">
+									<h2><h:outputText value="#{lbl.warning_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItem.hasMessages}"/>
+								</h:panelGroup>
+								<h:panelGroup layout="block" styleClass="half_area2_p6 messageArea infoMessageArea" rendered="#{WithdrawItem.hasMessages and !WithdrawItem.hasErrorMessages and WithdrawItem.numberOfMessages > 1}">
+									<h2><h:outputText value="#{lbl.info_lblMessageHeader}"/></h2>
+									<h:messages errorClass="messageError" warnClass="messageWarn" fatalClass="messageFatal" infoClass="messageStatus" layout="list" globalOnly="true" showDetail="false" showSummary="true" rendered="#{WithdrawItem.hasMessages}"/>
+								</h:panelGroup>
+								&#160;
 								<!-- Subheadline ends here -->
 							</div>
 						</div>
