@@ -955,7 +955,8 @@ public class EasySubmission extends FacesBean
                     fetchedItem = new String(fetchedItemByte, 0, fetchedItemByte.length, "UTF8");
                     
                     //Harvest full text
-                    if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE)&& this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null)
+                    if (!CommonUtils.getUIValue(this.getEasySubmissionSessionBean().getRadioSelectFulltext()).equals(this.FULLTEXT_NONE)&& this.getEasySubmissionSessionBean().getRadioSelectFulltext() != null
+                            &&!fetchedItem.equals(""))
                     {                   
                         DataSourceVO source = this.dataSourceHandler.getSourceByName(service);
                         Vector<FullTextVO>ftFormats = source.getFtFormats();
@@ -1069,11 +1070,16 @@ public class EasySubmission extends FacesBean
                         this.setItem(itemVO);
                         
                      }
-                     catch(TechnicalException e){ e.printStackTrace();}
+                     catch(TechnicalException e)
+                     {
+                         logger.warn("Error transforming item to pubItem.");
+                         error(getMessage("easy_submission_import_from_external_service_error"));                
+                         return null;
+                     }
                  }
                  else 
                  {
-                    logger.warn("Empty fetched Item");
+                    logger.warn("Empty fetched Item.");
                     error(getMessage("easy_submission_import_from_external_service_error"));                
                     return null;
                  }
