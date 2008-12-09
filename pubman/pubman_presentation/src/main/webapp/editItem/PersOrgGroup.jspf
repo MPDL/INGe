@@ -56,7 +56,7 @@
 			</h:panelGroup>
 			
 <%-- Creator role --%>
-			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine noTopBorder" rendered="#{EditItem.creatorIterator.rowIndex == 0 }">
+			<h:panelGroup layout="block" styleClass="free_area0 endline itemLine firstCreator noTopBorder" rendered="#{EditItem.creatorIterator.rowIndex == 0 }">
 				<b class="xLarge_area0_p8 endline labelLine clear">
 					&#160;<h:outputText styleClass="mandatory" title="#{msg.mandatoryField}" value="*" rendered="false" /><h:outputText value="#{lbl.EditItem_lblCreatorRole}"/><span class="noDisplay">: </span>
 				</b>
