@@ -77,19 +77,19 @@
 				&nbsp;
 			</span>
 			<span class="seperator"></span>
-			<span class="endline xTiny_marginLExcl huge_area0_p4">
+			<span class="endline huge_area0_p7 step">
 				<b class="actual">
 					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 1
 				</b>
 			</span>
 			<span class="seperator"></span>
-			<span class="endline xTiny_marginLExcl huge_area0_p4">
+			<span class="endline huge_area0_p7 step">
 				<b>
 					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 2
 				</b>
 			</span>
 			<span class="seperator"></span>
-			<span class="endline xTiny_marginLExcl huge_area0_p4">
+			<span class="endline huge_area0_p7 step">
 				<b>
 					<h:outputText value="#{lbl.easy_submission_lblStep}"/> 3
 				</b>

@@ -132,7 +132,7 @@
 	
 	.fullItem .easySubmissionHeader .seperator {
 		background-color: #FFFFFF;
-		border-color: #163D4B;
+		border-color: #AFCCD5;
 	}
 	
 	.itemList .seperator, .fullItem .seperator {
@@ -262,7 +262,7 @@
 	/*GENERAL*/
 	
 	.itemList, .fullItem {
-		border-top-color: #163D4B;
+		border-top-color: #388097;
 	}
 	
 	.itemList, .fullItem {
@@ -303,6 +303,10 @@
 	.selectMenu a:hover, .selectMenu input:hover {
 		background-color: #73A6B6;
 		color: #FFFFFF;
+	}
+	
+	.statusArea .ascSort, .statusArea .desSort, th .ascSort, th .desSort {
+		background-color: #EDF4F6;
 	}
 	
 	/*LIST ITEM*/

@@ -84,7 +84,7 @@
 
 	<%-- Source creators --%>
 			<div class="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<sup>&nbsp;</sup><h:outputText value="#{lbl.ViewItemFull_lblSourceCreators}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">
@@ -105,7 +105,7 @@
 	
 	<%-- Source affiliations --%>
 			<div class="free_area0 endline itemLine">
-				<b class="xLarge_area0 endline labelLine">
+				<b class="xLarge_area0_p8 endline labelLine">
 					<h:outputText value="#{lbl.ViewItemFull_lblSourceAffiliations}"/><span class="noDisplay">: <br /></span>
 				</b>
 				<span class="xHuge_area0 xTiny_marginLExcl endline">

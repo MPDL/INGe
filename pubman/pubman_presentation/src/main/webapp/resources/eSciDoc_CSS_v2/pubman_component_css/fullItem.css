@@ -62,7 +62,7 @@
 	margin: 0.36em 0.28em 0.45em 0.27em;
 }
 
-.fullItem .itemBlock, .fullItem .itemHeader, .fullItem .easySubmissionHeader {
+.fullItem .itemBlock, .fullItem .itemHeader {
 	border-top-width: 0.09em !important;
 	border-top-style: solid !important;
 }
@@ -86,6 +86,10 @@
 
 .fullItem .listItem .itemHeader, .fullItem .listItem .shortView {
 	margin-bottom: 0.5em;
+}
+
+.easySubmissionHeader .step {
+	padding-top: 0.19em;
 }
 
 /*BODY*/
