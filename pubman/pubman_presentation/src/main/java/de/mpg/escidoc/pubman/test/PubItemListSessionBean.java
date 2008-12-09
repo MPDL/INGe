@@ -741,8 +741,7 @@ public class PubItemListSessionBean extends BasePaginatorListSessionBean<PubItem
             }
             if (curExportFormat.getFormatType() == ExportFormatVO.FormatType.STRUCTURED)
             {
-                // replace the carriage returns by html breaks so that h:outputText can correctly display it
-                displayExportData = displayExportData.replaceAll("\n", "<br/>");
+                displayExportData =  "<pre>" + displayExportData + "</pre>";
             }
             sb.setExportDisplayData(displayExportData);
             // restore selected file format on the interface
