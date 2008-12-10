@@ -29,6 +29,7 @@
 
 package de.mpg.escidoc.pubman.export;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.faces.component.html.HtmlMessages;
@@ -40,6 +41,7 @@ import de.mpg.escidoc.pubman.ErrorPage;
 import de.mpg.escidoc.pubman.ItemControllerSessionBean;
 import de.mpg.escidoc.pubman.RightsManagementSessionBean;
 import de.mpg.escidoc.pubman.appbase.FacesBean;
+import de.mpg.escidoc.pubman.breadcrumb.BreadcrumbItemHistorySessionBean;
 import de.mpg.escidoc.pubman.search.SearchResultList;
 import de.mpg.escidoc.services.common.exceptions.TechnicalException;
 import de.mpg.escidoc.services.common.valueobjects.ExportFormatVO;
@@ -351,7 +353,17 @@ public class ExportItems extends FacesBean
                 SearchResultList searchResultList = (SearchResultList)getSessionBean(SearchResultList.class);                
                 info(getMessage(ExportItems.MESSAGE_EXPORT_EMAIL_SENT));
                 
-                return (SearchResultList.LOAD_SEARCHRESULTLIST);
+                //redirect to last breadcrumb
+                BreadcrumbItemHistorySessionBean bhsb = (BreadcrumbItemHistorySessionBean)getSessionBean(BreadcrumbItemHistorySessionBean.class);
+                try
+                {
+                    getFacesContext().getExternalContext().redirect(bhsb.getPreviousItem().getPage());
+                }
+                catch (IOException e)
+                {
+                   error("Could not redirect!");
+                }
+                return "";
                
             } 
             return status;

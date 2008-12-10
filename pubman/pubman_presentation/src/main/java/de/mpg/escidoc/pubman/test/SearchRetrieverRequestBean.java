@@ -22,39 +22,6 @@ import de.mpg.escidoc.services.search.query.SearchQuery.SortingOrder;
 
 public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<PubItemVOPresentation, SORT_CRITERIA>
 {
-    /*
-    protected enum SORT_CRITERIA
-    {
-        TITLE ("escidoc.title"),
-        EVENT_TITLE ("escidoc.any-event"),
-        SOURCE_TITLE ("escidoc.any-source"),
-        GENRE ("escidoc.genre"),
-        DATE ("escidoc.any-dates"),
-        CREATOR ("escidoc.complete-name"),
-        PUBLISHING_INFO ("escidoc.publisher"),
-        MODIFICATION_DATE ("escidoc.last-modification-date");
-        
-        private String index;
-        
-        SORT_CRITERIA(String index)
-        {
-            this.setIndex(index);
-        }
-
-        public void setIndex(String index)
-        {
-            this.index = index;
-        }
-
-        public String getIndex()
-        {
-            return index;
-        }
-        
-    }
-    */
-    
-    
     public static String BEAN_NAME = "SearchRetrieverRequestBean";
     
     public static String parameterCqlQuery = "cql";
@@ -225,7 +192,6 @@ public class SearchRetrieverRequestBean extends BaseListRetrieverRequestBean<Pub
         if  (sc.getIndex()== null || sc.getIndex().equals(""))
         {
             error(getMessage("depositorWS_sortingNotSupported").replace("$1", getLabel("ENUM_CRITERIA_"+sc.name())));
-            //getBasePaginatorListSessionBean().redirect();
         }
         
     }

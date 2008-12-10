@@ -81,6 +81,8 @@ public class ViewItemSessionBean extends FacesBean
     
     // Flag if view item has already been redirected
     private boolean hasBeenRedirected = false;
+    
+    private String subMenu;
 
     
     /**
@@ -89,6 +91,7 @@ public class ViewItemSessionBean extends FacesBean
     public ViewItemSessionBean()
     {
         this.init();
+        subMenu="ACTIONS";
     }
 
     /**
@@ -337,5 +340,20 @@ public class ViewItemSessionBean extends FacesBean
     public void setLnkRelease(HtmlCommandLink lnkRelease)
     {
         this.lnkRelease = lnkRelease;
-    }        
+    }
+
+    public void setSubMenu(String subMenu)
+    {
+        this.subMenu = subMenu;
+    }
+
+    public String getSubMenu()
+    {
+        return subMenu;
+    } 
+    
+    public void itemChanged()
+    {
+        subMenu="ACTIONS";
+    }
 }
